@@ -265,7 +265,7 @@ private fun EmptyState(
     }
 
     BrandCard {
-        BrandAccentText("LOCAL FIRST")
+        BrandAccentText("ЛОКАЛЬНО")
         Spacer(Modifier.height(8.dp))
         Text(
             text = title,
@@ -584,9 +584,17 @@ private fun ResultContent(
     ) {
         BrandCard {
             BrandAccentText(
-                if (result.alreadyFit) "УЖЕ ПОДХОДИТ" else "ГОТОВО",
+                resultModeLabel(
+                    mode = result.mode,
+                    alreadyFit = result.alreadyFit,
+                ),
             )
             Spacer(Modifier.height(8.dp))
+            Text(
+                text = if (result.alreadyFit) "Уже подходит" else "Готово",
+                style = MaterialTheme.typography.titleLarge,
+            )
+            Spacer(Modifier.height(12.dp))
 
             when (result.mode) {
                 ToolMode.FILE_SIZE -> {
@@ -844,6 +852,19 @@ private fun SaveShareActions(
             color = MaterialTheme.colorScheme.primary,
         )
     }
+}
+
+private fun resultModeLabel(
+    mode: ToolMode,
+    alreadyFit: Boolean,
+): String {
+    val modeLabel = when (mode) {
+        ToolMode.FILE_SIZE -> "ПО ВЕСУ"
+        ToolMode.PIXELS -> "ПО ПИКСЕЛЯМ"
+        ToolMode.PASSPORT -> "НА ПАСПОРТ"
+    }
+    val status = if (alreadyFit) "БЕЗ ИЗМЕНЕНИЙ" else "ГОТОВО"
+    return "$modeLabel · $status"
 }
 
 fun formatBytes(bytes: Long): String {
