@@ -34,6 +34,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.role
+import androidx.compose.ui.semantics.selected
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ru.arvectum.tools.tosize.R
@@ -47,7 +51,7 @@ fun BrandHeader(
     Column(modifier = modifier.fillMaxWidth()) {
         Image(
             painter = painterResource(R.drawable.arvectum_wordmark),
-            contentDescription = "Arvectum",
+            contentDescription = "Логотип Arvectum",
             modifier = Modifier
                 .width(132.dp)
                 .height(42.dp),
@@ -67,7 +71,7 @@ fun BrandFooter(modifier: Modifier = Modifier) {
     Box(
         modifier = modifier
             .fillMaxWidth()
-            .height(44.dp),
+            .height(48.dp),
         contentAlignment = Alignment.Center,
     ) {
         Text(
@@ -239,7 +243,7 @@ fun BrandSecondaryButton(
         enabled = enabled,
         modifier = modifier
             .fillMaxWidth()
-            .height(54.dp),
+            .height(56.dp),
         shape = RoundedCornerShape(16.dp),
         border = BorderStroke(
             1.dp,
