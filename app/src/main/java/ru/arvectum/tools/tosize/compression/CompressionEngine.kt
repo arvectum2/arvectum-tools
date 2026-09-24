@@ -122,8 +122,12 @@ class CompressionEngine(private val context: Context) {
 
     private fun decodeOrientedBitmap(source: SourceImage): Bitmap {
         val bounds = BitmapFactory.Options().apply { inJustDecodeBounds = true }
-        resolver.openInputStream(source.uri)?.use { BitmapFactory.decodeStream(it, null, bounds) }
+        val boundsStream = resolver.openInputStream(source.uri)
             ?: throw UserVisibleException("Не получилось прочитать исходный файл.")
+        boundsStream.use { BitmapFactory.decodeStream(it, null, bounds) }
+        if (bounds.outWidth <= 0 || bounds.outHeight <= 0) {
+            throw UserVisibleException("Не получилось определить размер изображения.")
+        }
 
         var sample = 1
         while (

@@ -13,11 +13,11 @@ jobs:
       - name: Download prerelease APK
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh release download v0.1.0-debug-1 --repo "${GITHUB_REPOSITORY}" --pattern "Do-razmera-0.1.0-debug.apk"
+        run: gh release download v0.1.1-debug-2 --repo "${GITHUB_REPOSITORY}" --pattern "Do-razmera-0.1.1-debug.apk"
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
-          name: do-razmera-0.1.0-debug
-          path: Do-razmera-0.1.0-debug.apk
+          name: do-razmera-0.1.1-debug
+          path: Do-razmera-0.1.1-debug.apk
           if-no-files-found: error
