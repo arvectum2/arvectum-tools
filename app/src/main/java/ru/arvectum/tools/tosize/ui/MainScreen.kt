@@ -381,10 +381,10 @@ private fun FileSizeSection(
     }
 
     Spacer(Modifier.height(24.dp))
-    if (alreadyFits && target != null) {
+    if (alreadyFits) {
         AlreadyFitsCard(
             title = "Уже подходит",
-            main = "${formatBytes(source.sizeBytes)} ≤ ${formatBytes(target)}",
+            main = "${formatBytes(source.sizeBytes)} ≤ ${formatBytes(requireNotNull(target))}",
             detail = "Не будем пережимать изображение.",
         )
         Spacer(Modifier.height(16.dp))
@@ -490,7 +490,7 @@ private fun PixelSection(
     }
 
     Spacer(Modifier.height(24.dp))
-    if (alreadyFits && target != null) {
+    if (alreadyFits) {
         AlreadyFitsCard(
             title = "Уже меньше выбранного размера",
             main = "${source.width}×${source.height} px",
