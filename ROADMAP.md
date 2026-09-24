@@ -496,6 +496,32 @@ Retention is secondary for this utility category.
 - acceptance criteria
 
 ### MVP — IN PROGRESS
+
+#### Scope freeze after v0.2
+After the initial size-by-bytes flow, only two product additions are allowed before feature freeze:
+
+1. **По пикселям**
+   - Presets: 600 px / 450 px / 300 px / custom.
+   - The number always means the **long side** of a rectangular image.
+   - Aspect ratio is preserved.
+   - The UI always previews the resulting short side / final WxH before processing.
+   - A custom long-side value immediately recalculates and shows the short side.
+   - Never upscale an image whose long side is already below the requested value.
+
+2. **На паспорт**
+   - User-facing name: "На паспорт".
+   - Subtitle/context: "Для заявления на Госуслугах".
+   - One shared technical preset for passport / international-passport online application where the upload requirements overlap.
+   - Fixed crop ratio: 35:45 (7:9), adjusted manually by the user; no face detection.
+   - Output: JPEG.
+   - Target density: 450 DPI (above the 300 DPI minimum) with matching resolution metadata.
+   - Target pixel dimensions derived from 35×45 mm at 450 DPI: approximately 620×797 px.
+   - Keep the output within the portal's accepted file-size range; never trade the required geometry/DPI for a smaller file.
+   - The app changes only technical parameters and crop. No AI, retouching, background replacement, face/body modification, beauty processing or content generation.
+   - The app does **not** claim to verify pose, facial geometry, expression, background or other visual eligibility requirements; it only prepares the technical file.
+
+After these two additions, «До размера» is feature-frozen for the first market experiment. Any further unrelated user need must be evaluated as a separate Arvectum Tool rather than added to this app.
+
 First functional increment completed locally:
 - Android project: Kotlin + Compose + Material 3.
 - System image picker without broad gallery permission.
