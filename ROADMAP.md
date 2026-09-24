@@ -495,8 +495,21 @@ Retention is secondary for this utility category.
 - analytics
 - acceptance criteria
 
-### MVP — NEXT
-Build only the happy-path utility plus defined failure states.
+### MVP — IN PROGRESS
+First functional increment completed locally:
+- Android project: Kotlin + Compose + Material 3.
+- System image picker without broad gallery permission.
+- Preset/custom target selection.
+- Local JPEG compression with byte-limit verification.
+- JPEG/PNG/static WebP input; PNG transparency flattened to white when compression is required.
+- EXIF orientation handling.
+- Already-fitting files are not re-encoded.
+- System Save and Share.
+- Light/dark Precision Utility theme.
+- No backend, analytics, ads, or INTERNET permission yet.
+- `assembleDebug + lintDebug + test` passes; Android Lint reports no issues.
+
+Next: real-device functional test matrix before adding analytics/ads.
 
 ### Internal Test
 Real-device matrix, 100+ image operations, privacy/compliance check, production ad configuration.
