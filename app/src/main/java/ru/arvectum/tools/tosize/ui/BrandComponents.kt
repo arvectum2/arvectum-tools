@@ -26,6 +26,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.role
+import androidx.compose.ui.semantics.selected
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -137,7 +141,12 @@ private fun ModeButton(
     Surface(
         onClick = onClick,
         enabled = enabled,
-        modifier = modifier.height(44.dp),
+        modifier = modifier
+            .height(48.dp)
+            .semantics {
+                this.selected = selected
+                role = Role.Tab
+            },
         shape = RoundedCornerShape(14.dp),
         color = background,
         contentColor = foreground,
@@ -147,7 +156,7 @@ private fun ModeButton(
             Text(
                 text = label,
                 modifier = Modifier.padding(horizontal = 4.dp),
-                fontSize = 11.5.sp,
+                fontSize = 11.sp,
                 fontWeight = FontWeight.SemiBold,
                 textAlign = TextAlign.Center,
                 maxLines = 1,
