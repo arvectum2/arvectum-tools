@@ -495,7 +495,7 @@ Retention is secondary for this utility category.
 - analytics
 - acceptance criteria
 
-### MVP — IN PROGRESS
+### MVP v0.2 — FEATURE FROZEN
 
 #### Scope freeze after v0.2
 After the initial size-by-bytes flow, only two product additions are allowed before feature freeze:
@@ -521,6 +521,8 @@ After the initial size-by-bytes flow, only two product additions are allowed bef
    - The app does **not** claim to verify pose, facial geometry, expression, background or other visual eligibility requirements; it only prepares the technical file.
 
 After these two additions, «До размера» is feature-frozen for the first market experiment. Any further unrelated user need must be evaluated as a separate Arvectum Tool rather than added to this app.
+
+**Implementation status (2026-09-24): DONE.** All three user modes are implemented: «По весу», «По пикселям», «На паспорт». The Android build passes assembleDebug, lintDebug and unit tests. Next gate: real-device functional testing; no new product features are allowed before measurement.
 
 First functional increment completed locally:
 - Android project: Kotlin + Compose + Material 3.
