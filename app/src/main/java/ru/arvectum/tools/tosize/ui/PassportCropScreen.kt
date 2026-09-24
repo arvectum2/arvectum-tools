@@ -280,7 +280,7 @@ private fun CropEditor(
             Spacer(Modifier.height(18.dp))
 
             BrandPrimaryButton(
-                text = "Сделать фото",
+                text = "Подготовить фото",
                 enabled = viewport.width > 0 && viewport.height > 0,
                 onClick = {
                     onConfirm(
