@@ -38,22 +38,34 @@ class MainActivity : ComponentActivity() {
 
                 MainScreen(
                     state = state,
+                    onModeChange = viewModel::setMode,
                     onPickImage = {
                         imagePicker.launch(
-                            PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly),
+                            PickVisualMediaRequest(
+                                ActivityResultContracts.PickVisualMedia.ImageOnly,
+                            ),
                         )
                     },
                     onPreset = viewModel::setPreset,
                     onCustomMode = viewModel::startCustomTarget,
                     onCustomValue = viewModel::setCustomValue,
                     onCustomUnit = viewModel::setCustomUnit,
-                    onCompress = viewModel::compress,
+                    onPixelPreset = viewModel::setPixelPreset,
+                    onCustomPixelsMode = viewModel::startCustomPixels,
+                    onCustomPixelsValue = viewModel::setCustomPixels,
+                    onCompressByBytes = viewModel::compressByBytes,
+                    onResizeByPixels = viewModel::resizeByPixels,
+                    onOpenPassportCrop = viewModel::openPassportCrop,
+                    onPassportCropCancel = viewModel::closePassportCrop,
+                    onPassportCropConfirm = viewModel::preparePassport,
                     onSave = {
                         saveDocument.launch(viewModel.suggestedFileName())
                     },
                     onShare = {
                         viewModel.shareIntent()?.let { share ->
-                            startActivity(Intent.createChooser(share, "Поделиться"))
+                            startActivity(
+                                Intent.createChooser(share, "Поделиться"),
+                            )
                         }
                     },
                     onBackToSelection = viewModel::backToSelection,
