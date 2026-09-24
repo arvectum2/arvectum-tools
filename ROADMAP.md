@@ -7,6 +7,32 @@
 **Consumer family:** Arvectum Tools  
 **Principles:** One tool. One job. Done. / Local first.
 
+## Current amendment — v0.3.0
+
+This amendment supersedes the historical v0.1 UI/color notes below. Functional scope remains frozen after v0.2; v0.3.0 changes branding and interaction polish only.
+
+**Final user modes:** `По весу` / `По пикселям` / `На паспорт`.
+
+**Final app shell:**
+- canonical Arvectum wordmark at the top;
+- product title `До размера`;
+- all three mode buttons in one row;
+- task content in one primary card;
+- `Arvectum.com` at the bottom;
+- Light/Dark support remains.
+
+**Arvectum palette used in the app:**
+- Mint Primary: `#43E5C5`;
+- Mint Light: `#7AF1DD`;
+- Deep Navy: `#041A33`;
+- Graphite: `#243446`;
+- Soft Gray: `#F3F5F7`;
+- White: `#FFFFFF`.
+
+**Visual language:** the same restrained mobile language as Arvectum Proxy Launcher — Deep Navy foundation, Graphite surfaces, mint reserved for actions/signals, large rounded task panels, minimal decorative UI.
+
+**UI/UX QA:** seven cross-review passes are recorded in `docs/UI_UX_CROSS_REVIEW_V0_3_0.md`.
+
 ---
 
 ## 1. Product Contract — «До размера»
