@@ -16,7 +16,7 @@ Passport mode changes only crop and technical file parameters. It does not use A
 
 ## Product guardrail
 
-**v0.2 is feature-frozen.** No additional editor, converter, batch, AI or document features are added to «До размера» before the first market experiment. New user jobs should become separate Arvectum Tools.
+**The functional scope was frozen at v0.2.** v0.3.0 is a UI/UX and branding release only: canonical Arvectum logo, brand palette, Proxy Launcher visual language, single-row mode selector and branded footer. No additional editor, converter, batch, AI or document features are added before the first market experiment. New user jobs should become separate Arvectum Tools.
 
 ## Build
 
