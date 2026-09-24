@@ -3,8 +3,8 @@
     <style name="Theme.ArvectumTools" parent="android:style/Theme.Material.Light.NoActionBar">
         <item name="android:fontFamily">sans</item>
         <item name="android:windowActionModeOverlay">true</item>
-        <item name="android:navigationBarColor">#F7F8FA</item>
-        <item name="android:statusBarColor">#F7F8FA</item>
+        <item name="android:navigationBarColor">#F3F5F7</item>
+        <item name="android:statusBarColor">#F3F5F7</item>
         <item name="android:windowLightStatusBar">true</item>
     </style>
 </resources>
