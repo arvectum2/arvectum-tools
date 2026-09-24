@@ -26,18 +26,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.semantics.Role
-import androidx.compose.ui.semantics.role
-import androidx.compose.ui.semantics.selected
-import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ru.arvectum.tools.tosize.R
@@ -48,21 +44,33 @@ fun BrandHeader(
     modifier: Modifier = Modifier,
     title: String = "До размера",
 ) {
-    Column(modifier = modifier.fillMaxWidth()) {
-        Image(
-            painter = painterResource(R.drawable.arvectum_wordmark),
-            contentDescription = "Логотип Arvectum",
-            modifier = Modifier
-                .width(132.dp)
-                .height(42.dp),
-            contentScale = ContentScale.Fit,
-        )
-        Spacer(Modifier.height(12.dp))
-        Text(
-            text = title,
-            style = MaterialTheme.typography.headlineSmall,
-            color = MaterialTheme.colorScheme.onBackground,
-        )
+    Surface(
+        modifier = modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(20.dp),
+        color = ArvectumDeepNavy,
+        contentColor = ArvectumWhite,
+    ) {
+        Column(
+            modifier = Modifier.padding(
+                horizontal = 16.dp,
+                vertical = 14.dp,
+            ),
+        ) {
+            Image(
+                painter = painterResource(R.drawable.arvectum_wordmark),
+                contentDescription = "Логотип Arvectum",
+                modifier = Modifier
+                    .width(132.dp)
+                    .height(42.dp),
+                contentScale = ContentScale.Fit,
+            )
+            Spacer(Modifier.height(8.dp))
+            Text(
+                text = title,
+                style = MaterialTheme.typography.headlineSmall,
+                color = ArvectumWhite,
+            )
+        }
     }
 }
 
@@ -77,7 +85,7 @@ fun BrandFooter(modifier: Modifier = Modifier) {
         Text(
             text = "Arvectum.com",
             style = MaterialTheme.typography.labelMedium,
-            color = MaterialTheme.colorScheme.primary,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
             letterSpacing = 0.5.sp,
         )
     }
@@ -160,7 +168,7 @@ private fun ModeButton(
             Text(
                 text = label,
                 modifier = Modifier.padding(horizontal = 4.dp),
-                fontSize = 11.sp,
+                fontSize = 12.sp,
                 fontWeight = FontWeight.SemiBold,
                 textAlign = TextAlign.Center,
                 maxLines = 1,
