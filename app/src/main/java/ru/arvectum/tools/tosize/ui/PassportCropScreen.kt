@@ -1,12 +1,12 @@
 package ru.arvectum.tools.tosize.ui
 
 import android.graphics.Bitmap
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.border
 import androidx.compose.foundation.gestures.detectTransformGestures
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,11 +14,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBarsPadding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -72,13 +72,40 @@ fun PassportCropScreen(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background,
     ) {
-        when {
-            previewResult == null -> LoadingCrop()
-            previewResult?.isFailure == true -> CropLoadError(onCancel)
-            else -> CropEditor(
-                bitmap = previewResult!!.getOrThrow(),
-                onCancel = onCancel,
-                onConfirm = onConfirm,
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .systemBarsPadding(),
+        ) {
+            Column(
+                modifier = Modifier.padding(
+                    start = 18.dp,
+                    end = 18.dp,
+                    top = 12.dp,
+                ),
+            ) {
+                BrandHeader()
+                Spacer(Modifier.height(16.dp))
+            }
+
+            Box(
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxWidth(),
+            ) {
+                when {
+                    previewResult == null -> LoadingCrop()
+                    previewResult?.isFailure == true -> CropLoadError(onCancel)
+                    else -> CropEditor(
+                        bitmap = previewResult!!.getOrThrow(),
+                        onCancel = onCancel,
+                        onConfirm = onConfirm,
+                    )
+                }
+            }
+
+            BrandFooter(
+                modifier = Modifier.padding(horizontal = 18.dp),
             )
         }
     }
@@ -89,13 +116,18 @@ private fun LoadingCrop() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .systemBarsPadding(),
+            .padding(horizontal = 18.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
     ) {
-        CircularProgressIndicator()
-        Spacer(Modifier.height(16.dp))
-        Text("Готовим фото…")
+        CircularProgressIndicator(
+            color = MaterialTheme.colorScheme.primary,
+        )
+        Spacer(Modifier.height(14.dp))
+        Text(
+            text = "Готовим фото…",
+            color = MaterialTheme.colorScheme.onBackground,
+        )
     }
 }
 
@@ -104,20 +136,22 @@ private fun CropLoadError(onCancel: () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .systemBarsPadding()
-            .padding(20.dp),
+            .padding(horizontal = 18.dp),
         verticalArrangement = Arrangement.Center,
     ) {
-        Text(
-            text = "Не получилось открыть фото для кадрирования.",
-            style = MaterialTheme.typography.titleMedium,
-        )
-        Spacer(Modifier.height(20.dp))
-        OutlinedButton(
-            onClick = onCancel,
-            modifier = Modifier.fillMaxWidth(),
-        ) {
-            Text("Назад")
+        BrandCard {
+            BrandAccentText("НА ПАСПОРТ")
+            Spacer(Modifier.height(8.dp))
+            Text(
+                text = "Не получилось открыть фото для кадрирования.",
+                style = MaterialTheme.typography.titleMedium,
+            )
+            Spacer(Modifier.height(18.dp))
+            BrandSecondaryButton(
+                text = "Назад",
+                enabled = true,
+                onClick = onCancel,
+            )
         }
     }
 }
@@ -142,99 +176,113 @@ private fun CropEditor(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .systemBarsPadding()
-            .padding(horizontal = 20.dp, vertical = 20.dp),
+            .verticalScroll(rememberScrollState())
+            .padding(horizontal = 18.dp)
+            .padding(bottom = 12.dp),
     ) {
-        Text(
-            text = "На паспорт",
-            style = MaterialTheme.typography.headlineSmall,
-        )
-        Text(
-            text = "Для заявления на Госуслугах",
-            style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-        )
-
-        Spacer(Modifier.height(20.dp))
-        Text(
-            text = "Расположите фото в рамке 35×45",
-            style = MaterialTheme.typography.titleMedium,
-        )
-        Spacer(Modifier.height(6.dp))
-        Text(
-            text = "Перетаскивайте фото и увеличивайте двумя пальцами. В файл попадёт только содержимое рамки.",
-            style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-        )
-        Spacer(Modifier.height(16.dp))
-
-        Canvas(
-            modifier = Modifier
-                .fillMaxWidth()
-                .aspectRatio(
-                    CompressionEngine.PASSPORT_WIDTH_PX.toFloat() /
-                        CompressionEngine.PASSPORT_HEIGHT_PX,
-                )
-                .border(
-                    width = 2.dp,
-                    color = MaterialTheme.colorScheme.primary,
-                    shape = RoundedCornerShape(16.dp),
-                )
-                .onSizeChanged { viewport = it }
-                .pointerInput(bitmap, viewport) {
-                    detectTransformGestures { _, pan, gestureZoom, _ ->
-                        if (size.width == 0 || size.height == 0) return@detectTransformGestures
-
-                        val newZoom = (zoom * gestureZoom).coerceIn(1f, MAX_ZOOM)
-                        val baseScale = max(
-                            size.width / bitmap.width.toFloat(),
-                            size.height / bitmap.height.toFloat(),
-                        )
-                        val displayWidth = bitmap.width * baseScale * newZoom
-                        val displayHeight = bitmap.height * baseScale * newZoom
-                        val maxX = max(0f, (displayWidth - size.width) / 2f)
-                        val maxY = max(0f, (displayHeight - size.height) / 2f)
-
-                        offset = Offset(
-                            x = (offset.x + pan.x).coerceIn(-maxX, maxX),
-                            y = (offset.y + pan.y).coerceIn(-maxY, maxY),
-                        )
-                        zoom = newZoom
-                    }
-                },
-        ) {
-            val baseScale = max(
-                size.width / bitmap.width.toFloat(),
-                size.height / bitmap.height.toFloat(),
+        BrandCard {
+            BrandAccentText("НА ПАСПОРТ")
+            Spacer(Modifier.height(6.dp))
+            Text(
+                text = "Кадр 35×45",
+                style = MaterialTheme.typography.titleLarge,
             )
-            val totalScale = baseScale * zoom
-            val displayWidth = bitmap.width * totalScale
-            val displayHeight = bitmap.height * totalScale
-            val left = (size.width - displayWidth) / 2f + offset.x
-            val top = (size.height - displayHeight) / 2f + offset.y
+            Spacer(Modifier.height(6.dp))
+            Text(
+                text = "Перемещайте фото и увеличивайте двумя пальцами. В результат попадёт только содержимое рамки.",
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+            Spacer(Modifier.height(14.dp))
 
-            drawImage(
-                image = image,
-                dstOffset = IntOffset(left.roundToInt(), top.roundToInt()),
-                dstSize = IntSize(
-                    displayWidth.roundToInt(),
-                    displayHeight.roundToInt(),
+            Surface(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .aspectRatio(
+                        CompressionEngine.PASSPORT_WIDTH_PX.toFloat() /
+                            CompressionEngine.PASSPORT_HEIGHT_PX,
+                    ),
+                shape = RoundedCornerShape(18.dp),
+                color = MaterialTheme.colorScheme.background,
+                border = BorderStroke(
+                    2.dp,
+                    MaterialTheme.colorScheme.primary,
                 ),
-                filterQuality = FilterQuality.High,
+            ) {
+                Canvas(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .onSizeChanged { viewport = it }
+                        .pointerInput(bitmap, viewport) {
+                            detectTransformGestures { _, pan, gestureZoom, _ ->
+                                if (size.width == 0 || size.height == 0) {
+                                    return@detectTransformGestures
+                                }
+
+                                val newZoom = (zoom * gestureZoom)
+                                    .coerceIn(1f, MAX_ZOOM)
+                                val baseScale = max(
+                                    size.width / bitmap.width.toFloat(),
+                                    size.height / bitmap.height.toFloat(),
+                                )
+                                val displayWidth =
+                                    bitmap.width * baseScale * newZoom
+                                val displayHeight =
+                                    bitmap.height * baseScale * newZoom
+                                val maxX =
+                                    max(0f, (displayWidth - size.width) / 2f)
+                                val maxY =
+                                    max(0f, (displayHeight - size.height) / 2f)
+
+                                offset = Offset(
+                                    x = (offset.x + pan.x)
+                                        .coerceIn(-maxX, maxX),
+                                    y = (offset.y + pan.y)
+                                        .coerceIn(-maxY, maxY),
+                                )
+                                zoom = newZoom
+                            }
+                        },
+                ) {
+                    val baseScale = max(
+                        size.width / bitmap.width.toFloat(),
+                        size.height / bitmap.height.toFloat(),
+                    )
+                    val totalScale = baseScale * zoom
+                    val displayWidth = bitmap.width * totalScale
+                    val displayHeight = bitmap.height * totalScale
+                    val left =
+                        (size.width - displayWidth) / 2f + offset.x
+                    val top =
+                        (size.height - displayHeight) / 2f + offset.y
+
+                    drawImage(
+                        image = image,
+                        dstOffset = IntOffset(
+                            left.roundToInt(),
+                            top.roundToInt(),
+                        ),
+                        dstSize = IntSize(
+                            displayWidth.roundToInt(),
+                            displayHeight.roundToInt(),
+                        ),
+                        filterQuality = FilterQuality.High,
+                    )
+                }
+            }
+
+            Spacer(Modifier.height(12.dp))
+            Text(
+                text = "620×797 px  ·  450 DPI  ·  JPEG",
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
-        }
+            Spacer(Modifier.height(18.dp))
 
-        Spacer(Modifier.height(12.dp))
-        Text(
-            text = "Итог: 620×797 px · 450 DPI · JPEG",
-            style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-        )
-        Spacer(Modifier.height(20.dp))
-
-        Button(
-            onClick = {
-                if (viewport.width > 0 && viewport.height > 0) {
+            BrandPrimaryButton(
+                text = "Сделать фото",
+                enabled = viewport.width > 0 && viewport.height > 0,
+                onClick = {
                     onConfirm(
                         calculateNormalizedCrop(
                             bitmapWidth = bitmap.width,
@@ -245,19 +293,14 @@ private fun CropEditor(
                             offset = offset,
                         ),
                     )
-                }
-            },
-            modifier = Modifier.fillMaxWidth(),
-        ) {
-            Text("Сделать фото")
-        }
-
-        Spacer(Modifier.height(8.dp))
-        OutlinedButton(
-            onClick = onCancel,
-            modifier = Modifier.fillMaxWidth(),
-        ) {
-            Text("Отмена")
+                },
+            )
+            Spacer(Modifier.height(8.dp))
+            BrandSecondaryButton(
+                text = "Отмена",
+                enabled = true,
+                onClick = onCancel,
+            )
         }
     }
 }
@@ -277,11 +320,15 @@ fun calculateNormalizedCrop(
     val totalScale = baseScale * zoom.coerceAtLeast(1f)
     val displayWidth = bitmapWidth * totalScale
     val displayHeight = bitmapHeight * totalScale
-    val leftOnScreen = (viewportWidth - displayWidth) / 2f + offset.x
-    val topOnScreen = (viewportHeight - displayHeight) / 2f + offset.y
+    val leftOnScreen =
+        (viewportWidth - displayWidth) / 2f + offset.x
+    val topOnScreen =
+        (viewportHeight - displayHeight) / 2f + offset.y
 
-    val sourceLeft = (-leftOnScreen / totalScale).coerceIn(0f, bitmapWidth.toFloat())
-    val sourceTop = (-topOnScreen / totalScale).coerceIn(0f, bitmapHeight.toFloat())
+    val sourceLeft = (-leftOnScreen / totalScale)
+        .coerceIn(0f, bitmapWidth.toFloat())
+    val sourceTop = (-topOnScreen / totalScale)
+        .coerceIn(0f, bitmapHeight.toFloat())
     val sourceRight = ((viewportWidth - leftOnScreen) / totalScale)
         .coerceIn(0f, bitmapWidth.toFloat())
     val sourceBottom = ((viewportHeight - topOnScreen) / totalScale)
