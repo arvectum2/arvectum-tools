@@ -771,7 +771,7 @@ private fun StatusBlock(
             Text(
                 text = value,
                 style = MaterialTheme.typography.titleMedium,
-                color = MaterialTheme.colorScheme.primary,
+                color = MaterialTheme.colorScheme.secondary,
             )
             Spacer(Modifier.height(4.dp))
             Text(
@@ -832,7 +832,7 @@ private fun ResultHero(value: String) {
     Text(
         text = value,
         style = MaterialTheme.typography.headlineMedium,
-        color = MaterialTheme.colorScheme.primary,
+        color = MaterialTheme.colorScheme.secondary,
     )
     Spacer(Modifier.height(5.dp))
 }
