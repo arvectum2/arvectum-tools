@@ -272,7 +272,7 @@ fun BrandSecondaryButton(
 fun BrandAccentText(
     text: String,
     modifier: Modifier = Modifier,
-    color: Color = MaterialTheme.colorScheme.primary,
+    color: Color = MaterialTheme.colorScheme.secondary,
 ) {
     Text(
         text = text,
