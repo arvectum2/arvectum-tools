@@ -1,6 +1,8 @@
 package ru.arvectum.tools.tosize.ui
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
@@ -14,13 +16,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Button
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.FilterChip
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -94,32 +90,66 @@ fun MainScreen(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background,
     ) {
-        if (state.result != null) {
-            ResultScreen(
-                state = state,
-                result = state.result,
-                onSave = onSave,
-                onShare = onShare,
-                onBack = onBackToSelection,
-                onReset = onReset,
-            )
-        } else {
-            SelectionScreen(
-                state = state,
-                onModeChange = onModeChange,
-                onPickImage = onPickImage,
-                onPreset = onPreset,
-                onCustomMode = onCustomMode,
-                onCustomValue = onCustomValue,
-                onCustomUnit = onCustomUnit,
-                onPixelPreset = onPixelPreset,
-                onCustomPixelsMode = onCustomPixelsMode,
-                onCustomPixelsValue = onCustomPixelsValue,
-                onCompressByBytes = onCompressByBytes,
-                onResizeByPixels = onResizeByPixels,
-                onOpenPassportCrop = onOpenPassportCrop,
-                onSave = onSave,
-                onShare = onShare,
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .systemBarsPadding(),
+        ) {
+            Column(
+                modifier = Modifier.padding(
+                    start = 18.dp,
+                    end = 18.dp,
+                    top = 12.dp,
+                ),
+            ) {
+                BrandHeader()
+                Spacer(Modifier.height(16.dp))
+                if (state.result == null) {
+                    ModeSelector(
+                        mode = state.mode,
+                        enabled = !state.isWorking,
+                        onModeChange = onModeChange,
+                    )
+                    Spacer(Modifier.height(16.dp))
+                }
+            }
+
+            Box(
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxWidth(),
+            ) {
+                if (state.result != null) {
+                    ResultContent(
+                        state = state,
+                        result = state.result,
+                        onSave = onSave,
+                        onShare = onShare,
+                        onBack = onBackToSelection,
+                        onReset = onReset,
+                    )
+                } else {
+                    SelectionContent(
+                        state = state,
+                        onPickImage = onPickImage,
+                        onPreset = onPreset,
+                        onCustomMode = onCustomMode,
+                        onCustomValue = onCustomValue,
+                        onCustomUnit = onCustomUnit,
+                        onPixelPreset = onPixelPreset,
+                        onCustomPixelsMode = onCustomPixelsMode,
+                        onCustomPixelsValue = onCustomPixelsValue,
+                        onCompressByBytes = onCompressByBytes,
+                        onResizeByPixels = onResizeByPixels,
+                        onOpenPassportCrop = onOpenPassportCrop,
+                        onSave = onSave,
+                        onShare = onShare,
+                    )
+                }
+            }
+
+            BrandFooter(
+                modifier = Modifier.padding(horizontal = 18.dp),
             )
         }
 
@@ -139,9 +169,8 @@ fun MainScreen(
 }
 
 @Composable
-private fun SelectionScreen(
+private fun SelectionContent(
     state: AppUiState,
-    onModeChange: (ToolMode) -> Unit,
     onPickImage: () -> Unit,
     onPreset: (Long) -> Unit,
     onCustomMode: () -> Unit,
@@ -161,19 +190,10 @@ private fun SelectionScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .systemBarsPadding()
             .verticalScroll(rememberScrollState())
-            .padding(horizontal = 20.dp, vertical = 20.dp),
+            .padding(horizontal = 18.dp)
+            .padding(bottom = 12.dp),
     ) {
-        ProductHeader()
-        Spacer(Modifier.height(24.dp))
-        ModeChooser(
-            mode = state.mode,
-            enabled = !state.isWorking,
-            onModeChange = onModeChange,
-        )
-        Spacer(Modifier.height(28.dp))
-
         if (source == null) {
             EmptyState(
                 mode = state.mode,
@@ -184,7 +204,7 @@ private fun SelectionScreen(
         }
 
         FileCard(source)
-        Spacer(Modifier.height(24.dp))
+        Spacer(Modifier.height(16.dp))
 
         when (state.mode) {
             ToolMode.FILE_SIZE -> FileSizeSection(
@@ -216,7 +236,7 @@ private fun SelectionScreen(
             )
         }
 
-        Spacer(Modifier.height(12.dp))
+        Spacer(Modifier.height(6.dp))
         TextButton(
             onClick = onPickImage,
             enabled = !state.isWorking,
@@ -228,74 +248,71 @@ private fun SelectionScreen(
 }
 
 @Composable
-private fun ModeChooser(
-    mode: ToolMode,
-    enabled: Boolean,
-    onModeChange: (ToolMode) -> Unit,
-) {
-    FlowRow(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp),
-    ) {
-        FilterChip(
-            selected = mode == ToolMode.FILE_SIZE,
-            onClick = { onModeChange(ToolMode.FILE_SIZE) },
-            label = { Text("По весу") },
-            enabled = enabled,
-        )
-        FilterChip(
-            selected = mode == ToolMode.PIXELS,
-            onClick = { onModeChange(ToolMode.PIXELS) },
-            label = { Text("По пикселям") },
-            enabled = enabled,
-        )
-        FilterChip(
-            selected = mode == ToolMode.PASSPORT,
-            onClick = { onModeChange(ToolMode.PASSPORT) },
-            label = { Text("На паспорт") },
-            enabled = enabled,
-        )
-    }
-}
-
-@Composable
 private fun EmptyState(
     mode: ToolMode,
     isWorking: Boolean,
     onPickImage: () -> Unit,
 ) {
     val title = when (mode) {
-        ToolMode.FILE_SIZE -> "Фото должно быть не больше нужного размера?"
-        ToolMode.PIXELS -> "Нужен точный размер изображения в пикселях?"
-        ToolMode.PASSPORT -> "Фото для заявления на паспорт через Госуслуги?"
+        ToolMode.FILE_SIZE -> "Уложить фото в лимит"
+        ToolMode.PIXELS -> "Задать размер в пикселях"
+        ToolMode.PASSPORT -> "Подготовить фото на паспорт"
     }
     val body = when (mode) {
-        ToolMode.FILE_SIZE -> "Выберите файл и укажите максимальный вес."
-        ToolMode.PIXELS -> "Выберите фото и задайте размер его длинной стороны."
-        ToolMode.PASSPORT -> "Подготовим технические параметры и кадр 35×45. Лицо и фон не проверяем."
+        ToolMode.FILE_SIZE -> "Укажите максимальный вес файла — приложение само подберёт сжатие."
+        ToolMode.PIXELS -> "Задайте длинную сторону. Короткую сторону рассчитаем автоматически."
+        ToolMode.PASSPORT -> "Подготовим технические параметры для заявления на Госуслугах."
     }
 
-    Text(title, style = MaterialTheme.typography.headlineSmall)
+    BrandCard {
+        BrandAccentText("LOCAL FIRST")
+        Spacer(Modifier.height(8.dp))
+        Text(
+            text = title,
+            style = MaterialTheme.typography.titleLarge,
+        )
+        Spacer(Modifier.height(8.dp))
+        Text(
+            text = body,
+            style = MaterialTheme.typography.bodyLarge,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+        Spacer(Modifier.height(20.dp))
+        BrandPrimaryButton(
+            text = "Выбрать фото",
+            enabled = !isWorking,
+            busy = isWorking,
+            onClick = onPickImage,
+        )
+    }
+
     Spacer(Modifier.height(12.dp))
     Text(
-        text = body,
-        style = MaterialTheme.typography.bodyLarge,
-        color = MaterialTheme.colorScheme.onSurfaceVariant,
-    )
-    Spacer(Modifier.height(28.dp))
-    PrimaryAction(
-        text = "Выбрать фото",
-        enabled = !isWorking,
-        busy = isWorking,
-        onClick = onPickImage,
-    )
-    Spacer(Modifier.height(16.dp))
-    Text(
-        text = "Изображение обрабатывается на этом устройстве.",
+        text = "Файл обрабатывается только на этом устройстве.",
+        modifier = Modifier.fillMaxWidth(),
         style = MaterialTheme.typography.bodyMedium,
         color = MaterialTheme.colorScheme.onSurfaceVariant,
     )
+}
+
+@Composable
+private fun FileCard(source: SourceImage) {
+    BrandCard {
+        BrandAccentText("ФАЙЛ")
+        Spacer(Modifier.height(7.dp))
+        Text(
+            text = source.displayName,
+            style = MaterialTheme.typography.titleMedium,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+        )
+        Spacer(Modifier.height(5.dp))
+        Text(
+            text = "${formatBytes(source.sizeBytes)}  ·  ${source.width}×${source.height} px",
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+    }
 }
 
 @Composable
@@ -313,93 +330,93 @@ private fun FileSizeSection(
     val target = state.targetBytes
     val alreadyFits = target != null && source.sizeBytes <= target
 
-    Text("Не больше", style = MaterialTheme.typography.titleMedium)
-    Spacer(Modifier.height(12.dp))
-
-    FlowRow(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp),
-    ) {
-        FileSizePresets.forEach { (bytes, label) ->
-            FilterChip(
-                selected = !state.isCustomTarget && state.targetBytes == bytes,
-                onClick = { onPreset(bytes) },
-                label = { Text(label) },
-                enabled = !state.isWorking,
-            )
-        }
-        FilterChip(
-            selected = state.isCustomTarget,
-            onClick = onCustomMode,
-            label = { Text("Свой") },
-            enabled = !state.isWorking,
+    BrandCard {
+        SectionTitle(
+            eyebrow = "ПО ВЕСУ",
+            title = "Максимальный размер",
         )
-    }
+        Spacer(Modifier.height(14.dp))
 
-    if (state.isCustomTarget) {
-        Spacer(Modifier.height(12.dp))
-        Row(
+        FlowRow(
+            modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(8.dp),
-            verticalAlignment = Alignment.CenterVertically,
+            verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
-            OutlinedTextField(
-                value = state.customValue,
-                onValueChange = onCustomValue,
-                modifier = Modifier.weight(1f),
-                singleLine = true,
-                label = { Text("Размер") },
-                placeholder = { Text("750") },
-                supportingText = {
-                    if (state.customValue.isNotBlank() && state.targetBytes == null) {
-                        Text("От 10 КБ до 50 МБ")
-                    }
-                },
-                isError = state.customValue.isNotBlank() && state.targetBytes == null,
-                enabled = !state.isWorking,
-            )
-            Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                FilterChip(
-                    selected = state.customUnit == SizeUnit.KB,
-                    onClick = { onCustomUnit(SizeUnit.KB) },
-                    label = { Text("КБ") },
+            FileSizePresets.forEach { (bytes, label) ->
+                ChoiceChip(
+                    label = label,
+                    selected = !state.isCustomTarget && state.targetBytes == bytes,
                     enabled = !state.isWorking,
-                )
-                FilterChip(
-                    selected = state.customUnit == SizeUnit.MB,
-                    onClick = { onCustomUnit(SizeUnit.MB) },
-                    label = { Text("МБ") },
-                    enabled = !state.isWorking,
+                    onClick = { onPreset(bytes) },
                 )
             }
+            ChoiceChip(
+                label = "Свой",
+                selected = state.isCustomTarget,
+                enabled = !state.isWorking,
+                onClick = onCustomMode,
+            )
         }
-    }
 
-    if (source.mimeType == "image/png" && !alreadyFits) {
-        Spacer(Modifier.height(16.dp))
-        NoticeCard("PNG будет сохранён как JPG. Прозрачность станет белой.")
-    }
+        if (state.isCustomTarget) {
+            Spacer(Modifier.height(14.dp))
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                OutlinedTextField(
+                    value = state.customValue,
+                    onValueChange = onCustomValue,
+                    modifier = Modifier.weight(1f),
+                    singleLine = true,
+                    label = { Text("Размер") },
+                    placeholder = { Text("750") },
+                    supportingText = {
+                        if (state.customValue.isNotBlank() && state.targetBytes == null) {
+                            Text("От 10 КБ до 50 МБ")
+                        }
+                    },
+                    isError = state.customValue.isNotBlank() && state.targetBytes == null,
+                    enabled = !state.isWorking,
+                )
+                Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                    ChoiceChip(
+                        label = "КБ",
+                        selected = state.customUnit == SizeUnit.KB,
+                        enabled = !state.isWorking,
+                        onClick = { onCustomUnit(SizeUnit.KB) },
+                    )
+                    ChoiceChip(
+                        label = "МБ",
+                        selected = state.customUnit == SizeUnit.MB,
+                        enabled = !state.isWorking,
+                        onClick = { onCustomUnit(SizeUnit.MB) },
+                    )
+                }
+            }
+        }
 
-    Spacer(Modifier.height(24.dp))
-    if (alreadyFits) {
-        AlreadyFitsCard(
-            title = "Уже подходит",
-            main = "${formatBytes(source.sizeBytes)} ≤ ${formatBytes(requireNotNull(target))}",
-            detail = "Не будем пережимать изображение.",
-        )
-        Spacer(Modifier.height(16.dp))
-        SaveShareActions(
-            state = state,
-            onSave = onSave,
-            onShare = onShare,
-        )
-    } else {
-        PrimaryAction(
-            text = target?.let { "Сделать до ${formatBytes(it)}" } ?: "Укажите размер",
-            enabled = target != null && !state.isWorking,
-            busy = state.isWorking,
-            onClick = onCompress,
-        )
+        if (source.mimeType == "image/png" && !alreadyFits) {
+            Spacer(Modifier.height(14.dp))
+            InlineNotice("PNG будет сохранён как JPG. Прозрачность станет белой.")
+        }
+
+        Spacer(Modifier.height(18.dp))
+        if (alreadyFits) {
+            StatusBlock(
+                value = "${formatBytes(source.sizeBytes)} ≤ ${formatBytes(requireNotNull(target))}",
+                detail = "Файл уже подходит. Пережимать его не будем.",
+            )
+            Spacer(Modifier.height(14.dp))
+            SaveShareActions(state, onSave, onShare)
+        } else {
+            BrandPrimaryButton(
+                text = target?.let { "Сделать до ${formatBytes(it)}" } ?: "Укажите размер",
+                enabled = target != null && !state.isWorking,
+                busy = state.isWorking,
+                onClick = onCompress,
+            )
+        }
     }
 }
 
@@ -425,92 +442,90 @@ private fun PixelSection(
         }
     }
 
-    Text("Длинная сторона", style = MaterialTheme.typography.titleMedium)
-    Spacer(Modifier.height(6.dp))
-    Text(
-        text = "Для прямоугольного фото задаём длинную сторону. Короткая сторона рассчитывается автоматически с сохранением пропорций.",
-        style = MaterialTheme.typography.bodyMedium,
-        color = MaterialTheme.colorScheme.onSurfaceVariant,
-    )
-    Spacer(Modifier.height(12.dp))
+    BrandCard {
+        SectionTitle(
+            eyebrow = "ПО ПИКСЕЛЯМ",
+            title = "Длинная сторона",
+        )
+        Spacer(Modifier.height(6.dp))
+        Text(
+            text = "Короткая сторона рассчитывается автоматически с сохранением пропорций.",
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+        Spacer(Modifier.height(14.dp))
 
-    FlowRow(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp),
-    ) {
-        PixelPresets.forEach { (pixels, label) ->
-            FilterChip(
-                selected = !state.isCustomPixels && state.targetLongSide == pixels,
-                onClick = { onPreset(pixels) },
-                label = { Text(label) },
+        FlowRow(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
+            PixelPresets.forEach { (pixels, label) ->
+                ChoiceChip(
+                    label = label,
+                    selected = !state.isCustomPixels && state.targetLongSide == pixels,
+                    enabled = !state.isWorking,
+                    onClick = { onPreset(pixels) },
+                )
+            }
+            ChoiceChip(
+                label = "Свой",
+                selected = state.isCustomPixels,
+                enabled = !state.isWorking,
+                onClick = onCustomMode,
+            )
+        }
+
+        if (state.isCustomPixels) {
+            Spacer(Modifier.height(14.dp))
+            OutlinedTextField(
+                value = state.customPixelsValue,
+                onValueChange = onCustomValue,
+                modifier = Modifier.fillMaxWidth(),
+                singleLine = true,
+                suffix = { Text("px") },
+                label = { Text("Длинная сторона") },
+                placeholder = { Text("800") },
+                supportingText = {
+                    if (state.customPixelsValue.isNotBlank() && target == null) {
+                        Text("От 32 до 12 000 px")
+                    }
+                },
+                isError = state.customPixelsValue.isNotBlank() && target == null,
                 enabled = !state.isWorking,
             )
         }
-        FilterChip(
-            selected = state.isCustomPixels,
-            onClick = onCustomMode,
-            label = { Text("Свой") },
-            enabled = !state.isWorking,
-        )
-    }
 
-    if (state.isCustomPixels) {
-        Spacer(Modifier.height(12.dp))
-        OutlinedTextField(
-            value = state.customPixelsValue,
-            onValueChange = onCustomValue,
-            modifier = Modifier.fillMaxWidth(),
-            singleLine = true,
-            suffix = { Text("px") },
-            label = { Text("Длинная сторона") },
-            placeholder = { Text("800") },
-            supportingText = {
-                if (state.customPixelsValue.isNotBlank() && target == null) {
-                    Text("От 32 до 12 000 px")
-                }
-            },
-            isError = state.customPixelsValue.isNotBlank() && target == null,
-            enabled = !state.isWorking,
-        )
-    }
+        if (resultDimensions != null) {
+            Spacer(Modifier.height(14.dp))
+            StatusBlock(
+                value = "${resultDimensions.width}×${resultDimensions.height} px",
+                detail = if (alreadyFits) {
+                    "Фото уже меньше выбранного размера. Увеличивать его не будем."
+                } else {
+                    "Было ${source.width}×${source.height} px"
+                },
+            )
+        }
 
-    if (resultDimensions != null) {
-        Spacer(Modifier.height(16.dp))
-        DimensionPreviewCard(
-            source = source,
-            result = resultDimensions,
-            alreadyFits = alreadyFits,
-        )
-    }
+        if (source.mimeType == "image/png" && !alreadyFits && target != null) {
+            Spacer(Modifier.height(14.dp))
+            InlineNotice("После уменьшения PNG будет сохранён как JPG.")
+        }
 
-    if (source.mimeType == "image/png" && !alreadyFits && target != null) {
-        Spacer(Modifier.height(16.dp))
-        NoticeCard("После уменьшения PNG будет сохранён как JPG. Прозрачность станет белой.")
-    }
-
-    Spacer(Modifier.height(24.dp))
-    if (alreadyFits) {
-        AlreadyFitsCard(
-            title = "Уже меньше выбранного размера",
-            main = "${source.width}×${source.height} px",
-            detail = "Увеличивать фото не будем.",
-        )
-        Spacer(Modifier.height(16.dp))
-        SaveShareActions(
-            state = state,
-            onSave = onSave,
-            onShare = onShare,
-        )
-    } else {
-        PrimaryAction(
-            text = resultDimensions?.let {
-                "Сделать ${it.width}×${it.height} px"
-            } ?: "Укажите размер",
-            enabled = target != null && !state.isWorking,
-            busy = state.isWorking,
-            onClick = onResize,
-        )
+        Spacer(Modifier.height(18.dp))
+        if (alreadyFits) {
+            SaveShareActions(state, onSave, onShare)
+        } else {
+            BrandPrimaryButton(
+                text = resultDimensions?.let {
+                    "Сделать ${it.width}×${it.height} px"
+                } ?: "Укажите размер",
+                enabled = target != null && !state.isWorking,
+                busy = state.isWorking,
+                onClick = onResize,
+            )
+        }
     }
 }
 
@@ -519,84 +534,32 @@ private fun PassportSection(
     state: AppUiState,
     onOpenCrop: () -> Unit,
 ) {
-    Card(
-        modifier = Modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(16.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surface,
-        ),
-    ) {
-        Column(Modifier.padding(18.dp)) {
-            Text(
-                text = "Для заявления на Госуслугах",
-                style = MaterialTheme.typography.titleMedium,
-            )
-            Spacer(Modifier.height(12.dp))
-            Text("35×45 мм · 620×797 px · 450 DPI · JPEG")
-            Spacer(Modifier.height(8.dp))
-            Text(
-                text = "Файл: 10 КБ–5 МБ",
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-            )
-        }
-    }
-
-    Spacer(Modifier.height(16.dp))
-    NoticeCard(
-        "Меняем только кадр и технические параметры. Положение лица, фон, выражение и другие требования приложение не проверяет.",
-    )
-    Spacer(Modifier.height(24.dp))
-    PrimaryAction(
-        text = "Настроить кадр 35×45",
-        enabled = !state.isWorking,
-        busy = state.isWorking,
-        onClick = onOpenCrop,
-    )
-}
-
-@Composable
-private fun DimensionPreviewCard(
-    source: SourceImage,
-    result: ImageDimensions,
-    alreadyFits: Boolean,
-) {
-    Card(
-        modifier = Modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(12.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceVariant,
-        ),
-    ) {
-        Column(Modifier.padding(14.dp)) {
-            Text(
-                text = if (alreadyFits) {
-                    "Итог без увеличения"
-                } else {
-                    "Итог"
-                },
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-            )
-            Spacer(Modifier.height(4.dp))
-            Text(
-                text = "${result.width}×${result.height} px",
-                style = MaterialTheme.typography.titleMedium,
-            )
-            if (!alreadyFits) {
-                Spacer(Modifier.height(4.dp))
-                Text(
-                    text = "Было ${source.width}×${source.height} px",
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
-            }
-        }
+    BrandCard {
+        SectionTitle(
+            eyebrow = "НА ПАСПОРТ",
+            title = "Для заявления на Госуслугах",
+        )
+        Spacer(Modifier.height(14.dp))
+        SpecRow("Формат", "35×45 мм")
+        SpecRow("Размер", "620×797 px")
+        SpecRow("Плотность", "450 DPI")
+        SpecRow("Файл", "JPEG · 10 КБ–5 МБ")
+        Spacer(Modifier.height(14.dp))
+        InlineNotice(
+            "Меняем только кадр и технические параметры. Лицо, фон и позу не проверяем.",
+        )
+        Spacer(Modifier.height(18.dp))
+        BrandPrimaryButton(
+            text = "Настроить кадр 35×45",
+            enabled = !state.isWorking,
+            busy = state.isWorking,
+            onClick = onOpenCrop,
+        )
     }
 }
 
 @Composable
-private fun ResultScreen(
+private fun ResultContent(
     state: AppUiState,
     result: ResultImage,
     onSave: () -> Unit,
@@ -615,113 +578,85 @@ private fun ResultScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .systemBarsPadding()
             .verticalScroll(rememberScrollState())
-            .padding(horizontal = 20.dp, vertical = 20.dp),
+            .padding(horizontal = 18.dp)
+            .padding(bottom = 12.dp),
     ) {
-        ProductHeader()
-        Spacer(Modifier.height(32.dp))
+        BrandCard {
+            BrandAccentText(
+                if (result.alreadyFit) "УЖЕ ПОДХОДИТ" else "ГОТОВО",
+            )
+            Spacer(Modifier.height(8.dp))
 
-        Text(
-            text = if (result.alreadyFit) "Уже подходит" else "Готово",
-            style = MaterialTheme.typography.headlineSmall,
-        )
-        Spacer(Modifier.height(20.dp))
-
-        Card(
-            modifier = Modifier.fillMaxWidth(),
-            shape = RoundedCornerShape(16.dp),
-            colors = CardDefaults.cardColors(
-                containerColor = MaterialTheme.colorScheme.surface,
-            ),
-        ) {
-            Column(Modifier.padding(20.dp)) {
-                when (result.mode) {
-                    ToolMode.FILE_SIZE -> {
+            when (result.mode) {
+                ToolMode.FILE_SIZE -> {
+                    ResultHero(formatBytes(result.outputSizeBytes))
+                    result.targetBytes?.let {
                         Text(
-                            text = formatBytes(result.outputSizeBytes),
-                            style = MaterialTheme.typography.headlineMedium,
-                            color = MaterialTheme.colorScheme.primary,
-                        )
-                        result.targetBytes?.let {
-                            Spacer(Modifier.height(6.dp))
-                            Text(
-                                text = "≤ ${formatBytes(it)}",
-                                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                            )
-                        }
-                        Spacer(Modifier.height(16.dp))
-                        Text(
-                            text = if (result.alreadyFit) {
-                                "Файл не пережимался — качество осталось исходным."
-                            } else {
-                                "Было ${formatBytes(result.source.sizeBytes)} · меньше на ${reduction}%"
-                            },
+                            text = "Лимит: ${formatBytes(it)}",
                             style = MaterialTheme.typography.bodyMedium,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                         )
                     }
+                    Spacer(Modifier.height(12.dp))
+                    Text(
+                        text = if (result.alreadyFit) {
+                            "Файл не пережимался — качество осталось исходным."
+                        } else {
+                            "Было ${formatBytes(result.source.sizeBytes)} · меньше на ${reduction}%"
+                        },
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                }
 
-                    ToolMode.PIXELS -> {
-                        Text(
-                            text = "${result.outputWidth}×${result.outputHeight} px",
-                            style = MaterialTheme.typography.headlineMedium,
-                            color = MaterialTheme.colorScheme.primary,
-                        )
-                        Spacer(Modifier.height(6.dp))
-                        Text(
-                            text = formatBytes(result.outputSizeBytes),
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        )
-                        Spacer(Modifier.height(16.dp))
-                        Text(
-                            text = if (result.alreadyFit) {
-                                "Фото не увеличивалось."
-                            } else {
-                                "Было ${result.source.width}×${result.source.height} px"
-                            },
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        )
-                    }
+                ToolMode.PIXELS -> {
+                    ResultHero("${result.outputWidth}×${result.outputHeight} px")
+                    Text(
+                        text = "Вес файла: ${formatBytes(result.outputSizeBytes)}",
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                    Spacer(Modifier.height(12.dp))
+                    Text(
+                        text = if (result.alreadyFit) {
+                            "Фото не увеличивалось."
+                        } else {
+                            "Было ${result.source.width}×${result.source.height} px"
+                        },
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                }
 
-                    ToolMode.PASSPORT -> {
-                        Text(
-                            text = "${result.outputWidth}×${result.outputHeight} px",
-                            style = MaterialTheme.typography.headlineMedium,
-                            color = MaterialTheme.colorScheme.primary,
-                        )
-                        Spacer(Modifier.height(6.dp))
-                        Text(
-                            text = "35×45 мм · 450 DPI · JPEG",
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        )
-                        Spacer(Modifier.height(16.dp))
-                        Text(
-                            text = "Размер файла: ${formatBytes(result.outputSizeBytes)}",
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        )
-                    }
+                ToolMode.PASSPORT -> {
+                    ResultHero("${result.outputWidth}×${result.outputHeight} px")
+                    Text(
+                        text = "35×45 мм · 450 DPI · JPEG",
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                    Spacer(Modifier.height(12.dp))
+                    Text(
+                        text = "Вес файла: ${formatBytes(result.outputSizeBytes)}",
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
                 }
             }
+
+            Spacer(Modifier.height(18.dp))
+            SaveShareActions(state, onSave, onShare)
         }
 
         if (result.mode == ToolMode.PASSPORT) {
-            Spacer(Modifier.height(16.dp))
-            NoticeCard(
+            Spacer(Modifier.height(12.dp))
+            InlineNotice(
                 "Технические параметры подготовлены. Соответствие лица, фона и позы требованиям ведомства не проверялось.",
             )
         }
 
-        Spacer(Modifier.height(24.dp))
-        SaveShareActions(
-            state = state,
-            onSave = onSave,
-            onShare = onShare,
-        )
-
-        Spacer(Modifier.height(12.dp))
+        Spacer(Modifier.height(6.dp))
         TextButton(
             onClick = onReset,
             enabled = !state.isWorking,
@@ -746,82 +681,82 @@ private fun ResultScreen(
 }
 
 @Composable
-private fun SaveShareActions(
-    state: AppUiState,
-    onSave: () -> Unit,
-    onShare: () -> Unit,
+private fun SectionTitle(
+    eyebrow: String,
+    title: String,
 ) {
-    Button(
-        onClick = onSave,
-        enabled = !state.isWorking,
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(56.dp),
-        shape = RoundedCornerShape(16.dp),
-    ) {
-        if (state.isWorking) {
-            CircularProgressIndicator(
-                modifier = Modifier.height(22.dp),
-                strokeWidth = 2.dp,
-            )
+    BrandAccentText(eyebrow)
+    Spacer(Modifier.height(5.dp))
+    Text(
+        text = title,
+        style = MaterialTheme.typography.titleMedium,
+    )
+}
+
+@Composable
+private fun ChoiceChip(
+    label: String,
+    selected: Boolean,
+    enabled: Boolean,
+    onClick: () -> Unit,
+) {
+    Surface(
+        onClick = onClick,
+        enabled = enabled,
+        shape = RoundedCornerShape(12.dp),
+        color = if (selected) {
+            MaterialTheme.colorScheme.primary
         } else {
-            Text("Сохранить")
-        }
-    }
-
-    Spacer(Modifier.height(8.dp))
-    OutlinedButton(
-        onClick = onShare,
-        enabled = !state.isWorking,
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(56.dp),
-        shape = RoundedCornerShape(16.dp),
-    ) {
-        Text("Поделиться")
-    }
-
-    if (state.saved) {
-        Spacer(Modifier.height(12.dp))
-        SuccessText()
-    }
-}
-
-@Composable
-private fun ProductHeader() {
-    Column {
-        Text(
-            text = "До размера",
-            style = MaterialTheme.typography.headlineSmall,
-        )
-        Text(
-            text = "by Arvectum",
-            style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-            fontWeight = FontWeight.Medium,
-        )
-    }
-}
-
-@Composable
-private fun FileCard(source: SourceImage) {
-    Card(
-        modifier = Modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(16.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surface,
+            MaterialTheme.colorScheme.background
+        },
+        contentColor = if (selected) {
+            MaterialTheme.colorScheme.onPrimary
+        } else {
+            MaterialTheme.colorScheme.onBackground
+        },
+        border = BorderStroke(
+            1.dp,
+            if (selected) {
+                MaterialTheme.colorScheme.primary
+            } else {
+                MaterialTheme.colorScheme.outlineVariant
+            },
         ),
     ) {
-        Column(Modifier.padding(16.dp)) {
+        Text(
+            text = label,
+            modifier = Modifier.padding(
+                horizontal = 13.dp,
+                vertical = 10.dp,
+            ),
+            style = MaterialTheme.typography.labelMedium,
+        )
+    }
+}
+
+@Composable
+private fun StatusBlock(
+    value: String,
+    detail: String,
+) {
+    Surface(
+        modifier = Modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(14.dp),
+        color = MaterialTheme.colorScheme.background,
+        border = BorderStroke(
+            1.dp,
+            MaterialTheme.colorScheme.outlineVariant,
+        ),
+    ) {
+        Column(Modifier.padding(14.dp)) {
             Text(
-                text = source.displayName,
+                text = value,
                 style = MaterialTheme.typography.titleMedium,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
+                color = MaterialTheme.colorScheme.primary,
             )
-            Spacer(Modifier.height(6.dp))
+            Spacer(Modifier.height(4.dp))
             Text(
-                text = "${formatBytes(source.sizeBytes)} · ${source.width}×${source.height}",
+                text = detail,
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
@@ -830,52 +765,19 @@ private fun FileCard(source: SourceImage) {
 }
 
 @Composable
-private fun AlreadyFitsCard(
-    title: String,
-    main: String,
-    detail: String,
-) {
-    Card(
-        modifier = Modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(16.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.primaryContainer,
-        ),
-    ) {
-        Column(Modifier.padding(18.dp)) {
-            Text(
-                text = title,
-                style = MaterialTheme.typography.titleMedium,
-                color = MaterialTheme.colorScheme.onPrimaryContainer,
-            )
-            Spacer(Modifier.height(6.dp))
-            Text(
-                text = main,
-                style = MaterialTheme.typography.bodyLarge,
-                color = MaterialTheme.colorScheme.onPrimaryContainer,
-            )
-            Spacer(Modifier.height(6.dp))
-            Text(
-                text = detail,
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onPrimaryContainer,
-            )
-        }
-    }
-}
-
-@Composable
-private fun NoticeCard(text: String) {
-    Card(
+private fun InlineNotice(text: String) {
+    Surface(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(12.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceVariant,
+        color = MaterialTheme.colorScheme.background,
+        border = BorderStroke(
+            1.dp,
+            MaterialTheme.colorScheme.outlineVariant,
         ),
     ) {
         Text(
             text = text,
-            modifier = Modifier.padding(14.dp),
+            modifier = Modifier.padding(13.dp),
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
@@ -883,39 +785,65 @@ private fun NoticeCard(text: String) {
 }
 
 @Composable
-private fun PrimaryAction(
-    text: String,
-    enabled: Boolean,
-    busy: Boolean,
-    onClick: () -> Unit,
+private fun SpecRow(
+    label: String,
+    value: String,
 ) {
-    Button(
-        onClick = onClick,
-        enabled = enabled,
+    Row(
         modifier = Modifier
             .fillMaxWidth()
-            .height(56.dp),
-        shape = RoundedCornerShape(16.dp),
+            .padding(vertical = 5.dp),
     ) {
-        if (busy) {
-            CircularProgressIndicator(
-                modifier = Modifier.height(22.dp),
-                strokeWidth = 2.dp,
-            )
-        } else {
-            Text(text)
-        }
+        Text(
+            text = label,
+            modifier = Modifier.weight(1f),
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+        Text(
+            text = value,
+            fontWeight = FontWeight.SemiBold,
+            style = MaterialTheme.typography.bodyMedium,
+        )
     }
 }
 
 @Composable
-private fun SuccessText() {
+private fun ResultHero(value: String) {
     Text(
-        text = "✓ Сохранено",
-        modifier = Modifier.fillMaxWidth(),
-        style = MaterialTheme.typography.bodyMedium,
+        text = value,
+        style = MaterialTheme.typography.headlineMedium,
         color = MaterialTheme.colorScheme.primary,
     )
+    Spacer(Modifier.height(5.dp))
+}
+
+@Composable
+private fun SaveShareActions(
+    state: AppUiState,
+    onSave: () -> Unit,
+    onShare: () -> Unit,
+) {
+    BrandPrimaryButton(
+        text = "Сохранить",
+        enabled = !state.isWorking,
+        busy = state.isWorking,
+        onClick = onSave,
+    )
+    Spacer(Modifier.height(8.dp))
+    BrandSecondaryButton(
+        text = "Поделиться",
+        enabled = !state.isWorking,
+        onClick = onShare,
+    )
+    if (state.saved) {
+        Spacer(Modifier.height(10.dp))
+        Text(
+            text = "✓ Сохранено",
+            style = MaterialTheme.typography.labelMedium,
+            color = MaterialTheme.colorScheme.primary,
+        )
+    }
 }
 
 fun formatBytes(bytes: Long): String {
