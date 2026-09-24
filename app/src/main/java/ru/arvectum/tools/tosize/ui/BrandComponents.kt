@@ -41,8 +41,8 @@ import ru.arvectum.tools.tosize.ToolMode
 
 @Composable
 fun BrandHeader(
-    title: String = "До размера",
     modifier: Modifier = Modifier,
+    title: String = "До размера",
 ) {
     Column(modifier = modifier.fillMaxWidth()) {
         Image(
@@ -194,9 +194,9 @@ fun BrandCard(
 fun BrandPrimaryButton(
     text: String,
     enabled: Boolean,
-    busy: Boolean = false,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
+    busy: Boolean = false,
 ) {
     Button(
         onClick = onClick,
