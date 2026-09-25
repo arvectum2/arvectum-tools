@@ -44,7 +44,7 @@
 - [x] Декларация: данные не собираются и не передаются
 - [x] Реклама отсутствует
 - [x] Аналитика отсутствует
-- [x] Публичная политика: https://arvectum.com/photo-pod-razmer-privacy.html
+- [x] Публичная политика: https://github.com/arvectum2/arvectum-tools/blob/main/PRIVACY.md (рабочая URL; branded page на arvectum.com уже подготовлена в landing repo и ждёт деплоя)
 
 ## Console
 - [ ] Добавить приложение в RuStore Console владельцем компании
