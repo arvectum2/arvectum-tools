@@ -1,10 +1,10 @@
 # Arvectum Tools — Product + Brand + UX Specification v0.1
 
-**Status:** canonical v0.1  
-**Date:** 2026-09-24  
-**First product:** «До размера»  
-**Master brand:** Arvectum  
-**Consumer family:** Arvectum Tools  
+**Status:** canonical v0.1
+**Date:** 2026-09-24
+**First product:** «Фото под размер»
+**Master brand:** Arvectum
+**Consumer family:** Arvectum Tools
 **Principles:** One tool. One job. Done. / Local first.
 
 ## Current amendment — v0.3.0
@@ -15,7 +15,7 @@ This amendment supersedes the historical v0.1 UI/color notes below. Functional s
 
 **Final app shell:**
 - canonical Arvectum wordmark at the top;
-- product title `До размера`;
+- product title `Фото под размер`;
 - all three mode buttons in one row;
 - task content in one primary card;
 - `Arvectum.com` at the bottom;
@@ -35,7 +35,7 @@ This amendment supersedes the historical v0.1 UI/color notes below. Functional s
 
 ---
 
-## 1. Product Contract — «До размера»
+## 1. Product Contract — «Фото под размер»
 
 ### User job
 «Сайт говорит, что файл должен быть не больше X КБ/МБ. Сделай так, чтобы он подошёл».
@@ -133,7 +133,7 @@ Custom range v0.1: 10 КБ–50 МБ.
 
 ### Product lockup
 
-`До размера`  
+`Фото под размер`
 `by Arvectum`
 
 `by Arvectum`:
@@ -154,7 +154,7 @@ Custom range v0.1: 10 КБ–50 МБ.
 - общий акцентный цвет семейства;
 - продукт различается знаком, не новой стилистикой.
 
-Для «До размера»: идея знака — прямоугольник/изображение, сходящийся к ограничительной рамке или двум inward-маркерам. Не использовать банальные «молнию», «магическую палочку», фотоаппарат или облако.
+Для «Фото под размер»: идея знака — прямоугольник/изображение, сходящийся к ограничительной рамке или двум inward-маркерам. Не использовать банальные «молнию», «магическую палочку», фотоаппарат или облако.
 
 ---
 
@@ -301,12 +301,12 @@ Hero:
 ### Empty state
 Top:
 
-`До размера`  
+`Фото под размер`
 `by Arvectum`
 
 Main block:
 
-**Фото должно быть не больше нужного размера?**  
+**Фото должно быть не больше нужного размера?**
 Выберите файл — всё остальное приложение сделает само.
 
 Primary CTA:
@@ -322,7 +322,7 @@ No onboarding carousel. No splash delay.
 ### Selected state
 File card:
 
-`IMG_4821.jpg`  
+`IMG_4821.jpg`
 `12,4 МБ · 4032×3024`
 
 Section:
@@ -330,7 +330,7 @@ Section:
 **Не больше**
 
 Chips:
-`100 КБ` `500 КБ` `1 МБ`  
+`100 КБ` `500 КБ` `1 МБ`
 `2 МБ` `5 МБ` `Свой`
 
 Primary CTA:
@@ -344,7 +344,7 @@ Secondary text action:
 ### If file already fits
 Replace CTA flow with:
 
-**Уже подходит**  
+**Уже подходит**
 `3,7 МБ ≤ 5 МБ`
 
 Actions:
@@ -362,7 +362,7 @@ Top:
 
 Hero:
 
-**4,73 МБ**  
+**4,73 МБ**
 `≤ 5 МБ`
 
 Supporting:
@@ -546,7 +546,7 @@ After the initial size-by-bytes flow, only two product additions are allowed bef
    - The app changes only technical parameters and crop. No AI, retouching, background replacement, face/body modification, beauty processing or content generation.
    - The app does **not** claim to verify pose, facial geometry, expression, background or other visual eligibility requirements; it only prepares the technical file.
 
-After these two additions, «До размера» is feature-frozen for the first market experiment. Any further unrelated user need must be evaluated as a separate Arvectum Tool rather than added to this app.
+After these two additions, «Фото под размер» is feature-frozen for the first market experiment. Any further unrelated user need must be evaluated as a separate Arvectum Tool rather than added to this app.
 
 **Implementation status (2026-09-24): DONE.** All three user modes are implemented: «По весу», «По пикселям», «На паспорт». The Android build passes assembleDebug, lintDebug and unit tests. Next gate: real-device functional testing; no new product features are allowed before measurement.
 

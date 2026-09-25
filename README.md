@@ -4,7 +4,7 @@ Small consumer utilities by Arvectum.
 
 **Principles:** One tool. One job. Done. · Local first.
 
-## First tool: «До размера»
+## First tool: «Фото под размер»
 
 Android utility with three intentionally final user modes for the first market experiment:
 

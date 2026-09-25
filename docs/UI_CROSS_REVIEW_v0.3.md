@@ -1,4 +1,4 @@
-# «До размера» — UI/UX Cross-Review v0.3
+# «Фото под размер» — UI/UX Cross-Review v0.3
 
 **Date:** 2026-09-24
 **Scope:** UI/UX only. Product functionality remains feature-frozen.

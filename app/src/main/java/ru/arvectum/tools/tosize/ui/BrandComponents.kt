@@ -42,7 +42,7 @@ import ru.arvectum.tools.tosize.ToolMode
 @Composable
 fun BrandHeader(
     modifier: Modifier = Modifier,
-    title: String = "До размера",
+    title: String = "Фото под размер",
 ) {
     Surface(
         modifier = modifier.fillMaxWidth(),
@@ -50,25 +50,28 @@ fun BrandHeader(
         color = ArvectumDeepNavy,
         contentColor = ArvectumWhite,
     ) {
-        Column(
-            modifier = Modifier.padding(
-                horizontal = 16.dp,
-                vertical = 14.dp,
-            ),
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 14.dp, vertical = 10.dp),
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             Image(
                 painter = painterResource(R.drawable.arvectum_wordmark),
                 contentDescription = "Логотип Arvectum",
                 modifier = Modifier
-                    .width(132.dp)
-                    .height(42.dp),
+                    .width(108.dp)
+                    .height(34.dp),
                 contentScale = ContentScale.Fit,
             )
-            Spacer(Modifier.height(8.dp))
+            Spacer(Modifier.weight(1f))
             Text(
                 text = title,
-                style = MaterialTheme.typography.headlineSmall,
                 color = ArvectumWhite,
+                fontSize = 18.sp,
+                fontWeight = FontWeight.SemiBold,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
             )
         }
     }

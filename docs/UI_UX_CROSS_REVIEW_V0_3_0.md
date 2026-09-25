@@ -1,4 +1,4 @@
-# «До размера» — UI/UX cross-review v0.3.0
+# «Фото под размер» — UI/UX cross-review v0.3.0
 
 Date: 2026-09-24
 
@@ -68,7 +68,7 @@ Changes:
 
 ## Final screen grammar
 
-1. Brand header: canonical Arvectum logo + «До размера».
+1. Brand header: canonical Arvectum logo + «Фото под размер».
 2. Mode row: «По весу» / «По пикселям» / «На паспорт».
 3. One main task card.
 4. One primary mint action.
