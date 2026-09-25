@@ -7,6 +7,24 @@
 **Consumer family:** Arvectum Tools
 **Principles:** One tool. One job. Done. / Local first.
 
+## Current release state — 2026-09-25
+
+**Canonical Android build:** `Фото под размер 0.4.2` (`versionCode 7`).
+
+The product/UI phase is complete for the first market test. The approved launcher icon is the edge-to-edge Deep Navy portrait-in-frame artwork with four inward mint arrows. Primary flows must fit without vertical scrolling.
+
+**Current phase:** release preparation.
+
+Next work is:
+- production signing;
+- RuStore publication;
+- iOS/App Store port and publication;
+- no new product features before the first market experiment.
+
+Canonical handoff: `docs/RELEASE_HANDOFF_2026-09-25.md`.
+
+---
+
 ## Current amendment — v0.3.0
 
 This amendment supersedes the historical v0.1 UI/color notes below. Functional scope remains frozen after v0.2; v0.3.0 changes branding and interaction polish only.
