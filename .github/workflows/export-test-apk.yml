@@ -13,11 +13,11 @@ jobs:
       - name: Download prerelease APK
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh release download v0.4.1-debug-6 --repo "${GITHUB_REPOSITORY}" --pattern "Foto-pod-razmer-0.4.1-debug.apk"
+        run: gh release download v0.4.2-debug-7 --repo "${GITHUB_REPOSITORY}" --pattern "Foto-pod-razmer-0.4.2-debug.apk"
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
-          name: foto-pod-razmer-0.4.1-debug
-          path: Foto-pod-razmer-0.4.1-debug.apk
+          name: foto-pod-razmer-0.4.2-debug
+          path: Foto-pod-razmer-0.4.2-debug.apk
           if-no-files-found: error
