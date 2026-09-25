@@ -12,7 +12,7 @@
 
 **Сайт разработчика:** https://arvectum.com
 
-**Политика конфиденциальности:** https://arvectum.com/photo-pod-razmer-privacy.html
+**Политика конфиденциальности:** https://github.com/arvectum2/arvectum-tools/blob/main/PRIVACY.md
 
 **Цена:** Бесплатно
 
