@@ -124,7 +124,7 @@ class CompressionEngine(private val context: Context) {
             if (finalSize !in PASSPORT_MIN_BYTES.toLong()..PASSPORT_MAX_BYTES.toLong()) {
                 file.delete()
                 throw UserVisibleException(
-                    "Не получилось уложить паспортное фото в допустимый размер файла.",
+                    "Не получилось подготовить файл нужного размера для заявления.",
                 )
             }
 
@@ -157,7 +157,7 @@ class CompressionEngine(private val context: Context) {
                     if (file.length() > requestedMaximumBytes) {
                         file.delete()
                         throw UserVisibleException(
-                            "Не удалось надёжно уложить файл в заданный размер.",
+                            "Не получилось уменьшить файл до выбранного размера.",
                         )
                     }
                     return CompressionOutput(
@@ -189,7 +189,7 @@ class CompressionEngine(private val context: Context) {
             }
 
             throw UserVisibleException(
-                "До такого размера уменьшить изображение без серьёзной потери качества не удалось.",
+                "Не получилось уменьшить изображение до выбранного размера без заметной потери качества.",
             )
         } finally {
             if (!working.isRecycled) working.recycle()
@@ -235,7 +235,7 @@ class CompressionEngine(private val context: Context) {
 
         val lowest = encode(bitmap, minQuality)
         if (lowest.size > maximumBytes) {
-            throw UserVisibleException("Не получилось уложить изображение в допустимый размер.")
+            throw UserVisibleException("Не получилось уменьшить файл до допустимого размера.")
         }
 
         var best = lowest

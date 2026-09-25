@@ -11,7 +11,7 @@
 
 This amendment supersedes the historical v0.1 UI/color notes below. Functional scope remains frozen after v0.2; v0.3.0 changes branding and interaction polish only.
 
-**Final user modes:** `По весу` / `По пикселям` / `На паспорт`.
+**Final user modes:** `По весу` / `По размеру` / `На паспорт`.
 
 **Final app shell:**
 - canonical Arvectum wordmark at the top;
@@ -526,7 +526,7 @@ Retention is secondary for this utility category.
 #### Scope freeze after v0.2
 After the initial size-by-bytes flow, only two product additions are allowed before feature freeze:
 
-1. **По пикселям**
+1. **По размеру**
    - Presets: 600 px / 450 px / 300 px / custom.
    - The number always means the **long side** of a rectangular image.
    - Aspect ratio is preserved.
@@ -548,7 +548,7 @@ After the initial size-by-bytes flow, only two product additions are allowed bef
 
 After these two additions, «Фото под размер» is feature-frozen for the first market experiment. Any further unrelated user need must be evaluated as a separate Arvectum Tool rather than added to this app.
 
-**Implementation status (2026-09-24): DONE.** All three user modes are implemented: «По весу», «По пикселям», «На паспорт». The Android build passes assembleDebug, lintDebug and unit tests. Next gate: real-device functional testing; no new product features are allowed before measurement.
+**Implementation status (2026-09-24): DONE.** All three user modes are implemented: «По весу», «По размеру», «На паспорт». The Android build passes assembleDebug, lintDebug and unit tests. Next gate: real-device functional testing; no new product features are allowed before measurement.
 
 First functional increment completed locally:
 - Android project: Kotlin + Compose + Material 3.

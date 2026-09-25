@@ -53,22 +53,22 @@ fun BrandHeader(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 14.dp, vertical = 10.dp),
+                .padding(horizontal = 12.dp, vertical = 7.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Image(
                 painter = painterResource(R.drawable.arvectum_wordmark),
                 contentDescription = "Логотип Arvectum",
                 modifier = Modifier
-                    .width(108.dp)
-                    .height(34.dp),
+                    .width(102.dp)
+                    .height(30.dp),
                 contentScale = ContentScale.Fit,
             )
             Spacer(Modifier.weight(1f))
             Text(
                 text = title,
                 color = ArvectumWhite,
-                fontSize = 18.sp,
+                fontSize = 17.sp,
                 fontWeight = FontWeight.SemiBold,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
@@ -82,7 +82,7 @@ fun BrandFooter(modifier: Modifier = Modifier) {
     Box(
         modifier = modifier
             .fillMaxWidth()
-            .height(48.dp),
+            .height(34.dp),
         contentAlignment = Alignment.Center,
     ) {
         Text(
@@ -113,7 +113,7 @@ fun ModeSelector(
             modifier = Modifier.weight(1f),
         )
         ModeButton(
-            label = "По пикселям",
+            label = "По размеру",
             selected = mode == ToolMode.PIXELS,
             enabled = enabled,
             onClick = { onModeChange(ToolMode.PIXELS) },
@@ -198,7 +198,7 @@ fun BrandCard(
         ),
         content = {
             Column(
-                modifier = Modifier.padding(18.dp),
+                modifier = Modifier.padding(14.dp),
                 content = { content() },
             )
         },
@@ -218,7 +218,7 @@ fun BrandPrimaryButton(
         enabled = enabled,
         modifier = modifier
             .fillMaxWidth()
-            .height(56.dp),
+            .height(52.dp),
         shape = RoundedCornerShape(16.dp),
         colors = ButtonDefaults.buttonColors(
             containerColor = MaterialTheme.colorScheme.primary,
@@ -254,7 +254,7 @@ fun BrandSecondaryButton(
         enabled = enabled,
         modifier = modifier
             .fillMaxWidth()
-            .height(56.dp),
+            .height(52.dp),
         shape = RoundedCornerShape(16.dp),
         border = BorderStroke(
             1.dp,

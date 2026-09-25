@@ -9,14 +9,13 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBarsPadding
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -81,11 +80,11 @@ fun PassportCropScreen(
                 modifier = Modifier.padding(
                     start = 18.dp,
                     end = 18.dp,
-                    top = 12.dp,
+                    top = 8.dp,
                 ),
             ) {
                 BrandHeader()
-                Spacer(Modifier.height(16.dp))
+                Spacer(Modifier.height(8.dp))
             }
 
             Box(
@@ -176,44 +175,50 @@ private fun CropEditor(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .verticalScroll(rememberScrollState())
-            .padding(horizontal = 18.dp)
-            .padding(bottom = 12.dp),
+            .padding(horizontal = 14.dp)
+            .padding(bottom = 4.dp),
     ) {
-        BrandCard {
+        BrandCard(modifier = Modifier.fillMaxSize()) {
             BrandAccentText("НА ПАСПОРТ")
-            Spacer(Modifier.height(6.dp))
+            Spacer(Modifier.height(4.dp))
             Text(
-                text = "Кадр 35×45",
-                style = MaterialTheme.typography.titleLarge,
+                text = "Подогнать фото под 35×45",
+                style = MaterialTheme.typography.titleMedium,
             )
-            Spacer(Modifier.height(6.dp))
+            Spacer(Modifier.height(4.dp))
             Text(
-                text = "Перемещайте фото и увеличивайте двумя пальцами. В результат попадёт только содержимое рамки.",
+                text = "Перемещайте фото и масштабируйте двумя пальцами.",
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
-            Spacer(Modifier.height(14.dp))
+            Spacer(Modifier.height(8.dp))
 
-            Surface(
+            Box(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .aspectRatio(
-                        CompressionEngine.PASSPORT_WIDTH_PX.toFloat() /
-                            CompressionEngine.PASSPORT_HEIGHT_PX,
-                    ),
-                shape = RoundedCornerShape(18.dp),
-                color = MaterialTheme.colorScheme.background,
-                border = BorderStroke(
-                    2.dp,
-                    MaterialTheme.colorScheme.primary,
-                ),
+                    .weight(1f)
+                    .fillMaxWidth(),
+                contentAlignment = Alignment.Center,
             ) {
-                Canvas(
+                Surface(
                     modifier = Modifier
-                        .fillMaxSize()
-                        .onSizeChanged { viewport = it }
-                        .pointerInput(bitmap, viewport) {
+                        .fillMaxHeight()
+                        .aspectRatio(
+                            CompressionEngine.PASSPORT_WIDTH_PX.toFloat() /
+                                CompressionEngine.PASSPORT_HEIGHT_PX,
+                            matchHeightConstraintsFirst = true,
+                        ),
+                    shape = RoundedCornerShape(16.dp),
+                    color = MaterialTheme.colorScheme.background,
+                    border = BorderStroke(
+                        2.dp,
+                        MaterialTheme.colorScheme.primary,
+                    ),
+                ) {
+                    Canvas(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .onSizeChanged { viewport = it }
+                            .pointerInput(bitmap, viewport) {
                             detectTransformGestures { _, pan, gestureZoom, _ ->
                                 if (size.width == 0 || size.height == 0) {
                                     return@detectTransformGestures
@@ -268,16 +273,17 @@ private fun CropEditor(
                         ),
                         filterQuality = FilterQuality.High,
                     )
+                    }
                 }
             }
 
-            Spacer(Modifier.height(12.dp))
+            Spacer(Modifier.height(8.dp))
             Text(
-                text = "620×797 px  ·  450 DPI  ·  JPEG",
+                text = "620×797 px · 450 DPI · JPEG",
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
-            Spacer(Modifier.height(18.dp))
+            Spacer(Modifier.height(10.dp))
 
             BrandPrimaryButton(
                 text = "Подготовить фото",
@@ -295,7 +301,7 @@ private fun CropEditor(
                     )
                 },
             )
-            Spacer(Modifier.height(8.dp))
+            Spacer(Modifier.height(6.dp))
             BrandSecondaryButton(
                 text = "Отмена",
                 enabled = true,

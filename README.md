@@ -9,7 +9,7 @@ Small consumer utilities by Arvectum.
 Android utility with three intentionally final user modes for the first market experiment:
 
 - **По весу** — make an image fit a maximum file size.
-- **По пикселям** — set the long side to 600 / 450 / 300 px or a custom value; the short side is calculated automatically with aspect ratio preserved.
+- **По размеру** — set the long side to 600 / 450 / 300 px or a custom value; the short side is calculated automatically with aspect ratio preserved.
 - **На паспорт** — prepare the technical file for a passport application through Госуслуги: manual 35×45 crop, 620×797 px, 450 DPI, JPEG, 10 KB–5 MB.
 
 Passport mode changes only crop and technical file parameters. It does not use AI, retouch the image, replace the background, analyze the face, or claim that the photographed person satisfies visual eligibility requirements.
