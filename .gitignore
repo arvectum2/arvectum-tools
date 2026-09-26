@@ -13,3 +13,7 @@ captures/
 keystore.properties
 *.jks
 *.keystore
+
+# Xcode / iOS generated files
+ios/*.xcodeproj/
+ios/DerivedData/

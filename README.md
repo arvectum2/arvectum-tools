@@ -6,7 +6,7 @@ Small consumer utilities by Arvectum.
 
 ## First tool: «Фото под размер»
 
-Android utility with three intentionally final user modes for the first market experiment:
+Native Android and iOS utility with three intentionally final user modes for the first market experiment:
 
 - **По весу** — make an image fit a maximum file size.
 - **По размеру** — set the long side to 600 / 450 / 300 px or a custom value; the short side is calculated automatically with aspect ratio preserved.
@@ -20,14 +20,28 @@ Passport mode changes only crop and technical file parameters. It does not use A
 
 ## Build
 
+### Android
+
 Requirements: JDK 17 and Android SDK 37.
 
 ```bash
 ./gradlew assembleDebug lintDebug test
 ```
 
-Debug APK:
+Debug APK: `app/build/outputs/apk/debug/app-debug.apk`.
 
-`app/build/outputs/apk/debug/app-debug.apk`
+### iOS
+
+Requirements: Xcode 26.x and XcodeGen.
+
+```bash
+cd ios
+xcodegen generate
+xcodebuild -project PhotoPodRazmerIOS.xcodeproj -scheme PhotoPodRazmer \
+  -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' \
+  CODE_SIGNING_ALLOWED=NO build
+```
+
+The App Store release target uses bundle ID `ru.arvectum.tools.tosize`. See `docs/appstore/` for release metadata and checklist.
 
 See [ROADMAP.md](ROADMAP.md) for the canonical product contract, scope, design system and experiment plan.
