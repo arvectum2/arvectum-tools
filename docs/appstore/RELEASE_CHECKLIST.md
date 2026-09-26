@@ -18,21 +18,25 @@
 
 ## App Store Connect
 
-- [ ] Create App Store Connect app record
-- [ ] Upload build `0.4.2 (1)`
-- [ ] Wait for build processing
-- [ ] Add Russian store metadata
-- [ ] Upload iPhone 6.9-inch screenshots
-- [ ] Complete App Privacy: Data Not Collected
-- [ ] Complete age-rating questionnaire
-- [ ] Confirm content-rights answers
-- [ ] Confirm DSA/trader status is complete for the organization
-- [ ] Confirm app availability territories
-- [ ] Confirm free pricing / tax category
-- [ ] Select processed build for version 0.4.2
-- [ ] Complete export-compliance questions
-- [ ] Submit to App Review
-- [ ] Choose release mode after approval
+- [x] Create App Store Connect app record (Apple ID `6816346084`)
+- [x] Upload build `0.4.2 (1)`
+- [x] Build processing completed: `VALID`
+- [x] Add Russian store metadata
+- [x] Upload 3 iPhone screenshots (6.5-inch slot, 1284×2778)
+- [x] Complete and publish App Privacy: **Data Not Collected**
+- [x] Complete age-rating questionnaire: **4+**
+- [x] Confirm content rights: no third-party content
+- [x] DSA trader status already configured for LLC ARVECTUM
+- [x] Availability: all 175 countries or regions
+- [x] Pricing: free (`$0.00` base price)
+- [x] Select processed build for version 0.4.2
+- [x] Export compliance: non-exempt encryption = false
+- [x] Submit to App Review
+- [x] Release mode: automatically after approval
+- [ ] Apple review completed
+- [ ] Version available on the App Store
+
+**Current status: `WAITING_FOR_REVIEW` (submitted 2026-09-26).**
 
 ## Release artifact
 
@@ -47,4 +51,4 @@ Verified properties:
 - production provisioning profile: `Arvectum Photo Pod Razmer App Store`
 - `get-task-allow = false`
 - privacy manifest present
-- IPA SHA-256: `a9ef53c7815b002b65183ba4dcc1c11c60cb27ecf523a143a19aec68db543fce`
+- IPA SHA-256: `bd09c03d70a18b1debc2400243155287c28a365d16d76060f319bd49cc8d590e`
