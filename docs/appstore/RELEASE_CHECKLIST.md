@@ -33,10 +33,20 @@
 - [x] Export compliance: non-exempt encryption = false
 - [x] Submit to App Review
 - [x] Release mode: automatically after approval
+- [x] First review response received: **Guideline 2.1 — Information Needed**
+- [x] Add all six requested information items to App Review Notes
+- [x] Prepare written response for the App Review conversation
+- [x] Prepare physical iPhone QA/install workflow
+- [x] Prepare physical-device screen-recording workflow
+- [ ] Connect iPhone 13 to Mac mini by USB
+- [ ] Install and QA 0.4.2 (1) on iPhone 13 / iOS 27.0
+- [ ] Record the complete physical-device user flow
+- [ ] Attach recording and send the prepared reply to Apple
+- [ ] Resubmit 0.4.2 (1) to App Review
 - [ ] Apple review completed
 - [ ] Version available on the App Store
 
-**Current status: `WAITING_FOR_REVIEW` (submitted 2026-09-26).**
+**Current status: `REJECTED` — Guideline 2.1 / Information Needed. No functional defect was identified by Apple.**
 
 ## Release artifact
 

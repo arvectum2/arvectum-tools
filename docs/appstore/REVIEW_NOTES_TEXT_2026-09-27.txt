@@ -1,0 +1,21 @@
+Guideline 2.1 additional information for “Фото под размер” 0.4.2 (1).
+
+1. SCREEN RECORDING
+A physical-device screen recording from the paired iPhone 13 (iPhone14,5) running iOS 27.0 will be attached to the App Review conversation before resubmission. It starts from a cold launch and shows the normal flow for all three modes: photo selection, processing, result, save/export, and Share.
+
+2. PURPOSE / TARGET AUDIENCE
+The app is a small image utility for people who need a photo file to meet a specific technical upload limit. It reduces an image to a maximum file size, resizes by the long side in pixels, and prepares the technical 35×45 crop used for passport-application image files. Processing is fast and local, with no account or cloud upload.
+
+3. ACCESS / SETUP
+No registration, login, subscription, payment, or special configuration is required. Launch the app → choose “По весу”, “По размеру”, or “На паспорт” → tap “Выбрать фото” → select an image with the system iOS photo picker → choose the limit/size or adjust the 35×45 crop → process → review the result → save/export or Share. No special sample file is required; any JPEG, PNG, or HEIC image can be used. A portrait photo can demonstrate the 35×45 crop.
+
+4. EXTERNAL SERVICES
+None. The app has no backend, authentication provider, payment processor, analytics SDK, advertising SDK, AI service, cloud image processor, or third-party SDK. Image processing is performed on-device using Apple system frameworks. It uses the system photo picker, file export/save flow, and Share sheet.
+
+5. REGIONAL DIFFERENCES
+None. There is no geofencing, region-dependent account, or regional service. Functionality is consistent in all regions where the app is distributed.
+
+6. REGULATED / PROTECTED CONTENT
+The app is not a government or identity-verification service and does not connect to government systems. “На паспорт” only prepares technical file parameters (manual 35×45 crop, 620×797 px, 450 DPI, JPEG). It does not verify identity, alter the face/background/appearance, determine eligibility, or certify government compliance. The app does not contain or distribute protected third-party material.
+
+Before resubmission, 0.4.2 (1) will be QA-tested on the same physical iPhone used for the recording.

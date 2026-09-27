@@ -2,6 +2,7 @@
 import json, os, re, subprocess, urllib.request, urllib.error
 from pathlib import Path
 
+ROOT=Path(__file__).resolve().parents[2]
 APP_ID="6816346084"
 VERSION_ID="e0d324d2-1af2-441f-9f6c-5c80dba39f1b"
 APP_INFO_ID="b031f76b-cd3f-48a5-9aaa-9f07239d8144"
@@ -43,18 +44,7 @@ api("PATCH",f"/appInfoLocalizations/{loc['id']}",{
 print("APP_INFO_LOCALIZATION_UPDATED",loc["id"])
 
 review=api("GET",f"/appStoreVersions/{VERSION_ID}/appStoreReviewDetail").get("data")
-notes="""The app does not require registration or sign-in. All functionality is available immediately after launch.
-
-Images are selected through the system iOS photo picker and processed locally on-device. The app has no backend, advertising SDK, analytics SDK, or account system.
-
-There are three modes:
-1. "По весу" — reduces the selected image so the output does not exceed the chosen file-size limit.
-2. "По размеру" — resizes by the image's long side while preserving aspect ratio and does not enlarge smaller images.
-3. "На паспорт" — provides manual 35×45 cropping and exports a JPEG at 620×797 px and 450 DPI.
-
-The passport mode is a technical file-preparation utility only. It does not alter or validate the face, background, pose, appearance, or eligibility of the photographed person, and the app is not affiliated with a government authority.
-
-No special test account or review credentials are required."""
+notes=(ROOT/"docs"/"appstore"/"REVIEW_NOTES_TEXT_2026-09-27.txt").read_text()
 review_attrs={
     "contactFirstName":"Nikita",
     "contactLastName":"Arutyunov",
