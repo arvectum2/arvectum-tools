@@ -130,7 +130,12 @@ duplication instead of hiding it.
 - Focus / Do Not Disturb capture: verified with structured fields and no duplicate candidate.
 - Low Power Mode capture: verified with structured fields and no duplicate candidate.
 - Foreground capture: verified with structured fields and no duplicate candidate.
+- Explicit user force-quit capture: verified with structured fields and no duplicate candidate.
 - Production project deployment target: iOS 27.
+
+## Controlled structured test sample
+
+Seven expected user-driven test notifications were sent after structured mapping was enabled: Telegram baseline, Messages baseline, locked device, Focus, Low Power Mode, foreground, and explicit force-quit. All 7 were captured in SwiftData and none was marked as a duplicate. This is still too small a sample to estimate production reliability.
 
 ## Still unproven
 
@@ -138,7 +143,6 @@ Gate A is **not closed yet**. The following still need measured physical-device
 coverage:
 
 - exact reliability / loss rate;
-- explicit user force-quit;
 - at least 10 common source apps;
 - whether the structured Notification properties behave consistently across those apps;
 - whether an original notification timestamp is available;

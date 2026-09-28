@@ -46,6 +46,7 @@ The product starts with notification history and progressively expands into snoo
   - [x] app is open
   - [x] app is in background
   - [x] app has been terminated
+  - [x] app was explicitly force-quit
   - [x] device is locked
   - [x] Focus mode is active
   - [x] Low Power Mode is active
