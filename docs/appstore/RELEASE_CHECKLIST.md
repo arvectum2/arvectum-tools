@@ -38,15 +38,15 @@
 - [x] Prepare written response for the App Review conversation
 - [x] Prepare physical iPhone QA/install workflow
 - [x] Prepare physical-device screen-recording workflow: CoreDevice `DisplayService` + `UniversalHIDService` + `ScreenCaptureService`, raw HEVC → H.264 MOV
-- [ ] Connect iPhone 13 to Mac mini by USB
-- [ ] Complete final QA of 0.4.2 (2) on iPhone 13 / iOS 27.0
-- [ ] Record the complete physical-device user flow
-- [ ] Attach recording and send the prepared reply to Apple
-- [ ] Resubmit 0.4.2 (2) to App Review
+- [x] Connect iPhone 13 to Mac mini by USB
+- [x] Complete final QA of 0.4.2 (2) on iPhone 13 / iOS 27.0
+- [x] Record the complete physical-device user flow — CoreDevice physical display capture, H.264 MOV 1184×2576, 44.36 s
+- [x] Attach recording to App Review — attachment `7f1d6c60-eeb4-4a65-bc03-7fc871de8096`, processing state `COMPLETE`; App Review Notes updated with all requested information
+- [x] Resubmit 0.4.2 (2) to App Review — submission `3d919ac2-4fbe-4a40-886a-c48a44276ec0`
 - [ ] Apple review completed
 - [ ] Version available on the App Store
 
-**Current status: `REJECTED` — Guideline 2.1 / Information Needed. No functional defect was identified by Apple.**
+**Current status: `WAITING_FOR_REVIEW` — build `0.4.2 (2)` resubmitted after the Guideline 2.1 response and physical-device recording.**
 
 ## Release artifact
 

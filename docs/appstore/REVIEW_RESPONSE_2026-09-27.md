@@ -20,7 +20,7 @@ Hello App Review,
 Thank you for the request. Below is the additional information for “Фото под размер” version 0.4.2 (build 2).
 
 **1. Physical-device screen recording**
-A screen recording captured on the paired physical iPhone 13 (iPhone14,5) running iOS 27.0 will be attached to this App Review conversation before resubmission. The recording starts with a cold launch and demonstrates the normal user flow for all three modes, including selecting a photo, processing it, and the result/save/share flow.
+A screen recording captured on the paired physical iPhone 13 (iPhone14,5) running iOS 27.0 is attached to App Review. It starts before app launch and demonstrates the normal processing flow for all three modes and their result screens. A test image is already selected so the recording does not expose unrelated personal photos in the device library; the system photo-picker access steps are documented below.
 
 **2. Purpose and target audience**
 “Фото под размер” is a small utility for people who need an image file to meet a specific technical upload limit. It solves three common tasks: reducing a photo to a maximum file size, resizing it by the long side in pixels, and preparing the technical 35×45 crop used for passport-application image files. The value is fast, local processing without an account, backend, cloud upload, advertising, or analytics.
