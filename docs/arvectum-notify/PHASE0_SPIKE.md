@@ -129,6 +129,7 @@ duplication instead of hiding it.
 - Locked-device Telegram capture: verified with structured fields and no duplicate candidate.
 - Focus / Do Not Disturb capture: verified with structured fields and no duplicate candidate.
 - Low Power Mode capture: verified with structured fields and no duplicate candidate.
+- Foreground capture: verified with structured fields and no duplicate candidate.
 - Production project deployment target: iOS 27.
 
 ## Still unproven
@@ -137,7 +138,6 @@ Gate A is **not closed yet**. The following still need measured physical-device
 coverage:
 
 - exact reliability / loss rate;
-- app foreground;
 - explicit user force-quit;
 - at least 10 common source apps;
 - whether the structured Notification properties behave consistently across those apps;

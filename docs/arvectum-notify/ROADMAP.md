@@ -43,7 +43,7 @@ The product starts with notification history and progressively expands into snoo
   - [ ] attachments / URLs if exposed
   - [ ] other metadata
 - [ ] Test while:
-  - [ ] app is open
+  - [x] app is open
   - [x] app is in background
   - [x] app has been terminated
   - [x] device is locked
