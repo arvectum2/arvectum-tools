@@ -52,7 +52,12 @@ actor NotifyPersistenceActor {
             bodyText: draft.bodyText,
             receivedAt: draft.receivedAt,
             capturedAt: draft.capturedAt,
-            duplicateCandidate: duplicate
+            duplicateCandidate: duplicate,
+            rawTitleText: draft.rawTitleText,
+            rawSubtitleText: draft.rawSubtitleText,
+            rawMessageText: draft.rawMessageText,
+            normalizationMode: draft.normalizationMode,
+            timestampSource: draft.timestampSource
         )
 
         modelContext.insert(record)

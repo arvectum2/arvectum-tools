@@ -123,8 +123,45 @@ private struct NotificationDetailView: View {
                     value: item.captureChannel
                 )
             }
+
+            Section("Phase 0 diagnostics") {
+                LabeledContent(
+                    "Normalization",
+                    value: item.normalizationMode ?? "legacy record"
+                )
+                LabeledContent(
+                    "Timestamp source",
+                    value: item.timestampSource ?? "legacy record"
+                )
+
+                if let rawTitle = item.rawTitleText {
+                    DiagnosticPayloadRow(label: "Raw Title input", value: rawTitle)
+                }
+                if let rawSubtitle = item.rawSubtitleText {
+                    DiagnosticPayloadRow(label: "Raw Subtitle input", value: rawSubtitle)
+                }
+                if let rawMessage = item.rawMessageText {
+                    DiagnosticPayloadRow(label: "Raw Message input", value: rawMessage)
+                }
+            }
         }
         .navigationTitle("Notification")
         .navigationBarTitleDisplayMode(.inline)
+    }
+}
+
+
+private struct DiagnosticPayloadRow: View {
+    let label: String
+    let value: String
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            Text(label)
+                .font(.caption)
+                .foregroundStyle(.secondary)
+            Text(value.isEmpty ? "Empty" : value)
+                .textSelection(.enabled)
+        }
     }
 }

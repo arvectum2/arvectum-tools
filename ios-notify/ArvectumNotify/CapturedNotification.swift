@@ -14,6 +14,14 @@ final class CapturedNotification {
     var duplicateCandidate: Bool
     var captureChannel: String
 
+    // Optional Phase 0 diagnostics. Optional fields keep existing SwiftData
+    // stores lightweight-migratable when the spike evolves.
+    var rawTitleText: String?
+    var rawSubtitleText: String?
+    var rawMessageText: String?
+    var normalizationMode: String?
+    var timestampSource: String?
+
     init(
         id: UUID = UUID(),
         sourceApp: String,
@@ -24,7 +32,12 @@ final class CapturedNotification {
         receivedAt: Date,
         capturedAt: Date = .now,
         duplicateCandidate: Bool = false,
-        captureChannel: String = "shortcuts-notification"
+        captureChannel: String = "shortcuts-notification",
+        rawTitleText: String? = nil,
+        rawSubtitleText: String? = nil,
+        rawMessageText: String? = nil,
+        normalizationMode: String? = nil,
+        timestampSource: String? = nil
     ) {
         self.id = id
         self.sourceApp = sourceApp
@@ -36,6 +49,11 @@ final class CapturedNotification {
         self.capturedAt = capturedAt
         self.duplicateCandidate = duplicateCandidate
         self.captureChannel = captureChannel
+        self.rawTitleText = rawTitleText
+        self.rawSubtitleText = rawSubtitleText
+        self.rawMessageText = rawMessageText
+        self.normalizationMode = normalizationMode
+        self.timestampSource = timestampSource
     }
 }
 
@@ -47,4 +65,9 @@ struct NotificationCaptureDraft: Sendable {
     let bodyText: String
     let receivedAt: Date
     let capturedAt: Date
+    var rawTitleText: String? = nil
+    var rawSubtitleText: String? = nil
+    var rawMessageText: String? = nil
+    var normalizationMode: String? = nil
+    var timestampSource: String? = nil
 }

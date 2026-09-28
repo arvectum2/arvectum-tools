@@ -63,9 +63,13 @@ final class ShortcutNotificationPayloadTests: XCTestCase {
             message: nil
         )
 
+        XCTAssertEqual(payload.rawTitleText, "Sender\nTest message")
+        XCTAssertNil(payload.rawSubtitleText)
+        XCTAssertNil(payload.rawMessageText)
         XCTAssertEqual(payload.titleText, "Sender")
         XCTAssertEqual(payload.subtitleText, "")
         XCTAssertEqual(payload.bodyText, "Test message")
+        XCTAssertEqual(payload.normalizationMode, "multiline-title-body")
     }
 
     func testStructuredFieldsArePreserved() {
@@ -75,8 +79,25 @@ final class ShortcutNotificationPayloadTests: XCTestCase {
             message: "Message body"
         )
 
+        XCTAssertEqual(payload.rawTitleText, "Sender")
+        XCTAssertEqual(payload.rawSubtitleText, "Chat")
+        XCTAssertEqual(payload.rawMessageText, "Message body")
         XCTAssertEqual(payload.titleText, "Sender")
         XCTAssertEqual(payload.subtitleText, "Chat")
         XCTAssertEqual(payload.bodyText, "Message body")
+        XCTAssertEqual(payload.normalizationMode, "structured-fields")
+    }
+
+    func testTitleOnlyPayloadIsNotInventedIntoBody() {
+        let payload = ShortcutNotificationPayload(
+            title: "Single line",
+            subtitle: nil,
+            message: nil
+        )
+
+        XCTAssertEqual(payload.titleText, "Single line")
+        XCTAssertEqual(payload.subtitleText, "")
+        XCTAssertEqual(payload.bodyText, "")
+        XCTAssertEqual(payload.normalizationMode, "title-only")
     }
 }

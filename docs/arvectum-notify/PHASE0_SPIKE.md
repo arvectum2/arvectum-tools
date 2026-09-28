@@ -98,6 +98,7 @@ duplication instead of hiding it.
 - Minimal Inbox: complete.
 - Guided Setup screen: complete.
 - Diagnostics counters/reset: complete.
+- Raw Shortcuts payload diagnostics: implemented for new captures.
 - Duplicate-detection unit test: passing on iPhone 13 / iOS 27.0.
 - iOS 27 multiline payload-normalization tests: passing on iPhone 13 / iOS 27.0.
 - Physical device build/sign/install: passing with Xcode 27.0.
@@ -170,5 +171,23 @@ Start with 3–5 apps to validate the setup, then expand to:
 Remain at Phase 0 until physical-device tests show that capture reliability,
 payload usefulness, and setup complexity are acceptable for a mass-market app.
 
-The first physical Telegram capture is a positive feasibility result, not yet a
-reliability result.
+The first physical Telegram captures are a positive feasibility result, not yet
+a reliability result.
+
+## Preliminary Telegram observations
+
+Two user-driven Telegram test pushes sent after the automation was configured
+were both eventually present in SwiftData, with zero duplicate candidates in
+that small sample.
+
+The later capture occurred while Arvectum Notify was not the foreground app,
+which verifies the background/suspended capture path for this scenario.
+
+One test capture was not present during the first immediate checks and appeared
+on a later re-check. Because the original notification timestamp is not exposed
+in the current setup, exact latency cannot yet be calculated. Phase 0 therefore
+tracks **delayed capture** separately from **missing capture**.
+
+The spike now stores optional raw Shortcuts inputs, normalization mode, and
+timestamp source for new records. Existing records remain readable through a
+lightweight SwiftData schema migration.

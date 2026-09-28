@@ -2,20 +2,26 @@ import AppIntents
 import Foundation
 
 struct ShortcutNotificationPayload: Equatable {
+    let rawTitleText: String?
+    let rawSubtitleText: String?
+    let rawMessageText: String?
     let titleText: String
     let subtitleText: String
     let bodyText: String
+    let normalizationMode: String
 
     init(title: String?, subtitle: String?, message: String?) {
+        rawTitleText = title
+        rawSubtitleText = subtitle
+        rawMessageText = message
+
         let title = title?.trimmed ?? ""
         let subtitle = subtitle?.trimmed ?? ""
         let message = message?.trimmed ?? ""
 
-        // iOS 27's Notification trigger currently exposes one magic variable in
-        // the action editor. When that value is coerced to String, real-world
-        // Telegram notifications arrive as "title\nmessage". Preserve explicit
-        // structured fields when Shortcuts provides them, otherwise normalize
-        // this measured fallback into separate title/body fields.
+        // Measured on iOS 27: the Notification magic variable coerces to
+        // "title\nmessage" for Telegram. Preserve structured fields whenever
+        // Shortcuts supplies them and normalize only the measured fallback.
         if subtitle.isEmpty, message.isEmpty {
             let parts = title.components(separatedBy: .newlines)
             let firstLine = parts.first?.trimmed ?? ""
@@ -27,13 +33,21 @@ struct ShortcutNotificationPayload: Equatable {
                 titleText = firstLine
                 subtitleText = ""
                 bodyText = remainingText
+                normalizationMode = "multiline-title-body"
                 return
             }
+
+            titleText = title
+            subtitleText = ""
+            bodyText = ""
+            normalizationMode = "title-only"
+            return
         }
 
         titleText = title
         subtitleText = subtitle
         bodyText = message
+        normalizationMode = "structured-fields"
     }
 }
 
@@ -76,7 +90,12 @@ struct CaptureNotificationIntent: AppIntent {
             subtitleText: payload.subtitleText,
             bodyText: payload.bodyText,
             receivedAt: receivedAt ?? capturedAt,
-            capturedAt: capturedAt
+            capturedAt: capturedAt,
+            rawTitleText: payload.rawTitleText,
+            rawSubtitleText: payload.rawSubtitleText,
+            rawMessageText: payload.rawMessageText,
+            normalizationMode: payload.normalizationMode,
+            timestampSource: receivedAt == nil ? "capture-time-fallback" : "shortcut-provided"
         )
 
         _ = try await NotifyStore.writer.save(draft)

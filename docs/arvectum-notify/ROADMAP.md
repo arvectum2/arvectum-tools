@@ -44,7 +44,7 @@ The product starts with notification history and progressively expands into snoo
   - [ ] other metadata
 - [ ] Test while:
   - [ ] app is open
-  - [ ] app is in background
+  - [x] app is in background
   - [ ] app has been terminated
   - [ ] device is locked
   - [ ] Focus mode is active
