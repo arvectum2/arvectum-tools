@@ -45,7 +45,7 @@ The product starts with notification history and progressively expands into snoo
 - [ ] Test while:
   - [ ] app is open
   - [x] app is in background
-  - [ ] app has been terminated
+  - [x] app has been terminated
   - [ ] device is locked
   - [ ] Focus mode is active
   - [ ] Low Power Mode is active
