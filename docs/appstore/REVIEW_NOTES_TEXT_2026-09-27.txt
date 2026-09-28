@@ -1,7 +1,7 @@
-Guideline 2.1 additional information for “Фото под размер” 0.4.2 (1).
+Guideline 2.1 additional information for “Фото под размер” 0.4.2 (2).
 
 1. SCREEN RECORDING
-A physical-device screen recording from the paired iPhone 13 (iPhone14,5) running iOS 27.0 will be attached to the App Review conversation before resubmission. It starts from a cold launch and shows the normal flow for all three modes: photo selection, processing, result, save/export, and Share.
+A physical-device screen recording from the paired iPhone 13 (iPhone14,5) running iOS 27.0 will be attached to the App Review conversation before resubmission. It starts before app launch and shows photo selection, processing, and result screens for all three modes: maximum file size, long-side pixel resize, and the manual 35×45 technical crop.
 
 2. PURPOSE / TARGET AUDIENCE
 The app is a small image utility for people who need a photo file to meet a specific technical upload limit. It reduces an image to a maximum file size, resizes by the long side in pixels, and prepares the technical 35×45 crop used for passport-application image files. Processing is fast and local, with no account or cloud upload.
@@ -18,4 +18,4 @@ None. There is no geofencing, region-dependent account, or regional service. Fun
 6. REGULATED / PROTECTED CONTENT
 The app is not a government or identity-verification service and does not connect to government systems. “На паспорт” only prepares technical file parameters (manual 35×45 crop, 620×797 px, 450 DPI, JPEG). It does not verify identity, alter the face/background/appearance, determine eligibility, or certify government compliance. The app does not contain or distribute protected third-party material.
 
-Before resubmission, 0.4.2 (1) will be QA-tested on the same physical iPhone used for the recording.
+Build 0.4.2 (2) is the review build. It is QA-tested on the same physical iPhone used for the recording.

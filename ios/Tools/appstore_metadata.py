@@ -46,10 +46,10 @@ print("APP_INFO_LOCALIZATION_UPDATED",loc["id"])
 review=api("GET",f"/appStoreVersions/{VERSION_ID}/appStoreReviewDetail").get("data")
 notes=(ROOT/"docs"/"appstore"/"REVIEW_NOTES_TEXT_2026-09-27.txt").read_text()
 review_attrs={
-    "contactFirstName":"Nikita",
-    "contactLastName":"Arutyunov",
-    "contactPhone":"+79165943507",
-    "contactEmail":"arutyunov@arvectum.com",
+    "contactFirstName":cfg["ASC_REVIEW_FIRST_NAME"],
+    "contactLastName":cfg["ASC_REVIEW_LAST_NAME"],
+    "contactPhone":cfg["ASC_REVIEW_PHONE"],
+    "contactEmail":cfg["ASC_REVIEW_EMAIL"],
     "demoAccountRequired":False,
     "notes":notes
 }

@@ -9,6 +9,13 @@ Target review device:
 
 Current blocker: device is **unavailable** because it is not connected to Mac mini.
 
+Installation is pre-staged from the exact submitted 0.4.2 (2) archive:
+- the archive is copied and re-signed only for development-device installation;
+- a development-signed IPA is also prepared as fallback;
+- `prepare_physical_review.sh` first tries CoreDevice and falls back to `ideviceinstaller` / `idevicedebug` if needed.
+
+Xcode 27.0 is installed on Mac mini, but its new license has not been accepted. No license is accepted automatically; the fallback path avoids making this a blocker.
+
 ## Before recording
 
 1. Connect iPhone to Mac mini by USB cable.
@@ -71,4 +78,4 @@ No narration is required; the UI itself demonstrates the functionality.
 4. Attach the recording to the App Review conversation.
 5. Replace the pending recording line in App Review Notes with the final attachment name.
 6. Paste the prepared response from `REVIEW_RESPONSE_2026-09-27.md`.
-7. Resubmit the existing **0.4.2 (1)** build unless physical QA required a code fix/new build.
+7. Resubmit the existing **0.4.2 (2)** build unless physical QA required a code fix/new build.

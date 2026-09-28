@@ -12,15 +12,15 @@
 - [x] App icon included
 - [x] Bundle ID registered: `ru.arvectum.tools.tosize`
 - [x] App Store distribution profile created
-- [x] Release archive: version `0.4.2 (1)`
+- [x] Release archive: version `0.4.2 (2)`
 - [x] App Store IPA exported and distribution-signed
 - [x] Three 6.9-inch iPhone screenshots captured at 1320×2868
 
 ## App Store Connect
 
 - [x] Create App Store Connect app record (Apple ID `6816346084`)
-- [x] Upload build `0.4.2 (1)`
-- [x] Build processing completed: `VALID`
+- [x] Upload build `0.4.2 (2)` — Delivery UUID `479341f5-e89c-479c-b1d0-7825acf26eec`
+- [x] Build processing completed: `VALID` for build 2
 - [x] Add Russian store metadata
 - [x] Upload 3 iPhone screenshots (6.5-inch slot, 1284×2778)
 - [x] Complete and publish App Privacy: **Data Not Collected**
@@ -29,7 +29,7 @@
 - [x] DSA trader status already configured for LLC ARVECTUM
 - [x] Availability: all 175 countries or regions
 - [x] Pricing: free (`$0.00` base price)
-- [x] Select processed build for version 0.4.2
+- [x] Select processed build 2 for version 0.4.2
 - [x] Export compliance: non-exempt encryption = false
 - [x] Submit to App Review
 - [x] Release mode: automatically after approval
@@ -37,12 +37,12 @@
 - [x] Add all six requested information items to App Review Notes
 - [x] Prepare written response for the App Review conversation
 - [x] Prepare physical iPhone QA/install workflow
-- [x] Prepare physical-device screen-recording workflow
+- [x] Prepare physical-device screen-recording workflow: CoreDevice `DisplayService` + `UniversalHIDService` + `ScreenCaptureService`, raw HEVC → H.264 MOV
 - [ ] Connect iPhone 13 to Mac mini by USB
-- [ ] Install and QA 0.4.2 (1) on iPhone 13 / iOS 27.0
+- [ ] Complete final QA of 0.4.2 (2) on iPhone 13 / iOS 27.0
 - [ ] Record the complete physical-device user flow
 - [ ] Attach recording and send the prepared reply to Apple
-- [ ] Resubmit 0.4.2 (1) to App Review
+- [ ] Resubmit 0.4.2 (2) to App Review
 - [ ] Apple review completed
 - [ ] Version available on the App Store
 
@@ -50,15 +50,15 @@
 
 ## Release artifact
 
-Local IPA: `ios/build/AppStoreExport/PhotoPodRazmer.ipa`
+Local IPA: `ios/build/AppStoreExport-0.4.2-2/PhotoPodRazmer.ipa`
 
 Verified properties:
 - bundle: `ru.arvectum.tools.tosize`
 - display name: `Фото под размер`
 - version: `0.4.2`
-- build: `1`
+- build: `2`
 - signing: Apple Distribution / LLC ARVECTUM
 - production provisioning profile: `Arvectum Photo Pod Razmer App Store`
 - `get-task-allow = false`
 - privacy manifest present
-- IPA SHA-256: `bd09c03d70a18b1debc2400243155287c28a365d16d76060f319bd49cc8d590e`
+- IPA SHA-256: `b3cded0ceddf3ca0818b14dba9d8b3ae8283c7bb5b25f11bae230d34661f2ef8`

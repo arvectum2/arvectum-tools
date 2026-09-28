@@ -17,7 +17,7 @@ Apple requested additional information because the developer account has limited
 
 Hello App Review,
 
-Thank you for the request. Below is the additional information for “Фото под размер” version 0.4.2 (build 1).
+Thank you for the request. Below is the additional information for “Фото под размер” version 0.4.2 (build 2).
 
 **1. Physical-device screen recording**
 A screen recording captured on the paired physical iPhone 13 (iPhone14,5) running iOS 27.0 will be attached to this App Review conversation before resubmission. The recording starts with a cold launch and demonstrates the normal user flow for all three modes, including selecting a photo, processing it, and the result/save/share flow.

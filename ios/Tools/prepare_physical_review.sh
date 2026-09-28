@@ -5,12 +5,14 @@ ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 IOS_DIR="$ROOT/ios"
 REQUESTED_NAME="${1:-${ARVECTUM_REVIEW_DEVICE_NAME:-}}"
 BUNDLE_ID="ru.arvectum.tools.tosize"
-APP="$IOS_DIR/build/PhysicalReview/PhotoPodRazmer.app"
+ARCHIVE="$IOS_DIR/build/PhotoPodRazmer-0.4.2-2.xcarchive"
+APP="$ARCHIVE/Products/Applications/PhotoPodRazmer.app"
 
 tmp=$(mktemp)
-trap 'rm -f "$tmp"' EXIT
-xcrun devicectl list devices --json-output "$tmp" >/dev/null
+profile_plist=$(mktemp)
+trap 'rm -f "$tmp" "$profile_plist"' EXIT
 
+xcrun devicectl list devices --json-output "$tmp" >/dev/null
 IFS=$'\t' read -r DEVICE_ID UDID OS_VERSION DEV_MODE TUNNEL DEVICE_NAME MODEL <<<"$(python3 - "$tmp" "$REQUESTED_NAME" <<'PY'
 import json, sys
 p=json.load(open(sys.argv[1]))
@@ -37,6 +39,7 @@ print("\t".join([
 ]))
 PY
 )"
+
 echo "Review device: $MODEL / iOS $OS_VERSION"
 echo "Developer Mode: $DEV_MODE"
 echo "Connection: $TUNNEL"
@@ -45,45 +48,42 @@ if [[ "$TUNNEL" == "unavailable" || -z "$DEVICE_ID" ]]; then
   echo "ERROR: iPhone is paired but not currently available. Connect it by USB, unlock it, and approve Trust if prompted." >&2
   exit 20
 fi
-if [[ "$DEV_MODE" != "enabled" ]]; then
+[[ "$DEV_MODE" == "enabled" ]] || {
   echo "ERROR: Developer Mode is not enabled on the iPhone." >&2
   exit 21
-fi
-
-if [[ ! -d "$APP" ]]; then
-  echo "Preparing an installable copy of the submitted 0.4.2 (1) archive..."
-  "$IOS_DIR/Tools/prepare_physical_app.sh"
-fi
+}
+[[ -d "$APP" ]] || {
+  echo "ERROR: physical-review archive is missing: $ARCHIVE" >&2
+  exit 22
+}
 
 IDENTIFIER=$(/usr/libexec/PlistBuddy -c 'Print :CFBundleIdentifier' "$APP/Info.plist")
 VERSION=$(/usr/libexec/PlistBuddy -c 'Print :CFBundleShortVersionString' "$APP/Info.plist")
 BUILD=$(/usr/libexec/PlistBuddy -c 'Print :CFBundleVersion' "$APP/Info.plist")
-if [[ "$IDENTIFIER" != "$BUNDLE_ID" || "$VERSION" != "0.4.2" || "$BUILD" != "1" ]]; then
-  echo "ERROR: prepared app does not match submitted 0.4.2 (1)." >&2
-  exit 22
-fi
-profile_plist=$(mktemp)
-security cms -D -i "$APP/embedded.mobileprovision" > "$profile_plist"
-if ! /usr/libexec/PlistBuddy -c 'Print :ProvisionedDevices' "$profile_plist" | grep -q "$UDID"; then
-  rm -f "$profile_plist"
-  echo "ERROR: development profile does not include the connected iPhone." >&2
+STYLE=$(/usr/libexec/PlistBuddy -c 'Print :UIUserInterfaceStyle' "$APP/Info.plist")
+
+if [[ "$IDENTIFIER" != "$BUNDLE_ID" || "$VERSION" != "0.4.2" || "$BUILD" != "2" || "$STYLE" != "Light" ]]; then
+  echo "ERROR: archive does not match review build 0.4.2 (2) / Light." >&2
   exit 23
 fi
-GET_TASK_ALLOW=$(/usr/libexec/PlistBuddy -c 'Print :Entitlements:get-task-allow' "$profile_plist")
-rm -f "$profile_plist"
-[[ "$GET_TASK_ALLOW" == "true" ]] || {
-  echo "ERROR: prepared app is not development-signed." >&2
+
+security cms -D -i "$APP/embedded.mobileprovision" > "$profile_plist"
+if ! /usr/libexec/PlistBuddy -c 'Print :ProvisionedDevices' "$profile_plist" | grep -q "$UDID"; then
+  echo "ERROR: development profile does not include the connected iPhone." >&2
   exit 24
+fi
+GET_TASK_ALLOW=$(/usr/libexec/PlistBuddy -c 'Print :Entitlements:get-task-allow' "$profile_plist")
+[[ "$GET_TASK_ALLOW" == "true" ]] || {
+  echo "ERROR: archive copy is not development-signed." >&2
+  exit 25
 }
 
 codesign --verify --deep --strict "$APP"
-echo "Prepared app: $VERSION ($BUILD), development-signed copy of submitted archive."
-
-echo "Installing on physical iPhone..."
+echo "Installing Фото под размер $VERSION ($BUILD) from the physical-review archive..."
 xcrun devicectl device install app --device "$DEVICE_ID" "$APP"
 
-echo "Launching..."
-xcrun devicectl device process launch   --device "$DEVICE_ID"   --terminate-existing   "$BUNDLE_ID"
+echo "Launching with CoreDevice..."
+xcrun devicectl device process launch --device "$DEVICE_ID" --terminate-existing "$BUNDLE_ID"
 
 echo
 echo "READY: Фото под размер $VERSION ($BUILD) is installed and launched on $MODEL / iOS $OS_VERSION."
