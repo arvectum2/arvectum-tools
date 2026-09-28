@@ -28,8 +28,9 @@ require Arvectum Notify to be in the foreground at the moment the notification
 arrives.
 ## Measured payload behavior
 
-The iOS 27 Notification trigger exposes one notification magic variable in the
-Shortcuts action editor.
+The iOS 27 Notification trigger exposes a Notification magic variable in the
+Shortcuts action editor. The editor can pass the whole object as text or select
+a specific property from that object.
 
 When that magic variable is passed into a String parameter of our App Intent,
 Telegram notifications were measured as:
@@ -46,8 +47,9 @@ For example:
 test
 ```
 
-In the first physical test, Shortcuts therefore populated our `Title` parameter
-with the complete multiline string while `Subtitle` and `Message` were empty.
+In the first physical test, before the structured properties were selected,
+Shortcuts populated our `Title` parameter with the complete multiline string
+while `Subtitle` and `Message` were empty.
 
 Arvectum Notify now normalizes that measured fallback when structured fields are
 otherwise empty:
@@ -55,24 +57,41 @@ otherwise empty:
 - first non-empty line → title;
 - remaining text → body;
 - explicitly supplied Subtitle / Message fields are preserved unchanged.
-This fallback must still be tested across the full source-app matrix before it is
-treated as universal behavior.
+This fallback remains as defensive compatibility for whole-object mappings.
+The preferred iOS 27 setup is the structured App/Title/Subtitle/Text mapping.
 
 ## Spike architecture
 
-One Shortcuts Notification automation is configured per source app.
+A single iOS 27 Shortcuts Notification trigger can contain multiple selected
+source apps. This was verified on the physical iPhone by adding both Telegram
+and Messages to the same trigger.
+
+The Notification magic variable exposes these selectable properties in the
+Shortcuts editor:
+
+- `App`;
+- `Title`;
+- `Subtitle`;
+- `Text`.
+
+No notification date/time property was exposed in the inspected property list.
 
 Current measured setup:
 
-- choose a source app in the Notification trigger;
+- choose one or more source apps in the same Notification trigger using `+`;
 - add **Arvectum Notify → Archive Notification**;
-- set `Source app` once as a literal;
-- set `Title` to the Notification magic variable;
-- leave `Subtitle` / `Message` empty unless a source-specific structured mapping
-  is later proven;
-- `receivedAt` currently falls back to capture time when Shortcuts does not
-  expose a separate original timestamp;
-- bundle identifier remains optional and was not exposed in the Telegram test.
+- map `Source app` → `Notification.App`;
+- map `Title` → `Notification.Title`;
+- map `Subtitle` → `Notification.Subtitle`;
+- map `Message` → `Notification.Text`;
+- leave `Received at` empty; Notify currently uses capture time as a fallback;
+- leave bundle identifier empty unless a future trigger exposes it.
+
+The structured mapping is configured on the physical test device and has now
+been confirmed at runtime by Telegram and Messages test notifications. Both
+sources populated `Notification.App`, `Notification.Title`, and
+`Notification.Text` as separate values; `Notification.Subtitle` was empty for
+the tested notifications.
 
 The app stores:
 
@@ -104,6 +123,9 @@ duplication instead of hiding it.
 - Physical device build/sign/install: passing with Xcode 27.0.
 - App launch on iPhone 13 / iOS 27.0: verified.
 - Real Telegram notification → Shortcuts → App Intent → SwiftData: verified.
+- Messages notification through the same multi-app trigger: verified.
+- Structured `App` / `Title` / `Subtitle` / `Text` mapping: verified at runtime.
+- Cold/terminated app capture without opening the UI after install: verified.
 - Production project deployment target: iOS 27.
 
 ## Still unproven
@@ -113,13 +135,12 @@ coverage:
 
 - exact reliability / loss rate;
 - app foreground;
-- app background;
-- app force-quit;
+- explicit user force-quit;
 - device locked;
 - Focus mode;
 - Low Power Mode;
 - at least 10 common source apps;
-- whether the multiline String fallback is consistent across those apps;
+- whether the structured Notification properties behave consistently across those apps;
 - whether an original notification timestamp is available;
 - source bundle identifier exposure;
 - attachments / URLs / other structured metadata;
@@ -153,18 +174,20 @@ Run each selected source app under:
 
 ## Source-app matrix
 
-Start with 3–5 apps to validate the setup, then expand to:
+Start with 3–5 apps to validate the setup, then expand to 10 common sources.
 
-- Messages
-- Telegram
-- WhatsApp
-- Mail
-- Gmail
-- banking app
-- marketplace app
-- delivery app
-- Calendar
-- social app
+| Source | Status |
+| --- | --- |
+| Telegram | Verified with test notifications |
+| Messages | Verified in the same multi-app trigger |
+| WhatsApp | Pending |
+| Mail | Pending |
+| Gmail | Pending |
+| Banking app | Pending |
+| Marketplace app | Pending |
+| Delivery app | Pending |
+| Calendar | Pending |
+| Social app | Pending |
 
 ## Gate A
 
