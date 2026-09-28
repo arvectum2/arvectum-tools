@@ -34,12 +34,12 @@ The product starts with notification history and progressively expands into snoo
 - [x] Create minimal native iOS project for Arvectum Notify.
 - [x] Set bundle identifier and signing under Arvectum.
 - [x] Research and implement the iOS notification-trigger flow available through Shortcuts / App Intents.
-- [ ] Capture a notification event into the app's local storage.
+- [x] Capture a notification event into the app's local storage.
 - [ ] Verify what data is actually available:
-  - [ ] source app
-  - [ ] title
-  - [ ] body
-  - [ ] timestamp
+  - [x] source app
+  - [x] title
+  - [x] body
+  - [x] timestamp (capture-time fallback; original notification timestamp not yet exposed)
   - [ ] attachments / URLs if exposed
   - [ ] other metadata
 - [ ] Test while:

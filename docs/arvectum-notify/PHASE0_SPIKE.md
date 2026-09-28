@@ -1,50 +1,92 @@
 # Arvectum Notify — Phase 0 feasibility spike
 
-**Status:** implementation ready for physical-device validation  
+**Status:** physical-device validation in progress
 **Date:** 2026-09-28  
 **Target:** iOS 27+
 
 ## What is already proven
 
-Apple Shortcuts includes a Notification automation trigger. It can be scoped to a
-specific source app and filtered by notification Message, Subtitle, or Title.
+Arvectum Notify exposes an App Intent named **Archive Notification** and stores
+captures locally in SwiftData without requiring the app UI to open.
 
-Official references:
+On a physical **iPhone 13 running iOS 27.0**, a Shortcuts **Notification**
+automation scoped to Telegram successfully invoked the App Intent when a real
+third-party Telegram push arrived.
 
-- Apple Developer — WWDC26, “What’s new in Shortcuts”:
-  https://developer.apple.com/videos/play/wwdc2026/310/
-- Apple Support — “Event triggers in Shortcuts on iPhone or iPad”:
-  https://support.apple.com/guide/shortcuts/apd932ff833f/ios
+Two real Telegram notifications were captured during the spike:
 
-Arvectum Notify now exposes an App Intent named **Archive Notification**.
-The intended automation passes notification fields into this intent and the intent
-writes them to SwiftData without opening the app.
+| Capture time | Source | Raw Shortcuts string |
+| --- | --- | --- |
+| 22:02:05 | Telegram | `<sender A>\n<message A>` |
+| 22:20:06 | Telegram | `<sender B>\ntest` |
+
+Both records were written through capture channel `shortcuts-notification`.
+No duplicate candidate was reported for either capture.
+
+This proves the core capture path works on physical iOS 27 hardware and does not
+require Arvectum Notify to be in the foreground at the moment the notification
+arrives.
+## Measured payload behavior
+
+The iOS 27 Notification trigger exposes one notification magic variable in the
+Shortcuts action editor.
+
+When that magic variable is passed into a String parameter of our App Intent,
+Telegram notifications were measured as:
+
+```text
+<title or sender>
+<message>
+```
+
+For example:
+
+```text
+<sender>
+test
+```
+
+In the first physical test, Shortcuts therefore populated our `Title` parameter
+with the complete multiline string while `Subtitle` and `Message` were empty.
+
+Arvectum Notify now normalizes that measured fallback when structured fields are
+otherwise empty:
+
+- first non-empty line → title;
+- remaining text → body;
+- explicitly supplied Subtitle / Message fields are preserved unchanged.
+This fallback must still be tested across the full source-app matrix before it is
+treated as universal behavior.
 
 ## Spike architecture
 
 One Shortcuts Notification automation is configured per source app.
 
-The automation uses:
-- source app name: configured as a literal once during setup;
-- Title: mapped from the notification event when available;
-- Subtitle: mapped from the notification event when available;
-- Message: mapped from the notification event when available;
-- received time: passed when Shortcuts exposes it, otherwise capture time;
-- bundle identifier: optional; not assumed to be available from the trigger.
+Current measured setup:
+
+- choose a source app in the Notification trigger;
+- add **Arvectum Notify → Archive Notification**;
+- set `Source app` once as a literal;
+- set `Title` to the Notification magic variable;
+- leave `Subtitle` / `Message` empty unless a source-specific structured mapping
+  is later proven;
+- `receivedAt` currently falls back to capture time when Shortcuts does not
+  expose a separate original timestamp;
+- bundle identifier remains optional and was not exposed in the Telegram test.
 
 The app stores:
+
 - source app;
 - optional bundle identifier;
-- title;
-- subtitle;
-- message body;
+- normalized title;
+- normalized subtitle;
+- normalized message body;
 - received timestamp;
 - capture timestamp;
 - capture channel;
 - possible-duplicate flag.
-
-Duplicate diagnostics currently flag identical source/title/subtitle/body payloads
-captured within 10 seconds. The record is still retained so Phase 0 can measure
+Duplicate diagnostics flag identical source/title/subtitle/body payloads captured
+within 10 seconds. The record is still retained so Phase 0 can measure
 duplication instead of hiding it.
 
 ## Local implementation status
@@ -56,33 +98,48 @@ duplication instead of hiding it.
 - Minimal Inbox: complete.
 - Guided Setup screen: complete.
 - Diagnostics counters/reset: complete.
-- Duplicate-detection unit test: passing.
-- Simulator build: passing with Xcode 26.6 / iOS 26.5 compatibility override.
+- Duplicate-detection unit test: passing on iPhone 13 / iOS 27.0.
+- iOS 27 multiline payload-normalization tests: passing on iPhone 13 / iOS 27.0.
+- Physical device build/sign/install: passing with Xcode 27.0.
+- App launch on iPhone 13 / iOS 27.0: verified.
+- Real Telegram notification → Shortcuts → App Intent → SwiftData: verified.
 - Production project deployment target: iOS 27.
-## Current environment blocker
 
-Xcode 27.0 is installed on the Mac mini, but its Apple SDK license has not yet
-been accepted. The active developer directory is still Xcode 26.6.
+## Still unproven
 
-Do not accept the Xcode license automatically on behalf of the account holder.
-After it is accepted interactively, rerun the build and physical-device checks
-with Xcode 27.
+Gate A is **not closed yet**. The following still need measured physical-device
+coverage:
 
-This means the code path is compiled and unit-tested, but **Gate A is not closed**:
-we have not yet recorded a real third-party notification through the iOS 27
-Notification automation on a physical iPhone.
+- exact reliability / loss rate;
+- app foreground;
+- app background;
+- app force-quit;
+- device locked;
+- Focus mode;
+- Low Power Mode;
+- at least 10 common source apps;
+- whether the multiline String fallback is consistent across those apps;
+- whether an original notification timestamp is available;
+- source bundle identifier exposure;
+- attachments / URLs / other structured metadata;
+- notification summaries and hidden/sensitive previews;
+- re-alert behavior;
+- setup complexity for a non-technical user.
 
 ## Physical-device test protocol
 
 For each condition, send a known count of notifications and record:
+
 - notifications sent;
 - records captured;
 - missing records;
 - duplicate records;
-- title present;
-- subtitle present;
-- message present;
-- timestamp quality;
+- raw Shortcuts text;
+- normalized title;
+- normalized subtitle;
+- normalized body;
+- capture timestamp;
+- any original timestamp if available;
 - unexpected truncation or transformation.
 
 Run each selected source app under:
@@ -92,9 +149,11 @@ Run each selected source app under:
 4. Device locked.
 5. Focus mode enabled.
 6. Low Power Mode enabled.
+
 ## Source-app matrix
 
 Start with 3–5 apps to validate the setup, then expand to:
+
 - Messages
 - Telegram
 - WhatsApp
@@ -106,21 +165,10 @@ Start with 3–5 apps to validate the setup, then expand to:
 - Calendar
 - social app
 
-## Unknowns that must be measured
-
-Apple documents app selection and filters for Message, Subtitle, and Title.
-The following must not be assumed until measured on iOS 27:
-- whether source bundle identifier is exposed to shortcut actions;
-- whether a separate original notification timestamp is exposed;
-- whether attachments are exposed;
-- whether URLs are exposed as structured data;
-- behavior for notification summaries;
-- behavior for sensitive/hidden previews;
-- behavior when the source app or Notify is force-quit;
-- loss/duplication rate under Focus and Low Power Mode;
-- whether a re-alert flow can avoid creating confusing duplicate notifications.
-
 ## Gate A
 
 Remain at Phase 0 until physical-device tests show that capture reliability,
 payload usefulness, and setup complexity are acceptable for a mass-market app.
+
+The first physical Telegram capture is a positive feasibility result, not yet a
+reliability result.

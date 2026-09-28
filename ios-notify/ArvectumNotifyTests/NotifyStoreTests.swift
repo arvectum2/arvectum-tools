@@ -54,3 +54,29 @@ final class NotifyStoreTests: XCTestCase {
         XCTAssertTrue(records[1].duplicateCandidate)
     }
 }
+
+final class ShortcutNotificationPayloadTests: XCTestCase {
+    func testMultilineFallbackSplitsTitleAndBody() {
+        let payload = ShortcutNotificationPayload(
+            title: "Sender\nTest message",
+            subtitle: nil,
+            message: nil
+        )
+
+        XCTAssertEqual(payload.titleText, "Sender")
+        XCTAssertEqual(payload.subtitleText, "")
+        XCTAssertEqual(payload.bodyText, "Test message")
+    }
+
+    func testStructuredFieldsArePreserved() {
+        let payload = ShortcutNotificationPayload(
+            title: "Sender",
+            subtitle: "Chat",
+            message: "Message body"
+        )
+
+        XCTAssertEqual(payload.titleText, "Sender")
+        XCTAssertEqual(payload.subtitleText, "Chat")
+        XCTAssertEqual(payload.bodyText, "Message body")
+    }
+}
