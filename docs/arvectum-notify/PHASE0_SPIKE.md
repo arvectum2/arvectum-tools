@@ -127,6 +127,7 @@ duplication instead of hiding it.
 - Structured `App` / `Title` / `Subtitle` / `Text` mapping: verified at runtime.
 - Cold/terminated app capture without opening the UI after install: verified.
 - Locked-device Telegram capture: verified with structured fields and no duplicate candidate.
+- Focus / Do Not Disturb capture: verified with structured fields and no duplicate candidate.
 - Production project deployment target: iOS 27.
 
 ## Still unproven
@@ -137,7 +138,6 @@ coverage:
 - exact reliability / loss rate;
 - app foreground;
 - explicit user force-quit;
-- Focus mode;
 - Low Power Mode;
 - at least 10 common source apps;
 - whether the structured Notification properties behave consistently across those apps;
