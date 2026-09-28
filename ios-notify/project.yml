@@ -1,0 +1,56 @@
+name: ArvectumNotifyIOS
+options:
+  createIntermediateGroups: true
+  deploymentTarget:
+    iOS: "27.0"
+
+settings:
+  base:
+    DEVELOPMENT_TEAM: VML75VY94V
+    CODE_SIGN_STYLE: Automatic
+    SWIFT_VERSION: "5.0"
+
+targets:
+  ArvectumNotify:
+    type: application
+    platform: iOS
+    deploymentTarget: "27.0"
+    sources:
+      - path: ArvectumNotify
+    info:
+      path: ArvectumNotify/Info.plist
+      properties:
+        CFBundleDisplayName: Arvectum Notify
+        CFBundleShortVersionString: "$(MARKETING_VERSION)"
+        CFBundleVersion: "$(CURRENT_PROJECT_VERSION)"
+        LSApplicationCategoryType: public.app-category.utilities
+        ITSAppUsesNonExemptEncryption: false
+        UILaunchScreen: {}
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: ru.arvectum.tools.notify
+        PRODUCT_NAME: ArvectumNotify
+        PRODUCT_MODULE_NAME: ArvectumNotify
+        MARKETING_VERSION: "0.0.1"
+        CURRENT_PROJECT_VERSION: "1"
+        TARGETED_DEVICE_FAMILY: "1"
+        GENERATE_INFOPLIST_FILE: NO
+        ENABLE_USER_SCRIPT_SANDBOXING: YES
+        SUPPORTS_MACCATALYST: NO
+    scheme:
+      testTargets:
+        - ArvectumNotifyTests
+
+  ArvectumNotifyTests:
+    type: bundle.unit-test
+    platform: iOS
+    deploymentTarget: "27.0"
+    sources:
+      - path: ArvectumNotifyTests
+    dependencies:
+      - target: ArvectumNotify
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: ru.arvectum.tools.notify.tests
+        DEVELOPMENT_TEAM: VML75VY94V
+        CODE_SIGN_STYLE: Automatic

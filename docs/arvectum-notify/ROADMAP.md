@@ -31,9 +31,9 @@ The product starts with notification history and progressively expands into snoo
 
 ### Tasks
 
-- [ ] Create minimal native iOS project for Arvectum Notify.
-- [ ] Set bundle identifier and signing under Arvectum.
-- [ ] Research and implement the iOS notification-trigger flow available through Shortcuts / App Intents.
+- [x] Create minimal native iOS project for Arvectum Notify.
+- [x] Set bundle identifier and signing under Arvectum.
+- [x] Research and implement the iOS notification-trigger flow available through Shortcuts / App Intents.
 - [ ] Capture a notification event into the app's local storage.
 - [ ] Verify what data is actually available:
   - [ ] source app
@@ -53,7 +53,7 @@ The product starts with notification history and progressively expands into snoo
 - [ ] Measure event loss / duplication.
 - [ ] Test whether setup can be reduced to a guided Shortcuts flow.
 - [ ] Determine whether a silent-original-notification + Notify re-alert scenario is viable.
-- [ ] Document platform limitations.
+- [x] Document platform limitations in `docs/arvectum-notify/PHASE0_SPIKE.md`.
 
 ### Exit criteria
 

@@ -16,7 +16,9 @@ keystore.properties
 
 # Xcode / iOS generated files
 ios/*.xcodeproj/
+ios-notify/*.xcodeproj/
 ios/DerivedData/
+ios-notify/DerivedData/
 
 # Local App Review physical-device recordings
 ios/review-video/
