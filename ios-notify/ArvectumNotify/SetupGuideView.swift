@@ -21,21 +21,21 @@ struct SetupGuideView: View {
     private var phaseSection: some View {
         Section("Phase 0") {
             Label("Requires iOS 27 notification automations", systemImage: "iphone.gen3")
-            secondaryText("The feasibility spike uses one notification automation per source app.")
+            secondaryText("One iOS 27 Notification trigger can monitor several selected apps.")
         }
     }
 
     private var chooseAppSection: some View {
-        Section("1. Choose an app") {
+        Section("1. Choose apps") {
             Text("Open Shortcuts and add a Notification automation.")
-            Text("Choose one important app. Start with 3–5 apps for the spike.")
+            Text("Choose one important app, then use + to add more apps to the same trigger. Start with 3–5 apps for the spike.")
         }
     }
 
     private var notifyActionSection: some View {
         Section("2. Add the Notify action") {
             Text("Add Arvectum Notify → Archive Notification.")
-            Text("Set Source app once, then set Title to the Notification magic variable. Arvectum Notify normalizes the iOS 27 text fallback into title and body.")
+            Text("Map Source app → Notification → App, Title → Title, Subtitle → Subtitle, and Message → Text. Leave Received at empty for now; Notify uses capture time as a fallback.")
             Link("Open Shortcuts", destination: shortcutsURL)
         }
     }

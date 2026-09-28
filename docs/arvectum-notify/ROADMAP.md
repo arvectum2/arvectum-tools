@@ -46,7 +46,7 @@ The product starts with notification history and progressively expands into snoo
   - [ ] app is open
   - [x] app is in background
   - [x] app has been terminated
-  - [ ] device is locked
+  - [x] device is locked
   - [ ] Focus mode is active
   - [ ] Low Power Mode is active
 - [ ] Test at least 10 common apps: Messages, Telegram, WhatsApp, Mail, Gmail, banking app, marketplace, delivery app, calendar, social app.
