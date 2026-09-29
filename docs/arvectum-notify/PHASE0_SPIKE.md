@@ -159,8 +159,13 @@ coverage:
 - at least 10 common source apps;
 - whether the structured Notification properties behave consistently across those apps;
 - notification summaries and hidden/sensitive previews;
-- re-alert behavior;
 - setup complexity for a non-technical user.
+
+## Re-alert feasibility
+
+Arvectum Notify can request notification authorization and schedule its own local notifications. iOS can deliver those alerts even when the app is not foregrounded. However, Notify cannot programmatically silence or suppress the original notification from another app; the user must change that source app’s notification presentation or sound settings in iOS.
+
+For the MVP, replacing every original alert with a Notify re-alert is therefore rejected as unnecessary setup complexity. Local notifications remain appropriate for a later Snooze / Remind Later feature, where the user explicitly asks Notify to alert again.
 
 ## Physical-device test protocol
 

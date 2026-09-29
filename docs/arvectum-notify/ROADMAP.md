@@ -43,7 +43,7 @@ The product starts with notification history and progressively expands into snoo
   - [x] timestamp (capture-time fallback; original notification timestamp is not exposed)
   - [x] attachments and links (not exposed by the iOS 27 Notification properties)
   - [x] other metadata (no additional notification properties exposed)
-- [ ] Test while:
+- [x] Test while:
   - [x] app is open
   - [x] app is in background
   - [x] app has been terminated
@@ -55,7 +55,7 @@ The product starts with notification history and progressively expands into snoo
 - [x] Measure event loss / duplication.
 - [x] Reduce setup to one multi-app Notification trigger, four field mappings, and automatic in-app verification.
 - [ ] Validate the guided setup with a non-technical user.
-- [ ] Determine whether a silent-original-notification + Notify re-alert scenario is viable.
+- [x] Determine re-alert viability: local Notify alerts are possible, but silencing third-party originals requires user notification settings; defer re-alert to Snooze rather than MVP capture.
 - [x] Document platform limitations in `docs/arvectum-notify/PHASE0_SPIKE.md`.
 
 ### Exit criteria
