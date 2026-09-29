@@ -52,7 +52,7 @@ The product starts with notification history and progressively expands into snoo
   - [x] Focus mode is active
   - [x] Low Power Mode is active
 - [x] Configure one multi-app Notification trigger with 10 source apps.
-- [ ] Verify real notification capture from all 10 configured source apps.
+- [ ] Verify real notification capture from all 10 configured source apps (5/10 verified: Telegram, Messages, WhatsApp, Mail, VkusVill).
 - [ ] Re-check source-app availability when the installed-app set changes.
 - [x] Measure event loss / duplication.
 - [x] Reduce setup to one multi-app Notification trigger, four field mappings, and automatic in-app verification.

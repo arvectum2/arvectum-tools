@@ -199,18 +199,20 @@ Start with 3–5 apps to validate the setup, then expand to 10 common sources.
 | --- | --- |
 | Telegram | Verified with real notifications |
 | Messages | Verified with a real notification |
-| WhatsApp | Configured in the shared trigger; runtime capture pending |
-| Mail | Configured in the shared trigger; runtime capture pending |
+| WhatsApp | Verified with a real structured notification |
+| Mail | Verified with a real structured notification |
 | OZON | Configured in the shared trigger; runtime capture pending |
 | Wildberries | Configured in the shared trigger; runtime capture pending |
 | Yandex Go | Configured in the shared trigger; runtime capture pending |
-| VkusVill | Configured in the shared trigger; runtime capture pending |
+| VkusVill | Verified with a real structured notification |
 | Pyaterochka | Configured in the shared trigger; runtime capture pending |
 | Samokat | Configured in the shared trigger; runtime capture pending |
 
 The physical-device trigger now contains exactly 10 app values and retains the four structured mappings (`App`, `Title`, `Subtitle`, `Text`).
 
 A full `devicectl --include-all-apps` inventory confirmed the configured third-party apps are installed. Gmail, Avito and T-Bank were not present in that inventory despite being initially reported as available, so they were not treated as valid matrix candidates on this device. Yandex Go is installed as bundle `ru.yandex.ytaxi`.
+
+Runtime cross-app validation now covers five distinct sources: Telegram, Messages, WhatsApp, Apple Mail, and VkusVill. The notification initially thought to be from T-Bank was captured as `Сообщения` with sender `T-Mob`, so it does not count as a T-Bank app result.
 
 ## Gate A
 
