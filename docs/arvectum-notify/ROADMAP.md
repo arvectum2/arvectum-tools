@@ -525,11 +525,13 @@ Use the answer to choose the 1.x roadmap rather than building all advanced featu
 
 # Immediate next steps
 
-1. Preserve the Shortcuts spike as a payload/reference harness; do not productize its per-app source matrix.
-2. [x] Close the same-device BLE loopback hypothesis on the physical iPhone 13: no self-discovery after 10 seconds; separate Bluetooth peer required.
-3. Build a **PUSHKIN ANCS Relay PoC** on an **nRF52840 DK (PCA10056)** using Nordic’s supported `peripheral_ancs_client` sample.
-4. Verify one accessory-level notification-sharing permission captures arbitrary apps without a PUSHKIN-maintained source list.
-5. Relay `AppIdentifier`, title, subtitle, message, original date and add/remove events back to the iOS app over a custom BLE characteristic.
-6. Add Core Bluetooth state restoration plus an accessory-side ring buffer and repeat background / lock / Focus / Low Power / terminated / force-quit tests.
-7. If Gate H1 passes, design the smallest practical **PUSHKIN Tag** hardware and freeze the new MVP specification.
-8. Keep iOS 27 Accessory Notifications as an optional richer EU path on the same hardware; do not make the EU-only API the global dependency.
+1. Make **sharded Notification automations + one PUSHKIN router App Intent** the primary software-only architecture hypothesis.
+2. [x] Reject the assumed 25-app cap as current evidence: a public iOS 27 shared Notification automation contains 49 selected apps in one trigger; measure the actual upper bound separately.
+3. [x] Verify automation export/share serialization: public iCloud `.shortcut` contains the full `WFNotificationTrigger` and 49-entry `SelectedApps` array; import preview requires one system Add confirmation.
+4. Test whether Notification-trigger `SelectedApps` can be exposed as a Setup / Import Question and whether the import UI supports multi-selection.
+5. [x] Generate and sign a safe PUSHKIN `.shortcut` with a modified 49-app `SelectedApps` array; signing succeeds. Next verify final on-device import/persistence through an Apple-supported share path.
+6. Test imported triggers with uninstalled app descriptors and with more than the UI's apparent app limit.
+7. If importable shards are viable, design a PUSHKIN installer flow that chains a small number of signed shards into the same `CaptureNotificationIntent`.
+8. Investigate exact-device app discovery where allowed (EU `FamilyActivityData.installedApplications`) and catalog-based shards for global coverage.
+9. Keep the BLE/ANCS **PUSHKIN Tag** architecture as Plan B only; no user hardware purchase in the preferred product.
+10. [x] Same-device BLE loopback tested and closed: no self-discovery after 10 seconds.
