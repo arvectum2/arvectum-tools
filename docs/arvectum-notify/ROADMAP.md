@@ -525,9 +525,11 @@ Use the answer to choose the 1.x roadmap rather than building all advanced featu
 
 # Immediate next steps
 
-1. Build the Phase 0 feasibility spike.
-2. Capture the first real third-party notification.
-3. Document exact payload and platform limitations.
-4. Build a minimal local inbox.
-5. Validate the setup flow with a non-technical user.
-6. Only then freeze the MVP specification.
+1. Preserve the Shortcuts spike as a payload/reference harness; do not productize its per-app source matrix.
+2. Close the same-device BLE loopback hypothesis on the physical iPhone 13.
+3. Build a **PUSHKIN ANCS Relay PoC** on an nRF52-class BLE device or equivalent ANCS-capable accessory.
+4. Verify one accessory-level notification-sharing permission captures arbitrary apps without a PUSHKIN-maintained source list.
+5. Relay `AppIdentifier`, title, subtitle, message, original date and add/remove events back to the iOS app over a custom BLE characteristic.
+6. Add Core Bluetooth state restoration plus an accessory-side ring buffer and repeat background / lock / Focus / Low Power / terminated / force-quit tests.
+7. If Gate H1 passes, design the smallest practical **PUSHKIN Tag** hardware and freeze the new MVP specification.
+8. Keep iOS 27 Accessory Notifications as an optional richer EU path on the same hardware; do not make the EU-only API the global dependency.
