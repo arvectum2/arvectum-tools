@@ -1,4 +1,8 @@
-# Arvectum Notify — Roadmap
+# PUSHKIN — Roadmap
+
+**Working product name:** `PUSHKIN`
+**Styling variants:** `Push-keen`, `Push'k'in`
+**Internal repository codename/path:** `arvectum-notify` (kept temporarily to avoid unnecessary technical renames during feasibility work)
 
 ## Product goal
 
@@ -6,7 +10,7 @@ Build a mass-market iOS utility that solves one simple pain exceptionally well:
 
 > Never lose an important notification again.
 
-Arvectum Notify should be understandable without technical knowledge, useful within the first minute after setup, privacy-first, and suitable as the first broad-consumer app in the Arvectum utility line.
+PUSHKIN should be understandable without technical knowledge, useful within the first minute after setup, privacy-first, and suitable as the first broad-consumer app in the Arvectum utility line.
 
 The product starts with notification history and progressively expands into snooze, reminders, prioritization, digests, and simple automation.
 

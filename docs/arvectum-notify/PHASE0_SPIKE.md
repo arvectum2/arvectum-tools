@@ -1,7 +1,10 @@
-# Arvectum Notify — Phase 0 feasibility spike
+# PUSHKIN — Phase 0 feasibility spike
+
+**Working product name:** `PUSHKIN` (`Push-keen` / `Push'k'in` as styling variants).
+**Legacy internal codename:** Arvectum Notify.
 
 **Status:** physical-device validation in progress
-**Date:** 2026-09-28  
+**Date:** 2026-09-28
 **Target:** iOS 27+
 
 ## What is already proven
