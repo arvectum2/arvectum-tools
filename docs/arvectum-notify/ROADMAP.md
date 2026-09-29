@@ -526,8 +526,8 @@ Use the answer to choose the 1.x roadmap rather than building all advanced featu
 # Immediate next steps
 
 1. Preserve the Shortcuts spike as a payload/reference harness; do not productize its per-app source matrix.
-2. Close the same-device BLE loopback hypothesis on the physical iPhone 13.
-3. Build a **PUSHKIN ANCS Relay PoC** on an nRF52-class BLE device or equivalent ANCS-capable accessory.
+2. [x] Close the same-device BLE loopback hypothesis on the physical iPhone 13: no self-discovery after 10 seconds; separate Bluetooth peer required.
+3. Build a **PUSHKIN ANCS Relay PoC** on an **nRF52840 DK (PCA10056)** using Nordic’s supported `peripheral_ancs_client` sample.
 4. Verify one accessory-level notification-sharing permission captures arbitrary apps without a PUSHKIN-maintained source list.
 5. Relay `AppIdentifier`, title, subtitle, message, original date and add/remove events back to the iOS app over a custom BLE characteristic.
 6. Add Core Bluetooth state restoration plus an accessory-side ring buffer and repeat background / lock / Focus / Low Power / terminated / force-quit tests.

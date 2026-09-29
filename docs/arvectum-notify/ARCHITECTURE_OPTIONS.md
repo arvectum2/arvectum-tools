@@ -87,6 +87,13 @@ Use a Nordic nRF52-class BLE SoC for the first PoC. Nordic publishes a working A
 
 A production device would require normal Bluetooth product qualification and regional hardware compliance. No MFi-only requirement has been identified for the public BLE ANCS path; this must still be confirmed before committing to production hardware.
 
+
+### PoC hardware choice
+
+Use **Nordic nRF52840 DK (PCA10056)** for the first physical ANCS proof. Nordic's current nRF Connect SDK ships a supported `peripheral_ancs_client` sample for this exact board. The sample bonds to an iPhone, discovers ANCS, receives Notification Source events, and can request notification attributes including the source app identifier. The DK also provides onboard debugging and UART, which materially reduces PoC risk compared with a small production module or dongle.
+
+For production, the relay does not inherently need the DK form factor. An nRF52/nRF54-class module can be reduced to a tiny battery-powered tag, card or case insert. Apple currently states that accessories using only standard BLE do not generally require MFi; final product compliance and Bluetooth qualification still require a separate production review.
+
 ## Candidate B — Accessory Notifications on iOS 27
 
 The new Accessory Notifications framework is functionally ideal: the system permission can allow notifications from **all applicable apps**, and `AccessoryNotification` includes rich content such as title, subtitle, body, summary, source name, identifiers, dates, icons, attachments and actions.
@@ -127,7 +134,7 @@ No public macOS API was found that lets an ordinary third-party Mac app subscrib
 - Family Controls: may reveal installed bundle identifiers in eligible EU configurations but does not provide notification content or create a Shortcuts trigger.
 - Supervised/MDM: can configure notification policy but no public API provides a universal notification-content stream.
 - Apple Watch / watchOS companion: no public API exposes other apps' mirrored notification feed to a third-party watch app.
-- Same-device virtual BLE accessory: experimental hypothesis. If an iPhone app cannot discover/connect to its own BLE advertisement, this route is closed and a separate physical/remote accessory is required.
+- Same-device virtual BLE accessory: **closed**. A physical iPhone 13 / iOS 27 CoreBluetooth PoC simultaneously advertised and scanned the same service UUID for 10 seconds after Bluetooth permission. Result: `NO SELF-DISCOVERY`; the iPhone did not discover its own BLE advertisement. A separate physical/remote Bluetooth peer is therefore required.
 
 ## Recommended next PoC
 
