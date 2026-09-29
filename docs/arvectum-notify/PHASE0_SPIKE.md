@@ -155,8 +155,8 @@ This is a positive reliability signal, but the sample is still too small and too
 Gate A is **not closed yet**. The following still need measured physical-device
 coverage:
 
-- exact reliability / loss rate;
-- at least 10 common source apps;
+- production reliability across a larger cross-app sample;
+- real notification capture from all 10 configured source apps;
 - whether the structured Notification properties behave consistently across those apps;
 - notification summaries and hidden/sensitive previews;
 - setup complexity for a non-technical user.
@@ -197,16 +197,20 @@ Start with 3–5 apps to validate the setup, then expand to 10 common sources.
 
 | Source | Status |
 | --- | --- |
-| Telegram | Verified with test notifications |
-| Messages | Verified in the same multi-app trigger |
-| WhatsApp | Pending |
-| Mail | Pending |
-| Gmail | Pending |
-| Banking app | Pending |
-| Marketplace app | Pending |
-| Delivery app | Pending |
-| Calendar | Pending |
-| Social app | Pending |
+| Telegram | Verified with real notifications |
+| Messages | Verified with a real notification |
+| WhatsApp | Configured in the shared trigger; runtime capture pending |
+| Mail | Configured in the shared trigger; runtime capture pending |
+| OZON | Configured in the shared trigger; runtime capture pending |
+| Wildberries | Configured in the shared trigger; runtime capture pending |
+| Yandex Go | Configured in the shared trigger; runtime capture pending |
+| VkusVill | Configured in the shared trigger; runtime capture pending |
+| Pyaterochka | Configured in the shared trigger; runtime capture pending |
+| Samokat | Configured in the shared trigger; runtime capture pending |
+
+The physical-device trigger now contains exactly 10 app values and retains the four structured mappings (`App`, `Title`, `Subtitle`, `Text`).
+
+A full `devicectl --include-all-apps` inventory confirmed the configured third-party apps are installed. Gmail, Avito and T-Bank were not present in that inventory despite being initially reported as available, so they were not treated as valid matrix candidates on this device. Yandex Go is installed as bundle `ru.yandex.ytaxi`.
 
 ## Gate A
 

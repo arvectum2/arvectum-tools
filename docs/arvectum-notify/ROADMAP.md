@@ -51,7 +51,9 @@ The product starts with notification history and progressively expands into snoo
   - [x] device is locked
   - [x] Focus mode is active
   - [x] Low Power Mode is active
-- [ ] Test at least 10 common apps: Messages, Telegram, WhatsApp, Mail, Gmail, banking app, marketplace, delivery app, calendar, social app.
+- [x] Configure one multi-app Notification trigger with 10 source apps.
+- [ ] Verify real notification capture from all 10 configured source apps.
+- [ ] Re-check source-app availability when the installed-app set changes.
 - [x] Measure event loss / duplication.
 - [x] Reduce setup to one multi-app Notification trigger, four field mappings, and automatic in-app verification.
 - [ ] Validate the guided setup with a non-technical user.
