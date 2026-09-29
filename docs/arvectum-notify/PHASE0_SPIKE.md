@@ -135,7 +135,15 @@ duplication instead of hiding it.
 
 ## Controlled structured test sample
 
-Seven expected user-driven test notifications were sent after structured mapping was enabled: Telegram baseline, Messages baseline, locked device, Focus, Low Power Mode, foreground, and explicit force-quit. All 7 were captured in SwiftData and none was marked as a duplicate. This is still too small a sample to estimate production reliability.
+Seventeen expected user-driven test notifications have now been sent after structured mapping was enabled.
+
+The first seven covered Telegram baseline, Messages baseline, locked device, Focus, Low Power Mode, foreground, and explicit force-quit. All 7 were captured in SwiftData and none was marked as a duplicate.
+
+A subsequent burst test sent BURST_01 through BURST_10 as ten separate Telegram notifications roughly 1-2 seconds apart while Arvectum Notify remained force-quit. All 10 were captured, in order, with zero duplicate candidates.
+
+Current controlled sample: **17 sent / 17 captured / 0 missing / 0 duplicate candidates**.
+
+This is a positive reliability signal, but the sample is still too small and too Telegram-heavy to estimate production reliability across source apps.
 
 ## Still unproven
 

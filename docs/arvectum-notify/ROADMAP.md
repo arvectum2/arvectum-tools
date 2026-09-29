@@ -51,7 +51,7 @@ The product starts with notification history and progressively expands into snoo
   - [x] Focus mode is active
   - [x] Low Power Mode is active
 - [ ] Test at least 10 common apps: Messages, Telegram, WhatsApp, Mail, Gmail, banking app, marketplace, delivery app, calendar, social app.
-- [ ] Measure event loss / duplication.
+- [x] Measure event loss / duplication.
 - [ ] Test whether setup can be reduced to a guided Shortcuts flow.
 - [ ] Determine whether a silent-original-notification + Notify re-alert scenario is viable.
 - [x] Document platform limitations in `docs/arvectum-notify/PHASE0_SPIKE.md`.
