@@ -39,7 +39,12 @@ struct ContentView: View {
                         onBack: model.backToSelection
                     )
                 } else {
-                    MainTaskCard(pickerItem: $pickerItem)
+                    ScrollView(showsIndicators: false) {
+                        VStack(spacing: 10) {
+                            MainTaskCard(pickerItem: $pickerItem)
+                            MainScreenAdSlot()
+                        }
+                    }
                 }
 
                 Text("Arvectum.com")
