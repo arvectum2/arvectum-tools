@@ -35,13 +35,14 @@ The product starts with notification history and progressively expands into snoo
 - [x] Set bundle identifier and signing under Arvectum.
 - [x] Research and implement the iOS notification-trigger flow available through Shortcuts / App Intents.
 - [x] Capture a notification event into the app's local storage.
-- [ ] Verify what data is actually available:
-  - [x] source app
+- [x] Verify what data is actually available:
+  - [x] source app display name
   - [x] title
+  - [x] subtitle
   - [x] body
-  - [x] timestamp (capture-time fallback; original notification timestamp not yet exposed)
-  - [ ] attachments / URLs if exposed
-  - [ ] other metadata
+  - [x] timestamp (capture-time fallback; original notification timestamp is not exposed)
+  - [x] attachments and links (not exposed by the iOS 27 Notification properties)
+  - [x] other metadata (no additional notification properties exposed)
 - [ ] Test while:
   - [x] app is open
   - [x] app is in background
@@ -52,7 +53,8 @@ The product starts with notification history and progressively expands into snoo
   - [x] Low Power Mode is active
 - [ ] Test at least 10 common apps: Messages, Telegram, WhatsApp, Mail, Gmail, banking app, marketplace, delivery app, calendar, social app.
 - [x] Measure event loss / duplication.
-- [ ] Test whether setup can be reduced to a guided Shortcuts flow.
+- [x] Reduce setup to one multi-app Notification trigger, four field mappings, and automatic in-app verification.
+- [ ] Validate the guided setup with a non-technical user.
 - [ ] Determine whether a silent-original-notification + Notify re-alert scenario is viable.
 - [x] Document platform limitations in `docs/arvectum-notify/PHASE0_SPIKE.md`.
 

@@ -83,9 +83,11 @@ Current measured setup:
 - map `Source app` → `Notification.App`;
 - map `Title` → `Notification.Title`;
 - map `Subtitle` → `Notification.Subtitle`;
-- map `Message` → `Notification.Text`;
-- leave `Received at` empty; Notify currently uses capture time as a fallback;
-- leave bundle identifier empty unless a future trigger exposes it.
+- map `Message` → `Notification.Text`.
+
+The App Intent now exposes only these four user-configurable fields. Arvectum Notify records capture time internally as the timestamp fallback. The current iOS 27 Notification property list does not expose a stable source bundle identifier.
+
+Apple's iOS 27 Shortcuts model keeps automation shortcuts device-specific. App Intents expose Arvectum Notify actions to Shortcuts, while automation creation remains a user action in the Shortcuts app. The product therefore uses a guided Shortcuts handoff plus in-app verification.
 
 The structured mapping is configured on the physical test device and has now
 been confirmed at runtime by Telegram and Messages test notifications. Both
@@ -116,6 +118,7 @@ duplication instead of hiding it.
 - App Intent input path: complete.
 - Minimal Inbox: complete.
 - Guided Setup screen: complete.
+- Setup verification from captured records: complete.
 - Diagnostics counters/reset: complete.
 - Raw Shortcuts payload diagnostics: implemented for new captures.
 - Duplicate-detection unit test: passing on iPhone 13 / iOS 27.0.
@@ -143,7 +146,7 @@ A subsequent burst test sent BURST_01 through BURST_10 as ten separate Telegram 
 
 Current controlled sample: **18 sent / 18 captured / 0 missing / 0 duplicate candidates**.
 
-A follow-up control push after simplifying the App Intent from six visible parameters to four (`Source app`, `Title`, `Subtitle`, `Message`) was also captured successfully, confirming that the existing Shortcuts property mappings survived the app update. The unavailable original timestamp and bundle identifier are no longer exposed as user-configurable fields; capture time remains the timestamp fallback and the stable source bundle identifier remains unproven.
+A follow-up control push after simplifying the App Intent from six visible parameters to four (`Source app`, `Title`, `Subtitle`, `Message`) was also captured successfully, confirming that the existing Shortcuts property mappings survived the app update. The original notification timestamp and stable source bundle identifier are not exposed by the current iOS 27 Notification properties; capture time remains the timestamp fallback.
 
 This is a positive reliability signal, but the sample is still too small and too Telegram-heavy to estimate production reliability across source apps.
 
@@ -155,9 +158,6 @@ coverage:
 - exact reliability / loss rate;
 - at least 10 common source apps;
 - whether the structured Notification properties behave consistently across those apps;
-- whether an original notification timestamp is available;
-- source bundle identifier exposure;
-- attachments / URLs / other structured metadata;
 - notification summaries and hidden/sensitive previews;
 - re-alert behavior;
 - setup complexity for a non-technical user.
