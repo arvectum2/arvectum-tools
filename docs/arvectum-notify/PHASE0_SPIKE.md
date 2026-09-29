@@ -186,6 +186,19 @@ Conclusion: the iOS 27 Notification trigger requires at least one concrete sourc
 
 The experimental duplicate was deleted after the test; the original working `Archive Notification` shortcut was left intact.
 
+## Alternative system paths evaluated
+
+After the Any-App Shortcuts experiment failed, the public iOS 27 system APIs were reviewed for a zero-touch all-app capture path.
+
+- **UserNotifications (`UNUserNotificationCenter`)**: delivered-notification APIs return only notifications belonging to Arvectum Notify itself. They do not expose another app's Notification Center entries. Rejected for cross-app history.
+- **Notification Service Extension / notification-filtering entitlement**: operates on remote notifications delivered to the app that owns the extension. The filtering entitlement can suppress those pushes, but it is not a global notification listener. Rejected for cross-app history.
+- **App Intents / App Shortcuts / Shortcuts URL scheme**: can expose Notify actions automatically and open/create/run shortcuts, but public APIs do not create or configure a personal Notification automation on the user's behalf. Rejected as an automatic trigger-provisioning path.
+- **Family Controls `FamilyActivityData.installedApplications`**: can expose actual installed applications only with `approvedWithDataAccess`; customer use is EU-only and requires the Family Controls App and Website Usage entitlement. This can help discover installed apps but does not expose notification contents or configure Shortcuts triggers. Insufficient.
+- **MDM notification settings**: can manage notification settings on supervised iOS devices. This is an enterprise/supervised-device path, not a mass-market consumer capture API. Rejected for the product.
+- **Accessory Notifications**: this is the one public iOS 27 framework found that can forward iOS system notifications from **all applicable apps** after one user authorization. It exposes notification content and an `allow` decision for all apps. However, it is designed for a companion app plus an accessory registered through AccessorySetupKit / Accessory Transport, and customer installations can use notification forwarding only on eligible EU iPhones with EU Apple Accounts. It therefore does not provide a global pure-iPhone App Store solution.
+
+Current conclusion: no public iOS 27 API path found provides a pure-iPhone, global, zero-touch listener for notification contents from every third-party app. The universal Notify product must not proceed on the Shortcuts architecture unless Apple exposes a new system capability.
+
 ## Re-alert feasibility
 
 Arvectum Notify can request notification authorization and schedule its own local notifications. iOS can deliver those alerts even when the app is not foregrounded. However, Notify cannot programmatically silence or suppress the original notification from another app; the user must change that source app’s notification presentation or sound settings in iOS.

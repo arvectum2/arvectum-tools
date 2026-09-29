@@ -55,6 +55,13 @@ The product starts with notification history and progressively expands into snoo
 - [ ] Verify real notification capture from all 10 configured source apps (5/10 verified: Telegram, Messages, WhatsApp, Mail, VkusVill).
 - [x] Test empty-App / any-app Notification trigger behavior: empty App is invalid and the automation cannot be enabled.
 - [x] Check picker for `Any App` / select-all: not exposed on iOS 27.
+- [x] Evaluate public iOS 27 alternatives for universal capture:
+  - [x] UserNotifications: own-app notifications only.
+  - [x] Notification Service Extension/filtering entitlement: own-app remote notifications only.
+  - [x] App Intents / Shortcuts URL schemes: no public automation-provisioning API.
+  - [x] FamilyActivityData: EU-only installed-app discovery, no notification-content access.
+  - [x] MDM: supervised-device path, not consumer capture.
+  - [x] Accessory Notifications: true all-app forwarding exists, but requires an accessory and is EU-only for customer use.
 - [ ] Re-check source-app availability when the installed-app set changes.
 - [x] Measure event loss / duplication.
 - [x] Reduce setup to one multi-app Notification trigger, four field mappings, and automatic in-app verification.
