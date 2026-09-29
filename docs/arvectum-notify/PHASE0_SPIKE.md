@@ -152,14 +152,39 @@ This is a positive reliability signal, but the sample is still too small and too
 
 ## Still unproven
 
-Gate A is **not closed yet**. The following still need measured physical-device
-coverage:
+Gate A is **blocked for the full-product requirement**. Notification payload capture itself is viable, but the current iOS 27 Shortcuts path cannot provide zero-touch all-app coverage because the Notification trigger requires one or more concrete apps.
+
+If the product is re-scoped to selected apps, the following validation remains:
 
 - production reliability across a larger cross-app sample;
 - real notification capture from all 10 configured source apps;
 - whether the structured Notification properties behave consistently across those apps;
 - notification summaries and hidden/sensitive previews;
 - setup complexity for a non-technical user.
+
+## Any-app trigger experiment
+
+The full-product requirement is zero-touch capture from all notification-producing apps, not a manually curated source list. A physical iPhone 13 / iOS 27 experiment tested whether the Notification trigger can act as a wildcard.
+
+Procedure:
+
+- duplicated the working `Archive Notification` shortcut so the verified trigger remained untouched;
+- confirmed the duplicate preserved all 10 concrete app values;
+- used the system `Clear` control to remove app values one by one;
+- confirmed each clear reduced the concrete app-token count;
+- cleared the final remaining app value;
+- inspected the resulting trigger and app picker.
+
+Result:
+
+- after clearing the last app, Shortcuts keeps one empty `App` placeholder rather than a wildcard value;
+- the editor displays: `Чтобы включить эту автоматизацию, настройте параметр «Приложение».`;
+- the automation therefore cannot be enabled with an empty App parameter;
+- the App picker exposes `Cancel`, `Clear`, and concrete app rows, but no `Any App`, `All Apps`, or select-all control.
+
+Conclusion: the iOS 27 Notification trigger requires at least one concrete source app. An empty App parameter is invalid, not a wildcard. The Shortcuts-based architecture therefore cannot satisfy the product requirement of automatically capturing notifications from every installed app without per-app source configuration.
+
+The experimental duplicate was deleted after the test; the original working `Archive Notification` shortcut was left intact.
 
 ## Re-alert feasibility
 

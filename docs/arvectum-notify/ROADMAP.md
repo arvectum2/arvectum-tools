@@ -53,6 +53,8 @@ The product starts with notification history and progressively expands into snoo
   - [x] Low Power Mode is active
 - [x] Configure one multi-app Notification trigger with 10 source apps.
 - [ ] Verify real notification capture from all 10 configured source apps (5/10 verified: Telegram, Messages, WhatsApp, Mail, VkusVill).
+- [x] Test empty-App / any-app Notification trigger behavior: empty App is invalid and the automation cannot be enabled.
+- [x] Check picker for `Any App` / select-all: not exposed on iOS 27.
 - [ ] Re-check source-app availability when the installed-app set changes.
 - [x] Measure event loss / duplication.
 - [x] Reduce setup to one multi-app Notification trigger, four field mappings, and automatic in-app verification.
@@ -486,7 +488,9 @@ Store:
 
 **Question:** Can iOS reliably provide enough notification data through an acceptable setup flow?
 
-If no: stop or redefine the product before building UI.
+**Current result for the full-product requirement:** No through the iOS 27 Shortcuts Notification trigger. Capture works, but every source app must be explicitly configured; an empty App value cannot be enabled and no Any App / select-all mode is exposed.
+
+Do not advance the universal notification-history product to Phase 1 on this architecture. Investigate a different system capability or redefine the product before further UI work.
 
 ## Gate B — after internal MVP
 
