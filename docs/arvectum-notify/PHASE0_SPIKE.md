@@ -135,13 +135,15 @@ duplication instead of hiding it.
 
 ## Controlled structured test sample
 
-Seventeen expected user-driven test notifications have now been sent after structured mapping was enabled.
+Eighteen expected user-driven test notifications have now been sent after structured mapping was enabled.
 
 The first seven covered Telegram baseline, Messages baseline, locked device, Focus, Low Power Mode, foreground, and explicit force-quit. All 7 were captured in SwiftData and none was marked as a duplicate.
 
 A subsequent burst test sent BURST_01 through BURST_10 as ten separate Telegram notifications roughly 1-2 seconds apart while Arvectum Notify remained force-quit. All 10 were captured, in order, with zero duplicate candidates.
 
-Current controlled sample: **17 sent / 17 captured / 0 missing / 0 duplicate candidates**.
+Current controlled sample: **18 sent / 18 captured / 0 missing / 0 duplicate candidates**.
+
+A follow-up control push after simplifying the App Intent from six visible parameters to four (`Source app`, `Title`, `Subtitle`, `Message`) was also captured successfully, confirming that the existing Shortcuts property mappings survived the app update. The unavailable original timestamp and bundle identifier are no longer exposed as user-configurable fields; capture time remains the timestamp fallback and the stable source bundle identifier remains unproven.
 
 This is a positive reliability signal, but the sample is still too small and too Telegram-heavy to estimate production reliability across source apps.
 

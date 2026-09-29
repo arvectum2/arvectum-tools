@@ -35,7 +35,7 @@ struct SetupGuideView: View {
     private var notifyActionSection: some View {
         Section("2. Add the Notify action") {
             Text("Add Arvectum Notify → Archive Notification.")
-            Text("Map Source app → Notification → App, Title → Title, Subtitle → Subtitle, and Message → Text. Leave Received at empty for now; Notify uses capture time as a fallback.")
+            Text("Map the four fields: Source app → Notification → App, Title → Title, Subtitle → Subtitle, and Message → Text.")
             Link("Open Shortcuts", destination: shortcutsURL)
         }
     }

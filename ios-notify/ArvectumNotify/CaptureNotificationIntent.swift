@@ -70,12 +70,6 @@ struct CaptureNotificationIntent: AppIntent {
     @Parameter(title: "Message")
     var notificationMessage: String?
 
-    @Parameter(title: "Received at")
-    var receivedAt: Date?
-
-    @Parameter(title: "Source bundle identifier")
-    var sourceBundleIdentifier: String?
-
     func perform() async throws -> some IntentResult {
         let capturedAt = Date()
         let payload = ShortcutNotificationPayload(
@@ -85,17 +79,17 @@ struct CaptureNotificationIntent: AppIntent {
         )
         let draft = NotificationCaptureDraft(
             sourceApp: sourceApp.trimmingCharacters(in: .whitespacesAndNewlines),
-            sourceBundleIdentifier: sourceBundleIdentifier?.nilIfBlank,
+            sourceBundleIdentifier: nil,
             titleText: payload.titleText,
             subtitleText: payload.subtitleText,
             bodyText: payload.bodyText,
-            receivedAt: receivedAt ?? capturedAt,
+            receivedAt: capturedAt,
             capturedAt: capturedAt,
             rawTitleText: payload.rawTitleText,
             rawSubtitleText: payload.rawSubtitleText,
             rawMessageText: payload.rawMessageText,
             normalizationMode: payload.normalizationMode,
-            timestampSource: receivedAt == nil ? "capture-time-fallback" : "shortcut-provided"
+            timestampSource: "capture-time-fallback"
         )
 
         _ = try await NotifyStore.writer.save(draft)
@@ -119,10 +113,5 @@ struct ArvectumNotifyShortcuts: AppShortcutsProvider {
 private extension String {
     var trimmed: String {
         trimmingCharacters(in: .whitespacesAndNewlines)
-    }
-
-    var nilIfBlank: String? {
-        let value = trimmed
-        return value.isEmpty ? nil : value
     }
 }
