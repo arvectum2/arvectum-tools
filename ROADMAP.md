@@ -18,7 +18,7 @@
 
 Canonical product specification: [apps/photo-size/ROADMAP.md](apps/photo-size/ROADMAP.md).
 
-Current post-launch direction includes production advertising, improved before/after App Store screenshots, system Light/Dark adaptation, localization and regional store metadata, country-specific passport-photo requirements, regional naming, control-placement UX review and competitive feature research.
+Current post-launch direction includes production advertising, improved before/after App Store screenshots, system Light/Dark adaptation, localization and regional store metadata, country-specific passport-photo requirements, regional naming, control-placement UX review and competitive feature research. Advertising may appear from the first relevant use; the preferred format is a native placement after the result, without blocking the core function.
 
 ## PUSHKIN
 
@@ -34,7 +34,7 @@ Current focus is a minimal-onboarding notification capture experience with broad
 
 Canonical backlog: [apps/habit-tracker/ROADMAP.md](apps/habit-tracker/ROADMAP.md).
 
-Direction: a simple free habit tracker inspired by the genuinely useful mechanics of HabitKit Pro, intentionally smaller and faster, with minimal setup and clear progress.
+Direction: a simple free habit tracker inspired by the genuinely useful mechanics of HabitKit Pro, intentionally smaller and faster, with minimal setup and clear progress. Core functionality stays free; advertising is delayed until an initial engagement threshold and remains outside the core habit flow.
 
 ## Shared platform
 
