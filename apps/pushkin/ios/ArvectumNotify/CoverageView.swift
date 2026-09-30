@@ -114,92 +114,6 @@ enum CoverageCatalog {
     }
 }
 
-struct CoverageView: View {
-    @AppStorage("coverage.quickRefreshCount")
-    private var quickRefreshCount = 0
-
-    @AppStorage("coverage.lastQuickRefreshName")
-    private var lastQuickRefreshName = ""
-
-    @AppStorage("coverage.lastQuickRefreshAt")
-    private var lastQuickRefreshAt = 0.0
-
-    @State private var showAppPicker = false
-
-    private let automationsURL = URL(string: "shortcuts://automations")!
-
-    var body: some View {
-        List {
-            Section("Included") {
-                LabeledContent(
-                    "Built-in apps",
-                    value: "\(CoverageCatalog.entries.count)"
-                )
-
-                if quickRefreshCount > 0 {
-                    LabeledContent(
-                        "Apps added later",
-                        value: "\(quickRefreshCount)"
-                    )
-                }
-
-                if !lastQuickRefreshName.isEmpty {
-                    LabeledContent(
-                        "Latest",
-                        value: lastQuickRefreshName
-                    )
-                }
-            }
-
-            Section("Add an app") {
-                Button {
-                    showAppPicker = true
-                } label: {
-                    Label(
-                        "Add app to PUSHKIN",
-                        systemImage: "plus.app.fill"
-                    )
-                }
-
-                Text(
-                    "Search the built-in list. If an app is not there yet, PUSHKIN will show a manual setup path."
-                )
-                .foregroundStyle(.secondary)
-            }
-
-            Section("Shortcuts") {
-                Link(destination: automationsURL) {
-                    Label(
-                        "Open Shortcuts automations",
-                        systemImage: "arrow.up.forward.app"
-                    )
-                }
-
-                Text(
-                    "Use this if you need to review or re-enable a PUSHKIN automation."
-                )
-                .foregroundStyle(.secondary)
-            }
-        }
-        .scrollContentBackground(.hidden)
-        .background(Color.arvectumBackground)
-        .navigationTitle("Apps")
-        .navigationBarTitleDisplayMode(.inline)
-        .tint(.arvectumMint)
-        .sheet(isPresented: $showAppPicker) {
-            CoverageAppPicker { app in
-                recordQuickRefresh(app)
-            }
-        }
-    }
-
-    private func recordQuickRefresh(_ app: CoverageCatalogEntry) {
-        lastQuickRefreshName = app.name
-        lastQuickRefreshAt = Date().timeIntervalSince1970
-        quickRefreshCount += 1
-    }
-}
-
 struct CoverageAppPicker: View {
     @Environment(\.dismiss) private var dismiss
 
@@ -214,96 +128,115 @@ struct CoverageAppPicker: View {
     }
 
     private var catalogResults: [CoverageCatalogEntry] {
-        guard !trimmedQuery.isEmpty else {
-            return CoverageCatalog.commonEntries
-        }
+        let matches: [CoverageCatalogEntry]
 
-        return CoverageCatalog.entries.filter {
-            $0.title.localizedCaseInsensitiveContains(trimmedQuery)
-                || $0.name.localizedCaseInsensitiveContains(trimmedQuery)
-                || $0.bundleIdentifier
-                    .localizedCaseInsensitiveContains(trimmedQuery)
-        }
-    }
-
-    private var searchSection: some View {
-        Section {
-            TextField("Search apps", text: $query)
-                .textInputAutocapitalization(.never)
-                .autocorrectionDisabled()
-                .accessibilityIdentifier("app-search")
-        } footer: {
-            Text(
-                "Searches the offline catalog bundled with this version of PUSHKIN."
-            )
-        }
-    }
-
-    @ViewBuilder
-    private var catalogSection: some View {
-        Section(trimmedQuery.isEmpty ? "Popular apps" : "In PUSHKIN") {
-            if catalogResults.isEmpty {
-                ContentUnavailableView(
-                    "Not in this version",
-                    systemImage: "square.dashed",
-                    description: Text(
-                        "You can still add this app manually in Shortcuts."
-                    )
-                )
-            } else {
-                ForEach(catalogResults) { app in
-                    Button {
-                        open(app)
-                    } label: {
-                        HStack(spacing: 12) {
-                            Text(app.title)
-                                .foregroundStyle(.primary)
-                            Spacer()
-                            Image(systemName: "chevron.right")
-                                .font(.caption.weight(.semibold))
-                                .foregroundStyle(.tertiary)
-                        }
-                        .contentShape(Rectangle())
-                    }
-                    .disabled(CoverageCatalog.packageURL(for: app) == nil)
-                }
+        if trimmedQuery.isEmpty {
+            matches = Array(CoverageCatalog.commonEntries.prefix(5))
+        } else {
+            matches = CoverageCatalog.entries.filter {
+                $0.title.localizedCaseInsensitiveContains(trimmedQuery)
+                    || $0.name.localizedCaseInsensitiveContains(trimmedQuery)
+                    || $0.bundleIdentifier
+                        .localizedCaseInsensitiveContains(trimmedQuery)
             }
         }
-    }
 
-    @ViewBuilder
-    private var manualSection: some View {
-        if !trimmedQuery.isEmpty {
-            Section {
-                NavigationLink {
-                    ManualCoverageGuide(appName: trimmedQuery)
-                } label: {
-                    Label(
-                        catalogResults.isEmpty
-                            ? "Add manually"
-                            : "App not listed? Add manually",
-                        systemImage: "hand.tap"
-                    )
-                }
-                .accessibilityIdentifier("manual-add-app")
-            } footer: {
-                Text(
-                    "Manual setup takes a few more taps, but stays entirely on your iPhone and needs no PUSHKIN server."
-                )
-            }
-        }
+        return Array(matches.prefix(6))
     }
 
     var body: some View {
         NavigationStack {
-            List {
-                searchSection
-                catalogSection
-                manualSection
+            VStack(spacing: 10) {
+                HStack(spacing: 10) {
+                    Image(systemName: "magnifyingglass")
+                        .foregroundStyle(.secondary)
+
+                    TextField("Search apps", text: $query)
+                        .textInputAutocapitalization(.never)
+                        .autocorrectionDisabled()
+                        .accessibilityIdentifier("app-search")
+
+                    if !query.isEmpty {
+                        Button {
+                            query = ""
+                        } label: {
+                            Image(systemName: "xmark.circle.fill")
+                                .foregroundStyle(.secondary)
+                        }
+                        .buttonStyle(.plain)
+                        .accessibilityLabel("Clear search")
+                    }
+                }
+                .padding(.horizontal, 14)
+                .frame(height: 46)
+                .background(
+                    Color.arvectumSurface,
+                    in: RoundedRectangle(cornerRadius: 16, style: .continuous)
+                )
+                .overlay(
+                    RoundedRectangle(cornerRadius: 16, style: .continuous)
+                        .stroke(Color.arvectumBorder, lineWidth: 1)
+                )
+                .padding(.horizontal, 16)
+                .padding(.top, 8)
+
+                if catalogResults.isEmpty {
+                    missingAppState
+                } else {
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text(trimmedQuery.isEmpty ? "Popular apps" : "In PUSHKIN")
+                            .font(.caption.weight(.semibold))
+                            .foregroundStyle(.secondary)
+
+                        ArvectumCard {
+                            VStack(spacing: 0) {
+                                ForEach(catalogResults) { app in
+                                    Button {
+                                        open(app)
+                                    } label: {
+                                        HStack(spacing: 12) {
+                                            Text(app.title)
+                                                .foregroundStyle(.primary)
+                                                .lineLimit(1)
+
+                                            Spacer()
+
+                                            Image(systemName: "chevron.right")
+                                                .font(.caption.weight(.semibold))
+                                                .foregroundStyle(.tertiary)
+                                        }
+                                        .frame(height: 44)
+                                        .contentShape(Rectangle())
+                                    }
+                                    .buttonStyle(.plain)
+                                    .disabled(CoverageCatalog.packageURL(for: app) == nil)
+
+                                    if app.id != catalogResults.last?.id {
+                                        Divider()
+                                    }
+                                }
+                            }
+                        }
+
+                        if !trimmedQuery.isEmpty {
+                            NavigationLink {
+                                ManualCoverageGuide(appName: trimmedQuery)
+                            } label: {
+                                Label("Not listed? Add manually", systemImage: "hand.tap")
+                                    .font(.subheadline)
+                                    .frame(minHeight: 44)
+                            }
+                            .accessibilityIdentifier("manual-add-app")
+                        }
+                    }
+                    .padding(.horizontal, 16)
+                }
+
+                Spacer(minLength: 0)
             }
-            .scrollContentBackground(.hidden)
-            .background(Color.arvectumBackground)
+            .background(Color.arvectumBackground.ignoresSafeArea())
             .navigationTitle("Add App")
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel") {
@@ -324,6 +257,31 @@ struct CoverageAppPicker: View {
         }
     }
 
+    private var missingAppState: some View {
+        VStack(spacing: 14) {
+            Spacer(minLength: 18)
+
+            Image(systemName: "square.dashed")
+                .font(.system(size: 34))
+                .foregroundStyle(.secondary)
+
+            Text("Not in this version")
+                .font(.headline)
+
+            NavigationLink {
+                ManualCoverageGuide(appName: trimmedQuery)
+            } label: {
+                Label("Add manually", systemImage: "hand.tap")
+                    .frame(maxWidth: .infinity)
+            }
+            .buttonStyle(.borderedProminent)
+            .accessibilityIdentifier("manual-add-app")
+
+            Spacer(minLength: 18)
+        }
+        .padding(.horizontal, 24)
+    }
+
     private func open(_ app: CoverageCatalogEntry) {
         guard let url = CoverageCatalog.packageURL(for: app) else {
             return
@@ -342,81 +300,57 @@ private struct ManualCoverageGuide: View {
     private let automationsURL = URL(string: "shortcuts://automations")!
 
     var body: some View {
-        List {
-            Section {
-                Label(
-                    "This path is only for apps missing from the built-in catalog.",
-                    systemImage: "iphone"
-                )
-                Text(
-                    "Nothing is uploaded. You create one Notification automation directly in Apple's Shortcuts app."
-                )
-                .foregroundStyle(.secondary)
+        VStack(spacing: 12) {
+            if !appName.isEmpty {
+                Text(appName)
+                    .font(.headline)
+                    .lineLimit(1)
+                    .padding(.top, 4)
             }
 
-            Section("1. Choose the app") {
-                Text(
-                    "Open Shortcuts → Automation → + → Notification → App, then choose the app you want to add."
-                )
-
-                Button {
-                    openURL(automationsURL)
-                } label: {
-                    Label(
-                        "Open Shortcuts Automations",
-                        systemImage: "arrow.up.forward.app"
-                    )
-                }
-                .accessibilityIdentifier("open-manual-automations")
-
-                if !appName.isEmpty {
-                    LabeledContent("You searched for", value: appName)
+            ArvectumCard {
+                VStack(spacing: 12) {
+                    step(1, "Create a Notification automation and choose the app.")
+                    step(2, "Add PUSHKIN → Archive Notification.")
+                    step(3, "Map App, Title, Subtitle and Text.")
+                    step(4, "Run immediately, then save.")
                 }
             }
 
-            Section("2. Add the PUSHKIN action") {
-                Text(
-                    "Add the action PUSHKIN → Archive Notification."
-                )
+            Button {
+                openURL(automationsURL)
+            } label: {
+                Label("Open Shortcuts", systemImage: "arrow.up.forward.app")
+                    .frame(maxWidth: .infinity)
             }
+            .buttonStyle(.borderedProminent)
+            .controlSize(.large)
+            .accessibilityIdentifier("open-manual-automations")
 
-            Section("3. Map the notification") {
-                mappingRow("Source app", "Notification → App")
-                mappingRow("Title", "Notification → Title")
-                mappingRow("Subtitle", "Notification → Subtitle")
-                mappingRow("Message", "Notification → Text")
-
-                Text(
-                    "When Shortcuts asks how the automation should run, choose the immediate/automatic option."
-                )
-                .foregroundStyle(.secondary)
-            }
-
-            Section("4. Save") {
-                Text(
-                    "Save and make sure the new automation is enabled. The first matching notification should then appear in PUSHKIN automatically."
-                )
-            }
-
-            Section("Help us improve the catalog") {
-                Text(
-                    "Want this app to become a one-tap option? Mention its exact name in an App Store review or send it to Arvectum support. Requested apps can be added in regular catalog updates."
-                )
-                .foregroundStyle(.secondary)
-            }
+            Spacer(minLength: 0)
         }
-        .scrollContentBackground(.hidden)
-        .background(Color.arvectumBackground)
+        .padding(.horizontal, 16)
+        .padding(.top, 8)
+        .padding(.bottom, 8)
+        .background(Color.arvectumBackground.ignoresSafeArea())
         .navigationTitle("Add Manually")
         .navigationBarTitleDisplayMode(.inline)
         .tint(.arvectumMint)
         .accessibilityIdentifier("manual-coverage-guide")
     }
 
-    private func mappingRow(
-        _ parameter: String,
-        _ value: String
-    ) -> some View {
-        LabeledContent(parameter, value: value)
+    private func step(_ number: Int, _ text: String) -> some View {
+        HStack(alignment: .top, spacing: 10) {
+            Text("\(number)")
+                .font(.caption.bold())
+                .foregroundStyle(Color.arvectumNavy)
+                .frame(width: 24, height: 24)
+                .background(Color.arvectumMint, in: Circle())
+
+            Text(text)
+                .font(.subheadline)
+                .frame(maxWidth: .infinity, alignment: .leading)
+        }
+        .accessibilityElement(children: .combine)
     }
 }

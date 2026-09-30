@@ -19,10 +19,41 @@ final class MinimalUXUITests: XCTestCase {
         settings.tap()
 
         XCTAssertTrue(app.staticTexts["On this iPhone"].firstMatch.waitForExistence(timeout: 6))
-        XCTAssertTrue(app.buttons["Delete all history"].firstMatch.exists)
-        XCTAssertTrue(app.links["Privacy policy"].firstMatch.exists)
+        XCTAssertTrue(app.buttons["delete-all-history"].firstMatch.exists)
+        XCTAssertTrue(app.links["privacy-policy"].firstMatch.exists)
 
         print("RELEASE_CONSUMER_SHELL_OK")
+    }
+
+    func testPrimaryUtilityTabsFitWithoutScrolling() throws {
+        let app = XCUIApplication(bundleIdentifier: "ru.arvectum.tools.notify")
+        app.launch()
+
+        let appsTab = app.tabBars.buttons["Apps"].firstMatch
+        XCTAssertTrue(appsTab.waitForExistence(timeout: 6))
+        appsTab.tap()
+
+        XCTAssertTrue(
+            app.buttons["add-app-from-apps-tab"].firstMatch
+                .waitForExistence(timeout: 6)
+        )
+        XCTAssertTrue(
+            app.staticTexts[
+                "Local on this iPhone · no account or cloud"
+            ].firstMatch.exists
+        )
+
+        let settingsTab = app.tabBars.buttons["Settings"].firstMatch
+        settingsTab.tap()
+
+        XCTAssertTrue(
+            app.buttons["delete-all-history"].firstMatch
+                .waitForExistence(timeout: 6)
+        )
+        XCTAssertTrue(app.links["privacy-policy"].firstMatch.exists)
+        XCTAssertTrue(app.links["support-link"].firstMatch.exists)
+
+        print("PRIMARY_TABS_NO_SCROLL_REQUIRED_OK")
     }
 
     func testOnboardingOpensShortcutPreviewDirectly() throws {
@@ -116,7 +147,9 @@ final class MinimalUXUITests: XCTestCase {
         ].firstMatch
         XCTAssertTrue(openAutomations.waitForExistence(timeout: 6))
         XCTAssertTrue(
-            app.staticTexts["Source app"].firstMatch.exists
+            app.staticTexts[
+                "Map App, Title, Subtitle and Text."
+            ].firstMatch.exists
         )
         print("OFFLINE_MANUAL_ADD_GUIDE_OK")
     }

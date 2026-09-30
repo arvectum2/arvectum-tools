@@ -48,6 +48,24 @@ Save/Done states, advanced filters, Face ID app lock, configurable retention, sn
 
 **Advertising:** first release is ad-free. Ad SDK integration is planned for the second public release only, after 1.0 is live and stable.
 
+## Post-1.0 UI/UX correction — current work
+
+The submitted 1.0 build stays in App Review. UI changes below target the next build and must be visually approved before any further App Store submission.
+
+- [x] Move redesign work to dedicated branch `pushkin-ui-rework`; keep submitted 1.0 source intact on `main`.
+- [x] Remove duplicate Shortcuts actions from the same UI state.
+- [x] Cut explanatory copy to short task-oriented labels/captions.
+- [x] Make Apps, Settings and Manual Add fixed-height/non-scrolling at normal text size.
+- [x] Cap Add App UI to 5 popular apps / 6 search matches so the picker itself does not need vertical scrolling.
+- [x] Add Pushkin portrait next to the Arvectum wordmark on History.
+- [x] Replace generic PUSHKIN title treatment with a heavy serif product wordmark.
+- [x] Reserve future native-ad insertion point after the third History item; ads remain disabled and no blank placeholder is shown.
+- [x] Complete product/IA/visual/iOS interaction cross-review in `docs/UX_REVIEW.md`.
+- [ ] Build the redesign after Xcode toolchain recovers from the current stuck SDK/asset compiler processes.
+- [ ] Capture light/dark screenshots on simulator and physical iPhone.
+- [ ] Product-owner visual approval.
+- [ ] Only after approval: merge/release next build; add the planned ad SDK for the second public release.
+
 ---
 
 ## Product principles

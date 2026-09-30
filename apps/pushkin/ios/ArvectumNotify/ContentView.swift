@@ -99,10 +99,12 @@ private struct InboxView: View {
     var body: some View {
         NavigationStack {
             VStack(spacing: 0) {
-                ArvectumBrandHeader(productName: "PUSHKIN")
-                    .padding(.horizontal, 14)
-                    .padding(.top, 8)
-                    .padding(.bottom, 6)
+                ArvectumPushkinHeader {
+                    showAppPicker = true
+                }
+                .padding(.horizontal, 14)
+                .padding(.top, 8)
+                .padding(.bottom, 8)
 
                 if !notifications.isEmpty {
                     HStack(spacing: 10) {
@@ -144,67 +146,78 @@ private struct InboxView: View {
 
                 Group {
                     if notifications.isEmpty {
-                    VStack(spacing: 18) {
-                        ContentUnavailableView(
-                            "Never lose a notification",
-                            systemImage: "bell.badge",
-                            description: Text(
-                                "Set up PUSHKIN once, then incoming notifications can be archived automatically."
-                            )
-                        )
+                        VStack(spacing: 14) {
+                            Image(systemName: "bell.badge")
+                                .font(.system(size: 38, weight: .semibold))
+                                .foregroundStyle(Color.arvectumMint)
 
-                        if let url = CoverageCatalog.basePackageURL {
-                            Button {
-                                if url.isFileURL {
-                                    pendingBasePackageURL = url
-                                } else {
-                                    openURL(url)
+                            Text("Notification history")
+                                .font(.title3.weight(.semibold))
+
+                            Text("Set up once. PUSHKIN saves incoming notifications locally.")
+                                .font(.subheadline)
+                                .foregroundStyle(.secondary)
+                                .multilineTextAlignment(.center)
+
+                            if let url = CoverageCatalog.basePackageURL {
+                                Button {
+                                    if url.isFileURL {
+                                        pendingBasePackageURL = url
+                                    } else {
+                                        openURL(url)
+                                    }
+                                } label: {
+                                    Label(
+                                        "Set up PUSHKIN",
+                                        systemImage: "wand.and.stars"
+                                    )
+                                    .frame(maxWidth: .infinity)
                                 }
-                            } label: {
-                                Label(
-                                    "Set up PUSHKIN",
-                                    systemImage: "wand.and.stars"
-                                )
+                                .buttonStyle(.borderedProminent)
+                                .controlSize(.large)
+                                .accessibilityIdentifier("setup-pushkin")
                             }
-                            .buttonStyle(.borderedProminent)
-                            .accessibilityIdentifier("setup-pushkin")
                         }
-
-                        Link(destination: automationsURL) {
-                            Label(
-                                "Enable PUSHKIN automation",
-                                systemImage: "switch.2"
-                            )
-                        }
-                        .font(.footnote)
-                        .accessibilityIdentifier("enable-pushkin-automation")
-                    }
-                    .padding()
+                        .padding(.horizontal, 28)
+                        .frame(maxWidth: 430)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
                     } else if filteredNotifications.isEmpty {
                         ContentUnavailableView.search(text: searchText)
                     } else {
-                        List(filteredNotifications) { item in
-                            NavigationLink {
-                                NotificationDetailView(item: item)
-                            } label: {
-                                NotificationRow(item: item)
-                            }
-                            .swipeActions(edge: .trailing) {
-                                Button(role: .destructive) {
-                                    delete(item)
+                        List {
+                            ForEach(
+                                Array(filteredNotifications.indices),
+                                id: \.self
+                            ) { index in
+                                let item = filteredNotifications[index]
+
+                                NavigationLink {
+                                    NotificationDetailView(item: item)
                                 } label: {
-                                    Label("Delete", systemImage: "trash")
+                                    NotificationRow(item: item)
                                 }
-                            }
-                            .contextMenu {
-                                Button {
-                                    UIPasteboard.general.string = item.shareText
-                                } label: {
-                                    Label("Copy", systemImage: "doc.on.doc")
+                                .swipeActions(edge: .trailing) {
+                                    Button(role: .destructive) {
+                                        delete(item)
+                                    } label: {
+                                        Label("Delete", systemImage: "trash")
+                                    }
+                                }
+                                .contextMenu {
+                                    Button {
+                                        UIPasteboard.general.string = item.shareText
+                                    } label: {
+                                        Label("Copy", systemImage: "doc.on.doc")
+                                    }
+
+                                    ShareLink(item: item.shareText) {
+                                        Label("Share", systemImage: "square.and.arrow.up")
+                                    }
                                 }
 
-                                ShareLink(item: item.shareText) {
-                                    Label("Share", systemImage: "square.and.arrow.up")
+                                if PushkinFeatureFlags.adsEnabled && index == 2 {
+                                    FutureNativeAdPlacement()
+                                        .listRowSeparator(.hidden)
                                 }
                             }
                         }
@@ -216,19 +229,6 @@ private struct InboxView: View {
             .background(Color.arvectumBackground.ignoresSafeArea())
             .navigationTitle("History")
             .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button {
-                        showAppPicker = true
-                    } label: {
-                        Label(
-                            "Add app",
-                            systemImage: "plus.app"
-                        )
-                    }
-                    .accessibilityIdentifier("add-app")
-                }
-            }
             .sheet(isPresented: $showAppPicker) {
                 CoverageAppPicker { app in
                     let now = Date().timeIntervalSince1970
@@ -289,11 +289,9 @@ private struct InboxView: View {
             .font(.headline)
 
             if pendingCoverageVerified {
-                Text(
-                    "PUSHKIN has captured a notification from \(pendingCoverageTitle). Coverage is active."
-                )
-                .font(.subheadline)
-                .foregroundStyle(.secondary)
+                Text("\(pendingCoverageTitle) is active.")
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
 
                 Button("Done") {
                     clearPendingCoverage()
@@ -301,11 +299,9 @@ private struct InboxView: View {
                 .buttonStyle(.bordered)
                 .accessibilityIdentifier("coverage-finish-done")
             } else {
-                Text(
-                    "In Shortcuts, tap Add for the PUSHKIN configuration, then turn on its new automation. PUSHKIN will verify coverage automatically after the first notification."
-                )
-                .font(.subheadline)
-                .foregroundStyle(.secondary)
+                Text("Enable the new PUSHKIN automation once in Shortcuts.")
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
 
                 Link(destination: automationsURL) {
                     Label(

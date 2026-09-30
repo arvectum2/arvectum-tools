@@ -7,9 +7,30 @@ struct SetupGuideView: View {
     @Query(sort: \CapturedNotification.capturedAt, order: .reverse)
     private var notifications: [CapturedNotification]
 
-    @State private var pendingBasePackageURL: URL?
+    @AppStorage("coverage.quickRefreshCount")
+    private var quickRefreshCount = 0
 
-    private let automationsURL = URL(string: "shortcuts://automations")!
+    @AppStorage("coverage.lastQuickRefreshName")
+    private var lastQuickRefreshName = ""
+
+    @AppStorage("coverage.lastQuickRefreshAt")
+    private var lastQuickRefreshAt = 0.0
+
+    @AppStorage("coverage.pendingAppName")
+    private var pendingCoverageName = ""
+
+    @AppStorage("coverage.pendingAppTitle")
+    private var pendingCoverageTitle = ""
+
+    @AppStorage("coverage.pendingStartedAt")
+    private var pendingCoverageStartedAt = 0.0
+
+    @State private var pendingBasePackageURL: URL?
+    @State private var showAppPicker = false
+
+    private var setupVerified: Bool {
+        !notifications.isEmpty
+    }
 
     private var sourceCount: Int {
         Set(notifications.map(\.sourceApp)).count
@@ -17,25 +38,23 @@ struct SetupGuideView: View {
 
     var body: some View {
         NavigationStack {
-            VStack(spacing: 0) {
-                ArvectumBrandHeader(productName: "PUSHKIN")
-                    .padding(.horizontal, 14)
-                    .padding(.top, 8)
-                    .padding(.bottom, 6)
-
-                List {
-                    chooseAppsSection
-                    coverageRefreshSection
-                    backgroundSection
-                    verifySection
-                    privacySection
-                }
-                .scrollContentBackground(.hidden)
-                .background(Color.arvectumBackground)
+            VStack(spacing: 12) {
+                statusCard
+                appCard
+                localBadge
+                Spacer(minLength: 0)
             }
+            .padding(.horizontal, 16)
+            .padding(.top, 12)
+            .padding(.bottom, 8)
             .background(Color.arvectumBackground.ignoresSafeArea())
-            .navigationTitle("Apps & Setup")
+            .navigationTitle("Apps")
             .navigationBarTitleDisplayMode(.inline)
+            .sheet(isPresented: $showAppPicker) {
+                CoverageAppPicker { app in
+                    recordQuickRefresh(app)
+                }
+            }
             .background {
                 ShortcutPackagePresenter(
                     packageURL: $pendingBasePackageURL
@@ -44,98 +63,104 @@ struct SetupGuideView: View {
         }
     }
 
-    private var chooseAppsSection: some View {
-        Section("Turn on PUSHKIN") {
-            if let url = CoverageCatalog.basePackageURL {
-                Button {
-                    if url.isFileURL {
-                        pendingBasePackageURL = url
-                    } else {
-                        openURL(url)
-                    }
-                } label: {
-                    Label(
-                        "Set up notification history",
-                        systemImage: "wand.and.stars"
+    private var statusCard: some View {
+        ArvectumCard {
+            VStack(alignment: .leading, spacing: 12) {
+                HStack(spacing: 10) {
+                    Image(
+                        systemName: setupVerified
+                            ? "checkmark.seal.fill"
+                            : "bolt.horizontal.circle"
                     )
+                    .font(.title3)
+                    .foregroundStyle(Color.arvectumMint)
+
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text(setupVerified ? "PUSHKIN is active" : "One-time setup")
+                            .font(.headline)
+
+                        Text(
+                            setupVerified
+                                ? "\(sourceCount) apps connected · \(notifications.count) saved"
+                                : "Connect notification capture once."
+                        )
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                    }
+
+                    Spacer()
+                }
+
+                if !setupVerified, let url = CoverageCatalog.basePackageURL {
+                    Button {
+                        if url.isFileURL {
+                            pendingBasePackageURL = url
+                        } else {
+                            openURL(url)
+                        }
+                    } label: {
+                        Label("Set up PUSHKIN", systemImage: "wand.and.stars")
+                            .frame(maxWidth: .infinity)
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .controlSize(.large)
+                    .accessibilityIdentifier("setup-pushkin-apps")
                 }
             }
+        }
+    }
 
-            secondaryText(
-                "Add PUSHKIN in Shortcuts once, then enable the automation when iOS asks. You do not need to select apps one by one."
-            )
+    private var appCard: some View {
+        ArvectumCard {
+            VStack(alignment: .leading, spacing: 10) {
+                HStack {
+                    Label("Apps", systemImage: "square.stack.3d.up.fill")
+                        .font(.headline)
 
-            Link(destination: automationsURL) {
-                Label(
-                    "Open Shortcuts Automation",
-                    systemImage: "switch.2"
-                )
+                    Spacer()
+
+                    Text("\(CoverageCatalog.entries.count) built in")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+
+                Button {
+                    showAppPicker = true
+                } label: {
+                    Label("Add app", systemImage: "plus")
+                        .frame(maxWidth: .infinity)
+                }
+                .buttonStyle(.borderedProminent)
+                .controlSize(.large)
+                .accessibilityIdentifier("add-app-from-apps-tab")
+
+                if !lastQuickRefreshName.isEmpty {
+                    Text("Latest: \(lastQuickRefreshName)")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                        .lineLimit(1)
+                }
             }
         }
     }
 
-    private var coverageRefreshSection: some View {
-        Section("Add more apps") {
-            NavigationLink {
-                CoverageView()
-            } label: {
-                Label("Add or manage apps", systemImage: "square.stack.3d.up")
-            }
-            secondaryText(
-                "Installed something new? Add it here. Most supported apps take only a few taps."
-            )
-        }
+    private var localBadge: some View {
+        Label(
+            "Local on this iPhone · no account or cloud",
+            systemImage: "lock.shield.fill"
+        )
+        .font(.caption.weight(.medium))
+        .foregroundStyle(.secondary)
+        .padding(.top, 2)
     }
 
-    private var backgroundSection: some View {
-        Section("If iOS asks") {
-            Text(
-                "Allow the PUSHKIN shortcut to run while the iPhone is locked."
-            )
-            secondaryText(
-                "This is an iOS confirmation you should normally see only during setup."
-            )
-        }
-    }
-
-    private var verifySection: some View {
-        Section("Status") {
-            if let last = notifications.first {
-                Label("Capture verified", systemImage: "checkmark.seal.fill")
-                LabeledContent("Captured", value: "\(notifications.count)")
-                LabeledContent("Source apps", value: "\(sourceCount)")
-                LabeledContent(
-                    "Latest",
-                    value: last.capturedAt.formatted(
-                        date: .abbreviated,
-                        time: .shortened
-                    )
-                )
-                secondaryText(
-                    "Your automation has successfully written notification data to PUSHKIN."
-                )
-            } else {
-                Label(
-                    "Waiting for the first capture",
-                    systemImage: "hourglass"
-                )
-                Text(
-                    "Send one real notification from a selected app. This screen will confirm setup automatically."
-                )
-            }
-        }
-    }
-
-    private var privacySection: some View {
-        Section("Privacy") {
-            Label("Stored on this iPhone", systemImage: "lock.shield")
-            secondaryText(
-                "No account, cloud sync, ads or analytics. Notification content stays on this iPhone."
-            )
-        }
-    }
-
-    private func secondaryText(_ value: String) -> some View {
-        Text(value).foregroundStyle(.secondary)
+    private func recordQuickRefresh(_ app: CoverageCatalogEntry) {
+        let now = Date().timeIntervalSince1970
+        lastQuickRefreshName = app.name
+        lastQuickRefreshAt = now
+        quickRefreshCount += 1
+        pendingCoverageName = app.name
+        pendingCoverageTitle = app.title
+        pendingCoverageStartedAt = now
     }
 }

@@ -9,30 +9,31 @@ struct SettingsView: View {
 
     @State private var showingDeleteAllConfirmation = false
 
-    private let privacyURL = URL(
-        string: "https://arvectum.com/privacy.html"
+    private let privacyURL = URL(string: "https://arvectum.com/privacy.html")!
+    private let supportURL = URL(
+        string: "mailto:info@arvectum.com?subject=PUSHKIN%20support"
     )!
-    private let supportURL = URL(string: "https://arvectum.com")!
 
     var body: some View {
         NavigationStack {
-            VStack(spacing: 0) {
-                ArvectumBrandHeader(productName: "PUSHKIN")
-                    .padding(.horizontal, 14)
-                    .padding(.top, 8)
-                    .padding(.bottom, 6)
+            VStack(spacing: 12) {
+                storageCard
+                linksCard
+                aboutLine
+                Spacer(minLength: 0)
 
-                List {
-                    localSection
-                    supportSection
-                    aboutSection
 #if DEBUG
-                    debugSection
-#endif
+                NavigationLink {
+                    DiagnosticsView()
+                } label: {
+                    Label("Diagnostics", systemImage: "waveform.path.ecg")
+                        .font(.caption)
                 }
-                .scrollContentBackground(.hidden)
-                .background(Color.arvectumBackground)
+#endif
             }
+            .padding(.horizontal, 16)
+            .padding(.top, 12)
+            .padding(.bottom, 8)
             .background(Color.arvectumBackground.ignoresSafeArea())
             .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.inline)
@@ -46,80 +47,102 @@ struct SettingsView: View {
                     try? modelContext.save()
                 }
             } message: {
-                Text("This cannot be undone. PUSHKIN setup and app coverage stay intact.")
+                Text("This cannot be undone.")
             }
         }
     }
 
-    private var localSection: some View {
-        Section("On this iPhone") {
-            LabeledContent(
-                "Notifications saved",
-                value: "\(notifications.count)"
-            )
+    private var storageCard: some View {
+        ArvectumCard {
+            VStack(spacing: 12) {
+                HStack(spacing: 10) {
+                    Image(systemName: "iphone.and.arrow.forward")
+                        .font(.title3)
+                        .foregroundStyle(Color.arvectumMint)
 
-            Label(
-                "Notification content stays on this device",
-                systemImage: "lock.shield.fill"
-            )
-            Text(
-                "Everything stays on this iPhone. No account, cloud sync, ads or analytics in version 1.0."
-            )
-            .font(.footnote)
-            .foregroundStyle(.secondary)
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text("On this iPhone")
+                            .font(.headline)
+                        Text("\(notifications.count) notifications saved")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
 
-            Button(role: .destructive) {
-                showingDeleteAllConfirmation = true
-            } label: {
-                Label("Delete all history", systemImage: "trash")
-            }
-            .disabled(notifications.isEmpty)
-        }
-    }
+                    Spacer()
+                }
 
-    private var supportSection: some View {
-        Section("Help & feedback") {
-            Link(destination: supportURL) {
-                Label(
-                    "Support and missing-app requests",
-                    systemImage: "bubble.left.and.bubble.right"
-                )
-            }
+                Divider()
 
-            Text(
-                "Missing an app? Send us its exact name. The most-requested apps move to the top of our update list."
-            )
-            .font(.footnote)
-            .foregroundStyle(.secondary)
-        }
-    }
-    private var aboutSection: some View {
-        Section("About") {
-            Link(destination: privacyURL) {
-                Label("Privacy policy", systemImage: "hand.raised.fill")
-            }
-
-            LabeledContent("Product", value: "PUSHKIN")
-            LabeledContent("Developer", value: "Arvectum")
-            LabeledContent("Version", value: appVersion)
-
-            Text("Never lose an important notification again.")
-                .font(.footnote)
-                .foregroundStyle(.secondary)
-        }
-    }
-
-#if DEBUG
-    private var debugSection: some View {
-        Section("Developer") {
-            NavigationLink {
-                DiagnosticsView()
-            } label: {
-                Label("Diagnostics", systemImage: "waveform.path.ecg")
+                Button(role: .destructive) {
+                    showingDeleteAllConfirmation = true
+                } label: {
+                    HStack {
+                        Label("Delete history", systemImage: "trash")
+                        Spacer()
+                    }
+                    .frame(minHeight: 44)
+                }
+                .disabled(notifications.isEmpty)
+                .accessibilityIdentifier("delete-all-history")
             }
         }
     }
-#endif
+
+    private var linksCard: some View {
+        ArvectumCard {
+            VStack(spacing: 0) {
+                Link(destination: privacyURL) {
+                    settingsRow(
+                        "Privacy policy",
+                        systemImage: "hand.raised.fill"
+                    )
+                }
+                .accessibilityIdentifier("privacy-policy")
+
+                Divider()
+                    .padding(.vertical, 10)
+
+                Link(destination: supportURL) {
+                    settingsRow(
+                        "Support / request an app",
+                        systemImage: "bubble.left.and.bubble.right.fill"
+                    )
+                }
+                .accessibilityIdentifier("support-link")
+            }
+        }
+    }
+
+    private var aboutLine: some View {
+        HStack(spacing: 7) {
+            Text("PUSHKIN")
+                .font(.caption.bold())
+            Text("·")
+            Text("Arvectum")
+            Text("·")
+            Text(appVersion)
+        }
+        .foregroundStyle(.secondary)
+        .font(.caption)
+    }
+
+    private func settingsRow(
+        _ title: String,
+        systemImage: String
+    ) -> some View {
+        HStack(spacing: 12) {
+            Image(systemName: systemImage)
+                .frame(width: 24)
+            Text(title)
+                .foregroundStyle(.primary)
+            Spacer()
+            Image(systemName: "chevron.right")
+                .font(.caption.weight(.semibold))
+                .foregroundStyle(.tertiary)
+        }
+        .frame(minHeight: 44)
+        .contentShape(Rectangle())
+    }
 
     private var appVersion: String {
         let version = Bundle.main.object(
