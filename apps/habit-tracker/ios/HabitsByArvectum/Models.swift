@@ -50,7 +50,7 @@ final class HabitCheckIn {
     ) {
         self.id = id
         self.habitID = habitID
-        self.day = Calendar.autoupdatingCurrent.startOfDay(for: day)
+        self.day = day
         self.createdAt = createdAt
     }
 }
