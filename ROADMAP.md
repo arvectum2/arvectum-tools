@@ -626,6 +626,28 @@ These items are intentionally tracked **after** the first market release/experim
 
 ---
 
+## New product pipeline — Arvectum Tools
+
+### Habit tracker — working concept
+**Status:** BACKLOG / discovery later.
+
+Product idea: a simple, free and convenient alternative to HabitKit Pro.
+
+Product principle: take the genuinely useful and convenient habit-tracking mechanics, remove unnecessary complexity and feature clutter, and keep the core flow extremely lightweight.
+
+Initial product constraints:
+- [ ] Free core product; no paywall around basic habit tracking.
+- [ ] Minimal UX: adding and marking a habit should take as few actions as possible.
+- [ ] Fast habit creation with sensible defaults and no mandatory setup wizard.
+- [ ] Clear, visual progress/history at a glance.
+- [ ] No feature accumulation unless it materially improves the core user job.
+- [ ] Before implementation, decompose HabitKit Pro: useful mechanics, paid mechanics, recurring user complaints, and removable complexity.
+- [ ] Use the research to define a deliberately smaller MVP rather than cloning the full product.
+
+Working formula: **«всё удобное из HabitKit Pro — без лишнего»**.
+
+---
+
 ## 17. Non-goals / guardrails
 
 - Do not integrate with Arvectum OS without demonstrated need.
