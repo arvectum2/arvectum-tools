@@ -220,6 +220,10 @@ struct CoverageAppPicker: View {
     @State private var query = ""
     @State private var pendingLocalPackageURL: URL?
     @State private var pendingApp: CoverageCatalogEntry?
+    @State private var appStoreResults: [AppStoreCoverageResult] = []
+    @State private var isSearchingAppStore = false
+    @State private var preparingBundleIdentifier: String?
+    @State private var customErrorMessage: String?
 
     let onOpenPack: (CoverageCatalogEntry) -> Void
 
@@ -227,7 +231,7 @@ struct CoverageAppPicker: View {
         query.trimmingCharacters(in: .whitespacesAndNewlines)
     }
 
-    private var filtered: [CoverageCatalogEntry] {
+    private var catalogResults: [CoverageCatalogEntry] {
         guard !trimmedQuery.isEmpty else {
             return CoverageCatalog.commonEntries
         }
@@ -240,43 +244,106 @@ struct CoverageAppPicker: View {
         }
     }
 
+    private var customResults: [AppStoreCoverageResult] {
+        let bundled = Set(CoverageCatalog.entries.map(\.bundleIdentifier))
+        return appStoreResults.filter { !bundled.contains($0.bundleId) }
+    }
+
+    private var searchSection: some View {
+        Section {
+            TextField("Search apps", text: $query)
+                .textInputAutocapitalization(.never)
+                .autocorrectionDisabled()
+                .accessibilityIdentifier("app-search")
+        } footer: {
+            Text(
+                "Choose an app. Shortcuts will open; tap Add, then enable the new automation once."
+            )
+        }
+    }
+
+    private var catalogSection: some View {
+        Section(trimmedQuery.isEmpty ? "Popular apps" : "In PUSHKIN") {
+            ForEach(catalogResults) { app in
+                Button {
+                    open(app)
+                } label: {
+                    HStack(spacing: 12) {
+                        Text(app.title)
+                            .foregroundStyle(.primary)
+                        Spacer()
+                        Image(systemName: "chevron.right")
+                            .font(.caption.weight(.semibold))
+                            .foregroundStyle(.tertiary)
+                    }
+                    .contentShape(Rectangle())
+                }
+                .disabled(CoverageCatalog.packageURL(for: app) == nil)
+            }
+        }
+    }
+
+    @ViewBuilder
+    private var customSection: some View {
+        Section {
+            if isSearchingAppStore {
+                HStack {
+                    Spacer()
+                    ProgressView("Searching App Store…")
+                    Spacer()
+                }
+            } else {
+                ForEach(customResults) { app in
+                    customRow(app)
+                }
+
+                if catalogResults.isEmpty && customResults.isEmpty {
+                    ContentUnavailableView.search(text: trimmedQuery)
+                }
+            }
+        } header: {
+            Text("More from the App Store")
+        } footer: {
+            Text(
+                "For apps outside the built-in catalog, PUSHKIN prepares a small signed coverage configuration using only the app identity. Notification contents stay on your iPhone."
+            )
+        }
+    }
+
+    private func customRow(_ app: AppStoreCoverageResult) -> some View {
+        Button {
+            prepareCustom(app)
+        } label: {
+            HStack(spacing: 12) {
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(app.trackName)
+                        .foregroundStyle(.primary)
+                    if let seller = app.sellerName {
+                        Text(seller)
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
+                }
+                Spacer()
+                if preparingBundleIdentifier == app.bundleId {
+                    ProgressView()
+                } else {
+                    Image(systemName: "plus.circle")
+                        .foregroundStyle(.secondary)
+                }
+            }
+        }
+        .disabled(preparingBundleIdentifier != nil)
+        .accessibilityIdentifier("custom-app-\(app.bundleId)")
+    }
+
     var body: some View {
         NavigationStack {
             List {
-                Section {
-                    TextField("Search apps", text: $query)
-                        .textInputAutocapitalization(.never)
-                        .autocorrectionDisabled()
-                        .accessibilityIdentifier("app-search")
-                } footer: {
-                    Text(
-                        "Choose an app. Shortcuts will open; tap Add, then enable the new automation once."
-                    )
-                }
-
-                Section(trimmedQuery.isEmpty ? "Popular apps" : "Results") {
-                    if filtered.isEmpty {
-                        ContentUnavailableView.search(text: trimmedQuery)
-                    } else {
-                        ForEach(filtered) { app in
-                            Button {
-                                open(app)
-                            } label: {
-                                HStack(spacing: 12) {
-                                    Text(app.title)
-                                        .foregroundStyle(.primary)
-                                    Spacer()
-                                    Image(systemName: "chevron.right")
-                                        .font(.caption.weight(.semibold))
-                                        .foregroundStyle(.tertiary)
-                                }
-                                .contentShape(Rectangle())
-                            }
-                            .disabled(
-                                CoverageCatalog.packageURL(for: app) == nil
-                            )
-                        }
-                    }
+                searchSection
+                catalogSection
+                if trimmedQuery.count >= 2 {
+                    customSection
                 }
             }
             .navigationTitle("Add App")
@@ -286,6 +353,20 @@ struct CoverageAppPicker: View {
                         dismiss()
                     }
                 }
+            }
+            .task(id: trimmedQuery) {
+                await searchAppStore()
+            }
+            .alert(
+                "Couldn't add app",
+                isPresented: Binding(
+                    get: { customErrorMessage != nil },
+                    set: { if !$0 { customErrorMessage = nil } }
+                )
+            ) {
+                Button("OK", role: .cancel) {}
+            } message: {
+                Text(customErrorMessage ?? "")
             }
             .background {
                 ShortcutPackagePresenter(
@@ -297,6 +378,57 @@ struct CoverageAppPicker: View {
                     dismiss()
                 }
             }
+        }
+    }
+
+    @MainActor
+    private func searchAppStore() async {
+        appStoreResults = []
+        guard trimmedQuery.count >= 2 else {
+            isSearchingAppStore = false
+            return
+        }
+
+        isSearchingAppStore = true
+        do {
+            try await Task.sleep(for: .milliseconds(350))
+            try Task.checkCancellation()
+            let results = try await CustomCoverageService.searchAppStore(
+                term: trimmedQuery
+            )
+            try Task.checkCancellation()
+            appStoreResults = results
+            isSearchingAppStore = false
+        } catch is CancellationError {
+            return
+        } catch {
+            isSearchingAppStore = false
+        }
+    }
+
+    private func prepareCustom(_ result: AppStoreCoverageResult) {
+        preparingBundleIdentifier = result.bundleId
+        customErrorMessage = nil
+
+        Task { @MainActor in
+            do {
+                let url = try await CustomCoverageService.signedPackage(
+                    for: result
+                )
+                pendingApp = CoverageCatalogEntry(
+                    name: result.trackName,
+                    displayName: result.trackName,
+                    bundleIdentifier: result.bundleId,
+                    teamIdentifier: nil,
+                    shortcutName: "PUSHKIN - \(result.trackName)",
+                    packageFile: url.lastPathComponent,
+                    rank: Int.max
+                )
+                pendingLocalPackageURL = url
+            } catch {
+                customErrorMessage = error.localizedDescription
+            }
+            preparingBundleIdentifier = nil
         }
     }
 

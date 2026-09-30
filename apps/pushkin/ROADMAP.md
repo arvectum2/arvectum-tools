@@ -94,8 +94,11 @@ Current UX targets:
   - [x] Pre-sign the production base package and one micro-package per supported app: 1000 micro-packages, zero missing files, ~22.7 MB total.
   - [x] Install the supplied PUSHKIN icon into the AppIcon asset set; production Simulator build succeeds.
   - [x] Polish `+ App` for production: no forced keyboard, compact popular/results list, one concise Shortcuts instruction, empty-search state, and no physical-test fixture in the user-facing catalog.
+  - [x] Add the **Custom** fallback for apps outside TOP-1000: search the current App Store storefront plus US/GB fallback storefronts, remove built-in duplicates, then prepare one signed micro-package only for the selected app.
   - [x] Physical proof A: teamless one-app micro-package imported **after** installing the controlled Future App created a fresh Notification automation; after enabling it, the real marker notification `PUSHKIN_RUNTIME_1000_PROVISIONAL_02` was captured by PUSHKIN on the physical iPhone.
   - [x] Physical proof B: measured physical-iPhone handoff from tapping the app in PUSHKIN to the Shortcuts `Add` import preview at **~2.3 s** across repeated instrumented XCTest runs (2.28–2.33 s).
+  - [x] Physical proof C: an app absent from the RU search results (`Working Copy`) was found through storefront fallback, a signed Custom micro-package was generated on demand, and the physical iPhone reached the native Shortcuts `Add` preview successfully.
+  - [ ] Deploy the production HTTPS Custom signer endpoint and set `PUSHKIN_CUSTOM_COVERAGE_SERVICE_URL` for Release builds. The signer receives only the selected app identity; notification contents remain local.
 - [x] Measure event loss / duplication.
 - [x] Reduce setup to one multi-app Notification trigger, four field mappings, and automatic in-app verification.
 - [ ] Validate the guided setup with a non-technical user.

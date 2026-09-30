@@ -22,6 +22,19 @@ final class CoverageCatalogTests: XCTestCase {
         )
     }
 
+    func testAppStoreFallbackFindsWorkingCopy() async throws {
+        let results = try await CustomCoverageService.searchAppStore(
+            term: "Working Copy",
+            countryCodes: ["ru", "gb"]
+        )
+        XCTAssertTrue(
+            results.contains {
+                $0.bundleId == "com.appliedphasor.working-copy"
+            },
+            "Results: \(results.map { "\($0.trackName)=\($0.bundleId)" })"
+        )
+    }
+
     func testCommonPickerPrioritizesMassMarketApps() {
         let bundles = Set(CoverageCatalog.commonEntries.map(\.bundleIdentifier))
         XCTAssertTrue(bundles.contains("ph.telegra.Telegraph"))

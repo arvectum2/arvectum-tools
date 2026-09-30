@@ -105,6 +105,10 @@ The production catalog is now generated from Apple's current Top Free charts acr
 
 This means PUSHKIN can target the top 1000 (and later a larger maintained catalog if testing supports it), while a **Custom** path handles uncommon apps. Newly installed catalog apps require a binding refresh unless Apple begins resolving them dynamically.
 
+The Custom path is implemented as an App Store lookup plus an on-demand signer for the same one-app package shape. PUSHKIN searches the device's current storefront first and then falls back to US/GB results so a device whose locale and App Store account differ can still find common cross-region apps. The selected app's name and Bundle ID are sent to the signer; notification title/body/subtitle are never sent. The signer clones the fixed PUSHKIN notification template, substitutes exactly one `SelectedApps` descriptor, signs it with `shortcuts sign --mode anyone`, and returns the resulting `.shortcut`. Physical-device testing reached the native Shortcuts `Add` preview successfully with a Custom package generated this way.
+
+The core TOP-1000 setup remains backend-free. Custom coverage is an optional extension that requires a small HTTPS signing service because Apple does not expose shortcut signing on iPhone. Release builds therefore read `PUSHKIN_CUSTOM_COVERAGE_SERVICE_URL`; until that HTTPS endpoint is deployed, built-in catalog coverage continues to work while Custom signing is unavailable.
+
 ### Target UX for incremental coverage refresh
 
 Initial setup:
