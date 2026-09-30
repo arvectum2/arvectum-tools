@@ -71,6 +71,24 @@ final class ImageEngineTests: XCTestCase {
         XCTAssertEqual((properties[kCGImagePropertyDPIHeight] as? NSNumber)?.intValue, 450)
     }
 
+    func testResizeStripsGPSMetadataByDefault() throws {
+        let source = try engine.inspect(data: makeNoiseJPEG(width: 900, height: 600, includeLocationMetadata: true))
+        let result = try engine.resizeExact(source: source, width: 450, height: 300, format: .jpeg, stripMetadata: true)
+
+        let data = try Data(contentsOf: result.outputURL)
+        let properties = try imageProperties(data)
+        XCTAssertNil(properties[kCGImagePropertyGPSDictionary])
+    }
+
+    func testResizeCanPreserveGPSMetadata() throws {
+        let source = try engine.inspect(data: makeNoiseJPEG(width: 900, height: 600, includeLocationMetadata: true))
+        let result = try engine.resizeExact(source: source, width: 450, height: 300, format: .jpeg, stripMetadata: false)
+
+        let data = try Data(contentsOf: result.outputURL)
+        let properties = try imageProperties(data)
+        XCTAssertNotNil(properties[kCGImagePropertyGPSDictionary])
+    }
+
     func testExactResizeSupportsPNG() throws {
         let source = try engine.inspect(data: makeNoiseJPEG(width: 900, height: 600))
         let result = try engine.resizeExact(source: source, width: 450, height: 300, format: .png)
@@ -124,7 +142,14 @@ final class ImageEngineTests: XCTestCase {
         XCTAssertEqual(result.documentPreset, .ukPassportPrint)
     }
 
-    private func makeNoiseJPEG(width: Int, height: Int) throws -> Data {
+    private func imageProperties(_ data: Data) throws -> [CFString: Any] {
+        let source = try XCTUnwrap(CGImageSourceCreateWithData(data as CFData, nil))
+        return try XCTUnwrap(
+            CGImageSourceCopyPropertiesAtIndex(source, 0, nil) as? [CFString: Any]
+        )
+    }
+
+    private func makeNoiseJPEG(width: Int, height: Int, includeLocationMetadata: Bool = false) throws -> Data {
         var bytes = [UInt8](repeating: 0, count: width * height * 4)
         var state: UInt32 = 0x12345678
         for index in stride(from: 0, to: bytes.count, by: 4) {
@@ -163,10 +188,24 @@ final class ImageEngineTests: XCTestCase {
                 nil
             )
         )
+        var properties: [CFString: Any] = [
+            kCGImageDestinationLossyCompressionQuality: 0.98
+        ]
+        if includeLocationMetadata {
+            properties[kCGImagePropertyGPSDictionary] = [
+                kCGImagePropertyGPSLatitude: 51.5074,
+                kCGImagePropertyGPSLatitudeRef: "N",
+                kCGImagePropertyGPSLongitude: 0.1278,
+                kCGImagePropertyGPSLongitudeRef: "W"
+            ]
+            properties[kCGImagePropertyExifDictionary] = [
+                kCGImagePropertyExifUserComment: "Arvectum metadata test"
+            ]
+        }
         CGImageDestinationAddImage(
             destination,
             cgImage,
-            [kCGImageDestinationLossyCompressionQuality: 0.98] as CFDictionary
+            properties as CFDictionary
         )
         XCTAssertTrue(CGImageDestinationFinalize(destination))
         return mutable as Data

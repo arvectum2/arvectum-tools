@@ -19,6 +19,7 @@ final class AppModel: ObservableObject {
     @Published var exactHeightValue = ""
     @Published var keepPixelAspectRatio = true
     @Published var exportFormat: ExportImageFormat = .jpeg
+    @Published var stripMetadata = true
     @Published var passportCropOpen = false
     @Published var documentPreset: DocumentPhotoPreset = .russiaPassport
     @Published var isWorking = false
@@ -190,6 +191,13 @@ final class AppModel: ObservableObject {
         }
     }
 
+    func setStripMetadata(_ strip: Bool) {
+        stripMetadata = strip
+        result = nil
+        saved = false
+        errorMessage = nil
+    }
+
     func setExportFormat(_ format: ExportImageFormat) {
         exportFormat = format
         result = nil
@@ -268,7 +276,7 @@ final class AppModel: ObservableObject {
     func compressByBytes() {
         guard let source, let targetBytes else { return }
         process(fallback: tr("Не получилось уменьшить это изображение.")) { engine in
-            try engine.compressByBytes(source: source, requestedMaximumBytes: targetBytes)
+            try engine.compressByBytes(source: source, requestedMaximumBytes: targetBytes, stripMetadata: self.stripMetadata)
         }
     }
 
@@ -278,12 +286,12 @@ final class AppModel: ObservableObject {
         case .longSide:
             guard let targetLongSide else { return }
             process(fallback: tr("Не получилось изменить размер изображения.")) { engine in
-                try engine.resizeLongSide(source: source, targetLongSide: targetLongSide, format: self.exportFormat)
+                try engine.resizeLongSide(source: source, targetLongSide: targetLongSide, format: self.exportFormat, stripMetadata: self.stripMetadata)
             }
         case .exact:
             guard let width = exactWidth, let height = exactHeight else { return }
             process(fallback: tr("Не получилось изменить размер изображения.")) { engine in
-                try engine.resizeExact(source: source, width: width, height: height, format: self.exportFormat)
+                try engine.resizeExact(source: source, width: width, height: height, format: self.exportFormat, stripMetadata: self.stripMetadata)
             }
         }
     }
@@ -333,6 +341,7 @@ final class AppModel: ObservableObject {
         exactHeightValue = ""
         keepPixelAspectRatio = true
         exportFormat = .jpeg
+        stripMetadata = true
         passportCropOpen = false
         documentPreset = .russiaPassport
         isWorking = false

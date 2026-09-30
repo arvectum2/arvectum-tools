@@ -92,3 +92,6 @@
 "Целевой размер не должен быть больше исходного изображения." = "Target dimensions cannot be larger than the source image.";
 "Формат экспорта" = "Export format";
 "Не получилось создать файл выбранного формата." = "Could not create the selected file format.";
+"Удалить EXIF/GPS" = "Remove EXIF/GPS";
+"Геолокация и метаданные не попадут в готовый файл." = "Location and metadata will not be included in the output file.";
+"Метаданные исходного фото будут сохранены, где это поддерживает формат." = "Source photo metadata will be preserved where the format supports it.";

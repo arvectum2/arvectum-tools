@@ -86,7 +86,7 @@ Core positioning:
 - [x] Import from Files/iCloud in addition to Photos.
 - [x] Exact width × height mode with aspect-ratio lock.
 - [x] Output format selector: JPEG / PNG / HEIC in dimension-resize workflows; exact-size/document workflows keep JPEG where constraints depend on it.
-- [ ] Optional metadata/EXIF/GPS removal.
+- [x] Optional metadata/EXIF/GPS removal with privacy-first default; preservation remains available when supported by the output format.
 - [ ] Print-sheet export for print document presets.
 
 ### P2 — only after usage data

@@ -49,19 +49,20 @@ final class ImageEngine {
         )
     }
 
-    func compressByBytes(source: SourceImage, requestedMaximumBytes: Int64) throws -> ResultImage {
+    func compressByBytes(source: SourceImage, requestedMaximumBytes: Int64, stripMetadata: Bool = true) throws -> ResultImage {
         guard requestedMaximumBytes > 0 else {
             throw PhotoToolError.message(tr("Укажите допустимый размер файла."))
         }
-        if source.sizeBytes <= requestedMaximumBytes {
+        if source.sizeBytes <= requestedMaximumBytes && !stripMetadata {
             return originalResult(source: source, mode: .fileSize, targetBytes: requestedMaximumBytes)
         }
 
+        let metadata = stripMetadata ? nil : preservedMetadata(from: source)
         let internalTarget = max(1, Int64(Double(requestedMaximumBytes) * targetHeadroom))
         var working = try processingImage(source)
 
         for round in 0...maxResizeRounds {
-            let search = try searchBestQuality(image: working, targetBytes: internalTarget)
+            let search = try searchBestQuality(image: working, targetBytes: internalTarget, metadata: metadata)
             if let bytes = search.bestBytes {
                 guard Int64(bytes.count) <= requestedMaximumBytes else {
                     throw PhotoToolError.message(tr("Не получилось уменьшить файл до выбранного размера."))
@@ -105,12 +106,13 @@ final class ImageEngine {
         )
     }
 
-    func resizeLongSide(source: SourceImage, targetLongSide: Int, format: ExportImageFormat = .jpeg) throws -> ResultImage {
+    func resizeLongSide(source: SourceImage, targetLongSide: Int, format: ExportImageFormat = .jpeg, stripMetadata: Bool = true) throws -> ResultImage {
         guard targetLongSide > 0 else {
             throw PhotoToolError.message(tr("Укажите размер длинной стороны."))
         }
         if max(source.width, source.height) <= targetLongSide,
-           source.contentType == format.contentType {
+           source.contentType == format.contentType,
+           !stripMetadata {
             return originalResult(source: source, mode: .pixels, targetLongSide: targetLongSide)
         }
 
@@ -124,7 +126,7 @@ final class ImageEngine {
             working,
             to: CGSize(width: target.width, height: target.height)
         )
-        let bytes = try encodedData(image: resized, format: format)
+        let bytes = try encodedData(image: resized, format: format, metadata: stripMetadata ? nil : preservedMetadata(from: source))
         let url = try writeResult(bytes, fileExtension: format.fileExtension)
 
         return ResultImage(
@@ -142,7 +144,7 @@ final class ImageEngine {
         )
     }
 
-    func resizeExact(source: SourceImage, width: Int, height: Int, format: ExportImageFormat = .jpeg) throws -> ResultImage {
+    func resizeExact(source: SourceImage, width: Int, height: Int, format: ExportImageFormat = .jpeg, stripMetadata: Bool = true) throws -> ResultImage {
         guard (32...12_000).contains(width), (32...12_000).contains(height) else {
             throw PhotoToolError.message(tr("Укажите ширину и высоту от 32 до 12000 px."))
         }
@@ -150,13 +152,14 @@ final class ImageEngine {
             throw PhotoToolError.message(tr("Целевой размер не должен быть больше исходного изображения."))
         }
         if source.width == width && source.height == height,
-           source.contentType == format.contentType {
+           source.contentType == format.contentType,
+           !stripMetadata {
             return originalResult(source: source, mode: .pixels)
         }
 
         let working = try processingImage(source)
         let resized = try resizedImage(working, to: CGSize(width: width, height: height))
-        let bytes = try encodedData(image: resized, format: format)
+        let bytes = try encodedData(image: resized, format: format, metadata: stripMetadata ? nil : preservedMetadata(from: source))
         let url = try writeResult(bytes, fileExtension: format.fileExtension)
 
         return ResultImage(
@@ -331,8 +334,8 @@ final class ImageEngine {
         let minimumQualityBytes: Int
     }
 
-    private func searchBestQuality(image: UIImage, targetBytes: Int64) throws -> QualitySearch {
-        let minimum = try jpegData(image: image, quality: CGFloat(minJPEGQuality) / 100)
+    private func searchBestQuality(image: UIImage, targetBytes: Int64, metadata: [CFString: Any]? = nil) throws -> QualitySearch {
+        let minimum = try jpegData(image: image, quality: CGFloat(minJPEGQuality) / 100, metadata: metadata)
         if Int64(minimum.count) > targetBytes {
             return QualitySearch(bestBytes: nil, minimumQualityBytes: minimum.count)
         }
@@ -342,7 +345,7 @@ final class ImageEngine {
         var high = maxJPEGQuality
         while low <= high {
             let quality = (low + high) / 2
-            let encoded = try jpegData(image: image, quality: CGFloat(quality) / 100)
+            let encoded = try jpegData(image: image, quality: CGFloat(quality) / 100, metadata: metadata)
             if Int64(encoded.count) <= targetBytes {
                 best = encoded
                 low = quality + 1
@@ -383,21 +386,18 @@ final class ImageEngine {
         return best
     }
 
-    private func encodedData(image: UIImage, format: ExportImageFormat) throws -> Data {
+    private func encodedData(image: UIImage, format: ExportImageFormat, metadata: [CFString: Any]? = nil) throws -> Data {
         switch format {
         case .jpeg:
-            return try jpegData(image: image, quality: 0.95)
+            return try jpegData(image: image, quality: 0.95, metadata: metadata)
         case .png:
-            guard let data = image.pngData() else {
-                throw PhotoToolError.message(tr("Не получилось создать файл выбранного формата."))
-            }
-            return data
+            return try imageData(image: image, type: .png, quality: nil, metadata: metadata)
         case .heic:
-            return try imageData(image: image, type: .heic, quality: 0.92)
+            return try imageData(image: image, type: .heic, quality: 0.92, metadata: metadata)
         }
     }
 
-    private func imageData(image: UIImage, type: UTType, quality: CGFloat?) throws -> Data {
+    private func imageData(image: UIImage, type: UTType, quality: CGFloat?, metadata: [CFString: Any]? = nil) throws -> Data {
         guard let cg = image.cgImage else {
             throw PhotoToolError.message(tr("Не получилось создать файл выбранного формата."))
         }
@@ -410,7 +410,7 @@ final class ImageEngine {
         ) else {
             throw PhotoToolError.message(tr("Не получилось создать файл выбранного формата."))
         }
-        var properties: [CFString: Any] = [:]
+        var properties: [CFString: Any] = metadata ?? [:]
         if let quality {
             properties[kCGImageDestinationLossyCompressionQuality] = quality
         }
@@ -421,7 +421,7 @@ final class ImageEngine {
         return data as Data
     }
 
-    private func jpegData(image: UIImage, quality: CGFloat, dpi: Int? = nil) throws -> Data {
+    private func jpegData(image: UIImage, quality: CGFloat, dpi: Int? = nil, metadata: [CFString: Any]? = nil) throws -> Data {
         guard let cg = image.cgImage else {
             throw PhotoToolError.message(tr("Не получилось создать JPG."))
         }
@@ -435,9 +435,8 @@ final class ImageEngine {
             throw PhotoToolError.message(tr("Не получилось создать JPG."))
         }
 
-        var properties: [CFString: Any] = [
-            kCGImageDestinationLossyCompressionQuality: quality
-        ]
+        var properties: [CFString: Any] = metadata ?? [:]
+        properties[kCGImageDestinationLossyCompressionQuality] = quality
         if let dpi {
             properties[kCGImagePropertyDPIWidth] = dpi
             properties[kCGImagePropertyDPIHeight] = dpi
@@ -448,6 +447,20 @@ final class ImageEngine {
             throw PhotoToolError.message(tr("Не получилось создать JPG."))
         }
         return data as Data
+    }
+
+    private func preservedMetadata(from source: SourceImage) -> [CFString: Any]? {
+        guard let imageSource = CGImageSourceCreateWithData(source.data as CFData, nil),
+              let raw = CGImageSourceCopyPropertiesAtIndex(imageSource, 0, nil) as? [CFString: Any] else {
+            return nil
+        }
+
+        var metadata = raw
+        metadata.removeValue(forKey: kCGImagePropertyPixelWidth)
+        metadata.removeValue(forKey: kCGImagePropertyPixelHeight)
+        metadata.removeValue(forKey: kCGImagePropertyOrientation)
+        metadata.removeValue(forKey: kCGImagePropertyHasAlpha)
+        return metadata
     }
 
     private func cacheURL(fileExtension: String, prefix: String) throws -> URL {

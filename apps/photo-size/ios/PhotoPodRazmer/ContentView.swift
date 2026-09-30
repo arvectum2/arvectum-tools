@@ -130,6 +130,7 @@ private struct MainTaskCard: View {
                 sourceRow
                 presetRow
                 if model.isCustomTarget { customSizeRow }
+                metadataPrivacyRow
             case .pixels:
                 taskHeader(tr("ПО РАЗМЕРУ"), tr("Изменить размер в пикселях"))
                 sourceRow
@@ -141,6 +142,7 @@ private struct MainTaskCard: View {
                     exactPixelsRow
                 }
                 exportFormatRow
+                metadataPrivacyRow
             case .passport:
                 taskHeader(tr("НА ДОКУМЕНТЫ"), tr("Подготовить фото по требованиям документа"))
                 documentPresetRow
@@ -279,6 +281,23 @@ private struct MainTaskCard: View {
                     model.startCustomTarget()
                 }
             }
+        }
+    }
+
+    private var metadataPrivacyRow: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            Toggle("Удалить EXIF/GPS", isOn: Binding(
+                get: { model.stripMetadata },
+                set: { model.setStripMetadata($0) }
+            ))
+            .font(.caption.weight(.semibold))
+            .tint(.arvectumMint)
+
+            Text(model.stripMetadata
+                 ? "Геолокация и метаданные не попадут в готовый файл."
+                 : "Метаданные исходного фото будут сохранены, где это поддерживает формат.")
+                .font(.caption2)
+                .foregroundStyle(.secondary)
         }
     }
 
