@@ -14,6 +14,10 @@ struct TodayView: View {
         }
     }
 
+    private var archivedHabits: [Habit] {
+        habits.filter(\.isArchived)
+    }
+
     private var completedCount: Int {
         activeToday.filter { isCompleted($0, on: .now) }.count
     }
@@ -31,7 +35,18 @@ struct TodayView: View {
             }
             .navigationTitle(L10n.string("today.title"))
             .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
+                ToolbarItemGroup(placement: .topBarTrailing) {
+                    if !archivedHabits.isEmpty {
+                        NavigationLink {
+                            ArchivedHabitsView()
+                        } label: {
+                            Image(systemName: "archivebox")
+                        }
+                        .accessibilityLabel(
+                            L10n.string("archive.accessibility")
+                        )
+                    }
+
                     Button {
                         showingAddHabit = true
                     } label: {

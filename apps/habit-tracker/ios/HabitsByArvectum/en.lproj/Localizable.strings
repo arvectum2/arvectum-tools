@@ -63,6 +63,11 @@
 "detail.delete.title" = "Delete habit?";
 "detail.delete.message" = "This habit's completion history will also be deleted.";
 
+"archive.title" = "Archived";
+"archive.accessibility" = "Archived habits";
+"archive.empty.title" = "No archived habits";
+"archive.empty.description" = "Archived habits will appear here.";
+
 "stats.streak" = "streak";
 "stats.completion" = "completed";
 "stats.checkins" = "check-ins";

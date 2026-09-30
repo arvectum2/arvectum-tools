@@ -68,6 +68,7 @@ Working formula: **«всё удобное — без лишнего»**.
 - [x] Five-week visual history.
 - [x] Correct a previous check-in by tapping a day.
 - [x] Archive habit.
+- [x] Archived-habits screen appears only when needed, with a path to restore habits.
 - [x] Delete habit and its completion history.
 - [x] Edit name, icon, color and schedule.
 - [ ] Add a clearer month / heatmap view after UX validation.
@@ -94,6 +95,7 @@ Working formula: **«всё удобное — без лишнего»**.
 - [x] Add a largest-Dynamic-Type XCUITest for the core create flow; verify it compiles via `build-for-testing` on Xcode 27.
 - [ ] Physical accessibility audit: Dynamic Type, VoiceOver navigation and contrast.
 - [ ] Final Arvectum visual polish.
+- [x] Light/Dark empty-state smoke test on iOS 27 simulator.
 - [x] RU + EN localization.
 - [x] Localization completeness test for both bundled languages.
 - [x] UI test for create → check → detail → history using an isolated in-memory app store.

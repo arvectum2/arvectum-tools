@@ -63,6 +63,11 @@
 "detail.delete.title" = "Удалить привычку?";
 "detail.delete.message" = "История выполнения этой привычки тоже будет удалена.";
 
+"archive.title" = "Архив";
+"archive.accessibility" = "Архив привычек";
+"archive.empty.title" = "Архив пуст";
+"archive.empty.description" = "Архивированные привычки появятся здесь.";
+
 "stats.streak" = "серия";
 "stats.completion" = "выполнено";
 "stats.checkins" = "отметок";
