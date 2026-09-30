@@ -108,39 +108,39 @@ Working formula: **«всё удобное — без лишнего»**.
 
 ### Sync protocol
 
-- [ ] Shared Codable sync DTOs for Today snapshot and completion commands.
-- [ ] Commands are idempotent: Watch sends desired state, never a blind toggle.
-- [ ] Stable command IDs and day keys for duplicate-safe delivery.
-- [ ] Immediate transport when counterpart is reachable.
-- [ ] Durable queued transport when counterpart is temporarily offline.
-- [ ] Latest snapshot persisted locally on Watch for offline launch.
-- [ ] Optimistic Watch UI: a tap updates immediately without waiting for iPhone.
-- [ ] Reconcile optimistic state when the authoritative iPhone snapshot arrives.
-- [ ] Resend/snapshot on activation so devices converge after interruption.
-- [ ] Document conflict rules and timezone semantics.
+- [x] Shared Codable sync DTOs for Today snapshot and completion commands.
+- [x] Commands are idempotent: Watch sends desired state, never a blind toggle.
+- [x] Stable command IDs and day keys for duplicate-safe delivery.
+- [x] Immediate transport when counterpart is reachable.
+- [x] Durable queued transport when counterpart is temporarily offline.
+- [x] Latest snapshot persisted locally on Watch for offline launch.
+- [x] Optimistic Watch UI: a tap updates immediately without waiting for iPhone.
+- [x] Reconcile optimistic state when the authoritative iPhone snapshot arrives.
+- [x] Resend/snapshot on activation so devices converge after interruption.
+- [x] Document conflict rules and timezone semantics in `SYNC_DESIGN.md`.
 
 ### Apple Watch app
 
-- [ ] Add native watchOS target to the existing Habits project.
-- [ ] Today-first Watch UI; no secondary dashboard before the habit list.
-- [ ] Show overall today's progress at a glance.
-- [ ] Show only habits due today.
-- [ ] One obvious tap to complete / undo.
-- [ ] Keep completion usable when iPhone is temporarily unreachable.
-- [ ] Visual state must match iPhone colors/icons without requiring configuration on Watch.
-- [ ] RU + EN localization.
-- [ ] Dynamic Type / VoiceOver pass on Watch.
-- [ ] Pair iPhone + Apple Watch simulators and test both apps together.
-- [ ] Integration test: Watch check-off appears on iPhone.
-- [ ] Integration test: iPhone check-off appears on Watch.
-- [ ] Integration test: offline Watch check-off converges after reconnect.
+- [x] Add native watchOS target to the existing Habits project and embed it in the iPhone app.
+- [x] Today-first Watch UI; no secondary dashboard before the habit list.
+- [x] Show overall today's progress at a glance.
+- [x] Show only habits due today.
+- [x] One obvious tap to complete / undo.
+- [x] Keep completion usable when iPhone is temporarily unreachable.
+- [x] Visual state matches iPhone colors/icons without requiring configuration on Watch.
+- [x] RU + EN localization.
+- [x] Base Dynamic Type / VoiceOver semantics on Watch.
+- [x] Pair iPhone + Apple Watch simulators and test both apps together.
+- [x] Integration test: Watch check-off appears on iPhone.
+- [x] Integration test: iPhone check-off appears on Watch.
+- [x] Integration test: offline Watch check-off converges after reconnect.
 - [ ] Physical Apple Watch smoke test when hardware is available.
 
 ### Cross-device sync direction
 
-- [ ] Keep local-first operation as the invariant.
+- [x] Keep local-first operation as the invariant.
 - [ ] Add private iCloud/CloudKit sync for the user's Apple devices without requiring an Arvectum account.
-- [ ] Treat WatchConnectivity as the low-latency iPhone↔Watch path and cloud sync as durable multi-device convergence.
+- [x] Treat WatchConnectivity as the low-latency iPhone↔Watch path and cloud sync as durable multi-device convergence.
 - [ ] Test simultaneous edits and duplicate delivery before enabling cloud sync in production.
 
 ## M4 — high-value expansion from competitor/user research
@@ -190,4 +190,4 @@ Core habit tracking stays free. Advertising is the planned monetization model, b
 
 The M1 vertical slice is implemented and M2 reminders/localization are wired end-to-end: local storage → minimal create/edit flow → optional local reminder → Today → mark/unmark → details/history → archive/delete. Optional creation settings now use progressive disclosure so the default path stays focused on name + schedule. Historical check-ins now use a stable local-day key, while current schedules/reminders follow the device timezone. RU and EN are bundled and visually smoke-tested. The suite currently has 13 passing tests, including timezone/DST regressions, localization completeness and an XCUITest covering create → check → detail → history. Clean install and additive-schema upgrades have been smoke-tested, including signed install/launch on the physical iPhone 13 with Xcode 27.0.
 
-**Next implementation step:** implement M3 end-to-end on paired iPhone + Apple Watch simulators: shared sync protocol → iPhone WatchConnectivity coordinator → Watch Today UI → optimistic/offline reconciliation. Physical notification authorization and scheduling have now been verified. Continue simulator-first without waiting for phone access.
+**Next implementation step:** M3 iPhone↔Watch live sync is now working end-to-end on a paired iOS 27 / watchOS 27 simulator pair, including offline Watch edits and convergence after reconnect. Continue with M4: neutral Skip day + best streak, then interactive widgets. CloudKit multi-device sync remains a separate M3 subtrack before public release.

@@ -362,6 +362,7 @@ struct AddHabitView: View {
         }
 
         try? modelContext.save()
+        PhoneWatchSyncCoordinator.shared.dataDidChange()
         Task { @MainActor in
             let synced = await HabitReminderScheduler.sync(habit: savedHabit)
             if !synced && savedHabit.reminderEnabled {

@@ -165,6 +165,7 @@ struct HabitDetailView: View {
         Button {
             habit.isArchived.toggle()
             try? modelContext.save()
+            PhoneWatchSyncCoordinator.shared.dataDidChange()
             Task {
                 _ = await HabitReminderScheduler.sync(habit: habit)
             }
@@ -280,6 +281,7 @@ struct HabitDetailView: View {
             )
         }
         try? modelContext.save()
+        PhoneWatchSyncCoordinator.shared.dataDidChange()
     }
 
     private var scheduleDescription: String {
@@ -331,6 +333,7 @@ struct HabitDetailView: View {
         }
         modelContext.delete(habit)
         try? modelContext.save()
+        PhoneWatchSyncCoordinator.shared.dataDidChange()
         dismiss()
     }
 }

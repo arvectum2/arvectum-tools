@@ -1,0 +1,8 @@
+"watch.today" = "Сегодня";
+"watch.progress.format" = "%d из %d";
+"watch.empty" = "На сегодня ничего";
+"watch.streak.format" = "%d дн. подряд";
+"watch.completed" = "Выполнено";
+"watch.notCompleted" = "Не выполнено";
+"watch.undoHint" = "Дважды нажмите, чтобы отменить";
+"watch.completeHint" = "Дважды нажмите, чтобы отметить";

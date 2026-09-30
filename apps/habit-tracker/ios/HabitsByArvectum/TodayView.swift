@@ -163,6 +163,7 @@ struct TodayView: View {
         }
 
         try? modelContext.save()
+        PhoneWatchSyncCoordinator.shared.dataDidChange()
     }
 
     private func backfillLegacyDayKeys() {
