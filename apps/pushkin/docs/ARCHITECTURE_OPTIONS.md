@@ -103,11 +103,13 @@ A normal global App Store app still cannot enumerate every installed third-party
 
 The production catalog is now generated from Apple's current Top Free charts across 36 storefronts, ranked by cross-storefront presence and chart position, with six core iOS system apps retained for notification coverage. The current manifest contains 1000 unique Bundle IDs and is reproducible through `scripts/build_app_store_catalog.py`. This is a current-popularity composite, not a claim about Apple's private lifetime download counts.
 
-This means PUSHKIN can target the top 1000 (and later a larger maintained catalog if testing supports it), while a **Custom** path handles uncommon apps. Newly installed catalog apps require a binding refresh unless Apple begins resolving them dynamically.
+This means PUSHKIN targets a maintained bundled catalog while an **offline manual path** handles uncommon apps. Newly installed catalog apps require a binding refresh unless Apple begins resolving them dynamically.
 
-The Custom path is implemented as an App Store lookup plus an on-demand signer for the same one-app package shape. PUSHKIN searches the device's current storefront first and then falls back to US/GB results so a device whose locale and App Store account differ can still find common cross-region apps. The selected app's name and Bundle ID are sent to the signer; notification title/body/subtitle are never sent. The signer clones the fixed PUSHKIN notification template, substitutes exactly one `SelectedApps` descriptor, signs it with `shortcuts sign --mode anyone`, and returns the resulting `.shortcut`. Physical-device testing reached the native Shortcuts `Add` preview successfully with a Custom package generated this way.
+An on-demand Custom signer was prototyped and physically proved: PUSHKIN could look up an unknown App Store app, ask a Mac-side service to generate/sign a one-app package, and reach the native Shortcuts `Add` preview. The product deliberately **rejects** that architecture. It would make a privacy-first local utility depend on a continuously available backend for a rare edge case.
 
-The core TOP-1000 setup remains backend-free. Custom coverage is an optional extension that requires a small HTTPS signing service because Apple does not expose shortcut signing on iPhone. Release builds therefore read `PUSHKIN_CUSTOM_COVERAGE_SERVICE_URL`; until that HTTPS endpoint is deployed, built-in catalog coverage continues to work while Custom signing is unavailable.
+Production PUSHKIN therefore performs no runtime App Store lookup and has no signer endpoint. If a searched app is not in the bundled catalog, PUSHKIN shows a local manual guide: create a Notification automation for that app, add `PUSHKIN → Archive Notification`, map App/Title/Subtitle/Text, choose immediate execution, and save. This takes more taps once, but keeps the product fully local and removes an entire service/failure/privacy surface.
+
+Missing-app demand becomes product feedback instead of backend traffic. App Store listing copy and support ask users to submit exact missing app names; frequently requested apps are promoted into regular catalog releases and arrive as pre-signed bundled micro-packages.
 
 ### Target UX for incremental coverage refresh
 
@@ -117,12 +119,20 @@ Initial setup:
 Install PUSHKIN -> Add TOP-1000 base catalog -> enable -> done
 ```
 
-Later, after installing a new app:
+Later, after installing a catalog app:
 
 ```text
 PUSHKIN -> + App -> search/select app
         -> local one-app package opens directly in Shortcuts
         -> Add Shortcut -> enable if required -> done
+```
+
+If the app is not in the bundled catalog:
+
+```text
+PUSHKIN -> + App -> search -> Add manually
+        -> Shortcuts Automation -> Notification -> choose app
+        -> PUSHKIN / Archive Notification -> map 4 fields -> run immediately -> save
 ```
 
 A full TOP-1000 refresh remains available as maintenance, not the normal path. PUSHKIN may show a stale-coverage reminder, but it must not claim to have refreshed coverage in the background because public APIs do not expose the required mutation.

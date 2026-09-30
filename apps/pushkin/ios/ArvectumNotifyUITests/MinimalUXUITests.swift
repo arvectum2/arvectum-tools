@@ -74,20 +74,9 @@ final class MinimalUXUITests: XCTestCase {
         print("ADD_APP_PICKER_PRODUCTION_UX_OK")
     }
 
-    func testCustomAppStoreResultOpensSignedMicroPackage() throws {
+    func testMissingAppOffersOfflineManualPath() throws {
         let app = XCUIApplication(bundleIdentifier: "ru.arvectum.tools.notify")
         app.launch()
-
-        let springboard = XCUIApplication(bundleIdentifier: "com.apple.springboard")
-        let allowLocalNetwork = springboard.buttons.matching(
-            NSPredicate(
-                format: "label == %@ OR label == %@",
-                "Allow", "Разрешить"
-            )
-        ).firstMatch
-        if allowLocalNetwork.waitForExistence(timeout: 2) {
-            allowLocalNetwork.tap()
-        }
 
         let addApp = app.buttons["add-app"].firstMatch
         XCTAssertTrue(addApp.waitForExistence(timeout: 6))
@@ -96,35 +85,20 @@ final class MinimalUXUITests: XCTestCase {
         let search = app.textFields["app-search"].firstMatch
         XCTAssertTrue(search.waitForExistence(timeout: 6))
         search.tap()
-        search.typeText("Working Copy")
+        search.typeText("Definitely Missing PUSHKIN App")
 
-        let custom = app.buttons[
-            "custom-app-com.appliedphasor.working-copy"
+        let manual = app.buttons["manual-add-app"].firstMatch
+        XCTAssertTrue(manual.waitForExistence(timeout: 6))
+        manual.tap()
+
+        let openAutomations = app.buttons[
+            "open-manual-automations"
         ].firstMatch
+        XCTAssertTrue(openAutomations.waitForExistence(timeout: 6))
         XCTAssertTrue(
-            custom.waitForExistence(timeout: 15),
-            "App Store result for Working Copy did not appear"
+            app.staticTexts["Source app"].firstMatch.exists
         )
-        custom.tap()
-
-        if allowLocalNetwork.waitForExistence(timeout: 4) {
-            allowLocalNetwork.tap()
-        }
-
-        let shortcuts = XCUIApplication(bundleIdentifier: "com.apple.shortcuts")
-        XCTAssertTrue(shortcuts.wait(for: .runningForeground, timeout: 20))
-
-        let add = shortcuts.buttons.matching(
-            NSPredicate(
-                format: "label == %@ OR label == %@ OR label == %@",
-                "Add Shortcut", "Add", "Добавить"
-            )
-        ).firstMatch
-        XCTAssertTrue(
-            add.waitForExistence(timeout: 15),
-            "Custom signed package did not reach Shortcuts import preview"
-        )
-        print("CUSTOM_APPSTORE_SIGNED_IMPORT_PREVIEW_OK")
+        print("OFFLINE_MANUAL_ADD_GUIDE_OK")
     }
 
     func testTeamlessCapCutCanBeAdded() throws {

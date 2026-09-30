@@ -45,6 +45,12 @@ def main() -> None:
     ap=argparse.ArgumentParser()
     ap.add_argument("--output", required=True, type=pathlib.Path)
     ap.add_argument("--known", required=True, type=pathlib.Path)
+    ap.add_argument(
+        "--requested",
+        default=pathlib.Path("scripts/catalog_requests.json"),
+        type=pathlib.Path,
+        help="curated user-requested apps to force into the next bundled catalog",
+    )
     ap.add_argument("--cache", default=pathlib.Path("scripts/cache/appstore"), type=pathlib.Path)
     args=ap.parse_args()
     args.cache.mkdir(parents=True, exist_ok=True)
@@ -148,6 +154,50 @@ def main() -> None:
             if item["bundleIdentifier"] not in seen:
                 apps.append(item); seen.add(item["bundleIdentifier"])
 
+    # User feedback can force high-demand missing apps into the next release.
+    # This is build-time only; the shipped app never performs App Store lookup.
+    requested_priority=[]
+    if args.requested.exists():
+        requested_doc=json.loads(args.requested.read_text())
+        requested_rows=sorted(
+            requested_doc.get("apps", []),
+            key=lambda x: (-int(x.get("requests", 1)), x.get("name", "").casefold()),
+        )
+        requested_meta={str(x["appleId"]):x for x in requested_rows if x.get("appleId")}
+        requested_groups=defaultdict(list)
+        for apple_id, meta in requested_meta.items():
+            requested_groups[meta.get("country", "us")].append(apple_id)
+        for country, ids in requested_groups.items():
+            for x in lookup_batch(country, ids):
+                apple_id=str(x.get("trackId"))
+                meta=requested_meta.get(apple_id, {})
+                b=x.get("bundleId")
+                if not b or b in forced_system_bundles:
+                    continue
+                requested_priority.append({
+                    "name":x.get("trackName") or meta.get("name") or b,
+                    "bundleIdentifier":b,
+                    "appleId":apple_id,
+                    "developer":x.get("artistName", ""),
+                    "genre":x.get("primaryGenreName", ""),
+                    "source":"user-request",
+                    "requestCount":int(meta.get("requests", 1)),
+                    "marketCount":0,
+                    "score":0,
+                    "bestRank":999,
+                    "markets":[country],
+                })
+    requested_priority=[
+        item for item in requested_priority
+        if item["bundleIdentifier"] not in seen
+    ][:chart_limit]
+    if requested_priority:
+        apps=apps[:-len(requested_priority)]
+        seen={x["bundleIdentifier"] for x in apps}
+        for item in requested_priority:
+            if item["bundleIdentifier"] not in seen:
+                apps.append(item); seen.add(item["bundleIdentifier"])
+
     for item in system_extras:
         if item["bundleIdentifier"] not in seen:
             apps.append(item)
@@ -156,7 +206,7 @@ def main() -> None:
     payload={
         "catalogVersion":6,
         "generatedAt":time.strftime("%Y-%m-%dT%H:%M:%SZ",time.gmtime()),
-        "rankingMethod":"Apple Marketing Tools top-free charts; score=sum(101-rank) across storefronts; RU mass-market priority overlay; six iOS system apps appended for coverage",
+        "rankingMethod":"Apple Marketing Tools top-free charts; score=sum(101-rank) across storefronts; RU mass-market priority overlay; user-request overlay; six iOS system apps appended for coverage",
         "markets":MARKETS,
         "chartFailures":failures,
         "apps":apps[:1000],

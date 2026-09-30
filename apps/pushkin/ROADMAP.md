@@ -23,13 +23,14 @@ The product starts with notification history and progressively expands into snoo
 Current UX targets:
 - onboarding: one PUSHKIN tap -> one system `Add Shortcut` -> at most one automation-enable action;
 - common newly installed app: `+ App` -> tap app -> system `Add Shortcut` -> at most one automation-enable action;
-- uncommon newly installed app: `+ App` -> type/search -> tap app -> system `Add Shortcut` -> at most one automation-enable action;
-- no full TOP-1000 rebuild in the normal update path.
+- uncommon newly installed app: `+ App` -> type/search -> manual guide -> create one Notification automation in Shortcuts -> save;
+- no full TOP-1000 rebuild in the normal update path;
+- no runtime backend or internet dependency.
 
 1. **Mass-market first.** No power-user complexity on the main path.
 2. **Immediate value.** The user should understand the product in seconds.
-3. **Local-first privacy.** Notifications stay on-device by default.
-4. **No account required.** MVP must work without registration or backend.
+3. **Fully local runtime.** Notifications, history, catalog search, and capture setup stay on-device; PUSHKIN makes no runtime network calls.
+4. **No account or backend.** MVP must work without registration, cloud services, or a server dependency.
 5. **No ads in notification content.** Sensitive data should not be monetized through tracking.
 6. **Progressive disclosure.** Rules and automation appear only after the core inbox works well.
 7. **Native iOS UX.** SwiftUI, system patterns, accessibility, Dynamic Type, VoiceOver.
@@ -94,11 +95,13 @@ Current UX targets:
   - [x] Pre-sign the production base package and one micro-package per supported app: 1000 micro-packages, zero missing files, ~22.7 MB total.
   - [x] Install the supplied PUSHKIN icon into the AppIcon asset set; production Simulator build succeeds.
   - [x] Polish `+ App` for production: no forced keyboard, compact popular/results list, one concise Shortcuts instruction, empty-search state, and no physical-test fixture in the user-facing catalog.
-  - [x] Add the **Custom** fallback for apps outside TOP-1000: search the current App Store storefront plus US/GB fallback storefronts, remove built-in duplicates, then prepare one signed micro-package only for the selected app.
+  - [x] Prototype an on-demand Custom signer and prove it can reach the native Shortcuts `Add` preview for an app outside TOP-1000.
+  - [x] Reject the runtime Custom signer for the product: it violates the fully-local architecture and creates an unnecessary service dependency.
+  - [x] Remove App Store/runtime network search, signer client, signer endpoint configuration, and development HTTP package fallbacks from the production app.
+  - [x] Add an **offline manual fallback** for apps outside the bundled catalog: exact in-app Shortcuts steps, four field mappings, and a direct jump to Shortcuts Automation.
   - [x] Physical proof A: teamless one-app micro-package imported **after** installing the controlled Future App created a fresh Notification automation; after enabling it, the real marker notification `PUSHKIN_RUNTIME_1000_PROVISIONAL_02` was captured by PUSHKIN on the physical iPhone.
   - [x] Physical proof B: measured physical-iPhone handoff from tapping the app in PUSHKIN to the Shortcuts `Add` import preview at **~2.3 s** across repeated instrumented XCTest runs (2.28–2.33 s).
-  - [x] Physical proof C: an app absent from the RU search results (`Working Copy`) was found through storefront fallback, a signed Custom micro-package was generated on demand, and the physical iPhone reached the native Shortcuts `Add` preview successfully.
-  - [ ] Deploy the production HTTPS Custom signer endpoint and set `PUSHKIN_CUSTOM_COVERAGE_SERVICE_URL` for Release builds. The signer receives only the selected app identity; notification contents remain local.
+  - [x] Establish feedback-driven catalog maintenance: ask users in App Store copy/support to submit missing app names, maintain a request queue, and fold high-demand apps into frequent catalog + bug-fix releases.
 - [x] Measure event loss / duplication.
 - [x] Reduce setup to one multi-app Notification trigger, four field mappings, and automatic in-app verification.
 - [ ] Validate the guided setup with a non-technical user.

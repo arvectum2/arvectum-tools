@@ -200,7 +200,9 @@ After the Any-App Shortcuts experiment failed, the public iOS 27 system APIs wer
 - **MDM notification settings**: can manage notification settings on supervised iOS devices. This is an enterprise/supervised-device path, not a mass-market consumer capture API. Rejected for the product.
 - **Accessory Notifications**: this is the one public iOS 27 framework found that can forward iOS system notifications from **all applicable apps** after one user authorization. It exposes notification content and an `allow` decision for all apps. However, it is designed for a companion app plus an accessory registered through AccessorySetupKit / Accessory Transport, and customer installations can use notification forwarding only on eligible EU iPhones with EU Apple Accounts. It therefore does not provide a global pure-iPhone App Store solution.
 
-Current conclusion: no public iOS 27 API path found provides a pure-iPhone, truly zero-touch listener for notification contents from every third-party app. However, the software-only product path is now physically proven: one prebuilt TOP-1000 catalog automation covers apps resolved at registration time, and a newly installed app can be added later with a fresh signed one-app micro-package. The micro automation must still be explicitly enabled by the user because iOS imports it disabled.
+Current conclusion: no public iOS 27 API path found provides a pure-iPhone, truly zero-touch listener for notification contents from every third-party app. However, the software-only product path is now physically proven: one prebuilt TOP-1000 catalog automation covers apps resolved at registration time, and a newly installed **catalog** app can be added later with a fresh signed one-app micro-package. The micro automation must still be explicitly enabled by the user because iOS imports it disabled.
+
+For apps outside the bundled catalog, the product uses a manual Shortcuts fallback rather than a runtime signing backend. A server-side Custom signer was prototyped successfully, then rejected as a product dependency so PUSHKIN can remain fully local at runtime.
 
 ## Catalog-scale trigger and late-install refresh — 2026-09-29
 

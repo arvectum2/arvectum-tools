@@ -24,8 +24,6 @@
 	<false/>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.utilities</string>
-	<key>PUSHKINCustomCoverageServiceURL</key>
-	<string>$(PUSHKIN_CUSTOM_COVERAGE_SERVICE_URL)</string>
 	<key>UILaunchScreen</key>
 	<dict/>
 </dict>

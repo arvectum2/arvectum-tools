@@ -2,6 +2,8 @@
 
 iOS utility for capturing and organizing notification history with the smallest practical onboarding burden.
 
+Runtime architecture: fully local. PUSHKIN has no account system, backend, cloud sync, runtime App Store lookup, or server-side notification processing. The supported-app catalog and signed Shortcuts packages ship inside the app; missing apps use a guided manual Shortcuts path.
+
 ## Status
 
 Active feasibility/product development.

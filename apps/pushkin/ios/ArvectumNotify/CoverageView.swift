@@ -52,12 +52,10 @@ enum CoverageCatalog {
 
     static var basePackageURL: URL? {
         bundledURL(filename: document.basePackageFile, isMicro: false)
-            ?? developmentURL(filename: document.basePackageFile)
     }
 
     static func packageURL(for entry: CoverageCatalogEntry) -> URL? {
         bundledURL(filename: entry.packageFile, isMicro: true)
-            ?? developmentURL(filename: entry.packageFile)
     }
 
     private static func bundledURL(
@@ -82,17 +80,6 @@ enum CoverageCatalog {
             forResource: filename,
             withExtension: nil
         )
-    }
-
-    private static func developmentURL(filename: String) -> URL? {
-
-#if DEBUG
-        return URL(
-            string: "http://192.168.1.80:8765/pushkin-coverage-dev/signed/\(filename)"
-        )
-#else
-        return nil
-#endif
     }
 
     private static func load() -> CoverageCatalogDocument {
@@ -215,15 +202,10 @@ struct CoverageView: View {
 
 struct CoverageAppPicker: View {
     @Environment(\.dismiss) private var dismiss
-    @Environment(\.openURL) private var openURL
 
     @State private var query = ""
     @State private var pendingLocalPackageURL: URL?
     @State private var pendingApp: CoverageCatalogEntry?
-    @State private var appStoreResults: [AppStoreCoverageResult] = []
-    @State private var isSearchingAppStore = false
-    @State private var preparingBundleIdentifier: String?
-    @State private var customErrorMessage: String?
 
     let onOpenPack: (CoverageCatalogEntry) -> Void
 
@@ -244,11 +226,6 @@ struct CoverageAppPicker: View {
         }
     }
 
-    private var customResults: [AppStoreCoverageResult] {
-        let bundled = Set(CoverageCatalog.entries.map(\.bundleIdentifier))
-        return appStoreResults.filter { !bundled.contains($0.bundleId) }
-    }
-
     private var searchSection: some View {
         Section {
             TextField("Search apps", text: $query)
@@ -257,84 +234,64 @@ struct CoverageAppPicker: View {
                 .accessibilityIdentifier("app-search")
         } footer: {
             Text(
-                "Choose an app. Shortcuts will open; tap Add, then enable the new automation once."
+                "Searches the offline catalog bundled with this version of PUSHKIN."
             )
         }
     }
 
+    @ViewBuilder
     private var catalogSection: some View {
         Section(trimmedQuery.isEmpty ? "Popular apps" : "In PUSHKIN") {
-            ForEach(catalogResults) { app in
-                Button {
-                    open(app)
-                } label: {
-                    HStack(spacing: 12) {
-                        Text(app.title)
-                            .foregroundStyle(.primary)
-                        Spacer()
-                        Image(systemName: "chevron.right")
-                            .font(.caption.weight(.semibold))
-                            .foregroundStyle(.tertiary)
+            if catalogResults.isEmpty {
+                ContentUnavailableView(
+                    "Not in this version",
+                    systemImage: "square.dashed",
+                    description: Text(
+                        "You can still add this app manually in Shortcuts."
+                    )
+                )
+            } else {
+                ForEach(catalogResults) { app in
+                    Button {
+                        open(app)
+                    } label: {
+                        HStack(spacing: 12) {
+                            Text(app.title)
+                                .foregroundStyle(.primary)
+                            Spacer()
+                            Image(systemName: "chevron.right")
+                                .font(.caption.weight(.semibold))
+                                .foregroundStyle(.tertiary)
+                        }
+                        .contentShape(Rectangle())
                     }
-                    .contentShape(Rectangle())
+                    .disabled(CoverageCatalog.packageURL(for: app) == nil)
                 }
-                .disabled(CoverageCatalog.packageURL(for: app) == nil)
             }
         }
     }
 
     @ViewBuilder
-    private var customSection: some View {
-        Section {
-            if isSearchingAppStore {
-                HStack {
-                    Spacer()
-                    ProgressView("Searching App Store…")
-                    Spacer()
+    private var manualSection: some View {
+        if !trimmedQuery.isEmpty {
+            Section {
+                NavigationLink {
+                    ManualCoverageGuide(appName: trimmedQuery)
+                } label: {
+                    Label(
+                        catalogResults.isEmpty
+                            ? "Add manually"
+                            : "App not listed? Add manually",
+                        systemImage: "hand.tap"
+                    )
                 }
-            } else {
-                ForEach(customResults) { app in
-                    customRow(app)
-                }
-
-                if catalogResults.isEmpty && customResults.isEmpty {
-                    ContentUnavailableView.search(text: trimmedQuery)
-                }
-            }
-        } header: {
-            Text("More from the App Store")
-        } footer: {
-            Text(
-                "For apps outside the built-in catalog, PUSHKIN prepares a small signed coverage configuration using only the app identity. Notification contents stay on your iPhone."
-            )
-        }
-    }
-
-    private func customRow(_ app: AppStoreCoverageResult) -> some View {
-        Button {
-            prepareCustom(app)
-        } label: {
-            HStack(spacing: 12) {
-                VStack(alignment: .leading, spacing: 2) {
-                    Text(app.trackName)
-                        .foregroundStyle(.primary)
-                    if let seller = app.sellerName {
-                        Text(seller)
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
-                    }
-                }
-                Spacer()
-                if preparingBundleIdentifier == app.bundleId {
-                    ProgressView()
-                } else {
-                    Image(systemName: "plus.circle")
-                        .foregroundStyle(.secondary)
-                }
+                .accessibilityIdentifier("manual-add-app")
+            } footer: {
+                Text(
+                    "Manual setup takes a few more taps, but stays entirely on your iPhone and needs no PUSHKIN server."
+                )
             }
         }
-        .disabled(preparingBundleIdentifier != nil)
-        .accessibilityIdentifier("custom-app-\(app.bundleId)")
     }
 
     var body: some View {
@@ -342,9 +299,7 @@ struct CoverageAppPicker: View {
             List {
                 searchSection
                 catalogSection
-                if trimmedQuery.count >= 2 {
-                    customSection
-                }
+                manualSection
             }
             .navigationTitle("Add App")
             .toolbar {
@@ -353,20 +308,6 @@ struct CoverageAppPicker: View {
                         dismiss()
                     }
                 }
-            }
-            .task(id: trimmedQuery) {
-                await searchAppStore()
-            }
-            .alert(
-                "Couldn't add app",
-                isPresented: Binding(
-                    get: { customErrorMessage != nil },
-                    set: { if !$0 { customErrorMessage = nil } }
-                )
-            ) {
-                Button("OK", role: .cancel) {}
-            } message: {
-                Text(customErrorMessage ?? "")
             }
             .background {
                 ShortcutPackagePresenter(
@@ -381,70 +322,96 @@ struct CoverageAppPicker: View {
         }
     }
 
-    @MainActor
-    private func searchAppStore() async {
-        appStoreResults = []
-        guard trimmedQuery.count >= 2 else {
-            isSearchingAppStore = false
-            return
-        }
-
-        isSearchingAppStore = true
-        do {
-            try await Task.sleep(for: .milliseconds(350))
-            try Task.checkCancellation()
-            let results = try await CustomCoverageService.searchAppStore(
-                term: trimmedQuery
-            )
-            try Task.checkCancellation()
-            appStoreResults = results
-            isSearchingAppStore = false
-        } catch is CancellationError {
-            return
-        } catch {
-            isSearchingAppStore = false
-        }
-    }
-
-    private func prepareCustom(_ result: AppStoreCoverageResult) {
-        preparingBundleIdentifier = result.bundleId
-        customErrorMessage = nil
-
-        Task { @MainActor in
-            do {
-                let url = try await CustomCoverageService.signedPackage(
-                    for: result
-                )
-                pendingApp = CoverageCatalogEntry(
-                    name: result.trackName,
-                    displayName: result.trackName,
-                    bundleIdentifier: result.bundleId,
-                    teamIdentifier: nil,
-                    shortcutName: "PUSHKIN - \(result.trackName)",
-                    packageFile: url.lastPathComponent,
-                    rank: Int.max
-                )
-                pendingLocalPackageURL = url
-            } catch {
-                customErrorMessage = error.localizedDescription
-            }
-            preparingBundleIdentifier = nil
-        }
-    }
-
     private func open(_ app: CoverageCatalogEntry) {
         guard let url = CoverageCatalog.packageURL(for: app) else {
             return
         }
 
-        if url.isFileURL {
-            pendingApp = app
-            pendingLocalPackageURL = url
-            return
-        }
+        pendingApp = app
+        pendingLocalPackageURL = url
+    }
+}
 
-        onOpenPack(app)
-        dismiss()
-        openURL(url)
+private struct ManualCoverageGuide: View {
+    @Environment(\.openURL) private var openURL
+
+    let appName: String
+
+    private let automationsURL = URL(string: "shortcuts://automations")!
+
+    var body: some View {
+        List {
+            Section {
+                Label(
+                    "This path is only for apps missing from the built-in catalog.",
+                    systemImage: "iphone"
+                )
+                Text(
+                    "Nothing is uploaded. You create one Notification automation directly in Apple's Shortcuts app."
+                )
+                .foregroundStyle(.secondary)
+            }
+
+            Section("1. Choose the app") {
+                Text(
+                    "Open Shortcuts → Automation → + → Notification → App, then choose the app you want to add."
+                )
+
+                Button {
+                    openURL(automationsURL)
+                } label: {
+                    Label(
+                        "Open Shortcuts Automations",
+                        systemImage: "arrow.up.forward.app"
+                    )
+                }
+                .accessibilityIdentifier("open-manual-automations")
+
+                if !appName.isEmpty {
+                    LabeledContent("You searched for", value: appName)
+                }
+            }
+
+            Section("2. Add the PUSHKIN action") {
+                Text(
+                    "Add the action PUSHKIN → Archive Notification."
+                )
+            }
+
+            Section("3. Map the notification") {
+                mappingRow("Source app", "Notification → App")
+                mappingRow("Title", "Notification → Title")
+                mappingRow("Subtitle", "Notification → Subtitle")
+                mappingRow("Message", "Notification → Text")
+
+                Text(
+                    "When Shortcuts asks how the automation should run, choose the immediate/automatic option."
+                )
+                .foregroundStyle(.secondary)
+            }
+
+            Section("4. Save") {
+                Text(
+                    "Save and make sure the new automation is enabled. The first matching notification should then appear in PUSHKIN automatically."
+                )
+            }
+
+            Section("Help us improve the catalog") {
+                Text(
+                    "Want this app to become a one-tap option? Mention its exact name in an App Store review or send it to Arvectum support. Requested apps can be added in regular catalog updates."
+                )
+                .foregroundStyle(.secondary)
+            }
+        }
+        .navigationTitle("Add Manually")
+        .navigationBarTitleDisplayMode(.inline)
+        .accessibilityIdentifier("manual-coverage-guide")
+    }
+
+    private func mappingRow(
+        _ parameter: String,
+        _ value: String
+    ) -> some View {
+        LabeledContent(parameter, value: value)
     }
 }

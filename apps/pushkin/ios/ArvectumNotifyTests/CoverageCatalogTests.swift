@@ -22,16 +22,12 @@ final class CoverageCatalogTests: XCTestCase {
         )
     }
 
-    func testAppStoreFallbackFindsWorkingCopy() async throws {
-        let results = try await CustomCoverageService.searchAppStore(
-            term: "Working Copy",
-            countryCodes: ["ru", "gb"]
-        )
+    func testCoveragePackageURLsAreLocalFiles() {
+        XCTAssertEqual(CoverageCatalog.basePackageURL?.isFileURL, true)
         XCTAssertTrue(
-            results.contains {
-                $0.bundleId == "com.appliedphasor.working-copy"
-            },
-            "Results: \(results.map { "\($0.trackName)=\($0.bundleId)" })"
+            CoverageCatalog.entries.allSatisfy {
+                CoverageCatalog.packageURL(for: $0)?.isFileURL == true
+            }
         )
     }
 
