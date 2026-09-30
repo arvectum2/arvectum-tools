@@ -1,0 +1,43 @@
+name: PUSHKIN iOS CI
+
+on:
+  push:
+    branches:
+      - '**'
+    paths:
+      - 'apps/pushkin/ios/**'
+      - 'packages/**'
+      - '.github/workflows/pushkin-ios-ci.yml'
+  pull_request:
+    paths:
+      - 'apps/pushkin/ios/**'
+      - 'packages/**'
+      - '.github/workflows/pushkin-ios-ci.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pushkin-ios-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-for-testing:
+    runs-on: xcode-27
+    defaults:
+      run:
+        working-directory: apps/pushkin/ios
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install XcodeGen
+        run: brew install xcodegen
+
+      - name: Generate project
+        run: xcodegen generate
+
+      - name: Build app and test bundles
+        run: |
+          xcodebuild             -project ArvectumNotifyIOS.xcodeproj             -scheme ArvectumNotify             -sdk iphonesimulator             -destination 'generic/platform=iOS Simulator'             CODE_SIGNING_ALLOWED=NO             build-for-testing

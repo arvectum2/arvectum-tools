@@ -1,10 +1,8 @@
-# Arvectum Tools
+# Фото под размер
 
-Small consumer utilities by Arvectum.
+Arvectum Tools utility for preparing an image to a required file size, pixel size or passport-photo technical preset.
 
 **Principles:** One tool. One job. Done. · Local first.
-
-## First tool: «Фото под размер»
 
 Native Android and iOS utility with three intentionally final user modes for the first market experiment:
 

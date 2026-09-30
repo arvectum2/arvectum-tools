@@ -43,8 +43,8 @@ Direction: a simple free habit tracker inspired by the genuinely useful mechanic
 - [x] Repository layout and ownership boundaries.
 - [x] Shared product principles.
 - [x] Shared brand rules.
-- [ ] Add path-scoped CI for each active app.
-- [ ] Add repository-level release checklist/template.
+- [x] Add path-scoped CI for each active app.
+- [x] Add repository-level release checklist/template.
 
 ### Extract when proven reusable
 

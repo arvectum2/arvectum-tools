@@ -1,0 +1,43 @@
+name: Photo Size iOS CI
+
+on:
+  push:
+    branches:
+      - '**'
+    paths:
+      - 'apps/photo-size/ios/**'
+      - 'packages/**'
+      - '.github/workflows/photo-size-ios-ci.yml'
+  pull_request:
+    paths:
+      - 'apps/photo-size/ios/**'
+      - 'packages/**'
+      - '.github/workflows/photo-size-ios-ci.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: photo-size-ios-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-for-testing:
+    runs-on: macos-26
+    defaults:
+      run:
+        working-directory: apps/photo-size/ios
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install XcodeGen
+        run: brew install xcodegen
+
+      - name: Generate project
+        run: xcodegen generate
+
+      - name: Build app and unit-test bundle
+        run: |
+          xcodebuild             -project PhotoPodRazmerIOS.xcodeproj             -scheme PhotoPodRazmer             -sdk iphonesimulator             -destination 'generic/platform=iOS Simulator'             CODE_SIGNING_ALLOWED=NO             build-for-testing

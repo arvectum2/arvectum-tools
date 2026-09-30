@@ -43,4 +43,4 @@ Long-lived product branches are not the repository structure. Product source liv
 
 `main` remains the releasable integration line.
 
-See [docs/REPO_ARCHITECTURE.md](docs/REPO_ARCHITECTURE.md) and the [portfolio roadmap](ROADMAP.md).
+See [docs/REPO_ARCHITECTURE.md](docs/REPO_ARCHITECTURE.md), the [portfolio roadmap](ROADMAP.md) and the [repository release checklist](docs/RELEASE_CHECKLIST.md).

@@ -78,10 +78,10 @@ GitHub prerelease:
 ## RuStore preparation already in repository
 
 See:
-- `docs/rustore/STORE_LISTING.md`
-- `docs/rustore/DATA_SAFETY.md`
-- `docs/rustore/RELEASE_CHECKLIST.md`
-- `PRIVACY.md`
+- [RuStore listing](rustore/STORE_LISTING.md)
+- [RuStore data safety](rustore/DATA_SAFETY.md)
+- [RuStore release checklist](rustore/RELEASE_CHECKLIST.md)
+- [Product privacy policy](../PRIVACY.md)
 
 The first public RuStore release is intentionally **without advertising** and **without analytics**.
 Yandex Advertising Network / РСЯ is a later experiment after the first clean public release.
