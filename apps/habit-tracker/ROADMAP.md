@@ -1,56 +1,137 @@
-# Habit Tracker — Roadmap
+# Habits by Arvectum — Roadmap
 
-**Status:** BACKLOG / discovery later.
+**Status:** ACTIVE / implementation started
+**Branch:** `arvectum-habits`
+**Product name:** `Habits by Arvectum`
 
-## Product concept
-Product idea: a simple, free and convenient alternative to HabitKit Pro.
+## Product principle
 
-Product principle: take the genuinely useful and convenient habit-tracking mechanics, remove unnecessary complexity and feature clutter, and keep the core flow extremely lightweight.
+A simple, free and convenient habit tracker: keep the genuinely useful mechanics of products such as HabitKit Pro while deliberately removing unnecessary setup, feature clutter and interaction cost.
 
-Initial product constraints:
-- [ ] Free core product; no paywall around basic habit tracking.
-- [ ] Minimal UX: adding and marking a habit should take as few actions as possible.
-- [ ] Fast habit creation with sensible defaults and no mandatory setup wizard.
-- [ ] Clear, visual progress/history at a glance.
-- [ ] No feature accumulation unless it materially improves the core user job.
-- [ ] Before implementation, decompose HabitKit Pro: useful mechanics, paid mechanics, recurring user complaints, and removable complexity.
-- [ ] Use the research to define a deliberately smaller MVP rather than cloning the full product.
+Working formula: **«всё удобное — без лишнего»**.
 
-Working formula: **«всё удобное из HabitKit Pro — без лишнего»**.
+## M0 — product scaffold
 
+- [x] Create dedicated branch `arvectum-habits`.
+- [x] Keep Habits inside the existing Arvectum Tools repository.
+- [x] Create independent iOS app target under `apps/habit-tracker/ios`.
+- [x] Set product name to `Habits by Arvectum`.
+- [x] Set bundle identifier to `ru.arvectum.tools.habits`.
+- [x] Use iOS 17+ / SwiftUI / SwiftData.
+- [x] Add dedicated unit-test target.
+- [x] Add path-scoped GitHub Actions CI.
+- [ ] Final app icon and production asset catalog.
 
-#### Monetization — advertising, delayed and non-intrusive
-**Scope:** this policy applies **only to the Habit tracker** and is not a global Arvectum Tools rule.
+## M1 — core habit loop
 
-**Decision:** all core functionality remains free; monetization is advertising-only.
+### Data and persistence
 
-Ad UX principles:
-- no App Open Ads or interstitials in the core flow;
-- no ads during onboarding, habit creation/editing, check-off actions, widgets, notifications, or settings;
-- Today screen: one small adaptive sticky banner in a dedicated bottom area; it must never cover controls or appear between habits;
-- Progress / Statistics: at most one native ad card, placed after useful content;
-- banner video is disabled by default; native video may be tested later;
-- ads are not shown immediately after installation.
+- [x] Local-first persistence with SwiftData.
+- [x] Habit model: name, icon, color, creation date, archive state.
+- [x] Weekday schedule model.
+- [x] Separate per-day completion records.
+- [x] Persist data without registration or server.
+- [ ] Define explicit migration fixtures before first schema change.
+- [ ] Add export/import only after MVP validation.
 
-**Delayed activation rule (initial hypothesis):**
-- store install date, cold-launch count, and successful check-off count locally;
-- ads become eligible only after **both**:
-  - at least **3 full days** have passed since first launch; and
-  - the user has completed at least **5 cold launches**;
-- additionally require at least **3 successful habit check-offs** before the first ad impression;
-- if the threshold is not met, the app remains fully ad-free;
-- never backfill or compensate for missed impressions;
-- after activation, preserve the same calm placement and frequency rules.
+### Today
 
-Experiment candidates after launch:
-- cohort A: activation at day 3 + 5 launches;
-- cohort B: activation at day 5 + 7 launches;
-- compare D7/D30 retention, ad revenue per DAU, session-abandon rate after first ad, and review sentiment.
+- [x] Today screen.
+- [x] Show only habits scheduled for the current day.
+- [x] One-tap completion / undo.
+- [x] Daily progress summary.
+- [x] Empty state for first launch.
+- [x] Empty state when nothing is scheduled today.
+- [x] Show current streak on the habit row.
+- [x] Haptic feedback for successful check-in.
 
-## Before development
+### Create habit
 
-1. Decompose HabitKit Pro into user jobs and interaction mechanics.
-2. Separate essential mechanics from optional complexity.
-3. Define an intentionally smaller MVP.
-4. Validate onboarding and daily check-in tap count.
-5. Validate the delayed-ad thresholds only after the core habit loop is proven.
+- [x] Add habit from the Today screen.
+- [x] Name.
+- [x] Sensible quick-name suggestions.
+- [x] Color selection.
+- [x] SF Symbol selection.
+- [x] Daily schedule by default.
+- [x] Select individual weekdays.
+- [x] Quick presets: every day / weekdays.
+- [x] Prevent saving a blank habit or empty schedule.
+- [ ] Measure actual tap count and reduce it further if possible.
+
+### Habit detail
+
+- [x] Current streak.
+- [x] Completion percentage.
+- [x] Total check-in count.
+- [x] Five-week visual history.
+- [x] Correct a previous check-in by tapping a day.
+- [x] Archive habit.
+- [x] Delete habit and its completion history.
+- [ ] Edit name, icon, color and schedule.
+- [ ] Add a clearer month / heatmap view after UX validation.
+
+### Habit logic
+
+- [x] Scheduled-day calculation.
+- [x] Streak calculation.
+- [x] Streak ignores unscheduled days.
+- [x] Incomplete current day does not destroy yesterday's visible streak.
+- [x] Completion rate uses scheduled days only.
+- [x] Unit tests for core schedule / streak / completion-rate cases.
+- [ ] Test DST and timezone-change scenarios explicitly.
+- [ ] Define product rule for timezone travel before public release.
+
+## M2 — reminders and polish
+
+- [ ] Per-habit local reminder.
+- [ ] Ask notification permission only when the user enables a reminder.
+- [ ] Update scheduled notifications when a habit changes.
+- [ ] Add undo affordance beyond tapping the checkmark again if testing shows a need.
+- [ ] Accessibility audit: Dynamic Type, VoiceOver, contrast and touch targets.
+- [ ] Final Arvectum visual polish.
+- [ ] RU + EN localization.
+- [ ] UI tests for create → check → detail → history.
+- [ ] Test on small and large physical iPhones.
+- [ ] Test clean install and upgrade path.
+
+## Product research before feature expansion
+
+- [ ] Decompose HabitKit Pro by user jobs and interaction mechanics.
+- [ ] Separate genuinely useful mechanics from optional complexity.
+- [ ] Review current App Store habit trackers and recurring user complaints.
+- [ ] Build an explicit `do-not-build` list.
+- [ ] Validate whether templates materially improve first-run activation.
+- [ ] Validate whether quantitative habits are worth the extra complexity.
+
+## Monetization — Habit-specific policy
+
+Core habit tracking stays free. Advertising is the planned monetization model, but it must not interfere with the habit loop.
+
+- [ ] No App Open Ads.
+- [ ] No interstitials in onboarding, create/edit, check-off or settings.
+- [ ] Today: at most one small adaptive banner in a dedicated bottom area.
+- [ ] Progress / Statistics: at most one native ad after useful content.
+- [ ] Do not show ads immediately after install.
+- [ ] Store first-launch date, cold-launch count and successful check-off count locally.
+- [ ] Initial eligibility hypothesis: 3 full days + 5 cold launches + 3 check-offs.
+- [ ] Validate thresholds only after the core loop is stable.
+- [ ] Test retention impact before increasing ad exposure.
+
+## Post-MVP backlog
+
+- [ ] Widgets.
+- [ ] Lock Screen / interactive widgets.
+- [ ] Apple Watch.
+- [ ] iCloud sync.
+- [ ] Quantitative / duration habits.
+- [ ] Habit groups.
+- [ ] Advanced statistics.
+- [ ] Siri / Shortcuts.
+- [ ] Additional localizations.
+- [ ] Achievements only if they improve retention without adding noise.
+
+## Current checkpoint
+
+The first vertical slice is implemented: local storage → create a scheduled habit → see it on Today → mark/unmark it → open details → inspect streak/progress/history → correct prior days → archive/delete.
+
+**Next implementation step:** finish edit-habit flow, then run the MVP on the simulator and a physical iPhone before adding reminders.

@@ -28,13 +28,13 @@ Canonical roadmap: [apps/pushkin/ROADMAP.md](apps/pushkin/ROADMAP.md).
 
 Current focus is a minimal-onboarding notification capture experience with broad app coverage, preserving the principle that the user should not need extra hardware.
 
-## Habit Tracker
+## Habits by Arvectum
 
-**Status:** backlog / discovery later.
+**Status:** active implementation on branch `arvectum-habits`.
 
-Canonical backlog: [apps/habit-tracker/ROADMAP.md](apps/habit-tracker/ROADMAP.md).
+Canonical roadmap: [apps/habit-tracker/ROADMAP.md](apps/habit-tracker/ROADMAP.md).
 
-Direction: a simple free habit tracker inspired by the genuinely useful mechanics of HabitKit Pro, intentionally smaller and faster, with minimal setup and clear progress. Core functionality stays free; advertising is delayed until an initial engagement threshold and remains outside the core habit flow.
+Direction: a simple free habit tracker inspired by the genuinely useful mechanics of HabitKit Pro, intentionally smaller and faster, with minimal setup and clear progress. The first local-first iOS vertical slice is implemented: create → Today → one-tap check-in → streak/progress/history. Core functionality stays free; advertising is delayed until an initial engagement threshold and remains outside the core habit flow.
 
 ## Shared platform
 

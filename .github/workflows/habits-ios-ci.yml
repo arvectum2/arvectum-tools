@@ -1,0 +1,49 @@
+name: Habits iOS CI
+
+on:
+  push:
+    branches:
+      - '**'
+    paths:
+      - 'apps/habit-tracker/ios/**'
+      - 'packages/**'
+      - '.github/workflows/habits-ios-ci.yml'
+  pull_request:
+    paths:
+      - 'apps/habit-tracker/ios/**'
+      - 'packages/**'
+      - '.github/workflows/habits-ios-ci.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: habits-ios-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-test:
+    runs-on: macos-26
+    defaults:
+      run:
+        working-directory: apps/habit-tracker/ios
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Install XcodeGen
+        run: brew install xcodegen
+
+      - name: Generate project
+        run: xcodegen generate
+
+      - name: Build and test
+        run: |
+          xcodebuild \
+            -project HabitsByArvectumIOS.xcodeproj \
+            -scheme HabitsByArvectum \
+            -sdk iphonesimulator \
+            -destination 'platform=iOS Simulator,name=iPhone 17 Pro' \
+            CODE_SIGNING_ALLOWED=NO \
+            test
