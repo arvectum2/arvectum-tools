@@ -84,7 +84,7 @@ Core positioning:
 
 ### P1 — next product iteration
 - [x] Import from Files/iCloud in addition to Photos.
-- [ ] Exact width × height mode with aspect-ratio lock.
+- [x] Exact width × height mode with aspect-ratio lock.
 - [ ] Output format selector: JPEG / PNG / HEIC where technically appropriate.
 - [ ] Optional metadata/EXIF/GPS removal.
 - [ ] Print-sheet export for print document presets.

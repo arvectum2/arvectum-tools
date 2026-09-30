@@ -131,17 +131,20 @@ private struct MainTaskCard: View {
                 presetRow
                 if model.isCustomTarget { customSizeRow }
             case .pixels:
-                taskHeader(tr("ПО РАЗМЕРУ"), tr("Задать размер длинной стороны"))
+                taskHeader(tr("ПО РАЗМЕРУ"), tr("Изменить размер в пикселях"))
                 sourceRow
-                pixelPresetRow
-                if model.isCustomPixels { customPixelsRow }
+                pixelResizeModeRow
+                if model.pixelResizeMode == .longSide {
+                    pixelPresetRow
+                    if model.isCustomPixels { customPixelsRow }
+                } else {
+                    exactPixelsRow
+                }
             case .passport:
-                taskHeader(tr("НА ПАСПОРТ"), tr("Подогнать фото под 35×45"))
+                taskHeader(tr("НА ДОКУМЕНТЫ"), tr("Подготовить фото по требованиям документа"))
+                documentPresetRow
                 sourceRow
-                infoBox(
-                    "620×797 px · 450 DPI · JPEG\n" +
-                    tr("Кадрирование вручную. Лицо и фон приложение не изменяет.")
-                )
+                infoBox(model.documentPreset.outputSummary + "\n" + model.documentPreset.guidance)
             }
             Spacer(minLength: 12)
             primaryActionForCurrentMode
@@ -167,7 +170,7 @@ private struct MainTaskCard: View {
         case .pixels:
             primaryAction(
                 title: tr("Изменить размер"),
-                enabled: model.source != nil && model.targetLongSide != nil,
+                enabled: model.canResizePixels,
                 action: model.resizeByPixels
             )
         case .passport:
@@ -278,6 +281,16 @@ private struct MainTaskCard: View {
         }
     }
 
+    private var pixelResizeModeRow: some View {
+        HStack(spacing: 6) {
+            ForEach(PixelResizeMode.allCases) { item in
+                Chip(text: item.title, selected: model.pixelResizeMode == item) {
+                    model.setPixelResizeMode(item)
+                }
+            }
+        }
+    }
+
     private var pixelPresetRow: some View {
         VStack(alignment: .leading, spacing: 7) {
             Text("Длинная сторона")
@@ -293,6 +306,53 @@ private struct MainTaskCard: View {
                 Chip(text: tr("Свой"), selected: model.isCustomPixels) {
                     model.startCustomPixels()
                 }
+            }
+        }
+    }
+
+    private var exactPixelsRow: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            HStack(spacing: 8) {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("Ширина")
+                        .font(.caption2.weight(.semibold))
+                        .foregroundStyle(.secondary)
+                    TextField("px", text: Binding(
+                        get: { model.exactWidthValue },
+                        set: { model.setExactWidth($0) }
+                    ))
+                    .keyboardType(.numberPad)
+                    .textFieldStyle(.roundedBorder)
+                }
+
+                Text("×")
+                    .foregroundStyle(.secondary)
+                    .padding(.top, 18)
+
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("Высота")
+                        .font(.caption2.weight(.semibold))
+                        .foregroundStyle(.secondary)
+                    TextField("px", text: Binding(
+                        get: { model.exactHeightValue },
+                        set: { model.setExactHeight($0) }
+                    ))
+                    .keyboardType(.numberPad)
+                    .textFieldStyle(.roundedBorder)
+                }
+            }
+
+            Toggle("Сохранять пропорции", isOn: Binding(
+                get: { model.keepPixelAspectRatio },
+                set: { model.setKeepPixelAspectRatio($0) }
+            ))
+            .font(.caption.weight(.semibold))
+            .tint(.arvectumMint)
+
+            if !model.keepPixelAspectRatio {
+                Text("Без фиксации пропорций изображение может исказиться.")
+                    .font(.caption2)
+                    .foregroundStyle(.secondary)
             }
         }
     }

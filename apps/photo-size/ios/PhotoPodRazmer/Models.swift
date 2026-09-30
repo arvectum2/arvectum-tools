@@ -22,6 +22,20 @@ enum ToolMode: String, CaseIterable, Identifiable {
     }
 }
 
+enum PixelResizeMode: String, CaseIterable, Identifiable {
+    case longSide
+    case exact
+
+    var id: String { rawValue }
+
+    var title: String {
+        switch self {
+        case .longSide: return tr("Длинная сторона")
+        case .exact: return tr("Точно W×H")
+        }
+    }
+}
+
 enum DocumentPhotoPreset: String, CaseIterable, Identifiable, Equatable {
     case russiaPassport
     case usPassportPrint

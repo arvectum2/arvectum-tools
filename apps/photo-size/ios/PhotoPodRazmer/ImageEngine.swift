@@ -141,6 +141,37 @@ final class ImageEngine {
         )
     }
 
+    func resizeExact(source: SourceImage, width: Int, height: Int) throws -> ResultImage {
+        guard (32...12_000).contains(width), (32...12_000).contains(height) else {
+            throw PhotoToolError.message(tr("Укажите ширину и высоту от 32 до 12000 px."))
+        }
+        guard width <= source.width, height <= source.height else {
+            throw PhotoToolError.message(tr("Целевой размер не должен быть больше исходного изображения."))
+        }
+        if source.width == width && source.height == height {
+            return originalResult(source: source, mode: .pixels)
+        }
+
+        let working = try processingImage(source)
+        let resized = try resizedImage(working, to: CGSize(width: width, height: height))
+        let bytes = try jpegData(image: resized, quality: 0.95)
+        let url = try writeResult(bytes)
+
+        return ResultImage(
+            source: source,
+            outputURL: url,
+            outputSizeBytes: Int64(bytes.count),
+            outputWidth: width,
+            outputHeight: height,
+            mode: .pixels,
+            targetBytes: nil,
+            targetLongSide: nil,
+            alreadyFit: false,
+            contentType: .jpeg,
+            documentPreset: nil
+        )
+    }
+
     func preparePassport(source: SourceImage, crop: NormalizedCropRect, preset: DocumentPhotoPreset = .russiaPassport) throws -> ResultImage {
         let working = try processingImage(source)
         guard let cg = working.cgImage else {

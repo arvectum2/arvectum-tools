@@ -82,3 +82,11 @@
 "До" = "Before";
 "После" = "After";
 "Выбрать из Файлов" = "Choose from Files";
+"Точно W×H" = "Exact W×H";
+"Изменить размер в пикселях" = "Resize in pixels";
+"Ширина" = "Width";
+"Высота" = "Height";
+"Сохранять пропорции" = "Keep aspect ratio";
+"Без фиксации пропорций изображение может исказиться." = "Without aspect lock, the image may be distorted.";
+"Укажите ширину и высоту от 32 до 12000 px." = "Enter width and height from 32 to 12000 px.";
+"Целевой размер не должен быть больше исходного изображения." = "Target dimensions cannot be larger than the source image.";

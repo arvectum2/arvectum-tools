@@ -24,6 +24,19 @@ final class ImageEngineTests: XCTestCase {
         XCTAssertEqual(result.outputWidth, 600)
         XCTAssertEqual(result.outputHeight, 450)
     }
+    func testExactResizeProducesRequestedDimensions() throws {
+        let source = try engine.inspect(data: makeNoiseJPEG(width: 1200, height: 900))
+        let result = try engine.resizeExact(source: source, width: 640, height: 480)
+        XCTAssertEqual(result.outputWidth, 640)
+        XCTAssertEqual(result.outputHeight, 480)
+        XCTAssertEqual(result.mode, .pixels)
+    }
+
+    func testExactResizeRejectsUpscale() throws {
+        let source = try engine.inspect(data: makeNoiseJPEG(width: 600, height: 450))
+        XCTAssertThrowsError(try engine.resizeExact(source: source, width: 1200, height: 900))
+    }
+
     func testFileSizeCompressionStaysBelowLimit() throws {
         let source = try engine.inspect(data: makeNoiseJPEG(width: 1600, height: 1200))
         let target: Int64 = 150_000

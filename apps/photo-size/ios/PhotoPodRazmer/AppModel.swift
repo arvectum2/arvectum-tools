@@ -14,6 +14,10 @@ final class AppModel: ObservableObject {
     @Published var targetLongSide: Int? = 600
     @Published var isCustomPixels = false
     @Published var customPixelsValue = ""
+    @Published var pixelResizeMode: PixelResizeMode = .longSide
+    @Published var exactWidthValue = ""
+    @Published var exactHeightValue = ""
+    @Published var keepPixelAspectRatio = true
     @Published var passportCropOpen = false
     @Published var documentPreset: DocumentPhotoPreset = .russiaPassport
     @Published var isWorking = false
@@ -38,6 +42,11 @@ final class AppModel: ObservableObject {
            let preset = DocumentPhotoPreset(rawValue: args[index + 1]) {
             documentPreset = preset
             mode = .passport
+        }
+        if args.contains("--pixel-resize-exact") {
+            mode = .pixels
+            pixelResizeMode = .exact
+            exactWidthValue = "600"
         }
         if let index = args.firstIndex(of: "--store-screenshot-fixture"),
            args.indices.contains(index + 1) {
@@ -95,6 +104,7 @@ final class AppModel: ObservableObject {
                     try engine.inspect(data: data)
                 }.value
                 source = inspected
+                syncExactDimensionsAfterSource()
                 isWorking = false
             } catch {
                 source = nil
@@ -125,6 +135,7 @@ final class AppModel: ObservableObject {
                     try engine.inspect(data: data)
                 }.value
                 source = inspected
+                syncExactDimensionsAfterSource()
                 isWorking = false
             } catch {
                 source = nil
@@ -165,6 +176,59 @@ final class AppModel: ObservableObject {
         saved = false
     }
 
+    var exactWidth: Int? { validPixelDimension(exactWidthValue) }
+    var exactHeight: Int? { validPixelDimension(exactHeightValue) }
+
+    var canResizePixels: Bool {
+        guard source != nil else { return false }
+        switch pixelResizeMode {
+        case .longSide:
+            return targetLongSide != nil
+        case .exact:
+            return exactWidth != nil && exactHeight != nil
+        }
+    }
+
+    func setPixelResizeMode(_ newMode: PixelResizeMode) {
+        pixelResizeMode = newMode
+        result = nil
+        saved = false
+        errorMessage = nil
+        if newMode == .exact {
+            syncExactDimensionsAfterSource()
+        }
+    }
+
+    func setExactWidth(_ value: String) {
+        exactWidthValue = cleanPixelDimension(value)
+        if keepPixelAspectRatio, let source, let width = exactWidth {
+            let height = max(1, Int((Double(width) * Double(source.height) / Double(source.width)).rounded()))
+            exactHeightValue = String(min(height, 12_000))
+        }
+        result = nil
+        saved = false
+        errorMessage = nil
+    }
+
+    func setExactHeight(_ value: String) {
+        exactHeightValue = cleanPixelDimension(value)
+        if keepPixelAspectRatio, let source, let height = exactHeight {
+            let width = max(1, Int((Double(height) * Double(source.width) / Double(source.height)).rounded()))
+            exactWidthValue = String(min(width, 12_000))
+        }
+        result = nil
+        saved = false
+        errorMessage = nil
+    }
+
+    func setKeepPixelAspectRatio(_ keep: Bool) {
+        keepPixelAspectRatio = keep
+        if keep { syncExactDimensionsAfterSource() }
+        result = nil
+        saved = false
+        errorMessage = nil
+    }
+
     func setPixelPreset(_ value: Int) {
         targetLongSide = value
         isCustomPixels = false
@@ -201,9 +265,18 @@ final class AppModel: ObservableObject {
     }
 
     func resizeByPixels() {
-        guard let source, let targetLongSide else { return }
-        process(fallback: tr("Не получилось изменить размер изображения.")) { engine in
-            try engine.resizeLongSide(source: source, targetLongSide: targetLongSide)
+        guard let source else { return }
+        switch pixelResizeMode {
+        case .longSide:
+            guard let targetLongSide else { return }
+            process(fallback: tr("Не получилось изменить размер изображения.")) { engine in
+                try engine.resizeLongSide(source: source, targetLongSide: targetLongSide)
+            }
+        case .exact:
+            guard let width = exactWidth, let height = exactHeight else { return }
+            process(fallback: tr("Не получилось изменить размер изображения.")) { engine in
+                try engine.resizeExact(source: source, width: width, height: height)
+            }
         }
     }
 
@@ -247,6 +320,10 @@ final class AppModel: ObservableObject {
         targetLongSide = 600
         isCustomPixels = false
         customPixelsValue = ""
+        pixelResizeMode = .longSide
+        exactWidthValue = ""
+        exactHeightValue = ""
+        keepPixelAspectRatio = true
         passportCropOpen = false
         documentPreset = .russiaPassport
         isWorking = false
@@ -281,6 +358,26 @@ final class AppModel: ObservableObject {
                 isWorking = false
                 errorMessage = userMessage(error, fallback: fallback)
             }
+        }
+    }
+
+    private func cleanPixelDimension(_ value: String) -> String {
+        String(value.filter(\.isNumber).prefix(5))
+    }
+
+    private func validPixelDimension(_ value: String) -> Int? {
+        guard let number = Int(value), (32...12_000).contains(number) else { return nil }
+        return number
+    }
+
+    private func syncExactDimensionsAfterSource() {
+        guard keepPixelAspectRatio, let source else { return }
+        if let width = exactWidth {
+            let height = max(1, Int((Double(width) * Double(source.height) / Double(source.width)).rounded()))
+            exactHeightValue = String(min(height, 12_000))
+        } else if let height = exactHeight {
+            let width = max(1, Int((Double(height) * Double(source.width) / Double(source.height)).rounded()))
+            exactWidthValue = String(min(width, 12_000))
         }
     }
 

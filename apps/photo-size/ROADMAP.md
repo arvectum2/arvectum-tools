@@ -624,7 +624,7 @@ These items are intentionally tracked **after** the first market release/experim
 
 ### Workflow extensions
 - [x] Добавить импорт изображения из Files/iCloud в дополнение к Photos Picker; сохранить системный sandbox/security-scoped flow.
-- [ ] Добавить точные width × height с блокировкой пропорций.
+- [x] Добавить точные width × height: отдельный режим W×H, блокировка пропорций включена по умолчанию, ручное отключение с предупреждением; апскейл запрещён.
 - [ ] Добавить выбор формата экспорта JPEG / PNG / HEIC там, где он технически уместен.
 - [ ] Добавить опциональное удаление EXIF/GPS metadata.
 - [ ] Добавить print-sheet export для печатных документных пресетов.
