@@ -27,17 +27,17 @@
 - [x] No tracking.
 - [x] Privacy policy URL prepared.
 - [x] Archive PrivacyInfo inspected: no tracking/collection; UserDefaults reason `CA92.1` only.
-- [ ] Publish App Store privacy answer: no data collected, once the App Store Connect record exists.
+- [x] App Store privacy answer published: **Data Not Collected**.
 
 ## Store assets
 
 - [x] English listing draft.
 - [x] Russian listing draft.
 - [x] App Review notes draft.
-- [ ] App Store Connect app record.
+- [x] App Store Connect app record (`PUSHKIN by Arvectum`, Apple ID `6817847111`).
 - [x] Final 6.9-inch iPhone screenshots (1320×2868): History, Apps & Setup, Privacy/Settings.
 - [ ] Optional smaller-device screenshot set if App Store Connect requests it.
-- [ ] Physical-device App Review demo recording.
+- [ ] Physical-device App Review demo recording if Apple requests additional review evidence.
 - [x] Support URL and live privacy-policy URL verified.
 
 ## Build and submission
@@ -46,16 +46,13 @@
 - [x] Clean Release build from final source.
 - [x] Archive for generic iOS device (`/tmp/PUSHKIN-1.0.0.xcarchive`).
 - [x] Archive inspected: bundle ID/version/build correct, PrivacyInfo present, no runtime endpoint strings.
-- [ ] Export App Store IPA / upload build — blocked until the App Store bundle ID/profile exists.
-- [ ] Wait for processing.
-- [ ] Complete age rating and content-rights answers.
-- [ ] Attach final build to version 1.0.0.
-- [ ] Add review notes and demo video.
-- [ ] Submit to App Review.
-
-### Current submission blocker
-
-The local Release archive is ready, and an Apple Distribution identity for LLC ARVECTUM is installed. Export currently fails because `ru.arvectum.tools.notify` has no App Store Connect Bundle ID / App Store provisioning profile yet. API-key export also reports that the key lacks cloud-managed distribution-certificate permission, so the intended path is to create the explicit Bundle ID + App Store app record/profile, then export using the existing local Apple Distribution certificate.
+- [x] Build `1.0.0 (1)` present in App Store Connect.
+- [x] App Store processing completed.
+- [x] Age rating and content-rights answers completed (4+; necessary rights declared).
+- [x] Final build attached to iOS version 1.0.
+- [x] Review notes present in the version metadata.
+- [x] Submit to App Review.
+- [x] Submission accepted by App Store Connect on 30 Sep 2026 at 19:58 local time; status **Waiting for Review**.
 
 ## Post-launch 1.1
 

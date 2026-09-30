@@ -35,11 +35,12 @@ This section supersedes older phase checklists as the release gate. The historic
 - [x] Basic notification actions: copy, share, delete.
 - [x] Consumer Settings/About screen; Phase-0 diagnostics removed from release navigation.
 - [x] Clear all local history with confirmation.
-- [x] Privacy manifest added; App Store privacy answers prepared and pending final archive verification.
+- [x] Privacy manifest verified in the final archive; App Store privacy disclosure published as **Data Not Collected**.
 - [x] English-first in-app UI for the speed-focused 1.0 launch; English + Russian store metadata prepared. Russian in-app localization moves to 1.1.
-- [ ] Final physical-device smoke test including airplane-mode/offline use.
+- [ ] Final physical-device smoke test including airplane-mode/offline use. Physical iPhone is connected on iOS 27.0.1; automated UI test hit the system passcode gate for XCTest automation, so the remaining check is manual/non-UI-automation only.
 - [x] App Store metadata, 6.9-inch screenshots, review notes and signed release archive prepared.
-- [ ] Create the App Store Connect app record + App Store distribution provisioning profile, export/upload build 1, and submit.
+- [x] App Store Connect record verified: `PUSHKIN by Arvectum`, Apple ID `6817847111`, Bundle ID `ru.arvectum.tools.notify`, build `1.0.0 (1)`.
+- [x] Version 1.0 submitted to App Review on 30 Sep 2026; current status: **Waiting for Review**.
 
 ### Explicitly deferred from 1.0
 
