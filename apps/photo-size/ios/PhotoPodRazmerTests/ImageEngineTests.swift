@@ -41,7 +41,7 @@ final class ImageEngineTests: XCTestCase {
     func testPassportOutputContract() throws {
         let source = try engine.inspect(data: makeNoiseJPEG(width: 1000, height: 1286))
         let crop = NormalizedCropRect(left: 0, top: 0, right: 1, bottom: 1)
-        let result = try engine.preparePassport(source: source, crop: crop)
+        let result = try engine.preparePassport(source: source, crop: crop, preset: .russiaPassport)
 
         XCTAssertEqual(result.outputWidth, 620)
         XCTAssertEqual(result.outputHeight, 797)
@@ -56,6 +56,39 @@ final class ImageEngineTests: XCTestCase {
         XCTAssertEqual((properties[kCGImagePropertyPixelHeight] as? NSNumber)?.intValue, 797)
         XCTAssertEqual((properties[kCGImagePropertyDPIWidth] as? NSNumber)?.intValue, 450)
         XCTAssertEqual((properties[kCGImagePropertyDPIHeight] as? NSNumber)?.intValue, 450)
+    }
+
+    func testUSVisaDigitalOutputContract() throws {
+        let source = try engine.inspect(data: makeNoiseJPEG(width: 1200, height: 1200))
+        let crop = NormalizedCropRect(left: 0, top: 0, right: 1, bottom: 1)
+        let result = try engine.preparePassport(source: source, crop: crop, preset: .usVisaDigital)
+
+        XCTAssertEqual(result.outputWidth, 600)
+        XCTAssertEqual(result.outputHeight, 600)
+        XCTAssertLessThanOrEqual(result.outputSizeBytes, 240_000)
+        XCTAssertEqual(result.documentPreset, .usVisaDigital)
+    }
+
+    func testIndiaEVisaOutputContract() throws {
+        let source = try engine.inspect(data: makeNoiseJPEG(width: 1200, height: 1200))
+        let crop = NormalizedCropRect(left: 0, top: 0, right: 1, bottom: 1)
+        let result = try engine.preparePassport(source: source, crop: crop, preset: .indiaEVisa)
+
+        XCTAssertEqual(result.outputWidth, 900)
+        XCTAssertEqual(result.outputHeight, 900)
+        XCTAssertGreaterThanOrEqual(result.outputSizeBytes, 10_000)
+        XCTAssertLessThanOrEqual(result.outputSizeBytes, 1_000_000)
+        XCTAssertEqual(result.documentPreset, .indiaEVisa)
+    }
+
+    func testUKPassportPrintOutputContract() throws {
+        let source = try engine.inspect(data: makeNoiseJPEG(width: 1000, height: 1286))
+        let crop = NormalizedCropRect(left: 0, top: 0, right: 1, bottom: 1)
+        let result = try engine.preparePassport(source: source, crop: crop, preset: .ukPassportPrint)
+
+        XCTAssertEqual(result.outputWidth, 413)
+        XCTAssertEqual(result.outputHeight, 531)
+        XCTAssertEqual(result.documentPreset, .ukPassportPrint)
     }
 
     private func makeNoiseJPEG(width: Int, height: Int) throws -> Data {

@@ -15,6 +15,7 @@ final class AppModel: ObservableObject {
     @Published var isCustomPixels = false
     @Published var customPixelsValue = ""
     @Published var passportCropOpen = false
+    @Published var documentPreset: DocumentPhotoPreset = .russiaPassport
     @Published var isWorking = false
     @Published var errorMessage: String?
     @Published var saved = false
@@ -31,6 +32,12 @@ final class AppModel: ObservableObject {
             case "passport": mode = .passport
             default: mode = .fileSize
             }
+        }
+        if let index = args.firstIndex(of: "--document-preset"),
+           args.indices.contains(index + 1),
+           let preset = DocumentPhotoPreset(rawValue: args[index + 1]) {
+            documentPreset = preset
+            mode = .passport
         }
         #endif
     }
@@ -143,6 +150,14 @@ final class AppModel: ObservableObject {
         }
     }
 
+    func setDocumentPreset(_ preset: DocumentPhotoPreset) {
+        documentPreset = preset
+        result = nil
+        passportCropOpen = false
+        saved = false
+        errorMessage = nil
+    }
+
     func openPassportCrop() {
         guard source != nil else { return }
         passportCropOpen = true
@@ -153,8 +168,8 @@ final class AppModel: ObservableObject {
     func preparePassport(_ crop: NormalizedCropRect) {
         guard let source else { return }
         passportCropOpen = false
-        process(fallback: tr("Не получилось подготовить фото на паспорт.")) { engine in
-            try engine.preparePassport(source: source, crop: crop)
+        process(fallback: tr("Не получилось подготовить фото для документа.")) { engine in
+            try engine.preparePassport(source: source, crop: crop, preset: self.documentPreset)
         }
     }
 
@@ -176,6 +191,7 @@ final class AppModel: ObservableObject {
         isCustomPixels = false
         customPixelsValue = ""
         passportCropOpen = false
+        documentPreset = .russiaPassport
         isWorking = false
         errorMessage = nil
         saved = false

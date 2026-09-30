@@ -29,7 +29,7 @@ Canonical handoff: `docs/RELEASE_HANDOFF_2026-09-25.md`.
 
 This amendment supersedes the historical v0.1 UI/color notes below. Functional scope remains frozen after v0.2; v0.3.0 changes branding and interaction polish only.
 
-**Final user modes:** `По весу` / `По размеру` / `На паспорт`.
+**Current user modes:** `По весу` / `По размеру` / `На документы` (international expansion renamed the former `На паспорт` mode).
 
 **Final app shell:**
 - canonical Arvectum wordmark at the top;
@@ -614,9 +614,9 @@ These items are intentionally tracked **after** the first market release/experim
 - [ ] Адаптировать название приложения под каждую целевую страну/язык с учётом локального поискового спроса и понятности функции.
 
 ### International passport / ID photo mode
-- [ ] Исследовать, в каких странах кроме России востребован сценарий «на паспорт» / passport-ID photo preparation.
-- [ ] Для каждой целевой страны собрать официальные требования к фото (размер/пропорции, пиксели/DPI, формат, допустимый размер файла и другие технические ограничения).
-- [ ] Адаптировать режим «На паспорт» под требования выбранной страны/документа; не применять российский пресет глобально.
+- [x] Исследовать международные сценарии passport/ID/visa photo: подтверждён спрос по App Store и совместимость с официальными требованиями; phase 1 — США, Индия, Великобритания, с отдельными ограничениями для Канады и Австралии. См. docs/PASSPORT_ID_MARKETS_2026-09-30.md.
+- [x] Собрать официальные требования для phase 1: U.S. passport print, U.S. visa digital, India e-Visa, UK passport print; отдельно зафиксировать причины не включать Canada/Australia passport presets.
+- [x] Адаптировать бывший режим «На паспорт» (теперь «На документы») под документные пресеты: Россия, США passport print, США visa digital, India e-Visa, UK passport print; crop ratio, px/DPI и file-size constraints теперь задаются пресетом.
 
 ### UI / UX
 - [x] Тёмная тема: автоматическая адаптация под системную Light/Dark theme реализована и проверена на симуляторе; XCTest 4/4.

@@ -81,6 +81,7 @@ struct ContentView: View {
             if let source = model.source {
                 PassportCropView(
                     image: source.image,
+                    preset: model.documentPreset,
                     onCancel: { model.passportCropOpen = false },
                     onConfirm: model.preparePassport
                 )
@@ -170,10 +171,32 @@ private struct MainTaskCard: View {
             )
         case .passport:
             primaryAction(
-                title: tr("Кадрировать 35×45"),
+                title: tr("Подготовить фото"),
                 enabled: model.source != nil,
                 action: model.openPassportCrop
             )
+        }
+    }
+
+    private var documentPresetRow: some View {
+        VStack(alignment: .leading, spacing: 7) {
+            Text("Страна / документ")
+                .font(.caption.weight(.semibold))
+                .foregroundStyle(.secondary)
+
+            Picker("Страна / документ", selection: Binding(
+                get: { model.documentPreset },
+                set: { model.setDocumentPreset($0) }
+            )) {
+                ForEach(DocumentPhotoPreset.allCases) { preset in
+                    Text(preset.title).tag(preset)
+                }
+            }
+            .pickerStyle(.menu)
+            .tint(Color.arvectumPrimaryText)
+            .padding(.horizontal, 12)
+            .frame(maxWidth: .infinity, minHeight: 44, alignment: .leading)
+            .background(Color.arvectumBackground, in: RoundedRectangle(cornerRadius: 14))
         }
     }
 
@@ -341,8 +364,8 @@ private struct ResultCard: View {
                 stat(tr("Разрешение"), "\(result.outputWidth)×\(result.outputHeight)")
             }
 
-            if result.mode == .passport {
-                Text("620×797 px · 450 DPI · JPEG")
+            if result.mode == .passport, let preset = result.documentPreset {
+                Text(preset.outputSummary)
                     .font(.footnote)
                     .foregroundStyle(.secondary)
             }

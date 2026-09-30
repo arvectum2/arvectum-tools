@@ -3,6 +3,7 @@ import UIKit
 
 struct PassportCropView: View {
     let image: UIImage
+    let preset: DocumentPhotoPreset
     let onCancel: () -> Void
     let onConfirm: (NormalizedCropRect) -> Void
 
@@ -19,10 +20,10 @@ struct PassportCropView: View {
             VStack(alignment: .leading, spacing: 10) {
                 HStack {
                     VStack(alignment: .leading, spacing: 2) {
-                        Text("НА ПАСПОРТ")
+                        Text("НА ДОКУМЕНТЫ")
                             .font(.caption.weight(.bold))
                             .foregroundStyle(Color.arvectumAccentText)
-                        Text("Подогнать фото под 35×45")
+                        Text(preset.title)
                             .font(.title3.weight(.semibold))
                             .foregroundStyle(Color.arvectumPrimaryText)
                     }
@@ -46,7 +47,7 @@ struct PassportCropView: View {
                         }
                 }
                 .aspectRatio(
-                    CGFloat(ImageEngine.passportWidth) / CGFloat(ImageEngine.passportHeight),
+                    CGFloat(preset.widthPixels) / CGFloat(preset.heightPixels),
                     contentMode: .fit
                 )
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -57,7 +58,7 @@ struct PassportCropView: View {
                         .stroke(Color.arvectumMint, lineWidth: 2)
                 )
 
-                Text("620×797 px · 450 DPI · JPEG")
+                Text(preset.outputSummary)
                     .font(.footnote)
                     .foregroundStyle(.secondary)
 

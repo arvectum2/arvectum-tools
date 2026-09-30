@@ -17,7 +17,97 @@ enum ToolMode: String, CaseIterable, Identifiable {
         switch self {
         case .fileSize: return tr("По весу")
         case .pixels: return tr("По размеру")
-        case .passport: return tr("На паспорт")
+        case .passport: return tr("На документы")
+        }
+    }
+}
+
+enum DocumentPhotoPreset: String, CaseIterable, Identifiable, Equatable {
+    case russiaPassport
+    case usPassportPrint
+    case usVisaDigital
+    case indiaEVisa
+    case ukPassportPrint
+
+    var id: String { rawValue }
+
+    var title: String {
+        switch self {
+        case .russiaPassport: return tr("Россия · паспорт")
+        case .usPassportPrint: return tr("США · паспорт (печать)")
+        case .usVisaDigital: return tr("США · виза (digital)")
+        case .indiaEVisa: return tr("Индия · e-Visa")
+        case .ukPassportPrint: return tr("Великобритания · паспорт (печать)")
+        }
+    }
+
+    var widthPixels: Int {
+        switch self {
+        case .russiaPassport: return 620
+        case .usPassportPrint, .usVisaDigital: return 600
+        case .indiaEVisa: return 900
+        case .ukPassportPrint: return 413
+        }
+    }
+
+    var heightPixels: Int {
+        switch self {
+        case .russiaPassport: return 797
+        case .usPassportPrint, .usVisaDigital, .indiaEVisa: return widthPixels
+        case .ukPassportPrint: return 531
+        }
+    }
+
+    var dpi: Int? {
+        switch self {
+        case .russiaPassport: return 450
+        case .usPassportPrint, .usVisaDigital, .ukPassportPrint: return 300
+        case .indiaEVisa: return nil
+        }
+    }
+
+    var minimumBytes: Int {
+        switch self {
+        case .russiaPassport, .indiaEVisa: return 10_000
+        default: return 0
+        }
+    }
+
+    var maximumBytes: Int {
+        switch self {
+        case .usVisaDigital: return 240_000
+        case .indiaEVisa: return 1_000_000
+        default: return 5_000_000
+        }
+    }
+
+    var outputSummary: String {
+        switch self {
+        case .russiaPassport:
+            return "35×45 mm · 620×797 px · 450 DPI · JPEG"
+        case .usPassportPrint:
+            return "2×2 in · 600×600 px · 300 DPI · JPEG"
+        case .usVisaDigital:
+            return tr("600×600 px · JPEG · ≤240 KB")
+        case .indiaEVisa:
+            return tr("900×900 px · JPEG · 10 KB–1 MB")
+        case .ukPassportPrint:
+            return "35×45 mm · 413×531 px · 300 DPI · JPEG"
+        }
+    }
+
+    var guidance: String {
+        switch self {
+        case .russiaPassport:
+            return tr("Кадрирование вручную. Лицо и фон приложение не изменяет.")
+        case .usPassportPrint:
+            return tr("Формат для печати 2×2 дюйма. Проверьте размер головы перед подачей.")
+        case .usVisaDigital:
+            return tr("Цифровое фото для визы США: квадратный JPEG до 240 КБ.")
+        case .indiaEVisa:
+            return tr("Для India e-Visa: квадратный JPEG от 10 КБ до 1 МБ.")
+        case .ukPassportPrint:
+            return tr("Формат для печати 35×45 мм. Для онлайн-паспорта GOV.UK просит не обрезать фото самостоятельно.")
         }
     }
 }
@@ -59,6 +149,7 @@ struct ResultImage {
     let targetLongSide: Int?
     let alreadyFit: Bool
     let contentType: UTType
+    let documentPreset: DocumentPhotoPreset?
 
     var suggestedFileName: String {
         let suffix: String

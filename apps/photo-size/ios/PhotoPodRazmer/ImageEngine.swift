@@ -5,10 +5,6 @@ import UIKit
 import UniformTypeIdentifiers
 
 final class ImageEngine {
-    static let passportWidth = 620
-    static let passportHeight = 797
-    static let passportDPI = 450
-
     private let maxDecodePixels: Int64 = 24_000_000
     private let minJPEGQuality = 35
     private let maxJPEGQuality = 95
@@ -81,7 +77,8 @@ final class ImageEngine {
                     targetBytes: requestedMaximumBytes,
                     targetLongSide: nil,
                     alreadyFit: false,
-                    contentType: .jpeg
+                    contentType: .jpeg,
+                    documentPreset: nil
                 )
             }
 
@@ -139,14 +136,15 @@ final class ImageEngine {
             targetBytes: nil,
             targetLongSide: targetLongSide,
             alreadyFit: false,
-            contentType: .jpeg
+            contentType: .jpeg,
+            documentPreset: nil
         )
     }
 
-    func preparePassport(source: SourceImage, crop: NormalizedCropRect) throws -> ResultImage {
+    func preparePassport(source: SourceImage, crop: NormalizedCropRect, preset: DocumentPhotoPreset = .russiaPassport) throws -> ResultImage {
         let working = try processingImage(source)
         guard let cg = working.cgImage else {
-            throw PhotoToolError.message(tr("Не получилось подготовить фото на паспорт."))
+            throw PhotoToolError.message(tr("Не получилось подготовить фото для документа."))
         }
 
         let left = max(0, min(CGFloat(cg.width - 1), crop.left * CGFloat(cg.width)))
@@ -161,26 +159,26 @@ final class ImageEngine {
         let cropped = UIImage(cgImage: croppedCG, scale: 1, orientation: .up)
         let passport = try resizedImage(
             cropped,
-            to: CGSize(width: Self.passportWidth, height: Self.passportHeight)
+            to: CGSize(width: preset.widthPixels, height: preset.heightPixels)
         )
 
         var quality = try bestQuality(
             image: passport,
-            maximumBytes: 5_000_000,
+            maximumBytes: preset.maximumBytes,
             minimumQuality: 55,
             maximumQuality: 95
         )
         var bytes = try jpegData(
             image: passport,
             quality: CGFloat(quality) / 100,
-            dpi: Self.passportDPI
+            dpi: preset.dpi
         )
 
-        if bytes.count < 10_000 {
+        if preset.minimumBytes > 0 && bytes.count < preset.minimumBytes {
             quality = 100
-            bytes = try jpegData(image: passport, quality: 1.0, dpi: Self.passportDPI)
+            bytes = try jpegData(image: passport, quality: 1.0, dpi: preset.dpi)
         }
-        guard bytes.count >= 10_000 && bytes.count <= 5_000_000 else {
+        guard bytes.count >= preset.minimumBytes && bytes.count <= preset.maximumBytes else {
             throw PhotoToolError.message(tr("Не получилось подготовить файл нужного размера для заявления."))
         }
 
@@ -189,13 +187,14 @@ final class ImageEngine {
             source: source,
             outputURL: url,
             outputSizeBytes: Int64(bytes.count),
-            outputWidth: Self.passportWidth,
-            outputHeight: Self.passportHeight,
+            outputWidth: preset.widthPixels,
+            outputHeight: preset.heightPixels,
             mode: .passport,
             targetBytes: nil,
             targetLongSide: nil,
             alreadyFit: false,
-            contentType: .jpeg
+            contentType: .jpeg,
+            documentPreset: preset
         )
     }
 
@@ -215,7 +214,8 @@ final class ImageEngine {
             targetBytes: targetBytes,
             targetLongSide: targetLongSide,
             alreadyFit: true,
-            contentType: source.contentType
+            contentType: source.contentType,
+            documentPreset: nil
         )
     }
 
