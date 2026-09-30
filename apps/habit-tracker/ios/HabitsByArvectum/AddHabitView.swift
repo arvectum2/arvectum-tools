@@ -200,7 +200,8 @@ struct AddHabitView: View {
                     selected ? Color.arvectumNavy : .primary
                 )
                 .padding(.horizontal, 14)
-                .frame(height: 44)
+                .frame(minHeight: 44)
+                .padding(.vertical, 2)
                 .background(
                     selected
                         ? Color.arvectumMint

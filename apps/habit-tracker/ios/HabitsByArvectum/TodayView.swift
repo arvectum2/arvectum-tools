@@ -166,6 +166,8 @@ struct TodayView: View {
 }
 
 private struct TodaySummary: View {
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+
     let completed: Int
     let total: Int
 
@@ -176,13 +178,23 @@ private struct TodaySummary: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
-            HStack(alignment: .firstTextBaseline) {
-                Text(L10n.string("today.title"))
-                    .font(.headline)
-                Spacer()
-                Text(L10n.format("today.progress.format", completed, total))
-                    .font(.subheadline.weight(.semibold))
-                    .foregroundStyle(.secondary)
+            if dynamicTypeSize.isAccessibilitySize {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(L10n.string("today.title"))
+                        .font(.headline)
+                    Text(L10n.format("today.progress.format", completed, total))
+                        .font(.subheadline.weight(.semibold))
+                        .foregroundStyle(.secondary)
+                }
+            } else {
+                HStack(alignment: .firstTextBaseline) {
+                    Text(L10n.string("today.title"))
+                        .font(.headline)
+                    Spacer()
+                    Text(L10n.format("today.progress.format", completed, total))
+                        .font(.subheadline.weight(.semibold))
+                        .foregroundStyle(.secondary)
+                }
             }
 
             ProgressView(value: progress)

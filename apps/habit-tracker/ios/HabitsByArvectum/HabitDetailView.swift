@@ -4,6 +4,7 @@ import SwiftUI
 struct HabitDetailView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var modelContext
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @Query(sort: \HabitCheckIn.day) private var checkIns: [HabitCheckIn]
 
     @Bindable var habit: Habit
@@ -60,38 +61,55 @@ struct HabitDetailView: View {
     }
 
     private var identityCard: some View {
-        HStack(spacing: 14) {
-            ZStack {
-                Circle()
-                    .fill(Color(hex: habit.colorHex).opacity(0.16))
-                Image(systemName: habit.symbolName)
-                    .font(.title2)
-                    .foregroundStyle(Color(hex: habit.colorHex))
-            }
-            .frame(width: 54, height: 54)
-
-            VStack(alignment: .leading, spacing: 4) {
-                Text(habit.name)
-                    .font(.title3.weight(.semibold))
-                Text(scheduleDescription)
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
-
-                if habit.reminderEnabled {
-                    Label(reminderDescription, systemImage: "bell.fill")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
+        Group {
+            if dynamicTypeSize.isAccessibilitySize {
+                VStack(alignment: .leading, spacing: 12) {
+                    identityIcon
+                    identityText
+                }
+            } else {
+                HStack(spacing: 14) {
+                    identityIcon
+                    identityText
+                    Spacer()
                 }
             }
-
-            Spacer()
         }
+        .frame(maxWidth: .infinity, alignment: .leading)
         .padding(16)
         .background(Color.habitsSurface, in: RoundedRectangle(cornerRadius: 20))
     }
 
+    private var identityIcon: some View {
+        ZStack {
+            Circle()
+                .fill(Color(hex: habit.colorHex).opacity(0.16))
+            Image(systemName: habit.symbolName)
+                .font(.title2)
+                .foregroundStyle(Color(hex: habit.colorHex))
+        }
+        .frame(width: 54, height: 54)
+        .accessibilityHidden(true)
+    }
+
+    private var identityText: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            Text(habit.name)
+                .font(.title3.weight(.semibold))
+            Text(scheduleDescription)
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
+
+            if habit.reminderEnabled {
+                Label(reminderDescription, systemImage: "bell.fill")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            }
+        }
+    }
+
     private var statsCard: some View {
-        HStack(spacing: 10) {
+        let content = Group {
             stat(
                 value: "\(HabitMetrics.currentStreak(habit: habit, checkIns: checkIns))",
                 label: L10n.string("stats.streak"),
@@ -107,6 +125,14 @@ struct HabitDetailView: View {
                 label: L10n.string("stats.checkins"),
                 systemImage: "checkmark.circle.fill"
             )
+        }
+
+        return Group {
+            if dynamicTypeSize.isAccessibilitySize {
+                VStack(spacing: 10) { content }
+            } else {
+                HStack(spacing: 10) { content }
+            }
         }
     }
 

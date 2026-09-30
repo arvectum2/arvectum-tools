@@ -52,4 +52,42 @@ final class HabitFlowUITests: XCTestCase {
             app.staticTexts["Last 5 weeks"].waitForExistence(timeout: 3)
         )
     }
+
+    func testCoreCreationFlowAtLargestDynamicType() throws {
+        app.terminate()
+        app.launchArguments = [
+            "-AppleLanguages", "(en)",
+            "-AppleLocale", "en_US",
+            "-UIPreferredContentSizeCategoryName",
+            "UICTContentSizeCategoryAccessibilityExtraExtraExtraLarge",
+            "--ui-testing"
+        ]
+        app.launch()
+
+        let createButton = app.buttons["Create habit"]
+        XCTAssertTrue(createButton.waitForExistence(timeout: 3))
+        XCTAssertTrue(createButton.isHittable)
+        createButton.tap()
+
+        let newHabitBar = app.navigationBars["New habit"]
+        XCTAssertTrue(newHabitBar.waitForExistence(timeout: 3))
+
+        let nameField = app.textFields[
+            "For example, read for 20 minutes"
+        ]
+        XCTAssertTrue(nameField.waitForExistence(timeout: 3))
+        nameField.typeText("Read")
+
+        let doneButton = newHabitBar.buttons["Done"]
+        XCTAssertTrue(doneButton.isEnabled)
+        XCTAssertTrue(doneButton.isHittable)
+        doneButton.tap()
+
+        XCTAssertTrue(
+            app.staticTexts["Read"].firstMatch.waitForExistence(timeout: 3)
+        )
+        XCTAssertTrue(
+            app.buttons["Mark complete"].waitForExistence(timeout: 3)
+        )
+    }
 }

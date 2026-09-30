@@ -90,6 +90,8 @@ Working formula: **«всё удобное — без лишнего»**.
 - [x] Update scheduled notifications when a habit changes.
 - [ ] Add undo affordance beyond tapping the checkmark again if testing shows a need.
 - [x] Base accessibility pass: 44 pt touch targets for habit actions/pickers, VoiceOver labels and selected-state hints.
+- [x] Accessibility-size responsive layouts for Today summary, habit identity/stats and primary action buttons.
+- [x] Add a largest-Dynamic-Type XCUITest for the core create flow; verify it compiles via `build-for-testing` on Xcode 27.
 - [ ] Physical accessibility audit: Dynamic Type, VoiceOver navigation and contrast.
 - [ ] Final Arvectum visual polish.
 - [x] RU + EN localization.
@@ -139,4 +141,4 @@ Core habit tracking stays free. Advertising is the planned monetization model, b
 
 The M1 vertical slice is implemented and M2 reminders/localization are wired end-to-end: local storage → minimal create/edit flow → optional local reminder → Today → mark/unmark → details/history → archive/delete. Optional creation settings now use progressive disclosure so the default path stays focused on name + schedule. Historical check-ins now use a stable local-day key, while current schedules/reminders follow the device timezone. RU and EN are bundled and visually smoke-tested. The suite currently has 13 passing tests, including timezone/DST regressions, localization completeness and an XCUITest covering create → check → detail → history. Clean install and additive-schema upgrades have been smoke-tested, including signed install/launch on the physical iPhone 13 with Xcode 27.0.
 
-**Next implementation step:** physically verify notification permission/delivery, finish the accessibility audit and do the final visual-polish pass before broader product research/monetization work.
+**Next implementation step:** physically verify notification permission/delivery and VoiceOver/Dynamic Type behavior, then do the final visual-polish pass before broader product research/monetization work. Xcode 27 currently compiles the full app/unit/UI-test bundle via `build-for-testing`; direct XCTest execution is being rechecked separately after the local Xcode toolchain cleanup.
