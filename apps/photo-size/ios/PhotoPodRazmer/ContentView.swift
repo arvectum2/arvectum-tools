@@ -137,6 +137,7 @@ private struct MainTaskCard: View {
     @EnvironmentObject private var model: AppModel
     @Binding var pickerItem: PhotosPickerItem?
     @State private var importingFile = false
+    @State private var advancedOptionsExpanded = false
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
@@ -146,7 +147,7 @@ private struct MainTaskCard: View {
                 sourceRow
                 presetRow
                 if model.isCustomTarget { customSizeRow }
-                metadataPrivacyRow
+                advancedOptionsRow
             case .pixels:
                 taskHeader(tr("ПО РАЗМЕРУ"), tr("Изменить размер в пикселях"))
                 sourceRow
@@ -157,8 +158,7 @@ private struct MainTaskCard: View {
                 } else {
                     exactPixelsRow
                 }
-                exportFormatRow
-                metadataPrivacyRow
+                advancedOptionsRow
             case .passport:
                 taskHeader(tr("НА ДОКУМЕНТЫ"), tr("Подготовить фото по требованиям документа"))
                 documentPresetRow
@@ -298,6 +298,26 @@ private struct MainTaskCard: View {
                 }
             }
         }
+    }
+
+    private var advancedOptionsRow: some View {
+        DisclosureGroup(isExpanded: $advancedOptionsExpanded) {
+            VStack(alignment: .leading, spacing: 10) {
+                if model.mode == .pixels {
+                    exportFormatRow
+                }
+                metadataPrivacyRow
+            }
+            .padding(.top, 8)
+        } label: {
+            Label("Дополнительно", systemImage: "slider.horizontal.3")
+                .font(.caption.weight(.semibold))
+                .foregroundStyle(Color.arvectumPrimaryText)
+        }
+        .tint(Color.arvectumPrimaryText)
+        .padding(.horizontal, 12)
+        .padding(.vertical, 10)
+        .background(Color.arvectumBackground, in: RoundedRectangle(cornerRadius: 14))
     }
 
     private var metadataPrivacyRow: some View {
