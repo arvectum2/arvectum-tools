@@ -137,7 +137,7 @@ private struct NativeAdSlot: View {
 
     var body: some View {
         NativeAdRepresentable(isLoaded: $loaded)
-            .frame(height: loaded ? 360 : 1)
+            .frame(height: loaded ? 420 : 1)
             .clipped()
             .animation(.easeInOut(duration: 0.2), value: loaded)
     }
@@ -275,9 +275,6 @@ private final class ArvectumNativeAdView: YandexMobileAds.NativeAdView {
             red: 67/255, green: 229/255, blue: 197/255, alpha: 1
         )
         callToAction.layer.cornerRadius = 10
-        callToAction.contentEdgeInsets = UIEdgeInsets(
-            top: 8, left: 12, bottom: 8, right: 12
-        )
     }
 
     private func configureLayout() {
@@ -317,6 +314,7 @@ private final class ArvectumNativeAdView: YandexMobileAds.NativeAdView {
             icon.heightAnchor.constraint(equalToConstant: 44),
             feedback.widthAnchor.constraint(equalToConstant: 28),
             feedback.heightAnchor.constraint(equalToConstant: 28),
+            callToAction.heightAnchor.constraint(greaterThanOrEqualToConstant: 38),
 
             media.heightAnchor.constraint(greaterThanOrEqualToConstant: 160),
             media.heightAnchor.constraint(equalTo: media.widthAnchor, multiplier: 9/16),
