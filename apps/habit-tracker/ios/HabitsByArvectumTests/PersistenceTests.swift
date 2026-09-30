@@ -31,7 +31,10 @@ final class PersistenceTests: XCTestCase {
                     id: habitID,
                     name: "Чтение",
                     symbolName: "book.fill",
-                    colorHex: "43E5C5"
+                    colorHex: "43E5C5",
+                    reminderEnabled: true,
+                    reminderHour: 7,
+                    reminderMinute: 45
                 )
             )
             context.insert(
@@ -55,6 +58,9 @@ final class PersistenceTests: XCTestCase {
             XCTAssertEqual(habits.count, 1)
             XCTAssertEqual(habits.first?.id, habitID)
             XCTAssertEqual(habits.first?.name, "Чтение")
+            XCTAssertEqual(habits.first?.reminderEnabled, true)
+            XCTAssertEqual(habits.first?.reminderHour, 7)
+            XCTAssertEqual(habits.first?.reminderMinute, 45)
             XCTAssertEqual(checkIns.count, 1)
             XCTAssertEqual(checkIns.first?.habitID, habitID)
             XCTAssertEqual(checkIns.first?.day, checkInDate)

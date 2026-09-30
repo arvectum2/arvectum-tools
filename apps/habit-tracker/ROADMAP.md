@@ -32,7 +32,8 @@ Working formula: **«всё удобное — без лишнего»**.
 - [x] Separate per-day completion records.
 - [x] Persist data without registration or server.
 - [x] Regression test: habit and check-in survive persistent-store recreation.
-- [ ] Define explicit migration fixtures before first schema change.
+- [ ] Define explicit migration fixtures before the first public post-beta schema change.
+- [x] Smoke-test additive SwiftData schema migration by installing the reminder schema over the previous physical-device build.
 - [ ] Add export/import only after MVP validation.
 
 ### Today
@@ -84,14 +85,15 @@ Working formula: **«всё удобное — без лишнего»**.
 
 ## M2 — reminders and polish
 
-- [ ] Per-habit local reminder.
-- [ ] Ask notification permission only when the user enables a reminder.
-- [ ] Update scheduled notifications when a habit changes.
+- [x] Per-habit local reminder.
+- [x] Ask notification permission only when the user enables a reminder.
+- [x] Update scheduled notifications when a habit changes.
 - [ ] Add undo affordance beyond tapping the checkmark again if testing shows a need.
 - [ ] Accessibility audit: Dynamic Type, VoiceOver, contrast and touch targets.
 - [ ] Final Arvectum visual polish.
 - [ ] RU + EN localization.
 - [ ] UI tests for create → check → detail → history.
+- [x] Physical iPhone 13 signed-build install/launch smoke test.
 - [ ] Test on small and large physical iPhones.
 - [ ] Test clean install and upgrade path.
 
@@ -133,6 +135,6 @@ Core habit tracking stays free. Advertising is the planned monetization model, b
 
 ## Current checkpoint
 
-The M1 vertical slice is implemented: local storage → create a scheduled habit → see it on Today → mark/unmark it → open details → inspect streak/progress/history → correct prior days → edit/archive/delete. Disk persistence is covered by an automated container-recreation regression test, and the app has been launched successfully on an iPhone 17 Pro simulator.
+The M1 vertical slice is implemented and M2 reminders are now wired end-to-end: local storage → create/edit a scheduled habit → optional local reminder → Today → mark/unmark → details/history → archive/delete. Reminder schedules follow the selected weekdays, are removed on archive/delete, and notification permission is requested only after the user enables a reminder. The suite currently has 9 passing tests. Simulator and signed iPhone 13 install/launch smoke tests are green.
 
-**Next implementation step:** validate the M1 flow on a physical iPhone, then implement per-habit local reminders and permission-on-demand.
+**Next implementation step:** physically verify the notification permission prompt and delivery timing, then continue M2 with accessibility, localization and UI-flow coverage.

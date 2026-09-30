@@ -76,6 +76,12 @@ struct HabitDetailView: View {
                 Text(scheduleDescription)
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
+
+                if habit.reminderEnabled {
+                    Label(reminderDescription, systemImage: "bell.fill")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
             }
 
             Spacer()
@@ -133,6 +139,9 @@ struct HabitDetailView: View {
         Button {
             habit.isArchived.toggle()
             try? modelContext.save()
+            Task {
+                _ = await HabitReminderScheduler.sync(habit: habit)
+            }
             if habit.isArchived { dismiss() }
         } label: {
             Label(
@@ -252,6 +261,16 @@ struct HabitDetailView: View {
             .joined(separator: ", ")
     }
 
+    private var reminderDescription: String {
+        let date = Calendar.autoupdatingCurrent.date(
+            bySettingHour: habit.reminderHour,
+            minute: habit.reminderMinute,
+            second: 0,
+            of: .now
+        ) ?? .now
+        return date.formatted(date: .omitted, time: .shortened)
+    }
+
     private func accessibilityLabel(for date: Date, completed: Bool) -> String {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
@@ -259,6 +278,7 @@ struct HabitDetailView: View {
     }
 
     private func deleteHabit() {
+        HabitReminderScheduler.remove(habitID: habit.id)
         for checkIn in habitCheckIns {
             modelContext.delete(checkIn)
         }

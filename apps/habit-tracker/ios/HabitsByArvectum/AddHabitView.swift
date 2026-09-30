@@ -11,6 +11,10 @@ struct AddHabitView: View {
     @State private var colorHex: String
     @State private var symbolName: String
     @State private var schedule: HabitSchedule
+    @State private var reminderEnabled: Bool
+    @State private var reminderTime: Date
+    @State private var showingNotificationDenied = false
+    @State private var requestingNotificationPermission = false
     @FocusState private var nameFocused: Bool
 
     private let quickNames = ["Вода", "Чтение", "Прогулка", "Тренировка"]
@@ -21,6 +25,17 @@ struct AddHabitView: View {
         _colorHex = State(initialValue: habit?.colorHex ?? HabitPalette.colors[0])
         _symbolName = State(initialValue: habit?.symbolName ?? HabitPalette.symbols[0])
         _schedule = State(initialValue: habit?.schedule ?? .everyDay)
+        _reminderEnabled = State(initialValue: habit?.reminderEnabled ?? false)
+
+        let hour = habit?.reminderHour ?? 20
+        let minute = habit?.reminderMinute ?? 0
+        let time = Calendar.autoupdatingCurrent.date(
+            bySettingHour: hour,
+            minute: minute,
+            second: 0,
+            of: .now
+        ) ?? .now
+        _reminderTime = State(initialValue: time)
     }
 
     var body: some View {
@@ -67,11 +82,35 @@ struct AddHabitView: View {
                     }
                     .font(.subheadline.weight(.semibold))
                 }
+
+                Section("Напоминание") {
+                    Toggle("Напомнить", isOn: $reminderEnabled)
+                        .onChange(of: reminderEnabled) { _, enabled in
+                            guard enabled else { return }
+                            requestNotificationPermission()
+                        }
+
+                    if reminderEnabled {
+                        DatePicker(
+                            "Время",
+                            selection: $reminderTime,
+                            displayedComponents: .hourAndMinute
+                        )
+                    }
+                }
             }
             .navigationTitle(habit == nil ? "Новая привычка" : "Редактировать")
             .navigationBarTitleDisplayMode(.inline)
             .onAppear {
                 if habit == nil { nameFocused = true }
+            }
+            .alert(
+                "Уведомления отключены",
+                isPresented: $showingNotificationDenied
+            ) {
+                Button("ОК", role: .cancel) {}
+            } message: {
+                Text("Разрешите уведомления для Habits в настройках iPhone, чтобы включить напоминания.")
             }
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
@@ -89,7 +128,8 @@ struct AddHabitView: View {
 
     private var canSave: Bool {
         !name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty &&
-        schedule.rawValue != 0
+        schedule.rawValue != 0 &&
+        !requestingNotificationPermission
     }
 
     private var colorPicker: some View {
@@ -189,23 +229,55 @@ struct AddHabitView: View {
         let trimmed = name.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmed.isEmpty, schedule.rawValue != 0 else { return }
 
+        let components = Calendar.autoupdatingCurrent.dateComponents(
+            [.hour, .minute],
+            from: reminderTime
+        )
+        let reminderHour = components.hour ?? 20
+        let reminderMinute = components.minute ?? 0
+        let savedHabit: Habit
+
         if let habit {
             habit.name = trimmed
             habit.symbolName = symbolName
             habit.colorHex = colorHex
             habit.schedule = schedule
+            habit.reminderEnabled = reminderEnabled
+            habit.reminderHour = reminderHour
+            habit.reminderMinute = reminderMinute
+            savedHabit = habit
         } else {
-            modelContext.insert(
-                Habit(
-                    name: trimmed,
-                    symbolName: symbolName,
-                    colorHex: colorHex,
-                    scheduleMask: schedule.rawValue
-                )
+            let newHabit = Habit(
+                name: trimmed,
+                symbolName: symbolName,
+                colorHex: colorHex,
+                scheduleMask: schedule.rawValue,
+                reminderEnabled: reminderEnabled,
+                reminderHour: reminderHour,
+                reminderMinute: reminderMinute
             )
+            modelContext.insert(newHabit)
+            savedHabit = newHabit
         }
 
         try? modelContext.save()
+        Task {
+            _ = await HabitReminderScheduler.sync(habit: savedHabit)
+        }
         dismiss()
+    }
+
+    private func requestNotificationPermission() {
+        requestingNotificationPermission = true
+        Task {
+            let granted = await HabitReminderScheduler.ensureAuthorization()
+            await MainActor.run {
+                requestingNotificationPermission = false
+                if !granted {
+                    reminderEnabled = false
+                    showingNotificationDenied = true
+                }
+            }
+        }
     }
 }

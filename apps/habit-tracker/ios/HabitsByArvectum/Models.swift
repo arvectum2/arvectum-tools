@@ -10,6 +10,9 @@ final class Habit {
     var createdAt: Date
     var isArchived: Bool
     var scheduleMask: Int
+    var reminderEnabled: Bool = false
+    var reminderHour: Int = 20
+    var reminderMinute: Int = 0
 
     init(
         id: UUID = UUID(),
@@ -18,7 +21,10 @@ final class Habit {
         colorHex: String = "43E5C5",
         createdAt: Date = .now,
         isArchived: Bool = false,
-        scheduleMask: Int = HabitSchedule.everyDay.rawValue
+        scheduleMask: Int = HabitSchedule.everyDay.rawValue,
+        reminderEnabled: Bool = false,
+        reminderHour: Int = 20,
+        reminderMinute: Int = 0
     ) {
         self.id = id
         self.name = name
@@ -27,6 +33,9 @@ final class Habit {
         self.createdAt = createdAt
         self.isArchived = isArchived
         self.scheduleMask = scheduleMask
+        self.reminderEnabled = reminderEnabled
+        self.reminderHour = reminderHour
+        self.reminderMinute = reminderMinute
     }
 
     var schedule: HabitSchedule {
