@@ -105,10 +105,10 @@ Working formula: **«всё удобное — без лишнего»**.
 
 ## Product research before feature expansion
 
-- [ ] Decompose HabitKit Pro by user jobs and interaction mechanics.
-- [ ] Separate genuinely useful mechanics from optional complexity.
-- [ ] Review current App Store habit trackers and recurring user complaints.
-- [ ] Build an explicit `do-not-build` list.
+- [x] Decompose current HabitKit by user jobs and interaction mechanics.
+- [x] Separate genuinely useful mechanics from optional complexity.
+- [x] Review current habit-tracker positioning and recurring user complaints about maintenance/clutter.
+- [x] Build an explicit `do-not-build` list in `PRODUCT_RESEARCH.md`.
 - [ ] Validate whether templates materially improve first-run activation.
 - [ ] Validate whether quantitative habits are worth the extra complexity.
 
@@ -128,7 +128,7 @@ Core habit tracking stays free. Advertising is the planned monetization model, b
 
 ## Post-MVP backlog
 
-- [ ] Widgets.
+- [ ] Widgets — first high-priority post-launch expansion after retention validation.
 - [ ] Lock Screen / interactive widgets.
 - [ ] Apple Watch.
 - [ ] iCloud sync.
