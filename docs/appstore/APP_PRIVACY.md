@@ -35,3 +35,15 @@ The repository policy covers both Android and iOS and states that selected image
 ## Export compliance
 
 The app does not implement its own cryptography and does not contain third-party encryption libraries. The iOS bundle sets `ITSAppUsesNonExemptEncryption = false`.
+
+
+## Next monetized release — Yandex Mobile Ads
+
+The next iOS release adds Yandex Mobile Ads SDK 8.5.0. The app itself still processes selected photos locally and does not send photo contents to the advertising SDK.
+
+Runtime configuration:
+- precise/location tracking is disabled with `YandexAds.setLocationTracking(false)`;
+- the app does not request App Tracking Transparency permission and does not intentionally access IDFA;
+- positive GDPR consent is not assumed; `YandexAds.setUserConsent(false)` is used until a dedicated consent flow is added.
+
+The archived dependency privacy manifests are no longer equivalent to “Data collected: None”. In the current build they declare advertising/device data and AppMetrica-related analytics/diagnostic categories; the AppMetrica AdSupport component also contains a tracking declaration. Before this build is submitted, App Store Connect privacy answers must be reviewed against the final archive/privacy report and actual runtime configuration. Do not reuse the 0.4.2 “None” answers unchanged.
