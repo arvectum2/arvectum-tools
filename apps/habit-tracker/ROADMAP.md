@@ -89,6 +89,7 @@ Working formula: **«всё удобное — без лишнего»**.
 - [x] Per-habit local reminder.
 - [x] Ask notification permission only when the user enables a reminder.
 - [x] Update scheduled notifications when a habit changes.
+- [x] Physical iPhone verification: notification authorization is granted and a daily habit creates seven correctly timed pending requests.
 - [ ] Add undo affordance beyond tapping the checkmark again if testing shows a need.
 - [x] Base accessibility pass: 44 pt touch targets for habit actions/pickers, VoiceOver labels and selected-state hints.
 - [x] Accessibility-size responsive layouts for Today summary, habit identity/stats and primary action buttons.
@@ -102,6 +103,56 @@ Working formula: **«всё удобное — без лишнего»**.
 - [x] Physical iPhone 13 signed-build install/launch smoke test.
 - [ ] Test on small and large physical iPhones.
 - [x] Smoke-test clean simulator install and additive-schema upgrade path on the physical iPhone 13.
+
+## M3 — live sync + Apple Watch (REQUIRED before public release)
+
+### Sync protocol
+
+- [ ] Shared Codable sync DTOs for Today snapshot and completion commands.
+- [ ] Commands are idempotent: Watch sends desired state, never a blind toggle.
+- [ ] Stable command IDs and day keys for duplicate-safe delivery.
+- [ ] Immediate transport when counterpart is reachable.
+- [ ] Durable queued transport when counterpart is temporarily offline.
+- [ ] Latest snapshot persisted locally on Watch for offline launch.
+- [ ] Optimistic Watch UI: a tap updates immediately without waiting for iPhone.
+- [ ] Reconcile optimistic state when the authoritative iPhone snapshot arrives.
+- [ ] Resend/snapshot on activation so devices converge after interruption.
+- [ ] Document conflict rules and timezone semantics.
+
+### Apple Watch app
+
+- [ ] Add native watchOS target to the existing Habits project.
+- [ ] Today-first Watch UI; no secondary dashboard before the habit list.
+- [ ] Show overall today's progress at a glance.
+- [ ] Show only habits due today.
+- [ ] One obvious tap to complete / undo.
+- [ ] Keep completion usable when iPhone is temporarily unreachable.
+- [ ] Visual state must match iPhone colors/icons without requiring configuration on Watch.
+- [ ] RU + EN localization.
+- [ ] Dynamic Type / VoiceOver pass on Watch.
+- [ ] Pair iPhone + Apple Watch simulators and test both apps together.
+- [ ] Integration test: Watch check-off appears on iPhone.
+- [ ] Integration test: iPhone check-off appears on Watch.
+- [ ] Integration test: offline Watch check-off converges after reconnect.
+- [ ] Physical Apple Watch smoke test when hardware is available.
+
+### Cross-device sync direction
+
+- [ ] Keep local-first operation as the invariant.
+- [ ] Add private iCloud/CloudKit sync for the user's Apple devices without requiring an Arvectum account.
+- [ ] Treat WatchConnectivity as the low-latency iPhone↔Watch path and cloud sync as durable multi-device convergence.
+- [ ] Test simultaneous edits and duplicate delivery before enabling cloud sync in production.
+
+## M4 — high-value expansion from competitor/user research
+
+- [ ] Skip day: neutral exceptional-day state that does not break a streak.
+- [ ] Best streak in habit details.
+- [ ] Interactive Home Screen widget.
+- [ ] Lock Screen widget / Watch complication.
+- [ ] Overall Today progress available outside the full app.
+- [ ] Flexible frequency behind progressive disclosure: N times per week.
+- [ ] Evaluate Apple Health auto-completion only where Health has authoritative data.
+- [ ] Keep haptics/micro-feedback; do not add an XP/reward economy.
 
 ## Product research before feature expansion
 
@@ -128,10 +179,6 @@ Core habit tracking stays free. Advertising is the planned monetization model, b
 
 ## Post-MVP backlog
 
-- [ ] Widgets — first high-priority post-launch expansion after retention validation.
-- [ ] Lock Screen / interactive widgets.
-- [ ] Apple Watch.
-- [ ] iCloud sync.
 - [ ] Quantitative / duration habits.
 - [ ] Habit groups.
 - [ ] Advanced statistics.
@@ -143,4 +190,4 @@ Core habit tracking stays free. Advertising is the planned monetization model, b
 
 The M1 vertical slice is implemented and M2 reminders/localization are wired end-to-end: local storage → minimal create/edit flow → optional local reminder → Today → mark/unmark → details/history → archive/delete. Optional creation settings now use progressive disclosure so the default path stays focused on name + schedule. Historical check-ins now use a stable local-day key, while current schedules/reminders follow the device timezone. RU and EN are bundled and visually smoke-tested. The suite currently has 13 passing tests, including timezone/DST regressions, localization completeness and an XCUITest covering create → check → detail → history. Clean install and additive-schema upgrades have been smoke-tested, including signed install/launch on the physical iPhone 13 with Xcode 27.0.
 
-**Next implementation step:** physically verify notification permission/delivery and VoiceOver/Dynamic Type behavior, then do the final visual-polish pass before broader product research/monetization work. Xcode 27 currently compiles the full app/unit/UI-test bundle via `build-for-testing`; direct XCTest execution is being rechecked separately after the local Xcode toolchain cleanup.
+**Next implementation step:** implement M3 end-to-end on paired iPhone + Apple Watch simulators: shared sync protocol → iPhone WatchConnectivity coordinator → Watch Today UI → optimistic/offline reconciliation. Physical notification authorization and scheduling have now been verified. Continue simulator-first without waiting for phone access.

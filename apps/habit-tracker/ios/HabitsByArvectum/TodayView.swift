@@ -61,6 +61,9 @@ struct TodayView: View {
             }
             .task {
                 backfillLegacyDayKeys()
+#if DEBUG
+                await HabitReminderScheduler.debugDumpIfRequested()
+#endif
             }
         }
     }

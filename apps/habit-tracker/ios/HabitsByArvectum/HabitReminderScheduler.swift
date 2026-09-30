@@ -103,4 +103,34 @@ enum HabitReminderScheduler {
     ) -> String {
         "\(prefix)-\(habitID.uuidString)-\(weekday)"
     }
+
+#if DEBUG
+    static func debugDumpIfRequested() async {
+        guard ProcessInfo.processInfo.arguments.contains(
+            "--diagnose-notifications"
+        ) else { return }
+
+        let center = UNUserNotificationCenter.current()
+        let settings = await center.notificationSettings()
+        let requests = await center.pendingNotificationRequests()
+            .filter { $0.identifier.hasPrefix(prefix) }
+            .sorted { $0.identifier < $1.identifier }
+
+        print("HABITS_NOTIFICATION_AUTH=\(settings.authorizationStatus.rawValue)")
+        print("HABITS_PENDING_COUNT=\(requests.count)")
+
+        for request in requests {
+            let next = (request.trigger as? UNCalendarNotificationTrigger)?
+                .nextTriggerDate()?
+                .ISO8601Format() ?? "nil"
+            let components = (request.trigger as? UNCalendarNotificationTrigger)?
+                .dateComponents.description ?? "nil"
+            print(
+                "HABITS_PENDING id=\(request.identifier) " +
+                "title=\(request.content.title) " +
+                "components=\(components) next=\(next)"
+            )
+        }
+    }
+#endif
 }
