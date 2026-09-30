@@ -19,22 +19,22 @@ final class ImageEngine {
     func inspect(data: Data) throws -> SourceImage {
         guard let source = CGImageSourceCreateWithData(data as CFData, nil),
               CGImageSourceGetCount(source) > 0 else {
-            throw PhotoToolError.message("Не получилось открыть это изображение.")
+            throw PhotoToolError.message(tr("Не получилось открыть это изображение."))
         }
 
         let typeIdentifier = CGImageSourceGetType(source) as String?
         let contentType = typeIdentifier.flatMap(UTType.init(_:)) ?? .image
         let allowed = ["public.jpeg", "public.png", "public.heic", "public.heif", "org.webmproject.webp"]
         guard allowed.contains(contentType.identifier) || contentType.conforms(to: .image) else {
-            throw PhotoToolError.message("Этот формат пока не поддерживается.")
+            throw PhotoToolError.message(tr("Этот формат пока не поддерживается."))
         }
 
         guard let raw = UIImage(data: data) else {
-            throw PhotoToolError.message("Не получилось открыть это изображение.")
+            throw PhotoToolError.message(tr("Не получилось открыть это изображение."))
         }
         let image = try normalizedImage(raw)
         guard let cg = image.cgImage else {
-            throw PhotoToolError.message("Не получилось определить размер изображения.")
+            throw PhotoToolError.message(tr("Не получилось определить размер изображения."))
         }
 
         let ext = contentType.preferredFilenameExtension ?? "img"
@@ -55,7 +55,7 @@ final class ImageEngine {
 
     func compressByBytes(source: SourceImage, requestedMaximumBytes: Int64) throws -> ResultImage {
         guard requestedMaximumBytes > 0 else {
-            throw PhotoToolError.message("Укажите допустимый размер файла.")
+            throw PhotoToolError.message(tr("Укажите допустимый размер файла."))
         }
         if source.sizeBytes <= requestedMaximumBytes {
             return originalResult(source: source, mode: .fileSize, targetBytes: requestedMaximumBytes)
@@ -68,7 +68,7 @@ final class ImageEngine {
             let search = try searchBestQuality(image: working, targetBytes: internalTarget)
             if let bytes = search.bestBytes {
                 guard Int64(bytes.count) <= requestedMaximumBytes else {
-                    throw PhotoToolError.message("Не получилось уменьшить файл до выбранного размера.")
+                    throw PhotoToolError.message(tr("Не получилось уменьшить файл до выбранного размера."))
                 }
                 let url = try writeResult(bytes)
                 return ResultImage(
@@ -104,13 +104,13 @@ final class ImageEngine {
         }
 
         throw PhotoToolError.message(
-            "Не получилось уменьшить изображение до выбранного размера без заметной потери качества."
+            tr("Не получилось уменьшить изображение до выбранного размера без заметной потери качества.")
         )
     }
 
     func resizeLongSide(source: SourceImage, targetLongSide: Int) throws -> ResultImage {
         guard targetLongSide > 0 else {
-            throw PhotoToolError.message("Укажите размер длинной стороны.")
+            throw PhotoToolError.message(tr("Укажите размер длинной стороны."))
         }
         if max(source.width, source.height) <= targetLongSide {
             return originalResult(source: source, mode: .pixels, targetLongSide: targetLongSide)
@@ -146,7 +146,7 @@ final class ImageEngine {
     func preparePassport(source: SourceImage, crop: NormalizedCropRect) throws -> ResultImage {
         let working = try processingImage(source)
         guard let cg = working.cgImage else {
-            throw PhotoToolError.message("Не получилось подготовить фото на паспорт.")
+            throw PhotoToolError.message(tr("Не получилось подготовить фото на паспорт."))
         }
 
         let left = max(0, min(CGFloat(cg.width - 1), crop.left * CGFloat(cg.width)))
@@ -156,7 +156,7 @@ final class ImageEngine {
         let rect = CGRect(x: left, y: top, width: right - left, height: bottom - top).integral
 
         guard let croppedCG = cg.cropping(to: rect) else {
-            throw PhotoToolError.message("Не получилось обрезать изображение.")
+            throw PhotoToolError.message(tr("Не получилось обрезать изображение."))
         }
         let cropped = UIImage(cgImage: croppedCG, scale: 1, orientation: .up)
         let passport = try resizedImage(
@@ -181,7 +181,7 @@ final class ImageEngine {
             bytes = try jpegData(image: passport, quality: 1.0, dpi: Self.passportDPI)
         }
         guard bytes.count >= 10_000 && bytes.count <= 5_000_000 else {
-            throw PhotoToolError.message("Не получилось подготовить файл нужного размера для заявления.")
+            throw PhotoToolError.message(tr("Не получилось подготовить файл нужного размера для заявления."))
         }
 
         let url = try writeResult(bytes)
@@ -234,7 +234,7 @@ final class ImageEngine {
             kCGImageSourceThumbnailMaxPixelSize: maxDimension
         ]
         guard let cg = CGImageSourceCreateThumbnailAtIndex(imageSource, 0, options as CFDictionary) else {
-            throw PhotoToolError.message("Изображение слишком большое для обработки на этом устройстве.")
+            throw PhotoToolError.message(tr("Изображение слишком большое для обработки на этом устройстве."))
         }
         return try flattenedImage(UIImage(cgImage: cg, scale: 1, orientation: .up))
     }
@@ -244,7 +244,7 @@ final class ImageEngine {
             return image
         }
         guard let cg = image.cgImage else {
-            throw PhotoToolError.message("Не получилось открыть это изображение.")
+            throw PhotoToolError.message(tr("Не получилось открыть это изображение."))
         }
 
         let swapsSides: Bool
@@ -266,7 +266,7 @@ final class ImageEngine {
 
     private func flattenedImage(_ image: UIImage) throws -> UIImage {
         guard let cg = image.cgImage else {
-            throw PhotoToolError.message("Не получилось обработать это изображение.")
+            throw PhotoToolError.message(tr("Не получилось обработать это изображение."))
         }
         let size = CGSize(width: cg.width, height: cg.height)
         let format = UIGraphicsImageRendererFormat()
@@ -281,7 +281,7 @@ final class ImageEngine {
 
     private func resizedImage(_ image: UIImage, to size: CGSize) throws -> UIImage {
         guard size.width >= 1, size.height >= 1 else {
-            throw PhotoToolError.message("Не получилось изменить размер изображения.")
+            throw PhotoToolError.message(tr("Не получилось изменить размер изображения."))
         }
         let format = UIGraphicsImageRendererFormat()
         format.scale = 1
@@ -331,7 +331,7 @@ final class ImageEngine {
 
         let lowest = try jpegData(image: image, quality: CGFloat(minimumQuality) / 100)
         guard lowest.count <= maximumBytes else {
-            throw PhotoToolError.message("Не получилось уменьшить файл до допустимого размера.")
+            throw PhotoToolError.message(tr("Не получилось уменьшить файл до допустимого размера."))
         }
 
         var best = minimumQuality
@@ -352,7 +352,7 @@ final class ImageEngine {
 
     private func jpegData(image: UIImage, quality: CGFloat, dpi: Int? = nil) throws -> Data {
         guard let cg = image.cgImage else {
-            throw PhotoToolError.message("Не получилось создать JPG.")
+            throw PhotoToolError.message(tr("Не получилось создать JPG."))
         }
         let data = NSMutableData()
         guard let destination = CGImageDestinationCreateWithData(
@@ -361,7 +361,7 @@ final class ImageEngine {
             1,
             nil
         ) else {
-            throw PhotoToolError.message("Не получилось создать JPG.")
+            throw PhotoToolError.message(tr("Не получилось создать JPG."))
         }
 
         var properties: [CFString: Any] = [
@@ -374,7 +374,7 @@ final class ImageEngine {
 
         CGImageDestinationAddImage(destination, cg, properties as CFDictionary)
         guard CGImageDestinationFinalize(destination) else {
-            throw PhotoToolError.message("Не получилось создать JPG.")
+            throw PhotoToolError.message(tr("Не получилось создать JPG."))
         }
         return data as Data
     }

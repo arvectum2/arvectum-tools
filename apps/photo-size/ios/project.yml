@@ -1,5 +1,6 @@
 name: PhotoPodRazmerIOS
 options:
+  developmentLanguage: ru
   createIntermediateGroups: true
   deploymentTarget:
     iOS: "17.0"

@@ -107,7 +107,7 @@ struct ContentView: View {
     private func beginExport() {
         guard let result = model.result,
               let data = try? Data(contentsOf: result.outputURL) else {
-            model.errorMessage = "Не получилось сохранить файл."
+            model.errorMessage = tr("Не получилось сохранить файл.")
             return
         }
         exportDocument = ExportDocument(data: data)
@@ -124,21 +124,21 @@ private struct MainTaskCard: View {
         VStack(alignment: .leading, spacing: 10) {
             switch model.mode {
             case .fileSize:
-                taskHeader("ПО ВЕСУ", "Уменьшить фото до нужного веса")
+                taskHeader(tr("ПО ВЕСУ"), tr("Уменьшить фото до нужного веса"))
                 sourceRow
                 presetRow
                 if model.isCustomTarget { customSizeRow }
             case .pixels:
-                taskHeader("ПО РАЗМЕРУ", "Задать размер длинной стороны")
+                taskHeader(tr("ПО РАЗМЕРУ"), tr("Задать размер длинной стороны"))
                 sourceRow
                 pixelPresetRow
                 if model.isCustomPixels { customPixelsRow }
             case .passport:
-                taskHeader("НА ПАСПОРТ", "Подогнать фото под 35×45")
+                taskHeader(tr("НА ПАСПОРТ"), tr("Подогнать фото под 35×45"))
                 sourceRow
                 infoBox(
                     "620×797 px · 450 DPI · JPEG\n" +
-                    "Кадрирование вручную. Лицо и фон приложение не изменяет."
+                    tr("Кадрирование вручную. Лицо и фон приложение не изменяет.")
                 )
             }
             Spacer(minLength: 12)
@@ -158,19 +158,19 @@ private struct MainTaskCard: View {
         switch model.mode {
         case .fileSize:
             primaryAction(
-                title: "Уменьшить фото",
+                title: tr("Уменьшить фото"),
                 enabled: model.source != nil && model.targetBytes != nil,
                 action: model.compressByBytes
             )
         case .pixels:
             primaryAction(
-                title: "Изменить размер",
+                title: tr("Изменить размер"),
                 enabled: model.source != nil && model.targetLongSide != nil,
                 action: model.resizeByPixels
             )
         case .passport:
             primaryAction(
-                title: "Кадрировать 35×45",
+                title: tr("Кадрировать 35×45"),
                 enabled: model.source != nil,
                 action: model.openPassportCrop
             )
@@ -185,7 +185,7 @@ private struct MainTaskCard: View {
                     .font(.title3)
                     .foregroundStyle(Color.arvectumPrimaryText)
                 VStack(alignment: .leading, spacing: 2) {
-                    Text(selectedSource == nil ? "Выбрать фото" : "Фото выбрано")
+                    Text(tr(selectedSource == nil ? "Выбрать фото" : "Фото выбрано"))
                         .font(.subheadline.weight(.semibold))
                         .foregroundStyle(Color.arvectumPrimaryText)
                     if let source = selectedSource {
@@ -217,11 +217,11 @@ private struct MainTaskCard: View {
             HStack(spacing: 5) {
                 ForEach(fileSizePresets, id: \.0) { preset in
                     Chip(
-                        text: preset.1,
+                        text: tr(preset.1),
                         selected: !model.isCustomTarget && model.targetBytes == preset.0
                     ) { model.setPreset(preset.0) }
                 }
-                Chip(text: "Свой", selected: model.isCustomTarget) {
+                Chip(text: tr("Свой"), selected: model.isCustomTarget) {
                     model.startCustomTarget()
                 }
             }
@@ -236,11 +236,11 @@ private struct MainTaskCard: View {
             HStack(spacing: 6) {
                 ForEach(pixelPresets, id: \.0) { preset in
                     Chip(
-                        text: preset.1,
+                        text: tr(preset.1),
                         selected: !model.isCustomPixels && model.targetLongSide == preset.0
                     ) { model.setPixelPreset(preset.0) }
                 }
-                Chip(text: "Свой", selected: model.isCustomPixels) {
+                Chip(text: tr("Свой"), selected: model.isCustomPixels) {
                     model.startCustomPixels()
                 }
             }
@@ -261,7 +261,7 @@ private struct MainTaskCard: View {
                 set: { unit in model.setCustomUnit(unit) }
             )) {
                 ForEach(SizeUnit.allCases) { unit in
-                    Text(unit.rawValue).tag(unit)
+                    Text(tr(unit.rawValue)).tag(unit)
                 }
             }
             .pickerStyle(.segmented)
@@ -332,13 +332,13 @@ private struct ResultCard: View {
             Text("ГОТОВО")
                 .font(.caption.weight(.bold))
                 .foregroundStyle(Color.arvectumAccentText)
-            Text(result.alreadyFit ? "Фото уже подходит" : "Фото подготовлено")
+            Text(tr(result.alreadyFit ? "Фото уже подходит" : "Фото подготовлено"))
                 .font(.title3.weight(.semibold))
                 .foregroundStyle(Color.arvectumPrimaryText)
 
             HStack(spacing: 10) {
-                stat("Размер", formatBytes(result.outputSizeBytes))
-                stat("Разрешение", "\(result.outputWidth)×\(result.outputHeight)")
+                stat(tr("Размер"), formatBytes(result.outputSizeBytes))
+                stat(tr("Разрешение"), "\(result.outputWidth)×\(result.outputHeight)")
             }
 
             if result.mode == .passport {

@@ -2,6 +2,10 @@ import Foundation
 import UIKit
 import UniformTypeIdentifiers
 
+func tr(_ key: String) -> String {
+    Bundle.main.localizedString(forKey: key, value: key, table: nil)
+}
+
 enum ToolMode: String, CaseIterable, Identifiable {
     case fileSize
     case pixels
@@ -11,9 +15,9 @@ enum ToolMode: String, CaseIterable, Identifiable {
 
     var title: String {
         switch self {
-        case .fileSize: return "По весу"
-        case .pixels: return "По размеру"
-        case .passport: return "На паспорт"
+        case .fileSize: return tr("По весу")
+        case .pixels: return tr("По размеру")
+        case .passport: return tr("На паспорт")
         }
     }
 }
@@ -59,9 +63,9 @@ struct ResultImage {
     var suggestedFileName: String {
         let suffix: String
         switch mode {
-        case .fileSize: suffix = "do-razmera"
-        case .pixels: suffix = "po-pikselyam"
-        case .passport: suffix = "na-pasport"
+        case .fileSize: suffix = tr("filename.file_size")
+        case .pixels: suffix = tr("filename.pixels")
+        case .passport: suffix = tr("filename.passport")
         }
         return "foto-\(suffix).\(contentType.preferredFilenameExtension ?? "jpg")"
     }
@@ -89,9 +93,10 @@ func calculateLongSideDimensions(width: Int, height: Int, targetLongSide: Int) -
 func formatBytes(_ bytes: Int64) -> String {
     if bytes >= 1_000_000 {
         let value = Double(bytes) / 1_000_000
-        return value >= 10 ? String(format: "%.1f МБ", value) : String(format: "%.2f МБ", value)
+        let format = tr(value >= 10 ? "%.1f МБ" : "%.2f МБ")
+        return String(format: format, locale: Locale.current, value)
     }
-    return String(format: "%.0f КБ", Double(bytes) / 1_000)
+    return String(format: tr("%.0f КБ"), locale: Locale.current, Double(bytes) / 1_000)
 }
 
 enum PhotoToolError: LocalizedError {

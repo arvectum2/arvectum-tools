@@ -54,7 +54,7 @@ final class AppModel: ObservableObject {
         Task {
             do {
                 guard let data = try await item.loadTransferable(type: Data.self) else {
-                    throw PhotoToolError.message("Не получилось прочитать выбранное фото.")
+                    throw PhotoToolError.message(tr("Не получилось прочитать выбранное фото."))
                 }
                 let engine = self.engine
                 let inspected = try await Task.detached(priority: .userInitiated) {
@@ -65,7 +65,7 @@ final class AppModel: ObservableObject {
             } catch {
                 source = nil
                 isWorking = false
-                errorMessage = userMessage(error, fallback: "Не получилось открыть этот файл.")
+                errorMessage = userMessage(error, fallback: tr("Не получилось открыть этот файл."))
             }
         }
     }
@@ -131,14 +131,14 @@ final class AppModel: ObservableObject {
 
     func compressByBytes() {
         guard let source, let targetBytes else { return }
-        process(fallback: "Не получилось уменьшить это изображение.") { engine in
+        process(fallback: tr("Не получилось уменьшить это изображение.")) { engine in
             try engine.compressByBytes(source: source, requestedMaximumBytes: targetBytes)
         }
     }
 
     func resizeByPixels() {
         guard let source, let targetLongSide else { return }
-        process(fallback: "Не получилось изменить размер изображения.") { engine in
+        process(fallback: tr("Не получилось изменить размер изображения.")) { engine in
             try engine.resizeLongSide(source: source, targetLongSide: targetLongSide)
         }
     }
@@ -153,7 +153,7 @@ final class AppModel: ObservableObject {
     func preparePassport(_ crop: NormalizedCropRect) {
         guard let source else { return }
         passportCropOpen = false
-        process(fallback: "Не получилось подготовить фото на паспорт.") { engine in
+        process(fallback: tr("Не получилось подготовить фото на паспорт.")) { engine in
             try engine.preparePassport(source: source, crop: crop)
         }
     }
@@ -184,7 +184,7 @@ final class AppModel: ObservableObject {
     func markSaved(_ success: Bool) {
         saved = success
         if !success {
-            errorMessage = "Не получилось сохранить файл."
+            errorMessage = tr("Не получилось сохранить файл.")
         }
     }
 
