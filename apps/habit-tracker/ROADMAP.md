@@ -58,7 +58,7 @@ Working formula: **«всё удобное — без лишнего»**.
 - [x] Select individual weekdays.
 - [x] Quick presets: every day / weekdays.
 - [x] Prevent saving a blank habit or empty schedule.
-- [ ] Measure actual tap count and reduce it further if possible.
+- [x] Keep the default creation path minimal: name (or one-tap template) + Done; custom days, appearance and reminder use progressive disclosure.
 
 ### Habit detail
 
@@ -137,6 +137,6 @@ Core habit tracking stays free. Advertising is the planned monetization model, b
 
 ## Current checkpoint
 
-The M1 vertical slice is implemented and M2 reminders/localization are wired end-to-end: local storage → create/edit a scheduled habit → optional local reminder → Today → mark/unmark → details/history → archive/delete. Historical check-ins now use a stable local-day key, while current schedules/reminders follow the device timezone. RU and EN are bundled and visually smoke-tested. The suite currently has 13 passing tests, including timezone/DST regressions, localization completeness and an XCUITest covering create → check → detail → history. Clean install and additive-schema upgrades have been smoke-tested, including signed install/launch on the physical iPhone 13 with Xcode 27.0.
+The M1 vertical slice is implemented and M2 reminders/localization are wired end-to-end: local storage → minimal create/edit flow → optional local reminder → Today → mark/unmark → details/history → archive/delete. Optional creation settings now use progressive disclosure so the default path stays focused on name + schedule. Historical check-ins now use a stable local-day key, while current schedules/reminders follow the device timezone. RU and EN are bundled and visually smoke-tested. The suite currently has 13 passing tests, including timezone/DST regressions, localization completeness and an XCUITest covering create → check → detail → history. Clean install and additive-schema upgrades have been smoke-tested, including signed install/launch on the physical iPhone 13 with Xcode 27.0.
 
 **Next implementation step:** physically verify notification permission/delivery, finish the accessibility audit and do the final visual-polish pass before broader product research/monetization work.

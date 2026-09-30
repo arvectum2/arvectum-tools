@@ -20,10 +20,14 @@
 "section.appearance" = "Appearance";
 "section.days" = "Days";
 "section.reminder" = "Reminder";
+"section.moreOptions" = "More options";
+"appearance.color" = "Color";
+"appearance.icon" = "Icon";
 
 "schedule.everyday" = "Every day";
 "schedule.weekdays" = "Weekdays";
 "schedule.weekdays.description" = "On weekdays";
+"schedule.custom" = "Other days";
 
 "reminder.toggle" = "Remind me";
 "reminder.time" = "Time";

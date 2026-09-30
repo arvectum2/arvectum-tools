@@ -20,10 +20,14 @@
 "section.appearance" = "Внешний вид";
 "section.days" = "Дни";
 "section.reminder" = "Напоминание";
+"section.moreOptions" = "Дополнительно";
+"appearance.color" = "Цвет";
+"appearance.icon" = "Иконка";
 
 "schedule.everyday" = "Каждый день";
 "schedule.weekdays" = "Будни";
 "schedule.weekdays.description" = "По будням";
+"schedule.custom" = "Другие дни";
 
 "reminder.toggle" = "Напомнить";
 "reminder.time" = "Время";

@@ -15,11 +15,17 @@ struct AddHabitView: View {
     @State private var reminderTime: Date
     @State private var showingNotificationDenied = false
     @State private var requestingNotificationPermission = false
+    @State private var optionsExpanded: Bool
+    @State private var customDaysExpanded: Bool
     @FocusState private var nameFocused: Bool
 
-    private var quickNames: [String] {
-        ["quick.water", "quick.reading", "quick.walk", "quick.workout"]
-            .map(L10n.string)
+    private var quickHabits: [(title: String, symbol: String)] {
+        [
+            (L10n.string("quick.water"), "drop.fill"),
+            (L10n.string("quick.reading"), "book.fill"),
+            (L10n.string("quick.walk"), "figure.walk"),
+            (L10n.string("quick.workout"), "dumbbell.fill")
+        ]
     }
 
     init(habit: Habit? = nil) {
@@ -27,8 +33,18 @@ struct AddHabitView: View {
         _name = State(initialValue: habit?.name ?? "")
         _colorHex = State(initialValue: habit?.colorHex ?? HabitPalette.colors[0])
         _symbolName = State(initialValue: habit?.symbolName ?? HabitPalette.symbols[0])
-        _schedule = State(initialValue: habit?.schedule ?? .everyDay)
+        let initialSchedule = habit?.schedule ?? .everyDay
+        _schedule = State(initialValue: initialSchedule)
         _reminderEnabled = State(initialValue: habit?.reminderEnabled ?? false)
+        _customDaysExpanded = State(
+            initialValue: initialSchedule != .everyDay &&
+                initialSchedule != .weekdays
+        )
+        _optionsExpanded = State(
+            initialValue: habit?.reminderEnabled == true ||
+                habit?.colorHex != HabitPalette.colors[0] ||
+                habit?.symbolName != HabitPalette.symbols[0]
+        )
 
         let hour = habit?.reminderHour ?? 20
         let minute = habit?.reminderMinute ?? 0
@@ -55,9 +71,10 @@ struct AddHabitView: View {
                     if name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack {
-                                ForEach(quickNames, id: \.self) { title in
-                                    Button(title) {
-                                        name = title
+                                ForEach(quickHabits, id: \.title) { item in
+                                    Button(item.title) {
+                                        name = item.title
+                                        symbolName = item.symbol
                                     }
                                     .buttonStyle(.bordered)
                                 }
@@ -66,39 +83,62 @@ struct AddHabitView: View {
                     }
                 }
 
-                Section(L10n.string("section.appearance")) {
-                    colorPicker
-                    symbolPicker
-                }
-
                 Section(L10n.string("section.days")) {
-                    weekdayPicker
-
-                    HStack {
-                        Button(L10n.string("schedule.everyday")) {
-                            schedule = .everyDay
-                        }
+                    HStack(spacing: 10) {
+                        schedulePresetButton(
+                            title: L10n.string("schedule.everyday"),
+                            preset: .everyDay
+                        )
+                        schedulePresetButton(
+                            title: L10n.string("schedule.weekdays"),
+                            preset: .weekdays
+                        )
                         Spacer()
-                        Button(L10n.string("schedule.weekdays")) {
-                            schedule = .weekdays
-                        }
                     }
-                    .font(.subheadline.weight(.semibold))
+
+                    DisclosureGroup(
+                        isExpanded: $customDaysExpanded
+                    ) {
+                        weekdayPicker
+                            .padding(.top, 8)
+                    } label: {
+                        Text(L10n.string("schedule.custom"))
+                    }
                 }
 
-                Section(L10n.string("section.reminder")) {
-                    Toggle(L10n.string("reminder.toggle"), isOn: $reminderEnabled)
-                        .onChange(of: reminderEnabled) { _, enabled in
-                            guard enabled else { return }
-                            requestNotificationPermission()
-                        }
+                Section {
+                    DisclosureGroup(
+                        isExpanded: $optionsExpanded
+                    ) {
+                        VStack(alignment: .leading, spacing: 14) {
+                            Text(L10n.string("appearance.color"))
+                                .font(.subheadline.weight(.semibold))
+                            colorPicker
 
-                    if reminderEnabled {
-                        DatePicker(
-                            L10n.string("reminder.time"),
-                            selection: $reminderTime,
-                            displayedComponents: .hourAndMinute
-                        )
+                            Text(L10n.string("appearance.icon"))
+                                .font(.subheadline.weight(.semibold))
+                            symbolPicker
+
+                            Toggle(
+                                L10n.string("reminder.toggle"),
+                                isOn: $reminderEnabled
+                            )
+                            .onChange(of: reminderEnabled) { _, enabled in
+                                guard enabled else { return }
+                                requestNotificationPermission()
+                            }
+
+                            if reminderEnabled {
+                                DatePicker(
+                                    L10n.string("reminder.time"),
+                                    selection: $reminderTime,
+                                    displayedComponents: .hourAndMinute
+                                )
+                            }
+                        }
+                        .padding(.top, 8)
+                    } label: {
+                        Text(L10n.string("section.moreOptions"))
                     }
                 }
             }
@@ -142,6 +182,34 @@ struct AddHabitView: View {
         !name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty &&
         schedule.rawValue != 0 &&
         !requestingNotificationPermission
+    }
+
+    private func schedulePresetButton(
+        title: String,
+        preset: HabitSchedule
+    ) -> some View {
+        let selected = schedule == preset
+
+        return Button {
+            schedule = preset
+            customDaysExpanded = false
+        } label: {
+            Text(title)
+                .font(.subheadline.weight(.semibold))
+                .foregroundStyle(
+                    selected ? Color.arvectumNavy : .primary
+                )
+                .padding(.horizontal, 14)
+                .frame(height: 44)
+                .background(
+                    selected
+                        ? Color.arvectumMint
+                        : Color.secondary.opacity(0.10),
+                    in: Capsule()
+                )
+        }
+        .buttonStyle(.plain)
+        .accessibilityAddTraits(selected ? .isSelected : [])
     }
 
     private var colorPicker: some View {
