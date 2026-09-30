@@ -25,7 +25,7 @@ from pymobiledevice3.remote.core_device.hid_service import (
 from pymobiledevice3.remote.core_device.screen_capture_service import ScreenCaptureService
 from pymobiledevice3.remote.core_device.app_service import AppServiceService
 
-ROOT=Path("/Users/master/arvectum-tools/ios/review-video/final")
+ROOT=Path(__file__).resolve().parents[1] / "review-video" / "final"
 ROOT.mkdir(parents=True,exist_ok=True)
 RAW=ROOT/"photo-pod-razmer-0.4.2-2-AppReview.hevc"
 FPS_FILE=ROOT/"capture-fps.txt"

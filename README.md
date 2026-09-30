@@ -1,47 +1,46 @@
 # Arvectum Tools
 
-Small consumer utilities by Arvectum.
+Monorepo for the Arvectum consumer utility family.
 
-**Principles:** One tool. One job. Done. · Local first.
+**Product rule:** one tool, one job, done.
+**Engineering rule:** app = directory; change = branch.
+**Privacy rule:** local-first unless a product genuinely needs a backend.
 
-## First tool: «Фото под размер»
+## Repository layout
 
-Native Android and iOS utility with three intentionally final user modes for the first market experiment:
-
-- **По весу** — make an image fit a maximum file size.
-- **По размеру** — set the long side to 600 / 450 / 300 px or a custom value; the short side is calculated automatically with aspect ratio preserved.
-- **На паспорт** — prepare the technical file for a passport application through Госуслуги: manual 35×45 crop, 620×797 px, 450 DPI, JPEG, 10 KB–5 MB.
-
-Passport mode changes only crop and technical file parameters. It does not use AI, retouch the image, replace the background, analyze the face, or claim that the photographed person satisfies visual eligibility requirements.
-
-## Product guardrail
-
-**The functional scope was frozen at v0.2.** v0.3.0 is a UI/UX and branding release only: canonical Arvectum logo, brand palette, Proxy Launcher visual language, single-row mode selector and branded footer. No additional editor, converter, batch, AI or document features are added before the first market experiment. New user jobs should become separate Arvectum Tools.
-
-## Build
-
-### Android
-
-Requirements: JDK 17 and Android SDK 37.
-
-```bash
-./gradlew assembleDebug lintDebug test
+```text
+apps/
+  photo-size/       # «Фото под размер» — iOS + Android
+  pushkin/          # PUSHKIN — iOS notification utility
+  habit-tracker/    # backlog / discovery
+packages/           # shared code promoted only after real reuse
+docs/               # repository-wide architecture and release conventions
+BRAND.md            # shared visual language
+PRODUCT_PRINCIPLES.md
+ROADMAP.md           # portfolio roadmap
 ```
 
-Debug APK: `app/build/outputs/apk/debug/app-debug.apk`.
+Each app owns its bundle/application IDs, versioning, store metadata, tests, release cycle and product roadmap. Shared rules and reusable code stay at repository level.
 
-### iOS
+## Active products
 
-Requirements: Xcode 26.x and XcodeGen.
+- [Фото под размер](apps/photo-size/README.md) — published utility; post-launch iteration.
+- [PUSHKIN](apps/pushkin/README.md) — active feasibility/product development.
+- [Habit Tracker](apps/habit-tracker/README.md) — backlog; discovery later.
 
-```bash
-cd ios
-xcodegen generate
-xcodebuild -project PhotoPodRazmerIOS.xcodeproj -scheme PhotoPodRazmer \
-  -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' \
-  CODE_SIGNING_ALLOWED=NO build
-```
+## Shared-code policy
 
-The App Store release target uses bundle ID `ru.arvectum.tools.tosize`. See `docs/appstore/` for release metadata and checklist.
+Do not extract abstractions speculatively. A component becomes shared only when at least two real apps need the same behavior and the common API is clear. See [packages/README.md](packages/README.md).
 
-See [ROADMAP.md](ROADMAP.md) for the canonical product contract, scope, design system and experiment plan.
+## Branch model
+
+Long-lived product branches are not the repository structure. Product source lives under `apps/<product>/`; branches describe changes, for example:
+
+- `feature/pushkin-custom-app`
+- `feature/photo-size-localization`
+- `fix/photo-size-dark-mode`
+- `refactor/shared-design-tokens`
+
+`main` remains the releasable integration line.
+
+See [docs/REPO_ARCHITECTURE.md](docs/REPO_ARCHITECTURE.md) and the [portfolio roadmap](ROADMAP.md).

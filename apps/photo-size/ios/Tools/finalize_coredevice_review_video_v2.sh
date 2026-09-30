@@ -1,7 +1,8 @@
 #!/bin/zsh
 set -euo pipefail
 
-ROOT="/Users/master/arvectum-tools/ios/review-video/final"
+IOS_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+ROOT="$IOS_DIR/review-video/final"
 RAW="$ROOT/photo-pod-razmer-0.4.2-2-AppReview.hevc"
 FPS_FILE="$ROOT/capture-fps.txt"
 MOV="$ROOT/photo-pod-razmer-0.4.2-2-AppReview.mov"

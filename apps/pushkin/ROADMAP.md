@@ -99,7 +99,7 @@ Current UX targets:
 - [x] Reduce setup to one multi-app Notification trigger, four field mappings, and automatic in-app verification.
 - [ ] Validate the guided setup with a non-technical user.
 - [x] Determine re-alert viability: local Notify alerts are possible, but silencing third-party originals requires user notification settings; defer re-alert to Snooze rather than MVP capture.
-- [x] Document platform limitations in `docs/arvectum-notify/PHASE0_SPIKE.md`.
+- [x] Document platform limitations in `docs/PHASE0_SPIKE.md`.
 
 ### Exit criteria
 

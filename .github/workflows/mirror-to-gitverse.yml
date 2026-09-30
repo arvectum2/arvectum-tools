@@ -60,9 +60,9 @@ jobs:
         env:
           GITVERSE_TOKEN: ${{ secrets.GITVERSE_TOKEN }}
           GITVERSE_REPOSITORY: ${{ steps.config.outputs.repository }}
-          EXPECTED_SHA: ${{ github.sha }}
         run: |
           set -euo pipefail
+          EXPECTED_SHA="$(git --git-dir=repository.git rev-parse refs/heads/main)"
           REMOTE_SHA="$(git ls-remote             "https://arvectum:${GITVERSE_TOKEN}@gitverse.ru/arvectum/${GITVERSE_REPOSITORY}.git"             refs/heads/main | awk '{print $1}')"
           if [ "$REMOTE_SHA" != "$EXPECTED_SHA" ]; then
             echo "::error::GitVerse main SHA mismatch: expected $EXPECTED_SHA, got $REMOTE_SHA"

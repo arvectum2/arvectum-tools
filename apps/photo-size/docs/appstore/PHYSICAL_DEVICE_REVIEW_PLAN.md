@@ -26,7 +26,7 @@ Xcode 27.0 is installed on Mac mini, but its new license has not been accepted. 
 
 ## QA sequence before recording
 
-Run `ios/Tools/prepare_physical_review.sh`.
+Run `apps/photo-size/ios/Tools/prepare_physical_review.sh`.
 
 Verify:
 - app installs and launches without a crash;

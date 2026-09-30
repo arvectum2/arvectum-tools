@@ -4,7 +4,6 @@ local.properties
 .idea/
 .DS_Store
 build/
-app/build/
 captures/
 .externalNativeBuild/
 .cxx/
@@ -15,14 +14,12 @@ keystore.properties
 *.keystore
 
 # Xcode / iOS generated files
-ios/*.xcodeproj/
-ios-notify/*.xcodeproj/
-ios/DerivedData/
-ios-notify/DerivedData/
+apps/*/ios/*.xcodeproj/
+apps/*/ios/DerivedData/
 
 # Local App Review physical-device recordings
-ios/review-video/
+apps/photo-size/ios/review-video/
 
 # PUSHKIN local research / App Store chart caches
-ios-notify/.cache/
-ios-notify/scripts/cache/
+apps/pushkin/ios/.cache/
+apps/pushkin/ios/scripts/cache/
