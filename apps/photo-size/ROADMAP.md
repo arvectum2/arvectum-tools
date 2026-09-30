@@ -607,11 +607,11 @@ These items are intentionally tracked **after** the first market release/experim
 - [ ] Основной формат для «Фото под размер»: **native ad после получения результата / на экране результата**, без блокировки основной функции и без interstitial/app-open interruption.
 
 ### App Store conversion / localization
-- [ ] Переделать App Store screenshots: показать реальную фотографию **до / после**, чтобы результат функции был понятен без чтения описания.
+- [x] Переделать App Store screenshots: первые два кадра теперь показывают реальную CC0-фотографию **до / после**, третий — международный режим документов; подготовлены размеры 6.9″ и 6.5″.
 - [x] Добавить локализацию приложения: русский + английский (интерфейс, ошибки, единицы, имя на Home Screen и имена экспортируемых файлов); инфраструктура .lproj готова для следующих языков.
 - [ ] Добавить следующие языки после выбора целевых стран, чтобы не переводить интерфейс в отрыве от региональных требований режима документов.
-- [ ] Подготовить локализованные описания карточки App Store под разные языки/регионы, а не буквальный перевод одной русской карточки.
-- [ ] Адаптировать название приложения под каждую целевую страну/язык с учётом локального поискового спроса и понятности функции.
+- [x] Подготовить адаптированные App Store metadata drafts для ru-RU, en-US, en-GB и en-IN; обновить canonical RU listing под текущий функционал и рекламу.
+- [x] Подготовить локализованные App Store names/subtitles под поисковый intent: RU exact-size, US passport, UK ID/passport, India eVisa. См. docs/appstore/STORE_LISTING_LOCALIZED_2026-09-30.md.
 
 ### International passport / ID photo mode
 - [x] Исследовать международные сценарии passport/ID/visa photo: подтверждён спрос по App Store и совместимость с официальными требованиями; phase 1 — США, Индия, Великобритания, с отдельными ограничениями для Канады и Австралии. См. docs/PASSPORT_ID_MARKETS_2026-09-30.md.
@@ -623,9 +623,9 @@ These items are intentionally tracked **after** the first market release/experim
 - [x] Основные CTA перенесены в стабильную нижнюю зону рабочей карточки после UX-проверки на трёх режимах; build + XCTest 4/4.
 
 ### Competitive / semantic-search research
-- [ ] Изучить другие приложения, которые App Store показывает рядом с «Фото под размер» в семантическом поиске и related results.
-- [ ] Составить feature/UX/store-positioning matrix: какие полезные механики можно перенять, какие перегружены, и где «Фото под размер» должно заметно отличаться.
-- [ ] По результатам исследования добавлять только те фичи, которые усиливают основной user job и подтверждены пользовательской/рыночной ценностью.
+- [x] Изучить приложения из App Store search/related results по resize/compress/document-photo jobs. См. docs/APPSTORE_COMPETITIVE_RESEARCH_2026-09-30.md.
+- [x] Составить feature/UX/store-positioning matrix и приоритизацию P0/P1/P2; сохранить фокус на exact-size + document presets + local-first, без превращения в общий фоторедактор.
+- [x] Зафиксировать validated additions: before/after preview (P0), Files import / exact W×H / format / metadata / print sheet (P1), batch/Shortcuts only after usage data (P2).
 
 ---
 

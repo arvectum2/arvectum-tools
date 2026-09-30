@@ -39,6 +39,33 @@ final class AppModel: ObservableObject {
             documentPreset = preset
             mode = .passport
         }
+        if let index = args.firstIndex(of: "--store-screenshot-fixture"),
+           args.indices.contains(index + 1) {
+            do {
+                let data = try Data(contentsOf: URL(fileURLWithPath: args[index + 1]))
+                let inspected = try engine.inspect(data: data)
+                source = inspected
+                switch mode {
+                case .fileSize:
+                    targetBytes = 500_000
+                    result = try engine.compressByBytes(
+                        source: inspected,
+                        requestedMaximumBytes: 500_000
+                    )
+                case .pixels:
+                    targetLongSide = 600
+                    result = try engine.resizeLongSide(source: inspected, targetLongSide: 600)
+                case .passport:
+                    result = try engine.preparePassport(
+                        source: inspected,
+                        crop: NormalizedCropRect(left: 0, top: 0, right: 1, bottom: 1),
+                        preset: documentPreset
+                    )
+                }
+            } catch {
+                errorMessage = error.localizedDescription
+            }
+        }
         #endif
     }
 

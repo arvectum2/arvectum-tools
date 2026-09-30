@@ -344,6 +344,55 @@ private struct MainTaskCard: View {
     }
 }
 
+private struct BeforeAfterPreview: View {
+    let result: ResultImage
+
+    private var outputImage: UIImage {
+        UIImage(contentsOfFile: result.outputURL.path) ?? result.source.image
+    }
+
+    var body: some View {
+        HStack(spacing: 10) {
+            preview(
+                title: tr("До"),
+                image: result.source.image,
+                dimensions: "\(result.source.width)×\(result.source.height)",
+                bytes: result.source.sizeBytes
+            )
+            preview(
+                title: tr("После"),
+                image: outputImage,
+                dimensions: "\(result.outputWidth)×\(result.outputHeight)",
+                bytes: result.outputSizeBytes
+            )
+        }
+    }
+
+    private func preview(title: String, image: UIImage, dimensions: String, bytes: Int64) -> some View {
+        VStack(alignment: .leading, spacing: 6) {
+            Text(title)
+                .font(.caption.weight(.bold))
+                .foregroundStyle(Color.arvectumAccentText)
+
+            Image(uiImage: image)
+                .resizable()
+                .scaledToFill()
+                .frame(maxWidth: .infinity)
+                .frame(height: 116)
+                .clipped()
+                .background(Color.arvectumBackground)
+                .clipShape(RoundedRectangle(cornerRadius: 12))
+
+            Text("\(dimensions) · \(formatBytes(bytes))")
+                .font(.caption2)
+                .foregroundStyle(.secondary)
+                .lineLimit(1)
+                .minimumScaleFactor(0.78)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+    }
+}
+
 private struct ResultCard: View {
     let result: ResultImage
     let onSave: () -> Void
@@ -358,6 +407,8 @@ private struct ResultCard: View {
             Text(tr(result.alreadyFit ? "Фото уже подходит" : "Фото подготовлено"))
                 .font(.title3.weight(.semibold))
                 .foregroundStyle(Color.arvectumPrimaryText)
+
+            BeforeAfterPreview(result: result)
 
             HStack(spacing: 10) {
                 stat(tr("Размер"), formatBytes(result.outputSizeBytes))
