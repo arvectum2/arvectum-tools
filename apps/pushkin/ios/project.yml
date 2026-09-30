@@ -34,7 +34,7 @@ targets:
         PRODUCT_BUNDLE_IDENTIFIER: ru.arvectum.tools.notify
         PRODUCT_NAME: ArvectumNotify
         PRODUCT_MODULE_NAME: ArvectumNotify
-        MARKETING_VERSION: "0.0.1"
+        MARKETING_VERSION: "1.0.0"
         CURRENT_PROJECT_VERSION: "1"
         TARGETED_DEVICE_FAMILY: "1"
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon

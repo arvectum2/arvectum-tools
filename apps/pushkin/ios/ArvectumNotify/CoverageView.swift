@@ -130,14 +130,10 @@ struct CoverageView: View {
 
     var body: some View {
         List {
-            Section("Coverage") {
+            Section("Included") {
                 LabeledContent(
-                    "Base catalog",
-                    value: "\(CoverageCatalog.entries.count) apps"
-                )
-                LabeledContent(
-                    "Catalog version",
-                    value: "\(CoverageCatalog.document.catalogVersion)"
+                    "Built-in apps",
+                    value: "\(CoverageCatalog.entries.count)"
                 )
 
                 if quickRefreshCount > 0 {
@@ -155,7 +151,7 @@ struct CoverageView: View {
                 }
             }
 
-            Section("Installed a new app?") {
+            Section("Add an app") {
                 Button {
                     showAppPicker = true
                 } label: {
@@ -166,12 +162,12 @@ struct CoverageView: View {
                 }
 
                 Text(
-                    "Choose the app once. PUSHKIN opens a tiny one-app refresh package instead of rebuilding the full catalog."
+                    "Search the built-in list. If an app is not there yet, PUSHKIN will show a manual setup path."
                 )
                 .foregroundStyle(.secondary)
             }
 
-            Section("Maintenance") {
+            Section("Shortcuts") {
                 Link(destination: automationsURL) {
                     Label(
                         "Open Shortcuts automations",
@@ -180,12 +176,16 @@ struct CoverageView: View {
                 }
 
                 Text(
-                    "A full catalog rebuild is intentionally not part of the normal update flow."
+                    "Use this if you need to review or re-enable a PUSHKIN automation."
                 )
                 .foregroundStyle(.secondary)
             }
         }
-        .navigationTitle("App Coverage")
+        .scrollContentBackground(.hidden)
+        .background(Color.arvectumBackground)
+        .navigationTitle("Apps")
+        .navigationBarTitleDisplayMode(.inline)
+        .tint(.arvectumMint)
         .sheet(isPresented: $showAppPicker) {
             CoverageAppPicker { app in
                 recordQuickRefresh(app)
@@ -301,6 +301,8 @@ struct CoverageAppPicker: View {
                 catalogSection
                 manualSection
             }
+            .scrollContentBackground(.hidden)
+            .background(Color.arvectumBackground)
             .navigationTitle("Add App")
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
@@ -403,8 +405,11 @@ private struct ManualCoverageGuide: View {
                 .foregroundStyle(.secondary)
             }
         }
+        .scrollContentBackground(.hidden)
+        .background(Color.arvectumBackground)
         .navigationTitle("Add Manually")
         .navigationBarTitleDisplayMode(.inline)
+        .tint(.arvectumMint)
         .accessibilityIdentifier("manual-coverage-guide")
     }
 

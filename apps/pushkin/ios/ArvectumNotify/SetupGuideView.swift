@@ -17,17 +17,25 @@ struct SetupGuideView: View {
 
     var body: some View {
         NavigationStack {
-            List {
-                phaseSection
-                    .headerProminence(.increased)
-                chooseAppsSection
-                coverageRefreshSection
-                mappingSection
-                backgroundSection
-                verifySection
-                privacySection
+            VStack(spacing: 0) {
+                ArvectumBrandHeader(productName: "PUSHKIN")
+                    .padding(.horizontal, 14)
+                    .padding(.top, 8)
+                    .padding(.bottom, 6)
+
+                List {
+                    chooseAppsSection
+                    coverageRefreshSection
+                    backgroundSection
+                    verifySection
+                    privacySection
+                }
+                .scrollContentBackground(.hidden)
+                .background(Color.arvectumBackground)
             }
-            .navigationTitle("Setup")
+            .background(Color.arvectumBackground.ignoresSafeArea())
+            .navigationTitle("Apps & Setup")
+            .navigationBarTitleDisplayMode(.inline)
             .background {
                 ShortcutPackagePresenter(
                     packageURL: $pendingBasePackageURL
@@ -36,20 +44,8 @@ struct SetupGuideView: View {
         }
     }
 
-    private var phaseSection: some View {
-        Section("Compatibility") {
-            Label(
-                "iOS 27 or later",
-                systemImage: "iphone.gen3"
-            )
-            secondaryText(
-                "PUSHKIN uses the system Notification automation in Shortcuts."
-            )
-        }
-    }
-
     private var chooseAppsSection: some View {
-        Section("1. Turn on PUSHKIN") {
+        Section("Turn on PUSHKIN") {
             if let url = CoverageCatalog.basePackageURL {
                 Button {
                     if url.isFileURL {
@@ -59,19 +55,19 @@ struct SetupGuideView: View {
                     }
                 } label: {
                     Label(
-                        "Install notification coverage",
+                        "Set up notification history",
                         systemImage: "wand.and.stars"
                     )
                 }
             }
 
             secondaryText(
-                "Add the signed PUSHKIN configuration once, then enable its automation. No app-by-app selection is required during onboarding."
+                "Add PUSHKIN in Shortcuts once, then enable the automation when iOS asks. You do not need to select apps one by one."
             )
 
             Link(destination: automationsURL) {
                 Label(
-                    "Open Automation",
+                    "Open Shortcuts Automation",
                     systemImage: "switch.2"
                 )
             }
@@ -79,26 +75,14 @@ struct SetupGuideView: View {
     }
 
     private var coverageRefreshSection: some View {
-        Section("App coverage") {
+        Section("Add more apps") {
             NavigationLink {
                 CoverageView()
             } label: {
-                Label("Manage app coverage", systemImage: "square.stack.3d.up")
+                Label("Add or manage apps", systemImage: "square.stack.3d.up")
             }
             secondaryText(
-                "New apps use one-app refresh configurations. PUSHKIN never rebuilds the whole catalog during normal use."
-            )
-        }
-    }
-
-    private var mappingSection: some View {
-        Section("Configured automatically") {
-            Label(
-                "Notification fields are already mapped",
-                systemImage: "checkmark.circle"
-            )
-            secondaryText(
-                "The signed PUSHKIN configuration already passes the app, title, subtitle and message into the local archive."
+                "Installed something new? Add it here. Most supported apps take only a few taps."
             )
         }
     }
@@ -109,13 +93,13 @@ struct SetupGuideView: View {
                 "Allow the PUSHKIN shortcut to run while the iPhone is locked."
             )
             secondaryText(
-                "This is a system privacy confirmation, not a recurring setup step."
+                "This is an iOS confirmation you should normally see only during setup."
             )
         }
     }
 
     private var verifySection: some View {
-        Section("4. Verify") {
+        Section("Status") {
             if let last = notifications.first {
                 Label("Capture verified", systemImage: "checkmark.seal.fill")
                 LabeledContent("Captured", value: "\(notifications.count)")
@@ -146,18 +130,8 @@ struct SetupGuideView: View {
         Section("Privacy") {
             Label("Stored on this iPhone", systemImage: "lock.shield")
             secondaryText(
-                "No account, backend, cloud sync or notification-content analytics."
+                "No account, cloud sync, ads or analytics. Notification content stays on this iPhone."
             )
-        }
-    }
-
-    private func mappingRow(
-        _ parameter: String,
-        _ property: String
-    ) -> some View {
-        LabeledContent(parameter) {
-            Text("Notification → \(property)")
-                .foregroundStyle(.secondary)
         }
     }
 

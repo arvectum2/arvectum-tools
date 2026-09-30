@@ -5,6 +5,26 @@ final class MinimalUXUITests: XCTestCase {
         continueAfterFailure = false
     }
 
+    func testReleaseShellIsConsumerFacing() throws {
+        let app = XCUIApplication(bundleIdentifier: "ru.arvectum.tools.notify")
+        app.launch()
+
+        XCTAssertTrue(app.staticTexts["PUSHKIN"].firstMatch.waitForExistence(timeout: 6))
+        XCTAssertTrue(app.tabBars.buttons["History"].firstMatch.exists)
+        XCTAssertTrue(app.tabBars.buttons["Apps"].firstMatch.exists)
+        XCTAssertTrue(app.tabBars.buttons["Settings"].firstMatch.exists)
+        XCTAssertFalse(app.tabBars.buttons["Diagnostics"].firstMatch.exists)
+
+        let settings = app.tabBars.buttons["Settings"].firstMatch
+        settings.tap()
+
+        XCTAssertTrue(app.staticTexts["On this iPhone"].firstMatch.waitForExistence(timeout: 6))
+        XCTAssertTrue(app.buttons["Delete all history"].firstMatch.exists)
+        XCTAssertTrue(app.links["Privacy policy"].firstMatch.exists)
+
+        print("RELEASE_CONSUMER_SHELL_OK")
+    }
+
     func testOnboardingOpensShortcutPreviewDirectly() throws {
         let app = XCUIApplication(bundleIdentifier: "ru.arvectum.tools.notify")
         app.launch()

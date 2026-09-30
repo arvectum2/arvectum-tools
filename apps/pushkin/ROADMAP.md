@@ -16,6 +16,39 @@ The product starts with notification history and progressively expands into snoo
 
 ---
 
+## Current release plan — 1.0 fast track
+
+This section supersedes older phase checklists as the release gate. The historical phases below remain the long-term backlog and evidence log; unchecked items there do **not** automatically block 1.0.
+
+**Goal:** publish the first useful, privacy-first PUSHKIN release as quickly as possible, then improve from real user feedback.
+
+### Required for 1.0
+
+- [x] Reliable physical-iPhone capture path through Shortcuts/App Intents.
+- [x] One bundled TOP-1000 base catalog plus one-app local micro-packages.
+- [x] Offline manual fallback for apps outside the bundled catalog.
+- [x] Fully local runtime: no backend, no account, no runtime network lookup.
+- [x] Automatic capture verification after setup / app refresh.
+- [x] Basic chronological notification history.
+- [x] Arvectum visual language and consumer-facing shell implemented; final physical-device visual QA still pending.
+- [x] Fast full-text search across app/title/subtitle/body.
+- [x] Basic notification actions: copy, share, delete.
+- [x] Consumer Settings/About screen; Phase-0 diagnostics removed from release navigation.
+- [x] Clear all local history with confirmation.
+- [x] Privacy manifest added; App Store privacy answers prepared and pending final archive verification.
+- [x] English-first in-app UI for the speed-focused 1.0 launch; English + Russian store metadata prepared. Russian in-app localization moves to 1.1.
+- [ ] Final physical-device smoke test including airplane-mode/offline use.
+- [x] App Store metadata, 6.9-inch screenshots, review notes and signed release archive prepared.
+- [ ] Create the App Store Connect app record + App Store distribution provisioning profile, export/upload build 1, and submit.
+
+### Explicitly deferred from 1.0
+
+Save/Done states, advanced filters, Face ID app lock, configurable retention, snooze, Important, digests, rules, analytics, cloud sync, accounts, and advertising are post-launch improvements unless a release-blocking issue appears during final QA.
+
+**Advertising:** first release is ad-free. Ad SDK integration is planned for the second public release only, after 1.0 is live and stable.
+
+---
+
 ## Product principles
 
 **Primary product metric:** minimize required user actions during initial setup and whenever app coverage changes. Every technical choice should be judged first by tap count, typing, waiting time, and number of system confirmations.

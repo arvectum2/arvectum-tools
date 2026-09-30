@@ -1,32 +1,67 @@
 import SwiftData
 import SwiftUI
+import UIKit
 
 struct ContentView: View {
+    @Environment(\.modelContext) private var modelContext
+
+    @State private var selectedTab = ContentView.initialTab
+
+    private static var initialTab: Int {
+#if DEBUG
+        let process = ProcessInfo.processInfo
+        if let value = process.environment["PUSHKIN_STORE_TAB"]
+            .flatMap(Int.init) {
+            return value
+        }
+
+        let arguments = process.arguments
+        if let index = arguments.firstIndex(of: "--store-tab"),
+           arguments.indices.contains(index + 1),
+           let value = Int(arguments[index + 1]) {
+            return value
+        }
+#endif
+        return 0
+    }
+
     var body: some View {
-        TabView {
+        TabView(selection: $selectedTab) {
             InboxView()
                 .tabItem {
-                    Label("Inbox", systemImage: "tray.full")
+                    Label("History", systemImage: "tray.full")
                 }
+                .tag(0)
 
             SetupGuideView()
                 .tabItem {
-                    Label("Setup", systemImage: "wand.and.stars")
+                    Label("Apps", systemImage: "square.stack.3d.up")
                 }
+                .tag(1)
 
-            DiagnosticsView()
+            SettingsView()
                 .tabItem {
-                    Label("Diagnostics", systemImage: "waveform.path.ecg")
+                    Label("Settings", systemImage: "gearshape")
                 }
+                .tag(2)
+        }
+        .tint(.arvectumMint)
+        .task {
+#if DEBUG
+            StoreScreenshotFixture.installIfRequested(into: modelContext)
+#endif
         }
     }
 }
 
 private struct InboxView: View {
     @Environment(\.openURL) private var openURL
+    @Environment(\.modelContext) private var modelContext
 
     @Query(sort: \CapturedNotification.capturedAt, order: .reverse)
     private var notifications: [CapturedNotification]
+
+    @State private var searchText = ""
 
     @AppStorage("coverage.quickRefreshCount")
     private var quickRefreshCount = 0
@@ -51,9 +86,58 @@ private struct InboxView: View {
 
     private let automationsURL = URL(string: "shortcuts://automations")!
 
+    private var filteredNotifications: [CapturedNotification] {
+        let query = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !query.isEmpty else { return notifications }
+
+        return notifications.filter { item in
+            [item.sourceApp, item.titleText, item.subtitleText, item.bodyText]
+                .contains { $0.localizedCaseInsensitiveContains(query) }
+        }
+    }
+
     var body: some View {
         NavigationStack {
             VStack(spacing: 0) {
+                ArvectumBrandHeader(productName: "PUSHKIN")
+                    .padding(.horizontal, 14)
+                    .padding(.top, 8)
+                    .padding(.bottom, 6)
+
+                if !notifications.isEmpty {
+                    HStack(spacing: 10) {
+                        Image(systemName: "magnifyingglass")
+                            .foregroundStyle(.secondary)
+
+                        TextField("Search notifications", text: $searchText)
+                            .textInputAutocapitalization(.never)
+                            .autocorrectionDisabled()
+
+                        if !searchText.isEmpty {
+                            Button {
+                                searchText = ""
+                            } label: {
+                                Image(systemName: "xmark.circle.fill")
+                                    .foregroundStyle(.secondary)
+                            }
+                            .buttonStyle(.plain)
+                            .accessibilityLabel("Clear search")
+                        }
+                    }
+                    .padding(.horizontal, 14)
+                    .frame(height: 46)
+                    .background(
+                        Color.arvectumSurface,
+                        in: RoundedRectangle(cornerRadius: 16, style: .continuous)
+                    )
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 16, style: .continuous)
+                            .stroke(Color.arvectumBorder, lineWidth: 1)
+                    )
+                    .padding(.horizontal, 14)
+                    .padding(.bottom, 6)
+                }
+
                 if !pendingCoverageTitle.isEmpty {
                     pendingCoverageCard
                 }
@@ -96,18 +180,42 @@ private struct InboxView: View {
                         .accessibilityIdentifier("enable-pushkin-automation")
                     }
                     .padding()
+                    } else if filteredNotifications.isEmpty {
+                        ContentUnavailableView.search(text: searchText)
                     } else {
-                        List(notifications) { item in
+                        List(filteredNotifications) { item in
                             NavigationLink {
                                 NotificationDetailView(item: item)
                             } label: {
                                 NotificationRow(item: item)
                             }
+                            .swipeActions(edge: .trailing) {
+                                Button(role: .destructive) {
+                                    delete(item)
+                                } label: {
+                                    Label("Delete", systemImage: "trash")
+                                }
+                            }
+                            .contextMenu {
+                                Button {
+                                    UIPasteboard.general.string = item.shareText
+                                } label: {
+                                    Label("Copy", systemImage: "doc.on.doc")
+                                }
+
+                                ShareLink(item: item.shareText) {
+                                    Label("Share", systemImage: "square.and.arrow.up")
+                                }
+                            }
                         }
+                        .listStyle(.plain)
+                        .scrollContentBackground(.hidden)
                     }
                 }
             }
-            .navigationTitle("PUSHKIN")
+            .background(Color.arvectumBackground.ignoresSafeArea())
+            .navigationTitle("History")
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
@@ -227,6 +335,11 @@ private struct InboxView: View {
         pendingCoverageStartedAt = 0
     }
 
+    private func delete(_ item: CapturedNotification) {
+        modelContext.delete(item)
+        try? modelContext.save()
+    }
+
     private func normalizedAppName(_ value: String) -> String {
         value.lowercased()
             .components(separatedBy: .alphanumerics.inverted)
@@ -269,69 +382,97 @@ private struct NotificationRow: View {
 }
 
 private struct NotificationDetailView: View {
+    @Environment(\.dismiss) private var dismiss
+    @Environment(\.modelContext) private var modelContext
+
+    @State private var showingDeleteConfirmation = false
+
     let item: CapturedNotification
 
     var body: some View {
         List {
-            Section("Source") {
-                LabeledContent("App", value: item.sourceApp)
-                if let bundleID = item.sourceBundleIdentifier {
-                    LabeledContent("Bundle ID", value: bundleID)
-                }
+            Section("From") {
+                Label(item.sourceApp, systemImage: "app.fill")
             }
 
             Section("Notification") {
                 if !item.titleText.isEmpty {
                     Text(item.titleText)
+                        .font(.headline)
                 }
                 if !item.subtitleText.isEmpty {
                     Text(item.subtitleText)
+                        .foregroundStyle(.secondary)
                 }
                 Text(item.bodyText.isEmpty ? "No message body" : item.bodyText)
+                    .textSelection(.enabled)
                     .foregroundStyle(item.bodyText.isEmpty ? .secondary : .primary)
             }
 
-            Section("Capture") {
+            Section("Time") {
                 LabeledContent(
                     "Received",
-                    value: item.receivedAt.formatted(date: .abbreviated, time: .standard)
-                )
-                LabeledContent(
-                    "Captured",
-                    value: item.capturedAt.formatted(date: .abbreviated, time: .standard)
-                )
-                LabeledContent(
-                    "Channel",
-                    value: item.captureChannel
+                    value: item.receivedAt.formatted(
+                        date: .abbreviated,
+                        time: .shortened
+                    )
                 )
             }
 
-            Section("Phase 0 diagnostics") {
-                LabeledContent(
-                    "Normalization",
-                    value: item.normalizationMode ?? "legacy record"
-                )
-                LabeledContent(
-                    "Timestamp source",
-                    value: item.timestampSource ?? "legacy record"
-                )
+            Section {
+                Button {
+                    UIPasteboard.general.string = item.shareText
+                } label: {
+                    Label("Copy text", systemImage: "doc.on.doc")
+                }
 
-                if let rawTitle = item.rawTitleText {
-                    DiagnosticPayloadRow(label: "Raw Title input", value: rawTitle)
+                ShareLink(item: item.shareText) {
+                    Label("Share", systemImage: "square.and.arrow.up")
                 }
-                if let rawSubtitle = item.rawSubtitleText {
-                    DiagnosticPayloadRow(label: "Raw Subtitle input", value: rawSubtitle)
-                }
-                if let rawMessage = item.rawMessageText {
-                    DiagnosticPayloadRow(label: "Raw Message input", value: rawMessage)
+
+                Button(role: .destructive) {
+                    showingDeleteConfirmation = true
+                } label: {
+                    Label("Delete", systemImage: "trash")
                 }
             }
         }
-        .navigationTitle("Notification")
+        .scrollContentBackground(.hidden)
+        .background(Color.arvectumBackground)
+        .navigationTitle(item.sourceApp)
         .navigationBarTitleDisplayMode(.inline)
+        .confirmationDialog(
+            "Delete this notification?",
+            isPresented: $showingDeleteConfirmation,
+            titleVisibility: .visible
+        ) {
+            Button("Delete", role: .destructive) {
+                modelContext.delete(item)
+                try? modelContext.save()
+                dismiss()
+            }
+        }
     }
 }
 
+
+private extension CapturedNotification {
+    var shareText: String {
+        var parts = [sourceApp]
+
+        if !titleText.isEmpty {
+            parts.append(titleText)
+        }
+        if !subtitleText.isEmpty {
+            parts.append(subtitleText)
+        }
+        if !bodyText.isEmpty {
+            parts.append(bodyText)
+        }
+
+        return parts.joined(separator: "\n")
+    }
+}
 
 private struct DiagnosticPayloadRow: View {
     let label: String

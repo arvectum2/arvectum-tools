@@ -1,40 +1,106 @@
-# App Store listing — PUSHKIN
+# App Store listing — PUSHKIN 1.0
 
 ## App record
 
 - Platform: iOS
-- Working name: **PUSHKIN**
+- Name: **PUSHKIN**
 - Bundle ID: `ru.arvectum.tools.notify`
+- SKU: `ARVECTUM-TOOLS-PUSHKIN-IOS-001`
 - Primary category: **Utilities**
+- Price: **Free**
+- Copyright: **© 2026 LLC ARVECTUM / ООО «Арвектум»**
 - Support URL: https://arvectum.com
-- Privacy model: fully local runtime; no account or backend
+- Marketing URL: https://arvectum.com
+- Privacy Policy URL: https://arvectum.com/privacy.html
+- Runtime model: fully local; no account, backend, analytics, cloud sync or ad SDK in 1.0
 
-## Russian — description block
+## English metadata
 
-PUSHKIN сохраняет историю уведомлений на iPhone и помогает не терять важные сообщения.
+### Subtitle
 
-Приложение работает локально: содержимое уведомлений и история не отправляются на сервер, аккаунт не нужен, облачного бэкенда нет.
+**Notification History**
 
-Для популярных приложений PUSHKIN использует встроенную базу и готовые локальные настройки. Если нужного приложения пока нет в базе, его можно подключить вручную через системное приложение «Команды» — PUSHKIN покажет пошаговую инструкцию.
+### Promotional text
 
-**Не нашли нужное приложение?**
-Напишите его точное название через поддержку на arvectum.com или укажите название приложения в отзыве App Store. Мы используем такие запросы, чтобы понимать реальный спрос и регулярно добавлять самые нужные приложения во встроенную базу вместе с исправлениями и улучшениями.
-## English — description block
+Keep a searchable history of important iPhone notifications. Local on your device, no account, no cloud backend.
+### Description
 
-PUSHKIN keeps a local notification history on your iPhone so important alerts are easier to find later.
+PUSHKIN keeps a local history of notifications on your iPhone so dismissed alerts are easier to find later.
 
-The app runs locally: notification content and history are not sent to a server, no account is required, and there is no cloud backend.
+**Search what you missed**
+Browse recent notifications and search by app, title or message text.
 
-Popular apps are covered by a catalog and signed configurations bundled with PUSHKIN. If an app is not in the catalog yet, you can still add it manually through Apple's Shortcuts app using the step-by-step guide inside PUSHKIN.
+**Private by design**
+Notification content stays on your iPhone. PUSHKIN has no account system, cloud sync, runtime backend, notification-content analytics or advertising in version 1.0.
 
-**Missing an app?**
-Send its exact name through support at arvectum.com or mention the app name in your App Store review. We use these requests to understand real demand and regularly add the most-requested apps in catalog updates alongside bug fixes and improvements.
+**Fast setup for popular apps**
+PUSHKIN includes an offline catalog of popular apps and signed Shortcuts configurations. Setup uses Apple's Shortcuts automation system and App Intents.
+
+**Still works for uncommon apps**
+If an app is not in the bundled catalog yet, PUSHKIN shows a local step-by-step manual setup path. No server is required.
+
+**Help improve coverage**
+Missing an app? Send its exact name through support at arvectum.com or mention the app name in your App Store review. We use requests to prioritize future catalog updates.
+
+PUSHKIN is an Arvectum Tool.
+
+### Keywords
+
+`notification,history,alerts,archive,search,missed,shortcuts,privacy,local`
+
+### What's New — 1.0
+
+First public release of PUSHKIN:
+- local notification history;
+- fast search;
+- offline app-coverage catalog;
+- guided setup through Shortcuts;
+- copy, share and delete actions;
+- no account, backend, ads or analytics.
+## Russian metadata
+
+### Subtitle
+
+**История уведомлений**
+
+### Promotional text
+
+Сохраняйте и находите важные уведомления iPhone. История хранится локально — без аккаунта и облачного сервера.
+
+### Description
+
+PUSHKIN сохраняет историю уведомлений на iPhone, чтобы случайно закрытое сообщение можно было найти позже.
+
+**Найдите то, что потеряли**
+Просматривайте историю и ищите по приложению, заголовку или тексту уведомления.
+
+**Приватность по умолчанию**
+Содержимое уведомлений остаётся на iPhone. В версии 1.0 нет аккаунта, облачной синхронизации, серверного бэкенда, аналитики содержимого уведомлений и рекламы.
+
+**Быстрая настройка популярных приложений**
+PUSHKIN поставляется со встроенной офлайн-базой популярных приложений и готовыми конфигурациями для системного приложения «Команды».
+
+**Если приложения нет в базе**
+Его всё равно можно подключить вручную по пошаговой инструкции внутри PUSHKIN. Сервер для этого не нужен.
+**Помогите улучшить базу**
+Не нашли нужное приложение? Напишите его точное название через поддержку на arvectum.com или укажите название в отзыве App Store. По таким запросам мы приоритизируем обновления базы.
+
+PUSHKIN — приложение из семейства Arvectum Tools.
+
+### Keywords
+
+`уведомления,история,архив,поиск,пропущенные,команды,приватность`
+
+### What's New — 1.0
+
+Первый публичный релиз PUSHKIN:
+- локальная история уведомлений;
+- быстрый поиск;
+- офлайн-база приложений;
+- пошаговая настройка через «Команды»;
+- копирование, отправка и удаление;
+- без аккаунта, сервера, рекламы и аналитики.
 
 ## Release-copy rule
 
-Every localized App Store description should include:
-1. a plain statement that PUSHKIN works locally and has no runtime backend;
-2. a short explanation that uncommon apps can be added manually;
-3. a request for the exact names of missing apps via support or App Store reviews.
-
-Do not promise that every request will ship in the next release. Prioritize by request count, user impact, and feasibility.
+Every localization must state that runtime notification processing is local and that uncommon apps can be configured manually. Do not promise universal zero-touch coverage for every installed app.
