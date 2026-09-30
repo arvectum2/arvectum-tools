@@ -20,7 +20,7 @@ Passport mode changes only crop and technical file parameters. It does not use A
 
 ### Android
 
-Requirements: JDK 17 and Android SDK 37.
+Requirements: JDK 17 and Android 17 preview SDK platform 37.0 (compileSdk 37).
 
 ```bash
 cd android
