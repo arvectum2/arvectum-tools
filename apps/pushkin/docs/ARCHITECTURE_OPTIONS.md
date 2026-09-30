@@ -54,7 +54,7 @@ PUSHKIN -> + App -> search app -> tap result
 
 `shortcuts://automations` has been verified on iOS 27 Simulator and from the actual PUSHKIN UI. Attempts to deep-link to one specific automation by UUID/name/filter were ignored. The Shortcuts action registry exposes no action that can mutate another personal automation in the background, so a fully unattended daily refresh is not currently available through public APIs.
 
-Physical testing disproved OFF -> ON as a sufficient rebind mechanism for the controlled late-installed app. The remaining decisive proof is that importing a **one-app micro-package after installation** binds that app on physical hardware.
+Physical testing disproved OFF -> ON as a sufficient rebind mechanism for the controlled late-installed app. The preferred alternative is now physically proven: importing a **one-app teamless micro-package after installation**, enabling its newly created automation, and then receiving a real notification successfully routes that notification into PUSHKIN.
 
 ### Core idea
 

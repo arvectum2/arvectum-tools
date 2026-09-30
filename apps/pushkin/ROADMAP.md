@@ -93,8 +93,8 @@ Current UX targets:
   - [x] Add a reproducible cached catalog builder (`scripts/build_app_store_catalog.py`) so the ranking can be refreshed without manual curation.
   - [x] Pre-sign the production base package and one micro-package per supported app: 1000 micro-packages, zero missing files, ~22.7 MB total.
   - [x] Install the supplied PUSHKIN icon into the AppIcon asset set; production Simulator build succeeds.
-  - [ ] Physical proof A: verify that a teamless one-app micro-package imported after installation binds the controlled late-installed Future App.
-  - [ ] Physical proof B: measure one-app micro-package import latency on physical iPhone.
+  - [x] Physical proof A: teamless one-app micro-package imported **after** installing the controlled Future App created a fresh Notification automation; after enabling it, the real marker notification `PUSHKIN_RUNTIME_1000_PROVISIONAL_02` was captured by PUSHKIN on the physical iPhone.
+  - [x] Physical proof B: measured physical-iPhone handoff from tapping the app in PUSHKIN to the Shortcuts `Add` import preview at **2.28 s** in the instrumented XCTest run.
 - [x] Measure event loss / duplication.
 - [x] Reduce setup to one multi-app Notification trigger, four field mappings, and automatic in-app verification.
 - [ ] Validate the guided setup with a non-technical user.
@@ -529,7 +529,7 @@ Store:
 
 **Current result for the full-product requirement:** Gate reopened by the catalog-import experiments. An empty App value still cannot be used as a wildcard, but a single generated Notification trigger has now preserved **1000 explicit app descriptors** on physical hardware. That removes per-app manual selection from initial setup for a maintained catalog.
 
-The remaining blocker is lifecycle refresh on physical hardware. OFF -> ON has been rejected. Simulator A/B testing shows that a same-name signed replacement carrying a fresh trigger UUID cleanly tombstones the previous workflow and leaves one visible replacement, but the replacement starts disabled. Do not close Gate A until one physical test verifies **fresh-package Replace -> re-enable -> late-installed app notification**.
+**Gate A result: passed for the software-only catalog + micro-overlay architecture.** OFF -> ON has been rejected, but the physical iPhone now proves the intended late-install path: import a fresh **one-app teamless micro-package after the app is installed -> enable its new automation -> receive a real notification -> PUSHKIN captures it**. The micro automation starts disabled, so one explicit enable action remains an iOS-required part of the refresh UX.
 
 ## Gate B — after internal MVP
 
@@ -560,7 +560,8 @@ Use the answer to choose the 1.x roadmap rather than building all advanced featu
 5. [x] Reject simple shortcut opening as a refresh mechanism.
 6. [x] Verify `shortcuts://automations` and wire a PUSHKIN **Open Automation to Refresh** handoff; simulator UI test passes.
 7. [x] Check for a Shortcuts action/API that enables or disables another personal automation; none exposed in the iOS 27 action registry.
-8. **Next decisive physical test:** toggle the existing catalog automation **OFF -> ON**, send the Future Test notification, and verify whether PUSHKIN captures it.
-9. If OFF/ON works, finalize the mass-market model: **top-1000 one-time import + manual Update coverage + Custom for rare apps**.
-10. If OFF/ON fails, test a controlled replace/recreate flow that does not accumulate duplicate shortcuts before accepting or rejecting the software-only architecture.
-11. Keep BLE/ANCS PUSHKIN Tag as Plan B only; the preferred product must not require extra hardware.
+8. [x] Reject **OFF -> ON** as a late-install refresh mechanism on physical hardware.
+9. [x] Prove the replacement refresh path that matters for the product: **fresh one-app micro-package after installation -> enable -> capture**, on a physical iPhone.
+10. [x] Measure the physical micro-package handoff: **2.28 s** from app tap in PUSHKIN to the Shortcuts import preview in the instrumented run.
+11. **Next:** productize the refresh UX so PUSHKIN guides the user through the unavoidable system `Add` + automation-enable steps and then verifies coverage automatically.
+12. Keep BLE/ANCS PUSHKIN Tag as Plan B only; the preferred product does not require extra hardware.

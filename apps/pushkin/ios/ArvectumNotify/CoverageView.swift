@@ -24,10 +24,31 @@ struct CoverageCatalogDocument: Codable {
 
 enum CoverageCatalog {
     static let document: CoverageCatalogDocument = load()
-    static var entries: [CoverageCatalogEntry] { document.apps }
+
+    static var entries: [CoverageCatalogEntry] {
+#if DEBUG
+        if document.apps.contains(where: {
+            $0.bundleIdentifier == "ru.arvectum.pushkin.futuretest"
+        }) {
+            return document.apps
+        }
+
+        return document.apps + [CoverageCatalogEntry(
+            name: "PUSHKIN Future Test",
+            displayName: nil,
+            bundleIdentifier: "ru.arvectum.pushkin.futuretest",
+            teamIdentifier: nil,
+            shortcutName: "PUSHKIN Future Teamless",
+            packageFile: "PUSHKIN - PUSHKIN Future Test.shortcut",
+            rank: 1001
+        )]
+#else
+        return document.apps
+#endif
+    }
 
     static var commonEntries: [CoverageCatalogEntry] {
-        let preferredBundles = [
+        var preferredBundles = [
             "ph.telegra.Telegraph", "net.whatsapp.WhatsApp",
             "ru.ozon.OzonStore", "RU.WILDBERRIES.MOBILEAPP",
             "ru.yandex.ytaxi", "ru.yandex.traffic",
@@ -39,6 +60,9 @@ enum CoverageCatalog {
             "ru.5ka.browser.app", "com.google.Gmail",
             "com.google.Maps", "com.burbn.instagram"
         ]
+#if DEBUG
+        preferredBundles.insert("ru.arvectum.pushkin.futuretest", at: 0)
+#endif
         let byBundle = Dictionary(uniqueKeysWithValues: entries.map {
             ($0.bundleIdentifier, $0)
         })
@@ -250,6 +274,13 @@ struct CoverageAppPicker: View {
                         .autocorrectionDisabled()
                         .focused($searchFocused)
                         .accessibilityIdentifier("app-search")
+
+                    Label(
+                        "Next: tap Add in Shortcuts, then enable the new automation once.",
+                        systemImage: "info.circle"
+                    )
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
                 }
 
                 Section {
@@ -263,7 +294,7 @@ struct CoverageAppPicker: View {
                             ) {
                                 Text(app.title)
                                     .foregroundStyle(.primary)
-                                Text("Tap to add notification coverage")
+                                Text("Open Shortcuts • Add • enable once")
                                     .font(.caption)
                                     .foregroundStyle(.secondary)
                             }

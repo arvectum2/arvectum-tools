@@ -37,6 +37,15 @@ private struct InboxView: View {
     @AppStorage("coverage.lastQuickRefreshAt")
     private var lastQuickRefreshAt = 0.0
 
+    @AppStorage("coverage.pendingAppName")
+    private var pendingCoverageName = ""
+
+    @AppStorage("coverage.pendingAppTitle")
+    private var pendingCoverageTitle = ""
+
+    @AppStorage("coverage.pendingStartedAt")
+    private var pendingCoverageStartedAt = 0.0
+
     @State private var showAppPicker = false
     @State private var pendingBasePackageURL: URL?
 
@@ -44,8 +53,13 @@ private struct InboxView: View {
 
     var body: some View {
         NavigationStack {
-            Group {
-                if notifications.isEmpty {
+            VStack(spacing: 0) {
+                if !pendingCoverageTitle.isEmpty {
+                    pendingCoverageCard
+                }
+
+                Group {
+                    if notifications.isEmpty {
                     VStack(spacing: 18) {
                         ContentUnavailableView(
                             "Never lose a notification",
@@ -82,12 +96,13 @@ private struct InboxView: View {
                         .accessibilityIdentifier("enable-pushkin-automation")
                     }
                     .padding()
-                } else {
-                    List(notifications) { item in
-                        NavigationLink {
-                            NotificationDetailView(item: item)
-                        } label: {
-                            NotificationRow(item: item)
+                    } else {
+                        List(notifications) { item in
+                            NavigationLink {
+                                NotificationDetailView(item: item)
+                            } label: {
+                                NotificationRow(item: item)
+                            }
                         }
                     }
                 }
@@ -108,9 +123,13 @@ private struct InboxView: View {
             }
             .sheet(isPresented: $showAppPicker) {
                 CoverageAppPicker { app in
+                    let now = Date().timeIntervalSince1970
                     lastQuickRefreshName = app.name
-                    lastQuickRefreshAt = Date().timeIntervalSince1970
+                    lastQuickRefreshAt = now
                     quickRefreshCount += 1
+                    pendingCoverageName = app.name
+                    pendingCoverageTitle = app.title
+                    pendingCoverageStartedAt = now
                 }
             }
             .background {
@@ -119,6 +138,99 @@ private struct InboxView: View {
                 ) {}
             }
         }
+    }
+
+    private var pendingCoverageVerified: Bool {
+        guard pendingCoverageStartedAt > 0 else { return false }
+
+        let candidates = [
+            pendingCoverageTitle,
+            pendingCoverageName
+        ]
+        .map(normalizedAppName)
+        .filter { !$0.isEmpty }
+
+        return notifications.contains { item in
+            guard item.capturedAt.timeIntervalSince1970
+                >= pendingCoverageStartedAt - 2
+            else {
+                return false
+            }
+
+            let source = normalizedAppName(item.sourceApp)
+            guard !source.isEmpty else { return false }
+
+            return candidates.contains { candidate in
+                candidate == source
+                    || candidate.contains(source)
+                    || source.contains(candidate)
+            }
+        }
+    }
+
+    private var pendingCoverageCard: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Label(
+                pendingCoverageVerified
+                    ? "Coverage verified"
+                    : "Finish adding \(pendingCoverageTitle)",
+                systemImage: pendingCoverageVerified
+                    ? "checkmark.seal.fill"
+                    : "switch.2"
+            )
+            .font(.headline)
+
+            if pendingCoverageVerified {
+                Text(
+                    "PUSHKIN has captured a notification from \(pendingCoverageTitle). Coverage is active."
+                )
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
+
+                Button("Done") {
+                    clearPendingCoverage()
+                }
+                .buttonStyle(.bordered)
+                .accessibilityIdentifier("coverage-finish-done")
+            } else {
+                Text(
+                    "In Shortcuts, tap Add for the PUSHKIN configuration, then turn on its new automation. PUSHKIN will verify coverage automatically after the first notification."
+                )
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
+
+                Link(destination: automationsURL) {
+                    Label(
+                        "Open Automations",
+                        systemImage: "arrow.up.forward.app"
+                    )
+                }
+                .buttonStyle(.borderedProminent)
+                .accessibilityIdentifier("finish-coverage-automations")
+            }
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(14)
+        .background(
+            .regularMaterial,
+            in: RoundedRectangle(cornerRadius: 16)
+        )
+        .padding(.horizontal)
+        .padding(.top, 8)
+        .padding(.bottom, 6)
+        .accessibilityIdentifier("coverage-finish-card")
+    }
+
+    private func clearPendingCoverage() {
+        pendingCoverageName = ""
+        pendingCoverageTitle = ""
+        pendingCoverageStartedAt = 0
+    }
+
+    private func normalizedAppName(_ value: String) -> String {
+        value.lowercased()
+            .components(separatedBy: .alphanumerics.inverted)
+            .joined()
     }
 }
 

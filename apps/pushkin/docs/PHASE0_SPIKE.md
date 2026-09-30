@@ -200,7 +200,7 @@ After the Any-App Shortcuts experiment failed, the public iOS 27 system APIs wer
 - **MDM notification settings**: can manage notification settings on supervised iOS devices. This is an enterprise/supervised-device path, not a mass-market consumer capture API. Rejected for the product.
 - **Accessory Notifications**: this is the one public iOS 27 framework found that can forward iOS system notifications from **all applicable apps** after one user authorization. It exposes notification content and an `allow` decision for all apps. However, it is designed for a companion app plus an accessory registered through AccessorySetupKit / Accessory Transport, and customer installations can use notification forwarding only on eligible EU iPhones with EU Apple Accounts. It therefore does not provide a global pure-iPhone App Store solution.
 
-Current conclusion: no public iOS 27 API path found provides a pure-iPhone, truly zero-touch listener for notification contents from every third-party app. However, the later 1000-app catalog experiment reopens a practical software-only product path: one prebuilt catalog automation can cover apps already installed at registration time, with a small manual refresh potentially required after later installs. That refresh path remains gated on the final physical OFF -> ON rebind test.
+Current conclusion: no public iOS 27 API path found provides a pure-iPhone, truly zero-touch listener for notification contents from every third-party app. However, the software-only product path is now physically proven: one prebuilt TOP-1000 catalog automation covers apps resolved at registration time, and a newly installed app can be added later with a fresh signed one-app micro-package. The micro automation must still be explicitly enabled by the user because iOS imports it disabled.
 
 ## Catalog-scale trigger and late-install refresh — 2026-09-29
 
@@ -233,9 +233,9 @@ Conclusion: Shortcuts preserves unknown catalog descriptors, but iOS does **not*
 - `shortcuts://automations` works and lets PUSHKIN open the Automation list directly.
 - The legacy `shortcuts://import-shortcut?url=...` scheme rejects the raw signed `.shortcut` URL in the iOS 27 simulator, so it is not being treated as a production import path.
 
-Current refresh candidate: **fresh signed catalog package → Add Shortcut → Replace → enable the replacement automation**. The catalog package can keep the same visible name while rotating the trigger UUID.
+The production refresh path is now **fresh signed one-app micro-package -> Add Shortcut -> enable its new automation**. This avoids reprocessing or replacing the TOP-1000 base catalog for an ordinary late install.
 
-The iOS Simulator proves the replacement/tombstone semantics but cannot prove notification-trigger execution itself. Its `ExternalTriggers` database remains empty and imported Notification automations retain `ZPENDINGINITIALSYNC = 1`. One final physical-device test is still required later to verify that the fresh replacement actually binds an app installed after the original catalog import.
+Physical-device proof completed on 30 Sep 2026 with the controlled `PUSHKIN Future Test` app. The app was already installed when its teamless micro-package was imported. Shortcuts created the one-app Notification automation with `Automation Toggle = 0`; after enabling it, the app emitted `PUSHKIN_RUNTIME_1000_PROVISIONAL_02`, and PUSHKIN captured that marker successfully. The instrumented tap-to-Shortcuts-import-preview handoff measured **2.28 s** on that run. Simulator replacement/tombstone work remains useful for maintenance flows, but it is no longer the gate for ordinary per-app refresh.
 
 ## Re-alert feasibility
 
