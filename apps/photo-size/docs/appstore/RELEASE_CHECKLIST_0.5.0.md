@@ -20,7 +20,7 @@
 - [x] Before/After result preview.
 - [x] Result-only Yandex Ads A/B (native/banner), production unit IDs embedded in Release.
 - [x] XCTest: 15/15 passing on simulator after latest changes and simplicity refactor.
-- [ ] Physical iPhone QA of the 0.5.0 build. Release build installs and launches successfully on iPhone Nikita; interactive flow checks still pending.
+- [ ] Physical iPhone QA of the 0.5.0 build. Release build reinstalled and launched successfully on iPhone Nikita on 2026-09-30; home-screen render captured at 1170×2532. Interactive flow checks still pending.
 - [ ] Verify native and banner result-only ad variants on physical iPhone.
 - [ ] Verify save/share, Files import, exact resize, metadata toggle and print sheet on physical iPhone.
 
@@ -33,7 +33,7 @@
 - [ ] Create App Store version 0.5.0.
 - [ ] Apply updated ru-RU metadata.
 - [ ] Add en-US / en-GB / en-IN localizations.
-- [ ] Upload current 6.9-inch and 6.5-inch screenshots.
+- [ ] Upload current 6.9-inch and 6.5-inch screenshots. RU and EN asset sets are prepared and locally validated; App Store Connect upload remains.
 - [ ] Update App Privacy for advertising SDK usage if required by App Store Connect questionnaire.
 - [ ] Select build 3 and complete export compliance.
 - [ ] Submit to App Review.

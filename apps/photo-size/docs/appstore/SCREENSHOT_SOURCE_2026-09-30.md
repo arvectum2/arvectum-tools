@@ -10,3 +10,17 @@ The landscape photograph used in the new Before / After App Store screenshots is
 - Original: 5184×3456 JPEG, approximately 2.78 MB
 
 The source photograph is used only to demonstrate the application's local resize/compression result in store screenshots. It is not bundled into the production application.
+
+
+## Localized screenshot sets
+
+Prepared and visually reviewed:
+- Russian: store-assets/appstore/iphone-6.9/ (1320×2868) and store-assets/appstore/iphone-6.5/ (1284×2778).
+- English: store-assets/appstore/en/iphone-6.9/ (1320×2868) and store-assets/appstore/en/iphone-6.5/ (1284×2778).
+
+The three-frame order stays intentionally simple in both locales:
+1. exact KB/MB Before / After;
+2. pixel resize Before / After;
+3. document-photo presets.
+
+No extra feature-tour frames were added: the store presentation should explain the three primary jobs, not every advanced option.
