@@ -83,7 +83,7 @@ Core positioning:
 - [x] Refresh RU/EN App Store metadata to match the current feature set and ads.
 
 ### P1 — next product iteration
-- [ ] Import from Files/iCloud in addition to Photos.
+- [x] Import from Files/iCloud in addition to Photos.
 - [ ] Exact width × height mode with aspect-ratio lock.
 - [ ] Output format selector: JPEG / PNG / HEIC where technically appropriate.
 - [ ] Optional metadata/EXIF/GPS removal.

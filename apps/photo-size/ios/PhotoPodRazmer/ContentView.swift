@@ -120,6 +120,7 @@ struct ContentView: View {
 private struct MainTaskCard: View {
     @EnvironmentObject private var model: AppModel
     @Binding var pickerItem: PhotosPickerItem?
+    @State private var importingFile = false
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
@@ -202,34 +203,60 @@ private struct MainTaskCard: View {
 
     private var sourceRow: some View {
         let selectedSource = model.source
-        return PhotosPicker(selection: $pickerItem, matching: .images) {
-            HStack(spacing: 10) {
-                Image(systemName: selectedSource == nil ? "photo.badge.plus" : "photo.fill")
-                    .font(.title3)
-                    .foregroundStyle(Color.arvectumPrimaryText)
-                VStack(alignment: .leading, spacing: 2) {
-                    Text(tr(selectedSource == nil ? "Выбрать фото" : "Фото выбрано"))
-                        .font(.subheadline.weight(.semibold))
+        return VStack(spacing: 7) {
+            PhotosPicker(selection: $pickerItem, matching: .images) {
+                HStack(spacing: 10) {
+                    Image(systemName: selectedSource == nil ? "photo.badge.plus" : "photo.fill")
+                        .font(.title3)
                         .foregroundStyle(Color.arvectumPrimaryText)
-                    if let source = selectedSource {
-                        Text("\(source.width)×\(source.height) px · \(formatBytes(source.sizeBytes))")
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
-                    } else {
-                        Text("JPEG, PNG, HEIC и другие изображения")
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text(tr(selectedSource == nil ? "Выбрать фото" : "Фото выбрано"))
+                            .font(.subheadline.weight(.semibold))
+                            .foregroundStyle(Color.arvectumPrimaryText)
+                        if let source = selectedSource {
+                            Text("\(source.width)×\(source.height) px · \(formatBytes(source.sizeBytes))")
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                        } else {
+                            Text("JPEG, PNG, HEIC и другие изображения")
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                        }
                     }
+                    Spacer()
+                    Image(systemName: "chevron.right")
+                        .font(.caption.weight(.bold))
+                        .foregroundStyle(.secondary)
                 }
-                Spacer()
-                Image(systemName: "chevron.right")
-                    .font(.caption.weight(.bold))
-                    .foregroundStyle(.secondary)
+                .padding(12)
+                .background(Color.arvectumBackground, in: RoundedRectangle(cornerRadius: 14))
             }
-            .padding(12)
-            .background(Color.arvectumBackground, in: RoundedRectangle(cornerRadius: 14))
+            .buttonStyle(.plain)
+
+            Button {
+                importingFile = true
+            } label: {
+                Label("Выбрать из Файлов", systemImage: "folder")
+                    .font(.caption.weight(.semibold))
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 34)
+            }
+            .buttonStyle(.plain)
+            .foregroundStyle(Color.arvectumPrimaryText)
+            .overlay(
+                RoundedRectangle(cornerRadius: 12)
+                    .stroke(Color.arvectumBorder, lineWidth: 1)
+            )
+            .fileImporter(
+                isPresented: $importingFile,
+                allowedContentTypes: [.image],
+                allowsMultipleSelection: false
+            ) { result in
+                if case .success(let urls) = result, let url = urls.first {
+                    model.selectFile(url)
+                }
+            }
         }
-        .buttonStyle(.plain)
     }
 
     private var presetRow: some View {

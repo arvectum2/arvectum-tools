@@ -104,6 +104,36 @@ final class AppModel: ObservableObject {
         }
     }
 
+    func selectFile(_ url: URL) {
+        isWorking = true
+        errorMessage = nil
+        result = nil
+        saved = false
+        passportCropOpen = false
+
+        Task {
+            do {
+                let data = try await Task.detached(priority: .userInitiated) {
+                    let hasAccess = url.startAccessingSecurityScopedResource()
+                    defer {
+                        if hasAccess { url.stopAccessingSecurityScopedResource() }
+                    }
+                    return try Data(contentsOf: url, options: .mappedIfSafe)
+                }.value
+                let engine = self.engine
+                let inspected = try await Task.detached(priority: .userInitiated) {
+                    try engine.inspect(data: data)
+                }.value
+                source = inspected
+                isWorking = false
+            } catch {
+                source = nil
+                isWorking = false
+                errorMessage = userMessage(error, fallback: tr("Не получилось открыть этот файл."))
+            }
+        }
+    }
+
     func setPreset(_ bytes: Int64) {
         targetBytes = bytes
         isCustomTarget = false

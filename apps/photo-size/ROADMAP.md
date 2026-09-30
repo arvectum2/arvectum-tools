@@ -622,6 +622,14 @@ These items are intentionally tracked **after** the first market release/experim
 - [x] Тёмная тема: автоматическая адаптация под системную Light/Dark theme реализована и проверена на симуляторе; XCTest 4/4.
 - [x] Основные CTA перенесены в стабильную нижнюю зону рабочей карточки после UX-проверки на трёх режимах; build + XCTest 4/4.
 
+### Workflow extensions
+- [x] Добавить импорт изображения из Files/iCloud в дополнение к Photos Picker; сохранить системный sandbox/security-scoped flow.
+- [ ] Добавить точные width × height с блокировкой пропорций.
+- [ ] Добавить выбор формата экспорта JPEG / PNG / HEIC там, где он технически уместен.
+- [ ] Добавить опциональное удаление EXIF/GPS metadata.
+- [ ] Добавить print-sheet export для печатных документных пресетов.
+- [ ] Batch processing — только после подтверждения usage data.
+
 ### Competitive / semantic-search research
 - [x] Изучить приложения из App Store search/related results по resize/compress/document-photo jobs. См. docs/APPSTORE_COMPETITIVE_RESEARCH_2026-09-30.md.
 - [x] Составить feature/UX/store-positioning matrix и приоритизацию P0/P1/P2; сохранить фокус на exact-size + document presets + local-first, без превращения в общий фоторедактор.
