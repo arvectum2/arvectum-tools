@@ -12,7 +12,6 @@ struct PhotoPodRazmerApp: App {
         WindowGroup {
             ContentView()
                 .environmentObject(model)
-                .preferredColorScheme(.light)
         }
     }
 }

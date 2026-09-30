@@ -21,15 +21,15 @@ struct PassportCropView: View {
                     VStack(alignment: .leading, spacing: 2) {
                         Text("НА ПАСПОРТ")
                             .font(.caption.weight(.bold))
-                            .foregroundStyle(Color.arvectumNavy.opacity(0.72))
+                            .foregroundStyle(Color.arvectumAccentText)
                         Text("Подогнать фото под 35×45")
                             .font(.title3.weight(.semibold))
-                            .foregroundStyle(Color.arvectumNavy)
+                            .foregroundStyle(Color.arvectumPrimaryText)
                     }
                     Spacer()
                     Button("Отмена", action: onCancel)
                         .font(.subheadline.weight(.semibold))
-                        .foregroundStyle(Color.arvectumNavy)
+                        .foregroundStyle(Color.arvectumPrimaryText)
                 }
 
                 Text("Перемещайте фото и масштабируйте двумя пальцами.")
@@ -71,7 +71,7 @@ struct PassportCropView: View {
                         .frame(height: 50)
                 }
                 .buttonStyle(.plain)
-                .foregroundStyle(Color.arvectumNavy)
+                .foregroundStyle(Color.arvectumPrimaryText)
                 .background(Color.arvectumMint, in: RoundedRectangle(cornerRadius: 16))
             }
             .padding(14)

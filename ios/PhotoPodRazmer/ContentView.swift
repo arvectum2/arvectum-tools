@@ -61,7 +61,7 @@ struct ContentView: View {
                 Color.black.opacity(0.12).ignoresSafeArea()
                 ProgressView()
                     .controlSize(.large)
-                    .tint(.arvectumNavy)
+                    .tint(.arvectumMint)
                     .padding(24)
                     .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 18))
             }
@@ -163,7 +163,7 @@ private struct MainTaskCard: View {
         .background(Color.arvectumSurface, in: RoundedRectangle(cornerRadius: 20))
         .overlay(
             RoundedRectangle(cornerRadius: 20)
-                .stroke(Color.arvectumNavy.opacity(0.10), lineWidth: 1)
+                .stroke(Color.arvectumBorder, lineWidth: 1)
         )
     }
 
@@ -173,11 +173,11 @@ private struct MainTaskCard: View {
             HStack(spacing: 10) {
                 Image(systemName: selectedSource == nil ? "photo.badge.plus" : "photo.fill")
                     .font(.title3)
-                    .foregroundStyle(Color.arvectumNavy)
+                    .foregroundStyle(Color.arvectumPrimaryText)
                 VStack(alignment: .leading, spacing: 2) {
                     Text(selectedSource == nil ? "Выбрать фото" : "Фото выбрано")
                         .font(.subheadline.weight(.semibold))
-                        .foregroundStyle(Color.arvectumNavy)
+                        .foregroundStyle(Color.arvectumPrimaryText)
                     if let source = selectedSource {
                         Text("\(source.width)×\(source.height) px · \(formatBytes(source.sizeBytes))")
                             .font(.caption)
@@ -272,10 +272,10 @@ private struct MainTaskCard: View {
         VStack(alignment: .leading, spacing: 3) {
             Text(accent)
                 .font(.caption.weight(.bold))
-                .foregroundStyle(Color.arvectumNavy.opacity(0.72))
+                .foregroundStyle(Color.arvectumAccentText)
             Text(title)
                 .font(.title3.weight(.semibold))
-                .foregroundStyle(Color.arvectumNavy)
+                .foregroundStyle(Color.arvectumPrimaryText)
         }
     }
 
@@ -291,7 +291,7 @@ private struct MainTaskCard: View {
                 .frame(height: 48)
         }
         .buttonStyle(.plain)
-        .foregroundStyle(Color.arvectumNavy)
+        .foregroundStyle(Color.arvectumPrimaryText)
         .background(
             enabled ? Color.arvectumMint : Color.arvectumBackground,
             in: RoundedRectangle(cornerRadius: 16)
@@ -321,10 +321,10 @@ private struct ResultCard: View {
         VStack(alignment: .leading, spacing: 12) {
             Text("ГОТОВО")
                 .font(.caption.weight(.bold))
-                .foregroundStyle(Color.arvectumNavy.opacity(0.72))
+                .foregroundStyle(Color.arvectumAccentText)
             Text(result.alreadyFit ? "Фото уже подходит" : "Фото подготовлено")
                 .font(.title3.weight(.semibold))
-                .foregroundStyle(Color.arvectumNavy)
+                .foregroundStyle(Color.arvectumPrimaryText)
 
             HStack(spacing: 10) {
                 stat("Размер", formatBytes(result.outputSizeBytes))
@@ -346,7 +346,7 @@ private struct ResultCard: View {
                     .frame(height: 48)
             }
             .buttonStyle(.plain)
-            .foregroundStyle(Color.arvectumNavy)
+            .foregroundStyle(Color.arvectumPrimaryText)
             .background(Color.arvectumMint, in: RoundedRectangle(cornerRadius: 16))
 
             Button(action: onShare) {
@@ -356,15 +356,15 @@ private struct ResultCard: View {
                     .frame(height: 46)
             }
             .buttonStyle(.plain)
-            .foregroundStyle(Color.arvectumNavy)
+            .foregroundStyle(Color.arvectumPrimaryText)
             .overlay(
                 RoundedRectangle(cornerRadius: 16)
-                    .stroke(Color.arvectumNavy.opacity(0.22), lineWidth: 1)
+                    .stroke(Color.arvectumStrongBorder, lineWidth: 1)
             )
 
             Button("Вернуться к настройкам", action: onBack)
                 .font(.subheadline.weight(.semibold))
-                .foregroundStyle(Color.arvectumNavy)
+                .foregroundStyle(Color.arvectumPrimaryText)
                 .frame(maxWidth: .infinity)
         }
         .padding(14)
@@ -372,7 +372,7 @@ private struct ResultCard: View {
         .background(Color.arvectumSurface, in: RoundedRectangle(cornerRadius: 20))
         .overlay(
             RoundedRectangle(cornerRadius: 20)
-                .stroke(Color.arvectumNavy.opacity(0.10), lineWidth: 1)
+                .stroke(Color.arvectumBorder, lineWidth: 1)
         )
     }
 
@@ -381,7 +381,7 @@ private struct ResultCard: View {
             Text(label).font(.caption).foregroundStyle(.secondary)
             Text(value)
                 .font(.subheadline.weight(.semibold))
-                .foregroundStyle(Color.arvectumNavy)
+                .foregroundStyle(Color.arvectumPrimaryText)
                 .lineLimit(1)
         }
         .padding(12)
@@ -427,7 +427,7 @@ private struct ModeSelector: View {
                         .frame(height: 46)
                 }
                 .buttonStyle(.plain)
-                .foregroundStyle(Color.arvectumNavy)
+                .foregroundStyle(Color.arvectumPrimaryText)
                 .background(
                     mode == item ? Color.arvectumMint : Color.arvectumSurface,
                     in: RoundedRectangle(cornerRadius: 14)
@@ -435,7 +435,7 @@ private struct ModeSelector: View {
                 .overlay(
                     RoundedRectangle(cornerRadius: 14)
                         .stroke(
-                            mode == item ? Color.arvectumMint : Color.arvectumNavy.opacity(0.10),
+                            mode == item ? Color.arvectumMint : Color.arvectumBorder,
                             lineWidth: 1
                         )
                 )
@@ -454,7 +454,7 @@ private struct Chip: View {
             .font(.caption2.weight(.semibold))
             .lineLimit(1)
             .buttonStyle(.plain)
-            .foregroundStyle(Color.arvectumNavy)
+            .foregroundStyle(Color.arvectumPrimaryText)
             .padding(.horizontal, 7)
             .frame(maxWidth: .infinity)
             .frame(height: 34)
@@ -496,6 +496,24 @@ extension Color {
     static let arvectumMint = Color(red: 67 / 255, green: 229 / 255, blue: 197 / 255)
     static let arvectumNavy = Color(red: 4 / 255, green: 26 / 255, blue: 51 / 255)
     static let arvectumGraphite = Color(red: 36 / 255, green: 52 / 255, blue: 70 / 255)
+    static let arvectumPrimaryText = Color(uiColor: UIColor { traits in
+        traits.userInterfaceStyle == .dark ? .white : UIColor(red: 4 / 255, green: 26 / 255, blue: 51 / 255, alpha: 1)
+    })
+    static let arvectumAccentText = Color(uiColor: UIColor { traits in
+        traits.userInterfaceStyle == .dark
+            ? UIColor(red: 67 / 255, green: 229 / 255, blue: 197 / 255, alpha: 0.92)
+            : UIColor(red: 4 / 255, green: 26 / 255, blue: 51 / 255, alpha: 0.72)
+    })
+    static let arvectumBorder = Color(uiColor: UIColor { traits in
+        traits.userInterfaceStyle == .dark
+            ? UIColor.white.withAlphaComponent(0.12)
+            : UIColor(red: 4 / 255, green: 26 / 255, blue: 51 / 255, alpha: 0.10)
+    })
+    static let arvectumStrongBorder = Color(uiColor: UIColor { traits in
+        traits.userInterfaceStyle == .dark
+            ? UIColor.white.withAlphaComponent(0.24)
+            : UIColor(red: 4 / 255, green: 26 / 255, blue: 51 / 255, alpha: 0.22)
+    })
     static let arvectumBackground = Color(uiColor: UIColor { traits in
         traits.userInterfaceStyle == .dark
             ? UIColor(red: 4 / 255, green: 26 / 255, blue: 51 / 255, alpha: 1)
