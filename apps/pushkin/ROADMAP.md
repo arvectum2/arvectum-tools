@@ -93,8 +93,9 @@ Current UX targets:
   - [x] Add a reproducible cached catalog builder (`scripts/build_app_store_catalog.py`) so the ranking can be refreshed without manual curation.
   - [x] Pre-sign the production base package and one micro-package per supported app: 1000 micro-packages, zero missing files, ~22.7 MB total.
   - [x] Install the supplied PUSHKIN icon into the AppIcon asset set; production Simulator build succeeds.
+  - [x] Polish `+ App` for production: no forced keyboard, compact popular/results list, one concise Shortcuts instruction, empty-search state, and no physical-test fixture in the user-facing catalog.
   - [x] Physical proof A: teamless one-app micro-package imported **after** installing the controlled Future App created a fresh Notification automation; after enabling it, the real marker notification `PUSHKIN_RUNTIME_1000_PROVISIONAL_02` was captured by PUSHKIN on the physical iPhone.
-  - [x] Physical proof B: measured physical-iPhone handoff from tapping the app in PUSHKIN to the Shortcuts `Add` import preview at **2.28 s** in the instrumented XCTest run.
+  - [x] Physical proof B: measured physical-iPhone handoff from tapping the app in PUSHKIN to the Shortcuts `Add` import preview at **~2.3 s** across repeated instrumented XCTest runs (2.28–2.33 s).
 - [x] Measure event loss / duplication.
 - [x] Reduce setup to one multi-app Notification trigger, four field mappings, and automatic in-app verification.
 - [ ] Validate the guided setup with a non-technical user.

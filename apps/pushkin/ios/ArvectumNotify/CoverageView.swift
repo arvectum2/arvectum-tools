@@ -24,31 +24,10 @@ struct CoverageCatalogDocument: Codable {
 
 enum CoverageCatalog {
     static let document: CoverageCatalogDocument = load()
-
-    static var entries: [CoverageCatalogEntry] {
-#if DEBUG
-        if document.apps.contains(where: {
-            $0.bundleIdentifier == "ru.arvectum.pushkin.futuretest"
-        }) {
-            return document.apps
-        }
-
-        return document.apps + [CoverageCatalogEntry(
-            name: "PUSHKIN Future Test",
-            displayName: nil,
-            bundleIdentifier: "ru.arvectum.pushkin.futuretest",
-            teamIdentifier: nil,
-            shortcutName: "PUSHKIN Future Teamless",
-            packageFile: "PUSHKIN - PUSHKIN Future Test.shortcut",
-            rank: 1001
-        )]
-#else
-        return document.apps
-#endif
-    }
+    static var entries: [CoverageCatalogEntry] { document.apps }
 
     static var commonEntries: [CoverageCatalogEntry] {
-        var preferredBundles = [
+        let preferredBundles = [
             "ph.telegra.Telegraph", "net.whatsapp.WhatsApp",
             "ru.ozon.OzonStore", "RU.WILDBERRIES.MOBILEAPP",
             "ru.yandex.ytaxi", "ru.yandex.traffic",
@@ -60,9 +39,6 @@ enum CoverageCatalog {
             "ru.5ka.browser.app", "com.google.Gmail",
             "com.google.Maps", "com.burbn.instagram"
         ]
-#if DEBUG
-        preferredBundles.insert("ru.arvectum.pushkin.futuretest", at: 0)
-#endif
         let byBundle = Dictionary(uniqueKeysWithValues: entries.map {
             ($0.bundleIdentifier, $0)
         })
@@ -244,24 +220,23 @@ struct CoverageAppPicker: View {
     @State private var query = ""
     @State private var pendingLocalPackageURL: URL?
     @State private var pendingApp: CoverageCatalogEntry?
-    @FocusState private var searchFocused: Bool
 
     let onOpenPack: (CoverageCatalogEntry) -> Void
 
-    private var filtered: [CoverageCatalogEntry] {
-        let trimmed = query.trimmingCharacters(
-            in: .whitespacesAndNewlines
-        )
+    private var trimmedQuery: String {
+        query.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
 
-        guard !trimmed.isEmpty else {
+    private var filtered: [CoverageCatalogEntry] {
+        guard !trimmedQuery.isEmpty else {
             return CoverageCatalog.commonEntries
         }
 
         return CoverageCatalog.entries.filter {
-            $0.title.localizedCaseInsensitiveContains(trimmed)
-                || $0.name.localizedCaseInsensitiveContains(trimmed)
+            $0.title.localizedCaseInsensitiveContains(trimmedQuery)
+                || $0.name.localizedCaseInsensitiveContains(trimmedQuery)
                 || $0.bundleIdentifier
-                    .localizedCaseInsensitiveContains(trimmed)
+                    .localizedCaseInsensitiveContains(trimmedQuery)
         }
     }
 
@@ -269,39 +244,38 @@ struct CoverageAppPicker: View {
         NavigationStack {
             List {
                 Section {
-                    TextField("Search app", text: $query)
+                    TextField("Search apps", text: $query)
                         .textInputAutocapitalization(.never)
                         .autocorrectionDisabled()
-                        .focused($searchFocused)
                         .accessibilityIdentifier("app-search")
-
-                    Label(
-                        "Next: tap Add in Shortcuts, then enable the new automation once.",
-                        systemImage: "info.circle"
+                } footer: {
+                    Text(
+                        "Choose an app. Shortcuts will open; tap Add, then enable the new automation once."
                     )
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
                 }
 
-                Section {
-                    ForEach(filtered) { app in
-                        Button {
-                            open(app)
-                        } label: {
-                            VStack(
-                                alignment: .leading,
-                                spacing: 3
-                            ) {
-                                Text(app.title)
-                                    .foregroundStyle(.primary)
-                                Text("Open Shortcuts • Add • enable once")
-                                    .font(.caption)
-                                    .foregroundStyle(.secondary)
+                Section(trimmedQuery.isEmpty ? "Popular apps" : "Results") {
+                    if filtered.isEmpty {
+                        ContentUnavailableView.search(text: trimmedQuery)
+                    } else {
+                        ForEach(filtered) { app in
+                            Button {
+                                open(app)
+                            } label: {
+                                HStack(spacing: 12) {
+                                    Text(app.title)
+                                        .foregroundStyle(.primary)
+                                    Spacer()
+                                    Image(systemName: "chevron.right")
+                                        .font(.caption.weight(.semibold))
+                                        .foregroundStyle(.tertiary)
+                                }
+                                .contentShape(Rectangle())
                             }
+                            .disabled(
+                                CoverageCatalog.packageURL(for: app) == nil
+                            )
                         }
-                        .disabled(
-                            CoverageCatalog.packageURL(for: app) == nil
-                        )
                     }
                 }
             }
@@ -311,11 +285,6 @@ struct CoverageAppPicker: View {
                     Button("Cancel") {
                         dismiss()
                     }
-                }
-            }
-            .onAppear {
-                DispatchQueue.main.async {
-                    searchFocused = true
                 }
             }
             .background {
@@ -335,8 +304,6 @@ struct CoverageAppPicker: View {
         guard let url = CoverageCatalog.packageURL(for: app) else {
             return
         }
-
-        searchFocused = false
 
         if url.isFileURL {
             pendingApp = app
