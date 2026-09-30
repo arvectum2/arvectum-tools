@@ -166,14 +166,31 @@ enum PushkinFeatureFlags {
 /// are disabled, so 1.0 remains genuinely ad-free with no dead space.
 struct FutureNativeAdPlacement: View {
     var body: some View {
-        RoundedRectangle(cornerRadius: 16, style: .continuous)
-            .fill(Color.arvectumSurface)
-            .frame(height: 108)
-            .overlay {
-                Text("Sponsored")
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
-            }
-            .accessibilityIdentifier("future-native-ad-slot")
+        VStack(alignment: .leading, spacing: 8) {
+            Text("Sponsored")
+                .font(.caption2.weight(.semibold))
+                .foregroundStyle(.secondary)
+
+            RoundedRectangle(cornerRadius: 10, style: .continuous)
+                .fill(Color.arvectumBackground.opacity(0.55))
+                .frame(height: 48)
+                .overlay {
+                    Text("Native ad")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+        }
+        .padding(12)
+        .background(
+            Color.arvectumSurface,
+            in: RoundedRectangle(cornerRadius: 16, style: .continuous)
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: 16, style: .continuous)
+                .stroke(Color.arvectumBorder, lineWidth: 1)
+        )
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel("Future native ad slot")
+        .accessibilityIdentifier("future-native-ad-slot")
     }
 }

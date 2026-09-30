@@ -54,7 +54,7 @@ Removed the extra intermediate “coverage management” screen from the active 
 
 ### 5. Monetization readiness
 
-Future native ad placement is structurally located after the third History item.
+Future native ad placement is structurally located after the third History item as a compact native-feed card; it does not reserve blank space while ads are off.
 `PushkinFeatureFlags.adsEnabled` remains `false`, so the first release and current UI show no blank ad area and no SDK dependency.
 
 ## Verification evidence

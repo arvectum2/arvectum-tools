@@ -263,6 +263,15 @@ private struct InboxView: View {
 
                                 if PushkinFeatureFlags.shouldRenderNativeAdSlot && index == 2 {
                                     FutureNativeAdPlacement()
+                                        .listRowInsets(
+                                            EdgeInsets(
+                                                top: 8,
+                                                leading: 16,
+                                                bottom: 8,
+                                                trailing: 16
+                                            )
+                                        )
+                                        .listRowBackground(Color.clear)
                                         .listRowSeparator(.hidden)
                                 }
                             }

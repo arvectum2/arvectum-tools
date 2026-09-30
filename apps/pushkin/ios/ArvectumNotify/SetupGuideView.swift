@@ -32,10 +32,6 @@ struct SetupGuideView: View {
         !notifications.isEmpty
     }
 
-    private var sourceCount: Int {
-        Set(notifications.map(\.sourceApp)).count
-    }
-
     var body: some View {
         NavigationStack {
             VStack(spacing: 12) {
@@ -80,7 +76,7 @@ struct SetupGuideView: View {
 
                         Text(
                             setupVerified
-                                ? "\(sourceCount) apps connected · \(notifications.count) saved"
+                                ? "\(notifications.count) notifications saved"
                                 : "Connect notification capture once."
                         )
                         .font(.caption)

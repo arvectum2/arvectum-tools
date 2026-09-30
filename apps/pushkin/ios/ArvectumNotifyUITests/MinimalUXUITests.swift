@@ -97,6 +97,84 @@ final class MinimalUXUITests: XCTestCase {
         print("ADD_APP_AND_MANUAL_NO_SCROLL_REQUIRED_OK")
     }
 
+    func testNoDuplicateShortcutsActionsInCompactFlow() throws {
+        let app = XCUIApplication(bundleIdentifier: "ru.arvectum.tools.notify")
+        app.launchEnvironment["PUSHKIN_STORE_SCREENSHOT_FIXTURE"] = "1"
+        app.launch()
+
+        let appsTab = app.tabBars.buttons["Apps"].firstMatch
+        XCTAssertTrue(appsTab.waitForExistence(timeout: 6))
+        appsTab.tap()
+
+        XCTAssertFalse(
+            app.buttons.matching(
+                NSPredicate(
+                    format: "label CONTAINS[c] %@",
+                    "Shortcut"
+                )
+            ).firstMatch.exists,
+            "Active Apps screen must not expose a duplicate Shortcuts action"
+        )
+        XCTAssertFalse(
+            app.links.matching(
+                NSPredicate(
+                    format: "label CONTAINS[c] %@",
+                    "automation"
+                )
+            ).firstMatch.exists,
+            "Active Apps screen must not expose a duplicate automation link"
+        )
+
+        app.terminate()
+
+        let guide = XCUIApplication(bundleIdentifier: "ru.arvectum.tools.notify")
+        guide.launchEnvironment["PUSHKIN_DEBUG_SCREEN"] = "manual-add"
+        guide.launch()
+
+        let shortcuts = guide.buttons.matching(
+            NSPredicate(format: "label == %@", "Open Shortcuts")
+        )
+        XCTAssertTrue(shortcuts.firstMatch.waitForExistence(timeout: 6))
+        XCTAssertEqual(
+            shortcuts.count,
+            1,
+            "Manual setup should expose exactly one Shortcuts destination"
+        )
+        print("NO_DUPLICATE_SHORTCUTS_ACTIONS_OK")
+    }
+
+    func testFutureNativeAdSlotHasReservedFeedPosition() throws {
+        let app = XCUIApplication(bundleIdentifier: "ru.arvectum.tools.notify")
+        app.launchEnvironment["PUSHKIN_STORE_SCREENSHOT_FIXTURE"] = "1"
+        app.launchEnvironment["PUSHKIN_PREVIEW_AD_SLOT"] = "1"
+        app.launch()
+
+        let slot = app.descendants(matching: .any)
+            .matching(identifier: "future-native-ad-slot")
+            .firstMatch
+        XCTAssertTrue(slot.waitForExistence(timeout: 6))
+        XCTAssertTrue(slot.isHittable || slot.frame.height > 0)
+
+        let telegram = app.staticTexts["Telegram"].firstMatch
+        let mail = app.staticTexts["Mail"].firstMatch
+        let whatsapp = app.staticTexts["WhatsApp Messenger"].firstMatch
+
+        XCTAssertTrue(telegram.exists)
+        XCTAssertTrue(mail.exists)
+        XCTAssertTrue(whatsapp.exists)
+        XCTAssertGreaterThan(
+            slot.frame.minY,
+            mail.frame.minY,
+            "Ad slot should appear after the third notification"
+        )
+        XCTAssertLessThan(
+            slot.frame.minY,
+            whatsapp.frame.minY,
+            "Ad slot should appear before the fourth notification"
+        )
+        print("FUTURE_NATIVE_AD_SLOT_OK")
+    }
+
     func testHistorySearchKeyboardCanBeDismissed() throws {
         let app = XCUIApplication(bundleIdentifier: "ru.arvectum.tools.notify")
         app.launchEnvironment["PUSHKIN_STORE_SCREENSHOT_FIXTURE"] = "1"

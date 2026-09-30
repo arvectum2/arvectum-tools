@@ -359,10 +359,10 @@ struct ManualCoverageGuide: View {
 
             ArvectumCard {
                 VStack(spacing: 12) {
-                    step(1, "Automation → Notification → choose app.")
+                    step(1, "Notification → choose app.")
                     step(2, "Add PUSHKIN → Archive Notification.")
-                    step(3, "Map App, Title, Subtitle and Text.")
-                    step(4, "Run immediately, then save.")
+                    step(3, "Map App · Title · Subtitle · Text.")
+                    step(4, "Run immediately → Save.")
                 }
             }
 

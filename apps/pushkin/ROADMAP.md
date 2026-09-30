@@ -64,7 +64,7 @@ The submitted 1.0 build stays in App Review. UI changes below target the next bu
 - [x] Reserve future native-ad insertion point after the third History item; ads remain disabled and no blank placeholder is shown.
 - [x] Complete product/IA/visual/iOS interaction cross-review in `docs/UX_REVIEW.md`.
 - [x] Build the redesign successfully for simulator and physical iPhone after clearing the stale Xcode compiler processes.
-- [ ] Capture light/dark screenshots on simulator and physical iPhone.
+- [x] Capture all five review screens in simulator Light/Dark and render all five on the connected physical iPhone in its current appearance.
 - [ ] Product-owner visual approval.
 - [ ] Only after approval: merge/release next build; add the planned ad SDK for the second public release.
 
