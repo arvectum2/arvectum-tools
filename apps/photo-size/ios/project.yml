@@ -261,7 +261,6 @@ targets:
           - SKAdNetworkIdentifier: xga6mpmplv.skadnetwork
           - SKAdNetworkIdentifier: 53nm4hsx3w.skadnetwork
         UIRequiresFullScreen: true
-        UIUserInterfaceStyle: Light
         UILaunchScreen: {}
         UISupportedInterfaceOrientations:
           - UIInterfaceOrientationPortrait
@@ -276,8 +275,8 @@ targets:
           - "-ObjC"
         PRODUCT_NAME: PhotoPodRazmer
         PRODUCT_MODULE_NAME: PhotoPodRazmer
-        MARKETING_VERSION: "0.4.2"
-        CURRENT_PROJECT_VERSION: "2"
+        MARKETING_VERSION: "0.5.0"
+        CURRENT_PROJECT_VERSION: "3"
         TARGETED_DEVICE_FAMILY: "1"
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         GENERATE_INFOPLIST_FILE: NO
