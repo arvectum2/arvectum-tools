@@ -54,7 +54,7 @@ struct ShortcutNotificationPayload: Equatable {
 struct CaptureNotificationIntent: AppIntent {
     static var title: LocalizedStringResource = "Archive Notification"
     static var description = IntentDescription(
-        "Save an incoming notification to Arvectum Notify."
+        "Save an incoming notification to PUSHKIN."
     )
     static var openAppWhenRun = false
 

@@ -2,10 +2,14 @@ import SwiftData
 import SwiftUI
 
 struct SetupGuideView: View {
+    @Environment(\.openURL) private var openURL
+
     @Query(sort: \CapturedNotification.capturedAt, order: .reverse)
     private var notifications: [CapturedNotification]
 
-    private let shortcutsURL = URL(string: "shortcuts://")!
+    @State private var pendingBasePackageURL: URL?
+
+    private let automationsURL = URL(string: "shortcuts://automations")!
 
     private var sourceCount: Int {
         Set(notifications.map(\.sourceApp)).count
@@ -17,57 +21,95 @@ struct SetupGuideView: View {
                 phaseSection
                     .headerProminence(.increased)
                 chooseAppsSection
+                coverageRefreshSection
                 mappingSection
                 backgroundSection
                 verifySection
                 privacySection
             }
             .navigationTitle("Setup")
+            .background {
+                ShortcutPackagePresenter(
+                    packageURL: $pendingBasePackageURL
+                ) {}
+            }
         }
     }
 
     private var phaseSection: some View {
-        Section("Phase 0") {
+        Section("Compatibility") {
             Label(
-                "Requires iOS 27 notification automations",
+                "iOS 27 or later",
                 systemImage: "iphone.gen3"
             )
             secondaryText(
-                "One Notification trigger can monitor several selected apps."
+                "PUSHKIN uses the system Notification automation in Shortcuts."
             )
         }
     }
 
     private var chooseAppsSection: some View {
-        Section("1. Choose apps") {
-            Text("Open Shortcuts and edit Archive Notification.")
-            Text(
-                "Add a Notification automation, choose one app, then use + to add more apps to the same trigger."
+        Section("1. Turn on PUSHKIN") {
+            if let url = CoverageCatalog.basePackageURL {
+                Button {
+                    if url.isFileURL {
+                        pendingBasePackageURL = url
+                    } else {
+                        openURL(url)
+                    }
+                } label: {
+                    Label(
+                        "Install notification coverage",
+                        systemImage: "wand.and.stars"
+                    )
+                }
+            }
+
+            secondaryText(
+                "Add the signed PUSHKIN configuration once, then enable its automation. No app-by-app selection is required during onboarding."
             )
-            Link("Open Shortcuts", destination: shortcutsURL)
+
+            Link(destination: automationsURL) {
+                Label(
+                    "Open Automation",
+                    systemImage: "switch.2"
+                )
+            }
+        }
+    }
+
+    private var coverageRefreshSection: some View {
+        Section("App coverage") {
+            NavigationLink {
+                CoverageView()
+            } label: {
+                Label("Manage app coverage", systemImage: "square.stack.3d.up")
+            }
+            secondaryText(
+                "New apps use one-app refresh configurations. PUSHKIN never rebuilds the whole catalog during normal use."
+            )
         }
     }
 
     private var mappingSection: some View {
-        Section("2. Map notification fields") {
-            mappingRow("Source app", "App")
-            mappingRow("Title", "Title")
-            mappingRow("Subtitle", "Subtitle")
-            mappingRow("Message", "Text")
-
+        Section("Configured automatically") {
+            Label(
+                "Notification fields are already mapped",
+                systemImage: "checkmark.circle"
+            )
             secondaryText(
-                "For each value, choose the Notification magic variable and then the property shown above."
+                "The signed PUSHKIN configuration already passes the app, title, subtitle and message into the local archive."
             )
         }
     }
 
     private var backgroundSection: some View {
-        Section("3. Allow background capture") {
+        Section("If iOS asks") {
             Text(
-                "In the shortcut privacy settings, enable Allow Running When Locked."
+                "Allow the PUSHKIN shortcut to run while the iPhone is locked."
             )
-            Text(
-                "Keep confirmation prompts disabled when iOS offers that option."
+            secondaryText(
+                "This is a system privacy confirmation, not a recurring setup step."
             )
         }
     }
@@ -86,7 +128,7 @@ struct SetupGuideView: View {
                     )
                 )
                 secondaryText(
-                    "Your automation has successfully written notification data to Arvectum Notify."
+                    "Your automation has successfully written notification data to PUSHKIN."
                 )
             } else {
                 Label(

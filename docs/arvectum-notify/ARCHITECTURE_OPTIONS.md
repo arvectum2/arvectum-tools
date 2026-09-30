@@ -28,71 +28,102 @@ The Shortcuts per-app trigger remains useful as a research harness, but it is no
 | macOS iPhone notification mirroring | Yes on supported Apple setup | Yes | No — Mac required | Region-dependent | No public third-party feed API found | Niche / not core |
 | Private APIs / jailbreak / sideload-only | Potentially | Varies | Yes | Varies | No | Reject for App Store product |
 
-## Candidate 0 — Sharded Shortcuts automations + PUSHKIN router
+## Candidate 0 — Catalog Shortcuts automation + PUSHKIN router
 
 This is now the **primary software-only architecture hypothesis**. The BLE/ANCS path is retained as a fallback, not the preferred consumer UX.
 
-### Core idea
+### 2026-09-29 measured update
 
-Instead of one Notification automation containing every source app, create several automation-enabled shortcuts (shards). Each shard watches a different subset of apps and invokes the same PUSHKIN `CaptureNotificationIntent`. PUSHKIN itself is the router: the incoming notification already contains the source app plus title/subtitle/message, so all shards write into the same local inbox and no user-visible routing layer is needed.
+The earlier sharding assumption is no longer necessary for **initial catalog scale**. A physical iPhone accepted and preserved **1000 `SelectedApps` entries in one Notification trigger**. The preferred onboarding design remains one large base catalog automation. Small shards are now reintroduced only as **incremental refresh overlays** so that late-installed apps do not force a minute-long TOP-1000 rebuild.
 
-Example:
+A descriptor for an app that was absent at import time was also preserved correctly. However, after that app was later installed, its real notification did not trigger PUSHKIN. iOS therefore does not continuously re-resolve the serialized catalog after the installed-app set changes.
+
+The remaining software-only problem has narrowed from “how do we provision 1000 apps?” to **“how do we refresh the system binding after the installed-app set changes?”**
+
+Current best UX candidate:
 
 ```text
-Shard 1: apps 1–25   ─┐
-Shard 2: apps 26–50  ─┤
-Shard 3: apps 51–75  ─┼─> CaptureNotificationIntent -> PUSHKIN SwiftData
-Shard 4: apps 76–100 ─┘
+Initial setup:
+PUSHKIN -> Add TOP-1000 base catalog -> enable once
+
+After installing a new catalog app:
+PUSHKIN -> + App -> search app -> tap result
+        -> open that app's one-app signed micro-package
+        -> Add Shortcut -> enable if needed
 ```
 
-The previously assumed 25-app maximum is **not supported by current evidence**. A publicly shared iOS 27 shortcut was downloaded from Apple's iCloud Shortcuts service and its raw plist inspected. Its single `WFNotificationTrigger` contains **49 entries** in `SelectedApps`. Opening that public share on the physical iPhone 13 presents the normal single `Add` consent screen. The actual model/import maximum remains to be measured, but it is at least 49.
+`shortcuts://automations` has been verified on iOS 27 Simulator and from the actual PUSHKIN UI. Attempts to deep-link to one specific automation by UUID/name/filter were ignored. The Shortcuts action registry exposes no action that can mutate another personal automation in the background, so a fully unattended daily refresh is not currently available through public APIs.
+
+Physical testing disproved OFF -> ON as a sufficient rebind mechanism for the controlled late-installed app. The remaining decisive proof is that importing a **one-app micro-package after installation** binds that app on physical hardware.
+
+### Core idea
+
+Ship one signed automation-enabled shortcut whose `WFNotificationTrigger` contains a broad catalog of supported app descriptors. Every matching notification invokes the same PUSHKIN `CaptureNotificationIntent`; PUSHKIN normalizes and stores all events in the same local inbox.
+
+```text
+Top-1000 app catalog in one WFNotificationTrigger
+                     |
+                     v
+          CaptureNotificationIntent
+                     |
+                     v
+              PUSHKIN SwiftData
+```
+
+This avoids asking the user to select hundreds of apps manually and avoids a router/shard management layer. The physical 1000-app test shows that catalog size itself is not the current blocker.
 
 ### Important serialization finding
 
-The physical iPhone shortcut syncs to macOS. Inspection of the local Shortcuts Core Data store shows the automation as a `ZUNIFIEDTRIGGER` whose binary plist contains:
+Inspection of Shortcuts Core Data shows that `SelectedApps` is serialized inside a `ZUNIFIEDTRIGGER` binary plist. Known descriptors commonly contain `BundleIdentifier`, `Name`, and `TeamIdentifier`, but iOS 27 Simulator also accepted and persisted a CapCut descriptor containing only `BundleIdentifier` + `Name`; `TeamIdentifier` was absent. Physical runtime capture without TeamIdentifier remains to be proven. Physical testing additionally proved that a descriptor may remain serialized even when that app is not installed at import time.
 
-- `WFTriggerIdentifier = WFNotificationTrigger`;
-- `WFTriggerSerializedParameters`;
-- `SelectedApps`, an array of dictionaries containing `BundleIdentifier`, `Name`, and `TeamIdentifier`.
-
-For the current physical test, the synced trigger contained the exact ten configured apps. This proves the app selection is represented as serializable shortcut data rather than being only transient picker state. It makes generated/imported shards a concrete research path.
-
-### What is already easy
-
-- Multiple shards can all invoke the same App Intent.
-- PUSHKIN can de-duplicate and normalize centrally.
-- Shard identity does not need to be exposed to the user.
-- iOS 27 places automation triggers inside shortcuts, and shortcuts can be duplicated and shared.
+That makes a prebuilt catalog technically possible. The limitation is lifecycle binding: installing a catalog app later does not automatically make the already-registered trigger observe it.
 
 ### Share/import proof
 
-Apple's iCloud Shortcuts share record exposes both a raw shortcut asset and a signed shortcut asset. The raw exported shortcut contains `WFWorkflowTriggers`, including the complete Notification trigger and its `SelectedApps` array. This independently confirms that iOS 27 automation triggers are shareable shortcut data.
+Generated automation-enabled `.shortcut` files can carry the complete `WFWorkflowTriggers` payload, including the `SelectedApps` catalog, and can be signed with Apple's `shortcuts sign --mode anyone` flow. The physical iPhone accepted the generated 1000-app shortcut.
 
-A safe PUSHKIN test file was also generated locally by taking the existing `CaptureNotificationIntent` action, attaching a 49-app Notification trigger, and signing the resulting `.shortcut` with the system `shortcuts sign --mode anyone` command. Signing succeeds. The legacy arbitrary-URL `workflow://import-workflow` path is rejected on iOS 27, while Safari treats the signed `.shortcut` as a downloadable Shortcut file. For the smoothest production UX, pre-published Apple iCloud shortcut links remain the strongest installer candidate because they open directly to one system `Add` confirmation.
+The legacy arbitrary-URL `workflow://import-workflow` path is not the production path. Signed shortcut files / Apple share links remain the installer candidates, with the goal of one system Add confirmation rather than per-app setup.
 
-### The remaining hard problem: zero-touch provisioning
+### Remaining hard problem: refresh after app installation
 
-A production PUSHKIN must not ask the user to manually choose every installed app. Public App Intents expose PUSHKIN actions but do not currently expose an API that writes the Shortcuts Notification trigger's `SelectedApps` array. The documented Shortcuts URL scheme can open/create/run shortcuts, but not configure automation trigger parameters.
+The provisioning-scale questions are now closed for the tested 1000-app case:
 
-The following installer paths must now be tested on-device:
+1. **Large trigger:** proven at 1000 entries on physical hardware.
+2. **Uninstalled descriptor retention:** proven.
+3. **Automatic late binding:** disproven.
+4. **Simple open/re-save by merely opening the shortcut:** disproven as an automatic re-resolve mechanism.
+5. **OFF -> ON refresh:** disproven for the controlled late-installed app.
+6. **Full re-import as routine refresh:** technically possible but product-unacceptable because Shortcuts can spend a minute or more resolving all 1000 descriptors.
 
-1. **Shared automation template** — export/share a shortcut with its Notification trigger and verify that imported copies preserve the automation trigger.
-2. **Import Questions** — test whether the trigger's `SelectedApps` parameter is eligible for a Setup/Import Question and, if so, whether its picker supports multi-selection or any mass-selection behavior.
-3. **Signed `.shortcut` generation** — export an automation-enabled shortcut, inspect the file format, modify the serialized `SelectedApps`, sign it using Apple's Shortcuts signing flow, and re-import it on a clean test shortcut.
-4. **Uninstalled-app descriptors** — test whether a signed imported trigger may contain valid app descriptors for apps that are not currently installed. If yes, PUSHKIN could ship catalog-based shards instead of enumerating the device.
-5. **Imported trigger size** — test whether the apparent per-trigger app limit is enforced by the model/importer or only by UI.
-6. **Multi-shard installation UX** — test whether multiple signed shard shortcuts can be chained through import links / x-callback so the user approves a small number of system dialogs instead of configuring apps one-by-one.
+The preferred refresh hypothesis is now **one supported app = one pre-signed micro-package**. After the user identifies a newly installed app, PUSHKIN opens only that app's local signed `.shortcut`. The package is imported after the app exists on-device, so Shortcuts gets a fresh chance to bind exactly one descriptor without reprocessing the full catalog. At roughly 22 KB per signed micro-package, even 1000 embedded packages add only about 22 MB to the app bundle.
 
 ### Installed-app discovery constraint
 
-Outside the EU, a normal App Store app still has no public API for enumerating every installed third-party app. In the EU, `FamilyActivityData.installedApplications` can expose real bundle identifiers after `approvedWithDataAccess` authorization, but this is region-restricted and entitlement-gated.
+A normal global App Store app still cannot enumerate every installed third-party app. The catalog design deliberately avoids needing that list: it ships known descriptors up front and relies on Shortcuts to resolve the subset installed at registration time.
 
-Therefore there are two possible ways to reach the desired one-click experience:
+The production catalog is now generated from Apple's current Top Free charts across 36 storefronts, ranked by cross-storefront presence and chart position, with six core iOS system apps retained for notification coverage. The current manifest contains 1000 unique Bundle IDs and is reproducible through `scripts/build_app_store_catalog.py`. This is a current-popularity composite, not a claim about Apple's private lifetime download counts.
 
-- **Exact-device generation:** obtain the installed app list through an allowed system capability, then generate shards containing exactly those apps. This is currently plausible only in the EU via Family Controls and still requires a supported import mechanism.
-- **Catalog-based generation:** generate shards containing a broad catalog of valid App Store/system app descriptors and rely on Shortcuts matching only apps that actually generate notifications. This becomes viable only if imported triggers accept descriptors for apps not currently installed and tolerate a sufficiently large list.
+This means PUSHKIN can target the top 1000 (and later a larger maintained catalog if testing supports it), while a **Custom** path handles uncommon apps. Newly installed catalog apps require a binding refresh unless Apple begins resolving them dynamically.
 
-**Gate S1:** do not reject the software-only architecture until the share/import/signing path and trigger serialization limits have been tested physically.
+### Target UX for incremental coverage refresh
+
+Initial setup:
+
+```text
+Install PUSHKIN -> Add TOP-1000 base catalog -> enable -> done
+```
+
+Later, after installing a new app:
+
+```text
+PUSHKIN -> + App -> search/select app
+        -> local one-app package opens directly in Shortcuts
+        -> Add Shortcut -> enable if required -> done
+```
+
+A full TOP-1000 refresh remains available as maintenance, not the normal path. PUSHKIN may show a stale-coverage reminder, but it must not claim to have refreshed coverage in the background because public APIs do not expose the required mutation.
+
+**Gate S1:** prove on physical hardware that a one-app micro-package imported after installation binds the controlled late-installed app, then measure end-to-end micro-package import latency.
 
 ## Candidate A — PUSHKIN Tag using ANCS (fallback hardware path)
 

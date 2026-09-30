@@ -23,20 +23,65 @@ struct ContentView: View {
 }
 
 private struct InboxView: View {
+    @Environment(\.openURL) private var openURL
+
     @Query(sort: \CapturedNotification.capturedAt, order: .reverse)
     private var notifications: [CapturedNotification]
+
+    @AppStorage("coverage.quickRefreshCount")
+    private var quickRefreshCount = 0
+
+    @AppStorage("coverage.lastQuickRefreshName")
+    private var lastQuickRefreshName = ""
+
+    @AppStorage("coverage.lastQuickRefreshAt")
+    private var lastQuickRefreshAt = 0.0
+
+    @State private var showAppPicker = false
+    @State private var pendingBasePackageURL: URL?
+
+    private let automationsURL = URL(string: "shortcuts://automations")!
 
     var body: some View {
         NavigationStack {
             Group {
                 if notifications.isEmpty {
-                    ContentUnavailableView(
-                        "No captured notifications yet",
-                        systemImage: "bell.slash",
-                        description: Text(
-                            "Finish the Shortcuts setup, then wait for a real notification."
+                    VStack(spacing: 18) {
+                        ContentUnavailableView(
+                            "Never lose a notification",
+                            systemImage: "bell.badge",
+                            description: Text(
+                                "Set up PUSHKIN once, then incoming notifications can be archived automatically."
+                            )
                         )
-                    )
+
+                        if let url = CoverageCatalog.basePackageURL {
+                            Button {
+                                if url.isFileURL {
+                                    pendingBasePackageURL = url
+                                } else {
+                                    openURL(url)
+                                }
+                            } label: {
+                                Label(
+                                    "Set up PUSHKIN",
+                                    systemImage: "wand.and.stars"
+                                )
+                            }
+                            .buttonStyle(.borderedProminent)
+                            .accessibilityIdentifier("setup-pushkin")
+                        }
+
+                        Link(destination: automationsURL) {
+                            Label(
+                                "Enable PUSHKIN automation",
+                                systemImage: "switch.2"
+                            )
+                        }
+                        .font(.footnote)
+                        .accessibilityIdentifier("enable-pushkin-automation")
+                    }
+                    .padding()
                 } else {
                     List(notifications) { item in
                         NavigationLink {
@@ -47,7 +92,32 @@ private struct InboxView: View {
                     }
                 }
             }
-            .navigationTitle("Arvectum Notify")
+            .navigationTitle("PUSHKIN")
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        showAppPicker = true
+                    } label: {
+                        Label(
+                            "Add app",
+                            systemImage: "plus.app"
+                        )
+                    }
+                    .accessibilityIdentifier("add-app")
+                }
+            }
+            .sheet(isPresented: $showAppPicker) {
+                CoverageAppPicker { app in
+                    lastQuickRefreshName = app.name
+                    lastQuickRefreshAt = Date().timeIntervalSince1970
+                    quickRefreshCount += 1
+                }
+            }
+            .background {
+                ShortcutPackagePresenter(
+                    packageURL: $pendingBasePackageURL
+                ) {}
+            }
         }
     }
 }

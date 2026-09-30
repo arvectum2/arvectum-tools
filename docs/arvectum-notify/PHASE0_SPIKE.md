@@ -200,7 +200,42 @@ After the Any-App Shortcuts experiment failed, the public iOS 27 system APIs wer
 - **MDM notification settings**: can manage notification settings on supervised iOS devices. This is an enterprise/supervised-device path, not a mass-market consumer capture API. Rejected for the product.
 - **Accessory Notifications**: this is the one public iOS 27 framework found that can forward iOS system notifications from **all applicable apps** after one user authorization. It exposes notification content and an `allow` decision for all apps. However, it is designed for a companion app plus an accessory registered through AccessorySetupKit / Accessory Transport, and customer installations can use notification forwarding only on eligible EU iPhones with EU Apple Accounts. It therefore does not provide a global pure-iPhone App Store solution.
 
-Current conclusion: no public iOS 27 API path found provides a pure-iPhone, global, zero-touch listener for notification contents from every third-party app. The universal Notify product must not proceed on the Shortcuts architecture unless Apple exposes a new system capability.
+Current conclusion: no public iOS 27 API path found provides a pure-iPhone, truly zero-touch listener for notification contents from every third-party app. However, the later 1000-app catalog experiment reopens a practical software-only product path: one prebuilt catalog automation can cover apps already installed at registration time, with a small manual refresh potentially required after later installs. That refresh path remains gated on the final physical OFF -> ON rebind test.
+
+## Catalog-scale trigger and late-install refresh — 2026-09-29
+
+The software-only catalog hypothesis was tested beyond the earlier 49-app public shortcut sample.
+
+### 1000-app trigger
+
+A generated and signed shortcut containing **1000 distinct `SelectedApps` descriptors** in one `WFNotificationTrigger` was imported and opened on the physical iPhone. The Shortcuts data model preserved all 1000 entries. The previously suspected ~25-app limit is therefore not a blocker, and sharding is not required for a top-1000 catalog unless a different production constraint appears.
+
+### App installed after catalog import
+
+A controlled app descriptor was included in the imported catalog before the app itself existed on the iPhone:
+
+- bundle ID: `ru.arvectum.pushkin.futuretest`;
+- name: `PUSHKIN Future Test`;
+- team ID: `VML75VY94V`.
+
+The descriptor remained present in `SelectedApps`. After the test app was installed, it delivered a real local notification (`PUSHKIN_RUNTIME_1000_PROVISIONAL_02`), verified independently through `UNUserNotificationCenter`. PUSHKIN did **not** capture that notification.
+
+Conclusion: Shortcuts preserves unknown catalog descriptors, but iOS does **not** automatically bind a newly installed app to an already-registered Notification automation.
+
+### Refresh experiments
+
+- `SelectedApps = []` remains invalid; it is not an Any-App wildcard.
+- Merely opening the existing catalog shortcut does not re-resolve a newly installed app.
+- Turning the existing automation off and back on does not provide a reliable rebind: the controlled late-install test still missed the Future App notification.
+- Same-name re-import with **Replace** is structurally viable when the replacement package carries a fresh `WFTriggerUUID`. Shortcuts tombstones the old workflow and leaves one visible replacement rather than accumulating user-visible duplicates.
+- In the clean simulator A/B test, the active trigger changed from UUID `10F0110E-28CD-4374-A724-A3E1B98559C4` to `53F4697C-4607-4AEF-A4B8-EE427DB46D5B` after Replace.
+- The replacement automation is disabled after import (`Automation Toggle = 0`), so the user must enable it again.
+- `shortcuts://automations` works and lets PUSHKIN open the Automation list directly.
+- The legacy `shortcuts://import-shortcut?url=...` scheme rejects the raw signed `.shortcut` URL in the iOS 27 simulator, so it is not being treated as a production import path.
+
+Current refresh candidate: **fresh signed catalog package → Add Shortcut → Replace → enable the replacement automation**. The catalog package can keep the same visible name while rotating the trigger UUID.
+
+The iOS Simulator proves the replacement/tombstone semantics but cannot prove notification-trigger execution itself. Its `ExternalTriggers` database remains empty and imported Notification automations retain `ZPENDINGINITIALSYNC = 1`. One final physical-device test is still required later to verify that the fresh replacement actually binds an app installed after the original catalog import.
 
 ## Re-alert feasibility
 

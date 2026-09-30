@@ -18,6 +18,14 @@ The product starts with notification history and progressively expands into snoo
 
 ## Product principles
 
+**Primary product metric:** minimize required user actions during initial setup and whenever app coverage changes. Every technical choice should be judged first by tap count, typing, waiting time, and number of system confirmations.
+
+Current UX targets:
+- onboarding: one PUSHKIN tap -> one system `Add Shortcut` -> at most one automation-enable action;
+- common newly installed app: `+ App` -> tap app -> system `Add Shortcut` -> at most one automation-enable action;
+- uncommon newly installed app: `+ App` -> type/search -> tap app -> system `Add Shortcut` -> at most one automation-enable action;
+- no full TOP-1000 rebuild in the normal update path.
+
 1. **Mass-market first.** No power-user complexity on the main path.
 2. **Immediate value.** The user should understand the product in seconds.
 3. **Local-first privacy.** Notifications stay on-device by default.
@@ -66,7 +74,27 @@ The product starts with notification history and progressively expands into snoo
   - [x] FamilyActivityData: EU-only installed-app discovery, no notification-content access.
   - [x] MDM: supervised-device path, not consumer capture.
   - [x] Accessory Notifications: true all-app forwarding exists, but requires an accessory and is EU-only for customer use.
-- [ ] Re-check source-app availability when the installed-app set changes.
+- [x] Re-check source-app availability when the installed-app set changes.
+  - [x] A single imported `WFNotificationTrigger` accepts and preserves **1000 `SelectedApps`** entries on a physical iPhone.
+  - [x] Descriptors for apps that are not installed at import time remain serialized in `SelectedApps`.
+  - [x] Installing such an app later does **not** automatically activate capture for it.
+  - [x] `shortcuts://automations` opens the Shortcuts Automation list directly from PUSHKIN.
+  - [x] Reject **off -> on** as the refresh mechanism; it did not make the controlled late-installed Future App capture.
+  - [x] Prove same-name **Replace** with a fresh `WFTriggerUUID` tombstones the previous workflow and leaves one visible replacement.
+  - [x] Confirm replacement resets the automation toggle to OFF and therefore requires explicit re-enable.
+  - [x] Reject a full TOP-1000 rebuild as the normal per-app refresh UX: Shortcuts can spend a minute or more resolving the complete catalog.
+  - [x] Prototype two-layer coverage UX: one large base catalog plus incremental refresh overlays.
+  - [x] Compare 10/25/50-app pack shapes, then switch the normal refresh path to **one app = one micro-pack** to minimize user waiting and avoid unrelated Replace operations.
+  - [x] Add a versioned JSON coverage manifest and deterministic micro-pack generator. Shortcut names stay stable per app; trigger UUIDs change by catalog version.
+  - [x] Add direct Inbox toolbar flow: `+ App -> search -> tap app -> open micro-pack`.
+  - [x] Verify the minimal update flow on Simulator: **2 taps inside PUSHKIN + one text entry** before the system import UI.
+  - [x] Add hard deduplication for identical captures arriving within 2 seconds, so overlapping base/micro automations do not create duplicate inbox rows.
+  - [x] Build the real production TOP-1000 source manifest from current Apple App Store Top Free charts across 36 storefronts; resolve all entries to real Bundle IDs and keep six key iOS system apps for notification coverage.
+  - [x] Add a reproducible cached catalog builder (`scripts/build_app_store_catalog.py`) so the ranking can be refreshed without manual curation.
+  - [x] Pre-sign the production base package and one micro-package per supported app: 1000 micro-packages, zero missing files, ~22.7 MB total.
+  - [x] Install the supplied PUSHKIN icon into the AppIcon asset set; production Simulator build succeeds.
+  - [ ] Physical proof A: verify that a teamless one-app micro-package imported after installation binds the controlled late-installed Future App.
+  - [ ] Physical proof B: measure one-app micro-package import latency on physical iPhone.
 - [x] Measure event loss / duplication.
 - [x] Reduce setup to one multi-app Notification trigger, four field mappings, and automatic in-app verification.
 - [ ] Validate the guided setup with a non-technical user.
@@ -499,9 +527,9 @@ Store:
 
 **Question:** Can iOS reliably provide enough notification data through an acceptable setup flow?
 
-**Current result for the full-product requirement:** No through the iOS 27 Shortcuts Notification trigger. Capture works, but every source app must be explicitly configured; an empty App value cannot be enabled and no Any App / select-all mode is exposed.
+**Current result for the full-product requirement:** Gate reopened by the catalog-import experiments. An empty App value still cannot be used as a wildcard, but a single generated Notification trigger has now preserved **1000 explicit app descriptors** on physical hardware. That removes per-app manual selection from initial setup for a maintained catalog.
 
-Do not advance the universal notification-history product to Phase 1 on this architecture. Investigate a different system capability or redefine the product before further UI work.
+The remaining blocker is lifecycle refresh on physical hardware. OFF -> ON has been rejected. Simulator A/B testing shows that a same-name signed replacement carrying a fresh trigger UUID cleanly tombstones the previous workflow and leaves one visible replacement, but the replacement starts disabled. Do not close Gate A until one physical test verifies **fresh-package Replace -> re-enable -> late-installed app notification**.
 
 ## Gate B — after internal MVP
 
@@ -525,13 +553,14 @@ Use the answer to choose the 1.x roadmap rather than building all advanced featu
 
 # Immediate next steps
 
-1. Make **sharded Notification automations + one PUSHKIN router App Intent** the primary software-only architecture hypothesis.
-2. [x] Reject the assumed 25-app cap as current evidence: a public iOS 27 shared Notification automation contains 49 selected apps in one trigger; measure the actual upper bound separately.
-3. [x] Verify automation export/share serialization: public iCloud `.shortcut` contains the full `WFNotificationTrigger` and 49-entry `SelectedApps` array; import preview requires one system Add confirmation.
-4. Test whether Notification-trigger `SelectedApps` can be exposed as a Setup / Import Question and whether the import UI supports multi-selection.
-5. [x] Generate and sign a safe PUSHKIN `.shortcut` with a modified 49-app `SelectedApps` array; signing succeeds. Next verify final on-device import/persistence through an Apple-supported share path.
-6. Test imported triggers with uninstalled app descriptors and with more than the UI's apparent app limit.
-7. If importable shards are viable, design a PUSHKIN installer flow that chains a small number of signed shards into the same `CaptureNotificationIntent`.
-8. Investigate exact-device app discovery where allowed (EU `FamilyActivityData.installedApplications`) and catalog-based shards for global coverage.
-9. Keep the BLE/ANCS **PUSHKIN Tag** architecture as Plan B only; no user hardware purchase in the preferred product.
-10. [x] Same-device BLE loopback tested and closed: no self-discovery after 10 seconds.
+1. [x] Replace the sharding hypothesis with **one catalog Notification automation + one PUSHKIN capture App Intent**.
+2. [x] Prove a single physical-iPhone trigger can preserve **1000 `SelectedApps`** entries.
+3. [x] Prove an uninstalled app descriptor can remain serialized in the imported catalog.
+4. [x] Prove that installing that app later does **not** automatically bind it to the already-registered automation.
+5. [x] Reject simple shortcut opening as a refresh mechanism.
+6. [x] Verify `shortcuts://automations` and wire a PUSHKIN **Open Automation to Refresh** handoff; simulator UI test passes.
+7. [x] Check for a Shortcuts action/API that enables or disables another personal automation; none exposed in the iOS 27 action registry.
+8. **Next decisive physical test:** toggle the existing catalog automation **OFF -> ON**, send the Future Test notification, and verify whether PUSHKIN captures it.
+9. If OFF/ON works, finalize the mass-market model: **top-1000 one-time import + manual Update coverage + Custom for rare apps**.
+10. If OFF/ON fails, test a controlled replace/recreate flow that does not accumulate duplicate shortcuts before accepting or rejecting the software-only architecture.
+11. Keep BLE/ANCS PUSHKIN Tag as Plan B only; the preferred product must not require extra hardware.

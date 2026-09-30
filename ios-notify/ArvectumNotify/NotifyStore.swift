@@ -36,12 +36,27 @@ actor NotifyPersistenceActor {
         recentDescriptor.fetchLimit = 50
 
         let recent = try modelContext.fetch(recentDescriptor)
-        let duplicate = recent.contains { item in
-            abs(item.capturedAt.timeIntervalSince(draft.capturedAt)) <= 10
-                && item.sourceApp == draft.sourceApp
+        let matching = recent.filter { item in
+            item.sourceApp == draft.sourceApp
                 && item.titleText == draft.titleText
                 && item.subtitleText == draft.subtitleText
                 && item.bodyText == draft.bodyText
+        }
+
+        // Multiple notification automations may overlap during incremental
+        // coverage refreshes. Their App Intents can arrive almost
+        // simultaneously. Suppress that transport-level duplicate entirely
+        // so the user sees one notification in PUSHKIN.
+        if let existing = matching.first(where: {
+            abs($0.capturedAt.timeIntervalSince(draft.capturedAt)) <= 2
+        }) {
+            return existing.id
+        }
+
+        // Keep the broader 10-second signal as diagnostics only. A genuine
+        // repeated notification several seconds later should still be stored.
+        let duplicate = matching.contains {
+            abs($0.capturedAt.timeIntervalSince(draft.capturedAt)) <= 10
         }
 
         let record = CapturedNotification(

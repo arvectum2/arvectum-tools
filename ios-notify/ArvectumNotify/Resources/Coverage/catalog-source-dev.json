@@ -1,0 +1,250 @@
+{
+  "catalogVersion": 4,
+  "apps": [
+    {
+      "name": "Slack",
+      "bundleIdentifier": "com.tinyspeck.chatlyio",
+      "teamIdentifier": "BQR82RBBHL"
+    },
+    {
+      "name": "Spark",
+      "bundleIdentifier": "com.readdle.smartemail",
+      "teamIdentifier": "3L68KQB4HG"
+    },
+    {
+      "name": "Messages",
+      "bundleIdentifier": "com.apple.MobileSMS",
+      "teamIdentifier": "0000000000"
+    },
+    {
+      "name": "Linear",
+      "bundleIdentifier": "com.linear.ios",
+      "teamIdentifier": "7VZ2S3V9RV"
+    },
+    {
+      "name": "X",
+      "bundleIdentifier": "com.atebits.Tweetie2",
+      "teamIdentifier": "N66CZ3Y3BX"
+    },
+    {
+      "name": "Auto Clock-in",
+      "bundleIdentifier": "jp.ai.kotoba.money",
+      "teamIdentifier": "9H2232HU83"
+    },
+    {
+      "name": "Calendar",
+      "bundleIdentifier": "com.apple.mobilecal",
+      "teamIdentifier": "0000000000"
+    },
+    {
+      "name": "Claude",
+      "bundleIdentifier": "com.anthropic.claude",
+      "teamIdentifier": "Q6L2SF6YDW"
+    },
+    {
+      "name": "ChatGPT",
+      "bundleIdentifier": "com.openai.chat",
+      "teamIdentifier": "2DC432GLL2"
+    },
+    {
+      "name": "Discord",
+      "bundleIdentifier": "com.hammerandchisel.discord",
+      "teamIdentifier": "53Q6R32WPB"
+    },
+    {
+      "name": "Facebook",
+      "bundleIdentifier": "com.facebook.Facebook",
+      "teamIdentifier": "V9WTTPBFK9"
+    },
+    {
+      "name": "FaceTime",
+      "bundleIdentifier": "com.apple.facetime",
+      "teamIdentifier": "0000000000"
+    },
+    {
+      "name": "HEY Email",
+      "bundleIdentifier": "com.hey.app.ios",
+      "teamIdentifier": "2WNYUYRS7G"
+    },
+    {
+      "name": "GitHub",
+      "bundleIdentifier": "com.github.stormbreaker.prod",
+      "teamIdentifier": "VEKTX9H2N7"
+    },
+    {
+      "name": "Wise",
+      "bundleIdentifier": "com.transferwise.Transferwise",
+      "teamIdentifier": "W53MTDV45J"
+    },
+    {
+      "name": "Voice",
+      "bundleIdentifier": "com.google.GVDialer",
+      "teamIdentifier": "EQHXZ8M8AV"
+    },
+    {
+      "name": "Instagram",
+      "bundleIdentifier": "com.burbn.instagram",
+      "teamIdentifier": "777W53UFB2"
+    },
+    {
+      "name": "LINE",
+      "bundleIdentifier": "jp.naver.line",
+      "teamIdentifier": "VUTU7AKEUR"
+    },
+    {
+      "name": "LinkedIn",
+      "bundleIdentifier": "com.linkedin.LinkedIn",
+      "teamIdentifier": "57Y47U492U"
+    },
+    {
+      "name": "WhatsApp",
+      "bundleIdentifier": "net.whatsapp.WhatsApp",
+      "teamIdentifier": "57T9237FN3"
+    },
+    {
+      "name": "Gemini",
+      "bundleIdentifier": "com.google.gemini",
+      "teamIdentifier": "EQHXZ8M8AV"
+    },
+    {
+      "name": "Outlook",
+      "bundleIdentifier": "com.microsoft.Office.Outlook",
+      "teamIdentifier": "UBF8T346G9"
+    },
+    {
+      "name": "Mail",
+      "bundleIdentifier": "com.apple.mobilemail",
+      "teamIdentifier": "0000000000"
+    },
+    {
+      "name": "Signal",
+      "bundleIdentifier": "org.whispersystems.signal",
+      "teamIdentifier": "U68MSDN6DR"
+    },
+    {
+      "name": "Telegram",
+      "bundleIdentifier": "ph.telegra.Telegraph",
+      "teamIdentifier": "C67CF9S4VU"
+    },
+    {
+      "name": "Viber",
+      "bundleIdentifier": "com.viber",
+      "teamIdentifier": "86ZW9CB9ZQ"
+    },
+    {
+      "name": "WeChat",
+      "bundleIdentifier": "com.tencent.xin",
+      "teamIdentifier": "88L2Q4487U"
+    },
+    {
+      "name": "KakaoTalk",
+      "bundleIdentifier": "com.iwilab.KakaoTalk",
+      "teamIdentifier": "L75WVXX68A"
+    },
+    {
+      "name": "Teams",
+      "bundleIdentifier": "com.microsoft.skype.teams",
+      "teamIdentifier": "UBF8T346G9"
+    },
+    {
+      "name": "Zoom",
+      "bundleIdentifier": "us.zoom.videomeetings",
+      "teamIdentifier": "BJ4HAAB9B3"
+    },
+    {
+      "name": "Threads",
+      "bundleIdentifier": "com.burbn.barcelona",
+      "teamIdentifier": "777W53UFB2"
+    },
+    {
+      "name": "Bluesky",
+      "bundleIdentifier": "xyz.blueskyweb.app",
+      "teamIdentifier": "B3LX46C5HS"
+    },
+    {
+      "name": "Reddit",
+      "bundleIdentifier": "com.reddit.Reddit",
+      "teamIdentifier": "2TDUX39LX8"
+    },
+    {
+      "name": "Snapchat",
+      "bundleIdentifier": "com.toyopagroup.picaboo",
+      "teamIdentifier": "424M5254LK"
+    },
+    {
+      "name": "TikTok",
+      "bundleIdentifier": "com.zhiliaoapp.musically",
+      "teamIdentifier": "MJ797D8U6F"
+    },
+    {
+      "name": "Notion",
+      "bundleIdentifier": "notion.id",
+      "teamIdentifier": "LBQJ96FQ8D"
+    },
+    {
+      "name": "Google Calendar",
+      "bundleIdentifier": "com.google.calendar",
+      "teamIdentifier": "EQHXZ8M8AV"
+    },
+    {
+      "name": "Reminders",
+      "bundleIdentifier": "com.apple.reminders",
+      "teamIdentifier": "0000000000"
+    },
+    {
+      "name": "Luma",
+      "bundleIdentifier": "com.luma.mobile",
+      "teamIdentifier": "RVS4KQ8A32"
+    },
+    {
+      "name": "Wallet",
+      "bundleIdentifier": "com.apple.Passbook",
+      "teamIdentifier": "0000000000"
+    },
+    {
+      "name": "PayPay",
+      "bundleIdentifier": "jp.pay2.app.ios",
+      "teamIdentifier": "8899ZUKF5G"
+    },
+    {
+      "name": "PayPal",
+      "bundleIdentifier": "com.yourcompany.PPClient",
+      "teamIdentifier": "727K56WV67"
+    },
+    {
+      "name": "Venmo",
+      "bundleIdentifier": "net.kortina.labs.Venmo",
+      "teamIdentifier": "55377VK7X2"
+    },
+    {
+      "name": "Kindle",
+      "bundleIdentifier": "com.amazon.Lassen",
+      "teamIdentifier": "94KV3E626L"
+    },
+    {
+      "name": "Uber",
+      "bundleIdentifier": "com.ubercab.UberClient",
+      "teamIdentifier": "5F83KRY2FH"
+    },
+    {
+      "name": "Uber Eats",
+      "bundleIdentifier": "com.ubercab.UberEats",
+      "teamIdentifier": "5F83KRY2FH"
+    },
+    {
+      "name": "Lyft",
+      "bundleIdentifier": "com.zimride.instant",
+      "teamIdentifier": "45SNFQQ3JX"
+    },
+    {
+      "name": "Strava",
+      "bundleIdentifier": "com.strava.stravaride",
+      "teamIdentifier": "L27UJU3HDT"
+    },
+    {
+      "name": "Karui",
+      "bundleIdentifier": "com.justin.henry.karui",
+      "teamIdentifier": "XDWKSAH7W3"
+    }
+  ]
+}

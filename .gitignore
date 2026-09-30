@@ -22,3 +22,7 @@ ios-notify/DerivedData/
 
 # Local App Review physical-device recordings
 ios/review-video/
+
+# PUSHKIN local research / App Store chart caches
+ios-notify/.cache/
+ios-notify/scripts/cache/
