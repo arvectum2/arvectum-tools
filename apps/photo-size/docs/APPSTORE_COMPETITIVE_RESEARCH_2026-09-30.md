@@ -87,7 +87,7 @@ Core positioning:
 - [x] Exact width × height mode with aspect-ratio lock.
 - [x] Output format selector: JPEG / PNG / HEIC in dimension-resize workflows; exact-size/document workflows keep JPEG where constraints depend on it.
 - [x] Optional metadata/EXIF/GPS removal with privacy-first default; preservation remains available when supported by the output format.
-- [ ] Print-sheet export for print document presets.
+- [x] Print-sheet export for print document presets (10×15 cm RU/UK and 4×6 in US passport print, 300 DPI).
 
 ### P2 — only after usage data
 - [ ] Batch processing.

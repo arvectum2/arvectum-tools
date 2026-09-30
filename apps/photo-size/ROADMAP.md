@@ -627,7 +627,7 @@ These items are intentionally tracked **after** the first market release/experim
 - [x] Добавить точные width × height: отдельный режим W×H, блокировка пропорций включена по умолчанию, ручное отключение с предупреждением; апскейл запрещён.
 - [x] Добавить выбор формата экспорта JPEG / PNG / HEIC в режиме изменения размеров; document/file-size workflows остаются в технически требуемом JPEG.
 - [x] Добавить опциональное удаление EXIF/GPS metadata: privacy-toggle включён по умолчанию для compression/resize; при отключении метаданные сохраняются, где это поддерживает формат.
-- [ ] Добавить print-sheet export для печатных документных пресетов.
+- [x] Добавить print-sheet export: 10×15 см / 300 DPI для RU/UK (6 фото) и 4×6 in / 300 DPI для US passport print (4 фото), с подсказкой печатать без масштабирования.
 - [ ] Batch processing — только после подтверждения usage data.
 
 ### Competitive / semantic-search research

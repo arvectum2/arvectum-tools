@@ -79,7 +79,8 @@ final class ImageEngine {
                     targetLongSide: nil,
                     alreadyFit: false,
                     contentType: .jpeg,
-                    documentPreset: nil
+                    documentPreset: nil,
+                    printSheet: nil
                 )
             }
 
@@ -140,7 +141,8 @@ final class ImageEngine {
             targetLongSide: targetLongSide,
             alreadyFit: false,
             contentType: format.contentType,
-            documentPreset: nil
+            documentPreset: nil,
+            printSheet: nil
         )
     }
 
@@ -173,7 +175,8 @@ final class ImageEngine {
             targetLongSide: nil,
             alreadyFit: false,
             contentType: format.contentType,
-            documentPreset: nil
+            documentPreset: nil,
+            printSheet: nil
         )
     }
 
@@ -219,6 +222,9 @@ final class ImageEngine {
         }
 
         let url = try writeResult(bytes)
+        let printSheet = try preset.printSheetSpec.map { spec in
+            try makePrintSheet(image: passport, spec: spec)
+        }
         return ResultImage(
             source: source,
             outputURL: url,
@@ -230,7 +236,8 @@ final class ImageEngine {
             targetLongSide: nil,
             alreadyFit: false,
             contentType: .jpeg,
-            documentPreset: preset
+            documentPreset: preset,
+            printSheet: printSheet
         )
     }
 
@@ -251,7 +258,49 @@ final class ImageEngine {
             targetLongSide: targetLongSide,
             alreadyFit: true,
             contentType: source.contentType,
-            documentPreset: nil
+            documentPreset: nil,
+            printSheet: nil
+        )
+    }
+
+    private func makePrintSheet(image: UIImage, spec: PrintSheetSpec) throws -> PrintSheetResult {
+        let photo = try resizedImage(
+            image,
+            to: CGSize(width: spec.photoWidthPixels, height: spec.photoHeightPixels)
+        )
+        let sheetSize = CGSize(width: spec.widthPixels, height: spec.heightPixels)
+        let format = UIGraphicsImageRendererFormat()
+        format.scale = 1
+        format.opaque = true
+        let sheet = UIGraphicsImageRenderer(size: sheetSize, format: format).image { context in
+            UIColor.white.setFill()
+            context.fill(CGRect(origin: .zero, size: sheetSize))
+            let usedWidth = spec.columns * spec.photoWidthPixels
+            let usedHeight = spec.rows * spec.photoHeightPixels
+            let gapX = CGFloat(max(0, spec.widthPixels - usedWidth)) / CGFloat(spec.columns + 1)
+            let gapY = CGFloat(max(0, spec.heightPixels - usedHeight)) / CGFloat(spec.rows + 1)
+            for row in 0..<spec.rows {
+                for column in 0..<spec.columns {
+                    let x = gapX + CGFloat(column) * (CGFloat(spec.photoWidthPixels) + gapX)
+                    let y = gapY + CGFloat(row) * (CGFloat(spec.photoHeightPixels) + gapY)
+                    photo.draw(in: CGRect(
+                        x: x,
+                        y: y,
+                        width: CGFloat(spec.photoWidthPixels),
+                        height: CGFloat(spec.photoHeightPixels)
+                    ))
+                }
+            }
+        }
+        let data = try jpegData(image: sheet, quality: 0.97, dpi: spec.dpi)
+        let url = try writeResult(data, fileExtension: "jpg")
+        return PrintSheetResult(
+            outputURL: url,
+            widthPixels: spec.widthPixels,
+            heightPixels: spec.heightPixels,
+            dpi: spec.dpi,
+            copies: spec.copies,
+            label: spec.label
         )
     }
 

@@ -109,6 +109,28 @@ final class ImageEngineTests: XCTestCase {
         XCTAssertEqual(result.outputURL.pathExtension.lowercased(), "heic")
     }
 
+    func testRussiaPassportIncludesPrintSheet() throws {
+        let source = try engine.inspect(data: makeNoiseJPEG(width: 1000, height: 1286))
+        let crop = NormalizedCropRect(left: 0, top: 0, right: 1, bottom: 1)
+        let result = try engine.preparePassport(source: source, crop: crop, preset: .russiaPassport)
+        let sheet = try XCTUnwrap(result.printSheet)
+        XCTAssertEqual(sheet.widthPixels, 1181)
+        XCTAssertEqual(sheet.heightPixels, 1772)
+        XCTAssertEqual(sheet.copies, 6)
+        let data = try Data(contentsOf: sheet.outputURL)
+        let props = try imageProperties(data)
+        XCTAssertEqual((props[kCGImagePropertyPixelWidth] as? NSNumber)?.intValue, 1181)
+        XCTAssertEqual((props[kCGImagePropertyPixelHeight] as? NSNumber)?.intValue, 1772)
+        XCTAssertEqual((props[kCGImagePropertyDPIWidth] as? NSNumber)?.intValue, 300)
+    }
+
+    func testDigitalVisaHasNoPrintSheet() throws {
+        let source = try engine.inspect(data: makeNoiseJPEG(width: 1200, height: 1200))
+        let crop = NormalizedCropRect(left: 0, top: 0, right: 1, bottom: 1)
+        let result = try engine.preparePassport(source: source, crop: crop, preset: .usVisaDigital)
+        XCTAssertNil(result.printSheet)
+    }
+
     func testUSVisaDigitalOutputContract() throws {
         let source = try engine.inspect(data: makeNoiseJPEG(width: 1200, height: 1200))
         let crop = NormalizedCropRect(left: 0, top: 0, right: 1, bottom: 1)

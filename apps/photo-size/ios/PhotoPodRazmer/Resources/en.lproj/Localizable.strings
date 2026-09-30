@@ -95,3 +95,8 @@
 "Удалить EXIF/GPS" = "Remove EXIF/GPS";
 "Геолокация и метаданные не попадут в готовый файл." = "Location and metadata will not be included in the output file.";
 "Метаданные исходного фото будут сохранены, где это поддерживает формат." = "Source photo metadata will be preserved where the format supports it.";
+"10×15 см · 6 фото · 300 DPI" = "10×15 cm · 6 photos · 300 DPI";
+"4×6 in · 4 фото · 300 DPI" = "4×6 in · 4 photos · 300 DPI";
+"Лист для печати" = "Print sheet";
+"Печатать без масштабирования" = "Print at 100% scale";
+"Не получилось подготовить лист для печати." = "Could not prepare the print sheet.";

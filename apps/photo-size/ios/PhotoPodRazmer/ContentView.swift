@@ -21,6 +21,7 @@ struct ContentView: View {
     @State private var pickerItem: PhotosPickerItem?
     @State private var exporting = false
     @State private var exportDocument = ExportDocument(data: Data())
+    @State private var exportFilename = "foto.jpg"
     @State private var shareURL: URL?
 
     var body: some View {
@@ -35,6 +36,7 @@ struct ContentView: View {
                     ResultCard(
                         result: result,
                         onSave: beginExport,
+                        onSavePrintSheet: beginPrintSheetExport,
                         onShare: { shareURL = result.outputURL },
                         onBack: model.backToSelection
                     )
@@ -91,7 +93,7 @@ struct ContentView: View {
             isPresented: $exporting,
             document: exportDocument,
             contentType: .data,
-            defaultFilename: model.result?.suggestedFileName ?? "foto.jpg"
+            defaultFilename: exportFilename
         ) { result in
             model.markSaved((try? result.get()) != nil)
         }
@@ -112,6 +114,18 @@ struct ContentView: View {
             return
         }
         exportDocument = ExportDocument(data: data)
+        exportFilename = result.suggestedFileName
+        exporting = true
+    }
+
+    private func beginPrintSheetExport() {
+        guard let sheet = model.result?.printSheet,
+              let data = try? Data(contentsOf: sheet.outputURL) else {
+            model.errorMessage = tr("Не получилось подготовить лист для печати.")
+            return
+        }
+        exportDocument = ExportDocument(data: data)
+        exportFilename = sheet.suggestedFileName
         exporting = true
     }
 }
@@ -519,6 +533,7 @@ private struct BeforeAfterPreview: View {
 private struct ResultCard: View {
     let result: ResultImage
     let onSave: () -> Void
+    let onSavePrintSheet: () -> Void
     let onShare: () -> Void
     let onBack: () -> Void
 
@@ -555,6 +570,26 @@ private struct ResultCard: View {
             .buttonStyle(.plain)
             .foregroundStyle(Color.arvectumPrimaryText)
             .background(Color.arvectumMint, in: RoundedRectangle(cornerRadius: 16))
+
+            if let sheet = result.printSheet {
+                Button(action: onSavePrintSheet) {
+                    Label("Лист для печати", systemImage: "square.grid.2x2")
+                        .font(.headline)
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 46)
+                }
+                .buttonStyle(.plain)
+                .foregroundStyle(Color.arvectumPrimaryText)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 16)
+                        .stroke(Color.arvectumStrongBorder, lineWidth: 1)
+                )
+
+                Text(sheet.label + " · " + tr("Печатать без масштабирования"))
+                    .font(.caption2)
+                    .foregroundStyle(.secondary)
+                    .frame(maxWidth: .infinity, alignment: .center)
+            }
 
             Button(action: onShare) {
                 Label("Поделиться", systemImage: "square.and.arrow.up")

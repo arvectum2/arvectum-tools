@@ -142,6 +142,35 @@ enum DocumentPhotoPreset: String, CaseIterable, Identifiable, Equatable {
         }
     }
 
+    var printSheetSpec: PrintSheetSpec? {
+        switch self {
+        case .russiaPassport, .ukPassportPrint:
+            return PrintSheetSpec(
+                widthPixels: 1181,
+                heightPixels: 1772,
+                dpi: 300,
+                columns: 2,
+                rows: 3,
+                photoWidthPixels: 413,
+                photoHeightPixels: 531,
+                label: tr("10×15 см · 6 фото · 300 DPI")
+            )
+        case .usPassportPrint:
+            return PrintSheetSpec(
+                widthPixels: 1200,
+                heightPixels: 1800,
+                dpi: 300,
+                columns: 2,
+                rows: 2,
+                photoWidthPixels: 600,
+                photoHeightPixels: 600,
+                label: tr("4×6 in · 4 фото · 300 DPI")
+            )
+        case .usVisaDigital, .indiaEVisa:
+            return nil
+        }
+    }
+
     var guidance: String {
         switch self {
         case .russiaPassport:
@@ -156,6 +185,32 @@ enum DocumentPhotoPreset: String, CaseIterable, Identifiable, Equatable {
             return tr("Формат для печати 35×45 мм. Для онлайн-паспорта GOV.UK просит не обрезать фото самостоятельно.")
         }
     }
+}
+
+
+
+struct PrintSheetSpec {
+    let widthPixels: Int
+    let heightPixels: Int
+    let dpi: Int
+    let columns: Int
+    let rows: Int
+    let photoWidthPixels: Int
+    let photoHeightPixels: Int
+    let label: String
+
+    var copies: Int { columns * rows }
+}
+
+struct PrintSheetResult {
+    let outputURL: URL
+    let widthPixels: Int
+    let heightPixels: Int
+    let dpi: Int
+    let copies: Int
+    let label: String
+
+    var suggestedFileName: String { "foto-print-sheet.jpg" }
 }
 
 enum SizeUnit: String, CaseIterable, Identifiable {
@@ -196,6 +251,7 @@ struct ResultImage {
     let alreadyFit: Bool
     let contentType: UTType
     let documentPreset: DocumentPhotoPreset?
+    let printSheet: PrintSheetResult?
 
     var suggestedFileName: String {
         let suffix: String
