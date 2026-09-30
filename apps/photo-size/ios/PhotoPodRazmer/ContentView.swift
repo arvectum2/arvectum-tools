@@ -128,21 +128,11 @@ private struct MainTaskCard: View {
                 sourceRow
                 presetRow
                 if model.isCustomTarget { customSizeRow }
-                primaryAction(
-                    title: "Уменьшить фото",
-                    enabled: model.source != nil && model.targetBytes != nil,
-                    action: model.compressByBytes
-                )
             case .pixels:
                 taskHeader("ПО РАЗМЕРУ", "Задать размер длинной стороны")
                 sourceRow
                 pixelPresetRow
                 if model.isCustomPixels { customPixelsRow }
-                primaryAction(
-                    title: "Изменить размер",
-                    enabled: model.source != nil && model.targetLongSide != nil,
-                    action: model.resizeByPixels
-                )
             case .passport:
                 taskHeader("НА ПАСПОРТ", "Подогнать фото под 35×45")
                 sourceRow
@@ -150,21 +140,41 @@ private struct MainTaskCard: View {
                     "620×797 px · 450 DPI · JPEG\n" +
                     "Кадрирование вручную. Лицо и фон приложение не изменяет."
                 )
-                primaryAction(
-                    title: "Кадрировать 35×45",
-                    enabled: model.source != nil,
-                    action: model.openPassportCrop
-                )
             }
-            Spacer(minLength: 0)
+            Spacer(minLength: 12)
+            primaryActionForCurrentMode
         }
         .padding(14)
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+        .frame(maxWidth: .infinity, minHeight: 330, alignment: .topLeading)
         .background(Color.arvectumSurface, in: RoundedRectangle(cornerRadius: 20))
         .overlay(
             RoundedRectangle(cornerRadius: 20)
                 .stroke(Color.arvectumBorder, lineWidth: 1)
         )
+    }
+
+    @ViewBuilder
+    private var primaryActionForCurrentMode: some View {
+        switch model.mode {
+        case .fileSize:
+            primaryAction(
+                title: "Уменьшить фото",
+                enabled: model.source != nil && model.targetBytes != nil,
+                action: model.compressByBytes
+            )
+        case .pixels:
+            primaryAction(
+                title: "Изменить размер",
+                enabled: model.source != nil && model.targetLongSide != nil,
+                action: model.resizeByPixels
+            )
+        case .passport:
+            primaryAction(
+                title: "Кадрировать 35×45",
+                enabled: model.source != nil,
+                action: model.openPassportCrop
+            )
+        }
     }
 
     private var sourceRow: some View {
