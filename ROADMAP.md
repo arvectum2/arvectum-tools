@@ -603,6 +603,8 @@ These items are intentionally tracked **after** the first market release/experim
 
 ### Monetization
 - [ ] Реклама: довести рекламную интеграцию до production и проверить реальные показы/доход.
+- [ ] Для «Фото под размер» **не применять delayed-ad policy трекера привычек**: приложение используется эпизодически, поэтому реклама может показываться уже с первого релевантного использования.
+- [ ] Основной формат для «Фото под размер»: **native ad после получения результата / на экране результата**, без блокировки основной функции и без interstitial/app-open interruption.
 
 ### App Store conversion / localization
 - [ ] Переделать App Store screenshots: показать реальную фотографию **до / после**, чтобы результат функции был понятен без чтения описания.
@@ -648,6 +650,8 @@ Working formula: **«всё удобное из HabitKit Pro — без лишн
 
 
 #### Monetization — advertising, delayed and non-intrusive
+**Scope:** this policy applies **only to the Habit tracker** and is not a global Arvectum Tools rule.
+
 **Decision:** all core functionality remains free; monetization is advertising-only.
 
 Ad UX principles:
