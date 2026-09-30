@@ -1,0 +1,80 @@
+import SwiftData
+import XCTest
+@testable import HabitsByArvectum
+
+final class PersistenceTests: XCTestCase {
+    func testHabitAndCheckInSurviveContainerRecreation() throws {
+        let directory = FileManager.default.temporaryDirectory
+            .appendingPathComponent(UUID().uuidString, isDirectory: true)
+        try FileManager.default.createDirectory(
+            at: directory,
+            withIntermediateDirectories: true
+        )
+        defer { try? FileManager.default.removeItem(at: directory) }
+
+        let storeURL = directory.appendingPathComponent("habits.store")
+        let schema = Schema([
+            Habit.self,
+            HabitCheckIn.self
+        ])
+        let habitID = UUID()
+        let checkInDate = Date(timeIntervalSince1970: 1_790_784_000)
+
+        do {
+            let container = try makeContainer(
+                schema: schema,
+                storeURL: storeURL
+            )
+            let context = ModelContext(container)
+            context.insert(
+                Habit(
+                    id: habitID,
+                    name: "Чтение",
+                    symbolName: "book.fill",
+                    colorHex: "43E5C5"
+                )
+            )
+            context.insert(
+                HabitCheckIn(
+                    habitID: habitID,
+                    day: checkInDate
+                )
+            )
+            try context.save()
+        }
+
+        do {
+            let container = try makeContainer(
+                schema: schema,
+                storeURL: storeURL
+            )
+            let context = ModelContext(container)
+            let habits = try context.fetch(FetchDescriptor<Habit>())
+            let checkIns = try context.fetch(FetchDescriptor<HabitCheckIn>())
+
+            XCTAssertEqual(habits.count, 1)
+            XCTAssertEqual(habits.first?.id, habitID)
+            XCTAssertEqual(habits.first?.name, "Чтение")
+            XCTAssertEqual(checkIns.count, 1)
+            XCTAssertEqual(checkIns.first?.habitID, habitID)
+            XCTAssertEqual(checkIns.first?.day, checkInDate)
+        }
+    }
+
+    private func makeContainer(
+        schema: Schema,
+        storeURL: URL
+    ) throws -> ModelContainer {
+        let configuration = ModelConfiguration(
+            "PersistenceTests",
+            schema: schema,
+            url: storeURL,
+            allowsSave: true,
+            cloudKitDatabase: .none
+        )
+        return try ModelContainer(
+            for: schema,
+            configurations: [configuration]
+        )
+    }
+}

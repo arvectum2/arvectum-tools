@@ -5,18 +5,34 @@ struct AddHabitView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var modelContext
 
-    @State private var name = ""
-    @State private var colorHex = HabitPalette.colors[0]
-    @State private var symbolName = HabitPalette.symbols[0]
-    @State private var schedule = HabitSchedule.everyDay
+    let habit: Habit?
+
+    @State private var name: String
+    @State private var colorHex: String
+    @State private var symbolName: String
+    @State private var schedule: HabitSchedule
+    @FocusState private var nameFocused: Bool
 
     private let quickNames = ["Вода", "Чтение", "Прогулка", "Тренировка"]
+
+    init(habit: Habit? = nil) {
+        self.habit = habit
+        _name = State(initialValue: habit?.name ?? "")
+        _colorHex = State(initialValue: habit?.colorHex ?? HabitPalette.colors[0])
+        _symbolName = State(initialValue: habit?.symbolName ?? HabitPalette.symbols[0])
+        _schedule = State(initialValue: habit?.schedule ?? .everyDay)
+    }
 
     var body: some View {
         NavigationStack {
             Form {
                 Section("Привычка") {
                     TextField("Например, читать 20 минут", text: $name)
+                        .focused($nameFocused)
+                        .submitLabel(.done)
+                        .onSubmit {
+                            if canSave { save() }
+                        }
 
                     if name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
                         ScrollView(.horizontal, showsIndicators: false) {
@@ -52,15 +68,18 @@ struct AddHabitView: View {
                     .font(.subheadline.weight(.semibold))
                 }
             }
-            .navigationTitle("Новая привычка")
+            .navigationTitle(habit == nil ? "Новая привычка" : "Редактировать")
             .navigationBarTitleDisplayMode(.inline)
+            .onAppear {
+                if habit == nil { nameFocused = true }
+            }
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Отмена") { dismiss() }
                 }
 
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("Готово", action: save)
+                    Button(habit == nil ? "Готово" : "Сохранить", action: save)
                         .disabled(!canSave)
                         .fontWeight(.semibold)
                 }
@@ -170,14 +189,22 @@ struct AddHabitView: View {
         let trimmed = name.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmed.isEmpty, schedule.rawValue != 0 else { return }
 
-        modelContext.insert(
-            Habit(
-                name: trimmed,
-                symbolName: symbolName,
-                colorHex: colorHex,
-                scheduleMask: schedule.rawValue
+        if let habit {
+            habit.name = trimmed
+            habit.symbolName = symbolName
+            habit.colorHex = colorHex
+            habit.schedule = schedule
+        } else {
+            modelContext.insert(
+                Habit(
+                    name: trimmed,
+                    symbolName: symbolName,
+                    colorHex: colorHex,
+                    scheduleMask: schedule.rawValue
+                )
             )
-        )
+        }
+
         try? modelContext.save()
         dismiss()
     }

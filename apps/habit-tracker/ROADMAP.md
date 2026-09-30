@@ -31,6 +31,7 @@ Working formula: **«всё удобное — без лишнего»**.
 - [x] Weekday schedule model.
 - [x] Separate per-day completion records.
 - [x] Persist data without registration or server.
+- [x] Regression test: habit and check-in survive persistent-store recreation.
 - [ ] Define explicit migration fixtures before first schema change.
 - [ ] Add export/import only after MVP validation.
 
@@ -67,7 +68,7 @@ Working formula: **«всё удобное — без лишнего»**.
 - [x] Correct a previous check-in by tapping a day.
 - [x] Archive habit.
 - [x] Delete habit and its completion history.
-- [ ] Edit name, icon, color and schedule.
+- [x] Edit name, icon, color and schedule.
 - [ ] Add a clearer month / heatmap view after UX validation.
 
 ### Habit logic
@@ -132,6 +133,6 @@ Core habit tracking stays free. Advertising is the planned monetization model, b
 
 ## Current checkpoint
 
-The first vertical slice is implemented: local storage → create a scheduled habit → see it on Today → mark/unmark it → open details → inspect streak/progress/history → correct prior days → archive/delete.
+The M1 vertical slice is implemented: local storage → create a scheduled habit → see it on Today → mark/unmark it → open details → inspect streak/progress/history → correct prior days → edit/archive/delete. Disk persistence is covered by an automated container-recreation regression test, and the app has been launched successfully on an iPhone 17 Pro simulator.
 
-**Next implementation step:** finish edit-habit flow, then run the MVP on the simulator and a physical iPhone before adding reminders.
+**Next implementation step:** validate the M1 flow on a physical iPhone, then implement per-habit local reminders and permission-on-demand.

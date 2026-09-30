@@ -8,6 +8,7 @@ struct HabitDetailView: View {
 
     @Bindable var habit: Habit
     @State private var showingDeleteConfirmation = false
+    @State private var showingEditHabit = false
 
     private var habitCheckIns: [HabitCheckIn] {
         checkIns.filter { $0.habitID == habit.id }
@@ -36,6 +37,16 @@ struct HabitDetailView: View {
         .background(Color.habitsBackground)
         .navigationTitle(habit.name)
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button("Изменить") {
+                    showingEditHabit = true
+                }
+            }
+        }
+        .sheet(isPresented: $showingEditHabit) {
+            AddHabitView(habit: habit)
+        }
         .confirmationDialog(
             "Удалить привычку?",
             isPresented: $showingDeleteConfirmation,
