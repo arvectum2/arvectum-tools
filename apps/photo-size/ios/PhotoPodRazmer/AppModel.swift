@@ -18,6 +18,7 @@ final class AppModel: ObservableObject {
     @Published var exactWidthValue = ""
     @Published var exactHeightValue = ""
     @Published var keepPixelAspectRatio = true
+    @Published var exportFormat: ExportImageFormat = .jpeg
     @Published var passportCropOpen = false
     @Published var documentPreset: DocumentPhotoPreset = .russiaPassport
     @Published var isWorking = false
@@ -189,6 +190,13 @@ final class AppModel: ObservableObject {
         }
     }
 
+    func setExportFormat(_ format: ExportImageFormat) {
+        exportFormat = format
+        result = nil
+        saved = false
+        errorMessage = nil
+    }
+
     func setPixelResizeMode(_ newMode: PixelResizeMode) {
         pixelResizeMode = newMode
         result = nil
@@ -270,12 +278,12 @@ final class AppModel: ObservableObject {
         case .longSide:
             guard let targetLongSide else { return }
             process(fallback: tr("Не получилось изменить размер изображения.")) { engine in
-                try engine.resizeLongSide(source: source, targetLongSide: targetLongSide)
+                try engine.resizeLongSide(source: source, targetLongSide: targetLongSide, format: self.exportFormat)
             }
         case .exact:
             guard let width = exactWidth, let height = exactHeight else { return }
             process(fallback: tr("Не получилось изменить размер изображения.")) { engine in
-                try engine.resizeExact(source: source, width: width, height: height)
+                try engine.resizeExact(source: source, width: width, height: height, format: self.exportFormat)
             }
         }
     }
@@ -324,6 +332,7 @@ final class AppModel: ObservableObject {
         exactWidthValue = ""
         exactHeightValue = ""
         keepPixelAspectRatio = true
+        exportFormat = .jpeg
         passportCropOpen = false
         documentPreset = .russiaPassport
         isWorking = false

@@ -140,6 +140,7 @@ private struct MainTaskCard: View {
                 } else {
                     exactPixelsRow
                 }
+                exportFormatRow
             case .passport:
                 taskHeader(tr("НА ДОКУМЕНТЫ"), tr("Подготовить фото по требованиям документа"))
                 documentPresetRow
@@ -276,6 +277,22 @@ private struct MainTaskCard: View {
                 }
                 Chip(text: tr("Свой"), selected: model.isCustomTarget) {
                     model.startCustomTarget()
+                }
+            }
+        }
+    }
+
+    private var exportFormatRow: some View {
+        VStack(alignment: .leading, spacing: 7) {
+            Text("Формат экспорта")
+                .font(.caption.weight(.semibold))
+                .foregroundStyle(.secondary)
+
+            HStack(spacing: 6) {
+                ForEach(ExportImageFormat.allCases) { format in
+                    Chip(text: format.title, selected: model.exportFormat == format) {
+                        model.setExportFormat(format)
+                    }
                 }
             }
         }

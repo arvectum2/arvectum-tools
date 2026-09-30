@@ -105,11 +105,12 @@ final class ImageEngine {
         )
     }
 
-    func resizeLongSide(source: SourceImage, targetLongSide: Int) throws -> ResultImage {
+    func resizeLongSide(source: SourceImage, targetLongSide: Int, format: ExportImageFormat = .jpeg) throws -> ResultImage {
         guard targetLongSide > 0 else {
             throw PhotoToolError.message(tr("Укажите размер длинной стороны."))
         }
-        if max(source.width, source.height) <= targetLongSide {
+        if max(source.width, source.height) <= targetLongSide,
+           source.contentType == format.contentType {
             return originalResult(source: source, mode: .pixels, targetLongSide: targetLongSide)
         }
 
@@ -123,8 +124,8 @@ final class ImageEngine {
             working,
             to: CGSize(width: target.width, height: target.height)
         )
-        let bytes = try jpegData(image: resized, quality: 0.95)
-        let url = try writeResult(bytes)
+        let bytes = try encodedData(image: resized, format: format)
+        let url = try writeResult(bytes, fileExtension: format.fileExtension)
 
         return ResultImage(
             source: source,
@@ -136,26 +137,27 @@ final class ImageEngine {
             targetBytes: nil,
             targetLongSide: targetLongSide,
             alreadyFit: false,
-            contentType: .jpeg,
+            contentType: format.contentType,
             documentPreset: nil
         )
     }
 
-    func resizeExact(source: SourceImage, width: Int, height: Int) throws -> ResultImage {
+    func resizeExact(source: SourceImage, width: Int, height: Int, format: ExportImageFormat = .jpeg) throws -> ResultImage {
         guard (32...12_000).contains(width), (32...12_000).contains(height) else {
             throw PhotoToolError.message(tr("Укажите ширину и высоту от 32 до 12000 px."))
         }
         guard width <= source.width, height <= source.height else {
             throw PhotoToolError.message(tr("Целевой размер не должен быть больше исходного изображения."))
         }
-        if source.width == width && source.height == height {
+        if source.width == width && source.height == height,
+           source.contentType == format.contentType {
             return originalResult(source: source, mode: .pixels)
         }
 
         let working = try processingImage(source)
         let resized = try resizedImage(working, to: CGSize(width: width, height: height))
-        let bytes = try jpegData(image: resized, quality: 0.95)
-        let url = try writeResult(bytes)
+        let bytes = try encodedData(image: resized, format: format)
+        let url = try writeResult(bytes, fileExtension: format.fileExtension)
 
         return ResultImage(
             source: source,
@@ -167,7 +169,7 @@ final class ImageEngine {
             targetBytes: nil,
             targetLongSide: nil,
             alreadyFit: false,
-            contentType: .jpeg,
+            contentType: format.contentType,
             documentPreset: nil
         )
     }
@@ -381,6 +383,44 @@ final class ImageEngine {
         return best
     }
 
+    private func encodedData(image: UIImage, format: ExportImageFormat) throws -> Data {
+        switch format {
+        case .jpeg:
+            return try jpegData(image: image, quality: 0.95)
+        case .png:
+            guard let data = image.pngData() else {
+                throw PhotoToolError.message(tr("Не получилось создать файл выбранного формата."))
+            }
+            return data
+        case .heic:
+            return try imageData(image: image, type: .heic, quality: 0.92)
+        }
+    }
+
+    private func imageData(image: UIImage, type: UTType, quality: CGFloat?) throws -> Data {
+        guard let cg = image.cgImage else {
+            throw PhotoToolError.message(tr("Не получилось создать файл выбранного формата."))
+        }
+        let data = NSMutableData()
+        guard let destination = CGImageDestinationCreateWithData(
+            data,
+            type.identifier as CFString,
+            1,
+            nil
+        ) else {
+            throw PhotoToolError.message(tr("Не получилось создать файл выбранного формата."))
+        }
+        var properties: [CFString: Any] = [:]
+        if let quality {
+            properties[kCGImageDestinationLossyCompressionQuality] = quality
+        }
+        CGImageDestinationAddImage(destination, cg, properties as CFDictionary)
+        guard CGImageDestinationFinalize(destination) else {
+            throw PhotoToolError.message(tr("Не получилось создать файл выбранного формата."))
+        }
+        return data as Data
+    }
+
     private func jpegData(image: UIImage, quality: CGFloat, dpi: Int? = nil) throws -> Data {
         guard let cg = image.cgImage else {
             throw PhotoToolError.message(tr("Не получилось создать JPG."))
@@ -417,8 +457,8 @@ final class ImageEngine {
         return directory.appendingPathComponent("\(prefix)-\(UUID().uuidString).\(fileExtension)")
     }
 
-    private func writeResult(_ data: Data) throws -> URL {
-        let url = try cacheURL(fileExtension: "jpg", prefix: "result")
+    private func writeResult(_ data: Data, fileExtension: String = "jpg") throws -> URL {
+        let url = try cacheURL(fileExtension: fileExtension, prefix: "result")
         try data.write(to: url, options: .atomic)
         return url
     }

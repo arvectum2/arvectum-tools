@@ -71,6 +71,26 @@ final class ImageEngineTests: XCTestCase {
         XCTAssertEqual((properties[kCGImagePropertyDPIHeight] as? NSNumber)?.intValue, 450)
     }
 
+    func testExactResizeSupportsPNG() throws {
+        let source = try engine.inspect(data: makeNoiseJPEG(width: 900, height: 600))
+        let result = try engine.resizeExact(source: source, width: 450, height: 300, format: .png)
+
+        XCTAssertEqual(result.outputWidth, 450)
+        XCTAssertEqual(result.outputHeight, 300)
+        XCTAssertEqual(result.contentType, .png)
+        XCTAssertEqual(result.outputURL.pathExtension.lowercased(), "png")
+    }
+
+    func testExactResizeSupportsHEIC() throws {
+        let source = try engine.inspect(data: makeNoiseJPEG(width: 900, height: 600))
+        let result = try engine.resizeExact(source: source, width: 450, height: 300, format: .heic)
+
+        XCTAssertEqual(result.outputWidth, 450)
+        XCTAssertEqual(result.outputHeight, 300)
+        XCTAssertEqual(result.contentType, .heic)
+        XCTAssertEqual(result.outputURL.pathExtension.lowercased(), "heic")
+    }
+
     func testUSVisaDigitalOutputContract() throws {
         let source = try engine.inspect(data: makeNoiseJPEG(width: 1200, height: 1200))
         let crop = NormalizedCropRect(left: 0, top: 0, right: 1, bottom: 1)

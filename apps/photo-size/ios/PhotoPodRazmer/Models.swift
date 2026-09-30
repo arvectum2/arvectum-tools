@@ -36,6 +36,38 @@ enum PixelResizeMode: String, CaseIterable, Identifiable {
     }
 }
 
+enum ExportImageFormat: String, CaseIterable, Identifiable {
+    case jpeg
+    case png
+    case heic
+
+    var id: String { rawValue }
+
+    var title: String {
+        switch self {
+        case .jpeg: return "JPEG"
+        case .png: return "PNG"
+        case .heic: return "HEIC"
+        }
+    }
+
+    var contentType: UTType {
+        switch self {
+        case .jpeg: return .jpeg
+        case .png: return .png
+        case .heic: return .heic
+        }
+    }
+
+    var fileExtension: String {
+        switch self {
+        case .jpeg: return "jpg"
+        case .png: return "png"
+        case .heic: return "heic"
+        }
+    }
+}
+
 enum DocumentPhotoPreset: String, CaseIterable, Identifiable, Equatable {
     case russiaPassport
     case usPassportPrint
