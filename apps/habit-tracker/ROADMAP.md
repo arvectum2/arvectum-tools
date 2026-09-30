@@ -94,7 +94,7 @@ Working formula: **«всё удобное — без лишнего»**.
 - [ ] Final Arvectum visual polish.
 - [x] RU + EN localization.
 - [x] Localization completeness test for both bundled languages.
-- [ ] UI tests for create → check → detail → history.
+- [x] UI test for create → check → detail → history using an isolated in-memory app store.
 - [x] Physical iPhone 13 signed-build install/launch smoke test.
 - [ ] Test on small and large physical iPhones.
 - [ ] Test clean install and upgrade path.
@@ -137,6 +137,6 @@ Core habit tracking stays free. Advertising is the planned monetization model, b
 
 ## Current checkpoint
 
-The M1 vertical slice is implemented and M2 reminders/localization are wired end-to-end: local storage → create/edit a scheduled habit → optional local reminder → Today → mark/unmark → details/history → archive/delete. Reminder schedules follow the selected weekdays, are removed on archive/delete, and notification permission is requested only after the user enables a reminder. RU and EN are bundled and visually smoke-tested. The suite currently has 10 passing tests, including localization completeness. Simulator and signed iPhone 13 install/launch smoke tests are green, and the project builds/tests successfully with Xcode 27.0.
+The M1 vertical slice is implemented and M2 reminders/localization are wired end-to-end: local storage → create/edit a scheduled habit → optional local reminder → Today → mark/unmark → details/history → archive/delete. Reminder schedules follow the selected weekdays, are removed on archive/delete, and notification permission is requested only after the user enables a reminder. RU and EN are bundled and visually smoke-tested. The suite currently has 11 passing tests, including localization completeness and an XCUITest covering create → check → detail → history. Simulator and signed iPhone 13 install/launch smoke tests are green, and the project builds/tests successfully with Xcode 27.0.
 
-**Next implementation step:** add UI-flow coverage for create → check → detail → history, then physically verify notification permission/delivery and finish the accessibility audit.
+**Next implementation step:** make historical check-ins timezone-stable and add DST/timezone regression coverage, then physically verify notification permission/delivery and finish the accessibility audit.

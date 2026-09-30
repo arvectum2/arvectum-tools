@@ -8,7 +8,13 @@ struct HabitsByArvectumApp: App {
             Habit.self,
             HabitCheckIn.self
         ])
-        let configuration = ModelConfiguration(schema: schema)
+        let isUITesting = ProcessInfo.processInfo.arguments.contains(
+            "--ui-testing"
+        )
+        let configuration = ModelConfiguration(
+            schema: schema,
+            isStoredInMemoryOnly: isUITesting
+        )
 
         do {
             return try ModelContainer(
