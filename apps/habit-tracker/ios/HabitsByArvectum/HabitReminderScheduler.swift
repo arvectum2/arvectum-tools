@@ -35,7 +35,7 @@ enum HabitReminderScheduler {
 
         let content = UNMutableNotificationContent()
         content.title = habit.name
-        content.body = "Время выполнить привычку"
+        content.body = L10n.string("reminder.notification.body")
         content.sound = .default
 
         for components in notificationComponents(

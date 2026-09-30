@@ -89,9 +89,11 @@ Working formula: **«всё удобное — без лишнего»**.
 - [x] Ask notification permission only when the user enables a reminder.
 - [x] Update scheduled notifications when a habit changes.
 - [ ] Add undo affordance beyond tapping the checkmark again if testing shows a need.
-- [ ] Accessibility audit: Dynamic Type, VoiceOver, contrast and touch targets.
+- [x] Base accessibility pass: 44 pt touch targets for habit actions/pickers, VoiceOver labels and selected-state hints.
+- [ ] Physical accessibility audit: Dynamic Type, VoiceOver navigation and contrast.
 - [ ] Final Arvectum visual polish.
-- [ ] RU + EN localization.
+- [x] RU + EN localization.
+- [x] Localization completeness test for both bundled languages.
 - [ ] UI tests for create → check → detail → history.
 - [x] Physical iPhone 13 signed-build install/launch smoke test.
 - [ ] Test on small and large physical iPhones.
@@ -135,6 +137,6 @@ Core habit tracking stays free. Advertising is the planned monetization model, b
 
 ## Current checkpoint
 
-The M1 vertical slice is implemented and M2 reminders are now wired end-to-end: local storage → create/edit a scheduled habit → optional local reminder → Today → mark/unmark → details/history → archive/delete. Reminder schedules follow the selected weekdays, are removed on archive/delete, and notification permission is requested only after the user enables a reminder. The suite currently has 9 passing tests. Simulator and signed iPhone 13 install/launch smoke tests are green.
+The M1 vertical slice is implemented and M2 reminders/localization are wired end-to-end: local storage → create/edit a scheduled habit → optional local reminder → Today → mark/unmark → details/history → archive/delete. Reminder schedules follow the selected weekdays, are removed on archive/delete, and notification permission is requested only after the user enables a reminder. RU and EN are bundled and visually smoke-tested. The suite currently has 10 passing tests, including localization completeness. Simulator and signed iPhone 13 install/launch smoke tests are green, and the project builds/tests successfully with Xcode 27.0.
 
-**Next implementation step:** physically verify the notification permission prompt and delivery timing, then continue M2 with accessibility, localization and UI-flow coverage.
+**Next implementation step:** add UI-flow coverage for create → check → detail → history, then physically verify notification permission/delivery and finish the accessibility audit.

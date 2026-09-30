@@ -17,7 +17,10 @@ struct AddHabitView: View {
     @State private var requestingNotificationPermission = false
     @FocusState private var nameFocused: Bool
 
-    private let quickNames = ["Вода", "Чтение", "Прогулка", "Тренировка"]
+    private var quickNames: [String] {
+        ["quick.water", "quick.reading", "quick.walk", "quick.workout"]
+            .map(L10n.string)
+    }
 
     init(habit: Habit? = nil) {
         self.habit = habit
@@ -41,8 +44,8 @@ struct AddHabitView: View {
     var body: some View {
         NavigationStack {
             Form {
-                Section("Привычка") {
-                    TextField("Например, читать 20 минут", text: $name)
+                Section(L10n.string("habit.section")) {
+                    TextField(L10n.string("habit.name.placeholder"), text: $name)
                         .focused($nameFocused)
                         .submitLabel(.done)
                         .onSubmit {
@@ -63,28 +66,28 @@ struct AddHabitView: View {
                     }
                 }
 
-                Section("Внешний вид") {
+                Section(L10n.string("section.appearance")) {
                     colorPicker
                     symbolPicker
                 }
 
-                Section("Дни") {
+                Section(L10n.string("section.days")) {
                     weekdayPicker
 
                     HStack {
-                        Button("Каждый день") {
+                        Button(L10n.string("schedule.everyday")) {
                             schedule = .everyDay
                         }
                         Spacer()
-                        Button("Будни") {
+                        Button(L10n.string("schedule.weekdays")) {
                             schedule = .weekdays
                         }
                     }
                     .font(.subheadline.weight(.semibold))
                 }
 
-                Section("Напоминание") {
-                    Toggle("Напомнить", isOn: $reminderEnabled)
+                Section(L10n.string("section.reminder")) {
+                    Toggle(L10n.string("reminder.toggle"), isOn: $reminderEnabled)
                         .onChange(of: reminderEnabled) { _, enabled in
                             guard enabled else { return }
                             requestNotificationPermission()
@@ -92,33 +95,42 @@ struct AddHabitView: View {
 
                     if reminderEnabled {
                         DatePicker(
-                            "Время",
+                            L10n.string("reminder.time"),
                             selection: $reminderTime,
                             displayedComponents: .hourAndMinute
                         )
                     }
                 }
             }
-            .navigationTitle(habit == nil ? "Новая привычка" : "Редактировать")
+            .navigationTitle(
+                habit == nil
+                    ? L10n.string("habit.new.title")
+                    : L10n.string("habit.edit.title")
+            )
             .navigationBarTitleDisplayMode(.inline)
             .onAppear {
                 if habit == nil { nameFocused = true }
             }
             .alert(
-                "Уведомления отключены",
+                L10n.string("notification.denied.title"),
                 isPresented: $showingNotificationDenied
             ) {
-                Button("ОК", role: .cancel) {}
+                Button(L10n.string("common.ok"), role: .cancel) {}
             } message: {
-                Text("Разрешите уведомления для Habits в настройках iPhone, чтобы включить напоминания.")
+                Text(L10n.string("notification.denied.message"))
             }
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("Отмена") { dismiss() }
+                    Button(L10n.string("common.cancel")) { dismiss() }
                 }
 
                 ToolbarItem(placement: .confirmationAction) {
-                    Button(habit == nil ? "Готово" : "Сохранить", action: save)
+                    Button(
+                        habit == nil
+                            ? L10n.string("common.done")
+                            : L10n.string("common.save"),
+                        action: save
+                    )
                         .disabled(!canSave)
                         .fontWeight(.semibold)
                 }
@@ -133,8 +145,10 @@ struct AddHabitView: View {
     }
 
     private var colorPicker: some View {
-        HStack(spacing: 14) {
-            ForEach(HabitPalette.colors, id: \.self) { hex in
+        HStack(spacing: 6) {
+            ForEach(Array(HabitPalette.colors.enumerated()), id: \.offset) { item in
+                let index = item.offset
+                let hex = item.element
                 Button {
                     colorHex = hex
                 } label: {
@@ -148,23 +162,32 @@ struct AddHabitView: View {
                                     .foregroundStyle(.white)
                             }
                         }
+                        .frame(width: 44, height: 44)
                 }
                 .buttonStyle(.plain)
-                .accessibilityLabel("Цвет привычки")
+                .accessibilityLabel(
+                    L10n.format("accessibility.color.format", index + 1)
+                )
+                .accessibilityValue(
+                    colorHex == hex
+                        ? L10n.string("accessibility.selected")
+                        : ""
+                )
             }
         }
-        .padding(.vertical, 4)
     }
 
     private var symbolPicker: some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 12) {
-                ForEach(HabitPalette.symbols, id: \.self) { symbol in
+            HStack(spacing: 8) {
+                ForEach(Array(HabitPalette.symbols.enumerated()), id: \.offset) { item in
+                    let index = item.offset
+                    let symbol = item.element
                     Button {
                         symbolName = symbol
                     } label: {
                         Image(systemName: symbol)
-                            .frame(width: 38, height: 38)
+                            .frame(width: 44, height: 44)
                             .foregroundStyle(
                                 symbolName == symbol
                                     ? Color.arvectumNavy
@@ -178,6 +201,14 @@ struct AddHabitView: View {
                             )
                     }
                     .buttonStyle(.plain)
+                    .accessibilityLabel(
+                        L10n.format("accessibility.symbol.format", index + 1)
+                    )
+                    .accessibilityValue(
+                        symbolName == symbol
+                            ? L10n.string("accessibility.selected")
+                            : ""
+                    )
                 }
             }
         }
@@ -197,7 +228,7 @@ struct AddHabitView: View {
                     Text(item.label)
                         .font(.caption.weight(.semibold))
                         .frame(maxWidth: .infinity)
-                        .frame(height: 36)
+                        .frame(height: 44)
                         .foregroundStyle(
                             selected ? Color.arvectumNavy : .primary
                         )
@@ -209,19 +240,20 @@ struct AddHabitView: View {
                         )
                 }
                 .buttonStyle(.plain)
+                .accessibilityAddTraits(selected ? .isSelected : [])
             }
         }
     }
 
     private var weekdayItems: [(label: String, option: HabitSchedule)] {
         [
-            ("Пн", .monday),
-            ("Вт", .tuesday),
-            ("Ср", .wednesday),
-            ("Чт", .thursday),
-            ("Пт", .friday),
-            ("Сб", .saturday),
-            ("Вс", .sunday)
+            (L10n.string("weekday.mon.short"), .monday),
+            (L10n.string("weekday.tue.short"), .tuesday),
+            (L10n.string("weekday.wed.short"), .wednesday),
+            (L10n.string("weekday.thu.short"), .thursday),
+            (L10n.string("weekday.fri.short"), .friday),
+            (L10n.string("weekday.sat.short"), .saturday),
+            (L10n.string("weekday.sun.short"), .sunday)
         ]
     }
 
@@ -261,8 +293,12 @@ struct AddHabitView: View {
         }
 
         try? modelContext.save()
-        Task {
-            _ = await HabitReminderScheduler.sync(habit: savedHabit)
+        Task { @MainActor in
+            let synced = await HabitReminderScheduler.sync(habit: savedHabit)
+            if !synced && savedHabit.reminderEnabled {
+                savedHabit.reminderEnabled = false
+                try? modelContext.save()
+            }
         }
         dismiss()
     }

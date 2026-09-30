@@ -29,7 +29,7 @@ struct TodayView: View {
                     todayContent
                 }
             }
-            .navigationTitle("Сегодня")
+            .navigationTitle(L10n.string("today.title"))
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
@@ -38,7 +38,7 @@ struct TodayView: View {
                         Image(systemName: "plus")
                             .font(.headline)
                     }
-                    .accessibilityLabel("Добавить привычку")
+                    .accessibilityLabel(L10n.string("habit.add.accessibility"))
                 }
             }
             .sheet(isPresented: $showingAddHabit) {
@@ -79,11 +79,11 @@ struct TodayView: View {
 
     private var firstHabitEmptyState: some View {
         ContentUnavailableView {
-            Label("Начните с одной привычки", systemImage: "checkmark.circle")
+            Label(L10n.string("today.empty.title"), systemImage: "checkmark.circle")
         } description: {
-            Text("Создание занимает несколько секунд. Без регистрации и лишних настроек.")
+            Text(L10n.string("today.empty.description"))
         } actions: {
-            Button("Создать привычку") {
+            Button(L10n.string("habit.create")) {
                 showingAddHabit = true
             }
             .buttonStyle(.borderedProminent)
@@ -98,9 +98,9 @@ struct TodayView: View {
             Image(systemName: "calendar.badge.checkmark")
                 .font(.title2)
                 .foregroundStyle(.secondary)
-            Text("На сегодня всё")
+            Text(L10n.string("today.none.title"))
                 .font(.headline)
-            Text("Следующая привычка появится в свой запланированный день.")
+            Text(L10n.string("today.none.description"))
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
@@ -149,10 +149,10 @@ private struct TodaySummary: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             HStack(alignment: .firstTextBaseline) {
-                Text("Сегодня")
+                Text(L10n.string("today.title"))
                     .font(.headline)
                 Spacer()
-                Text("\(completed) из \(total)")
+                Text(L10n.format("today.progress.format", completed, total))
                     .font(.subheadline.weight(.semibold))
                     .foregroundStyle(.secondary)
             }
@@ -193,13 +193,13 @@ private struct HabitRow: View {
                             .foregroundStyle(.primary)
                         if streak > 0 {
                             Label(
-                                "\(streak) дн. подряд",
+                                L10n.format("habit.streak.format", streak),
                                 systemImage: "flame.fill"
                             )
                             .font(.caption)
                             .foregroundStyle(.secondary)
                         } else {
-                            Text("Начните серию сегодня")
+                            Text(L10n.string("habit.streak.start"))
                                 .font(.caption)
                                 .foregroundStyle(.secondary)
                         }
@@ -216,10 +216,13 @@ private struct HabitRow: View {
                     .foregroundStyle(
                         completed ? Color(hex: habit.colorHex) : .secondary
                     )
+                    .frame(width: 44, height: 44)
             }
             .buttonStyle(.plain)
             .accessibilityLabel(
-                completed ? "Отменить выполнение" : "Отметить выполненной"
+                completed
+                    ? L10n.string("habit.undo")
+                    : L10n.string("habit.complete")
             )
         }
         .padding(14)

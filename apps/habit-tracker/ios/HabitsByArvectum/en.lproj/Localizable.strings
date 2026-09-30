@@ -1,0 +1,71 @@
+"today.title" = "Today";
+"today.progress.format" = "%d of %d";
+"today.empty.title" = "Start with one habit";
+"today.empty.description" = "It only takes a few seconds. No account or extra setup.";
+"today.none.title" = "You're done for today";
+"today.none.description" = "Your next habit will appear on its scheduled day.";
+
+"habit.add.accessibility" = "Add habit";
+"habit.create" = "Create habit";
+"habit.section" = "Habit";
+"habit.name.placeholder" = "For example, read for 20 minutes";
+"habit.streak.format" = "%d days in a row";
+"habit.streak.start" = "Start your streak today";
+"habit.complete" = "Mark complete";
+"habit.undo" = "Undo completion";
+"habit.new.title" = "New habit";
+"habit.edit.title" = "Edit habit";
+"habit.edit.action" = "Edit";
+
+"section.appearance" = "Appearance";
+"section.days" = "Days";
+"section.reminder" = "Reminder";
+
+"schedule.everyday" = "Every day";
+"schedule.weekdays" = "Weekdays";
+"schedule.weekdays.description" = "On weekdays";
+
+"reminder.toggle" = "Remind me";
+"reminder.time" = "Time";
+"reminder.notification.body" = "Time to complete your habit";
+
+"notification.denied.title" = "Notifications are off";
+"notification.denied.message" = "Allow notifications for Habits in iPhone Settings to enable reminders.";
+
+"common.cancel" = "Cancel";
+"common.done" = "Done";
+"common.save" = "Save";
+"common.ok" = "OK";
+"common.delete" = "Delete";
+
+"quick.water" = "Water";
+"quick.reading" = "Reading";
+"quick.walk" = "Walk";
+"quick.workout" = "Workout";
+
+"weekday.mon.short" = "Mon";
+"weekday.tue.short" = "Tue";
+"weekday.wed.short" = "Wed";
+"weekday.thu.short" = "Thu";
+"weekday.fri.short" = "Fri";
+"weekday.sat.short" = "Sat";
+"weekday.sun.short" = "Sun";
+
+"detail.history.title" = "Last 5 weeks";
+"detail.history.hint" = "Tap a past day to correct its check-in.";
+"detail.archive" = "Archive";
+"detail.restore" = "Restore from archive";
+"detail.delete" = "Delete habit";
+"detail.delete.title" = "Delete habit?";
+"detail.delete.message" = "This habit's completion history will also be deleted.";
+
+"stats.streak" = "streak";
+"stats.completion" = "completed";
+"stats.checkins" = "check-ins";
+
+"status.completed" = "completed";
+"status.notCompleted" = "not completed";
+
+"accessibility.color.format" = "Color %d";
+"accessibility.symbol.format" = "Icon %d";
+"accessibility.selected" = "Selected";

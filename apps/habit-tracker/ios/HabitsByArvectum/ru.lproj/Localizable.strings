@@ -1,0 +1,71 @@
+"today.title" = "Сегодня";
+"today.progress.format" = "%d из %d";
+"today.empty.title" = "Начните с одной привычки";
+"today.empty.description" = "Создание занимает несколько секунд. Без регистрации и лишних настроек.";
+"today.none.title" = "На сегодня всё";
+"today.none.description" = "Следующая привычка появится в свой запланированный день.";
+
+"habit.add.accessibility" = "Добавить привычку";
+"habit.create" = "Создать привычку";
+"habit.section" = "Привычка";
+"habit.name.placeholder" = "Например, читать 20 минут";
+"habit.streak.format" = "%d дн. подряд";
+"habit.streak.start" = "Начните серию сегодня";
+"habit.complete" = "Отметить выполненной";
+"habit.undo" = "Отменить выполнение";
+"habit.new.title" = "Новая привычка";
+"habit.edit.title" = "Редактировать";
+"habit.edit.action" = "Изменить";
+
+"section.appearance" = "Внешний вид";
+"section.days" = "Дни";
+"section.reminder" = "Напоминание";
+
+"schedule.everyday" = "Каждый день";
+"schedule.weekdays" = "Будни";
+"schedule.weekdays.description" = "По будням";
+
+"reminder.toggle" = "Напомнить";
+"reminder.time" = "Время";
+"reminder.notification.body" = "Время выполнить привычку";
+
+"notification.denied.title" = "Уведомления отключены";
+"notification.denied.message" = "Разрешите уведомления для Habits в настройках iPhone, чтобы включить напоминания.";
+
+"common.cancel" = "Отмена";
+"common.done" = "Готово";
+"common.save" = "Сохранить";
+"common.ok" = "ОК";
+"common.delete" = "Удалить";
+
+"quick.water" = "Вода";
+"quick.reading" = "Чтение";
+"quick.walk" = "Прогулка";
+"quick.workout" = "Тренировка";
+
+"weekday.mon.short" = "Пн";
+"weekday.tue.short" = "Вт";
+"weekday.wed.short" = "Ср";
+"weekday.thu.short" = "Чт";
+"weekday.fri.short" = "Пт";
+"weekday.sat.short" = "Сб";
+"weekday.sun.short" = "Вс";
+
+"detail.history.title" = "Последние 5 недель";
+"detail.history.hint" = "Нажмите на прошедший день, чтобы исправить отметку.";
+"detail.archive" = "Архивировать";
+"detail.restore" = "Вернуть из архива";
+"detail.delete" = "Удалить привычку";
+"detail.delete.title" = "Удалить привычку?";
+"detail.delete.message" = "История выполнения этой привычки тоже будет удалена.";
+
+"stats.streak" = "серия";
+"stats.completion" = "выполнено";
+"stats.checkins" = "отметок";
+
+"status.completed" = "выполнено";
+"status.notCompleted" = "не выполнено";
+
+"accessibility.color.format" = "Цвет %d";
+"accessibility.symbol.format" = "Значок %d";
+"accessibility.selected" = "Выбрано";

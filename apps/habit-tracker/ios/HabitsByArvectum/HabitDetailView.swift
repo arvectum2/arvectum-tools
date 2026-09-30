@@ -39,7 +39,7 @@ struct HabitDetailView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
-                Button("Изменить") {
+                Button(L10n.string("habit.edit.action")) {
                     showingEditHabit = true
                 }
             }
@@ -48,14 +48,14 @@ struct HabitDetailView: View {
             AddHabitView(habit: habit)
         }
         .confirmationDialog(
-            "Удалить привычку?",
+            L10n.string("detail.delete.title"),
             isPresented: $showingDeleteConfirmation,
             titleVisibility: .visible
         ) {
-            Button("Удалить", role: .destructive, action: deleteHabit)
-            Button("Отмена", role: .cancel) {}
+            Button(L10n.string("common.delete"), role: .destructive, action: deleteHabit)
+            Button(L10n.string("common.cancel"), role: .cancel) {}
         } message: {
-            Text("История выполнения этой привычки тоже будет удалена.")
+            Text(L10n.string("detail.delete.message"))
         }
     }
 
@@ -94,17 +94,17 @@ struct HabitDetailView: View {
         HStack(spacing: 10) {
             stat(
                 value: "\(HabitMetrics.currentStreak(habit: habit, checkIns: checkIns))",
-                label: "серия",
+                label: L10n.string("stats.streak"),
                 systemImage: "flame.fill"
             )
             stat(
                 value: "\(Int(HabitMetrics.completionRate(habit: habit, checkIns: checkIns) * 100))%",
-                label: "выполнено",
+                label: L10n.string("stats.completion"),
                 systemImage: "chart.line.uptrend.xyaxis"
             )
             stat(
                 value: "\(habitCheckIns.count)",
-                label: "отметок",
+                label: L10n.string("stats.checkins"),
                 systemImage: "checkmark.circle.fill"
             )
         }
@@ -112,7 +112,7 @@ struct HabitDetailView: View {
 
     private var historyCard: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("Последние 5 недель")
+            Text(L10n.string("detail.history.title"))
                 .font(.headline)
 
             LazyVGrid(
@@ -127,7 +127,7 @@ struct HabitDetailView: View {
                 }
             }
 
-            Text("Нажмите на прошедший день, чтобы исправить отметку.")
+            Text(L10n.string("detail.history.hint"))
                 .font(.caption)
                 .foregroundStyle(.secondary)
         }
@@ -145,7 +145,9 @@ struct HabitDetailView: View {
             if habit.isArchived { dismiss() }
         } label: {
             Label(
-                habit.isArchived ? "Вернуть из архива" : "Архивировать",
+                habit.isArchived
+                    ? L10n.string("detail.restore")
+                    : L10n.string("detail.archive"),
                 systemImage: habit.isArchived ? "tray.and.arrow.up" : "archivebox"
             )
             .frame(maxWidth: .infinity)
@@ -158,7 +160,7 @@ struct HabitDetailView: View {
         Button(role: .destructive) {
             showingDeleteConfirmation = true
         } label: {
-            Label("Удалить привычку", systemImage: "trash")
+            Label(L10n.string("detail.delete"), systemImage: "trash")
                 .frame(maxWidth: .infinity)
                 .frame(height: 46)
         }
@@ -247,13 +249,21 @@ struct HabitDetailView: View {
     }
 
     private var scheduleDescription: String {
-        if habit.schedule == .everyDay { return "Каждый день" }
-        if habit.schedule == .weekdays { return "По будням" }
+        if habit.schedule == .everyDay {
+            return L10n.string("schedule.everyday")
+        }
+        if habit.schedule == .weekdays {
+            return L10n.string("schedule.weekdays.description")
+        }
 
         let labels: [(String, HabitSchedule)] = [
-            ("Пн", .monday), ("Вт", .tuesday), ("Ср", .wednesday),
-            ("Чт", .thursday), ("Пт", .friday), ("Сб", .saturday),
-            ("Вс", .sunday)
+            (L10n.string("weekday.mon.short"), .monday),
+            (L10n.string("weekday.tue.short"), .tuesday),
+            (L10n.string("weekday.wed.short"), .wednesday),
+            (L10n.string("weekday.thu.short"), .thursday),
+            (L10n.string("weekday.fri.short"), .friday),
+            (L10n.string("weekday.sat.short"), .saturday),
+            (L10n.string("weekday.sun.short"), .sunday)
         ]
         return labels
             .filter { habit.schedule.contains($0.1) }
@@ -274,7 +284,10 @@ struct HabitDetailView: View {
     private func accessibilityLabel(for date: Date, completed: Bool) -> String {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
-        return "\(formatter.string(from: date)), \(completed ? "выполнено" : "не выполнено")"
+        let status = completed
+            ? L10n.string("status.completed")
+            : L10n.string("status.notCompleted")
+        return "\(formatter.string(from: date)), \(status)"
     }
 
     private func deleteHabit() {
