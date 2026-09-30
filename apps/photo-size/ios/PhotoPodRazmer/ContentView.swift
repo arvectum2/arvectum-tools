@@ -33,19 +33,21 @@ struct ContentView: View {
                 ModeSelector(mode: model.mode) { model.setMode($0) }
 
                 if let result = model.result {
-                    ResultCard(
-                        result: result,
-                        onSave: beginExport,
-                        onSavePrintSheet: beginPrintSheetExport,
-                        onShare: { shareURL = result.outputURL },
-                        onBack: model.backToSelection
-                    )
-                } else {
                     ScrollView(showsIndicators: false) {
                         VStack(spacing: 10) {
-                            MainTaskCard(pickerItem: $pickerItem)
-                            MainScreenAdSlot()
+                            ResultCard(
+                                result: result,
+                                onSave: beginExport,
+                                onSavePrintSheet: beginPrintSheetExport,
+                                onShare: { shareURL = result.outputURL },
+                                onBack: model.backToSelection
+                            )
+                            ResultScreenAdSlot()
                         }
+                    }
+                } else {
+                    ScrollView(showsIndicators: false) {
+                        MainTaskCard(pickerItem: $pickerItem)
                     }
                 }
 
@@ -610,7 +612,7 @@ private struct ResultCard: View {
                 .frame(maxWidth: .infinity)
         }
         .padding(14)
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+        .frame(maxWidth: .infinity, minHeight: 430, alignment: .topLeading)
         .background(Color.arvectumSurface, in: RoundedRectangle(cornerRadius: 20))
         .overlay(
             RoundedRectangle(cornerRadius: 20)

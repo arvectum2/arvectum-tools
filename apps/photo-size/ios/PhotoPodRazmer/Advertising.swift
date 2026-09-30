@@ -54,7 +54,7 @@ enum AdSDK {
     }
 }
 
-struct MainScreenAdSlot: View {
+struct ResultScreenAdSlot: View {
     @State private var variant = AdExperiment.current()
 
     var body: some View {
@@ -67,7 +67,7 @@ struct MainScreenAdSlot: View {
             }
         }
         .frame(maxWidth: .infinity)
-        .accessibilityIdentifier("main-ad-slot-\(variant.rawValue)")
+        .accessibilityIdentifier("result-ad-slot-\(variant.rawValue)")
     }
 }
 
