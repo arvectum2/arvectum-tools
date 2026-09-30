@@ -7,9 +7,16 @@
     <key>destination</key>
     <string>export</string>
     <key>signingStyle</key>
-    <string>automatic</string>
+    <string>manual</string>
     <key>teamID</key>
     <string>VML75VY94V</string>
+    <key>signingCertificate</key>
+    <string>Apple Distribution</string>
+    <key>provisioningProfiles</key>
+    <dict>
+        <key>ru.arvectum.tools.notify</key>
+        <string>PUSHKIN App Store</string>
+    </dict>
     <key>manageAppVersionAndBuildNumber</key>
     <false/>
     <key>stripSwiftSymbols</key>
