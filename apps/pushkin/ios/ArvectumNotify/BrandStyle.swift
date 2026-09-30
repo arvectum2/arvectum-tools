@@ -51,26 +51,26 @@ struct ArvectumPushkinHeader: View {
     var onAddApp: (() -> Void)?
 
     var body: some View {
-        HStack(spacing: 10) {
+        HStack(spacing: 8) {
             Image("ArvectumWordmark")
                 .resizable()
                 .scaledToFit()
-                .frame(width: 92, height: 24)
-                .accessibilityHidden(true)
+                .frame(width: 86, height: 24)
+                .accessibilityLabel("Arvectum")
 
-            Capsule()
-                .fill(Color.white.opacity(0.20))
+            Rectangle()
+                .fill(Color.white.opacity(0.22))
                 .frame(width: 1, height: 26)
                 .accessibilityHidden(true)
 
             ZStack {
-                Image("pushkin-mark")
+                Image("PushkinMark")
                     .resizable()
                     .scaledToFill()
-                    .frame(width: 50, height: 50)
-                    .offset(y: 5)
+                    .frame(width: 48, height: 48)
+                    .offset(y: 4)
             }
-            .frame(width: 34, height: 34)
+            .frame(width: 36, height: 36)
             .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
             .overlay(
                 RoundedRectangle(cornerRadius: 10, style: .continuous)
@@ -80,14 +80,15 @@ struct ArvectumPushkinHeader: View {
 
             VStack(alignment: .leading, spacing: 1) {
                 Text("PUSHKIN")
-                    .font(.custom("Baskerville-BoldItalic", size: 21))
-                    .tracking(1.4)
+                    .font(.custom("Baskerville-BoldItalic", size: 18))
+                    .tracking(0.9)
                     .foregroundStyle(.white)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.78)
 
                 Capsule()
                     .fill(Color.arvectumMint)
-                    .frame(width: 58, height: 2)
-                    .opacity(0.95)
+                    .frame(width: 48, height: 2)
             }
 
             Spacer(minLength: 0)
@@ -107,7 +108,7 @@ struct ArvectumPushkinHeader: View {
             }
         }
         .padding(.horizontal, 10)
-        .frame(height: 52)
+        .frame(height: 48)
         .background(
             LinearGradient(
                 colors: [.arvectumNavy, .arvectumGraphite],
@@ -144,6 +145,19 @@ struct ArvectumCard<Content: View>: View {
 
 enum PushkinFeatureFlags {
     static let adsEnabled = false
+
+    static var shouldRenderNativeAdSlot: Bool {
+        if adsEnabled {
+            return true
+        }
+#if DEBUG
+        return ProcessInfo.processInfo.environment[
+            "PUSHKIN_PREVIEW_AD_SLOT"
+        ] == "1"
+#else
+        return false
+#endif
+    }
 }
 
 /// Reserved insertion point for the post-launch native ad.
@@ -152,16 +166,14 @@ enum PushkinFeatureFlags {
 /// are disabled, so 1.0 remains genuinely ad-free with no dead space.
 struct FutureNativeAdPlacement: View {
     var body: some View {
-        if PushkinFeatureFlags.adsEnabled {
-            RoundedRectangle(cornerRadius: 16, style: .continuous)
-                .fill(Color.arvectumSurface)
-                .frame(height: 108)
-                .overlay {
-                    Text("Sponsored")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                }
-                .accessibilityIdentifier("future-native-ad-slot")
-        }
+        RoundedRectangle(cornerRadius: 16, style: .continuous)
+            .fill(Color.arvectumSurface)
+            .frame(height: 108)
+            .overlay {
+                Text("Sponsored")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            }
+            .accessibilityIdentifier("future-native-ad-slot")
     }
 }

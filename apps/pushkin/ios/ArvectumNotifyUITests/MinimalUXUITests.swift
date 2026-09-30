@@ -33,27 +33,90 @@ final class MinimalUXUITests: XCTestCase {
         XCTAssertTrue(appsTab.waitForExistence(timeout: 6))
         appsTab.tap()
 
-        XCTAssertTrue(
-            app.buttons["add-app-from-apps-tab"].firstMatch
-                .waitForExistence(timeout: 6)
-        )
-        XCTAssertTrue(
+        let addApp = app.buttons["add-app-from-apps-tab"].firstMatch
+        XCTAssertTrue(addApp.waitForExistence(timeout: 6))
+        XCTAssertTrue(addApp.isHittable)
+        XCTAssertFalse(
             app.staticTexts[
                 "Local on this iPhone · no account or cloud"
-            ].firstMatch.exists
+            ].firstMatch.exists,
+            "Apps should not repeat privacy copy from Settings"
         )
 
         let settingsTab = app.tabBars.buttons["Settings"].firstMatch
         settingsTab.tap()
 
-        XCTAssertTrue(
-            app.buttons["delete-all-history"].firstMatch
-                .waitForExistence(timeout: 6)
-        )
-        XCTAssertTrue(app.links["privacy-policy"].firstMatch.exists)
-        XCTAssertTrue(app.links["support-link"].firstMatch.exists)
+        let deleteHistory = app.buttons["delete-all-history"].firstMatch
+        let privacy = app.links["privacy-policy"].firstMatch
+        let support = app.links["support-link"].firstMatch
+
+        XCTAssertTrue(deleteHistory.waitForExistence(timeout: 6))
+        XCTAssertTrue(deleteHistory.isHittable)
+        XCTAssertTrue(privacy.exists)
+        XCTAssertTrue(privacy.isHittable)
+        XCTAssertTrue(support.exists)
+        XCTAssertTrue(support.isHittable)
 
         print("PRIMARY_TABS_NO_SCROLL_REQUIRED_OK")
+    }
+
+    func testAddAppAndManualScreensFitWithoutScrolling() throws {
+        let picker = XCUIApplication(bundleIdentifier: "ru.arvectum.tools.notify")
+        picker.launchEnvironment["PUSHKIN_DEBUG_SCREEN"] = "add-app"
+        picker.launch()
+
+        let search = picker.textFields["app-search"].firstMatch
+        XCTAssertTrue(search.waitForExistence(timeout: 6))
+
+        let yandex = picker.buttons.matching(
+            NSPredicate(format: "label CONTAINS %@", "Yandex Go")
+        ).firstMatch
+        XCTAssertTrue(yandex.waitForExistence(timeout: 6))
+        XCTAssertTrue(yandex.isHittable)
+
+        search.tap()
+        search.typeText("a")
+
+        let manual = picker.buttons["manual-add-app"].firstMatch
+        XCTAssertTrue(manual.waitForExistence(timeout: 6))
+        XCTAssertTrue(
+            manual.isHittable,
+            "Manual fallback must remain visible with the keyboard open"
+        )
+
+        picker.terminate()
+
+        let guide = XCUIApplication(bundleIdentifier: "ru.arvectum.tools.notify")
+        guide.launchEnvironment["PUSHKIN_DEBUG_SCREEN"] = "manual-add"
+        guide.launch()
+
+        let shortcuts = guide.buttons["Open Shortcuts"].firstMatch
+        XCTAssertTrue(shortcuts.waitForExistence(timeout: 6))
+        XCTAssertTrue(shortcuts.isHittable)
+
+        print("ADD_APP_AND_MANUAL_NO_SCROLL_REQUIRED_OK")
+    }
+
+    func testHistorySearchKeyboardCanBeDismissed() throws {
+        let app = XCUIApplication(bundleIdentifier: "ru.arvectum.tools.notify")
+        app.launchEnvironment["PUSHKIN_STORE_SCREENSHOT_FIXTURE"] = "1"
+        app.launch()
+
+        let search = app.textFields["Search notifications"].firstMatch
+        XCTAssertTrue(search.waitForExistence(timeout: 6))
+        search.tap()
+
+        XCTAssertTrue(app.keyboards.firstMatch.waitForExistence(timeout: 4))
+
+        let dismiss = app.buttons["dismiss-search-keyboard"].firstMatch
+        XCTAssertTrue(dismiss.waitForExistence(timeout: 4))
+        dismiss.tap()
+
+        XCTAssertFalse(
+            app.keyboards.firstMatch.waitForExistence(timeout: 2),
+            "Keyboard should dismiss from the visible search control"
+        )
+        print("HISTORY_SEARCH_KEYBOARD_DISMISS_OK")
     }
 
     func testOnboardingOpensShortcutPreviewDirectly() throws {
@@ -138,13 +201,15 @@ final class MinimalUXUITests: XCTestCase {
         search.tap()
         search.typeText("Definitely Missing PUSHKIN App")
 
+        let done = app.buttons["app-search-done"].firstMatch
+        XCTAssertTrue(done.waitForExistence(timeout: 6))
+        done.tap()
+
         let manual = app.buttons["manual-add-app"].firstMatch
         XCTAssertTrue(manual.waitForExistence(timeout: 6))
         manual.tap()
 
-        let openAutomations = app.buttons[
-            "open-manual-automations"
-        ].firstMatch
+        let openAutomations = app.buttons["Open Shortcuts"].firstMatch
         XCTAssertTrue(openAutomations.waitForExistence(timeout: 6))
         XCTAssertTrue(
             app.staticTexts[

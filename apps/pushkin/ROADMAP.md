@@ -56,12 +56,14 @@ The submitted 1.0 build stays in App Review. UI changes below target the next bu
 - [x] Remove duplicate Shortcuts actions from the same UI state.
 - [x] Cut explanatory copy to short task-oriented labels/captions.
 - [x] Make Apps, Settings and Manual Add fixed-height/non-scrolling at normal text size.
-- [x] Cap Add App UI to 5 popular apps / 6 search matches so the picker itself does not need vertical scrolling.
-- [x] Add Pushkin portrait next to the Arvectum wordmark on History.
-- [x] Replace generic PUSHKIN title treatment with a heavy serif product wordmark.
+- [x] Cap Add App UI to 4 popular apps / 5 search matches so the picker stays fully visible without becoming a browse feed.
+- [x] Remove the redundant `History` navigation title to reclaim vertical space.
+- [x] Make the History search keyboard dismissible via a visible in-field keyboard button, Return, and interactive list scroll.
+- [x] Use a compact History brand lockup: Arvectum wordmark + Pushkin portrait + distinctive PUSHKIN wordmark in one row.
+- [x] Give PUSHKIN a literary Baskerville Bold Italic treatment with a restrained mint underline instead of the generic system title.
 - [x] Reserve future native-ad insertion point after the third History item; ads remain disabled and no blank placeholder is shown.
 - [x] Complete product/IA/visual/iOS interaction cross-review in `docs/UX_REVIEW.md`.
-- [ ] Build the redesign after Xcode toolchain recovers from the current stuck SDK/asset compiler processes.
+- [x] Build the redesign successfully for simulator and physical iPhone after clearing the stale Xcode compiler processes.
 - [ ] Capture light/dark screenshots on simulator and physical iPhone.
 - [ ] Product-owner visual approval.
 - [ ] Only after approval: merge/release next build; add the planned ad SDK for the second public release.

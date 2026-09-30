@@ -26,6 +26,26 @@ struct ContentView: View {
     }
 
     var body: some View {
+        Group {
+#if DEBUG
+            if let screen = ProcessInfo.processInfo.environment["PUSHKIN_DEBUG_SCREEN"] {
+                debugScreen(screen)
+            } else {
+                mainTabs
+            }
+#else
+            mainTabs
+#endif
+        }
+        .tint(.arvectumMint)
+        .task {
+#if DEBUG
+            StoreScreenshotFixture.installIfRequested(into: modelContext)
+#endif
+        }
+    }
+
+    private var mainTabs: some View {
         TabView(selection: $selectedTab) {
             InboxView()
                 .tabItem {
@@ -45,13 +65,23 @@ struct ContentView: View {
                 }
                 .tag(2)
         }
-        .tint(.arvectumMint)
-        .task {
+    }
+
 #if DEBUG
-            StoreScreenshotFixture.installIfRequested(into: modelContext)
-#endif
+    @ViewBuilder
+    private func debugScreen(_ screen: String) -> some View {
+        switch screen {
+        case "add-app":
+            CoverageAppPicker { _ in }
+        case "manual-add":
+            NavigationStack {
+                ManualCoverageGuide(appName: "Example App")
+            }
+        default:
+            mainTabs
         }
     }
+#endif
 }
 
 private struct InboxView: View {
@@ -62,6 +92,7 @@ private struct InboxView: View {
     private var notifications: [CapturedNotification]
 
     @State private var searchText = ""
+    @FocusState private var searchFocused: Bool
 
     @AppStorage("coverage.quickRefreshCount")
     private var quickRefreshCount = 0
@@ -103,8 +134,8 @@ private struct InboxView: View {
                     showAppPicker = true
                 }
                 .padding(.horizontal, 14)
-                .padding(.top, 8)
-                .padding(.bottom, 8)
+                .padding(.top, 4)
+                .padding(.bottom, 6)
 
                 if !notifications.isEmpty {
                     HStack(spacing: 10) {
@@ -114,6 +145,11 @@ private struct InboxView: View {
                         TextField("Search notifications", text: $searchText)
                             .textInputAutocapitalization(.never)
                             .autocorrectionDisabled()
+                            .focused($searchFocused)
+                            .submitLabel(.done)
+                            .onSubmit {
+                                searchFocused = false
+                            }
 
                         if !searchText.isEmpty {
                             Button {
@@ -124,6 +160,19 @@ private struct InboxView: View {
                             }
                             .buttonStyle(.plain)
                             .accessibilityLabel("Clear search")
+                        }
+
+                        if searchFocused {
+                            Button {
+                                searchFocused = false
+                            } label: {
+                                Image(systemName: "keyboard.chevron.compact.down")
+                                    .foregroundStyle(Color.arvectumMint)
+                                    .frame(width: 30, height: 30)
+                            }
+                            .buttonStyle(.plain)
+                            .accessibilityLabel("Dismiss keyboard")
+                            .accessibilityIdentifier("dismiss-search-keyboard")
                         }
                     }
                     .padding(.horizontal, 14)
@@ -153,11 +202,6 @@ private struct InboxView: View {
 
                             Text("Notification history")
                                 .font(.title3.weight(.semibold))
-
-                            Text("Set up once. PUSHKIN saves incoming notifications locally.")
-                                .font(.subheadline)
-                                .foregroundStyle(.secondary)
-                                .multilineTextAlignment(.center)
 
                             if let url = CoverageCatalog.basePackageURL {
                                 Button {
@@ -214,8 +258,10 @@ private struct InboxView: View {
                                         Label("Share", systemImage: "square.and.arrow.up")
                                     }
                                 }
+                                .listRowBackground(Color.arvectumSurface)
+                                .listRowSeparatorTint(Color.arvectumBorder)
 
-                                if PushkinFeatureFlags.adsEnabled && index == 2 {
+                                if PushkinFeatureFlags.shouldRenderNativeAdSlot && index == 2 {
                                     FutureNativeAdPlacement()
                                         .listRowSeparator(.hidden)
                                 }
@@ -223,12 +269,11 @@ private struct InboxView: View {
                         }
                         .listStyle(.plain)
                         .scrollContentBackground(.hidden)
+                        .scrollDismissesKeyboard(.interactively)
                     }
                 }
             }
             .background(Color.arvectumBackground.ignoresSafeArea())
-            .navigationTitle("History")
-            .navigationBarTitleDisplayMode(.inline)
             .sheet(isPresented: $showAppPicker) {
                 CoverageAppPicker { app in
                     let now = Date().timeIntervalSince1970

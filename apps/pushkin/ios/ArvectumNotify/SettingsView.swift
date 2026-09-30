@@ -23,11 +23,15 @@ struct SettingsView: View {
                 Spacer(minLength: 0)
 
 #if DEBUG
-                NavigationLink {
-                    DiagnosticsView()
-                } label: {
-                    Label("Diagnostics", systemImage: "waveform.path.ecg")
-                        .font(.caption)
+                if ProcessInfo.processInfo.environment[
+                    "PUSHKIN_SHOW_DIAGNOSTICS"
+                ] == "1" {
+                    NavigationLink {
+                        DiagnosticsView()
+                    } label: {
+                        Label("Diagnostics", systemImage: "waveform.path.ecg")
+                            .font(.caption)
+                    }
                 }
 #endif
             }
@@ -114,16 +118,9 @@ struct SettingsView: View {
     }
 
     private var aboutLine: some View {
-        HStack(spacing: 7) {
-            Text("PUSHKIN")
-                .font(.caption.bold())
-            Text("·")
-            Text("Arvectum")
-            Text("·")
-            Text(appVersion)
-        }
-        .foregroundStyle(.secondary)
-        .font(.caption)
+        Text("Version \(appVersion)")
+            .foregroundStyle(.secondary)
+            .font(.caption)
     }
 
     private func settingsRow(

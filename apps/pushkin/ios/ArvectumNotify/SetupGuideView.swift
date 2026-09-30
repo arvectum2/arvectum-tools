@@ -41,7 +41,6 @@ struct SetupGuideView: View {
             VStack(spacing: 12) {
                 statusCard
                 appCard
-                localBadge
                 Spacer(minLength: 0)
             }
             .padding(.horizontal, 16)
@@ -113,16 +112,9 @@ struct SetupGuideView: View {
     private var appCard: some View {
         ArvectumCard {
             VStack(alignment: .leading, spacing: 10) {
-                HStack {
-                    Label("Apps", systemImage: "square.stack.3d.up.fill")
-                        .font(.headline)
-
-                    Spacer()
-
-                    Text("\(CoverageCatalog.entries.count) built in")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                }
+                Text("\(CoverageCatalog.entries.count) apps built in")
+                    .font(.caption.weight(.semibold))
+                    .foregroundStyle(.secondary)
 
                 Button {
                     showAppPicker = true
@@ -133,25 +125,8 @@ struct SetupGuideView: View {
                 .buttonStyle(.borderedProminent)
                 .controlSize(.large)
                 .accessibilityIdentifier("add-app-from-apps-tab")
-
-                if !lastQuickRefreshName.isEmpty {
-                    Text("Latest: \(lastQuickRefreshName)")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                        .lineLimit(1)
-                }
             }
         }
-    }
-
-    private var localBadge: some View {
-        Label(
-            "Local on this iPhone · no account or cloud",
-            systemImage: "lock.shield.fill"
-        )
-        .font(.caption.weight(.medium))
-        .foregroundStyle(.secondary)
-        .padding(.top, 2)
     }
 
     private func recordQuickRefresh(_ app: CoverageCatalogEntry) {

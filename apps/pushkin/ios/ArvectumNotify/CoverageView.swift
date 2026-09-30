@@ -1,3 +1,4 @@
+import Foundation
 import SwiftUI
 
 struct CoverageCatalogEntry: Codable, Identifiable, Hashable {
@@ -10,9 +11,22 @@ struct CoverageCatalogEntry: Codable, Identifiable, Hashable {
     let rank: Int
 
     var id: String { bundleIdentifier }
+
     var title: String {
-        let display = displayName?.trimmingCharacters(in: .whitespacesAndNewlines)
-        return (display?.isEmpty == false ? display : nil) ?? name
+        switch bundleIdentifier {
+        case "ph.telegra.Telegraph":
+            return "Telegram"
+        case "net.whatsapp.WhatsApp":
+            return "WhatsApp"
+        case "ru.ozon.OzonStore":
+            return "Ozon"
+        case "ru.yandex.ytaxi":
+            return "Yandex Go"
+        default:
+            let display = displayName?
+                .trimmingCharacters(in: .whitespacesAndNewlines)
+            return (display?.isEmpty == false ? display : nil) ?? name
+        }
     }
 }
 
@@ -63,8 +77,23 @@ enum CoverageCatalog {
         isMicro: Bool
     ) -> URL? {
         let subdirectories = isMicro
-            ? ["Coverage/Micro", "Micro", "Coverage"]
-            : ["Coverage", ""]
+            ? ["", "Coverage/Micro", "Micro", "Coverage"]
+            : ["", "Coverage"]
+
+        if let resourceURL = Bundle.main.resourceURL {
+            for subdirectory in subdirectories {
+                let directory = subdirectory.isEmpty
+                    ? resourceURL
+                    : resourceURL.appendingPathComponent(
+                        subdirectory,
+                        isDirectory: true
+                    )
+                let candidate = directory.appendingPathComponent(filename)
+                if FileManager.default.fileExists(atPath: candidate.path) {
+                    return candidate
+                }
+            }
+        }
 
         for subdirectory in subdirectories {
             if let url = Bundle.main.url(
@@ -76,10 +105,7 @@ enum CoverageCatalog {
             }
         }
 
-        return Bundle.main.url(
-            forResource: filename,
-            withExtension: nil
-        )
+        return nil
     }
 
     private static func load() -> CoverageCatalogDocument {
@@ -120,6 +146,8 @@ struct CoverageAppPicker: View {
     @State private var query = ""
     @State private var pendingLocalPackageURL: URL?
     @State private var pendingApp: CoverageCatalogEntry?
+    @State private var showManualGuide = false
+    @FocusState private var searchFocused: Bool
 
     let onOpenPack: (CoverageCatalogEntry) -> Void
 
@@ -131,7 +159,7 @@ struct CoverageAppPicker: View {
         let matches: [CoverageCatalogEntry]
 
         if trimmedQuery.isEmpty {
-            matches = Array(CoverageCatalog.commonEntries.prefix(5))
+            matches = Array(CoverageCatalog.commonEntries.prefix(4))
         } else {
             matches = CoverageCatalog.entries.filter {
                 $0.title.localizedCaseInsensitiveContains(trimmedQuery)
@@ -141,7 +169,7 @@ struct CoverageAppPicker: View {
             }
         }
 
-        return Array(matches.prefix(6))
+        return Array(matches.prefix(5))
     }
 
     var body: some View {
@@ -154,6 +182,7 @@ struct CoverageAppPicker: View {
                     TextField("Search apps", text: $query)
                         .textInputAutocapitalization(.never)
                         .autocorrectionDisabled()
+                        .focused($searchFocused)
                         .accessibilityIdentifier("app-search")
 
                     if !query.isEmpty {
@@ -218,16 +247,6 @@ struct CoverageAppPicker: View {
                             }
                         }
 
-                        if !trimmedQuery.isEmpty {
-                            NavigationLink {
-                                ManualCoverageGuide(appName: trimmedQuery)
-                            } label: {
-                                Label("Not listed? Add manually", systemImage: "hand.tap")
-                                    .font(.subheadline)
-                                    .frame(minHeight: 44)
-                            }
-                            .accessibilityIdentifier("manual-add-app")
-                        }
                     }
                     .padding(.horizontal, 16)
                 }
@@ -235,13 +254,32 @@ struct CoverageAppPicker: View {
                 Spacer(minLength: 0)
             }
             .background(Color.arvectumBackground.ignoresSafeArea())
+            .safeAreaInset(edge: .bottom) {
+                if !trimmedQuery.isEmpty {
+                    manualAddButton
+                        .padding(.horizontal, 16)
+                        .padding(.vertical, 8)
+                        .background(Color.arvectumBackground)
+                }
+            }
             .navigationTitle("Add App")
             .navigationBarTitleDisplayMode(.inline)
+            .navigationDestination(isPresented: $showManualGuide) {
+                ManualCoverageGuide(appName: trimmedQuery)
+            }
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel") {
                         dismiss()
                     }
+                }
+
+                ToolbarItemGroup(placement: .keyboard) {
+                    Spacer()
+                    Button("Done") {
+                        searchFocused = false
+                    }
+                    .accessibilityIdentifier("app-search-done")
                 }
             }
             .background {
@@ -257,6 +295,24 @@ struct CoverageAppPicker: View {
         }
     }
 
+    private var manualAddButton: some View {
+        Button {
+            searchFocused = false
+            showManualGuide = true
+        } label: {
+            Label(
+                catalogResults.isEmpty
+                    ? "Add manually"
+                    : "Not listed? Add manually",
+                systemImage: "hand.tap"
+            )
+            .frame(maxWidth: .infinity)
+            .frame(minHeight: 44)
+        }
+        .buttonStyle(.borderedProminent)
+        .accessibilityIdentifier("manual-add-app")
+    }
+
     private var missingAppState: some View {
         VStack(spacing: 14) {
             Spacer(minLength: 18)
@@ -268,15 +324,6 @@ struct CoverageAppPicker: View {
             Text("Not in this version")
                 .font(.headline)
 
-            NavigationLink {
-                ManualCoverageGuide(appName: trimmedQuery)
-            } label: {
-                Label("Add manually", systemImage: "hand.tap")
-                    .frame(maxWidth: .infinity)
-            }
-            .buttonStyle(.borderedProminent)
-            .accessibilityIdentifier("manual-add-app")
-
             Spacer(minLength: 18)
         }
         .padding(.horizontal, 24)
@@ -287,12 +334,14 @@ struct CoverageAppPicker: View {
             return
         }
 
+        searchFocused = false
         pendingApp = app
         pendingLocalPackageURL = url
     }
+
 }
 
-private struct ManualCoverageGuide: View {
+struct ManualCoverageGuide: View {
     @Environment(\.openURL) private var openURL
 
     let appName: String
@@ -310,7 +359,7 @@ private struct ManualCoverageGuide: View {
 
             ArvectumCard {
                 VStack(spacing: 12) {
-                    step(1, "Create a Notification automation and choose the app.")
+                    step(1, "Automation → Notification → choose app.")
                     step(2, "Add PUSHKIN → Archive Notification.")
                     step(3, "Map App, Title, Subtitle and Text.")
                     step(4, "Run immediately, then save.")
