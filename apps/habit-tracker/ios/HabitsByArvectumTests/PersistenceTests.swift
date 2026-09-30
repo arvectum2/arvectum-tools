@@ -19,6 +19,12 @@ final class PersistenceTests: XCTestCase {
         ])
         let habitID = UUID()
         let checkInDate = Date(timeIntervalSince1970: 1_790_784_000)
+        var checkInCalendar = Calendar(identifier: .gregorian)
+        checkInCalendar.timeZone = TimeZone(secondsFromGMT: 0)!
+        let expectedDayKey = HabitDayKey.make(
+            for: checkInDate,
+            calendar: checkInCalendar
+        )
 
         do {
             let container = try makeContainer(
@@ -40,7 +46,8 @@ final class PersistenceTests: XCTestCase {
             context.insert(
                 HabitCheckIn(
                     habitID: habitID,
-                    day: checkInDate
+                    day: checkInDate,
+                    calendar: checkInCalendar
                 )
             )
             try context.save()
@@ -64,6 +71,7 @@ final class PersistenceTests: XCTestCase {
             XCTAssertEqual(checkIns.count, 1)
             XCTAssertEqual(checkIns.first?.habitID, habitID)
             XCTAssertEqual(checkIns.first?.day, checkInDate)
+            XCTAssertEqual(checkIns.first?.dayKey, expectedDayKey)
         }
     }
 

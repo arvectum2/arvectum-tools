@@ -44,6 +44,9 @@ struct TodayView: View {
             .sheet(isPresented: $showingAddHabit) {
                 AddHabitView()
             }
+            .task {
+                backfillLegacyDayKeys()
+            }
         }
     }
 
@@ -123,17 +126,42 @@ struct TodayView: View {
 
         if let existing = checkIns.first(where: {
             $0.habitID == habit.id &&
-            calendar.isDate($0.day, inSameDayAs: date)
+            HabitDayKey.matches(
+                $0,
+                on: date,
+                calendar: calendar
+            )
         }) {
             modelContext.delete(existing)
         } else {
             modelContext.insert(
-                HabitCheckIn(habitID: habit.id, day: date)
+                HabitCheckIn(
+                    habitID: habit.id,
+                    day: date,
+                    calendar: calendar
+                )
             )
             UINotificationFeedbackGenerator().notificationOccurred(.success)
         }
 
         try? modelContext.save()
+    }
+
+    private func backfillLegacyDayKeys() {
+        let calendar = Calendar.autoupdatingCurrent
+        var changed = false
+
+        for checkIn in checkIns where checkIn.dayKey == nil {
+            checkIn.dayKey = HabitDayKey.make(
+                for: checkIn.day,
+                calendar: calendar
+            )
+            changed = true
+        }
+
+        if changed {
+            try? modelContext.save()
+        }
     }
 }
 

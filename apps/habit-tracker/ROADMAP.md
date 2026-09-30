@@ -33,7 +33,7 @@ Working formula: **«всё удобное — без лишнего»**.
 - [x] Persist data without registration or server.
 - [x] Regression test: habit and check-in survive persistent-store recreation.
 - [ ] Define explicit migration fixtures before the first public post-beta schema change.
-- [x] Smoke-test additive SwiftData schema migration by installing the reminder schema over the previous physical-device build.
+- [x] Smoke-test additive SwiftData schema migrations on a physical device (reminders and timezone-stable day keys).
 - [ ] Add export/import only after MVP validation.
 
 ### Today
@@ -80,8 +80,8 @@ Working formula: **«всё удобное — без лишнего»**.
 - [x] Incomplete current day does not destroy yesterday's visible streak.
 - [x] Completion rate uses scheduled days only.
 - [x] Unit tests for core schedule / streak / completion-rate cases.
-- [ ] Test DST and timezone-change scenarios explicitly.
-- [ ] Define product rule for timezone travel before public release.
+- [x] Test DST and timezone-change scenarios explicitly.
+- [x] Timezone rule: historical check-ins stay attached to the local calendar date on which they were made; schedules/reminders follow the device's current local timezone.
 
 ## M2 — reminders and polish
 
@@ -97,7 +97,7 @@ Working formula: **«всё удобное — без лишнего»**.
 - [x] UI test for create → check → detail → history using an isolated in-memory app store.
 - [x] Physical iPhone 13 signed-build install/launch smoke test.
 - [ ] Test on small and large physical iPhones.
-- [ ] Test clean install and upgrade path.
+- [x] Smoke-test clean simulator install and additive-schema upgrade path on the physical iPhone 13.
 
 ## Product research before feature expansion
 
@@ -137,6 +137,6 @@ Core habit tracking stays free. Advertising is the planned monetization model, b
 
 ## Current checkpoint
 
-The M1 vertical slice is implemented and M2 reminders/localization are wired end-to-end: local storage → create/edit a scheduled habit → optional local reminder → Today → mark/unmark → details/history → archive/delete. Reminder schedules follow the selected weekdays, are removed on archive/delete, and notification permission is requested only after the user enables a reminder. RU and EN are bundled and visually smoke-tested. The suite currently has 11 passing tests, including localization completeness and an XCUITest covering create → check → detail → history. Simulator and signed iPhone 13 install/launch smoke tests are green, and the project builds/tests successfully with Xcode 27.0.
+The M1 vertical slice is implemented and M2 reminders/localization are wired end-to-end: local storage → create/edit a scheduled habit → optional local reminder → Today → mark/unmark → details/history → archive/delete. Historical check-ins now use a stable local-day key, while current schedules/reminders follow the device timezone. RU and EN are bundled and visually smoke-tested. The suite currently has 13 passing tests, including timezone/DST regressions, localization completeness and an XCUITest covering create → check → detail → history. Clean install and additive-schema upgrades have been smoke-tested, including signed install/launch on the physical iPhone 13 with Xcode 27.0.
 
-**Next implementation step:** make historical check-ins timezone-stable and add DST/timezone regression coverage, then physically verify notification permission/delivery and finish the accessibility audit.
+**Next implementation step:** physically verify notification permission/delivery, finish the accessibility audit and do the final visual-polish pass before broader product research/monetization work.

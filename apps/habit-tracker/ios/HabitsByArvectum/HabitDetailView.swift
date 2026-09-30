@@ -237,12 +237,20 @@ struct HabitDetailView: View {
 
         if let existing = checkIns.first(where: {
             $0.habitID == habit.id &&
-            calendar.isDate($0.day, inSameDayAs: date)
+            HabitDayKey.matches(
+                $0,
+                on: date,
+                calendar: calendar
+            )
         }) {
             modelContext.delete(existing)
         } else {
             modelContext.insert(
-                HabitCheckIn(habitID: habit.id, day: date)
+                HabitCheckIn(
+                    habitID: habit.id,
+                    day: date,
+                    calendar: calendar
+                )
             )
         }
         try? modelContext.save()

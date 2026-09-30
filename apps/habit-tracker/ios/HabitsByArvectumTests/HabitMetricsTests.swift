@@ -45,10 +45,26 @@ final class HabitMetricsTests: XCTestCase {
             scheduleMask: HabitSchedule.weekdays.rawValue
         )
         let checkIns = [
-            HabitCheckIn(habitID: habit.id, day: date(2026, 9, 25)),
-            HabitCheckIn(habitID: habit.id, day: date(2026, 9, 28)),
-            HabitCheckIn(habitID: habit.id, day: date(2026, 9, 29)),
-            HabitCheckIn(habitID: habit.id, day: date(2026, 9, 30))
+            HabitCheckIn(
+                habitID: habit.id,
+                day: date(2026, 9, 25),
+                calendar: calendar
+            ),
+            HabitCheckIn(
+                habitID: habit.id,
+                day: date(2026, 9, 28),
+                calendar: calendar
+            ),
+            HabitCheckIn(
+                habitID: habit.id,
+                day: date(2026, 9, 29),
+                calendar: calendar
+            ),
+            HabitCheckIn(
+                habitID: habit.id,
+                day: date(2026, 9, 30),
+                calendar: calendar
+            )
         ]
 
         XCTAssertEqual(
@@ -68,8 +84,16 @@ final class HabitMetricsTests: XCTestCase {
             createdAt: date(2026, 9, 28)
         )
         let checkIns = [
-            HabitCheckIn(habitID: habit.id, day: date(2026, 9, 28)),
-            HabitCheckIn(habitID: habit.id, day: date(2026, 9, 29))
+            HabitCheckIn(
+                habitID: habit.id,
+                day: date(2026, 9, 28),
+                calendar: calendar
+            ),
+            HabitCheckIn(
+                habitID: habit.id,
+                day: date(2026, 9, 29),
+                calendar: calendar
+            )
         ]
 
         XCTAssertEqual(
@@ -90,8 +114,16 @@ final class HabitMetricsTests: XCTestCase {
             scheduleMask: HabitSchedule.weekdays.rawValue
         )
         let checkIns = [
-            HabitCheckIn(habitID: habit.id, day: date(2026, 9, 28)),
-            HabitCheckIn(habitID: habit.id, day: date(2026, 9, 30))
+            HabitCheckIn(
+                habitID: habit.id,
+                day: date(2026, 9, 28),
+                calendar: calendar
+            ),
+            HabitCheckIn(
+                habitID: habit.id,
+                day: date(2026, 9, 30),
+                calendar: calendar
+            )
         ]
 
         XCTAssertEqual(
@@ -106,9 +138,103 @@ final class HabitMetricsTests: XCTestCase {
         )
     }
 
+    func testCheckInKeepsOriginalLocalDayAfterTimezoneChange() {
+        var losAngeles = Calendar(identifier: .gregorian)
+        losAngeles.timeZone = TimeZone(identifier: "America/Los_Angeles")!
+
+        var tokyo = Calendar(identifier: .gregorian)
+        tokyo.timeZone = TimeZone(identifier: "Asia/Tokyo")!
+
+        let habit = Habit(name: "Read")
+        let checkInDate = date(
+            2026, 9, 30,
+            hour: 23,
+            minute: 30,
+            calendar: losAngeles
+        )
+        let checkIn = HabitCheckIn(
+            habitID: habit.id,
+            day: checkInDate,
+            calendar: losAngeles
+        )
+
+        XCTAssertEqual(checkIn.dayKey, "2026-09-30")
+
+        XCTAssertTrue(
+            HabitMetrics.isCompleted(
+                habitID: habit.id,
+                on: date(2026, 9, 30, hour: 12, calendar: tokyo),
+                checkIns: [checkIn],
+                calendar: tokyo
+            )
+        )
+        XCTAssertFalse(
+            HabitMetrics.isCompleted(
+                habitID: habit.id,
+                on: date(2026, 10, 1, hour: 12, calendar: tokyo),
+                checkIns: [checkIn],
+                calendar: tokyo
+            )
+        )
+    }
+
+    func testDailyStreakSurvivesDSTFallBack() {
+        var newYork = Calendar(identifier: .gregorian)
+        newYork.timeZone = TimeZone(identifier: "America/New_York")!
+
+        let habit = Habit(
+            name: "Walk",
+            createdAt: date(2026, 10, 31, hour: 12, calendar: newYork)
+        )
+        let checkIns = [
+            HabitCheckIn(
+                habitID: habit.id,
+                day: date(2026, 10, 31, hour: 12, calendar: newYork),
+                calendar: newYork
+            ),
+            HabitCheckIn(
+                habitID: habit.id,
+                day: date(2026, 11, 1, hour: 12, calendar: newYork),
+                calendar: newYork
+            ),
+            HabitCheckIn(
+                habitID: habit.id,
+                day: date(2026, 11, 2, hour: 12, calendar: newYork),
+                calendar: newYork
+            )
+        ]
+
+        XCTAssertEqual(
+            HabitMetrics.currentStreak(
+                habit: habit,
+                checkIns: checkIns,
+                today: date(2026, 11, 2, hour: 12, calendar: newYork),
+                calendar: newYork
+            ),
+            3
+        )
+    }
+
     private func date(_ year: Int, _ month: Int, _ day: Int) -> Date {
+        date(year, month, day, calendar: calendar)
+    }
+
+    private func date(
+        _ year: Int,
+        _ month: Int,
+        _ day: Int,
+        hour: Int = 0,
+        minute: Int = 0,
+        calendar: Calendar
+    ) -> Date {
         calendar.date(
-            from: DateComponents(year: year, month: month, day: day)
+            from: DateComponents(
+                year: year,
+                month: month,
+                day: day,
+                hour: hour,
+                minute: minute
+            )
         )!
     }
 }

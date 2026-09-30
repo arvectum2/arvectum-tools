@@ -7,10 +7,13 @@ enum HabitMetrics {
         checkIns: [HabitCheckIn],
         calendar: Calendar = .autoupdatingCurrent
     ) -> Bool {
-        let day = calendar.startOfDay(for: date)
         return checkIns.contains {
             $0.habitID == habitID &&
-            calendar.isDate($0.day, inSameDayAs: day)
+            HabitDayKey.matches(
+                $0,
+                on: date,
+                calendar: calendar
+            )
         }
     }
 
@@ -23,13 +26,20 @@ enum HabitMetrics {
         let completedDays = Set(
             checkIns
                 .filter { $0.habitID == habit.id }
-                .map { calendar.startOfDay(for: $0.day) }
+                .map {
+                    $0.dayKey ?? HabitDayKey.make(
+                        for: $0.day,
+                        calendar: calendar
+                    )
+                }
         )
 
         var streak = 0
         var cursor = calendar.startOfDay(for: today)
         let todayScheduled = habit.schedule.includes(cursor, calendar: calendar)
-        let todayCompleted = completedDays.contains(cursor)
+        let todayCompleted = completedDays.contains(
+            HabitDayKey.make(for: cursor, calendar: calendar)
+        )
 
         if todayScheduled && !todayCompleted,
            let yesterday = calendar.date(byAdding: .day, value: -1, to: cursor) {
@@ -38,7 +48,11 @@ enum HabitMetrics {
 
         for _ in 0..<3660 {
             if habit.schedule.includes(cursor, calendar: calendar) {
-                guard completedDays.contains(cursor) else { break }
+                let cursorKey = HabitDayKey.make(
+                    for: cursor,
+                    calendar: calendar
+                )
+                guard completedDays.contains(cursorKey) else { break }
                 streak += 1
             }
 

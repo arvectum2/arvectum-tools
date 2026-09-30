@@ -49,17 +49,20 @@ final class HabitCheckIn {
     @Attribute(.unique) var id: UUID
     var habitID: UUID
     var day: Date
+    var dayKey: String? = nil
     var createdAt: Date
 
     init(
         id: UUID = UUID(),
         habitID: UUID,
         day: Date,
-        createdAt: Date = .now
+        createdAt: Date = .now,
+        calendar: Calendar = .autoupdatingCurrent
     ) {
         self.id = id
         self.habitID = habitID
         self.day = day
+        self.dayKey = HabitDayKey.make(for: day, calendar: calendar)
         self.createdAt = createdAt
     }
 }
