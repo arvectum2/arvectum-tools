@@ -25,6 +25,7 @@ struct WatchTodayView: View {
             syncStore.refresh()
 #if DEBUG
             syncStore.debugAutoToggleCachedFirstHabitIfRequested()
+            syncStore.debugStressToggleCachedFirstHabitIfRequested()
 #endif
         }
     }

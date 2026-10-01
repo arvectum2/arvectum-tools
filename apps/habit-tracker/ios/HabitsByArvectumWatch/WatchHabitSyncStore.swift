@@ -13,6 +13,7 @@ final class WatchHabitSyncStore: NSObject, ObservableObject, WCSessionDelegate {
 #if DEBUG
     private var didAutoToggleForDebug = false
     private var didAutoToggleCachedForDebug = false
+    private var didStressToggleForDebug = false
 #endif
 
     private var session: WCSession? {
@@ -20,10 +21,14 @@ final class WatchHabitSyncStore: NSObject, ObservableObject, WCSessionDelegate {
     }
 
     override init() {
-        snapshot = Self.load(
+        if let cached = Self.load(
             HabitSyncSnapshot.self,
             key: "habits.watch.cachedSnapshot"
-        ) ?? WatchComplicationBridge.loadSnapshot()
+        ) {
+            snapshot = WatchComplicationBridge.currentSnapshot(cached)
+        } else {
+            snapshot = WatchComplicationBridge.loadCurrentSnapshot()
+        }
         pendingCommands = Self.load(
             [HabitCompletionCommand].self,
             key: "habits.watch.pendingCommands"
@@ -58,7 +63,10 @@ final class WatchHabitSyncStore: NSObject, ObservableObject, WCSessionDelegate {
             dayKey: snapshot.dayKey,
             completed: desiredState
         )
-        pendingCommands.append(command)
+        pendingCommands = HabitCompletionCommandQueue.appending(
+            command,
+            to: pendingCommands
+        )
         persistPending()
         send(command)
     }
@@ -140,6 +148,22 @@ final class WatchHabitSyncStore: NSObject, ObservableObject, WCSessionDelegate {
             let session,
             let message = try? HabitSyncCodec.message(packet)
         else { return }
+
+        if let command = packet.command {
+            for transfer in session.outstandingUserInfoTransfers {
+                guard
+                    let existing = try? HabitSyncCodec.packet(
+                        from: transfer.userInfo
+                    ),
+                    let existingCommand = existing.command,
+                    existingCommand.habitID == command.habitID,
+                    existingCommand.dayKey == command.dayKey
+                else { continue }
+
+                transfer.cancel()
+            }
+        }
+
         session.transferUserInfo(message)
     }
 
@@ -225,6 +249,28 @@ final class WatchHabitSyncStore: NSObject, ObservableObject, WCSessionDelegate {
         didAutoToggleCachedForDebug = true
         guard first.completed else { return }
         toggle(first)
+    }
+
+    func debugStressToggleCachedFirstHabitIfRequested() {
+        guard
+            !didStressToggleForDebug,
+            ProcessInfo.processInfo.arguments.contains(
+                "--stress-toggle-cached-first-habit"
+            ),
+            let first = snapshot.habits.first
+        else { return }
+
+        didStressToggleForDebug = true
+        for _ in 0..<51 {
+            toggle(first)
+        }
+
+        HabitDebugLog.emit(
+            "HABITS_WATCH_STRESS pending=\(pendingCommands.count) " +
+            "durable=\(session?.outstandingUserInfoTransfers.count ?? -1) " +
+            "final=\(snapshot.habits.first?.completed == true ? 1 : 0) " +
+            "reachable=\(isReachable)"
+        )
     }
 #endif
 

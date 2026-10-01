@@ -92,6 +92,51 @@ final class HabitSyncProtocolTests: XCTestCase {
         XCTAssertEqual(result.snapshot.resolvedCount, 1)
     }
 
+    func testPendingQueueCompactsRapidSameDayCommandsToLatestState() {
+        let habitID = UUID()
+        var commands: [HabitCompletionCommand] = []
+
+        for index in 0..<50 {
+            let command = HabitCompletionCommand(
+                id: UUID(),
+                habitID: habitID,
+                dayKey: "2026-10-01",
+                completed: index.isMultiple(of: 2),
+                createdAt: Date(timeIntervalSince1970: Double(index))
+            )
+            commands = HabitCompletionCommandQueue.appending(
+                command,
+                to: commands
+            )
+        }
+
+        XCTAssertEqual(commands.count, 1)
+        XCTAssertEqual(commands.first?.createdAt, Date(timeIntervalSince1970: 49))
+        XCTAssertEqual(commands.first?.completed, false)
+    }
+
+    func testPendingQueueKeepsNewestHundredDistinctTargets() {
+        var commands: [HabitCompletionCommand] = []
+
+        for index in 0..<105 {
+            let command = HabitCompletionCommand(
+                id: UUID(),
+                habitID: UUID(),
+                dayKey: "2026-10-01",
+                completed: true,
+                createdAt: Date(timeIntervalSince1970: Double(index))
+            )
+            commands = HabitCompletionCommandQueue.appending(
+                command,
+                to: commands
+            )
+        }
+
+        XCTAssertEqual(commands.count, 100)
+        XCTAssertEqual(commands.first?.createdAt, Date(timeIntervalSince1970: 5))
+        XCTAssertEqual(commands.last?.createdAt, Date(timeIntervalSince1970: 104))
+    }
+
     func testSkippedSnapshotRoundTrips() throws {
         let habitID = UUID()
         var source = snapshot(

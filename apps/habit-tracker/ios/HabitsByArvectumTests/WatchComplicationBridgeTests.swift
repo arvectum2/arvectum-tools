@@ -50,6 +50,31 @@ final class WatchComplicationBridgeTests: XCTestCase {
         XCTAssertEqual(result.progress, 0.75, accuracy: 0.0001)
     }
 
+    func testCurrentSnapshotRejectsPreviousCalendarDay() {
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = TimeZone(secondsFromGMT: 0)!
+        let now = calendar.date(
+            from: DateComponents(year: 2027, month: 1, day: 16, hour: 0, minute: 1)
+        )!
+        let stale = HabitSyncSnapshot(
+            generatedAt: now.addingTimeInterval(-120),
+            dayKey: "2027-01-15",
+            completedCount: 1,
+            skippedCount: 0,
+            totalCount: 1,
+            habits: []
+        )
+        WatchComplicationBridge.saveSnapshot(stale)
+
+        XCTAssertEqual(
+            WatchComplicationBridge.loadCurrentSnapshot(
+                now: now,
+                calendar: calendar
+            ),
+            .empty
+        )
+    }
+
     func testMissingSnapshotReturnsEmpty() {
         let result = WatchComplicationBridge.loadSnapshot()
 

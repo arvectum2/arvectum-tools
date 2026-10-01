@@ -54,6 +54,56 @@ final class HabitWidgetBridgeTests: XCTestCase {
         )
     }
 
+    func testCurrentSnapshotRejectsPreviousCalendarDay() {
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = TimeZone(secondsFromGMT: 0)!
+        let now = calendar.date(
+            from: DateComponents(year: 2027, month: 1, day: 16, hour: 0, minute: 1)
+        )!
+        let stale = HabitWidgetSnapshot(
+            generatedAt: now.addingTimeInterval(-120),
+            dayKey: "2027-01-15",
+            completedCount: 2,
+            skippedCount: 0,
+            totalCount: 2,
+            habits: []
+        )
+        HabitWidgetBridge.saveSnapshot(stale)
+
+        XCTAssertEqual(
+            HabitWidgetBridge.loadCurrentSnapshot(
+                now: now,
+                calendar: calendar
+            ),
+            .empty
+        )
+    }
+
+    func testCurrentSnapshotKeepsSameCalendarDay() {
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = TimeZone(secondsFromGMT: 0)!
+        let now = calendar.date(
+            from: DateComponents(year: 2027, month: 1, day: 16, hour: 23, minute: 59)
+        )!
+        let snapshot = HabitWidgetSnapshot(
+            generatedAt: now,
+            dayKey: "2027-01-16",
+            completedCount: 1,
+            skippedCount: 0,
+            totalCount: 2,
+            habits: []
+        )
+        HabitWidgetBridge.saveSnapshot(snapshot)
+
+        XCTAssertEqual(
+            HabitWidgetBridge.loadCurrentSnapshot(
+                now: now,
+                calendar: calendar
+            ),
+            snapshot
+        )
+    }
+
     func testAppendCommandIsIdempotentByCommandID() {
         let command = HabitWidgetCommand(
             id: UUID(),
@@ -139,14 +189,33 @@ final class HabitWidgetBridgeTests: XCTestCase {
         XCTAssertEqual(HabitWidgetBridge.loadSnapshot(), original)
     }
 
-    func testCommandQueueIsBoundedToNewestHundred() {
+    func testRapidCommandsForSameHabitDayCompactToLatestState() {
         let habitID = UUID()
 
-        for index in 0..<105 {
+        for index in 0..<50 {
             HabitWidgetBridge.appendCommand(
                 HabitWidgetCommand(
                     id: UUID(),
                     habitID: habitID,
+                    dayKey: "2027-01-15",
+                    completed: index.isMultiple(of: 2),
+                    createdAt: Date(timeIntervalSince1970: Double(index))
+                )
+            )
+        }
+
+        let commands = HabitWidgetBridge.loadCommands()
+        XCTAssertEqual(commands.count, 1)
+        XCTAssertEqual(commands.first?.createdAt, Date(timeIntervalSince1970: 49))
+        XCTAssertEqual(commands.first?.completed, false)
+    }
+
+    func testCommandQueueIsBoundedToNewestHundredTargets() {
+        for index in 0..<105 {
+            HabitWidgetBridge.appendCommand(
+                HabitWidgetCommand(
+                    id: UUID(),
+                    habitID: UUID(),
                     dayKey: "2027-01-15",
                     completed: index.isMultiple(of: 2),
                     createdAt: Date(timeIntervalSince1970: Double(index))

@@ -30,6 +30,45 @@ enum WatchComplicationBridge {
         return snapshot
     }
 
+    static func loadCurrentSnapshot(
+        now: Date = .now,
+        calendar: Calendar = .autoupdatingCurrent
+    ) -> HabitSyncSnapshot {
+        let snapshot = loadSnapshot()
+        return currentSnapshot(
+            snapshot,
+            now: now,
+            calendar: calendar
+        )
+    }
+
+    static func currentSnapshot(
+        _ snapshot: HabitSyncSnapshot,
+        now: Date = .now,
+        calendar: Calendar = .autoupdatingCurrent
+    ) -> HabitSyncSnapshot {
+        guard snapshot.dayKey == dayKey(for: now, calendar: calendar) else {
+            return .empty
+        }
+        return snapshot
+    }
+
+    private static func dayKey(
+        for date: Date,
+        calendar: Calendar
+    ) -> String {
+        let components = calendar.dateComponents(
+            [.year, .month, .day],
+            from: date
+        )
+        return String(
+            format: "%04d-%02d-%02d",
+            components.year ?? 0,
+            components.month ?? 0,
+            components.day ?? 0
+        )
+    }
+
     static func saveSnapshot(_ snapshot: HabitSyncSnapshot) {
         guard let data = try? JSONEncoder().encode(snapshot) else {
             return

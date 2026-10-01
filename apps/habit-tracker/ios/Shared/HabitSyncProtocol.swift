@@ -67,6 +67,29 @@ struct HabitCompletionCommand: Codable, Hashable, Identifiable {
     }
 }
 
+enum HabitCompletionCommandQueue {
+    static let maximumCount = 100
+
+    static func appending(
+        _ command: HabitCompletionCommand,
+        to commands: [HabitCompletionCommand]
+    ) -> [HabitCompletionCommand] {
+        guard !commands.contains(where: { $0.id == command.id }) else {
+            return commands
+        }
+
+        var compacted = commands.filter {
+            !($0.habitID == command.habitID && $0.dayKey == command.dayKey)
+        }
+        compacted.append(command)
+
+        if compacted.count > maximumCount {
+            compacted.removeFirst(compacted.count - maximumCount)
+        }
+        return compacted
+    }
+}
+
 enum HabitSyncPacketKind: String, Codable {
     case snapshot
     case setCompletion

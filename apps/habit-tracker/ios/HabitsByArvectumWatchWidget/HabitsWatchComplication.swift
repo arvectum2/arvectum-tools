@@ -38,7 +38,7 @@ struct HabitsWatchProvider: TimelineProvider {
         completion(
             HabitsWatchEntry(
                 date: .now,
-                snapshot: WatchComplicationBridge.loadSnapshot()
+                snapshot: WatchComplicationBridge.loadCurrentSnapshot()
             )
         )
     }
@@ -50,7 +50,7 @@ struct HabitsWatchProvider: TimelineProvider {
         let now = Date()
         let entry = HabitsWatchEntry(
             date: now,
-            snapshot: WatchComplicationBridge.loadSnapshot()
+            snapshot: WatchComplicationBridge.loadCurrentSnapshot()
         )
         let nextRefresh = Calendar.autoupdatingCurrent.date(
             byAdding: .minute,

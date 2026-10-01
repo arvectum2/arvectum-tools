@@ -48,7 +48,7 @@ struct HabitsWidgetProvider: TimelineProvider {
         completion(
             HabitsWidgetEntry(
                 date: .now,
-                snapshot: HabitWidgetBridge.loadSnapshot()
+                snapshot: HabitWidgetBridge.loadCurrentSnapshot()
             )
         )
     }
@@ -60,7 +60,7 @@ struct HabitsWidgetProvider: TimelineProvider {
         let now = Date()
         let entry = HabitsWidgetEntry(
             date: now,
-            snapshot: HabitWidgetBridge.loadSnapshot()
+            snapshot: HabitWidgetBridge.loadCurrentSnapshot()
         )
         let calendar = Calendar.autoupdatingCurrent
         let nextDay = calendar.date(
