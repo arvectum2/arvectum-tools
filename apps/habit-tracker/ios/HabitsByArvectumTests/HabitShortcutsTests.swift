@@ -96,6 +96,46 @@ final class HabitShortcutsTests: XCTestCase {
         XCTAssertTrue(command.completed)
     }
 
+    func testStringQueryResolvesHabitNameCaseInsensitively() async throws {
+        let first = UUID()
+        let second = UUID()
+        HabitWidgetBridge.saveSnapshot(
+            HabitWidgetSnapshot(
+                generatedAt: .now,
+                dayKey: HabitWidgetBridge.dayKey(for: .now),
+                completedCount: 0,
+                skippedCount: 0,
+                totalCount: 2,
+                habits: [
+                    HabitWidgetHabit(
+                        id: first,
+                        name: "Reading",
+                        symbolName: "book.fill",
+                        colorHex: "8B5CF6",
+                        completed: false,
+                        skipped: false,
+                        streak: 0
+                    ),
+                    HabitWidgetHabit(
+                        id: second,
+                        name: "Evening Reading",
+                        symbolName: "moon.fill",
+                        colorHex: "43E5C5",
+                        completed: false,
+                        skipped: false,
+                        streak: 0
+                    )
+                ]
+            )
+        )
+
+        let result = try await HabitShortcutQuery().entities(
+            matching: "reading"
+        )
+
+        XCTAssertEqual(result.map(\.id), [first, second])
+    }
+
     func testCommandRejectsHabitNotDueToday() {
         HabitWidgetBridge.saveSnapshot(
             HabitWidgetSnapshot(

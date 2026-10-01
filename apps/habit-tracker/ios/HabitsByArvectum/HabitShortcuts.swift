@@ -23,7 +23,7 @@ struct HabitShortcutEntity: AppEntity, Hashable {
     }
 }
 
-struct HabitShortcutQuery: EntityQuery {
+struct HabitShortcutQuery: EntityStringQuery {
     func entities(
         for identifiers: [UUID]
     ) async throws -> [HabitShortcutEntity] {
@@ -34,6 +34,30 @@ struct HabitShortcutQuery: EntityQuery {
 
     func suggestedEntities() async throws -> [HabitShortcutEntity] {
         HabitShortcutBridge.currentEntities()
+    }
+
+    func entities(
+        matching string: String
+    ) async throws -> [HabitShortcutEntity] {
+        let query = string.trimmingCharacters(
+            in: .whitespacesAndNewlines
+        )
+        let entities = HabitShortcutBridge.currentEntities()
+        guard !query.isEmpty else { return entities }
+
+        let matching = entities.filter {
+            $0.name.localizedCaseInsensitiveContains(query)
+        }
+
+        return matching.sorted { lhs, rhs in
+            let lhsExact = lhs.name.caseInsensitiveCompare(query) == .orderedSame
+            let rhsExact = rhs.name.caseInsensitiveCompare(query) == .orderedSame
+            if lhsExact != rhsExact { return lhsExact }
+
+            let lhsIndex = entities.firstIndex(of: lhs) ?? Int.max
+            let rhsIndex = entities.firstIndex(of: rhs) ?? Int.max
+            return lhsIndex < rhsIndex
+        }
     }
 }
 
