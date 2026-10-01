@@ -33,6 +33,7 @@ Working formula: **«всё удобное — без лишнего»**.
 - [x] Weekday schedule model.
 - [x] Separate per-day completion records.
 - [x] Persist data without registration or server.
+- [x] Non-destructive storage recovery: if both cloud-backed and local SwiftData stores fail to open, show a safe recovery screen instead of resetting data or crashing.
 - [x] Regression test: habit and check-in survive persistent-store recreation.
 - [x] Freeze the current model as `HabitsSchemaV1` and wire an explicit `HabitsMigrationPlan` into production and persistence tests.
 - [x] Simulator upgrade smoke test: data created by pre-versioning commit `e67bc45` survives an in-place update to the V1 migration-plan build.
@@ -218,6 +219,6 @@ Core habit tracking stays free. Advertising is the planned monetization model, b
 
 ## Current checkpoint
 
-M1/M2 are implemented end-to-end, and the required M3 Watch/live-sync path is operational: local storage → minimal create/edit → reminders with Complete/Skip quick actions → Today → history/skip/pause/archive → widgets → Watch. iPhone↔Watch live round-trip and offline durable convergence are verified on a paired iOS 27/watchOS 27 simulator. The control suite currently has 88 passing unit tests plus 7 passing XCUITests on iOS 26.5, covering timezone/DST, mutation conflicts, flexible weekly goals, notification actions, widgets, localization, persistence and explicit schema versioning. Current UI has also been smoke-tested on iPhone 17e / 18 Pro Max and 42 mm / 46 mm Watch simulators.
+M1/M2 are implemented end-to-end, and the required M3 Watch/live-sync path is operational: local storage → minimal create/edit → reminders with Complete/Skip quick actions → Today → history/skip/pause/archive → widgets → Watch. iPhone↔Watch live round-trip and offline durable convergence are verified on a paired iOS 27/watchOS 27 simulator. The control suite currently has 88 passing unit tests plus 8 passing XCUITests on iOS 26.5, covering timezone/DST, mutation conflicts, flexible weekly goals, notification actions, widgets, localization, persistence and explicit schema versioning. Current UI has also been smoke-tested on iPhone 17e / 18 Pro Max and 42 mm / 46 mm Watch simulators.
 
 **Next implementation step:** keep simulator-first reliability/UX hardening with `scripts/simulator_regression.sh` as the mandatory local checkpoint. Signed App Group/private-CloudKit convergence, rolling-reminder delivery on physical iPhone, physical accessibility and the physical Watch smoke test remain the release gates that require Apple provisioning/hardware access.

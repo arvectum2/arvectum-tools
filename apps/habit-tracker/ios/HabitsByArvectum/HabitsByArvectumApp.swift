@@ -5,6 +5,7 @@ import SwiftUI
 struct HabitsByArvectumApp: App {
     @UIApplicationDelegateAdaptor(HabitsAppDelegate.self) private var appDelegate
     private let modelContainer: ModelContainer
+    private let storageUnavailable: Bool
 
     init() {
         let schema = HabitsSchema.current
@@ -13,47 +14,63 @@ struct HabitsByArvectumApp: App {
         let cloudSyncDisabled = isUITesting || arguments.contains(
             "--disable-cloud-sync"
         )
-        do {
-            let container = try Self.makeModelContainer(
-                schema: schema,
-                isStoredInMemoryOnly: isUITesting,
-                cloudSyncEnabled: !cloudSyncDisabled
-            )
-            modelContainer = container
-#if DEBUG
-            seedWatchSyncDemoIfRequested(container: container)
-            seedFlexibleWeeklyDemoIfRequested(container: container)
-            completeFirstIncompleteHabitIfRequested(container: container)
-            skipFirstIncompleteHabitIfRequested(container: container)
-            HabitMutationDiagnostics.runIfRequested(container: container)
-#endif
-            HabitNotificationActionCoordinator.shared.configure(
-                modelContainer: container
-            )
-            HabitReminderCoordinator.shared.configure(
-                modelContainer: container
-            )
-#if DEBUG
-            HabitNotificationActionDiagnostics.runIfRequested(
-                container: container
-            )
-#endif
-            PhoneWatchSyncCoordinator.shared.configure(
-                modelContainer: container
-            )
-            HabitWidgetCoordinator.shared.configure(
-                modelContainer: container
-            )
-        } catch {
-            fatalError("Could not create SwiftData container: \(error)")
+        let bootstrap = Self.bootstrapModelContainer(
+            schema: schema,
+            isStoredInMemoryOnly: isUITesting,
+            cloudSyncEnabled: !cloudSyncDisabled,
+            forceRecovery: arguments.contains("--simulate-storage-recovery")
+        )
+        let container = bootstrap.container
+        modelContainer = container
+        storageUnavailable = bootstrap.storageUnavailable
+
+        guard !bootstrap.storageUnavailable else {
+            return
         }
+
+#if DEBUG
+        seedWatchSyncDemoIfRequested(container: container)
+        seedFlexibleWeeklyDemoIfRequested(container: container)
+        completeFirstIncompleteHabitIfRequested(container: container)
+        skipFirstIncompleteHabitIfRequested(container: container)
+        HabitMutationDiagnostics.runIfRequested(container: container)
+#endif
+        HabitNotificationActionCoordinator.shared.configure(
+            modelContainer: container
+        )
+        HabitReminderCoordinator.shared.configure(
+            modelContainer: container
+        )
+#if DEBUG
+        HabitNotificationActionDiagnostics.runIfRequested(
+            container: container
+        )
+#endif
+        PhoneWatchSyncCoordinator.shared.configure(
+            modelContainer: container
+        )
+        HabitWidgetCoordinator.shared.configure(
+            modelContainer: container
+        )
     }
 
-    private static func makeModelContainer(
+    private struct ContainerBootstrap {
+        let container: ModelContainer
+        let storageUnavailable: Bool
+    }
+
+    private static func bootstrapModelContainer(
         schema: Schema,
         isStoredInMemoryOnly: Bool,
-        cloudSyncEnabled: Bool
-    ) throws -> ModelContainer {
+        cloudSyncEnabled: Bool,
+        forceRecovery: Bool
+    ) -> ContainerBootstrap {
+#if DEBUG
+        if forceRecovery {
+            return emergencyContainer(schema: schema)
+        }
+#endif
+
         let preferred = ModelConfiguration(
             "Habits",
             schema: schema,
@@ -64,17 +81,23 @@ struct HabitsByArvectumApp: App {
         )
 
         do {
-            return try ModelContainer(
-                for: schema,
-                migrationPlan: HabitsMigrationPlan.self,
-                configurations: [preferred]
+            return ContainerBootstrap(
+                container: try ModelContainer(
+                    for: schema,
+                    migrationPlan: HabitsMigrationPlan.self,
+                    configurations: [preferred]
+                ),
+                storageUnavailable: false
             )
-        } catch where cloudSyncEnabled {
+        } catch {
 #if DEBUG
             HabitDebugLog.emit(
-                "HABITS_CLOUD_FALLBACK reason=\(error.localizedDescription)"
+                "HABITS_PRIMARY_STORE_FAILED reason=\(error.localizedDescription)"
             )
 #endif
+        }
+
+        if cloudSyncEnabled {
             let localOnly = ModelConfiguration(
                 "Habits",
                 schema: schema,
@@ -83,17 +106,63 @@ struct HabitsByArvectumApp: App {
                 groupContainer: .none,
                 cloudKitDatabase: .none
             )
-            return try ModelContainer(
-                for: schema,
-                migrationPlan: HabitsMigrationPlan.self,
-                configurations: [localOnly]
+
+            do {
+                return ContainerBootstrap(
+                    container: try ModelContainer(
+                        for: schema,
+                        migrationPlan: HabitsMigrationPlan.self,
+                        configurations: [localOnly]
+                    ),
+                    storageUnavailable: false
+                )
+            } catch {
+#if DEBUG
+                HabitDebugLog.emit(
+                    "HABITS_LOCAL_STORE_FAILED reason=\(error.localizedDescription)"
+                )
+#endif
+            }
+        }
+
+        return emergencyContainer(schema: schema)
+    }
+
+    private static func emergencyContainer(
+        schema: Schema
+    ) -> ContainerBootstrap {
+        let emergency = ModelConfiguration(
+            "HabitsRecovery",
+            schema: schema,
+            isStoredInMemoryOnly: true,
+            allowsSave: true,
+            groupContainer: .none,
+            cloudKitDatabase: .none
+        )
+
+        do {
+            return ContainerBootstrap(
+                container: try ModelContainer(
+                    for: schema,
+                    migrationPlan: HabitsMigrationPlan.self,
+                    configurations: [emergency]
+                ),
+                storageUnavailable: true
+            )
+        } catch {
+            fatalError(
+                "Could not create emergency in-memory SwiftData container: \(error)"
             )
         }
     }
 
     var body: some Scene {
         WindowGroup {
-            TodayView()
+            if storageUnavailable {
+                StorageRecoveryView()
+            } else {
+                TodayView()
+            }
         }
         .modelContainer(modelContainer)
     }

@@ -108,3 +108,6 @@
 "accessibility.color.format" = "Цвет %d";
 "accessibility.symbol.format" = "Значок %d";
 "accessibility.selected" = "Выбрано";
+
+"storage.error.title" = "Данные привычек временно недоступны";
+"storage.error.message" = "Данные не удалены и не перезаписаны. Закройте и снова откройте Habits. Если проблема повторится, сначала обновите приложение.";

@@ -108,3 +108,6 @@
 "accessibility.color.format" = "Color %d";
 "accessibility.symbol.format" = "Icon %d";
 "accessibility.selected" = "Selected";
+
+"storage.error.title" = "Habits data is temporarily unavailable";
+"storage.error.message" = "Your data was not reset or overwritten. Close and reopen Habits. If the problem continues, update the app before trying again.";

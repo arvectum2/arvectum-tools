@@ -14,6 +14,23 @@ final class HabitFlowUITests: XCTestCase {
         app.launch()
     }
 
+    func testStorageFailureShowsNonDestructiveRecoveryScreen() throws {
+        app.terminate()
+        app.launchArguments = [
+            "-AppleLanguages", "(en)",
+            "-AppleLocale", "en_US",
+            "--ui-testing",
+            "--simulate-storage-recovery"
+        ]
+        app.launch()
+
+        XCTAssertTrue(
+            app.staticTexts["Habits data is temporarily unavailable"]
+                .waitForExistence(timeout: 3)
+        )
+        XCTAssertFalse(app.buttons["Create habit"].exists)
+    }
+
     func testCreateCheckAndOpenHistory() throws {
         let createButton = app.buttons["Create habit"]
         XCTAssertTrue(createButton.waitForExistence(timeout: 3))
