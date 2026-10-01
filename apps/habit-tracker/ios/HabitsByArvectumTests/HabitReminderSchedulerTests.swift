@@ -139,6 +139,27 @@ final class HabitReminderSchedulerTests: XCTestCase {
         )
     }
 
+    func testSingleDailyHabitUsesFullDefaultReminderHorizon() {
+        let calendar = utcCalendar
+        let reference = date(2026, 10, 1, hour: 8, calendar: calendar)
+        let habit = Habit(
+            name: "Read",
+            reminderEnabled: true,
+            reminderHour: 20,
+            reminderMinute: 0
+        )
+
+        let plan = HabitReminderScheduler.reminderPlan(
+            habits: [habit],
+            from: reference,
+            calendar: calendar
+        )
+
+        XCTAssertEqual(plan.count, 60)
+        XCTAssertEqual(plan.first?.dayKey, "2026-10-01")
+        XCTAssertEqual(plan.last?.dayKey, "2026-11-29")
+    }
+
     func testLargeReminderPlanIsBoundedAndPrioritizesNearestDays() {
         let calendar = utcCalendar
         let reference = date(2026, 10, 1, hour: 8, calendar: calendar)

@@ -95,7 +95,7 @@ Working formula: **«всё удобное — без лишнего»**.
 - [x] Ask notification permission only when the user enables a reminder; if access is denied, offer a direct Settings recovery action.
 - [x] Update scheduled notifications when a habit changes.
 - [x] Replace repeating weekday reminders with a bounded rolling one-shot horizon; completion/skip suppresses the current day's pending reminder and the plan rebuilds after iPhone/Watch/widget mutations.
-- [x] Cap managed local reminders at the earliest 60 requests to stay below the iOS pending-notification limit.
+- [x] Cap managed local reminders at the earliest 60 requests to stay below the iOS pending-notification limit; planning horizon is up to 60 days so sparse/simple setups use the available capacity instead of stopping at two weeks.
 - [ ] Physical iPhone verification of the current rolling reminder plan/delivery; notification authorization is already granted on the iPhone 13.
 - [x] Notification quick actions: `Done` and `Skip today` mutate the same conflict-safe day ledger without opening the app.
 - [x] Simulator runtime diagnostic verifies notification action completion → newer skip convergence.
@@ -221,6 +221,6 @@ Core habit tracking stays free. Advertising is the planned monetization model, b
 
 ## Current checkpoint
 
-M1/M2 are implemented end-to-end, and the required M3 Watch/live-sync path is operational: local storage → minimal create/edit → reminders with Complete/Skip quick actions → Today → history/skip/pause/archive → widgets → Watch. iPhone↔Watch live round-trip and offline durable convergence are verified on a paired iOS 27/watchOS 27 simulator. The control suite currently has 96 passing unit tests plus 9 passing XCUITests on iOS 26.5, covering timezone/DST, mutation conflicts, flexible weekly goals, notification actions, widgets, localization, persistence and explicit schema versioning. Current UI has also been smoke-tested on iPhone 17e / 18 Pro Max and 42 mm / 46 mm Watch simulators.
+M1/M2 are implemented end-to-end, and the required M3 Watch/live-sync path is operational: local storage → minimal create/edit → reminders with Complete/Skip quick actions → Today → history/skip/pause/archive → widgets → Watch. iPhone↔Watch live round-trip and offline durable convergence are verified on a paired iOS 27/watchOS 27 simulator. The control suite currently has 97 passing unit tests plus 9 passing XCUITests on iOS 26.5, covering timezone/DST, mutation conflicts, flexible weekly goals, notification actions, widgets, localization, persistence and explicit schema versioning. Current UI has also been smoke-tested on iPhone 17e / 18 Pro Max and 42 mm / 46 mm Watch simulators.
 
 **Next implementation step:** keep simulator-first reliability/UX hardening with `scripts/simulator_regression.sh` as the mandatory local checkpoint. Signed App Group/private-CloudKit convergence, rolling-reminder delivery on physical iPhone, physical accessibility and the physical Watch smoke test remain the release gates that require Apple provisioning/hardware access.

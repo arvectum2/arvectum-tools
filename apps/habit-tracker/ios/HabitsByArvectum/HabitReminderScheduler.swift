@@ -3,7 +3,7 @@ import UserNotifications
 
 enum HabitReminderScheduler {
     private static let prefix = "habit-reminder"
-    static let planningDayCount = 14
+    static let planningDayCount = 60
     static let maxPendingRequests = 60
 
 
