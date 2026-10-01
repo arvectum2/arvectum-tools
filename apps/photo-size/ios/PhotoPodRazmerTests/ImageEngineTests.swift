@@ -37,6 +37,29 @@ final class ImageEngineTests: XCTestCase {
         XCTAssertThrowsError(try engine.resizeExact(source: source, width: 1200, height: 900))
     }
 
+    func testExactResizeHonorsRequestedDimensionsForOrientedJPEG() throws {
+        let source = try engine.inspect(
+            data: makeNoiseJPEG(width: 1600, height: 1200, orientation: 6)
+        )
+        XCTAssertEqual(source.width, 1200)
+        XCTAssertEqual(source.height, 1600)
+
+        let result = try engine.resizeExact(
+            source: source,
+            width: 900,
+            height: 1200
+        )
+
+        XCTAssertEqual(result.outputWidth, 900)
+        XCTAssertEqual(result.outputHeight, 1200)
+
+        let data = try Data(contentsOf: result.outputURL)
+        let properties = try imageProperties(data)
+        XCTAssertEqual((properties[kCGImagePropertyPixelWidth] as? NSNumber)?.intValue, 900)
+        XCTAssertEqual((properties[kCGImagePropertyPixelHeight] as? NSNumber)?.intValue, 1200)
+        XCTAssertNil(properties[kCGImagePropertyOrientation])
+    }
+
     func testFileSizeCompressionStaysBelowLimit() throws {
         let source = try engine.inspect(data: makeNoiseJPEG(width: 1600, height: 1200))
         let target: Int64 = 150_000
@@ -171,7 +194,12 @@ final class ImageEngineTests: XCTestCase {
         )
     }
 
-    private func makeNoiseJPEG(width: Int, height: Int, includeLocationMetadata: Bool = false) throws -> Data {
+    private func makeNoiseJPEG(
+        width: Int,
+        height: Int,
+        includeLocationMetadata: Bool = false,
+        orientation: Int? = nil
+    ) throws -> Data {
         var bytes = [UInt8](repeating: 0, count: width * height * 4)
         var state: UInt32 = 0x12345678
         for index in stride(from: 0, to: bytes.count, by: 4) {
@@ -213,6 +241,9 @@ final class ImageEngineTests: XCTestCase {
         var properties: [CFString: Any] = [
             kCGImageDestinationLossyCompressionQuality: 0.98
         ]
+        if let orientation {
+            properties[kCGImagePropertyOrientation] = orientation
+        }
         if includeLocationMetadata {
             properties[kCGImagePropertyGPSDictionary] = [
                 kCGImagePropertyGPSLatitude: 51.5074,
