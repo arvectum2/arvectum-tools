@@ -95,7 +95,7 @@ final class PhoneWatchSyncCoordinator: NSObject, WCSessionDelegate {
             return due.map { habit in
                 HabitSyncHabit(
                     id: habit.id,
-                    name: habit.name,
+                    name: HabitSyncPayloadBudget.watchName(habit.name),
                     symbolName: habit.symbolName,
                     colorHex: habit.colorHex,
                     completed: HabitMetrics.isCompleted(
@@ -152,7 +152,7 @@ final class PhoneWatchSyncCoordinator: NSObject, WCSessionDelegate {
             )
         }
 
-        let snapshot = HabitSyncSnapshot(
+        let rawSnapshot = HabitSyncSnapshot(
             generatedAt: .now,
             dayKey: HabitDayKey.make(for: now, calendar: calendar),
             completedCount: syncHabits.filter(\.completed).count,
@@ -164,6 +164,7 @@ final class PhoneWatchSyncCoordinator: NSObject, WCSessionDelegate {
             acknowledgedCommandIDs: recentCommandIDs,
             projectedDays: projectedDays
         )
+        let snapshot = HabitSyncPayloadBudget.fitted(rawSnapshot)
 #if DEBUG
         if ProcessInfo.processInfo.arguments.contains(
             "--diagnose-watch-sync"
@@ -174,6 +175,8 @@ final class PhoneWatchSyncCoordinator: NSObject, WCSessionDelegate {
             HabitDebugLog.emit(
                 "HABITS_PHONE_SNAPSHOT day=\(snapshot.dayKey) " +
                 "completed=\(snapshot.completedCount)/\(snapshot.totalCount) " +
+                "payload=\(HabitSyncPayloadBudget.encodedSize(of: snapshot)) " +
+                "horizon=\(snapshot.projectedDays?.count ?? 0) " +
                 "habits=[\(states)]"
             )
         }

@@ -277,6 +277,100 @@ final class HabitSyncProtocolTests: XCTestCase {
         XCTAssertEqual(result.snapshot.completedCount, 0)
     }
 
+    func testPayloadBudgetKeepsFullHorizonForTypicalHabitCount() {
+        let habits = (0..<6).map { index in
+            HabitSyncHabit(
+                id: UUID(),
+                name: "Habit \(index)",
+                symbolName: "checkmark",
+                colorHex: "43E5C5",
+                completed: false,
+                skipped: false,
+                streak: index
+            )
+        }
+        let source = HabitSyncSnapshot(
+            generatedAt: .now,
+            dayKey: "2026-10-01",
+            completedCount: 0,
+            totalCount: habits.count,
+            habits: habits,
+            projectedDays: (2...14).map { day in
+                HabitSyncDayProjection(
+                    dayKey: String(format: "2026-10-%02d", day),
+                    habits: habits
+                )
+            }
+        )
+
+        let fitted = HabitSyncPayloadBudget.fitted(source)
+
+        XCTAssertEqual(fitted.projectedDays?.count, 13)
+        XCTAssertLessThanOrEqual(
+            HabitSyncPayloadBudget.encodedSize(of: fitted),
+            HabitSyncPayloadBudget.maxEncodedBytes
+        )
+    }
+
+    func testPayloadBudgetTrimsDistantDaysForHeavySnapshot() {
+        let habits = (0..<50).map { index in
+            HabitSyncHabit(
+                id: UUID(),
+                name: HabitSyncPayloadBudget.watchName(
+                    "Habit \(index) " + String(repeating: "x", count: 100)
+                ),
+                symbolName: "figure.strengthtraining.traditional",
+                colorHex: "8B5CF6",
+                completed: false,
+                skipped: false,
+                streak: 123,
+                weeklyTarget: 7,
+                weeklyCount: 6
+            )
+        }
+        let source = HabitSyncSnapshot(
+            generatedAt: .now,
+            dayKey: "2026-10-01",
+            completedCount: 0,
+            totalCount: habits.count,
+            habits: habits,
+            acknowledgedCommandIDs: (0..<50).map { _ in UUID() },
+            projectedDays: (2...14).map { day in
+                HabitSyncDayProjection(
+                    dayKey: String(format: "2026-10-%02d", day),
+                    habits: habits
+                )
+            }
+        )
+
+        XCTAssertGreaterThan(
+            HabitSyncPayloadBudget.encodedSize(of: source),
+            HabitSyncPayloadBudget.maxEncodedBytes
+        )
+
+        let fitted = HabitSyncPayloadBudget.fitted(source)
+
+        XCTAssertLessThan(
+            fitted.projectedDays?.count ?? 0,
+            source.projectedDays?.count ?? 0
+        )
+        XCTAssertEqual(fitted.habits.count, habits.count)
+        XCTAssertLessThanOrEqual(
+            HabitSyncPayloadBudget.encodedSize(of: fitted),
+            HabitSyncPayloadBudget.maxEncodedBytes
+        )
+    }
+
+    func testWatchNameIsBoundedWithoutChangingShortNames() {
+        XCTAssertEqual(HabitSyncPayloadBudget.watchName("Read"), "Read")
+
+        let long = String(repeating: "a", count: 100)
+        XCTAssertEqual(
+            HabitSyncPayloadBudget.watchName(long).count,
+            HabitSyncPayloadBudget.maxWatchNameCharacters
+        )
+    }
+
     private func snapshot(
         habitID: UUID,
         completed: Bool,

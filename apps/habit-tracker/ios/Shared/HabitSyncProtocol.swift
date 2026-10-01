@@ -193,3 +193,37 @@ enum HabitSyncCodec {
 enum HabitSyncCodecError: Error {
     case missingPacket
 }
+
+enum HabitSyncPayloadBudget {
+    static let maxEncodedBytes = 48 * 1024
+    static let maxWatchNameCharacters = 64
+
+    static func watchName(_ name: String) -> String {
+        String(name.prefix(maxWatchNameCharacters))
+    }
+
+    static func encodedSize(of snapshot: HabitSyncSnapshot) -> Int {
+        (try? HabitSyncCodec.encode(.snapshot(snapshot)).count) ?? .max
+    }
+
+    static func fitted(
+        _ source: HabitSyncSnapshot,
+        maxEncodedBytes: Int = maxEncodedBytes
+    ) -> HabitSyncSnapshot {
+        var candidate = source
+
+        while encodedSize(of: candidate) > maxEncodedBytes,
+              candidate.projectedDays?.isEmpty == false {
+            candidate.projectedDays?.removeLast()
+        }
+
+        if encodedSize(of: candidate) > maxEncodedBytes,
+           candidate.acknowledgedCommandIDs.count > 10 {
+            candidate.acknowledgedCommandIDs = Array(
+                candidate.acknowledgedCommandIDs.suffix(10)
+            )
+        }
+
+        return candidate
+    }
+}
