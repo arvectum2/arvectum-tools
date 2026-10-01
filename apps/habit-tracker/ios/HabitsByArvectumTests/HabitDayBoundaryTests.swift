@@ -46,8 +46,8 @@ final class HabitDayBoundaryTests: XCTestCase {
                 from: DateComponents(
                     year: 2026,
                     month: 3,
-                    day: 28,
-                    hour: 23,
+                    day: 29,
+                    hour: 0,
                     minute: 30
                 )
             )
@@ -58,7 +58,7 @@ final class HabitDayBoundaryTests: XCTestCase {
                 from: date,
                 calendar: calendar
             ),
-            1_800,
+            22.5 * 60 * 60,
             accuracy: 0.1
         )
     }
