@@ -26,6 +26,7 @@ struct HabitsByArvectumApp: App {
             modelContainer = container
 #if DEBUG
             seedWatchSyncDemoIfRequested(container: container)
+            seedFlexibleWeeklyDemoIfRequested(container: container)
             completeFirstIncompleteHabitIfRequested(container: container)
             skipFirstIncompleteHabitIfRequested(container: container)
 #endif
@@ -111,7 +112,12 @@ struct HabitsByArvectumApp: App {
 
         guard let habit = habits.first(where: {
             !$0.isArchived &&
-            $0.schedule.includes(today) &&
+            HabitFrequency.isDue(
+                habit: $0,
+                on: today,
+                checkIns: checkIns,
+                skips: skips
+            ) &&
             !HabitMetrics.isCompleted(
                 habitID: $0.id,
                 on: today,
@@ -153,7 +159,11 @@ struct HabitsByArvectumApp: App {
 
         guard let habit = habits.first(where: {
             !$0.isArchived &&
-            $0.schedule.includes(today) &&
+            HabitFrequency.isDue(
+                habit: $0,
+                on: today,
+                checkIns: checkIns
+            ) &&
             !HabitMetrics.isCompleted(
                 habitID: $0.id,
                 on: today,
@@ -165,6 +175,28 @@ struct HabitsByArvectumApp: App {
             HabitCheckIn(
                 habitID: habit.id,
                 day: today
+            )
+        )
+        try? context.save()
+    }
+
+    private func seedFlexibleWeeklyDemoIfRequested(
+        container: ModelContainer
+    ) {
+        guard ProcessInfo.processInfo.arguments.contains(
+            "--seed-flexible-weekly-demo"
+        ) else { return }
+
+        let context = ModelContext(container)
+        let existing = (try? context.fetch(FetchDescriptor<Habit>())) ?? []
+        guard existing.isEmpty else { return }
+
+        context.insert(
+            Habit(
+                name: L10n.string("quick.workout"),
+                symbolName: "dumbbell.fill",
+                colorHex: "8B5CF6",
+                weeklyTarget: 3
             )
         )
         try? context.save()

@@ -17,6 +17,8 @@ struct AddHabitView: View {
     @State private var requestingNotificationPermission = false
     @State private var optionsExpanded: Bool
     @State private var customDaysExpanded: Bool
+    @State private var flexibleWeeklyEnabled: Bool
+    @State private var weeklyTarget: Int
     @FocusState private var nameFocused: Bool
 
     private var quickHabits: [(title: String, symbol: String)] {
@@ -36,9 +38,13 @@ struct AddHabitView: View {
         let initialSchedule = habit?.schedule ?? .everyDay
         _schedule = State(initialValue: initialSchedule)
         _reminderEnabled = State(initialValue: habit?.reminderEnabled ?? false)
+        _flexibleWeeklyEnabled = State(
+            initialValue: habit?.usesFlexibleWeeklyTarget == true
+        )
+        _weeklyTarget = State(initialValue: max(habit?.weeklyTarget ?? 3, 1))
         _customDaysExpanded = State(
-            initialValue: initialSchedule != .everyDay &&
-                initialSchedule != .weekdays
+            initialValue: habit?.usesFlexibleWeeklyTarget == true ||
+                (initialSchedule != .everyDay && initialSchedule != .weekdays)
         )
         _optionsExpanded = State(
             initialValue: habit?.reminderEnabled == true ||
@@ -99,8 +105,32 @@ struct AddHabitView: View {
                     DisclosureGroup(
                         isExpanded: $customDaysExpanded
                     ) {
-                        weekdayPicker
-                            .padding(.top, 8)
+                        VStack(alignment: .leading, spacing: 12) {
+                            Toggle(
+                                L10n.string("schedule.flexible.toggle"),
+                                isOn: $flexibleWeeklyEnabled
+                            )
+                            .onChange(of: flexibleWeeklyEnabled) { _, enabled in
+                                if enabled { schedule = .everyDay }
+                            }
+
+                            if flexibleWeeklyEnabled {
+                                Stepper(
+                                    L10n.format(
+                                        "schedule.flexible.target.format",
+                                        weeklyTarget
+                                    ),
+                                    value: $weeklyTarget,
+                                    in: 1...7
+                                )
+                                Text(L10n.string("schedule.flexible.hint"))
+                                    .font(.caption)
+                                    .foregroundStyle(.secondary)
+                            } else {
+                                weekdayPicker
+                            }
+                        }
+                        .padding(.top, 8)
                     } label: {
                         Text(L10n.string("schedule.custom"))
                     }
@@ -192,6 +222,7 @@ struct AddHabitView: View {
 
         return Button {
             schedule = preset
+            flexibleWeeklyEnabled = false
             customDaysExpanded = false
         } label: {
             Text(title)
@@ -346,6 +377,7 @@ struct AddHabitView: View {
             habit.reminderEnabled = reminderEnabled
             habit.reminderHour = reminderHour
             habit.reminderMinute = reminderMinute
+            habit.weeklyTarget = flexibleWeeklyEnabled ? weeklyTarget : 0
             savedHabit = habit
         } else {
             let newHabit = Habit(
@@ -355,7 +387,8 @@ struct AddHabitView: View {
                 scheduleMask: schedule.rawValue,
                 reminderEnabled: reminderEnabled,
                 reminderHour: reminderHour,
-                reminderMinute: reminderMinute
+                reminderMinute: reminderMinute,
+                weeklyTarget: flexibleWeeklyEnabled ? weeklyTarget : 0
             )
             modelContext.insert(newHabit)
             savedHabit = newHabit

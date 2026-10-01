@@ -281,7 +281,10 @@ struct HabitDetailView: View {
 
     private func dayCell(_ date: Date) -> some View {
         let calendar = Calendar.autoupdatingCurrent
-        let scheduled = habit.schedule.includes(date, calendar: calendar)
+        let scheduled = habit.usesFlexibleWeeklyTarget
+            ? false
+            : habit.schedule.includes(date, calendar: calendar)
+        let eligible = habit.usesFlexibleWeeklyTarget || scheduled
         let completed = HabitMetrics.isCompleted(
             habitID: habit.id,
             on: date,
@@ -296,7 +299,7 @@ struct HabitDetailView: View {
         )
         let beforeCreation = date < calendar.startOfDay(for: habit.createdAt)
         let future = date > calendar.startOfDay(for: .now)
-        let enabled = scheduled && !beforeCreation && !future
+        let enabled = eligible && !beforeCreation && !future
 
         return Button {
             toggle(date)
@@ -422,6 +425,12 @@ struct HabitDetailView: View {
     }
 
     private var scheduleDescription: String {
+        if habit.usesFlexibleWeeklyTarget {
+            return L10n.format(
+                "schedule.flexible.description.format",
+                habit.weeklyTarget
+            )
+        }
         if habit.schedule == .everyDay {
             return L10n.string("schedule.everyday")
         }

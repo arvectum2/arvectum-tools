@@ -77,7 +77,12 @@ final class PhoneWatchSyncCoordinator: NSObject, WCSessionDelegate {
 
         let now = Date()
         let activeToday = habits.filter {
-            !$0.isArchived && !$0.isPaused && $0.schedule.includes(now)
+            !$0.isArchived && !$0.isPaused && HabitFrequency.isDue(
+                habit: $0,
+                on: now,
+                checkIns: checkIns,
+                skips: skips
+            )
         }
 
         let syncHabits = activeToday.map { habit in
@@ -101,7 +106,15 @@ final class PhoneWatchSyncCoordinator: NSObject, WCSessionDelegate {
                     checkIns: checkIns,
                     skips: skips,
                     pausePeriods: pausePeriods
-                )
+                ),
+                weeklyTarget: habit.usesFlexibleWeeklyTarget
+                    ? habit.weeklyTarget : nil,
+                weeklyCount: habit.usesFlexibleWeeklyTarget
+                    ? HabitFrequency.weeklyCompletionCount(
+                        habit: habit,
+                        containing: now,
+                        checkIns: checkIns
+                    ) : nil
             )
         }
 
@@ -147,63 +160,15 @@ final class PhoneWatchSyncCoordinator: NSObject, WCSessionDelegate {
             return makeCurrentSnapshot()
         }
 
-        let allCheckIns = (try? context.fetch(
-            FetchDescriptor<HabitCheckIn>()
-        )) ?? []
-        let allSkips = (try? context.fetch(
-            FetchDescriptor<HabitSkip>()
-        )) ?? []
-
-        let matching = allCheckIns.filter {
-            $0.habitID == command.habitID &&
-            ($0.dayKey == command.dayKey ||
-             ($0.dayKey == nil && dayKey(for: $0.day) == command.dayKey))
-        }
-
-        for skip in allSkips where
-            skip.habitID == command.habitID &&
-            skip.dayKey == command.dayKey
-        {
-            context.delete(skip)
-        }
-
-        if command.completed {
-            if matching.isEmpty, let date = date(from: command.dayKey) {
-                let checkIn = HabitCheckIn(
-                    habitID: command.habitID,
-                    day: date
-                )
-                checkIn.dayKey = command.dayKey
-                context.insert(checkIn)
-            }
-        } else {
-            for checkIn in matching {
-                context.delete(checkIn)
-            }
-        }
+        _ = HabitCompletionMutation.setCompletion(
+            habitID: command.habitID,
+            dayKey: command.dayKey,
+            completed: command.completed,
+            context: context
+        )
 
         try? context.save()
         return makeCurrentSnapshot()
-    }
-
-    private func dayKey(for date: Date) -> String {
-        HabitDayKey.make(for: date)
-    }
-
-    private func date(from dayKey: String) -> Date? {
-        let parts = dayKey.split(separator: "-").compactMap {
-            Int(String($0))
-        }
-        guard parts.count == 3 else { return nil }
-
-        var components = DateComponents()
-        components.calendar = .autoupdatingCurrent
-        components.timeZone = .autoupdatingCurrent
-        components.year = parts[0]
-        components.month = parts[1]
-        components.day = parts[2]
-        components.hour = 12
-        return components.date
     }
 
     @MainActor

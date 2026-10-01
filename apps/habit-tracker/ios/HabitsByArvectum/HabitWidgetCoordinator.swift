@@ -35,11 +35,6 @@ final class HabitWidgetCoordinator {
 
         let context = ModelContext(modelContainer)
         let habits = (try? context.fetch(FetchDescriptor<Habit>())) ?? []
-        let checkIns = (try? context.fetch(
-            FetchDescriptor<HabitCheckIn>()
-        )) ?? []
-        let skips = (try? context.fetch(FetchDescriptor<HabitSkip>())) ?? []
-
         var processed = Set<UUID>()
 
         for command in commands {
@@ -50,36 +45,12 @@ final class HabitWidgetCoordinator {
                 continue
             }
 
-            let matchingCheckIns = checkIns.filter {
-                $0.habitID == command.habitID &&
-                ($0.dayKey == command.dayKey ||
-                 ($0.dayKey == nil &&
-                  HabitDayKey.make(for: $0.day) == command.dayKey))
-            }
-
-            for skip in skips where
-                skip.habitID == command.habitID &&
-                skip.dayKey == command.dayKey
-            {
-                context.delete(skip)
-            }
-
-            if command.completed {
-                if matchingCheckIns.isEmpty,
-                   let date = date(from: command.dayKey)
-                {
-                    let checkIn = HabitCheckIn(
-                        habitID: command.habitID,
-                        day: date
-                    )
-                    checkIn.dayKey = command.dayKey
-                    context.insert(checkIn)
-                }
-            } else {
-                for checkIn in matchingCheckIns {
-                    context.delete(checkIn)
-                }
-            }
+            _ = HabitCompletionMutation.setCompletion(
+                habitID: command.habitID,
+                dayKey: command.dayKey,
+                completed: command.completed,
+                context: context
+            )
 
             processed.insert(command.id)
         }
@@ -113,7 +84,12 @@ final class HabitWidgetCoordinator {
         let due = habits.filter {
             !$0.isArchived &&
             !$0.isPaused &&
-            $0.schedule.includes(now)
+            HabitFrequency.isDue(
+                habit: $0,
+                on: now,
+                checkIns: checkIns,
+                skips: skips
+            )
         }
 
         let widgetHabits = due.map { habit in
@@ -137,7 +113,15 @@ final class HabitWidgetCoordinator {
                     checkIns: checkIns,
                     skips: skips,
                     pausePeriods: pausePeriods
-                )
+                ),
+                weeklyTarget: habit.usesFlexibleWeeklyTarget
+                    ? habit.weeklyTarget : nil,
+                weeklyCount: habit.usesFlexibleWeeklyTarget
+                    ? HabitFrequency.weeklyCompletionCount(
+                        habit: habit,
+                        containing: now,
+                        checkIns: checkIns
+                    ) : nil
             )
         }
 

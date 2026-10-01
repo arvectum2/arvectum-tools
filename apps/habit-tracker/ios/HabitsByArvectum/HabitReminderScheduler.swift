@@ -43,7 +43,7 @@ enum HabitReminderScheduler {
         content.sound = .default
 
         for components in notificationComponents(
-            schedule: habit.schedule,
+            schedule: habit.usesFlexibleWeeklyTarget ? .everyDay : habit.schedule,
             hour: habit.reminderHour,
             minute: habit.reminderMinute
         ) {

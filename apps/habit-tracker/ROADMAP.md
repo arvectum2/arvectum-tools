@@ -157,7 +157,7 @@ Working formula: **«всё удобное — без лишнего»**.
 - [x] Lock Screen widget families: circular, rectangular and inline.
 - [x] Watch complication (circular, rectangular, inline) backed by the Watch-local snapshot.
 - [x] Overall Today progress available outside the full app through the Home Screen widget.
-- [ ] Flexible frequency behind progressive disclosure: N times per week.
+- [x] Flexible frequency behind progressive disclosure: N times per week.
 - [ ] Evaluate Apple Health auto-completion only where Health has authoritative data.
 - [ ] Keep haptics/micro-feedback; do not add an XP/reward economy.
 
@@ -198,4 +198,4 @@ Core habit tracking stays free. Advertising is the planned monetization model, b
 
 The M1 vertical slice is implemented and M2 reminders/localization are wired end-to-end: local storage → minimal create/edit flow → optional local reminder → Today → mark/unmark → details/history → archive/delete. Optional creation settings now use progressive disclosure so the default path stays focused on name + schedule. Historical check-ins now use a stable local-day key, while current schedules/reminders follow the device timezone. RU and EN are bundled and visually smoke-tested. The suite currently has 13 passing tests, including timezone/DST regressions, localization completeness and an XCUITest covering create → check → detail → history. Clean install and additive-schema upgrades have been smoke-tested, including signed install/launch on the physical iPhone 13 with Xcode 27.0.
 
-**Next implementation step:** Home/Lock Screen widgets and the Watch complication now compile together with iPhone + Watch. Widget command bridge has 5 green tests; Watch complication persistence/progress bridge has 2 green tests. Continue with flexible N/week frequency behind progressive disclosure, then simultaneous-edit/duplicate-delivery stress tests. Signed-device widgets remain blocked only by Apple App Group provisioning; real private-CloudKit convergence still requires two signed Apple device identities before release.
+**Next implementation step:** Home/Lock Screen widgets, Watch complication and flexible N/week frequency now compile and pass the simulator regression suite. Continue with simultaneous-edit/duplicate-delivery stress tests across iPhone, Watch and widget, then close signed App Group provisioning and real private-CloudKit convergence. Signed-device widgets remain blocked only by Apple App Group provisioning; real private-CloudKit convergence still requires two signed Apple device identities before release.

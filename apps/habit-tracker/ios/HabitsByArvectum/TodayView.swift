@@ -13,7 +13,12 @@ struct TodayView: View {
 
     private var activeToday: [Habit] {
         habits.filter {
-            !$0.isArchived && !$0.isPaused && $0.schedule.includes(.now)
+            !$0.isArchived && !$0.isPaused && HabitFrequency.isDue(
+                habit: $0,
+                on: .now,
+                checkIns: checkIns,
+                skips: skips
+            )
         }
     }
 
@@ -105,6 +110,11 @@ struct TodayView: View {
                                     checkIns: checkIns,
                                     skips: skips,
                                     pausePeriods: pausePeriods
+                                ),
+                                weeklyCount: HabitFrequency.weeklyCompletionCount(
+                                    habit: habit,
+                                    containing: .now,
+                                    checkIns: checkIns
                                 ),
                                 onToggle: { toggle(habit, on: .now) },
                                 onSkip: { toggleSkip(habit, on: .now) }
@@ -297,6 +307,7 @@ private struct HabitRow: View {
     let completed: Bool
     let skipped: Bool
     let streak: Int
+    let weeklyCount: Int
     let onToggle: () -> Void
     let onSkip: () -> Void
 
@@ -323,6 +334,17 @@ private struct HabitRow: View {
                             Label(
                                 L10n.string("habit.skipped.today"),
                                 systemImage: "minus.circle.fill"
+                            )
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                        } else if habit.usesFlexibleWeeklyTarget {
+                            Label(
+                                L10n.format(
+                                    "habit.weekly.progress.format",
+                                    weeklyCount,
+                                    habit.weeklyTarget
+                                ),
+                                systemImage: "calendar.badge.checkmark"
                             )
                             .font(.caption)
                             .foregroundStyle(.secondary)

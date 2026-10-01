@@ -37,6 +37,16 @@ enum HabitMetrics {
         today: Date = .now,
         calendar: Calendar = .autoupdatingCurrent
     ) -> Int {
+        if habit.usesFlexibleWeeklyTarget {
+            return currentWeeklyStreak(
+                habit: habit,
+                checkIns: checkIns,
+                pausePeriods: pausePeriods,
+                today: today,
+                calendar: calendar
+            )
+        }
+
         let completedDays = dayKeys(
             habitID: habit.id,
             checkIns: checkIns,
@@ -116,6 +126,16 @@ enum HabitMetrics {
         through endDate: Date = .now,
         calendar: Calendar = .autoupdatingCurrent
     ) -> Int {
+        if habit.usesFlexibleWeeklyTarget {
+            return bestWeeklyStreak(
+                habit: habit,
+                checkIns: checkIns,
+                pausePeriods: pausePeriods,
+                through: endDate,
+                calendar: calendar
+            )
+        }
+
         let completedDays = dayKeys(
             habitID: habit.id,
             checkIns: checkIns,
@@ -175,6 +195,16 @@ enum HabitMetrics {
         through endDate: Date = .now,
         calendar: Calendar = .autoupdatingCurrent
     ) -> Double {
+        if habit.usesFlexibleWeeklyTarget {
+            return weeklyCompletionRate(
+                habit: habit,
+                checkIns: checkIns,
+                pausePeriods: pausePeriods,
+                through: endDate,
+                calendar: calendar
+            )
+        }
+
         let start = calendar.startOfDay(for: habit.createdAt)
         let end = calendar.startOfDay(for: endDate)
         guard start <= end else { return 0 }
@@ -252,6 +282,191 @@ enum HabitMetrics {
         pausePeriods.contains {
             $0.habitID == habitID && $0.contains(dayKey: dayKey)
         }
+    }
+
+    private static func currentWeeklyStreak(
+        habit: Habit,
+        checkIns: [HabitCheckIn],
+        pausePeriods: [HabitPausePeriod],
+        today: Date,
+        calendar: Calendar
+    ) -> Int {
+        let creationWeek = HabitFrequency.startOfWeek(
+            containing: habit.createdAt,
+            calendar: calendar
+        )
+        var cursor = HabitFrequency.startOfWeek(
+            containing: today,
+            calendar: calendar
+        )
+
+        if !HabitFrequency.weekHasMetTarget(
+            habit: habit,
+            containing: cursor,
+            checkIns: checkIns,
+            calendar: calendar
+        ), let previous = HabitFrequency.previousWeek(
+            before: cursor,
+            calendar: calendar
+        ) {
+            cursor = previous
+        }
+
+        var streak = 0
+        for _ in 0..<520 {
+            guard cursor >= creationWeek else { break }
+
+            if weekIsFullyPaused(
+                habitID: habit.id,
+                weekStart: cursor,
+                pausePeriods: pausePeriods,
+                calendar: calendar
+            ) {
+                // A fully paused week is neutral.
+            } else if HabitFrequency.weekHasMetTarget(
+                habit: habit,
+                containing: cursor,
+                checkIns: checkIns,
+                calendar: calendar
+            ) {
+                streak += 1
+            } else {
+                break
+            }
+
+            guard let previous = HabitFrequency.previousWeek(
+                before: cursor,
+                calendar: calendar
+            ) else { break }
+            cursor = previous
+        }
+        return streak
+    }
+
+    private static func bestWeeklyStreak(
+        habit: Habit,
+        checkIns: [HabitCheckIn],
+        pausePeriods: [HabitPausePeriod],
+        through endDate: Date,
+        calendar: Calendar
+    ) -> Int {
+        var cursor = HabitFrequency.startOfWeek(
+            containing: habit.createdAt,
+            calendar: calendar
+        )
+        let endWeek = HabitFrequency.startOfWeek(
+            containing: endDate,
+            calendar: calendar
+        )
+        var best = 0
+        var current = 0
+
+        while cursor <= endWeek {
+            if weekIsFullyPaused(
+                habitID: habit.id,
+                weekStart: cursor,
+                pausePeriods: pausePeriods,
+                calendar: calendar
+            ) {
+                // Preserve the chain without increasing it.
+            } else if HabitFrequency.weekHasMetTarget(
+                habit: habit,
+                containing: cursor,
+                checkIns: checkIns,
+                calendar: calendar
+            ) {
+                current += 1
+                best = max(best, current)
+            } else if cursor < endWeek {
+                current = 0
+            }
+
+            guard let next = HabitFrequency.nextWeek(
+                after: cursor,
+                calendar: calendar
+            ) else { break }
+            cursor = next
+        }
+
+        return best
+    }
+
+    private static func weeklyCompletionRate(
+        habit: Habit,
+        checkIns: [HabitCheckIn],
+        pausePeriods: [HabitPausePeriod],
+        through endDate: Date,
+        calendar: Calendar
+    ) -> Double {
+        var cursor = HabitFrequency.startOfWeek(
+            containing: habit.createdAt,
+            calendar: calendar
+        )
+        let currentWeek = HabitFrequency.startOfWeek(
+            containing: endDate,
+            calendar: calendar
+        )
+        var eligibleWeeks = 0
+        var completedWeeks = 0
+
+        while cursor <= currentWeek {
+            let fullyPaused = weekIsFullyPaused(
+                habitID: habit.id,
+                weekStart: cursor,
+                pausePeriods: pausePeriods,
+                calendar: calendar
+            )
+            let met = HabitFrequency.weekHasMetTarget(
+                habit: habit,
+                containing: cursor,
+                checkIns: checkIns,
+                calendar: calendar
+            )
+
+            if !fullyPaused {
+                if cursor < currentWeek {
+                    eligibleWeeks += 1
+                    if met { completedWeeks += 1 }
+                } else if met {
+                    // Do not penalize an unfinished current week before it ends.
+                    eligibleWeeks += 1
+                    completedWeeks += 1
+                }
+            }
+
+            guard let next = HabitFrequency.nextWeek(
+                after: cursor,
+                calendar: calendar
+            ) else { break }
+            cursor = next
+        }
+
+        guard eligibleWeeks > 0 else { return 0 }
+        return Double(completedWeeks) / Double(eligibleWeeks)
+    }
+
+    private static func weekIsFullyPaused(
+        habitID: UUID,
+        weekStart: Date,
+        pausePeriods: [HabitPausePeriod],
+        calendar: Calendar
+    ) -> Bool {
+        for offset in 0..<7 {
+            guard let day = calendar.date(
+                byAdding: .day,
+                value: offset,
+                to: weekStart
+            ) else { return false }
+            let key = HabitDayKey.make(for: day, calendar: calendar)
+            if !isPaused(
+                habitID: habitID,
+                dayKey: key,
+                pausePeriods: pausePeriods
+            ) {
+                return false
+            }
+        }
+        return true
     }
 
     private static func dayKeys(

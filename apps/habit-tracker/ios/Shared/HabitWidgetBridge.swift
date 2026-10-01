@@ -99,6 +99,8 @@ struct HabitWidgetHabit: Codable, Hashable, Identifiable {
     var completed: Bool
     var skipped: Bool
     var streak: Int
+    var weeklyTarget: Int? = nil
+    var weeklyCount: Int? = nil
 }
 
 struct HabitWidgetSnapshot: Codable, Hashable {

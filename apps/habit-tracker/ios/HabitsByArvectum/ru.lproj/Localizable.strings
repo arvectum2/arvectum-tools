@@ -30,7 +30,13 @@
 "schedule.everyday" = "Каждый день";
 "schedule.weekdays" = "Будни";
 "schedule.weekdays.description" = "По будням";
-"schedule.custom" = "Другие дни";
+"schedule.custom" = "Другой график";
+"schedule.flexible.toggle" = "Гибкая цель на неделю";
+"schedule.flexible.target.format" = "%d раз в неделю";
+"schedule.flexible.hint" = "Привычка остаётся на экране «Сегодня», пока цель недели не достигнута.";
+"schedule.flexible.description.format" = "%d раз в неделю";
+"habit.streak.weeks.format" = "%d нед. подряд";
+"habit.weekly.progress.format" = "%d из %d на этой неделе";
 
 "reminder.toggle" = "Напомнить";
 "reminder.time" = "Время";

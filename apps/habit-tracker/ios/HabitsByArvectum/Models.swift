@@ -14,6 +14,7 @@ final class Habit {
     var reminderHour: Int = 20
     var reminderMinute: Int = 0
     var pausedAt: Date? = nil
+    var weeklyTarget: Int = 0
 
     init(
         id: UUID = UUID(),
@@ -26,7 +27,8 @@ final class Habit {
         reminderEnabled: Bool = false,
         reminderHour: Int = 20,
         reminderMinute: Int = 0,
-        pausedAt: Date? = nil
+        pausedAt: Date? = nil,
+        weeklyTarget: Int = 0
     ) {
         self.id = id
         self.name = name
@@ -39,6 +41,7 @@ final class Habit {
         self.reminderHour = reminderHour
         self.reminderMinute = reminderMinute
         self.pausedAt = pausedAt
+        self.weeklyTarget = weeklyTarget
     }
 
     var schedule: HabitSchedule {
@@ -47,6 +50,7 @@ final class Habit {
     }
 
     var isPaused: Bool { pausedAt != nil }
+    var usesFlexibleWeeklyTarget: Bool { weeklyTarget > 0 }
 }
 
 @Model

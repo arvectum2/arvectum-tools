@@ -21,6 +21,9 @@ struct WatchTodayView: View {
         .navigationTitle(WatchL10n.string("watch.today"))
         .onAppear {
             syncStore.refresh()
+#if DEBUG
+            syncStore.debugAutoToggleCachedFirstHabitIfRequested()
+#endif
         }
     }
 
@@ -77,6 +80,17 @@ struct WatchTodayView: View {
                         Text(WatchL10n.string("watch.skipped"))
                             .font(.caption2)
                             .foregroundStyle(.secondary)
+                    } else if let target = habit.weeklyTarget,
+                              let count = habit.weeklyCount {
+                        Text(
+                            WatchL10n.format(
+                                "watch.weekly.format",
+                                count,
+                                target
+                            )
+                        )
+                        .font(.caption2)
+                        .foregroundStyle(.secondary)
                     } else if habit.streak > 0 {
                         Text(
                             WatchL10n.format(

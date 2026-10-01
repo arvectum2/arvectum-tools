@@ -30,7 +30,13 @@
 "schedule.everyday" = "Every day";
 "schedule.weekdays" = "Weekdays";
 "schedule.weekdays.description" = "On weekdays";
-"schedule.custom" = "Other days";
+"schedule.custom" = "Other schedule";
+"schedule.flexible.toggle" = "Flexible weekly goal";
+"schedule.flexible.target.format" = "%d times per week";
+"schedule.flexible.hint" = "The habit stays on Today until this week's goal is reached.";
+"schedule.flexible.description.format" = "%d times per week";
+"habit.streak.weeks.format" = "%d weeks in a row";
+"habit.weekly.progress.format" = "%d of %d this week";
 
 "reminder.toggle" = "Remind me";
 "reminder.time" = "Time";

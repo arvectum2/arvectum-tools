@@ -232,7 +232,12 @@ struct HabitsTodayWidgetView: View {
 
             Spacer(minLength: 4)
 
-            if habit.streak > 0 {
+            if let target = habit.weeklyTarget,
+               let count = habit.weeklyCount {
+                Text("\(count)/\(target)")
+                    .font(.caption2.monospacedDigit())
+                    .foregroundStyle(.secondary)
+            } else if habit.streak > 0 {
                 Label(String(habit.streak), systemImage: "flame.fill")
                     .font(.caption2)
                     .foregroundStyle(.secondary)

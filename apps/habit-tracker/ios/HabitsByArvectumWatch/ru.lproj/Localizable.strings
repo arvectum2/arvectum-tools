@@ -2,6 +2,7 @@
 "watch.progress.format" = "%d из %d";
 "watch.empty" = "На сегодня ничего";
 "watch.streak.format" = "%d дн. подряд";
+"watch.weekly.format" = "%d из %d на неделе";
 "watch.completed" = "Выполнено";
 "watch.notCompleted" = "Не выполнено";
 "watch.skipped" = "Пропущено";

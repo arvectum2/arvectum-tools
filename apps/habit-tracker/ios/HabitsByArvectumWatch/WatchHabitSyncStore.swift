@@ -12,6 +12,7 @@ final class WatchHabitSyncStore: NSObject, ObservableObject, WCSessionDelegate {
     private var pendingCommands: [HabitCompletionCommand]
 #if DEBUG
     private var didAutoToggleForDebug = false
+    private var didAutoToggleCachedForDebug = false
 #endif
 
     private var session: WCSession? {
@@ -210,6 +211,22 @@ final class WatchHabitSyncStore: NSObject, ObservableObject, WCSessionDelegate {
     private func persistPending() {
         Self.save(pendingCommands, key: pendingKey)
     }
+
+#if DEBUG
+    func debugAutoToggleCachedFirstHabitIfRequested() {
+        guard
+            !didAutoToggleCachedForDebug,
+            ProcessInfo.processInfo.arguments.contains(
+                "--auto-toggle-cached-first-habit"
+            ),
+            let first = snapshot.habits.first
+        else { return }
+
+        didAutoToggleCachedForDebug = true
+        guard first.completed else { return }
+        toggle(first)
+    }
+#endif
 
     private static func save<T: Encodable>(_ value: T, key: String) {
         guard let data = try? JSONEncoder().encode(value) else { return }

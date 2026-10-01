@@ -13,6 +13,8 @@ struct HabitSyncHabit: Codable, Hashable, Identifiable {
     var completed: Bool
     var skipped: Bool = false
     var streak: Int
+    var weeklyTarget: Int? = nil
+    var weeklyCount: Int? = nil
 }
 
 struct HabitSyncSnapshot: Codable, Hashable {
