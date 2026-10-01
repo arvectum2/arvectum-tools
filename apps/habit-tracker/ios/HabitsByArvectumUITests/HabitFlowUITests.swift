@@ -108,6 +108,126 @@ final class HabitFlowUITests: XCTestCase {
         )
     }
 
+
+    func testSkipThenCompleteClearsNeutralSkipState() throws {
+        launchSeededDemo()
+
+        let reading = app.staticTexts["Reading"].firstMatch
+        XCTAssertTrue(reading.waitForExistence(timeout: 3))
+        reading.tap()
+
+        let skipButton = app.buttons["Skip today"]
+        XCTAssertTrue(skipButton.waitForExistence(timeout: 3))
+        XCTAssertTrue(skipButton.isHittable)
+        skipButton.tap()
+
+        XCTAssertTrue(
+            app.buttons["Undo skip"].waitForExistence(timeout: 3)
+        )
+
+        app.navigationBars["Reading"].buttons["Today"].tap()
+
+        XCTAssertTrue(
+            app.staticTexts["Skipped today"].waitForExistence(timeout: 3)
+        )
+
+        let completeButton = app.buttons["Mark complete"].firstMatch
+        XCTAssertTrue(completeButton.waitForExistence(timeout: 3))
+        completeButton.tap()
+
+        XCTAssertTrue(
+            app.buttons["Undo completion"].firstMatch
+                .waitForExistence(timeout: 3)
+        )
+        XCTAssertFalse(app.staticTexts["Skipped today"].exists)
+    }
+
+    func testPauseAndResumeMovesHabitOutOfAndBackIntoToday() throws {
+        launchSeededDemo()
+
+        let reading = app.staticTexts["Reading"].firstMatch
+        XCTAssertTrue(reading.waitForExistence(timeout: 3))
+        reading.tap()
+
+        let pauseButton = app.buttons["Pause habit"]
+        XCTAssertTrue(pauseButton.waitForExistence(timeout: 3))
+        pauseButton.tap()
+
+        XCTAssertTrue(
+            app.buttons["Resume habit"].waitForExistence(timeout: 3)
+        )
+
+        app.navigationBars["Reading"].buttons["Today"].tap()
+        XCTAssertFalse(app.staticTexts["Reading"].exists)
+
+        let manageButton = app.buttons["Manage habits"]
+        XCTAssertTrue(manageButton.waitForExistence(timeout: 3))
+        manageButton.tap()
+
+        XCTAssertTrue(app.staticTexts["Paused"].waitForExistence(timeout: 3))
+        let pausedReading = app.staticTexts["Reading"].firstMatch
+        XCTAssertTrue(pausedReading.waitForExistence(timeout: 3))
+        pausedReading.tap()
+
+        let resumeButton = app.buttons["Resume habit"]
+        XCTAssertTrue(resumeButton.waitForExistence(timeout: 3))
+        resumeButton.tap()
+
+        app.navigationBars["Reading"].buttons["Manage habits"].tap()
+        XCTAssertTrue(app.staticTexts["Active"].waitForExistence(timeout: 3))
+        XCTAssertTrue(app.staticTexts["Reading"].waitForExistence(timeout: 3))
+    }
+
+    func testArchiveAndRestoreKeepsHabitRecoverable() throws {
+        launchSeededDemo()
+
+        let reading = app.staticTexts["Reading"].firstMatch
+        XCTAssertTrue(reading.waitForExistence(timeout: 3))
+        reading.tap()
+
+        let moreButton = app.buttons["More habit actions"]
+        XCTAssertTrue(moreButton.waitForExistence(timeout: 3))
+        moreButton.tap()
+
+        let archiveButton = app.buttons["Archive"]
+        XCTAssertTrue(archiveButton.waitForExistence(timeout: 3))
+        archiveButton.tap()
+
+        XCTAssertFalse(app.staticTexts["Reading"].exists)
+
+        let manageButton = app.buttons["Manage habits"]
+        XCTAssertTrue(manageButton.waitForExistence(timeout: 3))
+        manageButton.tap()
+
+        XCTAssertTrue(app.staticTexts["Archived"].waitForExistence(timeout: 3))
+        let archivedReading = app.staticTexts["Reading"].firstMatch
+        XCTAssertTrue(archivedReading.waitForExistence(timeout: 3))
+        archivedReading.tap()
+
+        let archivedMoreButton = app.buttons["More habit actions"]
+        XCTAssertTrue(archivedMoreButton.waitForExistence(timeout: 3))
+        archivedMoreButton.tap()
+
+        let restoreButton = app.buttons["Restore from archive"]
+        XCTAssertTrue(restoreButton.waitForExistence(timeout: 3))
+        restoreButton.tap()
+
+        XCTAssertTrue(app.buttons["Edit"].waitForExistence(timeout: 3))
+        XCTAssertTrue(app.buttons["Pause habit"].waitForExistence(timeout: 3))
+    }
+
+    private func launchSeededDemo() {
+        app.terminate()
+        app.launchArguments = [
+            "-AppleLanguages", "(en)",
+            "-AppleLocale", "en_US",
+            "--ui-testing",
+            "--seed-watch-sync-demo",
+            "--disable-cloud-sync"
+        ]
+        app.launch()
+    }
+
     func testCoreCreationFlowAtLargestDynamicType() throws {
         app.terminate()
         app.launchArguments = [
