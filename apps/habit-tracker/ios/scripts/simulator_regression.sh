@@ -116,39 +116,49 @@ xcrun simctl uninstall "$PAIR_WATCH" "$WATCH_BUNDLE_ID" 2>/dev/null || true
 xcrun simctl install "$PAIR_PHONE" "$APP"
 xcrun simctl install "$PAIR_WATCH" "$WATCH_APP"
 
-xcrun simctl launch "$PAIR_PHONE" "$BUNDLE_ID" \
+xcrun simctl spawn "$PAIR_PHONE" log erase --all >/dev/null 2>&1 || true
+xcrun simctl spawn "$PAIR_WATCH" log erase --all >/dev/null 2>&1 || true
+
+xcrun simctl launch --terminate-running-process "$PAIR_PHONE" "$BUNDLE_ID" \
   --ui-testing \
   --seed-watch-sync-demo \
   --diagnose-watch-sync \
   --disable-cloud-sync >/dev/null
 sleep 2
 
-xcrun simctl launch "$PAIR_WATCH" "$WATCH_BUNDLE_ID" \
+xcrun simctl launch --terminate-running-process "$PAIR_WATCH" "$WATCH_BUNDLE_ID" \
   --diagnose-watch-sync \
   --auto-toggle-first-habit >/dev/null
-sleep 7
 
-xcrun simctl spawn "$PAIR_PHONE" log show \
-  --style compact \
-  --last 2m \
-  --predicate 'process == "HabitsByArvectum" AND eventMessage CONTAINS "HABITS_"' \
-  >"$WORK/phone-sync.log"
+SYNC_OK=0
+for _ in $(seq 1 15); do
+  sleep 2
 
-xcrun simctl spawn "$PAIR_WATCH" log show \
-  --style compact \
-  --last 2m \
-  --predicate 'process == "HabitsByArvectumWatch" AND eventMessage CONTAINS "HABITS_"' \
-  >"$WORK/watch-sync.log"
+  xcrun simctl spawn "$PAIR_PHONE" log show \
+    --style compact \
+    --last 1m \
+    --predicate 'process == "HabitsByArvectum" AND eventMessage CONTAINS "HABITS_"' \
+    >"$WORK/phone-sync.log" 2>/dev/null || true
 
-if ! grep -q "HABITS_PHONE_COMMAND .*completed=true" "$WORK/phone-sync.log"; then
-  echo "Watch command did not reach iPhone" >&2
-  tail -60 "$WORK/phone-sync.log" >&2
-  exit 1
-fi
+  xcrun simctl spawn "$PAIR_WATCH" log show \
+    --style compact \
+    --last 1m \
+    --predicate 'process == "HabitsByArvectumWatch" AND eventMessage CONTAINS "HABITS_"' \
+    >"$WORK/watch-sync.log" 2>/dev/null || true
 
-if ! grep -q "HABITS_WATCH_SNAPSHOT .*pending=0" "$WORK/watch-sync.log"; then
-  echo "Watch did not converge to an acknowledged snapshot" >&2
-  tail -60 "$WORK/watch-sync.log" >&2
+  if grep -q "HABITS_PHONE_COMMAND .*completed=true" "$WORK/phone-sync.log" &&
+     grep -q "HABITS_WATCH_SNAPSHOT .*pending=0" "$WORK/watch-sync.log"; then
+    SYNC_OK=1
+    break
+  fi
+done
+
+if [[ "$SYNC_OK" != "1" ]]; then
+  echo "Paired Watch live sync did not converge within 30 seconds" >&2
+  echo "--- phone ---" >&2
+  tail -80 "$WORK/phone-sync.log" >&2
+  echo "--- watch ---" >&2
+  tail -80 "$WORK/watch-sync.log" >&2
   exit 1
 fi
 
