@@ -137,7 +137,7 @@ private struct NativeAdSlot: View {
 
     var body: some View {
         NativeAdRepresentable(isLoaded: $loaded)
-            .frame(height: loaded ? 420 : 1)
+            .frame(height: loaded ? nil : 1)
             .clipped()
             .animation(.easeInOut(duration: 0.2), value: loaded)
     }
@@ -157,6 +157,24 @@ private struct NativeAdRepresentable: UIViewRepresentable {
     }
 
     func updateUIView(_ uiView: ArvectumNativeAdView, context: Context) {}
+
+    func sizeThatFits(
+        _ proposal: ProposedViewSize,
+        uiView: ArvectumNativeAdView,
+        context: Context
+    ) -> CGSize? {
+        guard let width = proposal.width, width > 0 else { return nil }
+        uiView.bounds.size.width = width
+        uiView.setNeedsLayout()
+        uiView.layoutIfNeeded()
+        let target = CGSize(width: width, height: UIView.layoutFittingCompressedSize.height)
+        let measured = uiView.systemLayoutSizeFitting(
+            target,
+            withHorizontalFittingPriority: .required,
+            verticalFittingPriority: .fittingSizeLevel
+        )
+        return CGSize(width: width, height: max(1, ceil(measured.height)))
+    }
 
     @MainActor
     final class Coordinator: NSObject, NativeAdDelegate {
