@@ -28,7 +28,7 @@ struct ContentView: View {
         ZStack {
             Color.arvectumBackground.ignoresSafeArea()
 
-            VStack(spacing: 10) {
+            VStack(spacing: model.result == nil ? 10 : 6) {
                 BrandHeader()
 
                 if model.result == nil {
@@ -37,7 +37,7 @@ struct ContentView: View {
 
                 if let result = model.result {
                     ScrollView(showsIndicators: false) {
-                        VStack(spacing: 10) {
+                        VStack(spacing: 6) {
                             ResultCard(
                                 result: result,
                                 onSave: beginExport,
@@ -58,11 +58,11 @@ struct ContentView: View {
                     .font(.caption.weight(.semibold))
                     .foregroundStyle(.secondary)
                     .tracking(0.5)
-                    .frame(height: 24)
+                    .frame(height: model.result == nil ? 24 : 16)
             }
             .padding(.horizontal, 14)
-            .padding(.top, 8)
-            .padding(.bottom, 4)
+            .padding(.top, model.result == nil ? 8 : 4)
+            .padding(.bottom, model.result == nil ? 4 : 0)
 
             if model.isWorking {
                 Color.black.opacity(0.12).ignoresSafeArea()
