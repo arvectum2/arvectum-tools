@@ -67,6 +67,7 @@ enum HabitFrequency {
             ) < effectiveWeeklyTarget(
                 habit: habit,
                 containing: date,
+                skips: skips,
                 pausePeriods: pausePeriods,
                 calendar: calendar
             )
@@ -79,6 +80,7 @@ enum HabitFrequency {
         habit: Habit,
         containing date: Date,
         checkIns: [HabitCheckIn],
+        skips: [HabitSkip] = [],
         pausePeriods: [HabitPausePeriod] = [],
         calendar: Calendar = .autoupdatingCurrent
     ) -> Bool {
@@ -86,6 +88,7 @@ enum HabitFrequency {
         let target = effectiveWeeklyTarget(
             habit: habit,
             containing: date,
+            skips: skips,
             pausePeriods: pausePeriods,
             calendar: calendar
         )
@@ -101,6 +104,7 @@ enum HabitFrequency {
     static func effectiveWeeklyTarget(
         habit: Habit,
         containing date: Date,
+        skips: [HabitSkip] = [],
         pausePeriods: [HabitPausePeriod] = [],
         calendar: Calendar = .autoupdatingCurrent
     ) -> Int {
@@ -121,6 +125,12 @@ enum HabitFrequency {
                 habitID: habit.id,
                 on: day,
                 pausePeriods: pausePeriods,
+                calendar: calendar
+            ) else { continue }
+            guard !HabitMetrics.isSkipped(
+                habitID: habit.id,
+                on: day,
+                skips: skips,
                 calendar: calendar
             ) else { continue }
             availableDays += 1

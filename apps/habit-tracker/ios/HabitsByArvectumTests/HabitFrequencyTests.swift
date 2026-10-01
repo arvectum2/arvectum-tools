@@ -203,6 +203,47 @@ final class HabitFrequencyTests: XCTestCase {
         )
     }
 
+
+    func testSkipsShrinkImpossibleFlexibleWeeklyTarget() {
+        let habit = Habit(
+            name: "Gym",
+            createdAt: date(2026, 9, 28),
+            weeklyTarget: 5
+        )
+        let skips = [
+            HabitSkip(habitID: habit.id, day: date(2026, 9, 28), calendar: calendar),
+            HabitSkip(habitID: habit.id, day: date(2026, 9, 29), calendar: calendar),
+            HabitSkip(habitID: habit.id, day: date(2026, 9, 30), calendar: calendar)
+        ]
+
+        XCTAssertEqual(
+            HabitFrequency.effectiveWeeklyTarget(
+                habit: habit,
+                containing: date(2026, 10, 4),
+                skips: skips,
+                calendar: calendar
+            ),
+            4
+        )
+
+        let checkIns = [
+            checkIn(habit, 2026, 10, 1),
+            checkIn(habit, 2026, 10, 2),
+            checkIn(habit, 2026, 10, 3),
+            checkIn(habit, 2026, 10, 4)
+        ]
+
+        XCTAssertTrue(
+            HabitFrequency.weekHasMetTarget(
+                habit: habit,
+                containing: date(2026, 10, 4),
+                checkIns: checkIns,
+                skips: skips,
+                calendar: calendar
+            )
+        )
+    }
+
     private func checkIn(
         _ habit: Habit,
         _ year: Int,
