@@ -30,7 +30,10 @@ struct ContentView: View {
 
             VStack(spacing: 10) {
                 BrandHeader()
-                ModeSelector(mode: model.mode) { model.setMode($0) }
+
+                if model.result == nil {
+                    ModeSelector(mode: model.mode) { model.setMode($0) }
+                }
 
                 if let result = model.result {
                     ScrollView(showsIndicators: false) {

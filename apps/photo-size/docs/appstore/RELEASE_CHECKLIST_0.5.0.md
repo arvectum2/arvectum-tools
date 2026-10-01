@@ -3,6 +3,7 @@
 ## Simplicity gate
 
 - [x] No new top-level mode beyond the existing three jobs.
+- [x] Result screen hides the mode selector; switching jobs remains available only before processing, keeping the result screen compact.
 - [x] Rare controls stay behind collapsed “Advanced / Дополнительно”; the common flow remains choose photo → choose target → process.
 - [x] No registration, backend, cloud image processing, or mandatory onboarding.
 - [x] Ads are result-only and never interrupt the task.
