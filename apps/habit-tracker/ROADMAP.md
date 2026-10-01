@@ -102,7 +102,7 @@ Working formula: **«всё удобное — без лишнего»**.
 - [x] Accessibility-size responsive layouts for Today summary, habit identity/stats and primary action buttons.
 - [x] Add a largest-Dynamic-Type XCUITest for the core create flow; verify it compiles via `build-for-testing` on Xcode 27.
 - [ ] Physical accessibility audit: Dynamic Type, VoiceOver navigation and contrast.
-- [ ] Final Arvectum visual polish.
+- [x] Final in-app Arvectum visual polish: remove redundant zero-streak copy, preserve deliberately sparse Today layout, verify Light/Dark on small and large simulators. Final app icon remains a separate release asset.
 - [x] Move rare Archive/Delete maintenance actions out of the detail body into an overflow menu.
 - [x] Subtle completion feedback: haptic + lightweight symbol bounce on iPhone and Watch; no XP/reward economy.
 - [x] Light/Dark empty-state smoke test on iOS 27 simulator.
@@ -110,7 +110,7 @@ Working formula: **«всё удобное — без лишнего»**.
 - [x] Localization completeness test for both bundled languages.
 - [x] UI test for create → check → detail → history using an isolated in-memory app store.
 - [x] Physical iPhone 13 signed-build install/launch smoke test.
-- [x] Simulator visual smoke test on iPhone 17e and iPhone 18 Pro Max.
+- [x] Simulator visual smoke test on iPhone 17e and iPhone 18 Pro Max in Light/Dark; no clipping or contrast regressions.
 - [ ] Test on small and large physical iPhones.
 - [x] Smoke-test clean simulator install and additive-schema upgrade path on the physical iPhone 13.
 
@@ -214,6 +214,6 @@ Core habit tracking stays free. Advertising is the planned monetization model, b
 
 ## Current checkpoint
 
-M1/M2 are implemented end-to-end, and the required M3 Watch/live-sync path is operational: local storage → minimal create/edit → reminders with Complete/Skip quick actions → Today → history/skip/pause/archive → widgets → Watch. iPhone↔Watch live round-trip and offline durable convergence are verified on a paired iOS 27/watchOS 27 simulator. The control unit suite currently has 77 passing tests on iOS 26.5, covering timezone/DST, mutation conflicts, flexible weekly goals, notification actions, widgets, localization, persistence and explicit schema versioning. Current UI has also been smoke-tested on iPhone 17e / 18 Pro Max and 42 mm / 46 mm Watch simulators.
+M1/M2 are implemented end-to-end, and the required M3 Watch/live-sync path is operational: local storage → minimal create/edit → reminders with Complete/Skip quick actions → Today → history/skip/pause/archive → widgets → Watch. iPhone↔Watch live round-trip and offline durable convergence are verified on a paired iOS 27/watchOS 27 simulator. The control unit suite currently has 78 passing tests on iOS 26.5, covering timezone/DST, mutation conflicts, flexible weekly goals, notification actions, widgets, localization, persistence and explicit schema versioning. Current UI has also been smoke-tested on iPhone 17e / 18 Pro Max and 42 mm / 46 mm Watch simulators.
 
 **Next implementation step:** continue simulator-first UI/UX polish across Manage, habit detail, flexible weekly goals, widgets and complications; keep unit regression on iOS 26.5 because Xcode 27 has a SwiftData/XCTest host instability. Signed App Group/private-CloudKit convergence and the physical Watch smoke test remain release gates once Apple signing/account access is available.

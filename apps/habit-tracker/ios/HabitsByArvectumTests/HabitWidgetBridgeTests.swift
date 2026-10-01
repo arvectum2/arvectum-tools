@@ -210,6 +210,63 @@ final class HabitWidgetBridgeTests: XCTestCase {
         XCTAssertEqual(commands.first?.completed, false)
     }
 
+
+    func testWidgetPresentationKeepsUnresolvedHabitsVisibleFirst() {
+        let completed = HabitWidgetHabit(
+            id: UUID(),
+            name: "Reading",
+            symbolName: "book.fill",
+            colorHex: "8B5CF6",
+            completed: true,
+            skipped: false,
+            streak: 4
+        )
+        let unresolvedA = HabitWidgetHabit(
+            id: UUID(),
+            name: "Water",
+            symbolName: "drop.fill",
+            colorHex: "43E5C5",
+            completed: false,
+            skipped: false,
+            streak: 2
+        )
+        let skipped = HabitWidgetHabit(
+            id: UUID(),
+            name: "Walk",
+            symbolName: "figure.walk",
+            colorHex: "F59E0B",
+            completed: false,
+            skipped: true,
+            streak: 1
+        )
+        let unresolvedB = HabitWidgetHabit(
+            id: UUID(),
+            name: "Journal",
+            symbolName: "pencil",
+            colorHex: "8B5CF6",
+            completed: false,
+            skipped: false,
+            streak: 0
+        )
+
+        let result = HabitWidgetPresentation.prioritized([
+            completed,
+            unresolvedA,
+            skipped,
+            unresolvedB
+        ])
+
+        XCTAssertEqual(
+            result.map(\.id),
+            [
+                unresolvedA.id,
+                unresolvedB.id,
+                completed.id,
+                skipped.id
+            ]
+        )
+    }
+
     func testCommandQueueIsBoundedToNewestHundredTargets() {
         for index in 0..<105 {
             HabitWidgetBridge.appendCommand(

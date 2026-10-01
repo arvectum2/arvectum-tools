@@ -185,6 +185,43 @@ the current completed day.
 The plan is rebuilt after check/undo/skip/edit/pause and on foreground activation,
 so a resolved habit cannot produce a stale reminder later the same day.
 
+#### 20. Automatic logging is worth complexity only when the source is authoritative
+
+HabitMinder users specifically praise Apple Health integration because a measured
+Health goal can complete itself without duplicate manual entry. The same reviews
+complain when a normal habit needs extra timing/details merely to mark it done.
+
+**Take after V1:** Apple Health auto-completion is the first automation candidate,
+limited to habits backed by authoritative Health data. Manual habits remain one tap.
+
+#### 21. Accountability works, but social infrastructure changes the product
+
+HabitShare users praise the motivational effect of a friend seeing check-ins.
+That is real value, but it requires identity, invitations, privacy controls,
+notifications and server-side/social state.
+
+**Do not build in V1:** no social account layer. Revisit an optional one-to-one
+accountability/share mode only if post-launch users ask for it.
+
+#### 22. Easy correction of yesterday matters more than another analytics screen
+
+Done users praised quick movement between days and complained when correcting a
+previous day became a longer calendar-navigation flow.
+
+**Take:** preserve fast historical correction through the six-week heatmap. Do not
+add a second day-navigation mode to Today unless usage data shows the heatmap is too
+slow for this job.
+
+#### 23. "Tiny version" / identity framing is promising but adds setup
+
+Identity-based trackers report that users respond well to framing habits as votes
+for an identity and to an emergency tiny version on difficult days. The motivational
+idea is useful, but requiring identity/tiny-version setup for every habit would
+conflict with our seconds-to-create goal.
+
+**Do not build in V1:** Skip already provides a low-guilt escape hatch. Revisit a
+single optional "minimum version" experiment only after retention data.
+
 ## What Habits by Arvectum takes
 
 ### Required before public release

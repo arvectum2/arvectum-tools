@@ -53,6 +53,61 @@ final class HabitFlowUITests: XCTestCase {
         )
     }
 
+
+    func testManageShowsScheduleWithoutOpeningEachHabit() throws {
+        app.terminate()
+        app.launchArguments = [
+            "-AppleLanguages", "(en)",
+            "-AppleLocale", "en_US",
+            "--ui-testing",
+            "--seed-watch-sync-demo",
+            "--disable-cloud-sync"
+        ]
+        app.launch()
+
+        let manageButton = app.buttons["Manage habits"]
+        XCTAssertTrue(manageButton.waitForExistence(timeout: 3))
+        XCTAssertTrue(manageButton.isHittable)
+        manageButton.tap()
+
+        XCTAssertTrue(
+            app.navigationBars["Manage habits"].waitForExistence(timeout: 3)
+        )
+        XCTAssertTrue(app.staticTexts["Reading"].waitForExistence(timeout: 3))
+        XCTAssertTrue(app.staticTexts["Water"].waitForExistence(timeout: 3))
+        XCTAssertGreaterThanOrEqual(
+            app.staticTexts.matching(
+                NSPredicate(format: "label == %@", "Every day")
+            ).count,
+            2
+        )
+    }
+
+    func testFlexibleWeeklyGoalIsReadableOnTodayAndManage() throws {
+        app.terminate()
+        app.launchArguments = [
+            "-AppleLanguages", "(en)",
+            "-AppleLocale", "en_US",
+            "--ui-testing",
+            "--seed-flexible-weekly-demo",
+            "--disable-cloud-sync"
+        ]
+        app.launch()
+
+        XCTAssertTrue(app.staticTexts["Workout"].waitForExistence(timeout: 3))
+        XCTAssertTrue(
+            app.staticTexts["0 of 3 this week"].waitForExistence(timeout: 3)
+        )
+
+        let manageButton = app.buttons["Manage habits"]
+        XCTAssertTrue(manageButton.waitForExistence(timeout: 3))
+        manageButton.tap()
+
+        XCTAssertTrue(
+            app.staticTexts["3 times per week"].waitForExistence(timeout: 3)
+        )
+    }
+
     func testCoreCreationFlowAtLargestDynamicType() throws {
         app.terminate()
         app.launchArguments = [

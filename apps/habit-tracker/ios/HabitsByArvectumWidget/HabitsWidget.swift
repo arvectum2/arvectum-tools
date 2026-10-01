@@ -193,7 +193,7 @@ struct HabitsTodayWidgetView: View {
                 Spacer()
             } else {
                 VStack(spacing: 5) {
-                    ForEach(Array(entry.snapshot.habits.prefix(3))) { habit in
+                    ForEach(Array(mediumHabits.prefix(3))) { habit in
                         habitRow(habit)
                     }
                 }
@@ -272,6 +272,10 @@ struct HabitsTodayWidgetView: View {
             )
         }
         .frame(minHeight: 40)
+    }
+
+    private var mediumHabits: [HabitWidgetHabit] {
+        HabitWidgetPresentation.prioritized(entry.snapshot.habits)
     }
 
     private var nextUnresolvedHabit: HabitWidgetHabit? {

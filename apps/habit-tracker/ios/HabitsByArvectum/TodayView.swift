@@ -377,10 +377,6 @@ private struct HabitRow: View {
                             )
                             .font(.caption)
                             .foregroundStyle(.secondary)
-                        } else {
-                            Text(L10n.string("habit.streak.start"))
-                                .font(.caption)
-                                .foregroundStyle(.secondary)
                         }
                     }
                 }

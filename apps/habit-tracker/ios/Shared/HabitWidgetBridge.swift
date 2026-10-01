@@ -123,6 +123,21 @@ enum HabitWidgetBridge {
     }
 }
 
+
+enum HabitWidgetPresentation {
+    static func prioritized(
+        _ habits: [HabitWidgetHabit]
+    ) -> [HabitWidgetHabit] {
+        let unresolved = habits.filter {
+            !$0.completed && !$0.skipped
+        }
+        let resolved = habits.filter {
+            $0.completed || $0.skipped
+        }
+        return unresolved + resolved
+    }
+}
+
 struct HabitWidgetHabit: Codable, Hashable, Identifiable {
     let id: UUID
     var name: String
