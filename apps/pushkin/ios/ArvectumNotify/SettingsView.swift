@@ -39,8 +39,7 @@ struct SettingsView: View {
             .padding(.top, 12)
             .padding(.bottom, 8)
             .background(Color.arvectumBackground.ignoresSafeArea())
-            .navigationTitle("Settings")
-            .navigationBarTitleDisplayMode(.inline)
+            .toolbar(.hidden, for: .navigationBar)
             .confirmationDialog(
                 "Delete all notification history?",
                 isPresented: $showingDeleteAllConfirmation,

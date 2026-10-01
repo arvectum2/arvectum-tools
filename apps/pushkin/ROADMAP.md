@@ -30,7 +30,7 @@ This section supersedes older phase checklists as the release gate. The historic
 - [x] Fully local runtime: no backend, no account, no runtime network lookup.
 - [x] Automatic capture verification after setup / app refresh.
 - [x] Basic chronological notification history.
-- [x] Arvectum visual language and consumer-facing shell implemented; final physical-device visual QA still pending.
+- [x] Arvectum visual language and consumer-facing shell implemented and visually verified on simulator Light/Dark plus physical iPhone; product-owner approval of the rework remains the release gate.
 - [x] Fast full-text search across app/title/subtitle/body.
 - [x] Basic notification actions: copy, share, delete.
 - [x] Consumer Settings/About screen; Phase-0 diagnostics removed from release navigation.
@@ -40,7 +40,7 @@ This section supersedes older phase checklists as the release gate. The historic
 - [ ] Final physical-device smoke test including airplane-mode/offline use. Physical iPhone is connected on iOS 27.0.1; automated UI test hit the system passcode gate for XCTest automation, so the remaining check is manual/non-UI-automation only.
 - [x] App Store metadata, 6.9-inch screenshots, review notes and signed release archive prepared.
 - [x] App Store Connect record verified: `PUSHKIN by Arvectum`, Apple ID `6817847111`, Bundle ID `ru.arvectum.tools.notify`, build `1.0.0 (1)`.
-- [x] Version 1.0 submitted to App Review on 30 Sep 2026; current status: **Waiting for Review**.
+- [x] Version 1.0 submitted to App Review on 30 Sep 2026. On 1 Oct 2026 Apple returned **Guideline 2.1 — Information Needed** because the developer account has limited App Review history. This is an information request, not a reported app bug: Apple asks for a physical-device screen recording plus purpose/audience, setup, external-services, regional-differences and rights/regulatory details. Draft response and recording shot list are prepared; nothing has been resubmitted yet.
 
 ### Explicitly deferred from 1.0
 
@@ -64,7 +64,7 @@ The submitted 1.0 build stays in App Review. UI changes below target the next bu
 - [x] Reserve future native-ad insertion point after the third History item; ads remain disabled and no blank placeholder is shown.
 - [x] Complete product/IA/visual/iOS interaction cross-review in `docs/UX_REVIEW.md`.
 - [x] Build the redesign successfully for simulator and physical iPhone after clearing the stale Xcode compiler processes.
-- [x] Capture all five review screens in simulator Light/Dark and render all five on the connected physical iPhone in its current appearance.
+- [x] Capture all five review screens in simulator Light/Dark and render all five on the connected physical iPhone in its current appearance; current physical screenshots confirm the non-History screens fit without scrolling.
 - [ ] Product-owner visual approval.
 - [ ] Only after approval: merge/release next build; add the planned ad SDK for the second public release.
 

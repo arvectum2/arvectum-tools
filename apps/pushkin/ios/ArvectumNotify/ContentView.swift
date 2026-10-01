@@ -283,6 +283,7 @@ private struct InboxView: View {
                 }
             }
             .background(Color.arvectumBackground.ignoresSafeArea())
+            .toolbar(.hidden, for: .navigationBar)
             .sheet(isPresented: $showAppPicker) {
                 CoverageAppPicker { app in
                     let now = Date().timeIntervalSince1970

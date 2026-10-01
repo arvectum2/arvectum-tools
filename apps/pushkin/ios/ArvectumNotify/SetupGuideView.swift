@@ -43,8 +43,7 @@ struct SetupGuideView: View {
             .padding(.top, 12)
             .padding(.bottom, 8)
             .background(Color.arvectumBackground.ignoresSafeArea())
-            .navigationTitle("Apps")
-            .navigationBarTitleDisplayMode(.inline)
+            .toolbar(.hidden, for: .navigationBar)
             .sheet(isPresented: $showAppPicker) {
                 CoverageAppPicker { app in
                     recordQuickRefresh(app)

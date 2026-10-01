@@ -60,9 +60,9 @@ Future native ad placement is structurally located after the third History item 
 ## Verification evidence
 
 - Simulator build on Xcode 27: passed.
-- Physical iPhone 13 (`iPhone14,5`), iOS 27.0.1, 1170×2532: redesigned History / Apps / Settings / Add App / Manual Add rendered successfully.
+- Physical iPhone 13 (`iPhone14,5`), iOS 27.0.1, 1170×2532: redesigned History / Apps / Settings / Add App / Manual Add rendered successfully after the final compact-layout pass.
 - Unit suite: **9/9 passed** after verifying all 1000 bundled micro-packages resolve as local files, including Unicode filenames.
-- Focused UI/UX suite: **6/6 passed** — consumer shell, non-scrolling primary tabs, Add App + Manual Add fit, search keyboard dismissal, calm Add App picker, and offline manual fallback.
+- Focused UI/UX checks: **8/8 passed** — consumer shell, non-scrolling primary tabs, Add App + Manual Add fit, no duplicate Shortcuts actions, future ad-slot position, search keyboard dismissal, calm Add App picker, and offline manual fallback.
 - Light and Dark appearances captured for all five review screens.
 - Future ad slot previewed after the third History item; with `adsEnabled = false` the slot is absent and leaves no blank space.
 

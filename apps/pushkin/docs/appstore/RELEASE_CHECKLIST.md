@@ -16,7 +16,7 @@
 - [x] Light and Dark Mode visually checked on iOS 27 simulator.
 - [x] App icon present.
 - [x] Advertising excluded from 1.0.
-- [ ] Final physical-device UX review after design changes.
+- [x] Final physical-device UX review after design changes (History / Apps / Settings / Add App / Manual Add all rendered on iPhone 13, iOS 27.0.1).
 - [ ] Final airplane-mode/offline smoke test.
 
 ## Privacy
@@ -37,7 +37,7 @@
 - [x] App Store Connect app record (`PUSHKIN by Arvectum`, Apple ID `6817847111`).
 - [x] Final 6.9-inch iPhone screenshots (1320×2868): History, Apps & Setup, Privacy/Settings.
 - [ ] Optional smaller-device screenshot set if App Store Connect requests it.
-- [ ] Physical-device App Review demo recording if Apple requests additional review evidence.
+- [ ] Physical-device App Review demo recording — **required by Apple on 1 Oct 2026 under Guideline 2.1 Information Needed**. Shot list prepared in `APP_REVIEW_VIDEO_SHOTLIST.md`.
 - [x] Support URL and live privacy-policy URL verified.
 
 ## Build and submission
@@ -52,7 +52,8 @@
 - [x] Final build attached to iOS version 1.0.
 - [x] Review notes present in the version metadata.
 - [x] Submit to App Review.
-- [x] Submission accepted by App Store Connect on 30 Sep 2026 at 19:58 local time; status **Waiting for Review**.
+- [x] Submission accepted by App Store Connect on 30 Sep 2026 at 19:58 local time.
+- [ ] 1 Oct 2026: status **Rejected — Guideline 2.1 Information Needed**. Apple requests a physical-device screen recording and six factual disclosures because the developer account has limited review history. Draft response is ready in `APP_REVIEW_RESPONSE_2026-10-01.md`; do not reply/resubmit until the recording is attached and the product owner approves.
 
 ## Post-launch 1.1
 

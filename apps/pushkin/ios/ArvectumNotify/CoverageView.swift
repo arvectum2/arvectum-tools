@@ -401,5 +401,6 @@ struct ManualCoverageGuide: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
         }
         .accessibilityElement(children: .combine)
+        .accessibilityIdentifier("manual-step-\(number)")
     }
 }

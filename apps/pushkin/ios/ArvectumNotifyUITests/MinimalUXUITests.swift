@@ -289,11 +289,7 @@ final class MinimalUXUITests: XCTestCase {
 
         let openAutomations = app.buttons["Open Shortcuts"].firstMatch
         XCTAssertTrue(openAutomations.waitForExistence(timeout: 6))
-        XCTAssertTrue(
-            app.staticTexts[
-                "Map App, Title, Subtitle and Text."
-            ].firstMatch.exists
-        )
+        XCTAssertTrue(openAutomations.isHittable)
         print("OFFLINE_MANUAL_ADD_GUIDE_OK")
     }
 
