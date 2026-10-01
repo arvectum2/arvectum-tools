@@ -61,6 +61,7 @@ final class HabitWidgetCoordinator {
             try? context.save()
             HabitWidgetBridge.removeCommands(ids: processed)
             PhoneWatchSyncCoordinator.shared.dataDidChange()
+            HabitReminderCoordinator.shared.dataDidChange()
         }
     }
 
@@ -173,5 +174,6 @@ enum HabitDataChangeNotifier {
     static func notify() {
         PhoneWatchSyncCoordinator.shared.dataDidChange()
         HabitWidgetCoordinator.shared.dataDidChange()
+        HabitReminderCoordinator.shared.dataDidChange()
     }
 }

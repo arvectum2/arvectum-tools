@@ -166,6 +166,25 @@ data.
 paused/unscheduled and genuinely missed past days. Flexible N/week habits are
 judged at the week level, so individual dates are never falsely labelled missed.
 
+#### 18. Interactive widgets need large, immediate controls and obvious undo
+
+Recent Streaks reviews praise widgets but specifically complain when the completion
+button is easy to miss or undo is hidden. The value of a widget is lost if it adds
+precision tapping or uncertainty.
+
+**Take:** completion in the medium widget remains a reversible desired-state action,
+and its hit target is deliberately larger than the visible icon.
+
+#### 19. A completed habit must stop reminding the user that day
+
+Recent Streaks reviews call reminders for already-completed actions especially
+annoying. Repeating weekday notification requests cannot reliably suppress only
+the current completed day.
+
+**Take:** reminders use a bounded rolling horizon of one-shot local notifications.
+The plan is rebuilt after check/undo/skip/edit/pause and on foreground activation,
+so a resolved habit cannot produce a stale reminder later the same day.
+
 ## What Habits by Arvectum takes
 
 ### Required before public release

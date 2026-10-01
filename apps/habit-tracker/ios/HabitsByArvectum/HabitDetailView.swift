@@ -317,9 +317,6 @@ struct HabitDetailView: View {
         }
         try? modelContext.save()
         HabitDataChangeNotifier.notify()
-        Task {
-            _ = await HabitReminderScheduler.sync(habit: habit)
-        }
         if habit.isArchived { dismiss() }
     }
 
@@ -554,9 +551,6 @@ struct HabitDetailView: View {
 
         try? modelContext.save()
         HabitDataChangeNotifier.notify()
-        Task {
-            _ = await HabitReminderScheduler.sync(habit: habit)
-        }
     }
 
     private func accessibilityLabel(
@@ -586,7 +580,6 @@ struct HabitDetailView: View {
     }
 
     private func deleteHabit() {
-        HabitReminderScheduler.remove(habitID: habit.id)
         for checkIn in habitCheckIns {
             modelContext.delete(checkIn)
         }

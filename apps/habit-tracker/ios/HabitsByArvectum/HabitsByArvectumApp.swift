@@ -30,6 +30,9 @@ struct HabitsByArvectumApp: App {
             HabitNotificationActionCoordinator.shared.configure(
                 modelContainer: container
             )
+            HabitReminderCoordinator.shared.configure(
+                modelContainer: container
+            )
 #if DEBUG
             HabitNotificationActionDiagnostics.runIfRequested(
                 container: container

@@ -82,7 +82,7 @@ struct TodayView: View {
             .task {
                 registerForegroundLaunchIfNeeded()
                 backfillLegacyDayKeys()
-                await HabitReminderScheduler.syncAll(habits: habits)
+                await HabitReminderCoordinator.shared.refreshNow()
                 HabitWidgetCoordinator.shared.refresh()
 #if DEBUG
                 await HabitReminderScheduler.debugDumpIfRequested()
@@ -91,6 +91,7 @@ struct TodayView: View {
             .onChange(of: scenePhase) { _, phase in
                 if phase == .active {
                     registerForegroundLaunchIfNeeded()
+                    HabitReminderCoordinator.shared.refresh()
                     HabitWidgetCoordinator.shared.refresh()
                 }
             }

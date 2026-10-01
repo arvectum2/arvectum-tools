@@ -181,6 +181,8 @@ final class PhoneWatchSyncCoordinator: NSObject, WCSessionDelegate {
         )
 
         try? context.save()
+        HabitReminderCoordinator.shared.dataDidChange()
+        HabitWidgetCoordinator.shared.dataDidChange()
         return makeCurrentSnapshot()
     }
 

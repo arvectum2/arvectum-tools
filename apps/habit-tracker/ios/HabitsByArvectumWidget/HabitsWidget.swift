@@ -261,7 +261,7 @@ struct HabitsTodayWidgetView: View {
                         ? Color(hex: habit.colorHex)
                         : .secondary
                 )
-                .frame(width: 30, height: 30)
+                .frame(width: 40, height: 40)
                 .contentShape(Rectangle())
             }
             .buttonStyle(.plain)
@@ -271,7 +271,7 @@ struct HabitsTodayWidgetView: View {
                     : WidgetL10n.string("widget.complete")
             )
         }
-        .frame(minHeight: 32)
+        .frame(minHeight: 40)
     }
 
     private var nextUnresolvedHabit: HabitWidgetHabit? {

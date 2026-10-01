@@ -385,7 +385,6 @@ struct AddHabitView: View {
         )
         let reminderHour = components.hour ?? 20
         let reminderMinute = components.minute ?? 0
-        let savedHabit: Habit
 
         if let habit {
             habit.name = trimmed
@@ -396,7 +395,6 @@ struct AddHabitView: View {
             habit.reminderHour = reminderHour
             habit.reminderMinute = reminderMinute
             habit.weeklyTarget = flexibleWeeklyEnabled ? weeklyTarget : 0
-            savedHabit = habit
         } else {
             let newHabit = Habit(
                 name: trimmed,
@@ -410,18 +408,10 @@ struct AddHabitView: View {
                 sortOrder: HabitOrdering.nextOrder(in: allHabits)
             )
             modelContext.insert(newHabit)
-            savedHabit = newHabit
         }
 
         try? modelContext.save()
         HabitDataChangeNotifier.notify()
-        Task { @MainActor in
-            let synced = await HabitReminderScheduler.sync(habit: savedHabit)
-            if !synced && savedHabit.reminderEnabled {
-                savedHabit.reminderEnabled = false
-                try? modelContext.save()
-            }
-        }
         dismiss()
     }
 
