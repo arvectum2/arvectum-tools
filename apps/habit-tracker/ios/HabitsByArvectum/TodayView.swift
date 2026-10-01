@@ -13,16 +13,12 @@ struct TodayView: View {
     @State private var undoOffer: CompletionUndoOffer?
 
     private var activeToday: [Habit] {
-        HabitOrdering.sorted(
-            habits.filter {
-                !$0.isArchived && !$0.isPaused && HabitFrequency.isDue(
-                    habit: $0,
-                    on: .now,
-                    checkIns: checkIns,
-                    skips: skips,
-                    pausePeriods: pausePeriods
-                )
-            }
+        HabitTodayProjection.orderedDueHabits(
+            habits: habits,
+            on: .now,
+            checkIns: checkIns,
+            skips: skips,
+            pausePeriods: pausePeriods
         )
     }
 

@@ -79,17 +79,13 @@ final class PhoneWatchSyncCoordinator: NSObject, WCSessionDelegate {
         let calendar = Calendar.autoupdatingCurrent
 
         func makeHabits(for date: Date) -> [HabitSyncHabit] {
-            let due = HabitOrdering.sorted(
-                habits.filter {
-                    !$0.isArchived && !$0.isPaused && HabitFrequency.isDue(
-                        habit: $0,
-                        on: date,
-                        checkIns: checkIns,
-                        skips: skips,
-                        pausePeriods: pausePeriods,
-                        calendar: calendar
-                    )
-                }
+            let due = HabitTodayProjection.orderedDueHabits(
+                habits: habits,
+                on: date,
+                checkIns: checkIns,
+                skips: skips,
+                pausePeriods: pausePeriods,
+                calendar: calendar
             )
 
             return due.map { habit in

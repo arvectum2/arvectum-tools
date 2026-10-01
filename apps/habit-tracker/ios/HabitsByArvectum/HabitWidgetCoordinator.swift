@@ -87,19 +87,13 @@ final class HabitWidgetCoordinator {
         let calendar = Calendar.autoupdatingCurrent
 
         func makeSnapshot(for date: Date) -> HabitWidgetSnapshot {
-            let due = HabitOrdering.sorted(
-                habits.filter {
-                    !$0.isArchived &&
-                    !$0.isPaused &&
-                    HabitFrequency.isDue(
-                        habit: $0,
-                        on: date,
-                        checkIns: checkIns,
-                        skips: skips,
-                        pausePeriods: pausePeriods,
-                        calendar: calendar
-                    )
-                }
+            let due = HabitTodayProjection.orderedDueHabits(
+                habits: habits,
+                on: date,
+                checkIns: checkIns,
+                skips: skips,
+                pausePeriods: pausePeriods,
+                calendar: calendar
             )
 
             let widgetHabits = due.map { habit in
