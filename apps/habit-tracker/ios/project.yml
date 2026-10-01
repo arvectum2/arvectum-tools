@@ -46,6 +46,7 @@ targets:
         CURRENT_PROJECT_VERSION: "1"
         TARGETED_DEVICE_FAMILY: "1"
         GENERATE_INFOPLIST_FILE: NO
+        CODE_SIGN_ENTITLEMENTS: HabitsByArvectum/HabitsByArvectum.entitlements
         ENABLE_USER_SCRIPT_SANDBOXING: YES
         SUPPORTS_MACCATALYST: NO
     scheme:
