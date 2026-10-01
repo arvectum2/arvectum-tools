@@ -74,6 +74,8 @@ final class WatchHabitSyncStore: NSObject, ObservableObject, WCSessionDelegate {
     }
 
     func refresh() {
+        rollToCurrentDayIfNeeded()
+
         guard
             let session,
             session.activationState == .activated
@@ -205,8 +207,11 @@ final class WatchHabitSyncStore: NSObject, ObservableObject, WCSessionDelegate {
     }
 
     private func apply(_ incoming: HabitSyncSnapshot) {
+        let currentIncoming = WatchComplicationBridge.currentSnapshot(incoming)
+        guard !currentIncoming.dayKey.isEmpty else { return }
+
         let reconciled = HabitSyncReconciler.reconcile(
-            incoming: incoming,
+            incoming: currentIncoming,
             currentSnapshot: snapshot,
             pendingCommands: pendingCommands
         )
@@ -218,8 +223,9 @@ final class WatchHabitSyncStore: NSObject, ObservableObject, WCSessionDelegate {
         cacheSnapshot()
 
 #if DEBUG
-        if ProcessInfo.processInfo.arguments.contains(
-            "--diagnose-watch-sync"
+        if Self.debugFlag(
+            argument: "--diagnose-watch-sync",
+            environment: "HABITS_DIAGNOSE_WATCH_SYNC"
         ) {
             let states = merged.habits.map {
                 "\($0.name)=\($0.completed ? "1" : "0")"
@@ -233,8 +239,9 @@ final class WatchHabitSyncStore: NSObject, ObservableObject, WCSessionDelegate {
 
         if
             !didAutoToggleForDebug,
-            ProcessInfo.processInfo.arguments.contains(
-                "--auto-toggle-first-habit"
+            Self.debugFlag(
+                argument: "--auto-toggle-first-habit",
+                environment: "HABITS_AUTO_TOGGLE_FIRST_HABIT"
             ),
             let first = merged.habits.first
         {
@@ -242,6 +249,19 @@ final class WatchHabitSyncStore: NSObject, ObservableObject, WCSessionDelegate {
             toggle(first)
         }
 #endif
+    }
+
+    private func rollToCurrentDayIfNeeded() {
+        let current = WatchComplicationBridge.currentSnapshot(snapshot)
+        guard current.dayKey != snapshot.dayKey else { return }
+
+        if current.dayKey.isEmpty {
+            snapshot = .empty
+            return
+        }
+
+        snapshot = current
+        cacheSnapshot()
     }
 
     private func cacheSnapshot() {
@@ -257,11 +277,20 @@ final class WatchHabitSyncStore: NSObject, ObservableObject, WCSessionDelegate {
     }
 
 #if DEBUG
+    private static func debugFlag(
+        argument: String,
+        environment: String
+    ) -> Bool {
+        ProcessInfo.processInfo.arguments.contains(argument) ||
+        ProcessInfo.processInfo.environment[environment] == "1"
+    }
+
     func debugAutoToggleCachedFirstHabitIfRequested() {
         guard
             !didAutoToggleCachedForDebug,
-            ProcessInfo.processInfo.arguments.contains(
-                "--auto-toggle-cached-first-habit"
+            Self.debugFlag(
+                argument: "--auto-toggle-cached-first-habit",
+                environment: "HABITS_AUTO_TOGGLE_CACHED_FIRST_HABIT"
             ),
             let first = snapshot.habits.first
         else { return }
@@ -274,8 +303,9 @@ final class WatchHabitSyncStore: NSObject, ObservableObject, WCSessionDelegate {
     func debugStressToggleCachedFirstHabitIfRequested() {
         guard
             !didStressToggleForDebug,
-            ProcessInfo.processInfo.arguments.contains(
-                "--stress-toggle-cached-first-habit"
+            Self.debugFlag(
+                argument: "--stress-toggle-cached-first-habit",
+                environment: "HABITS_STRESS_TOGGLE_CACHED_FIRST_HABIT"
             ),
             let first = snapshot.habits.first
         else { return }
@@ -328,8 +358,9 @@ final class WatchHabitSyncStore: NSObject, ObservableObject, WCSessionDelegate {
         DispatchQueue.main.async { [weak self] in
             self?.isReachable = session.isReachable
 #if DEBUG
-            if ProcessInfo.processInfo.arguments.contains(
-                "--diagnose-watch-sync"
+            if Self.debugFlag(
+                argument: "--diagnose-watch-sync",
+                environment: "HABITS_DIAGNOSE_WATCH_SYNC"
             ) {
                 HabitDebugLog.emit(
                     "HABITS_WATCH_ACTIVATED state=\(activationState.rawValue) " +

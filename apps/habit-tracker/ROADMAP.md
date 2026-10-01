@@ -126,6 +126,7 @@ Working formula: **«всё удобное — без лишнего»**.
 - [x] Rapid same-habit/day Watch mutations compact to one local pending command; offline durable transport is debounced so 51 rapid toggles produce at most one current system transfer instead of a false/true delivery flood.
 - [x] Latest snapshot persisted locally on Watch for offline launch.
 - [x] Watch app cache, widget and complication reject stale previous-day snapshots after calendar rollover.
+- [x] Publish a 14-day read-only day horizon so Watch/complication can roll over at midnight without opening the iPhone app; paired live-sync regression still converges to `pending=0` after a Watch check-off.
 - [x] Optimistic Watch UI: a tap updates immediately without waiting for iPhone.
 - [x] Reconcile optimistic state when the authoritative iPhone snapshot arrives.
 - [x] Resend/snapshot on activation so devices converge after interruption.
@@ -173,6 +174,7 @@ Working formula: **«всё удобное — без лишнего»**.
 - [x] Lock Screen widget families: circular, rectangular and inline.
 - [x] Watch complication (circular, rectangular, inline) backed by the Watch-local snapshot.
 - [x] Overall Today progress available outside the full app through the Home Screen widget.
+- [x] Home/Lock Screen widgets receive a 14-day read-only projection so the next calendar day is immediately useful after midnight even if the full app has not been opened.
 - [x] Flexible frequency behind progressive disclosure: N times per week, with creation/pause/skip-aware effective weekly targets; fully skipped weeks are neutral for streaks and completion rate.
 - [x] Manual habit order in Manage only; Today, Watch and widgets consume the same order without extra controls.
 - [x] Distinguish a truly missed scheduled day from skipped / paused / unscheduled days in history; never mark individual days missed for N/week goals.
@@ -214,6 +216,6 @@ Core habit tracking stays free. Advertising is the planned monetization model, b
 
 ## Current checkpoint
 
-M1/M2 are implemented end-to-end, and the required M3 Watch/live-sync path is operational: local storage → minimal create/edit → reminders with Complete/Skip quick actions → Today → history/skip/pause/archive → widgets → Watch. iPhone↔Watch live round-trip and offline durable convergence are verified on a paired iOS 27/watchOS 27 simulator. The control unit suite currently has 77 passing tests on iOS 26.5, covering timezone/DST, mutation conflicts, flexible weekly goals, notification actions, widgets, localization, persistence and explicit schema versioning. Current UI has also been smoke-tested on iPhone 17e / 18 Pro Max and 42 mm / 46 mm Watch simulators.
+M1/M2 are implemented end-to-end, and the required M3 Watch/live-sync path is operational: local storage → minimal create/edit → reminders with Complete/Skip quick actions → Today → history/skip/pause/archive → widgets → Watch. iPhone↔Watch live round-trip and offline durable convergence are verified on a paired iOS 27/watchOS 27 simulator. The control unit suite currently has 80 passing tests on iOS 26.5, covering timezone/DST, mutation conflicts, flexible weekly goals, notification actions, widgets, localization, persistence and explicit schema versioning. Current UI has also been smoke-tested on iPhone 17e / 18 Pro Max and 42 mm / 46 mm Watch simulators.
 
 **Next implementation step:** continue simulator-first UI/UX polish across Manage, habit detail, flexible weekly goals, widgets and complications; keep unit regression on iOS 26.5 because Xcode 27 has a SwiftData/XCTest host instability. Signed App Group/private-CloudKit convergence and the physical Watch smoke test remain release gates once Apple signing/account access is available.

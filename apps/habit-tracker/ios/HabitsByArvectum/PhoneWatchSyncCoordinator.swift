@@ -76,66 +76,93 @@ final class PhoneWatchSyncCoordinator: NSObject, WCSessionDelegate {
         )) ?? []
 
         let now = Date()
-        let activeToday = HabitOrdering.sorted(
-            habits.filter {
-                !$0.isArchived && !$0.isPaused && HabitFrequency.isDue(
-                    habit: $0,
-                    on: now,
-                    checkIns: checkIns,
-                    skips: skips,
-                    pausePeriods: pausePeriods
+        let calendar = Calendar.autoupdatingCurrent
+
+        func makeHabits(for date: Date) -> [HabitSyncHabit] {
+            let due = HabitOrdering.sorted(
+                habits.filter {
+                    !$0.isArchived && !$0.isPaused && HabitFrequency.isDue(
+                        habit: $0,
+                        on: date,
+                        checkIns: checkIns,
+                        skips: skips,
+                        pausePeriods: pausePeriods,
+                        calendar: calendar
+                    )
+                }
+            )
+
+            return due.map { habit in
+                HabitSyncHabit(
+                    id: habit.id,
+                    name: habit.name,
+                    symbolName: habit.symbolName,
+                    colorHex: habit.colorHex,
+                    completed: HabitMetrics.isCompleted(
+                        habitID: habit.id,
+                        on: date,
+                        checkIns: checkIns,
+                        calendar: calendar
+                    ),
+                    skipped: HabitMetrics.isSkipped(
+                        habitID: habit.id,
+                        on: date,
+                        skips: skips,
+                        calendar: calendar
+                    ),
+                    streak: HabitMetrics.currentStreak(
+                        habit: habit,
+                        checkIns: checkIns,
+                        skips: skips,
+                        pausePeriods: pausePeriods,
+                        today: date,
+                        calendar: calendar
+                    ),
+                    weeklyTarget: habit.usesFlexibleWeeklyTarget
+                        ? HabitFrequency.effectiveWeeklyTarget(
+                            habit: habit,
+                            containing: date,
+                            skips: skips,
+                            pausePeriods: pausePeriods,
+                            calendar: calendar
+                        ) : nil,
+                    weeklyCount: habit.usesFlexibleWeeklyTarget
+                        ? HabitFrequency.weeklyCompletionCount(
+                            habit: habit,
+                            containing: date,
+                            checkIns: checkIns,
+                            calendar: calendar
+                        ) : nil
                 )
             }
-        )
+        }
 
-        let syncHabits = activeToday.map { habit in
-            HabitSyncHabit(
-                id: habit.id,
-                name: habit.name,
-                symbolName: habit.symbolName,
-                colorHex: habit.colorHex,
-                completed: HabitMetrics.isCompleted(
-                    habitID: habit.id,
-                    on: now,
-                    checkIns: checkIns
-                ),
-                skipped: HabitMetrics.isSkipped(
-                    habitID: habit.id,
-                    on: now,
-                    skips: skips
-                ),
-                streak: HabitMetrics.currentStreak(
-                    habit: habit,
-                    checkIns: checkIns,
-                    skips: skips,
-                    pausePeriods: pausePeriods
-                ),
-                weeklyTarget: habit.usesFlexibleWeeklyTarget
-                    ? HabitFrequency.effectiveWeeklyTarget(
-                        habit: habit,
-                        containing: now,
-                        skips: skips,
-                        pausePeriods: pausePeriods
-                    ) : nil,
-                weeklyCount: habit.usesFlexibleWeeklyTarget
-                    ? HabitFrequency.weeklyCompletionCount(
-                        habit: habit,
-                        containing: now,
-                        checkIns: checkIns
-                    ) : nil
+        let syncHabits = makeHabits(for: now)
+        let dayStart = calendar.startOfDay(for: now)
+        let projectedDays = (1..<14).compactMap {
+            offset -> HabitSyncDayProjection? in
+            guard let date = calendar.date(
+                byAdding: .day,
+                value: offset,
+                to: dayStart
+            ) else { return nil }
+            return HabitSyncDayProjection(
+                dayKey: HabitDayKey.make(for: date, calendar: calendar),
+                habits: makeHabits(for: date)
             )
         }
 
         let snapshot = HabitSyncSnapshot(
             generatedAt: .now,
-            dayKey: HabitDayKey.make(for: now),
+            dayKey: HabitDayKey.make(for: now, calendar: calendar),
             completedCount: syncHabits.filter(\.completed).count,
             skippedCount: syncHabits.filter {
                 !$0.completed && $0.skipped
             }.count,
             totalCount: syncHabits.count,
             habits: syncHabits,
-            acknowledgedCommandIDs: recentCommandIDs
+            acknowledgedCommandIDs: recentCommandIDs,
+            projectedDays: projectedDays
         )
 #if DEBUG
         if ProcessInfo.processInfo.arguments.contains(

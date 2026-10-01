@@ -47,10 +47,8 @@ enum WatchComplicationBridge {
         now: Date = .now,
         calendar: Calendar = .autoupdatingCurrent
     ) -> HabitSyncSnapshot {
-        guard snapshot.dayKey == dayKey(for: now, calendar: calendar) else {
-            return .empty
-        }
-        return snapshot
+        let key = dayKey(for: now, calendar: calendar)
+        return snapshot.snapshot(forDayKey: key) ?? .empty
     }
 
     private static func dayKey(

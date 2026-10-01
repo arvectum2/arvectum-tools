@@ -3,6 +3,7 @@ import Foundation
 enum HabitWidgetBridge {
     static let appGroup = "group.ru.arvectum.tools.habits"
     static let snapshotKey = "habits.widget.snapshot"
+    static let horizonKey = "habits.widget.horizon"
     static let commandsKey = "habits.widget.commands"
 
 #if DEBUG
@@ -35,11 +36,25 @@ enum HabitWidgetBridge {
         now: Date = .now,
         calendar: Calendar = .autoupdatingCurrent
     ) -> HabitWidgetSnapshot {
+        let key = dayKey(for: now, calendar: calendar)
         let snapshot = loadSnapshot()
-        guard snapshot.dayKey == dayKey(for: now, calendar: calendar) else {
-            return .empty
+        if snapshot.dayKey == key {
+            return snapshot
         }
-        return snapshot
+        return loadHorizon().first(where: { $0.dayKey == key }) ?? .empty
+    }
+
+    static func loadHorizon() -> [HabitWidgetSnapshot] {
+        guard
+            let data = defaults?.data(forKey: horizonKey),
+            let snapshots = try? JSONDecoder().decode(
+                [HabitWidgetSnapshot].self,
+                from: data
+            )
+        else {
+            return []
+        }
+        return snapshots
     }
 
     static func dayKey(
@@ -61,6 +76,11 @@ enum HabitWidgetBridge {
     static func saveSnapshot(_ snapshot: HabitWidgetSnapshot) {
         guard let data = try? JSONEncoder().encode(snapshot) else { return }
         defaults?.set(data, forKey: snapshotKey)
+    }
+
+    static func saveHorizon(_ snapshots: [HabitWidgetSnapshot]) {
+        guard let data = try? JSONEncoder().encode(snapshots) else { return }
+        defaults?.set(data, forKey: horizonKey)
     }
 
     static func loadCommands() -> [HabitWidgetCommand] {
@@ -105,7 +125,12 @@ enum HabitWidgetBridge {
 
     static func applyOptimistic(_ command: HabitWidgetCommand) {
         var snapshot = loadSnapshot()
-        guard snapshot.dayKey == command.dayKey else { return }
+        if snapshot.dayKey != command.dayKey {
+            guard let projected = loadHorizon().first(where: {
+                $0.dayKey == command.dayKey
+            }) else { return }
+            snapshot = projected
+        }
         guard let index = snapshot.habits.firstIndex(where: {
             $0.id == command.habitID
         }) else { return }

@@ -75,6 +75,55 @@ final class WatchComplicationBridgeTests: XCTestCase {
         )
     }
 
+
+    func testCurrentSnapshotUsesProjectedDayAfterMidnight() {
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = TimeZone(secondsFromGMT: 0)!
+        let now = calendar.date(
+            from: DateComponents(
+                year: 2027,
+                month: 1,
+                day: 16,
+                hour: 0,
+                minute: 1
+            )
+        )!
+        let habit = HabitSyncHabit(
+            id: UUID(),
+            name: "Reading",
+            symbolName: "book.fill",
+            colorHex: "8B5CF6",
+            completed: false,
+            skipped: false,
+            streak: 5
+        )
+        let source = HabitSyncSnapshot(
+            generatedAt: now.addingTimeInterval(-300),
+            dayKey: "2027-01-15",
+            completedCount: 1,
+            skippedCount: 0,
+            totalCount: 1,
+            habits: [],
+            projectedDays: [
+                HabitSyncDayProjection(
+                    dayKey: "2027-01-16",
+                    habits: [habit]
+                )
+            ]
+        )
+
+        let result = WatchComplicationBridge.currentSnapshot(
+            source,
+            now: now,
+            calendar: calendar
+        )
+
+        XCTAssertEqual(result.dayKey, "2027-01-16")
+        XCTAssertEqual(result.totalCount, 1)
+        XCTAssertEqual(result.habits.first, habit)
+        XCTAssertEqual(result.projectedDays, source.projectedDays)
+    }
+
     func testMissingSnapshotReturnsEmpty() {
         let result = WatchComplicationBridge.loadSnapshot()
 

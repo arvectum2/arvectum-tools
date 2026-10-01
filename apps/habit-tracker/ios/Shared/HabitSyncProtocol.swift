@@ -17,6 +17,23 @@ struct HabitSyncHabit: Codable, Hashable, Identifiable {
     var weeklyCount: Int? = nil
 }
 
+struct HabitSyncDayProjection: Codable, Hashable {
+    var dayKey: String
+    var habits: [HabitSyncHabit]
+
+    var completedCount: Int {
+        habits.filter(\.completed).count
+    }
+
+    var skippedCount: Int {
+        habits.filter { !$0.completed && $0.skipped }.count
+    }
+
+    var totalCount: Int {
+        habits.count
+    }
+}
+
 struct HabitSyncSnapshot: Codable, Hashable {
     var protocolVersion: Int = HabitSyncProtocol.version
     var generatedAt: Date
@@ -26,6 +43,7 @@ struct HabitSyncSnapshot: Codable, Hashable {
     var totalCount: Int
     var habits: [HabitSyncHabit]
     var acknowledgedCommandIDs: [UUID] = []
+    var projectedDays: [HabitSyncDayProjection]? = nil
 
     static let empty = HabitSyncSnapshot(
         generatedAt: .distantPast,
@@ -42,6 +60,29 @@ struct HabitSyncSnapshot: Codable, Hashable {
     var progress: Double {
         guard totalCount > 0 else { return 0 }
         return Double(resolvedCount) / Double(totalCount)
+    }
+
+    func snapshot(forDayKey key: String) -> HabitSyncSnapshot? {
+        if dayKey == key {
+            return self
+        }
+        guard let projection = projectedDays?.first(where: {
+            $0.dayKey == key
+        }) else {
+            return nil
+        }
+
+        return HabitSyncSnapshot(
+            protocolVersion: protocolVersion,
+            generatedAt: generatedAt,
+            dayKey: projection.dayKey,
+            completedCount: projection.completedCount,
+            skippedCount: projection.skippedCount,
+            totalCount: projection.totalCount,
+            habits: projection.habits,
+            acknowledgedCommandIDs: acknowledgedCommandIDs,
+            projectedDays: projectedDays
+        )
     }
 }
 

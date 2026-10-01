@@ -104,6 +104,105 @@ final class HabitWidgetBridgeTests: XCTestCase {
         )
     }
 
+
+    func testCurrentSnapshotUsesProjectedHorizonAfterMidnight() {
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = TimeZone(secondsFromGMT: 0)!
+        let now = calendar.date(
+            from: DateComponents(
+                year: 2027,
+                month: 1,
+                day: 16,
+                hour: 0,
+                minute: 1
+            )
+        )!
+        HabitWidgetBridge.saveSnapshot(
+            HabitWidgetSnapshot(
+                generatedAt: now.addingTimeInterval(-300),
+                dayKey: "2027-01-15",
+                completedCount: 1,
+                skippedCount: 0,
+                totalCount: 1,
+                habits: []
+            )
+        )
+        let projected = HabitWidgetSnapshot(
+            generatedAt: now.addingTimeInterval(-300),
+            dayKey: "2027-01-16",
+            completedCount: 0,
+            skippedCount: 0,
+            totalCount: 1,
+            habits: [
+                HabitWidgetHabit(
+                    id: UUID(),
+                    name: "Water",
+                    symbolName: "drop.fill",
+                    colorHex: "43E5C5",
+                    completed: false,
+                    skipped: false,
+                    streak: 4
+                )
+            ]
+        )
+        HabitWidgetBridge.saveHorizon([projected])
+
+        XCTAssertEqual(
+            HabitWidgetBridge.loadCurrentSnapshot(
+                now: now,
+                calendar: calendar
+            ),
+            projected
+        )
+    }
+
+    func testOptimisticCommandPromotesProjectedDay() {
+        let habitID = UUID()
+        HabitWidgetBridge.saveSnapshot(
+            HabitWidgetSnapshot(
+                generatedAt: .distantPast,
+                dayKey: "2027-01-15",
+                completedCount: 1,
+                skippedCount: 0,
+                totalCount: 1,
+                habits: []
+            )
+        )
+        HabitWidgetBridge.saveHorizon([
+            HabitWidgetSnapshot(
+                generatedAt: .distantPast,
+                dayKey: "2027-01-16",
+                completedCount: 0,
+                skippedCount: 0,
+                totalCount: 1,
+                habits: [
+                    HabitWidgetHabit(
+                        id: habitID,
+                        name: "Reading",
+                        symbolName: "book.fill",
+                        colorHex: "8B5CF6",
+                        completed: false,
+                        skipped: false,
+                        streak: 2
+                    )
+                ]
+            )
+        ])
+
+        HabitWidgetBridge.applyOptimistic(
+            HabitWidgetCommand(
+                habitID: habitID,
+                dayKey: "2027-01-16",
+                completed: true
+            )
+        )
+
+        let result = HabitWidgetBridge.loadSnapshot()
+        XCTAssertEqual(result.dayKey, "2027-01-16")
+        XCTAssertEqual(result.completedCount, 1)
+        XCTAssertTrue(result.habits[0].completed)
+    }
+
     func testAppendCommandIsIdempotentByCommandID() {
         let command = HabitWidgetCommand(
             id: UUID(),

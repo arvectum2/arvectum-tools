@@ -84,70 +84,93 @@ final class HabitWidgetCoordinator {
         )) ?? []
 
         let now = Date()
-        let due = HabitOrdering.sorted(
-            habits.filter {
-                !$0.isArchived &&
-                !$0.isPaused &&
-                HabitFrequency.isDue(
-                    habit: $0,
-                    on: now,
-                    checkIns: checkIns,
-                    skips: skips,
-                    pausePeriods: pausePeriods
+        let calendar = Calendar.autoupdatingCurrent
+
+        func makeSnapshot(for date: Date) -> HabitWidgetSnapshot {
+            let due = HabitOrdering.sorted(
+                habits.filter {
+                    !$0.isArchived &&
+                    !$0.isPaused &&
+                    HabitFrequency.isDue(
+                        habit: $0,
+                        on: date,
+                        checkIns: checkIns,
+                        skips: skips,
+                        pausePeriods: pausePeriods,
+                        calendar: calendar
+                    )
+                }
+            )
+
+            let widgetHabits = due.map { habit in
+                HabitWidgetHabit(
+                    id: habit.id,
+                    name: habit.name,
+                    symbolName: habit.symbolName,
+                    colorHex: habit.colorHex,
+                    completed: HabitMetrics.isCompleted(
+                        habitID: habit.id,
+                        on: date,
+                        checkIns: checkIns,
+                        calendar: calendar
+                    ),
+                    skipped: HabitMetrics.isSkipped(
+                        habitID: habit.id,
+                        on: date,
+                        skips: skips,
+                        calendar: calendar
+                    ),
+                    streak: HabitMetrics.currentStreak(
+                        habit: habit,
+                        checkIns: checkIns,
+                        skips: skips,
+                        pausePeriods: pausePeriods,
+                        today: date,
+                        calendar: calendar
+                    ),
+                    weeklyTarget: habit.usesFlexibleWeeklyTarget
+                        ? HabitFrequency.effectiveWeeklyTarget(
+                            habit: habit,
+                            containing: date,
+                            skips: skips,
+                            pausePeriods: pausePeriods,
+                            calendar: calendar
+                        ) : nil,
+                    weeklyCount: habit.usesFlexibleWeeklyTarget
+                        ? HabitFrequency.weeklyCompletionCount(
+                            habit: habit,
+                            containing: date,
+                            checkIns: checkIns,
+                            calendar: calendar
+                        ) : nil
                 )
             }
-        )
 
-        let widgetHabits = due.map { habit in
-            HabitWidgetHabit(
-                id: habit.id,
-                name: habit.name,
-                symbolName: habit.symbolName,
-                colorHex: habit.colorHex,
-                completed: HabitMetrics.isCompleted(
-                    habitID: habit.id,
-                    on: now,
-                    checkIns: checkIns
-                ),
-                skipped: HabitMetrics.isSkipped(
-                    habitID: habit.id,
-                    on: now,
-                    skips: skips
-                ),
-                streak: HabitMetrics.currentStreak(
-                    habit: habit,
-                    checkIns: checkIns,
-                    skips: skips,
-                    pausePeriods: pausePeriods
-                ),
-                weeklyTarget: habit.usesFlexibleWeeklyTarget
-                    ? HabitFrequency.effectiveWeeklyTarget(
-                        habit: habit,
-                        containing: now,
-                        skips: skips,
-                        pausePeriods: pausePeriods
-                    ) : nil,
-                weeklyCount: habit.usesFlexibleWeeklyTarget
-                    ? HabitFrequency.weeklyCompletionCount(
-                        habit: habit,
-                        containing: now,
-                        checkIns: checkIns
-                    ) : nil
+            return HabitWidgetSnapshot(
+                generatedAt: now,
+                dayKey: HabitDayKey.make(for: date, calendar: calendar),
+                completedCount: widgetHabits.filter(\.completed).count,
+                skippedCount: widgetHabits.filter {
+                    !$0.completed && $0.skipped
+                }.count,
+                totalCount: widgetHabits.count,
+                habits: widgetHabits
             )
         }
 
-        let snapshot = HabitWidgetSnapshot(
-            generatedAt: .now,
-            dayKey: HabitDayKey.make(for: now),
-            completedCount: widgetHabits.filter(\.completed).count,
-            skippedCount: widgetHabits.filter {
-                !$0.completed && $0.skipped
-            }.count,
-            totalCount: widgetHabits.count,
-            habits: widgetHabits
-        )
+        let dayStart = calendar.startOfDay(for: now)
+        let horizon = (0..<14).compactMap { offset -> HabitWidgetSnapshot? in
+            guard let date = calendar.date(
+                byAdding: .day,
+                value: offset,
+                to: dayStart
+            ) else { return nil }
+            return makeSnapshot(for: date)
+        }
 
+        guard let snapshot = horizon.first else { return }
         HabitWidgetBridge.saveSnapshot(snapshot)
+        HabitWidgetBridge.saveHorizon(horizon)
         WidgetCenter.shared.reloadTimelines(
             ofKind: "HabitsTodayWidget"
         )

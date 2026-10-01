@@ -78,6 +78,37 @@ if "CloudKit" not in phone_values.get(
 ):
     fail("phone entitlements missing CloudKit service")
 
+if phone_values.get(
+    "com.apple.developer.ubiquity-kvstore-identifier"
+) != "$(TeamIdentifierPrefix)ru.arvectum.tools.habits":
+    fail("phone entitlements have unexpected ubiquity kvstore identifier")
+
+for target in TARGETS[1:]:
+    entitlements = next(target.glob("*.entitlements"))
+    with entitlements.open("rb") as handle:
+        values = plistlib.load(handle)
+    if values.get("com.apple.developer.icloud-container-identifiers"):
+        fail(
+            f"{entitlements.relative_to(ROOT)} must not own the authoritative "
+            "iCloud container"
+        )
+
+for app_target in [
+    ROOT / "HabitsByArvectum",
+    ROOT / "HabitsByArvectumWatch",
+]:
+    icon = (
+        app_target
+        / "Assets.xcassets"
+        / "AppIcon.appiconset"
+        / "AppIcon-1024.png"
+    )
+    contents = icon.parent / "Contents.json"
+    if not icon.exists():
+        fail(f"missing production app icon: {icon.relative_to(ROOT)}")
+    if not contents.exists():
+        fail(f"missing app icon catalog metadata: {contents.relative_to(ROOT)}")
+
 string_pattern = re.compile(
     r'^\s*"((?:[^"\\]|\\.)+)"\s*=',
     re.MULTILINE,
@@ -91,6 +122,8 @@ def localization_keys(path: Path) -> set[str]:
 for localization_root in [
     ROOT / "HabitsByArvectum",
     ROOT / "HabitsByArvectumWatch",
+    ROOT / "HabitsByArvectumWidget",
+    ROOT / "HabitsByArvectumWatchWidget",
 ]:
     english = localization_root / "en.lproj" / "Localizable.strings"
     russian = localization_root / "ru.lproj" / "Localizable.strings"
@@ -125,6 +158,8 @@ for required in [
     "HabitsByArvectumWatchWidget",
     "HabitsByArvectumWidget",
     "HabitSyncProtocol.swift",
+    "ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon",
+    "WKCompanionAppBundleIdentifier: ru.arvectum.tools.habits",
 ]:
     if required not in project_yml:
         fail(f"project.yml missing required integration: {required}")
@@ -137,5 +172,5 @@ if errors:
 
 print(
     "Release hygiene passed: privacy manifests, entitlements, "
-    "RU/EN localization parity, Watch/widget integration."
+    "RU/EN localization parity, icons, Watch/widget integration."
 )
