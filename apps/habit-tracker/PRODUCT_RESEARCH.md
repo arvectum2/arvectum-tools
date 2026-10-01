@@ -110,8 +110,7 @@ Everyday and Way of Life reviews repeatedly praise a clean grid / color history
 that is understandable immediately. Habitify users praise calendar views; Streaks
 users praise seeing a streak build without opening an analytics dashboard.
 
-**Take:** keep the compact history grid and expose Today progress in Widget/Watch.
-Do not add a separate analytics home screen just to show more charts.
+**Take:** keep the compact history grid, but align it to real calendar weeks with weekday headers so columns are instantly readable. Expose Today progress in Widget/Watch. Do not add a separate analytics home screen just to show more charts.
 
 #### 12. Gentle reminders beat guilt and aggressive gamification
 

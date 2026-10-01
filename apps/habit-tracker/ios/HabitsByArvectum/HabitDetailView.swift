@@ -27,12 +27,14 @@ struct HabitDetailView: View {
     }
 
     private var recentDays: [Date] {
-        let calendar = Calendar.autoupdatingCurrent
-        let today = calendar.startOfDay(for: .now)
+        HabitHistoryCalendar.visibleDays(
+            endingInWeekContaining: .now,
+            weeks: 6
+        )
+    }
 
-        return (0..<35).compactMap {
-            calendar.date(byAdding: .day, value: $0 - 34, to: today)
-        }
+    private var weekdaySymbols: [String] {
+        HabitHistoryCalendar.weekdaySymbols()
     }
 
     var body: some View {
@@ -217,11 +219,19 @@ struct HabitDetailView: View {
 
             LazyVGrid(
                 columns: Array(
-                    repeating: GridItem(.flexible(), spacing: 7),
+                    repeating: GridItem(.flexible(), spacing: 6),
                     count: 7
                 ),
-                spacing: 7
+                spacing: 6
             ) {
+                ForEach(Array(weekdaySymbols.enumerated()), id: \.offset) { item in
+                    Text(item.element)
+                        .font(.caption2.weight(.semibold))
+                        .foregroundStyle(.secondary)
+                        .frame(maxWidth: .infinity)
+                        .accessibilityHidden(true)
+                }
+
                 ForEach(recentDays, id: \.self) { date in
                     dayCell(date)
                 }

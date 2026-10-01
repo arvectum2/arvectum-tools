@@ -67,7 +67,7 @@
 "weekday.sat.short" = "Sat";
 "weekday.sun.short" = "Sun";
 
-"detail.history.title" = "Last 5 weeks";
+"detail.history.title" = "Last 6 weeks";
 "detail.history.hint" = "Tap a past day to correct its check-in.";
 "detail.pause" = "Pause habit";
 "detail.resume" = "Resume habit";

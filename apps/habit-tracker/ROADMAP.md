@@ -73,7 +73,7 @@ Working formula: **«всё удобное — без лишнего»**.
 - [x] Archived-habits screen appears only when needed, with a path to restore habits.
 - [x] Delete habit and its completion history.
 - [x] Edit name, icon, color and schedule.
-- [ ] Add a clearer month / heatmap view after UX validation.
+- [x] Clear six-week heatmap aligned to calendar weeks with weekday headers.
 
 ### Habit logic
 

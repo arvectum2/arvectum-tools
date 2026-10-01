@@ -67,7 +67,7 @@
 "weekday.sat.short" = "Сб";
 "weekday.sun.short" = "Вс";
 
-"detail.history.title" = "Последние 5 недель";
+"detail.history.title" = "Последние 6 недель";
 "detail.history.hint" = "Нажмите на прошедший день, чтобы исправить отметку.";
 "detail.pause" = "Приостановить";
 "detail.resume" = "Возобновить";
