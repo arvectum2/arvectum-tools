@@ -21,7 +21,7 @@ Working formula: **«всё удобное — без лишнего»**.
 - [x] Add dedicated unit-test target.
 - [x] Add CI release-hygiene check for privacy manifests, entitlements, RU/EN localization parity and Watch/widget project integration.
 - [x] Add path-scoped GitHub Actions CI.
-- [ ] Final app icon and production asset catalog.
+- [x] Final app icon and production asset catalogs for iPhone and Apple Watch; verified at SpringBoard size and with warning-free watchOS asset compilation.
 
 ## M1 — core habit loop
 
