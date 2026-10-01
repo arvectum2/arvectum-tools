@@ -123,6 +123,7 @@ final class HabitWidgetCoordinator {
                     ? HabitFrequency.effectiveWeeklyTarget(
                         habit: habit,
                         containing: now,
+                        skips: skips,
                         pausePeriods: pausePeriods
                     ) : nil,
                 weeklyCount: habit.usesFlexibleWeeklyTarget

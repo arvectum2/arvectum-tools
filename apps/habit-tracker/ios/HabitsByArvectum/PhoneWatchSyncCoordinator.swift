@@ -114,6 +114,7 @@ final class PhoneWatchSyncCoordinator: NSObject, WCSessionDelegate {
                     ? HabitFrequency.effectiveWeeklyTarget(
                         habit: habit,
                         containing: now,
+                        skips: skips,
                         pausePeriods: pausePeriods
                     ) : nil,
                 weeklyCount: habit.usesFlexibleWeeklyTarget

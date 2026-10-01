@@ -4,7 +4,7 @@
 "widget.empty" = "На сегодня ничего нет";
 "widget.allDone" = "На сегодня всё";
 "widget.remaining.format" = "Осталось: %d";
-"widget.inline.format" = "%d из %d выполнено";
+"widget.inline.format" = "%d из %d на сегодня";
 "widget.more.format" = "Ещё %d";
 "widget.complete" = "Отметить выполненной";
 "widget.undo" = "Отменить выполнение";

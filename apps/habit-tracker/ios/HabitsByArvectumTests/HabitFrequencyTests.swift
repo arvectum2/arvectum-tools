@@ -244,6 +244,136 @@ final class HabitFrequencyTests: XCTestCase {
         )
     }
 
+
+    func testSkipAwareWeeklyMetricsUseReducedTarget() {
+        let habit = Habit(
+            name: "Gym",
+            createdAt: date(2026, 9, 28),
+            weeklyTarget: 5
+        )
+        let skips = [
+            skip(habit, 2026, 9, 28),
+            skip(habit, 2026, 9, 29),
+            skip(habit, 2026, 9, 30)
+        ]
+        let checkIns = [
+            checkIn(habit, 2026, 10, 1),
+            checkIn(habit, 2026, 10, 2),
+            checkIn(habit, 2026, 10, 3),
+            checkIn(habit, 2026, 10, 4)
+        ]
+
+        XCTAssertEqual(
+            HabitMetrics.currentStreak(
+                habit: habit,
+                checkIns: checkIns,
+                skips: skips,
+                today: date(2026, 10, 7),
+                calendar: calendar
+            ),
+            1
+        )
+        XCTAssertEqual(
+            HabitMetrics.bestStreak(
+                habit: habit,
+                checkIns: checkIns,
+                skips: skips,
+                through: date(2026, 10, 7),
+                calendar: calendar
+            ),
+            1
+        )
+        XCTAssertEqual(
+            HabitMetrics.completionRate(
+                habit: habit,
+                checkIns: checkIns,
+                skips: skips,
+                through: date(2026, 10, 7),
+                calendar: calendar
+            ),
+            1,
+            accuracy: 0.0001
+        )
+    }
+
+    func testFullySkippedFlexibleWeekIsNeutral() {
+        let habit = Habit(
+            name: "Gym",
+            createdAt: date(2026, 9, 21),
+            weeklyTarget: 2
+        )
+        let checkIns = [
+            checkIn(habit, 2026, 9, 21),
+            checkIn(habit, 2026, 9, 23)
+        ]
+        let skips = (0..<7).map { offset -> HabitSkip in
+            let day = calendar.date(
+                byAdding: .day,
+                value: offset,
+                to: date(2026, 9, 28)
+            )!
+            return HabitSkip(
+                habitID: habit.id,
+                day: day,
+                calendar: calendar
+            )
+        }
+
+        XCTAssertEqual(
+            HabitFrequency.effectiveWeeklyTarget(
+                habit: habit,
+                containing: date(2026, 10, 4),
+                skips: skips,
+                calendar: calendar
+            ),
+            0
+        )
+        XCTAssertEqual(
+            HabitMetrics.currentStreak(
+                habit: habit,
+                checkIns: checkIns,
+                skips: skips,
+                today: date(2026, 10, 7),
+                calendar: calendar
+            ),
+            1
+        )
+        XCTAssertEqual(
+            HabitMetrics.bestStreak(
+                habit: habit,
+                checkIns: checkIns,
+                skips: skips,
+                through: date(2026, 10, 7),
+                calendar: calendar
+            ),
+            1
+        )
+        XCTAssertEqual(
+            HabitMetrics.completionRate(
+                habit: habit,
+                checkIns: checkIns,
+                skips: skips,
+                through: date(2026, 10, 7),
+                calendar: calendar
+            ),
+            1,
+            accuracy: 0.0001
+        )
+    }
+
+    private func skip(
+        _ habit: Habit,
+        _ year: Int,
+        _ month: Int,
+        _ day: Int
+    ) -> HabitSkip {
+        HabitSkip(
+            habitID: habit.id,
+            day: date(year, month, day),
+            calendar: calendar
+        )
+    }
+
     private func checkIn(
         _ habit: Habit,
         _ year: Int,

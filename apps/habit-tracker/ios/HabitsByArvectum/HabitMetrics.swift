@@ -41,6 +41,7 @@ enum HabitMetrics {
             return currentWeeklyStreak(
                 habit: habit,
                 checkIns: checkIns,
+                skips: skips,
                 pausePeriods: pausePeriods,
                 today: today,
                 calendar: calendar
@@ -130,6 +131,7 @@ enum HabitMetrics {
             return bestWeeklyStreak(
                 habit: habit,
                 checkIns: checkIns,
+                skips: skips,
                 pausePeriods: pausePeriods,
                 through: endDate,
                 calendar: calendar
@@ -199,6 +201,7 @@ enum HabitMetrics {
             return weeklyCompletionRate(
                 habit: habit,
                 checkIns: checkIns,
+                skips: skips,
                 pausePeriods: pausePeriods,
                 through: endDate,
                 calendar: calendar
@@ -287,6 +290,7 @@ enum HabitMetrics {
     private static func currentWeeklyStreak(
         habit: Habit,
         checkIns: [HabitCheckIn],
+        skips: [HabitSkip],
         pausePeriods: [HabitPausePeriod],
         today: Date,
         calendar: Calendar
@@ -304,6 +308,7 @@ enum HabitMetrics {
             habit: habit,
             containing: cursor,
             checkIns: checkIns,
+            skips: skips,
             pausePeriods: pausePeriods,
             calendar: calendar
         ), let previous = HabitFrequency.previousWeek(
@@ -317,17 +322,19 @@ enum HabitMetrics {
         for _ in 0..<520 {
             guard cursor >= creationWeek else { break }
 
-            if weekIsFullyPaused(
-                habitID: habit.id,
+            if weeklyGoalWeekIsNeutral(
+                habit: habit,
                 weekStart: cursor,
+                skips: skips,
                 pausePeriods: pausePeriods,
                 calendar: calendar
             ) {
-                // A fully paused week is neutral.
+                // A week with no available habit days is neutral.
             } else if HabitFrequency.weekHasMetTarget(
                 habit: habit,
                 containing: cursor,
                 checkIns: checkIns,
+                skips: skips,
                 pausePeriods: pausePeriods,
                 calendar: calendar
             ) {
@@ -348,6 +355,7 @@ enum HabitMetrics {
     private static func bestWeeklyStreak(
         habit: Habit,
         checkIns: [HabitCheckIn],
+        skips: [HabitSkip],
         pausePeriods: [HabitPausePeriod],
         through endDate: Date,
         calendar: Calendar
@@ -364,9 +372,10 @@ enum HabitMetrics {
         var current = 0
 
         while cursor <= endWeek {
-            if weekIsFullyPaused(
-                habitID: habit.id,
+            if weeklyGoalWeekIsNeutral(
+                habit: habit,
                 weekStart: cursor,
+                skips: skips,
                 pausePeriods: pausePeriods,
                 calendar: calendar
             ) {
@@ -375,6 +384,7 @@ enum HabitMetrics {
                 habit: habit,
                 containing: cursor,
                 checkIns: checkIns,
+                skips: skips,
                 pausePeriods: pausePeriods,
                 calendar: calendar
             ) {
@@ -397,6 +407,7 @@ enum HabitMetrics {
     private static func weeklyCompletionRate(
         habit: Habit,
         checkIns: [HabitCheckIn],
+        skips: [HabitSkip],
         pausePeriods: [HabitPausePeriod],
         through endDate: Date,
         calendar: Calendar
@@ -413,9 +424,10 @@ enum HabitMetrics {
         var completedWeeks = 0
 
         while cursor <= currentWeek {
-            let fullyPaused = weekIsFullyPaused(
-                habitID: habit.id,
+            let neutral = weeklyGoalWeekIsNeutral(
+                habit: habit,
                 weekStart: cursor,
+                skips: skips,
                 pausePeriods: pausePeriods,
                 calendar: calendar
             )
@@ -423,11 +435,12 @@ enum HabitMetrics {
                 habit: habit,
                 containing: cursor,
                 checkIns: checkIns,
+                skips: skips,
                 pausePeriods: pausePeriods,
                 calendar: calendar
             )
 
-            if !fullyPaused {
+            if !neutral {
                 if cursor < currentWeek {
                     eligibleWeeks += 1
                     if met { completedWeeks += 1 }
@@ -449,28 +462,21 @@ enum HabitMetrics {
         return Double(completedWeeks) / Double(eligibleWeeks)
     }
 
-    private static func weekIsFullyPaused(
-        habitID: UUID,
+
+    private static func weeklyGoalWeekIsNeutral(
+        habit: Habit,
         weekStart: Date,
+        skips: [HabitSkip],
         pausePeriods: [HabitPausePeriod],
         calendar: Calendar
     ) -> Bool {
-        for offset in 0..<7 {
-            guard let day = calendar.date(
-                byAdding: .day,
-                value: offset,
-                to: weekStart
-            ) else { return false }
-            let key = HabitDayKey.make(for: day, calendar: calendar)
-            if !isPaused(
-                habitID: habitID,
-                dayKey: key,
-                pausePeriods: pausePeriods
-            ) {
-                return false
-            }
-        }
-        return true
+        HabitFrequency.effectiveWeeklyTarget(
+            habit: habit,
+            containing: weekStart,
+            skips: skips,
+            pausePeriods: pausePeriods,
+            calendar: calendar
+        ) == 0
     }
 
     private static func dayKeys(

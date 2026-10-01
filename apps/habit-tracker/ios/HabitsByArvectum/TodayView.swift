@@ -128,6 +128,7 @@ struct TodayView: View {
                                 weeklyTarget: HabitFrequency.effectiveWeeklyTarget(
                                     habit: habit,
                                     containing: .now,
+                                    skips: skips,
                                     pausePeriods: pausePeriods
                                 ),
                                 onToggle: { toggle(habit, on: .now) },

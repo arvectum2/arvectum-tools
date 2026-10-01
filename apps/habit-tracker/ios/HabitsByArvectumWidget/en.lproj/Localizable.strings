@@ -4,7 +4,7 @@
 "widget.empty" = "Nothing scheduled today";
 "widget.allDone" = "All done for today";
 "widget.remaining.format" = "%d remaining";
-"widget.inline.format" = "%d of %d done";
+"widget.inline.format" = "%d of %d today";
 "widget.more.format" = "+%d more";
 "widget.complete" = "Mark complete";
 "widget.undo" = "Undo completion";
