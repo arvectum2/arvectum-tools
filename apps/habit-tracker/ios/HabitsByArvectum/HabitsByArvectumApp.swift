@@ -9,7 +9,8 @@ struct HabitsByArvectumApp: App {
         let schema = Schema([
             Habit.self,
             HabitCheckIn.self,
-            HabitSkip.self
+            HabitSkip.self,
+            HabitPausePeriod.self
         ])
         let isUITesting = ProcessInfo.processInfo.arguments.contains(
             "--ui-testing"

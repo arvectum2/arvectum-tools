@@ -16,11 +16,13 @@ final class PersistenceTests: XCTestCase {
         let schema = Schema([
             Habit.self,
             HabitCheckIn.self,
-            HabitSkip.self
+            HabitSkip.self,
+            HabitPausePeriod.self
         ])
         let habitID = UUID()
         let checkInDate = Date(timeIntervalSince1970: 1_790_784_000)
         let skipDate = checkInDate.addingTimeInterval(86_400)
+        let pauseDate = skipDate.addingTimeInterval(86_400)
         var checkInCalendar = Calendar(identifier: .gregorian)
         checkInCalendar.timeZone = TimeZone(secondsFromGMT: 0)!
         let expectedDayKey = HabitDayKey.make(
@@ -42,7 +44,8 @@ final class PersistenceTests: XCTestCase {
                     colorHex: "43E5C5",
                     reminderEnabled: true,
                     reminderHour: 7,
-                    reminderMinute: 45
+                    reminderMinute: 45,
+                    pausedAt: pauseDate
                 )
             )
             context.insert(
@@ -59,6 +62,13 @@ final class PersistenceTests: XCTestCase {
                     calendar: checkInCalendar
                 )
             )
+            context.insert(
+                HabitPausePeriod(
+                    habitID: habitID,
+                    startedAt: pauseDate,
+                    calendar: checkInCalendar
+                )
+            )
             try context.save()
         }
 
@@ -71,6 +81,9 @@ final class PersistenceTests: XCTestCase {
             let habits = try context.fetch(FetchDescriptor<Habit>())
             let checkIns = try context.fetch(FetchDescriptor<HabitCheckIn>())
             let skips = try context.fetch(FetchDescriptor<HabitSkip>())
+            let pausePeriods = try context.fetch(
+                FetchDescriptor<HabitPausePeriod>()
+            )
 
             XCTAssertEqual(habits.count, 1)
             XCTAssertEqual(habits.first?.id, habitID)
@@ -78,6 +91,7 @@ final class PersistenceTests: XCTestCase {
             XCTAssertEqual(habits.first?.reminderEnabled, true)
             XCTAssertEqual(habits.first?.reminderHour, 7)
             XCTAssertEqual(habits.first?.reminderMinute, 45)
+            XCTAssertEqual(habits.first?.pausedAt, pauseDate)
             XCTAssertEqual(checkIns.count, 1)
             XCTAssertEqual(checkIns.first?.habitID, habitID)
             XCTAssertEqual(checkIns.first?.day, checkInDate)
@@ -91,6 +105,16 @@ final class PersistenceTests: XCTestCase {
                     calendar: checkInCalendar
                 )
             )
+            XCTAssertEqual(pausePeriods.count, 1)
+            XCTAssertEqual(pausePeriods.first?.habitID, habitID)
+            XCTAssertEqual(
+                pausePeriods.first?.startDayKey,
+                HabitDayKey.make(
+                    for: pauseDate,
+                    calendar: checkInCalendar
+                )
+            )
+            XCTAssertNil(pausePeriods.first?.endDayKeyExclusive)
         }
     }
 

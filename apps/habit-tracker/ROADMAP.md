@@ -147,7 +147,7 @@ Working formula: **«всё удобное — без лишнего»**.
 
 - [x] Skip day: neutral exceptional-day state that does not break a streak or distort completion rate.
 - [x] Best streak in habit details.
-- [ ] Pause / resume with explicit paused periods so history and metrics stay correct.
+- [x] Pause / resume with explicit paused periods so history, streaks and completion rate stay correct.
 - [ ] Interactive Home Screen widget.
 - [ ] Lock Screen widget / Watch complication.
 - [ ] Overall Today progress available outside the full app.
@@ -191,4 +191,4 @@ Core habit tracking stays free. Advertising is the planned monetization model, b
 
 The M1 vertical slice is implemented and M2 reminders/localization are wired end-to-end: local storage → minimal create/edit flow → optional local reminder → Today → mark/unmark → details/history → archive/delete. Optional creation settings now use progressive disclosure so the default path stays focused on name + schedule. Historical check-ins now use a stable local-day key, while current schedules/reminders follow the device timezone. RU and EN are bundled and visually smoke-tested. The suite currently has 13 passing tests, including timezone/DST regressions, localization completeness and an XCUITest covering create → check → detail → history. Clean install and additive-schema upgrades have been smoke-tested, including signed install/launch on the physical iPhone 13 with Xcode 27.0.
 
-**Next implementation step:** Skip day and best streak are implemented across iPhone/Watch sync. Continue with pause/resume using explicit pause periods, then interactive widgets. In parallel, finish private CloudKit multi-device convergence before public release. Physical local-notification authorization and pending delivery schedule are now verified on iPhone.
+**Next implementation step:** Skip day, best streak and pause/resume are implemented with Watch-aware local-first semantics. Continue with an interactive Home Screen widget and overall Today progress outside the app. In parallel, finish private CloudKit multi-device convergence before public release. Physical local-notification authorization and pending delivery schedule are verified on iPhone.

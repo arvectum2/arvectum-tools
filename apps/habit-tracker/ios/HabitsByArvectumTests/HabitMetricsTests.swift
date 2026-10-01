@@ -260,6 +260,115 @@ final class HabitMetricsTests: XCTestCase {
         )
     }
 
+    func testPausedDaysFreezeCurrentStreak() {
+        let habit = Habit(
+            name: "Read",
+            createdAt: date(2026, 9, 27)
+        )
+        let checkIns = [
+            HabitCheckIn(
+                habitID: habit.id,
+                day: date(2026, 9, 27),
+                calendar: calendar
+            ),
+            HabitCheckIn(
+                habitID: habit.id,
+                day: date(2026, 9, 30),
+                calendar: calendar
+            )
+        ]
+        let pause = HabitPausePeriod(
+            habitID: habit.id,
+            startedAt: date(2026, 9, 28),
+            endedAt: date(2026, 9, 30),
+            calendar: calendar
+        )
+
+        XCTAssertEqual(
+            HabitMetrics.currentStreak(
+                habit: habit,
+                checkIns: checkIns,
+                pausePeriods: [pause],
+                today: date(2026, 9, 30),
+                calendar: calendar
+            ),
+            2
+        )
+    }
+
+    func testPausedDaysAreExcludedFromCompletionRate() {
+        let habit = Habit(
+            name: "Walk",
+            createdAt: date(2026, 9, 27)
+        )
+        let checkIns = [
+            HabitCheckIn(
+                habitID: habit.id,
+                day: date(2026, 9, 27),
+                calendar: calendar
+            ),
+            HabitCheckIn(
+                habitID: habit.id,
+                day: date(2026, 9, 30),
+                calendar: calendar
+            )
+        ]
+        let pause = HabitPausePeriod(
+            habitID: habit.id,
+            startedAt: date(2026, 9, 28),
+            endedAt: date(2026, 9, 30),
+            calendar: calendar
+        )
+
+        XCTAssertEqual(
+            HabitMetrics.completionRate(
+                habit: habit,
+                checkIns: checkIns,
+                pausePeriods: [pause],
+                through: date(2026, 9, 30),
+                calendar: calendar
+            ),
+            1,
+            accuracy: 0.0001
+        )
+    }
+
+    func testBestStreakBridgesPausedPeriod() {
+        let habit = Habit(
+            name: "Train",
+            createdAt: date(2026, 9, 27)
+        )
+        let checkIns = [
+            HabitCheckIn(
+                habitID: habit.id,
+                day: date(2026, 9, 27),
+                calendar: calendar
+            ),
+            HabitCheckIn(
+                habitID: habit.id,
+                day: date(2026, 9, 30),
+                calendar: calendar
+            )
+        ]
+        let pause = HabitPausePeriod(
+            habitID: habit.id,
+            startedAt: date(2026, 9, 28),
+            endedAt: date(2026, 9, 30),
+            calendar: calendar
+        )
+
+        XCTAssertEqual(
+            HabitMetrics.bestStreak(
+                habit: habit,
+                checkIns: checkIns,
+                pausePeriods: [pause],
+                through: date(2026, 9, 30),
+                calendar: calendar
+            ),
+            2
+        )
+    }
+
     func testCheckInKeepsOriginalLocalDayAfterTimezoneChange() {
         var losAngeles = Calendar(identifier: .gregorian)
         losAngeles.timeZone = TimeZone(identifier: "America/Los_Angeles")!

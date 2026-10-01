@@ -26,7 +26,11 @@ enum HabitReminderScheduler {
         let center = UNUserNotificationCenter.current()
         remove(habitID: habit.id)
 
-        guard habit.reminderEnabled, !habit.isArchived else {
+        guard
+            habit.reminderEnabled,
+            !habit.isArchived,
+            !habit.isPaused
+        else {
             return true
         }
         guard await ensureAuthorization() else {

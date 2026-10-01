@@ -7,6 +7,7 @@ struct HabitDetailView: View {
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @Query(sort: \HabitCheckIn.day) private var checkIns: [HabitCheckIn]
     @Query(sort: \HabitSkip.day) private var skips: [HabitSkip]
+    @Query(sort: \HabitPausePeriod.startedAt) private var pausePeriods: [HabitPausePeriod]
 
     @Bindable var habit: Habit
     @State private var showingDeleteConfirmation = false
@@ -18,6 +19,10 @@ struct HabitDetailView: View {
 
     private var habitSkips: [HabitSkip] {
         skips.filter { $0.habitID == habit.id }
+    }
+
+    private var habitPausePeriods: [HabitPausePeriod] {
+        pausePeriods.filter { $0.habitID == habit.id }
     }
 
     private var recentDays: [Date] {
@@ -35,6 +40,7 @@ struct HabitDetailView: View {
                 identityCard
                 statsCard
                 historyCard
+                pauseButton
                 archiveButton
                 deleteButton
             }
@@ -105,7 +111,14 @@ struct HabitDetailView: View {
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
 
-            if habit.reminderEnabled {
+            if habit.isPaused {
+                Label(
+                    L10n.string("manage.paused"),
+                    systemImage: "pause.circle.fill"
+                )
+                .font(.caption)
+                .foregroundStyle(.secondary)
+            } else if habit.reminderEnabled {
                 Label(reminderDescription, systemImage: "bell.fill")
                     .font(.caption)
                     .foregroundStyle(.secondary)
@@ -117,18 +130,21 @@ struct HabitDetailView: View {
         let currentStreak = HabitMetrics.currentStreak(
             habit: habit,
             checkIns: checkIns,
-            skips: skips
+            skips: skips,
+            pausePeriods: pausePeriods
         )
         let bestStreak = HabitMetrics.bestStreak(
             habit: habit,
             checkIns: checkIns,
-            skips: skips
+            skips: skips,
+            pausePeriods: pausePeriods
         )
         let completionPercent = Int(
             HabitMetrics.completionRate(
                 habit: habit,
                 checkIns: checkIns,
-                skips: skips
+                skips: skips,
+                pausePeriods: pausePeriods
             ) * 100
         )
 
@@ -186,6 +202,22 @@ struct HabitDetailView: View {
         }
         .padding(16)
         .background(Color.habitsSurface, in: RoundedRectangle(cornerRadius: 20))
+    }
+
+    private var pauseButton: some View {
+        Button(action: togglePause) {
+            Label(
+                habit.isPaused
+                    ? L10n.string("detail.resume")
+                    : L10n.string("detail.pause"),
+                systemImage: habit.isPaused ? "play.fill" : "pause.fill"
+            )
+            .frame(maxWidth: .infinity)
+            .frame(minHeight: 46)
+            .padding(.vertical, 4)
+        }
+        .buttonStyle(.bordered)
+        .disabled(habit.isArchived)
     }
 
     private var archiveButton: some View {
@@ -422,6 +454,37 @@ struct HabitDetailView: View {
         return date.formatted(date: .omitted, time: .shortened)
     }
 
+    private func togglePause() {
+        let now = Date()
+        let calendar = Calendar.autoupdatingCurrent
+
+        if habit.isPaused {
+            let endKey = HabitDayKey.make(for: now, calendar: calendar)
+            if let openPeriod = habitPausePeriods.last(where: {
+                $0.endDayKeyExclusive == nil
+            }) {
+                openPeriod.endedAt = now
+                openPeriod.endDayKeyExclusive = endKey
+            }
+            habit.pausedAt = nil
+        } else {
+            habit.pausedAt = now
+            modelContext.insert(
+                HabitPausePeriod(
+                    habitID: habit.id,
+                    startedAt: now,
+                    calendar: calendar
+                )
+            )
+        }
+
+        try? modelContext.save()
+        PhoneWatchSyncCoordinator.shared.dataDidChange()
+        Task {
+            _ = await HabitReminderScheduler.sync(habit: habit)
+        }
+    }
+
     private func accessibilityLabel(
         for date: Date,
         completed: Bool,
@@ -449,6 +512,9 @@ struct HabitDetailView: View {
         }
         for skip in habitSkips {
             modelContext.delete(skip)
+        }
+        for pausePeriod in habitPausePeriods {
+            modelContext.delete(pausePeriod)
         }
         modelContext.delete(habit)
         try? modelContext.save()

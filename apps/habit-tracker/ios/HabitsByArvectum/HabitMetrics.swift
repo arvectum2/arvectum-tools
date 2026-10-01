@@ -33,6 +33,7 @@ enum HabitMetrics {
         habit: Habit,
         checkIns: [HabitCheckIn],
         skips: [HabitSkip] = [],
+        pausePeriods: [HabitPausePeriod] = [],
         today: Date = .now,
         calendar: Calendar = .autoupdatingCurrent
     ) -> Int {
@@ -58,8 +59,13 @@ enum HabitMetrics {
         )
         let todayCompleted = completedDays.contains(todayKey)
         let todaySkipped = skippedDays.contains(todayKey)
+        let todayPaused = isPaused(
+            habitID: habit.id,
+            dayKey: todayKey,
+            pausePeriods: pausePeriods
+        )
 
-        if todayScheduled && !todayCompleted && !todaySkipped,
+        if todayScheduled && !todayCompleted && !todaySkipped && !todayPaused,
            let yesterday = calendar.date(
                byAdding: .day,
                value: -1,
@@ -77,9 +83,13 @@ enum HabitMetrics {
 
                 if completedDays.contains(cursorKey) {
                     streak += 1
-                } else if skippedDays.contains(cursorKey) {
-                    // A skipped scheduled day is neutral: it neither grows
-                    // nor breaks the chain.
+                } else if skippedDays.contains(cursorKey) || isPaused(
+                    habitID: habit.id,
+                    dayKey: cursorKey,
+                    pausePeriods: pausePeriods
+                ) {
+                    // Skipped and paused scheduled days are neutral: they
+                    // neither grow nor break the chain.
                 } else {
                     break
                 }
@@ -102,6 +112,7 @@ enum HabitMetrics {
         habit: Habit,
         checkIns: [HabitCheckIn],
         skips: [HabitSkip] = [],
+        pausePeriods: [HabitPausePeriod] = [],
         through endDate: Date = .now,
         calendar: Calendar = .autoupdatingCurrent
     ) -> Int {
@@ -132,7 +143,11 @@ enum HabitMetrics {
                 if completedDays.contains(key) {
                     current += 1
                     best = max(best, current)
-                } else if skippedDays.contains(key) {
+                } else if skippedDays.contains(key) || isPaused(
+                    habitID: habit.id,
+                    dayKey: key,
+                    pausePeriods: pausePeriods
+                ) {
                     // Preserve the chain without adding to its length.
                 } else {
                     current = 0
@@ -156,6 +171,7 @@ enum HabitMetrics {
         habit: Habit,
         checkIns: [HabitCheckIn],
         skips: [HabitSkip] = [],
+        pausePeriods: [HabitPausePeriod] = [],
         through endDate: Date = .now,
         calendar: Calendar = .autoupdatingCurrent
     ) -> Double {
@@ -181,12 +197,23 @@ enum HabitMetrics {
                     skips: skips,
                     calendar: calendar
                 )
+                let dayKey = HabitDayKey.make(
+                    for: cursor,
+                    calendar: calendar
+                )
+                let paused = isPaused(
+                    habitID: habit.id,
+                    dayKey: dayKey,
+                    pausePeriods: pausePeriods
+                )
 
-                if completed {
-                    eligibleDays += 1
-                    completedDays += 1
-                } else if !skipped {
-                    eligibleDays += 1
+                if !paused {
+                    if completed {
+                        eligibleDays += 1
+                        completedDays += 1
+                    } else if !skipped {
+                        eligibleDays += 1
+                    }
                 }
             }
 
@@ -202,6 +229,29 @@ enum HabitMetrics {
 
         guard eligibleDays > 0 else { return 0 }
         return Double(completedDays) / Double(eligibleDays)
+    }
+
+    static func isPaused(
+        habitID: UUID,
+        on date: Date,
+        pausePeriods: [HabitPausePeriod],
+        calendar: Calendar = .autoupdatingCurrent
+    ) -> Bool {
+        isPaused(
+            habitID: habitID,
+            dayKey: HabitDayKey.make(for: date, calendar: calendar),
+            pausePeriods: pausePeriods
+        )
+    }
+
+    private static func isPaused(
+        habitID: UUID,
+        dayKey: String,
+        pausePeriods: [HabitPausePeriod]
+    ) -> Bool {
+        pausePeriods.contains {
+            $0.habitID == habitID && $0.contains(dayKey: dayKey)
+        }
     }
 
     private static func dayKeys(

@@ -6,17 +6,22 @@ struct TodayView: View {
     @Query(sort: \Habit.createdAt) private var habits: [Habit]
     @Query(sort: \HabitCheckIn.day) private var checkIns: [HabitCheckIn]
     @Query(sort: \HabitSkip.day) private var skips: [HabitSkip]
+    @Query(sort: \HabitPausePeriod.startedAt) private var pausePeriods: [HabitPausePeriod]
 
     @State private var showingAddHabit = false
 
     private var activeToday: [Habit] {
         habits.filter {
-            !$0.isArchived && $0.schedule.includes(.now)
+            !$0.isArchived && !$0.isPaused && $0.schedule.includes(.now)
         }
     }
 
     private var archivedHabits: [Habit] {
         habits.filter(\.isArchived)
+    }
+
+    private var pausedHabits: [Habit] {
+        habits.filter { !$0.isArchived && $0.isPaused }
     }
 
     private var resolvedCount: Int {
@@ -39,14 +44,14 @@ struct TodayView: View {
             .navigationTitle(L10n.string("today.title"))
             .toolbar {
                 ToolbarItemGroup(placement: .topBarTrailing) {
-                    if !archivedHabits.isEmpty {
+                    if !archivedHabits.isEmpty || !pausedHabits.isEmpty {
                         NavigationLink {
                             ArchivedHabitsView()
                         } label: {
                             Image(systemName: "archivebox")
                         }
                         .accessibilityLabel(
-                            L10n.string("archive.accessibility")
+                            L10n.string("manage.accessibility")
                         )
                     }
 
@@ -91,7 +96,8 @@ struct TodayView: View {
                                 streak: HabitMetrics.currentStreak(
                                     habit: habit,
                                     checkIns: checkIns,
-                                    skips: skips
+                                    skips: skips,
+                                    pausePeriods: pausePeriods
                                 ),
                                 onToggle: { toggle(habit, on: .now) },
                                 onSkip: { toggleSkip(habit, on: .now) }

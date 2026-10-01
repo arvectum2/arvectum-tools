@@ -60,6 +60,8 @@
 
 "detail.history.title" = "Last 5 weeks";
 "detail.history.hint" = "Tap a past day to correct its check-in.";
+"detail.pause" = "Pause habit";
+"detail.resume" = "Resume habit";
 "detail.archive" = "Archive";
 "detail.restore" = "Restore from archive";
 "detail.delete" = "Delete habit";
@@ -70,6 +72,11 @@
 "archive.accessibility" = "Archived habits";
 "archive.empty.title" = "No archived habits";
 "archive.empty.description" = "Archived habits will appear here.";
+"manage.title" = "Manage habits";
+"manage.accessibility" = "Paused and archived habits";
+"manage.paused" = "Paused";
+"manage.empty.title" = "Nothing here";
+"manage.empty.description" = "Paused and archived habits will appear here.";
 
 "stats.streak" = "streak";
 "stats.best.format" = "best %d";

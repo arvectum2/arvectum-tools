@@ -13,6 +13,7 @@ final class Habit {
     var reminderEnabled: Bool = false
     var reminderHour: Int = 20
     var reminderMinute: Int = 0
+    var pausedAt: Date? = nil
 
     init(
         id: UUID = UUID(),
@@ -24,7 +25,8 @@ final class Habit {
         scheduleMask: Int = HabitSchedule.everyDay.rawValue,
         reminderEnabled: Bool = false,
         reminderHour: Int = 20,
-        reminderMinute: Int = 0
+        reminderMinute: Int = 0,
+        pausedAt: Date? = nil
     ) {
         self.id = id
         self.name = name
@@ -36,12 +38,15 @@ final class Habit {
         self.reminderEnabled = reminderEnabled
         self.reminderHour = reminderHour
         self.reminderMinute = reminderMinute
+        self.pausedAt = pausedAt
     }
 
     var schedule: HabitSchedule {
         get { HabitSchedule(rawValue: scheduleMask) }
         set { scheduleMask = newValue.rawValue }
     }
+
+    var isPaused: Bool { pausedAt != nil }
 }
 
 @Model
@@ -87,6 +92,42 @@ final class HabitSkip {
         self.day = day
         self.dayKey = HabitDayKey.make(for: day, calendar: calendar)
         self.createdAt = createdAt
+    }
+}
+
+@Model
+final class HabitPausePeriod {
+    @Attribute(.unique) var id: UUID
+    var habitID: UUID
+    var startedAt: Date
+    var startDayKey: String
+    var endedAt: Date? = nil
+    var endDayKeyExclusive: String? = nil
+
+    init(
+        id: UUID = UUID(),
+        habitID: UUID,
+        startedAt: Date = .now,
+        endedAt: Date? = nil,
+        calendar: Calendar = .autoupdatingCurrent
+    ) {
+        self.id = id
+        self.habitID = habitID
+        self.startedAt = startedAt
+        self.startDayKey = HabitDayKey.make(
+            for: startedAt,
+            calendar: calendar
+        )
+        self.endedAt = endedAt
+        self.endDayKeyExclusive = endedAt.map {
+            HabitDayKey.make(for: $0, calendar: calendar)
+        }
+    }
+
+    func contains(dayKey: String) -> Bool {
+        guard dayKey >= startDayKey else { return false }
+        guard let endDayKeyExclusive else { return true }
+        return dayKey < endDayKeyExclusive
     }
 }
 

@@ -60,6 +60,8 @@
 
 "detail.history.title" = "Последние 5 недель";
 "detail.history.hint" = "Нажмите на прошедший день, чтобы исправить отметку.";
+"detail.pause" = "Приостановить";
+"detail.resume" = "Возобновить";
 "detail.archive" = "Архивировать";
 "detail.restore" = "Вернуть из архива";
 "detail.delete" = "Удалить привычку";
@@ -70,6 +72,11 @@
 "archive.accessibility" = "Архив привычек";
 "archive.empty.title" = "Архив пуст";
 "archive.empty.description" = "Архивированные привычки появятся здесь.";
+"manage.title" = "Управление";
+"manage.accessibility" = "Приостановленные и архивные привычки";
+"manage.paused" = "Приостановлены";
+"manage.empty.title" = "Здесь пока пусто";
+"manage.empty.description" = "Здесь появятся приостановленные и архивные привычки.";
 
 "stats.streak" = "серия";
 "stats.best.format" = "макс. %d";

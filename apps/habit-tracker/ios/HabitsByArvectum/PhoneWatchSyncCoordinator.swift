@@ -69,10 +69,15 @@ final class PhoneWatchSyncCoordinator: NSObject, WCSessionDelegate {
                 sortBy: [SortDescriptor(\.day)]
             )
         )) ?? []
+        let pausePeriods = (try? context.fetch(
+            FetchDescriptor<HabitPausePeriod>(
+                sortBy: [SortDescriptor(\.startedAt)]
+            )
+        )) ?? []
 
         let now = Date()
         let activeToday = habits.filter {
-            !$0.isArchived && $0.schedule.includes(now)
+            !$0.isArchived && !$0.isPaused && $0.schedule.includes(now)
         }
 
         let syncHabits = activeToday.map { habit in
@@ -94,7 +99,8 @@ final class PhoneWatchSyncCoordinator: NSObject, WCSessionDelegate {
                 streak: HabitMetrics.currentStreak(
                     habit: habit,
                     checkIns: checkIns,
-                    skips: skips
+                    skips: skips,
+                    pausePeriods: pausePeriods
                 )
             )
         }
