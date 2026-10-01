@@ -150,9 +150,13 @@ Working formula: **«всё удобное — без лишнего»**.
 - [x] Skip day: neutral exceptional-day state that does not break a streak or distort completion rate.
 - [x] Best streak in habit details.
 - [x] Pause / resume with explicit paused periods so history, streaks and completion rate stay correct.
-- [ ] Interactive Home Screen widget.
-- [ ] Lock Screen widget / Watch complication.
-- [ ] Overall Today progress available outside the full app.
+- [x] Interactive Home Screen widget target with small progress + medium habit list UI.
+- [x] Widget AppIntent bridge uses desired-state commands, optimistic updates and a bounded queue.
+- [x] Widget bridge regression suite: 5 passing tests for persistence, dedupe, queue bounds and optimistic state.
+- [ ] Enable and verify the `group.ru.arvectum.tools.habits` App Group in signed Apple provisioning.
+- [x] Lock Screen widget families: circular, rectangular and inline.
+- [ ] Watch complication.
+- [x] Overall Today progress available outside the full app through the Home Screen widget.
 - [ ] Flexible frequency behind progressive disclosure: N times per week.
 - [ ] Evaluate Apple Health auto-completion only where Health has authoritative data.
 - [ ] Keep haptics/micro-feedback; do not add an XP/reward economy.
@@ -161,7 +165,8 @@ Working formula: **«всё удобное — без лишнего»**.
 
 - [x] Decompose current HabitKit by user jobs and interaction mechanics.
 - [x] Separate genuinely useful mechanics from optional complexity.
-- [x] Review current habit-tracker positioning and recurring user complaints about maintenance/clutter.
+- [x] Review HabitKit plus Streaks, Habitify, Everyday, Way of Life, Loop, Strides, Productive and Finch.
+- [x] Separate repeated user praise (simplicity, glanceable progress, skip/grace, reliable sync, Watch/widgets) from feature-count noise.
 - [x] Build an explicit `do-not-build` list in `PRODUCT_RESEARCH.md`.
 - [ ] Validate whether templates materially improve first-run activation.
 - [ ] Validate whether quantitative habits are worth the extra complexity.
@@ -193,4 +198,4 @@ Core habit tracking stays free. Advertising is the planned monetization model, b
 
 The M1 vertical slice is implemented and M2 reminders/localization are wired end-to-end: local storage → minimal create/edit flow → optional local reminder → Today → mark/unmark → details/history → archive/delete. Optional creation settings now use progressive disclosure so the default path stays focused on name + schedule. Historical check-ins now use a stable local-day key, while current schedules/reminders follow the device timezone. RU and EN are bundled and visually smoke-tested. The suite currently has 13 passing tests, including timezone/DST regressions, localization completeness and an XCUITest covering create → check → detail → history. Clean install and additive-schema upgrades have been smoke-tested, including signed install/launch on the physical iPhone 13 with Xcode 27.0.
 
-**Next implementation step:** CloudKit-compatible storage now builds and launches both with cloud sync enabled and explicitly disabled, with local fallback preserved. Continue with an interactive Home Screen widget and overall Today progress outside the app; then verify real private-CloudKit convergence on two Apple-device identities before release.
+**Next implementation step:** Home Screen + Lock Screen widgets now compile with Watch/iPhone, and the widget command bridge has a 5-test green regression suite. Continue with Watch complication support, then flexible N/week frequency behind progressive disclosure. Signed-device widget verification remains blocked only by Apple App Group provisioning; real private-CloudKit convergence still requires two signed Apple device identities before release.

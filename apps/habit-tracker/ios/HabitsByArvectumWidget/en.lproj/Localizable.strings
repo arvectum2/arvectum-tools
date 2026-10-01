@@ -1,0 +1,12 @@
+"widget.title" = "Today";
+"widget.displayName" = "Habits Today";
+"widget.description" = "See today's progress and check off habits without opening the app.";
+"widget.empty" = "Nothing scheduled today";
+"widget.allDone" = "All done for today";
+"widget.remaining.format" = "%d remaining";
+"widget.inline.format" = "%d of %d done";
+"widget.more.format" = "+%d more";
+"widget.complete" = "Mark complete";
+"widget.undo" = "Undo completion";
+"widget.preview.water" = "Water";
+"widget.preview.reading" = "Reading";

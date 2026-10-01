@@ -3,6 +3,7 @@ import SwiftUI
 
 struct TodayView: View {
     @Environment(\.modelContext) private var modelContext
+    @Environment(\.scenePhase) private var scenePhase
     @Query(sort: \Habit.createdAt) private var habits: [Habit]
     @Query(sort: \HabitCheckIn.day) private var checkIns: [HabitCheckIn]
     @Query(sort: \HabitSkip.day) private var skips: [HabitSkip]
@@ -69,9 +70,15 @@ struct TodayView: View {
             }
             .task {
                 backfillLegacyDayKeys()
+                HabitWidgetCoordinator.shared.refresh()
 #if DEBUG
                 await HabitReminderScheduler.debugDumpIfRequested()
 #endif
+            }
+            .onChange(of: scenePhase) { _, phase in
+                if phase == .active {
+                    HabitWidgetCoordinator.shared.refresh()
+                }
             }
         }
     }
@@ -190,7 +197,7 @@ struct TodayView: View {
         }
 
         try? modelContext.save()
-        PhoneWatchSyncCoordinator.shared.dataDidChange()
+        HabitDataChangeNotifier.notify()
     }
 
     private func toggleSkip(_ habit: Habit, on date: Date) {
@@ -223,7 +230,7 @@ struct TodayView: View {
         }
 
         try? modelContext.save()
-        PhoneWatchSyncCoordinator.shared.dataDidChange()
+        HabitDataChangeNotifier.notify()
     }
 
     private func backfillLegacyDayKeys() {

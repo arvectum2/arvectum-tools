@@ -22,6 +22,8 @@ targets:
     dependencies:
       - target: HabitsByArvectumWatch
         embed: true
+      - target: HabitsByArvectumWidget
+        embed: true
     info:
       path: HabitsByArvectum/Info.plist
       properties:
@@ -76,6 +78,34 @@ targets:
         MARKETING_VERSION: "0.1.0"
         CURRENT_PROJECT_VERSION: "1"
         GENERATE_INFOPLIST_FILE: NO
+        ENABLE_USER_SCRIPT_SANDBOXING: YES
+    scheme: {}
+
+  HabitsByArvectumWidget:
+    type: app-extension
+    platform: iOS
+    deploymentTarget: "17.0"
+    sources:
+      - path: HabitsByArvectumWidget
+      - path: Shared/HabitWidgetBridge.swift
+    info:
+      path: HabitsByArvectumWidget/Info.plist
+      properties:
+        CFBundleDisplayName: "Habits"
+        CFBundleShortVersionString: "$(MARKETING_VERSION)"
+        CFBundleVersion: "$(CURRENT_PROJECT_VERSION)"
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.widgetkit-extension
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: ru.arvectum.tools.habits.widget
+        PRODUCT_NAME: HabitsByArvectumWidget
+        PRODUCT_MODULE_NAME: HabitsByArvectumWidget
+        MARKETING_VERSION: "0.1.0"
+        CURRENT_PROJECT_VERSION: "1"
+        GENERATE_INFOPLIST_FILE: NO
+        CODE_SIGN_ENTITLEMENTS: HabitsByArvectumWidget/HabitsByArvectumWidget.entitlements
+        APPLICATION_EXTENSION_API_ONLY: YES
         ENABLE_USER_SCRIPT_SANDBOXING: YES
     scheme: {}
 

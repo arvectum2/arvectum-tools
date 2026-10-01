@@ -17,7 +17,9 @@ The default loop stays:
 ## Broader competitor / user review
 
 Products reviewed: HabitKit, Streaks, Habitify, Everyday, Way of Life,
-Productive, Finch and current habit-tracker user discussions.
+Loop Habit Tracker, Strides, Productive, Finch and current App Store / habit-tracker
+user discussions. The review is intentionally cross-product: repeated user value
+matters more than copying any one competitor.
 
 ### Repeated things users praise
 
@@ -102,6 +104,52 @@ illness or a temporary change.
 **Take:** add pause/resume, but model the paused period explicitly so statistics
 do not treat paused days as failures.
 
+#### 11. The best visualizations are simple, persistent and glanceable
+
+Everyday and Way of Life reviews repeatedly praise a clean grid / color history
+that is understandable immediately. Habitify users praise calendar views; Streaks
+users praise seeing a streak build without opening an analytics dashboard.
+
+**Take:** keep the compact history grid and expose Today progress in Widget/Watch.
+Do not add a separate analytics home screen just to show more charts.
+
+#### 12. Gentle reminders beat guilt and aggressive gamification
+
+Finch reviews praise supportive, non-guilt notifications. Everyday users praise
+skip/grace behavior and explicitly reject "million-feature" or AI-heavy trackers.
+
+**Take:** reminders stay neutral and factual. No shame copy, streak-loss pressure,
+coins, XP, pets or reward currencies.
+
+#### 13. Cloud sync is valued because it prevents friction and loss, not because
+it is a feature users want to configure
+
+Users asking for simple trackers often name cloud sync together with visual
+simplicity and widgets. Habitify's negative Watch reviews show that stale state is
+worse than having no Watch app at all.
+
+**Take:** private CloudKit sync is invisible by default, requires no Arvectum
+account, and must preserve local-first operation when offline.
+
+#### 14. Flexible goals and automation are valuable, but belong behind the core
+loop
+
+Streaks/Strides users value flexible frequencies, negative habits and Health-based
+auto-completion. These solve real cases, but they broaden both the data model and
+creation UI substantially.
+
+**Take later:** N/week goals and selective Apple Health auto-completion after the
+binary habit loop, Watch, widgets and sync are stable.
+
+#### 15. Habit stacking is useful, but not worth a relationship graph in MVP
+
+Some Everyday users praise habit stacking because one established behavior can
+cue another. The underlying idea is useful; a full dependency graph between
+habits is not required to deliver it.
+
+**Do not build now:** no habit-to-habit graph or routine builder in MVP. Revisit
+only if users ask for sequencing after launch.
+
 ## What Habits by Arvectum takes
 
 ### Required before public release
@@ -173,6 +221,8 @@ increasing daily interaction cost:
 - Apple App Store ratings/reviews for Habitify.
 - Apple App Store ratings/reviews for Everyday.
 - Apple App Store ratings/reviews for Way of Life.
+- Loop Habit Tracker product/community materials.
+- Strides product materials and comparative user discussions.
 - Apple App Store ratings/reviews for Productive.
 - Apple App Store ratings/reviews for Finch.
 - HabitKit official product/help materials and App Store listing.

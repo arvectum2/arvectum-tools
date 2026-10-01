@@ -32,6 +32,9 @@ struct HabitsByArvectumApp: App {
             PhoneWatchSyncCoordinator.shared.configure(
                 modelContainer: container
             )
+            HabitWidgetCoordinator.shared.configure(
+                modelContainer: container
+            )
         } catch {
             fatalError("Could not create SwiftData container: \(error)")
         }

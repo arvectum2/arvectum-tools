@@ -224,7 +224,7 @@ struct HabitDetailView: View {
         Button {
             habit.isArchived.toggle()
             try? modelContext.save()
-            PhoneWatchSyncCoordinator.shared.dataDidChange()
+            HabitDataChangeNotifier.notify()
             Task {
                 _ = await HabitReminderScheduler.sync(habit: habit)
             }
@@ -385,7 +385,7 @@ struct HabitDetailView: View {
             )
         }
         try? modelContext.save()
-        PhoneWatchSyncCoordinator.shared.dataDidChange()
+        HabitDataChangeNotifier.notify()
     }
 
     private func toggleSkip(_ date: Date) {
@@ -418,7 +418,7 @@ struct HabitDetailView: View {
         }
 
         try? modelContext.save()
-        PhoneWatchSyncCoordinator.shared.dataDidChange()
+        HabitDataChangeNotifier.notify()
     }
 
     private var scheduleDescription: String {
@@ -479,7 +479,7 @@ struct HabitDetailView: View {
         }
 
         try? modelContext.save()
-        PhoneWatchSyncCoordinator.shared.dataDidChange()
+        HabitDataChangeNotifier.notify()
         Task {
             _ = await HabitReminderScheduler.sync(habit: habit)
         }
@@ -518,7 +518,7 @@ struct HabitDetailView: View {
         }
         modelContext.delete(habit)
         try? modelContext.save()
-        PhoneWatchSyncCoordinator.shared.dataDidChange()
+        HabitDataChangeNotifier.notify()
         dismiss()
     }
 }
