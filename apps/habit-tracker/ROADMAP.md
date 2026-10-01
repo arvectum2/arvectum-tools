@@ -102,7 +102,7 @@ Working formula: **«всё удобное — без лишнего»**.
 - [x] Simulator runtime diagnostic verifies notification action completion → newer skip convergence.
 - [x] Explicit four-second Undo toast after a successful Today check-off; tapping the checkmark again still works.
 - [x] Base accessibility pass: 44 pt touch targets for habit actions/pickers, VoiceOver labels and selected-state hints.
-- [x] Accessibility-size responsive layouts for Today summary, habit identity/stats and primary action buttons.
+- [x] Accessibility-size responsive layouts for Today summary, habit identity/stats, primary action buttons and create-schedule presets; verified in real `ru_RU` runtime at the largest Dynamic Type on iPhone 17e simulator.
 - [x] Add a largest-Dynamic-Type XCUITest for the core create flow; verify it compiles via `build-for-testing` on Xcode 27.
 - [ ] Physical accessibility audit: Dynamic Type, VoiceOver navigation and contrast.
 - [x] Final in-app Arvectum visual polish: remove redundant zero-streak copy, preserve deliberately sparse Today layout, verify Light/Dark on small and large simulators. Final app icon remains a separate release asset.

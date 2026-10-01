@@ -98,7 +98,7 @@ struct TodayView: View {
                 registerForegroundLaunchIfNeeded()
                 backfillLegacyDayKeys()
 #if DEBUG
-                openDebugDeepLinkIfRequested()
+                openDebugSurfaceIfRequested()
 #endif
                 await HabitReminderCoordinator.shared.refreshNow()
                 HabitWidgetCoordinator.shared.refresh()
@@ -230,12 +230,18 @@ struct TodayView: View {
         HabitDebugLog.emit("HABITS_DEEPLINK \(value)")
     }
 
-    private func openDebugDeepLinkIfRequested() {
-        guard ProcessInfo.processInfo.arguments.contains(
-            "--debug-open-reading-deeplink"
-        ), let id = UUID(
-            uuidString: "00000000-0000-0000-0000-000000000001"
-        ) else { return }
+    private func openDebugSurfaceIfRequested() {
+        let arguments = ProcessInfo.processInfo.arguments
+
+        if arguments.contains("--debug-open-add-habit") {
+            showingAddHabit = true
+            return
+        }
+
+        guard arguments.contains("--debug-open-reading-deeplink"),
+              let id = UUID(
+                  uuidString: "00000000-0000-0000-0000-000000000001"
+              ) else { return }
 
         handleDeepLink(HabitDeepLink.habitURL(id))
     }

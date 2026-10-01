@@ -294,6 +294,13 @@ final class HabitFlowUITests: XCTestCase {
         let newHabitBar = app.navigationBars["New habit"]
         XCTAssertTrue(newHabitBar.waitForExistence(timeout: 3))
 
+        let everyDayButton = app.buttons["Every day"]
+        let weekdaysButton = app.buttons["Weekdays"]
+        XCTAssertTrue(everyDayButton.waitForExistence(timeout: 3))
+        XCTAssertTrue(weekdaysButton.waitForExistence(timeout: 3))
+        XCTAssertTrue(everyDayButton.isHittable)
+        XCTAssertTrue(weekdaysButton.isHittable)
+
         let nameField = app.textFields[
             "For example, read for 20 minutes"
         ]

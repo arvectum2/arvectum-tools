@@ -5,6 +5,7 @@ import UIKit
 struct AddHabitView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var modelContext
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @Environment(\.openURL) private var openURL
     @Query(sort: \Habit.createdAt) private var allHabits: [Habit]
 
@@ -97,16 +98,29 @@ struct AddHabitView: View {
                 }
 
                 Section(L10n.string("section.days")) {
-                    HStack(spacing: 10) {
-                        schedulePresetButton(
-                            title: L10n.string("schedule.everyday"),
-                            preset: .everyDay
-                        )
-                        schedulePresetButton(
-                            title: L10n.string("schedule.weekdays"),
-                            preset: .weekdays
-                        )
-                        Spacer()
+                    if dynamicTypeSize.isAccessibilitySize {
+                        VStack(spacing: 10) {
+                            schedulePresetButton(
+                                title: L10n.string("schedule.everyday"),
+                                preset: .everyDay
+                            )
+                            schedulePresetButton(
+                                title: L10n.string("schedule.weekdays"),
+                                preset: .weekdays
+                            )
+                        }
+                    } else {
+                        HStack(spacing: 10) {
+                            schedulePresetButton(
+                                title: L10n.string("schedule.everyday"),
+                                preset: .everyDay
+                            )
+                            schedulePresetButton(
+                                title: L10n.string("schedule.weekdays"),
+                                preset: .weekdays
+                            )
+                            Spacer()
+                        }
                     }
 
                     DisclosureGroup(
@@ -199,7 +213,17 @@ struct AddHabitView: View {
             )
             .navigationBarTitleDisplayMode(.inline)
             .onAppear {
-                if habit == nil { nameFocused = true }
+                if habit == nil {
+#if DEBUG
+                    if !ProcessInfo.processInfo.arguments.contains(
+                        "--debug-no-autofocus"
+                    ) {
+                        nameFocused = true
+                    }
+#else
+                    nameFocused = true
+#endif
+                }
             }
             .alert(
                 L10n.string("notification.denied.title"),
@@ -253,11 +277,12 @@ struct AddHabitView: View {
         } label: {
             Text(title)
                 .font(.subheadline.weight(.semibold))
+                .multilineTextAlignment(.center)
                 .foregroundStyle(
                     selected ? Color.arvectumNavy : .primary
                 )
                 .padding(.horizontal, 14)
-                .frame(minHeight: 44)
+                .frame(maxWidth: .infinity, minHeight: 44)
                 .padding(.vertical, 2)
                 .background(
                     selected
