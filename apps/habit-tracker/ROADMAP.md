@@ -158,8 +158,9 @@ Working formula: **«всё удобное — без лишнего»**.
 
 - [x] Keep local-first operation as the invariant.
 - [x] CloudKit-compatible SwiftData schema and private-iCloud capability wiring without requiring an Arvectum account.
+- [x] Wire CloudKit background delivery requirements in source: `remote-notification` background mode + `aps-environment` (`development` Debug / `production` Release).
 - [x] Local-first fallback: if cloud-backed container creation fails, Habits opens the local store instead of failing to launch.
-- [ ] Verify real private-CloudKit convergence between two signed Apple devices / simulator iCloud accounts before enabling the milestone for release. Current wildcard profile also lacks iCloud/CloudKit and `iCloud.ru.arvectum.tools.habits`.
+- [ ] Verify real private-CloudKit convergence between two signed Apple devices / simulator iCloud accounts before enabling the milestone for release. Apple Developer App ID/provisioning must enable iCloud/CloudKit, `iCloud.ru.arvectum.tools.habits`, App Groups and Push Notifications; the current wildcard profile does not.
 - [x] Treat WatchConnectivity as the low-latency iPhone↔Watch path and cloud sync as durable multi-device convergence.
 - [x] Conflict-safe last-write-wins day mutation ledger for iPhone / Watch / widget commands, with deterministic mutation-ID tie-breaks.
 - [x] Runtime stress test: a newer Skip rejects an older delayed Watch completion; paired simulator converges after durable delivery.

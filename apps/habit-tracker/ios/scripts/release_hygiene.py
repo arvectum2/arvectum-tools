@@ -83,6 +83,9 @@ if phone_values.get(
 ) != "$(TeamIdentifierPrefix)ru.arvectum.tools.habits":
     fail("phone entitlements have unexpected ubiquity kvstore identifier")
 
+if phone_values.get("aps-environment") != "$(APS_ENVIRONMENT)":
+    fail("phone entitlements must declare aps-environment via $(APS_ENVIRONMENT)")
+
 for target in TARGETS[1:]:
     entitlements = next(target.glob("*.entitlements"))
     with entitlements.open("rb") as handle:
@@ -176,6 +179,17 @@ else:
             )
 
 project_yml = (ROOT / "project.yml").read_text(encoding="utf-8")
+
+for required_push_setting in [
+    "APS_ENVIRONMENT: development",
+    "APS_ENVIRONMENT: production",
+    "- remote-notification",
+]:
+    if required_push_setting not in project_yml:
+        fail(
+            "project.yml missing CloudKit push/background setting: "
+            + required_push_setting
+        )
 
 marketing_versions = re.findall(
     r'^\s+MARKETING_VERSION:\s*"([^"]+)"',
