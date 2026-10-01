@@ -5,28 +5,38 @@ APP_ID="6817847111"
 VERSION_ID="87056df5-93c9-411f-b44c-2e3ea5cae5bf"
 BUILD_ID="b6bc26a1-dfc5-4dd5-843c-cca530ddb95e"
 SOURCE_APP_ID="6816346084"  # existing Arvectum app; reuse the owner's review contact without storing PII in this repo
-NOTES="""PUSHKIN is a local notification-history utility for iPhone.
+NOTES="""PUSHKIN 1.0.0 (2) — response to Guideline 2.1 Information Needed
 
-ACCESS / SETUP
-No registration, login, subscription, purchase, or reviewer account is required.
+A physical-device demonstration video is attached to this App Review submission. It was recorded from an iPhone running iOS 27.0.1 using Apple's iPhone Mirroring so the reviewer can see the real-device UI clearly.
 
-1. Launch PUSHKIN.
-2. On History, tap “Set up PUSHKIN”.
-3. iOS opens the signed PUSHKIN configuration in Shortcuts.
-4. Add the configuration and enable the PUSHKIN Notification automation if iOS imports it disabled.
-5. Allow it to run automatically / while locked if iOS asks.
-6. Send a real notification from a configured source app. It will appear in PUSHKIN History.
+1. PURPOSE / AUDIENCE / PROBLEM / VALUE
+PUSHKIN is a consumer utility for iPhone users who want a searchable local history of notifications they may otherwise dismiss or lose. It preserves selected notification content locally so users can find important alerts later.
 
-APP COVERAGE
-The bundled configuration contains a maintained catalog of explicit source-app descriptors. PUSHKIN does not claim wildcard access to every installed app. A newly installed supported app can be added with “+” on History or “Add app” in Settings. If an app is outside the bundled catalog, PUSHKIN provides a manual Shortcuts setup guide.
+2. ACCESS / SETUP
+No registration, login, subscription, purchase, reviewer account, credentials, or sample files are required.
+- Launch PUSHKIN.
+- On History, tap Set up PUSHKIN.
+- PUSHKIN opens Apple's Shortcuts app with the bundled signed configuration.
+- Add the configuration and enable the PUSHKIN Notification automation if iOS imports it disabled.
+- Allow it to run automatically / while locked if iOS asks.
+- Send a notification from a configured source app. It appears in PUSHKIN History.
+- For a supported app installed later, tap + on History or Add app in Settings.
+- If an app is outside the bundled catalog, PUSHKIN provides a local manual Shortcuts setup guide.
 
-DATA / EXTERNAL SERVICES
-Notification content is stored only in the app’s local SwiftData database. Version 1.0 has no account system, backend, cloud sync, analytics SDK, advertising SDK, tracking, or runtime App Store lookup. The app opens Apple’s Shortcuts app for setup.
+3. EXTERNAL SERVICES / TOOLS / PLATFORMS
+Core functionality uses only Apple platform technologies: Shortcuts / Automation, App Intents, SwiftData, and standard iOS APIs. PUSHKIN 1.0 has no backend, account service, cloud sync, payment processor, analytics SDK, advertising SDK, AI service, or third-party data provider. Notification content is not sent to Arvectum servers.
 
-REGIONAL DIFFERENCES
-Core functionality is the same in all regions. The app catalog is bundled with the app; uncommon apps can be configured manually.
+4. REGIONAL DIFFERENCES
+Core functionality is the same in all App Store regions. The bundled app catalog is maintained across storefronts; uncommon apps can be configured manually.
 
-Suggested reviewer test sources: Messages, Mail, Telegram, or another installed catalog app."""
+5. REGULATED INDUSTRY / THIRD-PARTY MATERIAL
+PUSHKIN does not operate in a regulated industry and does not provide, resell, stream, or redistribute protected third-party content. App names are used only to identify user-selected notification sources.
+
+6. REVIEW VIDEO
+The attached physical-device video shows History, the merged Settings screen with build 1.0.0 (2), Add App, the manual Shortcuts fallback, and a return to History. The app contains no developer/debug UI in the submitted build.
+
+Suggested reviewer test sources: Messages, Mail, Telegram, or another installed catalog app.
+"""
 
 CONFIG=pathlib.Path.home()/".config/arvectum/appstore-connect.env"
 vals={}

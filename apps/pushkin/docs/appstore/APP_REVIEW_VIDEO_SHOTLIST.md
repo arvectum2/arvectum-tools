@@ -1,5 +1,7 @@
 # App Review physical-device recording — build 2
 
+Status: recorded and attached to App Review on 1 Oct 2026.
+
 Apple requested a recording of the submitted build running on a physical iPhone.
 
 Required sequence:

@@ -72,6 +72,8 @@
 - [x] New 6.9-inch App Store screenshots generated and uploaded.
 - [x] English default metadata refreshed.
 - [x] Russian storefront metadata refreshed in Russian.
-- [ ] Physical iPhone build 2 recording captured and uploaded to App Review.
+- [x] Physical iPhone build 2 recording captured and uploaded to App Review.
 - [x] Build 2 attached to iOS version 1.0.
-- [ ] Submission resubmitted to App Review after physical-device video attachment.
+- [x] Submission resubmitted to App Review after physical-device video attachment.
+
+Final re-review state: build `1.0.0 (2)` is `WAITING_FOR_REVIEW`; Review submission `d62ca98f-62cf-468b-b856-d0c8d8829980`; physical-device video attachment `b59fe1ed-1d9d-488d-9809-e1d7b8108980`.

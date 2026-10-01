@@ -77,4 +77,4 @@ Result: reviewer-facing material matches the product being submitted.
 
 ## Release decision
 
-Build 2 is eligible for submission only after the gates above pass and the physical-device review video is attached.
+All gates passed. Build 2 was submitted with the physical-device review video and is waiting for App Review.

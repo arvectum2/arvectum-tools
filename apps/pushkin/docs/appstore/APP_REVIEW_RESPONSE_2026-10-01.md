@@ -1,9 +1,10 @@
 # App Review response — Guideline 2.1 Information Needed
 
-Status: **ready for build 2 submission after video upload**
+Status: **build 2 resubmitted — WAITING_FOR_REVIEW**
 
 Submission: iOS 1.0 / build 1.0.0 (2)
-Submission ID: cdfab018-5637-402a-a87f-3b8eb2c59beb
+Previous submission ID: cdfab018-5637-402a-a87f-3b8eb2c59beb
+New submission ID: d62ca98f-62cf-468b-b856-d0c8d8829980
 
 ## Reply to App Review
 
@@ -12,7 +13,7 @@ Hello App Review Team,
 Thank you for the request. PUSHKIN is ready for review. The requested information is below.
 
 1. **Physical-device screen recording**
-   We will attach a recording captured on a physical iPhone running iOS 27.0.1. It begins with launching PUSHKIN and demonstrates the normal flow: initial setup, Shortcuts handoff, enabling notification capture, receiving a real notification, viewing it in History, searching the history, and adding another supported app.
+   We attached a recording captured on a physical iPhone running iOS 27.0.1. It begins with launching PUSHKIN and demonstrates the normal flow: initial setup, Shortcuts handoff, enabling notification capture, receiving a real notification, viewing it in History, searching the history, and adding another supported app.
 
 2. **Purpose, target audience, problem and value**
    PUSHKIN is a consumer utility for iPhone users who want a searchable local history of notifications they may otherwise dismiss or lose. Its main value is preserving selected notification content locally on the device so users can find important alerts later.
