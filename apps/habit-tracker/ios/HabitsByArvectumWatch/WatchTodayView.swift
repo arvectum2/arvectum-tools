@@ -27,7 +27,7 @@ struct WatchTodayView: View {
     private var progressHeader: some View {
         VStack(spacing: 5) {
             ProgressView(
-                value: Double(syncStore.snapshot.completedCount),
+                value: Double(syncStore.snapshot.resolvedCount),
                 total: Double(max(syncStore.snapshot.totalCount, 1))
             )
             .tint(.arvectumMint)
@@ -35,7 +35,7 @@ struct WatchTodayView: View {
             Text(
                 WatchL10n.format(
                     "watch.progress.format",
-                    syncStore.snapshot.completedCount,
+                    syncStore.snapshot.resolvedCount,
                     syncStore.snapshot.totalCount
                 )
             )
@@ -73,7 +73,11 @@ struct WatchTodayView: View {
                         .font(.footnote.weight(.semibold))
                         .lineLimit(2)
 
-                    if habit.streak > 0 {
+                    if habit.skipped {
+                        Text(WatchL10n.string("watch.skipped"))
+                            .font(.caption2)
+                            .foregroundStyle(.secondary)
+                    } else if habit.streak > 0 {
                         Text(
                             WatchL10n.format(
                                 "watch.streak.format",
@@ -90,13 +94,13 @@ struct WatchTodayView: View {
                 Image(
                     systemName: habit.completed
                         ? "checkmark.circle.fill"
-                        : "circle"
+                        : (habit.skipped ? "minus.circle.fill" : "circle")
                 )
                 .font(.title3)
                 .foregroundStyle(
                     habit.completed
                         ? Color(hex: habit.colorHex)
-                        : .secondary
+                        : (habit.skipped ? .orange : .secondary)
                 )
             }
             .frame(maxWidth: .infinity, minHeight: 44)
@@ -106,7 +110,11 @@ struct WatchTodayView: View {
         .accessibilityValue(
             habit.completed
                 ? WatchL10n.string("watch.completed")
-                : WatchL10n.string("watch.notCompleted")
+                : (
+                    habit.skipped
+                        ? WatchL10n.string("watch.skipped")
+                        : WatchL10n.string("watch.notCompleted")
+                )
         )
         .accessibilityHint(
             habit.completed

@@ -4,5 +4,6 @@
 "watch.streak.format" = "%d дн. подряд";
 "watch.completed" = "Выполнено";
 "watch.notCompleted" = "Не выполнено";
+"watch.skipped" = "Пропущено";
 "watch.undoHint" = "Дважды нажмите, чтобы отменить";
 "watch.completeHint" = "Дважды нажмите, чтобы отметить";

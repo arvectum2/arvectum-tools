@@ -6,6 +6,7 @@ struct HabitDetailView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @Query(sort: \HabitCheckIn.day) private var checkIns: [HabitCheckIn]
+    @Query(sort: \HabitSkip.day) private var skips: [HabitSkip]
 
     @Bindable var habit: Habit
     @State private var showingDeleteConfirmation = false
@@ -13,6 +14,10 @@ struct HabitDetailView: View {
 
     private var habitCheckIns: [HabitCheckIn] {
         checkIns.filter { $0.habitID == habit.id }
+    }
+
+    private var habitSkips: [HabitSkip] {
+        skips.filter { $0.habitID == habit.id }
     }
 
     private var recentDays: [Date] {
@@ -109,14 +114,36 @@ struct HabitDetailView: View {
     }
 
     private var statsCard: some View {
+        let currentStreak = HabitMetrics.currentStreak(
+            habit: habit,
+            checkIns: checkIns,
+            skips: skips
+        )
+        let bestStreak = HabitMetrics.bestStreak(
+            habit: habit,
+            checkIns: checkIns,
+            skips: skips
+        )
+        let completionPercent = Int(
+            HabitMetrics.completionRate(
+                habit: habit,
+                checkIns: checkIns,
+                skips: skips
+            ) * 100
+        )
+
         let content = Group {
             stat(
-                value: "\(HabitMetrics.currentStreak(habit: habit, checkIns: checkIns))",
+                value: String(currentStreak),
                 label: L10n.string("stats.streak"),
-                systemImage: "flame.fill"
+                systemImage: "flame.fill",
+                secondary: L10n.format(
+                    "stats.best.format",
+                    bestStreak
+                )
             )
             stat(
-                value: "\(Int(HabitMetrics.completionRate(habit: habit, checkIns: checkIns) * 100))%",
+                value: "\(completionPercent)%",
                 label: L10n.string("stats.completion"),
                 systemImage: "chart.line.uptrend.xyaxis"
             )
@@ -197,7 +224,8 @@ struct HabitDetailView: View {
     private func stat(
         value: String,
         label: String,
-        systemImage: String
+        systemImage: String,
+        secondary: String? = nil
     ) -> some View {
         VStack(spacing: 5) {
             Image(systemName: systemImage)
@@ -207,6 +235,12 @@ struct HabitDetailView: View {
             Text(label)
                 .font(.caption2)
                 .foregroundStyle(.secondary)
+
+            if let secondary {
+                Text(secondary)
+                    .font(.caption2)
+                    .foregroundStyle(.tertiary)
+            }
         }
         .frame(maxWidth: .infinity)
         .padding(.vertical, 14)
@@ -222,6 +256,12 @@ struct HabitDetailView: View {
             checkIns: checkIns,
             calendar: calendar
         )
+        let skipped = HabitMetrics.isSkipped(
+            habitID: habit.id,
+            on: date,
+            skips: skips,
+            calendar: calendar
+        )
         let beforeCreation = date < calendar.startOfDay(for: habit.createdAt)
         let future = date > calendar.startOfDay(for: .now)
         let enabled = scheduled && !beforeCreation && !future
@@ -234,6 +274,7 @@ struct HabitDetailView: View {
                     .fill(dayBackground(
                         scheduled: scheduled,
                         completed: completed,
+                        skipped: skipped,
                         disabled: beforeCreation || future
                     ))
                     .aspectRatio(1, contentMode: .fit)
@@ -245,15 +286,39 @@ struct HabitDetailView: View {
         }
         .buttonStyle(.plain)
         .disabled(!enabled)
-        .accessibilityLabel(accessibilityLabel(for: date, completed: completed))
+        .contextMenu {
+            if enabled {
+                Button {
+                    toggleSkip(date)
+                } label: {
+                    Label(
+                        skipped
+                            ? L10n.string("habit.skip.undo")
+                            : L10n.string("habit.skip.today"),
+                        systemImage: skipped
+                            ? "arrow.uturn.backward"
+                            : "forward.end"
+                    )
+                }
+            }
+        }
+        .accessibilityLabel(
+            accessibilityLabel(
+                for: date,
+                completed: completed,
+                skipped: skipped
+            )
+        )
     }
 
     private func dayBackground(
         scheduled: Bool,
         completed: Bool,
+        skipped: Bool,
         disabled: Bool
     ) -> Color {
         if completed { return Color(hex: habit.colorHex) }
+        if skipped { return Color.arvectumOrange.opacity(0.24) }
         if disabled { return Color.secondary.opacity(0.04) }
         if scheduled { return Color.secondary.opacity(0.12) }
         return Color.secondary.opacity(0.05)
@@ -261,6 +326,7 @@ struct HabitDetailView: View {
 
     private func toggle(_ date: Date) {
         let calendar = Calendar.autoupdatingCurrent
+        let key = HabitDayKey.make(for: date, calendar: calendar)
 
         if let existing = checkIns.first(where: {
             $0.habitID == habit.id &&
@@ -272,6 +338,12 @@ struct HabitDetailView: View {
         }) {
             modelContext.delete(existing)
         } else {
+            if let skip = skips.first(where: {
+                $0.habitID == habit.id && $0.dayKey == key
+            }) {
+                modelContext.delete(skip)
+            }
+
             modelContext.insert(
                 HabitCheckIn(
                     habitID: habit.id,
@@ -280,6 +352,39 @@ struct HabitDetailView: View {
                 )
             )
         }
+        try? modelContext.save()
+        PhoneWatchSyncCoordinator.shared.dataDidChange()
+    }
+
+    private func toggleSkip(_ date: Date) {
+        let calendar = Calendar.autoupdatingCurrent
+        let key = HabitDayKey.make(for: date, calendar: calendar)
+
+        if let existingSkip = skips.first(where: {
+            $0.habitID == habit.id && $0.dayKey == key
+        }) {
+            modelContext.delete(existingSkip)
+        } else {
+            if let existingCheckIn = checkIns.first(where: {
+                $0.habitID == habit.id &&
+                HabitDayKey.matches(
+                    $0,
+                    on: date,
+                    calendar: calendar
+                )
+            }) {
+                modelContext.delete(existingCheckIn)
+            }
+
+            modelContext.insert(
+                HabitSkip(
+                    habitID: habit.id,
+                    day: date,
+                    calendar: calendar
+                )
+            )
+        }
+
         try? modelContext.save()
         PhoneWatchSyncCoordinator.shared.dataDidChange()
     }
@@ -317,12 +422,23 @@ struct HabitDetailView: View {
         return date.formatted(date: .omitted, time: .shortened)
     }
 
-    private func accessibilityLabel(for date: Date, completed: Bool) -> String {
+    private func accessibilityLabel(
+        for date: Date,
+        completed: Bool,
+        skipped: Bool
+    ) -> String {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
-        let status = completed
-            ? L10n.string("status.completed")
-            : L10n.string("status.notCompleted")
+
+        let status: String
+        if completed {
+            status = L10n.string("status.completed")
+        } else if skipped {
+            status = L10n.string("status.skipped")
+        } else {
+            status = L10n.string("status.notCompleted")
+        }
+
         return "\(formatter.string(from: date)), \(status)"
     }
 
@@ -330,6 +446,9 @@ struct HabitDetailView: View {
         HabitReminderScheduler.remove(habitID: habit.id)
         for checkIn in habitCheckIns {
             modelContext.delete(checkIn)
+        }
+        for skip in habitSkips {
+            modelContext.delete(skip)
         }
         modelContext.delete(habit)
         try? modelContext.save()

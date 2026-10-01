@@ -13,6 +13,9 @@
 "habit.streak.start" = "Начните серию сегодня";
 "habit.complete" = "Отметить выполненной";
 "habit.undo" = "Отменить выполнение";
+"habit.skipped.today" = "Сегодня пропущено";
+"habit.skip.today" = "Пропустить сегодня";
+"habit.skip.undo" = "Отменить пропуск";
 "habit.new.title" = "Новая привычка";
 "habit.edit.title" = "Редактировать";
 "habit.edit.action" = "Изменить";
@@ -69,11 +72,13 @@
 "archive.empty.description" = "Архивированные привычки появятся здесь.";
 
 "stats.streak" = "серия";
+"stats.best.format" = "макс. %d";
 "stats.completion" = "выполнено";
 "stats.checkins" = "отметок";
 
 "status.completed" = "выполнено";
 "status.notCompleted" = "не выполнено";
+"status.skipped" = "пропущено";
 
 "accessibility.color.format" = "Цвет %d";
 "accessibility.symbol.format" = "Значок %d";

@@ -21,9 +21,13 @@ enum HabitSyncReconciler {
             }) else { continue }
 
             merged.habits[index].completed = command.completed
+            merged.habits[index].skipped = false
         }
 
         merged.completedCount = merged.habits.filter(\.completed).count
+        merged.skippedCount = merged.habits.filter {
+            !$0.completed && $0.skipped
+        }.count
         return (merged, remaining)
     }
 }

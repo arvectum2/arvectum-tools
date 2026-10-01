@@ -13,6 +13,9 @@
 "habit.streak.start" = "Start your streak today";
 "habit.complete" = "Mark complete";
 "habit.undo" = "Undo completion";
+"habit.skipped.today" = "Skipped today";
+"habit.skip.today" = "Skip today";
+"habit.skip.undo" = "Undo skip";
 "habit.new.title" = "New habit";
 "habit.edit.title" = "Edit habit";
 "habit.edit.action" = "Edit";
@@ -69,11 +72,13 @@
 "archive.empty.description" = "Archived habits will appear here.";
 
 "stats.streak" = "streak";
+"stats.best.format" = "best %d";
 "stats.completion" = "completed";
 "stats.checkins" = "check-ins";
 
 "status.completed" = "completed";
 "status.notCompleted" = "not completed";
+"status.skipped" = "skipped";
 
 "accessibility.color.format" = "Color %d";
 "accessibility.symbol.format" = "Icon %d";

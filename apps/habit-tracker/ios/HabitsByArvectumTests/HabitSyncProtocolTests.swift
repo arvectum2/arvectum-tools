@@ -66,6 +66,50 @@ final class HabitSyncProtocolTests: XCTestCase {
         XCTAssertEqual(result.snapshot.completedCount, 1)
     }
 
+    func testPendingCompletionResolvesSkippedSnapshot() {
+        let habitID = UUID()
+        let command = HabitCompletionCommand(
+            habitID: habitID,
+            dayKey: "2026-10-01",
+            completed: true
+        )
+        var incoming = snapshot(
+            habitID: habitID,
+            completed: false
+        )
+        incoming.habits[0].skipped = true
+        incoming.skippedCount = 1
+
+        let result = HabitSyncReconciler.reconcile(
+            incoming: incoming,
+            pendingCommands: [command]
+        )
+
+        XCTAssertTrue(result.snapshot.habits[0].completed)
+        XCTAssertFalse(result.snapshot.habits[0].skipped)
+        XCTAssertEqual(result.snapshot.completedCount, 1)
+        XCTAssertEqual(result.snapshot.skippedCount, 0)
+        XCTAssertEqual(result.snapshot.resolvedCount, 1)
+    }
+
+    func testSkippedSnapshotRoundTrips() throws {
+        let habitID = UUID()
+        var source = snapshot(
+            habitID: habitID,
+            completed: false
+        )
+        source.habits[0].skipped = true
+        source.skippedCount = 1
+
+        let packet = HabitSyncPacket.snapshot(source)
+        let decoded = try HabitSyncCodec.decode(
+            HabitSyncCodec.encode(packet)
+        )
+
+        XCTAssertEqual(decoded.snapshot, source)
+        XCTAssertEqual(decoded.snapshot?.resolvedCount, 1)
+    }
+
     func testPendingCommandFromDifferentDayDoesNotOverrideSnapshot() {
         let habitID = UUID()
         let command = HabitCompletionCommand(

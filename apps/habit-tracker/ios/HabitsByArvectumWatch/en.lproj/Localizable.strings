@@ -4,5 +4,6 @@
 "watch.streak.format" = "%d day streak";
 "watch.completed" = "Completed";
 "watch.notCompleted" = "Not completed";
+"watch.skipped" = "Skipped";
 "watch.undoHint" = "Double tap to undo completion";
 "watch.completeHint" = "Double tap to mark complete";

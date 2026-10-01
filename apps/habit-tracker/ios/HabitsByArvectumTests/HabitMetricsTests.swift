@@ -138,6 +138,128 @@ final class HabitMetricsTests: XCTestCase {
         )
     }
 
+    func testSkippedDayDoesNotBreakOrGrowCurrentStreak() {
+        let habit = Habit(
+            name: "Read",
+            createdAt: date(2026, 9, 28)
+        )
+        let checkIns = [
+            HabitCheckIn(
+                habitID: habit.id,
+                day: date(2026, 9, 28),
+                calendar: calendar
+            ),
+            HabitCheckIn(
+                habitID: habit.id,
+                day: date(2026, 9, 30),
+                calendar: calendar
+            )
+        ]
+        let skips = [
+            HabitSkip(
+                habitID: habit.id,
+                day: date(2026, 9, 29),
+                calendar: calendar
+            )
+        ]
+
+        XCTAssertEqual(
+            HabitMetrics.currentStreak(
+                habit: habit,
+                checkIns: checkIns,
+                skips: skips,
+                today: date(2026, 9, 30),
+                calendar: calendar
+            ),
+            2
+        )
+    }
+
+    func testSkippedDayIsExcludedFromCompletionRate() {
+        let habit = Habit(
+            name: "Walk",
+            createdAt: date(2026, 9, 28)
+        )
+        let checkIns = [
+            HabitCheckIn(
+                habitID: habit.id,
+                day: date(2026, 9, 28),
+                calendar: calendar
+            ),
+            HabitCheckIn(
+                habitID: habit.id,
+                day: date(2026, 9, 30),
+                calendar: calendar
+            )
+        ]
+        let skips = [
+            HabitSkip(
+                habitID: habit.id,
+                day: date(2026, 9, 29),
+                calendar: calendar
+            )
+        ]
+
+        XCTAssertEqual(
+            HabitMetrics.completionRate(
+                habit: habit,
+                checkIns: checkIns,
+                skips: skips,
+                through: date(2026, 9, 30),
+                calendar: calendar
+            ),
+            1,
+            accuracy: 0.0001
+        )
+    }
+
+    func testBestStreakBridgesSkippedDayButResetsOnMiss() {
+        let habit = Habit(
+            name: "Train",
+            createdAt: date(2026, 9, 27)
+        )
+        let checkIns = [
+            HabitCheckIn(
+                habitID: habit.id,
+                day: date(2026, 9, 27),
+                calendar: calendar
+            ),
+            HabitCheckIn(
+                habitID: habit.id,
+                day: date(2026, 9, 28),
+                calendar: calendar
+            ),
+            HabitCheckIn(
+                habitID: habit.id,
+                day: date(2026, 9, 30),
+                calendar: calendar
+            ),
+            HabitCheckIn(
+                habitID: habit.id,
+                day: date(2026, 10, 2),
+                calendar: calendar
+            )
+        ]
+        let skips = [
+            HabitSkip(
+                habitID: habit.id,
+                day: date(2026, 9, 29),
+                calendar: calendar
+            )
+        ]
+
+        XCTAssertEqual(
+            HabitMetrics.bestStreak(
+                habit: habit,
+                checkIns: checkIns,
+                skips: skips,
+                through: date(2026, 10, 2),
+                calendar: calendar
+            ),
+            3
+        )
+    }
+
     func testCheckInKeepsOriginalLocalDayAfterTimezoneChange() {
         var losAngeles = Calendar(identifier: .gregorian)
         losAngeles.timeZone = TimeZone(identifier: "America/Los_Angeles")!

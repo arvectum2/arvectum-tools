@@ -40,9 +40,15 @@ final class WatchHabitSyncStore: NSObject, ObservableObject, WCSessionDelegate {
             !snapshot.dayKey.isEmpty
         else { return }
 
-        let desiredState = !snapshot.habits[index].completed
+        let desiredState = snapshot.habits[index].skipped
+            ? true
+            : !snapshot.habits[index].completed
         snapshot.habits[index].completed = desiredState
+        snapshot.habits[index].skipped = false
         snapshot.completedCount = snapshot.habits.filter(\.completed).count
+        snapshot.skippedCount = snapshot.habits.filter {
+            !$0.completed && $0.skipped
+        }.count
         cacheSnapshot()
 
         let command = HabitCompletionCommand(

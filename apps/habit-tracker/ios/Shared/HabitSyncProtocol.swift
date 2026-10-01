@@ -1,7 +1,7 @@
 import Foundation
 
 enum HabitSyncProtocol {
-    static let version = 1
+    static let version = 2
     static let packetKey = "habits.sync.packet"
 }
 
@@ -11,6 +11,7 @@ struct HabitSyncHabit: Codable, Hashable, Identifiable {
     var symbolName: String
     var colorHex: String
     var completed: Bool
+    var skipped: Bool = false
     var streak: Int
 }
 
@@ -19,6 +20,7 @@ struct HabitSyncSnapshot: Codable, Hashable {
     var generatedAt: Date
     var dayKey: String
     var completedCount: Int
+    var skippedCount: Int = 0
     var totalCount: Int
     var habits: [HabitSyncHabit]
     var acknowledgedCommandIDs: [UUID] = []
@@ -27,9 +29,13 @@ struct HabitSyncSnapshot: Codable, Hashable {
         generatedAt: .distantPast,
         dayKey: "",
         completedCount: 0,
+        skippedCount: 0,
         totalCount: 0,
         habits: []
     )
+    var resolvedCount: Int {
+        completedCount + skippedCount
+    }
 }
 
 struct HabitCompletionCommand: Codable, Hashable, Identifiable {

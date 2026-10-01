@@ -5,6 +5,7 @@ struct TodayView: View {
     @Environment(\.modelContext) private var modelContext
     @Query(sort: \Habit.createdAt) private var habits: [Habit]
     @Query(sort: \HabitCheckIn.day) private var checkIns: [HabitCheckIn]
+    @Query(sort: \HabitSkip.day) private var skips: [HabitSkip]
 
     @State private var showingAddHabit = false
 
@@ -18,8 +19,10 @@ struct TodayView: View {
         habits.filter(\.isArchived)
     }
 
-    private var completedCount: Int {
-        activeToday.filter { isCompleted($0, on: .now) }.count
+    private var resolvedCount: Int {
+        activeToday.filter {
+            isCompleted($0, on: .now) || isSkipped($0, on: .now)
+        }.count
     }
 
     var body: some View {
@@ -72,7 +75,7 @@ struct TodayView: View {
         ScrollView {
             VStack(spacing: 14) {
                 TodaySummary(
-                    completed: completedCount,
+                    completed: resolvedCount,
                     total: activeToday.count
                 )
 
@@ -84,11 +87,14 @@ struct TodayView: View {
                             HabitRow(
                                 habit: habit,
                                 completed: isCompleted(habit, on: .now),
+                                skipped: isSkipped(habit, on: .now),
                                 streak: HabitMetrics.currentStreak(
                                     habit: habit,
-                                    checkIns: checkIns
+                                    checkIns: checkIns,
+                                    skips: skips
                                 ),
-                                onToggle: { toggle(habit, on: .now) }
+                                onToggle: { toggle(habit, on: .now) },
+                                onSkip: { toggleSkip(habit, on: .now) }
                             )
                         }
                     }
@@ -139,8 +145,17 @@ struct TodayView: View {
         )
     }
 
+    private func isSkipped(_ habit: Habit, on date: Date) -> Bool {
+        HabitMetrics.isSkipped(
+            habitID: habit.id,
+            on: date,
+            skips: skips
+        )
+    }
+
     private func toggle(_ habit: Habit, on date: Date) {
         let calendar = Calendar.autoupdatingCurrent
+        let key = HabitDayKey.make(for: date, calendar: calendar)
 
         if let existing = checkIns.first(where: {
             $0.habitID == habit.id &&
@@ -152,6 +167,12 @@ struct TodayView: View {
         }) {
             modelContext.delete(existing)
         } else {
+            if let skip = skips.first(where: {
+                $0.habitID == habit.id && $0.dayKey == key
+            }) {
+                modelContext.delete(skip)
+            }
+
             modelContext.insert(
                 HabitCheckIn(
                     habitID: habit.id,
@@ -160,6 +181,39 @@ struct TodayView: View {
                 )
             )
             UINotificationFeedbackGenerator().notificationOccurred(.success)
+        }
+
+        try? modelContext.save()
+        PhoneWatchSyncCoordinator.shared.dataDidChange()
+    }
+
+    private func toggleSkip(_ habit: Habit, on date: Date) {
+        let calendar = Calendar.autoupdatingCurrent
+        let key = HabitDayKey.make(for: date, calendar: calendar)
+
+        if let existingSkip = skips.first(where: {
+            $0.habitID == habit.id && $0.dayKey == key
+        }) {
+            modelContext.delete(existingSkip)
+        } else {
+            if let existingCheckIn = checkIns.first(where: {
+                $0.habitID == habit.id &&
+                HabitDayKey.matches(
+                    $0,
+                    on: date,
+                    calendar: calendar
+                )
+            }) {
+                modelContext.delete(existingCheckIn)
+            }
+
+            modelContext.insert(
+                HabitSkip(
+                    habitID: habit.id,
+                    day: date,
+                    calendar: calendar
+                )
+            )
         }
 
         try? modelContext.save()
@@ -228,8 +282,10 @@ private struct TodaySummary: View {
 private struct HabitRow: View {
     let habit: Habit
     let completed: Bool
+    let skipped: Bool
     let streak: Int
     let onToggle: () -> Void
+    let onSkip: () -> Void
 
     var body: some View {
         HStack(spacing: 12) {
@@ -250,7 +306,14 @@ private struct HabitRow: View {
                         Text(habit.name)
                             .font(.body.weight(.semibold))
                             .foregroundStyle(.primary)
-                        if streak > 0 {
+                        if skipped {
+                            Label(
+                                L10n.string("habit.skipped.today"),
+                                systemImage: "minus.circle.fill"
+                            )
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                        } else if streak > 0 {
                             Label(
                                 L10n.format("habit.streak.format", streak),
                                 systemImage: "flame.fill"
@@ -270,12 +333,18 @@ private struct HabitRow: View {
             Spacer(minLength: 4)
 
             Button(action: onToggle) {
-                Image(systemName: completed ? "checkmark.circle.fill" : "circle")
-                    .font(.system(size: 30, weight: .medium))
-                    .foregroundStyle(
-                        completed ? Color(hex: habit.colorHex) : .secondary
-                    )
-                    .frame(width: 44, height: 44)
+                Image(
+                    systemName: completed
+                        ? "checkmark.circle.fill"
+                        : (skipped ? "minus.circle.fill" : "circle")
+                )
+                .font(.system(size: 30, weight: .medium))
+                .foregroundStyle(
+                    completed
+                        ? Color(hex: habit.colorHex)
+                        : (skipped ? Color.arvectumOrange : .secondary)
+                )
+                .frame(width: 44, height: 44)
             }
             .buttonStyle(.plain)
             .accessibilityLabel(
@@ -286,5 +355,26 @@ private struct HabitRow: View {
         }
         .padding(14)
         .background(Color.habitsSurface, in: RoundedRectangle(cornerRadius: 18))
+        .contextMenu {
+            Button(action: onSkip) {
+                Label(
+                    skipped
+                        ? L10n.string("habit.skip.undo")
+                        : L10n.string("habit.skip.today"),
+                    systemImage: skipped
+                        ? "arrow.uturn.backward"
+                        : "forward.end"
+                )
+            }
+        }
+        .accessibilityAction(
+            named: Text(
+                skipped
+                    ? L10n.string("habit.skip.undo")
+                    : L10n.string("habit.skip.today")
+            )
+        ) {
+            onSkip()
+        }
     }
 }

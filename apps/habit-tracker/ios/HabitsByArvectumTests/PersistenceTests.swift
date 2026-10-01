@@ -15,10 +15,12 @@ final class PersistenceTests: XCTestCase {
         let storeURL = directory.appendingPathComponent("habits.store")
         let schema = Schema([
             Habit.self,
-            HabitCheckIn.self
+            HabitCheckIn.self,
+            HabitSkip.self
         ])
         let habitID = UUID()
         let checkInDate = Date(timeIntervalSince1970: 1_790_784_000)
+        let skipDate = checkInDate.addingTimeInterval(86_400)
         var checkInCalendar = Calendar(identifier: .gregorian)
         checkInCalendar.timeZone = TimeZone(secondsFromGMT: 0)!
         let expectedDayKey = HabitDayKey.make(
@@ -50,6 +52,13 @@ final class PersistenceTests: XCTestCase {
                     calendar: checkInCalendar
                 )
             )
+            context.insert(
+                HabitSkip(
+                    habitID: habitID,
+                    day: skipDate,
+                    calendar: checkInCalendar
+                )
+            )
             try context.save()
         }
 
@@ -61,6 +70,7 @@ final class PersistenceTests: XCTestCase {
             let context = ModelContext(container)
             let habits = try context.fetch(FetchDescriptor<Habit>())
             let checkIns = try context.fetch(FetchDescriptor<HabitCheckIn>())
+            let skips = try context.fetch(FetchDescriptor<HabitSkip>())
 
             XCTAssertEqual(habits.count, 1)
             XCTAssertEqual(habits.first?.id, habitID)
@@ -72,6 +82,15 @@ final class PersistenceTests: XCTestCase {
             XCTAssertEqual(checkIns.first?.habitID, habitID)
             XCTAssertEqual(checkIns.first?.day, checkInDate)
             XCTAssertEqual(checkIns.first?.dayKey, expectedDayKey)
+            XCTAssertEqual(skips.count, 1)
+            XCTAssertEqual(skips.first?.habitID, habitID)
+            XCTAssertEqual(
+                skips.first?.dayKey,
+                HabitDayKey.make(
+                    for: skipDate,
+                    calendar: checkInCalendar
+                )
+            )
         }
     }
 

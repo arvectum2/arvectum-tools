@@ -64,6 +64,11 @@ final class PhoneWatchSyncCoordinator: NSObject, WCSessionDelegate {
                 sortBy: [SortDescriptor(\.day)]
             )
         )) ?? []
+        let skips = (try? context.fetch(
+            FetchDescriptor<HabitSkip>(
+                sortBy: [SortDescriptor(\.day)]
+            )
+        )) ?? []
 
         let now = Date()
         let activeToday = habits.filter {
@@ -81,9 +86,15 @@ final class PhoneWatchSyncCoordinator: NSObject, WCSessionDelegate {
                     on: now,
                     checkIns: checkIns
                 ),
+                skipped: HabitMetrics.isSkipped(
+                    habitID: habit.id,
+                    on: now,
+                    skips: skips
+                ),
                 streak: HabitMetrics.currentStreak(
                     habit: habit,
-                    checkIns: checkIns
+                    checkIns: checkIns,
+                    skips: skips
                 )
             )
         }
@@ -92,6 +103,9 @@ final class PhoneWatchSyncCoordinator: NSObject, WCSessionDelegate {
             generatedAt: .now,
             dayKey: HabitDayKey.make(for: now),
             completedCount: syncHabits.filter(\.completed).count,
+            skippedCount: syncHabits.filter {
+                !$0.completed && $0.skipped
+            }.count,
             totalCount: syncHabits.count,
             habits: syncHabits,
             acknowledgedCommandIDs: recentCommandIDs
@@ -130,11 +144,21 @@ final class PhoneWatchSyncCoordinator: NSObject, WCSessionDelegate {
         let allCheckIns = (try? context.fetch(
             FetchDescriptor<HabitCheckIn>()
         )) ?? []
+        let allSkips = (try? context.fetch(
+            FetchDescriptor<HabitSkip>()
+        )) ?? []
 
         let matching = allCheckIns.filter {
             $0.habitID == command.habitID &&
             ($0.dayKey == command.dayKey ||
              ($0.dayKey == nil && dayKey(for: $0.day) == command.dayKey))
+        }
+
+        for skip in allSkips where
+            skip.habitID == command.habitID &&
+            skip.dayKey == command.dayKey
+        {
+            context.delete(skip)
         }
 
         if command.completed {

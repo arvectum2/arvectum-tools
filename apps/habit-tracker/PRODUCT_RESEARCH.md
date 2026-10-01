@@ -14,137 +14,166 @@ The default loop stays:
 4. See useful progress immediately.
 5. Let sync, widgets and Watch remove friction rather than add setup.
 
-## Broader competitor / user-review synthesis
+## Broader competitor / user review
 
 Products reviewed: HabitKit, Streaks, Habitify, Everyday, Way of Life,
-Loop Habit Tracker, Strides, Productive and Finch, plus current store reviews
-and habit-tracking community discussions.
+Productive, Finch and current habit-tracker user discussions.
 
-### Repeated praise signals
+### Repeated things users praise
 
-1. **A tracker that gets out of the way.**
-   Everyday, Way of Life and Streaks are repeatedly praised for simplicity,
-   fast check-off and clear visual state. Users explicitly complain when the
-   tracker becomes another system that needs daily maintenance.
+#### 1. A tracker that gets out of the way
 
-2. **Only show what matters today.**
-   Users ask for habits that are not due to disappear from the daily view.
-   Habits by Arvectum already follows this rule.
+Streaks and Way of Life are repeatedly praised for visual simplicity and low
+daily interaction cost. A recurring complaint about alternatives is that the
+tracker itself becomes another productivity system that needs maintenance.
 
-3. **Visual progress at a glance.**
-   Grids, chains, streaks, progress rings and very small charts are useful when
-   they answer "how am I doing?" without opening an analytics dashboard.
+**Take:** Habits by Arvectum keeps the default interaction surface deliberately
+small.
 
-4. **A neutral state for exceptional days.**
-   Everyday and Way of Life users specifically praise Skip because illness,
-   travel or planned recovery should not turn one exceptional day into a broken
-   streak. Habitify also supports done / skipped / missed.
+#### 2. Show only what is due now
 
-5. **Watch and widgets must remove steps.**
-   Streaks is praised for its Apple Watch experience. Habitify reviews value
-   completing habits from Watch but criticize flows that require drilling
-   through screens. The watch rule for Arvectum is therefore: today's habits
-   first, one-tap completion, overall progress visible immediately.
+Users explicitly ask for habits that are not due today to disappear rather than
+remain as disabled clutter.
 
-6. **Sync reliability is a product feature, not infrastructure detail.**
-   Cross-device sync attracts users to Habitify, while sync failures in Watch,
-   Health and widgets appear prominently in negative reviews. Live sync must be
-   optimistic, idempotent and resilient to temporary offline operation.
+**Take:** Today remains the primary screen and contains only due habits.
 
-7. **Flexible frequency matters, but should not contaminate the simple default.**
-   Streaks, Loop and Strides are valued for schedules such as N times per week
-   and for more flexible goal types. This belongs behind an optional advanced
-   frequency mode rather than the default create flow.
+#### 3. Progress should be readable at a glance
 
-8. **Small completion feedback is enough.**
-   Productive users praise the satisfying completion sound/feedback. Finch shows
-   that rewards can be motivating, but also shows how the game can overtake the
-   self-care tool. Arvectum keeps haptics/micro-animation and does not build an
-   XP economy.
+Users praise simple green/completed states, chains, grids, streak numbers and
+widgets because they answer "how am I doing?" without requiring analysis.
 
-9. **Long-term progress should survive one miss.**
-   Finch users praise cumulative progress that does not require an unbroken
-   streak. Loop's strength-style model points in the same direction. We keep
-   streaks, but also show completion/consistency so streak is not the only
-   definition of success.
+**Take:** keep a small visual history, current streak, best streak and completion
+rate. Avoid a statistics dashboard in the core loop.
 
-10. **Automation is useful only when it eliminates logging.**
-    Habitify and Streaks gain value from Apple Health and service integrations.
-    Automatic completion is a later enhancement, not a launch dependency.
+#### 4. A missed exceptional day should not erase motivation
 
-## Product decisions
+Way of Life users specifically value the three-state model: done / not done /
+skip. Finch users also praise a lower-guilt approach, while users criticize
+systems where a single miss invalidates months of accumulated progress.
+
+**Take:** add a neutral Skip state. Skip neither grows nor breaks the streak and
+is excluded from completion-rate denominator.
+
+#### 5. Apple Watch and widgets are high-value when they remove friction
+
+Streaks is repeatedly praised for Apple Watch integration and widgets. Habitify
+users describe Watch support and complications as a major selection criterion.
+
+**Take:** Watch is required before public release, not an optional later extra.
+The Watch UI is Today-first with one-tap completion and overall progress.
+
+#### 6. Sync quality is part of the product, not infrastructure detail
+
+Habitify reviews show users leaving otherwise attractive apps when Watch and
+iPhone states diverge or require relaunching to refresh.
+
+**Take:** synchronization must be live when devices are reachable, durable when
+offline, idempotent and self-reconciling after reconnection.
+
+#### 7. Flexible frequency matters, but not on day one
+
+Streaks/Strides-style goals such as N times per week are useful for exercise and
+other non-daily habits. However, exposing them in the default creation flow adds
+meaningful complexity.
+
+**Take:** support fixed weekdays now. Add N/week later behind progressive
+disclosure.
+
+#### 8. Small completion feedback is valuable
+
+Productive users praise satisfying check-off feedback; Streaks users like enough
+gamification to make chains motivating.
+
+**Take:** keep haptics and subtle completion animation. Do not build XP, coins,
+pets or a reward economy into Habits.
+
+#### 9. Undo must be obvious
+
+Widget users complain when accidental completion is hard to undo.
+
+**Take:** completion is a reversible desired state everywhere. Tapping again
+undoes it; widget/Watch controls must follow the same model.
+
+#### 10. Pause/resume is useful when life changes
+
+A user should not have to delete a habit and lose history because of travel,
+illness or a temporary change.
+
+**Take:** add pause/resume, but model the paused period explicitly so statistics
+do not treat paused days as failures.
+
+## What Habits by Arvectum takes
 
 ### Required before public release
 
-- local-first, no-account core;
-- one-tap completion / undo;
-- Today contains only due habits;
-- very short create/edit flow;
+- local-first storage;
+- instant one-tap check/uncheck;
+- Today shows only due habits;
+- short create flow;
 - visual history;
-- current streak + completion consistency;
-- best streak in details;
-- optional local reminder;
+- current streak + best streak + completion rate;
 - archive/restore;
-- **Skip day** as a neutral exceptional-day state;
-- system Light/Dark and accessibility-size layouts;
+- neutral Skip state;
+- pause/resume without deleting history;
+- optional reminders;
+- system Light/Dark;
 - RU + EN;
-- **Apple Watch companion app**;
-- **live iPhone ↔ Watch sync**;
-- **offline Watch check-offs that reconcile when connectivity returns**;
-- deterministic/idempotent sync protocol so repeated delivery is safe.
+- native Apple Watch companion app;
+- live iPhone ↔ Watch synchronization;
+- offline Watch queue + deterministic reconciliation;
+- multi-device sync architecture that does not require an Arvectum account.
 
-### High priority immediately after Watch/live sync
+### High-priority expansion
 
 - interactive Home Screen widget;
-- Lock Screen widgets / Watch complications;
-- flexible frequency: N times per week;
-- private iCloud sync across the user's Apple devices;
-- automatic sync with Apple Health for habits where Health has authoritative data.
+- Lock Screen widget / Watch complications;
+- overall Today progress outside the full app;
+- private CloudKit sync across the user's Apple devices;
+- flexible frequency such as N times/week.
 
 ### Validate before building
 
-- quantitative habits (pages, liters, repetitions);
+- quantitative habits (pages, liters, reps);
+- Apple Health auto-completion;
 - quit/break-a-habit mode;
-- export/import;
-- smart/adaptive reminder timing;
-- additional statistics beyond current/best streak and consistency.
+- export/import backup;
+- additional analytics.
 
-## Explicit do-not-build list
+## Explicit do-not-build list for the core product
 
-Do not add unless later user evidence overturns this decision:
+Do not add merely because competitors have them:
 
-- AI coach;
-- social feed / public leaderboard;
-- challenges as a core navigation area;
-- XP, levels, pets or reward economy;
-- notes/journaling on every habit day;
-- categories/tags before habit counts make them necessary;
+- categories and filters in the default UI;
+- notes/journaling per day;
+- social feed or leaderboards;
+- achievements / XP / coins;
+- virtual pets;
+- share cards;
 - multiple dashboard display modes;
-- custom themes beyond system Light/Dark;
-- multiple reminders per habit in the default UI;
-- account creation as a prerequisite for tracking;
-- complex goal configuration in the first-run path.
+- multiple reminders per habit;
+- custom theme marketplace;
+- AI coaching;
+- mandatory account system;
+- a complicated goals/project-management hierarchy.
 
-## Design principles extracted from reviews
+## Decision rule
 
-- Every new feature must either remove an action, improve recovery after a miss,
-  or make progress easier to understand.
-- A widget is bad if it forces the user to open the app to understand state.
-- A Watch app is bad if completion takes more than one obvious tap.
-- Sync is considered broken if two devices can visibly disagree for long.
-- Skipping is not failure; planned or exceptional days should be representable.
-- Streak is motivational context, not the user's score or moral judgment.
-- Advanced flexibility belongs behind progressive disclosure.
+A feature is accepted when it does at least one of these without materially
+increasing daily interaction cost:
+
+1. removes taps;
+2. prevents lost data or inconsistent state;
+3. preserves motivation without manipulating the user;
+4. makes progress understandable faster;
+5. lets the user act without opening the iPhone app.
 
 ## Sources reviewed
 
-- HabitKit current App Store / product feature set.
-- Streaks App Store listing and user reviews.
-- Habitify App Store listing, version history and user reviews.
-- Everyday App Store reviews.
-- Way of Life App Store reviews.
-- Loop Habit Tracker Google Play reviews.
-- Strides App Store reviews.
-- Productive App Store reviews.
-- Finch App Store reviews.
-- Current habit-tracking community discussions.
+- Apple App Store ratings/reviews for Streaks.
+- Apple App Store ratings/reviews for Habitify.
+- Apple App Store ratings/reviews for Everyday.
+- Apple App Store ratings/reviews for Way of Life.
+- Apple App Store ratings/reviews for Productive.
+- Apple App Store ratings/reviews for Finch.
+- HabitKit official product/help materials and App Store listing.
+- Current habit-tracker/productivity user discussions.
