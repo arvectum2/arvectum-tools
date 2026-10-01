@@ -19,7 +19,8 @@ Working formula: **«всё удобное — без лишнего»**.
 - [x] Set bundle identifier to `ru.arvectum.tools.habits`.
 - [x] Use iOS 17+ / SwiftUI / SwiftData.
 - [x] Add dedicated unit-test target.
-- [x] Add CI release-hygiene check for privacy manifests, entitlements, RU/EN localization parity and Watch/widget project integration.
+- [x] Add CI release-hygiene check for privacy manifests, entitlements, RU/EN localization parity, shared target versions and Watch/widget project integration.
+- [x] Add unsigned Release archive smoke check that validates embedded iPhone/Watch/widgets, privacy manifests and matching bundle/build versions.
 - [x] Add path-scoped GitHub Actions CI.
 - [x] Final app icon and production asset catalogs for iPhone and Apple Watch; verified at SpringBoard size and with warning-free watchOS asset compilation.
 
