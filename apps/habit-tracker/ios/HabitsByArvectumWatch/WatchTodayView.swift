@@ -113,6 +113,7 @@ struct WatchTodayView: View {
                         : (habit.skipped ? "minus.circle.fill" : "circle")
                 )
                 .font(.title3)
+                .symbolEffect(.bounce, value: habit.completed)
                 .foregroundStyle(
                     habit.completed
                         ? Color(hex: habit.colorHex)

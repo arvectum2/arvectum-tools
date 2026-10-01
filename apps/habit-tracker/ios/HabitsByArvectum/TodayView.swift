@@ -303,7 +303,7 @@ private struct HabitRow: View {
                             .foregroundStyle(.secondary)
                         } else if streak > 0 {
                             Label(
-                                L10n.format("habit.streak.format", streak),
+                                L10n.streak(streak),
                                 systemImage: "flame.fill"
                             )
                             .font(.caption)
@@ -333,6 +333,7 @@ private struct HabitRow: View {
                         : (skipped ? Color.arvectumOrange : .secondary)
                 )
                 .frame(width: 44, height: 44)
+                .symbolEffect(.bounce, value: completed)
             }
             .buttonStyle(.plain)
             .accessibilityLabel(

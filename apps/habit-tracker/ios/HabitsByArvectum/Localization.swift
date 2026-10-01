@@ -12,4 +12,11 @@ enum L10n {
             arguments: arguments
         )
     }
+
+    static func streak(_ count: Int) -> String {
+        if count == 1 {
+            return string("habit.streak.one")
+        }
+        return format("habit.streak.format", count)
+    }
 }

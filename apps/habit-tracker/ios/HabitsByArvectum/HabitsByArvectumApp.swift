@@ -226,7 +226,7 @@ struct HabitsByArvectumApp: App {
 
         context.insert(
             Habit(
-                name: "Вода",
+                name: L10n.string("quick.water"),
                 symbolName: "drop.fill",
                 colorHex: "43E5C5",
                 sortOrder: 1
@@ -234,7 +234,7 @@ struct HabitsByArvectumApp: App {
         )
         context.insert(
             Habit(
-                name: "Чтение",
+                name: L10n.string("quick.reading"),
                 symbolName: "book.fill",
                 colorHex: "8B5CF6",
                 sortOrder: 0

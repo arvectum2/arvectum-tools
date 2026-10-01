@@ -98,6 +98,7 @@ Working formula: **«всё удобное — без лишнего»**.
 - [x] Add a largest-Dynamic-Type XCUITest for the core create flow; verify it compiles via `build-for-testing` on Xcode 27.
 - [ ] Physical accessibility audit: Dynamic Type, VoiceOver navigation and contrast.
 - [ ] Final Arvectum visual polish.
+- [x] Subtle completion feedback: haptic + lightweight symbol bounce on iPhone and Watch; no XP/reward economy.
 - [x] Light/Dark empty-state smoke test on iOS 27 simulator.
 - [x] RU + EN localization.
 - [x] Localization completeness test for both bundled languages.
@@ -134,7 +135,7 @@ Working formula: **«всё удобное — без лишнего»**.
 - [x] RU + EN localization.
 - [x] Base Dynamic Type / VoiceOver semantics on Watch.
 - [x] Pair iPhone + Apple Watch simulators and test both apps together.
-- [x] Visual/runtime smoke test on 42 mm and 46 mm Apple Watch simulators; empty snapshot no longer renders a misleading full progress bar.
+- [x] Visual/runtime smoke test on 42 mm and 46 mm Apple Watch simulators with a populated Today snapshot; retry confirmed the earlier 46 mm watch-face capture was a simulator foreground artifact.
 - [x] Integration test: Watch check-off appears on iPhone.
 - [x] Integration test: iPhone check-off appears on Watch.
 - [x] Integration test: offline Watch check-off converges after reconnect.
