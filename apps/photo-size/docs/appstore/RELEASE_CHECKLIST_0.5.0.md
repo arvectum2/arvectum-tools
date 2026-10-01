@@ -21,8 +21,8 @@
 - [x] Before/After result preview.
 - [x] Result-only Yandex adaptive banner; native disabled for 0.5.0 after physical QA showed an oversized creative that could not be viewed comfortably in one result viewport.
 - [x] XCTest: 15/15 passing on simulator after latest changes and simplicity refactor.
-- [ ] Physical iPhone QA of the 0.5.0 build. Release build reinstalled and launched successfully on iPhone Nikita on 2026-09-30; home-screen render captured at 1170×2532. Interactive flow checks still pending.
-- [ ] Verify the compact production banner on physical iPhone after the native-to-banner simplicity fix.
+- [ ] Physical iPhone QA of the 0.5.0 build. Release build reinstalled and launched successfully on iPhone Nikita; file-size processing, EXIF/GPS stripping and production banner layout are verified. Remaining interactive checks: save/share, Files import, exact resize and print sheet.
+- [x] Compact production banner verified on physical iPhone after the native-to-banner simplicity fix; full creative is visible on the result screen after the final spacing adjustment.
 - [ ] Verify save/share, Files import, exact resize, metadata toggle and print sheet on physical iPhone.
 
 ## App Store Connect
