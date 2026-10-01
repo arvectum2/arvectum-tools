@@ -181,7 +181,7 @@ final class PhoneWatchSyncCoordinator: NSObject, WCSessionDelegate {
     }
 
     @MainActor
-    private func apply(
+    func apply(
         command: HabitCompletionCommand
     ) -> HabitSyncSnapshot? {
         guard let modelContainer else { return nil }
@@ -189,11 +189,11 @@ final class PhoneWatchSyncCoordinator: NSObject, WCSessionDelegate {
         if recentCommandIDs.contains(command.id) {
             return makeCurrentSnapshot()
         }
-        recordAcknowledgement(command.id)
 
         let context = ModelContext(modelContainer)
         let habits = (try? context.fetch(FetchDescriptor<Habit>())) ?? []
         guard habits.contains(where: { $0.id == command.habitID }) else {
+            recordAcknowledgement(command.id)
             return makeCurrentSnapshot()
         }
 
@@ -206,7 +206,19 @@ final class PhoneWatchSyncCoordinator: NSObject, WCSessionDelegate {
             mutationID: command.id
         )
 
-        try? context.save()
+        do {
+            try context.save()
+        } catch {
+#if DEBUG
+            HabitDebugLog.emit(
+                "HABITS_WATCH_SAVE_FAILED " +
+                error.localizedDescription
+            )
+#endif
+            return makeCurrentSnapshot()
+        }
+
+        recordAcknowledgement(command.id)
         HabitReminderCoordinator.shared.dataDidChange()
         HabitWidgetCoordinator.shared.dataDidChange()
         return makeCurrentSnapshot()

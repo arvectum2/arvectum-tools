@@ -9,12 +9,17 @@ final class HabitWidgetCoordinator {
 
     private init() {}
 
-    func configure(modelContainer: ModelContainer) {
+    func configure(
+        modelContainer: ModelContainer,
+        refreshImmediately: Bool = true
+    ) {
         self.modelContainer = modelContainer
         HabitWidgetIntentRuntime.processor = { [weak self] in
             await self?.processQueuedWidgetIntent()
         }
-        refresh()
+        if refreshImmediately {
+            refresh()
+        }
     }
 
     func dataDidChange() {
@@ -34,7 +39,7 @@ final class HabitWidgetCoordinator {
     }
 
     @MainActor
-    private func processPendingCommands() {
+    func processPendingCommands() {
         guard let modelContainer else { return }
 
         let commands = HabitWidgetBridge.loadCommands()
@@ -66,7 +71,18 @@ final class HabitWidgetCoordinator {
         }
 
         if !processed.isEmpty {
-            try? context.save()
+            do {
+                try context.save()
+            } catch {
+#if DEBUG
+                HabitDebugLog.emit(
+                    "HABITS_WIDGET_SAVE_FAILED " +
+                    error.localizedDescription
+                )
+#endif
+                return
+            }
+
             HabitWidgetBridge.removeCommands(ids: processed)
             PhoneWatchSyncCoordinator.shared.dataDidChange()
             HabitReminderCoordinator.shared.dataDidChange()

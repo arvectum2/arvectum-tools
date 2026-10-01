@@ -163,6 +163,7 @@ Working formula: **«всё удобное — без лишнего»**.
 - [x] Conflict-safe last-write-wins day mutation ledger for iPhone / Watch / widget commands, with deterministic mutation-ID tie-breaks.
 - [x] Runtime stress test: a newer Skip rejects an older delayed Watch completion; paired simulator converges after durable delivery.
 - [x] Reconnect hardening: a newer authoritative snapshot can semantically acknowledge an already-satisfied pending Watch command even if WatchConnectivity redelivers older durable packets; verified offline action → reconnect ends with `pending=0`.
+- [x] Durable-save invariant: Watch acknowledgements are recorded only after SwiftData save succeeds; failed saves keep the command retryable and return authoritative persisted state.
 - [x] Test simultaneous edits and duplicate delivery before enabling cloud sync in production.
 
 ## M4 — high-value expansion from competitor/user research
@@ -220,6 +221,6 @@ Core habit tracking stays free. Advertising is the planned monetization model, b
 
 ## Current checkpoint
 
-M1/M2 are implemented end-to-end, and the required M3 Watch/live-sync path is operational: local storage → minimal create/edit → reminders with Complete/Skip quick actions → Today → history/skip/pause/archive → widgets → Watch. iPhone↔Watch live round-trip and offline durable convergence are verified on a paired iOS 27/watchOS 27 simulator. The control suite currently has 91 passing unit tests plus 9 passing XCUITests on iOS 26.5, covering timezone/DST, mutation conflicts, flexible weekly goals, notification actions, widgets, localization, persistence and explicit schema versioning. Current UI has also been smoke-tested on iPhone 17e / 18 Pro Max and 42 mm / 46 mm Watch simulators.
+M1/M2 are implemented end-to-end, and the required M3 Watch/live-sync path is operational: local storage → minimal create/edit → reminders with Complete/Skip quick actions → Today → history/skip/pause/archive → widgets → Watch. iPhone↔Watch live round-trip and offline durable convergence are verified on a paired iOS 27/watchOS 27 simulator. The control suite currently has 92 passing unit tests plus 9 passing XCUITests on iOS 26.5, covering timezone/DST, mutation conflicts, flexible weekly goals, notification actions, widgets, localization, persistence and explicit schema versioning. Current UI has also been smoke-tested on iPhone 17e / 18 Pro Max and 42 mm / 46 mm Watch simulators.
 
 **Next implementation step:** keep simulator-first reliability/UX hardening with `scripts/simulator_regression.sh` as the mandatory local checkpoint. Signed App Group/private-CloudKit convergence, rolling-reminder delivery on physical iPhone, physical accessibility and the physical Watch smoke test remain the release gates that require Apple provisioning/hardware access.
