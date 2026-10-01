@@ -76,6 +76,7 @@
 "detail.delete" = "Delete habit";
 "detail.delete.title" = "Delete habit?";
 "detail.delete.message" = "This habit's completion history will also be deleted.";
+"detail.more.accessibility" = "More habit actions";
 
 "archive.title" = "Archived";
 "archive.accessibility" = "Archived habits";

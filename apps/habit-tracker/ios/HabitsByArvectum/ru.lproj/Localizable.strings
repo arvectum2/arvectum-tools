@@ -76,6 +76,7 @@
 "detail.delete" = "Удалить привычку";
 "detail.delete.title" = "Удалить привычку?";
 "detail.delete.message" = "История выполнения этой привычки тоже будет удалена.";
+"detail.more.accessibility" = "Другие действия с привычкой";
 
 "archive.title" = "Архив";
 "archive.accessibility" = "Архив привычек";

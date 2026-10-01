@@ -44,9 +44,9 @@ struct HabitDetailView: View {
                 if canSkipToday {
                     skipTodayButton
                 }
-                pauseButton
-                archiveButton
-                deleteButton
+                if !habit.isArchived {
+                    pauseButton
+                }
             }
             .padding(16)
         }
@@ -54,10 +54,37 @@ struct HabitDetailView: View {
         .navigationTitle(habit.name)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
-                Button(L10n.string("habit.edit.action")) {
-                    showingEditHabit = true
+            ToolbarItemGroup(placement: .topBarTrailing) {
+                if !habit.isArchived {
+                    Button(L10n.string("habit.edit.action")) {
+                        showingEditHabit = true
+                    }
                 }
+
+                Menu {
+                    Button(action: toggleArchive) {
+                        Label(
+                            habit.isArchived
+                                ? L10n.string("detail.restore")
+                                : L10n.string("detail.archive"),
+                            systemImage: habit.isArchived
+                                ? "tray.and.arrow.up"
+                                : "archivebox"
+                        )
+                    }
+
+                    Button(role: .destructive) {
+                        showingDeleteConfirmation = true
+                    } label: {
+                        Label(
+                            L10n.string("detail.delete"),
+                            systemImage: "trash"
+                        )
+                    }
+                } label: {
+                    Image(systemName: "ellipsis.circle")
+                }
+                .accessibilityLabel(L10n.string("detail.more.accessibility"))
             }
         }
         .sheet(isPresented: $showingEditHabit) {
@@ -269,43 +296,20 @@ struct HabitDetailView: View {
         .disabled(habit.isArchived)
     }
 
-    private var archiveButton: some View {
-        Button {
-            let restoring = habit.isArchived
-            habit.isArchived.toggle()
-            if restoring && !habit.isArchived {
-                habit.sortOrder = HabitOrdering.nextOrder(
-                    in: habits.filter { $0.id != habit.id }
-                )
-            }
-            try? modelContext.save()
-            HabitDataChangeNotifier.notify()
-            Task {
-                _ = await HabitReminderScheduler.sync(habit: habit)
-            }
-            if habit.isArchived { dismiss() }
-        } label: {
-            Label(
-                habit.isArchived
-                    ? L10n.string("detail.restore")
-                    : L10n.string("detail.archive"),
-                systemImage: habit.isArchived ? "tray.and.arrow.up" : "archivebox"
+    private func toggleArchive() {
+        let restoring = habit.isArchived
+        habit.isArchived.toggle()
+        if restoring && !habit.isArchived {
+            habit.sortOrder = HabitOrdering.nextOrder(
+                in: habits.filter { $0.id != habit.id }
             )
-            .frame(maxWidth: .infinity)
-            .frame(height: 46)
         }
-        .buttonStyle(.bordered)
-    }
-
-    private var deleteButton: some View {
-        Button(role: .destructive) {
-            showingDeleteConfirmation = true
-        } label: {
-            Label(L10n.string("detail.delete"), systemImage: "trash")
-                .frame(maxWidth: .infinity)
-                .frame(height: 46)
+        try? modelContext.save()
+        HabitDataChangeNotifier.notify()
+        Task {
+            _ = await HabitReminderScheduler.sync(habit: habit)
         }
-        .buttonStyle(.bordered)
+        if habit.isArchived { dismiss() }
     }
 
     private func stat(

@@ -100,6 +100,7 @@ Working formula: **«всё удобное — без лишнего»**.
 - [x] Add a largest-Dynamic-Type XCUITest for the core create flow; verify it compiles via `build-for-testing` on Xcode 27.
 - [ ] Physical accessibility audit: Dynamic Type, VoiceOver navigation and contrast.
 - [ ] Final Arvectum visual polish.
+- [x] Move rare Archive/Delete maintenance actions out of the detail body into an overflow menu.
 - [x] Subtle completion feedback: haptic + lightweight symbol bounce on iPhone and Watch; no XP/reward economy.
 - [x] Light/Dark empty-state smoke test on iOS 27 simulator.
 - [x] RU + EN localization.

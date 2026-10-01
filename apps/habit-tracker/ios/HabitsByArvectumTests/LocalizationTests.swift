@@ -59,6 +59,7 @@ final class LocalizationTests: XCTestCase {
         "detail.delete",
         "detail.delete.title",
         "detail.delete.message",
+        "detail.more.accessibility",
         "stats.streak",
         "stats.completion",
         "stats.checkins",
