@@ -1,7 +1,7 @@
 "watch.today" = "Today";
 "watch.progress.format" = "%d of %d";
 "watch.empty" = "Nothing due today";
-"watch.streak.format" = "%d day streak";
+"watch.streak.format" = "%d-day streak";
 "watch.weekly.format" = "%d of %d this week";
 "watch.completed" = "Completed";
 "watch.notCompleted" = "Not completed";

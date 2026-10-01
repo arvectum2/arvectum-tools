@@ -9,6 +9,7 @@
 "habit.create" = "Создать привычку";
 "habit.section" = "Привычка";
 "habit.name.placeholder" = "Например, читать 20 минут";
+"habit.streak.one" = "1 день подряд";
 "habit.streak.format" = "%d дн. подряд";
 "habit.streak.start" = "Начните серию сегодня";
 "habit.complete" = "Отметить выполненной";

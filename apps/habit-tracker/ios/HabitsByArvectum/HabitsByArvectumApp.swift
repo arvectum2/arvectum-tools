@@ -7,13 +7,7 @@ struct HabitsByArvectumApp: App {
     private let modelContainer: ModelContainer
 
     init() {
-        let schema = Schema([
-            Habit.self,
-            HabitCheckIn.self,
-            HabitSkip.self,
-            HabitPausePeriod.self,
-            HabitDayMutation.self
-        ])
+        let schema = HabitsSchema.current
         let arguments = ProcessInfo.processInfo.arguments
         let isUITesting = arguments.contains("--ui-testing")
         let cloudSyncDisabled = isUITesting || arguments.contains(
@@ -69,6 +63,7 @@ struct HabitsByArvectumApp: App {
         do {
             return try ModelContainer(
                 for: schema,
+                migrationPlan: HabitsMigrationPlan.self,
                 configurations: [preferred]
             )
         } catch where cloudSyncEnabled {
@@ -87,6 +82,7 @@ struct HabitsByArvectumApp: App {
             )
             return try ModelContainer(
                 for: schema,
+                migrationPlan: HabitsMigrationPlan.self,
                 configurations: [localOnly]
             )
         }

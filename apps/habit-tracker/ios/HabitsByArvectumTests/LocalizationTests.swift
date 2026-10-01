@@ -13,6 +13,7 @@ final class LocalizationTests: XCTestCase {
         "habit.create",
         "habit.section",
         "habit.name.placeholder",
+        "habit.streak.one",
         "habit.streak.format",
         "habit.streak.start",
         "habit.complete",

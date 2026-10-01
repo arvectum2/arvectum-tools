@@ -13,13 +13,7 @@ final class PersistenceTests: XCTestCase {
         defer { try? FileManager.default.removeItem(at: directory) }
 
         let storeURL = directory.appendingPathComponent("habits.store")
-        let schema = Schema([
-            Habit.self,
-            HabitCheckIn.self,
-            HabitSkip.self,
-            HabitPausePeriod.self,
-            HabitDayMutation.self
-        ])
+        let schema = HabitsSchema.current
         let habitID = UUID()
         let checkInDate = Date(timeIntervalSince1970: 1_790_784_000)
         let skipDate = checkInDate.addingTimeInterval(86_400)
@@ -134,6 +128,7 @@ final class PersistenceTests: XCTestCase {
         )
         return try ModelContainer(
             for: schema,
+            migrationPlan: HabitsMigrationPlan.self,
             configurations: [configuration]
         )
     }

@@ -32,7 +32,9 @@ Working formula: **«всё удобное — без лишнего»**.
 - [x] Separate per-day completion records.
 - [x] Persist data without registration or server.
 - [x] Regression test: habit and check-in survive persistent-store recreation.
-- [ ] Define explicit migration fixtures before the first public post-beta schema change.
+- [x] Freeze the current model as `HabitsSchemaV1` and wire an explicit `HabitsMigrationPlan` into production and persistence tests.
+- [x] Simulator upgrade smoke test: data created by pre-versioning commit `e67bc45` survives an in-place update to the V1 migration-plan build.
+- [ ] Add V1→V2 migration fixtures together with the first post-V1 schema change.
 - [x] Smoke-test additive SwiftData schema migrations on a physical device (reminders and timezone-stable day keys).
 - [ ] Add export/import only after MVP validation.
 
@@ -205,6 +207,6 @@ Core habit tracking stays free. Advertising is the planned monetization model, b
 
 ## Current checkpoint
 
-The M1 vertical slice is implemented and M2 reminders/localization are wired end-to-end: local storage → minimal create/edit flow → optional local reminder → Today → mark/unmark → details/history → archive/delete. Optional creation settings now use progressive disclosure so the default path stays focused on name + schedule. Historical check-ins now use a stable local-day key, while current schedules/reminders follow the device timezone. RU and EN are bundled and visually smoke-tested. The suite currently has 13 passing tests, including timezone/DST regressions, localization completeness and an XCUITest covering create → check → detail → history. Clean install and additive-schema upgrades have been smoke-tested, including signed install/launch on the physical iPhone 13 with Xcode 27.0.
+M1/M2 are implemented end-to-end, and the required M3 Watch/live-sync path is operational: local storage → minimal create/edit → reminders with Complete/Skip quick actions → Today → history/skip/pause/archive → widgets → Watch. iPhone↔Watch live round-trip and offline durable convergence are verified on a paired iOS 27/watchOS 27 simulator. The control unit suite currently has 53 passing tests on iOS 26.5, covering timezone/DST, mutation conflicts, flexible weekly goals, notification actions, widgets, localization, persistence and explicit schema versioning. Current UI has also been smoke-tested on iPhone 17e / 18 Pro Max and 42 mm / 46 mm Watch simulators.
 
-**Next implementation step:** the iPhone/Watch round-trip and offline durable convergence are verified on a paired iOS 27/watchOS 27 simulator, including conflict-safe stale-command rejection. Manual ordering and missed-day semantics are now wired across the shared model. Continue simulator UI/device-size polish, notification-action ergonomics and signed App Group/CloudKit provisioning when Apple signing is available. Real private-CloudKit convergence still requires signed Apple identities before release.
+**Next implementation step:** continue simulator-first UI/UX polish across Manage, habit detail, flexible weekly goals, widgets and complications; keep unit regression on iOS 26.5 because Xcode 27 has a SwiftData/XCTest host instability. Signed App Group/private-CloudKit convergence and the physical Watch smoke test remain release gates once Apple signing/account access is available.
