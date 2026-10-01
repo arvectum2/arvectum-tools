@@ -35,12 +35,19 @@ final class HabitAdEligibilityStore {
     }
 
     private let defaults: UserDefaults
+    private var registeredForegroundLaunchThisProcess = false
 
     init(defaults: UserDefaults = .standard) {
         self.defaults = defaults
     }
 
-    func registerColdLaunch(now: Date = .now) {
+    func registerForegroundLaunchOnce(now: Date = .now) {
+        guard !registeredForegroundLaunchThisProcess else { return }
+        registeredForegroundLaunchThisProcess = true
+        registerColdLaunch(now: now)
+    }
+
+    private func registerColdLaunch(now: Date = .now) {
         if defaults.object(forKey: Key.firstLaunchAt) == nil {
             defaults.set(now, forKey: Key.firstLaunchAt)
         }

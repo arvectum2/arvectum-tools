@@ -80,6 +80,7 @@ struct TodayView: View {
                 }
             }
             .task {
+                registerForegroundLaunchIfNeeded()
                 backfillLegacyDayKeys()
                 await HabitReminderScheduler.syncAll(habits: habits)
                 HabitWidgetCoordinator.shared.refresh()
@@ -89,6 +90,7 @@ struct TodayView: View {
             }
             .onChange(of: scenePhase) { _, phase in
                 if phase == .active {
+                    registerForegroundLaunchIfNeeded()
                     HabitWidgetCoordinator.shared.refresh()
                 }
             }
@@ -170,6 +172,13 @@ struct TodayView: View {
         .frame(maxWidth: .infinity)
         .padding(24)
         .background(Color.habitsSurface, in: RoundedRectangle(cornerRadius: 20))
+    }
+
+    private func registerForegroundLaunchIfNeeded() {
+        guard !ProcessInfo.processInfo.arguments.contains("--ui-testing") else {
+            return
+        }
+        HabitAdEligibilityStore.shared.registerForegroundLaunchOnce()
     }
 
     private func isCompleted(_ habit: Habit, on date: Date) -> Bool {

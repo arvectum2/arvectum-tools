@@ -59,16 +59,24 @@ final class HabitAdEligibilityTests: XCTestCase {
         let store = HabitAdEligibilityStore(defaults: defaults)
         let firstLaunch = Date(timeIntervalSince1970: 2_000_000)
 
-        store.registerColdLaunch(now: firstLaunch)
-        store.registerColdLaunch(
+        store.registerForegroundLaunchOnce(now: firstLaunch)
+        store.registerForegroundLaunchOnce(
             now: firstLaunch.addingTimeInterval(60)
         )
         store.registerSuccessfulCheckOff()
         store.registerSuccessfulCheckOff()
 
-        let snapshot = store.snapshot()
+        var snapshot = store.snapshot()
+        XCTAssertEqual(snapshot.firstLaunchAt, firstLaunch)
+        XCTAssertEqual(snapshot.coldLaunchCount, 1)
+        XCTAssertEqual(snapshot.successfulCheckOffCount, 2)
+
+        let nextProcess = HabitAdEligibilityStore(defaults: defaults)
+        nextProcess.registerForegroundLaunchOnce(
+            now: firstLaunch.addingTimeInterval(120)
+        )
+        snapshot = nextProcess.snapshot()
         XCTAssertEqual(snapshot.firstLaunchAt, firstLaunch)
         XCTAssertEqual(snapshot.coldLaunchCount, 2)
-        XCTAssertEqual(snapshot.successfulCheckOffCount, 2)
     }
 }
