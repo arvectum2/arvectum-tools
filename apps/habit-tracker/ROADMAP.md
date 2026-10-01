@@ -190,13 +190,13 @@ Working formula: **«всё удобное — без лишнего»**.
 
 Core habit tracking stays free. Advertising is the planned monetization model, but it must not interfere with the habit loop.
 
-- [ ] No App Open Ads.
-- [ ] No interstitials in onboarding, create/edit, check-off or settings.
+- [x] Product rule: no App Open Ads.
+- [x] Product rule: no interstitials in onboarding, create/edit, check-off or settings.
 - [ ] Today: at most one small adaptive banner in a dedicated bottom area.
 - [ ] Progress / Statistics: at most one native ad after useful content.
-- [ ] Do not show ads immediately after install.
-- [ ] Store first-launch date, cold-launch count and successful check-off count locally.
-- [ ] Initial eligibility hypothesis: 3 full days + 5 cold launches + 3 check-offs.
+- [x] Eligibility guard prevents ads immediately after install.
+- [x] Store first-launch date, cold-launch count and successful check-off count locally.
+- [x] Initial eligibility gate implemented: 3 full days + 5 cold launches + 3 successful check-offs.
 - [ ] Validate thresholds only after the core loop is stable.
 - [ ] Test retention impact before increasing ad exposure.
 
@@ -211,6 +211,6 @@ Core habit tracking stays free. Advertising is the planned monetization model, b
 
 ## Current checkpoint
 
-M1/M2 are implemented end-to-end, and the required M3 Watch/live-sync path is operational: local storage → minimal create/edit → reminders with Complete/Skip quick actions → Today → history/skip/pause/archive → widgets → Watch. iPhone↔Watch live round-trip and offline durable convergence are verified on a paired iOS 27/watchOS 27 simulator. The control unit suite currently has 69 passing tests on iOS 26.5, covering timezone/DST, mutation conflicts, flexible weekly goals, notification actions, widgets, localization, persistence and explicit schema versioning. Current UI has also been smoke-tested on iPhone 17e / 18 Pro Max and 42 mm / 46 mm Watch simulators.
+M1/M2 are implemented end-to-end, and the required M3 Watch/live-sync path is operational: local storage → minimal create/edit → reminders with Complete/Skip quick actions → Today → history/skip/pause/archive → widgets → Watch. iPhone↔Watch live round-trip and offline durable convergence are verified on a paired iOS 27/watchOS 27 simulator. The control unit suite currently has 71 passing tests on iOS 26.5, covering timezone/DST, mutation conflicts, flexible weekly goals, notification actions, widgets, localization, persistence and explicit schema versioning. Current UI has also been smoke-tested on iPhone 17e / 18 Pro Max and 42 mm / 46 mm Watch simulators.
 
 **Next implementation step:** continue simulator-first UI/UX polish across Manage, habit detail, flexible weekly goals, widgets and complications; keep unit regression on iOS 26.5 because Xcode 27 has a SwiftData/XCTest host instability. Signed App Group/private-CloudKit convergence and the physical Watch smoke test remain release gates once Apple signing/account access is available.

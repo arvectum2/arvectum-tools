@@ -193,7 +193,7 @@ struct TodayView: View {
         let key = HabitDayKey.make(for: date, calendar: calendar)
         let desiredState = !isCompleted(habit, on: date)
 
-        _ = HabitCompletionMutation.setCompletion(
+        let changed = HabitCompletionMutation.setCompletion(
             habitID: habit.id,
             dayKey: key,
             completed: desiredState,
@@ -203,7 +203,8 @@ struct TodayView: View {
             calendar: calendar
         )
 
-        if desiredState {
+        if desiredState && changed {
+            HabitAdEligibilityStore.shared.registerSuccessfulCheckOff()
             UINotificationFeedbackGenerator().notificationOccurred(.success)
             showUndo(for: habit.id, dayKey: key)
         } else if undoOffer?.habitID == habit.id {

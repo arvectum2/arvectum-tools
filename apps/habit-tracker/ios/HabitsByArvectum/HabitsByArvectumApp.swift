@@ -41,6 +41,9 @@ struct HabitsByArvectumApp: App {
             HabitWidgetCoordinator.shared.configure(
                 modelContainer: container
             )
+            if !isUITesting {
+                HabitAdEligibilityStore.shared.registerColdLaunch()
+            }
         } catch {
             fatalError("Could not create SwiftData container: \(error)")
         }
