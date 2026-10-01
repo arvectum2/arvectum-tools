@@ -131,6 +131,20 @@ struct TodayView: View {
                     HabitWidgetCoordinator.shared.refresh()
                 }
             }
+            .onReceive(
+                NotificationCenter.default.publisher(
+                    for: UIApplication.significantTimeChangeNotification
+                )
+            ) { _ in
+                handleClockEnvironmentChange()
+            }
+            .onReceive(
+                NotificationCenter.default.publisher(
+                    for: NSNotification.Name.NSSystemTimeZoneDidChange
+                )
+            ) { _ in
+                handleClockEnvironmentChange()
+            }
         }
     }
 
@@ -274,6 +288,12 @@ struct TodayView: View {
         handleDeepLink(HabitDeepLink.habitURL(id))
     }
 #endif
+
+    private func handleClockEnvironmentChange() {
+        refreshReferenceDate(forceRevision: true)
+        HabitReminderCoordinator.shared.refresh()
+        HabitWidgetCoordinator.shared.refresh()
+    }
 
     private func refreshReferenceDate(
         forceRevision: Bool = false
