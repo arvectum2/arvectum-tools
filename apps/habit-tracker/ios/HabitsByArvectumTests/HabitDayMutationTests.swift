@@ -159,6 +159,43 @@ final class HabitDayMutationTests: XCTestCase {
         XCTAssertEqual(stamps.first?.mutationID, highID)
     }
 
+    func testNewerCompletionClearsExistingSkip() throws {
+        let container = try makeContainer()
+        let context = ModelContext(container)
+        let habitID = UUID()
+        let dayKey = "2026-10-01"
+
+        XCTAssertTrue(
+            HabitSkipMutation.setSkipped(
+                habitID: habitID,
+                dayKey: dayKey,
+                skipped: true,
+                context: context,
+                mutationAt: Date(timeIntervalSince1970: 500),
+                calendar: calendar
+            )
+        )
+
+        XCTAssertTrue(
+            HabitCompletionMutation.setCompletion(
+                habitID: habitID,
+                dayKey: dayKey,
+                completed: true,
+                context: context,
+                mutationAt: Date(timeIntervalSince1970: 600),
+                calendar: calendar
+            )
+        )
+
+        XCTAssertTrue(
+            try context.fetch(FetchDescriptor<HabitSkip>()).isEmpty
+        )
+        XCTAssertEqual(
+            try context.fetch(FetchDescriptor<HabitCheckIn>()).count,
+            1
+        )
+    }
+
     func testCompletionAndSkipRemainMutuallyExclusive() throws {
         let container = try makeContainer()
         let context = ModelContext(container)

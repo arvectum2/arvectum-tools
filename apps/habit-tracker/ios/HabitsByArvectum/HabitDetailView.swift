@@ -46,8 +46,8 @@ struct HabitDetailView: View {
                 if canSkipToday {
                     skipTodayButton
                 }
-                if !habit.isArchived {
-                    pauseButton
+                if habit.isPaused && !habit.isArchived {
+                    resumeButton
                 }
             }
             .padding(16)
@@ -64,6 +64,15 @@ struct HabitDetailView: View {
                 }
 
                 Menu {
+                    if !habit.isArchived && !habit.isPaused {
+                        Button(action: togglePause) {
+                            Label(
+                                L10n.string("detail.pause"),
+                                systemImage: "pause.fill"
+                            )
+                        }
+                    }
+
                     Button(action: toggleArchive) {
                         Label(
                             habit.isArchived
@@ -291,20 +300,17 @@ struct HabitDetailView: View {
         .tint(Color.arvectumOrange)
     }
 
-    private var pauseButton: some View {
+    private var resumeButton: some View {
         Button(action: togglePause) {
             Label(
-                habit.isPaused
-                    ? L10n.string("detail.resume")
-                    : L10n.string("detail.pause"),
-                systemImage: habit.isPaused ? "play.fill" : "pause.fill"
+                L10n.string("detail.resume"),
+                systemImage: "play.fill"
             )
             .frame(maxWidth: .infinity)
             .frame(minHeight: 46)
             .padding(.vertical, 4)
         }
         .buttonStyle(.bordered)
-        .disabled(habit.isArchived)
     }
 
     private func toggleArchive() {

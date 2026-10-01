@@ -149,6 +149,10 @@ final class HabitFlowUITests: XCTestCase {
         XCTAssertTrue(reading.waitForExistence(timeout: 3))
         reading.tap()
 
+        let moreButton = app.buttons["More habit actions"]
+        XCTAssertTrue(moreButton.waitForExistence(timeout: 3))
+        moreButton.tap()
+
         let pauseButton = app.buttons["Pause habit"]
         XCTAssertTrue(pauseButton.waitForExistence(timeout: 3))
         pauseButton.tap()
@@ -213,7 +217,13 @@ final class HabitFlowUITests: XCTestCase {
         restoreButton.tap()
 
         XCTAssertTrue(app.buttons["Edit"].waitForExistence(timeout: 3))
-        XCTAssertTrue(app.buttons["Pause habit"].waitForExistence(timeout: 3))
+
+        let restoredMoreButton = app.buttons["More habit actions"]
+        XCTAssertTrue(restoredMoreButton.waitForExistence(timeout: 3))
+        restoredMoreButton.tap()
+        XCTAssertTrue(
+            app.buttons["Pause habit"].waitForExistence(timeout: 3)
+        )
     }
 
     private func launchSeededDemo() {
