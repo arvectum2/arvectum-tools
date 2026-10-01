@@ -89,6 +89,7 @@ Working formula: **«всё удобное — без лишнего»**.
 - [x] Unit tests for core schedule / streak / completion-rate cases.
 - [x] Test DST and timezone-change scenarios explicitly.
 - [x] Timezone rule: historical check-ins stay attached to the local calendar date on which they were made; schedules/reminders follow the device's current local timezone.
+- [x] Today automatically rolls over to the new local calendar day while the app remains open; midnight scheduling is DST-safe.
 
 ## M2 — reminders and polish
 

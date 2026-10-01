@@ -1,5 +1,6 @@
 import SwiftData
 import SwiftUI
+import UIKit
 
 struct TodayView: View {
     @Environment(\.modelContext) private var modelContext
@@ -12,11 +13,13 @@ struct TodayView: View {
     @State private var showingAddHabit = false
     @State private var undoOffer: CompletionUndoOffer?
     @State private var deepLinkedHabitID: UUID?
+    @State private var referenceDate = Date()
+    @State private var clockRevision = 0
 
     private var activeToday: [Habit] {
         HabitTodayProjection.orderedDueHabits(
             habits: habits,
-            on: .now,
+            on: referenceDate,
             checkIns: checkIns,
             skips: skips,
             pausePeriods: pausePeriods
@@ -25,8 +28,13 @@ struct TodayView: View {
 
     private var resolvedCount: Int {
         activeToday.filter {
-            isCompleted($0, on: .now) || isSkipped($0, on: .now)
+            isCompleted($0, on: referenceDate) ||
+            isSkipped($0, on: referenceDate)
         }.count
+    }
+
+    private var clockTaskID: String {
+        "\(HabitDayKey.make(for: referenceDate))-\(clockRevision)"
     }
 
     var body: some View {
@@ -95,6 +103,7 @@ struct TodayView: View {
                 }
             }
             .task {
+                refreshReferenceDate()
                 registerForegroundLaunchIfNeeded()
                 backfillLegacyDayKeys()
 #if DEBUG
@@ -106,8 +115,17 @@ struct TodayView: View {
                 await HabitReminderScheduler.debugDumpIfRequested()
 #endif
             }
+            .task(id: clockTaskID) {
+                let delay = HabitDayBoundary.delay(from: referenceDate)
+                try? await Task.sleep(for: .seconds(delay))
+                guard !Task.isCancelled else { return }
+                refreshReferenceDate(forceRevision: true)
+                await HabitReminderCoordinator.shared.refreshNow()
+                HabitWidgetCoordinator.shared.refresh()
+            }
             .onChange(of: scenePhase) { _, phase in
                 if phase == .active {
+                    refreshReferenceDate(forceRevision: true)
                     registerForegroundLaunchIfNeeded()
                     HabitReminderCoordinator.shared.refresh()
                     HabitWidgetCoordinator.shared.refresh()
@@ -131,8 +149,14 @@ struct TodayView: View {
                         ForEach(activeToday) { habit in
                             HabitRow(
                                 habit: habit,
-                                completed: isCompleted(habit, on: .now),
-                                skipped: isSkipped(habit, on: .now),
+                                completed: isCompleted(
+                                    habit,
+                                    on: referenceDate
+                                ),
+                                skipped: isSkipped(
+                                    habit,
+                                    on: referenceDate
+                                ),
                                 streak: HabitMetrics.currentStreak(
                                     habit: habit,
                                     checkIns: checkIns,
@@ -141,17 +165,21 @@ struct TodayView: View {
                                 ),
                                 weeklyCount: HabitFrequency.weeklyCompletionCount(
                                     habit: habit,
-                                    containing: .now,
+                                    containing: referenceDate,
                                     checkIns: checkIns
                                 ),
                                 weeklyTarget: HabitFrequency.effectiveWeeklyTarget(
                                     habit: habit,
-                                    containing: .now,
+                                    containing: referenceDate,
                                     skips: skips,
                                     pausePeriods: pausePeriods
                                 ),
-                                onToggle: { toggle(habit, on: .now) },
-                                onSkip: { toggleSkip(habit, on: .now) }
+                                onToggle: {
+                                    toggle(habit, on: referenceDate)
+                                },
+                                onSkip: {
+                                    toggleSkip(habit, on: referenceDate)
+                                }
                             )
                         }
                     }
@@ -246,6 +274,19 @@ struct TodayView: View {
         handleDeepLink(HabitDeepLink.habitURL(id))
     }
 #endif
+
+    private func refreshReferenceDate(
+        forceRevision: Bool = false
+    ) {
+        let now = Date()
+        let oldKey = HabitDayKey.make(for: referenceDate)
+        let newKey = HabitDayKey.make(for: now)
+
+        referenceDate = now
+        if forceRevision || oldKey != newKey {
+            clockRevision += 1
+        }
+    }
 
     private func registerForegroundLaunchIfNeeded() {
         guard !ProcessInfo.processInfo.arguments.contains("--ui-testing") else {
