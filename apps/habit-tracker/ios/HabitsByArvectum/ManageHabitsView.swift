@@ -1,20 +1,29 @@
 import SwiftData
 import SwiftUI
 
-struct ArchivedHabitsView: View {
+struct ManageHabitsView: View {
+    @Environment(\.modelContext) private var modelContext
     @Query(sort: \Habit.createdAt) private var habits: [Habit]
 
+    private var activeHabits: [Habit] {
+        HabitOrdering.sorted(
+            habits.filter { !$0.isArchived && !$0.isPaused }
+        )
+    }
+
     private var pausedHabits: [Habit] {
-        habits.filter { !$0.isArchived && $0.isPaused }
+        HabitOrdering.sorted(
+            habits.filter { !$0.isArchived && $0.isPaused }
+        )
     }
 
     private var archivedHabits: [Habit] {
-        habits.filter(\.isArchived)
+        HabitOrdering.sorted(habits.filter(\.isArchived))
     }
 
     var body: some View {
         Group {
-            if pausedHabits.isEmpty && archivedHabits.isEmpty {
+            if habits.isEmpty {
                 ContentUnavailableView(
                     L10n.string("manage.empty.title"),
                     systemImage: "tray",
@@ -24,6 +33,21 @@ struct ArchivedHabitsView: View {
                 )
             } else {
                 List {
+                    if !activeHabits.isEmpty {
+                        Section {
+                            ForEach(activeHabits) { habit in
+                                habitLink(habit)
+                            }
+                            .onMove(perform: moveActiveHabits)
+                        } header: {
+                            Text(L10n.string("manage.active"))
+                        } footer: {
+                            if activeHabits.count > 1 {
+                                Text(L10n.string("manage.reorder.hint"))
+                            }
+                        }
+                    }
+
                     if !pausedHabits.isEmpty {
                         Section(L10n.string("manage.paused")) {
                             ForEach(pausedHabits) { habit in
@@ -45,6 +69,11 @@ struct ArchivedHabitsView: View {
         }
         .navigationTitle(L10n.string("manage.title"))
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            if activeHabits.count > 1 {
+                EditButton()
+            }
+        }
     }
 
     private func habitLink(_ habit: Habit) -> some View {
@@ -78,5 +107,20 @@ struct ArchivedHabitsView: View {
             }
             .padding(.vertical, 4)
         }
+    }
+
+    private func moveActiveHabits(
+        from source: IndexSet,
+        to destination: Int
+    ) {
+        var reordered = activeHabits
+        reordered.move(fromOffsets: source, toOffset: destination)
+
+        for (index, habit) in reordered.enumerated() {
+            habit.sortOrder = index
+        }
+
+        try? modelContext.save()
+        HabitDataChangeNotifier.notify()
     }
 }

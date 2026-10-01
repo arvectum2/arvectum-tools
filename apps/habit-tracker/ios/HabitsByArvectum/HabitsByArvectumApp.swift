@@ -219,14 +219,16 @@ struct HabitsByArvectumApp: App {
             Habit(
                 name: "Вода",
                 symbolName: "drop.fill",
-                colorHex: "43E5C5"
+                colorHex: "43E5C5",
+                sortOrder: 1
             )
         )
         context.insert(
             Habit(
                 name: "Чтение",
                 symbolName: "book.fill",
-                colorHex: "8B5CF6"
+                colorHex: "8B5CF6",
+                sortOrder: 0
             )
         )
         try? context.save()

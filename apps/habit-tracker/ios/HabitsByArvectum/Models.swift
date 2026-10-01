@@ -15,6 +15,7 @@ final class Habit {
     var reminderMinute: Int = 0
     var pausedAt: Date? = nil
     var weeklyTarget: Int = 0
+    var sortOrder: Int = 0
 
     init(
         id: UUID = UUID(),
@@ -28,7 +29,8 @@ final class Habit {
         reminderHour: Int = 20,
         reminderMinute: Int = 0,
         pausedAt: Date? = nil,
-        weeklyTarget: Int = 0
+        weeklyTarget: Int = 0,
+        sortOrder: Int = 0
     ) {
         self.id = id
         self.name = name
@@ -42,6 +44,7 @@ final class Habit {
         self.reminderMinute = reminderMinute
         self.pausedAt = pausedAt
         self.weeklyTarget = weeklyTarget
+        self.sortOrder = sortOrder
     }
 
     var schedule: HabitSchedule {
@@ -51,6 +54,24 @@ final class Habit {
 
     var isPaused: Bool { pausedAt != nil }
     var usesFlexibleWeeklyTarget: Bool { weeklyTarget > 0 }
+}
+
+enum HabitOrdering {
+    static func sorted(_ habits: [Habit]) -> [Habit] {
+        habits.sorted { lhs, rhs in
+            if lhs.sortOrder != rhs.sortOrder {
+                return lhs.sortOrder < rhs.sortOrder
+            }
+            if lhs.createdAt != rhs.createdAt {
+                return lhs.createdAt < rhs.createdAt
+            }
+            return lhs.id.uuidString < rhs.id.uuidString
+        }
+    }
+
+    static func nextOrder(in habits: [Habit]) -> Int {
+        (habits.map(\.sortOrder).max() ?? -1) + 1
+    }
 }
 
 @Model

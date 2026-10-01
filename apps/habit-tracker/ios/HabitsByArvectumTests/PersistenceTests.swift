@@ -46,7 +46,8 @@ final class PersistenceTests: XCTestCase {
                     reminderEnabled: true,
                     reminderHour: 7,
                     reminderMinute: 45,
-                    pausedAt: pauseDate
+                    pausedAt: pauseDate,
+                    sortOrder: 7
                 )
             )
             context.insert(
@@ -93,6 +94,7 @@ final class PersistenceTests: XCTestCase {
             XCTAssertEqual(habits.first?.reminderHour, 7)
             XCTAssertEqual(habits.first?.reminderMinute, 45)
             XCTAssertEqual(habits.first?.pausedAt, pauseDate)
+            XCTAssertEqual(habits.first?.sortOrder, 7)
             XCTAssertEqual(checkIns.count, 1)
             XCTAssertEqual(checkIns.first?.habitID, habitID)
             XCTAssertEqual(checkIns.first?.day, checkInDate)

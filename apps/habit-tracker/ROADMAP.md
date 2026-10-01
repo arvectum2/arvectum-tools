@@ -101,6 +101,7 @@ Working formula: **«всё удобное — без лишнего»**.
 - [x] Localization completeness test for both bundled languages.
 - [x] UI test for create → check → detail → history using an isolated in-memory app store.
 - [x] Physical iPhone 13 signed-build install/launch smoke test.
+- [x] Simulator visual smoke test on iPhone 17e and iPhone 18 Pro Max.
 - [ ] Test on small and large physical iPhones.
 - [x] Smoke-test clean simulator install and additive-schema upgrade path on the physical iPhone 13.
 
@@ -131,6 +132,7 @@ Working formula: **«всё удобное — без лишнего»**.
 - [x] RU + EN localization.
 - [x] Base Dynamic Type / VoiceOver semantics on Watch.
 - [x] Pair iPhone + Apple Watch simulators and test both apps together.
+- [x] Visual/runtime smoke test on 42 mm and 46 mm Apple Watch simulators; empty snapshot no longer renders a misleading full progress bar.
 - [x] Integration test: Watch check-off appears on iPhone.
 - [x] Integration test: iPhone check-off appears on Watch.
 - [x] Integration test: offline Watch check-off converges after reconnect.
@@ -143,7 +145,9 @@ Working formula: **«всё удобное — без лишнего»**.
 - [x] Local-first fallback: if cloud-backed container creation fails, Habits opens the local store instead of failing to launch.
 - [ ] Verify real private-CloudKit convergence between two signed Apple devices / simulator iCloud accounts before enabling the milestone for release.
 - [x] Treat WatchConnectivity as the low-latency iPhone↔Watch path and cloud sync as durable multi-device convergence.
-- [ ] Test simultaneous edits and duplicate delivery before enabling cloud sync in production.
+- [x] Conflict-safe last-write-wins day mutation ledger for iPhone / Watch / widget commands, with deterministic mutation-ID tie-breaks.
+- [x] Runtime stress test: a newer Skip rejects an older delayed Watch completion; paired simulator converges after durable delivery.
+- [x] Test simultaneous edits and duplicate delivery before enabling cloud sync in production.
 
 ## M4 — high-value expansion from competitor/user research
 
@@ -158,6 +162,8 @@ Working formula: **«всё удобное — без лишнего»**.
 - [x] Watch complication (circular, rectangular, inline) backed by the Watch-local snapshot.
 - [x] Overall Today progress available outside the full app through the Home Screen widget.
 - [x] Flexible frequency behind progressive disclosure: N times per week.
+- [x] Manual habit order in Manage only; Today, Watch and widgets consume the same order without extra controls.
+- [x] Distinguish a truly missed scheduled day from skipped / paused / unscheduled days in history; never mark individual days missed for N/week goals.
 - [ ] Evaluate Apple Health auto-completion only where Health has authoritative data.
 - [ ] Keep haptics/micro-feedback; do not add an XP/reward economy.
 
@@ -198,4 +204,4 @@ Core habit tracking stays free. Advertising is the planned monetization model, b
 
 The M1 vertical slice is implemented and M2 reminders/localization are wired end-to-end: local storage → minimal create/edit flow → optional local reminder → Today → mark/unmark → details/history → archive/delete. Optional creation settings now use progressive disclosure so the default path stays focused on name + schedule. Historical check-ins now use a stable local-day key, while current schedules/reminders follow the device timezone. RU and EN are bundled and visually smoke-tested. The suite currently has 13 passing tests, including timezone/DST regressions, localization completeness and an XCUITest covering create → check → detail → history. Clean install and additive-schema upgrades have been smoke-tested, including signed install/launch on the physical iPhone 13 with Xcode 27.0.
 
-**Next implementation step:** Home/Lock Screen widgets, Watch complication and flexible N/week frequency now compile and pass the simulator regression suite. Continue with simultaneous-edit/duplicate-delivery stress tests across iPhone, Watch and widget, then close signed App Group provisioning and real private-CloudKit convergence. Signed-device widgets remain blocked only by Apple App Group provisioning; real private-CloudKit convergence still requires two signed Apple device identities before release.
+**Next implementation step:** the iPhone/Watch round-trip and offline durable convergence are verified on a paired iOS 27/watchOS 27 simulator, including conflict-safe stale-command rejection. Manual ordering and missed-day semantics are now wired across the shared model. Continue simulator UI/device-size polish, notification-action ergonomics and signed App Group/CloudKit provisioning when Apple signing is available. Real private-CloudKit convergence still requires signed Apple identities before release.

@@ -76,14 +76,16 @@ final class PhoneWatchSyncCoordinator: NSObject, WCSessionDelegate {
         )) ?? []
 
         let now = Date()
-        let activeToday = habits.filter {
-            !$0.isArchived && !$0.isPaused && HabitFrequency.isDue(
-                habit: $0,
-                on: now,
-                checkIns: checkIns,
-                skips: skips
-            )
-        }
+        let activeToday = HabitOrdering.sorted(
+            habits.filter {
+                !$0.isArchived && !$0.isPaused && HabitFrequency.isDue(
+                    habit: $0,
+                    on: now,
+                    checkIns: checkIns,
+                    skips: skips
+                )
+            }
+        )
 
         let syncHabits = activeToday.map { habit in
             HabitSyncHabit(

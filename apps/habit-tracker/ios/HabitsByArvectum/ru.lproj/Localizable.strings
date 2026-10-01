@@ -79,10 +79,12 @@
 "archive.empty.title" = "Архив пуст";
 "archive.empty.description" = "Архивированные привычки появятся здесь.";
 "manage.title" = "Управление";
-"manage.accessibility" = "Приостановленные и архивные привычки";
+"manage.accessibility" = "Управление привычками";
+"manage.active" = "Активные";
 "manage.paused" = "Приостановлены";
+"manage.reorder.hint" = "Нажмите «Править», чтобы расставить привычки в нужном порядке.";
 "manage.empty.title" = "Здесь пока пусто";
-"manage.empty.description" = "Здесь появятся приостановленные и архивные привычки.";
+"manage.empty.description" = "Здесь появятся ваши привычки.";
 
 "stats.streak" = "серия";
 "stats.best.format" = "макс. %d";
@@ -92,6 +94,8 @@
 "status.completed" = "выполнено";
 "status.notCompleted" = "не выполнено";
 "status.skipped" = "пропущено";
+"status.missed" = "пропущено без отметки";
+"status.paused" = "пауза";
 
 "accessibility.color.format" = "Цвет %d";
 "accessibility.symbol.format" = "Значок %d";

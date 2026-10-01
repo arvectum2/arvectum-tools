@@ -4,6 +4,7 @@ import SwiftUI
 struct AddHabitView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var modelContext
+    @Query(sort: \Habit.createdAt) private var allHabits: [Habit]
 
     let habit: Habit?
 
@@ -388,7 +389,8 @@ struct AddHabitView: View {
                 reminderEnabled: reminderEnabled,
                 reminderHour: reminderHour,
                 reminderMinute: reminderMinute,
-                weeklyTarget: flexibleWeeklyEnabled ? weeklyTarget : 0
+                weeklyTarget: flexibleWeeklyEnabled ? weeklyTarget : 0,
+                sortOrder: HabitOrdering.nextOrder(in: allHabits)
             )
             modelContext.insert(newHabit)
             savedHabit = newHabit

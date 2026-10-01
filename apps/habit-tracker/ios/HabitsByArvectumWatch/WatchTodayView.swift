@@ -6,7 +6,9 @@ struct WatchTodayView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 10) {
-                progressHeader
+                if syncStore.snapshot.totalCount > 0 {
+                    progressHeader
+                }
 
                 if syncStore.snapshot.habits.isEmpty {
                     emptyState

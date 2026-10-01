@@ -12,22 +12,16 @@ struct TodayView: View {
     @State private var showingAddHabit = false
 
     private var activeToday: [Habit] {
-        habits.filter {
-            !$0.isArchived && !$0.isPaused && HabitFrequency.isDue(
-                habit: $0,
-                on: .now,
-                checkIns: checkIns,
-                skips: skips
-            )
-        }
-    }
-
-    private var archivedHabits: [Habit] {
-        habits.filter(\.isArchived)
-    }
-
-    private var pausedHabits: [Habit] {
-        habits.filter { !$0.isArchived && $0.isPaused }
+        HabitOrdering.sorted(
+            habits.filter {
+                !$0.isArchived && !$0.isPaused && HabitFrequency.isDue(
+                    habit: $0,
+                    on: .now,
+                    checkIns: checkIns,
+                    skips: skips
+                )
+            }
+        )
     }
 
     private var resolvedCount: Int {
@@ -50,11 +44,11 @@ struct TodayView: View {
             .navigationTitle(L10n.string("today.title"))
             .toolbar {
                 ToolbarItemGroup(placement: .topBarTrailing) {
-                    if !archivedHabits.isEmpty || !pausedHabits.isEmpty {
+                    if !habits.isEmpty {
                         NavigationLink {
-                            ArchivedHabitsView()
+                            ManageHabitsView()
                         } label: {
-                            Image(systemName: "archivebox")
+                            Image(systemName: "line.3.horizontal")
                         }
                         .accessibilityLabel(
                             L10n.string("manage.accessibility")
@@ -91,14 +85,14 @@ struct TodayView: View {
     private var todayContent: some View {
         ScrollView {
             VStack(spacing: 14) {
-                TodaySummary(
-                    completed: resolvedCount,
-                    total: activeToday.count
-                )
-
                 if activeToday.isEmpty {
                     noHabitsTodayCard
                 } else {
+                    TodaySummary(
+                        completed: resolvedCount,
+                        total: activeToday.count
+                    )
+
                     LazyVStack(spacing: 10) {
                         ForEach(activeToday) { habit in
                             HabitRow(
@@ -237,8 +231,6 @@ struct TodayView: View {
 }
 
 private struct TodaySummary: View {
-    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
-
     let completed: Int
     let total: Int
 
@@ -249,24 +241,9 @@ private struct TodaySummary: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
-            if dynamicTypeSize.isAccessibilitySize {
-                VStack(alignment: .leading, spacing: 4) {
-                    Text(L10n.string("today.title"))
-                        .font(.headline)
-                    Text(L10n.format("today.progress.format", completed, total))
-                        .font(.subheadline.weight(.semibold))
-                        .foregroundStyle(.secondary)
-                }
-            } else {
-                HStack(alignment: .firstTextBaseline) {
-                    Text(L10n.string("today.title"))
-                        .font(.headline)
-                    Spacer()
-                    Text(L10n.format("today.progress.format", completed, total))
-                        .font(.subheadline.weight(.semibold))
-                        .foregroundStyle(.secondary)
-                }
-            }
+            Text(L10n.format("today.progress.format", completed, total))
+                .font(.subheadline.weight(.semibold))
+                .foregroundStyle(.secondary)
 
             ProgressView(value: progress)
                 .tint(Color.arvectumMint)
@@ -274,6 +251,7 @@ private struct TodaySummary: View {
         }
         .padding(16)
         .background(Color.habitsSurface, in: RoundedRectangle(cornerRadius: 20))
+        .accessibilityElement(children: .combine)
     }
 }
 

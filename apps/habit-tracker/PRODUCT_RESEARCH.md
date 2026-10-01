@@ -150,6 +150,24 @@ habits is not required to deliver it.
 **Do not build now:** no habit-to-habit graph or routine builder in MVP. Revisit
 only if users ask for sequencing after launch.
 
+#### 16. Personal ordering matters, but should not add controls to Today
+
+Users of minimalist trackers value arranging habits in the order that matches
+their routine. This is useful personalization with almost no model complexity.
+
+**Take:** manual drag ordering lives in Manage. Today, Watch and widgets simply
+inherit the same order.
+
+#### 17. A blank day and a failed day are not the same thing
+
+Everyday-style visual history is praised partly because state is readable at a
+glance; users explicitly ask for a distinction between failure and missing/no
+data.
+
+**Take:** fixed-schedule history distinguishes completed, intentionally skipped,
+paused/unscheduled and genuinely missed past days. Flexible N/week habits are
+judged at the week level, so individual dates are never falsely labelled missed.
+
 ## What Habits by Arvectum takes
 
 ### Required before public release

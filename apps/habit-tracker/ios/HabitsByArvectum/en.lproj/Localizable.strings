@@ -79,10 +79,12 @@
 "archive.empty.title" = "No archived habits";
 "archive.empty.description" = "Archived habits will appear here.";
 "manage.title" = "Manage habits";
-"manage.accessibility" = "Paused and archived habits";
+"manage.accessibility" = "Manage habits";
+"manage.active" = "Active";
 "manage.paused" = "Paused";
+"manage.reorder.hint" = "Tap Edit to drag habits into the order you want.";
 "manage.empty.title" = "Nothing here";
-"manage.empty.description" = "Paused and archived habits will appear here.";
+"manage.empty.description" = "Your habits will appear here.";
 
 "stats.streak" = "streak";
 "stats.best.format" = "best %d";
@@ -92,6 +94,8 @@
 "status.completed" = "completed";
 "status.notCompleted" = "not completed";
 "status.skipped" = "skipped";
+"status.missed" = "missed";
+"status.paused" = "paused";
 
 "accessibility.color.format" = "Color %d";
 "accessibility.symbol.format" = "Icon %d";

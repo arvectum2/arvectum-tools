@@ -83,16 +83,18 @@ final class HabitWidgetCoordinator {
         )) ?? []
 
         let now = Date()
-        let due = habits.filter {
-            !$0.isArchived &&
-            !$0.isPaused &&
-            HabitFrequency.isDue(
-                habit: $0,
-                on: now,
-                checkIns: checkIns,
-                skips: skips
-            )
-        }
+        let due = HabitOrdering.sorted(
+            habits.filter {
+                !$0.isArchived &&
+                !$0.isPaused &&
+                HabitFrequency.isDue(
+                    habit: $0,
+                    on: now,
+                    checkIns: checkIns,
+                    skips: skips
+                )
+            }
+        )
 
         let widgetHabits = due.map { habit in
             HabitWidgetHabit(

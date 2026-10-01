@@ -5,6 +5,7 @@ struct HabitDetailView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+    @Query(sort: \Habit.createdAt) private var habits: [Habit]
     @Query(sort: \HabitCheckIn.day) private var checkIns: [HabitCheckIn]
     @Query(sort: \HabitSkip.day) private var skips: [HabitSkip]
     @Query(sort: \HabitPausePeriod.startedAt) private var pausePeriods: [HabitPausePeriod]
@@ -222,7 +223,13 @@ struct HabitDetailView: View {
 
     private var archiveButton: some View {
         Button {
+            let restoring = habit.isArchived
             habit.isArchived.toggle()
+            if restoring && !habit.isArchived {
+                habit.sortOrder = HabitOrdering.nextOrder(
+                    in: habits.filter { $0.id != habit.id }
+                )
+            }
             try? modelContext.save()
             HabitDataChangeNotifier.notify()
             Task {
@@ -297,9 +304,19 @@ struct HabitDetailView: View {
             skips: skips,
             calendar: calendar
         )
+        let dayKey = HabitDayKey.make(for: date, calendar: calendar)
         let beforeCreation = date < calendar.startOfDay(for: habit.createdAt)
-        let future = date > calendar.startOfDay(for: .now)
-        let enabled = eligible && !beforeCreation && !future
+        let today = calendar.startOfDay(for: .now)
+        let future = date > today
+        let paused = habitPausePeriods.contains { $0.contains(dayKey: dayKey) }
+        let missed = !habit.usesFlexibleWeeklyTarget &&
+            scheduled &&
+            date < today &&
+            !beforeCreation &&
+            !paused &&
+            !completed &&
+            !skipped
+        let enabled = eligible && !beforeCreation && !future && !paused
 
         return Button {
             toggle(date)
@@ -310,13 +327,37 @@ struct HabitDetailView: View {
                         scheduled: scheduled,
                         completed: completed,
                         skipped: skipped,
-                        disabled: beforeCreation || future
+                        missed: missed,
+                        disabled: beforeCreation || future || paused
                     ))
                     .aspectRatio(1, contentMode: .fit)
 
                 Text("\(calendar.component(.day, from: date))")
                     .font(.caption2.weight(.semibold))
                     .foregroundStyle(completed ? Color.arvectumNavy : .primary)
+
+                if missed {
+                    Image(systemName: "xmark")
+                        .font(.system(size: 7, weight: .bold))
+                        .foregroundStyle(.red)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
+                        .padding(4)
+                        .accessibilityHidden(true)
+                } else if skipped {
+                    Image(systemName: "minus")
+                        .font(.system(size: 7, weight: .bold))
+                        .foregroundStyle(Color.arvectumOrange)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
+                        .padding(4)
+                        .accessibilityHidden(true)
+                } else if paused {
+                    Image(systemName: "pause.fill")
+                        .font(.system(size: 6, weight: .bold))
+                        .foregroundStyle(.secondary)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
+                        .padding(4)
+                        .accessibilityHidden(true)
+                }
             }
         }
         .buttonStyle(.plain)
@@ -341,7 +382,9 @@ struct HabitDetailView: View {
             accessibilityLabel(
                 for: date,
                 completed: completed,
-                skipped: skipped
+                skipped: skipped,
+                missed: missed,
+                paused: paused
             )
         )
     }
@@ -350,10 +393,12 @@ struct HabitDetailView: View {
         scheduled: Bool,
         completed: Bool,
         skipped: Bool,
+        missed: Bool,
         disabled: Bool
     ) -> Color {
         if completed { return Color(hex: habit.colorHex) }
         if skipped { return Color.arvectumOrange.opacity(0.24) }
+        if missed { return Color.red.opacity(0.10) }
         if disabled { return Color.secondary.opacity(0.04) }
         if scheduled { return Color.secondary.opacity(0.12) }
         return Color.secondary.opacity(0.05)
@@ -459,6 +504,9 @@ struct HabitDetailView: View {
                 openPeriod.endDayKeyExclusive = endKey
             }
             habit.pausedAt = nil
+            habit.sortOrder = HabitOrdering.nextOrder(
+                in: habits.filter { $0.id != habit.id }
+            )
         } else {
             habit.pausedAt = now
             modelContext.insert(
@@ -480,7 +528,9 @@ struct HabitDetailView: View {
     private func accessibilityLabel(
         for date: Date,
         completed: Bool,
-        skipped: Bool
+        skipped: Bool,
+        missed: Bool,
+        paused: Bool
     ) -> String {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
@@ -490,6 +540,10 @@ struct HabitDetailView: View {
             status = L10n.string("status.completed")
         } else if skipped {
             status = L10n.string("status.skipped")
+        } else if paused {
+            status = L10n.string("status.paused")
+        } else if missed {
+            status = L10n.string("status.missed")
         } else {
             status = L10n.string("status.notCompleted")
         }
@@ -507,6 +561,12 @@ struct HabitDetailView: View {
         }
         for pausePeriod in habitPausePeriods {
             modelContext.delete(pausePeriod)
+        }
+        let mutations = (try? modelContext.fetch(
+            FetchDescriptor<HabitDayMutation>()
+        )) ?? []
+        for mutation in mutations where mutation.habitID == habit.id {
+            modelContext.delete(mutation)
         }
         modelContext.delete(habit)
         try? modelContext.save()
