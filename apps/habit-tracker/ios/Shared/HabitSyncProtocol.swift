@@ -36,6 +36,11 @@ struct HabitSyncSnapshot: Codable, Hashable {
     var resolvedCount: Int {
         completedCount + skippedCount
     }
+
+    var progress: Double {
+        guard totalCount > 0 else { return 0 }
+        return Double(resolvedCount) / Double(totalCount)
+    }
 }
 
 struct HabitCompletionCommand: Codable, Hashable, Identifiable {

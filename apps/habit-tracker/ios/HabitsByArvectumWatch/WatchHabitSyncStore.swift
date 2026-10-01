@@ -1,6 +1,7 @@
 import Foundation
 import SwiftUI
 import WatchConnectivity
+import WidgetKit
 
 final class WatchHabitSyncStore: NSObject, ObservableObject, WCSessionDelegate {
     @Published private(set) var snapshot: HabitSyncSnapshot
@@ -21,7 +22,7 @@ final class WatchHabitSyncStore: NSObject, ObservableObject, WCSessionDelegate {
         snapshot = Self.load(
             HabitSyncSnapshot.self,
             key: "habits.watch.cachedSnapshot"
-        ) ?? .empty
+        ) ?? WatchComplicationBridge.loadSnapshot()
         pendingCommands = Self.load(
             [HabitCompletionCommand].self,
             key: "habits.watch.pendingCommands"
@@ -200,6 +201,10 @@ final class WatchHabitSyncStore: NSObject, ObservableObject, WCSessionDelegate {
 
     private func cacheSnapshot() {
         Self.save(snapshot, key: snapshotKey)
+        WatchComplicationBridge.saveSnapshot(snapshot)
+        WidgetCenter.shared.reloadTimelines(
+            ofKind: "HabitsWatchComplication"
+        )
     }
 
     private func persistPending() {

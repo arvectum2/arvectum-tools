@@ -1,0 +1,5 @@
+"watch.widget.title" = "Привычки";
+"watch.widget.description" = "Прогресс привычек на сегодня прямо на циферблате.";
+"watch.widget.empty" = "На сегодня всё";
+"watch.widget.inline.format" = "%d/%d привычек";
+"watch.widget.next.format" = "Далее: %@";
