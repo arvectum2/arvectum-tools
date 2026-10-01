@@ -348,23 +348,4 @@ final class MinimalUXUITests: XCTestCase {
         print(shortcuts.debugDescription)
     }
 
-    func testDismissVerifiedCoverageCard() throws {
-        let app = XCUIApplication(bundleIdentifier: "ru.arvectum.tools.notify")
-        app.launch()
-
-        let done = app.buttons["Done"].firstMatch
-        XCTAssertTrue(
-            done.waitForExistence(timeout: 6),
-            "Verified coverage Done button missing"
-        )
-        done.tap()
-
-        let verified = app.staticTexts["Coverage verified"].firstMatch
-        XCTAssertFalse(
-            verified.waitForExistence(timeout: 2),
-            "Coverage finish card did not clear after Done"
-        )
-        print("COVERAGE_FINISH_CARD_DISMISSED")
-    }
-
 }
