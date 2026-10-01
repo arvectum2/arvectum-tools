@@ -8,23 +8,16 @@ enum AdVariant: String {
 }
 
 enum AdExperiment {
-    private static let assignmentKey = "arvectum.photo.ads.variant.v1"
-
-    static func current(defaults: UserDefaults = .standard) -> AdVariant {
+    static func current() -> AdVariant {
 #if DEBUG
         if let raw = ProcessInfo.processInfo.environment["ARVECTUM_AD_VARIANT"],
            let forced = AdVariant(rawValue: raw) {
             return forced
         }
 #endif
-        if let raw = defaults.string(forKey: assignmentKey),
-           let stored = AdVariant(rawValue: raw) {
-            return stored
-        }
-
-        let assigned: AdVariant = Bool.random() ? .native : .banner
-        defaults.set(assigned.rawValue, forKey: assignmentKey)
-        return assigned
+        // Simplicity gate: keep production monetization compact and predictable.
+        // The taller native layout stays available in DEBUG for later experiments.
+        return .banner
     }
 }
 
