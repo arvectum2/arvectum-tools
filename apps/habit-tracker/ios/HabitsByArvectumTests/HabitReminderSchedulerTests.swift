@@ -16,6 +16,20 @@ final class HabitReminderSchedulerTests: XCTestCase {
         )
     }
 
+    func testReminderContentCarriesCompletionActionMetadata() {
+        let habit = Habit(name: "Read")
+        let content = HabitReminderScheduler.notificationContent(for: habit)
+
+        XCTAssertEqual(
+            content.categoryIdentifier,
+            HabitNotificationActions.categoryIdentifier
+        )
+        XCTAssertEqual(
+            content.userInfo[HabitNotificationActions.habitIDKey] as? String,
+            habit.id.uuidString
+        )
+    }
+
     func testReminderComponentsPreserveSelectedTime() {
         let components = HabitReminderScheduler.notificationComponents(
             schedule: [.monday, .sunday],

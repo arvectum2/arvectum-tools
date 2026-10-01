@@ -37,10 +37,7 @@ enum HabitReminderScheduler {
             return false
         }
 
-        let content = UNMutableNotificationContent()
-        content.title = habit.name
-        content.body = L10n.string("reminder.notification.body")
-        content.sound = .default
+        let content = notificationContent(for: habit)
 
         for components in notificationComponents(
             schedule: habit.usesFlexibleWeeklyTarget ? .everyDay : habit.schedule,
@@ -77,6 +74,20 @@ enum HabitReminderScheduler {
                     identifier(habitID: habitID, weekday: $0)
                 }
             )
+    }
+
+    static func notificationContent(
+        for habit: Habit
+    ) -> UNMutableNotificationContent {
+        let content = UNMutableNotificationContent()
+        content.title = habit.name
+        content.body = L10n.string("reminder.notification.body")
+        content.sound = .default
+        content.categoryIdentifier = HabitNotificationActions.categoryIdentifier
+        content.userInfo = [
+            HabitNotificationActions.habitIDKey: habit.id.uuidString
+        ]
+        return content
     }
 
     static func notificationComponents(

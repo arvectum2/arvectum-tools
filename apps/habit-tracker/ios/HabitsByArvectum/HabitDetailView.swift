@@ -41,6 +41,9 @@ struct HabitDetailView: View {
                 identityCard
                 statsCard
                 historyCard
+                if canSkipToday {
+                    skipTodayButton
+                }
                 pauseButton
                 archiveButton
                 deleteButton
@@ -203,6 +206,51 @@ struct HabitDetailView: View {
         }
         .padding(16)
         .background(Color.habitsSurface, in: RoundedRectangle(cornerRadius: 20))
+    }
+
+    private var canSkipToday: Bool {
+        guard !habit.isArchived, !habit.isPaused else { return false }
+        let calendar = Calendar.autoupdatingCurrent
+        return HabitFrequency.isDue(
+            habit: habit,
+            on: .now,
+            checkIns: checkIns,
+            skips: skips,
+            calendar: calendar
+        ) && !HabitMetrics.isCompleted(
+            habitID: habit.id,
+            on: .now,
+            checkIns: checkIns,
+            calendar: calendar
+        )
+    }
+
+    private var isSkippedToday: Bool {
+        HabitMetrics.isSkipped(
+            habitID: habit.id,
+            on: .now,
+            skips: skips
+        )
+    }
+
+    private var skipTodayButton: some View {
+        Button {
+            toggleSkip(.now)
+        } label: {
+            Label(
+                isSkippedToday
+                    ? L10n.string("habit.skip.undo")
+                    : L10n.string("habit.skip.today"),
+                systemImage: isSkippedToday
+                    ? "arrow.uturn.backward"
+                    : "forward.end"
+            )
+            .frame(maxWidth: .infinity)
+            .frame(minHeight: 46)
+            .padding(.vertical, 4)
+        }
+        .buttonStyle(.bordered)
+        .tint(Color.arvectumOrange)
     }
 
     private var pauseButton: some View {

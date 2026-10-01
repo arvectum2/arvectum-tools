@@ -3,6 +3,7 @@ import SwiftUI
 
 @main
 struct HabitsByArvectumApp: App {
+    @UIApplicationDelegateAdaptor(HabitsAppDelegate.self) private var appDelegate
     private let modelContainer: ModelContainer
 
     init() {
@@ -31,6 +32,14 @@ struct HabitsByArvectumApp: App {
             completeFirstIncompleteHabitIfRequested(container: container)
             skipFirstIncompleteHabitIfRequested(container: container)
             HabitMutationDiagnostics.runIfRequested(container: container)
+#endif
+            HabitNotificationActionCoordinator.shared.configure(
+                modelContainer: container
+            )
+#if DEBUG
+            HabitNotificationActionDiagnostics.runIfRequested(
+                container: container
+            )
 #endif
             PhoneWatchSyncCoordinator.shared.configure(
                 modelContainer: container

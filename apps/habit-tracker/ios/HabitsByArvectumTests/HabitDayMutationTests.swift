@@ -18,7 +18,7 @@ final class HabitDayMutationTests: XCTestCase {
         let older = Date(timeIntervalSince1970: 100)
         let newer = Date(timeIntervalSince1970: 200)
 
-        XCTAssertTrue(
+        XCTAssertFalse(
             HabitCompletionMutation.setCompletion(
                 habitID: habitID,
                 dayKey: dayKey,
@@ -31,6 +31,12 @@ final class HabitDayMutationTests: XCTestCase {
                 calendar: calendar
             )
         )
+
+        let ledgerAfterNoOp = try context.fetch(
+            FetchDescriptor<HabitDayMutation>()
+        )
+        XCTAssertEqual(ledgerAfterNoOp.count, 1)
+        XCTAssertEqual(ledgerAfterNoOp.first?.updatedAt, newer)
 
         XCTAssertFalse(
             HabitCompletionMutation.setCompletion(
