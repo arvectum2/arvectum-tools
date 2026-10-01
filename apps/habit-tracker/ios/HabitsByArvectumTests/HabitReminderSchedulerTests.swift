@@ -2,20 +2,6 @@ import XCTest
 @testable import HabitsByArvectum
 
 final class HabitReminderSchedulerTests: XCTestCase {
-    func testWeekdayScheduleMapsToCalendarWeekdays() {
-        XCTAssertEqual(
-            HabitReminderScheduler.weekdayNumbers(for: .weekdays),
-            [2, 3, 4, 5, 6]
-        )
-    }
-
-    func testEveryDayMapsToAllCalendarWeekdays() {
-        XCTAssertEqual(
-            HabitReminderScheduler.weekdayNumbers(for: .everyDay),
-            [1, 2, 3, 4, 5, 6, 7]
-        )
-    }
-
     func testReminderContentCarriesCompletionActionMetadata() {
         let habit = Habit(name: "Read")
         let content = HabitReminderScheduler.notificationContent(for: habit)
@@ -47,22 +33,6 @@ final class HabitReminderSchedulerTests: XCTestCase {
         )
 
         XCTAssertFalse(HabitReminderScheduler.shouldSchedule(habit: habit))
-    }
-
-    func testReminderComponentsPreserveSelectedTime() {
-        let components = HabitReminderScheduler.notificationComponents(
-            schedule: [.monday, .sunday],
-            hour: 7,
-            minute: 45
-        )
-
-        XCTAssertEqual(components.count, 2)
-        XCTAssertEqual(components.map(\.weekday), [1, 2])
-        XCTAssertTrue(
-            components.allSatisfy {
-                $0.hour == 7 && $0.minute == 45
-            }
-        )
     }
 
     func testCompletedTodaySuppressesTodaysReminderButKeepsTomorrow() {
@@ -142,6 +112,75 @@ final class HabitReminderSchedulerTests: XCTestCase {
         XCTAssertEqual(dates.count, 1)
         XCTAssertEqual(calendar.component(.day, from: dates[0]), 2)
         XCTAssertEqual(calendar.component(.hour, from: dates[0]), 20)
+    }
+
+
+    func testRequestIdentifierIsStableAndUniqueByDay() {
+        let habitID = UUID(
+            uuidString: "00000000-0000-0000-0000-000000000123"
+        )!
+
+        XCTAssertEqual(
+            HabitReminderScheduler.requestIdentifier(
+                habitID: habitID,
+                dayKey: "2026-10-01"
+            ),
+            "habit-reminder-00000000-0000-0000-0000-000000000123-2026-10-01"
+        )
+        XCTAssertNotEqual(
+            HabitReminderScheduler.requestIdentifier(
+                habitID: habitID,
+                dayKey: "2026-10-01"
+            ),
+            HabitReminderScheduler.requestIdentifier(
+                habitID: habitID,
+                dayKey: "2026-10-02"
+            )
+        )
+    }
+
+    func testLargeReminderPlanIsBoundedAndPrioritizesNearestDays() {
+        let calendar = utcCalendar
+        let reference = date(2026, 10, 1, hour: 8, calendar: calendar)
+        let habits = (0..<10).map { index in
+            Habit(
+                name: "Habit " + String(index),
+                createdAt: reference.addingTimeInterval(Double(index)),
+                reminderEnabled: true,
+                reminderHour: 20,
+                reminderMinute: 0,
+                sortOrder: index
+            )
+        }
+
+        let plan = HabitReminderScheduler.reminderPlan(
+            habits: habits,
+            from: reference,
+            daysAhead: 14,
+            limit: 60,
+            calendar: calendar
+        )
+
+        XCTAssertEqual(plan.count, 60)
+        XCTAssertEqual(Set(plan.map(\.habitID)).count, 10)
+        XCTAssertEqual(
+            Set(plan.map(\.dayKey)),
+            Set([
+                "2026-10-01",
+                "2026-10-02",
+                "2026-10-03",
+                "2026-10-04",
+                "2026-10-05",
+                "2026-10-06"
+            ])
+        )
+
+        for habit in habits {
+            XCTAssertEqual(
+                plan.filter { $0.habitID == habit.id }.count,
+                6
+            )
+        }
     }
 
     private var utcCalendar: Calendar {

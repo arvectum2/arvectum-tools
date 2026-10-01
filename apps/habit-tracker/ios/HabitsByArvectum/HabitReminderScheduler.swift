@@ -6,6 +6,13 @@ enum HabitReminderScheduler {
     static let planningDayCount = 14
     static let maxPendingRequests = 60
 
+
+    struct ReminderPlanItem: Equatable {
+        let habitID: UUID
+        let fireDate: Date
+        let dayKey: String
+    }
+
     private struct Candidate {
         let habit: Habit
         let fireDate: Date
@@ -106,6 +113,58 @@ enum HabitReminderScheduler {
         return dates
     }
 
+
+    static func reminderPlan(
+        habits: [Habit],
+        checkIns: [HabitCheckIn] = [],
+        skips: [HabitSkip] = [],
+        from referenceDate: Date,
+        daysAhead: Int = planningDayCount,
+        limit: Int = maxPendingRequests,
+        calendar: Calendar = .autoupdatingCurrent
+    ) -> [ReminderPlanItem] {
+        guard daysAhead > 0, limit > 0 else { return [] }
+
+        let candidates = habits
+            .filter(shouldSchedule)
+            .flatMap { habit in
+                reminderDates(
+                    habit: habit,
+                    checkIns: checkIns,
+                    skips: skips,
+                    from: referenceDate,
+                    daysAhead: daysAhead,
+                    calendar: calendar
+                ).map { fireDate in
+                    Candidate(
+                        habit: habit,
+                        fireDate: fireDate,
+                        dayKey: HabitDayKey.make(
+                            for: fireDate,
+                            calendar: calendar
+                        )
+                    )
+                }
+            }
+            .sorted {
+                if $0.fireDate != $1.fireDate {
+                    return $0.fireDate < $1.fireDate
+                }
+                if $0.habit.sortOrder != $1.habit.sortOrder {
+                    return $0.habit.sortOrder < $1.habit.sortOrder
+                }
+                return $0.habit.createdAt < $1.habit.createdAt
+            }
+
+        return candidates.prefix(limit).map {
+            ReminderPlanItem(
+                habitID: $0.habit.id,
+                fireDate: $0.fireDate,
+                dayKey: $0.dayKey
+            )
+        }
+    }
+
     @MainActor
     static func syncAll(
         habits: [Habit],
@@ -121,49 +180,33 @@ enum HabitReminderScheduler {
         guard !eligibleHabits.isEmpty else { return true }
         guard await isAuthorized() else { return false }
 
-        let candidates = eligibleHabits.flatMap { habit in
-            reminderDates(
-                habit: habit,
-                checkIns: checkIns,
-                skips: skips,
-                from: referenceDate,
-                calendar: calendar
-            ).map { fireDate in
-                Candidate(
-                    habit: habit,
-                    fireDate: fireDate,
-                    dayKey: HabitDayKey.make(
-                        for: fireDate,
-                        calendar: calendar
-                    )
-                )
-            }
-        }
-        .sorted {
-            if $0.fireDate != $1.fireDate {
-                return $0.fireDate < $1.fireDate
-            }
-            if $0.habit.sortOrder != $1.habit.sortOrder {
-                return $0.habit.sortOrder < $1.habit.sortOrder
-            }
-            return $0.habit.createdAt < $1.habit.createdAt
-        }
-        .prefix(maxPendingRequests)
+        let plan = reminderPlan(
+            habits: eligibleHabits,
+            checkIns: checkIns,
+            skips: skips,
+            from: referenceDate,
+            calendar: calendar
+        )
+        let habitsByID = Dictionary(
+            uniqueKeysWithValues: eligibleHabits.map { ($0.id, $0) }
+        )
 
-        for candidate in candidates {
+        for item in plan {
+            guard let habit = habitsByID[item.habitID] else { continue }
+
             var components = calendar.dateComponents(
                 [.year, .month, .day, .hour, .minute],
-                from: candidate.fireDate
+                from: item.fireDate
             )
             components.calendar = nil
             components.timeZone = nil
 
             let request = UNNotificationRequest(
-                identifier: identifier(
-                    habitID: candidate.habit.id,
-                    dayKey: candidate.dayKey
+                identifier: requestIdentifier(
+                    habitID: item.habitID,
+                    dayKey: item.dayKey
                 ),
-                content: notificationContent(for: candidate.habit),
+                content: notificationContent(for: habit),
                 trigger: UNCalendarNotificationTrigger(
                     dateMatching: components,
                     repeats: false
@@ -178,19 +221,6 @@ enum HabitReminderScheduler {
         }
 
         return true
-    }
-
-    static func remove(habitID: UUID) async {
-        let center = UNUserNotificationCenter.current()
-        let requests = await center.pendingNotificationRequests()
-        let habitPrefix = "(prefix)-(habitID.uuidString)-"
-        let ids = requests
-            .map(\.identifier)
-            .filter { $0.hasPrefix(habitPrefix) }
-
-        if !ids.isEmpty {
-            center.removePendingNotificationRequests(withIdentifiers: ids)
-        }
     }
 
     private static func removeAllManagedRequests(
@@ -219,33 +249,11 @@ enum HabitReminderScheduler {
         return content
     }
 
-    static func notificationComponents(
-        schedule: HabitSchedule,
-        hour: Int,
-        minute: Int
-    ) -> [DateComponents] {
-        weekdayNumbers(for: schedule).map { weekday in
-            var components = DateComponents()
-            components.weekday = weekday
-            components.hour = hour
-            components.minute = minute
-            return components
-        }
-    }
-
-    static func weekdayNumbers(
-        for schedule: HabitSchedule
-    ) -> [Int] {
-        (1...7).filter {
-            schedule.contains(HabitSchedule.option(for: $0))
-        }
-    }
-
-    private static func identifier(
+    static func requestIdentifier(
         habitID: UUID,
         dayKey: String
     ) -> String {
-        "(prefix)-(habitID.uuidString)-(dayKey)"
+        [prefix, habitID.uuidString, dayKey].joined(separator: "-")
     }
 
 #if DEBUG
@@ -261,9 +269,12 @@ enum HabitReminderScheduler {
             .sorted { $0.identifier < $1.identifier }
 
         HabitDebugLog.emit(
-            "HABITS_NOTIFICATION_AUTH=(settings.authorizationStatus.rawValue)"
+            "HABITS_NOTIFICATION_AUTH=" +
+            String(settings.authorizationStatus.rawValue)
         )
-        HabitDebugLog.emit("HABITS_PENDING_COUNT=(requests.count)")
+        HabitDebugLog.emit(
+            "HABITS_PENDING_COUNT=" + String(requests.count)
+        )
 
         for request in requests {
             let next = (request.trigger as? UNCalendarNotificationTrigger)?
@@ -272,9 +283,10 @@ enum HabitReminderScheduler {
             let components = (request.trigger as? UNCalendarNotificationTrigger)?
                 .dateComponents.description ?? "nil"
             HabitDebugLog.emit(
-                "HABITS_PENDING id=(request.identifier) " +
-                "title=(request.content.title) " +
-                "components=(components) next=(next)"
+                "HABITS_PENDING id=" + request.identifier +
+                " title=" + request.content.title +
+                " components=" + components +
+                " next=" + next
             )
         }
     }
