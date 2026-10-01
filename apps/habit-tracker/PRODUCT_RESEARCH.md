@@ -195,13 +195,17 @@ judged at the week level, so individual dates are never falsely labelled missed.
 - private CloudKit sync across the user's Apple devices;
 - flexible frequency such as N times/week.
 
-### Validate before building
+### Explicitly deferred until after V1 evidence
 
-- quantitative habits (pages, liters, reps);
-- Apple Health auto-completion;
+- quantitative habits (pages, liters, reps): useful in Strides-style workflows, but not worth expanding the V1 data-entry model;
+- Apple Health auto-completion: high-value only for authoritative Health data and only when it removes manual logging;
 - quit/break-a-habit mode;
 - export/import backup;
 - additional analytics.
+
+### Template decision
+
+Do not build a template gallery in V1. The four inline quick suggestions already give the useful part of templates — a one-tap start — without adding browsing, categories or onboarding decisions. Revisit only with activation data.
 
 ## Explicit do-not-build list for the core product
 

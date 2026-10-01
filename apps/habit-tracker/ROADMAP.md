@@ -173,7 +173,7 @@ Working formula: **«всё удобное — без лишнего»**.
 - [x] Flexible frequency behind progressive disclosure: N times per week.
 - [x] Manual habit order in Manage only; Today, Watch and widgets consume the same order without extra controls.
 - [x] Distinguish a truly missed scheduled day from skipped / paused / unscheduled days in history; never mark individual days missed for N/week goals.
-- [ ] Evaluate Apple Health auto-completion only where Health has authoritative data.
+- [x] Apple Health decision for V1: defer integration until after launch; later use auto-completion only for authoritative Health data where it removes manual logging.
 - [x] Keep haptics/micro-feedback (haptic + restrained symbol bounce + explicit Undo); do not add an XP/reward economy.
 
 ## Product research before feature expansion
@@ -183,8 +183,8 @@ Working formula: **«всё удобное — без лишнего»**.
 - [x] Review HabitKit plus Streaks, Habitify, Everyday, Way of Life, Loop, Strides, Productive and Finch.
 - [x] Separate repeated user praise (simplicity, glanceable progress, skip/grace, reliable sync, Watch/widgets) from feature-count noise.
 - [x] Build an explicit `do-not-build` list in `PRODUCT_RESEARCH.md`.
-- [ ] Validate whether templates materially improve first-run activation.
-- [ ] Validate whether quantitative habits are worth the extra complexity.
+- [x] V1 template decision: keep four one-tap quick suggestions in creation; do not build a template gallery before activation data proves a need.
+- [x] V1 quantitative-habit decision: defer count/duration/measure types until post-launch evidence justifies the added model and UI complexity.
 
 ## Monetization — Habit-specific policy
 
