@@ -221,6 +221,26 @@ conflict with our seconds-to-create goal.
 **Do not build in V1:** Skip already provides a low-guilt escape hatch. Revisit a
 single optional "minimum version" experiment only after retention data.
 
+#### 24. Gentle guidance helps; artificial habit limits do not
+
+Atoms reviews praise calm design, tactile completion feedback and the idea of starting
+small, but other users strongly dislike paid or product-imposed caps on how many
+habits they can create. The useful part is reducing initial cognitive load, not
+locking the user into an arbitrary count.
+
+**Take:** first launch continues to encourage one quick first habit, while the
+product never imposes a habit-count cap. Keep quick suggestions; do not add a
+lesson feed, identity questionnaire or mandatory coaching sequence.
+
+#### 25. Reminder timing belongs to the habit
+
+HabitMinder reviews show that reminders become demotivating when many unrelated
+habits arrive together at a generic time. A reminder is useful only when its
+timing matches the behavior.
+
+**Take:** reminders remain optional and configured per habit at a specific local
+time. No generic morning reminder bundle and no multiple-reminder editor in V1.
+
 ## What Habits by Arvectum takes
 
 ### Required before public release
