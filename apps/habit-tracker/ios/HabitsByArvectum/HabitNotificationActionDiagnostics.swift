@@ -17,19 +17,29 @@ enum HabitNotificationActionDiagnostics {
         context.insert(habit)
         try? context.save()
 
-        let accepted =
+        let completedAccepted =
             HabitNotificationActionCoordinator.shared.markCompleted(
                 habitID: habit.id
+            )
+        let skipAccepted =
+            HabitNotificationActionCoordinator.shared.skipToday(
+                habitID: habit.id,
+                at: Date().addingTimeInterval(1)
             )
 
         let checkIns = (try? context.fetch(
             FetchDescriptor<HabitCheckIn>()
         )) ?? []
-        let completed = checkIns.contains { $0.habitID == habit.id }
+        let skips = (try? context.fetch(
+            FetchDescriptor<HabitSkip>()
+        )) ?? []
+        let completedRemoved = !checkIns.contains { $0.habitID == habit.id }
+        let skipped = skips.contains { $0.habitID == habit.id }
 
         HabitDebugLog.emit(
             "HABITS_NOTIFICATION_ACTION_DIAGNOSTIC=" +
-            ((accepted && completed) ? "PASS" : "FAIL")
+            ((completedAccepted && skipAccepted && completedRemoved && skipped)
+                ? "PASS" : "FAIL")
         )
     }
 }

@@ -90,6 +90,8 @@ Working formula: **«всё удобное — без лишнего»**.
 - [x] Ask notification permission only when the user enables a reminder.
 - [x] Update scheduled notifications when a habit changes.
 - [x] Physical iPhone verification: notification authorization is granted and a daily habit creates seven correctly timed pending requests.
+- [x] Notification quick actions: `Done` and `Skip today` mutate the same conflict-safe day ledger without opening the app.
+- [x] Simulator runtime diagnostic verifies notification action completion → newer skip convergence.
 - [ ] Add undo affordance beyond tapping the checkmark again if testing shows a need.
 - [x] Base accessibility pass: 44 pt touch targets for habit actions/pickers, VoiceOver labels and selected-state hints.
 - [x] Accessibility-size responsive layouts for Today summary, habit identity/stats and primary action buttons.

@@ -36,6 +36,47 @@ final class HabitNotificationActionTests: XCTestCase {
         XCTAssertEqual(checkIns.first?.habitID, habit.id)
     }
 
+    func testNotificationSkipCreatesSkipAndRemovesCompletion() throws {
+        let container = try makeContainer()
+        let context = ModelContext(container)
+        let habit = Habit(name: "Read")
+        context.insert(habit)
+        try context.save()
+
+        HabitNotificationActionCoordinator.shared.configure(
+            modelContainer: container
+        )
+        let date = Date(timeIntervalSince1970: 1_759_276_800)
+
+        XCTAssertTrue(
+            HabitNotificationActionCoordinator.shared.markCompleted(
+                habitID: habit.id,
+                at: date,
+                mutationID: UUID(
+                    uuidString: "00000000-0000-0000-0000-000000000001"
+                )!,
+                calendar: calendar
+            )
+        )
+        XCTAssertTrue(
+            HabitNotificationActionCoordinator.shared.skipToday(
+                habitID: habit.id,
+                at: date.addingTimeInterval(1),
+                mutationID: UUID(
+                    uuidString: "FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF"
+                )!,
+                calendar: calendar
+            )
+        )
+
+        XCTAssertTrue(
+            try context.fetch(FetchDescriptor<HabitCheckIn>()).isEmpty
+        )
+        let skips = try context.fetch(FetchDescriptor<HabitSkip>())
+        XCTAssertEqual(skips.count, 1)
+        XCTAssertEqual(skips.first?.habitID, habit.id)
+    }
+
     func testNotificationActionIgnoresArchivedHabit() throws {
         let container = try makeContainer()
         let context = ModelContext(container)
