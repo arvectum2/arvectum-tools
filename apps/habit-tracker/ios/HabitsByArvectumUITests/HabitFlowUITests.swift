@@ -125,6 +125,8 @@ final class HabitFlowUITests: XCTestCase {
         app.launchArguments = [
             "-AppleLanguages", "(en)",
             "-AppleLocale", "en_US",
+            "-UIPreferredContentSizeCategoryName",
+            "UICTContentSizeCategoryAccessibilityExtraExtraExtraLarge",
             "--ui-testing",
             "--seed-flexible-weekly-demo",
             "--disable-cloud-sync"

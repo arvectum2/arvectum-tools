@@ -3,6 +3,7 @@ import SwiftUI
 
 struct ManageHabitsView: View {
     @Environment(\.modelContext) private var modelContext
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @Query(sort: \Habit.createdAt) private var habits: [Habit]
 
     private var activeHabits: [Habit] {
@@ -105,7 +106,7 @@ struct ManageHabitsView: View {
                     )
                     .font(.caption)
                     .foregroundStyle(.secondary)
-                    .lineLimit(1)
+                    .lineLimit(dynamicTypeSize.isAccessibilitySize ? 2 : 1)
                 }
             }
             .padding(.vertical, 4)
