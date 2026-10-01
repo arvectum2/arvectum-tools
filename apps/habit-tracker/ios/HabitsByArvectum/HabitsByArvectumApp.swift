@@ -10,7 +10,8 @@ struct HabitsByArvectumApp: App {
             Habit.self,
             HabitCheckIn.self,
             HabitSkip.self,
-            HabitPausePeriod.self
+            HabitPausePeriod.self,
+            HabitDayMutation.self
         ])
         let arguments = ProcessInfo.processInfo.arguments
         let isUITesting = arguments.contains("--ui-testing")
@@ -29,6 +30,7 @@ struct HabitsByArvectumApp: App {
             seedFlexibleWeeklyDemoIfRequested(container: container)
             completeFirstIncompleteHabitIfRequested(container: container)
             skipFirstIncompleteHabitIfRequested(container: container)
+            HabitMutationDiagnostics.runIfRequested(container: container)
 #endif
             PhoneWatchSyncCoordinator.shared.configure(
                 modelContainer: container
@@ -62,7 +64,7 @@ struct HabitsByArvectumApp: App {
             )
         } catch where cloudSyncEnabled {
 #if DEBUG
-            print(
+            HabitDebugLog.emit(
                 "HABITS_CLOUD_FALLBACK reason=\(error.localizedDescription)"
             )
 #endif

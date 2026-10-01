@@ -179,30 +179,19 @@ struct TodayView: View {
     private func toggle(_ habit: Habit, on date: Date) {
         let calendar = Calendar.autoupdatingCurrent
         let key = HabitDayKey.make(for: date, calendar: calendar)
+        let desiredState = !isCompleted(habit, on: date)
 
-        if let existing = checkIns.first(where: {
-            $0.habitID == habit.id &&
-            HabitDayKey.matches(
-                $0,
-                on: date,
-                calendar: calendar
-            )
-        }) {
-            modelContext.delete(existing)
-        } else {
-            if let skip = skips.first(where: {
-                $0.habitID == habit.id && $0.dayKey == key
-            }) {
-                modelContext.delete(skip)
-            }
+        _ = HabitCompletionMutation.setCompletion(
+            habitID: habit.id,
+            dayKey: key,
+            completed: desiredState,
+            context: modelContext,
+            mutationAt: .now,
+            mutationID: UUID(),
+            calendar: calendar
+        )
 
-            modelContext.insert(
-                HabitCheckIn(
-                    habitID: habit.id,
-                    day: date,
-                    calendar: calendar
-                )
-            )
+        if desiredState {
             UINotificationFeedbackGenerator().notificationOccurred(.success)
         }
 
@@ -213,31 +202,17 @@ struct TodayView: View {
     private func toggleSkip(_ habit: Habit, on date: Date) {
         let calendar = Calendar.autoupdatingCurrent
         let key = HabitDayKey.make(for: date, calendar: calendar)
+        let desiredState = !isSkipped(habit, on: date)
 
-        if let existingSkip = skips.first(where: {
-            $0.habitID == habit.id && $0.dayKey == key
-        }) {
-            modelContext.delete(existingSkip)
-        } else {
-            if let existingCheckIn = checkIns.first(where: {
-                $0.habitID == habit.id &&
-                HabitDayKey.matches(
-                    $0,
-                    on: date,
-                    calendar: calendar
-                )
-            }) {
-                modelContext.delete(existingCheckIn)
-            }
-
-            modelContext.insert(
-                HabitSkip(
-                    habitID: habit.id,
-                    day: date,
-                    calendar: calendar
-                )
-            )
-        }
+        _ = HabitSkipMutation.setSkipped(
+            habitID: habit.id,
+            dayKey: key,
+            skipped: desiredState,
+            context: modelContext,
+            mutationAt: .now,
+            mutationID: UUID(),
+            calendar: calendar
+        )
 
         try? modelContext.save()
         HabitDataChangeNotifier.notify()

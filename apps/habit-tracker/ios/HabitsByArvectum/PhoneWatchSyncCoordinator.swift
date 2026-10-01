@@ -136,7 +136,7 @@ final class PhoneWatchSyncCoordinator: NSObject, WCSessionDelegate {
             let states = snapshot.habits.map {
                 "\($0.name)=\($0.completed ? "1" : "0")"
             }.joined(separator: ",")
-            print(
+            HabitDebugLog.emit(
                 "HABITS_PHONE_SNAPSHOT day=\(snapshot.dayKey) " +
                 "completed=\(snapshot.completedCount)/\(snapshot.totalCount) " +
                 "habits=[\(states)]"
@@ -164,7 +164,9 @@ final class PhoneWatchSyncCoordinator: NSObject, WCSessionDelegate {
             habitID: command.habitID,
             dayKey: command.dayKey,
             completed: command.completed,
-            context: context
+            context: context,
+            mutationAt: command.createdAt,
+            mutationID: command.id
         )
 
         try? context.save()
@@ -212,7 +214,7 @@ final class PhoneWatchSyncCoordinator: NSObject, WCSessionDelegate {
                 if ProcessInfo.processInfo.arguments.contains(
                     "--diagnose-watch-sync"
                 ) {
-                    print(
+                    HabitDebugLog.emit(
                         "HABITS_PHONE_COMMAND habit=\(command.habitID) " +
                         "day=\(command.dayKey) completed=\(command.completed)"
                     )

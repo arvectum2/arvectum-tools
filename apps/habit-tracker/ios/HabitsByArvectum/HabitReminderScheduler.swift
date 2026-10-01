@@ -120,8 +120,10 @@ enum HabitReminderScheduler {
             .filter { $0.identifier.hasPrefix(prefix) }
             .sorted { $0.identifier < $1.identifier }
 
-        print("HABITS_NOTIFICATION_AUTH=\(settings.authorizationStatus.rawValue)")
-        print("HABITS_PENDING_COUNT=\(requests.count)")
+        HabitDebugLog.emit(
+            "HABITS_NOTIFICATION_AUTH=\(settings.authorizationStatus.rawValue)"
+        )
+        HabitDebugLog.emit("HABITS_PENDING_COUNT=\(requests.count)")
 
         for request in requests {
             let next = (request.trigger as? UNCalendarNotificationTrigger)?
@@ -129,7 +131,7 @@ enum HabitReminderScheduler {
                 .ISO8601Format() ?? "nil"
             let components = (request.trigger as? UNCalendarNotificationTrigger)?
                 .dateComponents.description ?? "nil"
-            print(
+            HabitDebugLog.emit(
                 "HABITS_PENDING id=\(request.identifier) " +
                 "title=\(request.content.title) " +
                 "components=\(components) next=\(next)"

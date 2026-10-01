@@ -1,12 +1,12 @@
 import Foundation
 import SwiftData
 
-enum HabitCompletionMutation {
+enum HabitSkipMutation {
     @MainActor
-    static func setCompletion(
+    static func setSkipped(
         habitID: UUID,
         dayKey: String,
-        completed: Bool,
+        skipped: Bool,
         context: ModelContext,
         mutationAt: Date = .now,
         mutationID: UUID = UUID(),
@@ -29,7 +29,7 @@ enum HabitCompletionMutation {
             FetchDescriptor<HabitSkip>()
         )) ?? []
 
-        let matching = allCheckIns.filter {
+        let matchingCheckIns = allCheckIns.filter {
             $0.habitID == habitID &&
             ($0.dayKey == dayKey ||
              ($0.dayKey == nil &&
@@ -41,30 +41,28 @@ enum HabitCompletionMutation {
 
         var changed = false
 
-        for skip in matchingSkips {
-            context.delete(skip)
-            changed = true
-        }
+        if skipped {
+            for checkIn in matchingCheckIns {
+                context.delete(checkIn)
+                changed = true
+            }
 
-        if completed {
-            if matching.isEmpty, let date = date(
-                from: dayKey,
-                calendar: calendar
-            ) {
-                let checkIn = HabitCheckIn(
+            if matchingSkips.isEmpty,
+               let date = date(from: dayKey, calendar: calendar) {
+                let skip = HabitSkip(
                     habitID: habitID,
                     day: date,
                     calendar: calendar
                 )
-                checkIn.dayKey = dayKey
-                context.insert(checkIn)
+                skip.dayKey = dayKey
+                context.insert(skip)
                 changed = true
             }
-        } else if !matching.isEmpty {
-            for checkIn in matching {
-                context.delete(checkIn)
+        } else {
+            for skip in matchingSkips {
+                context.delete(skip)
+                changed = true
             }
-            changed = true
         }
 
         return changed

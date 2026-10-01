@@ -125,7 +125,8 @@ final class HabitCompletionMutationTests: XCTestCase {
             Habit.self,
             HabitCheckIn.self,
             HabitSkip.self,
-            HabitPausePeriod.self
+            HabitPausePeriod.self,
+            HabitDayMutation.self
         ])
         let configuration = ModelConfiguration(
             schema: schema,

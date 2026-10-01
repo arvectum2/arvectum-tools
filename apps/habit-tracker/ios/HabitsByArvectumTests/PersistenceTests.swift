@@ -17,7 +17,8 @@ final class PersistenceTests: XCTestCase {
             Habit.self,
             HabitCheckIn.self,
             HabitSkip.self,
-            HabitPausePeriod.self
+            HabitPausePeriod.self,
+            HabitDayMutation.self
         ])
         let habitID = UUID()
         let checkInDate = Date(timeIntervalSince1970: 1_790_784_000)

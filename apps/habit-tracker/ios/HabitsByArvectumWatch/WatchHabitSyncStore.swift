@@ -180,7 +180,7 @@ final class WatchHabitSyncStore: NSObject, ObservableObject, WCSessionDelegate {
             let states = merged.habits.map {
                 "\($0.name)=\($0.completed ? "1" : "0")"
             }.joined(separator: ",")
-            print(
+            HabitDebugLog.emit(
                 "HABITS_WATCH_SNAPSHOT day=\(merged.dayKey) " +
                 "completed=\(merged.completedCount)/\(merged.totalCount) " +
                 "pending=\(pendingCommands.count) habits=[\(states)]"
@@ -265,7 +265,7 @@ final class WatchHabitSyncStore: NSObject, ObservableObject, WCSessionDelegate {
             if ProcessInfo.processInfo.arguments.contains(
                 "--diagnose-watch-sync"
             ) {
-                print(
+                HabitDebugLog.emit(
                     "HABITS_WATCH_ACTIVATED state=\(activationState.rawValue) " +
                     "reachable=\(session.isReachable)"
                 )

@@ -49,7 +49,9 @@ final class HabitWidgetCoordinator {
                 habitID: command.habitID,
                 dayKey: command.dayKey,
                 completed: command.completed,
-                context: context
+                context: context,
+                mutationAt: command.createdAt,
+                mutationID: command.id
             )
 
             processed.insert(command.id)
