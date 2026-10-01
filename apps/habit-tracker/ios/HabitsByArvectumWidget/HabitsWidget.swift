@@ -313,52 +313,6 @@ struct HabitsTodayWidgetView: View {
     }
 }
 
-struct ToggleHabitWidgetIntent: AppIntent {
-    static var title: LocalizedStringResource = "Toggle habit"
-    static var description = IntentDescription(
-        "Mark or unmark a habit from the Habits widget."
-    )
-
-    @Parameter(title: "Habit ID")
-    var habitID: String
-
-    @Parameter(title: "Day")
-    var dayKey: String
-
-    @Parameter(title: "Completed")
-    var completed: Bool
-
-    init() {}
-
-    init(
-        habitID: String,
-        dayKey: String,
-        completed: Bool
-    ) {
-        self.habitID = habitID
-        self.dayKey = dayKey
-        self.completed = completed
-    }
-
-    func perform() async throws -> some IntentResult {
-        guard let id = UUID(uuidString: habitID) else {
-            return .result()
-        }
-
-        let command = HabitWidgetCommand(
-            habitID: id,
-            dayKey: dayKey,
-            completed: completed
-        )
-        HabitWidgetBridge.appendCommand(command)
-        HabitWidgetBridge.applyOptimistic(command)
-        WidgetCenter.shared.reloadTimelines(
-            ofKind: "HabitsTodayWidget"
-        )
-        return .result()
-    }
-}
-
 struct HabitsTodayWidget: Widget {
     let kind = "HabitsTodayWidget"
 

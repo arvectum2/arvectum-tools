@@ -16,6 +16,7 @@ final class HabitWidgetBridgeTests: XCTestCase {
 
     override func tearDown() {
         HabitWidgetBridge.defaultsOverride = nil
+        HabitWidgetIntentRuntime.processor = nil
         defaults.removePersistentDomain(forName: suiteName)
         defaults = nil
         suiteName = nil
@@ -364,6 +365,49 @@ final class HabitWidgetBridgeTests: XCTestCase {
                 skipped.id
             ]
         )
+    }
+
+    func testWidgetIntentQueuesCommandAndAwaitsAppRuntimeProcessor() async throws {
+        let habitID = UUID()
+        HabitWidgetBridge.saveSnapshot(
+            HabitWidgetSnapshot(
+                generatedAt: .now,
+                dayKey: "2027-01-15",
+                completedCount: 0,
+                skippedCount: 0,
+                totalCount: 1,
+                habits: [
+                    HabitWidgetHabit(
+                        id: habitID,
+                        name: "Reading",
+                        symbolName: "book.fill",
+                        colorHex: "8B5CF6",
+                        completed: false,
+                        skipped: false,
+                        streak: 3
+                    )
+                ]
+            )
+        )
+
+        var processorRan = false
+        HabitWidgetIntentRuntime.processor = {
+            processorRan = true
+        }
+
+        let intent = ToggleHabitWidgetIntent(
+            habitID: habitID.uuidString,
+            dayKey: "2027-01-15",
+            completed: true
+        )
+        _ = try await intent.perform()
+
+        XCTAssertTrue(processorRan)
+        let commands = HabitWidgetBridge.loadCommands()
+        XCTAssertEqual(commands.count, 1)
+        XCTAssertEqual(commands.first?.habitID, habitID)
+        XCTAssertEqual(commands.first?.dayKey, "2027-01-15")
+        XCTAssertEqual(commands.first?.completed, true)
     }
 
     func testCommandQueueIsBoundedToNewestHundredTargets() {

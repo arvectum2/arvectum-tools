@@ -11,6 +11,9 @@ final class HabitWidgetCoordinator {
 
     func configure(modelContainer: ModelContainer) {
         self.modelContainer = modelContainer
+        HabitWidgetIntentRuntime.processor = { [weak self] in
+            await self?.processQueuedWidgetIntent()
+        }
         refresh()
     }
 
@@ -20,9 +23,14 @@ final class HabitWidgetCoordinator {
 
     func refresh() {
         Task { @MainActor in
-            processPendingCommands()
-            publishSnapshot()
+            await processQueuedWidgetIntent()
         }
+    }
+
+    @MainActor
+    private func processQueuedWidgetIntent() async {
+        processPendingCommands()
+        publishSnapshot()
     }
 
     @MainActor

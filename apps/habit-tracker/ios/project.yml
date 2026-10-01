@@ -123,6 +123,7 @@ targets:
     deploymentTarget: "17.0"
     sources:
       - path: HabitsByArvectumWidget
+      - path: HabitsByArvectum/ToggleHabitWidgetIntent.swift
       - path: Shared/HabitWidgetBridge.swift
     info:
       path: HabitsByArvectumWidget/Info.plist
