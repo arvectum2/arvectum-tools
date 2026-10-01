@@ -47,6 +47,7 @@
 
 "notification.denied.title" = "Уведомления отключены";
 "notification.denied.message" = "Разрешите уведомления для Habits в настройках iPhone, чтобы включить напоминания.";
+"notification.openSettings" = "Настройки";
 "notification.action.complete" = "Готово";
 "notification.action.skip" = "Пропустить сегодня";
 

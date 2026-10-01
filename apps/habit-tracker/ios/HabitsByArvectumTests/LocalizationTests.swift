@@ -36,6 +36,7 @@ final class LocalizationTests: XCTestCase {
         "reminder.notification.body",
         "notification.denied.title",
         "notification.denied.message",
+        "notification.openSettings",
         "common.cancel",
         "common.done",
         "common.save",

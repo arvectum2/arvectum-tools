@@ -1,9 +1,11 @@
 import SwiftData
 import SwiftUI
+import UIKit
 
 struct AddHabitView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var modelContext
+    @Environment(\.openURL) private var openURL
     @Query(sort: \Habit.createdAt) private var allHabits: [Habit]
 
     let habit: Habit?
@@ -203,7 +205,13 @@ struct AddHabitView: View {
                 L10n.string("notification.denied.title"),
                 isPresented: $showingNotificationDenied
             ) {
-                Button(L10n.string("common.ok"), role: .cancel) {}
+                Button(L10n.string("notification.openSettings")) {
+                    guard let url = URL(
+                        string: UIApplication.openSettingsURLString
+                    ) else { return }
+                    openURL(url)
+                }
+                Button(L10n.string("common.cancel"), role: .cancel) {}
             } message: {
                 Text(L10n.string("notification.denied.message"))
             }

@@ -90,7 +90,7 @@ Working formula: **«всё удобное — без лишнего»**.
 ## M2 — reminders and polish
 
 - [x] Per-habit local reminder for fixed schedules; flexible N/week goals intentionally stay reminder-free in V1 to avoid notifications after the weekly target is already complete.
-- [x] Ask notification permission only when the user enables a reminder.
+- [x] Ask notification permission only when the user enables a reminder; if access is denied, offer a direct Settings recovery action.
 - [x] Update scheduled notifications when a habit changes.
 - [x] Replace repeating weekday reminders with a bounded rolling one-shot horizon; completion/skip suppresses the current day's pending reminder and the plan rebuilds after iPhone/Watch/widget mutations.
 - [x] Cap managed local reminders at the earliest 60 requests to stay below the iOS pending-notification limit.

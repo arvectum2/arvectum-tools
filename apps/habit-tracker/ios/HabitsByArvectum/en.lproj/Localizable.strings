@@ -47,6 +47,7 @@
 
 "notification.denied.title" = "Notifications are off";
 "notification.denied.message" = "Allow notifications for Habits in iPhone Settings to enable reminders.";
+"notification.openSettings" = "Settings";
 "notification.action.complete" = "Done";
 "notification.action.skip" = "Skip today";
 
