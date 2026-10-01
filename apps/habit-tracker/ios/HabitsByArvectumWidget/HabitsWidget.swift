@@ -222,25 +222,32 @@ struct HabitsTodayWidgetView: View {
 
     private func habitRow(_ habit: HabitWidgetHabit) -> some View {
         HStack(spacing: 8) {
-            Image(systemName: habit.symbolName)
-                .foregroundStyle(Color(hex: habit.colorHex))
-                .frame(width: 20)
+            Link(destination: HabitDeepLink.habitURL(habit.id)) {
+                HStack(spacing: 8) {
+                    Image(systemName: habit.symbolName)
+                        .foregroundStyle(Color(hex: habit.colorHex))
+                        .frame(width: 20)
 
-            Text(habit.name)
-                .font(.subheadline.weight(.medium))
-                .lineLimit(1)
+                    Text(habit.name)
+                        .font(.subheadline.weight(.medium))
+                        .foregroundStyle(.primary)
+                        .lineLimit(1)
 
-            Spacer(minLength: 4)
+                    Spacer(minLength: 4)
 
-            if let target = habit.weeklyTarget,
-               let count = habit.weeklyCount {
-                Text("\(count)/\(target)")
-                    .font(.caption2.monospacedDigit())
-                    .foregroundStyle(.secondary)
-            } else if habit.streak > 0 {
-                Label(String(habit.streak), systemImage: "flame.fill")
-                    .font(.caption2)
-                    .foregroundStyle(.secondary)
+                    if let target = habit.weeklyTarget,
+                       let count = habit.weeklyCount {
+                        Text("\(count)/\(target)")
+                            .font(.caption2.monospacedDigit())
+                            .foregroundStyle(.secondary)
+                    } else if habit.streak > 0 {
+                        Label(String(habit.streak), systemImage: "flame.fill")
+                            .font(.caption2)
+                            .foregroundStyle(.secondary)
+                    }
+                }
+                .frame(maxWidth: .infinity, minHeight: 40)
+                .contentShape(Rectangle())
             }
 
             Button(
@@ -323,6 +330,7 @@ struct HabitsTodayWidget: Widget {
         ) { entry in
             HabitsTodayWidgetView(entry: entry)
                 .containerBackground(.background, for: .widget)
+                .widgetURL(HabitDeepLink.todayURL)
         }
         .configurationDisplayName(
             WidgetL10n.string("widget.displayName")

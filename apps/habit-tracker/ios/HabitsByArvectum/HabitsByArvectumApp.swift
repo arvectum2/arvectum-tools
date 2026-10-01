@@ -294,6 +294,9 @@ struct HabitsByArvectumApp: App {
 
         context.insert(
             Habit(
+                id: UUID(
+                    uuidString: "00000000-0000-0000-0000-000000000002"
+                )!,
                 name: L10n.string("quick.water"),
                 symbolName: "drop.fill",
                 colorHex: "43E5C5",
@@ -302,6 +305,9 @@ struct HabitsByArvectumApp: App {
         )
         context.insert(
             Habit(
+                id: UUID(
+                    uuidString: "00000000-0000-0000-0000-000000000001"
+                )!,
                 name: L10n.string("quick.reading"),
                 symbolName: "book.fill",
                 colorHex: "8B5CF6",

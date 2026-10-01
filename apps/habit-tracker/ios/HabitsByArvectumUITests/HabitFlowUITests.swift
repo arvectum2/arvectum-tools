@@ -31,6 +31,26 @@ final class HabitFlowUITests: XCTestCase {
         XCTAssertFalse(app.buttons["Create habit"].exists)
     }
 
+    func testDeepLinkRouteOpensHabitDetail() throws {
+        app.terminate()
+        app.launchArguments = [
+            "-AppleLanguages", "(en)",
+            "-AppleLocale", "en_US",
+            "--ui-testing",
+            "--seed-watch-sync-demo",
+            "--disable-cloud-sync",
+            "--debug-open-reading-deeplink"
+        ]
+        app.launch()
+
+        XCTAssertTrue(
+            app.navigationBars["Reading"].waitForExistence(timeout: 3)
+        )
+        XCTAssertTrue(
+            app.staticTexts["Last 6 weeks"].waitForExistence(timeout: 3)
+        )
+    }
+
     func testCreateCheckAndOpenHistory() throws {
         let createButton = app.buttons["Create habit"]
         XCTAssertTrue(createButton.waitForExistence(timeout: 3))

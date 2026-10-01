@@ -11,6 +11,7 @@ struct TodayView: View {
 
     @State private var showingAddHabit = false
     @State private var undoOffer: CompletionUndoOffer?
+    @State private var deepLinkedHabitID: UUID?
 
     private var activeToday: [Habit] {
         HabitTodayProjection.orderedDueHabits(
@@ -65,6 +66,24 @@ struct TodayView: View {
             .sheet(isPresented: $showingAddHabit) {
                 AddHabitView()
             }
+            .navigationDestination(
+                isPresented: Binding(
+                    get: { deepLinkedHabitID != nil },
+                    set: { presented in
+                        if !presented { deepLinkedHabitID = nil }
+                    }
+                )
+            ) {
+                if let habitID = deepLinkedHabitID,
+                   let habit = habits.first(where: {
+                       $0.id == habitID && !$0.isArchived
+                   }) {
+                    HabitDetailView(habit: habit)
+                }
+            }
+            .onOpenURL { url in
+                handleDeepLink(url)
+            }
             .overlay(alignment: .bottom) {
                 if let undoOffer {
                     CompletionUndoToast {
@@ -78,6 +97,9 @@ struct TodayView: View {
             .task {
                 registerForegroundLaunchIfNeeded()
                 backfillLegacyDayKeys()
+#if DEBUG
+                openDebugDeepLinkIfRequested()
+#endif
                 await HabitReminderCoordinator.shared.refreshNow()
                 HabitWidgetCoordinator.shared.refresh()
 #if DEBUG
@@ -171,6 +193,53 @@ struct TodayView: View {
         .padding(24)
         .background(Color.habitsSurface, in: RoundedRectangle(cornerRadius: 20))
     }
+
+    private func handleDeepLink(_ url: URL) {
+        switch HabitDeepLink.destination(from: url) {
+        case .today:
+            deepLinkedHabitID = nil
+#if DEBUG
+            emitDeepLinkDiagnostic("today")
+#endif
+        case .habit(let habitID):
+            guard habits.contains(where: {
+                $0.id == habitID && !$0.isArchived
+            }) else {
+#if DEBUG
+                emitDeepLinkDiagnostic("habit-missing")
+#endif
+                return
+            }
+            deepLinkedHabitID = habitID
+#if DEBUG
+            emitDeepLinkDiagnostic("habit=\(habitID.uuidString)")
+#endif
+        case nil:
+#if DEBUG
+            emitDeepLinkDiagnostic("invalid")
+#endif
+            break
+        }
+    }
+
+#if DEBUG
+    private func emitDeepLinkDiagnostic(_ value: String) {
+        guard ProcessInfo.processInfo.arguments.contains(
+            "--diagnose-deeplink"
+        ) else { return }
+        HabitDebugLog.emit("HABITS_DEEPLINK \(value)")
+    }
+
+    private func openDebugDeepLinkIfRequested() {
+        guard ProcessInfo.processInfo.arguments.contains(
+            "--debug-open-reading-deeplink"
+        ), let id = UUID(
+            uuidString: "00000000-0000-0000-0000-000000000001"
+        ) else { return }
+
+        handleDeepLink(HabitDeepLink.habitURL(id))
+    }
+#endif
 
     private func registerForegroundLaunchIfNeeded() {
         guard !ProcessInfo.processInfo.arguments.contains("--ui-testing") else {

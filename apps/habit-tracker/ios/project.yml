@@ -35,6 +35,10 @@ targets:
         UILaunchScreen: {}
         UISupportedInterfaceOrientations:
           - UIInterfaceOrientationPortrait
+        CFBundleURLTypes:
+          - CFBundleURLName: ru.arvectum.tools.habits
+            CFBundleURLSchemes:
+              - habits-arvectum
         UIBackgroundModes:
           - remote-notification
     settings:
@@ -125,6 +129,7 @@ targets:
       - path: HabitsByArvectumWidget
       - path: HabitsByArvectum/ToggleHabitWidgetIntent.swift
       - path: Shared/HabitWidgetBridge.swift
+      - path: Shared/HabitDeepLink.swift
     info:
       path: HabitsByArvectumWidget/Info.plist
       properties:
