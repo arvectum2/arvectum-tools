@@ -56,6 +56,7 @@ final class WatchHabitSyncStore: NSObject, ObservableObject, WCSessionDelegate {
         snapshot.skippedCount = snapshot.habits.filter {
             !$0.completed && $0.skipped
         }.count
+        snapshot.generatedAt = .now
         cacheSnapshot()
 
         let command = HabitCompletionCommand(
@@ -149,6 +150,10 @@ final class WatchHabitSyncStore: NSObject, ObservableObject, WCSessionDelegate {
             let message = try? HabitSyncCodec.message(packet)
         else { return }
 
+        if packet.kind == .setCompletion {
+            try? session.updateApplicationContext(message)
+        }
+
         if let command = packet.command {
             for transfer in session.outstandingUserInfoTransfers {
                 guard
@@ -188,6 +193,7 @@ final class WatchHabitSyncStore: NSObject, ObservableObject, WCSessionDelegate {
     private func apply(_ incoming: HabitSyncSnapshot) {
         let reconciled = HabitSyncReconciler.reconcile(
             incoming: incoming,
+            currentSnapshot: snapshot,
             pendingCommands: pendingCommands
         )
         pendingCommands = reconciled.remainingCommands

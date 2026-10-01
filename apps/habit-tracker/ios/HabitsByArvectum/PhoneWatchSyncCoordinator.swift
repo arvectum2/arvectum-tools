@@ -287,6 +287,18 @@ final class PhoneWatchSyncCoordinator: NSObject, WCSessionDelegate {
         handle(packet: packet)
     }
 
+    func session(
+        _ session: WCSession,
+        didReceiveApplicationContext applicationContext: [String: Any]
+    ) {
+        guard let packet = try? HabitSyncCodec.packet(
+            from: applicationContext
+        ) else {
+            return
+        }
+        handle(packet: packet)
+    }
+
     func sessionDidBecomeInactive(_ session: WCSession) {}
 
     func sessionDidDeactivate(_ session: WCSession) {

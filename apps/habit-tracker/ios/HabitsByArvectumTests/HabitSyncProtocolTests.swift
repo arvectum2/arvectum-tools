@@ -155,6 +155,62 @@ final class HabitSyncProtocolTests: XCTestCase {
         XCTAssertEqual(decoded.snapshot?.resolvedCount, 1)
     }
 
+    func testOlderSnapshotCannotRollBackNewerDisplayedState() {
+        let habitID = UUID()
+        var current = snapshot(
+            habitID: habitID,
+            completed: true
+        )
+        current.generatedAt = Date(timeIntervalSince1970: 20)
+
+        var incoming = snapshot(
+            habitID: habitID,
+            completed: false
+        )
+        incoming.generatedAt = Date(timeIntervalSince1970: 10)
+
+        let result = HabitSyncReconciler.reconcile(
+            incoming: incoming,
+            currentSnapshot: current,
+            pendingCommands: []
+        )
+
+        XCTAssertTrue(result.snapshot.habits[0].completed)
+        XCTAssertEqual(result.snapshot.completedCount, 1)
+        XCTAssertEqual(result.snapshot.generatedAt, current.generatedAt)
+    }
+
+    func testOlderSnapshotStillAcknowledgesPendingCommandWithoutRollback() {
+        let habitID = UUID()
+        let command = HabitCompletionCommand(
+            habitID: habitID,
+            dayKey: "2026-10-01",
+            completed: true,
+            createdAt: Date(timeIntervalSince1970: 15)
+        )
+        var current = snapshot(
+            habitID: habitID,
+            completed: true
+        )
+        current.generatedAt = Date(timeIntervalSince1970: 20)
+
+        var incoming = snapshot(
+            habitID: habitID,
+            completed: false,
+            acknowledged: [command.id]
+        )
+        incoming.generatedAt = Date(timeIntervalSince1970: 10)
+
+        let result = HabitSyncReconciler.reconcile(
+            incoming: incoming,
+            currentSnapshot: current,
+            pendingCommands: [command]
+        )
+
+        XCTAssertTrue(result.remainingCommands.isEmpty)
+        XCTAssertTrue(result.snapshot.habits[0].completed)
+    }
+
     func testPendingCommandFromDifferentDayDoesNotOverrideSnapshot() {
         let habitID = UUID()
         let command = HabitCompletionCommand(

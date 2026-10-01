@@ -3,6 +3,7 @@ import Foundation
 enum HabitSyncReconciler {
     static func reconcile(
         incoming: HabitSyncSnapshot,
+        currentSnapshot: HabitSyncSnapshot? = nil,
         pendingCommands: [HabitCompletionCommand]
     ) -> (
         snapshot: HabitSyncSnapshot,
@@ -13,7 +14,14 @@ enum HabitSyncReconciler {
             !acknowledged.contains($0.id)
         }
 
+        let shouldKeepCurrent = currentSnapshot.map {
+            $0.dayKey == incoming.dayKey &&
+            $0.generatedAt > incoming.generatedAt
+        } ?? false
         var merged = incoming
+        if shouldKeepCurrent, let currentSnapshot {
+            merged = currentSnapshot
+        }
 
         for command in remaining where command.dayKey == incoming.dayKey {
             guard let index = merged.habits.firstIndex(where: {
