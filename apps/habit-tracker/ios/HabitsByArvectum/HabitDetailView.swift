@@ -140,7 +140,7 @@ struct HabitDetailView: View {
         VStack(alignment: .leading, spacing: 4) {
             Text(habit.name)
                 .font(.title3.weight(.semibold))
-            Text(scheduleDescription)
+            Text(HabitScheduleText.description(for: habit))
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
 
@@ -512,35 +512,6 @@ struct HabitDetailView: View {
 
         try? modelContext.save()
         HabitDataChangeNotifier.notify()
-    }
-
-    private var scheduleDescription: String {
-        if habit.usesFlexibleWeeklyTarget {
-            return L10n.format(
-                "schedule.flexible.description.format",
-                habit.weeklyTarget
-            )
-        }
-        if habit.schedule == .everyDay {
-            return L10n.string("schedule.everyday")
-        }
-        if habit.schedule == .weekdays {
-            return L10n.string("schedule.weekdays.description")
-        }
-
-        let labels: [(String, HabitSchedule)] = [
-            (L10n.string("weekday.mon.short"), .monday),
-            (L10n.string("weekday.tue.short"), .tuesday),
-            (L10n.string("weekday.wed.short"), .wednesday),
-            (L10n.string("weekday.thu.short"), .thursday),
-            (L10n.string("weekday.fri.short"), .friday),
-            (L10n.string("weekday.sat.short"), .saturday),
-            (L10n.string("weekday.sun.short"), .sunday)
-        ]
-        return labels
-            .filter { habit.schedule.contains($0.1) }
-            .map(\.0)
-            .joined(separator: ", ")
     }
 
     private var reminderDescription: String {

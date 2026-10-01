@@ -98,11 +98,14 @@ struct ManageHabitsView: View {
                         .font(.body.weight(.semibold))
                         .foregroundStyle(.primary)
 
-                    if habit.isPaused && !habit.isArchived {
-                        Text(L10n.string("manage.paused"))
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
-                    }
+                    Text(
+                        habit.isPaused && !habit.isArchived
+                            ? L10n.string("manage.paused")
+                            : HabitScheduleText.description(for: habit)
+                    )
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                    .lineLimit(1)
                 }
             }
             .padding(.vertical, 4)
