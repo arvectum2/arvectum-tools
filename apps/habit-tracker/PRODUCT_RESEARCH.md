@@ -1,4 +1,4 @@
-# Habits by Arvectum — Product research
+# ChickMark — Product research
 
 Updated: 2026-10-01
 
@@ -29,7 +29,7 @@ Streaks and Way of Life are repeatedly praised for visual simplicity and low
 daily interaction cost. A recurring complaint about alternatives is that the
 tracker itself becomes another productivity system that needs maintenance.
 
-**Take:** Habits by Arvectum keeps the default interaction surface deliberately
+**Take:** ChickMark keeps the default interaction surface deliberately
 small.
 
 #### 2. Show only what is due now
@@ -241,7 +241,7 @@ timing matches the behavior.
 **Take:** reminders remain optional and configured per habit at a specific local
 time. No generic morning reminder bundle and no multiple-reminder editor in V1.
 
-## What Habits by Arvectum takes
+## What ChickMark takes
 
 ### Required before public release
 

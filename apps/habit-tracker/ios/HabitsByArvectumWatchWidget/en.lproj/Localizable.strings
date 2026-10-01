@@ -1,4 +1,4 @@
-"watch.widget.title" = "Habits";
+"watch.widget.title" = "ChickMark";
 "watch.widget.description" = "See today's habit progress on your watch face.";
 "watch.widget.empty" = "Nothing due";
 "watch.widget.inline.format" = "%d/%d habits";

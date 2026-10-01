@@ -14,7 +14,7 @@
 "habit.streak.start" = "Start your streak today";
 "habit.complete" = "Mark complete";
 "habit.undo" = "Undo completion";
-"habit.completed.toast" = "Habit completed";
+"habit.completed.toast" = "Chick-in complete";
 "habit.skipped.today" = "Skipped today";
 "habit.skip.today" = "Skip today";
 "habit.skip.undo" = "Undo skip";

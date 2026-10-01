@@ -1,4 +1,4 @@
-# Habits by Arvectum — Sync design
+# ChickMark — Sync design
 
 Updated: 2026-10-01
 

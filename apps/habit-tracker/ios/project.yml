@@ -27,7 +27,7 @@ targets:
     info:
       path: HabitsByArvectum/Info.plist
       properties:
-        CFBundleDisplayName: "Habits by Arvectum"
+        CFBundleDisplayName: "ChickMark"
         CFBundleShortVersionString: "$(MARKETING_VERSION)"
         CFBundleVersion: "$(CURRENT_PROJECT_VERSION)"
         LSApplicationCategoryType: public.app-category.healthcare-fitness
@@ -77,7 +77,7 @@ targets:
     info:
       path: HabitsByArvectumWatch/Info.plist
       properties:
-        CFBundleDisplayName: "Habits"
+        CFBundleDisplayName: "ChickMark"
         CFBundleShortVersionString: "$(MARKETING_VERSION)"
         CFBundleVersion: "$(CURRENT_PROJECT_VERSION)"
         WKApplication: true
@@ -108,7 +108,7 @@ targets:
     info:
       path: HabitsByArvectumWatchWidget/Info.plist
       properties:
-        CFBundleDisplayName: "Habits"
+        CFBundleDisplayName: "ChickMark"
         CFBundleShortVersionString: "$(MARKETING_VERSION)"
         CFBundleVersion: "$(CURRENT_PROJECT_VERSION)"
         NSExtension:
@@ -138,7 +138,7 @@ targets:
     info:
       path: HabitsByArvectumWidget/Info.plist
       properties:
-        CFBundleDisplayName: "Habits"
+        CFBundleDisplayName: "ChickMark"
         CFBundleShortVersionString: "$(MARKETING_VERSION)"
         CFBundleVersion: "$(CURRENT_PROJECT_VERSION)"
         NSExtension:

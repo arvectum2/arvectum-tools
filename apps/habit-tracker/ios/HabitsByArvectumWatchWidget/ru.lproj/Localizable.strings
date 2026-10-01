@@ -1,4 +1,4 @@
-"watch.widget.title" = "Привычки";
+"watch.widget.title" = "ChickMark";
 "watch.widget.description" = "Прогресс привычек на сегодня прямо на циферблате.";
 "watch.widget.empty" = "На сегодня всё";
 "watch.widget.inline.format" = "%d/%d привычек";

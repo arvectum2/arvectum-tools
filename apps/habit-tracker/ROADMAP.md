@@ -1,8 +1,8 @@
-# Habits by Arvectum — Roadmap
+# ChickMark — Roadmap
 
 **Status:** ACTIVE / implementation started
 **Branch:** `arvectum-habits`
-**Product name:** `Habits by Arvectum`
+**Product name:** `ChickMark`
 
 ## Product principle
 
@@ -10,12 +10,14 @@ A simple, free and convenient habit tracker: keep the genuinely useful mechanics
 
 Working formula: **«всё удобное — без лишнего»**.
 
+Brand microcopy: the daily check-in is a **Chick-in**. Use it sparingly; clarity wins over the pun.
+
 ## M0 — product scaffold
 
 - [x] Create dedicated branch `arvectum-habits`.
 - [x] Keep Habits inside the existing Arvectum Tools repository.
 - [x] Create independent iOS app target under `apps/habit-tracker/ios`.
-- [x] Set product name to `Habits by Arvectum`.
+- [x] Set product name to `ChickMark`.
 - [x] Set bundle identifier to `ru.arvectum.tools.habits`.
 - [x] Use iOS 17+ / SwiftUI / SwiftData.
 - [x] Add dedicated unit-test target.
@@ -23,7 +25,8 @@ Working formula: **«всё удобное — без лишнего»**.
 - [x] Add unsigned Release archive smoke check that validates embedded iPhone/Watch/widgets, privacy manifests and matching bundle/build versions.
 - [x] Add path-scoped GitHub Actions CI.
 - [x] Mandatory simulator regression includes an optimized Release build and verifies embedded App Intents metadata, Watch app and Widget extension.
-- [x] Final app icon and production asset catalogs for iPhone and Apple Watch; verified at SpringBoard size and with warning-free watchOS asset compilation.
+- [x] Production app-icon asset catalogs and iPhone/Watch plumbing; verified at SpringBoard size and with warning-free watchOS asset compilation.
+- [ ] Replace the current artwork with the final approved ChickMark chicken + rising-grain-path icon once the visual is frozen.
 
 ## M1 — core habit loop
 
@@ -224,6 +227,6 @@ Core habit tracking stays free. Advertising is the planned monetization model, b
 
 ## Current checkpoint
 
-M1/M2 are implemented end-to-end, and the required M3 Watch/live-sync path is operational: local storage → minimal create/edit → reminders with Complete/Skip quick actions → Today → history/skip/pause/archive → widgets → Watch. iPhone↔Watch live round-trip and offline durable convergence are verified on a paired iOS 27/watchOS 27 simulator. The control suite currently has 97 passing unit tests plus 9 passing XCUITests on iOS 26.5, covering timezone/DST, mutation conflicts, flexible weekly goals, notification actions, widgets, localization, persistence and explicit schema versioning. Current UI has also been smoke-tested on iPhone 17e / 18 Pro Max and 42 mm / 46 mm Watch simulators.
+M1/M2 are implemented end-to-end, and the required M3 Watch/live-sync path is operational: local storage → minimal create/edit → reminders with Complete/Skip quick actions → Today → history/skip/pause/archive → widgets → Watch. iPhone↔Watch live round-trip and offline durable convergence are verified on a paired iOS 27/watchOS 27 simulator. The control suite currently has 100 passing unit tests plus 9 passing XCUITests on iOS 26.5, covering timezone/DST, mutation conflicts, flexible weekly goals, notification actions, widgets, localization, persistence and explicit schema versioning. Current UI has also been smoke-tested on iPhone 17e / 18 Pro Max and 42 mm / 46 mm Watch simulators.
 
-**Next implementation step:** keep simulator-first reliability/UX hardening with `scripts/simulator_regression.sh` as the mandatory local checkpoint. Signed App Group/private-CloudKit convergence, rolling-reminder delivery on physical iPhone, physical accessibility and the physical Watch smoke test remain the release gates that require Apple provisioning/hardware access.
+**Next step:** physical iPhone + Apple Watch validation. Do not add new product features until the hardware matrix is green. Signed App Group/private-CloudKit convergence, rolling-reminder delivery on physical iPhone, physical accessibility and the physical Watch smoke test are the remaining release gates that require Apple provisioning/hardware access.
