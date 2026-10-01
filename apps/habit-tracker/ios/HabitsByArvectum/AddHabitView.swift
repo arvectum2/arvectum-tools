@@ -38,7 +38,11 @@ struct AddHabitView: View {
         _symbolName = State(initialValue: habit?.symbolName ?? HabitPalette.symbols[0])
         let initialSchedule = habit?.schedule ?? .everyDay
         _schedule = State(initialValue: initialSchedule)
-        _reminderEnabled = State(initialValue: habit?.reminderEnabled ?? false)
+        _reminderEnabled = State(
+            initialValue: habit?.usesFlexibleWeeklyTarget == true
+                ? false
+                : (habit?.reminderEnabled ?? false)
+        )
         _flexibleWeeklyEnabled = State(
             initialValue: habit?.usesFlexibleWeeklyTarget == true
         )
@@ -112,7 +116,10 @@ struct AddHabitView: View {
                                 isOn: $flexibleWeeklyEnabled
                             )
                             .onChange(of: flexibleWeeklyEnabled) { _, enabled in
-                                if enabled { schedule = .everyDay }
+                                if enabled {
+                                    schedule = .everyDay
+                                    reminderEnabled = false
+                                }
                             }
 
                             if flexibleWeeklyEnabled {
@@ -150,21 +157,31 @@ struct AddHabitView: View {
                                 .font(.subheadline.weight(.semibold))
                             symbolPicker
 
-                            Toggle(
-                                L10n.string("reminder.toggle"),
-                                isOn: $reminderEnabled
-                            )
-                            .onChange(of: reminderEnabled) { _, enabled in
-                                guard enabled else { return }
-                                requestNotificationPermission()
-                            }
-
-                            if reminderEnabled {
-                                DatePicker(
-                                    L10n.string("reminder.time"),
-                                    selection: $reminderTime,
-                                    displayedComponents: .hourAndMinute
+                            if flexibleWeeklyEnabled {
+                                Text(
+                                    L10n.string(
+                                        "reminder.flexible.unavailable"
+                                    )
                                 )
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                            } else {
+                                Toggle(
+                                    L10n.string("reminder.toggle"),
+                                    isOn: $reminderEnabled
+                                )
+                                .onChange(of: reminderEnabled) { _, enabled in
+                                    guard enabled else { return }
+                                    requestNotificationPermission()
+                                }
+
+                                if reminderEnabled {
+                                    DatePicker(
+                                        L10n.string("reminder.time"),
+                                        selection: $reminderTime,
+                                        displayedComponents: .hourAndMinute
+                                    )
+                                }
                             }
                         }
                         .padding(.top, 8)

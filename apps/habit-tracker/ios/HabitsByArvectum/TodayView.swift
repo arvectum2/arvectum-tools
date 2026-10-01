@@ -80,6 +80,7 @@ struct TodayView: View {
             }
             .task {
                 backfillLegacyDayKeys()
+                await HabitReminderScheduler.syncAll(habits: habits)
                 HabitWidgetCoordinator.shared.refresh()
 #if DEBUG
                 await HabitReminderScheduler.debugDumpIfRequested()

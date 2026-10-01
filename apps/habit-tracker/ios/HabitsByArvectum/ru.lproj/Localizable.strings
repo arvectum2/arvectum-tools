@@ -42,6 +42,7 @@
 
 "reminder.toggle" = "Напомнить";
 "reminder.time" = "Время";
+"reminder.flexible.unavailable" = "Напоминания доступны для фиксированного расписания.";
 "reminder.notification.body" = "Время выполнить привычку";
 
 "notification.denied.title" = "Уведомления отключены";

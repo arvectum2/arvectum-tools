@@ -42,6 +42,7 @@
 
 "reminder.toggle" = "Remind me";
 "reminder.time" = "Time";
+"reminder.flexible.unavailable" = "Reminders are available for fixed schedules.";
 "reminder.notification.body" = "Time to complete your habit";
 
 "notification.denied.title" = "Notifications are off";

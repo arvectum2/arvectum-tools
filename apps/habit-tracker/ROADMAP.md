@@ -88,7 +88,7 @@ Working formula: **«всё удобное — без лишнего»**.
 
 ## M2 — reminders and polish
 
-- [x] Per-habit local reminder.
+- [x] Per-habit local reminder for fixed schedules; flexible N/week goals intentionally stay reminder-free in V1 to avoid notifications after the weekly target is already complete.
 - [x] Ask notification permission only when the user enables a reminder.
 - [x] Update scheduled notifications when a habit changes.
 - [x] Physical iPhone verification: notification authorization is granted and a daily habit creates seven correctly timed pending requests.
@@ -211,6 +211,6 @@ Core habit tracking stays free. Advertising is the planned monetization model, b
 
 ## Current checkpoint
 
-M1/M2 are implemented end-to-end, and the required M3 Watch/live-sync path is operational: local storage → minimal create/edit → reminders with Complete/Skip quick actions → Today → history/skip/pause/archive → widgets → Watch. iPhone↔Watch live round-trip and offline durable convergence are verified on a paired iOS 27/watchOS 27 simulator. The control unit suite currently has 65 passing tests on iOS 26.5, covering timezone/DST, mutation conflicts, flexible weekly goals, notification actions, widgets, localization, persistence and explicit schema versioning. Current UI has also been smoke-tested on iPhone 17e / 18 Pro Max and 42 mm / 46 mm Watch simulators.
+M1/M2 are implemented end-to-end, and the required M3 Watch/live-sync path is operational: local storage → minimal create/edit → reminders with Complete/Skip quick actions → Today → history/skip/pause/archive → widgets → Watch. iPhone↔Watch live round-trip and offline durable convergence are verified on a paired iOS 27/watchOS 27 simulator. The control unit suite currently has 67 passing tests on iOS 26.5, covering timezone/DST, mutation conflicts, flexible weekly goals, notification actions, widgets, localization, persistence and explicit schema versioning. Current UI has also been smoke-tested on iPhone 17e / 18 Pro Max and 42 mm / 46 mm Watch simulators.
 
 **Next implementation step:** continue simulator-first UI/UX polish across Manage, habit detail, flexible weekly goals, widgets and complications; keep unit regression on iOS 26.5 because Xcode 27 has a SwiftData/XCTest host instability. Signed App Group/private-CloudKit convergence and the physical Watch smoke test remain release gates once Apple signing/account access is available.

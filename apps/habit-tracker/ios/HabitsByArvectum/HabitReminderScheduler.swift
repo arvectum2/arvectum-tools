@@ -26,11 +26,7 @@ enum HabitReminderScheduler {
         let center = UNUserNotificationCenter.current()
         remove(habitID: habit.id)
 
-        guard
-            habit.reminderEnabled,
-            !habit.isArchived,
-            !habit.isPaused
-        else {
+        guard shouldSchedule(habit: habit) else {
             return true
         }
         guard await ensureAuthorization() else {
@@ -65,6 +61,19 @@ enum HabitReminderScheduler {
         }
 
         return true
+    }
+
+    static func shouldSchedule(habit: Habit) -> Bool {
+        habit.reminderEnabled &&
+        !habit.isArchived &&
+        !habit.isPaused &&
+        !habit.usesFlexibleWeeklyTarget
+    }
+
+    static func syncAll(habits: [Habit]) async {
+        for habit in habits {
+            _ = await sync(habit: habit)
+        }
     }
 
     static func remove(habitID: UUID) {

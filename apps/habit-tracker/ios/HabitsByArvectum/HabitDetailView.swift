@@ -151,7 +151,7 @@ struct HabitDetailView: View {
                 )
                 .font(.caption)
                 .foregroundStyle(.secondary)
-            } else if habit.reminderEnabled {
+            } else if HabitReminderScheduler.shouldSchedule(habit: habit) {
                 Label(reminderDescription, systemImage: "bell.fill")
                     .font(.caption)
                     .foregroundStyle(.secondary)

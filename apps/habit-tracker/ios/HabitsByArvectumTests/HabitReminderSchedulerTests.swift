@@ -30,6 +30,25 @@ final class HabitReminderSchedulerTests: XCTestCase {
         )
     }
 
+    func testFixedScheduleReminderIsEligible() {
+        let habit = Habit(
+            name: "Reading",
+            reminderEnabled: true
+        )
+
+        XCTAssertTrue(HabitReminderScheduler.shouldSchedule(habit: habit))
+    }
+
+    func testFlexibleWeeklyGoalDoesNotScheduleReminder() {
+        let habit = Habit(
+            name: "Workout",
+            reminderEnabled: true,
+            weeklyTarget: 3
+        )
+
+        XCTAssertFalse(HabitReminderScheduler.shouldSchedule(habit: habit))
+    }
+
     func testReminderComponentsPreserveSelectedTime() {
         let components = HabitReminderScheduler.notificationComponents(
             schedule: [.monday, .sunday],
