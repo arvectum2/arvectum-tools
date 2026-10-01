@@ -14,6 +14,7 @@
 "habit.streak.start" = "Начните серию сегодня";
 "habit.complete" = "Отметить выполненной";
 "habit.undo" = "Отменить выполнение";
+"habit.completed.toast" = "Привычка отмечена";
 "habit.skipped.today" = "Сегодня пропущено";
 "habit.skip.today" = "Пропустить сегодня";
 "habit.skip.undo" = "Отменить пропуск";
@@ -52,6 +53,7 @@
 "common.done" = "Готово";
 "common.save" = "Сохранить";
 "common.ok" = "ОК";
+"common.undo" = "Отменить";
 "common.delete" = "Удалить";
 
 "quick.water" = "Вода";

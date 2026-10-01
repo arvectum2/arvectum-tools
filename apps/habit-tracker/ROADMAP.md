@@ -94,7 +94,7 @@ Working formula: **«всё удобное — без лишнего»**.
 - [x] Physical iPhone verification: notification authorization is granted and a daily habit creates seven correctly timed pending requests.
 - [x] Notification quick actions: `Done` and `Skip today` mutate the same conflict-safe day ledger without opening the app.
 - [x] Simulator runtime diagnostic verifies notification action completion → newer skip convergence.
-- [ ] Add undo affordance beyond tapping the checkmark again if testing shows a need.
+- [x] Explicit four-second Undo toast after a successful Today check-off; tapping the checkmark again still works.
 - [x] Base accessibility pass: 44 pt touch targets for habit actions/pickers, VoiceOver labels and selected-state hints.
 - [x] Accessibility-size responsive layouts for Today summary, habit identity/stats and primary action buttons.
 - [x] Add a largest-Dynamic-Type XCUITest for the core create flow; verify it compiles via `build-for-testing` on Xcode 27.

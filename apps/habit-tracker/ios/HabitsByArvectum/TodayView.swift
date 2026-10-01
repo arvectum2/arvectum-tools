@@ -10,6 +10,7 @@ struct TodayView: View {
     @Query(sort: \HabitPausePeriod.startedAt) private var pausePeriods: [HabitPausePeriod]
 
     @State private var showingAddHabit = false
+    @State private var undoOffer: CompletionUndoOffer?
 
     private var activeToday: [Habit] {
         HabitOrdering.sorted(
@@ -66,6 +67,16 @@ struct TodayView: View {
             }
             .sheet(isPresented: $showingAddHabit) {
                 AddHabitView()
+            }
+            .overlay(alignment: .bottom) {
+                if let undoOffer {
+                    CompletionUndoToast {
+                        undoCompletion(undoOffer)
+                    }
+                    .padding(.horizontal, 16)
+                    .padding(.bottom, 8)
+                    .transition(.move(edge: .bottom).combined(with: .opacity))
+                }
             }
             .task {
                 backfillLegacyDayKeys()
@@ -187,10 +198,48 @@ struct TodayView: View {
 
         if desiredState {
             UINotificationFeedbackGenerator().notificationOccurred(.success)
+            showUndo(for: habit.id, dayKey: key)
+        } else if undoOffer?.habitID == habit.id {
+            withAnimation { undoOffer = nil }
         }
 
         try? modelContext.save()
         HabitDataChangeNotifier.notify()
+    }
+
+    private func showUndo(for habitID: UUID, dayKey: String) {
+        let offer = CompletionUndoOffer(
+            id: UUID(),
+            habitID: habitID,
+            dayKey: dayKey
+        )
+        withAnimation(.snappy) {
+            undoOffer = offer
+        }
+
+        Task { @MainActor in
+            try? await Task.sleep(for: .seconds(4))
+            guard undoOffer?.id == offer.id else { return }
+            withAnimation(.snappy) {
+                undoOffer = nil
+            }
+        }
+    }
+
+    private func undoCompletion(_ offer: CompletionUndoOffer) {
+        _ = HabitCompletionMutation.setCompletion(
+            habitID: offer.habitID,
+            dayKey: offer.dayKey,
+            completed: false,
+            context: modelContext,
+            mutationAt: .now,
+            mutationID: UUID()
+        )
+        try? modelContext.save()
+        HabitDataChangeNotifier.notify()
+        withAnimation(.snappy) {
+            undoOffer = nil
+        }
     }
 
     private func toggleSkip(_ habit: Habit, on date: Date) {

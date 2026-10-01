@@ -93,8 +93,7 @@ pets or a reward economy into Habits.
 
 Widget users complain when accidental completion is hard to undo.
 
-**Take:** completion is a reversible desired state everywhere. Tapping again
-undoes it; widget/Watch controls must follow the same model.
+**Take:** completion is a reversible desired state everywhere. Tapping again undoes it; Today also gives a short explicit Undo affordance after completion, while widget/Watch controls follow the same desired-state model.
 
 #### 10. Pause/resume is useful when life changes
 
