@@ -12,9 +12,11 @@ final class HabitWidgetBridgeTests: XCTestCase {
         defaults = UserDefaults(suiteName: suiteName)
         defaults.removePersistentDomain(forName: suiteName)
         HabitWidgetBridge.defaultsOverride = defaults
+        HabitWidgetCoordinator.backgroundProcessingSuspendedForTests = true
     }
 
     override func tearDown() {
+        HabitWidgetCoordinator.backgroundProcessingSuspendedForTests = false
         HabitWidgetBridge.defaultsOverride = nil
         HabitWidgetIntentRuntime.processor = nil
         defaults.removePersistentDomain(forName: suiteName)

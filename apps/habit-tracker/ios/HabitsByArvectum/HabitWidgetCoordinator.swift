@@ -5,6 +5,10 @@ import WidgetKit
 final class HabitWidgetCoordinator {
     static let shared = HabitWidgetCoordinator()
 
+#if DEBUG
+    static var backgroundProcessingSuspendedForTests = false
+#endif
+
     private var modelContainer: ModelContainer?
 
     private init() {}
@@ -28,6 +32,9 @@ final class HabitWidgetCoordinator {
 
     func refresh() {
         Task { @MainActor in
+#if DEBUG
+            guard !Self.backgroundProcessingSuspendedForTests else { return }
+#endif
             await processQueuedWidgetIntent()
         }
     }

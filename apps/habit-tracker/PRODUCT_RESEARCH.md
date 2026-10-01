@@ -264,6 +264,7 @@ time. No generic morning reminder bundle and no multiple-reminder editor in V1.
 
 ### High-priority expansion
 
+- Siri / Shortcuts actions that remove the need to open the app for check/undo;
 - interactive Home Screen widget;
 - Lock Screen widget / Watch complications;
 - overall Today progress outside the full app;
