@@ -22,6 +22,7 @@ Working formula: **«всё удобное — без лишнего»**.
 - [x] Add CI release-hygiene check for privacy manifests, entitlements, RU/EN localization parity, shared target versions and Watch/widget project integration.
 - [x] Add unsigned Release archive smoke check that validates embedded iPhone/Watch/widgets, privacy manifests and matching bundle/build versions.
 - [x] Add path-scoped GitHub Actions CI.
+- [x] Mandatory simulator regression includes an optimized Release build and verifies embedded App Intents metadata, Watch app and Widget extension.
 - [x] Final app icon and production asset catalogs for iPhone and Apple Watch; verified at SpringBoard size and with warning-free watchOS asset compilation.
 
 ## M1 — core habit loop
@@ -146,7 +147,7 @@ Working formula: **«всё удобное — без лишнего»**.
 - [x] Visual state matches iPhone colors/icons without requiring configuration on Watch.
 - [x] RU + EN localization.
 - [x] Base Dynamic Type / VoiceOver semantics on Watch.
-- [x] Pair iPhone + Apple Watch simulators and test both apps together.
+- [x] Pair iPhone + Apple Watch simulators and test both apps together; regression now requires the post-action Watch snapshot itself to reach `completed=1/2 pending=0`, preventing false-positive convergence.
 - [x] Visual/runtime smoke test on 42 mm and 46 mm Apple Watch simulators with a populated Today snapshot; retry confirmed the earlier 46 mm watch-face capture was a simulator foreground artifact.
 - [x] Integration test: Watch check-off appears on iPhone.
 - [x] Integration test: iPhone check-off appears on Watch.

@@ -89,6 +89,28 @@ xcodebuild \
   build >"$WORK/ios27-build.log" 2>&1
 grep -E "BUILD SUCCEEDED|BUILD FAILED|warning:|error:" "$WORK/ios27-build.log" | tail -20
 
+log "Optimized Release build with embedded Watch/widget"
+xcodebuild \
+  -project "$PROJECT" \
+  -scheme "$SCHEME" \
+  -configuration Release \
+  -destination "id=$IOS27" \
+  -derivedDataPath "$DERIVED" \
+  CODE_SIGNING_ALLOWED=NO \
+  build >"$WORK/ios27-release-build.log" 2>&1
+grep -E "BUILD SUCCEEDED|BUILD FAILED|warning:|error:" "$WORK/ios27-release-build.log" | tail -20
+
+RELEASE_APP="$DERIVED/Build/Products/Release-iphonesimulator/HabitsByArvectum.app"
+for required_path in \
+  "$RELEASE_APP/Metadata.appintents" \
+  "$RELEASE_APP/Watch/HabitsByArvectumWatch.app" \
+  "$RELEASE_APP/PlugIns/HabitsByArvectumWidget.appex"; do
+  if [[ ! -e "$required_path" ]]; then
+    echo "Release bundle missing: $required_path" >&2
+    exit 1
+  fi
+done
+
 read -r PAIR_PHONE PAIR_WATCH < <(connected_pair)
 boot_device "$PAIR_PHONE"
 boot_device "$PAIR_WATCH"
@@ -147,7 +169,7 @@ for _ in $(seq 1 15); do
     >"$WORK/watch-sync.log" 2>/dev/null || true
 
   if grep -q "HABITS_PHONE_COMMAND .*completed=true" "$WORK/phone-sync.log" &&
-     grep -q "HABITS_WATCH_SNAPSHOT .*pending=0" "$WORK/watch-sync.log"; then
+     grep -q "HABITS_WATCH_SNAPSHOT .*completed=1/2 .*pending=0" "$WORK/watch-sync.log"; then
     SYNC_OK=1
     break
   fi
@@ -167,6 +189,7 @@ tail -20 "$WORK/watch-sync.log"
 
 log "Regression passed"
 printf "iOS 26.5 tests: PASS\n"
-printf "iOS 27 build: PASS\n"
+printf "iOS 27 debug build: PASS\n"
+printf "iOS 27 release build: PASS\n"
 printf "paired Watch live sync: PASS\n"
 printf "artifacts/logs: %s\n" "$WORK"
