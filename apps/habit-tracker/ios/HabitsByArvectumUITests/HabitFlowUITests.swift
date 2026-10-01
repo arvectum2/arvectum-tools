@@ -49,7 +49,7 @@ final class HabitFlowUITests: XCTestCase {
             app.navigationBars["Read"].waitForExistence(timeout: 3)
         )
         XCTAssertTrue(
-            app.staticTexts["Last 5 weeks"].waitForExistence(timeout: 3)
+            app.staticTexts["Last 6 weeks"].waitForExistence(timeout: 3)
         )
     }
 

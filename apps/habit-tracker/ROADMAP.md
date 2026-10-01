@@ -19,6 +19,7 @@ Working formula: **«всё удобное — без лишнего»**.
 - [x] Set bundle identifier to `ru.arvectum.tools.habits`.
 - [x] Use iOS 17+ / SwiftUI / SwiftData.
 - [x] Add dedicated unit-test target.
+- [x] Add CI release-hygiene check for privacy manifests, entitlements, RU/EN localization parity and Watch/widget project integration.
 - [x] Add path-scoped GitHub Actions CI.
 - [ ] Final app icon and production asset catalog.
 
