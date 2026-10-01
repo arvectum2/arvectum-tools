@@ -157,7 +157,7 @@ Working formula: **«всё удобное — без лишнего»**.
 - [x] Keep local-first operation as the invariant.
 - [x] CloudKit-compatible SwiftData schema and private-iCloud capability wiring without requiring an Arvectum account.
 - [x] Local-first fallback: if cloud-backed container creation fails, Habits opens the local store instead of failing to launch.
-- [ ] Verify real private-CloudKit convergence between two signed Apple devices / simulator iCloud accounts before enabling the milestone for release.
+- [ ] Verify real private-CloudKit convergence between two signed Apple devices / simulator iCloud accounts before enabling the milestone for release. Current wildcard profile also lacks iCloud/CloudKit and `iCloud.ru.arvectum.tools.habits`.
 - [x] Treat WatchConnectivity as the low-latency iPhone↔Watch path and cloud sync as durable multi-device convergence.
 - [x] Conflict-safe last-write-wins day mutation ledger for iPhone / Watch / widget commands, with deterministic mutation-ID tie-breaks.
 - [x] Runtime stress test: a newer Skip rejects an older delayed Watch completion; paired simulator converges after durable delivery.
@@ -172,13 +172,13 @@ Working formula: **«всё удобное — без лишнего»**.
 - [x] Interactive Home Screen widget target with small progress + medium habit list UI; medium check/undo control uses an enlarged hit target.
 - [x] Widget AppIntent bridge uses desired-state commands, optimistic updates and a bounded queue.
 - [x] Widget bridge regression suite: 5 passing tests for persistence, dedupe, queue bounds and optimistic state.
-- [ ] Enable and verify the `group.ru.arvectum.tools.habits` App Group in signed Apple provisioning.
+- [ ] Enable and verify the `group.ru.arvectum.tools.habits` App Group in signed Apple provisioning. Current external blocker: Xcode on Mac mini has no Apple Developer account configured, and the existing wildcard profile lacks App Groups.
 - [x] Lock Screen widget families: circular, rectangular and inline.
 - [x] Watch complication (circular, rectangular, inline) backed by the Watch-local snapshot.
 - [x] Overall Today progress available outside the full app through the Home Screen widget.
 - [x] Home/Lock Screen widgets receive a 14-day read-only projection so the next calendar day is immediately useful after midnight even if the full app has not been opened.
 - [x] Flexible frequency behind progressive disclosure: N times per week, with creation/pause/skip-aware effective weekly targets; fully skipped weeks are neutral for streaks and completion rate.
-- [x] Manual habit order in Manage only; Today, Watch and widgets consume the same order without extra controls.
+- [x] Manual habit order in Manage only; Today, Widget snapshots and Watch consume one shared `HabitTodayProjection`. Today/Watch preserve exact user order; the three-row medium widget stably prioritizes unresolved habits while preserving relative order within unresolved/resolved groups.
 - [x] Distinguish a truly missed scheduled day from skipped / paused / unscheduled days in history; never mark individual days missed for N/week goals.
 - [x] Apple Health decision for V1: defer integration until after launch; later use auto-completion only for authoritative Health data where it removes manual logging.
 - [x] Keep haptics/micro-feedback (haptic + restrained symbol bounce + explicit Undo); do not add an XP/reward economy.
@@ -218,6 +218,6 @@ Core habit tracking stays free. Advertising is the planned monetization model, b
 
 ## Current checkpoint
 
-M1/M2 are implemented end-to-end, and the required M3 Watch/live-sync path is operational: local storage → minimal create/edit → reminders with Complete/Skip quick actions → Today → history/skip/pause/archive → widgets → Watch. iPhone↔Watch live round-trip and offline durable convergence are verified on a paired iOS 27/watchOS 27 simulator. The control suite currently has 83 passing unit tests plus 7 passing XCUITests on iOS 26.5, covering timezone/DST, mutation conflicts, flexible weekly goals, notification actions, widgets, localization, persistence and explicit schema versioning. Current UI has also been smoke-tested on iPhone 17e / 18 Pro Max and 42 mm / 46 mm Watch simulators.
+M1/M2 are implemented end-to-end, and the required M3 Watch/live-sync path is operational: local storage → minimal create/edit → reminders with Complete/Skip quick actions → Today → history/skip/pause/archive → widgets → Watch. iPhone↔Watch live round-trip and offline durable convergence are verified on a paired iOS 27/watchOS 27 simulator. The control suite currently has 86 passing unit tests plus 7 passing XCUITests on iOS 26.5, covering timezone/DST, mutation conflicts, flexible weekly goals, notification actions, widgets, localization, persistence and explicit schema versioning. Current UI has also been smoke-tested on iPhone 17e / 18 Pro Max and 42 mm / 46 mm Watch simulators.
 
 **Next implementation step:** keep simulator-first reliability/UX hardening with `scripts/simulator_regression.sh` as the mandatory local checkpoint. Signed App Group/private-CloudKit convergence, rolling-reminder delivery on physical iPhone, physical accessibility and the physical Watch smoke test remain the release gates that require Apple provisioning/hardware access.

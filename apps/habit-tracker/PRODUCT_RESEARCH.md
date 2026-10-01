@@ -17,8 +17,8 @@ The default loop stays:
 ## Broader competitor / user review
 
 Products reviewed: HabitKit, Streaks, Habitify, Everyday, Way of Life,
-Loop Habit Tracker, Strides, Productive, Finch and current App Store / habit-tracker
-user discussions. The review is intentionally cross-product: repeated user value
+Loop Habit Tracker, Strides, Productive, Finch, Atoms, HabitMinder and current
+App Store / habit-tracker user discussions. The review is intentionally cross-product: repeated user value
 matters more than copying any one competitor.
 
 ### Repeated things users praise
@@ -153,8 +153,7 @@ only if users ask for sequencing after launch.
 Users of minimalist trackers value arranging habits in the order that matches
 their routine. This is useful personalization with almost no model complexity.
 
-**Take:** manual drag ordering lives in Manage. Today, Watch and widgets simply
-inherit the same order.
+**Take:** manual drag ordering lives in Manage. Today and Watch preserve that order exactly. Widget snapshots preserve it too; the space-limited medium widget may stably lift unresolved habits ahead of resolved ones so actionable items are not hidden.
 
 #### 17. A blank day and a failed day are not the same thing
 
@@ -301,5 +300,7 @@ increasing daily interaction cost:
 - Strides product materials and comparative user discussions.
 - Apple App Store ratings/reviews for Productive.
 - Apple App Store ratings/reviews for Finch.
+- Apple App Store ratings/reviews for Atoms / Atomic Habits.
+- Apple App Store ratings/reviews for HabitMinder.
 - HabitKit official product/help materials and App Store listing.
 - Current habit-tracker/productivity user discussions.
