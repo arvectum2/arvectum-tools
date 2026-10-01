@@ -9,7 +9,7 @@ LOCALIZATIONS={
 }
 DISPLAY_TYPE="APP_IPHONE_67"
 ROOT=pathlib.Path("/Users/master/arvectum-tools/apps/pushkin/store-assets/appstore/iphone-6.9")
-FILES=[ROOT/"01-history.png",ROOT/"02-apps.png",ROOT/"03-privacy.png"]
+FILES=[ROOT/"01-history.png",ROOT/"02-settings.png",ROOT/"03-add-app.png"]
 
 CONFIG=pathlib.Path.home()/".config/arvectum/appstore-connect.env"
 vals={}

@@ -3,7 +3,7 @@ import json, os, pathlib, re, subprocess, urllib.request, urllib.error
 
 APP_ID="6817847111"
 VERSION_ID="87056df5-93c9-411f-b44c-2e3ea5cae5bf"
-BUILD_ID="66835792-b1d8-4bb4-abad-1313fe14a445"
+BUILD_ID="b6bc26a1-dfc5-4dd5-843c-cca530ddb95e"
 SOURCE_APP_ID="6816346084"  # existing Arvectum app; reuse the owner's review contact without storing PII in this repo
 NOTES="""PUSHKIN is a local notification-history utility for iPhone.
 
@@ -18,7 +18,7 @@ No registration, login, subscription, purchase, or reviewer account is required.
 6. Send a real notification from a configured source app. It will appear in PUSHKIN History.
 
 APP COVERAGE
-The bundled configuration contains a maintained catalog of explicit source-app descriptors. PUSHKIN does not claim wildcard access to every installed app. A newly installed supported app can be added with “+ App”. If an app is outside the bundled catalog, PUSHKIN provides a manual Shortcuts setup guide.
+The bundled configuration contains a maintained catalog of explicit source-app descriptors. PUSHKIN does not claim wildcard access to every installed app. A newly installed supported app can be added with “+” on History or “Add app” in Settings. If an app is outside the bundled catalog, PUSHKIN provides a manual Shortcuts setup guide.
 
 DATA / EXTERNAL SERVICES
 Notification content is stored only in the app’s local SwiftData database. Version 1.0 has no account system, backend, cloud sync, analytics SDK, advertising SDK, tracking, or runtime App Store lookup. The app opens Apple’s Shortcuts app for setup.
@@ -75,7 +75,7 @@ must("PATCH",f"/v1/appStoreVersions/{VERSION_ID}",{
   }}
 })
 
-# 2) Attach the validated build 1.
+# 2) Attach the validated build 2.
 must("PATCH",f"/v1/appStoreVersions/{VERSION_ID}/relationships/build",{
   "data":{"type":"builds","id":BUILD_ID}
 })

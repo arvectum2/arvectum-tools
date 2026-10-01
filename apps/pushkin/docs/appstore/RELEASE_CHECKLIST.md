@@ -61,3 +61,17 @@
 - Reassess privacy labels after ad SDK is added.
 - Russian in-app localization if 1.0 ships English-first.
 - User-requested catalog additions + bug fixes.
+
+## Build 2 re-review — 1 Oct 2026
+
+- [x] Product-owner UI changes accepted as requirements.
+- [x] Two-tab IA implemented: History / Settings.
+- [x] Header simplified to Pushkin mark + PUSHKIN + by Arvectum.
+- [x] 10-pass UI/UX cross-review completed and documented.
+- [x] Final build 2 tests passed.
+- [x] New 6.9-inch App Store screenshots generated and uploaded.
+- [x] English default metadata refreshed.
+- [x] Russian storefront metadata refreshed in Russian.
+- [ ] Physical iPhone build 2 recording captured and uploaded to App Review.
+- [x] Build 2 attached to iOS version 1.0.
+- [ ] Submission resubmitted to App Review after physical-device video attachment.

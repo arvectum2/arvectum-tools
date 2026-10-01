@@ -1,77 +1,80 @@
-# PUSHKIN UI/UX cross-review — post-1.0
+# PUSHKIN UI/UX cross-review — build 2
 
-Target: next public release after the currently submitted 1.0 build.
+Target: iOS 1.0.0 (2), two-tab release candidate.
 
-## Non-negotiable product rules
+## Product rules
 
-- History is the only top-level screen allowed to scroll vertically.
-- Apps and Settings must expose every primary action without scrolling at default Dynamic Type.
-- App search may show only a compact result set; refine the query instead of presenting a long browse list.
-- One visible action per external destination. Do not place two Shortcuts buttons in the same state.
-- Copy is functional, short, and never repeats privacy/setup information already visible elsewhere.
-- The main History screen carries the product identity in one compact row: Arvectum wordmark + Pushkin portrait + distinctive PUSHKIN wordmark.
-- 1.0 remains ad-free. The next-release layout contains an explicit native-ad insertion point without showing an empty placeholder while ads are disabled.
-- No future App Store submission until the final UI screenshots are explicitly approved by the product owner.
+- Only two top-level destinations: History and Settings.
+- History may scroll because its content is a feed; Settings must fit without scrolling at default Dynamic Type.
+- One visible action per external destination in any state.
+- Copy stays functional and short; no repeated privacy/setup explanations.
+- Product identity is one compact line: Pushkin mark + PUSHKIN + by Arvectum.
+- The standalone Arvectum wordmark is not shown in the app header.
+- PUSHKIN uses a heavy geometric sans treatment aligned with the Arvectum wordmark rather than the previous literary serif.
+- 1.0 stays ad-free; the future native slot remains structurally available in History without reserving blank space.
+- Add App and manual fallback remain fully local.
+- Release screenshots, metadata, Review Notes and binary must describe the same UI.
 
-## Cross-review
+## 10 cross-review iterations
 
-### 1. Product / task flow
+### 1. Information architecture
+Finding: Apps and Settings were both sparse and split one management task across two tabs.
+Change: merged setup, app coverage, storage, privacy, support and version into one Settings screen.
+Result: two tabs only — History / Settings.
 
-Before: setup language was repeated across History, Apps and Settings; setup and “open automation” actions could appear close together.
+### 2. Brand hierarchy
+Finding: Arvectum wordmark, Pushkin portrait and PUSHKIN competed for attention.
+Change: removed the large Arvectum wordmark. Header is now Pushkin mark + PUSHKIN + by Arvectum.
+Result: PUSHKIN is the product; Arvectum reads as a quiet maker signature.
 
-After:
-- History empty state has one CTA: **Set up PUSHKIN**.
-- Apps has a Shortcuts CTA only when setup is incomplete: **Set up PUSHKIN**. Once active, the status card becomes informational and shows no duplicate external action.
-- **Add app** is the single primary action on the active Apps screen and opens the picker directly; privacy copy is not repeated there.
-- Missing-app manual setup is four short steps and one **Open Shortcuts** button.
+### 3. Wordmark treatment
+Finding: Baskerville Bold Italic made PUSHKIN feel stylistically unrelated to the Arvectum family.
+Change: switched PUSHKIN to Avenir Next Heavy with restrained tracking.
+Result: the name now reads as a geometric product wordmark consistent with Arvectum's visual language.
 
-Result: one task, one next action.
+### 4. Primary scan path
+Finding: setup/status text competed with core History content.
+Change: kept the header compact, search directly below it, then only state-dependent action content.
+Result: the eye lands on identity → search → notifications.
 
-### 2. Information architecture
+### 5. Action duplication
+Finding: previous flows could surface multiple Shortcuts/Automation destinations close together.
+Change: each state exposes only the next required external action. Active Settings has no Shortcuts button.
+Result: one task → one CTA.
 
-Top-level navigation stays at three tabs:
-- History — notification feed/search and quick `+ App`.
-- Apps — setup status and app coverage.
-- Settings — local data, privacy, support, version.
+### 6. Copy density
+Finding: the pending-app card still over-explained the step and wrapped long app names.
+Change: reduced it to Finish setup, one app-name line and Open Automations; active status became Capture active.
+Result: less reading, smaller card, clearer next action.
 
-Removed the extra intermediate “coverage management” screen from the active flow.
+### 7. Screen fit / no-scroll rule
+Finding: two separate sparse tabs wasted space; merging risked creating a scrolling settings page.
+Change: compact cards, side-by-side Privacy/Support links, icon-only destructive action, short footer.
+Result: all Settings primary actions remain visible without scrolling on the test iPhone layout.
 
-### 3. Visual hierarchy / Arvectum family
+### 8. Touch and accessibility review
+Checked: primary controls remain at least 44 pt; destructive action has an accessibility label; Add App and manual setup keep stable identifiers; keyboard dismissal remains explicit in History/App search.
+Result: no reduced hit targets introduced by compaction.
 
-- Main header uses Arvectum navy/graphite + mint accent.
-- Arvectum remains visibly present as the corporate signature without becoming a separate full-width block.
-- The Pushkin portrait sits immediately beside the Arvectum wordmark so the product concept is legible at a glance.
-- PUSHKIN uses Baskerville Bold Italic with a restrained mint underline, giving it a literary identity while staying inside the Arvectum navy/mint shell.
-- Repeated full-width list sections are replaced by compact Arvectum cards.
+### 9. Light / Dark visual review
+Checked simulator captures in both appearances.
+Change after visual pass: removed redundant active-state sentence and shortened the pending setup card.
+Result: hierarchy, borders, mint accent and destructive red remain readable in both themes without extra decorative containers.
 
-### 4. iOS interaction review
+### 10. App Store consistency review
+Checked binary UI, screenshots plan, Review Notes, physical-device video shot list and EN/RU listing copy as one release surface.
+Change: review instructions now reference History + Settings, not the removed Apps tab; build 2 will replace build 1.
+Result: reviewer-facing material matches the product being submitted.
 
-- Primary and row actions target at least 44 pt.
-- Search fields stay fixed; app results are capped at 4 popular / 5 search matches so the picker stays fully visible without becoming a browse feed.
-- History search has a visible keyboard-dismiss button inside the search field while focused; Return and interactive list scrolling also dismiss it, so the keyboard can never become a dead-end overlay.
-- Apps, Settings and Manual Add use fixed vertical layouts rather than scroll containers.
-- Long content remains only where content itself is inherently a feed (History).
+## Verification gates
 
-### 5. Monetization readiness
+- Unit tests: all catalog/store tests must pass.
+- Focused UI tests: two-tab shell, no-scroll Settings, Add App, manual fallback, no duplicate Shortcuts action, search keyboard dismissal and future ad insertion point.
+- Simulator visual captures: History + Settings in Light and Dark.
+- Physical iPhone: build 2 install/launch and App Review recording.
+- App Store metadata: English default localization; Russian localization for the Russian storefront.
+- App Review attachment: physical-device video uploaded before submission.
 
-Future native ad placement is structurally located after the third History item as a compact native-feed card; it does not reserve blank space while ads are off.
-`PushkinFeatureFlags.adsEnabled` remains `false`, so the first release and current UI show no blank ad area and no SDK dependency.
+## Release decision
 
-## Verification evidence
-
-- Simulator build on Xcode 27: passed.
-- Physical iPhone 13 (`iPhone14,5`), iOS 27.0.1, 1170×2532: redesigned History / Apps / Settings / Add App / Manual Add rendered successfully after the final compact-layout pass.
-- Unit suite: **9/9 passed** after verifying all 1000 bundled micro-packages resolve as local files, including Unicode filenames.
-- Focused UI/UX checks: **8/8 passed** — consumer shell, non-scrolling primary tabs, Add App + Manual Add fit, no duplicate Shortcuts actions, future ad-slot position, search keyboard dismissal, calm Add App picker, and offline manual fallback.
-- Light and Dark appearances captured for all five review screens.
-- Future ad slot previewed after the third History item; with `adsEnabled = false` the slot is absent and leaves no blank space.
-
-## Approval gate
-
-Before enabling ads or submitting the next build:
-1. build on simulator + physical iPhone;
-2. capture History / Apps / Settings / Add App / Manual Add screenshots;
-3. verify no scrolling on non-History primary screens;
-4. review light + dark appearance;
-5. product owner approves the screenshots;
-6. only then prepare/upload the next App Store build.
+Build 2 is eligible for submission only after the gates above pass and the physical-device review video is attached.

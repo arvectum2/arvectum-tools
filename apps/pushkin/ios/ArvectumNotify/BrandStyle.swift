@@ -52,17 +52,6 @@ struct ArvectumPushkinHeader: View {
 
     var body: some View {
         HStack(spacing: 8) {
-            Image("ArvectumWordmark")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 86, height: 24)
-                .accessibilityLabel("Arvectum")
-
-            Rectangle()
-                .fill(Color.white.opacity(0.22))
-                .frame(width: 1, height: 26)
-                .accessibilityHidden(true)
-
             ZStack {
                 Image("PushkinMark")
                     .resizable()
@@ -74,24 +63,23 @@ struct ArvectumPushkinHeader: View {
             .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
             .overlay(
                 RoundedRectangle(cornerRadius: 10, style: .continuous)
-                    .stroke(Color.arvectumMint.opacity(0.55), lineWidth: 1)
+                    .stroke(Color.arvectumMint.opacity(0.42), lineWidth: 1)
             )
             .accessibilityHidden(true)
 
-            VStack(alignment: .leading, spacing: 1) {
-                Text("PUSHKIN")
-                    .font(.custom("Baskerville-BoldItalic", size: 18))
-                    .tracking(0.9)
-                    .foregroundStyle(.white)
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.78)
+            Text("PUSHKIN")
+                .font(.custom("AvenirNext-Heavy", size: 20))
+                .tracking(0.3)
+                .foregroundStyle(Color.arvectumPrimaryText)
+                .lineLimit(1)
+                .minimumScaleFactor(0.9)
 
-                Capsule()
-                    .fill(Color.arvectumMint)
-                    .frame(width: 48, height: 2)
-            }
+            Text("by Arvectum")
+                .font(.system(size: 11.5, weight: .semibold))
+                .foregroundStyle(Color.arvectumSecondaryText)
+                .lineLimit(1)
 
-            Spacer(minLength: 0)
+            Spacer(minLength: 4)
 
             if let onAddApp {
                 Button(action: onAddApp) {
@@ -107,20 +95,7 @@ struct ArvectumPushkinHeader: View {
                 .accessibilityIdentifier("add-app")
             }
         }
-        .padding(.horizontal, 10)
-        .frame(height: 48)
-        .background(
-            LinearGradient(
-                colors: [.arvectumNavy, .arvectumGraphite],
-                startPoint: .leading,
-                endPoint: .trailing
-            ),
-            in: RoundedRectangle(cornerRadius: 19, style: .continuous)
-        )
-        .overlay(
-            RoundedRectangle(cornerRadius: 19, style: .continuous)
-                .stroke(Color.arvectumMint.opacity(0.16), lineWidth: 1)
-        )
+        .frame(height: 44)
         .accessibilityElement(children: .contain)
     }
 }

@@ -1,8 +1,8 @@
 # App Review response — Guideline 2.1 Information Needed
 
-Status: **draft only — do not send without product-owner approval**
+Status: **ready for build 2 submission after video upload**
 
-Submission: iOS 1.0 / build 1.0.0 (1)
+Submission: iOS 1.0 / build 1.0.0 (2)
 Submission ID: cdfab018-5637-402a-a87f-3b8eb2c59beb
 
 ## Reply to App Review
@@ -20,11 +20,11 @@ Thank you for the request. PUSHKIN is ready for review. The requested informatio
 3. **Setup and access**
    No login, registration, subscription, purchase, credentials, or sample files are required.
    - Launch PUSHKIN.
-   - Open the Apps tab and tap **Set up PUSHKIN**.
+   - On History, tap **Set up PUSHKIN**.
    - PUSHKIN opens Apple's Shortcuts app with the bundled signed configuration.
    - Add the shortcut/automation and allow it to run automatically when iOS asks.
    - Return to PUSHKIN. Matching notifications are archived locally and appear in History.
-   - For a supported app installed later, tap **+** / **Add app** and select it.
+   - For a supported app installed later, tap **+** on History or **Add app** in Settings and select it.
    - If an app is not in the bundled catalog, PUSHKIN provides a manual Shortcuts setup guide.
 
 4. **External services, tools and platforms**

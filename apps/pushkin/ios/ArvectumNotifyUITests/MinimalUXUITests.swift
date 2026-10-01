@@ -11,14 +11,15 @@ final class MinimalUXUITests: XCTestCase {
 
         XCTAssertTrue(app.staticTexts["PUSHKIN"].firstMatch.waitForExistence(timeout: 6))
         XCTAssertTrue(app.tabBars.buttons["History"].firstMatch.exists)
-        XCTAssertTrue(app.tabBars.buttons["Apps"].firstMatch.exists)
         XCTAssertTrue(app.tabBars.buttons["Settings"].firstMatch.exists)
+        XCTAssertFalse(app.tabBars.buttons["Apps"].firstMatch.exists)
         XCTAssertFalse(app.tabBars.buttons["Diagnostics"].firstMatch.exists)
 
         let settings = app.tabBars.buttons["Settings"].firstMatch
         settings.tap()
 
-        XCTAssertTrue(app.staticTexts["On this iPhone"].firstMatch.waitForExistence(timeout: 6))
+        XCTAssertTrue(app.staticTexts["Apps"].firstMatch.waitForExistence(timeout: 6))
+        XCTAssertTrue(app.staticTexts["On this iPhone"].firstMatch.exists)
         XCTAssertTrue(app.buttons["delete-all-history"].firstMatch.exists)
         XCTAssertTrue(app.links["privacy-policy"].firstMatch.exists)
 
@@ -29,22 +30,13 @@ final class MinimalUXUITests: XCTestCase {
         let app = XCUIApplication(bundleIdentifier: "ru.arvectum.tools.notify")
         app.launch()
 
-        let appsTab = app.tabBars.buttons["Apps"].firstMatch
-        XCTAssertTrue(appsTab.waitForExistence(timeout: 6))
-        appsTab.tap()
+        let settingsTab = app.tabBars.buttons["Settings"].firstMatch
+        XCTAssertTrue(settingsTab.waitForExistence(timeout: 6))
+        settingsTab.tap()
 
-        let addApp = app.buttons["add-app-from-apps-tab"].firstMatch
+        let addApp = app.buttons["add-app-from-settings-tab"].firstMatch
         XCTAssertTrue(addApp.waitForExistence(timeout: 6))
         XCTAssertTrue(addApp.isHittable)
-        XCTAssertFalse(
-            app.staticTexts[
-                "Local on this iPhone · no account or cloud"
-            ].firstMatch.exists,
-            "Apps should not repeat privacy copy from Settings"
-        )
-
-        let settingsTab = app.tabBars.buttons["Settings"].firstMatch
-        settingsTab.tap()
 
         let deleteHistory = app.buttons["delete-all-history"].firstMatch
         let privacy = app.links["privacy-policy"].firstMatch
@@ -102,9 +94,9 @@ final class MinimalUXUITests: XCTestCase {
         app.launchEnvironment["PUSHKIN_STORE_SCREENSHOT_FIXTURE"] = "1"
         app.launch()
 
-        let appsTab = app.tabBars.buttons["Apps"].firstMatch
-        XCTAssertTrue(appsTab.waitForExistence(timeout: 6))
-        appsTab.tap()
+        let settingsTab = app.tabBars.buttons["Settings"].firstMatch
+        XCTAssertTrue(settingsTab.waitForExistence(timeout: 6))
+        settingsTab.tap()
 
         XCTAssertFalse(
             app.buttons.matching(
@@ -199,6 +191,7 @@ final class MinimalUXUITests: XCTestCase {
 
     func testOnboardingOpensShortcutPreviewDirectly() throws {
         let app = XCUIApplication(bundleIdentifier: "ru.arvectum.tools.notify")
+        app.launchEnvironment["PUSHKIN_RESET_STORE"] = "1"
         app.launch()
 
         let setup = app.buttons["setup-pushkin"].firstMatch

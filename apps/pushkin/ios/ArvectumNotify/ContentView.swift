@@ -40,6 +40,10 @@ struct ContentView: View {
         .tint(.arvectumMint)
         .task {
 #if DEBUG
+            if ProcessInfo.processInfo.environment["PUSHKIN_RESET_STORE"] == "1" {
+                try? modelContext.delete(model: CapturedNotification.self)
+                try? modelContext.save()
+            }
             StoreScreenshotFixture.installIfRequested(into: modelContext)
 #endif
         }
@@ -55,15 +59,9 @@ struct ContentView: View {
 
             SetupGuideView()
                 .tabItem {
-                    Label("Apps", systemImage: "square.stack.3d.up")
+                    Label("Settings", systemImage: "slider.horizontal.3")
                 }
                 .tag(1)
-
-            SettingsView()
-                .tabItem {
-                    Label("Settings", systemImage: "gearshape")
-                }
-                .tag(2)
         }
     }
 
@@ -335,29 +333,26 @@ private struct InboxView: View {
         VStack(alignment: .leading, spacing: 10) {
             Label(
                 pendingCoverageVerified
-                    ? "Coverage verified"
-                    : "Finish adding \(pendingCoverageTitle)",
+                    ? "App connected"
+                    : "Finish setup",
                 systemImage: pendingCoverageVerified
                     ? "checkmark.seal.fill"
                     : "switch.2"
             )
             .font(.headline)
 
-            if pendingCoverageVerified {
-                Text("\(pendingCoverageTitle) is active.")
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
+            Text(pendingCoverageTitle)
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
+                .lineLimit(1)
 
+            if pendingCoverageVerified {
                 Button("Done") {
                     clearPendingCoverage()
                 }
                 .buttonStyle(.bordered)
                 .accessibilityIdentifier("coverage-finish-done")
             } else {
-                Text("Enable the new PUSHKIN automation once in Shortcuts.")
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
-
                 Link(destination: automationsURL) {
                     Label(
                         "Open Automations",

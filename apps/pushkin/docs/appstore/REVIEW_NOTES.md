@@ -25,7 +25,7 @@ The app requires iOS 27 because it relies on the Notification automation behavio
 
 The bundled configuration contains a maintained catalog of explicit source-app descriptors. PUSHKIN does not use a wildcard trigger and does not claim to capture every possible third-party app automatically.
 
-If a newly installed app is in the bundled catalog, use **+ App** in PUSHKIN and import that app's small local refresh configuration. If an app is outside the catalog, PUSHKIN provides a manual Shortcuts setup guide.
+If a newly installed app is in the bundled catalog, use **+** on History or **Add app** in Settings and import that app's small local refresh configuration. If an app is outside the catalog, PUSHKIN provides a manual Shortcuts setup guide.
 
 ## Verification
 
