@@ -19,7 +19,8 @@ struct TodayView: View {
                     habit: $0,
                     on: .now,
                     checkIns: checkIns,
-                    skips: skips
+                    skips: skips,
+                    pausePeriods: pausePeriods
                 )
             }
         )
@@ -121,6 +122,11 @@ struct TodayView: View {
                                     habit: habit,
                                     containing: .now,
                                     checkIns: checkIns
+                                ),
+                                weeklyTarget: HabitFrequency.effectiveWeeklyTarget(
+                                    habit: habit,
+                                    containing: .now,
+                                    pausePeriods: pausePeriods
                                 ),
                                 onToggle: { toggle(habit, on: .now) },
                                 onSkip: { toggleSkip(habit, on: .now) }
@@ -311,6 +317,7 @@ private struct HabitRow: View {
     let skipped: Bool
     let streak: Int
     let weeklyCount: Int
+    let weeklyTarget: Int
     let onToggle: () -> Void
     let onSkip: () -> Void
 
@@ -345,7 +352,7 @@ private struct HabitRow: View {
                                 L10n.format(
                                     "habit.weekly.progress.format",
                                     weeklyCount,
-                                    habit.weeklyTarget
+                                    weeklyTarget
                                 ),
                                 systemImage: "calendar.badge.checkmark"
                             )

@@ -253,6 +253,7 @@ struct HabitDetailView: View {
             on: .now,
             checkIns: checkIns,
             skips: skips,
+            pausePeriods: pausePeriods,
             calendar: calendar
         ) && !HabitMetrics.isCompleted(
             habitID: habit.id,

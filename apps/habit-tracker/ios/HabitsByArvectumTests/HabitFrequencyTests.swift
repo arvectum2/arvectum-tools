@@ -134,6 +134,75 @@ final class HabitFrequencyTests: XCTestCase {
         )
     }
 
+    func testCreationWeekTargetShrinksToAvailableDays() {
+        let habit = Habit(
+            name: "Gym",
+            createdAt: date(2026, 10, 3),
+            weeklyTarget: 5
+        )
+
+        XCTAssertEqual(
+            HabitFrequency.effectiveWeeklyTarget(
+                habit: habit,
+                containing: date(2026, 10, 4),
+                calendar: calendar
+            ),
+            2
+        )
+
+        let checkIns = [
+            checkIn(habit, 2026, 10, 3),
+            checkIn(habit, 2026, 10, 4)
+        ]
+        XCTAssertTrue(
+            HabitFrequency.weekHasMetTarget(
+                habit: habit,
+                containing: date(2026, 10, 4),
+                checkIns: checkIns,
+                calendar: calendar
+            )
+        )
+    }
+
+    func testPartialPauseShrinksWeeklyTargetToActiveDays() {
+        let habit = Habit(
+            name: "Gym",
+            createdAt: date(2026, 9, 28),
+            weeklyTarget: 5
+        )
+        let pause = HabitPausePeriod(
+            habitID: habit.id,
+            startedAt: date(2026, 9, 29),
+            endedAt: date(2026, 10, 3),
+            calendar: calendar
+        )
+
+        XCTAssertEqual(
+            HabitFrequency.effectiveWeeklyTarget(
+                habit: habit,
+                containing: date(2026, 10, 4),
+                pausePeriods: [pause],
+                calendar: calendar
+            ),
+            3
+        )
+
+        let checkIns = [
+            checkIn(habit, 2026, 9, 28),
+            checkIn(habit, 2026, 10, 3),
+            checkIn(habit, 2026, 10, 4)
+        ]
+        XCTAssertTrue(
+            HabitFrequency.weekHasMetTarget(
+                habit: habit,
+                containing: date(2026, 10, 4),
+                checkIns: checkIns,
+                pausePeriods: [pause],
+                calendar: calendar
+            )
+        )
+    }
+
     private func checkIn(
         _ habit: Habit,
         _ year: Int,

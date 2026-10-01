@@ -65,12 +65,16 @@ final class HabitNotificationActionCoordinator {
         let skips = (try? context.fetch(
             FetchDescriptor<HabitSkip>()
         )) ?? []
+        let pausePeriods = (try? context.fetch(
+            FetchDescriptor<HabitPausePeriod>()
+        )) ?? []
 
         guard HabitFrequency.isDue(
             habit: habit,
             on: date,
             checkIns: checkIns,
             skips: skips,
+            pausePeriods: pausePeriods,
             calendar: calendar
         ) else {
             return false
@@ -119,12 +123,16 @@ final class HabitNotificationActionCoordinator {
         let skips = (try? context.fetch(
             FetchDescriptor<HabitSkip>()
         )) ?? []
+        let pausePeriods = (try? context.fetch(
+            FetchDescriptor<HabitPausePeriod>()
+        )) ?? []
 
         guard HabitFrequency.isDue(
             habit: habit,
             on: date,
             checkIns: checkIns,
             skips: skips,
+            pausePeriods: pausePeriods,
             calendar: calendar
         ) else {
             return false

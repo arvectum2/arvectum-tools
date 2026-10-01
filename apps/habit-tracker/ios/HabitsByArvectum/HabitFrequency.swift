@@ -38,6 +38,7 @@ enum HabitFrequency {
         on date: Date,
         checkIns: [HabitCheckIn],
         skips: [HabitSkip] = [],
+        pausePeriods: [HabitPausePeriod] = [],
         calendar: Calendar = .autoupdatingCurrent
     ) -> Bool {
         if habit.usesFlexibleWeeklyTarget {
@@ -63,7 +64,12 @@ enum HabitFrequency {
                 containing: date,
                 checkIns: checkIns,
                 calendar: calendar
-            ) < habit.weeklyTarget
+            ) < effectiveWeeklyTarget(
+                habit: habit,
+                containing: date,
+                pausePeriods: pausePeriods,
+                calendar: calendar
+            )
         }
 
         return habit.schedule.includes(date, calendar: calendar)
@@ -73,15 +79,54 @@ enum HabitFrequency {
         habit: Habit,
         containing date: Date,
         checkIns: [HabitCheckIn],
+        pausePeriods: [HabitPausePeriod] = [],
         calendar: Calendar = .autoupdatingCurrent
     ) -> Bool {
         guard habit.usesFlexibleWeeklyTarget else { return false }
+        let target = effectiveWeeklyTarget(
+            habit: habit,
+            containing: date,
+            pausePeriods: pausePeriods,
+            calendar: calendar
+        )
+        guard target > 0 else { return false }
         return weeklyCompletionCount(
             habit: habit,
             containing: date,
             checkIns: checkIns,
             calendar: calendar
-        ) >= habit.weeklyTarget
+        ) >= target
+    }
+
+    static func effectiveWeeklyTarget(
+        habit: Habit,
+        containing date: Date,
+        pausePeriods: [HabitPausePeriod] = [],
+        calendar: Calendar = .autoupdatingCurrent
+    ) -> Int {
+        guard habit.usesFlexibleWeeklyTarget else { return 0 }
+
+        let weekStart = startOfWeek(containing: date, calendar: calendar)
+        let creationDay = calendar.startOfDay(for: habit.createdAt)
+        var availableDays = 0
+
+        for offset in 0..<7 {
+            guard let day = calendar.date(
+                byAdding: .day,
+                value: offset,
+                to: weekStart
+            ) else { continue }
+            guard day >= creationDay else { continue }
+            guard !HabitMetrics.isPaused(
+                habitID: habit.id,
+                on: day,
+                pausePeriods: pausePeriods,
+                calendar: calendar
+            ) else { continue }
+            availableDays += 1
+        }
+
+        return min(habit.weeklyTarget, availableDays)
     }
 
     static func startOfWeek(

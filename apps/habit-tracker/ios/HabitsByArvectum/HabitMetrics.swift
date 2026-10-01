@@ -304,6 +304,7 @@ enum HabitMetrics {
             habit: habit,
             containing: cursor,
             checkIns: checkIns,
+            pausePeriods: pausePeriods,
             calendar: calendar
         ), let previous = HabitFrequency.previousWeek(
             before: cursor,
@@ -327,6 +328,7 @@ enum HabitMetrics {
                 habit: habit,
                 containing: cursor,
                 checkIns: checkIns,
+                pausePeriods: pausePeriods,
                 calendar: calendar
             ) {
                 streak += 1
@@ -373,6 +375,7 @@ enum HabitMetrics {
                 habit: habit,
                 containing: cursor,
                 checkIns: checkIns,
+                pausePeriods: pausePeriods,
                 calendar: calendar
             ) {
                 current += 1
@@ -420,6 +423,7 @@ enum HabitMetrics {
                 habit: habit,
                 containing: cursor,
                 checkIns: checkIns,
+                pausePeriods: pausePeriods,
                 calendar: calendar
             )
 

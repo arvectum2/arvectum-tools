@@ -82,7 +82,8 @@ final class PhoneWatchSyncCoordinator: NSObject, WCSessionDelegate {
                     habit: $0,
                     on: now,
                     checkIns: checkIns,
-                    skips: skips
+                    skips: skips,
+                    pausePeriods: pausePeriods
                 )
             }
         )
@@ -110,7 +111,11 @@ final class PhoneWatchSyncCoordinator: NSObject, WCSessionDelegate {
                     pausePeriods: pausePeriods
                 ),
                 weeklyTarget: habit.usesFlexibleWeeklyTarget
-                    ? habit.weeklyTarget : nil,
+                    ? HabitFrequency.effectiveWeeklyTarget(
+                        habit: habit,
+                        containing: now,
+                        pausePeriods: pausePeriods
+                    ) : nil,
                 weeklyCount: habit.usesFlexibleWeeklyTarget
                     ? HabitFrequency.weeklyCompletionCount(
                         habit: habit,
