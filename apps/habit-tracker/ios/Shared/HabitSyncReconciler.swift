@@ -10,8 +10,14 @@ enum HabitSyncReconciler {
         remainingCommands: [HabitCompletionCommand]
     ) {
         let acknowledged = Set(incoming.acknowledgedCommandIDs)
-        let remaining = pendingCommands.filter {
-            !acknowledged.contains($0.id)
+        let remaining = pendingCommands.filter { command in
+            guard !acknowledged.contains(command.id) else {
+                return false
+            }
+            return !authoritativeSnapshot(
+                incoming,
+                satisfies: command
+            )
         }
 
         let shouldKeepCurrent = currentSnapshot.map {
@@ -37,5 +43,22 @@ enum HabitSyncReconciler {
             !$0.completed && $0.skipped
         }.count
         return (merged, remaining)
+    }
+
+    private static func authoritativeSnapshot(
+        _ snapshot: HabitSyncSnapshot,
+        satisfies command: HabitCompletionCommand
+    ) -> Bool {
+        guard
+            snapshot.dayKey == command.dayKey,
+            snapshot.generatedAt >= command.createdAt,
+            let habit = snapshot.habits.first(where: {
+                $0.id == command.habitID
+            })
+        else {
+            return false
+        }
+
+        return habit.completed == command.completed && !habit.skipped
     }
 }

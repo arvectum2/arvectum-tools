@@ -154,6 +154,9 @@ final class PhoneWatchSyncCoordinator: NSObject, WCSessionDelegate {
     ) -> HabitSyncSnapshot? {
         guard let modelContainer else { return nil }
 
+        if recentCommandIDs.contains(command.id) {
+            return makeCurrentSnapshot()
+        }
         recordAcknowledgement(command.id)
 
         let context = ModelContext(modelContainer)

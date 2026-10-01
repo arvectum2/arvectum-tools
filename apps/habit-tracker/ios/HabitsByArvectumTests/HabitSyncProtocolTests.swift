@@ -211,6 +211,51 @@ final class HabitSyncProtocolTests: XCTestCase {
         XCTAssertTrue(result.snapshot.habits[0].completed)
     }
 
+    func testMatchingNewerAuthoritativeSnapshotClearsPendingWithoutExplicitID() {
+        let habitID = UUID()
+        let command = HabitCompletionCommand(
+            habitID: habitID,
+            dayKey: "2026-10-01",
+            completed: false,
+            createdAt: Date(timeIntervalSince1970: 10)
+        )
+        var incoming = snapshot(
+            habitID: habitID,
+            completed: false
+        )
+        incoming.generatedAt = Date(timeIntervalSince1970: 20)
+
+        let result = HabitSyncReconciler.reconcile(
+            incoming: incoming,
+            pendingCommands: [command]
+        )
+
+        XCTAssertTrue(result.remainingCommands.isEmpty)
+        XCTAssertFalse(result.snapshot.habits[0].completed)
+    }
+
+    func testOlderMatchingSnapshotDoesNotClearNewerPendingCommand() {
+        let habitID = UUID()
+        let command = HabitCompletionCommand(
+            habitID: habitID,
+            dayKey: "2026-10-01",
+            completed: false,
+            createdAt: Date(timeIntervalSince1970: 20)
+        )
+        var incoming = snapshot(
+            habitID: habitID,
+            completed: false
+        )
+        incoming.generatedAt = Date(timeIntervalSince1970: 10)
+
+        let result = HabitSyncReconciler.reconcile(
+            incoming: incoming,
+            pendingCommands: [command]
+        )
+
+        XCTAssertEqual(result.remainingCommands, [command])
+    }
+
     func testPendingCommandFromDifferentDayDoesNotOverrideSnapshot() {
         let habitID = UUID()
         let command = HabitCompletionCommand(
