@@ -4,7 +4,10 @@ import WidgetKit
 
 struct HabitShortcutEntity: AppEntity, Hashable {
     static var typeDisplayRepresentation = TypeDisplayRepresentation(
-        name: "Habit"
+        name: LocalizedStringResource(
+            "shortcut.habit.type",
+            defaultValue: "Habit"
+        )
     )
     static var defaultQuery = HabitShortcutQuery()
 
@@ -99,12 +102,23 @@ enum HabitShortcutBridge {
 }
 
 struct CompleteHabitShortcutIntent: AppIntent {
-    static var title: LocalizedStringResource = "Complete Habit"
+    static var title = LocalizedStringResource(
+        "shortcut.complete.title",
+        defaultValue: "Complete Habit"
+    )
     static var description = IntentDescription(
-        "Mark one of today's habits as complete."
+        LocalizedStringResource(
+            "shortcut.complete.description",
+            defaultValue: "Mark one of today's habits as complete."
+        )
     )
 
-    @Parameter(title: "Habit")
+    @Parameter(
+        title: LocalizedStringResource(
+            "shortcut.habit.parameter",
+            defaultValue: "Habit"
+        )
+    )
     var habit: HabitShortcutEntity
 
     init() {}
@@ -121,23 +135,44 @@ struct CompleteHabitShortcutIntent: AppIntent {
 
         if success {
             return .result(
-                dialog: IntentDialog("Marked \(habit.name) complete.")
+                dialog: IntentDialog(
+                    LocalizedStringResource(
+                        "shortcut.complete.success",
+                        defaultValue: "Marked \(habit.name) complete."
+                    )
+                )
             )
         }
 
         return .result(
-            dialog: IntentDialog("That habit is not due today.")
+            dialog: IntentDialog(
+                LocalizedStringResource(
+                    "shortcut.notDue",
+                    defaultValue: "That habit is not due today."
+                )
+            )
         )
     }
 }
 
 struct UndoHabitShortcutIntent: AppIntent {
-    static var title: LocalizedStringResource = "Undo Habit"
+    static var title = LocalizedStringResource(
+        "shortcut.undo.title",
+        defaultValue: "Undo Habit"
+    )
     static var description = IntentDescription(
-        "Mark one of today's habits as incomplete."
+        LocalizedStringResource(
+            "shortcut.undo.description",
+            defaultValue: "Mark one of today's habits as incomplete."
+        )
     )
 
-    @Parameter(title: "Habit")
+    @Parameter(
+        title: LocalizedStringResource(
+            "shortcut.habit.parameter",
+            defaultValue: "Habit"
+        )
+    )
     var habit: HabitShortcutEntity
 
     init() {}
@@ -154,12 +189,22 @@ struct UndoHabitShortcutIntent: AppIntent {
 
         if success {
             return .result(
-                dialog: IntentDialog("Marked \(habit.name) incomplete.")
+                dialog: IntentDialog(
+                    LocalizedStringResource(
+                        "shortcut.undo.success",
+                        defaultValue: "Marked \(habit.name) incomplete."
+                    )
+                )
             )
         }
 
         return .result(
-            dialog: IntentDialog("That habit is not due today.")
+            dialog: IntentDialog(
+                LocalizedStringResource(
+                    "shortcut.notDue",
+                    defaultValue: "That habit is not due today."
+                )
+            )
         )
     }
 }
@@ -172,7 +217,10 @@ struct HabitsAppShortcuts: AppShortcutsProvider {
                 "Complete a habit in \(.applicationName)",
                 "Check off a habit in \(.applicationName)"
             ],
-            shortTitle: "Complete Habit",
+            shortTitle: LocalizedStringResource(
+                "shortcut.complete.title",
+                defaultValue: "Complete Habit"
+            ),
             systemImageName: "checkmark.circle.fill"
         )
 
@@ -182,7 +230,10 @@ struct HabitsAppShortcuts: AppShortcutsProvider {
                 "Undo a habit in \(.applicationName)",
                 "Mark a habit incomplete in \(.applicationName)"
             ],
-            shortTitle: "Undo Habit",
+            shortTitle: LocalizedStringResource(
+                "shortcut.undo.title",
+                defaultValue: "Undo Habit"
+            ),
             systemImageName: "arrow.uturn.backward.circle"
         )
     }

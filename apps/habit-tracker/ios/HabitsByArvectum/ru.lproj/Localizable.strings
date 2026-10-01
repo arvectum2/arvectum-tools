@@ -111,3 +111,13 @@
 
 "storage.error.title" = "Данные привычек временно недоступны";
 "storage.error.message" = "Данные не удалены и не перезаписаны. Закройте и снова откройте Habits. Если проблема повторится, сначала обновите приложение.";
+
+"shortcut.habit.type" = "Привычка";
+"shortcut.habit.parameter" = "Привычка";
+"shortcut.complete.title" = "Отметить привычку";
+"shortcut.complete.description" = "Отметить одну из сегодняшних привычек выполненной.";
+"shortcut.complete.success" = "Привычка «%@» отмечена выполненной.";
+"shortcut.undo.title" = "Отменить выполнение";
+"shortcut.undo.description" = "Снять отметку выполнения с одной из сегодняшних привычек.";
+"shortcut.undo.success" = "Отметка выполнения для «%@» снята.";
+"shortcut.notDue" = "Эта привычка сегодня не запланирована.";

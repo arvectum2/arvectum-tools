@@ -152,6 +152,29 @@ for localization_root in [
                 + ", ".join(only_ru)
             )
 
+shortcut_root = ROOT / "HabitsByArvectum"
+shortcut_en = shortcut_root / "en.lproj" / "AppShortcuts.strings"
+shortcut_ru = shortcut_root / "ru.lproj" / "AppShortcuts.strings"
+
+if not shortcut_en.exists() or not shortcut_ru.exists():
+    fail("missing RU/EN AppShortcuts.strings localization")
+else:
+    shortcut_en_keys = localization_keys(shortcut_en)
+    shortcut_ru_keys = localization_keys(shortcut_ru)
+    if shortcut_en_keys != shortcut_ru_keys:
+        only_en = sorted(shortcut_en_keys - shortcut_ru_keys)
+        only_ru = sorted(shortcut_ru_keys - shortcut_en_keys)
+        if only_en:
+            fail(
+                "AppShortcuts.strings keys missing in RU: "
+                + ", ".join(only_en)
+            )
+        if only_ru:
+            fail(
+                "AppShortcuts.strings keys missing in EN: "
+                + ", ".join(only_ru)
+            )
+
 project_yml = (ROOT / "project.yml").read_text(encoding="utf-8")
 
 marketing_versions = re.findall(
@@ -195,5 +218,5 @@ if errors:
 
 print(
     "Release hygiene passed: privacy manifests, entitlements, "
-    "RU/EN localization parity, icons, Watch/widget integration."
+    "RU/EN localization + App Shortcuts parity, icons, Watch/widget integration."
 )

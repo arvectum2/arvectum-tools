@@ -1,0 +1,4 @@
+"Complete a habit in ${applicationName}" = "Отметить привычку в ${applicationName}";
+"Check off a habit in ${applicationName}" = "Отметить привычку выполненной в ${applicationName}";
+"Undo a habit in ${applicationName}" = "Отменить выполнение привычки в ${applicationName}";
+"Mark a habit incomplete in ${applicationName}" = "Снять отметку выполнения в ${applicationName}";

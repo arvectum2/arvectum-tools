@@ -70,7 +70,16 @@ final class LocalizationTests: XCTestCase {
         "accessibility.symbol.format",
         "accessibility.selected",
         "storage.error.title",
-        "storage.error.message"
+        "storage.error.message",
+        "shortcut.habit.type",
+        "shortcut.habit.parameter",
+        "shortcut.complete.title",
+        "shortcut.complete.description",
+        "shortcut.complete.success",
+        "shortcut.undo.title",
+        "shortcut.undo.description",
+        "shortcut.undo.success",
+        "shortcut.notDue"
     ]
 
     func testEnglishAndRussianContainAllRequiredKeys() throws {

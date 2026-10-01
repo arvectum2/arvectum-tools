@@ -111,3 +111,13 @@
 
 "storage.error.title" = "Habits data is temporarily unavailable";
 "storage.error.message" = "Your data was not reset or overwritten. Close and reopen Habits. If the problem continues, update the app before trying again.";
+
+"shortcut.habit.type" = "Habit";
+"shortcut.habit.parameter" = "Habit";
+"shortcut.complete.title" = "Complete Habit";
+"shortcut.complete.description" = "Mark one of today's habits as complete.";
+"shortcut.complete.success" = "Marked %@ complete.";
+"shortcut.undo.title" = "Undo Habit";
+"shortcut.undo.description" = "Mark one of today's habits as incomplete.";
+"shortcut.undo.success" = "Marked %@ incomplete.";
+"shortcut.notDue" = "That habit is not due today.";
