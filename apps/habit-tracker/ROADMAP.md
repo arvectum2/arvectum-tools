@@ -120,7 +120,7 @@ Working formula: **«всё удобное — без лишнего»**.
 - [x] Stable command IDs and day keys for duplicate-safe delivery.
 - [x] Immediate transport when counterpart is reachable.
 - [x] Durable queued transport when counterpart is temporarily offline.
-- [x] Rapid same-habit/day Watch mutations compact to one local pending command and one outstanding durable transfer.
+- [x] Rapid same-habit/day Watch mutations compact to one local pending command; offline durable transport is debounced so 51 rapid toggles produce at most one current system transfer instead of a false/true delivery flood.
 - [x] Latest snapshot persisted locally on Watch for offline launch.
 - [x] Watch app cache, widget and complication reject stale previous-day snapshots after calendar rollover.
 - [x] Optimistic Watch UI: a tap updates immediately without waiting for iPhone.

@@ -10,6 +10,7 @@ final class WatchHabitSyncStore: NSObject, ObservableObject, WCSessionDelegate {
     private let snapshotKey = "habits.watch.cachedSnapshot"
     private let pendingKey = "habits.watch.pendingCommands"
     private var pendingCommands: [HabitCompletionCommand]
+    private var durableFlushWorkItem: DispatchWorkItem?
 #if DEBUG
     private var didAutoToggleForDebug = false
     private var didAutoToggleCachedForDebug = false
@@ -106,7 +107,7 @@ final class WatchHabitSyncStore: NSObject, ObservableObject, WCSessionDelegate {
         if session.isReachable {
             send(packet: packet, expectsReply: true)
         } else {
-            transferDurably(packet)
+            scheduleDurableFlush()
         }
     }
 
@@ -121,7 +122,7 @@ final class WatchHabitSyncStore: NSObject, ObservableObject, WCSessionDelegate {
 
         guard session.isReachable else {
             if packet.kind == .setCompletion {
-                transferDurably(packet)
+                scheduleDurableFlush()
             }
             return
         }
@@ -138,9 +139,22 @@ final class WatchHabitSyncStore: NSObject, ObservableObject, WCSessionDelegate {
             } : nil,
             errorHandler: { [weak self] _ in
                 if packet.kind == .setCompletion {
-                    self?.transferDurably(packet)
+                    self?.scheduleDurableFlush()
                 }
             }
+        )
+    }
+
+    private func scheduleDurableFlush() {
+        durableFlushWorkItem?.cancel()
+
+        let workItem = DispatchWorkItem { [weak self] in
+            self?.resendPendingDurably()
+        }
+        durableFlushWorkItem = workItem
+        DispatchQueue.main.asyncAfter(
+            deadline: .now() + 0.35,
+            execute: workItem
         )
     }
 
