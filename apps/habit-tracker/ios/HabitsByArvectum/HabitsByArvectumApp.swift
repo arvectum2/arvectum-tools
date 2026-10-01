@@ -12,18 +12,16 @@ struct HabitsByArvectumApp: App {
             HabitSkip.self,
             HabitPausePeriod.self
         ])
-        let isUITesting = ProcessInfo.processInfo.arguments.contains(
-            "--ui-testing"
+        let arguments = ProcessInfo.processInfo.arguments
+        let isUITesting = arguments.contains("--ui-testing")
+        let cloudSyncDisabled = isUITesting || arguments.contains(
+            "--disable-cloud-sync"
         )
-        let configuration = ModelConfiguration(
-            schema: schema,
-            isStoredInMemoryOnly: isUITesting
-        )
-
         do {
-            let container = try ModelContainer(
-                for: schema,
-                configurations: [configuration]
+            let container = try Self.makeModelContainer(
+                schema: schema,
+                isStoredInMemoryOnly: isUITesting,
+                cloudSyncEnabled: !cloudSyncDisabled
             )
             modelContainer = container
 #if DEBUG
@@ -36,6 +34,46 @@ struct HabitsByArvectumApp: App {
             )
         } catch {
             fatalError("Could not create SwiftData container: \(error)")
+        }
+    }
+
+    private static func makeModelContainer(
+        schema: Schema,
+        isStoredInMemoryOnly: Bool,
+        cloudSyncEnabled: Bool
+    ) throws -> ModelContainer {
+        let preferred = ModelConfiguration(
+            "Habits",
+            schema: schema,
+            isStoredInMemoryOnly: isStoredInMemoryOnly,
+            allowsSave: true,
+            groupContainer: .none,
+            cloudKitDatabase: cloudSyncEnabled ? .automatic : .none
+        )
+
+        do {
+            return try ModelContainer(
+                for: schema,
+                configurations: [preferred]
+            )
+        } catch where cloudSyncEnabled {
+#if DEBUG
+            print(
+                "HABITS_CLOUD_FALLBACK reason=\(error.localizedDescription)"
+            )
+#endif
+            let localOnly = ModelConfiguration(
+                "Habits",
+                schema: schema,
+                isStoredInMemoryOnly: isStoredInMemoryOnly,
+                allowsSave: true,
+                groupContainer: .none,
+                cloudKitDatabase: .none
+            )
+            return try ModelContainer(
+                for: schema,
+                configurations: [localOnly]
+            )
         }
     }
 

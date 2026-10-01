@@ -3,13 +3,13 @@ import SwiftData
 
 @Model
 final class Habit {
-    @Attribute(.unique) var id: UUID
-    var name: String
-    var symbolName: String
-    var colorHex: String
-    var createdAt: Date
-    var isArchived: Bool
-    var scheduleMask: Int
+    var id: UUID = UUID()
+    var name: String = ""
+    var symbolName: String = "checkmark"
+    var colorHex: String = "43E5C5"
+    var createdAt: Date = Date.now
+    var isArchived: Bool = false
+    var scheduleMask: Int = HabitSchedule.everyDay.rawValue
     var reminderEnabled: Bool = false
     var reminderHour: Int = 20
     var reminderMinute: Int = 0
@@ -51,11 +51,11 @@ final class Habit {
 
 @Model
 final class HabitCheckIn {
-    @Attribute(.unique) var id: UUID
-    var habitID: UUID
-    var day: Date
+    var id: UUID = UUID()
+    var habitID: UUID = UUID()
+    var day: Date = Date.now
     var dayKey: String? = nil
-    var createdAt: Date
+    var createdAt: Date = Date.now
 
     init(
         id: UUID = UUID(),
@@ -74,11 +74,11 @@ final class HabitCheckIn {
 
 @Model
 final class HabitSkip {
-    @Attribute(.unique) var id: UUID
-    var habitID: UUID
-    var day: Date
-    var dayKey: String
-    var createdAt: Date
+    var id: UUID = UUID()
+    var habitID: UUID = UUID()
+    var day: Date = Date.now
+    var dayKey: String = ""
+    var createdAt: Date = Date.now
 
     init(
         id: UUID = UUID(),
@@ -97,10 +97,10 @@ final class HabitSkip {
 
 @Model
 final class HabitPausePeriod {
-    @Attribute(.unique) var id: UUID
-    var habitID: UUID
-    var startedAt: Date
-    var startDayKey: String
+    var id: UUID = UUID()
+    var habitID: UUID = UUID()
+    var startedAt: Date = Date.now
+    var startDayKey: String = ""
     var endedAt: Date? = nil
     var endDayKeyExclusive: String? = nil
 

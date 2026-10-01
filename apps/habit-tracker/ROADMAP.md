@@ -139,7 +139,9 @@ Working formula: **«всё удобное — без лишнего»**.
 ### Cross-device sync direction
 
 - [x] Keep local-first operation as the invariant.
-- [ ] Add private iCloud/CloudKit sync for the user's Apple devices without requiring an Arvectum account.
+- [x] CloudKit-compatible SwiftData schema and private-iCloud capability wiring without requiring an Arvectum account.
+- [x] Local-first fallback: if cloud-backed container creation fails, Habits opens the local store instead of failing to launch.
+- [ ] Verify real private-CloudKit convergence between two signed Apple devices / simulator iCloud accounts before enabling the milestone for release.
 - [x] Treat WatchConnectivity as the low-latency iPhone↔Watch path and cloud sync as durable multi-device convergence.
 - [ ] Test simultaneous edits and duplicate delivery before enabling cloud sync in production.
 
@@ -191,4 +193,4 @@ Core habit tracking stays free. Advertising is the planned monetization model, b
 
 The M1 vertical slice is implemented and M2 reminders/localization are wired end-to-end: local storage → minimal create/edit flow → optional local reminder → Today → mark/unmark → details/history → archive/delete. Optional creation settings now use progressive disclosure so the default path stays focused on name + schedule. Historical check-ins now use a stable local-day key, while current schedules/reminders follow the device timezone. RU and EN are bundled and visually smoke-tested. The suite currently has 13 passing tests, including timezone/DST regressions, localization completeness and an XCUITest covering create → check → detail → history. Clean install and additive-schema upgrades have been smoke-tested, including signed install/launch on the physical iPhone 13 with Xcode 27.0.
 
-**Next implementation step:** Skip day, best streak and pause/resume are implemented with Watch-aware local-first semantics. Continue with an interactive Home Screen widget and overall Today progress outside the app. In parallel, finish private CloudKit multi-device convergence before public release. Physical local-notification authorization and pending delivery schedule are verified on iPhone.
+**Next implementation step:** CloudKit-compatible storage now builds and launches both with cloud sync enabled and explicitly disabled, with local fallback preserved. Continue with an interactive Home Screen widget and overall Today progress outside the app; then verify real private-CloudKit convergence on two Apple-device identities before release.
