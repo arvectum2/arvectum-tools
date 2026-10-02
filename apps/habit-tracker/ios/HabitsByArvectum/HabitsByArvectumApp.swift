@@ -34,6 +34,7 @@ struct HabitsByArvectumApp: App {
         seedReminderSmokeIfRequested(container: container)
         seedCloudKitProbeIfRequested(container: container)
         observeCloudKitProbeIfRequested(container: container)
+        deleteCloudKitProbeIfRequested(container: container)
         completeFirstIncompleteHabitIfRequested(container: container)
         skipFirstIncompleteHabitIfRequested(container: container)
         HabitMutationDiagnostics.runIfRequested(container: container)
@@ -341,6 +342,41 @@ struct HabitsByArvectumApp: App {
 
             HabitDebugLog.emit(
                 "HABITS_CLOUDKIT_PROBE_TIMEOUT token=\(token)"
+            )
+        }
+    }
+
+    private func deleteCloudKitProbeIfRequested(
+        container: ModelContainer
+    ) {
+        guard let argument = ProcessInfo.processInfo.arguments.first(where: {
+            $0.hasPrefix("--cloudkit-probe-delete=")
+        }) else { return }
+
+        let token = String(
+            argument.dropFirst("--cloudkit-probe-delete=".count)
+        )
+        guard !token.isEmpty else { return }
+
+        let name = "CloudKit Probe \(token)"
+        let context = ModelContext(container)
+        let habits = (try? context.fetch(FetchDescriptor<Habit>())) ?? []
+        let matches = habits.filter { $0.name == name }
+
+        for habit in matches {
+            context.delete(habit)
+        }
+
+        do {
+            try context.save()
+            HabitDebugLog.emit(
+                "HABITS_CLOUDKIT_PROBE_DELETED token=\(token) " +
+                "count=\(matches.count)"
+            )
+        } catch {
+            HabitDebugLog.emit(
+                "HABITS_CLOUDKIT_PROBE_DELETE_FAILED token=\(token) " +
+                "reason=\(error.localizedDescription)"
             )
         }
     }
