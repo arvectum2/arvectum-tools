@@ -339,6 +339,7 @@ struct HabitDetailView: View {
         VStack(spacing: 5) {
             Image(systemName: systemImage)
                 .foregroundStyle(Color.habitsReadableAccent(for: habit.colorHex))
+                .accessibilityHidden(true)
             Text(value)
                 .font(.headline)
             Text(label)
@@ -354,6 +355,11 @@ struct HabitDetailView: View {
         .frame(maxWidth: .infinity)
         .padding(.vertical, 14)
         .background(Color.habitsSurface, in: RoundedRectangle(cornerRadius: 18))
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(label)
+        .accessibilityValue(
+            secondary.map { "\(value), \($0)" } ?? value
+        )
     }
 
     private func dayCell(_ date: Date) -> some View {

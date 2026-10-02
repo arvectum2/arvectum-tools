@@ -310,6 +310,80 @@ final class HabitFlowUITests: XCTestCase {
         try auditCurrentScreen("create")
     }
 
+    @MainActor
+    func testVoiceOverCoreNavigationOnIOS27() throws {
+        guard #available(iOS 27.0, *) else {
+            throw XCTSkip("XCUIVoiceOverService requires iOS 27+")
+        }
+
+        launchSeededDemo()
+        let service = XCUIDevice.shared.voiceOverService
+        defer { _ = try? service.disable() }
+
+        let today = try voiceOverUtterances(service, count: 8)
+        assertVoiceOverSequence(
+            today,
+            contains: [
+                "Manage habits",
+                "Add habit",
+                "Today",
+                "0 of 2",
+                "Reading",
+                "Mark complete",
+                "Water",
+                "Mark complete"
+            ],
+            surface: "today"
+        )
+
+        app.buttons["Manage habits"].tap()
+        XCTAssertTrue(
+            app.navigationBars["Manage habits"].waitForExistence(timeout: 3)
+        )
+        let manage = try voiceOverUtterances(service, count: 7)
+        assertVoiceOverSequence(
+            manage,
+            contains: [
+                "Today",
+                "Manage habits",
+                "Edit",
+                "Active",
+                "Reading",
+                "Water"
+            ],
+            surface: "manage"
+        )
+
+        app.staticTexts["Reading"].firstMatch.tap()
+        XCTAssertTrue(
+            app.navigationBars["Reading"].waitForExistence(timeout: 3)
+        )
+        let detail = try voiceOverUtterances(service, count: 10)
+        assertVoiceOverSequence(
+            detail,
+            contains: [
+                "Manage habits",
+                "Reading",
+                "Edit",
+                "More habit actions",
+                "Reading",
+                "Every day",
+                "streak",
+                "completed",
+                "check-ins"
+            ],
+            surface: "detail"
+        )
+
+        XCTAssertFalse(
+            detail.contains {
+                $0.localizedCaseInsensitiveContains("Flame") ||
+                $0.localizedCaseInsensitiveContains("Chart Line") ||
+                $0.localizedCaseInsensitiveContains("Selected")
+            }
+        )
+    }
+
     private func auditCurrentScreen(_ surface: String) throws {
         let auditTypes: XCUIAccessibilityAuditType = [
             .contrast,
@@ -342,6 +416,75 @@ final class HabitFlowUITests: XCTestCase {
             }
 
             return false
+        }
+    }
+
+    @MainActor
+    @available(iOS 27.0, *)
+    private func voiceOverUtterances(
+        _ service: XCUIVoiceOverService,
+        count: Int
+    ) throws -> [String] {
+        _ = try? service.disable()
+        dismissSystemNotificationIfPresent()
+        _ = try service.enable()
+        defer { _ = try? service.disable() }
+
+        var utterances = [try service.currentSpeech().utterance]
+        guard count > 1 else { return utterances }
+
+        for _ in 1..<count {
+            utterances.append(try service.moveForward().utterance)
+        }
+        return utterances
+    }
+
+    private func assertVoiceOverSequence(
+        _ utterances: [String],
+        contains expected: [String],
+        surface: String,
+        file: StaticString = #filePath,
+        line: UInt = #line
+    ) {
+        var searchStart = 0
+
+        for fragment in expected {
+            let matchingIndex = utterances.indices
+                .dropFirst(searchStart)
+                .first {
+                    utterances[$0]
+                        .localizedCaseInsensitiveContains(fragment)
+                }
+
+            guard let matchingIndex else {
+                XCTFail(
+                    "VoiceOver \(surface) missing '\(fragment)'. " +
+                    "Utterances: \(utterances)",
+                    file: file,
+                    line: line
+                )
+                return
+            }
+
+            searchStart = matchingIndex + 1
+        }
+    }
+
+    private func dismissSystemNotificationIfPresent() {
+        let springboard = XCUIApplication(
+            bundleIdentifier: "com.apple.springboard"
+        )
+        let notification = springboard.descendants(matching: .any)
+            .matching(
+                NSPredicate(
+                    format: "identifier == %@",
+                    "NotificationShortLookView"
+                )
+            )
+            .firstMatch
+
+        if notification.exists {
+            notification.swipeUp()
         }
     }
 
