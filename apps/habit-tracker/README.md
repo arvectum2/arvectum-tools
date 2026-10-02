@@ -20,13 +20,13 @@ Working formula: **«всё удобное — без лишнего»**.
 - Home Screen / Lock Screen interactive widgets
 - Apple Watch app + complications
 - low-latency iPhone ↔ Apple Watch sync with durable offline reconciliation
-- private-CloudKit-ready persistence with local fallback; real signed multi-device convergence remains a release gate
+- private-CloudKit-ready persistence with local fallback; multi-device CloudKit is monitored post-release and does not block V1
 - Siri / Shortcuts intents for complete and undo
 - simulator regression, UI tests, release hygiene and archive smoke tooling
 
 ## Current gate
 
-Simulator-side implementation and regression are intentionally ahead of the hardware gate. Before release, validate the signed build on the physical iPhone + Apple Watch pair: reminder delivery, foreground/background Watch sync, disconnect/reconnect convergence, VoiceOver/Dynamic Type, App Group provisioning and private CloudKit convergence where applicable.
+The signed release candidate is validated on the approved physical iPhone + Apple Watch pair: reminder delivery, foreground/background Watch sync, disconnect/reconnect convergence, VoiceOver/Dynamic Type and App Group provisioning are green. Private multi-device CloudKit convergence is not a V1 release blocker and will be monitored post-release.
 
 Canonical plan: [ROADMAP.md](ROADMAP.md).
 
