@@ -60,7 +60,7 @@ final class HabitFlowUITests: XCTestCase {
         XCTAssertTrue(newHabitBar.waitForExistence(timeout: 3))
 
         let nameField = app.textFields[
-            "For example, read for 20 minutes"
+            "Habit name"
         ]
         XCTAssertTrue(nameField.waitForExistence(timeout: 3))
         nameField.typeText("Read")
@@ -265,6 +265,86 @@ final class HabitFlowUITests: XCTestCase {
         )
     }
 
+    func testAccessibilityAuditCoreScreens() throws {
+        continueAfterFailure = true
+        launchSeededDemo()
+
+        XCTAssertTrue(app.staticTexts["Reading"].waitForExistence(timeout: 3))
+        try auditCurrentScreen("today")
+
+        let manageButton = app.buttons["Manage habits"]
+        XCTAssertTrue(manageButton.waitForExistence(timeout: 3))
+        manageButton.tap()
+        XCTAssertTrue(
+            app.navigationBars["Manage habits"].waitForExistence(timeout: 3)
+        )
+        try auditCurrentScreen("manage")
+
+        let reading = app.staticTexts["Reading"].firstMatch
+        XCTAssertTrue(reading.waitForExistence(timeout: 3))
+        reading.tap()
+        XCTAssertTrue(
+            app.navigationBars["Reading"].waitForExistence(timeout: 3)
+        )
+        try auditCurrentScreen("detail")
+
+        app.terminate()
+        app.launchArguments = [
+            "-AppleLanguages", "(en)",
+            "-AppleLocale", "en_US",
+            "--ui-testing",
+            "--debug-no-autofocus"
+        ]
+        app.launch()
+
+        let createButton = app.buttons["Create habit"]
+        XCTAssertTrue(createButton.waitForExistence(timeout: 3))
+        createButton.tap()
+        XCTAssertTrue(
+            app.navigationBars["New habit"].waitForExistence(timeout: 3)
+        )
+        let quickReading = app.buttons["Reading"]
+        XCTAssertTrue(quickReading.waitForExistence(timeout: 3))
+        quickReading.tap()
+        XCTAssertTrue(app.buttons["Done"].isEnabled)
+        try auditCurrentScreen("create")
+    }
+
+    private func auditCurrentScreen(_ surface: String) throws {
+        let auditTypes: XCUIAccessibilityAuditType = [
+            .contrast,
+            .elementDetection,
+            .hitRegion,
+            .sufficientElementDescription,
+            .textClipped,
+            .trait
+        ]
+
+        try app.performAccessibilityAudit(for: auditTypes) { issue in
+            print(
+                "HABITS_A11Y surface=\(surface) " +
+                "issue=\(issue.compactDescription) " +
+                "detail=\(issue.detailedDescription) " +
+                "element=\(issue.element?.description ?? "nil")"
+            )
+
+            if issue.compactDescription.contains("Contrast") {
+                if issue.element == nil {
+                    // SwiftUI can report contrast for decorative disclosure
+                    // chrome that has no accessibility node of its own. The
+                    // labelled text/control nodes remain audited separately.
+                    return true
+                }
+
+                if issue.element?.isEnabled == false {
+                    return true
+                }
+            }
+
+            return false
+        }
+    }
+
     private func launchSeededDemo() {
         app.terminate()
         app.launchArguments = [
@@ -304,7 +384,7 @@ final class HabitFlowUITests: XCTestCase {
         XCTAssertTrue(weekdaysButton.isHittable)
 
         let nameField = app.textFields[
-            "For example, read for 20 minutes"
+            "Habit name"
         ]
         XCTAssertTrue(nameField.waitForExistence(timeout: 3))
         nameField.typeText("Read")

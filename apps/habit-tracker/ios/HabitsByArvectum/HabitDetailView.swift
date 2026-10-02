@@ -58,9 +58,13 @@ struct HabitDetailView: View {
         .toolbar {
             ToolbarItemGroup(placement: .topBarTrailing) {
                 if !habit.isArchived {
-                    Button(L10n.string("habit.edit.action")) {
+                    Button {
                         showingEditHabit = true
+                    } label: {
+                        Image(systemName: "pencil")
+                            .foregroundStyle(.primary)
                     }
+                    .accessibilityLabel(L10n.string("habit.edit.action"))
                 }
 
                 Menu {
@@ -139,7 +143,7 @@ struct HabitDetailView: View {
                 .fill(Color(hex: habit.colorHex).opacity(0.16))
             Image(systemName: habit.symbolName)
                 .font(.title2)
-                .foregroundStyle(Color(hex: habit.colorHex))
+                .foregroundStyle(Color.habitsReadableAccent(for: habit.colorHex))
         }
         .frame(width: 54, height: 54)
         .accessibilityHidden(true)
@@ -151,7 +155,7 @@ struct HabitDetailView: View {
                 .font(.title3.weight(.semibold))
             Text(HabitScheduleText.description(for: habit))
                 .font(.subheadline)
-                .foregroundStyle(.secondary)
+                .foregroundStyle(Color.habitsSecondaryText)
 
             if habit.isPaused {
                 Label(
@@ -159,11 +163,11 @@ struct HabitDetailView: View {
                     systemImage: "pause.circle.fill"
                 )
                 .font(.caption)
-                .foregroundStyle(.secondary)
+                .foregroundStyle(Color.habitsSecondaryText)
             } else if HabitReminderScheduler.shouldSchedule(habit: habit) {
                 Label(reminderDescription, systemImage: "bell.fill")
                     .font(.caption)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(Color.habitsSecondaryText)
             }
         }
     }
@@ -236,7 +240,7 @@ struct HabitDetailView: View {
                 ForEach(Array(weekdaySymbols.enumerated()), id: \.offset) { item in
                     Text(item.element)
                         .font(.caption2.weight(.semibold))
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(Color.habitsSecondaryText)
                         .frame(maxWidth: .infinity)
                         .accessibilityHidden(true)
                 }
@@ -248,7 +252,7 @@ struct HabitDetailView: View {
 
             Text(L10n.string("detail.history.hint"))
                 .font(.caption)
-                .foregroundStyle(.secondary)
+                .foregroundStyle(Color.habitsSecondaryText)
         }
         .padding(16)
         .background(Color.habitsSurface, in: RoundedRectangle(cornerRadius: 20))
@@ -297,7 +301,7 @@ struct HabitDetailView: View {
             .padding(.vertical, 4)
         }
         .buttonStyle(.bordered)
-        .tint(Color.arvectumOrange)
+        .tint(Color.habitsWarningText)
     }
 
     private var resumeButton: some View {
@@ -334,17 +338,17 @@ struct HabitDetailView: View {
     ) -> some View {
         VStack(spacing: 5) {
             Image(systemName: systemImage)
-                .foregroundStyle(Color(hex: habit.colorHex))
+                .foregroundStyle(Color.habitsReadableAccent(for: habit.colorHex))
             Text(value)
                 .font(.headline)
             Text(label)
                 .font(.caption2)
-                .foregroundStyle(.secondary)
+                .foregroundStyle(Color.habitsSecondaryText)
 
             if let secondary {
                 Text(secondary)
                     .font(.caption2)
-                    .foregroundStyle(.tertiary)
+                    .foregroundStyle(Color.habitsSecondaryText)
             }
         }
         .frame(maxWidth: .infinity)
@@ -400,7 +404,7 @@ struct HabitDetailView: View {
 
                 Text("\(calendar.component(.day, from: date))")
                     .font(.caption2.weight(.semibold))
-                    .foregroundStyle(completed ? Color.arvectumNavy : .primary)
+                    .foregroundStyle(completed ? Color.black : .primary)
 
                 if missed {
                     Image(systemName: "xmark")
@@ -412,14 +416,14 @@ struct HabitDetailView: View {
                 } else if skipped {
                     Image(systemName: "minus")
                         .font(.system(size: 7, weight: .bold))
-                        .foregroundStyle(Color.arvectumOrange)
+                        .foregroundStyle(Color.habitsWarningText)
                         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
                         .padding(4)
                         .accessibilityHidden(true)
                 } else if paused {
                     Image(systemName: "pause.fill")
                         .font(.system(size: 6, weight: .bold))
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(Color.habitsSecondaryText)
                         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
                         .padding(4)
                         .accessibilityHidden(true)

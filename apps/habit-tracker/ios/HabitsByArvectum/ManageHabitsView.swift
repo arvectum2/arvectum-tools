@@ -36,15 +36,29 @@ struct ManageHabitsView: View {
                 List {
                     if !activeHabits.isEmpty {
                         Section {
+                            Text(L10n.string("manage.active"))
+                                .font(.subheadline.weight(.semibold))
+                                .foregroundStyle(.primary)
+                                .accessibilityAddTraits(.isHeader)
+                                .listRowSeparator(.hidden)
+                                .listRowBackground(Color.clear)
+                                .listRowInsets(
+                                    EdgeInsets(
+                                        top: 4,
+                                        leading: 20,
+                                        bottom: 2,
+                                        trailing: 20
+                                    )
+                                )
+
                             ForEach(activeHabits) { habit in
                                 habitLink(habit)
                             }
                             .onMove(perform: moveActiveHabits)
-                        } header: {
-                            Text(L10n.string("manage.active"))
                         } footer: {
                             if activeHabits.count > 1 {
                                 Text(L10n.string("manage.reorder.hint"))
+                                    .foregroundStyle(Color.habitsSecondaryText)
                             }
                         }
                     }
@@ -89,7 +103,9 @@ struct ManageHabitsView: View {
                                 .opacity(0.16)
                         )
                     Image(systemName: habit.symbolName)
-                        .foregroundStyle(Color(hex: habit.colorHex))
+                        .foregroundStyle(
+                            Color.habitsReadableAccent(for: habit.colorHex)
+                        )
                 }
                 .frame(width: 40, height: 40)
                 .accessibilityHidden(true)
@@ -105,7 +121,7 @@ struct ManageHabitsView: View {
                             : HabitScheduleText.description(for: habit)
                     )
                     .font(.caption)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(Color.habitsSecondaryText)
                     .lineLimit(dynamicTypeSize.isAccessibilitySize ? 2 : 1)
                 }
             }

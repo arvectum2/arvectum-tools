@@ -223,12 +223,12 @@ struct TodayView: View {
         VStack(spacing: 8) {
             Image(systemName: "calendar.badge.checkmark")
                 .font(.title2)
-                .foregroundStyle(.secondary)
+                .foregroundStyle(Color.habitsSecondaryText)
             Text(L10n.string("today.none.title"))
                 .font(.headline)
             Text(L10n.string("today.none.description"))
                 .font(.subheadline)
-                .foregroundStyle(.secondary)
+                .foregroundStyle(Color.habitsSecondaryText)
                 .multilineTextAlignment(.center)
         }
         .frame(maxWidth: .infinity)
@@ -443,7 +443,7 @@ private struct TodaySummary: View {
         VStack(alignment: .leading, spacing: 10) {
             Text(L10n.format("today.progress.format", completed, total))
                 .font(.subheadline.weight(.semibold))
-                .foregroundStyle(.secondary)
+                .foregroundStyle(Color.habitsSecondaryText)
 
             ProgressView(value: progress)
                 .tint(Color.arvectumMint)
@@ -476,7 +476,7 @@ private struct HabitRow: View {
                             .fill(Color(hex: habit.colorHex).opacity(0.16))
                         Image(systemName: habit.symbolName)
                             .font(.headline)
-                            .foregroundStyle(Color(hex: habit.colorHex))
+                            .foregroundStyle(Color.habitsReadableAccent(for: habit.colorHex))
                     }
                     .frame(width: 42, height: 42)
 
@@ -490,7 +490,7 @@ private struct HabitRow: View {
                                 systemImage: "minus.circle.fill"
                             )
                             .font(.caption)
-                            .foregroundStyle(.secondary)
+                            .foregroundStyle(Color.habitsSecondaryText)
                         } else if habit.usesFlexibleWeeklyTarget {
                             Label(
                                 L10n.format(
@@ -501,14 +501,14 @@ private struct HabitRow: View {
                                 systemImage: "calendar.badge.checkmark"
                             )
                             .font(.caption)
-                            .foregroundStyle(.secondary)
+                            .foregroundStyle(Color.habitsSecondaryText)
                         } else if streak > 0 {
                             Label(
                                 L10n.streak(streak),
                                 systemImage: "flame.fill"
                             )
                             .font(.caption)
-                            .foregroundStyle(.secondary)
+                            .foregroundStyle(Color.habitsSecondaryText)
                         }
                     }
                 }
@@ -526,8 +526,8 @@ private struct HabitRow: View {
                 .font(.system(size: 30, weight: .medium))
                 .foregroundStyle(
                     completed
-                        ? Color(hex: habit.colorHex)
-                        : (skipped ? Color.arvectumOrange : .secondary)
+                        ? Color.habitsReadableAccent(for: habit.colorHex)
+                        : (skipped ? Color.habitsWarningText : Color.habitsSecondaryText)
                 )
                 .frame(width: 44, height: 44)
                 .symbolEffect(.bounce, value: completed)

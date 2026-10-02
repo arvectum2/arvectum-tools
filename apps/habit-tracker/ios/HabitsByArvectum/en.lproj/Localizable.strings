@@ -8,7 +8,7 @@
 "habit.add.accessibility" = "Add habit";
 "habit.create" = "Create habit";
 "habit.section" = "Habit";
-"habit.name.placeholder" = "For example, read for 20 minutes";
+"habit.name.placeholder" = "Habit name";
 "habit.streak.one" = "1 day in a row";
 "habit.streak.format" = "%d days in a row";
 "habit.streak.start" = "Start your streak today";

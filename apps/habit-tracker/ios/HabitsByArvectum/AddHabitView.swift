@@ -55,9 +55,11 @@ struct AddHabitView: View {
                 (initialSchedule != .everyDay && initialSchedule != .weekdays)
         )
         _optionsExpanded = State(
-            initialValue: habit?.reminderEnabled == true ||
-                habit?.colorHex != HabitPalette.colors[0] ||
-                habit?.symbolName != HabitPalette.symbols[0]
+            initialValue: habit.map {
+                $0.reminderEnabled ||
+                $0.colorHex != HabitPalette.colors[0] ||
+                $0.symbolName != HabitPalette.symbols[0]
+            } ?? false
         )
 
         let hour = habit?.reminderHour ?? 20
@@ -91,6 +93,7 @@ struct AddHabitView: View {
                                         symbolName = item.symbol
                                     }
                                     .buttonStyle(.bordered)
+                                    .tint(Color.habitsControlAccent)
                                 }
                             }
                         }
@@ -240,19 +243,28 @@ struct AddHabitView: View {
                 Text(L10n.string("notification.denied.message"))
             }
             .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
-                    Button(L10n.string("common.cancel")) { dismiss() }
+                ToolbarItem(placement: .topBarLeading) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Image(systemName: "xmark")
+                            .foregroundStyle(.primary)
+                    }
+                    .accessibilityLabel(L10n.string("common.cancel"))
                 }
 
-                ToolbarItem(placement: .confirmationAction) {
-                    Button(
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button(action: save) {
+                        Image(systemName: "checkmark")
+                            .fontWeight(.semibold)
+                            .foregroundStyle(.primary)
+                    }
+                    .accessibilityLabel(
                         habit == nil
                             ? L10n.string("common.done")
-                            : L10n.string("common.save"),
-                        action: save
+                            : L10n.string("common.save")
                     )
-                        .disabled(!canSave)
-                        .fontWeight(.semibold)
+                    .disabled(!canSave)
                 }
             }
         }
