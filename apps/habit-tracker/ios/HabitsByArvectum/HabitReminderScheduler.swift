@@ -276,6 +276,19 @@ enum HabitReminderScheduler {
             "HABITS_PENDING_COUNT=" + String(requests.count)
         )
 
+        let delivered = await center.deliveredNotifications()
+            .filter { $0.request.identifier.hasPrefix(prefix) }
+            .sorted { $0.request.identifier < $1.request.identifier }
+        HabitDebugLog.emit(
+            "HABITS_DELIVERED_COUNT=" + String(delivered.count)
+        )
+        for notification in delivered {
+            HabitDebugLog.emit(
+                "HABITS_DELIVERED id=" + notification.request.identifier +
+                " title=" + notification.request.content.title
+            )
+        }
+
         for request in requests {
             let next = (request.trigger as? UNCalendarNotificationTrigger)?
                 .nextTriggerDate()?

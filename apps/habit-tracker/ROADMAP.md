@@ -101,14 +101,14 @@ Brand microcopy: the daily check-in is a **Chick-in**. Use it sparingly; clarity
 - [x] Update scheduled notifications when a habit changes.
 - [x] Replace repeating weekday reminders with a bounded rolling one-shot horizon; completion/skip suppresses the current day's pending reminder and the plan rebuilds after iPhone/Watch/widget mutations.
 - [x] Cap managed local reminders at the earliest 60 requests to stay below the iOS pending-notification limit; planning horizon is up to 60 days so sparse/simple setups use the available capacity instead of stopping at two weeks.
-- [ ] Physical iPhone verification of the current rolling reminder plan/delivery; notification authorization is already granted on the iPhone 13.
+- [x] Physical iPhone verification of the rolling reminder plan/delivery: signed iPhone 13 build authorized notifications, scheduled the bounded 60-request plan, and delivered a local reminder while ChickMark was terminated.
 - [x] Notification quick actions: `Done` and `Skip today` mutate the same conflict-safe day ledger without opening the app.
 - [x] Simulator runtime diagnostic verifies notification action completion → newer skip convergence.
 - [x] Explicit four-second Undo toast after a successful Today check-off; tapping the checkmark again still works.
 - [x] Base accessibility pass: 44 pt touch targets for habit actions/pickers, VoiceOver labels and selected-state hints.
 - [x] Accessibility-size responsive layouts for Today summary, habit identity/stats, primary action buttons, create-schedule presets and Manage schedule labels; verified in real `ru_RU` runtime at the largest Dynamic Type on iPhone 17e simulator.
 - [x] Add a largest-Dynamic-Type XCUITest for the core create flow; verify it compiles via `build-for-testing` on Xcode 27.
-- [ ] Physical accessibility audit: Dynamic Type, VoiceOver navigation and contrast.
+- [ ] Physical accessibility audit: largest Dynamic Type is verified on iPhone 13; VoiceOver navigation and real-device contrast remain to be checked.
 - [x] Final in-app Arvectum visual polish: remove redundant zero-streak copy, preserve deliberately sparse Today layout, verify Light/Dark on small and large simulators. Final app icon remains a separate release asset.
 - [x] Move rare Pause/Archive/Delete maintenance actions out of the active detail body into an overflow menu; when paused, Resume remains prominent in the body.
 - [x] Subtle completion feedback: haptic + lightweight symbol bounce on iPhone and Watch; no XP/reward economy.
@@ -156,7 +156,7 @@ Brand microcopy: the daily check-in is a **Chick-in**. Use it sparingly; clarity
 - [x] Integration test: Watch check-off appears on iPhone.
 - [x] Integration test: iPhone check-off appears on Watch.
 - [x] Integration test: offline Watch check-off converges after reconnect.
-- [ ] Physical Apple Watch smoke test when hardware is available.
+- [x] Physical Apple Watch SE smoke test: signed watchOS build installs/launches, Watch→iPhone and iPhone→Watch completion sync both converge, and a Watch action queued while the iPhone app is suspended is delivered idempotently after resume.
 
 ### Cross-device sync direction
 
@@ -164,7 +164,7 @@ Brand microcopy: the daily check-in is a **Chick-in**. Use it sparingly; clarity
 - [x] CloudKit-compatible SwiftData schema and private-iCloud capability wiring without requiring an Arvectum account.
 - [x] Wire CloudKit background delivery requirements in source: `remote-notification` background mode + `aps-environment` (`development` Debug / `production` Release).
 - [x] Local-first fallback: if cloud-backed container creation fails, Habits opens the local store instead of failing to launch.
-- [ ] Verify real private-CloudKit convergence between two signed Apple devices / simulator iCloud accounts before enabling the milestone for release. Apple Developer App ID/provisioning must enable iCloud/CloudKit, `iCloud.ru.arvectum.tools.habits`, App Groups and Push Notifications; the current wildcard profile does not.
+- [ ] Verify real private-CloudKit convergence between two signed Apple devices / simulator iCloud accounts before enabling the milestone for release. Signed provisioning is now configured: the physical iPhone build carries CloudKit (`iCloud.ru.arvectum.tools.habits`), Push and App Group entitlements and opens the CloudKit-backed SwiftData container without fallback; cross-device convergence still needs a second signed Apple device/account endpoint.
 - [x] Treat WatchConnectivity as the low-latency iPhone↔Watch path and cloud sync as durable multi-device convergence.
 - [x] Conflict-safe last-write-wins day mutation ledger for iPhone / Watch / widget commands, with deterministic mutation-ID tie-breaks.
 - [x] Runtime stress test: a newer Skip rejects an older delayed Watch completion; paired simulator converges after durable delivery.
@@ -181,7 +181,7 @@ Brand microcopy: the daily check-in is a **Chick-in**. Use it sparingly; clarity
 - [x] Widget navigation removes an extra step: small/Lock Screen surfaces open Today, while tapping a habit row in the medium widget deep-links directly to that habit detail; parser + runtime route are covered by tests.
 - [x] Widget AppIntent bridge uses desired-state commands, optimistic updates and a bounded queue; on iOS 17–25 it can route through the app process via `ForegroundContinuableIntent`, and on iOS 26+ through dynamic foreground-capable runtime modes, so authoritative SwiftData/reminder reconciliation can happen in the background without opening UI. The App Group queue remains the durable fallback.
 - [x] Widget bridge regression suite: 12 passing tests covering persistence, midnight projection, dedupe, queue bounds, optimistic state, actionable-first presentation and app-runtime intent processing.
-- [ ] Enable and verify the `group.ru.arvectum.tools.habits` App Group in signed Apple provisioning. Current external blocker: Xcode on Mac mini has no Apple Developer account configured, and the existing wildcard profile lacks App Groups.
+- [x] Enable and verify `group.ru.arvectum.tools.habits` in signed Apple provisioning for iPhone app, iOS widget, Watch app and Watch widget; physical iPhone App Group storage contains the live widget snapshot (`2/2`) plus the 14-day horizon.
 - [x] Lock Screen widget families: circular, rectangular and inline.
 - [x] Watch complication (circular, rectangular, inline) backed by the Watch-local snapshot.
 - [x] Overall Today progress available outside the full app through the Home Screen widget.
@@ -227,6 +227,8 @@ Core habit tracking stays free. Advertising is the planned monetization model, b
 
 ## Current checkpoint
 
-M1/M2 are implemented end-to-end, and the required M3 Watch/live-sync path is operational: local storage → minimal create/edit → reminders with Complete/Skip quick actions → Today → history/skip/pause/archive → widgets → Watch. iPhone↔Watch live round-trip and offline durable convergence are verified on a paired iOS 27/watchOS 27 simulator. The control suite currently has 100 passing unit tests plus 9 passing XCUITests on iOS 26.5, covering timezone/DST, mutation conflicts, flexible weekly goals, notification actions, widgets, localization, persistence and explicit schema versioning. Current UI has also been smoke-tested on iPhone 17e / 18 Pro Max and 42 mm / 46 mm Watch simulators.
+M1/M2 are implemented end-to-end, and the required M3 Watch/live-sync path is operational: local storage → minimal create/edit → reminders with Complete/Skip quick actions → Today → history/skip/pause/archive → widgets → Watch. The simulator control suite remains 100 passing unit tests plus 9 XCUITests, covering timezone/DST, mutation conflicts, flexible weekly goals, notification actions, widgets, localization, persistence and explicit schema versioning.
 
-**Next step:** physical iPhone + Apple Watch validation. Do not add new product features until the hardware matrix is green. Signed App Group/private-CloudKit convergence, rolling-reminder delivery on physical iPhone, physical accessibility and the physical Watch smoke test are the remaining release gates that require Apple provisioning/hardware access.
+Physical validation on 2026-10-02 is now green for the main single-device/Watch paths: canonical signed ChickMark builds install on iPhone 13 (iOS 27.0.1) and Apple Watch SE (watchOS 26.6); all 9 UI scenarios passed on the physical iPhone (one full-batch retry was interrupted only by an unrelated SpringBoard notification); rolling local reminders were scheduled and delivered with the app terminated; persistent SwiftData state survived a full app restart; Watch→iPhone and iPhone→Watch completion sync both converged; a Watch action queued while the iPhone app was suspended was delivered after resume and duplicate delivery remained idempotent; signed App Group storage contains the live widget snapshot and 14-day horizon; and the CloudKit-enabled signed build opens its primary SwiftData container without falling back to local-only storage.
+
+**Next step:** keep feature scope frozen. Remaining release gates are a physical VoiceOver/contrast pass, real private-CloudKit convergence using a second signed Apple device/account endpoint, and the final approved ChickMark icon. Small/large physical-iPhone coverage remains desirable but is no longer blocking the core iPhone 13 + Watch SE hardware path.

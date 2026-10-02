@@ -31,6 +31,7 @@ struct HabitsByArvectumApp: App {
 #if DEBUG
         seedWatchSyncDemoIfRequested(container: container)
         seedFlexibleWeeklyDemoIfRequested(container: container)
+        seedReminderSmokeIfRequested(container: container)
         completeFirstIncompleteHabitIfRequested(container: container)
         skipFirstIncompleteHabitIfRequested(container: container)
         HabitMutationDiagnostics.runIfRequested(container: container)
@@ -259,6 +260,42 @@ struct HabitsByArvectumApp: App {
         try? context.save()
     }
 
+    private func seedReminderSmokeIfRequested(
+        container: ModelContainer
+    ) {
+        guard ProcessInfo.processInfo.arguments.contains(
+            "--seed-reminder-smoke"
+        ) else { return }
+
+        let calendar = Calendar.autoupdatingCurrent
+        let fireDate = calendar.date(
+            byAdding: .minute,
+            value: 2,
+            to: Date()
+        ) ?? Date().addingTimeInterval(120)
+        let components = calendar.dateComponents(
+            [.hour, .minute],
+            from: fireDate
+        )
+
+        let context = ModelContext(container)
+        context.insert(
+            Habit(
+                name: "Reminder smoke",
+                symbolName: "bell.fill",
+                colorHex: "F59E0B",
+                reminderEnabled: true,
+                reminderHour: components.hour ?? 20,
+                reminderMinute: components.minute ?? 0
+            )
+        )
+        try? context.save()
+
+        HabitDebugLog.emit(
+            "HABITS_REMINDER_SMOKE_FIRE=" + fireDate.ISO8601Format()
+        )
+    }
+
     private func seedFlexibleWeeklyDemoIfRequested(
         container: ModelContainer
     ) {
@@ -270,11 +307,18 @@ struct HabitsByArvectumApp: App {
         let existing = (try? context.fetch(FetchDescriptor<Habit>())) ?? []
         guard existing.isEmpty else { return }
 
+        let createdAt = Calendar.autoupdatingCurrent.date(
+            byAdding: .day,
+            value: -7,
+            to: Date()
+        ) ?? Date()
+
         context.insert(
             Habit(
                 name: L10n.string("quick.workout"),
                 symbolName: "dumbbell.fill",
                 colorHex: "8B5CF6",
+                createdAt: createdAt,
                 weeklyTarget: 3
             )
         )
