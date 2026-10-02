@@ -32,6 +32,8 @@ struct HabitsByArvectumApp: App {
         seedWatchSyncDemoIfRequested(container: container)
         seedFlexibleWeeklyDemoIfRequested(container: container)
         seedReminderSmokeIfRequested(container: container)
+        seedCloudKitProbeIfRequested(container: container)
+        observeCloudKitProbeIfRequested(container: container)
         completeFirstIncompleteHabitIfRequested(container: container)
         skipFirstIncompleteHabitIfRequested(container: container)
         HabitMutationDiagnostics.runIfRequested(container: container)
@@ -258,6 +260,89 @@ struct HabitsByArvectumApp: App {
             )
         )
         try? context.save()
+    }
+
+    private func seedCloudKitProbeIfRequested(
+        container: ModelContainer
+    ) {
+        guard let argument = ProcessInfo.processInfo.arguments.first(where: {
+            $0.hasPrefix("--cloudkit-probe-seed=")
+        }) else { return }
+
+        let token = String(
+            argument.dropFirst("--cloudkit-probe-seed=".count)
+        )
+        guard !token.isEmpty else { return }
+
+        let name = "CloudKit Probe \(token)"
+        let context = ModelContext(container)
+        let habits = (try? context.fetch(FetchDescriptor<Habit>())) ?? []
+
+        if let existing = habits.first(where: { $0.name == name }) {
+            HabitDebugLog.emit(
+                "HABITS_CLOUDKIT_PROBE_SEEDED token=\(token) " +
+                "existing=true id=\(existing.id.uuidString)"
+            )
+            return
+        }
+
+        let habit = Habit(
+            name: name,
+            symbolName: "icloud.fill",
+            colorHex: "4F9CF9",
+            sortOrder: HabitOrdering.nextOrder(in: habits)
+        )
+        context.insert(habit)
+
+        do {
+            try context.save()
+            HabitDebugLog.emit(
+                "HABITS_CLOUDKIT_PROBE_SEEDED token=\(token) " +
+                "existing=false id=\(habit.id.uuidString)"
+            )
+        } catch {
+            HabitDebugLog.emit(
+                "HABITS_CLOUDKIT_PROBE_SEED_FAILED token=\(token) " +
+                "reason=\(error.localizedDescription)"
+            )
+        }
+    }
+
+    private func observeCloudKitProbeIfRequested(
+        container: ModelContainer
+    ) {
+        guard let argument = ProcessInfo.processInfo.arguments.first(where: {
+            $0.hasPrefix("--cloudkit-probe-expect=")
+        }) else { return }
+
+        let token = String(
+            argument.dropFirst("--cloudkit-probe-expect=".count)
+        )
+        guard !token.isEmpty else { return }
+        let name = "CloudKit Probe \(token)"
+
+        Task { @MainActor in
+            for attempt in 1...45 {
+                let context = ModelContext(container)
+                let habits = (try? context.fetch(
+                    FetchDescriptor<Habit>()
+                )) ?? []
+
+                if let habit = habits.first(where: { $0.name == name }) {
+                    HabitDebugLog.emit(
+                        "HABITS_CLOUDKIT_PROBE_PASS token=\(token) " +
+                        "attempt=\(attempt) id=\(habit.id.uuidString)"
+                    )
+                    return
+                }
+
+                try? await Task.sleep(for: .seconds(2))
+            }
+
+            HabitDebugLog.emit(
+                "HABITS_CLOUDKIT_PROBE_TIMEOUT token=\(token)"
+            )
+        }
     }
 
     private func seedReminderSmokeIfRequested(
