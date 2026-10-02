@@ -5,6 +5,7 @@ import UIKit
 struct TodayView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.scenePhase) private var scenePhase
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @Query(sort: \Habit.createdAt) private var habits: [Habit]
     @Query(sort: \HabitCheckIn.day) private var checkIns: [HabitCheckIn]
     @Query(sort: \HabitSkip.day) private var skips: [HabitSkip]
@@ -15,6 +16,7 @@ struct TodayView: View {
     @State private var deepLinkedHabitID: UUID?
     @State private var referenceDate = Date()
     @State private var clockRevision = 0
+    @State private var chickInCelebrationID: UUID?
 
     private var activeToday: [Habit] {
         HabitTodayProjection.orderedDueHabits(
@@ -100,6 +102,16 @@ struct TodayView: View {
                     .padding(.horizontal, 16)
                     .padding(.bottom, 8)
                     .transition(.move(edge: .bottom).combined(with: .opacity))
+                }
+            }
+            .overlay(alignment: .topTrailing) {
+                if let chickInCelebrationID {
+                    ChickInCelebrationView()
+                        .id(chickInCelebrationID)
+                        .padding(.top, 58)
+                        .padding(.trailing, 12)
+                        .transition(.scale(scale: 0.8).combined(with: .opacity))
+                        .allowsHitTesting(false)
                 }
             }
             .task {
@@ -350,12 +362,30 @@ struct TodayView: View {
             HabitAdEligibilityStore.shared.registerSuccessfulCheckOff()
             UINotificationFeedbackGenerator().notificationOccurred(.success)
             showUndo(for: habit.id, dayKey: key)
+            showChickInCelebration()
         } else if undoOffer?.habitID == habit.id {
             withAnimation { undoOffer = nil }
         }
 
         try? modelContext.save()
         HabitDataChangeNotifier.notify()
+    }
+
+    private func showChickInCelebration() {
+        let id = UUID()
+        withAnimation(.snappy(duration: reduceMotion ? 0.08 : 0.18)) {
+            chickInCelebrationID = id
+        }
+
+        Task { @MainActor in
+            try? await Task.sleep(
+                for: .milliseconds(reduceMotion ? 450 : 950)
+            )
+            guard chickInCelebrationID == id else { return }
+            withAnimation(.easeOut(duration: reduceMotion ? 0.08 : 0.16)) {
+                chickInCelebrationID = nil
+            }
+        }
     }
 
     private func showUndo(for habitID: UUID, dayKey: String) {
@@ -452,6 +482,61 @@ private struct TodaySummary: View {
         .padding(16)
         .background(Color.habitsSurface, in: RoundedRectangle(cornerRadius: 20))
         .accessibilityElement(children: .combine)
+    }
+}
+
+private struct ChickInCelebrationView: View {
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
+    @State private var pecking = false
+    @State private var grainScale: CGFloat = 1
+    @State private var grainOpacity = 1.0
+
+    var body: some View {
+        ZStack(alignment: .leading) {
+            Capsule()
+                .fill(Color.arvectumOrange)
+                .frame(width: 10, height: 6)
+                .rotationEffect(.degrees(-18))
+                .scaleEffect(grainScale)
+                .opacity(grainOpacity)
+                .offset(x: 4, y: 8)
+
+            Image("ChickMarkMascot")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 62, height: 62)
+                .clipShape(RoundedRectangle(cornerRadius: 14))
+                .shadow(radius: 6, y: 2)
+                .rotationEffect(
+                    .degrees(pecking ? -8 : 2),
+                    anchor: .bottomTrailing
+                )
+                .offset(
+                    x: pecking ? -6 : 14,
+                    y: pecking ? 4 : 0
+                )
+        }
+        .frame(width: 82, height: 68)
+        .accessibilityHidden(true)
+        .onAppear {
+            guard !reduceMotion else { return }
+
+            withAnimation(.easeIn(duration: 0.16)) {
+                pecking = true
+            }
+
+            Task { @MainActor in
+                try? await Task.sleep(for: .milliseconds(160))
+                withAnimation(.easeOut(duration: 0.12)) {
+                    grainScale = 0.15
+                    grainOpacity = 0
+                }
+                withAnimation(.spring(duration: 0.28, bounce: 0.35)) {
+                    pecking = false
+                }
+            }
+        }
     }
 }
 
