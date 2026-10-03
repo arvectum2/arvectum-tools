@@ -1,8 +1,86 @@
 {
   "images": [
     {
-      "idiom": "watch-marketing",
+      "size": "24x24",
+      "idiom": "watch",
+      "scale": "2x",
+      "filename": "WatchNotification38@2x.png",
+      "role": "notificationCenter",
+      "subtype": "38mm"
+    },
+    {
+      "size": "27.5x27.5",
+      "idiom": "watch",
+      "scale": "2x",
+      "filename": "WatchNotification42@2x.png",
+      "role": "notificationCenter",
+      "subtype": "42mm"
+    },
+    {
+      "size": "29x29",
+      "idiom": "watch",
+      "scale": "2x",
+      "filename": "WatchCompanion@2x.png",
+      "role": "companionSettings"
+    },
+    {
+      "size": "29x29",
+      "idiom": "watch",
+      "scale": "3x",
+      "filename": "WatchCompanion@3x.png",
+      "role": "companionSettings"
+    },
+    {
+      "size": "40x40",
+      "idiom": "watch",
+      "scale": "2x",
+      "filename": "WatchLauncher38@2x.png",
+      "role": "appLauncher",
+      "subtype": "38mm"
+    },
+    {
+      "size": "44x44",
+      "idiom": "watch",
+      "scale": "2x",
+      "filename": "WatchLauncher40@2x.png",
+      "role": "appLauncher",
+      "subtype": "40mm"
+    },
+    {
+      "size": "50x50",
+      "idiom": "watch",
+      "scale": "2x",
+      "filename": "WatchLauncher44@2x.png",
+      "role": "appLauncher",
+      "subtype": "44mm"
+    },
+    {
+      "size": "86x86",
+      "idiom": "watch",
+      "scale": "2x",
+      "filename": "WatchQuickLook38@2x.png",
+      "role": "quickLook",
+      "subtype": "38mm"
+    },
+    {
+      "size": "98x98",
+      "idiom": "watch",
+      "scale": "2x",
+      "filename": "WatchQuickLook42@2x.png",
+      "role": "quickLook",
+      "subtype": "42mm"
+    },
+    {
+      "size": "108x108",
+      "idiom": "watch",
+      "scale": "2x",
+      "filename": "WatchQuickLook44@2x.png",
+      "role": "quickLook",
+      "subtype": "44mm"
+    },
+    {
       "size": "1024x1024",
+      "idiom": "watch-marketing",
       "scale": "1x",
       "filename": "AppIcon-1024.png"
     }
