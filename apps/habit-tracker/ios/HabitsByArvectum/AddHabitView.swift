@@ -76,7 +76,9 @@ struct AddHabitView: View {
     var body: some View {
         NavigationStack {
             Form {
-                Section(L10n.string("habit.section")) {
+                Section {
+                    formSectionHeader(L10n.string("habit.section"))
+
                     TextField(L10n.string("habit.name.placeholder"), text: $name)
                         .focused($nameFocused)
                         .submitLabel(.done)
@@ -100,7 +102,9 @@ struct AddHabitView: View {
                     }
                 }
 
-                Section(L10n.string("section.days")) {
+                Section {
+                    formSectionHeader(L10n.string("section.days"))
+
                     if dynamicTypeSize.isAccessibilitySize {
                         VStack(spacing: 10) {
                             schedulePresetButton(
@@ -268,6 +272,23 @@ struct AddHabitView: View {
                 }
             }
         }
+    }
+
+    private func formSectionHeader(_ title: String) -> some View {
+        Text(title)
+            .font(.subheadline.weight(.semibold))
+            .foregroundStyle(.primary)
+            .accessibilityAddTraits(.isHeader)
+            .listRowSeparator(.hidden)
+            .listRowBackground(Color.clear)
+            .listRowInsets(
+                EdgeInsets(
+                    top: 4,
+                    leading: 20,
+                    bottom: 2,
+                    trailing: 20
+                )
+            )
     }
 
     private var canSave: Bool {

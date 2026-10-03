@@ -118,6 +118,13 @@ final class HabitFlowUITests: XCTestCase {
             ).count,
             2
         )
+
+        XCTAssertTrue(
+            app.buttons["manage.privacy"].waitForExistence(timeout: 3)
+        )
+        XCTAssertTrue(
+            app.buttons["manage.support"].waitForExistence(timeout: 3)
+        )
     }
 
     func testFlexibleWeeklyGoalIsReadableOnTodayAndManage() throws {

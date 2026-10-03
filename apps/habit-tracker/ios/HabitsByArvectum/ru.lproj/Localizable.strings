@@ -93,6 +93,8 @@
 "manage.reorder.hint" = "Нажмите «Править», чтобы расставить привычки в нужном порядке.";
 "manage.empty.title" = "Здесь пока пусто";
 "manage.empty.description" = "Здесь появятся ваши привычки.";
+"manage.privacy" = "Политика конфиденциальности";
+"manage.support" = "Поддержка";
 
 "stats.streak" = "серия";
 "stats.best.format" = "макс. %d";

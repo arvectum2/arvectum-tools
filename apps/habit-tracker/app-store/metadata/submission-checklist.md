@@ -10,16 +10,16 @@
 - Home/Lock Screen widgets: included
 - Privacy manifests: included in all four targets
 - App Review credentials: none required
-- App Privacy: verify portal wording; current implementation has no tracking/analytics/ad SDK
-- Age rating: complete portal questionnaire for a general-purpose habit tracker
-- RU iPhone screenshots: ready, 3 × 1320×2868
-- EN iPhone screenshots: ready, 3 × 1320×2868
-- RU Apple Watch screenshot: ready, 416×496
-- EN Apple Watch screenshot: ready, 416×496
+- App Privacy: select “No, we do not collect data from this app”; no tracking/analytics/ad SDK in V1
+- Age rating: use the prepared all-none/no social-media questionnaire answers in `portal-answers.md`
+- RU iPhone screenshots: ready in `../screenshots/ru-RU/`, 3 × 1320×2868
+- EN iPhone screenshots: ready in `../screenshots/en-US/`, 3 × 1320×2868
+- RU Apple Watch screenshot: ready at `../screenshots/ru-RU/04-watch.png`, 416×496
+- EN Apple Watch screenshot: ready at `../screenshots/en-US/04-watch.png`, 416×496
 - Support URL: https://arvectum.com/contact.html
 - Privacy Policy URL: https://arvectum.com/privacy.html
 - Review/support email: info@arvectum.com
 - Upload build after App Store Connect app record exists
 - Attach build to version 1.0.0
-- Complete review/contact/export-compliance fields
+- Complete review/contact fields; export compliance is predeclared in Info.plist (`ITSAppUsesNonExemptEncryption = NO`)
 - Submit for review

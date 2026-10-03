@@ -4,6 +4,7 @@ import SwiftUI
 struct ManageHabitsView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+    @Environment(\.openURL) private var openURL
     @Query(sort: \Habit.createdAt) private var habits: [Habit]
 
     private var activeHabits: [Habit] {
@@ -84,11 +85,49 @@ struct ManageHabitsView: View {
         }
         .navigationTitle(L10n.string("manage.title"))
         .navigationBarTitleDisplayMode(.inline)
+        .safeAreaInset(edge: .bottom, spacing: 0) {
+            supportLinks
+        }
         .toolbar {
             if activeHabits.count > 1 {
                 EditButton()
             }
         }
+    }
+
+    private var supportLinks: some View {
+        HStack(spacing: 10) {
+            Button {
+                openURL(
+                    URL(string: "https://arvectum.com/privacy.html")!
+                )
+            } label: {
+                Text(L10n.string("manage.privacy"))
+                    .foregroundStyle(Color(uiColor: .label))
+                    .frame(minHeight: 44)
+                    .padding(.horizontal, 4)
+                    .contentShape(Rectangle())
+            }
+            .buttonStyle(.plain)
+            .accessibilityIdentifier("manage.privacy")
+
+            Button {
+                openURL(
+                    URL(string: "https://arvectum.com/contact.html")!
+                )
+            } label: {
+                Text(L10n.string("manage.support"))
+                    .foregroundStyle(Color(uiColor: .label))
+                    .frame(minWidth: 44, minHeight: 44)
+                    .padding(.horizontal, 4)
+                    .contentShape(Rectangle())
+            }
+            .buttonStyle(.plain)
+            .accessibilityIdentifier("manage.support")
+        }
+        .font(.footnote)
+        .frame(maxWidth: .infinity, minHeight: 44)
+        .background(Color(uiColor: .systemBackground))
     }
 
     private func habitLink(_ habit: Habit) -> some View {

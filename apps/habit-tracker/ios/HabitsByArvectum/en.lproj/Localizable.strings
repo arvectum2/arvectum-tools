@@ -93,6 +93,8 @@
 "manage.reorder.hint" = "Tap Edit to drag habits into the order you want.";
 "manage.empty.title" = "Nothing here";
 "manage.empty.description" = "Your habits will appear here.";
+"manage.privacy" = "Privacy Policy";
+"manage.support" = "Support";
 
 "stats.streak" = "streak";
 "stats.best.format" = "best %d";
