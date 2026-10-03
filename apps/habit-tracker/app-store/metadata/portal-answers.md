@@ -95,5 +95,5 @@ English:
 ## Binary
 
 Canonical local release artifact:
-- Archive: /Users/master/ChickMarkRelease/1.0.0-build1/ChickMark.xcarchive
-- IPA: /Users/master/ChickMarkRelease/1.0.0-build1/export/HabitsByArvectum.ipa
+- Archive: /Users/master/ChickMarkRelease/1.0.0-build1-final/ChickMark.xcarchive
+- IPA: /Users/master/ChickMarkRelease/1.0.0-build1-final/export/HabitsByArvectum.ipa
