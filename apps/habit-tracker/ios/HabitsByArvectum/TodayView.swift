@@ -17,6 +17,7 @@ struct TodayView: View {
     @State private var referenceDate = Date()
     @State private var clockRevision = 0
     @State private var chickInCelebrationID: UUID?
+    @State private var chickInCelebrationHabitID: UUID?
 
     private var activeToday: [Habit] {
         HabitTodayProjection.orderedDueHabits(
@@ -102,16 +103,6 @@ struct TodayView: View {
                     .padding(.horizontal, 16)
                     .padding(.bottom, 8)
                     .transition(.move(edge: .bottom).combined(with: .opacity))
-                }
-            }
-            .overlay(alignment: .topTrailing) {
-                if let chickInCelebrationID {
-                    ChickInCelebrationView()
-                        .id(chickInCelebrationID)
-                        .padding(.top, 58)
-                        .padding(.trailing, 12)
-                        .transition(.scale(scale: 0.8).combined(with: .opacity))
-                        .allowsHitTesting(false)
                 }
             }
             .task {
@@ -200,6 +191,9 @@ struct TodayView: View {
                                     skips: skips,
                                     pausePeriods: pausePeriods
                                 ),
+                                celebrationID: chickInCelebrationHabitID == habit.id
+                                    ? chickInCelebrationID
+                                    : nil,
                                 onToggle: {
                                     toggle(habit, on: referenceDate)
                                 },
@@ -362,7 +356,7 @@ struct TodayView: View {
             HabitAdEligibilityStore.shared.registerSuccessfulCheckOff()
             UINotificationFeedbackGenerator().notificationOccurred(.success)
             showUndo(for: habit.id, dayKey: key)
-            showChickInCelebration()
+            showChickInCelebration(for: habit.id)
         } else if undoOffer?.habitID == habit.id {
             withAnimation { undoOffer = nil }
         }
@@ -371,9 +365,10 @@ struct TodayView: View {
         HabitDataChangeNotifier.notify()
     }
 
-    private func showChickInCelebration() {
+    private func showChickInCelebration(for habitID: UUID) {
         let id = UUID()
         withAnimation(.snappy(duration: reduceMotion ? 0.08 : 0.18)) {
+            chickInCelebrationHabitID = habitID
             chickInCelebrationID = id
         }
 
@@ -381,9 +376,11 @@ struct TodayView: View {
             try? await Task.sleep(
                 for: .milliseconds(reduceMotion ? 450 : 950)
             )
-            guard chickInCelebrationID == id else { return }
+            guard chickInCelebrationID == id,
+                  chickInCelebrationHabitID == habitID else { return }
             withAnimation(.easeOut(duration: reduceMotion ? 0.08 : 0.16)) {
                 chickInCelebrationID = nil
+                chickInCelebrationHabitID = nil
             }
         }
     }
@@ -571,6 +568,7 @@ private struct HabitRow: View {
     let streak: Int
     let weeklyCount: Int
     let weeklyTarget: Int
+    let celebrationID: UUID?
     let onToggle: () -> Void
     let onSkip: () -> Void
 
@@ -650,6 +648,17 @@ private struct HabitRow: View {
         }
         .padding(14)
         .background(Color.habitsSurface, in: RoundedRectangle(cornerRadius: 18))
+        .overlay(alignment: .trailing) {
+            if let celebrationID {
+                ChickInCelebrationView()
+                    .id(celebrationID)
+                    .padding(.trailing, 4)
+                    .transition(
+                        .scale(scale: 0.8).combined(with: .opacity)
+                    )
+                    .allowsHitTesting(false)
+            }
+        }
         .contextMenu {
             Button(action: onSkip) {
                 Label(
