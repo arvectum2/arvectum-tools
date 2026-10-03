@@ -220,7 +220,8 @@ Core habit tracking stays free. Advertising is the planned monetization model, b
 
 ## Post-MVP backlog
 
-- [ ] Quantitative / duration habits.
+- [ ] Multi-check daily target: allow one habit to require `N` completions per day (for example, take a tablet 2× or drink 5 glasses of water); render the `N` check circles inline in the habit row, with each circle independently checkable/undoable and the habit complete at `N/N`.
+- [ ] Quantitative / duration habits beyond the multi-check daily target.
 - [ ] Habit groups.
 - [ ] Advanced statistics.
 - [x] Siri / Shortcuts: Complete Habit and Undo Habit App Intents use the same idempotent desired-state bridge as the widget, with no extra in-app UI.
