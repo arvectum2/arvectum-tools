@@ -26,7 +26,7 @@ Brand microcopy: the daily check-in is a **Chick-in**. Use it sparingly; clarity
 - [x] Add path-scoped GitHub Actions CI.
 - [x] Mandatory simulator regression includes an optimized Release build and verifies embedded App Intents metadata, Watch app and Widget extension.
 - [x] Production app-icon asset catalogs and iPhone/Watch plumbing; verified at SpringBoard size and with warning-free watchOS asset compilation.
-- [ ] Replace the current artwork with the final approved ChickMark chicken + rising-grain-path icon once the visual is frozen.
+- [x] Final approved ChickMark chicken-check artwork is installed consistently on iPhone and Watch; the in-app Chick-in celebration uses a transparent mascot cut from the same approved artwork rather than animating the square app-icon tile.
 
 ## M1 — core habit loop
 
@@ -112,7 +112,7 @@ Brand microcopy: the daily check-in is a **Chick-in**. Use it sparingly; clarity
 - [x] Physical VoiceOver navigation on iPhone 13 verified with Xcode 27 `XCUIVoiceOverService`: real spoken output/focus order passes across Today → Manage → Detail, and decorative stat symbols are excluded from speech while each stat is exposed as one meaningful value.
 - [x] Final in-app Arvectum visual polish: remove redundant zero-streak copy, preserve deliberately sparse Today layout, verify Light/Dark on small and large simulators, and install the final ChickMark chicken-check icon on iPhone and Watch.
 - [x] Move rare Pause/Archive/Delete maintenance actions out of the active detail body into an overflow menu; when paused, Resume remains prominent in the body.
-- [x] Subtle completion feedback: haptic + lightweight symbol bounce on iPhone and Watch; no XP/reward economy.
+- [x] Subtle completion feedback: haptic + lightweight symbol bounce on iPhone and Watch; iPhone also gets a restrained one-shot Chick-in mascot peck/grain celebration that respects Reduce Motion; no XP/reward economy.
 - [x] Light/Dark empty-state smoke test on iOS 27 simulator.
 - [x] RU + EN localization.
 - [x] Localization completeness test for both bundled languages.
@@ -232,5 +232,7 @@ Core habit tracking stays free. Advertising is the planned monetization model, b
 M1/M2 are implemented end-to-end, and the required M3 Watch/live-sync path is operational: local storage → minimal create/edit → reminders with Complete/Skip quick actions → Today → history/skip/pause/archive → widgets → Watch. The simulator control suite has 100 unit tests plus 11 XCUITest methods: 10 run on iOS 26.5 and the iOS-27-only VoiceOver navigation test is skipped there by design. The suite includes the permanent accessibility audit across Today → Manage → Detail → Create alongside timezone/DST, mutation conflicts, flexible weekly goals, notification actions, widgets, localization, persistence and explicit schema versioning.
 
 Physical validation on 2026-10-02 is green for the main single-device/Watch paths: canonical signed ChickMark builds install on iPhone 13 (iOS 27.0.1) and Apple Watch SE (watchOS 26.6); all core UI scenarios pass on the physical iPhone, including largest Dynamic Type, the accessibility audit for contrast/clipping/hit regions/descriptions/traits, and the iOS 27 VoiceOver navigation test using real spoken output and focus order across Today → Manage → Detail; rolling local reminders were scheduled and delivered with the app terminated; persistent SwiftData state survived a full app restart; Watch→iPhone and iPhone→Watch completion sync both converged; a Watch action queued while the iPhone app was suspended was delivered after resume and duplicate delivery remained idempotent; signed App Group storage contains the live widget snapshot and 14-day horizon; and the CloudKit-enabled signed build opens its primary SwiftData container without falling back to local-only storage.
+
+**Post-submission development line:** local branch has moved to ChickMark 1.1.0 (build 2) for visual/UX follow-up; nothing from this line is submitted automatically.
 
 **Current release state:** ChickMark 1.0 (build 1) was submitted to App Review on 2026-10-03 and is now `WAITING_FOR_REVIEW`. The App Store build is VALID / APP_STORE_ELIGIBLE; RU/EN metadata and iPhone/Watch screenshots are uploaded; App Privacy is published as Data Not Collected; category, 4+ age rating, content rights, review details and the not-a-regulated-medical-device declaration are complete. Automatic release after approval is selected. Keep V1 binary and feature scope frozen while review is in progress. No CloudKit second-endpoint test blocks V1; multi-device CloudKit remains a post-release observation item. Small/large screen coverage remains simulator-only under the physical-device safety rule.

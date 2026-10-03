@@ -489,51 +489,75 @@ private struct ChickInCelebrationView: View {
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     @State private var pecking = false
-    @State private var grainScale: CGFloat = 1
-    @State private var grainOpacity = 1.0
+    @State private var grainScale: CGFloat = 0.72
+    @State private var grainOpacity = 0.0
+    @State private var mascotScale: CGFloat = 0.92
 
     var body: some View {
         ZStack(alignment: .leading) {
             Capsule()
                 .fill(Color.arvectumOrange)
-                .frame(width: 10, height: 6)
+                .frame(width: 11, height: 6)
                 .rotationEffect(.degrees(-18))
                 .scaleEffect(grainScale)
                 .opacity(grainOpacity)
-                .offset(x: 4, y: 8)
+                .offset(x: 3, y: 11)
 
             Image("ChickMarkMascot")
                 .resizable()
                 .scaledToFit()
-                .frame(width: 62, height: 62)
-                .clipShape(RoundedRectangle(cornerRadius: 14))
-                .shadow(radius: 6, y: 2)
+                .frame(width: 68, height: 68)
+                .shadow(
+                    color: Color.arvectumMint.opacity(0.28),
+                    radius: 7,
+                    y: 2
+                )
+                .scaleEffect(mascotScale)
                 .rotationEffect(
-                    .degrees(pecking ? -8 : 2),
+                    .degrees(pecking ? -10 : 1),
                     anchor: .bottomTrailing
                 )
                 .offset(
-                    x: pecking ? -6 : 14,
-                    y: pecking ? 4 : 0
+                    x: pecking ? -4 : 13,
+                    y: pecking ? 5 : 0
                 )
         }
-        .frame(width: 82, height: 68)
+        .frame(width: 86, height: 72)
         .accessibilityHidden(true)
         .onAppear {
-            guard !reduceMotion else { return }
+            if reduceMotion {
+                mascotScale = 1
+                grainOpacity = 0
+                return
+            }
 
-            withAnimation(.easeIn(duration: 0.16)) {
-                pecking = true
+            withAnimation(.spring(duration: 0.24, bounce: 0.22)) {
+                mascotScale = 1
+            }
+            withAnimation(.easeOut(duration: 0.12)) {
+                grainScale = 1
+                grainOpacity = 1
             }
 
             Task { @MainActor in
-                try? await Task.sleep(for: .milliseconds(160))
+                try? await Task.sleep(for: .milliseconds(120))
+                withAnimation(.easeIn(duration: 0.15)) {
+                    pecking = true
+                }
+
+                try? await Task.sleep(for: .milliseconds(150))
                 withAnimation(.easeOut(duration: 0.12)) {
-                    grainScale = 0.15
+                    grainScale = 0.12
                     grainOpacity = 0
                 }
-                withAnimation(.spring(duration: 0.28, bounce: 0.35)) {
+                withAnimation(.spring(duration: 0.30, bounce: 0.32)) {
                     pecking = false
+                    mascotScale = 1.04
+                }
+
+                try? await Task.sleep(for: .milliseconds(190))
+                withAnimation(.easeOut(duration: 0.16)) {
+                    mascotScale = 1
                 }
             }
         }
