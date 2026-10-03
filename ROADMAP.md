@@ -36,6 +36,14 @@ Canonical backlog: [apps/habit-tracker/ROADMAP.md](apps/habit-tracker/ROADMAP.md
 
 Direction: a simple free habit tracker inspired by the genuinely useful mechanics of HabitKit Pro, intentionally smaller and faster, with minimal setup and clear progress. Core functionality stays free; advertising is delayed until an initial engagement threshold and remains outside the core habit flow.
 
+## Growth & distribution
+
+**Status:** planned shared capability.
+
+Canonical roadmap: [agents/growth-agent/ROADMAP.md](agents/growth-agent/ROADMAP.md).
+
+Direction: exhaust free distribution before paid acquisition. Standardize ASO, SEO, community participation, social content, ratings, campaign attribution and cross-promotion, then progressively automate the workflow with a Growth Agent. Research and drafting should become autonomous first; public side effects remain approval-gated until narrow workflows are proven safe and reliable.
+
 ## Shared platform
 
 ### Now
