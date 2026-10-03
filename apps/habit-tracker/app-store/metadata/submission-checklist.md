@@ -57,6 +57,8 @@ Canonical release artifact:
 - [x] Draft review submission created
 - [x] iOS 1.0 / build 1 added to review submission
 - [x] Submit for Review completed
+- [x] App Review demo video attached: `ChickMark-App-Review-Demo-1.0-build2.mov` (25 s, H.264, 1080×1440); App Store Connect attachment asset state `COMPLETE`
+- [x] Review attachment ID: `cacdc295-dcf1-4d46-8482-2a8f1b980256`
 - [x] Review submission state: `WAITING_FOR_REVIEW`
 - [x] App version state: `WAITING_FOR_REVIEW`
 - [x] Submitted on 2026-10-03
