@@ -1,20 +1,48 @@
-# App Review Notes — ChickMark 1.0.0
+App Review Notes — ChickMark 1.0.0 (Build 1)
 
-No account or demo credentials are required.
+1. PURPOSE / TARGET AUDIENCE
+ChickMark is a simple local-first habit tracker for individual users who want to build and maintain everyday routines with minimal setup. Users create habits, check them off, review streaks/history, and can use reminders, widgets, Apple Watch, complications, Siri/Shortcuts actions, and WatchConnectivity sync.
 
-ChickMark is a local-first habit tracker. The core flow is:
-1. Create a habit.
-2. Mark it complete from Today.
-3. Review streak/history in habit details.
-4. Optionally configure a local reminder.
+2. REVIEW ACCESS / SETUP
+No account, registration, login, demo credentials, subscription, purchase, or sample files are required. All user-facing features are immediately available.
 
-The app includes an Apple Watch companion app, Home/Lock Screen widgets, complications, and Siri/Shortcuts actions.
+Typical iPhone flow:
+- Launch ChickMark.
+- Tap + and create a habit.
+- Mark the habit complete from Today.
+- Tap the habit to view streak/history.
+- Optionally configure a local reminder.
+- Manage habits from the menu.
 
-Notifications are local notifications only. Reminder actions can Complete or Skip a scheduled habit.
+Apple Watch flow:
+- Install/open the bundled ChickMark Watch app.
+- Habits synchronize with the iPhone companion through Apple Watch WatchConnectivity.
+- A habit can be checked off on either device and the state synchronizes to the paired device.
+- The app also provides Watch complications and iPhone Home/Lock Screen widgets.
 
-The iPhone and Apple Watch apps synchronize through WatchConnectivity for low-latency/offline-safe check-offs.
+3. EXTERNAL SERVICES / APPLE FRAMEWORKS
+There is no Arvectum backend and no third-party SDK in this build. Core functionality uses Apple frameworks only:
+- SwiftUI / SwiftData for the app and local storage.
+- The user's private Apple iCloud / CloudKit database for optional private sync across the user's Apple devices when iCloud is available.
+- WatchConnectivity for paired iPhone/Apple Watch synchronization.
+- UserNotifications for local habit reminders.
+- WidgetKit / AppIntents for widgets, complications, Siri and Shortcuts.
+Habit data is not sent to or stored on Arvectum servers.
 
-The app does not require an Arvectum account.
+4. PRIVACY / DATA HANDLING
+LLC ARVECTUM does not collect user habit data, analytics, advertising identifiers, browsing data, location, contacts, health data, or tracking data in this build. There is no advertising SDK or analytics SDK. Privacy manifests declare no collected data and no tracking. Reminder notifications are local notifications.
+
+5. BUSINESS MODEL
+ChickMark 1.0 is free. There is no In-App Purchase, subscription, premium tier, paid unlock, external checkout, paid digital content, or previously purchased content accessible in the app.
+
+6. REGIONAL DIFFERENCES
+The app functions consistently in all App Store territories where it is offered. There are no region-specific accounts, pricing, features, content, or integrations.
+
+7. REGULATED / THIRD-PARTY CONTENT
+ChickMark is a general-purpose habit tracker, not a regulated medical device or medical service. It does not provide diagnosis or treatment. It contains no public user-generated content and no protected third-party content requiring authorization.
+
+8. REVIEW MEDIA / QA
+A supplemental App Review demo video is attached showing the iPhone flow and Apple Watch synchronization. The submitted app was also tested on physical iPhone 13 and paired Apple Watch SE. The physical iPhone is running iOS 27.0.1.
 
 Version: 1.0.0
 Build: 1

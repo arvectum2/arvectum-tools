@@ -54,6 +54,18 @@ Canonical release artifact:
 
 ## App Review — submitted
 
+### Preventive review audit against prior Arvectum rejections
+
+- [x] New-app information request covered proactively in App Review Notes: purpose/audience, setup/access, external services, regional differences, regulated/protected content
+- [x] Business model explicitly documented: free, no IAP/subscription/paid unlock/external checkout
+- [x] Sign-in required is disabled; no reviewer credentials are needed
+- [x] Privacy/data path documented: no Arvectum backend, no analytics/ads/tracking; private iCloud/CloudKit optional sync only
+- [x] Submitted IPA entitlements audited: production APS, Production CloudKit, App Group; no unrelated network/VPN/server entitlement
+- [x] App Store screenshots show the actual app in use (Today, progress/history, Manage, Apple Watch), not title/splash-only art
+- [x] Support and Privacy Policy URLs return HTTP 200
+- [x] No Apple trademark/product term is used in the app name
+- [ ] Add a physical-device screen recording if possible before review starts; previous new-app reviews on this developer account explicitly requested one
+
 - [x] Draft review submission created
 - [x] iOS 1.0 / build 1 added to review submission
 - [x] Submit for Review completed
