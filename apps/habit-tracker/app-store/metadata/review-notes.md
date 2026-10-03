@@ -42,7 +42,7 @@ The app functions consistently in all App Store territories where it is offered.
 ChickMark is a general-purpose habit tracker, not a regulated medical device or medical service. It does not provide diagnosis or treatment. It contains no public user-generated content and no protected third-party content requiring authorization.
 
 8. REVIEW MEDIA / QA
-A supplemental App Review demo video is attached showing the iPhone flow and Apple Watch synchronization. The submitted app was also tested on physical iPhone 13 and paired Apple Watch SE. The physical iPhone is running iOS 27.0.1.
+The attached App Review video is captured from a physical iPhone 13 running iOS 27.0.1 and demonstrates the exact submitted 1.0.0 build 1 core flow: launch, habit creation, check-in, and the Last 6 weeks history view. The Apple Watch companion and WatchConnectivity synchronization were additionally tested on a paired physical Apple Watch SE; the Apple Watch review steps are listed above.
 
 Version: 1.0.0
 Build: 1

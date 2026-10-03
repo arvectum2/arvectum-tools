@@ -64,13 +64,13 @@ Canonical release artifact:
 - [x] App Store screenshots show the actual app in use (Today, progress/history, Manage, Apple Watch), not title/splash-only art
 - [x] Support and Privacy Policy URLs return HTTP 200
 - [x] No Apple trademark/product term is used in the app name
-- [ ] Add a physical-device screen recording if possible before review starts; previous new-app reviews on this developer account explicitly requested one
+- [x] Physical-device App Review recording attached from iPhone 13 / iOS 27.0.1, recorded against the exact submitted commit b0ee73b / build 1
 
 - [x] Draft review submission created
 - [x] iOS 1.0 / build 1 added to review submission
 - [x] Submit for Review completed
-- [x] App Review demo video attached: `ChickMark-App-Review-Demo-1.0-build2.mov` (25 s, H.264, 1080×1440); App Store Connect attachment asset state `COMPLETE`
-- [x] Review attachment ID: `cacdc295-dcf1-4d46-8482-2a8f1b980256`
+- [x] App Review physical-device video attached: `ChickMark-Physical-iPhone13-Build1-AppReview.mov` (24.3 s, H.264); App Store Connect attachment asset state `COMPLETE`
+- [x] Review attachment ID: `d2c27acf-84ea-4c0d-b294-abd25813f686`
 - [x] Review submission state: `WAITING_FOR_REVIEW`
 - [x] App version state: `WAITING_FOR_REVIEW`
 - [x] Submitted on 2026-10-03
