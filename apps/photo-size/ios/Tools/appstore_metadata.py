@@ -8,7 +8,7 @@ VERSION_ID="e0d324d2-1af2-441f-9f6c-5c80dba39f1b"
 APP_INFO_ID="b031f76b-cd3f-48a5-9aaa-9f07239d8144"
 API="https://api.appstoreconnect.apple.com/v1"
 CONFIG=Path.home()/".config/arvectum/appstore-connect.env"
-ALTOOL="/Applications/Xcode-26.6.0.app/Contents/SharedFrameworks/ContentDelivery.framework/Versions/A/Resources/altool"
+ALTOOL=subprocess.run(["xcrun","--find","altool"],text=True,capture_output=True,check=True).stdout.strip()
 
 cfg={}
 for raw in CONFIG.read_text().splitlines():
