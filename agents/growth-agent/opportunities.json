@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "updated": "2026-10-04",
+  "items": [
+    {
+      "id": "photo-aso-en",
+      "app": "photo-size",
+      "type": "aso",
+      "status": "ready_next_editable_version",
+      "priority": "P0",
+      "intent": "global localization",
+      "action": "Add native English App Store localization",
+      "evidence": "Global availability currently lacks a native acquisition package."
+    },
+    {
+      "id": "photo-aso-ru",
+      "app": "photo-size",
+      "type": "aso",
+      "status": "draft_ready",
+      "priority": "P0",
+      "intent": "file weight",
+      "action": "Test action-oriented RU subtitle and keyword set",
+      "candidate": "Сжать фото до КБ и пикселей"
+    },
+    {
+      "id": "photo-cpp-weight",
+      "app": "photo-size",
+      "type": "custom_product_page",
+      "status": "assets_needed",
+      "priority": "P1",
+      "intent": "target KB/MB",
+      "action": "Prepare CPP focused on exact file weight"
+    },
+    {
+      "id": "photo-cpp-pixels",
+      "app": "photo-size",
+      "type": "custom_product_page",
+      "status": "assets_needed",
+      "priority": "P1",
+      "intent": "pixel resize",
+      "action": "Prepare CPP focused on pixel dimensions"
+    },
+    {
+      "id": "photo-cpp-35x45",
+      "app": "photo-size",
+      "type": "custom_product_page",
+      "status": "assets_needed",
+      "priority": "P2",
+      "intent": "35x45 technical file",
+      "action": "Prepare CPP with compliance-safe wording"
+    },
+    {
+      "id": "photo-campaigns",
+      "app": "photo-size",
+      "type": "analytics",
+      "status": "blocked_until_analytics_data",
+      "priority": "P1",
+      "action": "Generate App Store campaign links after Analytics enables Campaigns"
+    },
+    {
+      "id": "photo-seo",
+      "app": "photo-size",
+      "type": "seo",
+      "status": "ready",
+      "priority": "P0",
+      "action": "Create landing and intent pages for weight, pixels and 35x45"
+    },
+    {
+      "id": "photo-community",
+      "app": "photo-size",
+      "type": "community",
+      "status": "researching",
+      "priority": "P1",
+      "action": "Build evidence-backed queue of existing high-intent discussions"
+    },
+    {
+      "id": "photo-rating",
+      "app": "photo-size",
+      "type": "product_growth",
+      "status": "ready_for_next_build",
+      "priority": "P1",
+      "action": "Add StoreKit rating prompt after successful export, frequency-gated"
+    }
+  ]
+}
