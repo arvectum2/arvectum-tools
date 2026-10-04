@@ -1,4 +1,5 @@
 import PhotosUI
+import StoreKit
 import SwiftUI
 import UniformTypeIdentifiers
 
@@ -17,6 +18,7 @@ private let pixelPresets: [(Int, String)] = [
 ]
 
 struct ContentView: View {
+    @Environment(\.requestReview) private var requestReview
     @EnvironmentObject private var model: AppModel
     @State private var pickerItem: PhotosPickerItem?
     @State private var exporting = false
@@ -92,7 +94,11 @@ struct ContentView: View {
             contentType: .data,
             defaultFilename: model.result?.suggestedFileName ?? "foto.jpg"
         ) { result in
-            model.markSaved((try? result.get()) != nil)
+            let success = (try? result.get()) != nil
+            model.markSaved(success)
+            if success, ReviewPromptPolicy.recordSuccessfulExport() {
+                requestReview()
+            }
         }
         .sheet(isPresented: Binding(
             get: { shareURL != nil },
@@ -524,4 +530,29 @@ extension Color {
             ? UIColor(red: 36 / 255, green: 52 / 255, blue: 70 / 255, alpha: 1)
             : .white
     })
+}
+
+
+private enum ReviewPromptPolicy {
+    private static let successfulExportsKey = "photoSizeSuccessfulExports"
+    private static let lastPromptDateKey = "photoSizeLastReviewPromptDate"
+    private static let minimumSuccessfulExports = 3
+    private static let cooldown: TimeInterval = 90 * 24 * 60 * 60
+
+    static func recordSuccessfulExport(
+        defaults: UserDefaults = .standard,
+        now: Date = Date()
+    ) -> Bool {
+        let exports = defaults.integer(forKey: successfulExportsKey) + 1
+        defaults.set(exports, forKey: successfulExportsKey)
+
+        guard exports >= minimumSuccessfulExports else { return false }
+        if let lastPrompt = defaults.object(forKey: lastPromptDateKey) as? Date,
+           now.timeIntervalSince(lastPrompt) < cooldown {
+            return false
+        }
+
+        defaults.set(now, forKey: lastPromptDateKey)
+        return true
+    }
 }
