@@ -38,7 +38,7 @@ loc=next(x for x in locs if x["attributes"].get("locale")=="ru")
 api("PATCH",f"/appInfoLocalizations/{loc['id']}",{
     "data":{"type":"appInfoLocalizations","id":loc["id"],"attributes":{
         "subtitle":"Сжатие и размер фото",
-        "privacyPolicyUrl":"https://github.com/arvectum2/arvectum-tools/blob/main/PRIVACY.md"
+        "privacyPolicyUrl":"https://arvectum.com/photo-pod-razmer-privacy.html"
     }}
 })
 print("APP_INFO_LOCALIZATION_UPDATED",loc["id"])

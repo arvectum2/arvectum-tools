@@ -24,6 +24,42 @@ final class ImageEngineTests: XCTestCase {
         XCTAssertEqual(result.outputWidth, 600)
         XCTAssertEqual(result.outputHeight, 450)
     }
+    func testExactResizeProducesRequestedDimensions() throws {
+        let source = try engine.inspect(data: makeNoiseJPEG(width: 1200, height: 900))
+        let result = try engine.resizeExact(source: source, width: 640, height: 480)
+        XCTAssertEqual(result.outputWidth, 640)
+        XCTAssertEqual(result.outputHeight, 480)
+        XCTAssertEqual(result.mode, .pixels)
+    }
+
+    func testExactResizeRejectsUpscale() throws {
+        let source = try engine.inspect(data: makeNoiseJPEG(width: 600, height: 450))
+        XCTAssertThrowsError(try engine.resizeExact(source: source, width: 1200, height: 900))
+    }
+
+    func testExactResizeHonorsRequestedDimensionsForOrientedJPEG() throws {
+        let source = try engine.inspect(
+            data: makeNoiseJPEG(width: 1600, height: 1200, orientation: 6)
+        )
+        XCTAssertEqual(source.width, 1200)
+        XCTAssertEqual(source.height, 1600)
+
+        let result = try engine.resizeExact(
+            source: source,
+            width: 900,
+            height: 1200
+        )
+
+        XCTAssertEqual(result.outputWidth, 900)
+        XCTAssertEqual(result.outputHeight, 1200)
+
+        let data = try Data(contentsOf: result.outputURL)
+        let properties = try imageProperties(data)
+        XCTAssertEqual((properties[kCGImagePropertyPixelWidth] as? NSNumber)?.intValue, 900)
+        XCTAssertEqual((properties[kCGImagePropertyPixelHeight] as? NSNumber)?.intValue, 1200)
+        XCTAssertNil(properties[kCGImagePropertyOrientation])
+    }
+
     func testFileSizeCompressionStaysBelowLimit() throws {
         let source = try engine.inspect(data: makeNoiseJPEG(width: 1600, height: 1200))
         let target: Int64 = 150_000
@@ -41,7 +77,7 @@ final class ImageEngineTests: XCTestCase {
     func testPassportOutputContract() throws {
         let source = try engine.inspect(data: makeNoiseJPEG(width: 1000, height: 1286))
         let crop = NormalizedCropRect(left: 0, top: 0, right: 1, bottom: 1)
-        let result = try engine.preparePassport(source: source, crop: crop)
+        let result = try engine.preparePassport(source: source, crop: crop, preset: .russiaPassport)
 
         XCTAssertEqual(result.outputWidth, 620)
         XCTAssertEqual(result.outputHeight, 797)
@@ -58,7 +94,112 @@ final class ImageEngineTests: XCTestCase {
         XCTAssertEqual((properties[kCGImagePropertyDPIHeight] as? NSNumber)?.intValue, 450)
     }
 
-    private func makeNoiseJPEG(width: Int, height: Int) throws -> Data {
+    func testResizeStripsGPSMetadataByDefault() throws {
+        let source = try engine.inspect(data: makeNoiseJPEG(width: 900, height: 600, includeLocationMetadata: true))
+        let result = try engine.resizeExact(source: source, width: 450, height: 300, format: .jpeg, stripMetadata: true)
+
+        let data = try Data(contentsOf: result.outputURL)
+        let properties = try imageProperties(data)
+        XCTAssertNil(properties[kCGImagePropertyGPSDictionary])
+    }
+
+    func testResizeCanPreserveGPSMetadata() throws {
+        let source = try engine.inspect(data: makeNoiseJPEG(width: 900, height: 600, includeLocationMetadata: true))
+        let result = try engine.resizeExact(source: source, width: 450, height: 300, format: .jpeg, stripMetadata: false)
+
+        let data = try Data(contentsOf: result.outputURL)
+        let properties = try imageProperties(data)
+        XCTAssertNotNil(properties[kCGImagePropertyGPSDictionary])
+    }
+
+    func testExactResizeSupportsPNG() throws {
+        let source = try engine.inspect(data: makeNoiseJPEG(width: 900, height: 600))
+        let result = try engine.resizeExact(source: source, width: 450, height: 300, format: .png)
+
+        XCTAssertEqual(result.outputWidth, 450)
+        XCTAssertEqual(result.outputHeight, 300)
+        XCTAssertEqual(result.contentType, .png)
+        XCTAssertEqual(result.outputURL.pathExtension.lowercased(), "png")
+    }
+
+    func testExactResizeSupportsHEIC() throws {
+        let source = try engine.inspect(data: makeNoiseJPEG(width: 900, height: 600))
+        let result = try engine.resizeExact(source: source, width: 450, height: 300, format: .heic)
+
+        XCTAssertEqual(result.outputWidth, 450)
+        XCTAssertEqual(result.outputHeight, 300)
+        XCTAssertEqual(result.contentType, .heic)
+        XCTAssertEqual(result.outputURL.pathExtension.lowercased(), "heic")
+    }
+
+    func testRussiaPassportIncludesPrintSheet() throws {
+        let source = try engine.inspect(data: makeNoiseJPEG(width: 1000, height: 1286))
+        let crop = NormalizedCropRect(left: 0, top: 0, right: 1, bottom: 1)
+        let result = try engine.preparePassport(source: source, crop: crop, preset: .russiaPassport)
+        let sheet = try XCTUnwrap(result.printSheet)
+        XCTAssertEqual(sheet.widthPixels, 1181)
+        XCTAssertEqual(sheet.heightPixels, 1772)
+        XCTAssertEqual(sheet.copies, 6)
+        let data = try Data(contentsOf: sheet.outputURL)
+        let props = try imageProperties(data)
+        XCTAssertEqual((props[kCGImagePropertyPixelWidth] as? NSNumber)?.intValue, 1181)
+        XCTAssertEqual((props[kCGImagePropertyPixelHeight] as? NSNumber)?.intValue, 1772)
+        XCTAssertEqual((props[kCGImagePropertyDPIWidth] as? NSNumber)?.intValue, 300)
+    }
+
+    func testDigitalVisaHasNoPrintSheet() throws {
+        let source = try engine.inspect(data: makeNoiseJPEG(width: 1200, height: 1200))
+        let crop = NormalizedCropRect(left: 0, top: 0, right: 1, bottom: 1)
+        let result = try engine.preparePassport(source: source, crop: crop, preset: .usVisaDigital)
+        XCTAssertNil(result.printSheet)
+    }
+
+    func testUSVisaDigitalOutputContract() throws {
+        let source = try engine.inspect(data: makeNoiseJPEG(width: 1200, height: 1200))
+        let crop = NormalizedCropRect(left: 0, top: 0, right: 1, bottom: 1)
+        let result = try engine.preparePassport(source: source, crop: crop, preset: .usVisaDigital)
+
+        XCTAssertEqual(result.outputWidth, 600)
+        XCTAssertEqual(result.outputHeight, 600)
+        XCTAssertLessThanOrEqual(result.outputSizeBytes, 240_000)
+        XCTAssertEqual(result.documentPreset, .usVisaDigital)
+    }
+
+    func testIndiaEVisaOutputContract() throws {
+        let source = try engine.inspect(data: makeNoiseJPEG(width: 1200, height: 1200))
+        let crop = NormalizedCropRect(left: 0, top: 0, right: 1, bottom: 1)
+        let result = try engine.preparePassport(source: source, crop: crop, preset: .indiaEVisa)
+
+        XCTAssertEqual(result.outputWidth, 900)
+        XCTAssertEqual(result.outputHeight, 900)
+        XCTAssertGreaterThanOrEqual(result.outputSizeBytes, 10_000)
+        XCTAssertLessThanOrEqual(result.outputSizeBytes, 1_000_000)
+        XCTAssertEqual(result.documentPreset, .indiaEVisa)
+    }
+
+    func testUKPassportPrintOutputContract() throws {
+        let source = try engine.inspect(data: makeNoiseJPEG(width: 1000, height: 1286))
+        let crop = NormalizedCropRect(left: 0, top: 0, right: 1, bottom: 1)
+        let result = try engine.preparePassport(source: source, crop: crop, preset: .ukPassportPrint)
+
+        XCTAssertEqual(result.outputWidth, 413)
+        XCTAssertEqual(result.outputHeight, 531)
+        XCTAssertEqual(result.documentPreset, .ukPassportPrint)
+    }
+
+    private func imageProperties(_ data: Data) throws -> [CFString: Any] {
+        let source = try XCTUnwrap(CGImageSourceCreateWithData(data as CFData, nil))
+        return try XCTUnwrap(
+            CGImageSourceCopyPropertiesAtIndex(source, 0, nil) as? [CFString: Any]
+        )
+    }
+
+    private func makeNoiseJPEG(
+        width: Int,
+        height: Int,
+        includeLocationMetadata: Bool = false,
+        orientation: Int? = nil
+    ) throws -> Data {
         var bytes = [UInt8](repeating: 0, count: width * height * 4)
         var state: UInt32 = 0x12345678
         for index in stride(from: 0, to: bytes.count, by: 4) {
@@ -97,10 +238,27 @@ final class ImageEngineTests: XCTestCase {
                 nil
             )
         )
+        var properties: [CFString: Any] = [
+            kCGImageDestinationLossyCompressionQuality: 0.98
+        ]
+        if let orientation {
+            properties[kCGImagePropertyOrientation] = orientation
+        }
+        if includeLocationMetadata {
+            properties[kCGImagePropertyGPSDictionary] = [
+                kCGImagePropertyGPSLatitude: 51.5074,
+                kCGImagePropertyGPSLatitudeRef: "N",
+                kCGImagePropertyGPSLongitude: 0.1278,
+                kCGImagePropertyGPSLongitudeRef: "W"
+            ]
+            properties[kCGImagePropertyExifDictionary] = [
+                kCGImagePropertyExifUserComment: "Arvectum metadata test"
+            ]
+        }
         CGImageDestinationAddImage(
             destination,
             cgImage,
-            [kCGImageDestinationLossyCompressionQuality: 0.98] as CFDictionary
+            properties as CFDictionary
         )
         XCTAssertTrue(CGImageDestinationFinalize(destination))
         return mutable as Data

@@ -24,6 +24,8 @@
 	<false/>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.utilities</string>
+	<key>NSUserTrackingUsageDescription</key>
+	<string>Реклама помогает поддерживать приложение бесплатным. Разрешение позволяет использовать рекламный идентификатор для персонализации рекламы и измерения её эффективности.</string>
 	<key>SKAdNetworkItems</key>
 	<array>
 		<dict>
@@ -947,7 +949,5 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
-	<key>UIUserInterfaceStyle</key>
-	<string>Light</string>
 </dict>
 </plist>

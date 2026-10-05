@@ -2,6 +2,10 @@ import Foundation
 import UIKit
 import UniformTypeIdentifiers
 
+func tr(_ key: String) -> String {
+    Bundle.main.localizedString(forKey: key, value: key, table: nil)
+}
+
 enum ToolMode: String, CaseIterable, Identifiable {
     case fileSize
     case pixels
@@ -11,11 +15,202 @@ enum ToolMode: String, CaseIterable, Identifiable {
 
     var title: String {
         switch self {
-        case .fileSize: return "По весу"
-        case .pixels: return "По размеру"
-        case .passport: return "На паспорт"
+        case .fileSize: return tr("По весу")
+        case .pixels: return tr("По размеру")
+        case .passport: return tr("На документы")
         }
     }
+}
+
+enum PixelResizeMode: String, CaseIterable, Identifiable {
+    case longSide
+    case exact
+
+    var id: String { rawValue }
+
+    var title: String {
+        switch self {
+        case .longSide: return tr("Длинная сторона")
+        case .exact: return tr("Точно W×H")
+        }
+    }
+}
+
+enum ExportImageFormat: String, CaseIterable, Identifiable {
+    case jpeg
+    case png
+    case heic
+
+    var id: String { rawValue }
+
+    var title: String {
+        switch self {
+        case .jpeg: return "JPEG"
+        case .png: return "PNG"
+        case .heic: return "HEIC"
+        }
+    }
+
+    var contentType: UTType {
+        switch self {
+        case .jpeg: return .jpeg
+        case .png: return .png
+        case .heic: return .heic
+        }
+    }
+
+    var fileExtension: String {
+        switch self {
+        case .jpeg: return "jpg"
+        case .png: return "png"
+        case .heic: return "heic"
+        }
+    }
+}
+
+enum DocumentPhotoPreset: String, CaseIterable, Identifiable, Equatable {
+    case russiaPassport
+    case usPassportPrint
+    case usVisaDigital
+    case indiaEVisa
+    case ukPassportPrint
+
+    var id: String { rawValue }
+
+    var title: String {
+        switch self {
+        case .russiaPassport: return tr("Россия · паспорт")
+        case .usPassportPrint: return tr("США · паспорт (печать)")
+        case .usVisaDigital: return tr("США · виза (digital)")
+        case .indiaEVisa: return tr("Индия · e-Visa")
+        case .ukPassportPrint: return tr("Великобритания · паспорт (печать)")
+        }
+    }
+
+    var widthPixels: Int {
+        switch self {
+        case .russiaPassport: return 620
+        case .usPassportPrint, .usVisaDigital: return 600
+        case .indiaEVisa: return 900
+        case .ukPassportPrint: return 413
+        }
+    }
+
+    var heightPixels: Int {
+        switch self {
+        case .russiaPassport: return 797
+        case .usPassportPrint, .usVisaDigital, .indiaEVisa: return widthPixels
+        case .ukPassportPrint: return 531
+        }
+    }
+
+    var dpi: Int? {
+        switch self {
+        case .russiaPassport: return 450
+        case .usPassportPrint, .usVisaDigital, .ukPassportPrint: return 300
+        case .indiaEVisa: return nil
+        }
+    }
+
+    var minimumBytes: Int {
+        switch self {
+        case .russiaPassport, .indiaEVisa: return 10_000
+        default: return 0
+        }
+    }
+
+    var maximumBytes: Int {
+        switch self {
+        case .usVisaDigital: return 240_000
+        case .indiaEVisa: return 1_000_000
+        default: return 5_000_000
+        }
+    }
+
+    var outputSummary: String {
+        switch self {
+        case .russiaPassport:
+            return "35×45 mm · 620×797 px · 450 DPI · JPEG"
+        case .usPassportPrint:
+            return "2×2 in · 600×600 px · 300 DPI · JPEG"
+        case .usVisaDigital:
+            return tr("600×600 px · JPEG · ≤240 KB")
+        case .indiaEVisa:
+            return tr("900×900 px · JPEG · 10 KB–1 MB")
+        case .ukPassportPrint:
+            return "35×45 mm · 413×531 px · 300 DPI · JPEG"
+        }
+    }
+
+    var printSheetSpec: PrintSheetSpec? {
+        switch self {
+        case .russiaPassport, .ukPassportPrint:
+            return PrintSheetSpec(
+                widthPixels: 1181,
+                heightPixels: 1772,
+                dpi: 300,
+                columns: 2,
+                rows: 3,
+                photoWidthPixels: 413,
+                photoHeightPixels: 531,
+                label: tr("10×15 см · 6 фото · 300 DPI")
+            )
+        case .usPassportPrint:
+            return PrintSheetSpec(
+                widthPixels: 1200,
+                heightPixels: 1800,
+                dpi: 300,
+                columns: 2,
+                rows: 2,
+                photoWidthPixels: 600,
+                photoHeightPixels: 600,
+                label: tr("4×6 in · 4 фото · 300 DPI")
+            )
+        case .usVisaDigital, .indiaEVisa:
+            return nil
+        }
+    }
+
+    var guidance: String {
+        switch self {
+        case .russiaPassport:
+            return tr("Кадрирование вручную. Лицо и фон приложение не изменяет.")
+        case .usPassportPrint:
+            return tr("Формат для печати 2×2 дюйма. Проверьте размер головы перед подачей.")
+        case .usVisaDigital:
+            return tr("Цифровое фото для визы США: квадратный JPEG до 240 КБ.")
+        case .indiaEVisa:
+            return tr("Для India e-Visa: квадратный JPEG от 10 КБ до 1 МБ.")
+        case .ukPassportPrint:
+            return tr("Формат для печати 35×45 мм. Для онлайн-паспорта GOV.UK просит не обрезать фото самостоятельно.")
+        }
+    }
+}
+
+
+
+struct PrintSheetSpec {
+    let widthPixels: Int
+    let heightPixels: Int
+    let dpi: Int
+    let columns: Int
+    let rows: Int
+    let photoWidthPixels: Int
+    let photoHeightPixels: Int
+    let label: String
+
+    var copies: Int { columns * rows }
+}
+
+struct PrintSheetResult {
+    let outputURL: URL
+    let widthPixels: Int
+    let heightPixels: Int
+    let dpi: Int
+    let copies: Int
+    let label: String
+
+    var suggestedFileName: String { "foto-print-sheet.jpg" }
 }
 
 enum SizeUnit: String, CaseIterable, Identifiable {
@@ -55,13 +250,15 @@ struct ResultImage {
     let targetLongSide: Int?
     let alreadyFit: Bool
     let contentType: UTType
+    let documentPreset: DocumentPhotoPreset?
+    let printSheet: PrintSheetResult?
 
     var suggestedFileName: String {
         let suffix: String
         switch mode {
-        case .fileSize: suffix = "do-razmera"
-        case .pixels: suffix = "po-pikselyam"
-        case .passport: suffix = "na-pasport"
+        case .fileSize: suffix = tr("filename.file_size")
+        case .pixels: suffix = tr("filename.pixels")
+        case .passport: suffix = tr("filename.passport")
         }
         return "foto-\(suffix).\(contentType.preferredFilenameExtension ?? "jpg")"
     }
@@ -89,9 +286,10 @@ func calculateLongSideDimensions(width: Int, height: Int, targetLongSide: Int) -
 func formatBytes(_ bytes: Int64) -> String {
     if bytes >= 1_000_000 {
         let value = Double(bytes) / 1_000_000
-        return value >= 10 ? String(format: "%.1f МБ", value) : String(format: "%.2f МБ", value)
+        let format = tr(value >= 10 ? "%.1f МБ" : "%.2f МБ")
+        return String(format: format, locale: Locale.current, value)
     }
-    return String(format: "%.0f КБ", Double(bytes) / 1_000)
+    return String(format: tr("%.0f КБ"), locale: Locale.current, Double(bytes) / 1_000)
 }
 
 enum PhotoToolError: LocalizedError {

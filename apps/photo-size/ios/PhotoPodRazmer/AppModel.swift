@@ -14,7 +14,14 @@ final class AppModel: ObservableObject {
     @Published var targetLongSide: Int? = 600
     @Published var isCustomPixels = false
     @Published var customPixelsValue = ""
+    @Published var pixelResizeMode: PixelResizeMode = .longSide
+    @Published var exactWidthValue = ""
+    @Published var exactHeightValue = ""
+    @Published var keepPixelAspectRatio = true
+    @Published var exportFormat: ExportImageFormat = .jpeg
+    @Published var stripMetadata = true
     @Published var passportCropOpen = false
+    @Published var documentPreset: DocumentPhotoPreset = .russiaPassport
     @Published var isWorking = false
     @Published var errorMessage: String?
     @Published var saved = false
@@ -30,6 +37,44 @@ final class AppModel: ObservableObject {
             case "pixels": mode = .pixels
             case "passport": mode = .passport
             default: mode = .fileSize
+            }
+        }
+        if let index = args.firstIndex(of: "--document-preset"),
+           args.indices.contains(index + 1),
+           let preset = DocumentPhotoPreset(rawValue: args[index + 1]) {
+            documentPreset = preset
+            mode = .passport
+        }
+        if args.contains("--pixel-resize-exact") {
+            mode = .pixels
+            pixelResizeMode = .exact
+            exactWidthValue = "600"
+        }
+        if let index = args.firstIndex(of: "--store-screenshot-fixture"),
+           args.indices.contains(index + 1) {
+            do {
+                let data = try Data(contentsOf: URL(fileURLWithPath: args[index + 1]))
+                let inspected = try engine.inspect(data: data)
+                source = inspected
+                switch mode {
+                case .fileSize:
+                    targetBytes = 500_000
+                    result = try engine.compressByBytes(
+                        source: inspected,
+                        requestedMaximumBytes: 500_000
+                    )
+                case .pixels:
+                    targetLongSide = 600
+                    result = try engine.resizeLongSide(source: inspected, targetLongSide: 600)
+                case .passport:
+                    result = try engine.preparePassport(
+                        source: inspected,
+                        crop: NormalizedCropRect(left: 0, top: 0, right: 1, bottom: 1),
+                        preset: documentPreset
+                    )
+                }
+            } catch {
+                errorMessage = error.localizedDescription
             }
         }
         #endif
@@ -54,18 +99,50 @@ final class AppModel: ObservableObject {
         Task {
             do {
                 guard let data = try await item.loadTransferable(type: Data.self) else {
-                    throw PhotoToolError.message("Не получилось прочитать выбранное фото.")
+                    throw PhotoToolError.message(tr("Не получилось прочитать выбранное фото."))
                 }
                 let engine = self.engine
                 let inspected = try await Task.detached(priority: .userInitiated) {
                     try engine.inspect(data: data)
                 }.value
                 source = inspected
+                syncExactDimensionsAfterSource()
                 isWorking = false
             } catch {
                 source = nil
                 isWorking = false
-                errorMessage = userMessage(error, fallback: "Не получилось открыть этот файл.")
+                errorMessage = userMessage(error, fallback: tr("Не получилось открыть этот файл."))
+            }
+        }
+    }
+
+    func selectFile(_ url: URL) {
+        isWorking = true
+        errorMessage = nil
+        result = nil
+        saved = false
+        passportCropOpen = false
+
+        Task {
+            do {
+                let data = try await Task.detached(priority: .userInitiated) {
+                    let hasAccess = url.startAccessingSecurityScopedResource()
+                    defer {
+                        if hasAccess { url.stopAccessingSecurityScopedResource() }
+                    }
+                    return try Data(contentsOf: url, options: .mappedIfSafe)
+                }.value
+                let engine = self.engine
+                let inspected = try await Task.detached(priority: .userInitiated) {
+                    try engine.inspect(data: data)
+                }.value
+                source = inspected
+                syncExactDimensionsAfterSource()
+                isWorking = false
+            } catch {
+                source = nil
+                isWorking = false
+                errorMessage = userMessage(error, fallback: tr("Не получилось открыть этот файл."))
             }
         }
     }
@@ -101,6 +178,73 @@ final class AppModel: ObservableObject {
         saved = false
     }
 
+    var exactWidth: Int? { validPixelDimension(exactWidthValue) }
+    var exactHeight: Int? { validPixelDimension(exactHeightValue) }
+
+    var canResizePixels: Bool {
+        guard source != nil else { return false }
+        switch pixelResizeMode {
+        case .longSide:
+            return targetLongSide != nil
+        case .exact:
+            return exactWidth != nil && exactHeight != nil
+        }
+    }
+
+    func setStripMetadata(_ strip: Bool) {
+        stripMetadata = strip
+        result = nil
+        saved = false
+        errorMessage = nil
+    }
+
+    func setExportFormat(_ format: ExportImageFormat) {
+        exportFormat = format
+        result = nil
+        saved = false
+        errorMessage = nil
+    }
+
+    func setPixelResizeMode(_ newMode: PixelResizeMode) {
+        pixelResizeMode = newMode
+        result = nil
+        saved = false
+        errorMessage = nil
+        if newMode == .exact {
+            syncExactDimensionsAfterSource()
+        }
+    }
+
+    func setExactWidth(_ value: String) {
+        exactWidthValue = cleanPixelDimension(value)
+        if keepPixelAspectRatio, let source, let width = exactWidth {
+            let height = max(1, Int((Double(width) * Double(source.height) / Double(source.width)).rounded()))
+            exactHeightValue = String(min(height, 12_000))
+        }
+        result = nil
+        saved = false
+        errorMessage = nil
+    }
+
+    func setExactHeight(_ value: String) {
+        exactHeightValue = cleanPixelDimension(value)
+        if keepPixelAspectRatio, let source, let height = exactHeight {
+            let width = max(1, Int((Double(height) * Double(source.width) / Double(source.height)).rounded()))
+            exactWidthValue = String(min(width, 12_000))
+        }
+        result = nil
+        saved = false
+        errorMessage = nil
+    }
+
+    func setKeepPixelAspectRatio(_ keep: Bool) {
+        keepPixelAspectRatio = keep
+        if keep { syncExactDimensionsAfterSource() }
+        result = nil
+        saved = false
+        errorMessage = nil
+    }
+
     func setPixelPreset(_ value: Int) {
         targetLongSide = value
         isCustomPixels = false
@@ -131,16 +275,33 @@ final class AppModel: ObservableObject {
 
     func compressByBytes() {
         guard let source, let targetBytes else { return }
-        process(fallback: "Не получилось уменьшить это изображение.") { engine in
-            try engine.compressByBytes(source: source, requestedMaximumBytes: targetBytes)
+        process(fallback: tr("Не получилось уменьшить это изображение.")) { engine in
+            try engine.compressByBytes(source: source, requestedMaximumBytes: targetBytes, stripMetadata: self.stripMetadata)
         }
     }
 
     func resizeByPixels() {
-        guard let source, let targetLongSide else { return }
-        process(fallback: "Не получилось изменить размер изображения.") { engine in
-            try engine.resizeLongSide(source: source, targetLongSide: targetLongSide)
+        guard let source else { return }
+        switch pixelResizeMode {
+        case .longSide:
+            guard let targetLongSide else { return }
+            process(fallback: tr("Не получилось изменить размер изображения.")) { engine in
+                try engine.resizeLongSide(source: source, targetLongSide: targetLongSide, format: self.exportFormat, stripMetadata: self.stripMetadata)
+            }
+        case .exact:
+            guard let width = exactWidth, let height = exactHeight else { return }
+            process(fallback: tr("Не получилось изменить размер изображения.")) { engine in
+                try engine.resizeExact(source: source, width: width, height: height, format: self.exportFormat, stripMetadata: self.stripMetadata)
+            }
         }
+    }
+
+    func setDocumentPreset(_ preset: DocumentPhotoPreset) {
+        documentPreset = preset
+        result = nil
+        passportCropOpen = false
+        saved = false
+        errorMessage = nil
     }
 
     func openPassportCrop() {
@@ -153,8 +314,8 @@ final class AppModel: ObservableObject {
     func preparePassport(_ crop: NormalizedCropRect) {
         guard let source else { return }
         passportCropOpen = false
-        process(fallback: "Не получилось подготовить фото на паспорт.") { engine in
-            try engine.preparePassport(source: source, crop: crop)
+        process(fallback: tr("Не получилось подготовить фото для документа.")) { engine in
+            try engine.preparePassport(source: source, crop: crop, preset: self.documentPreset)
         }
     }
 
@@ -175,7 +336,14 @@ final class AppModel: ObservableObject {
         targetLongSide = 600
         isCustomPixels = false
         customPixelsValue = ""
+        pixelResizeMode = .longSide
+        exactWidthValue = ""
+        exactHeightValue = ""
+        keepPixelAspectRatio = true
+        exportFormat = .jpeg
+        stripMetadata = true
         passportCropOpen = false
+        documentPreset = .russiaPassport
         isWorking = false
         errorMessage = nil
         saved = false
@@ -184,7 +352,7 @@ final class AppModel: ObservableObject {
     func markSaved(_ success: Bool) {
         saved = success
         if !success {
-            errorMessage = "Не получилось сохранить файл."
+            errorMessage = tr("Не получилось сохранить файл.")
         }
     }
 
@@ -208,6 +376,26 @@ final class AppModel: ObservableObject {
                 isWorking = false
                 errorMessage = userMessage(error, fallback: fallback)
             }
+        }
+    }
+
+    private func cleanPixelDimension(_ value: String) -> String {
+        String(value.filter(\.isNumber).prefix(5))
+    }
+
+    private func validPixelDimension(_ value: String) -> Int? {
+        guard let number = Int(value), (32...12_000).contains(number) else { return nil }
+        return number
+    }
+
+    private func syncExactDimensionsAfterSource() {
+        guard keepPixelAspectRatio, let source else { return }
+        if let width = exactWidth {
+            let height = max(1, Int((Double(width) * Double(source.height) / Double(source.width)).rounded()))
+            exactHeightValue = String(min(height, 12_000))
+        } else if let height = exactHeight {
+            let width = max(1, Int((Double(height) * Double(source.width) / Double(source.height)).rounded()))
+            exactWidthValue = String(min(width, 12_000))
         }
     }
 
