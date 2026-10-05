@@ -38,7 +38,7 @@ Before submission, generate/inspect the final Xcode privacy report from the exac
 
 Public URL:
 
-https://arvectum.com/privacy.html
+https://arvectum.com/privacy
 
 The public policy must continue to state that PUSHKIN notification content is processed and stored locally.
 

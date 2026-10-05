@@ -11,7 +11,7 @@
 - Copyright: **© 2026 LLC ARVECTUM / ООО «Арвектум»**
 - Support URL: https://arvectum.com
 - Marketing URL: https://arvectum.com
-- Privacy Policy URL: https://arvectum.com/privacy.html
+- Privacy Policy URL: https://arvectum.com/privacy
 - Runtime model: fully local; no account, backend, analytics, cloud sync or ad SDK in 1.0
 
 ## English metadata

@@ -30,7 +30,7 @@ struct SetupGuideView: View {
     @State private var showAppPicker = false
     @State private var showingDeleteAllConfirmation = false
 
-    private let privacyURL = URL(string: "https://arvectum.com/privacy.html")!
+    private let privacyURL = URL(string: "https://arvectum.com/privacy")!
     private let supportURL = URL(
         string: "mailto:info@arvectum.com?subject=PUSHKIN%20support"
     )!

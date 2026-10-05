@@ -138,7 +138,7 @@ must("PATCH",f"/v1/appInfoLocalizations/{APP_INFO_LOC_EN}",{
   "data":{"type":"appInfoLocalizations","id":APP_INFO_LOC_EN,"attributes":{
     "name":"PUSHKIN by Arvectum",
     "subtitle":"Notification History",
-    "privacyPolicyUrl":"https://arvectum.com/privacy.html"
+    "privacyPolicyUrl":"https://arvectum.com/privacy"
   }}
 })
 
@@ -163,7 +163,7 @@ else:
 # Russian app-info localization, create only if absent.
 status,locs=api("GET",f"/v1/appInfos/{APP_INFO_ID}/appInfoLocalizations?limit=50")
 ru=next((x for x in locs.get("data",[]) if x.get("attributes",{}).get("locale")=="ru"),None)
-attrs={"name":"PUSHKIN by Arvectum","subtitle":"История уведомлений","privacyPolicyUrl":"https://arvectum.com/privacy.html"}
+attrs={"name":"PUSHKIN by Arvectum","subtitle":"История уведомлений","privacyPolicyUrl":"https://arvectum.com/privacy"}
 if ru:
     must("PATCH",f"/v1/appInfoLocalizations/{ru['id']}",{"data":{"type":"appInfoLocalizations","id":ru["id"],"attributes":attrs}})
 else:
