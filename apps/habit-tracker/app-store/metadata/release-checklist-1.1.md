@@ -45,6 +45,8 @@
 - [ ] Update App Review video only if useful for the new one-time reminder flow.
 
 ## Submission
-- [ ] Attach processed build to version 1.1.
-- [ ] Confirm age rating/content rights/export compliance remain applicable.
-- [ ] Submit for review only after explicit approval to do so.
+- [x] Attach processed build 3 to version 1.1.
+- [x] Confirm age rating/content rights/export compliance remain applicable; content rights updated for third-party advertising content.
+- [x] Submit for review after explicit approval.
+- [x] Review Submission ID: `4a52b1b2-8b5d-481e-9011-b03622fde019`.
+- [x] Final App Store Connect state: `WAITING_FOR_REVIEW`.
