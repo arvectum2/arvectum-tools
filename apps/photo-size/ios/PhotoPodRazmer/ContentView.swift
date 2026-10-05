@@ -291,7 +291,7 @@ private struct MainTaskCard: View {
 
     private var sourceRow: some View {
         let selectedSource = model.source
-        return HStack(spacing: 8) {
+        return HStack(spacing: 0) {
             PhotosPicker(selection: $pickerItem, matching: .images) {
                 HStack(spacing: 9) {
                     Image(systemName: selectedSource == nil ? "photo.badge.plus" : "photo.fill")
@@ -317,37 +317,36 @@ private struct MainTaskCard: View {
                         }
                     }
                     Spacer(minLength: 4)
-                    Image(systemName: "chevron.right")
-                        .font(.caption.weight(.bold))
-                        .foregroundStyle(.secondary)
                 }
-                .padding(.horizontal, 11)
+                .padding(.leading, 11)
+                .padding(.trailing, 8)
                 .frame(maxWidth: .infinity)
                 .frame(height: 62)
-                .background(Color.arvectumBackground, in: RoundedRectangle(cornerRadius: 14))
+                .contentShape(Rectangle())
             }
             .buttonStyle(.plain)
+
+            Divider()
+                .frame(height: 34)
 
             Button {
                 importingFile = true
             } label: {
-                VStack(spacing: 3) {
-                    Image(systemName: "folder")
-                        .font(.body.weight(.semibold))
-                    Text(tr("Файлы"))
-                        .font(.caption2.weight(.semibold))
-                        .lineLimit(1)
-                }
-                .frame(width: 76, height: 62)
+                Label(tr("Файлы"), systemImage: "folder")
+                    .font(.caption.weight(.semibold))
+                    .lineLimit(1)
+                    .padding(.horizontal, 9)
+                    .frame(height: 36)
             }
             .buttonStyle(.plain)
             .accessibilityIdentifier("import-files-button")
             .foregroundStyle(Color.arvectumPrimaryText)
-            .background(Color.arvectumBackground, in: RoundedRectangle(cornerRadius: 14))
+            .background(Color.arvectumSurface, in: Capsule())
             .overlay(
-                RoundedRectangle(cornerRadius: 14)
+                Capsule()
                     .stroke(Color.arvectumBorder, lineWidth: 1)
             )
+            .padding(.horizontal, 8)
             .fileImporter(
                 isPresented: $importingFile,
                 allowedContentTypes: [.image],
@@ -358,6 +357,13 @@ private struct MainTaskCard: View {
                 }
             }
         }
+        .frame(maxWidth: .infinity)
+        .frame(height: 62)
+        .background(Color.arvectumBackground, in: RoundedRectangle(cornerRadius: 14))
+        .overlay(
+            RoundedRectangle(cornerRadius: 14)
+                .stroke(Color.arvectumBorder, lineWidth: 1)
+        )
     }
 
     private var presetRow: some View {
