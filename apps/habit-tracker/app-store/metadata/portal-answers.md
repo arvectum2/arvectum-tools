@@ -12,7 +12,7 @@ Prepared for build 1.0.0 (1).
 - Price: Free
 - In-App Purchases: None
 - Support URL: https://arvectum.com/contact.html
-- Privacy Policy URL: https://arvectum.com/privacy.html
+- Privacy Policy URL: https://arvectum.com/privacy
 - Review/support email: info@arvectum.com
 
 ## App Privacy
@@ -33,6 +33,30 @@ Reasoning for the release record:
 - there is no Arvectum server profile, analytics pipeline, ad SDK or data broker integration in V1.
 
 If ads, analytics, accounts or a server backend are added later, update App Privacy before that version ships.
+
+### Next ad-enabled release
+
+Do **not** reuse the V1 "Data Not Collected" answer for the first build that contains Yandex Mobile Ads.
+
+For the current Yandex Mobile Ads 8.5.0 integration, the embedded privacy manifests in the built app declare the following categories across YandexMobileAds and its transitive AppMetrica/KSCrash components:
+
+- Device ID;
+- Advertising Data;
+- Coarse Location;
+- Product Interaction;
+- Purchase History;
+- Crash Data;
+- Performance Data;
+- Other Diagnostic Data;
+- Other Data Types.
+
+The exact App Store Connect answers for that release must be reconciled against the Xcode privacy report from the **exact archive being submitted** and the runtime configuration. Current ChickMark configuration disables Yandex precise-location tracking and does not request ATT/IDFA; habit names, check-ins and other user content are not supplied to the advertising SDK for targeting.
+
+At minimum, before submitting the first ad-enabled build:
+- change the App Privacy record away from "Data Not Collected";
+- verify every category/purpose/linked/tracking flag shown by the final privacy report;
+- keep Tracking/ATT set to No unless the runtime behavior is intentionally changed;
+- keep Privacy Policy URL set to https://arvectum.com/privacy.
 
 ## Export compliance
 

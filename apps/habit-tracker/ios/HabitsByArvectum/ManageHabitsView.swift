@@ -99,7 +99,7 @@ struct ManageHabitsView: View {
         HStack(spacing: 10) {
             Button {
                 openURL(
-                    URL(string: "https://arvectum.com/privacy.html")!
+                    URL(string: "https://arvectum.com/privacy")!
                 )
             } label: {
                 Text(L10n.string("manage.privacy"))

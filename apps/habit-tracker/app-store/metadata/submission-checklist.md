@@ -38,7 +38,7 @@ Canonical release artifact:
 - [x] All screenshot assets uploaded and COMPLETE
 - [x] Screenshots are opaque PNGs without alpha
 - [x] Support URL: https://arvectum.com/contact.html
-- [x] Privacy Policy URL: https://arvectum.com/privacy.html
+- [x] Privacy Policy URL: https://arvectum.com/privacy
 - [x] App Review notes and contact details
 - [x] App Review credentials: none required
 - [x] Export compliance: `ITSAppUsesNonExemptEncryption = NO`
@@ -78,6 +78,8 @@ Canonical release artifact:
 ## Next
 
 - [ ] Do not modify/re-upload build 1 while it is under review unless Apple requests a change
+- [ ] Before the first ad-enabled build, update App Privacy from "Data Not Collected" using the Xcode privacy report from that exact archive
+- [x] Canonical Privacy Policy URL for all Arvectum apps: https://arvectum.com/privacy
 - [ ] Watch App Store Connect / Apple review email for state changes or reviewer questions
 - [ ] If approved, verify automatic release and public App Store listing
 - [ ] If rejected, address only the reviewer issue and keep the V1 scope frozen
