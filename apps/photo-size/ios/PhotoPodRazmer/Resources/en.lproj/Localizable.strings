@@ -103,7 +103,7 @@
 "Дополнительно" = "Advanced";
 
 "Реклама и конфиденциальность" = "Ads & Privacy";
-"Фото обрабатываются только на устройстве. Для показа рекламы используется Yandex Mobile Ads. Вы можете разрешить рекламному SDK обработку технических данных или отказаться. Геолокация отключена, разрешение App Tracking Transparency приложение не запрашивает." = "Photos are processed only on your device. Yandex Mobile Ads is used to display ads. You can allow the advertising SDK to process technical data or decline. Location is disabled and the app does not request App Tracking Transparency permission.";
+"Фото обрабатываются только на устройстве. Для показа рекламы используется Yandex Mobile Ads. Вы можете разрешить рекламному SDK обработку технических данных или отказаться. Геолокация отключена, разрешение App Tracking Transparency приложение не запрашивает." = "Photos and PDFs are processed only on your device. Yandex Mobile Ads is used to display ads. You can allow the advertising SDK to process technical data or decline. Location is disabled and the app does not request App Tracking Transparency permission.";
 "Политика конфиденциальности" = "Privacy Policy";
 "Разрешить для рекламы" = "Allow for ads";
 "Отказаться" = "Decline";
@@ -112,9 +112,31 @@
 "Реклама в приложении" = "Ads in the app";
 "Разрешить обработку данных" = "Allow data processing";
 "Не разрешать обработку данных" = "Do not allow data processing";
-"«Фото под размер» бесплатно и поддерживается рекламой. Реклама будет показываться независимо от вашего выбора. Вы можете разрешить или не разрешить Yandex Mobile Ads обработку данных для рекламы. Если разрешите, iOS может отдельно спросить разрешение на отслеживание. При отказе реклама останется, но без доступа к рекламному идентификатору. Фото обрабатываются только на устройстве, геолокация отключена." = "Photo Resize is free and supported by ads. Ads are shown regardless of your choice. You can allow or decline Yandex Mobile Ads data processing for advertising. If you allow it, iOS may separately ask for tracking permission. If you decline tracking, ads remain but the advertising identifier is unavailable. Photos are processed only on your device and location is disabled.";
+"«Фото и PDF под размер» бесплатно и поддерживается рекламой. Реклама будет показываться независимо от вашего выбора. Вы можете разрешить или не разрешить Yandex Mobile Ads обработку данных для рекламы. Если разрешите, iOS может отдельно спросить разрешение на отслеживание. При отказе реклама останется, но без доступа к рекламному идентификатору. Фото и PDF обрабатываются только на устройстве, геолокация отключена." = "Photo & PDF Resize is free and supported by ads. Ads are shown regardless of your choice. You can allow or decline Yandex Mobile Ads data processing for advertising. If you allow it, iOS may separately ask for tracking permission. If you decline tracking, ads remain but the advertising identifier is unavailable. Photos and PDFs are processed only on your device and location is disabled.";
 
 "Файлы" = "Files";
 
 "Изменить настройки" = "Edit settings";
 "На главный экран" = "Home";
+
+"Фото и PDF под размер" = "Photo & PDF Resize";
+"Фото" = "Photo";
+"PDF ПО ВЕСУ" = "PDF BY FILE SIZE";
+"Уменьшить PDF до нужного веса" = "Reduce a PDF to a target file size";
+"Выбрать PDF" = "Choose PDF";
+"PDF выбран" = "PDF selected";
+"PDF-файл из приложения «Файлы»" = "PDF file from Files";
+"Уменьшить PDF" = "Reduce PDF";
+"Не получилось открыть этот PDF." = "Could not open this PDF.";
+"Не получилось уменьшить этот PDF." = "Could not reduce this PDF.";
+"Не получилось уменьшить PDF до выбранного размера без слишком сильной потери качества." = "Could not reduce the PDF to the selected size without excessive quality loss.";
+"PDF не содержит страниц." = "The PDF has no pages.";
+"Не получилось создать PDF." = "Could not create a PDF.";
+"Не получилось сжать страницу PDF." = "Could not compress a PDF page.";
+"Обработка выполняется только на устройстве. При сильном сжатии страницы PDF растрируются, поэтому поиск и выделение текста в готовом файле могут быть недоступны." = "Processing happens only on your device. With strong compression, PDF pages are rasterized, so text search and selection may be unavailable in the output file.";
+"PDF уже подходит" = "PDF already fits";
+"PDF подготовлен" = "PDF ready";
+"Страниц" = "Pages";
+"страница" = "page";
+"страниц" = "pages";
+"PDF обработан локально на устройстве и никуда не загружался." = "The PDF was processed locally on your device and was not uploaded anywhere.";

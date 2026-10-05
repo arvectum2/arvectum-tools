@@ -6,6 +6,20 @@ func tr(_ key: String) -> String {
     Bundle.main.localizedString(forKey: key, value: key, table: nil)
 }
 
+enum InputKind: String, CaseIterable, Identifiable {
+    case photo
+    case pdf
+
+    var id: String { rawValue }
+
+    var title: String {
+        switch self {
+        case .photo: return tr("Фото")
+        case .pdf: return "PDF"
+        }
+    }
+}
+
 enum ToolMode: String, CaseIterable, Identifiable {
     case fileSize
     case pixels
@@ -262,6 +276,25 @@ struct ResultImage {
         }
         return "foto-\(suffix).\(contentType.preferredFilenameExtension ?? "jpg")"
     }
+}
+
+struct SourcePDF {
+    let data: Data
+    let localURL: URL
+    let sizeBytes: Int64
+    let pageCount: Int
+    let previewImage: UIImage?
+}
+
+struct ResultPDF {
+    let source: SourcePDF
+    let outputURL: URL
+    let outputSizeBytes: Int64
+    let targetBytes: Int64
+    let alreadyFit: Bool
+    let previewImage: UIImage?
+
+    var suggestedFileName: String { "pdf-\(tr("filename.file_size")).pdf" }
 }
 
 struct ImageDimensions: Equatable {
