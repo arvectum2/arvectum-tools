@@ -19,12 +19,12 @@
 - [x] Final Today UI reviewed with reminder and fixed-bottom ad; App Store screenshot intentionally uses the clean no-ad state.
 
 ## Exact App Store archive
-- [ ] Create signed App Store archive from the frozen commit.
-- [ ] Inspect Xcode Privacy Report from that exact archive.
-- [ ] Update App Store Privacy answers for advertising SDK data collection.
-- [ ] Verify no ATT prompt / tracking declaration unless implementation changed.
-- [ ] Verify Privacy Policy URL is https://arvectum.com/privacy.
-- [ ] Export IPA and record SHA-256.
+- [x] Create signed App Store archive from frozen source commit `50021bd0190b96932ee338c7f6f4f6b79c74473b`.
+- [ ] Generate and inspect Xcode Privacy Report from that exact archive in Organizer.
+- [ ] Update App Store Privacy answers only after reconciling the report with the actual Yandex runtime configuration.
+- [x] Verify no ATT prompt / tracking implementation is present in ChickMark 1.1 source/configuration.
+- [x] Verify Privacy Policy URL is https://arvectum.com/privacy.
+- [x] Export Apple Distribution IPA; SHA-256 `792a2f05d2a52d50e73f5f37c71d4be647135577162e3fb23273d5ac2d17feb2`.
 - [ ] Upload build to App Store Connect.
 
 ## Metadata
