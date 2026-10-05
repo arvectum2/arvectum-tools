@@ -156,6 +156,32 @@ final class HabitPausePeriod {
     }
 }
 
+@Model
+final class OneOffReminder {
+    var id: UUID = UUID()
+    var title: String = ""
+    var dueAt: Date = Date.now
+    var createdAt: Date = Date.now
+    var isCompleted: Bool = false
+    var completedAt: Date? = nil
+
+    init(
+        id: UUID = UUID(),
+        title: String,
+        dueAt: Date,
+        createdAt: Date = .now,
+        isCompleted: Bool = false,
+        completedAt: Date? = nil
+    ) {
+        self.id = id
+        self.title = title
+        self.dueAt = dueAt
+        self.createdAt = createdAt
+        self.isCompleted = isCompleted
+        self.completedAt = completedAt
+    }
+}
+
 struct HabitSchedule: OptionSet, Hashable {
     let rawValue: Int
 

@@ -46,7 +46,7 @@
 "reminder.notification.body" = "Время выполнить привычку";
 
 "notification.denied.title" = "Уведомления отключены";
-"notification.denied.message" = "Разрешите уведомления для Habits в настройках iPhone, чтобы включить напоминания.";
+"notification.denied.message" = "Разрешите уведомления для ChickMark в настройках iPhone, чтобы включить напоминания.";
 "notification.openSettings" = "Настройки";
 "notification.action.complete" = "Готово";
 "notification.action.skip" = "Пропустить сегодня";
@@ -56,6 +56,7 @@
 "common.save" = "Сохранить";
 "common.ok" = "ОК";
 "common.undo" = "Отменить";
+"common.add" = "Добавить";
 "common.delete" = "Удалить";
 
 "quick.water" = "Вода";
@@ -123,3 +124,21 @@
 "shortcut.undo.description" = "Снять отметку выполнения с одной из сегодняшних привычек.";
 "shortcut.undo.success" = "Отметка выполнения для «%@» снята.";
 "shortcut.notDue" = "Эта привычка сегодня не запланирована.";
+
+"add.menu.habit" = "Новая привычка";
+"add.menu.oneoff" = "Разовое напоминание";
+"oneoff.section" = "Напоминания";
+"oneoff.new.title" = "Новое напоминание";
+"oneoff.edit.title" = "Редактировать напоминание";
+"oneoff.title.placeholder" = "О чём напомнить?";
+"oneoff.when" = "Когда";
+"oneoff.dateTime" = "Дата и время";
+"oneoff.hint" = "Напоминание сработает один раз и не влияет на серии и статистику привычек.";
+"oneoff.notification.body" = "Разовое напоминание";
+"oneoff.notification.denied.message" = "Разрешите уведомления для ChickMark в настройках iPhone, чтобы получать разовые напоминания.";
+"oneoff.complete" = "Отметить выполненным";
+"oneoff.edit" = "Изменить";
+"oneoff.delete" = "Удалить напоминание";
+"oneoff.demo.marathon" = "Купить слот на марафон";
+"oneoff.today.format" = "Сегодня, %@";
+"oneoff.tomorrow.format" = "Завтра, %@";

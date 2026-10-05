@@ -77,6 +77,33 @@ final class HabitNotificationActionTests: XCTestCase {
         XCTAssertEqual(skips.first?.habitID, habit.id)
     }
 
+    func testNotificationActionCompletesOneOffReminder() throws {
+        let container = try makeContainer()
+        let context = ModelContext(container)
+        let reminder = OneOffReminder(
+            title: "Buy marathon slot",
+            dueAt: .now.addingTimeInterval(3600)
+        )
+        context.insert(reminder)
+        try context.save()
+
+        HabitNotificationActionCoordinator.shared.configure(
+            modelContainer: container
+        )
+
+        XCTAssertTrue(
+            HabitNotificationActionCoordinator.shared
+                .markOneOffCompleted(reminderID: reminder.id)
+        )
+
+        let reminders = try context.fetch(
+            FetchDescriptor<OneOffReminder>()
+        )
+        XCTAssertEqual(reminders.count, 1)
+        XCTAssertTrue(reminders[0].isCompleted)
+        XCTAssertNotNil(reminders[0].completedAt)
+    }
+
     func testNotificationActionIgnoresArchivedHabit() throws {
         let container = try makeContainer()
         let context = ModelContext(container)
@@ -105,7 +132,8 @@ final class HabitNotificationActionTests: XCTestCase {
             HabitCheckIn.self,
             HabitSkip.self,
             HabitPausePeriod.self,
-            HabitDayMutation.self
+            HabitDayMutation.self,
+            OneOffReminder.self
         ])
         let configuration = ModelConfiguration(
             schema: schema,

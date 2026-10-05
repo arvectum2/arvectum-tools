@@ -14,7 +14,8 @@ ChickMark includes:
 - current streak, best streak, completion rate, and calendar history;
 - neutral Skip days that do not break a streak;
 - pause and resume without deleting history;
-- local reminders with Complete and Skip actions;
+- local habit reminders with Complete and Skip actions;
+- one-time reminders for a specific date and time, separate from habit streaks and statistics;
 - interactive Home Screen and Lock Screen widgets;
 - Apple Watch app and complications;
 - Siri / Shortcuts actions for complete and undo;
@@ -23,6 +24,12 @@ ChickMark includes:
 ChickMark is local-first: your core habit data stays on your devices. No Arvectum account is required.
 
 The idea is simple: useful habit tracking, without the clutter.
+
+## What's New in 1.1
+
+Added one-time reminders for a specific date and time. They live alongside your habits on Today, do not affect streaks or statistics, and can be completed directly from the notification.
+
+We also improved local reminder reliability and introduced non-disruptive monetization: ads never appear between habits or interrupt core actions.
 
 ## Keywords
 

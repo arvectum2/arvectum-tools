@@ -59,11 +59,15 @@ final class HabitReminderCoordinator {
         let skips = (try? context.fetch(
             FetchDescriptor<HabitSkip>()
         )) ?? []
+        let oneOffReminders = (try? context.fetch(
+            FetchDescriptor<OneOffReminder>()
+        )) ?? []
 
         _ = await HabitReminderScheduler.syncAll(
             habits: habits,
             checkIns: checkIns,
-            skips: skips
+            skips: skips,
+            oneOffReminders: oneOffReminders
         )
     }
 }

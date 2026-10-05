@@ -2,6 +2,12 @@ import SwiftData
 import UIKit
 import UserNotifications
 
+enum OneOffReminderNotificationActions {
+    static let categoryIdentifier = "ONE_OFF_REMINDER"
+    static let completeIdentifier = "ONE_OFF_COMPLETE"
+    static let reminderIDKey = "oneOffReminderID"
+}
+
 enum HabitNotificationActions {
     static let categoryIdentifier = "HABIT_REMINDER"
     static let completeIdentifier = "HABIT_COMPLETE"
@@ -25,8 +31,19 @@ enum HabitNotificationActions {
             intentIdentifiers: [],
             options: []
         )
+        let oneOffComplete = UNNotificationAction(
+            identifier: OneOffReminderNotificationActions.completeIdentifier,
+            title: L10n.string("notification.action.complete"),
+            options: []
+        )
+        let oneOffCategory = UNNotificationCategory(
+            identifier: OneOffReminderNotificationActions.categoryIdentifier,
+            actions: [oneOffComplete],
+            intentIdentifiers: [],
+            options: []
+        )
         UNUserNotificationCenter.current()
-            .setNotificationCategories([category])
+            .setNotificationCategories([category, oneOffCategory])
     }
 }
 
@@ -94,6 +111,32 @@ final class HabitNotificationActionCoordinator {
         do {
             try context.save()
             HabitDataChangeNotifier.notify()
+            return true
+        } catch {
+            return false
+        }
+    }
+
+    @discardableResult
+    func markOneOffCompleted(reminderID: UUID) -> Bool {
+        guard let modelContainer else { return false }
+        let context = ModelContext(modelContainer)
+        let reminders = (try? context.fetch(
+            FetchDescriptor<OneOffReminder>()
+        )) ?? []
+
+        guard let reminder = reminders.first(where: {
+            $0.id == reminderID && !$0.isCompleted
+        }) else {
+            return false
+        }
+
+        reminder.isCompleted = true
+        reminder.completedAt = .now
+
+        do {
+            try context.save()
+            HabitReminderCoordinator.shared.dataDidChange()
             return true
         } catch {
             return false
@@ -178,8 +221,25 @@ final class HabitsAppDelegate: NSObject, UIApplicationDelegate,
         didReceive response: UNNotificationResponse,
         withCompletionHandler completionHandler: @escaping () -> Void
     ) {
+        let userInfo = response.notification.request.content.userInfo
+
+        if response.actionIdentifier ==
+            OneOffReminderNotificationActions.completeIdentifier,
+           let rawReminderID = userInfo[
+               OneOffReminderNotificationActions.reminderIDKey
+           ] as? String,
+           let reminderID = UUID(uuidString: rawReminderID)
+        {
+            Task { @MainActor in
+                _ = HabitNotificationActionCoordinator.shared
+                    .markOneOffCompleted(reminderID: reminderID)
+                completionHandler()
+            }
+            return
+        }
+
         guard
-            let rawID = response.notification.request.content.userInfo[
+            let rawID = userInfo[
                 HabitNotificationActions.habitIDKey
             ] as? String,
             let habitID = UUID(uuidString: rawID)

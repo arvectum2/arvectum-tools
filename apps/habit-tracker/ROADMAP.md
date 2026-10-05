@@ -217,13 +217,13 @@ Core habit tracking stays free. Advertising is the planned monetization model, b
 - [x] Initial eligibility gate implemented: 3 full days + 5 cold launches + 3 successful check-offs.
 - [x] Yandex Mobile Ads sticky banner integrated with production block `R-M-20183085-1`; required SKAdNetwork entries are bundled, test creative loads on iOS 27, and banner height follows the SDK content size.
 - [x] `app-ads.txt` for the shared Arvectum domain already matches the current Yandex/RСЯ seller list, so ChickMark does not need a second file.
-- [ ] Before submitting an ad-enabled build: update App Store Privacy and the ChickMark privacy-policy disclosure for the Yandex Mobile Ads SDK; do not change the already-submitted V1 build 1 while it is in review.
+- [ ] Before submitting the first ad-enabled build, generate the privacy report from the exact signed archive and update App Store Privacy for the Yandex Mobile Ads SDK.
 - [ ] Validate thresholds only after the core loop is stable.
 - [ ] Test retention impact before increasing ad exposure.
 
 ## Post-MVP backlog
 
-- [ ] One-off reminders: lightweight single-event reminders alongside habits (for example, “buy a marathon slot”; registration opens at 08:00), with date/time, local notification, completion/dismiss and no conversion into a recurring habit unless the user asks.
+- [x] One-off reminders: lightweight single-event reminders alongside habits (for example, “buy a marathon slot”; registration opens at 08:00), with date/time, local notification, notification Done action, edit/delete and no conversion into a recurring habit.
 - [ ] Multi-check daily target: allow one habit to require `N` completions per day (for example, take a tablet 2× or drink 5 glasses of water); render the `N` check circles inline in the habit row, with each circle independently checkable/undoable and the habit complete at `N/N`.
 - [ ] Quantitative / duration habits beyond the multi-check daily target.
 - [ ] Habit groups.
@@ -238,6 +238,17 @@ M1/M2 are implemented end-to-end, and the required M3 Watch/live-sync path is op
 
 Physical validation on 2026-10-02 is green for the main single-device/Watch paths: canonical signed ChickMark builds install on iPhone 13 (iOS 27.0.1) and Apple Watch SE (watchOS 26.6); all core UI scenarios pass on the physical iPhone, including largest Dynamic Type, the accessibility audit for contrast/clipping/hit regions/descriptions/traits, and the iOS 27 VoiceOver navigation test using real spoken output and focus order across Today → Manage → Detail; rolling local reminders were scheduled and delivered with the app terminated; persistent SwiftData state survived a full app restart; Watch→iPhone and iPhone→Watch completion sync both converged; a Watch action queued while the iPhone app was suspended was delivered after resume and duplicate delivery remained idempotent; signed App Group storage contains the live widget snapshot and 14-day horizon; and the CloudKit-enabled signed build opens its primary SwiftData container without falling back to local-only storage.
 
-**Post-submission development line:** until the first public release, visual/UX fixes stay on version 1.0.0 and only increment the build number. The current local follow-up is 1.0.0 (build 2); nothing from this line is submitted automatically.
+**Published baseline:** ChickMark 1.0 (build 1) passed App Review and is published in the App Store. It remains the compatibility baseline for storage, CloudKit, Watch and widget behavior.
 
-**Current release state:** ChickMark 1.0 (build 1) was submitted to App Review on 2026-10-03 and is now `WAITING_FOR_REVIEW`. The App Store build is VALID / APP_STORE_ELIGIBLE; RU/EN metadata and iPhone/Watch screenshots are uploaded; App Privacy is published as Data Not Collected; category, 4+ age rating, content rights, review details and the not-a-regulated-medical-device declaration are complete. Automatic release after approval is selected. Keep V1 binary and feature scope frozen while review is in progress. No CloudKit second-endpoint test blocks V1; multi-device CloudKit remains a post-release observation item. Small/large screen coverage remains simulator-only under the physical-device safety rule.
+**Current development line:** 1.1.0 (build 3). Scope is frozen around one-off reminders plus the first non-disruptive Today banner monetization. One-off reminders use their own local-only SwiftData configuration, so the published V1 habit/CloudKit store and production CloudKit schema remain unchanged. Multi-check habits, quantitative goals, advanced statistics and additional ad placements stay out of 1.1. Small/large screen coverage remains simulator-only under the physical-device safety rule.
+
+
+## V1.1 release scope
+
+- [x] Version line: 1.1.0 / build 3.
+- [x] Primary feature: one-off reminders, independent from habit streaks/statistics and stored in a separate local-only SwiftData configuration.
+- [x] Monetization: sticky Today banner only; do not add Progress/native ads in the first monetized release.
+- [x] One shared local-notification budget: recurring habits and one-off reminders compete by earliest fire date under the existing 60-request cap.
+- [ ] Generate final Xcode privacy report from the exact App Store archive and update App Store Privacy before submission.
+- [x] Refresh App Store screenshots only where the visible Today UI materially changed.
+- [x] Prepare RU/EN What's New copy and new review notes.

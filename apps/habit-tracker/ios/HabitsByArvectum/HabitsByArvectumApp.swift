@@ -32,6 +32,7 @@ struct HabitsByArvectumApp: App {
 
 #if DEBUG
         seedWatchSyncDemoIfRequested(container: container)
+        seedOneOffReminderDemoIfRequested(container: container)
         seedFlexibleWeeklyDemoIfRequested(container: container)
         seedReminderSmokeIfRequested(container: container)
         completeFirstIncompleteHabitIfRequested(container: container)
@@ -74,13 +75,26 @@ struct HabitsByArvectumApp: App {
         }
 #endif
 
-        let preferred = ModelConfiguration(
+        let habitsStoreSchema = Schema(
+            versionedSchema: HabitsSchemaV1.self
+        )
+        let oneOffStoreSchema = Schema([OneOffReminder.self])
+
+        let preferredHabits = ModelConfiguration(
             "Habits",
-            schema: schema,
+            schema: habitsStoreSchema,
             isStoredInMemoryOnly: isStoredInMemoryOnly,
             allowsSave: true,
             groupContainer: .none,
             cloudKitDatabase: cloudSyncEnabled ? .automatic : .none
+        )
+        let preferredOneOffs = ModelConfiguration(
+            "OneOffReminders",
+            schema: oneOffStoreSchema,
+            isStoredInMemoryOnly: isStoredInMemoryOnly,
+            allowsSave: true,
+            groupContainer: .none,
+            cloudKitDatabase: .none
         )
 
         do {
@@ -88,7 +102,7 @@ struct HabitsByArvectumApp: App {
                 container: try ModelContainer(
                     for: schema,
                     migrationPlan: HabitsMigrationPlan.self,
-                    configurations: [preferred]
+                    configurations: [preferredHabits, preferredOneOffs]
                 ),
                 storageUnavailable: false
             )
@@ -101,9 +115,17 @@ struct HabitsByArvectumApp: App {
         }
 
         if cloudSyncEnabled {
-            let localOnly = ModelConfiguration(
+            let localHabits = ModelConfiguration(
                 "Habits",
-                schema: schema,
+                schema: habitsStoreSchema,
+                isStoredInMemoryOnly: isStoredInMemoryOnly,
+                allowsSave: true,
+                groupContainer: .none,
+                cloudKitDatabase: .none
+            )
+            let localOneOffs = ModelConfiguration(
+                "OneOffReminders",
+                schema: oneOffStoreSchema,
                 isStoredInMemoryOnly: isStoredInMemoryOnly,
                 allowsSave: true,
                 groupContainer: .none,
@@ -115,7 +137,7 @@ struct HabitsByArvectumApp: App {
                     container: try ModelContainer(
                         for: schema,
                         migrationPlan: HabitsMigrationPlan.self,
-                        configurations: [localOnly]
+                        configurations: [localHabits, localOneOffs]
                     ),
                     storageUnavailable: false
                 )
@@ -134,9 +156,21 @@ struct HabitsByArvectumApp: App {
     private static func emergencyContainer(
         schema: Schema
     ) -> ContainerBootstrap {
-        let emergency = ModelConfiguration(
+        let habitsStoreSchema = Schema(
+            versionedSchema: HabitsSchemaV1.self
+        )
+        let oneOffStoreSchema = Schema([OneOffReminder.self])
+        let habitsRecovery = ModelConfiguration(
             "HabitsRecovery",
-            schema: schema,
+            schema: habitsStoreSchema,
+            isStoredInMemoryOnly: true,
+            allowsSave: true,
+            groupContainer: .none,
+            cloudKitDatabase: .none
+        )
+        let oneOffRecovery = ModelConfiguration(
+            "OneOffRemindersRecovery",
+            schema: oneOffStoreSchema,
             isStoredInMemoryOnly: true,
             allowsSave: true,
             groupContainer: .none,
@@ -148,7 +182,7 @@ struct HabitsByArvectumApp: App {
                 container: try ModelContainer(
                     for: schema,
                     migrationPlan: HabitsMigrationPlan.self,
-                    configurations: [emergency]
+                    configurations: [habitsRecovery, oneOffRecovery]
                 ),
                 storageUnavailable: true
             )
@@ -296,6 +330,34 @@ struct HabitsByArvectumApp: App {
         HabitDebugLog.emit(
             "HABITS_REMINDER_SMOKE_FIRE=" + fireDate.ISO8601Format()
         )
+    }
+
+    private func seedOneOffReminderDemoIfRequested(
+        container: ModelContainer
+    ) {
+        guard ProcessInfo.processInfo.arguments.contains(
+            "--seed-oneoff-demo"
+        ) else { return }
+
+        let context = ModelContext(container)
+        let existing = (try? context.fetch(
+            FetchDescriptor<OneOffReminder>()
+        )) ?? []
+        guard existing.isEmpty else { return }
+
+        let dueAt = Calendar.autoupdatingCurrent.date(
+            byAdding: .hour,
+            value: 2,
+            to: Date()
+        ) ?? Date().addingTimeInterval(7200)
+
+        context.insert(
+            OneOffReminder(
+                title: L10n.string("oneoff.demo.marathon"),
+                dueAt: dueAt
+            )
+        )
+        try? context.save()
     }
 
     private func seedFlexibleWeeklyDemoIfRequested(

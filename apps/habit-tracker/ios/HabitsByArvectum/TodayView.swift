@@ -10,8 +10,11 @@ struct TodayView: View {
     @Query(sort: \HabitCheckIn.day) private var checkIns: [HabitCheckIn]
     @Query(sort: \HabitSkip.day) private var skips: [HabitSkip]
     @Query(sort: \HabitPausePeriod.startedAt) private var pausePeriods: [HabitPausePeriod]
+    @Query(sort: \OneOffReminder.dueAt) private var oneOffReminders: [OneOffReminder]
 
     @State private var showingAddHabit = false
+    @State private var showingAddOneOffReminder = false
+    @State private var editingOneOffReminder: OneOffReminder?
     @State private var undoOffer: CompletionUndoOffer?
     @State private var deepLinkedHabitID: UUID?
     @State private var referenceDate = Date()
@@ -30,6 +33,10 @@ struct TodayView: View {
         )
     }
 
+    private var pendingOneOffReminders: [OneOffReminder] {
+        oneOffReminders.filter { !$0.isCompleted }
+    }
+
     private var resolvedCount: Int {
         activeToday.filter {
             isCompleted($0, on: referenceDate) ||
@@ -46,7 +53,9 @@ struct TodayView: View {
             ZStack {
                 Color.habitsBackground.ignoresSafeArea()
 
-                if habits.filter({ !$0.isArchived }).isEmpty {
+                if habits.filter({ !$0.isArchived }).isEmpty &&
+                    pendingOneOffReminders.isEmpty
+                {
                     firstHabitEmptyState
                 } else {
                     todayContent
@@ -66,13 +75,29 @@ struct TodayView: View {
                         )
                     }
 
-                    Button {
-                        showingAddHabit = true
+                    Menu {
+                        Button {
+                            showingAddHabit = true
+                        } label: {
+                            Label(
+                                L10n.string("add.menu.habit"),
+                                systemImage: "repeat"
+                            )
+                        }
+
+                        Button {
+                            showingAddOneOffReminder = true
+                        } label: {
+                            Label(
+                                L10n.string("add.menu.oneoff"),
+                                systemImage: "bell.badge"
+                            )
+                        }
                     } label: {
                         Image(systemName: "plus")
                             .font(.headline)
                     }
-                    .accessibilityLabel(L10n.string("habit.add.accessibility"))
+                    .accessibilityLabel(L10n.string("common.add"))
                 }
             }
             .safeAreaInset(edge: .bottom, spacing: 0) {
@@ -82,6 +107,12 @@ struct TodayView: View {
             }
             .sheet(isPresented: $showingAddHabit) {
                 AddHabitView()
+            }
+            .sheet(isPresented: $showingAddOneOffReminder) {
+                AddOneOffReminderView()
+            }
+            .sheet(item: $editingOneOffReminder) { reminder in
+                AddOneOffReminderView(reminder: reminder)
             }
             .navigationDestination(
                 isPresented: Binding(
@@ -162,17 +193,18 @@ struct TodayView: View {
     private var todayContent: some View {
         ScrollView {
             VStack(spacing: 14) {
-                if activeToday.isEmpty {
+                if activeToday.isEmpty && pendingOneOffReminders.isEmpty {
                     noHabitsTodayCard
                 } else {
-                    TodaySummary(
-                        completed: resolvedCount,
-                        total: activeToday.count
-                    )
+                    if !activeToday.isEmpty {
+                        TodaySummary(
+                            completed: resolvedCount,
+                            total: activeToday.count
+                        )
 
-                    LazyVStack(spacing: 10) {
-                        ForEach(activeToday) { habit in
-                            HabitRow(
+                        LazyVStack(spacing: 10) {
+                            ForEach(activeToday) { habit in
+                                HabitRow(
                                 habit: habit,
                                 completed: isCompleted(
                                     habit,
@@ -205,11 +237,16 @@ struct TodayView: View {
                                 onToggle: {
                                     toggle(habit, on: referenceDate)
                                 },
-                                onSkip: {
-                                    toggleSkip(habit, on: referenceDate)
-                                }
-                            )
+                                    onSkip: {
+                                        toggleSkip(habit, on: referenceDate)
+                                    }
+                                )
+                            }
                         }
+                    }
+
+                    if !pendingOneOffReminders.isEmpty {
+                        oneOffReminderSection
                     }
                 }
             }
@@ -223,14 +260,48 @@ struct TodayView: View {
         } description: {
             Text(L10n.string("today.empty.description"))
         } actions: {
-            Button(L10n.string("habit.create")) {
-                showingAddHabit = true
+            VStack(spacing: 10) {
+                Button(L10n.string("habit.create")) {
+                    showingAddHabit = true
+                }
+                .buttonStyle(.borderedProminent)
+                .tint(Color.arvectumMint)
+                .foregroundStyle(Color.arvectumNavy)
+
+                Button(L10n.string("add.menu.oneoff")) {
+                    showingAddOneOffReminder = true
+                }
+                .buttonStyle(.bordered)
             }
-            .buttonStyle(.borderedProminent)
-            .tint(Color.arvectumMint)
-            .foregroundStyle(Color.arvectumNavy)
         }
         .padding()
+    }
+
+    private var oneOffReminderSection: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Text(L10n.string("oneoff.section"))
+                .font(.subheadline.weight(.semibold))
+                .foregroundStyle(Color.habitsSecondaryText)
+                .padding(.horizontal, 4)
+                .accessibilityAddTraits(.isHeader)
+
+            LazyVStack(spacing: 10) {
+                ForEach(pendingOneOffReminders) { reminder in
+                    OneOffReminderRow(
+                        reminder: reminder,
+                        onComplete: {
+                            completeOneOffReminder(reminder)
+                        },
+                        onEdit: {
+                            editingOneOffReminder = reminder
+                        },
+                        onDelete: {
+                            deleteOneOffReminder(reminder)
+                        }
+                    )
+                }
+            }
+        }
     }
 
     private var noHabitsTodayCard: some View {
@@ -248,6 +319,21 @@ struct TodayView: View {
         .frame(maxWidth: .infinity)
         .padding(24)
         .background(Color.habitsSurface, in: RoundedRectangle(cornerRadius: 20))
+    }
+
+    private func completeOneOffReminder(_ reminder: OneOffReminder) {
+        guard !reminder.isCompleted else { return }
+        reminder.isCompleted = true
+        reminder.completedAt = .now
+        try? modelContext.save()
+        UINotificationFeedbackGenerator().notificationOccurred(.success)
+        HabitReminderCoordinator.shared.dataDidChange()
+    }
+
+    private func deleteOneOffReminder(_ reminder: OneOffReminder) {
+        modelContext.delete(reminder)
+        try? modelContext.save()
+        HabitReminderCoordinator.shared.dataDidChange()
     }
 
     private func handleDeepLink(_ url: URL) {
@@ -291,6 +377,11 @@ struct TodayView: View {
 
         if arguments.contains("--debug-open-add-habit") {
             showingAddHabit = true
+            return
+        }
+
+        if arguments.contains("--debug-open-add-oneoff") {
+            showingAddOneOffReminder = true
             return
         }
 
@@ -480,6 +571,94 @@ struct TodayView: View {
         if changed {
             try? modelContext.save()
         }
+    }
+}
+
+private struct OneOffReminderRow: View {
+    let reminder: OneOffReminder
+    let onComplete: () -> Void
+    let onEdit: () -> Void
+    let onDelete: () -> Void
+
+    private var dueText: String {
+        let calendar = Calendar.autoupdatingCurrent
+        let time = reminder.dueAt.formatted(
+            date: .omitted,
+            time: .shortened
+        )
+
+        if calendar.isDateInToday(reminder.dueAt) {
+            return L10n.format("oneoff.today.format", time)
+        }
+        if calendar.isDateInTomorrow(reminder.dueAt) {
+            return L10n.format("oneoff.tomorrow.format", time)
+        }
+        return reminder.dueAt.formatted(
+            date: .abbreviated,
+            time: .shortened
+        )
+    }
+
+    var body: some View {
+        HStack(spacing: 12) {
+            Image(systemName: "bell.fill")
+                .font(.body.weight(.semibold))
+                .foregroundStyle(Color.arvectumOrange)
+                .frame(width: 40, height: 40)
+                .background(
+                    Color.arvectumOrange.opacity(0.13),
+                    in: Circle()
+                )
+                .accessibilityHidden(true)
+
+            VStack(alignment: .leading, spacing: 3) {
+                Text(reminder.title)
+                    .font(.body.weight(.semibold))
+                    .foregroundStyle(.primary)
+
+                Text(dueText)
+                .font(.caption)
+                .foregroundStyle(Color.habitsSecondaryText)
+            }
+
+            Spacer(minLength: 4)
+
+            Menu {
+                Button(action: onEdit) {
+                    Label(
+                        L10n.string("oneoff.edit"),
+                        systemImage: "pencil"
+                    )
+                }
+                Button(role: .destructive, action: onDelete) {
+                    Label(
+                        L10n.string("oneoff.delete"),
+                        systemImage: "trash"
+                    )
+                }
+            } label: {
+                Image(systemName: "ellipsis")
+                    .frame(width: 44, height: 44)
+                    .contentShape(Rectangle())
+            }
+            .accessibilityLabel(L10n.string("oneoff.edit"))
+
+            Button(action: onComplete) {
+                Image(systemName: "circle")
+                    .font(.system(size: 28))
+                    .foregroundStyle(Color.habitsSecondaryText)
+                    .frame(width: 44, height: 44)
+                    .contentShape(Rectangle())
+            }
+            .buttonStyle(.plain)
+            .accessibilityLabel(L10n.string("oneoff.complete"))
+        }
+        .padding(.horizontal, 14)
+        .padding(.vertical, 12)
+        .background(
+            Color.habitsSurface,
+            in: RoundedRectangle(cornerRadius: 20)
+        )
     }
 }
 

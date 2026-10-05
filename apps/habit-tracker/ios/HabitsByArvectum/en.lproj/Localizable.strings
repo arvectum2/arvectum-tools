@@ -46,7 +46,7 @@
 "reminder.notification.body" = "Time to complete your habit";
 
 "notification.denied.title" = "Notifications are off";
-"notification.denied.message" = "Allow notifications for Habits in iPhone Settings to enable reminders.";
+"notification.denied.message" = "Allow notifications for ChickMark in iPhone Settings to enable reminders.";
 "notification.openSettings" = "Settings";
 "notification.action.complete" = "Done";
 "notification.action.skip" = "Skip today";
@@ -56,6 +56,7 @@
 "common.save" = "Save";
 "common.ok" = "OK";
 "common.undo" = "Undo";
+"common.add" = "Add";
 "common.delete" = "Delete";
 
 "quick.water" = "Water";
@@ -123,3 +124,21 @@
 "shortcut.undo.description" = "Mark one of today's habits as incomplete.";
 "shortcut.undo.success" = "Marked %@ incomplete.";
 "shortcut.notDue" = "That habit is not due today.";
+
+"add.menu.habit" = "New habit";
+"add.menu.oneoff" = "One-time reminder";
+"oneoff.section" = "Reminders";
+"oneoff.new.title" = "New reminder";
+"oneoff.edit.title" = "Edit reminder";
+"oneoff.title.placeholder" = "What should I remind you about?";
+"oneoff.when" = "When";
+"oneoff.dateTime" = "Date and time";
+"oneoff.hint" = "This reminder fires once and does not affect habit streaks or statistics.";
+"oneoff.notification.body" = "One-time reminder";
+"oneoff.notification.denied.message" = "Allow notifications for ChickMark in iPhone Settings to receive one-time reminders.";
+"oneoff.complete" = "Mark complete";
+"oneoff.edit" = "Edit";
+"oneoff.delete" = "Delete reminder";
+"oneoff.demo.marathon" = "Buy marathon slot";
+"oneoff.today.format" = "Today, %@";
+"oneoff.tomorrow.format" = "Tomorrow, %@";

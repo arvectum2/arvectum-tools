@@ -3,6 +3,7 @@ import UserNotifications
 
 enum HabitReminderScheduler {
     private static let prefix = "habit-reminder"
+    private static let oneOffPrefix = "one-off-reminder"
     static let planningDayCount = 60
     static let maxPendingRequests = 60
 
@@ -17,6 +18,18 @@ enum HabitReminderScheduler {
         let habit: Habit
         let fireDate: Date
         let dayKey: String
+    }
+
+    private enum ManagedCandidateKind {
+        case habit(Habit, dayKey: String)
+        case oneOff(OneOffReminder)
+    }
+
+    private struct ManagedCandidate {
+        let fireDate: Date
+        let priority: Int
+        let createdAt: Date
+        let kind: ManagedCandidateKind
     }
 
     static func ensureAuthorization() async -> Bool {
@@ -170,6 +183,7 @@ enum HabitReminderScheduler {
         habits: [Habit],
         checkIns: [HabitCheckIn],
         skips: [HabitSkip],
+        oneOffReminders: [OneOffReminder] = [],
         referenceDate: Date = .now,
         calendar: Calendar = .autoupdatingCurrent
     ) async -> Bool {
@@ -177,36 +191,84 @@ enum HabitReminderScheduler {
         await removeAllManagedRequests(center: center)
 
         let eligibleHabits = habits.filter(shouldSchedule)
-        guard !eligibleHabits.isEmpty else { return true }
+        let pendingOneOffs = oneOffReminders.filter {
+            !$0.isCompleted && $0.dueAt > referenceDate
+        }
+
+        guard !eligibleHabits.isEmpty || !pendingOneOffs.isEmpty else {
+            return true
+        }
         guard await isAuthorized() else { return false }
 
-        let plan = reminderPlan(
+        let habitCandidates = reminderPlan(
             habits: eligibleHabits,
             checkIns: checkIns,
             skips: skips,
             from: referenceDate,
+            limit: maxPendingRequests,
             calendar: calendar
-        )
-        let habitsByID = Dictionary(
-            uniqueKeysWithValues: eligibleHabits.map { ($0.id, $0) }
-        )
+        ).compactMap { item -> ManagedCandidate? in
+            guard let habit = eligibleHabits.first(where: {
+                $0.id == item.habitID
+            }) else { return nil }
+            return ManagedCandidate(
+                fireDate: item.fireDate,
+                priority: 1,
+                createdAt: habit.createdAt,
+                kind: .habit(habit, dayKey: item.dayKey)
+            )
+        }
+
+        let oneOffCandidates = pendingOneOffs.map {
+            ManagedCandidate(
+                fireDate: $0.dueAt,
+                priority: 0,
+                createdAt: $0.createdAt,
+                kind: .oneOff($0)
+            )
+        }
+
+        let plan = (habitCandidates + oneOffCandidates)
+            .sorted {
+                if $0.fireDate != $1.fireDate {
+                    return $0.fireDate < $1.fireDate
+                }
+                if $0.priority != $1.priority {
+                    return $0.priority < $1.priority
+                }
+                return $0.createdAt < $1.createdAt
+            }
+            .prefix(maxPendingRequests)
 
         for item in plan {
-            guard let habit = habitsByID[item.habitID] else { continue }
-
             var components = calendar.dateComponents(
                 [.year, .month, .day, .hour, .minute],
                 from: item.fireDate
             )
             components.calendar = nil
-            components.timeZone = nil
+
+            let identifier: String
+            let content: UNMutableNotificationContent
+
+            switch item.kind {
+            case .habit(let habit, let dayKey):
+                // Recurring habits follow the device's current local wall time.
+                components.timeZone = nil
+                identifier = requestIdentifier(
+                    habitID: habit.id,
+                    dayKey: dayKey
+                )
+                content = notificationContent(for: habit)
+            case .oneOff(let reminder):
+                // A one-off reminder represents one concrete moment.
+                components.timeZone = calendar.timeZone
+                identifier = oneOffRequestIdentifier(reminderID: reminder.id)
+                content = oneOffNotificationContent(for: reminder)
+            }
 
             let request = UNNotificationRequest(
-                identifier: requestIdentifier(
-                    habitID: item.habitID,
-                    dayKey: item.dayKey
-                ),
-                content: notificationContent(for: habit),
+                identifier: identifier,
+                content: content,
                 trigger: UNCalendarNotificationTrigger(
                     dateMatching: components,
                     repeats: false
@@ -228,7 +290,9 @@ enum HabitReminderScheduler {
     ) async {
         let ids = await center.pendingNotificationRequests()
             .map(\.identifier)
-            .filter { $0.hasPrefix(prefix) }
+            .filter {
+                $0.hasPrefix(prefix) || $0.hasPrefix(oneOffPrefix)
+            }
 
         if !ids.isEmpty {
             center.removePendingNotificationRequests(withIdentifiers: ids)
@@ -249,11 +313,31 @@ enum HabitReminderScheduler {
         return content
     }
 
+    static func oneOffNotificationContent(
+        for reminder: OneOffReminder
+    ) -> UNMutableNotificationContent {
+        let content = UNMutableNotificationContent()
+        content.title = reminder.title
+        content.body = L10n.string("oneoff.notification.body")
+        content.sound = .default
+        content.categoryIdentifier =
+            OneOffReminderNotificationActions.categoryIdentifier
+        content.userInfo = [
+            OneOffReminderNotificationActions.reminderIDKey:
+                reminder.id.uuidString
+        ]
+        return content
+    }
+
     static func requestIdentifier(
         habitID: UUID,
         dayKey: String
     ) -> String {
         [prefix, habitID.uuidString, dayKey].joined(separator: "-")
+    }
+
+    static func oneOffRequestIdentifier(reminderID: UUID) -> String {
+        [oneOffPrefix, reminderID.uuidString].joined(separator: "-")
     }
 
 #if DEBUG
@@ -265,7 +349,10 @@ enum HabitReminderScheduler {
         let center = UNUserNotificationCenter.current()
         let settings = await center.notificationSettings()
         let requests = await center.pendingNotificationRequests()
-            .filter { $0.identifier.hasPrefix(prefix) }
+            .filter {
+                $0.identifier.hasPrefix(prefix) ||
+                $0.identifier.hasPrefix(oneOffPrefix)
+            }
             .sorted { $0.identifier < $1.identifier }
 
         HabitDebugLog.emit(
@@ -277,7 +364,10 @@ enum HabitReminderScheduler {
         )
 
         let delivered = await center.deliveredNotifications()
-            .filter { $0.request.identifier.hasPrefix(prefix) }
+            .filter {
+                $0.request.identifier.hasPrefix(prefix) ||
+                $0.request.identifier.hasPrefix(oneOffPrefix)
+            }
             .sorted { $0.request.identifier < $1.request.identifier }
         HabitDebugLog.emit(
             "HABITS_DELIVERED_COUNT=" + String(delivered.count)

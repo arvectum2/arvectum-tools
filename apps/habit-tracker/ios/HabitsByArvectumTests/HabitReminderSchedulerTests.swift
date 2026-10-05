@@ -16,6 +16,33 @@ final class HabitReminderSchedulerTests: XCTestCase {
         )
     }
 
+    func testOneOffReminderContentCarriesCompletionActionMetadata() {
+        let reminder = OneOffReminder(
+            title: "Buy marathon slot",
+            dueAt: .now.addingTimeInterval(3600)
+        )
+        let content = HabitReminderScheduler.oneOffNotificationContent(
+            for: reminder
+        )
+
+        XCTAssertEqual(
+            content.categoryIdentifier,
+            OneOffReminderNotificationActions.categoryIdentifier
+        )
+        XCTAssertEqual(
+            content.userInfo[
+                OneOffReminderNotificationActions.reminderIDKey
+            ] as? String,
+            reminder.id.uuidString
+        )
+        XCTAssertEqual(
+            HabitReminderScheduler.oneOffRequestIdentifier(
+                reminderID: reminder.id
+            ),
+            "one-off-reminder-" + reminder.id.uuidString
+        )
+    }
+
     func testFixedScheduleReminderIsEligible() {
         let habit = Habit(
             name: "Reading",
