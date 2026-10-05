@@ -7,7 +7,16 @@ enum HabitAdUnitIDs {
 #if DEBUG
         return "demo-banner-yandex"
 #else
-        return "R-M-20183085-1"
+        guard
+            let raw = Bundle.main.object(
+                forInfoDictionaryKey: "YandexBannerAdUnitID"
+            ) as? String
+        else {
+            return nil
+        }
+
+        let value = raw.trimmingCharacters(in: .whitespacesAndNewlines)
+        return value.isEmpty ? nil : value
 #endif
     }
 }

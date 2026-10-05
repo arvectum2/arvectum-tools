@@ -47,6 +47,7 @@ targets:
               - habits-arvectum
         UIBackgroundModes:
           - remote-notification
+        YandexBannerAdUnitID: "R-M-20183085-1"
         SKAdNetworkItems:
           - SKAdNetworkIdentifier: zq492l623r.skadnetwork
           - SKAdNetworkIdentifier: cstr6suwn9.skadnetwork
