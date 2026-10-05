@@ -52,7 +52,7 @@ final class NativeAdSession: ObservableObject {
 
 enum AdConsentStore {
     private static let key = "arvectum.ads.user-consent"
-    static let privacyPolicyURL = URL(string: "https://arvectum.com/photo-pod-razmer-privacy.html")!
+    static let privacyPolicyURL = URL(string: "https://arvectum.com/privacy")!
 
     static var storedConsent: Bool? {
         guard UserDefaults.standard.object(forKey: key) != nil else { return nil }
