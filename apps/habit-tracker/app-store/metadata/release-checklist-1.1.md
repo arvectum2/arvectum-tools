@@ -32,7 +32,9 @@
 - [x] Verify Privacy Policy URL is https://arvectum.com/privacy.
 - [x] Apple Distribution IPA exported: `/Users/master/ChickMarkRelease/1.1.0-build3-final-594d8c1/export/HabitsByArvectum.ipa`.
 - [x] IPA SHA-256: `726c9599c982e387e76c0a1ab4b0e5d39cd55ca727056aa5c3b911017037d345`.
-- [ ] Upload build to App Store Connect.
+- [x] Upload build to App Store Connect.
+- [x] Apple delivery UUID: `29ca941d-5639-4f7a-80d9-580887ddfcfc`.
+- [x] App Store Connect processing completed: `VALID`, `APP_STORE_ELIGIBLE`, build 3 is present in App Store Connect.
 
 ## Metadata
 - [x] RU/EN descriptions include one-time reminders and completion-relative intervals.
