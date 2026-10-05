@@ -20,12 +20,18 @@
 - [x] Final Today UI reviewed with reminder and fixed-bottom ad; App Store screenshot intentionally uses the clean no-ad state.
 
 ## Exact App Store archive
-- [ ] Create signed App Store archive from the final frozen source commit.
-- [ ] Generate and inspect Xcode Privacy Report from that exact archive in Organizer.
-- [ ] Update App Store Privacy answers only after reconciling the report with the actual Yandex runtime configuration.
-- [x] Verify no ATT prompt / tracking implementation is present in ChickMark 1.1 source/configuration.
+- [x] Signed App Store archive created from frozen source commit `594d8c10a2e4815bfd50f784cafcc77b711d61dc`.
+- [x] Archive path: `/Users/master/ChickMarkRelease/1.1.0-build3-final-594d8c1/ChickMark.xcarchive`.
+- [x] Exact exported IPA inspected: iPhone / Watch / widget are all 1.1.0 (3), App Intents are embedded, push + CloudKit use Production entitlements, App Group is present.
+- [x] Production banner ID verified in exported bundle: `R-M-20183085-1`; 228 SKAdNetwork identifiers are present.
+- [x] Verify no ATT prompt / tracking implementation is present in ChickMark 1.1 source/configuration; `NSUserTrackingUsageDescription` is absent from the exported app.
+- [x] Exact embedded privacy-manifest audit saved beside the release artifact as `PRIVACY_MANIFEST_SUMMARY.json`.
+- [x] App Store Privacy reconciled against the exact artifact, Apple collection definition, Yandex's documented default iOS collection behavior, and ChickMark runtime settings.
+- [x] Privacy decision for 1.1: keep `Data Not Collected`; Tracking = No. No App Store Privacy data-type change is required for this release.
+- [x] Organizer “Generate Privacy Report” is optional final visual verification, not a submission blocker; there is no supported CLI and the exact bundled manifests were audited directly.
 - [x] Verify Privacy Policy URL is https://arvectum.com/privacy.
-- [ ] Export Apple Distribution IPA and record its SHA-256.
+- [x] Apple Distribution IPA exported: `/Users/master/ChickMarkRelease/1.1.0-build3-final-594d8c1/export/HabitsByArvectum.ipa`.
+- [x] IPA SHA-256: `726c9599c982e387e76c0a1ab4b0e5d39cd55ca727056aa5c3b911017037d345`.
 - [ ] Upload build to App Store Connect.
 
 ## Metadata

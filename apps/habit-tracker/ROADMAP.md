@@ -217,7 +217,7 @@ Core habit tracking stays free. Advertising is the planned monetization model, b
 - [x] Initial eligibility gate implemented: 3 full days + 5 cold launches + 3 successful check-offs.
 - [x] Yandex Mobile Ads sticky banner integrated with production block `R-M-20183085-1`; required SKAdNetwork entries are bundled, test creative loads on iOS 27, and banner height follows the SDK content size.
 - [x] `app-ads.txt` for the shared Arvectum domain already matches the current Yandex/RСЯ seller list, so ChickMark does not need a second file.
-- [ ] Before submitting the first ad-enabled build, generate the privacy report from the exact signed archive and update App Store Privacy for the Yandex Mobile Ads SDK.
+- [x] First ad-enabled build privacy audit completed against the exact signed/exported artifact, embedded SDK manifests, Yandex documentation and runtime settings; App Store Privacy remains Data Not Collected, Tracking = No.
 - [ ] Validate thresholds only after the core loop is stable.
 - [ ] Test retention impact before increasing ad exposure.
 
@@ -235,7 +235,7 @@ Core habit tracking stays free. Advertising is the planned monetization model, b
 
 ## Current checkpoint
 
-M1/M2 are implemented end-to-end, and the required M3 Watch/live-sync path is operational: local storage → minimal create/edit → reminders with Complete/Skip quick actions → Today → history/skip/pause/archive → widgets → Watch. The simulator control suite has 100 unit tests plus 11 XCUITest methods: 10 run on iOS 26.5 and the iOS-27-only VoiceOver navigation test is skipped there by design. The suite includes the permanent accessibility audit across Today → Manage → Detail → Create alongside timezone/DST, mutation conflicts, flexible weekly goals, notification actions, widgets, localization, persistence and explicit schema versioning.
+M1/M2 are implemented end-to-end, and the required M3 Watch/live-sync path is operational: local storage → minimal create/edit → reminders with Complete/Skip quick actions → Today → history/skip/pause/archive → widgets → Watch. The simulator control suite has 109 unit/integration tests plus 12 XCUITest methods: 11 run on iOS 26.5 and the iOS-27-only VoiceOver navigation test is skipped there by design. The suite includes the permanent accessibility audit across Today → Manage → Detail → Create alongside timezone/DST, mutation conflicts, flexible weekly goals, notification actions, widgets, localization, persistence and explicit schema versioning.
 
 Physical validation on 2026-10-02 is green for the main single-device/Watch paths: canonical signed ChickMark builds install on iPhone 13 (iOS 27.0.1) and Apple Watch SE (watchOS 26.6); all core UI scenarios pass on the physical iPhone, including largest Dynamic Type, the accessibility audit for contrast/clipping/hit regions/descriptions/traits, and the iOS 27 VoiceOver navigation test using real spoken output and focus order across Today → Manage → Detail; rolling local reminders were scheduled and delivered with the app terminated; persistent SwiftData state survived a full app restart; Watch→iPhone and iPhone→Watch completion sync both converged; a Watch action queued while the iPhone app was suspended was delivered after resume and duplicate delivery remained idempotent; signed App Group storage contains the live widget snapshot and 14-day horizon; and the CloudKit-enabled signed build opens its primary SwiftData container without falling back to local-only storage.
 
@@ -250,6 +250,6 @@ Physical validation on 2026-10-02 is green for the main single-device/Watch path
 - [x] Primary feature: one-off reminders, independent from habit streaks/statistics and stored in a separate local-only SwiftData configuration.
 - [x] Monetization: sticky Today banner only; do not add Progress/native ads in the first monetized release.
 - [x] One shared local-notification budget: one-off reminders reserve slots first so explicit future commitments cannot be crowded out; recurring habit reminders fill the remaining capacity under the existing 60-request cap.
-- [ ] Generate final Xcode privacy report from the exact App Store archive and update App Store Privacy before submission.
+- [x] Audit the exact App Store archive/IPA privacy manifests and reconcile App Store Privacy; final 1.1 decision is Data Not Collected, Tracking = No under the current Yandex runtime configuration.
 - [x] Refresh App Store screenshots only where the visible Today UI materially changed.
 - [x] Prepare RU/EN What's New copy and new review notes.

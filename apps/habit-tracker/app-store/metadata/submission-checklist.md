@@ -78,7 +78,7 @@ Canonical release artifact:
 ## Next
 
 - [ ] Do not modify/re-upload build 1 while it is under review unless Apple requests a change
-- [ ] Before the first ad-enabled build, update App Privacy from "Data Not Collected" using the Xcode privacy report from that exact archive
+- [x] First ad-enabled build re-audited against the exact IPA, embedded privacy manifests, Yandex documentation and runtime settings; App Privacy remains "Data Not Collected", Tracking = No
 - [x] Canonical Privacy Policy URL for all Arvectum apps: https://arvectum.com/privacy
 - [ ] Watch App Store Connect / Apple review email for state changes or reviewer questions
 - [ ] If approved, verify automatic release and public App Store listing

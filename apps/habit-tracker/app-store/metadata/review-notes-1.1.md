@@ -36,7 +36,7 @@ Version 1.1 also includes Yandex Mobile Ads SDK for a single sticky banner at th
 - The ad is displayed in a dedicated bottom safe-area slot and does not appear between habits or cover the scrollable content.
 - Privacy Policy URL: https://arvectum.com/privacy
 
-The App Store Privacy questionnaire for this version is reconciled against the privacy report from the exact archive submitted.
+The App Store Privacy questionnaire for this version was re-audited against the exact exported IPA, its embedded privacy manifests, Yandex Mobile Ads documentation, and ChickMark runtime settings.
 
 5. BUSINESS MODEL
 ChickMark remains free. There is no In-App Purchase, subscription, premium tier, paid unlock, external checkout, or paid digital content. Version 1.1 is monetized by the Today banner described above.

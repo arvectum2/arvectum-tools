@@ -34,29 +34,29 @@ Reasoning for the release record:
 
 If ads, analytics, accounts or a server backend are added later, update App Privacy before that version ships.
 
-### Next ad-enabled release
+### Version 1.1 — ad-enabled release
 
-Do **not** reuse the V1 "Data Not Collected" answer for the first build that contains Yandex Mobile Ads.
+Version 1.1 contains Yandex Mobile Ads 8.5.0, so the V1 privacy answer was re-audited against the exact exported IPA, embedded SDK privacy manifests, Yandex's current iOS App Privacy documentation, and the runtime configuration.
 
-For the current Yandex Mobile Ads 8.5.0 integration, the embedded privacy manifests in the built app declare the following categories across YandexMobileAds and its transitive AppMetrica/KSCrash components:
+For build 1.1.0 (3) select:
+- No, we do not collect data from this app.
+- Data used for tracking: No.
+- Tracking / ATT: Not used.
+- Advertising SDK: Yandex Mobile Ads 8.5.0.
+- Developer account/sign-in: None.
+- Privacy Policy URL: https://arvectum.com/privacy.
 
-- Device ID;
-- Advertising Data;
-- Coarse Location;
-- Product Interaction;
-- Purchase History;
-- Crash Data;
-- Performance Data;
-- Other Diagnostic Data;
-- Other Data Types.
+Why "Data Not Collected" remains accurate for this build:
+- ChickMark disables Yandex location tracking;
+- ChickMark does not request ATT/IDFA;
+- Yandex documents Device ID collection as conditional on the user granting IDFA permission;
+- Yandex documents precise/coarse location collection as conditional on location being enabled and permission granted;
+- Yandex documents Product Interaction, Advertising Data, crash/performance/diagnostic data and the other App Store categories as not collected by the Mobile Ads SDK in its default configuration;
+- ChickMark does not send habit names, check-ins or one-time reminder content to the advertising SDK.
 
-The exact App Store Connect answers for that release must be reconciled against the Xcode privacy report from the **exact archive being submitted** and the runtime configuration. Current ChickMark configuration disables Yandex precise-location tracking and does not request ATT/IDFA; habit names, check-ins and other user content are not supplied to the advertising SDK for targeting.
+The embedded dependency privacy manifests remain part of the audit because they describe capabilities bundled by Yandex/AppMetrica/KSCrash. They are not, by themselves, proof that every declared optional collection path runs in ChickMark.
 
-At minimum, before submitting the first ad-enabled build:
-- change the App Privacy record away from "Data Not Collected";
-- verify every category/purpose/linked/tracking flag shown by the final privacy report;
-- keep Tracking/ATT set to No unless the runtime behavior is intentionally changed;
-- keep Privacy Policy URL set to https://arvectum.com/privacy.
+If ATT/IDFA, location, analytics, mediation, SDK version, consent behavior or any first-party telemetry changes later, re-audit App Privacy before that version ships.
 
 ## Export compliance
 
