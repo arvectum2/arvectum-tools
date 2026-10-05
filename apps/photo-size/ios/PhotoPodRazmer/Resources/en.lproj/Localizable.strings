@@ -101,3 +101,20 @@
 "Печатать без масштабирования" = "Print at 100% scale";
 "Не получилось подготовить лист для печати." = "Could not prepare the print sheet.";
 "Дополнительно" = "Advanced";
+
+"Реклама и конфиденциальность" = "Ads & Privacy";
+"Фото обрабатываются только на устройстве. Для показа рекламы используется Yandex Mobile Ads. Вы можете разрешить рекламному SDK обработку технических данных или отказаться. Геолокация отключена, разрешение App Tracking Transparency приложение не запрашивает." = "Photos are processed only on your device. Yandex Mobile Ads is used to display ads. You can allow the advertising SDK to process technical data or decline. Location is disabled and the app does not request App Tracking Transparency permission.";
+"Политика конфиденциальности" = "Privacy Policy";
+"Разрешить для рекламы" = "Allow for ads";
+"Отказаться" = "Decline";
+
+
+"Реклама в приложении" = "Ads in the app";
+"Разрешить обработку данных" = "Allow data processing";
+"Не разрешать обработку данных" = "Do not allow data processing";
+"«Фото под размер» бесплатно и поддерживается рекламой. Реклама будет показываться независимо от вашего выбора. Вы можете разрешить или не разрешить Yandex Mobile Ads обработку данных для рекламы. Если разрешите, iOS может отдельно спросить разрешение на отслеживание. При отказе реклама останется, но без доступа к рекламному идентификатору. Фото обрабатываются только на устройстве, геолокация отключена." = "Photo Resize is free and supported by ads. Ads are shown regardless of your choice. You can allow or decline Yandex Mobile Ads data processing for advertising. If you allow it, iOS may separately ask for tracking permission. If you decline tracking, ads remain but the advertising identifier is unavailable. Photos are processed only on your device and location is disabled.";
+
+"Файлы" = "Files";
+
+"Изменить настройки" = "Edit settings";
+"На главный экран" = "Home";

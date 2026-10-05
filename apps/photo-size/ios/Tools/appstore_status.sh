@@ -2,7 +2,8 @@
 set -euo pipefail
 source "${ARVECTUM_ASC_CONFIG:-$HOME/.config/arvectum/appstore-connect.env}"
 KEY_DIR="${ASC_KEY_DIR:-$HOME/.appstoreconnect/private_keys}"
-ALTOOL="/Applications/Xcode-26.6.0.app/Contents/SharedFrameworks/ContentDelivery.framework/Versions/A/Resources/altool"
+XCODE_APP="$(dirname "$(dirname "$(xcode-select -p)")")"
+ALTOOL="$XCODE_APP/Contents/SharedFrameworks/ContentDelivery.framework/Versions/A/Resources/altool"
 export API_PRIVATE_KEYS_DIR="$KEY_DIR"
 tmp=$(mktemp)
 "$ALTOOL" --generate-jwt --apiKey "$ASC_KEY_ID" --apiIssuer "$ASC_ISSUER_ID" >/dev/null 2>"$tmp"

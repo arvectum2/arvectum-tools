@@ -72,6 +72,7 @@ struct PassportCropView: View {
                         .frame(height: 50)
                 }
                 .buttonStyle(.plain)
+                .accessibilityIdentifier("document-crop-confirm")
                 .foregroundStyle(Color.arvectumPrimaryText)
                 .background(Color.arvectumMint, in: RoundedRectangle(cornerRadius: 16))
             }

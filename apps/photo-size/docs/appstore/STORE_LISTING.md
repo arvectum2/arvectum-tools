@@ -12,7 +12,7 @@
 - Copyright: **© 2026 ООО «Арвектум»**
 - Support URL: https://arvectum.com
 - Marketing URL: https://arvectum.com
-- Privacy Policy URL: https://github.com/arvectum2/arvectum-tools/blob/main/PRIVACY.md
+- Privacy Policy URL: https://arvectum.com/photo-pod-razmer-privacy.html
 
 ## Russian localization
 
@@ -64,7 +64,7 @@ by Arvectum
 
 UTF-8 size: 100 bytes (App Store limit: 100 bytes).
 
-## Planned 0.5.0 What's New
+## Planned 0.5.1 What's New
 
 Стало проще подготовить фото под конкретные требования:
 - точный размер в пикселях W×H и экспорт JPEG / PNG / HEIC;

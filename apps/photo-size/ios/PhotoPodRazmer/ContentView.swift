@@ -23,13 +23,18 @@ struct ContentView: View {
     @State private var exportDocument = ExportDocument(data: Data())
     @State private var exportFilename = "foto.jpg"
     @State private var shareURL: URL?
+    @State private var showingAdPrivacySettings = false
+    @StateObject private var mainNativeAdSession = NativeAdSession()
 
     var body: some View {
         ZStack {
             Color.arvectumBackground.ignoresSafeArea()
 
-            VStack(spacing: model.result == nil ? 10 : 6) {
-                BrandHeader()
+            VStack(spacing: model.result == nil ? 6 : 6) {
+                BrandHeader(
+                    showHome: model.result != nil,
+                    onHome: model.backToSelection
+                )
 
                 if model.result == nil {
                     ModeSelector(mode: model.mode) { model.setMode($0) }
@@ -50,19 +55,31 @@ struct ContentView: View {
                     }
                 } else {
                     ScrollView(showsIndicators: false) {
-                        MainTaskCard(pickerItem: $pickerItem)
+                        VStack(spacing: 4) {
+                            MainTaskCard(pickerItem: $pickerItem)
+                            MainScreenNativeAdSlot(session: mainNativeAdSession)
+                        }
                     }
                 }
 
-                Text("Arvectum.com")
-                    .font(.caption.weight(.semibold))
-                    .foregroundStyle(.secondary)
-                    .tracking(0.5)
-                    .frame(height: model.result == nil ? 24 : 16)
+                HStack(spacing: 6) {
+                    Text("Arvectum.com")
+                    Text("·")
+                    Button(tr("Реклама и конфиденциальность")) {
+                        showingAdPrivacySettings = true
+                    }
+                    .buttonStyle(.plain)
+                }
+                .font(.caption.weight(.semibold))
+                .foregroundStyle(.secondary)
+                .tracking(0.3)
+                .frame(height: model.result == nil ? 24 : 16)
+                .accessibilityElement(children: .contain)
+                .accessibilityIdentifier("app-footer")
             }
             .padding(.horizontal, 14)
-            .padding(.top, model.result == nil ? 8 : 4)
-            .padding(.bottom, model.result == nil ? 4 : 0)
+            .padding(.top, 4)
+            .padding(.bottom, 0)
 
             if model.isWorking {
                 Color.black.opacity(0.12).ignoresSafeArea()
@@ -72,6 +89,17 @@ struct ContentView: View {
                     .padding(24)
                     .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 18))
             }
+        }
+        .onAppear {
+            mainNativeAdSession.prefetch()
+        }
+        .sheet(isPresented: $showingAdPrivacySettings) {
+            AdConsentSheet { value in
+                AdSDK.setUserConsent(value)
+                showingAdPrivacySettings = false
+            }
+            .presentationDetents([.large])
+            .presentationDragIndicator(.visible)
         }
         .onChange(of: pickerItem) { _, newValue in
             model.selectPhoto(newValue)
@@ -168,16 +196,17 @@ private struct MainTaskCard: View {
                 sourceRow
                 infoBox(model.documentPreset.outputSummary + "\n" + model.documentPreset.guidance)
             }
-            Spacer(minLength: 12)
             primaryActionForCurrentMode
         }
-        .padding(14)
-        .frame(maxWidth: .infinity, minHeight: 330, alignment: .topLeading)
+        .padding(12)
+        .frame(maxWidth: .infinity, alignment: .topLeading)
         .background(Color.arvectumSurface, in: RoundedRectangle(cornerRadius: 20))
         .overlay(
             RoundedRectangle(cornerRadius: 20)
                 .stroke(Color.arvectumBorder, lineWidth: 1)
         )
+        .accessibilityElement(children: .contain)
+        .accessibilityIdentifier("main-task-card")
     }
 
     @ViewBuilder
@@ -205,32 +234,27 @@ private struct MainTaskCard: View {
     }
 
     private var documentPresetRow: some View {
-        VStack(alignment: .leading, spacing: 7) {
-            Text("Страна / документ")
-                .font(.caption.weight(.semibold))
-                .foregroundStyle(.secondary)
-
-            Picker("Страна / документ", selection: Binding(
-                get: { model.documentPreset },
-                set: { model.setDocumentPreset($0) }
-            )) {
-                ForEach(DocumentPhotoPreset.allCases) { preset in
-                    Text(preset.title).tag(preset)
-                }
+        Picker("Страна / документ", selection: Binding(
+            get: { model.documentPreset },
+            set: { model.setDocumentPreset($0) }
+        )) {
+            ForEach(DocumentPhotoPreset.allCases) { preset in
+                Text(preset.title).tag(preset)
             }
-            .pickerStyle(.menu)
-            .tint(Color.arvectumPrimaryText)
-            .padding(.horizontal, 12)
-            .frame(maxWidth: .infinity, minHeight: 44, alignment: .leading)
-            .background(Color.arvectumBackground, in: RoundedRectangle(cornerRadius: 14))
         }
+        .pickerStyle(.menu)
+        .tint(Color.arvectumPrimaryText)
+        .padding(.horizontal, 10)
+        .frame(maxWidth: .infinity, minHeight: 40, alignment: .leading)
+        .background(Color.arvectumBackground, in: RoundedRectangle(cornerRadius: 12))
+        .accessibilityLabel(Text(tr("Страна / документ")))
     }
 
     private var sourceRow: some View {
         let selectedSource = model.source
-        return VStack(spacing: 7) {
+        return HStack(spacing: 8) {
             PhotosPicker(selection: $pickerItem, matching: .images) {
-                HStack(spacing: 10) {
+                HStack(spacing: 9) {
                     Image(systemName: selectedSource == nil ? "photo.badge.plus" : "photo.fill")
                         .font(.title3)
                         .foregroundStyle(Color.arvectumPrimaryText)
@@ -238,22 +262,29 @@ private struct MainTaskCard: View {
                         Text(tr(selectedSource == nil ? "Выбрать фото" : "Фото выбрано"))
                             .font(.subheadline.weight(.semibold))
                             .foregroundStyle(Color.arvectumPrimaryText)
+                            .lineLimit(1)
                         if let source = selectedSource {
                             Text("\(source.width)×\(source.height) px · \(formatBytes(source.sizeBytes))")
                                 .font(.caption)
                                 .foregroundStyle(.secondary)
+                                .lineLimit(1)
+                                .minimumScaleFactor(0.8)
                         } else {
                             Text("JPEG, PNG, HEIC и другие изображения")
                                 .font(.caption)
                                 .foregroundStyle(.secondary)
+                                .lineLimit(1)
+                                .minimumScaleFactor(0.8)
                         }
                     }
-                    Spacer()
+                    Spacer(minLength: 4)
                     Image(systemName: "chevron.right")
                         .font(.caption.weight(.bold))
                         .foregroundStyle(.secondary)
                 }
-                .padding(12)
+                .padding(.horizontal, 11)
+                .frame(maxWidth: .infinity)
+                .frame(height: 62)
                 .background(Color.arvectumBackground, in: RoundedRectangle(cornerRadius: 14))
             }
             .buttonStyle(.plain)
@@ -261,15 +292,21 @@ private struct MainTaskCard: View {
             Button {
                 importingFile = true
             } label: {
-                Label("Выбрать из Файлов", systemImage: "folder")
-                    .font(.caption.weight(.semibold))
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 34)
+                VStack(spacing: 3) {
+                    Image(systemName: "folder")
+                        .font(.body.weight(.semibold))
+                    Text(tr("Файлы"))
+                        .font(.caption2.weight(.semibold))
+                        .lineLimit(1)
+                }
+                .frame(width: 76, height: 62)
             }
             .buttonStyle(.plain)
+            .accessibilityIdentifier("import-files-button")
             .foregroundStyle(Color.arvectumPrimaryText)
+            .background(Color.arvectumBackground, in: RoundedRectangle(cornerRadius: 14))
             .overlay(
-                RoundedRectangle(cornerRadius: 12)
+                RoundedRectangle(cornerRadius: 14)
                     .stroke(Color.arvectumBorder, lineWidth: 1)
             )
             .fileImporter(
@@ -331,6 +368,7 @@ private struct MainTaskCard: View {
             ))
             .font(.caption.weight(.semibold))
             .tint(.arvectumMint)
+            .accessibilityIdentifier("strip-metadata-toggle")
 
             Text(model.stripMetadata
                  ? "Геолокация и метаданные не попадут в готовый файл."
@@ -398,6 +436,7 @@ private struct MainTaskCard: View {
                     ))
                     .keyboardType(.numberPad)
                     .textFieldStyle(.roundedBorder)
+                    .accessibilityIdentifier("exact-width-field")
                 }
 
                 Text("×")
@@ -414,6 +453,7 @@ private struct MainTaskCard: View {
                     ))
                     .keyboardType(.numberPad)
                     .textFieldStyle(.roundedBorder)
+                    .accessibilityIdentifier("exact-height-field")
                 }
             }
 
@@ -540,7 +580,7 @@ private struct BeforeAfterPreview: View {
                 .resizable()
                 .scaledToFill()
                 .frame(maxWidth: .infinity)
-                .frame(height: 116)
+                .frame(height: result.mode == .passport ? 84 : 116)
                 .clipped()
                 .background(Color.arvectumBackground)
                 .clipShape(RoundedRectangle(cornerRadius: 12))
@@ -563,10 +603,32 @@ private struct ResultCard: View {
     let onBack: () -> Void
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            Text("ГОТОВО")
-                .font(.caption.weight(.bold))
-                .foregroundStyle(Color.arvectumAccentText)
+        VStack(alignment: .leading, spacing: result.mode == .passport ? 7 : 12) {
+            HStack(spacing: 8) {
+                Text("ГОТОВО")
+                    .font(.caption.weight(.bold))
+                    .foregroundStyle(Color.arvectumAccentText)
+
+                Spacer(minLength: 8)
+
+                Button(action: onBack) {
+                    Label("Изменить настройки", systemImage: "slider.horizontal.3")
+                        .font(.caption.weight(.semibold))
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.82)
+                        .padding(.horizontal, 10)
+                        .frame(height: 32)
+                }
+                .buttonStyle(.plain)
+                .foregroundStyle(Color.arvectumPrimaryText)
+                .background(Color.arvectumBackground, in: Capsule())
+                .overlay(
+                    Capsule()
+                        .stroke(Color.arvectumStrongBorder, lineWidth: 1)
+                )
+                .accessibilityIdentifier("edit-settings-button")
+            }
+
             Text(tr(result.alreadyFit ? "Фото уже подходит" : "Фото подготовлено"))
                 .font(.title3.weight(.semibold))
                 .foregroundStyle(Color.arvectumPrimaryText)
@@ -590,7 +652,7 @@ private struct ResultCard: View {
                 Label("Сохранить файл", systemImage: "square.and.arrow.down")
                     .font(.headline)
                     .frame(maxWidth: .infinity)
-                    .frame(height: 48)
+                    .frame(height: result.mode == .passport ? 42 : 48)
             }
             .buttonStyle(.plain)
             .foregroundStyle(Color.arvectumPrimaryText)
@@ -601,7 +663,7 @@ private struct ResultCard: View {
                     Label("Лист для печати", systemImage: "square.grid.2x2")
                         .font(.headline)
                         .frame(maxWidth: .infinity)
-                        .frame(height: 46)
+                        .frame(height: result.mode == .passport ? 40 : 46)
                 }
                 .buttonStyle(.plain)
                 .foregroundStyle(Color.arvectumPrimaryText)
@@ -620,7 +682,7 @@ private struct ResultCard: View {
                 Label("Поделиться", systemImage: "square.and.arrow.up")
                     .font(.headline)
                     .frame(maxWidth: .infinity)
-                    .frame(height: 46)
+                    .frame(height: result.mode == .passport ? 40 : 46)
             }
             .buttonStyle(.plain)
             .foregroundStyle(Color.arvectumPrimaryText)
@@ -629,13 +691,13 @@ private struct ResultCard: View {
                     .stroke(Color.arvectumStrongBorder, lineWidth: 1)
             )
 
-            Button("Вернуться к настройкам", action: onBack)
-                .font(.subheadline.weight(.semibold))
-                .foregroundStyle(Color.arvectumPrimaryText)
-                .frame(maxWidth: .infinity)
         }
-        .padding(14)
-        .frame(maxWidth: .infinity, minHeight: 430, alignment: .topLeading)
+        .padding(result.mode == .passport ? 10 : 14)
+        .frame(
+            maxWidth: .infinity,
+            minHeight: result.mode == .passport ? 0 : 430,
+            alignment: .topLeading
+        )
         .background(Color.arvectumSurface, in: RoundedRectangle(cornerRadius: 20))
         .overlay(
             RoundedRectangle(cornerRadius: 20)
@@ -651,24 +713,42 @@ private struct ResultCard: View {
                 .foregroundStyle(Color.arvectumPrimaryText)
                 .lineLimit(1)
         }
-        .padding(12)
+        .padding(result.mode == .passport ? 8 : 12)
         .frame(maxWidth: .infinity, alignment: .leading)
         .background(Color.arvectumBackground, in: RoundedRectangle(cornerRadius: 14))
     }
 }
 
 private struct BrandHeader: View {
+    let showHome: Bool
+    let onHome: () -> Void
+
     var body: some View {
         HStack {
             Image("ArvectumWordmark")
                 .resizable()
                 .scaledToFit()
                 .frame(width: 102, height: 30)
+
             Spacer()
-            Text("Фото под размер")
-                .font(.headline.weight(.semibold))
-                .foregroundStyle(.white)
-                .lineLimit(1)
+
+            if showHome {
+                Button(action: onHome) {
+                    Label("Фото под размер", systemImage: "house.fill")
+                        .font(.headline.weight(.semibold))
+                        .foregroundStyle(.white)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.84)
+                }
+                .buttonStyle(.plain)
+                .accessibilityLabel(Text(tr("На главный экран")))
+                .accessibilityIdentifier("home-button")
+            } else {
+                Text("Фото под размер")
+                    .font(.headline.weight(.semibold))
+                    .foregroundStyle(.white)
+                    .lineLimit(1)
+            }
         }
         .padding(.horizontal, 12)
         .frame(height: 46)
@@ -720,9 +800,11 @@ private struct Chip: View {
         Button(text, action: action)
             .font(.caption2.weight(.semibold))
             .lineLimit(1)
+            .minimumScaleFactor(0.72)
+            .allowsTightening(true)
             .buttonStyle(.plain)
             .foregroundStyle(Color.arvectumPrimaryText)
-            .padding(.horizontal, 7)
+            .padding(.horizontal, 4)
             .frame(maxWidth: .infinity)
             .frame(height: 34)
             .background(

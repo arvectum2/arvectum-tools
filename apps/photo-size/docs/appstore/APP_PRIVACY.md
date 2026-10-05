@@ -1,49 +1,49 @@
-# App Store — App Privacy
+# App Store — App Privacy for iOS 0.5.1
 
-State for iOS 0.4.2.
+Prepared for 0.5.1 (7) with Yandex Mobile Ads SDK 8.5.0. Re-verify against the final release archive before submission.
 
-## Data collection
+## App Store Connect answers
 
-**Data collected:** None.
+**Does this app or its third-party partners collect data?** Yes.
 
-**Data linked to the user:** None.
+Declare **Identifiers → Device ID**.
 
-**Data used to track the user:** None.
+For Device ID:
+- Purpose: **Third-Party Advertising** and **Analytics** (advertising attribution / measurement).
+- Linked to the user: **Yes** (conservative answer matching the included AppMetrica AdSupport privacy manifest, which marks Device ID as linked).
+- Used for tracking: **Yes**.
 
-The app has no account system, analytics SDK, advertising SDK, backend, or network-dependent image-processing service.
+The advertising identifier is available to the SDK only when the user grants App Tracking Transparency permission. If ATT is denied, the app still shows ads but IDFA is unavailable.
+
+Do **not** declare photos/videos as collected: selected images are processed locally and are not sent to Yandex or Arvectum for image processing.
+
+Do **not** declare location for this build: `YandexAds.setLocationTracking(false)` is applied on every launch and the app does not request location permission for advertising.
+
+Yandex's current App Store privacy guidance for the default Mobile Ads SDK configuration lists Device ID as collected only when the relevant permission is granted; it lists photos/videos, advertising data, product interaction, purchase history, diagnostics, and other categories as not collected by default. The bundled dependency privacy manifests describe SDK capabilities more broadly, so keep the final App Store answers synchronized with the actual runtime configuration and current Yandex documentation.
+
+## Tracking / consent flow
+
+- On the first launch, the app requires an explicit advertising-data choice before normal use.
+- Both **Allow data processing** and **Do not allow data processing** keep result-screen ads enabled.
+- The choice is stored locally and passed to `YandexAds.setUserConsent(_:)` on every launch.
+- After positive advertising-data consent, iOS may show the system ATT prompt.
+- ATT denial does not disable ads; it removes access to IDFA.
+- Location forwarding is disabled.
+- The user can reopen **Ads & Privacy / Реклама и конфиденциальность** from the app footer and change the Yandex consent choice.
+- ATT permission itself can be changed in iOS Settings after the system prompt has been answered.
 
 ## Photos and files
 
-The user explicitly selects an image with the system iOS photo picker. Image processing is performed locally on the device.
+The user explicitly selects an image using the system Photos or Files picker. Image processing is local on the device. Results are written only through an explicit save/export action or shared with the system share sheet.
 
-The result is written only when the user invokes the system save/export flow, or shared using the system share sheet. Temporary working files may exist in the app's local temporary directory and can be removed by the operating system.
+EXIF/GPS stripping is enabled by default for supported output formats.
 
-## Tracking
+## Privacy URLs
 
-Tracking: **No**.
+App/privacy UI target URL: `https://arvectum.com/photo-pod-razmer-privacy.html`.
 
-The privacy manifest declares no tracking, no tracking domains, and no collected data types.
-
-## Privacy policy
-
-Public URL:
-
-https://github.com/arvectum2/arvectum-tools/blob/main/PRIVACY.md
-
-The repository policy covers both Android and iOS and states that selected images are processed locally.
+Before submission, the public page must explicitly cover Yandex Mobile Ads, the first-launch consent choice, ATT/IDFA, the fact that ads remain when consent/tracking is declined, location being disabled, and how to change privacy choices.
 
 ## Export compliance
 
-The app does not implement its own cryptography and does not contain third-party encryption libraries. The iOS bundle sets `ITSAppUsesNonExemptEncryption = false`.
-
-
-## Next monetized release — Yandex Mobile Ads
-
-The next iOS release adds Yandex Mobile Ads SDK 8.5.0. The app itself still processes selected photos locally and does not send photo contents to the advertising SDK.
-
-Runtime configuration:
-- precise/location tracking is disabled with `YandexAds.setLocationTracking(false)`;
-- the app does not request App Tracking Transparency permission and does not intentionally access IDFA;
-- positive GDPR consent is not assumed; `YandexAds.setUserConsent(false)` is used until a dedicated consent flow is added.
-
-The archived dependency privacy manifests are no longer equivalent to “Data collected: None”. In the current build they declare advertising/device data and AppMetrica-related analytics/diagnostic categories; the AppMetrica AdSupport component also contains a tracking declaration. Before this build is submitted, App Store Connect privacy answers must be reviewed against the final archive/privacy report and actual runtime configuration. Do not reuse the 0.4.2 “None” answers unchanged.
+The app sets `ITSAppUsesNonExemptEncryption = false`.

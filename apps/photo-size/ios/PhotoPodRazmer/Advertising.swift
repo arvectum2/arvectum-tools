@@ -1,25 +1,7 @@
+import AppTrackingTransparency
 import SwiftUI
 import UIKit
 @preconcurrency import YandexMobileAds
-
-enum AdVariant: String {
-    case native
-    case banner
-}
-
-enum AdExperiment {
-    static func current() -> AdVariant {
-#if DEBUG
-        if let raw = ProcessInfo.processInfo.environment["ARVECTUM_AD_VARIANT"],
-           let forced = AdVariant(rawValue: raw) {
-            return forced
-        }
-#endif
-        // Simplicity gate: keep production monetization compact and predictable.
-        // The taller native layout stays available in DEBUG for later experiments.
-        return .banner
-    }
-}
 
 enum AdUnitIDs {
 #if DEBUG
@@ -31,13 +13,66 @@ enum AdUnitIDs {
 #endif
 }
 
+
+@MainActor
+final class NativeAdSession: ObservableObject {
+    private let loader = NativeAdLoader()
+    private var cachedAd: NativeAd?
+    private var isLoading = false
+    private var waiters: [(Result<NativeAd, Error>) -> Void] = []
+
+    func prefetch() {
+        load { _ in }
+    }
+
+    func load(_ completion: @escaping (Result<NativeAd, Error>) -> Void) {
+        if let cachedAd {
+            completion(.success(cachedAd))
+            return
+        }
+
+        waiters.append(completion)
+        guard !isLoading else { return }
+        isLoading = true
+
+        let request = AdRequest(adUnitID: AdUnitIDs.native)
+        let options = NativeAdOptions()
+        loader.loadAd(with: request, options: options) { [weak self] result in
+            guard let self else { return }
+            self.isLoading = false
+            if case .success(let ad) = result {
+                self.cachedAd = ad
+            }
+            let callbacks = self.waiters
+            self.waiters.removeAll()
+            callbacks.forEach { $0(result) }
+        }
+    }
+}
+
+enum AdConsentStore {
+    private static let key = "arvectum.ads.user-consent"
+    static let privacyPolicyURL = URL(string: "https://arvectum.com/photo-pod-razmer-privacy.html")!
+
+    static var storedConsent: Bool? {
+        guard UserDefaults.standard.object(forKey: key) != nil else { return nil }
+        return UserDefaults.standard.bool(forKey: key)
+    }
+
+    static func save(_ consent: Bool) {
+        UserDefaults.standard.set(consent, forKey: key)
+    }
+}
+
 @MainActor
 enum AdSDK {
     static func configure() {
-        // Keep the first monetized release privacy-conservative:
-        // no precise location, no ATT/IDFA request, no assumed GDPR consent.
+        // Privacy-conservative defaults:
+        // - no precise location;
+        // - no positive GDPR consent until the user explicitly grants it;
+        // - ATT is requested only after positive advertising-data consent.
         YandexAds.setLocationTracking(false)
-        YandexAds.setUserConsent(false)
+        YandexAds.setUserConsent(AdConsentStore.storedConsent ?? false)
 #if DEBUG
         YandexAds.enableLogging()
 #endif
@@ -45,22 +80,104 @@ enum AdSDK {
             await YandexAds.initializeSDK()
         }
     }
+
+    static func setUserConsent(_ consent: Bool) {
+        AdConsentStore.save(consent)
+        YandexAds.setUserConsent(consent)
+
+        if consent {
+            requestTrackingAuthorizationIfNeeded()
+        }
+    }
+
+    private static func requestTrackingAuthorizationIfNeeded() {
+        guard ATTrackingManager.trackingAuthorizationStatus == .notDetermined else { return }
+
+        // Let the SwiftUI consent sheet finish dismissing before the system ATT prompt.
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+            guard ATTrackingManager.trackingAuthorizationStatus == .notDetermined else { return }
+            ATTrackingManager.requestTrackingAuthorization { _ in }
+        }
+    }
+}
+
+struct MainScreenNativeAdSlot: View {
+    @ObservedObject var session: NativeAdSession
+
+    var body: some View {
+        NativeAdSlot(session: session)
+            .frame(maxWidth: .infinity)
+            .accessibilityElement(children: .contain)
+            .accessibilityIdentifier("main-native-ad-slot")
+    }
 }
 
 struct ResultScreenAdSlot: View {
-    @State private var variant = AdExperiment.current()
+    var body: some View {
+        AdaptiveInlineBannerSlot()
+            .frame(maxWidth: .infinity)
+            .accessibilityIdentifier("result-ad-slot-banner")
+    }
+}
+
+struct AdConsentSheet: View {
+    let onDecision: (Bool) -> Void
 
     var body: some View {
-        Group {
-            switch variant {
-            case .native:
-                NativeAdSlot()
-            case .banner:
-                AdaptiveInlineBannerSlot()
+        VStack(alignment: .leading, spacing: 18) {
+            HStack(spacing: 10) {
+                Image(systemName: "rectangle.badge.person.crop")
+                    .font(.title2)
+                    .foregroundStyle(Color.arvectumMint)
+
+                Text(tr("Реклама в приложении"))
+                    .font(.title3.weight(.semibold))
+                    .foregroundStyle(Color.arvectumPrimaryText)
             }
+
+            Text(tr("«Фото под размер» бесплатно и поддерживается рекламой. Реклама будет показываться независимо от вашего выбора. Вы можете разрешить или не разрешить Yandex Mobile Ads обработку данных для рекламы. Если разрешите, iOS может отдельно спросить разрешение на отслеживание. При отказе реклама останется, но без доступа к рекламному идентификатору. Фото обрабатываются только на устройстве, геолокация отключена."))
+                .font(.body)
+                .foregroundStyle(.secondary)
+                .fixedSize(horizontal: false, vertical: true)
+
+            Link(destination: AdConsentStore.privacyPolicyURL) {
+                Label(tr("Политика конфиденциальности"), systemImage: "safari")
+                    .font(.subheadline.weight(.semibold))
+            }
+
+            Spacer(minLength: 0)
+
+            Button {
+                onDecision(true)
+            } label: {
+                Text(tr("Разрешить обработку данных"))
+                    .font(.headline)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 48)
+            }
+            .buttonStyle(.plain)
+            .foregroundStyle(Color.arvectumPrimaryText)
+            .background(Color.arvectumMint, in: RoundedRectangle(cornerRadius: 16))
+            .accessibilityIdentifier("ad-consent-accept")
+
+            Button {
+                onDecision(false)
+            } label: {
+                Text(tr("Не разрешать обработку данных"))
+                    .font(.headline)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 46)
+            }
+            .buttonStyle(.plain)
+            .foregroundStyle(Color.arvectumPrimaryText)
+            .overlay(
+                RoundedRectangle(cornerRadius: 16)
+                    .stroke(Color.arvectumStrongBorder, lineWidth: 1)
+            )
+            .accessibilityIdentifier("ad-consent-decline")
         }
-        .frame(maxWidth: .infinity)
-        .accessibilityIdentifier("result-ad-slot-\(variant.rawValue)")
+        .padding(20)
+        .background(Color.arvectumBackground)
     }
 }
 
@@ -125,22 +242,36 @@ private struct AdaptiveInlineBannerRepresentable: UIViewRepresentable {
     }
 }
 
-private struct NativeAdSlot: View {
-    @State private var loaded = false
+private enum NativeAdPhase {
+    case loading
+    case loaded
+    case failed
+}
 
+private struct NativeAdSlot: View {
+    @ObservedObject var session: NativeAdSession
+    @State private var phase: NativeAdPhase = .loading
+
+    @ViewBuilder
     var body: some View {
-        NativeAdRepresentable(isLoaded: $loaded)
-            .frame(height: loaded ? nil : 1)
-            .clipped()
-            .animation(.easeInOut(duration: 0.2), value: loaded)
+        if phase == .failed {
+            Color.clear
+                .frame(height: 1)
+        } else {
+            NativeAdRepresentable(session: session, phase: $phase)
+                .frame(minHeight: 260)
+                .clipped()
+                .animation(.easeInOut(duration: 0.16), value: phase == .loaded)
+        }
     }
 }
 
 private struct NativeAdRepresentable: UIViewRepresentable {
-    @Binding var isLoaded: Bool
+    @ObservedObject var session: NativeAdSession
+    @Binding var phase: NativeAdPhase
 
     func makeCoordinator() -> Coordinator {
-        Coordinator(isLoaded: $isLoaded)
+        Coordinator(session: session, phase: $phase)
     }
 
     func makeUIView(context: Context) -> ArvectumNativeAdView {
@@ -171,35 +302,43 @@ private struct NativeAdRepresentable: UIViewRepresentable {
 
     @MainActor
     final class Coordinator: NSObject, NativeAdDelegate {
-        private let loader = NativeAdLoader()
+        private let session: NativeAdSession
         private var ad: NativeAd?
         private weak var adView: ArvectumNativeAdView?
-        private var isLoaded: Binding<Bool>
+        private var phase: Binding<NativeAdPhase>
 
-        init(isLoaded: Binding<Bool>) {
-            self.isLoaded = isLoaded
+        init(session: NativeAdSession, phase: Binding<NativeAdPhase>) {
+            self.session = session
+            self.phase = phase
         }
 
         func attach(to view: ArvectumNativeAdView) {
             adView = view
-            let request = AdRequest(adUnitID: AdUnitIDs.native)
-            let options = NativeAdOptions()
 
-            loader.loadAd(with: request, options: options) { [weak self] result in
+#if DEBUG
+            if ProcessInfo.processInfo.environment["ARVECTUM_NATIVE_QA_FIXTURE"] == "long" {
+                view.applyLongCopyQAFixture()
+                DispatchQueue.main.async {
+                    self.phase.wrappedValue = .loaded
+                }
+                return
+            }
+#endif
+
+            session.load { [weak self] result in
                 guard let self, let adView = self.adView else { return }
-
                 switch result {
                 case .success(let ad):
                     self.ad = ad
                     ad.delegate = self
                     do {
                         try ad.bind(with: adView)
-                        self.isLoaded.wrappedValue = true
+                        self.phase.wrappedValue = .loaded
                     } catch {
-                        self.isLoaded.wrappedValue = false
+                        self.phase.wrappedValue = .failed
                     }
                 case .failure:
-                    self.isLoaded.wrappedValue = false
+                    self.phase.wrappedValue = .failed
                 }
             }
         }
@@ -225,9 +364,6 @@ private final class ArvectumNativeAdView: YandexMobileAds.NativeAdView {
     private let media = YandexMobileAds.NativeMediaView()
     private let icon = UIImageView()
     private let price = UILabel()
-    private let body = UILabel()
-    private let favicon = UIImageView()
-    private let reviewCount = UILabel()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -245,20 +381,17 @@ private final class ArvectumNativeAdView: YandexMobileAds.NativeAdView {
         layer.cornerRadius = 18
         layer.masksToBounds = true
 
-        [title, domain, warning, sponsored, age, price, body, reviewCount].forEach {
+        [title, domain, warning, sponsored, age, price].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             $0.textColor = UIColor(red: 4/255, green: 26/255, blue: 51/255, alpha: 1)
         }
 
         title.font = .boldSystemFont(ofSize: 16)
         title.numberOfLines = 2
-        body.font = .systemFont(ofSize: 13)
-        body.numberOfLines = 2
         domain.font = .systemFont(ofSize: 11)
         sponsored.font = .systemFont(ofSize: 11, weight: .semibold)
         age.font = .systemFont(ofSize: 11)
         price.font = .systemFont(ofSize: 12, weight: .semibold)
-        reviewCount.font = .systemFont(ofSize: 11)
         warning.font = .systemFont(ofSize: 10)
         warning.numberOfLines = 0
 
@@ -270,9 +403,6 @@ private final class ArvectumNativeAdView: YandexMobileAds.NativeAdView {
         icon.contentMode = .scaleAspectFit
         icon.layer.cornerRadius = 10
         icon.clipsToBounds = true
-
-        favicon.translatesAutoresizingMaskIntoConstraints = false
-        favicon.contentMode = .scaleAspectFit
 
         feedback.translatesAutoresizingMaskIntoConstraints = false
 
@@ -290,49 +420,80 @@ private final class ArvectumNativeAdView: YandexMobileAds.NativeAdView {
 
     private func configureLayout() {
         let adMeta = UIStackView(arrangedSubviews: [sponsored, age])
+        adMeta.translatesAutoresizingMaskIntoConstraints = false
         adMeta.axis = .horizontal
-        adMeta.spacing = 6
+        adMeta.spacing = 5
+        adMeta.alignment = .center
+        adMeta.backgroundColor = UIColor.white.withAlphaComponent(0.90)
+        adMeta.layer.cornerRadius = 6
+        adMeta.isLayoutMarginsRelativeArrangement = true
+        adMeta.layoutMargins = UIEdgeInsets(top: 3, left: 6, bottom: 3, right: 6)
 
-        let titleStack = UIStackView(arrangedSubviews: [title, domain, body])
+        let titleStack = UIStackView(arrangedSubviews: [title, domain, price])
         titleStack.axis = .vertical
-        titleStack.spacing = 2
+        titleStack.spacing = 1
 
-        let header = UIStackView(arrangedSubviews: [icon, titleStack, feedback])
-        header.axis = .horizontal
-        header.alignment = .top
-        header.spacing = 8
+        let infoRow = UIStackView(arrangedSubviews: [icon, titleStack, callToAction])
+        infoRow.axis = .horizontal
+        infoRow.alignment = .center
+        infoRow.spacing = 7
 
-        let lower = UIStackView(arrangedSubviews: [price, reviewCount, callToAction])
-        lower.axis = .horizontal
-        lower.alignment = .center
-        lower.spacing = 8
+        let mediaContainer = UIView()
+        mediaContainer.translatesAutoresizingMaskIntoConstraints = false
+        mediaContainer.addSubview(media)
+        mediaContainer.addSubview(adMeta)
+        mediaContainer.addSubview(feedback)
 
         let stack = UIStackView(arrangedSubviews: [
-            adMeta, header, media, lower, warning
+            mediaContainer, infoRow, warning
         ])
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .vertical
-        stack.spacing = 7
+        stack.spacing = 4
         addSubview(stack)
 
         NSLayoutConstraint.activate([
-            stack.topAnchor.constraint(equalTo: topAnchor, constant: 10),
-            stack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
-            stack.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
-            stack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
+            stack.topAnchor.constraint(equalTo: topAnchor, constant: 6),
+            stack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 6),
+            stack.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -6),
+            stack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -6),
 
-            icon.widthAnchor.constraint(equalToConstant: 44),
-            icon.heightAnchor.constraint(equalToConstant: 44),
+            mediaContainer.heightAnchor.constraint(equalToConstant: 160),
+            media.topAnchor.constraint(equalTo: mediaContainer.topAnchor),
+            media.leadingAnchor.constraint(equalTo: mediaContainer.leadingAnchor),
+            media.trailingAnchor.constraint(equalTo: mediaContainer.trailingAnchor),
+            media.bottomAnchor.constraint(equalTo: mediaContainer.bottomAnchor),
+
+            adMeta.topAnchor.constraint(equalTo: mediaContainer.topAnchor, constant: 6),
+            adMeta.leadingAnchor.constraint(equalTo: mediaContainer.leadingAnchor, constant: 6),
+
+            feedback.topAnchor.constraint(equalTo: mediaContainer.topAnchor, constant: 6),
+            feedback.trailingAnchor.constraint(equalTo: mediaContainer.trailingAnchor, constant: -6),
             feedback.widthAnchor.constraint(equalToConstant: 28),
             feedback.heightAnchor.constraint(equalToConstant: 28),
-            callToAction.heightAnchor.constraint(greaterThanOrEqualToConstant: 38),
 
-            media.heightAnchor.constraint(greaterThanOrEqualToConstant: 160),
-            media.heightAnchor.constraint(equalTo: media.widthAnchor, multiplier: 9/16),
+            icon.widthAnchor.constraint(equalToConstant: 40),
+            icon.heightAnchor.constraint(equalToConstant: 40),
+            callToAction.widthAnchor.constraint(greaterThanOrEqualToConstant: 88),
+            callToAction.heightAnchor.constraint(equalToConstant: 34),
 
-            warning.heightAnchor.constraint(greaterThanOrEqualToConstant: 30)
+            warning.heightAnchor.constraint(greaterThanOrEqualToConstant: 24)
         ])
     }
+
+#if DEBUG
+    func applyLongCopyQAFixture() {
+        title.text = "Очень длинный рекламный заголовок для проверки компактной вёрстки"
+        domain.text = "example-advertiser-long-domain.example"
+        sponsored.text = "Реклама"
+        age.text = "18+"
+        price.text = "от 12 999 ₽"
+        warning.text = "Рекламодатель: ООО «Очень длинное название компании». ОГРН 1234567890123"
+        callToAction.setTitle("Подробнее", for: .normal)
+        icon.backgroundColor = UIColor.systemGray5
+        media.backgroundColor = UIColor.systemGray4
+    }
+#endif
 
     private func bindAssets() {
         titleLabel = title
@@ -345,8 +506,5 @@ private final class ArvectumNativeAdView: YandexMobileAds.NativeAdView {
         mediaView = media
         iconImageView = icon
         priceLabel = price
-        faviconImageView = favicon
-        reviewCountLabel = reviewCount
-        bodyLabel = body
     }
 }

@@ -12,12 +12,21 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 APP_ID = "6816346084"
-VERSION = "0.4.2"
+def project_marketing_version():
+    project = ROOT / "ios" / "project.yml"
+    match = re.search(r'MARKETING_VERSION:\s*"?([^"\n]+)"?', project.read_text())
+    if not match:
+        raise RuntimeError("MARKETING_VERSION not found in project.yml")
+    return match.group(1).strip()
+
+VERSION = os.environ.get("ARVECTUM_APP_VERSION", project_marketing_version())
 LOCALE = "ru"
 SCREENSHOT_TYPE = "APP_IPHONE_65"
 SHOT_DIR = ROOT / "store-assets" / "appstore" / "iphone-6.5"
 CONFIG = Path.home() / ".config" / "arvectum" / "appstore-connect.env"
-ALTOOL = Path("/Applications/Xcode-26.6.0.app/Contents/SharedFrameworks/ContentDelivery.framework/Versions/A/Resources/altool")
+DEVELOPER_DIR = Path(subprocess.check_output(["xcode-select", "-p"], text=True).strip())
+XCODE_APP = DEVELOPER_DIR.parents[1]
+ALTOOL = XCODE_APP / "Contents/SharedFrameworks/ContentDelivery.framework/Versions/A/Resources/altool"
 API = "https://api.appstoreconnect.apple.com/v1"
 
 def load_config():
