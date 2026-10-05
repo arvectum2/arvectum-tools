@@ -223,6 +223,7 @@ Core habit tracking stays free. Advertising is the planned monetization model, b
 
 ## Post-MVP backlog
 
+- [x] Completion-relative interval: a habit can recur “N days after I actually did it”; the next due date moves from the real completion day, remains due when overdue, supports local reminders, and does not alter the published Habit/CloudKit storage schema.
 - [x] One-off reminders: lightweight single-event reminders alongside habits (for example, “buy a marathon slot”; registration opens at 08:00), with date/time, local notification, notification Done action, edit/delete and no conversion into a recurring habit.
 - [ ] Multi-check daily target: allow one habit to require `N` completions per day (for example, take a tablet 2× or drink 5 glasses of water); render the `N` check circles inline in the habit row, with each circle independently checkable/undoable and the habit complete at `N/N`.
 - [ ] Quantitative / duration habits beyond the multi-check daily target.
@@ -248,7 +249,7 @@ Physical validation on 2026-10-02 is green for the main single-device/Watch path
 - [x] Version line: 1.1.0 / build 3.
 - [x] Primary feature: one-off reminders, independent from habit streaks/statistics and stored in a separate local-only SwiftData configuration.
 - [x] Monetization: sticky Today banner only; do not add Progress/native ads in the first monetized release.
-- [x] One shared local-notification budget: recurring habits and one-off reminders compete by earliest fire date under the existing 60-request cap.
+- [x] One shared local-notification budget: one-off reminders reserve slots first so explicit future commitments cannot be crowded out; recurring habit reminders fill the remaining capacity under the existing 60-request cap.
 - [ ] Generate final Xcode privacy report from the exact App Store archive and update App Store Privacy before submission.
 - [x] Refresh App Store screenshots only where the visible Today UI materially changed.
 - [x] Prepare RU/EN What's New copy and new review notes.

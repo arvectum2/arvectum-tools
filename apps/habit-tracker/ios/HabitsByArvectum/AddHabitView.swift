@@ -23,6 +23,8 @@ struct AddHabitView: View {
     @State private var customDaysExpanded: Bool
     @State private var flexibleWeeklyEnabled: Bool
     @State private var weeklyTarget: Int
+    @State private var completionIntervalEnabled: Bool
+    @State private var completionIntervalDays: Int
     @FocusState private var nameFocused: Bool
 
     private var quickHabits: [(title: String, symbol: String)] {
@@ -50,8 +52,15 @@ struct AddHabitView: View {
             initialValue: habit?.usesFlexibleWeeklyTarget == true
         )
         _weeklyTarget = State(initialValue: max(habit?.weeklyTarget ?? 3, 1))
+        _completionIntervalEnabled = State(
+            initialValue: habit?.usesCompletionInterval == true
+        )
+        _completionIntervalDays = State(
+            initialValue: max(habit?.completionIntervalDays ?? 7, 1)
+        )
         _customDaysExpanded = State(
             initialValue: habit?.usesFlexibleWeeklyTarget == true ||
+                habit?.usesCompletionInterval == true ||
                 (initialSchedule != .everyDay && initialSchedule != .weekdays)
         )
         _optionsExpanded = State(
@@ -140,12 +149,36 @@ struct AddHabitView: View {
                             )
                             .onChange(of: flexibleWeeklyEnabled) { _, enabled in
                                 if enabled {
+                                    completionIntervalEnabled = false
                                     schedule = .everyDay
                                     reminderEnabled = false
                                 }
                             }
 
-                            if flexibleWeeklyEnabled {
+                            Toggle(
+                                L10n.string("schedule.interval.toggle"),
+                                isOn: $completionIntervalEnabled
+                            )
+                            .onChange(of: completionIntervalEnabled) { _, enabled in
+                                if enabled {
+                                    flexibleWeeklyEnabled = false
+                                    schedule = .everyDay
+                                }
+                            }
+
+                            if completionIntervalEnabled {
+                                Stepper(
+                                    L10n.format(
+                                        "schedule.interval.days.format",
+                                        completionIntervalDays
+                                    ),
+                                    value: $completionIntervalDays,
+                                    in: 1...365
+                                )
+                                Text(L10n.string("schedule.interval.hint"))
+                                    .font(.caption)
+                                    .foregroundStyle(.secondary)
+                            } else if flexibleWeeklyEnabled {
                                 Stepper(
                                     L10n.format(
                                         "schedule.flexible.target.format",
@@ -301,11 +334,14 @@ struct AddHabitView: View {
         title: String,
         preset: HabitSchedule
     ) -> some View {
-        let selected = schedule == preset
+        let selected = schedule == preset &&
+            !flexibleWeeklyEnabled &&
+            !completionIntervalEnabled
 
         return Button {
             schedule = preset
             flexibleWeeklyEnabled = false
+            completionIntervalEnabled = false
             customDaysExpanded = false
         } label: {
             Text(title)
@@ -460,7 +496,9 @@ struct AddHabitView: View {
             habit.reminderEnabled = reminderEnabled
             habit.reminderHour = reminderHour
             habit.reminderMinute = reminderMinute
-            habit.weeklyTarget = flexibleWeeklyEnabled ? weeklyTarget : 0
+            habit.weeklyTarget = completionIntervalEnabled
+                ? -completionIntervalDays
+                : (flexibleWeeklyEnabled ? weeklyTarget : 0)
         } else {
             let newHabit = Habit(
                 name: trimmed,
@@ -470,7 +508,9 @@ struct AddHabitView: View {
                 reminderEnabled: reminderEnabled,
                 reminderHour: reminderHour,
                 reminderMinute: reminderMinute,
-                weeklyTarget: flexibleWeeklyEnabled ? weeklyTarget : 0,
+                weeklyTarget: completionIntervalEnabled
+                    ? -completionIntervalDays
+                    : (flexibleWeeklyEnabled ? weeklyTarget : 0),
                 sortOrder: HabitOrdering.nextOrder(in: allHabits)
             )
             modelContext.insert(newHabit)

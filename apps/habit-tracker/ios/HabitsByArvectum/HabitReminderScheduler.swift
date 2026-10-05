@@ -27,7 +27,6 @@ enum HabitReminderScheduler {
 
     private struct ManagedCandidate {
         let fireDate: Date
-        let priority: Int
         let createdAt: Date
         let kind: ManagedCandidateKind
     }
@@ -83,6 +82,16 @@ enum HabitReminderScheduler {
             return []
         }
 
+        if habit.usesCompletionInterval {
+            return completionIntervalReminderDates(
+                habit: habit,
+                checkIns: checkIns,
+                skips: skips,
+                from: referenceDate,
+                calendar: calendar
+            )
+        }
+
         let start = calendar.startOfDay(for: referenceDate)
         var dates: [Date] = []
 
@@ -124,6 +133,68 @@ enum HabitReminderScheduler {
         }
 
         return dates
+    }
+
+    private static func completionIntervalReminderDates(
+        habit: Habit,
+        checkIns: [HabitCheckIn],
+        skips: [HabitSkip],
+        from referenceDate: Date,
+        calendar: Calendar
+    ) -> [Date] {
+        guard var candidateDay = HabitFrequency.nextCompletionIntervalDueDate(
+            habit: habit,
+            checkIns: checkIns,
+            through: referenceDate,
+            calendar: calendar
+        ) else {
+            return []
+        }
+
+        let today = calendar.startOfDay(for: referenceDate)
+        if candidateDay < today {
+            candidateDay = today
+        }
+
+        // Only the next occurrence is knowable: completing it will move the
+        // following due date. One request also supports intervals beyond the
+        // normal 60-day rolling horizon.
+        for _ in 0..<366 {
+            let completed = HabitMetrics.isCompleted(
+                habitID: habit.id,
+                on: candidateDay,
+                checkIns: checkIns,
+                calendar: calendar
+            )
+            let skipped = HabitMetrics.isSkipped(
+                habitID: habit.id,
+                on: candidateDay,
+                skips: skips,
+                calendar: calendar
+            )
+
+            if !completed && !skipped,
+               let fireDate = calendar.date(
+                   bySettingHour: habit.reminderHour,
+                   minute: habit.reminderMinute,
+                   second: 0,
+                   of: candidateDay
+               ),
+               fireDate > referenceDate {
+                return [fireDate]
+            }
+
+            guard let nextDay = calendar.date(
+                byAdding: .day,
+                value: 1,
+                to: candidateDay
+            ) else {
+                return []
+            }
+            candidateDay = nextDay
+        }
+
+        return []
     }
 
 
@@ -213,7 +284,6 @@ enum HabitReminderScheduler {
             }) else { return nil }
             return ManagedCandidate(
                 fireDate: item.fireDate,
-                priority: 1,
                 createdAt: habit.createdAt,
                 kind: .habit(habit, dayKey: item.dayKey)
             )
@@ -222,23 +292,38 @@ enum HabitReminderScheduler {
         let oneOffCandidates = pendingOneOffs.map {
             ManagedCandidate(
                 fireDate: $0.dueAt,
-                priority: 0,
                 createdAt: $0.createdAt,
                 kind: .oneOff($0)
             )
         }
 
-        let plan = (habitCandidates + oneOffCandidates)
+        // One-off reminders represent explicit commitments and must not
+        // be crowded out by a dense recurring-habit schedule. Reserve the
+        // system budget for them first, then fill the remaining slots with
+        // the nearest recurring habit reminders.
+        let reservedOneOffs = oneOffCandidates
             .sorted {
                 if $0.fireDate != $1.fireDate {
                     return $0.fireDate < $1.fireDate
                 }
-                if $0.priority != $1.priority {
-                    return $0.priority < $1.priority
-                }
                 return $0.createdAt < $1.createdAt
             }
             .prefix(maxPendingRequests)
+
+        let remainingCapacity = max(
+            0,
+            maxPendingRequests - reservedOneOffs.count
+        )
+        let recurringHabits = habitCandidates
+            .sorted {
+                if $0.fireDate != $1.fireDate {
+                    return $0.fireDate < $1.fireDate
+                }
+                return $0.createdAt < $1.createdAt
+            }
+            .prefix(remainingCapacity)
+
+        let plan = Array(reservedOneOffs) + Array(recurringHabits)
 
         for item in plan {
             var components = calendar.dateComponents(

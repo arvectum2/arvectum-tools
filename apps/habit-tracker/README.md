@@ -12,7 +12,7 @@ Working formula: **«всё удобное — без лишнего»**.
 
 - iOS 17+ / SwiftUI / SwiftData
 - local-first operation with explicit schema migration and safe storage recovery
-- daily, selected-weekday and flexible N-times-per-week habits
+- daily, selected-weekday, flexible N-times-per-week and completion-relative interval habits
 - one-tap completion, undo, neutral skip, pause/resume and manual ordering
 - streaks, best streak, scheduled-day completion metrics and calendar-aligned history
 - per-habit rolling local reminders with Complete / Skip notification actions

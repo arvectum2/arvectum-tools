@@ -37,6 +37,10 @@
 "schedule.flexible.target.format" = "%d раз в неделю";
 "schedule.flexible.hint" = "Привычка остаётся на экране «Сегодня», пока цель недели не достигнута.";
 "schedule.flexible.description.format" = "%d раз в неделю";
+"schedule.interval.toggle" = "Повторять после выполнения";
+"schedule.interval.days.format" = "Через %d дн. после выполнения";
+"schedule.interval.hint" = "Следующий срок считается от фактического дня выполнения.";
+"schedule.interval.description.format" = "Через %d дн. после выполнения";
 "habit.streak.weeks.format" = "%d нед. подряд";
 "habit.weekly.progress.format" = "%d из %d на этой неделе";
 
@@ -100,6 +104,9 @@
 "stats.streak" = "серия";
 "stats.best.format" = "макс. %d";
 "stats.completion" = "выполнено";
+"stats.nextDue" = "следующий срок";
+"stats.interval" = "интервал";
+"stats.interval.days.format" = "%d дн.";
 "stats.checkins" = "отметок";
 
 "status.completed" = "выполнено";
@@ -112,7 +119,7 @@
 "accessibility.symbol.format" = "Значок %d";
 "accessibility.selected" = "Выбрано";
 
-"storage.error.title" = "Данные привычек временно недоступны";
+"storage.error.title" = "Данные ChickMark временно недоступны";
 "storage.error.message" = "Данные не удалены и не перезаписаны. Закройте и снова откройте Habits. Если проблема повторится, сначала обновите приложение.";
 
 "shortcut.habit.type" = "Привычка";

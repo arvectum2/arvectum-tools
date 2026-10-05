@@ -54,6 +54,16 @@ final class Habit {
 
     var isPaused: Bool { pausedAt != nil }
     var usesFlexibleWeeklyTarget: Bool { weeklyTarget > 0 }
+
+    // Reuse the already-persisted weeklyTarget field for the completion-relative
+    // mode: positive values are N/week, negative values are N days after the
+    // latest completion. This keeps the published Habit/CloudKit schema stable.
+    var usesCompletionInterval: Bool { weeklyTarget < 0 }
+
+    var completionIntervalDays: Int {
+        get { max(-weeklyTarget, 0) }
+        set { weeklyTarget = newValue > 0 ? -newValue : 0 }
+    }
 }
 
 enum HabitOrdering {

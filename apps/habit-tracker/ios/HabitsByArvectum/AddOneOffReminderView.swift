@@ -19,11 +19,14 @@ struct AddOneOffReminderView: View {
         self.reminder = reminder
         _title = State(initialValue: reminder?.title ?? "")
 
-        let initialDate = reminder?.dueAt ?? Calendar.autoupdatingCurrent.date(
+        let fallbackDate = Calendar.autoupdatingCurrent.date(
             byAdding: .hour,
             value: 1,
             to: .now
         ) ?? Date().addingTimeInterval(3600)
+        let initialDate = reminder.map {
+            max($0.dueAt, fallbackDate)
+        } ?? fallbackDate
         _dueAt = State(initialValue: initialDate)
     }
 
@@ -100,8 +103,7 @@ struct AddOneOffReminderView: View {
     }
 
     private var dateRangeLowerBound: Date {
-        guard let reminder else { return Date() }
-        return min(reminder.dueAt, Date())
+        Date()
     }
 
     private var canSave: Bool {

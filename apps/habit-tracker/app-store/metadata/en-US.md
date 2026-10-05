@@ -10,7 +10,7 @@ ChickMark is a simple habit tracker that stays out of your way.
 Create a habit in seconds, check it off with one tap, and see your progress immediately. Today shows only the habits that are actually due.
 
 ChickMark includes:
-- daily habits, selected weekdays, and flexible N-times-per-week goals;
+- daily habits, selected weekdays, flexible N-times-per-week goals, and intervals counted from actual completion;
 - current streak, best streak, completion rate, and calendar history;
 - neutral Skip days that do not break a streak;
 - pause and resume without deleting history;
@@ -28,6 +28,8 @@ The idea is simple: useful habit tracking, without the clutter.
 ## What's New in 1.1
 
 Added one-time reminders for a specific date and time. They live alongside your habits on Today, do not affect streaks or statistics, and can be completed directly from the notification.
+
+You can also create habits that repeat a chosen number of days after you actually complete them — useful for maintenance, care routines, and anything that should move when you do it late.
 
 We also improved local reminder reliability and introduced non-disruptive monetization: ads never appear between habits or interrupt core actions.
 

@@ -37,6 +37,10 @@ enum HabitMetrics {
         today: Date = .now,
         calendar: Calendar = .autoupdatingCurrent
     ) -> Int {
+        if habit.usesCompletionInterval {
+            return 0
+        }
+
         if habit.usesFlexibleWeeklyTarget {
             return currentWeeklyStreak(
                 habit: habit,
@@ -127,6 +131,10 @@ enum HabitMetrics {
         through endDate: Date = .now,
         calendar: Calendar = .autoupdatingCurrent
     ) -> Int {
+        if habit.usesCompletionInterval {
+            return 0
+        }
+
         if habit.usesFlexibleWeeklyTarget {
             return bestWeeklyStreak(
                 habit: habit,
@@ -197,6 +205,10 @@ enum HabitMetrics {
         through endDate: Date = .now,
         calendar: Calendar = .autoupdatingCurrent
     ) -> Double {
+        if habit.usesCompletionInterval {
+            return 0
+        }
+
         if habit.usesFlexibleWeeklyTarget {
             return weeklyCompletionRate(
                 habit: habit,

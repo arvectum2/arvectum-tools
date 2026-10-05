@@ -25,7 +25,7 @@ final class HabitFlowUITests: XCTestCase {
         app.launch()
 
         XCTAssertTrue(
-            app.staticTexts["Habits data is temporarily unavailable"]
+            app.staticTexts["ChickMark data is temporarily unavailable"]
                 .waitForExistence(timeout: 3)
         )
         XCTAssertFalse(app.buttons["Create habit"].exists)
@@ -90,6 +90,35 @@ final class HabitFlowUITests: XCTestCase {
         )
     }
 
+
+    func testOneOffReminderAppearsAndCompletesWithoutAffectingHabits() throws {
+        app.terminate()
+        app.launchArguments = [
+            "-AppleLanguages", "(en)",
+            "-AppleLocale", "en_US",
+            "--ui-testing",
+            "--seed-watch-sync-demo",
+            "--seed-oneoff-demo",
+            "--disable-cloud-sync"
+        ]
+        app.launch()
+
+        let reminderTitle = app.staticTexts["Buy marathon slot"]
+        XCTAssertTrue(reminderTitle.waitForExistence(timeout: 3))
+        XCTAssertTrue(app.staticTexts["Reminders"].exists)
+
+        let completeButtons = app.buttons.matching(
+            NSPredicate(format: "label == %@", "Mark complete")
+        )
+        XCTAssertGreaterThanOrEqual(completeButtons.count, 3)
+
+        // Two seeded habit controls come first; the reminder control is last.
+        completeButtons.element(boundBy: completeButtons.count - 1).tap()
+
+        XCTAssertFalse(reminderTitle.waitForExistence(timeout: 1))
+        XCTAssertTrue(app.staticTexts["Reading"].exists)
+        XCTAssertTrue(app.staticTexts["Water"].exists)
+    }
 
     func testManageShowsScheduleWithoutOpeningEachHabit() throws {
         app.terminate()

@@ -803,6 +803,13 @@ private struct HabitRow: View {
                             )
                             .font(.caption)
                             .foregroundStyle(Color.habitsSecondaryText)
+                        } else if habit.usesCompletionInterval {
+                            Label(
+                                HabitScheduleText.description(for: habit),
+                                systemImage: "clock.arrow.circlepath"
+                            )
+                            .font(.caption)
+                            .foregroundStyle(Color.habitsSecondaryText)
                         } else if habit.usesFlexibleWeeklyTarget {
                             Label(
                                 L10n.format(

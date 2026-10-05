@@ -1,14 +1,14 @@
 App Review Notes — ChickMark 1.1.0 (Build 3)
 
 1. PURPOSE / TARGET AUDIENCE
-ChickMark is a simple local-first habit tracker for individual users. Version 1.1 adds one-time reminders for a specific date and time. One-time reminders are intentionally separate from habits: they do not affect streaks, completion rate, calendar history, widgets, or Apple Watch habit synchronization.
+ChickMark is a simple local-first habit tracker for individual users. Version 1.1 adds one-time reminders for a specific date and time plus an optional completion-relative habit schedule (“N days after actual completion”). One-time reminders are intentionally separate from habits: they do not affect streaks, completion rate, calendar history, widgets, or Apple Watch habit synchronization. Completion-relative habits remain part of the existing Habit model and do not add fields to the published CloudKit schema.
 
 2. REVIEW ACCESS / SETUP
 No account, registration, login, demo credentials, subscription, purchase, or sample files are required.
 
 Suggested iPhone review flow:
 - Launch ChickMark.
-- Tap + and choose New habit to create/check off a habit.
+- Tap + and choose New habit to create/check off a habit. Under Other schedule, “Repeat after completion” can be enabled and configured as an N-day interval.
 - Tap + and choose One-time reminder.
 - Enter a title and a future date/time, then save.
 - Grant local notification permission if requested.

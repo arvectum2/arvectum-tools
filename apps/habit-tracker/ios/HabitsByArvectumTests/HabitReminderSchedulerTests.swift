@@ -142,6 +142,101 @@ final class HabitReminderSchedulerTests: XCTestCase {
     }
 
 
+    func testCompletionIntervalSchedulesOnlyNextRelativeReminder() {
+        let calendar = utcCalendar
+        let habit = Habit(
+            name: "Replace filter",
+            reminderEnabled: true,
+            reminderHour: 9,
+            reminderMinute: 30
+        )
+        habit.completionIntervalDays = 3
+        let first = HabitCheckIn(
+            habitID: habit.id,
+            day: date(2026, 10, 1, hour: 12, calendar: calendar),
+            calendar: calendar
+        )
+        let reference = date(2026, 10, 2, hour: 8, calendar: calendar)
+
+        let dates = HabitReminderScheduler.reminderDates(
+            habit: habit,
+            checkIns: [first],
+            from: reference,
+            calendar: calendar
+        )
+
+        XCTAssertEqual(dates.count, 1)
+        XCTAssertEqual(
+            HabitDayKey.make(for: dates[0], calendar: calendar),
+            "2026-10-04"
+        )
+        XCTAssertEqual(calendar.component(.hour, from: dates[0]), 9)
+        XCTAssertEqual(calendar.component(.minute, from: dates[0]), 30)
+    }
+
+    func testCompletionIntervalCanScheduleBeyondRollingSixtyDayHorizon() {
+        let calendar = utcCalendar
+        let habit = Habit(
+            name: "Long interval",
+            reminderEnabled: true,
+            reminderHour: 10,
+            reminderMinute: 0
+        )
+        habit.completionIntervalDays = 90
+        let first = HabitCheckIn(
+            habitID: habit.id,
+            day: date(2026, 10, 1, hour: 12, calendar: calendar),
+            calendar: calendar
+        )
+        let reference = date(2026, 10, 2, hour: 8, calendar: calendar)
+
+        let dates = HabitReminderScheduler.reminderDates(
+            habit: habit,
+            checkIns: [first],
+            from: reference,
+            calendar: calendar
+        )
+
+        XCTAssertEqual(dates.count, 1)
+        let expected = calendar.date(
+            byAdding: .day,
+            value: 90,
+            to: calendar.startOfDay(
+                for: date(2026, 10, 1, hour: 12, calendar: calendar)
+            )
+        )!
+        XCTAssertEqual(
+            HabitDayKey.make(for: dates[0], calendar: calendar),
+            HabitDayKey.make(for: expected, calendar: calendar)
+        )
+    }
+
+    func testOverdueCompletionIntervalSchedulesNextAvailableReminder() {
+        let calendar = utcCalendar
+        let habit = Habit(
+            name: "Overdue task",
+            createdAt: date(2026, 10, 1, hour: 12, calendar: calendar),
+            reminderEnabled: true,
+            reminderHour: 8,
+            reminderMinute: 0
+        )
+        habit.completionIntervalDays = 2
+        let reference = date(2026, 10, 5, hour: 9, calendar: calendar)
+
+        let dates = HabitReminderScheduler.reminderDates(
+            habit: habit,
+            from: reference,
+            calendar: calendar
+        )
+
+        XCTAssertEqual(dates.count, 1)
+        XCTAssertEqual(
+            HabitDayKey.make(for: dates[0], calendar: calendar),
+            "2026-10-06"
+        )
+        XCTAssertEqual(calendar.component(.hour, from: dates[0]), 8)
+    }
+
     func testRequestIdentifierIsStableAndUniqueByDay() {
         let habitID = UUID(
             uuidString: "00000000-0000-0000-0000-000000000123"

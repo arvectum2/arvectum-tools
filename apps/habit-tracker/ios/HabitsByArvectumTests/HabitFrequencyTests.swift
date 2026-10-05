@@ -361,6 +361,101 @@ final class HabitFrequencyTests: XCTestCase {
         )
     }
 
+    func testCompletionIntervalHabitIsDueImmediatelyBeforeFirstCheckIn() {
+        let habit = Habit(
+            name: "Water filter",
+            createdAt: date(2026, 10, 1)
+        )
+        habit.completionIntervalDays = 30
+
+        XCTAssertTrue(habit.usesCompletionInterval)
+        XCTAssertEqual(habit.weeklyTarget, -30)
+        XCTAssertTrue(
+            HabitFrequency.isDue(
+                habit: habit,
+                on: date(2026, 10, 1),
+                checkIns: [],
+                calendar: calendar
+            )
+        )
+    }
+
+    func testCompletionIntervalMovesFromActualCompletionDay() {
+        let habit = Habit(
+            name: "Maintenance",
+            createdAt: date(2026, 10, 1)
+        )
+        habit.completionIntervalDays = 3
+        let first = checkIn(habit, 2026, 10, 1)
+
+        XCTAssertFalse(
+            HabitFrequency.isDue(
+                habit: habit,
+                on: date(2026, 10, 3),
+                checkIns: [first],
+                calendar: calendar
+            )
+        )
+        XCTAssertTrue(
+            HabitFrequency.isDue(
+                habit: habit,
+                on: date(2026, 10, 4),
+                checkIns: [first],
+                calendar: calendar
+            )
+        )
+
+        let late = checkIn(habit, 2026, 10, 6)
+        XCTAssertTrue(
+            HabitFrequency.isDue(
+                habit: habit,
+                on: date(2026, 10, 6),
+                checkIns: [first, late],
+                calendar: calendar
+            )
+        )
+        XCTAssertFalse(
+            HabitFrequency.isDue(
+                habit: habit,
+                on: date(2026, 10, 8),
+                checkIns: [first, late],
+                calendar: calendar
+            )
+        )
+        XCTAssertTrue(
+            HabitFrequency.isDue(
+                habit: habit,
+                on: date(2026, 10, 9),
+                checkIns: [first, late],
+                calendar: calendar
+            )
+        )
+    }
+
+    func testCompletionIntervalNextDueDateIgnoresFutureCheckIns() throws {
+        let habit = Habit(
+            name: "Service",
+            createdAt: date(2026, 10, 1)
+        )
+        habit.completionIntervalDays = 5
+        let first = checkIn(habit, 2026, 10, 1)
+        let future = checkIn(habit, 2026, 10, 20)
+
+        let due = try XCTUnwrap(
+            HabitFrequency.nextCompletionIntervalDueDate(
+                habit: habit,
+                checkIns: [first, future],
+                through: date(2026, 10, 3),
+                calendar: calendar
+            )
+        )
+
+        XCTAssertEqual(
+            HabitDayKey.make(for: due, calendar: calendar),
+            "2026-10-06"
+        )
+    }
+
     private func skip(
         _ habit: Habit,
         _ year: Int,

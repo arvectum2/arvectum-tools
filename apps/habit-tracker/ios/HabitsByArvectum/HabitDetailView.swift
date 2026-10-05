@@ -195,25 +195,46 @@ struct HabitDetailView: View {
         )
 
         let content = Group {
-            stat(
-                value: String(currentStreak),
-                label: L10n.string("stats.streak"),
-                systemImage: "flame.fill",
-                secondary: L10n.format(
-                    "stats.best.format",
-                    bestStreak
+            if habit.usesCompletionInterval {
+                stat(
+                    value: completionIntervalNextDueText,
+                    label: L10n.string("stats.nextDue"),
+                    systemImage: "calendar"
                 )
-            )
-            stat(
-                value: "\(completionPercent)%",
-                label: L10n.string("stats.completion"),
-                systemImage: "chart.line.uptrend.xyaxis"
-            )
-            stat(
-                value: "\(habitCheckIns.count)",
-                label: L10n.string("stats.checkins"),
-                systemImage: "checkmark.circle.fill"
-            )
+                stat(
+                    value: L10n.format(
+                        "stats.interval.days.format",
+                        habit.completionIntervalDays
+                    ),
+                    label: L10n.string("stats.interval"),
+                    systemImage: "clock.arrow.circlepath"
+                )
+                stat(
+                    value: "\(habitCheckIns.count)",
+                    label: L10n.string("stats.checkins"),
+                    systemImage: "checkmark.circle.fill"
+                )
+            } else {
+                stat(
+                    value: String(currentStreak),
+                    label: L10n.string("stats.streak"),
+                    systemImage: "flame.fill",
+                    secondary: L10n.format(
+                        "stats.best.format",
+                        bestStreak
+                    )
+                )
+                stat(
+                    value: "\(completionPercent)%",
+                    label: L10n.string("stats.completion"),
+                    systemImage: "chart.line.uptrend.xyaxis"
+                )
+                stat(
+                    value: "\(habitCheckIns.count)",
+                    label: L10n.string("stats.checkins"),
+                    systemImage: "checkmark.circle.fill"
+                )
+            }
         }
 
         return Group {
@@ -364,10 +385,23 @@ struct HabitDetailView: View {
 
     private func dayCell(_ date: Date) -> some View {
         let calendar = Calendar.autoupdatingCurrent
-        let scheduled = habit.usesFlexibleWeeklyTarget
-            ? false
-            : habit.schedule.includes(date, calendar: calendar)
-        let eligible = habit.usesFlexibleWeeklyTarget || scheduled
+        let intervalScheduled = habit.usesCompletionInterval &&
+            HabitFrequency.isDue(
+                habit: habit,
+                on: date,
+                checkIns: checkIns,
+                skips: skips,
+                pausePeriods: pausePeriods,
+                calendar: calendar
+            )
+        let scheduled = habit.usesCompletionInterval
+            ? intervalScheduled
+            : (habit.usesFlexibleWeeklyTarget
+                ? false
+                : habit.schedule.includes(date, calendar: calendar))
+        let eligible = habit.usesCompletionInterval ||
+            habit.usesFlexibleWeeklyTarget ||
+            scheduled
         let completed = HabitMetrics.isCompleted(
             habitID: habit.id,
             on: date,
@@ -536,6 +570,24 @@ struct HabitDetailView: View {
             of: .now
         ) ?? .now
         return date.formatted(date: .omitted, time: .shortened)
+    }
+
+    private var completionIntervalNextDueText: String {
+        let calendar = Calendar.autoupdatingCurrent
+        guard let dueDate = HabitFrequency.nextCompletionIntervalDueDate(
+            habit: habit,
+            checkIns: checkIns,
+            through: .now,
+            calendar: calendar
+        ) else {
+            return "—"
+        }
+
+        if dueDate <= calendar.startOfDay(for: .now) {
+            return L10n.string("today.title")
+        }
+
+        return dueDate.formatted(date: .abbreviated, time: .omitted)
     }
 
     private func togglePause() {

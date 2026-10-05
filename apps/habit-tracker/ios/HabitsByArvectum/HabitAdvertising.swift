@@ -38,12 +38,17 @@ struct HabitStickyBannerSlot: View {
                     isLoaded: $loaded,
                     contentHeight: $contentHeight
                 )
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .frame(
+                    width: proxy.size.width,
+                    height: max(contentHeight, 60)
+                )
+                .opacity(loaded ? 1 : 0)
             }
         }
-        .frame(height: contentHeight)
-        .background(Color.habitsSurface)
+        .frame(height: loaded ? contentHeight : 1)
+        .background(loaded ? Color.habitsSurface : Color.clear)
         .clipped()
+        .animation(.easeInOut(duration: 0.16), value: loaded)
         .accessibilityElement(children: .contain)
         .accessibilityIdentifier("today-sticky-ad-slot")
     }

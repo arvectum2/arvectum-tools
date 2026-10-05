@@ -2,6 +2,13 @@ import Foundation
 
 enum HabitScheduleText {
     static func description(for habit: Habit) -> String {
+        if habit.usesCompletionInterval {
+            return L10n.format(
+                "schedule.interval.description.format",
+                habit.completionIntervalDays
+            )
+        }
+
         if habit.usesFlexibleWeeklyTarget {
             return L10n.format(
                 "schedule.flexible.description.format",

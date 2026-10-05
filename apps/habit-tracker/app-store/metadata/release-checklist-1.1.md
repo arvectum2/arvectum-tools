@@ -2,6 +2,7 @@
 
 ## Scope frozen
 - [x] One-time reminders on iPhone.
+- [x] Completion-relative habits: next due date is N days after the actual completion day, without changing the published Habit/CloudKit field schema.
 - [x] One-time reminders do not affect habit streaks/statistics.
 - [x] One-time notification Done action.
 - [x] Edit/delete one-time reminders.
@@ -11,24 +12,24 @@
 - [x] Canonical Privacy Policy URL: https://arvectum.com/privacy.
 
 ## Before archive
-- [x] Full unit-test suite green: 103 tests, 0 failures.
-- [x] Simulator regression / core UI smoke green: 11 UI tests, 1 expected iOS-27-only skip on iOS 26.5, 0 failures.
+- [x] Full unit-test suite green: 109 tests, 0 failures.
+- [x] Simulator regression / core UI smoke green: 12 UI tests, 1 expected iOS-27-only skip on iOS 26.5, 0 failures.
 - [x] Release build embeds iPhone app, Watch app and widgets with 1.1.0 / build 3.
 - [x] V1 published-store upgrade smoke test green.
 - [x] RU/EN localization completeness green.
 - [x] Final Today UI reviewed with reminder and fixed-bottom ad; App Store screenshot intentionally uses the clean no-ad state.
 
 ## Exact App Store archive
-- [x] Create signed App Store archive from frozen source commit `50021bd0190b96932ee338c7f6f4f6b79c74473b`.
+- [ ] Create signed App Store archive from the final frozen source commit.
 - [ ] Generate and inspect Xcode Privacy Report from that exact archive in Organizer.
 - [ ] Update App Store Privacy answers only after reconciling the report with the actual Yandex runtime configuration.
 - [x] Verify no ATT prompt / tracking implementation is present in ChickMark 1.1 source/configuration.
 - [x] Verify Privacy Policy URL is https://arvectum.com/privacy.
-- [x] Export Apple Distribution IPA; SHA-256 `792a2f05d2a52d50e73f5f37c71d4be647135577162e3fb23273d5ac2d17feb2`.
+- [ ] Export Apple Distribution IPA and record its SHA-256.
 - [ ] Upload build to App Store Connect.
 
 ## Metadata
-- [x] RU/EN descriptions include one-time reminders.
+- [x] RU/EN descriptions include one-time reminders and completion-relative intervals.
 - [x] RU/EN What's New prepared.
 - [x] Review notes for 1.1 prepared.
 - [x] Privacy notes for 1.1 prepared.

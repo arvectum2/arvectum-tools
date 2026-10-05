@@ -37,6 +37,10 @@
 "schedule.flexible.target.format" = "%d times per week";
 "schedule.flexible.hint" = "The habit stays on Today until this week's goal is reached.";
 "schedule.flexible.description.format" = "%d times per week";
+"schedule.interval.toggle" = "Repeat after completion";
+"schedule.interval.days.format" = "Every %d days after completion";
+"schedule.interval.hint" = "The next due date is counted from the day you actually complete it.";
+"schedule.interval.description.format" = "Every %d days after completion";
 "habit.streak.weeks.format" = "%d weeks in a row";
 "habit.weekly.progress.format" = "%d of %d this week";
 
@@ -100,6 +104,9 @@
 "stats.streak" = "streak";
 "stats.best.format" = "best %d";
 "stats.completion" = "completed";
+"stats.nextDue" = "next due";
+"stats.interval" = "interval";
+"stats.interval.days.format" = "%d days";
 "stats.checkins" = "check-ins";
 
 "status.completed" = "completed";
@@ -112,7 +119,7 @@
 "accessibility.symbol.format" = "Icon %d";
 "accessibility.selected" = "Selected";
 
-"storage.error.title" = "Habits data is temporarily unavailable";
+"storage.error.title" = "ChickMark data is temporarily unavailable";
 "storage.error.message" = "Your data was not reset or overwritten. Close and reopen Habits. If the problem continues, update the app before trying again.";
 
 "shortcut.habit.type" = "Habit";
