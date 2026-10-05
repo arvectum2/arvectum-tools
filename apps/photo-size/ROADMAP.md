@@ -25,6 +25,22 @@ Canonical handoff: `docs/RELEASE_HANDOFF_2026-09-25.md`.
 
 ---
 
+## Current amendment — v0.6.0 (2026-10-05)
+
+The iOS product expands from photo-only input to the same core job for photos and PDFs and is renamed «Фото и PDF под размер».
+
+- One compact mode row: `По весу` / `По размеру` / `На документы` / `PDF`; the first three remain photo flows and `PDF` opens the target-file-size flow.
+- Photo flows remain unchanged: file size / dimensions / documents.
+- PDF v0.6 scope is intentionally narrow: choose one PDF → choose maximum KB/MB → receive a PDF at or below the requested limit.
+- PDF processing is fully on-device; no upload/backend is introduced.
+- Strong PDF compression rasterizes pages. The UI discloses that text search/selection may be lost.
+- Output invariant remains actualBytes <= requestedMaximum.
+- This does not expand into a general PDF toolkit: merge, split, OCR, signatures, scanner and conversion stay out of scope.
+
+Implementation: PDFEngine + unit coverage for page inspection, already-fitting PDFs and image-heavy compression. iOS marketing version 0.6.0, build 8.
+
+---
+
 ## Current amendment — v0.3.0
 
 This amendment supersedes the historical v0.1 UI/color notes below. Functional scope remains frozen after v0.2; v0.3.0 changes branding and interaction polish only.

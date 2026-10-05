@@ -21,7 +21,8 @@ struct ContentView: View {
     @State private var pickerItem: PhotosPickerItem?
     @State private var exporting = false
     @State private var exportDocument = ExportDocument(data: Data())
-    @State private var exportFilename = "foto.jpg"
+    @State private var exportFilename = "file.dat"
+    @State private var exportContentType: UTType = .data
     @State private var shareURL: URL?
     @State private var showingAdPrivacySettings = false
     @StateObject private var mainNativeAdSession = NativeAdSession()
@@ -30,14 +31,22 @@ struct ContentView: View {
         ZStack {
             Color.arvectumBackground.ignoresSafeArea()
 
-            VStack(spacing: model.result == nil ? 6 : 6) {
+            VStack(spacing: 6) {
                 BrandHeader(
-                    showHome: model.result != nil,
+                    showHome: model.result != nil || model.pdfResult != nil,
                     onHome: model.backToSelection
                 )
 
-                if model.result == nil {
-                    ModeSelector(mode: model.mode) { model.setMode($0) }
+                if model.result == nil && model.pdfResult == nil {
+                    ModeSelector(
+                        kind: model.inputKind,
+                        mode: model.mode,
+                        onPhotoMode: {
+                            model.setInputKind(.photo)
+                            model.setMode($0)
+                        },
+                        onPDF: { model.setInputKind(.pdf) }
+                    )
                 }
 
                 if let result = model.result {
@@ -53,10 +62,26 @@ struct ContentView: View {
                             ResultScreenAdSlot()
                         }
                     }
+                } else if let pdfResult = model.pdfResult {
+                    ScrollView(showsIndicators: false) {
+                        VStack(spacing: 6) {
+                            PDFResultCard(
+                                result: pdfResult,
+                                onSave: beginPDFExport,
+                                onShare: { shareURL = pdfResult.outputURL },
+                                onBack: model.backToSelection
+                            )
+                            ResultScreenAdSlot()
+                        }
+                    }
                 } else {
                     ScrollView(showsIndicators: false) {
                         VStack(spacing: 4) {
-                            MainTaskCard(pickerItem: $pickerItem)
+                            if model.inputKind == .photo {
+                                MainTaskCard(pickerItem: $pickerItem)
+                            } else {
+                                PDFTaskCard()
+                            }
                             MainScreenNativeAdSlot(session: mainNativeAdSession)
                         }
                     }
@@ -73,7 +98,7 @@ struct ContentView: View {
                 .font(.caption.weight(.semibold))
                 .foregroundStyle(.secondary)
                 .tracking(0.3)
-                .frame(height: model.result == nil ? 24 : 16)
+                .frame(height: (model.result == nil && model.pdfResult == nil) ? 24 : 16)
                 .accessibilityElement(children: .contain)
                 .accessibilityIdentifier("app-footer")
             }
@@ -104,7 +129,7 @@ struct ContentView: View {
         .onChange(of: pickerItem) { _, newValue in
             model.selectPhoto(newValue)
         }
-        .alert("Фото под размер", isPresented: Binding(
+        .alert("Фото и PDF под размер", isPresented: Binding(
             get: { model.errorMessage != nil },
             set: { if !$0 { model.errorMessage = nil } }
         )) {
@@ -125,7 +150,7 @@ struct ContentView: View {
         .fileExporter(
             isPresented: $exporting,
             document: exportDocument,
-            contentType: .data,
+            contentType: exportContentType,
             defaultFilename: exportFilename
         ) { result in
             model.markSaved((try? result.get()) != nil)
@@ -148,6 +173,19 @@ struct ContentView: View {
         }
         exportDocument = ExportDocument(data: data)
         exportFilename = result.suggestedFileName
+        exportContentType = result.contentType
+        exporting = true
+    }
+
+    private func beginPDFExport() {
+        guard let result = model.pdfResult,
+              let data = try? Data(contentsOf: result.outputURL) else {
+            model.errorMessage = tr("Не получилось сохранить файл.")
+            return
+        }
+        exportDocument = ExportDocument(data: data)
+        exportFilename = result.suggestedFileName
+        exportContentType = .pdf
         exporting = true
     }
 
@@ -159,6 +197,7 @@ struct ContentView: View {
         }
         exportDocument = ExportDocument(data: data)
         exportFilename = sheet.suggestedFileName
+        exportContentType = .jpeg
         exporting = true
     }
 }
@@ -546,6 +585,138 @@ private struct MainTaskCard: View {
     }
 }
 
+@MainActor
+private struct PDFTaskCard: View {
+    @EnvironmentObject private var model: AppModel
+    @State private var importingPDF = false
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            VStack(alignment: .leading, spacing: 3) {
+                Text(tr("PDF ПО ВЕСУ"))
+                    .font(.caption.weight(.bold))
+                    .foregroundStyle(Color.arvectumAccentText)
+                Text(tr("Уменьшить PDF до нужного веса"))
+                    .font(.title3.weight(.semibold))
+                    .foregroundStyle(Color.arvectumPrimaryText)
+            }
+
+            Button {
+                importingPDF = true
+            } label: {
+                HStack(spacing: 10) {
+                    Image(systemName: model.pdfSource == nil ? "doc.badge.plus" : "doc.fill")
+                        .font(.title2)
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text(tr(model.pdfSource == nil ? "Выбрать PDF" : "PDF выбран"))
+                            .font(.subheadline.weight(.semibold))
+                        if let source = model.pdfSource {
+                            Text("\(source.pageCount) \(pageWord(source.pageCount)) · \(formatBytes(source.sizeBytes))")
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                        } else {
+                            Text(tr("PDF-файл из приложения «Файлы»"))
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                        }
+                    }
+                    Spacer()
+                    Image(systemName: "chevron.right")
+                        .font(.caption.weight(.bold))
+                        .foregroundStyle(.secondary)
+                }
+                .foregroundStyle(Color.arvectumPrimaryText)
+                .padding(.horizontal, 12)
+                .frame(maxWidth: .infinity)
+                .frame(height: 64)
+                .background(Color.arvectumBackground, in: RoundedRectangle(cornerRadius: 14))
+            }
+            .buttonStyle(.plain)
+            .fileImporter(
+                isPresented: $importingPDF,
+                allowedContentTypes: [.pdf],
+                allowsMultipleSelection: false
+            ) { result in
+                if case .success(let urls) = result, let url = urls.first {
+                    model.selectPDFFile(url)
+                }
+            }
+
+            VStack(alignment: .leading, spacing: 7) {
+                Text(tr("Максимальный вес"))
+                    .font(.caption.weight(.semibold))
+                    .foregroundStyle(.secondary)
+                HStack(spacing: 5) {
+                    ForEach(fileSizePresets, id: \.0) { preset in
+                        Chip(
+                            text: tr(preset.1),
+                            selected: !model.isCustomTarget && model.targetBytes == preset.0
+                        ) { model.setPreset(preset.0) }
+                    }
+                    Chip(text: tr("Свой"), selected: model.isCustomTarget) {
+                        model.startCustomTarget()
+                    }
+                }
+            }
+
+            if model.isCustomTarget {
+                HStack(spacing: 8) {
+                    TextField(tr("Например, 750"), text: Binding(
+                        get: { model.customValue },
+                        set: { model.setCustomValue($0) }
+                    ))
+                    .keyboardType(.decimalPad)
+                    .textFieldStyle(.roundedBorder)
+
+                    Picker(tr("Единица"), selection: Binding(
+                        get: { model.customUnit },
+                        set: { model.setCustomUnit($0) }
+                    )) {
+                        ForEach(SizeUnit.allCases) { unit in
+                            Text(tr(unit.rawValue)).tag(unit)
+                        }
+                    }
+                    .pickerStyle(.segmented)
+                    .frame(width: 108)
+                }
+            }
+
+            Text(tr("Обработка выполняется только на устройстве. При сильном сжатии страницы PDF растрируются, поэтому поиск и выделение текста в готовом файле могут быть недоступны."))
+                .font(.caption2)
+                .foregroundStyle(.secondary)
+                .padding(10)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(Color.arvectumBackground, in: RoundedRectangle(cornerRadius: 12))
+
+            Button(action: model.compressPDFByBytes) {
+                Text(tr("Уменьшить PDF"))
+                    .font(.headline)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 48)
+            }
+            .buttonStyle(.plain)
+            .foregroundStyle(Color.arvectumPrimaryText)
+            .background(
+                model.pdfSource != nil && model.targetBytes != nil ? Color.arvectumMint : Color.arvectumBackground,
+                in: RoundedRectangle(cornerRadius: 16)
+            )
+            .opacity(model.pdfSource != nil && model.targetBytes != nil ? 1 : 0.65)
+            .disabled(model.pdfSource == nil || model.targetBytes == nil)
+        }
+        .padding(12)
+        .frame(maxWidth: .infinity, alignment: .topLeading)
+        .background(Color.arvectumSurface, in: RoundedRectangle(cornerRadius: 20))
+        .overlay(
+            RoundedRectangle(cornerRadius: 20)
+                .stroke(Color.arvectumBorder, lineWidth: 1)
+        )
+    }
+
+    private func pageWord(_ count: Int) -> String {
+        tr(count == 1 ? "страница" : "страниц")
+    }
+}
+
 private struct BeforeAfterPreview: View {
     let result: ResultImage
 
@@ -592,6 +763,108 @@ private struct BeforeAfterPreview: View {
                 .minimumScaleFactor(0.78)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
+    }
+}
+
+private struct PDFResultCard: View {
+    let result: ResultPDF
+    let onSave: () -> Void
+    let onShare: () -> Void
+    let onBack: () -> Void
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            HStack(spacing: 8) {
+                Text(tr("ГОТОВО"))
+                    .font(.caption.weight(.bold))
+                    .foregroundStyle(Color.arvectumAccentText)
+                Spacer()
+                Button(action: onBack) {
+                    Label(tr("Изменить настройки"), systemImage: "slider.horizontal.3")
+                        .font(.caption.weight(.semibold))
+                        .padding(.horizontal, 10)
+                        .frame(height: 32)
+                }
+                .buttonStyle(.plain)
+                .foregroundStyle(Color.arvectumPrimaryText)
+                .background(Color.arvectumBackground, in: Capsule())
+            }
+
+            Text(tr(result.alreadyFit ? "PDF уже подходит" : "PDF подготовлен"))
+                .font(.title3.weight(.semibold))
+                .foregroundStyle(Color.arvectumPrimaryText)
+
+            HStack(spacing: 12) {
+                if let preview = result.previewImage ?? result.source.previewImage {
+                    Image(uiImage: preview)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 92, height: 122)
+                        .background(Color.arvectumBackground)
+                        .clipShape(RoundedRectangle(cornerRadius: 12))
+                } else {
+                    Image(systemName: "doc.richtext")
+                        .font(.system(size: 44))
+                        .frame(width: 92, height: 122)
+                        .background(Color.arvectumBackground)
+                        .clipShape(RoundedRectangle(cornerRadius: 12))
+                }
+
+                VStack(spacing: 8) {
+                    stat(tr("До"), formatBytes(result.source.sizeBytes))
+                    stat(tr("После"), formatBytes(result.outputSizeBytes))
+                    stat(tr("Страниц"), "\(result.source.pageCount)")
+                }
+            }
+
+            Text(tr("PDF обработан локально на устройстве и никуда не загружался."))
+                .font(.caption)
+                .foregroundStyle(.secondary)
+
+            Button(action: onSave) {
+                Label(tr("Сохранить файл"), systemImage: "square.and.arrow.down")
+                    .font(.headline)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 48)
+            }
+            .buttonStyle(.plain)
+            .foregroundStyle(Color.arvectumPrimaryText)
+            .background(Color.arvectumMint, in: RoundedRectangle(cornerRadius: 16))
+
+            Button(action: onShare) {
+                Label(tr("Поделиться"), systemImage: "square.and.arrow.up")
+                    .font(.headline)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 46)
+            }
+            .buttonStyle(.plain)
+            .foregroundStyle(Color.arvectumPrimaryText)
+            .overlay(
+                RoundedRectangle(cornerRadius: 16)
+                    .stroke(Color.arvectumStrongBorder, lineWidth: 1)
+            )
+        }
+        .padding(14)
+        .frame(maxWidth: .infinity, minHeight: 430, alignment: .topLeading)
+        .background(Color.arvectumSurface, in: RoundedRectangle(cornerRadius: 20))
+        .overlay(
+            RoundedRectangle(cornerRadius: 20)
+                .stroke(Color.arvectumBorder, lineWidth: 1)
+        )
+    }
+
+    private func stat(_ label: String, _ value: String) -> some View {
+        HStack {
+            Text(label)
+                .font(.caption)
+                .foregroundStyle(.secondary)
+            Spacer()
+            Text(value)
+                .font(.subheadline.weight(.semibold))
+                .foregroundStyle(Color.arvectumPrimaryText)
+        }
+        .padding(10)
+        .background(Color.arvectumBackground, in: RoundedRectangle(cornerRadius: 12))
     }
 }
 
@@ -734,7 +1007,7 @@ private struct BrandHeader: View {
 
             if showHome {
                 Button(action: onHome) {
-                    Label("Фото под размер", systemImage: "house.fill")
+                    Label(tr("Фото и PDF под размер"), systemImage: "house.fill")
                         .font(.headline.weight(.semibold))
                         .foregroundStyle(.white)
                         .lineLimit(1)
@@ -744,7 +1017,7 @@ private struct BrandHeader: View {
                 .accessibilityLabel(Text(tr("На главный экран")))
                 .accessibilityIdentifier("home-button")
             } else {
-                Text("Фото под размер")
+                Text(tr("Фото и PDF под размер"))
                     .font(.headline.weight(.semibold))
                     .foregroundStyle(.white)
                     .lineLimit(1)
@@ -757,36 +1030,55 @@ private struct BrandHeader: View {
 }
 
 private struct ModeSelector: View {
+    let kind: InputKind
     let mode: ToolMode
-    let onChange: (ToolMode) -> Void
+    let onPhotoMode: (ToolMode) -> Void
+    let onPDF: () -> Void
 
     var body: some View {
         HStack(spacing: 6) {
             ForEach(ToolMode.allCases) { item in
                 Button {
-                    onChange(item)
+                    onPhotoMode(item)
                 } label: {
                     Text(item.title)
                         .font(.caption.weight(.semibold))
                         .lineLimit(1)
-                        .minimumScaleFactor(0.85)
+                        .minimumScaleFactor(0.72)
                         .frame(maxWidth: .infinity)
                         .frame(height: 46)
                 }
                 .buttonStyle(.plain)
                 .foregroundStyle(Color.arvectumPrimaryText)
                 .background(
-                    mode == item ? Color.arvectumMint : Color.arvectumSurface,
+                    kind == .photo && mode == item ? Color.arvectumMint : Color.arvectumSurface,
                     in: RoundedRectangle(cornerRadius: 14)
                 )
                 .overlay(
                     RoundedRectangle(cornerRadius: 14)
                         .stroke(
-                            mode == item ? Color.arvectumMint : Color.arvectumBorder,
+                            kind == .photo && mode == item ? Color.arvectumMint : Color.arvectumBorder,
                             lineWidth: 1
                         )
                 )
             }
+
+            Button(action: onPDF) {
+                Text("PDF")
+                    .font(.caption.weight(.semibold))
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 46)
+            }
+            .buttonStyle(.plain)
+            .foregroundStyle(Color.arvectumPrimaryText)
+            .background(
+                kind == .pdf ? Color.arvectumMint : Color.arvectumSurface,
+                in: RoundedRectangle(cornerRadius: 14)
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: 14)
+                    .stroke(kind == .pdf ? Color.arvectumMint : Color.arvectumBorder, lineWidth: 1)
+            )
         }
     }
 }
@@ -815,7 +1107,8 @@ private struct Chip: View {
 }
 
 private struct ExportDocument: FileDocument {
-    static var readableContentTypes: [UTType] { [.data] }
+    static var readableContentTypes: [UTType] { [.data, .jpeg, .png, .heic, .pdf] }
+    static var writableContentTypes: [UTType] { [.data, .jpeg, .png, .heic, .pdf] }
     var data: Data
 
     init(data: Data) {

@@ -4,9 +4,12 @@ import SwiftUI
 
 @MainActor
 final class AppModel: ObservableObject {
+    @Published var inputKind: InputKind = .photo
     @Published var mode: ToolMode = .fileSize
     @Published var source: SourceImage?
     @Published var result: ResultImage?
+    @Published var pdfSource: SourcePDF?
+    @Published var pdfResult: ResultPDF?
     @Published var targetBytes: Int64? = 5_000_000
     @Published var isCustomTarget = false
     @Published var customValue = ""
@@ -27,6 +30,7 @@ final class AppModel: ObservableObject {
     @Published var saved = false
 
     private let engine = ImageEngine()
+    private let pdfEngine = PDFEngine()
 
     init() {
         #if DEBUG
@@ -36,6 +40,7 @@ final class AppModel: ObservableObject {
             switch args[index + 1] {
             case "pixels": mode = .pixels
             case "passport": mode = .passport
+            case "pdf": inputKind = .pdf
             default: mode = .fileSize
             }
         }
@@ -83,6 +88,15 @@ final class AppModel: ObservableObject {
     func setMode(_ newMode: ToolMode) {
         mode = newMode
         result = nil
+        passportCropOpen = false
+        saved = false
+        errorMessage = nil
+    }
+
+    func setInputKind(_ kind: InputKind) {
+        inputKind = kind
+        result = nil
+        pdfResult = nil
         passportCropOpen = false
         saved = false
         errorMessage = nil
@@ -143,6 +157,35 @@ final class AppModel: ObservableObject {
                 source = nil
                 isWorking = false
                 errorMessage = userMessage(error, fallback: tr("Не получилось открыть этот файл."))
+            }
+        }
+    }
+
+    func selectPDFFile(_ url: URL) {
+        isWorking = true
+        errorMessage = nil
+        pdfResult = nil
+        saved = false
+
+        Task {
+            do {
+                let data = try await Task.detached(priority: .userInitiated) {
+                    let hasAccess = url.startAccessingSecurityScopedResource()
+                    defer {
+                        if hasAccess { url.stopAccessingSecurityScopedResource() }
+                    }
+                    return try Data(contentsOf: url, options: .mappedIfSafe)
+                }.value
+                let pdfEngine = self.pdfEngine
+                let inspected = try await Task.detached(priority: .userInitiated) {
+                    try pdfEngine.inspect(data: data)
+                }.value
+                pdfSource = inspected
+                isWorking = false
+            } catch {
+                pdfSource = nil
+                isWorking = false
+                errorMessage = userMessage(error, fallback: tr("Не получилось открыть этот PDF."))
             }
         }
     }
@@ -280,6 +323,28 @@ final class AppModel: ObservableObject {
         }
     }
 
+    func compressPDFByBytes() {
+        guard let pdfSource, let targetBytes else { return }
+        isWorking = true
+        errorMessage = nil
+        saved = false
+        pdfResult = nil
+        let pdfEngine = self.pdfEngine
+
+        Task {
+            do {
+                let output = try await Task.detached(priority: .userInitiated) {
+                    try pdfEngine.compressByBytes(source: pdfSource, requestedMaximumBytes: targetBytes)
+                }.value
+                pdfResult = output
+                isWorking = false
+            } catch {
+                isWorking = false
+                errorMessage = userMessage(error, fallback: tr("Не получилось уменьшить этот PDF."))
+            }
+        }
+    }
+
     func resizeByPixels() {
         guard let source else { return }
         switch pixelResizeMode {
@@ -321,14 +386,18 @@ final class AppModel: ObservableObject {
 
     func backToSelection() {
         result = nil
+        pdfResult = nil
         passportCropOpen = false
         saved = false
         errorMessage = nil
     }
 
     func reset() {
+        inputKind = .photo
         source = nil
         result = nil
+        pdfSource = nil
+        pdfResult = nil
         targetBytes = 5_000_000
         isCustomTarget = false
         customValue = ""
