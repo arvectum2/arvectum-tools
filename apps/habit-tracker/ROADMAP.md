@@ -210,16 +210,20 @@ Core habit tracking stays free. Advertising is the planned monetization model, b
 
 - [x] Product rule: no App Open Ads.
 - [x] Product rule: no interstitials in onboarding, create/edit, check-off or settings.
-- [ ] Today: at most one small adaptive banner in a dedicated bottom area.
+- [x] Today: one adaptive sticky banner in a dedicated fixed bottom safe-area slot; the habit list scrolls independently above it and the banner never appears between habits.
 - [ ] Progress / Statistics: at most one native ad after useful content.
 - [x] Eligibility guard prevents ads immediately after install.
 - [x] Store first-launch date, cold-launch count and successful check-off count locally.
 - [x] Initial eligibility gate implemented: 3 full days + 5 cold launches + 3 successful check-offs.
+- [x] Yandex Mobile Ads sticky banner integrated with production block `R-M-20183085-1`; required SKAdNetwork entries are bundled, test creative loads on iOS 27, and banner height follows the SDK content size.
+- [x] `app-ads.txt` for the shared Arvectum domain already matches the current Yandex/RСЯ seller list, so ChickMark does not need a second file.
+- [ ] Before submitting an ad-enabled build: update App Store Privacy and the ChickMark privacy-policy disclosure for the Yandex Mobile Ads SDK; do not change the already-submitted V1 build 1 while it is in review.
 - [ ] Validate thresholds only after the core loop is stable.
 - [ ] Test retention impact before increasing ad exposure.
 
 ## Post-MVP backlog
 
+- [ ] One-off reminders: lightweight single-event reminders alongside habits (for example, “buy a marathon slot”; registration opens at 08:00), with date/time, local notification, completion/dismiss and no conversion into a recurring habit unless the user asks.
 - [ ] Multi-check daily target: allow one habit to require `N` completions per day (for example, take a tablet 2× or drink 5 glasses of water); render the `N` check circles inline in the habit row, with each circle independently checkable/undoable and the habit complete at `N/N`.
 - [ ] Quantitative / duration habits beyond the multi-check daily target.
 - [ ] Habit groups.

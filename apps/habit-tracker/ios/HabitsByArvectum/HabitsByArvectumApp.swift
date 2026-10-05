@@ -8,6 +8,8 @@ struct HabitsByArvectumApp: App {
     private let storageUnavailable: Bool
 
     init() {
+        HabitAdSDK.configure()
+
         let schema = HabitsSchema.current
         let arguments = ProcessInfo.processInfo.arguments
         let isUITesting = arguments.contains("--ui-testing")

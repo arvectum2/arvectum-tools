@@ -18,6 +18,7 @@ struct TodayView: View {
     @State private var clockRevision = 0
     @State private var chickInCelebrationID: UUID?
     @State private var chickInCelebrationHabitID: UUID?
+    @State private var adEligible = false
 
     private var activeToday: [Habit] {
         HabitTodayProjection.orderedDueHabits(
@@ -74,6 +75,11 @@ struct TodayView: View {
                     .accessibilityLabel(L10n.string("habit.add.accessibility"))
                 }
             }
+            .safeAreaInset(edge: .bottom, spacing: 0) {
+                if adEligible {
+                    HabitStickyBannerSlot()
+                }
+            }
             .sheet(isPresented: $showingAddHabit) {
                 AddHabitView()
             }
@@ -108,6 +114,7 @@ struct TodayView: View {
             .task {
                 refreshReferenceDate()
                 registerForegroundLaunchIfNeeded()
+                refreshAdEligibility()
                 backfillLegacyDayKeys()
 #if DEBUG
                 openDebugSurfaceIfRequested()
@@ -130,6 +137,7 @@ struct TodayView: View {
                 if phase == .active {
                     refreshReferenceDate(forceRevision: true)
                     registerForegroundLaunchIfNeeded()
+                    refreshAdEligibility()
                     HabitReminderCoordinator.shared.refresh()
                     HabitWidgetCoordinator.shared.refresh()
                 }
@@ -321,6 +329,23 @@ struct TodayView: View {
         HabitAdEligibilityStore.shared.registerForegroundLaunchOnce()
     }
 
+    private func refreshAdEligibility() {
+        let arguments = ProcessInfo.processInfo.arguments
+        guard !arguments.contains("--ui-testing") else {
+            adEligible = false
+            return
+        }
+
+#if DEBUG
+        if arguments.contains("--debug-force-ads") {
+            adEligible = true
+            return
+        }
+#endif
+
+        adEligible = HabitAdEligibilityStore.shared.isEligible()
+    }
+
     private func isCompleted(_ habit: Habit, on date: Date) -> Bool {
         HabitMetrics.isCompleted(
             habitID: habit.id,
@@ -354,6 +379,7 @@ struct TodayView: View {
 
         if desiredState && changed {
             HabitAdEligibilityStore.shared.registerSuccessfulCheckOff()
+            refreshAdEligibility()
             UINotificationFeedbackGenerator().notificationOccurred(.success)
             showUndo(for: habit.id, dayKey: key)
             showChickInCelebration(for: habit.id)
