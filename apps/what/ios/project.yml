@@ -1,0 +1,129 @@
+name: What
+options:
+  createIntermediateGroups: true
+  deploymentTarget:
+    iOS: "17.0"
+    watchOS: "10.0"
+
+settings:
+  base:
+    DEVELOPMENT_TEAM: VML75VY94V
+    CODE_SIGN_STYLE: Automatic
+    SWIFT_VERSION: "5.0"
+    MARKETING_VERSION: "0.1.0"
+    CURRENT_PROJECT_VERSION: "1"
+
+targets:
+  WhatIOS:
+    type: application
+    platform: iOS
+    deploymentTarget: "17.0"
+    sources:
+      - path: Shared
+      - path: WhatIOS
+    info:
+      path: WhatIOS/Info.plist
+      properties:
+        CFBundleDisplayName: "What?"
+        CFBundleShortVersionString: "$(MARKETING_VERSION)"
+        CFBundleVersion: "$(CURRENT_PROJECT_VERSION)"
+        LSApplicationCategoryType: public.app-category.productivity
+        ITSAppUsesNonExemptEncryption: false
+        UILaunchScreen: {}
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: ru.arvectum.tools.what
+        PRODUCT_NAME: WhatIOS
+        PRODUCT_MODULE_NAME: WhatIOS
+        GENERATE_INFOPLIST_FILE: NO
+        TARGETED_DEVICE_FAMILY: "1"
+        SUPPORTS_MACCATALYST: NO
+    dependencies:
+      - target: WhatWatch
+    scheme:
+      testTargets:
+        - WhatIOSTests
+
+  WhatIOSTests:
+    type: bundle.unit-test
+    platform: iOS
+    deploymentTarget: "17.0"
+    sources:
+      - path: WhatIOSTests
+    dependencies:
+      - target: WhatIOS
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: ru.arvectum.tools.what.tests
+        GENERATE_INFOPLIST_FILE: YES
+
+  WhatWatch:
+    type: application
+    platform: watchOS
+    deploymentTarget: "10.0"
+    sources:
+      - path: Shared
+      - path: WhatWatch
+    info:
+      path: WhatWatch/Info.plist
+      properties:
+        CFBundleName: "What?"
+        CFBundleDisplayName: "What?"
+        CFBundleShortVersionString: "$(MARKETING_VERSION)"
+        CFBundleVersion: "$(CURRENT_PROJECT_VERSION)"
+        WKApplication: true
+        WKCompanionAppBundleIdentifier: ru.arvectum.tools.what
+        NSMicrophoneUsageDescription: "What? records the thought you speak so it can be saved locally and transferred to your iPhone."
+        CFBundleURLTypes:
+          - CFBundleURLName: ru.arvectum.tools.what.capture
+            CFBundleURLSchemes:
+              - what
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: ru.arvectum.tools.what.watch
+        PRODUCT_NAME: WhatWatch
+        GENERATE_INFOPLIST_FILE: NO
+        TARGETED_DEVICE_FAMILY: "4"
+    dependencies:
+      - target: WhatWatchComplication
+    scheme: {}
+
+  WhatWatchComplication:
+    type: app-extension
+    platform: watchOS
+    deploymentTarget: "10.0"
+    sources:
+      - path: WhatWatchComplication
+    info:
+      path: WhatWatchComplication/Info.plist
+      properties:
+        CFBundleDisplayName: "What?"
+        CFBundleShortVersionString: "$(MARKETING_VERSION)"
+        CFBundleVersion: "$(CURRENT_PROJECT_VERSION)"
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.widgetkit-extension
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: ru.arvectum.tools.what.watch.complication
+        PRODUCT_NAME: WhatWatchComplication
+        GENERATE_INFOPLIST_FILE: NO
+        TARGETED_DEVICE_FAMILY: "4"
+
+schemes:
+  WhatIOS:
+    build:
+      targets:
+        WhatIOS: all
+    run:
+      config: Debug
+    test:
+      config: Debug
+      targets:
+        - WhatIOSTests
+
+  WhatWatch:
+    build:
+      targets:
+        WhatWatch: all
+    run:
+      config: Debug

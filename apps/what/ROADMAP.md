@@ -31,24 +31,24 @@ The product is not positioned as a generic voice recorder. Its core job is to ca
 **Goal:** the user taps once on Apple Watch, speaks, stops, and can trust that the thought is saved.
 
 ### Watch capture flow
-- [ ] Create watchOS app target.
-- [ ] Add a complication / watch-face entry point for fast launch.
-- [ ] Opening from the capture entry point immediately starts recording after permissions are granted.
-- [ ] Give immediate haptic confirmation when recording starts.
-- [ ] Minimal recording UI: timer + stop/finish control.
-- [ ] Give haptic + visual confirmation after the recording is safely persisted.
-- [ ] Store each recording locally on Apple Watch before any transfer attempt.
-- [ ] Assign every recording a stable UUID and creation timestamp.
+- [x] Create watchOS app target.
+- [x] Add a complication / watch-face entry point for fast launch.
+- [x] Opening from the capture entry point immediately starts recording after permissions are granted.
+- [x] Give immediate haptic confirmation when recording starts.
+- [x] Minimal recording UI: timer + stop/finish control.
+- [x] Give haptic + visual confirmation after the recording is safely persisted.
+- [x] Store each recording locally on Apple Watch before any transfer attempt.
+- [x] Assign every recording a stable UUID and creation timestamp.
 
 ### Reliable transfer
-- [ ] Maintain a durable local outbound queue on Apple Watch.
-- [ ] Transfer recordings to the paired iPhone opportunistically/background where supported.
-- [ ] iPhone stores the incoming file before acknowledging receipt.
-- [ ] iPhone sends ACK for the recording UUID.
-- [ ] Watch deletes its local transfer copy only after confirmed ACK.
-- [ ] Transfer is idempotent: duplicate delivery must not create duplicate notes.
-- [ ] Interrupted transfer resumes/retries without user action.
-- [ ] Provide a small Watch status for pending/unsynced captures.
+- [x] Maintain a durable local outbound queue on Apple Watch.
+- [x] Transfer recordings to the paired iPhone opportunistically/background where supported.
+- [x] iPhone stores the incoming file before acknowledging receipt.
+- [x] iPhone sends ACK for the recording UUID.
+- [x] Watch deletes its local transfer copy only after confirmed ACK.
+- [x] Transfer is idempotent: duplicate delivery must not create duplicate notes.
+- [x] Interrupted transfer resumes/retries without user action.
+- [x] Provide a small Watch status for pending/unsynced captures.
 
 ### P0 acceptance tests
 - [ ] Capture with iPhone nearby.
