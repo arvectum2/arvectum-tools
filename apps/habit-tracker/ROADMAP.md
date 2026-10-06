@@ -241,7 +241,7 @@ Physical validation on 2026-10-02 is green for the main single-device/Watch path
 
 **Published baseline:** ChickMark 1.0 (build 1) passed App Review and is published in the App Store. It remains the compatibility baseline for storage, CloudKit, Watch and widget behavior.
 
-**Current development line:** 1.1.0 (build 3). Scope is frozen around one-off reminders plus the first non-disruptive Today banner monetization. One-off reminders use their own local-only SwiftData configuration, so the published V1 habit/CloudKit store and production CloudKit schema remain unchanged. Multi-check habits, quantitative goals, advanced statistics and additional ad placements stay out of 1.1. Small/large screen coverage remains simulator-only under the physical-device safety rule.
+**Published release:** 1.1.0 (build 3), released 2026-10-06. It ships one-off reminders plus the first non-disruptive Today banner monetization. One-off reminders use their own local-only SwiftData configuration, so the published V1 habit/CloudKit store and production CloudKit schema remain unchanged. Multi-check habits, quantitative goals, advanced statistics and additional ad placements remain candidates for the next development line. Small/large screen coverage remains simulator-only under the physical-device safety rule.
 
 
 ## V1.1 release scope

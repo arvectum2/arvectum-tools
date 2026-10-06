@@ -49,4 +49,6 @@
 - [x] Confirm age rating/content rights/export compliance remain applicable; content rights updated for third-party advertising content.
 - [x] Submit for review after explicit approval.
 - [x] Review Submission ID: `4a52b1b2-8b5d-481e-9011-b03622fde019`.
-- [x] Final App Store Connect state: `WAITING_FOR_REVIEW`.
+- [x] Submitted to App Review.
+- [x] Approved and published on 2026-10-06.
+- [x] Final App Store Connect state: `READY_FOR_SALE` / `READY_FOR_DISTRIBUTION`.
