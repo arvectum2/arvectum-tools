@@ -153,7 +153,12 @@ struct ContentView: View {
             contentType: exportContentType,
             defaultFilename: exportFilename
         ) { result in
-            model.markSaved((try? result.get()) != nil)
+            switch result {
+            case .success:
+                model.markSaved(true)
+            case .failure(let error):
+                model.markSaveFailed(error)
+            }
         }
         .sheet(isPresented: Binding(
             get: { shareURL != nil },

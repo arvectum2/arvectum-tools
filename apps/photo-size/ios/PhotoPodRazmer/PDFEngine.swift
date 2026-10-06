@@ -156,11 +156,7 @@ final class PDFEngine {
             var mediaBox = CGRect(x: 0, y: 0, width: page.mediaBox.width, height: page.mediaBox.height)
             let pageInfo = [kCGPDFContextMediaBox as String: NSData(bytes: &mediaBox, length: MemoryLayout<CGRect>.size)] as CFDictionary
             context.beginPDFPage(pageInfo)
-            context.saveGState()
-            context.translateBy(x: 0, y: mediaBox.height)
-            context.scaleBy(x: 1, y: -1)
             context.draw(compressedImage, in: mediaBox)
-            context.restoreGState()
             context.endPDFPage()
         }
         context.closePDF()

@@ -425,6 +425,14 @@ final class AppModel: ObservableObject {
         }
     }
 
+    func markSaveFailed(_ error: Error) {
+        saved = false
+        let description = error.localizedDescription.trimmingCharacters(in: .whitespacesAndNewlines)
+        errorMessage = description.isEmpty
+            ? tr("Не получилось сохранить файл.")
+            : "\(tr("Не получилось сохранить файл.")) \(description)"
+    }
+
     private func process(
         fallback: String,
         operation: @escaping (ImageEngine) throws -> ResultImage
