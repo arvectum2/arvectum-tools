@@ -111,12 +111,34 @@ final class WatchCaptureController: NSObject, ObservableObject, AVAudioRecorderD
         let id = UUID()
         let createdAt = Date()
         let url = outboundDirectory.appendingPathComponent("\(id.uuidString).m4a")
+        let audioSession = AVAudioSession.sharedInstance()
 
         do {
-            let audioSession = AVAudioSession.sharedInstance()
-            try audioSession.setCategory(.record, mode: .spokenAudio)
-            try audioSession.setActive(true)
+            try audioSession.setCategory(.playAndRecord, mode: .default)
+        } catch {
+            failRecordingStart(error, fileURL: url)
+            return
+        }
 
+        audioSession.activate { [weak self] activated, error in
+            DispatchQueue.main.async {
+                guard let self else { return }
+
+                guard activated else {
+                    self.failRecordingStart(
+                        error ?? CocoaError(.featureUnsupported),
+                        fileURL: url
+                    )
+                    return
+                }
+
+                self.startRecorder(id: id, createdAt: createdAt, url: url)
+            }
+        }
+    }
+
+    private func startRecorder(id: UUID, createdAt: Date, url: URL) {
+        do {
             let settings: [String: Any] = [
                 AVFormatIDKey: kAudioFormatMPEG4AAC,
                 AVSampleRateKey: 16_000,
@@ -138,10 +160,16 @@ final class WatchCaptureController: NSObject, ObservableObject, AVAudioRecorderD
             state = .recording(createdAt)
             WKInterfaceDevice.current().play(.start)
         } catch {
-            try? fileManager.removeItem(at: url)
-            state = .error("Recording could not start.")
-            WKInterfaceDevice.current().play(.failure)
+            failRecordingStart(error, fileURL: url)
         }
+    }
+
+    private func failRecordingStart(_ error: Error, fileURL: URL) {
+        try? fileManager.removeItem(at: fileURL)
+        let message = (error as NSError).localizedDescription
+        print("What? recording start failed: \(error)")
+        state = .error("Start failed: \(message)")
+        WKInterfaceDevice.current().play(.failure)
     }
 
     private func enqueue(_ recording: RecordingEnvelope) throws {
