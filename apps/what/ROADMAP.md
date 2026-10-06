@@ -51,12 +51,13 @@ The product is not positioned as a generic voice recorder. Its core job is to ca
 - [x] Provide a small Watch status for pending/unsynced captures.
 
 ### P0 acceptance tests
-- [ ] Capture with iPhone nearby.
+- [x] Capture with iPhone nearby.
 - [ ] Capture with iPhone disconnected/unreachable.
 - [ ] Capture several notes while iPhone is unavailable, then reconnect.
-- [ ] Force-close the iPhone app before transfer.
+- [x] Force-close the iPhone app before transfer.
+- [x] Restart the Watch app process with a pending item.
 - [ ] Reboot Watch/iPhone with pending items.
-- [ ] Simulate duplicate delivery.
+- [x] Simulate duplicate delivery (repository idempotence test).
 - [ ] Verify no successful capture disappears in any tested case.
 
 **Definition of done for P0:** capture is boringly reliable.
