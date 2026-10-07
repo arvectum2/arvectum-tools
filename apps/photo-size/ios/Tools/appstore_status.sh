@@ -18,9 +18,16 @@ curl -fsS -G -H "Authorization: Bearer $token" \
 python3 - /tmp/arvectum-app-builds.json <<'PY'
 import json, sys
 p=json.load(open(sys.argv[1]))
+pre={
+    x["id"]: x.get("attributes", {}).get("version")
+    for x in p.get("included", [])
+    if x.get("type") == "preReleaseVersions"
+}
 for x in p.get("data", []):
     a=x.get("attributes", {})
-    print(x["id"], a.get("version"), a.get("processingState"), a.get("uploadedDate"), a.get("expired"), "encryption=", a.get("usesNonExemptEncryption"))
+    rel=x.get("relationships", {}).get("preReleaseVersion", {}).get("data")
+    marketing=pre.get(rel.get("id")) if rel else None
+    print(x["id"], a.get("version"), a.get("processingState"), a.get("uploadedDate"), a.get("expired"), "encryption=", a.get("usesNonExemptEncryption"), "marketing=", marketing)
 PY
 
 curl -fsS -H "Authorization: Bearer $token" \

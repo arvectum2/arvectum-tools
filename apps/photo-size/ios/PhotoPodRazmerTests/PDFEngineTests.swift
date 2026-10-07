@@ -31,22 +31,60 @@ final class PDFEngineTests: XCTestCase {
         XCTAssertEqual(PDFDocument(url: result.outputURL)?.pageCount, 3)
     }
 
+    func testLargeImageHeavyPDFCanBeReducedToFiveMB() throws {
+        let sourceURL = try makePDFFile(pageCount: 16, noisy: true)
+        defer { try? FileManager.default.removeItem(at: sourceURL) }
+
+        let source = try engine.inspect(fileURL: sourceURL)
+        XCTAssertGreaterThan(source.sizeBytes, 70_000_000)
+
+        let result = try engine.compressByBytes(
+            source: source,
+            requestedMaximumBytes: 5_000_000
+        )
+
+        XCTAssertLessThanOrEqual(result.outputSizeBytes, 5_000_000)
+        XCTAssertEqual(PDFDocument(url: result.outputURL)?.pageCount, 16)
+    }
+
     private func makePDF(pageCount: Int, noisy: Bool = false) -> Data {
         let pageRect = CGRect(x: 0, y: 0, width: 595, height: 842)
         let renderer = UIGraphicsPDFRenderer(bounds: pageRect)
         return renderer.pdfData { context in
-            for index in 0..<pageCount {
-                context.beginPage()
-                UIColor.white.setFill()
-                context.fill(pageRect)
+            drawPages(context: context, pageRect: pageRect, pageCount: pageCount, noisy: noisy)
+        }
+    }
 
-                let title = "PDF test page \(index + 1)"
-                title.draw(
-                    at: CGPoint(x: 40, y: 40),
-                    withAttributes: [.font: UIFont.systemFont(ofSize: 28)]
-                )
+    private func makePDFFile(pageCount: Int, noisy: Bool) throws -> URL {
+        let url = FileManager.default.temporaryDirectory
+            .appendingPathComponent("large-pdf-\(UUID().uuidString).pdf")
+        let pageRect = CGRect(x: 0, y: 0, width: 595, height: 842)
+        let renderer = UIGraphicsPDFRenderer(bounds: pageRect)
+        try renderer.writePDF(to: url) { context in
+            drawPages(context: context, pageRect: pageRect, pageCount: pageCount, noisy: noisy)
+        }
+        return url
+    }
 
-                if noisy {
+    private func drawPages(
+        context: UIGraphicsPDFRendererContext,
+        pageRect: CGRect,
+        pageCount: Int,
+        noisy: Bool
+    ) {
+        for index in 0..<pageCount {
+            context.beginPage()
+            UIColor.white.setFill()
+            context.fill(pageRect)
+
+            let title = "PDF test page \(index + 1)"
+            title.draw(
+                at: CGPoint(x: 40, y: 40),
+                withAttributes: [.font: UIFont.systemFont(ofSize: 28)]
+            )
+
+            if noisy {
+                autoreleasepool {
                     let image = makeNoiseImage(width: 1100, height: 1500, seed: index + 1)
                     image.draw(in: CGRect(x: 40, y: 110, width: 515, height: 690))
                 }

@@ -169,16 +169,13 @@ final class AppModel: ObservableObject {
 
         Task {
             do {
-                let data = try await Task.detached(priority: .userInitiated) {
+                let pdfEngine = self.pdfEngine
+                let inspected = try await Task.detached(priority: .userInitiated) {
                     let hasAccess = url.startAccessingSecurityScopedResource()
                     defer {
                         if hasAccess { url.stopAccessingSecurityScopedResource() }
                     }
-                    return try Data(contentsOf: url, options: .mappedIfSafe)
-                }.value
-                let pdfEngine = self.pdfEngine
-                let inspected = try await Task.detached(priority: .userInitiated) {
-                    try pdfEngine.inspect(data: data)
+                    return try pdfEngine.inspect(fileURL: url)
                 }.value
                 pdfSource = inspected
                 isWorking = false
@@ -423,6 +420,14 @@ final class AppModel: ObservableObject {
         if !success {
             errorMessage = tr("Не получилось сохранить файл.")
         }
+    }
+
+    func markSaveFailed(_ error: Error) {
+        saved = false
+        let description = error.localizedDescription.trimmingCharacters(in: .whitespacesAndNewlines)
+        errorMessage = description.isEmpty
+            ? tr("Не получилось сохранить файл.")
+            : "\(tr("Не получилось сохранить файл.")) \(description)"
     }
 
     private func process(

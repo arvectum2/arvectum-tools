@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import argparse, os, re, subprocess
+import argparse, os, plistlib, re, subprocess, zipfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -23,6 +23,47 @@ else:
 
 if not IPA.is_file():
     raise SystemExit(f"IPA not found: {IPA}")
+
+with zipfile.ZipFile(IPA) as archive:
+    info_paths = [
+        name for name in archive.namelist()
+        if name.startswith("Payload/")
+        and name.endswith(".app/Info.plist")
+        and name.count("/") == 2
+    ]
+    if len(info_paths) != 1:
+        raise SystemExit(f"Expected one top-level app Info.plist, found {len(info_paths)}")
+    info = plistlib.loads(archive.read(info_paths[0]))
+
+version = str(info.get("CFBundleShortVersionString", "")).strip()
+build = str(info.get("CFBundleVersion", "")).strip()
+if not version or not build:
+    raise SystemExit("Could not read version/build from IPA")
+
+status_script = Path(__file__).with_name("appstore_status.sh")
+status = subprocess.run(
+    [str(status_script)],
+    text=True,
+    capture_output=True,
+    check=True,
+).stdout
+for line in status.splitlines():
+    fields = line.split()
+    if len(fields) < 3 or fields[0] == "VERSION":
+        continue
+    existing_build = fields[1]
+    marketing = None
+    for index, field in enumerate(fields):
+        if field == "marketing=" and index + 1 < len(fields):
+            marketing = fields[index + 1]
+            break
+        if field.startswith("marketing=") and field != "marketing=":
+            marketing = field.split("=", 1)[1]
+            break
+    if existing_build == build and marketing == version:
+        raise SystemExit(
+            f"Refusing redundant upload: {version} ({build}) already exists in App Store Connect"
+        )
 
 cfg={}
 for raw in CFG.read_text().splitlines():
