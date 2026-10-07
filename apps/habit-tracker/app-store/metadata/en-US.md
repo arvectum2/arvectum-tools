@@ -1,12 +1,13 @@
 # ChickMark — App Store EN
 
-Name: ChickMark
-Subtitle: Habits without the clutter
+Name: ChickMark: Habit Tracker
+Subtitle: Goals, streaks & reminders
 Marketing URL: https://arvectum.com
+Promotional Text: Build habits without the clutter: flexible schedules, streaks, one-time reminders, widgets, and Apple Watch. Core data stays on your devices.
 
 ## Description
 
-ChickMark is a simple habit tracker that stays out of your way.
+ChickMark is a simple habit tracker for routines, goals, and reminders that stays out of your way.
 
 Create a habit in seconds, check it off with one tap, and see your progress immediately. Today shows only the habits that are actually due.
 
@@ -36,4 +37,4 @@ We also improved local reminder reliability and introduced non-disruptive moneti
 
 ## Keywords
 
-habits,tracker,routine,goals,streaks,reminders,widget,watch,daily,progress
+routine,daily,planner,checklist,calendar,progress,discipline,motivation,widget,watch,schedule
