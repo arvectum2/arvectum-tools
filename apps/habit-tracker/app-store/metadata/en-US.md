@@ -2,6 +2,7 @@
 
 Name: ChickMark
 Subtitle: Habits without the clutter
+Marketing URL: https://arvectum.com
 
 ## Description
 
