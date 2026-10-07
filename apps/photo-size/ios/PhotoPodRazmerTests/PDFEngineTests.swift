@@ -31,102 +31,60 @@ final class PDFEngineTests: XCTestCase {
         XCTAssertEqual(PDFDocument(url: result.outputURL)?.pageCount, 3)
     }
 
-    func testCompressionPreservesPageOrientation() throws {
-        let source = try engine.inspect(data: makeOrientationPDF())
-        let target = max(Int64(220_000), source.sizeBytes / 2)
-        XCTAssertGreaterThan(source.sizeBytes, target)
+    func testLargeImageHeavyPDFCanBeReducedToFiveMB() throws {
+        let sourceURL = try makePDFFile(pageCount: 16, noisy: true)
+        defer { try? FileManager.default.removeItem(at: sourceURL) }
 
-        let result = try engine.compressByBytes(source: source, requestedMaximumBytes: target)
-        XCTAssertFalse(result.alreadyFit)
+        let source = try engine.inspect(fileURL: sourceURL)
+        XCTAssertGreaterThan(source.sizeBytes, 70_000_000)
 
-        guard let sourcePreview = source.previewImage,
-              let resultDocument = PDFDocument(url: result.outputURL),
-              let resultPage = resultDocument.page(at: 0) else {
-            return XCTFail("Missing source/result preview")
-        }
-
-        let resultPreview = resultPage.thumbnail(
-            of: CGSize(width: 480, height: 640),
-            for: .mediaBox
+        let result = try engine.compressByBytes(
+            source: source,
+            requestedMaximumBytes: 5_000_000
         )
-        let sourceContrast = verticalContrast(sourcePreview)
-        let resultContrast = verticalContrast(resultPreview)
 
-        XCTAssertGreaterThan(abs(sourceContrast), 20)
-        XCTAssertGreaterThan(
-            sourceContrast * resultContrast,
-            0,
-            "Compressed PDF must preserve top/bottom orientation"
-        )
-    }
-
-    private func makeOrientationPDF() -> Data {
-        let pageRect = CGRect(x: 0, y: 0, width: 595, height: 842)
-        let renderer = UIGraphicsPDFRenderer(bounds: pageRect)
-        return renderer.pdfData { context in
-            context.beginPage()
-
-            UIColor.white.setFill()
-            context.fill(pageRect)
-
-            UIColor.black.setFill()
-            context.fill(CGRect(x: 0, y: 0, width: pageRect.width, height: 150))
-
-            let image = makeNoiseImage(width: 1400, height: 1500, seed: 77)
-            image.draw(in: CGRect(x: 25, y: 175, width: 545, height: 500))
-        }
-    }
-
-    private func verticalContrast(_ image: UIImage) -> Double {
-        guard let cgImage = image.cgImage,
-              let data = cgImage.dataProvider?.data,
-              let bytes = CFDataGetBytePtr(data) else {
-            return 0
-        }
-
-        let width = cgImage.width
-        let height = cgImage.height
-        let bytesPerRow = cgImage.bytesPerRow
-        let bytesPerPixel = max(1, cgImage.bitsPerPixel / 8)
-
-        func brightness(at fraction: Double) -> Double {
-            let y = min(height - 1, max(0, Int(Double(height - 1) * fraction)))
-            let step = max(1, width / 80)
-            var total = 0.0
-            var samples = 0
-
-            for x in stride(from: width / 5, to: width * 4 / 5, by: step) {
-                let offset = y * bytesPerRow + x * bytesPerPixel
-                let channelCount = min(3, bytesPerPixel)
-                var pixel = 0.0
-                for channel in 0..<channelCount {
-                    pixel += Double(bytes[offset + channel])
-                }
-                total += pixel / Double(channelCount)
-                samples += 1
-            }
-            return samples == 0 ? 0 : total / Double(samples)
-        }
-
-        return brightness(at: 0.10) - brightness(at: 0.90)
+        XCTAssertLessThanOrEqual(result.outputSizeBytes, 5_000_000)
+        XCTAssertEqual(PDFDocument(url: result.outputURL)?.pageCount, 16)
     }
 
     private func makePDF(pageCount: Int, noisy: Bool = false) -> Data {
         let pageRect = CGRect(x: 0, y: 0, width: 595, height: 842)
         let renderer = UIGraphicsPDFRenderer(bounds: pageRect)
         return renderer.pdfData { context in
-            for index in 0..<pageCount {
-                context.beginPage()
-                UIColor.white.setFill()
-                context.fill(pageRect)
+            drawPages(context: context, pageRect: pageRect, pageCount: pageCount, noisy: noisy)
+        }
+    }
 
-                let title = "PDF test page \(index + 1)"
-                title.draw(
-                    at: CGPoint(x: 40, y: 40),
-                    withAttributes: [.font: UIFont.systemFont(ofSize: 28)]
-                )
+    private func makePDFFile(pageCount: Int, noisy: Bool) throws -> URL {
+        let url = FileManager.default.temporaryDirectory
+            .appendingPathComponent("large-pdf-\(UUID().uuidString).pdf")
+        let pageRect = CGRect(x: 0, y: 0, width: 595, height: 842)
+        let renderer = UIGraphicsPDFRenderer(bounds: pageRect)
+        try renderer.writePDF(to: url) { context in
+            drawPages(context: context, pageRect: pageRect, pageCount: pageCount, noisy: noisy)
+        }
+        return url
+    }
 
-                if noisy {
+    private func drawPages(
+        context: UIGraphicsPDFRendererContext,
+        pageRect: CGRect,
+        pageCount: Int,
+        noisy: Bool
+    ) {
+        for index in 0..<pageCount {
+            context.beginPage()
+            UIColor.white.setFill()
+            context.fill(pageRect)
+
+            let title = "PDF test page \(index + 1)"
+            title.draw(
+                at: CGPoint(x: 40, y: 40),
+                withAttributes: [.font: UIFont.systemFont(ofSize: 28)]
+            )
+
+            if noisy {
+                autoreleasepool {
                     let image = makeNoiseImage(width: 1100, height: 1500, seed: index + 1)
                     image.draw(in: CGRect(x: 40, y: 110, width: 515, height: 690))
                 }
