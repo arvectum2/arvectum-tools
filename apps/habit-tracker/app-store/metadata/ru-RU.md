@@ -2,6 +2,7 @@
 
 Название: ChickMark
 Подзаголовок: Привычки без лишнего
+Marketing URL: https://arvectum.com
 
 ## Описание
 
