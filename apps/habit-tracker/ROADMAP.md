@@ -1,6 +1,6 @@
 # ChickMark — Roadmap
 
-**Status:** ACTIVE / implementation started
+**Status:** PUBLISHED / 1.2 live; 1.3 development planning
 **Branch:** `arvectum-habits`
 **Product name:** `ChickMark`
 
@@ -241,7 +241,7 @@ Physical validation on 2026-10-02 is green for the main single-device/Watch path
 
 **Published baseline:** ChickMark 1.0 (build 1) passed App Review and is published in the App Store. It remains the compatibility baseline for storage, CloudKit, Watch and widget behavior.
 
-**Published release:** 1.1.0 (build 3), released 2026-10-06. It ships one-off reminders plus the first non-disruptive Today banner monetization. One-off reminders use their own local-only SwiftData configuration, so the published V1 habit/CloudKit store and production CloudKit schema remain unchanged. Multi-check habits, quantitative goals, advanced statistics and additional ad placements remain candidates for the next development line. Small/large screen coverage remains simulator-only under the physical-device safety rule.
+**Published releases:** 1.1.0 (build 3), released 2026-10-06; **1.2.0 (build 4) confirmed published by product owner on 2026-10-10**. It ships one-off reminders plus the first non-disruptive Today banner monetization. One-off reminders use their own local-only SwiftData configuration, so the published V1 habit/CloudKit store and production CloudKit schema remain unchanged. Multi-check habits, quantitative goals, advanced statistics and additional ad placements are tracked in the 1.3+ development plan below. Small/large screen coverage remains simulator-only under the physical-device safety rule.
 
 
 ## V1.1 release scope
@@ -253,3 +253,50 @@ Physical validation on 2026-10-02 is green for the main single-device/Watch path
 - [x] Audit the exact App Store archive/IPA privacy manifests and reconcile App Store Privacy; final 1.1 decision is Data Not Collected, Tracking = No under the current Yandex runtime configuration.
 - [x] Refresh App Store screenshots only where the visible Today UI materially changed.
 - [x] Prepare RU/EN What's New copy and new review notes.
+
+
+## 1.2 publication closeout (2026-10-10)
+
+- [x] Owner confirms App Store 1.2 is published.
+- [ ] Verify live App Store marketing/developer website link and Yandex app-ads.txt discovery.
+- [ ] Record production Yandex ad fill and check eligibility gate on real installs, respecting user privacy.
+- [ ] Monitor crash reports, retention and ad impact before changing ad frequency.
+- [ ] Validate cross-iPhone CloudKit convergence on two authorized devices (requires explicit authorization for any new physical test device).
+
+## 1.3+ execution roadmap — finish the agreed backlog
+
+### Sprint A — multi-check daily targets (priority P0)
+- [ ] Define model and migration-safe storage for N daily completions while maintaining V1 CloudKit compatibility and existing binary habits.
+- [ ] Design N check circles inline, each independently checkable/undoable; show N/N progress on Today, detail, and history.
+- [ ] Clarify completion, skip, streak, reminder suppression and partial-day semantics; single-completion habits behave unchanged.
+- [ ] Support consistent desired-count commands from widget, Shortcuts, notifications and Watch, with idempotent offline sync.
+- [ ] Add migration, DST/timezone, duplicate-command, persistence, Watch/widget and UI regression tests.
+- [ ] Physical smoke tests on previously approved iPhone 13 and Apple Watch SE before release.
+
+### Sprint B — quantitative and duration goals (priority P1)
+- [ ] Specify count, amount and duration tracking only where they provide value beyond multi-check.
+- [ ] Implement goal units, incremental progress, editable entries and completion rules with backward compatibility.
+- [ ] Add tests for projections, streaks, sync and reminders; keep quick daily check-in one tap for default habits.
+
+### Sprint C — usability / analytics (priority P1)
+- [ ] Add optional habit groups without cluttering Today by default.
+- [ ] Add advanced yet compact statistics: weekly/monthly trends, consistency and missed-vs-skipped breakdown.
+- [ ] Add privacy-preserving on-device export/import with versioned schema, clear merge/replace choice and round-trip tests.
+- [ ] Provide migration fixtures for V1→V2 at the first actual storage-schema change.
+
+### Sprint D — monetization / release (priority P1)
+- [ ] Consider at most one native ad on Progress/Statistics after useful content, only after measuring retention impact of Today banner.
+- [ ] Validate three-day/five-launch/three-check-in thresholds with production behavior; no app-open or interstitial ads.
+- [ ] Verify advertising privacy manifests and App Store Privacy against the exact release IPA.
+- [ ] Refresh RU/EN metadata and screenshots, archive smoke, CI and App Review checklist for next release.
+
+### Later / evidence-gated (P2)
+- [ ] Additional languages based on store demand.
+- [ ] Apple Health auto-completion only with reliable authoritative events and explicit user consent.
+- [ ] Achievements only if retention data shows benefit; no XP clutter.
+
+### Engineering and release rules
+- Preserve 1.2 production behavior as rollback baseline.
+- Use short-lived implementation branches from the reconciled current app source; do not blindly merge diverged `main`/`arvectum-habits` histories.
+- Each sprint requires isolated feature implementation, focused test suite, simulator build, documented acceptance and a separate commit/PR.
+- No release or production ad exposure increase without validation and explicit owner release decision.
