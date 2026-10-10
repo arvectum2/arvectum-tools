@@ -236,8 +236,12 @@ final class HabitFlowUITests: XCTestCase {
         formatter.dateFormat = "yyyy-MM-dd"
         formatter.timeZone = .autoupdatingCurrent
         let dayButton = app.buttons["history.day.\(formatter.string(from: .now))"]
-        if !dayButton.isHittable { app.swipeUp() }
-        XCTAssertTrue(dayButton.waitForExistence(timeout: 3))
+        // LazyVGrid creates only visible calendar rows. On iOS 27 the insight
+        // and stats cards move the calendar below the initial viewport.
+        for _ in 0..<6 where !dayButton.isHittable {
+            app.swipeUp()
+        }
+        XCTAssertTrue(dayButton.waitForExistence(timeout: 5))
         dayButton.tap()
 
         let edit = app.navigationBars["Edit day"]

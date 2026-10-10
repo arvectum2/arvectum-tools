@@ -50,12 +50,13 @@ jobs:
         run: python3 scripts/audit_store_assets.py
 
       - name: Generate project
-        run: xcodegen generate
+        run: scripts/generate_project.sh
 
       - name: Build and test
         run: |
           xcodebuild \
             -project HabitsByArvectumIOS.xcodeproj \
+            -onlyUsePackageVersionsFromResolvedFile \
             -scheme HabitsByArvectum \
             -destination 'platform=iOS Simulator,name=iPhone 18 Pro,OS=27.0' \
             CODE_SIGNING_ALLOWED=NO \

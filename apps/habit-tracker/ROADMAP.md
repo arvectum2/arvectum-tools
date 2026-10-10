@@ -366,3 +366,14 @@ Progress note (2026-10-10): implementation is direct ChatGPT + RDC + Xcode (no e
 - [x] One and only one existing Today ad: `R-M-20183085-1`; ad SDK starts only after the gate in 1.3. Extra placements deferred, not blockers.
 - [x] **Distribution-signed 1.3.0 (5) IPA exported locally**, validated `codesign`, all four bundles and 28 embedded privacy manifests. SHA-256: `73523aeb9060631ab8c6ffaa711bfc2f5145c8d3905f56f6a6495da3560f7049`.
 - [ ] **Only remaining technical validation:** paired physical iPhone/Watch plus an authorized iOS simulator (same iCloud account), non-destructive data/sync/notification/ads/privacy smoke. Separate explicit owner release approval also required. No upload.
+
+
+## 1.3 dependency hardening + second refactor — 2026-10-10
+- [x] Direct vs transitive dependency inventory in `docs/DEPENDENCIES.md` (1 direct Yandex, 4 transitives); iOS 17 / watchOS 10 deployment targets kept separate from Xcode 27 toolchain.
+- [x] Replace exact-version requirement in XcodeGen with compatible semver floor; retain exact reviewed versions as a **tracked SwiftPM lockfile** for CI/release reproducibility.
+- [x] Add update-only workflow and lock consistency/source revision audit; default builds cannot automatically select newer ad SDK binaries.
+- [x] Extract insight-card presentation from `HabitDetailView` into `HabitDetailInsights.swift`.
+- [x] 140 unit/integration tests, iOS 27 accessibility and historical N/N UI retest, and Release unsigned archive smoke passed after refactor.
+- [ ] Green CI for the final dependency/refactor commit.
+- [ ] FINAL DEVICE QA ONLY after green CI: real physical iPhone + simulator, Watch, cloud data/restore, real notification/ads/privacy.
+- [ ] Later phase by explicit owner decision: ASO, SEO and publication.

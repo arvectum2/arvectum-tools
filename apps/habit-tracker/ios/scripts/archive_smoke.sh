@@ -13,10 +13,11 @@ mkdir -p "$WORK"
 cd "$IOS_DIR"
 
 python3 scripts/release_hygiene.py
-xcodegen generate >/dev/null
+scripts/generate_project.sh >/dev/null
 
 xcodebuild \
   -project "$PROJECT" \
+  -onlyUsePackageVersionsFromResolvedFile \
   -scheme "$SCHEME" \
   -configuration Release \
   -destination "generic/platform=iOS" \

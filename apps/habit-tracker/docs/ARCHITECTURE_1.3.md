@@ -64,3 +64,11 @@ Canonical toolchain is **Xcode 27.x** with iOS 27 / watchOS 27 SDKs. GitHub Acti
 - Canonical GitHub simulator destination for Xcode 27: iPhone 18 Pro / iOS 27.0. The hosted image does not ship an iPhone 17 Pro destination.
 
 - Arvectum Tools workflows: ChickMark and PUSHKIN use the xcode-27 GitHub-hosted ARM64 runner; Photo Size workflow was brought to the same canonical runner (compile-only validation, no deployment).
+
+## Second refactor & dependency contract (2026-10-10)
+
+- `HabitDetailInsights.swift` is a separate presentation extension, extracted from the 829-line detail screen, reducing its cross-purpose responsibilities while preserving SwiftData observations, statistics and histories.
+- All direct third-party Swift packages are constrained by semver major floor; `Package.resolved` stores verified, reproducible source commits; XcodeGen regeneration restores that lock.
+- `dependency_audit.py` and `-onlyUsePackageVersionsFromResolvedFile` prevent accidental transitive SDK upgrades and graph drift in CI and Release archives.
+- Upgrade candidates get an isolated test branch and full static privacy/ATT/IDFA and Xcode 27 validation. The stable lock remains untouched until accepted.
+- Unit/integration: 140/140 tests. iOS 27 accessibility and historical multi-check UI tests passed; offscreen LazyVGrid test scrolling corrected. Unsigned Release archive smoke passed.
