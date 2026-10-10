@@ -57,3 +57,6 @@ The deterministic 16-byte SHA-256-based UUID used by `HabitMultiCheck.slotID` is
 
 ## CI Swift batching isolation
 Xcode 26.6 hosted CI exhibited an extremely long silent SwiftCompile batch after the compiler-specific source compatibility fixes. Set `SWIFT_ENABLE_BATCH_MODE=NO` **only in the CI xcodebuild invocation**, so each file compiles independently and regressions are diagnosable. This setting does not change app semantics or Apple Distribution export.
+
+## October 2026 toolchain policy
+Canonical toolchain is **Xcode 27.x** with iOS 27 / watchOS 27 SDKs. GitHub Actions runs on the purpose-built `xcode-27` ARM64 runner and checks `xcodebuild -version`; local Mac mini has only `/Applications/Xcode-27.0.0.app`. Legacy iOS 26.5 simulators are not used for the standard CI route. Keep iOS backwards compatibility through deployment targets, not duplicated local toolchains.

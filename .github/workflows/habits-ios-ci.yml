@@ -24,13 +24,18 @@ concurrency:
 
 jobs:
   build-and-test:
-    runs-on: macos-26
+    runs-on: xcode-27
     defaults:
       run:
         working-directory: apps/habit-tracker/ios
 
     steps:
       - uses: actions/checkout@v7
+
+      - name: Verify pinned Xcode
+        run: |
+          xcodebuild -version
+          xcodebuild -version | grep -q '^Xcode 27\.'
 
       - name: Install XcodeGen
         run: brew install xcodegen
