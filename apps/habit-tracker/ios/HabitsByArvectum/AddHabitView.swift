@@ -130,29 +130,15 @@ struct AddHabitView: View {
                 Section {
                     formSectionHeader(L10n.string("section.days"))
 
-                    if dynamicTypeSize.isAccessibilitySize {
-                        VStack(spacing: 10) {
-                            schedulePresetButton(
-                                title: L10n.string("schedule.everyday"),
-                                preset: .everyDay
-                            )
-                            schedulePresetButton(
-                                title: L10n.string("schedule.weekdays"),
-                                preset: .weekdays
-                            )
-                        }
-                    } else {
-                        HStack(spacing: 10) {
-                            schedulePresetButton(
-                                title: L10n.string("schedule.everyday"),
-                                preset: .everyDay
-                            )
-                            schedulePresetButton(
-                                title: L10n.string("schedule.weekdays"),
-                                preset: .weekdays
-                            )
-                            Spacer()
-                        }
+                    VStack(spacing: 10) {
+                        schedulePresetButton(
+                            title: L10n.string("schedule.everyday"),
+                            preset: .everyDay
+                        )
+                        schedulePresetButton(
+                            title: L10n.string("schedule.weekdays"),
+                            preset: .weekdays
+                        )
                     }
 
                     DisclosureGroup(
@@ -425,6 +411,7 @@ struct AddHabitView: View {
             Text(title)
                 .font(.subheadline.weight(.semibold))
                 .multilineTextAlignment(.center)
+                .fixedSize(horizontal: false, vertical: true)
                 .foregroundStyle(
                     selected ? Color.arvectumNavy : .primary
                 )
