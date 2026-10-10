@@ -12,7 +12,7 @@ Monorepo for the Arvectum consumer utility family.
 apps/
   photo-size/       # «Фото под размер» — iOS + Android
   pushkin/          # PUSHKIN — iOS notification utility
-  habit-tracker/    # backlog / discovery
+  habit-tracker/    # ChickMark: released 1.2; 1.3 development
 packages/           # shared code promoted only after real reuse
 docs/               # repository-wide architecture and release conventions
 BRAND.md            # shared visual language
@@ -26,7 +26,7 @@ Each app owns its bundle/application IDs, versioning, store metadata, tests, rel
 
 - [Фото под размер](apps/photo-size/README.md) — published utility; post-launch iteration.
 - [PUSHKIN](apps/pushkin/README.md) — active feasibility/product development.
-- [Habit Tracker](apps/habit-tracker/README.md) — backlog; discovery later.
+- [ChickMark](apps/habit-tracker/README.md) — 1.2 published; 1.3 features, localization and architecture in an isolated branch (not released).
 
 ## Shared-code policy
 

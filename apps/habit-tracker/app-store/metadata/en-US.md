@@ -27,6 +27,12 @@ ChickMark is local-first: your core habit data stays on your devices. No Arvectu
 
 The idea is simple: useful habit tracking, without the clutter.
 
+## What's New in 1.3 — draft, not published
+
+Track multiple check-ins per day, count-based goals and timed routines. Organize habits into groups, review richer trends, edit previous days and back up your data as JSON. Change partial progress on Apple Watch, with improved accessibility and reliability.
+
+Additional localizations and device synchronization are being validated before release.
+
 ## What's New in 1.1
 
 Added one-time reminders for a specific date and time. They live alongside your habits on Today, do not affect streaks or statistics, and can be completed directly from the notification.

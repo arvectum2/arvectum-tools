@@ -38,6 +38,9 @@ jobs:
       - name: Release hygiene
         run: python3 scripts/release_hygiene.py
 
+      - name: Localization argument and resource audit
+        run: python3 scripts/localization_audit.py
+
       - name: Generate project
         run: xcodegen generate
 

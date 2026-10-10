@@ -23,3 +23,9 @@ Support: https://arvectum.com/contact.html
 Marketing URL: https://arvectum.com
 
 Status: UNRELEASED. Localized App Store screenshots and visual review still required.
+
+## Novedades de la versión 1.3 — borrador sin publicar
+
+Marca varias acciones al día, fija metas por cantidad o duración y organiza los hábitos por grupos. Consulta estadísticas, corrige días anteriores y exporta copias de seguridad. También puedes registrar el progreso paso a paso desde el Apple Watch.
+
+Las traducciones y la sincronización siguen en revisión antes del lanzamiento.

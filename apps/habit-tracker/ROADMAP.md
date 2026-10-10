@@ -266,23 +266,23 @@ Physical validation on 2026-10-02 is green for the main single-device/Watch path
 ## 1.3+ execution roadmap — finish the agreed backlog
 
 ### Sprint A — multi-check daily targets (priority P0)
-- [ ] Define model and migration-safe storage for N daily completions while maintaining V1 CloudKit compatibility and existing binary habits.
-- [ ] Design N check circles inline, each independently checkable/undoable; show N/N progress on Today, detail, and history.
-- [ ] Clarify completion, skip, streak, reminder suppression and partial-day semantics; single-completion habits behave unchanged.
-- [ ] Support consistent desired-count commands from widget, Shortcuts, notifications and Watch, with idempotent offline sync.
-- [ ] Add migration, DST/timezone, duplicate-command, persistence, Watch/widget and UI regression tests.
-- [ ] Physical smoke tests on previously approved iPhone 13 and Apple Watch SE before release.
+- [x] V1-compatible multi-check storage with typed domain modes and deterministic slot identities; existing CloudKit model and binary habits retained.
+- [x] Independent 2–5 N/N checks on Today, individual historical-day editor, detailed day accessibility values, and Watch/widget summary.
+- [x] Only N/N means completed; partial progress is not a streak or a due-date completion; skip clears day progress and paused/neutral rules preserved.
+- [x] Desired-count is an optional, backwards-decodable Watch/widget wire parameter; iPhone mutation ledger, ACK and reconcilers enforce idempotent offline desired state. Watch has +/− partial controls; widget/Shortcuts/notification UI retain whole-goal quick actions.
+- [x] Unit/integration tests for duplicate/out-of-order counts, partial completion, schema compatibility, DST/timezone, local data upgrade and widget/watch replay; simulator upgrade from 1.2 retained two habits, a completion and a reminder.
+- [ ] FINAL ONLY: physical iPhone + paired Watch smoke and the owner-requested real iPhone + simulator CloudKit/KVS convergence tests after all feature/refactor/localization tasks.
 
 ### Sprint B — quantitative and duration goals (priority P1)
-- [ ] Specify count, amount and duration tracking only where they provide value beyond multi-check.
-- [ ] Implement goal units, incremental progress, editable entries and completion rules with backward compatibility.
-- [ ] Add tests for projections, streaks, sync and reminders; keep quick daily check-in one tap for default habits.
+- [x] Count 1–100 in integer steps and duration 5–120 minutes in five-minute steps; custom units/fractions remain evidence-gated rather than adding a complex input surface.
+- [x] Incremental count/duration goals, current and historical day progress editing, complete-at-target semantics and V1 model compatibility; free-form physical units/fractions deferred until a proven user need.
+- [x] Core projection/streak/notification/desired-count regression suite; binary default remains one tap.
 
 ### Sprint C — usability / analytics (priority P1)
 - [x] Optional local-only groups in Manage and Add/Edit, with original ungrouped Today and backup participation; [ ] CloudKit-backed groups after schema migration.
-- [ ] Add advanced yet compact statistics: weekly/monthly trends, consistency and missed-vs-skipped breakdown.
-- [ ] Add privacy-preserving on-device export/import with versioned schema, clear merge/replace choice and round-trip tests.
-- [ ] Provide migration fixtures for V1→V2 at the first actual storage-schema change.
+- [x] Fixed-schedule 7/30-day insights, 4/12 completed-week insights, and actual occurrence/average interval for completion-relative schedules; unfinished weeks and neutral pauses excluded.
+- [x] Versioned plaintext JSON export/import with validation, merge or explicitly destructive replace and round-trip tests; file destination chosen by user.
+- [x] Current release line retains the same SwiftData/CloudKit model; real 1.2→1.3 simulator upgrade exercised; new schema fixture not applicable until a schema is deliberately changed.
 
 ### Sprint D — monetization / release (priority P1)
 - [ ] Consider at most one native ad on Progress/Statistics after useful content, only after measuring retention impact of Today banner.
@@ -291,7 +291,7 @@ Physical validation on 2026-10-02 is green for the main single-device/Watch path
 - [ ] Refresh RU/EN metadata and screenshots, archive smoke, CI and App Review checklist for next release.
 
 ### Later / evidence-gated (P2)
-- [ ] Additional languages based on store demand.
+- [x] Spanish added across app/Watch/widgets/Shortcuts plus es-ES/es-MX metadata; [ ] further localizations only after store-demand evidence and a localization editorial pass.
 - [ ] Apple Health auto-completion only with reliable authoritative events and explicit user consent.
 - [ ] Achievements only if retention data shows benefit; no XP clutter.
 
@@ -301,6 +301,22 @@ Physical validation on 2026-10-02 is green for the main single-device/Watch path
 - Each sprint requires isolated feature implementation, focused test suite, simulator build, documented acceptance and a separate commit/PR.
 - No release or production ad exposure increase without validation and explicit owner release decision.
 
+
+## 1.3 feature and QA checkpoint — 2026-10-10
+
+- [x] Functional phases A–C built: N/N, quantity and duration progress, history correction, group folders, multi-period insights, and JSON backup/import.
+- [x] Local-first iCloud KVS group transport implemented with per-group tombstones and per-habit assignments; **real two-endpoint convergence is explicitly unverified** and deferred to the very end.
+- [x] Watch stepwise desired-count actions, offline durable command queue and backwards-compatible 1.2 binary command decoding.
+- [x] Automated release hygiene, RU/EN/ES resource parity audit, 138 passing unit/integration tests and 4 passing key simulator UI cases; maximum Dynamic Type and contrast audited.
+- [x] Local unsigned 1.3.0 (build 5) Release archive smoke passed, including embedded iPhone widget/Watch/Watch widget and privacy manifests.
+- [x] Prior 1.2 simulator SwiftData data preserved across a non-destructive update; this is **not** the user's requested iPhone-to-simulator cloud convergence test.
+- [x] Typed goal mode, separated UI components, group KVS transport/merge ledger, and explicit architecture boundary document.
+- [x] Draft next-version Store copy RU/EN/es-ES/es-MX; App Store Connect and TestFlight remain untouched.
+- [ ] Native editorial review of ES, updated localized screenshot set, and any further evidence-backed localizations.
+- [ ] Real production ad-fill/retention check before deciding on any new ad slot; no increase to ad exposure in this branch.
+- [ ] Release-IPA privacy/ad-SDK audit on the final signed binary, separate from unsigned local archive smoke.
+- [ ] **Last after everything else:** actual physical iPhone + simulator iCloud convergence, and paired Watch/physical-device regression (single iPhone; no need to acquire a second one if same-account simulator iCloud functionality is available).
+- [ ] Separate explicit release approval; **do not upload**.
 
 ## 1.3 implementation checkpoint — 2026-10-10 (working branch, NOT a release)
 
@@ -312,14 +328,14 @@ Physical validation on 2026-10-02 is green for the main single-device/Watch path
 - [x] Current unit/integration suite: 127 passing simulator tests after typed goal-mode adapter, local group tests, and component extraction; N/N, VoiceOver/accessibility audit, and Skip→Complete targeted UI scenarios passed.
 - [x] Deliver local-only habit groups and move the group identity out of Habit V1 schema; [ ] add CloudKit sync after versioned migration and multi-device validation.
 - [ ] Add unlimited/custom measurement units, fractional values and non-5-minute duration entries if the product requires them.
-- [ ] Full daily per-slot editing from history and alternative accessibility layouts for 5 slots at very large Dynamic Type.
+- [x] Independent history day editor for 2–5 slots; adaptive 44pt+ accessibility row, tested for five check-ins at maximum Dynamic Type.
 - [ ] Paired Watch physical smoke for partial progress, late/duplicate commands and widget behavior.
-- [ ] Additional 4-/12-week statistics for flexible goals and interval-specific insights.
+- [x] Flexible weekly consistency (last 4/12 completed weeks) and rolling 30/90-day interval occurrence/mean-gap insights, with dedicated calendar/DST tests.
 - [ ] Validate full import/export and 1.2→1.3 upgrade against real-device persistent data with an explicit non-destructive smoke procedure.
 - [ ] Check retention and actual ad eligibility before any Progress/native ad decision.
 - [x] Initial post-feature localization: all app + Watch/widget + Shortcuts strings translated into Spanish (172 iOS keys), and es-ES/es-MX ASO drafts prepared. [ ] Localization to further priority markets and human review/screenshot capture.
 - [x] Initial modular refactor: typed HabitGoalMode adapter centralizes published integer storage compatibility; Today UI subviews extracted into TodayComponents.swift. [ ] Complete dependency-oriented module split and characterization testing before release.
-- [ ] Final paired-device QA, multi-device CloudKit validation and separate explicit release approval; do not upload.
+- [ ] LAST STEP ONLY: signed-device QA, CloudKit + group iCloud KVS convergence on one authorized physical iPhone plus a simulator, final privacy/ads review and explicit owner release approval. No upload.
 
 **Compatibility design:** Incremental goal mode is encoded in the already-published `Habit.weeklyTarget` recurrence-mode integer, retaining the V1 SwiftData/CloudKit model schema. This is an explicit technical tradeoff for an unreleased branch: during the planned refactor, replace magic integer ranges with a named domain representation and add migration fixtures before shipping any persistent schema update. Never silently reset user data to recover from a migration issue.
 
@@ -334,4 +350,4 @@ Execution order (each stage must pass build/tests and be reviewed before advanci
 3. **Dedicated refactor:** only after feature and localization baselines are green; define module boundaries (domain calculations, persistence/migrations, sync, reminders, presentation/strings, ads); remove duplication without changing public behavior, schema or bundle IDs. Review file responsibilities, inject dependencies, add characterization/regression tests, and record architecture decisions.
 4. **Pre-release stabilization:** clean builds (Debug+Release), full unit/UI suite, Watch pairing/reconnect tests, CloudKit data-preservation upgrade tests, privacy/ads audit, device smoke tests and App Store metadata review. **Do not ship** without separate approval.
 
-Progress note (2026-10-10): roadmap/release documentation updated and isolated worktree `feature/chickmark-multicheck` prepared; feature implementation and regression validation are **not yet complete**. Local automated coding agents are not functional in this execution environment; do not mark the feature checkboxes complete without verified code and tests.
+Progress note (2026-10-10): implementation is direct ChatGPT + RDC + Xcode (no external coding agent). New features and the simulator regression/unsigned archive smoke are green; the final signed binary, localized screenshots, production ads evidence and cross-device convergence are **not** signed off. The 1.2 App Store release remains untouched.

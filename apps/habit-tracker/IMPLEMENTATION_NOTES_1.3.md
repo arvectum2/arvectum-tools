@@ -30,3 +30,13 @@
 2. Complete regional localization beyond Spanish, screenshot packages, and native translation review.
 3. Complete domain/persistence/sync/UI modular refactor with characterization tests and explicit migration plan.
 4. Paired Watch/iPhone tests, actual CloudKit upgrade QA, and explicit separate approval before publication.
+
+
+## Latest verified 1.3 checkpoint
+
+- 138 unit/integration tests, 0 failures; 4 targeted UI tests including VoiceOver accessibility, large Dynamic Type and historical N/N corrections, 0 failures.
+- Xcode unsigned Release archive smoke for 1.3.0 / build 5 is green.
+- Optional desiredCount is backwards-compatible over Watch/widget packet types; partial changes use the same authoritative mutation ledger.
+- Group cloud transport uses iCloud Key-Value Store and leaves the published SwiftData/CloudKit schema intact. Merge/tombstone model tested; real account convergence is a **last-step acceptance gate**, not currently claimed.
+- RU/EN/ES translation audits and regional App Store copy drafts are prepared.
+- Cross-device CloudKit/KVS test explicitly deferred until remaining localization/refactor/QA tasks are closed, per owner instruction.
