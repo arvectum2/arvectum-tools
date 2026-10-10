@@ -51,6 +51,35 @@ final class HabitAdEligibilityTests: XCTestCase {
         )
     }
 
+    func testEligibilityBoundaryAndFutureFirstLaunchAreSafe() {
+        let first = Date(timeIntervalSince1970: 1_800_000_000)
+        let enough = HabitAdEngagementSnapshot(
+            firstLaunchAt: first, coldLaunchCount: 5,
+            successfulCheckOffCount: 3
+        )
+        XCTAssertFalse(HabitAdEligibility.isEligible(
+            snapshot: enough, now: first.addingTimeInterval(-10)
+        ))
+        XCTAssertFalse(HabitAdEligibility.isEligible(
+            snapshot: enough,
+            now: first.addingTimeInterval(HabitAdEligibility.minimumAge - 0.001)
+        ))
+        XCTAssertTrue(HabitAdEligibility.isEligible(
+            snapshot: enough,
+            now: first.addingTimeInterval(HabitAdEligibility.minimumAge)
+        ))
+    }
+
+    func testNeverEligibleWithoutInstallDateEvenWithHighEngagement() {
+        XCTAssertFalse(HabitAdEligibility.isEligible(
+            snapshot: .init(
+                firstLaunchAt: nil,
+                coldLaunchCount: 100,
+                successfulCheckOffCount: 100
+            )
+        ))
+    }
+
     func testStorePersistsLaunchAndCheckOffCounts() throws {
         let suite = "HabitAdEligibilityTests.\(UUID().uuidString)"
         let defaults = try XCTUnwrap(UserDefaults(suiteName: suite))

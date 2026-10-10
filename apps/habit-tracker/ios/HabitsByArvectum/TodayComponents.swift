@@ -226,6 +226,10 @@ struct HabitRow: View {
                         Text(habit.name)
                             .font(.body.weight(.semibold))
                             .foregroundStyle(.primary)
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.65)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .fixedSize(horizontal: false, vertical: true)
                         if skipped {
                             Label(
                                 L10n.string("habit.skipped.today"),
@@ -260,7 +264,10 @@ struct HabitRow: View {
                             .foregroundStyle(Color.habitsSecondaryText)
                         }
                     }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .layoutPriority(1)
                 }
+                .frame(maxWidth: .infinity, alignment: .leading)
             }
             .buttonStyle(.plain)
     }

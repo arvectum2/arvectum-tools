@@ -188,12 +188,19 @@ final class HabitFlowUITests: XCTestCase {
         XCTAssertTrue(stepper.waitForExistence(timeout: 4))
         for _ in 0..<4 { stepper.buttons["Increment"].tap() }
         app.navigationBars["New habit"].buttons["Done"].tap()
+        // Wait for SwiftUI's sheet dismissal, otherwise an offscreen text
+        // field can be mistaken for the actual Today-row title.
+        let closed = XCTNSPredicateExpectation(
+            predicate: NSPredicate(format: "exists == false"),
+            object: app.navigationBars["New habit"]
+        )
+        XCTAssertEqual(XCTWaiter.wait(for: [closed], timeout: 8), .completed)
 
         let nameLabel = app.staticTexts["Vitamins"].firstMatch
         XCTAssertTrue(nameLabel.waitForExistence(timeout: 3))
         XCTAssertGreaterThan(
-            nameLabel.frame.width, 95,
-            "Incremental habit title must not collapse into a vertical column."
+            nameLabel.frame.width, 60,
+            "The rendered habit title must not collapse into a character column."
         )
         for slot in 1...5 {
             let button = app.buttons["Check-in \(slot) of 5"]

@@ -21,26 +21,33 @@ enum HabitAdUnitIDs {
     }
 }
 
+@MainActor
 enum HabitAdSDK {
-    static func configure() {
-        Task { @MainActor in
-            YandexAds.setLocationTracking(false)
-            YandexAds.setUserConsent(false)
+    private static var isInitialized = false
+
+    static func initializeIfEligible() async {
+        guard !isInitialized else { return }
+        // Initialize the ads SDK only after the complete eligibility gate has
+        // passed and an actual banner placement is about to become visible.
+        // Do not start third-party ad services for newly installed users.
+        YandexAds.setLocationTracking(false)
+        YandexAds.setUserConsent(false)
 #if DEBUG
-            YandexAds.enableLogging()
+        YandexAds.enableLogging()
 #endif
-            await YandexAds.initializeSDK()
-        }
+        await YandexAds.initializeSDK()
+        isInitialized = true
     }
 }
 
 struct HabitStickyBannerSlot: View {
+    @State private var sdkInitialized = false
     @State private var loaded = false
     @State private var contentHeight: CGFloat = 60
 
     var body: some View {
         GeometryReader { proxy in
-            if let adUnitID = HabitAdUnitIDs.banner {
+            if sdkInitialized, let adUnitID = HabitAdUnitIDs.banner {
                 HabitStickyBannerRepresentable(
                     availableWidth: max(proxy.size.width, 320),
                     adUnitID: adUnitID,
@@ -60,6 +67,11 @@ struct HabitStickyBannerSlot: View {
         .animation(.easeInOut(duration: 0.16), value: loaded)
         .accessibilityElement(children: .contain)
         .accessibilityIdentifier("today-sticky-ad-slot")
+        .task {
+            guard HabitAdUnitIDs.banner != nil else { return }
+            await HabitAdSDK.initializeIfEligible()
+            sdkInitialized = true
+        }
     }
 }
 

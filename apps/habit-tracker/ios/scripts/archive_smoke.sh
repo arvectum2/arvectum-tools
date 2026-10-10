@@ -61,6 +61,8 @@ for bundle in "$PHONE_WIDGET" "$WATCH_APP" "$WATCH_WIDGET"; do
   }
 done
 
+python3 "$IOS_DIR/scripts/audit_archive.py" "$ARCHIVE" > "$WORK/privacy-audit.json"
+
 grep -q "\*\* ARCHIVE SUCCEEDED \*\*" "$WORK/archive.log"
 printf "Archive smoke passed: %s (%s)\n" "$APP_VERSION" "$APP_BUILD"
 printf "archive: %s\n" "$ARCHIVE"
