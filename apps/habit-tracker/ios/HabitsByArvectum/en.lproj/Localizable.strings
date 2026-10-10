@@ -149,3 +149,50 @@
 "oneoff.demo.marathon" = "Buy marathon slot";
 "oneoff.today.format" = "Today, %@";
 "oneoff.tomorrow.format" = "Tomorrow, %@";
+
+"insights.title" = "Consistency";
+"insights.week" = "Last 7 days";
+"insights.month" = "Last 30 days";
+"insights.ratio" = "%d of %d days";
+"insights.skipped" = "Skipped: %d";
+"insights.note" = "Today does not count as missed until it ends.";
+"backup.menu" = "Backup";
+"backup.export" = "Export data";
+"backup.import" = "Import data";
+"backup.chooseMode" = "Restore backup";
+"backup.merge" = "Merge missing records";
+"backup.replace" = "Replace all data";
+"backup.warning" = "The JSON file contains your habits and reminders. Replace deletes current records and may sync deletions through iCloud. Keep your backup secure.";
+"backup.result" = "Backup";
+"backup.success" = "Data imported successfully.";
+
+"habit.multi.target.format" = "Check-ins per day: %d";
+"habit.multi.target.hint" = "Each check counts separately. The habit is complete when all circles are filled.";
+"habit.multi.slot.format" = "Check-in %d of %d";
+"habit.multi.checked" = "Done";
+"habit.multi.unchecked" = "Not done";
+
+"habit.multi.target.locked" = "The number of daily check-ins cannot change after history has started.";
+
+"habit.goal.kind" = "Goal type";
+"habit.goal.checks" = "Check-ins";
+"habit.goal.quantity" = "Count";
+"habit.goal.duration" = "Time";
+"habit.goal.quantity.format" = "Target: %d";
+"habit.goal.duration.format" = "Target: %d minutes";
+"habit.goal.quantity.progress" = "%d / %d";
+"habit.goal.duration.progress" = "%d / %d min";
+"habit.goal.add" = "Add one unit";
+"habit.goal.subtract" = "Undo one unit";
+
+"insights.noData" = "No data";
+
+"groups.select" = "Group";
+"groups.none" = "No group";
+"groups.add" = "New group";
+"groups.delete" = "Delete group (keep habits)";
+"groups.placeholder" = "Group name";
+
+"backup.error.version" = "Unsupported ChickMark backup version.";
+"backup.error.invalid" = "Invalid or inconsistent ChickMark backup data.";
+"backup.error.unreadable" = "The selected backup file is unreadable.";

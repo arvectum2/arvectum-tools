@@ -110,7 +110,8 @@ enum HabitReminderScheduler {
                 habitID: habit.id,
                 on: day,
                 checkIns: checkIns,
-                calendar: calendar
+                calendar: calendar,
+                target: habit.dailyTarget
             )
             let skipped = HabitMetrics.isSkipped(
                 habitID: habit.id,
@@ -164,7 +165,8 @@ enum HabitReminderScheduler {
                 habitID: habit.id,
                 on: candidateDay,
                 checkIns: checkIns,
-                calendar: calendar
+                calendar: calendar,
+                target: habit.dailyTarget
             )
             let skipped = HabitMetrics.isSkipped(
                 habitID: habit.id,

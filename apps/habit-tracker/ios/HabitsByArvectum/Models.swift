@@ -53,16 +53,66 @@ final class Habit {
     }
 
     var isPaused: Bool { pausedAt != nil }
-    var usesFlexibleWeeklyTarget: Bool { weeklyTarget > 0 }
 
-    // Reuse the already-persisted weeklyTarget field for the completion-relative
-    // mode: positive values are N/week, negative values are N days after the
-    // latest completion. This keeps the published Habit/CloudKit schema stable.
-    var usesCompletionInterval: Bool { weeklyTarget < 0 }
+    var goalMode: HabitGoalMode {
+        get { HabitGoalMode(storedValue: weeklyTarget) }
+        set { weeklyTarget = newValue.storedValue }
+    }
+
+    var usesFlexibleWeeklyTarget: Bool {
+        if case .weekly = goalMode { return true }
+        return false
+    }
+
+    var usesCompletionInterval: Bool {
+        if case .afterCompletion = goalMode { return true }
+        return false
+    }
+
+    var usesDailyMultiple: Bool {
+        if case .multiCheck = goalMode { return true }
+        return false
+    }
+
+    var usesQuantitativeGoal: Bool {
+        if case .quantity = goalMode { return true }
+        return false
+    }
+
+    var usesDurationGoal: Bool {
+        if case .duration = goalMode { return true }
+        return false
+    }
+
+    var supportsIncrementalGoal: Bool {
+        usesDailyMultiple || usesQuantitativeGoal || usesDurationGoal
+    }
+
+    var dailyTarget: Int {
+        get { goalMode.target }
+        set { goalMode = newValue > 1 ? .multiCheck(times: newValue) : .scheduled }
+    }
+
+    var quantityTarget: Int {
+        if case .quantity(let count) = goalMode { return count }
+        return 10
+    }
+
+    var durationMinutes: Int {
+        if case .duration(let minutes) = goalMode { return minutes }
+        return 20
+    }
 
     var completionIntervalDays: Int {
-        get { max(-weeklyTarget, 0) }
-        set { weeklyTarget = newValue > 0 ? -newValue : 0 }
+        get {
+            if case .afterCompletion(let days) = goalMode { return days }
+            return 0
+        }
+        set {
+            goalMode = newValue > 0
+                ? .afterCompletion(days: newValue)
+                : .scheduled
+        }
     }
 }
 

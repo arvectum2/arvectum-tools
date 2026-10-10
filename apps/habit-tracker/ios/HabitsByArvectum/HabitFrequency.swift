@@ -24,7 +24,8 @@ enum HabitFrequency {
                 habitID: habit.id,
                 on: day,
                 checkIns: checkIns,
-                calendar: calendar
+                calendar: calendar,
+                target: habit.dailyTarget
             ) {
                 count += 1
             }
@@ -46,7 +47,8 @@ enum HabitFrequency {
                 habitID: habit.id,
                 on: date,
                 checkIns: checkIns,
-                calendar: calendar
+                calendar: calendar,
+                target: habit.dailyTarget
             )
             let skippedToday = HabitMetrics.isSkipped(
                 habitID: habit.id,
@@ -78,7 +80,8 @@ enum HabitFrequency {
                 habitID: habit.id,
                 on: date,
                 checkIns: checkIns,
-                calendar: calendar
+                calendar: calendar,
+                target: habit.dailyTarget
             )
             let skippedToday = HabitMetrics.isSkipped(
                 habitID: habit.id,

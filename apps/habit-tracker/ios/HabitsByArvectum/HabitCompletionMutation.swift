@@ -47,18 +47,24 @@ enum HabitCompletionMutation {
         }
 
         if completed {
-            if matching.isEmpty, let date = date(
-                from: dayKey,
-                calendar: calendar
-            ) {
-                let checkIn = HabitCheckIn(
-                    habitID: habitID,
-                    day: date,
-                    calendar: calendar
+            let allHabits = (try? context.fetch(FetchDescriptor<Habit>())) ?? []
+            let target = allHabits.first(where: { $0.id == habitID })?.dailyTarget ?? 1
+            if let date = date(from: dayKey, calendar: calendar) {
+                let occupied = HabitMultiCheck.slots(
+                    habitID: habitID, dayKey: dayKey, target: target,
+                    checkIns: matching
                 )
-                checkIn.dayKey = dayKey
-                context.insert(checkIn)
-                changed = true
+                for slot in 1...target where occupied[slot] == nil {
+                    let checkIn = HabitCheckIn(
+                        id: HabitMultiCheck.slotID(
+                            habitID: habitID, dayKey: dayKey, slot: slot
+                        ),
+                        habitID: habitID, day: date, calendar: calendar
+                    )
+                    checkIn.dayKey = dayKey
+                    context.insert(checkIn)
+                    changed = true
+                }
             }
         } else if !matching.isEmpty {
             for checkIn in matching {

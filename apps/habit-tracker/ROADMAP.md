@@ -41,9 +41,9 @@ Brand microcopy: the daily check-in is a **Chick-in**. Use it sparingly; clarity
 - [x] Regression test: habit and check-in survive persistent-store recreation.
 - [x] Freeze the current model as `HabitsSchemaV1` and wire an explicit `HabitsMigrationPlan` into production and persistence tests.
 - [x] Simulator upgrade smoke test: data created by pre-versioning commit `e67bc45` survives an in-place update to the V1 migration-plan build.
-- [ ] Add V1→V2 migration fixtures together with the first post-V1 schema change.
+- [ ] Add real V1→new-schema migration fixtures when a new persisted CloudKit field/model is introduced; 1.3 incremental modes intentionally preserve the V1 habit store layout.
 - [x] Smoke-test additive SwiftData schema migrations on a physical device (reminders and timezone-stable day keys).
-- [ ] Add export/import only after MVP validation.
+- [x] Add versioned JSON export/import after MVP validation; merge and explicit replace modes, validated data and simulator round-trip tests (not encrypted; user-managed local backup).
 
 ### Today
 
@@ -225,10 +225,10 @@ Core habit tracking stays free. Advertising is the planned monetization model, b
 
 - [x] Completion-relative interval: a habit can recur “N days after I actually did it”; the next due date moves from the real completion day, remains due when overdue, supports local reminders, and does not alter the published Habit/CloudKit storage schema.
 - [x] One-off reminders: lightweight single-event reminders alongside habits (for example, “buy a marathon slot”; registration opens at 08:00), with date/time, local notification, notification Done action, edit/delete and no conversion into a recurring habit.
-- [ ] Multi-check daily target: allow one habit to require `N` completions per day (for example, take a tablet 2× or drink 5 glasses of water); render the `N` check circles inline in the habit row, with each circle independently checkable/undoable and the habit complete at `N/N`.
-- [ ] Quantitative / duration habits beyond the multi-check daily target.
-- [ ] Habit groups.
-- [ ] Advanced statistics.
+- [x] Multi-check daily target (2–5 independent circles; one day is complete only at N/N). Core persistence/Watch/widget completion compatibility and independent taps tested on simulator; past-day per-slot editing and physical Watch validation remain separate.
+- [x] Basic quantitative/time goals beyond multi-check: count targets 1–100 (increments of 1) and duration 5–120 minutes (increments of 5); current step total shown on Today/Watch/widget and persisted with existing V1 records. Arbitrary measurement units, fractional values and finer time entries remain backlog.
+- [x] Optional named habit groups with assign/remove and local-only storage; included in JSON backup. [ ] Multi-device CloudKit group sync deferred to a versioned schema migration.
+- [x] Fixed-schedule 7/30-day consistency insights with neutral skipped/paused days and in-progress-day handling; core tests green. [ ] Weekly-goal and completion-relative insights pending.
 - [x] Siri / Shortcuts: Complete Habit and Undo Habit App Intents use the same idempotent desired-state bridge as the widget, with no extra in-app UI.
 - [ ] Additional localizations.
 - [ ] Achievements only if they improve retention without adding noise.
@@ -279,7 +279,7 @@ Physical validation on 2026-10-02 is green for the main single-device/Watch path
 - [ ] Add tests for projections, streaks, sync and reminders; keep quick daily check-in one tap for default habits.
 
 ### Sprint C — usability / analytics (priority P1)
-- [ ] Add optional habit groups without cluttering Today by default.
+- [x] Optional local-only groups in Manage and Add/Edit, with original ungrouped Today and backup participation; [ ] CloudKit-backed groups after schema migration.
 - [ ] Add advanced yet compact statistics: weekly/monthly trends, consistency and missed-vs-skipped breakdown.
 - [ ] Add privacy-preserving on-device export/import with versioned schema, clear merge/replace choice and round-trip tests.
 - [ ] Provide migration fixtures for V1→V2 at the first actual storage-schema change.
@@ -301,6 +301,27 @@ Physical validation on 2026-10-02 is green for the main single-device/Watch path
 - Each sprint requires isolated feature implementation, focused test suite, simulator build, documented acceptance and a separate commit/PR.
 - No release or production ad exposure increase without validation and explicit owner release decision.
 
+
+## 1.3 implementation checkpoint — 2026-10-10 (working branch, NOT a release)
+
+- [x] Multi-check: independent 2–5 slots, stable UUIDs per slot/day, complete only at N/N, reminders/streaks/historical day-count all use target-aware completion; undo of the last slot reverts only that slot.
+- [x] Quantitative count 1–100 (+1/−1) and duration 5–120 minutes (+5/−5) with saved progress, basic Today controls and whole-goal Watch/widget commands.
+- [x] Watch and widget snapshots carry optional count/target fields; older binary habits and old packet data remain compatible.
+- [x] JSON backup/export and validated import (merge/replace) with data-preservation tests; caution: plaintext file and replace can sync deletions through iCloud.
+- [x] Fixed-calendar 7/30-day insights, excluding neutral skip/pause and unfinished today.
+- [x] Current unit/integration suite: 127 passing simulator tests after typed goal-mode adapter, local group tests, and component extraction; N/N, VoiceOver/accessibility audit, and Skip→Complete targeted UI scenarios passed.
+- [x] Deliver local-only habit groups and move the group identity out of Habit V1 schema; [ ] add CloudKit sync after versioned migration and multi-device validation.
+- [ ] Add unlimited/custom measurement units, fractional values and non-5-minute duration entries if the product requires them.
+- [ ] Full daily per-slot editing from history and alternative accessibility layouts for 5 slots at very large Dynamic Type.
+- [ ] Paired Watch physical smoke for partial progress, late/duplicate commands and widget behavior.
+- [ ] Additional 4-/12-week statistics for flexible goals and interval-specific insights.
+- [ ] Validate full import/export and 1.2→1.3 upgrade against real-device persistent data with an explicit non-destructive smoke procedure.
+- [ ] Check retention and actual ad eligibility before any Progress/native ad decision.
+- [x] Initial post-feature localization: all app + Watch/widget + Shortcuts strings translated into Spanish (172 iOS keys), and es-ES/es-MX ASO drafts prepared. [ ] Localization to further priority markets and human review/screenshot capture.
+- [x] Initial modular refactor: typed HabitGoalMode adapter centralizes published integer storage compatibility; Today UI subviews extracted into TodayComponents.swift. [ ] Complete dependency-oriented module split and characterization testing before release.
+- [ ] Final paired-device QA, multi-device CloudKit validation and separate explicit release approval; do not upload.
+
+**Compatibility design:** Incremental goal mode is encoded in the already-published `Habit.weeklyTarget` recurrence-mode integer, retaining the V1 SwiftData/CloudKit model schema. This is an explicit technical tradeoff for an unreleased branch: during the planned refactor, replace magic integer ranges with a named domain representation and add migration fixtures before shipping any persistent schema update. Never silently reset user data to recover from a migration issue.
 
 ## 1.3 delivery policy — product owner decision (2026-10-10)
 

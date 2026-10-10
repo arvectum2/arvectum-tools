@@ -15,6 +15,9 @@ struct HabitSyncHabit: Codable, Hashable, Identifiable {
     var streak: Int
     var weeklyTarget: Int? = nil
     var weeklyCount: Int? = nil
+    var dailyTarget: Int? = nil
+    var dailyCount: Int? = nil
+    var durationStepMinutes: Int? = nil
 }
 
 struct HabitSyncDayProjection: Codable, Hashable {

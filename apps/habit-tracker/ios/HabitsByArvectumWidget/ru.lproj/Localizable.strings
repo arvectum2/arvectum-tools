@@ -10,3 +10,5 @@
 "widget.undo" = "Отменить выполнение";
 "widget.preview.water" = "Вода";
 "widget.preview.reading" = "Чтение";
+
+"widget.duration.format" = "%d / %d мин";

@@ -149,3 +149,50 @@
 "oneoff.demo.marathon" = "Купить слот на марафон";
 "oneoff.today.format" = "Сегодня, %@";
 "oneoff.tomorrow.format" = "Завтра, %@";
+
+"insights.title" = "Регулярность";
+"insights.week" = "Последние 7 дней";
+"insights.month" = "Последние 30 дней";
+"insights.ratio" = "%d из %d дней";
+"insights.skipped" = "Пропущено: %d";
+"insights.note" = "Сегодняшний незавершённый день не считается пропуском.";
+"backup.menu" = "Резервная копия";
+"backup.export" = "Экспортировать данные";
+"backup.import" = "Импортировать данные";
+"backup.chooseMode" = "Восстановление из копии";
+"backup.merge" = "Добавить отсутствующие записи";
+"backup.replace" = "Заменить все данные";
+"backup.warning" = "Резервная копия содержит ваши привычки и напоминания. Замена удалит текущие записи и может синхронизировать удаление через iCloud. Храните JSON-файл в безопасном месте.";
+"backup.result" = "Резервная копия";
+"backup.success" = "Данные успешно импортированы.";
+
+"habit.multi.target.format" = "Отметок в день: %d";
+"habit.multi.target.hint" = "Каждая отметка учитывается отдельно. Привычка выполнена, когда все кружки заполнены.";
+"habit.multi.slot.format" = "Отметка %d из %d";
+"habit.multi.checked" = "Выполнено";
+"habit.multi.unchecked" = "Не выполнено";
+
+"habit.multi.target.locked" = "Число отметок нельзя менять после начала истории привычки.";
+
+"habit.goal.kind" = "Тип цели";
+"habit.goal.checks" = "Отметки";
+"habit.goal.quantity" = "Количество";
+"habit.goal.duration" = "Время";
+"habit.goal.quantity.format" = "Цель: %d раз";
+"habit.goal.duration.format" = "Цель: %d минут";
+"habit.goal.quantity.progress" = "%d / %d";
+"habit.goal.duration.progress" = "%d / %d мин";
+"habit.goal.add" = "Добавить одну единицу";
+"habit.goal.subtract" = "Отменить одну единицу";
+
+"insights.noData" = "Нет данных";
+
+"groups.select" = "Группа";
+"groups.none" = "Без группы";
+"groups.add" = "Новая группа";
+"groups.delete" = "Удалить группу (без удаления привычек)";
+"groups.placeholder" = "Название группы";
+
+"backup.error.version" = "Неподдерживаемая версия резервной копии ChickMark.";
+"backup.error.invalid" = "Некорректные или несовместимые данные резервной копии ChickMark.";
+"backup.error.unreadable" = "Не удалось прочитать выбранный файл резервной копии.";

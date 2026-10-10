@@ -1,0 +1,5 @@
+"watch.widget.title" = "ChickMark";
+"watch.widget.description" = "Consulta el progreso de tus hábitos desde la esfera del reloj.";
+"watch.widget.empty" = "Nada pendiente";
+"watch.widget.inline.format" = "%d/%d hábitos";
+"watch.widget.next.format" = "Siguiente: %@";

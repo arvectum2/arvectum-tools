@@ -8,3 +8,5 @@
 "watch.skipped" = "Skipped";
 "watch.undoHint" = "Double tap to undo completion";
 "watch.completeHint" = "Double tap to mark complete";
+
+"watch.duration.format" = "%d / %d min";

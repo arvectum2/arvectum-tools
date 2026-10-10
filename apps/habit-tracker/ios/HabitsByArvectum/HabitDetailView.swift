@@ -49,6 +49,9 @@ struct HabitDetailView: View {
                 if habit.isPaused && !habit.isArchived {
                     resumeButton
                 }
+                if !habit.usesFlexibleWeeklyTarget && !habit.usesCompletionInterval {
+                    insightsCard
+                }
             }
             .padding(16)
         }
@@ -210,7 +213,7 @@ struct HabitDetailView: View {
                     systemImage: "clock.arrow.circlepath"
                 )
                 stat(
-                    value: "\(habitCheckIns.count)",
+                    value: "\(HabitMetrics.completedDayCount(habit: habit, checkIns: checkIns))",
                     label: L10n.string("stats.checkins"),
                     systemImage: "checkmark.circle.fill"
                 )
@@ -230,7 +233,7 @@ struct HabitDetailView: View {
                     systemImage: "chart.line.uptrend.xyaxis"
                 )
                 stat(
-                    value: "\(habitCheckIns.count)",
+                    value: "\(HabitMetrics.completedDayCount(habit: habit, checkIns: checkIns))",
                     label: L10n.string("stats.checkins"),
                     systemImage: "checkmark.circle.fill"
                 )
@@ -244,6 +247,48 @@ struct HabitDetailView: View {
                 HStack(spacing: 10) { content }
             }
         }
+    }
+
+    private var insightsCard: some View {
+        let week = HabitInsights.window(
+            habit: habit, checkIns: checkIns, skips: skips,
+            pausePeriods: pausePeriods, days: 7
+        )
+        let month = HabitInsights.window(
+            habit: habit, checkIns: checkIns, skips: skips,
+            pausePeriods: pausePeriods, days: 30
+        )
+
+        return VStack(alignment: .leading, spacing: 12) {
+            Text(L10n.string("insights.title"))
+                .font(.headline)
+
+            HStack(spacing: 12) {
+                insight(week, title: L10n.string("insights.week"))
+                insight(month, title: L10n.string("insights.month"))
+            }
+            Text(L10n.string("insights.note"))
+                .font(.caption)
+                .foregroundStyle(Color.habitsSecondaryText)
+        }
+        .padding(16)
+        .background(Color.habitsSurface, in: RoundedRectangle(cornerRadius: 20))
+    }
+
+    private func insight(_ window: HabitInsightWindow, title: String) -> some View {
+        VStack(alignment: .leading, spacing: 5) {
+            Text(title).font(.caption).foregroundStyle(Color.habitsSecondaryText)
+            Text(window.eligible == 0 ? L10n.string("insights.noData") : "\(window.percent)%")
+                .font(window.eligible == 0 ? .subheadline.weight(.semibold) : .title2.weight(.bold))
+                .foregroundStyle(.primary)
+            Text(L10n.format("insights.ratio", window.completed, window.eligible))
+                .font(.caption)
+            Text(L10n.format("insights.skipped", window.skipped))
+                .font(.caption2)
+                .foregroundStyle(Color.habitsSecondaryText)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .accessibilityElement(children: .combine)
     }
 
     private var historyCard: some View {
@@ -293,7 +338,8 @@ struct HabitDetailView: View {
             habitID: habit.id,
             on: .now,
             checkIns: checkIns,
-            calendar: calendar
+            calendar: calendar,
+                target: habit.dailyTarget
         )
     }
 
@@ -406,7 +452,8 @@ struct HabitDetailView: View {
             habitID: habit.id,
             on: date,
             checkIns: checkIns,
-            calendar: calendar
+            calendar: calendar,
+                target: habit.dailyTarget
         )
         let skipped = HabitMetrics.isSkipped(
             habitID: habit.id,
@@ -521,7 +568,8 @@ struct HabitDetailView: View {
             habitID: habit.id,
             on: date,
             checkIns: checkIns,
-            calendar: calendar
+            calendar: calendar,
+                target: habit.dailyTarget
         )
 
         _ = HabitCompletionMutation.setCompletion(

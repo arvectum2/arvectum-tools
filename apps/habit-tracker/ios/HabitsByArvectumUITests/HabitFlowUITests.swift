@@ -91,6 +91,61 @@ final class HabitFlowUITests: XCTestCase {
     }
 
 
+    func testSpanishCreateHabitSmoke() throws {
+        app.terminate()
+        app.launchArguments = [
+            "-AppleLanguages", "(es)",
+            "-AppleLocale", "es_ES",
+            "--ui-testing"
+        ]
+        app.launch()
+
+        let create = app.buttons["Crear hábito"]
+        XCTAssertTrue(create.waitForExistence(timeout: 4))
+        create.tap()
+        XCTAssertTrue(app.navigationBars["Nuevo hábito"].waitForExistence(timeout: 3))
+        let name = app.textFields["Nombre del hábito"]
+        XCTAssertTrue(name.waitForExistence(timeout: 3))
+        name.typeText("Leer")
+        app.navigationBars["Nuevo hábito"].buttons["Listo"].tap()
+        XCTAssertTrue(app.staticTexts["Leer"].firstMatch.waitForExistence(timeout: 3))
+    }
+
+    func testMultiCheckCompletesOnlyAfterAllDailySlots() throws {
+        let create = app.buttons["Create habit"]
+        XCTAssertTrue(create.waitForExistence(timeout: 3))
+        create.tap()
+        let bar = app.navigationBars["New habit"]
+        let name = app.textFields["Habit name"]
+        XCTAssertTrue(name.waitForExistence(timeout: 3))
+        name.typeText("Hydrate")
+        app.buttons["Other schedule"].tap()
+        let stepper = app.steppers.matching(
+            NSPredicate(format: "label CONTAINS %@", "Check-ins per day")
+        ).firstMatch
+        XCTAssertTrue(stepper.waitForExistence(timeout: 3))
+        stepper.buttons["Increment"].tap()
+        stepper.buttons["Increment"].tap()
+        XCTAssertTrue(app.staticTexts["Check-ins per day: 3"].exists ||
+                      app.steppers["Check-ins per day: 3"].exists)
+        bar.buttons["Done"].tap()
+
+        let slot1 = app.buttons["Check-in 1 of 3"]
+        let slot2 = app.buttons["Check-in 2 of 3"]
+        let slot3 = app.buttons["Check-in 3 of 3"]
+        XCTAssertTrue(slot3.waitForExistence(timeout: 3))
+        slot3.tap()
+        XCTAssertEqual(slot3.value as? String, "Done")
+        XCTAssertEqual(slot1.value as? String, "Not done")
+        slot1.tap()
+        XCTAssertEqual(slot2.value as? String, "Not done")
+        slot2.tap()
+        XCTAssertEqual(slot2.value as? String, "Done")
+        slot3.tap()
+        XCTAssertEqual(slot3.value as? String, "Not done")
+    }
+
+
     func testOneOffReminderAppearsAndCompletesWithoutAffectingHabits() throws {
         app.terminate()
         app.launchArguments = [

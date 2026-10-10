@@ -235,7 +235,14 @@ struct HabitsTodayWidgetView: View {
 
                     Spacer(minLength: 4)
 
-                    if let target = habit.weeklyTarget,
+                    if let target = habit.dailyTarget,
+                       let count = habit.dailyCount {
+                        Text(habit.durationStepMinutes.map {
+                            WidgetL10n.format("widget.duration.format", count * $0, target * $0)
+                        } ?? "\(count)/\(target)")
+                            .font(.caption2.monospacedDigit())
+                            .foregroundStyle(.secondary)
+                    } else if let target = habit.weeklyTarget,
                        let count = habit.weeklyCount {
                         Text("\(count)/\(target)")
                             .font(.caption2.monospacedDigit())

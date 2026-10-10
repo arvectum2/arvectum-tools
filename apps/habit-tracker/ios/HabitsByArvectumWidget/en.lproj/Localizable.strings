@@ -10,3 +10,5 @@
 "widget.undo" = "Undo completion";
 "widget.preview.water" = "Water";
 "widget.preview.reading" = "Reading";
+
+"widget.duration.format" = "%d / %d min";

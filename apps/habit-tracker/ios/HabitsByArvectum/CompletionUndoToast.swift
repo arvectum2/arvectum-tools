@@ -4,6 +4,7 @@ struct CompletionUndoOffer: Identifiable, Equatable {
     let id: UUID
     let habitID: UUID
     let dayKey: String
+    var slot: Int? = nil
 }
 
 struct CompletionUndoToast: View {

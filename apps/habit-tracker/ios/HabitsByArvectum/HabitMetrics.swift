@@ -5,16 +5,14 @@ enum HabitMetrics {
         habitID: UUID,
         on date: Date,
         checkIns: [HabitCheckIn],
-        calendar: Calendar = .autoupdatingCurrent
+        calendar: Calendar = .autoupdatingCurrent,
+        target: Int = 1
     ) -> Bool {
-        checkIns.contains {
-            $0.habitID == habitID &&
-            HabitDayKey.matches(
-                $0,
-                on: date,
-                calendar: calendar
-            )
-        }
+        let key = HabitDayKey.make(for: date, calendar: calendar)
+        return HabitMultiCheck.count(
+            habitID: habitID, dayKey: key, target: target,
+            checkIns: checkIns
+        ) >= max(1, target)
     }
 
     static func isSkipped(
@@ -55,7 +53,8 @@ enum HabitMetrics {
         let completedDays = dayKeys(
             habitID: habit.id,
             checkIns: checkIns,
-            calendar: calendar
+            calendar: calendar,
+            target: habit.dailyTarget
         )
         let skippedDays = skipKeys(
             habitID: habit.id,
@@ -149,7 +148,8 @@ enum HabitMetrics {
         let completedDays = dayKeys(
             habitID: habit.id,
             checkIns: checkIns,
-            calendar: calendar
+            calendar: calendar,
+            target: habit.dailyTarget
         )
         let skippedDays = skipKeys(
             habitID: habit.id,
@@ -234,7 +234,8 @@ enum HabitMetrics {
                     habitID: habit.id,
                     on: cursor,
                     checkIns: checkIns,
-                    calendar: calendar
+                    calendar: calendar,
+                    target: habit.dailyTarget
                 )
                 let skipped = isSkipped(
                     habitID: habit.id,
@@ -491,21 +492,31 @@ enum HabitMetrics {
         ) == 0
     }
 
+    static func completedDayCount(
+        habit: Habit,
+        checkIns: [HabitCheckIn],
+        calendar: Calendar = .autoupdatingCurrent
+    ) -> Int {
+        dayKeys(habitID: habit.id, checkIns: checkIns,
+                calendar: calendar, target: habit.dailyTarget).count
+    }
+
     private static func dayKeys(
         habitID: UUID,
         checkIns: [HabitCheckIn],
-        calendar: Calendar
+        calendar: Calendar,
+        target: Int = 1
     ) -> Set<String> {
-        Set(
-            checkIns
-                .filter { $0.habitID == habitID }
-                .map {
-                    $0.dayKey ?? HabitDayKey.make(
-                        for: $0.day,
-                        calendar: calendar
-                    )
-                }
-        )
+        let matching = checkIns.filter { $0.habitID == habitID }
+        let grouped = Dictionary(grouping: matching) {
+            $0.dayKey ?? HabitDayKey.make(for: $0.day, calendar: calendar)
+        }
+        return Set(grouped.compactMap { key, dayRows in
+            HabitMultiCheck.count(
+                habitID: habitID, dayKey: key,
+                target: target, checkIns: dayRows
+            ) >= target ? key : nil
+        })
     }
 
     private static func skipKeys(

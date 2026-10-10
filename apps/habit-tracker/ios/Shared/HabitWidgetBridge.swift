@@ -136,6 +136,9 @@ enum HabitWidgetBridge {
         }) else { return }
 
         snapshot.habits[index].completed = command.completed
+        if let target = snapshot.habits[index].dailyTarget {
+            snapshot.habits[index].dailyCount = command.completed ? target : 0
+        }
         if command.completed {
             snapshot.habits[index].skipped = false
         }
@@ -173,6 +176,9 @@ struct HabitWidgetHabit: Codable, Hashable, Identifiable {
     var streak: Int
     var weeklyTarget: Int? = nil
     var weeklyCount: Int? = nil
+    var dailyTarget: Int? = nil
+    var dailyCount: Int? = nil
+    var durationStepMinutes: Int? = nil
 }
 
 struct HabitWidgetSnapshot: Codable, Hashable {

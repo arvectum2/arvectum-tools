@@ -98,7 +98,8 @@ final class PhoneWatchSyncCoordinator: NSObject, WCSessionDelegate {
                         habitID: habit.id,
                         on: date,
                         checkIns: checkIns,
-                        calendar: calendar
+                        calendar: calendar,
+                target: habit.dailyTarget
                     ),
                     skipped: HabitMetrics.isSkipped(
                         habitID: habit.id,
@@ -128,7 +129,15 @@ final class PhoneWatchSyncCoordinator: NSObject, WCSessionDelegate {
                             containing: date,
                             checkIns: checkIns,
                             calendar: calendar
-                        ) : nil
+                        ) : nil,
+                    dailyTarget: habit.supportsIncrementalGoal ? habit.dailyTarget : nil,
+                    dailyCount: habit.supportsIncrementalGoal
+                        ? HabitMultiCheck.count(
+                            habitID: habit.id,
+                            dayKey: HabitDayKey.make(for: date, calendar: calendar),
+                            target: habit.dailyTarget, checkIns: checkIns
+                        ) : nil,
+                    durationStepMinutes: habit.usesDurationGoal ? 5 : nil
                 )
             }
         }

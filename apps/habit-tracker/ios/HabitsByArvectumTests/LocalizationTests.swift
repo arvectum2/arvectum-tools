@@ -96,11 +96,25 @@ final class LocalizationTests: XCTestCase {
         "shortcut.undo.title",
         "shortcut.undo.description",
         "shortcut.undo.success",
-        "shortcut.notDue"
+        "shortcut.notDue",
+        "insights.noData", "insights.title", "insights.week", "insights.month",
+        "insights.ratio", "insights.skipped", "insights.note",
+        "backup.menu", "backup.export", "backup.import",
+        "backup.chooseMode", "backup.merge", "backup.replace",
+        "backup.warning", "backup.result", "backup.success",
+        "habit.multi.target.format", "habit.multi.target.hint",
+        "habit.multi.target.locked", "habit.multi.slot.format",
+        "habit.multi.checked", "habit.multi.unchecked",
+        "habit.goal.kind", "habit.goal.checks", "habit.goal.quantity",
+        "habit.goal.duration", "habit.goal.quantity.format",
+        "habit.goal.duration.format", "habit.goal.quantity.progress",
+        "habit.goal.duration.progress", "habit.goal.add", "habit.goal.subtract",
+        "groups.select", "groups.none", "groups.add", "groups.delete", "groups.placeholder",
+        "backup.error.version", "backup.error.invalid", "backup.error.unreadable"
     ]
 
     func testEnglishAndRussianContainAllRequiredKeys() throws {
-        for language in ["en", "ru"] {
+        for language in ["en", "ru", "es"] {
             let path = try XCTUnwrap(
                 Bundle.main.path(
                     forResource: language,

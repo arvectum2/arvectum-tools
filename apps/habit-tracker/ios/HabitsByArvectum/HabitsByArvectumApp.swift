@@ -237,7 +237,8 @@ struct HabitsByArvectumApp: App {
             !HabitMetrics.isCompleted(
                 habitID: $0.id,
                 on: today,
-                checkIns: checkIns
+                checkIns: checkIns,
+                target: $0.dailyTarget
             ) &&
             !HabitMetrics.isSkipped(
                 habitID: $0.id,
@@ -283,7 +284,8 @@ struct HabitsByArvectumApp: App {
             !HabitMetrics.isCompleted(
                 habitID: $0.id,
                 on: today,
-                checkIns: checkIns
+                checkIns: checkIns,
+                target: $0.dailyTarget
             )
         }) else { return }
 

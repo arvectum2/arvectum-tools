@@ -83,6 +83,13 @@ struct WatchTodayView: View {
                         Text(WatchL10n.string("watch.skipped"))
                             .font(.caption2)
                             .foregroundStyle(.secondary)
+                    } else if let target = habit.dailyTarget,
+                              let count = habit.dailyCount {
+                        Text(habit.durationStepMinutes.map {
+                            WatchL10n.format("watch.duration.format", count * $0, target * $0)
+                        } ?? "\(count)/\(target)")
+                            .font(.caption2.monospacedDigit())
+                            .foregroundStyle(.secondary)
                     } else if let target = habit.weeklyTarget,
                               let count = habit.weeklyCount {
                         Text(

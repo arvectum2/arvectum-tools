@@ -52,6 +52,9 @@ final class WatchHabitSyncStore: NSObject, ObservableObject, WCSessionDelegate {
             ? true
             : !snapshot.habits[index].completed
         snapshot.habits[index].completed = desiredState
+        if let target = snapshot.habits[index].dailyTarget {
+            snapshot.habits[index].dailyCount = desiredState ? target : 0
+        }
         snapshot.habits[index].skipped = false
         snapshot.completedCount = snapshot.habits.filter(\.completed).count
         snapshot.skippedCount = snapshot.habits.filter {

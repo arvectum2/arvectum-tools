@@ -15,6 +15,11 @@ Working formula: **«всё удобное — без лишнего»**.
 - daily, selected-weekday, flexible N-times-per-week and completion-relative interval habits
 - one-tap completion, undo, neutral skip, pause/resume and manual ordering
 - streaks, best streak, scheduled-day completion metrics and calendar-aligned history
+- independent N/N daily check-ins (2–5), count goals (1–100), and time goals (five-minute steps)
+- 7/30-day consistency insights for fixed schedules, respecting skipped and paused days
+- user-controlled JSON backup export and validated merge/replace import
+- optional local-only named groups (backed up in JSON)
+- Spanish iOS + Watch + widget + Shortcuts localization (in the unreleased branch)
 - per-habit rolling local reminders with Complete / Skip notification actions
 - RU + EN localization and accessibility-oriented layouts
 - Home Screen / Lock Screen interactive widgets
@@ -31,3 +36,8 @@ The signed release candidate is validated on the approved physical iPhone + Appl
 Canonical plan: [ROADMAP.md](ROADMAP.md).
 
 Sync design: [SYNC_DESIGN.md](SYNC_DESIGN.md).
+
+
+## Unreleased 1.3 development
+
+The branch `feature/chickmark-multicheck` contains work-in-progress features, **not an App Store release**. Legacy recurrence, CloudKit schema, Watch and widget identities remain unchanged. New count/duration modes store a stable step count using the published habit and check-in models. Do not ship until full Watch/device, accessibility, migration and regression validation plus final localization/refactor. Details: [ROADMAP.md](ROADMAP.md).

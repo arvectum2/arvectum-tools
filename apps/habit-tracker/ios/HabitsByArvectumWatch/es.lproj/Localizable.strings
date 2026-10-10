@@ -1,0 +1,12 @@
+"watch.today" = "Hoy";
+"watch.progress.format" = "%d de %d";
+"watch.empty" = "No hay hábitos programados para hoy";
+"watch.streak.format" = "Racha de %d días";
+"watch.weekly.format" = "%d de %d esta semana";
+"watch.completed" = "Completado";
+"watch.notCompleted" = "Pendiente";
+"watch.skipped" = "Omitido";
+"watch.undoHint" = "Toca dos veces para deshacer";
+"watch.completeHint" = "Toca dos veces para completar";
+
+"watch.duration.format" = "%d / %d min";
