@@ -54,6 +54,7 @@ jobs:
             -scheme HabitsByArvectum \
             -destination 'platform=iOS Simulator,name=iPhone 17 Pro' \
             CODE_SIGNING_ALLOWED=NO \
+            SWIFT_ENABLE_BATCH_MODE=NO \
             test
 
       - name: Archive smoke

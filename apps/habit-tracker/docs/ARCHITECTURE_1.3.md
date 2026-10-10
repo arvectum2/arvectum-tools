@@ -54,3 +54,6 @@ GitHub CI uses `xcodebuild -destination 'platform=iOS Simulator,name=iPhone 17 P
 
 ## Swift compiler compatibility
 The deterministic 16-byte SHA-256-based UUID used by `HabitMultiCheck.slotID` is formatted as five explicit segments of widths 8/4/4/4/12. It generates **identical UUIDs** to the published experimental expression but avoids a Swift 5 compiler expression type-checking timeout on GitHub macOS-26 / Xcode 26.6. Xcode 27 local unit tests verify the same slot IDs and offline duplicate semantics.
+
+## CI Swift batching isolation
+Xcode 26.6 hosted CI exhibited an extremely long silent SwiftCompile batch after the compiler-specific source compatibility fixes. Set `SWIFT_ENABLE_BATCH_MODE=NO` **only in the CI xcodebuild invocation**, so each file compiles independently and regressions are diagnosable. This setting does not change app semantics or Apple Distribution export.
