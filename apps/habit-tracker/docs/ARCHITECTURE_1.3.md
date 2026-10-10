@@ -62,3 +62,5 @@ Xcode 26.6 hosted CI exhibited an extremely long silent SwiftCompile batch after
 Canonical toolchain is **Xcode 27.x** with iOS 27 / watchOS 27 SDKs. GitHub Actions runs on the purpose-built `xcode-27` ARM64 runner and checks `xcodebuild -version`; local Mac mini has only `/Applications/Xcode-27.0.0.app`. Legacy iOS 26.5 simulators are not used for the standard CI route. Keep iOS backwards compatibility through deployment targets, not duplicated local toolchains.
 
 - Canonical GitHub simulator destination for Xcode 27: iPhone 18 Pro / iOS 27.0. The hosted image does not ship an iPhone 17 Pro destination.
+
+- Arvectum Tools workflows: ChickMark and PUSHKIN use the xcode-27 GitHub-hosted ARM64 runner; Photo Size workflow was brought to the same canonical runner (compile-only validation, no deployment).
