@@ -213,3 +213,5 @@
 "habit.history.edit" = "Edit day";
 "habit.history.progress" = "%d of %d check-ins";
 "habit.history.error" = "Could not save changes";
+
+"quick.multicheck" = "Water (5 times)";

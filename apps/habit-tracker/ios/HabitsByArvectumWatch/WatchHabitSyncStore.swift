@@ -37,6 +37,26 @@ final class WatchHabitSyncStore: NSObject, ObservableObject, WCSessionDelegate {
 
         super.init()
 
+#if DEBUG
+        if ProcessInfo.processInfo.arguments.contains("--seed-watch-screenshot") {
+            let dayKey = HabitWidgetBridge.dayKey(for: .now)
+            snapshot = HabitSyncSnapshot(
+                generatedAt: .now, dayKey: dayKey,
+                completedCount: 0, totalCount: 1,
+                habits: [
+                    HabitSyncHabit(
+                        id: UUID(uuidString: "00000000-0000-0000-0000-000000000003")!,
+                        name: WatchL10n.string("watch.preview.water"),
+                        symbolName: "drop.fill", colorHex: "43E5C5",
+                        completed: false, streak: 3,
+                        dailyTarget: 5, dailyCount: 3
+                    )
+                ]
+            )
+            return
+        }
+#endif
+
         guard let session else { return }
         session.delegate = self
         session.activate()
@@ -105,6 +125,11 @@ final class WatchHabitSyncStore: NSObject, ObservableObject, WCSessionDelegate {
     }
 
     func refresh() {
+#if DEBUG
+        if ProcessInfo.processInfo.arguments.contains("--seed-watch-screenshot") {
+            return
+        }
+#endif
         rollToCurrentDayIfNeeded()
 
         guard

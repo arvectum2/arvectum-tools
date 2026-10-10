@@ -258,7 +258,7 @@ Physical validation on 2026-10-02 is green for the main single-device/Watch path
 ## 1.2 publication closeout (2026-10-10)
 
 - [x] Owner confirms App Store 1.2 is published.
-- [ ] Verify live App Store marketing/developer website link and Yandex app-ads.txt discovery.
+- [x] Public App Store ChickMark listing (ID 6818711298) exposes Arvectum Developer Website and Privacy Policy; official Arvectum marketing page, /privacy, /contact.html and /app-ads.txt returned HTTP 200 on 2026-10-10.
 - [ ] Record production Yandex ad fill and check eligibility gate on real installs, respecting user privacy.
 - [ ] Monitor crash reports, retention and ad impact before changing ad frequency.
 - [ ] Validate cross-iPhone CloudKit convergence on two authorized devices (requires explicit authorization for any new physical test device).
@@ -312,7 +312,9 @@ Physical validation on 2026-10-02 is green for the main single-device/Watch path
 - [x] Prior 1.2 simulator SwiftData data preserved across a non-destructive update; this is **not** the user's requested iPhone-to-simulator cloud convergence test.
 - [x] Typed goal mode, separated UI components, group KVS transport/merge ledger, and explicit architecture boundary document.
 - [x] Draft next-version Store copy RU/EN/es-ES/es-MX; App Store Connect and TestFlight remain untouched.
-- [ ] Native editorial review of ES, updated localized screenshot set, and any further evidence-backed localizations.
+- [x] Nine raw iPhone 17 Pro simulator screenshots captured from real 1.3 UI: Today, history, Manage × EN/RU/ES, with no user data.
+- [x] Raw Apple Watch SE 3 screenshots for EN/RU/ES, from synthetic 3/5 preview.
+- [ ] Native editorial review of ES, **final App Store screenshot sizes/captions** for iPhone+Watch and any further evidence-backed localizations.
 - [ ] Real production ad-fill/retention check before deciding on any new ad slot; no increase to ad exposure in this branch.
 - [ ] Release-IPA privacy/ad-SDK audit on the final signed binary, separate from unsigned local archive smoke.
 - [ ] **Last after everything else:** actual physical iPhone + simulator iCloud convergence, and paired Watch/physical-device regression (single iPhone; no need to acquire a second one if same-account simulator iCloud functionality is available).

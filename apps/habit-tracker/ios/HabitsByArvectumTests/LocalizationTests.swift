@@ -59,7 +59,7 @@ final class LocalizationTests: XCTestCase {
         "oneoff.delete",
         "oneoff.today.format",
         "oneoff.tomorrow.format",
-        "quick.water",
+        "quick.water", "quick.multicheck",
         "quick.reading",
         "quick.walk",
         "quick.workout",

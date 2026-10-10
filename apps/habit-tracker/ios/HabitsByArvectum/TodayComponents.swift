@@ -361,10 +361,12 @@ struct HabitRow: View {
 
     var body: some View {
         Group {
-            if dynamicTypeSize.isAccessibilitySize && habit.supportsIncrementalGoal {
+            if habit.supportsIncrementalGoal {
                 VStack(alignment: .leading, spacing: 10) {
                     identityLink
+                        .frame(maxWidth: .infinity, alignment: .leading)
                     progressControls
+                        .frame(maxWidth: .infinity, alignment: .center)
                 }
             } else {
                 HStack(spacing: 12) {

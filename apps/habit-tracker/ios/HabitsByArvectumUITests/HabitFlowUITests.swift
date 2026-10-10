@@ -91,6 +91,60 @@ final class HabitFlowUITests: XCTestCase {
     }
 
 
+    func testStoreScreenshotsEnglish() throws {
+        storeScreenshots(language: "en", locale: "en_US",
+                         today: "Today", manage: "Manage habits",
+                         reading: "Reading")
+    }
+
+    func testStoreScreenshotsRussian() throws {
+        storeScreenshots(language: "ru", locale: "ru_RU",
+                         today: "Сегодня", manage: "Управление привычками",
+                         manageTitle: "Управление", reading: "Чтение")
+    }
+
+    func testStoreScreenshotsSpanish() throws {
+        storeScreenshots(language: "es", locale: "es_ES",
+                         today: "Hoy", manage: "Gestionar hábitos",
+                         reading: "Leer")
+    }
+
+    private func storeScreenshots(
+        language: String, locale: String, today: String,
+        manage: String, manageTitle: String? = nil, reading: String
+    ) {
+        app.terminate()
+        app.launchArguments = [
+            "-AppleLanguages", "(\(language))",
+            "-AppleLocale", locale,
+            "--ui-testing",
+            "--seed-watch-sync-demo",
+            "--seed-screenshot-demo",
+            "--disable-cloud-sync"
+        ]
+        app.launch()
+        XCTAssertTrue(app.staticTexts[reading].firstMatch.waitForExistence(timeout: 5))
+        captureStoreScreenshot("\(language)_01_today")
+        app.staticTexts[reading].firstMatch.tap()
+        XCTAssertTrue(app.navigationBars[reading].waitForExistence(timeout: 4))
+        captureStoreScreenshot("\(language)_02_detail")
+        app.navigationBars[reading].buttons[today].tap()
+        let manageButton = app.buttons[manage]
+        XCTAssertTrue(manageButton.waitForExistence(timeout: 4))
+        manageButton.tap()
+        XCTAssertTrue(app.navigationBars[manageTitle ?? manage].waitForExistence(timeout: 4))
+        captureStoreScreenshot("\(language)_03_manage")
+    }
+
+    private func captureStoreScreenshot(_ name: String) {
+        let attachment = XCTAttachment(
+            screenshot: XCUIScreen.main.screenshot()
+        )
+        attachment.name = name
+        attachment.lifetime = .keepAlways
+        add(attachment)
+    }
+
     func testSpanishCreateHabitSmoke() throws {
         app.terminate()
         app.launchArguments = [
@@ -135,6 +189,12 @@ final class HabitFlowUITests: XCTestCase {
         for _ in 0..<4 { stepper.buttons["Increment"].tap() }
         app.navigationBars["New habit"].buttons["Done"].tap()
 
+        let nameLabel = app.staticTexts["Vitamins"].firstMatch
+        XCTAssertTrue(nameLabel.waitForExistence(timeout: 3))
+        XCTAssertGreaterThan(
+            nameLabel.frame.width, 95,
+            "Incremental habit title must not collapse into a vertical column."
+        )
         for slot in 1...5 {
             let button = app.buttons["Check-in \(slot) of 5"]
             XCTAssertTrue(button.waitForExistence(timeout: 4))

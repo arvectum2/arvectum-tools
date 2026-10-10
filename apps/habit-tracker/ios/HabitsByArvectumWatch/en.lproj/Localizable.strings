@@ -13,3 +13,6 @@
 
 "watch.step.add" = "Add one step";
 "watch.step.remove" = "Undo one step";
+
+"watch.preview.water" = "Water";
+"watch.preview.reading" = "Reading";

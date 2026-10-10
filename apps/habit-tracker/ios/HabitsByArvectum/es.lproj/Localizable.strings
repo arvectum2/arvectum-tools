@@ -192,3 +192,5 @@
 "habit.history.edit" = "Editar día";
 "habit.history.progress" = "%d de %d registros";
 "habit.history.error" = "No se pudieron guardar los cambios";
+
+"quick.multicheck" = "Agua (5 veces)";

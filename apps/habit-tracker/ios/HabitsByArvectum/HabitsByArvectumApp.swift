@@ -32,6 +32,7 @@ struct HabitsByArvectumApp: App {
 
 #if DEBUG
         seedWatchSyncDemoIfRequested(container: container)
+        seedScreenshotDemoIfRequested(container: container)
         seedOneOffReminderDemoIfRequested(container: container)
         seedFlexibleWeeklyDemoIfRequested(container: container)
         seedReminderSmokeIfRequested(container: container)
@@ -391,6 +392,61 @@ struct HabitsByArvectumApp: App {
                 weeklyTarget: 3
             )
         )
+        try? context.save()
+    }
+
+    private func seedScreenshotDemoIfRequested(container: ModelContainer) {
+        guard ProcessInfo.processInfo.arguments.contains(
+            "--seed-screenshot-demo"
+        ) else { return }
+        let context = ModelContext(container)
+        let habits = (try? context.fetch(FetchDescriptor<Habit>())) ?? []
+        guard !habits.contains(where: {
+            $0.id == UUID(uuidString: "00000000-0000-0000-0000-000000000003")
+        }) else { return }
+        let habit = Habit(
+            id: UUID(uuidString: "00000000-0000-0000-0000-000000000003")!,
+            name: L10n.string("quick.multicheck"),
+            symbolName: "drop.fill",
+            colorHex: "43E5C5",
+            createdAt: Calendar.current.startOfDay(for: .now),
+            weeklyTarget: 1005,
+            sortOrder: 2
+        )
+        context.insert(habit)
+        if let basic = habits.first(where: {
+            $0.id == UUID(uuidString: "00000000-0000-0000-0000-000000000002")
+        }) {
+            basic.name = L10n.string("quick.walk")
+            basic.symbolName = "figure.walk"
+            basic.colorHex = "FB923C"
+        }
+        for slot in 1...3 {
+            let key = HabitDayKey.make(for: .now)
+            let checkIn = HabitCheckIn(
+                id: HabitMultiCheck.slotID(
+                    habitID: habit.id, dayKey: key, slot: slot
+                ),
+                habitID: habit.id, day: .now
+            )
+            checkIn.dayKey = key
+            context.insert(checkIn)
+        }
+        if let reading = habits.first(where: {
+            $0.id == UUID(uuidString: "00000000-0000-0000-0000-000000000001")
+        }), let twoWeeksAgo = Calendar.current.date(
+            byAdding: .day, value: -14, to: Calendar.current.startOfDay(for: .now)
+        ) {
+            reading.createdAt = twoWeeksAgo
+            for offset in [0, 1, 2, 3, 4, 6, 7, 8, 10, 11, 12] {
+                guard let date = Calendar.current.date(
+                    byAdding: .day, value: -offset, to: .now
+                ) else { continue }
+                context.insert(HabitCheckIn(
+                    habitID: reading.id, day: date
+                ))
+            }
+        }
         try? context.save()
     }
 

@@ -13,3 +13,6 @@
 
 "watch.step.add" = "Sumar un paso";
 "watch.step.remove" = "Deshacer un paso";
+
+"watch.preview.water" = "Agua";
+"watch.preview.reading" = "Leer";

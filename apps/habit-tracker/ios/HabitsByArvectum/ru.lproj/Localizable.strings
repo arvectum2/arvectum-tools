@@ -213,3 +213,5 @@
 "habit.history.edit" = "Редактирование дня";
 "habit.history.progress" = "%d из %d отметок";
 "habit.history.error" = "Не удалось сохранить";
+
+"quick.multicheck" = "Вода (5 раз)";

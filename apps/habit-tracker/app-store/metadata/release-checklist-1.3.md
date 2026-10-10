@@ -15,7 +15,9 @@
 - [x] RU/EN/ES app, Watch, widgets and Shortcuts with key parity checks
 - [x] Draft regional Store text: ru-RU, en-US, es-ES and es-MX
 - [ ] Editorial/native review of Spanish and regional marketing copy
-- [ ] Update screenshots for all active locales and watch families after UI freeze
+- [x] Captured 9 raw iPhone simulator screenshots in EN/RU/ES (1206×2622) from 1.3 synthetic app data
+- [x] Captured raw Apple Watch SE 3 40mm screenshots, EN/RU/ES, 324×394
+- [ ] Review raw screenshots, prepare exact App Store sizes and final Watch screenshot family; no upload
 - [ ] Additional locales only when justified by organic-demand data
 
 ## Architecture and quality
@@ -25,7 +27,7 @@
 - [ ] Verify release archive embeds all four signed targets and privacy manifests
 - [ ] Recheck App Store Privacy against final exported IPA, not simulator builds
 - [ ] Validate ad fill, retention and thresholds on actual production; do not increase exposure absent evidence
-- [ ] Confirm external app-ads.txt and public developer/marketing URLs
+- [x] Public App Store page (id6818711298) links Arvectum Developer Website and Privacy Policy; official site and app-ads.txt respond HTTP 200
 
 ## Last step: one physical iPhone + iOS simulator
 - [ ] iPhone existing 1.2 data backed up through user-managed encrypted iPhone backup (Xcode cannot read the App Store container)

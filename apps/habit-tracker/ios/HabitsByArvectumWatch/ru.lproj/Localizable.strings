@@ -13,3 +13,6 @@
 
 "watch.step.add" = "Добавить шаг";
 "watch.step.remove" = "Отменить шаг";
+
+"watch.preview.water" = "Вода";
+"watch.preview.reading" = "Чтение";
