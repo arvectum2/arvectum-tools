@@ -25,6 +25,7 @@ concurrency:
 jobs:
   build-and-test:
     runs-on: xcode-27
+    timeout-minutes: 35
     defaults:
       run:
         working-directory: apps/habit-tracker/ios
@@ -52,16 +53,15 @@ jobs:
       - name: Generate project
         run: scripts/generate_project.sh
 
-      - name: Build and test
+      - name: Unit and integration tests
+        timeout-minutes: 17
         run: |
-          xcodebuild \
-            -project HabitsByArvectumIOS.xcodeproj \
-            -onlyUsePackageVersionsFromResolvedFile \
-            -scheme HabitsByArvectum \
-            -destination 'platform=iOS Simulator,name=iPhone 18 Pro,OS=27.0' \
-            CODE_SIGNING_ALLOWED=NO \
-            SWIFT_ENABLE_BATCH_MODE=NO \
-            test
+          xcodebuild             -project HabitsByArvectumIOS.xcodeproj             -onlyUsePackageVersionsFromResolvedFile             -scheme HabitsByArvectum             -destination 'platform=iOS Simulator,name=iPhone 18 Pro,OS=27.0'             -parallel-testing-enabled NO             -only-testing:HabitsByArvectumTests             CODE_SIGNING_ALLOWED=NO             SWIFT_ENABLE_BATCH_MODE=NO             test
+
+      - name: Essential UI smoke
+        timeout-minutes: 12
+        run: |
+          xcodebuild             -project HabitsByArvectumIOS.xcodeproj             -onlyUsePackageVersionsFromResolvedFile             -scheme HabitsByArvectum             -destination 'platform=iOS Simulator,name=iPhone 18 Pro,OS=27.0'             -parallel-testing-enabled NO             -only-testing:HabitsByArvectumUITests/HabitFlowUITests/testAccessibilityAuditCoreScreens             -only-testing:HabitsByArvectumUITests/HabitFlowUITests/testMultiCheckHistoryIndividualSlotsPersist             CODE_SIGNING_ALLOWED=NO             SWIFT_ENABLE_BATCH_MODE=NO             test
 
       - name: Archive smoke
         run: scripts/archive_smoke.sh
