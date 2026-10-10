@@ -210,6 +210,7 @@ final class PhoneWatchSyncCoordinator: NSObject, WCSessionDelegate {
             habitID: command.habitID,
             dayKey: command.dayKey,
             completed: command.completed,
+            desiredCount: command.desiredCount,
             context: context,
             mutationAt: command.createdAt,
             mutationID: command.id

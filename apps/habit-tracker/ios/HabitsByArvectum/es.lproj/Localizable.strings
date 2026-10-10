@@ -175,3 +175,20 @@
 "backup.error.version" = "Esta versión de la copia de seguridad de ChickMark no es compatible.";
 "backup.error.invalid" = "Los datos de la copia de seguridad de ChickMark no son válidos.";
 "backup.error.unreadable" = "No se puede leer el archivo de copia de seguridad seleccionado.";
+
+"insights.weekly.title" = "Constancia semanal";
+"insights.fourWeeks" = "4 semanas";
+"insights.twelveWeeks" = "12 semanas";
+"insights.weekly.note" = "La semana actual aún no cuenta como incumplida. Las semanas en pausa no reducen el porcentaje.";
+"insights.weekly.ratio" = "%d de %d semanas";
+"insights.weekly.neutral" = "Pausadas: %d semanas";
+"insights.interval.title" = "Historial de repeticiones";
+"insights.ninetyDays" = "90 días";
+"insights.interval.note" = "Solo se cuentan acciones completadas; los intervalos no tienen una meta diaria.";
+"insights.interval.occurrences" = "acciones completadas";
+"insights.interval.average" = "Intervalo medio: %d días";
+"insights.interval.noGap" = "Aún no hay suficientes datos";
+
+"habit.history.edit" = "Editar día";
+"habit.history.progress" = "%d de %d registros";
+"habit.history.error" = "No se pudieron guardar los cambios";

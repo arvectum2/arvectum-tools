@@ -194,6 +194,7 @@ struct ChickInCelebrationView: View {
 }
 
 struct HabitRow: View {
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     let habit: Habit
     let completed: Bool
     let skipped: Bool
@@ -206,8 +207,8 @@ struct HabitRow: View {
     let onSetSlot: (Int, Bool) -> Void
     let onSkip: () -> Void
 
-    var body: some View {
-        HStack(spacing: 12) {
+
+    private var identityLink: some View {
             NavigationLink {
                 HabitDetailView(habit: habit)
             } label: {
@@ -262,9 +263,10 @@ struct HabitRow: View {
                 }
             }
             .buttonStyle(.plain)
+    }
 
-            Spacer(minLength: 4)
-
+    @ViewBuilder
+    private var progressControls: some View {
             if habit.usesQuantitativeGoal || habit.usesDurationGoal {
                 VStack(spacing: 2) {
                     Text(habit.usesDurationGoal
@@ -303,7 +305,13 @@ struct HabitRow: View {
                     .foregroundStyle(Color.habitsReadableAccent(for: habit.colorHex))
                 }
             } else if habit.usesDailyMultiple {
-                HStack(spacing: 2) {
+                LazyVGrid(
+                    columns: Array(
+                        repeating: GridItem(.flexible(minimum: 44), spacing: 4),
+                        count: habit.dailyTarget
+                    ),
+                    spacing: 4
+                ) {
                     ForEach(1...habit.dailyTarget, id: \.self) { slot in
                         Button {
                             onSetSlot(slot, !dailySlots.contains(slot))
@@ -311,7 +319,7 @@ struct HabitRow: View {
                             Image(systemName: dailySlots.contains(slot)
                                   ? "checkmark.circle.fill" : "circle")
                                 .font(.system(size: 23))
-                                .frame(width: 29, height: 44)
+                                .frame(width: dynamicTypeSize.isAccessibilitySize ? 54 : 29, height: 44)
                                 .foregroundStyle(Color.habitsReadableAccent(for: habit.colorHex))
                                 .contentShape(Rectangle())
                         }
@@ -348,6 +356,22 @@ struct HabitRow: View {
                     ? L10n.string("habit.undo")
                     : L10n.string("habit.complete")
             )
+            }
+    }
+
+    var body: some View {
+        Group {
+            if dynamicTypeSize.isAccessibilitySize && habit.supportsIncrementalGoal {
+                VStack(alignment: .leading, spacing: 10) {
+                    identityLink
+                    progressControls
+                }
+            } else {
+                HStack(spacing: 12) {
+                    identityLink
+                    Spacer(minLength: 4)
+                    progressControls
+                }
             }
         }
         .padding(14)

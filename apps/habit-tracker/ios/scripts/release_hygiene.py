@@ -155,9 +155,37 @@ for localization_root in [
                 + ", ".join(only_ru)
             )
 
+# Regional coverage must remain complete on app, Watch, complications and
+# widgets. RU/EN parity is verified above for the published baseline.
+for localization_root in [
+    ROOT / "HabitsByArvectum",
+    ROOT / "HabitsByArvectumWatch",
+    ROOT / "HabitsByArvectumWidget",
+    ROOT / "HabitsByArvectumWatchWidget",
+]:
+    reference = localization_root / "en.lproj" / "Localizable.strings"
+    reference_keys = localization_keys(reference)
+    for locale in ["es"]:
+        target = localization_root / f"{locale}.lproj" / "Localizable.strings"
+        if not target.exists():
+            fail(f"missing {locale} localization: {target.relative_to(ROOT)}")
+        elif localization_keys(target) != reference_keys:
+            missing = sorted(reference_keys - localization_keys(target))
+            extra = sorted(localization_keys(target) - reference_keys)
+            fail(
+                f"{localization_root.name} {locale} keys differ: "
+                + f"missing={missing} extra={extra}"
+            )
+
 shortcut_root = ROOT / "HabitsByArvectum"
 shortcut_en = shortcut_root / "en.lproj" / "AppShortcuts.strings"
 shortcut_ru = shortcut_root / "ru.lproj" / "AppShortcuts.strings"
+
+shortcut_es = shortcut_root / "es.lproj" / "AppShortcuts.strings"
+if not shortcut_es.exists():
+    fail("missing ES AppShortcuts.strings localization")
+elif localization_keys(shortcut_en) != localization_keys(shortcut_es):
+    fail("ES AppShortcuts.strings keys differ from EN")
 
 if not shortcut_en.exists() or not shortcut_ru.exists():
     fail("missing RU/EN AppShortcuts.strings localization")

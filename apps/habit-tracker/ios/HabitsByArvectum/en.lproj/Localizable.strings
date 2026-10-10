@@ -196,3 +196,20 @@
 "backup.error.version" = "Unsupported ChickMark backup version.";
 "backup.error.invalid" = "Invalid or inconsistent ChickMark backup data.";
 "backup.error.unreadable" = "The selected backup file is unreadable.";
+
+"insights.weekly.title" = "Weekly goal consistency";
+"insights.fourWeeks" = "4 weeks";
+"insights.twelveWeeks" = "12 weeks";
+"insights.weekly.note" = "This week is not counted as missed. Paused weeks do not lower your rate.";
+"insights.weekly.ratio" = "%d of %d weeks";
+"insights.weekly.neutral" = "Paused: %d weeks";
+"insights.interval.title" = "Repeat history";
+"insights.ninetyDays" = "90 days";
+"insights.interval.note" = "Only actual completions are counted; repeat-after-completion goals have no daily quota.";
+"insights.interval.occurrences" = "completions";
+"insights.interval.average" = "Avg interval: %d days";
+"insights.interval.noGap" = "Not enough history";
+
+"habit.history.edit" = "Edit day";
+"habit.history.progress" = "%d of %d check-ins";
+"habit.history.error" = "Could not save changes";

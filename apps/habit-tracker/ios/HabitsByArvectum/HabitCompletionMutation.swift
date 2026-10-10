@@ -7,6 +7,7 @@ enum HabitCompletionMutation {
         habitID: UUID,
         dayKey: String,
         completed: Bool,
+        desiredCount: Int? = nil,
         context: ModelContext,
         mutationAt: Date = .now,
         mutationID: UUID = UUID(),
@@ -46,15 +47,18 @@ enum HabitCompletionMutation {
             changed = true
         }
 
-        if completed {
-            let allHabits = (try? context.fetch(FetchDescriptor<Habit>())) ?? []
-            let target = allHabits.first(where: { $0.id == habitID })?.dailyTarget ?? 1
-            if let date = date(from: dayKey, calendar: calendar) {
-                let occupied = HabitMultiCheck.slots(
-                    habitID: habitID, dayKey: dayKey, target: target,
-                    checkIns: matching
-                )
-                for slot in 1...target where occupied[slot] == nil {
+        let allHabits = (try? context.fetch(FetchDescriptor<Habit>())) ?? []
+        let habit = allHabits.first(where: { $0.id == habitID })
+        let target = habit?.dailyTarget ?? 1
+        let desired = min(max(desiredCount ?? (completed ? target : 0), 0), target)
+
+        if let date = date(from: dayKey, calendar: calendar) {
+            let occupied = HabitMultiCheck.slots(
+                habitID: habitID, dayKey: dayKey, target: target,
+                checkIns: matching
+            )
+            for slot in 1...target {
+                if slot <= desired && occupied[slot] == nil {
                     let checkIn = HabitCheckIn(
                         id: HabitMultiCheck.slotID(
                             habitID: habitID, dayKey: dayKey, slot: slot
@@ -64,13 +68,11 @@ enum HabitCompletionMutation {
                     checkIn.dayKey = dayKey
                     context.insert(checkIn)
                     changed = true
+                } else if slot > desired, let existing = occupied[slot] {
+                    context.delete(existing)
+                    changed = true
                 }
             }
-        } else if !matching.isEmpty {
-            for checkIn in matching {
-                context.delete(checkIn)
-            }
-            changed = true
         }
 
         return changed

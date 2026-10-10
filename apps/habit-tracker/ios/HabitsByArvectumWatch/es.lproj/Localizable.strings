@@ -10,3 +10,6 @@
 "watch.completeHint" = "Toca dos veces para completar";
 
 "watch.duration.format" = "%d / %d min";
+
+"watch.step.add" = "Sumar un paso";
+"watch.step.remove" = "Deshacer un paso";

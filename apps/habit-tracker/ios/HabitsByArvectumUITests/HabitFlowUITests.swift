@@ -111,6 +111,87 @@ final class HabitFlowUITests: XCTestCase {
         XCTAssertTrue(app.staticTexts["Leer"].firstMatch.waitForExistence(timeout: 3))
     }
 
+    func testFiveMultiCheckButtonsAtLargestDynamicType() throws {
+        app.terminate()
+        app.launchArguments = [
+            "-AppleLanguages", "(en)",
+            "-AppleLocale", "en_US",
+            "-UIPreferredContentSizeCategoryName",
+            "UICTContentSizeCategoryAccessibilityExtraExtraExtraLarge",
+            "--ui-testing", "--disable-cloud-sync"
+        ]
+        app.launch()
+        let create = app.buttons["Create habit"]
+        XCTAssertTrue(create.waitForExistence(timeout: 4))
+        create.tap()
+        let name = app.textFields["Habit name"]
+        XCTAssertTrue(name.waitForExistence(timeout: 4))
+        name.typeText("Vitamins")
+        app.buttons["Other schedule"].tap()
+        let stepper = app.steppers.matching(
+            NSPredicate(format: "label CONTAINS %@", "Check-ins per day")
+        ).firstMatch
+        XCTAssertTrue(stepper.waitForExistence(timeout: 4))
+        for _ in 0..<4 { stepper.buttons["Increment"].tap() }
+        app.navigationBars["New habit"].buttons["Done"].tap()
+
+        for slot in 1...5 {
+            let button = app.buttons["Check-in \(slot) of 5"]
+            XCTAssertTrue(button.waitForExistence(timeout: 4))
+            XCTAssertTrue(button.isHittable)
+        }
+        app.buttons["Check-in 5 of 5"].tap()
+        XCTAssertEqual(app.buttons["Check-in 5 of 5"].value as? String, "Done")
+        XCTAssertEqual(app.buttons["Check-in 1 of 5"].value as? String, "Not done")
+    }
+
+    func testMultiCheckHistoryIndividualSlotsPersist() throws {
+        let create = app.buttons["Create habit"]
+        XCTAssertTrue(create.waitForExistence(timeout: 3))
+        create.tap()
+        let name = app.textFields["Habit name"]
+        XCTAssertTrue(name.waitForExistence(timeout: 3))
+        name.typeText("Hydrate")
+        app.buttons["Other schedule"].tap()
+        let stepper = app.steppers.matching(
+            NSPredicate(format: "label CONTAINS %@", "Check-ins per day")
+        ).firstMatch
+        XCTAssertTrue(stepper.waitForExistence(timeout: 3))
+        stepper.buttons["Increment"].tap()
+        stepper.buttons["Increment"].tap()
+        app.navigationBars["New habit"].buttons["Done"].tap()
+
+        let todayName = app.staticTexts["Hydrate"].firstMatch
+        XCTAssertTrue(todayName.waitForExistence(timeout: 3))
+        todayName.tap()
+        XCTAssertTrue(app.navigationBars["Hydrate"].waitForExistence(timeout: 3))
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        formatter.timeZone = .autoupdatingCurrent
+        let dayButton = app.buttons["history.day.\(formatter.string(from: .now))"]
+        if !dayButton.isHittable { app.swipeUp() }
+        XCTAssertTrue(dayButton.waitForExistence(timeout: 3))
+        dayButton.tap()
+
+        let edit = app.navigationBars["Edit day"]
+        XCTAssertTrue(edit.waitForExistence(timeout: 3))
+        let slotTwo = app.buttons["Check-in 2 of 3"]
+        XCTAssertTrue(slotTwo.waitForExistence(timeout: 3))
+        slotTwo.tap()
+        XCTAssertEqual(slotTwo.value as? String, "Done")
+        edit.buttons["Done"].tap()
+        dayButton.tap()
+        XCTAssertEqual(
+            app.buttons["Check-in 2 of 3"].value as? String,
+            "Done",
+            "The historical slot must survive dismissing and reopening the editor."
+        )
+        XCTAssertEqual(
+            app.buttons["Check-in 1 of 3"].value as? String,
+            "Not done"
+        )
+    }
+
     func testMultiCheckCompletesOnlyAfterAllDailySlots() throws {
         let create = app.buttons["Create habit"]
         XCTAssertTrue(create.waitForExistence(timeout: 3))

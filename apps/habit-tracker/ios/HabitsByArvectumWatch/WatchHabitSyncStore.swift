@@ -76,6 +76,34 @@ final class WatchHabitSyncStore: NSObject, ObservableObject, WCSessionDelegate {
         send(command)
     }
 
+    /// Partial progress is expressed as a desired count (not a blind toggle).
+    /// The same durable queue, ACK and mutation ledger handle offline replay.
+    func adjust(_ habit: HabitSyncHabit, by delta: Int) {
+        guard let index = snapshot.habits.firstIndex(where: { $0.id == habit.id }),
+              let target = snapshot.habits[index].dailyTarget,
+              let current = snapshot.habits[index].dailyCount,
+              target > 1, !snapshot.dayKey.isEmpty else { return }
+        let desired = min(max(current + delta, 0), target)
+        guard desired != current else { return }
+        snapshot.habits[index].dailyCount = desired
+        snapshot.habits[index].completed = desired == target
+        snapshot.habits[index].skipped = false
+        snapshot.completedCount = snapshot.habits.filter(\.completed).count
+        snapshot.skippedCount = snapshot.habits.filter { !$0.completed && $0.skipped }.count
+        snapshot.generatedAt = .now
+        cacheSnapshot()
+
+        let command = HabitCompletionCommand(
+            habitID: habit.id, dayKey: snapshot.dayKey,
+            completed: desired == target, desiredCount: desired
+        )
+        pendingCommands = HabitCompletionCommandQueue.appending(
+            command, to: pendingCommands
+        )
+        persistPending()
+        send(command)
+    }
+
     func refresh() {
         rollToCurrentDayIfNeeded()
 

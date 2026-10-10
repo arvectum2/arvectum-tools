@@ -65,6 +65,7 @@ struct WatchTodayView: View {
     }
 
     private func habitButton(_ habit: HabitSyncHabit) -> some View {
+        VStack(spacing: 3) {
         Button {
             syncStore.toggle(habit)
         } label: {
@@ -146,5 +147,33 @@ struct WatchTodayView: View {
                 ? WatchL10n.string("watch.undoHint")
                 : WatchL10n.string("watch.completeHint")
         )
+        if let target = habit.dailyTarget,
+           let count = habit.dailyCount, target > 1 {
+            HStack(spacing: 10) {
+                Button {
+                    syncStore.adjust(habit, by: -1)
+                } label: {
+                    Image(systemName: "minus.circle")
+                        .frame(maxWidth: .infinity, minHeight: 38)
+                }
+                .disabled(count == 0)
+                .accessibilityLabel(WatchL10n.string("watch.step.remove"))
+
+                Text("\(count)/\(target)")
+                    .font(.caption2.monospacedDigit())
+                    .accessibilityHidden(true)
+
+                Button {
+                    syncStore.adjust(habit, by: 1)
+                } label: {
+                    Image(systemName: "plus.circle.fill")
+                        .frame(maxWidth: .infinity, minHeight: 38)
+                }
+                .disabled(count == target)
+                .accessibilityLabel(WatchL10n.string("watch.step.add"))
+            }
+            .buttonStyle(.plain)
+        }
+        }
     }
 }

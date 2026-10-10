@@ -137,7 +137,12 @@ enum HabitWidgetBridge {
 
         snapshot.habits[index].completed = command.completed
         if let target = snapshot.habits[index].dailyTarget {
-            snapshot.habits[index].dailyCount = command.completed ? target : 0
+            snapshot.habits[index].dailyCount = min(
+                max(command.desiredCount ?? (command.completed ? target : 0), 0),
+                target
+            )
+            snapshot.habits[index].completed =
+                snapshot.habits[index].dailyCount == target
         }
         if command.completed {
             snapshot.habits[index].skipped = false
@@ -214,18 +219,22 @@ struct HabitWidgetCommand: Codable, Hashable, Identifiable {
     let dayKey: String
     let completed: Bool
     let createdAt: Date
+    /// Optional partial-count target; absent in published 1.2 commands.
+    let desiredCount: Int?
 
     init(
         id: UUID = UUID(),
         habitID: UUID,
         dayKey: String,
         completed: Bool,
+        desiredCount: Int? = nil,
         createdAt: Date = .now
     ) {
         self.id = id
         self.habitID = habitID
         self.dayKey = dayKey
         self.completed = completed
+        self.desiredCount = desiredCount
         self.createdAt = createdAt
     }
 }

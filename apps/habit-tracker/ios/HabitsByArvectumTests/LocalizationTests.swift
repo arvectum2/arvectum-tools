@@ -110,7 +110,12 @@ final class LocalizationTests: XCTestCase {
         "habit.goal.duration.format", "habit.goal.quantity.progress",
         "habit.goal.duration.progress", "habit.goal.add", "habit.goal.subtract",
         "groups.select", "groups.none", "groups.add", "groups.delete", "groups.placeholder",
-        "backup.error.version", "backup.error.invalid", "backup.error.unreadable"
+        "backup.error.version", "backup.error.invalid", "backup.error.unreadable",
+        "insights.weekly.title", "insights.fourWeeks", "insights.twelveWeeks",
+        "insights.weekly.note", "insights.weekly.ratio", "insights.weekly.neutral",
+        "insights.interval.title", "insights.ninetyDays", "insights.interval.note",
+        "insights.interval.occurrences", "insights.interval.average", "insights.interval.noGap",
+        "habit.history.edit", "habit.history.progress", "habit.history.error"
     ]
 
     func testEnglishAndRussianContainAllRequiredKeys() throws {

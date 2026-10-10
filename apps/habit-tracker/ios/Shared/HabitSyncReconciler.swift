@@ -35,6 +35,14 @@ enum HabitSyncReconciler {
             }) else { continue }
 
             merged.habits[index].completed = command.completed
+            if let target = merged.habits[index].dailyTarget {
+                let desired = min(
+                    max(command.desiredCount ?? (command.completed ? target : 0), 0),
+                    target
+                )
+                merged.habits[index].dailyCount = desired
+                merged.habits[index].completed = desired == target
+            }
             merged.habits[index].skipped = false
         }
 
@@ -59,6 +67,11 @@ enum HabitSyncReconciler {
             return false
         }
 
+        if let requested = command.desiredCount,
+           let target = habit.dailyTarget {
+            return habit.dailyCount == min(max(requested, 0), target)
+                && !habit.skipped
+        }
         return habit.completed == command.completed && !habit.skipped
     }
 }

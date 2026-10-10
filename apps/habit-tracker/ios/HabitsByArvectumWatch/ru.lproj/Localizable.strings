@@ -10,3 +10,6 @@
 "watch.completeHint" = "Дважды нажмите, чтобы отметить";
 
 "watch.duration.format" = "%d / %d мин";
+
+"watch.step.add" = "Добавить шаг";
+"watch.step.remove" = "Отменить шаг";

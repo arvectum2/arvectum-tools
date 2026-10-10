@@ -95,18 +95,22 @@ struct HabitCompletionCommand: Codable, Hashable, Identifiable {
     let dayKey: String
     let completed: Bool
     let createdAt: Date
+    /// Optional partial-count target; absent in published 1.2 commands.
+    let desiredCount: Int?
 
     init(
         id: UUID = UUID(),
         habitID: UUID,
         dayKey: String,
         completed: Bool,
+        desiredCount: Int? = nil,
         createdAt: Date = .now
     ) {
         self.id = id
         self.habitID = habitID
         self.dayKey = dayKey
         self.completed = completed
+        self.desiredCount = desiredCount
         self.createdAt = createdAt
     }
 }

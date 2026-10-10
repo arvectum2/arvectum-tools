@@ -1,6 +1,7 @@
 import XCTest
 @testable import HabitsByArvectum
 
+@MainActor
 final class ChickMarkGroupsTests: XCTestCase {
     private var defaults: UserDefaults!
     private var suiteName: String!

@@ -1,13 +1,14 @@
 import Foundation
 
-/// Optional on-device organization. Habits keep their unchanged, iCloud-synced
-/// V1 schema; group definitions are local and exported in JSON backups.
+/// Optional organization backed by local preferences, iCloud KVS and JSON
+/// backup. The published Habit/CloudKit SwiftData model is unchanged.
 struct ChickMarkGroup: Identifiable, Codable, Hashable {
     let id: UUID
     var name: String
     var habitIDs: [UUID]
 }
 
+@MainActor
 enum ChickMarkGroups {
     static let storageKey = "chickmark.groups.v1"
 
@@ -24,7 +25,13 @@ enum ChickMarkGroups {
         defaults: UserDefaults = .standard
     ) {
         guard let data = try? JSONEncoder().encode(groups) else { return }
+        let prior = load(defaults: defaults)
         defaults.set(data, forKey: storageKey)
+        if defaults === UserDefaults.standard {
+            ChickMarkGroupsCloudSync.shared.localDidChange(
+                from: prior, to: groups
+            )
+        }
     }
 
     static func create(

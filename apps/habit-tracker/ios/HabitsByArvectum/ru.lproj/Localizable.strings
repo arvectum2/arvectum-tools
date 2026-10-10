@@ -196,3 +196,20 @@
 "backup.error.version" = "Неподдерживаемая версия резервной копии ChickMark.";
 "backup.error.invalid" = "Некорректные или несовместимые данные резервной копии ChickMark.";
 "backup.error.unreadable" = "Не удалось прочитать выбранный файл резервной копии.";
+
+"insights.weekly.title" = "Выполнение недельных целей";
+"insights.fourWeeks" = "4 недели";
+"insights.twelveWeeks" = "12 недель";
+"insights.weekly.note" = "Текущая неделя не считается пропущенной. Недели на паузе не снижают результат.";
+"insights.weekly.ratio" = "%d из %d недель";
+"insights.weekly.neutral" = "Пауза: %d нед.";
+"insights.interval.title" = "История повторений";
+"insights.ninetyDays" = "90 дней";
+"insights.interval.note" = "Показаны реальные выполнения: у повторений после выполнения нет ежедневной нормы.";
+"insights.interval.occurrences" = "выполнений";
+"insights.interval.average" = "Средний интервал: %d дн.";
+"insights.interval.noGap" = "Мало данных для интервала";
+
+"habit.history.edit" = "Редактирование дня";
+"habit.history.progress" = "%d из %d отметок";
+"habit.history.error" = "Не удалось сохранить";

@@ -13,6 +13,7 @@ struct HabitDetailView: View {
     @Bindable var habit: Habit
     @State private var showingDeleteConfirmation = false
     @State private var showingEditHabit = false
+    @State private var editingProgressDay: HabitProgressDaySelection?
 
     private var habitCheckIns: [HabitCheckIn] {
         checkIns.filter { $0.habitID == habit.id }
@@ -49,7 +50,11 @@ struct HabitDetailView: View {
                 if habit.isPaused && !habit.isArchived {
                     resumeButton
                 }
-                if !habit.usesFlexibleWeeklyTarget && !habit.usesCompletionInterval {
+                if habit.usesFlexibleWeeklyTarget {
+                    weeklyInsightsCard
+                } else if habit.usesCompletionInterval {
+                    intervalInsightsCard
+                } else {
                     insightsCard
                 }
             }
@@ -107,6 +112,10 @@ struct HabitDetailView: View {
         }
         .sheet(isPresented: $showingEditHabit) {
             AddHabitView(habit: habit)
+        }
+        .sheet(item: $editingProgressDay) { selection in
+            HabitProgressEditor(habit: habit, date: selection.date)
+                .presentationDetents([.medium, .large])
         }
         .confirmationDialog(
             L10n.string("detail.delete.title"),
@@ -284,6 +293,88 @@ struct HabitDetailView: View {
             Text(L10n.format("insights.ratio", window.completed, window.eligible))
                 .font(.caption)
             Text(L10n.format("insights.skipped", window.skipped))
+                .font(.caption2)
+                .foregroundStyle(Color.habitsSecondaryText)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .accessibilityElement(children: .combine)
+    }
+
+    private var weeklyInsightsCard: some View {
+        let four = HabitInsights.weeklyWindow(
+            habit: habit, checkIns: checkIns, skips: skips,
+            pausePeriods: pausePeriods, previousWeeks: 4
+        )
+        let twelve = HabitInsights.weeklyWindow(
+            habit: habit, checkIns: checkIns, skips: skips,
+            pausePeriods: pausePeriods, previousWeeks: 12
+        )
+        return VStack(alignment: .leading, spacing: 12) {
+            Text(L10n.string("insights.weekly.title")).font(.headline)
+            HStack(spacing: 12) {
+                weeklyInsight(four, title: L10n.string("insights.fourWeeks"))
+                weeklyInsight(twelve, title: L10n.string("insights.twelveWeeks"))
+            }
+            Text(L10n.string("insights.weekly.note"))
+                .font(.caption)
+                .foregroundStyle(Color.habitsSecondaryText)
+        }
+        .padding(16)
+        .background(Color.habitsSurface, in: RoundedRectangle(cornerRadius: 20))
+    }
+
+    private func weeklyInsight(
+        _ result: HabitWeeklyInsight, title: String
+    ) -> some View {
+        VStack(alignment: .leading, spacing: 5) {
+            Text(title).font(.caption).foregroundStyle(Color.habitsSecondaryText)
+            Text(result.eligible == 0
+                 ? L10n.string("insights.noData") : "\(result.percent)%")
+                .font(result.eligible == 0
+                      ? .subheadline.weight(.semibold) : .title2.weight(.bold))
+                .foregroundStyle(.primary)
+            Text(L10n.format(
+                "insights.weekly.ratio", result.achieved, result.eligible
+            )).font(.caption)
+            Text(L10n.format("insights.weekly.neutral", result.neutral))
+                .font(.caption2)
+                .foregroundStyle(Color.habitsSecondaryText)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .accessibilityElement(children: .combine)
+    }
+
+    private var intervalInsightsCard: some View {
+        let month = HabitInsights.intervalWindow(
+            habit: habit, checkIns: checkIns, days: 30
+        )
+        let quarter = HabitInsights.intervalWindow(
+            habit: habit, checkIns: checkIns, days: 90
+        )
+        return VStack(alignment: .leading, spacing: 12) {
+            Text(L10n.string("insights.interval.title")).font(.headline)
+            HStack(spacing: 12) {
+                intervalInsight(month, title: L10n.string("insights.month"))
+                intervalInsight(quarter, title: L10n.string("insights.ninetyDays"))
+            }
+            Text(L10n.string("insights.interval.note"))
+                .font(.caption)
+                .foregroundStyle(Color.habitsSecondaryText)
+        }
+        .padding(16)
+        .background(Color.habitsSurface, in: RoundedRectangle(cornerRadius: 20))
+    }
+
+    private func intervalInsight(
+        _ result: HabitIntervalInsight, title: String
+    ) -> some View {
+        VStack(alignment: .leading, spacing: 5) {
+            Text(title).font(.caption).foregroundStyle(Color.habitsSecondaryText)
+            Text("\(result.occurrences)").font(.title2.weight(.bold))
+            Text(L10n.string("insights.interval.occurrences")).font(.caption)
+            Text(result.averageGapDays.map {
+                L10n.format("insights.interval.average", $0)
+            } ?? L10n.string("insights.interval.noGap"))
                 .font(.caption2)
                 .foregroundStyle(Color.habitsSecondaryText)
         }
@@ -476,7 +567,11 @@ struct HabitDetailView: View {
         let enabled = eligible && !beforeCreation && !future && !paused
 
         return Button {
-            toggle(date)
+            if habit.supportsIncrementalGoal {
+                editingProgressDay = HabitProgressDaySelection(date: date)
+            } else {
+                toggle(date)
+            }
         } label: {
             ZStack {
                 RoundedRectangle(cornerRadius: 9)
@@ -518,6 +613,21 @@ struct HabitDetailView: View {
             }
         }
         .buttonStyle(.plain)
+        .accessibilityIdentifier("history.day.\(dayKey)")
+        .accessibilityValue(
+            habit.supportsIncrementalGoal
+                ? L10n.format(
+                    "habit.history.progress",
+                    HabitMultiCheck.count(
+                        habitID: habit.id,
+                        dayKey: dayKey,
+                        target: habit.dailyTarget,
+                        checkIns: checkIns
+                    ),
+                    habit.dailyTarget
+                )
+                : ""
+        )
         .disabled(!enabled)
         .contextMenu {
             if enabled {

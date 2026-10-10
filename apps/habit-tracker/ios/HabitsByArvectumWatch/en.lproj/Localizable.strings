@@ -10,3 +10,6 @@
 "watch.completeHint" = "Double tap to mark complete";
 
 "watch.duration.format" = "%d / %d min";
+
+"watch.step.add" = "Add one step";
+"watch.step.remove" = "Undo one step";

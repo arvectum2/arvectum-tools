@@ -39,6 +39,9 @@ struct HabitsByArvectumApp: App {
         skipFirstIncompleteHabitIfRequested(container: container)
         HabitMutationDiagnostics.runIfRequested(container: container)
 #endif
+        if !cloudSyncDisabled {
+            ChickMarkGroupsCloudSync.shared.start()
+        }
         HabitNotificationActionCoordinator.shared.configure(
             modelContainer: container
         )
