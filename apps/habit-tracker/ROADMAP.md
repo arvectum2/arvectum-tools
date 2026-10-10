@@ -300,3 +300,17 @@ Physical validation on 2026-10-02 is green for the main single-device/Watch path
 - Use short-lived implementation branches from the reconciled current app source; do not blindly merge diverged `main`/`arvectum-habits` histories.
 - Each sprint requires isolated feature implementation, focused test suite, simulator build, documented acceptance and a separate commit/PR.
 - No release or production ad exposure increase without validation and explicit owner release decision.
+
+
+## 1.3 delivery policy — product owner decision (2026-10-10)
+
+**HOLD RELEASE:** do not submit, upload, deploy, or release 1.3 until explicitly instructed. Version 1.2 remains the published stable baseline.
+
+Execution order (each stage must pass build/tests and be reviewed before advancing):
+
+1. **Feature completion:** Sprint A N/N multi-check with iPhone, Watch, widget and reminder parity; Sprint B quantitative / duration; Sprint C groups, useful statistics and export/import. Recheck persistence, CloudKit, backward compatibility and offline replay after each change.
+2. **Localization pass:** after features stabilize, use the same regional localization workflow as Photo Size: define target locales and market names, localize every user-facing string, notifications, widgets, Watch, App Store metadata and screenshots as applicable; run completeness, truncation, accessibility and RTL checks where relevant. Existing RU/EN must remain complete meanwhile.
+3. **Dedicated refactor:** only after feature and localization baselines are green; define module boundaries (domain calculations, persistence/migrations, sync, reminders, presentation/strings, ads); remove duplication without changing public behavior, schema or bundle IDs. Review file responsibilities, inject dependencies, add characterization/regression tests, and record architecture decisions.
+4. **Pre-release stabilization:** clean builds (Debug+Release), full unit/UI suite, Watch pairing/reconnect tests, CloudKit data-preservation upgrade tests, privacy/ads audit, device smoke tests and App Store metadata review. **Do not ship** without separate approval.
+
+Progress note (2026-10-10): roadmap/release documentation updated and isolated worktree `feature/chickmark-multicheck` prepared; feature implementation and regression validation are **not yet complete**. Local automated coding agents are not functional in this execution environment; do not mark the feature checkboxes complete without verified code and tests.
