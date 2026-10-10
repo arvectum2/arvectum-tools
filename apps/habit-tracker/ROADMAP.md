@@ -377,3 +377,5 @@ Progress note (2026-10-10): implementation is direct ChatGPT + RDC + Xcode (no e
 - [ ] Green CI for the final dependency/refactor commit.
 - [ ] FINAL DEVICE QA ONLY after green CI: real physical iPhone + simulator, Watch, cloud data/restore, real notification/ads/privacy.
 - [ ] Later phase by explicit owner decision: ASO, SEO and publication.
+
+- [x] Test deliberate Yandex 8.6.0 upgrade in an isolated worktree: simulator build succeeds, and new Tapjoy 14.8.0 transitive graph is **correctly rejected** by dependency policy pending privacy/security review. The shipping candidate remains on 8.5.0.
