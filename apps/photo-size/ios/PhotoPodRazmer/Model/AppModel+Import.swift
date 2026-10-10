@@ -81,16 +81,13 @@ extension AppModel {
 
         Task {
             do {
-                let data = try await Task.detached(priority: .userInitiated) {
+                let pdfEngine = self.pdfEngine
+                let inspected = try await Task.detached(priority: .userInitiated) {
                     let hasAccess = url.startAccessingSecurityScopedResource()
                     defer {
                         if hasAccess { url.stopAccessingSecurityScopedResource() }
                     }
-                    return try Data(contentsOf: url, options: .mappedIfSafe)
-                }.value
-                let pdfEngine = self.pdfEngine
-                let inspected = try await Task.detached(priority: .userInitiated) {
-                    try pdfEngine.inspect(data: data)
+                    return try pdfEngine.inspect(fileURL: url)
                 }.value
                 guard isCurrentOperation(operationID) else { return }
                 pdfSource = inspected

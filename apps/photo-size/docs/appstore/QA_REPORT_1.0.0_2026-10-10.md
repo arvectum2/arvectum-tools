@@ -38,3 +38,7 @@
 5. **Explicit approval required** before uploading 1.0.0, editing live metadata, submitting App Review, or publishing staged SEO pages.
 
 No App Store Connect writes, TestFlight upload, GitHub push, merge to `main`, production deployment or release occurred during this work.
+
+## 2026-10-10 build 12 hotfix addendum
+
+Incorporated the latest 0.6.2 memory-safe PDF implementation from upstream main, using file-based source inspection and streaming output. Updated AppModel PDF import, preserved PDF orientation regression, and added large-image-heavy PDF regression. **28 unit tests pass on iOS 26.5 simulator**. The prior build-11 App Review submission was canceled. Build 12 is the only approved candidate; any prior build-11 observations are superseded.

@@ -8,20 +8,18 @@ final class PDFEngine {
     private let minQuality = 0.24
     private let maxQuality = 0.90
     private let renderScales: [CGFloat] = [2.0, 1.65, 1.35, 1.1, 0.9, 0.72, 0.58, 0.46]
+    private let binarySearchIterations = 5
 
     func inspect(data: Data) throws -> SourcePDF {
-        guard let document = PDFDocument(data: data), document.pageCount > 0 else {
-            throw PhotoToolError.message(tr("Не получилось открыть этот PDF."))
-        }
         let url = try cacheURL(prefix: "source")
         try data.write(to: url, options: .atomic)
-        return SourcePDF(
-            data: data,
-            localURL: url,
-            sizeBytes: Int64(data.count),
-            pageCount: document.pageCount,
-            previewImage: previewImage(document)
-        )
+        return try inspectCachedFile(at: url, sizeBytes: Int64(data.count))
+    }
+
+    func inspect(fileURL: URL) throws -> SourcePDF {
+        let url = try cacheURL(prefix: "source")
+        try FileManager.default.copyItem(at: fileURL, to: url)
+        return try inspectCachedFile(at: url, sizeBytes: try fileSize(of: url))
     }
 
     func compressByBytes(source: SourcePDF, requestedMaximumBytes: Int64) throws -> ResultPDF {
@@ -31,7 +29,7 @@ final class PDFEngine {
 
         if source.sizeBytes <= requestedMaximumBytes {
             let url = try cacheURL(prefix: "result")
-            try source.data.write(to: url, options: .atomic)
+            try FileManager.default.copyItem(at: source.localURL, to: url)
             return ResultPDF(
                 source: source,
                 outputURL: url,
@@ -42,58 +40,70 @@ final class PDFEngine {
             )
         }
 
-        guard let document = PDFDocument(data: source.data) else {
+        guard let document = PDFDocument(url: source.localURL), document.pageCount > 0 else {
             throw PhotoToolError.message(tr("Не получилось открыть этот PDF."))
         }
 
         let internalTarget = max(1, Int64(Double(requestedMaximumBytes) * targetHeadroom))
-        var smallest: Data?
 
         for scale in renderScales {
-            autoreleasepool {
-                guard let pages = try? renderPages(document: document, scale: scale), !pages.isEmpty else { return }
+            let minimum = try makeCandidate(
+                document: document,
+                scale: scale,
+                jpegQuality: minQuality
+            )
+
+            guard minimum.sizeBytes <= internalTarget else {
+                removeIfPresent(minimum.url)
+                continue
+            }
+
+            var best = minimum
+            let maximum = try makeCandidate(
+                document: document,
+                scale: scale,
+                jpegQuality: maxQuality
+            )
+
+            if maximum.sizeBytes <= internalTarget {
+                removeIfPresent(best.url)
+                best = maximum
+            } else {
+                removeIfPresent(maximum.url)
                 var low = minQuality
                 var high = maxQuality
-                var best: Data?
 
-                for _ in 0..<7 {
+                for _ in 0..<binarySearchIterations {
                     let quality = (low + high) / 2
-                    guard let candidate = try? makePDF(pages: pages, jpegQuality: quality) else { break }
-                    if smallest == nil || candidate.count < smallest!.count { smallest = candidate }
+                    let candidate = try makeCandidate(
+                        document: document,
+                        scale: scale,
+                        jpegQuality: quality
+                    )
 
-                    if Int64(candidate.count) <= internalTarget {
+                    if candidate.sizeBytes <= internalTarget {
+                        removeIfPresent(best.url)
                         best = candidate
                         low = quality
                     } else {
+                        removeIfPresent(candidate.url)
                         high = quality
                     }
                 }
-
-                if best == nil, let candidate = try? makePDF(pages: pages, jpegQuality: minQuality),
-                   Int64(candidate.count) <= internalTarget {
-                    best = candidate
-                }
-
-                if let best, Int64(best.count) <= requestedMaximumBytes {
-                    smallest = best
-                } else {
-                    smallest = nil
-                }
             }
 
-            if let data = smallest, Int64(data.count) <= requestedMaximumBytes {
-                let url = try cacheURL(prefix: "result")
-                try data.write(to: url, options: .atomic)
-                let resultDocument = PDFDocument(data: data)
-                return ResultPDF(
-                    source: source,
-                    outputURL: url,
-                    outputSizeBytes: Int64(data.count),
-                    targetBytes: requestedMaximumBytes,
-                    alreadyFit: false,
-                    previewImage: resultDocument.flatMap(previewImage)
-                )
-            }
+            let resultURL = try cacheURL(prefix: "result")
+            try FileManager.default.moveItem(at: best.url, to: resultURL)
+            let resultDocument = PDFDocument(url: resultURL)
+
+            return ResultPDF(
+                source: source,
+                outputURL: resultURL,
+                outputSizeBytes: best.sizeBytes,
+                targetBytes: requestedMaximumBytes,
+                alreadyFit: false,
+                previewImage: resultDocument.flatMap(previewImage)
+            )
         }
 
         throw PhotoToolError.message(tr("Не получилось уменьшить PDF до выбранного размера без слишком сильной потери качества."))
@@ -104,68 +114,137 @@ final class PDFEngine {
         let mediaBox: CGRect
     }
 
-    private func renderPages(document: PDFDocument, scale: CGFloat) throws -> [RenderedPage] {
-        var pages: [RenderedPage] = []
-        pages.reserveCapacity(document.pageCount)
-
-        let pageCountScale = min(1, sqrt(12 / CGFloat(max(document.pageCount, 1))))
-        let memoryAwareScale = scale * pageCountScale
-
-        for index in 0..<document.pageCount {
-            guard let page = document.page(at: index) else { continue }
-            let box = page.bounds(for: .mediaBox)
-            let maxSide = max(box.width, box.height)
-            let boundedScale = min(memoryAwareScale, 2400 / max(maxSide, 1))
-            let pixelSize = CGSize(
-                width: max(1, floor(box.width * boundedScale)),
-                height: max(1, floor(box.height * boundedScale))
-            )
-
-            let renderer = UIGraphicsImageRenderer(size: pixelSize)
-            let image = renderer.image { context in
-                UIColor.white.setFill()
-                context.fill(CGRect(origin: .zero, size: pixelSize))
-                context.cgContext.saveGState()
-                context.cgContext.translateBy(x: 0, y: pixelSize.height)
-                context.cgContext.scaleBy(x: boundedScale, y: -boundedScale)
-                page.draw(with: .mediaBox, to: context.cgContext)
-                context.cgContext.restoreGState()
-            }
-            pages.append(RenderedPage(image: image, mediaBox: box))
-        }
-
-        guard !pages.isEmpty else {
-            throw PhotoToolError.message(tr("PDF не содержит страниц."))
-        }
-        return pages
+    private struct Candidate {
+        let url: URL
+        let sizeBytes: Int64
     }
 
-    private func makePDF(pages: [RenderedPage], jpegQuality: CGFloat) throws -> Data {
-        let data = NSMutableData()
-        guard let consumer = CGDataConsumer(data: data as CFMutableData),
+    private func inspectCachedFile(at url: URL, sizeBytes: Int64) throws -> SourcePDF {
+        guard let document = PDFDocument(url: url), document.pageCount > 0 else {
+            removeIfPresent(url)
+            throw PhotoToolError.message(tr("Не получилось открыть этот PDF."))
+        }
+
+        return SourcePDF(
+            localURL: url,
+            sizeBytes: sizeBytes,
+            pageCount: document.pageCount,
+            previewImage: previewImage(document)
+        )
+    }
+
+    private func makeCandidate(
+        document: PDFDocument,
+        scale: CGFloat,
+        jpegQuality: CGFloat
+    ) throws -> Candidate {
+        let url = try cacheURL(prefix: "candidate")
+        do {
+            try makePDF(
+                document: document,
+                scale: scale,
+                jpegQuality: jpegQuality,
+                outputURL: url
+            )
+            return Candidate(url: url, sizeBytes: try fileSize(of: url))
+        } catch {
+            removeIfPresent(url)
+            throw error
+        }
+    }
+
+    private func makePDF(
+        document: PDFDocument,
+        scale: CGFloat,
+        jpegQuality: CGFloat,
+        outputURL: URL
+    ) throws {
+        guard let consumer = CGDataConsumer(url: outputURL as CFURL),
               let context = CGContext(consumer: consumer, mediaBox: nil, nil) else {
             throw PhotoToolError.message(tr("Не получилось создать PDF."))
         }
 
-        for page in pages {
-            guard let jpeg = page.image.jpegData(compressionQuality: jpegQuality),
-                  let compressedImage = UIImage(data: jpeg)?.cgImage else {
-                throw PhotoToolError.message(tr("Не получилось сжать страницу PDF."))
-            }
+        for index in 0..<document.pageCount {
+            try autoreleasepool {
+                guard let page = document.page(at: index) else {
+                    throw PhotoToolError.message(tr("Не получилось прочитать страницу PDF."))
+                }
 
-            var mediaBox = CGRect(x: 0, y: 0, width: page.mediaBox.width, height: page.mediaBox.height)
-            let pageInfo = [kCGPDFContextMediaBox as String: NSData(bytes: &mediaBox, length: MemoryLayout<CGRect>.size)] as CFDictionary
-            context.beginPDFPage(pageInfo)
-            context.draw(compressedImage, in: mediaBox)
-            context.endPDFPage()
+                let renderedPage = renderPage(page, scale: scale, pageCount: document.pageCount)
+
+                guard let jpeg = renderedPage.image.jpegData(compressionQuality: jpegQuality),
+                      let compressedImage = UIImage(data: jpeg)?.cgImage else {
+                    throw PhotoToolError.message(tr("Не получилось сжать страницу PDF."))
+                }
+
+                var mediaBox = CGRect(
+                    x: 0,
+                    y: 0,
+                    width: renderedPage.mediaBox.width,
+                    height: renderedPage.mediaBox.height
+                )
+                let pageInfo = [
+                    kCGPDFContextMediaBox as String:
+                        NSData(bytes: &mediaBox, length: MemoryLayout<CGRect>.size)
+                ] as CFDictionary
+
+                context.beginPDFPage(pageInfo)
+                context.draw(compressedImage, in: mediaBox)
+                context.endPDFPage()
+            }
         }
+
         context.closePDF()
-        return data as Data
+    }
+
+    private func renderPage(
+        _ page: PDFPage,
+        scale: CGFloat,
+        pageCount: Int
+    ) -> RenderedPage {
+        let box = page.bounds(for: .mediaBox)
+        let pageCountScale = min(1, sqrt(12 / CGFloat(max(pageCount, 1))))
+        let memoryAwareScale = scale * pageCountScale
+        let maxSide = max(box.width, box.height)
+        let boundedScale = min(memoryAwareScale, 2400 / max(maxSide, 1))
+        let pixelSize = CGSize(
+            width: max(1, floor(box.width * boundedScale)),
+            height: max(1, floor(box.height * boundedScale))
+        )
+
+        let format = UIGraphicsImageRendererFormat.default()
+        format.scale = 1
+        format.opaque = true
+
+        let renderer = UIGraphicsImageRenderer(size: pixelSize, format: format)
+        let image = renderer.image { context in
+            UIColor.white.setFill()
+            context.fill(CGRect(origin: .zero, size: pixelSize))
+            context.cgContext.saveGState()
+            context.cgContext.translateBy(x: 0, y: pixelSize.height)
+            context.cgContext.scaleBy(x: boundedScale, y: -boundedScale)
+            page.draw(with: .mediaBox, to: context.cgContext)
+            context.cgContext.restoreGState()
+        }
+
+        return RenderedPage(image: image, mediaBox: box)
     }
 
     private func previewImage(_ document: PDFDocument) -> UIImage? {
         guard let page = document.page(at: 0) else { return nil }
         return page.thumbnail(of: CGSize(width: 480, height: 640), for: .mediaBox)
+    }
+
+    private func fileSize(of url: URL) throws -> Int64 {
+        let values = try url.resourceValues(forKeys: [.fileSizeKey])
+        guard let size = values.fileSize else {
+            throw PhotoToolError.message(tr("Не получилось определить размер PDF."))
+        }
+        return Int64(size)
+    }
+
+    private func removeIfPresent(_ url: URL) {
+        try? FileManager.default.removeItem(at: url)
     }
 
     private func cacheURL(prefix: String) throws -> URL {

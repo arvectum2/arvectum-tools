@@ -7,7 +7,7 @@
 - Live App Store version on 2026-10-10: **0.6.2 READY_FOR_SALE**.
 - App Store ID: `6816346084`, bundle ID `ru.arvectum.tools.tosize`.
 - Latest observed App Store Connect build number: **10** (2026-10-07).
-- Planned release: **1.0.0**, candidate build **11** (recheck App Store Connect before upload).
+- Planned release: **1.0.0**, candidate build **12** (recheck App Store Connect before upload).
 - Branch from `origin/main` includes the latest PDF orientation/saving hotfixes (cherry-picked commits).
 - International ASO package prepared for 20 locales in `docs/aso`; localized web pages staged separately in the site repo branch.
 - Primary storefront markets: RU, US, GB, MX/ES, BR, DE, FR. More markets based on measured demand.
@@ -51,3 +51,5 @@
 The release candidate should be **built and tested locally only** until every required gate is green.
 
 Detailed automated QA evidence: [QA_REPORT_1.0.0_2026-10-10.md](QA_REPORT_1.0.0_2026-10-10.md).
+
+Hotfix 2026-10-10: included upstream memory-safe streaming PDF engine from 0.6.2 before final signing. Original submission for build 11 was canceled to replace with build 12.

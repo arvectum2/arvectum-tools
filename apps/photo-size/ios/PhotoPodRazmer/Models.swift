@@ -279,7 +279,6 @@ struct ResultImage {
 }
 
 struct SourcePDF {
-    let data: Data
     let localURL: URL
     let sizeBytes: Int64
     let pageCount: Int
