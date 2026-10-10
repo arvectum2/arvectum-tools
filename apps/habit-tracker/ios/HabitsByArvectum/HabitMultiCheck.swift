@@ -9,13 +9,17 @@ enum HabitMultiCheck {
         let payload = Data("ChickMark|\(habitID.uuidString)|\(dayKey)|\(slot)".utf8)
         let digest = Array(SHA256.hash(data: payload).prefix(16))
         let hex = digest.map { String(format: "%02x", $0) }.joined()
-        let value = [
-            String(hex.prefix(8)),
-            String(hex.dropFirst(8).prefix(4)),
-            String(hex.dropFirst(12).prefix(4)),
-            String(hex.dropFirst(16).prefix(4)),
-            String(hex.dropFirst(20))
-        ].joined(separator: "-")
+        // Keep the exact V1-compatible UUID bytes, but make the formatting
+        // explicit: Xcode 26.6's Swift compiler cannot reliably type-check
+        // the nested prefix/dropFirst/array expression.
+        var segments: [String] = []
+        var cursor = hex.startIndex
+        for width in [8, 4, 4, 4, 12] {
+            let end = hex.index(cursor, offsetBy: width)
+            segments.append(String(hex[cursor..<end]))
+            cursor = end
+        }
+        let value = segments.joined(separator: "-")
         return UUID(uuidString: value)!
     }
 

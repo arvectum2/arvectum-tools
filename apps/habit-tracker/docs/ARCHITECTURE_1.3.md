@@ -51,3 +51,6 @@
 
 ## CI watchOS SDK selection
 GitHub CI uses `xcodebuild -destination 'platform=iOS Simulator,name=iPhone 17 Pro' test` without forcing `-sdk iphonesimulator`. Forcing the iPhone SDK onto the multi-platform app/Watch scheme makes Xcode 26.6 compile watchOS-only asset catalogs as an iPhone platform, producing a misleading `AppIcon did not have any applicable content` error. Auto-resolved SDK selection preserves the native watchOS icon assets; no icon/image files need replacement.
+
+## Swift compiler compatibility
+The deterministic 16-byte SHA-256-based UUID used by `HabitMultiCheck.slotID` is formatted as five explicit segments of widths 8/4/4/4/12. It generates **identical UUIDs** to the published experimental expression but avoids a Swift 5 compiler expression type-checking timeout on GitHub macOS-26 / Xcode 26.6. Xcode 27 local unit tests verify the same slot IDs and offline duplicate semantics.

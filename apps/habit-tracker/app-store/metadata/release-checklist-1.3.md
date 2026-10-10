@@ -44,9 +44,9 @@
 
 ## Local signed artifact evidence (not uploaded)
 
-- [x] Xcode 27 generated distribution-signed, no-upload IPA at `/tmp/chickmark-13-final-export/HabitsByArvectum.ipa`.
+- [x] Xcode 27 generated distribution-signed, no-upload IPA at `/tmp/chickmark-13-final-export-r2/HabitsByArvectum.ipa`.
 - [x] Apple Distribution: LLC ARVECTUM / team `VML75VY94V`, `codesign --verify --deep --strict` passed.
-- [x] SHA-256 `5513fb3db900f9c7eaa11558621caaadb313e79f40c0249cd9f29c6ddbbf1fa5`.
+- [x] SHA-256 `73523aeb9060631ab8c6ffaa711bfc2f5145c8d3905f56f6a6495da3560f7049`.
 - [x] All four target bundles 1.3.0 (5); first-party and vendor privacy manifests inventoried (28 total).
 - [x] Full local UI suite 19 tests including one iOS27-only skip; 18 passed, zero failures. 140 unit/integration tests passed.
 - [x] Code/module refactor, ads lazy-start and screenshot-dimensional CI audit completed.

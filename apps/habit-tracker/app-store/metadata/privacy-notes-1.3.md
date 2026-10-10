@@ -11,9 +11,9 @@
 
 ## Signed binary, not just simulator
 
-- Local signed archive `/tmp/chickmark-13-signed-final.xcarchive` (iPhone + iOS widget + Watch + Watch widget) built without any upload.
-- Local IPA `/tmp/chickmark-13-final-export/HabitsByArvectum.ipa` exported with `destination=export`, **Apple Distribution: LLC ARVECTUM**; verified with `codesign --verify --deep --strict`.
-- Bundle ID/versions and four first-party privacy manifests match 1.3.0 / build 5. Final SHA-256: `5513fb3db900f9c7eaa11558621caaadb313e79f40c0249cd9f29c6ddbbf1fa5`.
+- Local signed archive `/tmp/chickmark-13-signed-final-r2.xcarchive` (iPhone + iOS widget + Watch + Watch widget) built without any upload.
+- Local IPA `/tmp/chickmark-13-final-export-r2/HabitsByArvectum.ipa` exported with `destination=export`, **Apple Distribution: LLC ARVECTUM**; verified with `codesign --verify --deep --strict`.
+- Bundle ID/versions and four first-party privacy manifests match 1.3.0 / build 5. Final SHA-256: `73523aeb9060631ab8c6ffaa711bfc2f5145c8d3905f56f6a6495da3560f7049`.
 
 ## Third-party disclosure needs precision
 

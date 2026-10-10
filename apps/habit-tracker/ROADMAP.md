@@ -364,5 +364,5 @@ Progress note (2026-10-10): implementation is direct ChatGPT + RDC + Xcode (no e
 - [x] Code refactor merged into the isolated ChickMark branch; no published data-schema change.
 - [x] 12 store-sized RU/EN/ES screenshots validated with local automated audit.
 - [x] One and only one existing Today ad: `R-M-20183085-1`; ad SDK starts only after the gate in 1.3. Extra placements deferred, not blockers.
-- [x] **Distribution-signed 1.3.0 (5) IPA exported locally**, validated `codesign`, all four bundles and 28 embedded privacy manifests. SHA-256: `5513fb3db900f9c7eaa11558621caaadb313e79f40c0249cd9f29c6ddbbf1fa5`.
+- [x] **Distribution-signed 1.3.0 (5) IPA exported locally**, validated `codesign`, all four bundles and 28 embedded privacy manifests. SHA-256: `73523aeb9060631ab8c6ffaa711bfc2f5145c8d3905f56f6a6495da3560f7049`.
 - [ ] **Only remaining technical validation:** paired physical iPhone/Watch plus an authorized iOS simulator (same iCloud account), non-destructive data/sync/notification/ads/privacy smoke. Separate explicit owner release approval also required. No upload.
