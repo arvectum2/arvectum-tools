@@ -57,7 +57,7 @@ jobs:
           xcodebuild \
             -project HabitsByArvectumIOS.xcodeproj \
             -scheme HabitsByArvectum \
-            -destination 'platform=iOS Simulator,name=iPhone 17 Pro' \
+            -destination 'platform=iOS Simulator,name=iPhone 18 Pro,OS=27.0' \
             CODE_SIGNING_ALLOWED=NO \
             SWIFT_ENABLE_BATCH_MODE=NO \
             test
