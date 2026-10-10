@@ -1,0 +1,269 @@
+{
+  "appId": "6816346084",
+  "bundleId": "ru.arvectum.tools.tosize",
+  "stage": "DRAFT_NOT_UPLOADED",
+  "created": "2026-10-10",
+  "releaseTarget": "after-refactor",
+  "localeData": {
+    "ru": {
+      "name": "Фото и PDF под размер",
+      "subtitle": "Сжать до 100 КБ и 1 МБ",
+      "keywords": "уменьшить,вес,файл,фотография,паспорт,виза,jpg,jpeg,форма",
+      "promotionalText": "Фотографии и PDF под нужный лимит КБ/МБ — локально на iPhone. Изменяйте размеры в пикселях и проверяйте результат.",
+      "description": "Фото или PDF слишком большой для сайта или анкеты? Сожмите файл до заданного лимита на iPhone.\n\nФОТО: задайте 100 КБ, 500 КБ, 1 МБ или свой предел. Проверьте результат перед сохранением.\nPDF: уменьшите файл для загрузки на сайт. Сильное сжатие может растрировать страницы: поиск и выделение текста будут недоступны.\nРАЗМЕРЫ: задайте ширину и высоту в пикселях, при необходимости сохраните пропорции. Экспортируйте JPEG, PNG или HEIC в поддерживаемых режимах.\nДОКУМЕНТЫ: технические пресеты для отдельных паспортов и виз России, США, Великобритании и Индии. Приложение не гарантирует принятие фото ведомством.\nДО/ПОСЛЕ: сравните размер и изображение, при необходимости удалите EXIF и геоданные.\n\nОбработка происходит на устройстве. Регистрация не нужна. Для рекламы может использоваться интернет, но файлы не загружаются для обработки.",
+      "screenshots": [
+        "Уменьшите фото до нужных КБ",
+        "Измените размер в пикселях",
+        "Фото на документы"
+      ],
+      "privacyPolicyUrl": "https://arvectum.com/photo-pod-razmer-privacy.html"
+    },
+    "en-US": {
+      "name": "Compress Photo & PDF to KB",
+      "subtitle": "Resize Images & Passport Pics",
+      "keywords": "shrink,reduce,file,size,100kb,200kb,500kb,1mb,jpg,jpeg,visa,pixels,offline,heic,exif,form,documents",
+      "promotionalText": "Compress photos and PDFs for upload limits, resize images in pixels and prepare document photos. Processing stays on your iPhone.",
+      "description": "File too large to upload? Reduce photos and PDFs to a chosen KB or MB limit on your iPhone.\n\nPHOTOS: choose 100 KB, 500 KB, 1 MB or a custom maximum; check the result size before saving.\nPDF: reduce files for forms and uploads. Strong compression can rasterize pages so text may no longer be selectable or searchable.\nIMAGE DIMENSIONS: set width and height in pixels, preserve the aspect ratio if needed, and export JPEG, PNG or HEIC where supported.\nDOCUMENT PHOTOS: technical presets for selected passports and visas (Russia, US, UK and India). No guarantee of official acceptance.\nBEFORE / AFTER: compare the actual result, optionally remove EXIF and location metadata.\n\nFiles are processed on-device. No account needed. Ads may use the internet, but files are not uploaded for processing.",
+      "screenshots": [
+        "Compress to your chosen KB limit",
+        "Resize pictures in pixels",
+        "Document photo presets"
+      ],
+      "privacyPolicyUrl": "https://arvectum.com/photo-pod-razmer-privacy.html"
+    },
+    "en-GB": {
+      "name": "Photo & PDF Compressor: KB",
+      "subtitle": "Resize Images for Uploads",
+      "keywords": "shrink,reduce,file,size,100kb,500kb,1mb,jpg,jpeg,passport,visa,pixels,offline,heic,upload,form",
+      "promotionalText": "Reduce photo and PDF sizes for online forms. Set KB/MB limits and resize images on your iPhone.",
+      "description": "Need to upload a photo or PDF with a strict size limit? Reduce files in KB or MB on your iPhone.\n\nCompress photos to a target size; shrink PDFs for forms; resize pictures by pixel dimensions; export JPEG, PNG or HEIC where supported; and compare before and after.\n\nTechnical photo presets cover selected international passport and visa requirements, including UK passport prints. This app does not check eligibility or guarantee acceptance. For online UK passport applications, follow GOV.UK digital photo guidance.\n\nStrong PDF compression may rasterise pages and remove selectable text. Photo and PDF processing stays on-device. Ads may require an internet connection.",
+      "screenshots": [
+        "Fit strict photo upload limits",
+        "Set pixel dimensions",
+        "Document photo sizes"
+      ],
+      "privacyPolicyUrl": "https://arvectum.com/photo-pod-razmer-privacy.html"
+    },
+    "en-AU": {
+      "name": "Photo & PDF Compressor: KB",
+      "subtitle": "Shrink Files & Resize Photos",
+      "keywords": "reduce,file,size,100kb,500kb,1mb,jpg,jpeg,pixels,passport,upload,forms,heic,exif,dimensions",
+      "promotionalText": "Get photos and PDFs ready for online uploads. Choose limits in KB/MB or resize photos in pixels — on-device.",
+      "description": "Photo or PDF too large for an upload? Choose a limit in KB or MB and make a smaller file on your iPhone.\n\nCompress photos, reduce PDFs, change image dimensions, export common formats and compare before and after. Selected document photo presets can set technical dimensions, but acceptance is not guaranteed.\n\nStrong PDF compression may flatten pages into images and remove text selection. Files are processed locally. Ads may use the internet.",
+      "screenshots": [
+        "Shrink photos for forms",
+        "Resize images in pixels",
+        "Photo sizing presets"
+      ],
+      "privacyPolicyUrl": "https://arvectum.com/photo-pod-razmer-privacy.html"
+    },
+    "en-CA": {
+      "name": "Photo & PDF Compressor: KB",
+      "subtitle": "Reduce File Size & Resize",
+      "keywords": "shrink,100kb,500kb,1mb,image,jpg,jpeg,pixels,documents,passport,upload,forms,heic,exif,document",
+      "promotionalText": "Compress photos or PDFs to KB/MB upload limits and resize images on your iPhone.",
+      "description": "Files exceeding an upload limit? Compress photos and PDFs to a chosen KB or MB maximum.\n\nChoose 100 KB, 500 KB, 1 MB or another value, inspect the result, resize pictures in pixels, and save or share. Export JPEG, PNG and HEIC where supported. International document photo presets set technical dimensions but cannot guarantee acceptance.\n\nPDF compression may rasterize pages and remove text selection. All file processing takes place on your iPhone. Ads may be loaded over the internet.",
+      "screenshots": [
+        "Fit the upload size limit",
+        "Resize in pixels",
+        "Document photo presets"
+      ],
+      "privacyPolicyUrl": "https://arvectum.com/photo-pod-razmer-privacy.html"
+    },
+    "es-ES": {
+      "name": "Comprimir fotos y PDF",
+      "subtitle": "Reducir KB y cambiar tamaño",
+      "keywords": "reducir,peso,archivo,100kb,500kb,1mb,imagen,jpg,jpeg,pixeles,pasaporte,formulario,tramites,heic",
+      "promotionalText": "Reduce fotos y PDF al límite de KB o MB necesario, cambia los píxeles y prepara archivos de documentos desde tu iPhone.",
+      "description": "¿Una foto o PDF supera el tamaño permitido en un formulario? Reduce el archivo directamente en tu iPhone.\n\nFOTOS: elige un límite, como 100 KB, 500 KB o 1 MB, y comprueba el resultado.\nPDF: comprime documentos para subirlos. Una compresión fuerte puede convertir las páginas en imágenes y desactivar la búsqueda de texto.\nDIMENSIONES: ajusta el ancho y el alto en píxeles y exporta JPEG, PNG o HEIC en los modos compatibles.\nDOCUMENTOS: ajustes técnicos para determinadas fotos de pasaporte y visado internacionales; la aceptación oficial no está garantizada.\nANTES Y DESPUÉS: compara el resultado y elimina los datos EXIF o de ubicación si quieres.\n\nLos archivos se procesan en el dispositivo. Los anuncios pueden usar internet, pero los archivos no se envían para procesarlos.",
+      "screenshots": [
+        "Reduce fotos a los KB requeridos",
+        "Cambia el tamaño en píxeles",
+        "Fotos para documentos"
+      ],
+      "privacyPolicyUrl": "https://arvectum.com/photo-pod-razmer-privacy.html"
+    },
+    "es-MX": {
+      "name": "Comprimir fotos y PDF",
+      "subtitle": "Bajar peso en KB y MB",
+      "keywords": "reducir,archivo,100kb,500kb,1mb,imagen,jpg,jpeg,tamaño,pixeles,visa,tramite,formulario,offline",
+      "promotionalText": "Comprime fotos y PDF para trámites y formularios. Elige un límite en KB o MB y ajusta las dimensiones en tu iPhone.",
+      "description": "¿Te piden una foto o PDF de menos de cierto tamaño? Prepara el archivo desde tu iPhone.\n\nComprime fotos a un máximo en KB o MB, reduce PDFs, cambia el ancho y alto en píxeles, y revisa el antes y después. Puedes exportar JPEG, PNG o HEIC donde sea compatible, y eliminar metadatos EXIF.\n\nIncluye algunas plantillas técnicas de fotografías para documentos y visas internacionales. No garantiza que una foto sea aceptada.\n\nLa compresión fuerte de PDF puede convertir texto en imagen. Los archivos se procesan localmente; se puede usar internet para mostrar anuncios.",
+      "screenshots": [
+        "Baja el peso de tus fotos",
+        "Ajusta los píxeles",
+        "Fotos para trámites"
+      ],
+      "privacyPolicyUrl": "https://arvectum.com/photo-pod-razmer-privacy.html"
+    },
+    "pt-BR": {
+      "name": "Comprimir Foto e PDF",
+      "subtitle": "Reduzir KB e redimensionar",
+      "keywords": "diminuir,arquivo,100kb,500kb,1mb,imagem,jpg,jpeg,pixels,documento,visto,formulario,heic,exif",
+      "promotionalText": "Reduza fotos e PDFs para caber nos limites de envio em KB/MB. Redimensione imagens no iPhone.",
+      "description": "O site não aceita a foto ou PDF por causa do tamanho? Reduza o arquivo no próprio iPhone.\n\nFOTOS: escolha 100 KB, 500 KB, 1 MB ou um limite personalizado e confira o resultado.\nPDF: diminua o arquivo para anexar. Uma compressão forte pode transformar páginas em imagens e remover a seleção de texto.\nIMAGENS: ajuste dimensões em pixels e exporte JPEG, PNG ou HEIC nos modos compatíveis.\nDOCUMENTOS: modelos técnicos para algumas fotos de passaporte e visto, sem garantia de aceitação oficial.\nANTES/DEPOIS: confira o resultado e remova EXIF e localização se quiser.\n\nO processamento acontece no aparelho. A internet pode ser usada para anúncios, nunca para processar os arquivos.",
+      "screenshots": [
+        "Reduza fotos ao limite de KB",
+        "Ajuste dimensões em pixels",
+        "Fotos para documentos"
+      ],
+      "privacyPolicyUrl": "https://arvectum.com/photo-pod-razmer-privacy.html"
+    },
+    "pt-PT": {
+      "name": "Comprimir Fotografias e PDF",
+      "subtitle": "Reduzir KB e redimensionar",
+      "keywords": "ficheiro,diminuir,100kb,500kb,1mb,imagem,jpg,jpeg,pixeis,passaporte,formulario,heic,exif",
+      "promotionalText": "Reduza fotografias e PDFs para limites de upload em KB ou MB. Altere as dimensões no iPhone.",
+      "description": "Precisa de enviar uma fotografia ou PDF com um limite de tamanho? Comprima o ficheiro no seu iPhone.\n\nDefina 100 KB, 500 KB, 1 MB ou outro limite; comprima PDF; ajuste dimensões em píxeis; compare o antes e o depois e exporte JPEG, PNG ou HEIC quando disponível. Existem predefinições técnicas para algumas fotografias de documentos internacionais, sem garantia de aceitação.\n\nA compressão intensa de PDF pode converter páginas em imagens e impedir a seleção de texto. O processamento acontece no dispositivo; a internet pode ser utilizada para publicidade.",
+      "screenshots": [
+        "Reduza o tamanho em KB",
+        "Altere dimensões em píxeis",
+        "Fotografias para documentos"
+      ],
+      "privacyPolicyUrl": "https://arvectum.com/photo-pod-razmer-privacy.html"
+    },
+    "de-DE": {
+      "name": "Fotos & PDF verkleinern",
+      "subtitle": "Komprimieren auf KB und MB",
+      "keywords": "datei,größe,100kb,500kb,1mb,jpg,jpeg,bild,pixel,passfoto,visum,formular,upload,offline,heic,exif",
+      "promotionalText": "Fotos und PDFs für Upload-Grenzen verkleinern: KB/MB wählen, Bildmaße ändern und das Ergebnis auf dem iPhone prüfen.",
+      "description": "Ist eine Bild- oder PDF-Datei zu groß für ein Onlineformular? Verkleinere sie auf deinem iPhone.\n\nFOTOS: Wähle 100 KB, 500 KB, 1 MB oder ein eigenes Limit und prüfe die Dateigröße.\nPDF: Komprimiere Dateien für Uploads. Starke Komprimierung kann Seiten rastern, sodass Text nicht mehr durchsuchbar ist.\nBILDER: Stelle Pixelmaße ein und exportiere je nach Modus JPEG, PNG oder HEIC.\nDOKUMENTFOTOS: technische Vorlagen für ausgewählte internationale Ausweise und Visa; keine Garantie behördlicher Anerkennung.\nVORHER/NACHHER: Vergleiche die Ergebnisse und entferne optional EXIF- und Standortdaten.\n\nDie Verarbeitung erfolgt auf dem Gerät. Für Werbung kann Internetzugriff nötig sein.",
+      "screenshots": [
+        "Fotos auf KB verkleinern",
+        "Bildmaße in Pixeln ändern",
+        "Passfoto-Formate"
+      ],
+      "privacyPolicyUrl": "https://arvectum.com/photo-pod-razmer-privacy.html"
+    },
+    "fr-FR": {
+      "name": "Compresser photos et PDF",
+      "subtitle": "Réduire Ko/Mo, redimensionner",
+      "keywords": "fichier,poids,100ko,500ko,1mo,image,jpg,jpeg,pixels,passeport,visa,formulaire,documents,heic,exif",
+      "promotionalText": "Compressez photos et PDF selon les limites en Ko/Mo. Redimensionnez les images directement sur l’iPhone.",
+      "description": "Photo ou PDF trop volumineux pour un formulaire ? Réduisez sa taille sur l’iPhone.\n\nPHOTOS : choisissez 100 Ko, 500 Ko, 1 Mo ou une limite personnalisée et vérifiez le résultat.\nPDF : compressez un document pour l’envoyer. Une forte compression peut transformer les pages en images, sans texte sélectionnable.\nDIMENSIONS : ajustez la largeur et la hauteur en pixels et exportez en JPEG, PNG ou HEIC lorsque c’est possible.\nIDENTITÉ : préréglages techniques pour certains passeports et visas internationaux, sans garantie d’acceptation.\nAVANT/APRÈS : comparez et supprimez si besoin les données EXIF et de localisation.\n\nLes fichiers sont traités sur l’appareil. Internet peut servir à afficher de la publicité.",
+      "screenshots": [
+        "Réduisez vos photos en Ko",
+        "Dimensions en pixels",
+        "Photos pour documents"
+      ],
+      "privacyPolicyUrl": "https://arvectum.com/photo-pod-razmer-privacy.html"
+    },
+    "it": {
+      "name": "Comprimi foto e PDF",
+      "subtitle": "Riduci KB, ridimensiona foto",
+      "keywords": "file,peso,100kb,500kb,1mb,immagine,jpg,jpeg,pixel,passaporto,visto,modulo,documenti,heic,exif",
+      "promotionalText": "Riduci foto e PDF per i limiti di caricamento. Imposta KB/MB e modifica le dimensioni su iPhone.",
+      "description": "Foto o PDF troppo grande per un modulo online? Riduci il file su iPhone.\n\nComprimi foto fino a un limite in KB o MB, riduci PDF, imposta dimensioni in pixel e confronta il prima e il dopo. Esporta JPEG, PNG o HEIC nei modi compatibili e rimuovi i metadati EXIF, se vuoi.\n\nSono disponibili preset tecnici per alcuni passaporti e visti internazionali, senza garanzia di accettazione da parte delle autorità.\n\nUna forte compressione PDF può trasformare le pagine in immagini non ricercabili. Tutto viene elaborato sul dispositivo; la rete può essere usata per gli annunci.",
+      "screenshots": [
+        "Riduci le foto in KB",
+        "Modifica le dimensioni in pixel",
+        "Foto per documenti"
+      ],
+      "privacyPolicyUrl": "https://arvectum.com/photo-pod-razmer-privacy.html"
+    },
+    "pl": {
+      "name": "Kompresuj zdjęcia i PDF",
+      "subtitle": "Zmniejsz KB i rozmiar zdjęć",
+      "keywords": "plik,waga,100kb,500kb,1mb,obraz,jpg,jpeg,piksele,paszport,wiza,formularz,dokumenty,heic,exif",
+      "promotionalText": "Zmniejsz zdjęcia i PDF do limitu KB/MB i dostosuj wymiary w pikselach na iPhonie.",
+      "description": "Zdjęcie lub PDF jest zbyt duże do formularza? Zmniejsz plik na iPhonie.\n\nUstaw limit 100 KB, 500 KB, 1 MB lub własny. Kompresuj PDF, zmieniaj wymiary zdjęć w pikselach i porównuj efekt przed zapisaniem. Eksportuj JPEG, PNG i HEIC w odpowiednich trybach, opcjonalnie usuń EXIF.\n\nDostępne są techniczne szablony wybranych zdjęć paszportowych i wizowych bez gwarancji urzędowej akceptacji.\n\nSilna kompresja PDF może zmienić strony w obrazy bez zaznaczania tekstu. Przetwarzanie odbywa się lokalnie; internet może służyć do reklam.",
+      "screenshots": [
+        "Zmniejsz zdjęcia do KB",
+        "Wymiary w pikselach",
+        "Zdjęcia do dokumentów"
+      ],
+      "privacyPolicyUrl": "https://arvectum.com/photo-pod-razmer-privacy.html"
+    },
+    "tr": {
+      "name": "Fotoğraf ve PDF sıkıştır",
+      "subtitle": "KB/MB küçült, boyutlandır",
+      "keywords": "dosya,küçültme,100kb,500kb,1mb,resim,jpg,jpeg,piksel,pasaport,vize,form,belge,heic,exif",
+      "promotionalText": "Fotoğraf ve PDF dosyalarını KB/MB sınırlarına göre küçültün. Görsel boyutlarını iPhone'da değiştirin.",
+      "description": "Fotoğraf veya PDF yükleme sınırını mı aşıyor? Dosyayı iPhone'da küçültün.\n\n100 KB, 500 KB, 1 MB veya özel bir sınır seçin. Fotoğrafları ve PDF'leri sıkıştırın, piksel ölçülerini değiştirin, önce/sonra sonucunu inceleyin. Desteklenen modlarda JPEG, PNG, HEIC aktarımı ve EXIF kaldırma bulunur.\n\nBazı uluslararası pasaport ve vize fotoğrafları için teknik şablonlar vardır; resmî kabul garantisi verilmez. Güçlü PDF sıkıştırması metni görüntüye dönüştürebilir.\n\nDosyalar cihazda işlenir. İnternet reklam için kullanılabilir.",
+      "screenshots": [
+        "Fotoğraf boyutunu KB ile azaltın",
+        "Piksel boyutlarını ayarlayın",
+        "Belge fotoğrafı ölçüleri"
+      ],
+      "privacyPolicyUrl": "https://arvectum.com/photo-pod-razmer-privacy.html"
+    },
+    "id": {
+      "name": "Kompres Foto dan PDF",
+      "subtitle": "Kecilkan KB, ubah ukuran",
+      "keywords": "file,100kb,500kb,1mb,gambar,jpg,jpeg,piksel,paspor,visa,ukuran,dokumen,unggah,heic,exif",
+      "promotionalText": "Kecilkan foto dan PDF agar sesuai batas unggahan KB/MB. Atur dimensi gambar pada iPhone.",
+      "description": "Foto atau PDF terlalu besar untuk formulir online? Kecilkan di iPhone.\n\nPilih batas 100 KB, 500 KB, atau 1 MB; kompres foto dan PDF; ubah dimensi piksel; dan bandingkan hasilnya. Ekspor JPEG, PNG, atau HEIC tersedia pada mode yang mendukung. Metadata EXIF dan lokasi dapat dihapus.\n\nAda preset teknis untuk beberapa foto paspor dan visa internasional, tanpa jaminan diterima. Kompresi PDF yang kuat dapat mengubah halaman menjadi gambar sehingga teks tak dapat dipilih.\n\nFile diproses di perangkat. Internet mungkin dipakai untuk iklan.",
+      "screenshots": [
+        "Kecilkan foto ke batas KB",
+        "Ubah dimensi dalam piksel",
+        "Ukuran foto dokumen"
+      ],
+      "privacyPolicyUrl": "https://arvectum.com/photo-pod-razmer-privacy.html"
+    },
+    "hi": {
+      "name": "फ़ोटो और PDF कंप्रेस",
+      "subtitle": "KB में साइज़ घटाएँ",
+      "keywords": "फाइल,इमेज,फोटो,पासपोर्ट,वीजा,100kb,500kb,1mb,jpg",
+      "promotionalText": "फ़ोटो और PDF का साइज़ KB/MB सीमा तक घटाएँ। पिक्सेल में इमेज का आकार बदलें। प्रोसेसिंग iPhone पर होती है।",
+      "description": "ऑनलाइन फ़ॉर्म के लिए फ़ोटो या PDF बहुत बड़ा है? साइज़ अपने iPhone पर घटाएँ।\n\n100 KB, 500 KB, 1 MB या अपनी सीमा चुनें। फ़ोटो और PDF कंप्रेस करें, पिक्सेल में इमेज का आकार बदलें और सेव करने से पहले परिणाम देखें। समर्थित मोड में JPEG, PNG और HEIC एक्सपोर्ट करें; EXIF और लोकेशन जानकारी हटा सकते हैं।\n\nकुछ अंतरराष्ट्रीय पासपोर्ट और वीज़ा फ़ोटो के लिए तकनीकी प्रीसेट हैं; सरकारी स्वीकृति की गारंटी नहीं। अधिक PDF कंप्रेशन से टेक्स्ट खोजना या चुनना संभव नहीं रह सकता।\n\nफ़ाइलें डिवाइस पर प्रोसेस होती हैं। विज्ञापनों के लिए इंटरनेट इस्तेमाल हो सकता है।",
+      "screenshots": [
+        "फ़ोटो का साइज़ KB में घटाएँ",
+        "पिक्सेल में आकार बदलें",
+        "दस्तावेज़ फ़ोटो प्रीसेट"
+      ],
+      "privacyPolicyUrl": "https://arvectum.com/photo-pod-razmer-privacy.html"
+    },
+    "ja": {
+      "name": "写真とPDFを圧縮・サイズ変更",
+      "subtitle": "KB・MB指定でファイルを縮小",
+      "keywords": "画像,容量,100kb,500kb,1mb,ピクセル,パスポート,ビザ,jpg,書類,フォーム,保存",
+      "promotionalText": "写真・PDFを指定したKB/MB以内に圧縮。画像のピクセル数も変更。ファイルはiPhone上で処理します。",
+      "description": "アップロードする写真やPDFの容量が大きすぎる場合に。iPhoneでファイルサイズを調整できます。\n\n写真の圧縮：100KB、500KB、1MBなどの上限を指定し、出力後の容量を確認。\nPDFの圧縮：提出用PDFの容量を削減。強い圧縮ではページが画像化され、文字の検索や選択ができなくなることがあります。\n画像サイズ変更：ピクセルで幅と高さを指定。対応モードではJPEG・PNG・HEICで保存できます。\n証明写真：一部の国のパスポートやビザ向けの技術的なサイズ設定。公的機関の受理は保証しません。\n処理前後の比較、EXIF・位置情報の削除にも対応。\n\n処理は端末内で行います。広告表示には通信を使う場合があります。",
+      "screenshots": [
+        "写真を指定KBまで圧縮",
+        "ピクセルでサイズ変更",
+        "証明写真のサイズ設定"
+      ],
+      "privacyPolicyUrl": "https://arvectum.com/photo-pod-razmer-privacy.html"
+    },
+    "ko": {
+      "name": "사진 및 PDF 압축",
+      "subtitle": "KB·MB 용량과 사진 크기 조절",
+      "keywords": "파일,100kb,500kb,1mb,이미지,픽셀,jpg,jpeg,여권,비자,문서,업로드,저장",
+      "promotionalText": "사진과 PDF를 KB/MB 한도에 맞게 줄이세요. 픽셀 크기를 변경하고 iPhone에서 결과를 확인하세요.",
+      "description": "업로드할 사진이나 PDF가 너무 큰가요? iPhone에서 파일 용량을 줄여 보세요.\n\n100KB, 500KB, 1MB 또는 원하는 용량을 지정해 사진과 PDF를 압축할 수 있습니다. 이미지 가로·세로 픽셀 크기를 조절하고 전후를 비교하세요. 지원되는 모드에서 JPEG, PNG, HEIC로 저장하거나 EXIF를 제거할 수 있습니다.\n\n일부 해외 여권·비자 사진용 기술 규격 프리셋을 제공합니다. 정부 기관의 접수 승인은 보장하지 않습니다. PDF를 강하게 압축하면 페이지가 이미지로 바뀌어 텍스트를 선택하거나 검색할 수 없게 될 수 있습니다.\n\n파일은 기기에서 처리합니다. 광고를 위해 인터넷을 사용할 수 있습니다.",
+      "screenshots": [
+        "사진 용량을 KB로 줄이기",
+        "픽셀 크기 조절",
+        "증명사진 규격"
+      ],
+      "privacyPolicyUrl": "https://arvectum.com/photo-pod-razmer-privacy.html"
+    },
+    "uk": {
+      "name": "Стиснути фото та PDF",
+      "subtitle": "Зменшити КБ, змінити розмір",
+      "keywords": "файл,вага,100kb,500kb,1mb,зображення,jpg,jpeg,пікселі,паспорт",
+      "promotionalText": "Фото й PDF під потрібний ліміт КБ/МБ та розміри в пікселях. Обробка відбувається на iPhone.",
+      "description": "Фото або PDF завеликий для онлайн-форми? Зменште файл на iPhone.\n\nВиберіть 100 КБ, 500 КБ, 1 МБ або власний ліміт. Стискайте фото та PDF, змінюйте розміри в пікселях, порівнюйте результат. У підтримуваних режимах доступний експорт JPEG, PNG, HEIC та видалення EXIF.\n\nЄ технічні шаблони для деяких закордонних паспортних і візових фото без гарантії прийняття установами. Сильне стиснення PDF може перетворити сторінки на зображення без пошуку тексту.\n\nФайли обробляються локально. Інтернет може використовуватися для реклами.",
+      "screenshots": [
+        "Зменшіть фото до ліміту КБ",
+        "Змініть розмір у пікселях",
+        "Формати фото на документи"
+      ],
+      "privacyPolicyUrl": "https://arvectum.com/photo-pod-razmer-privacy.html"
+    },
+    "vi": {
+      "name": "Nén ảnh và PDF",
+      "subtitle": "Giảm KB, đổi kích thước ảnh",
+      "keywords": "tệp,100kb,500kb,1mb,hình,jpg,jpeg,pixel,visa,dung lượng,biểu mẫu,tài liệu,heic,exif",
+      "promotionalText": "Nén ảnh và PDF theo giới hạn KB/MB, chỉnh kích thước theo pixel và kiểm tra kết quả trên iPhone.",
+      "description": "Ảnh hoặc PDF quá lớn để tải lên biểu mẫu? Giảm dung lượng ngay trên iPhone.\n\nChọn 100 KB, 500 KB, 1 MB hoặc giá trị tùy chỉnh; nén ảnh và PDF; đổi kích thước theo pixel; so sánh trước và sau. Có thể xuất JPEG, PNG, HEIC ở chế độ hỗ trợ và xóa dữ liệu EXIF.\n\nỨng dụng có mẫu thông số kỹ thuật cho một số ảnh hộ chiếu và thị thực quốc tế, không bảo đảm được cơ quan chấp nhận. Nén PDF mạnh có thể chuyển trang thành hình ảnh, khiến không thể chọn văn bản.\n\nTệp được xử lý trên thiết bị. Internet có thể dùng để tải quảng cáo.",
+      "screenshots": [
+        "Giảm ảnh đến giới hạn KB",
+        "Đổi kích thước theo pixel",
+        "Kích thước ảnh giấy tờ"
+      ],
+      "privacyPolicyUrl": "https://arvectum.com/photo-pod-razmer-privacy.html"
+    }
+  }
+}
