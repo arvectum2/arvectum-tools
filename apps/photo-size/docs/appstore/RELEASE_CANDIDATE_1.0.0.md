@@ -19,20 +19,20 @@
 - [x] Pure KB/MB/pixel validation added.
 - [x] DEBUG-only deterministic UI fixtures added.
 - [x] Unit tests cover JPEG, PNG, HEIC, PDF orientation, target bytes, cropping, print sheets, metadata stripping, reset and import.
-- [ ] Full simulator tests final green (record command, test count, skip count and device).
-- [ ] Actual app PDF result screenshot added to international ASO screenshot set.
-- [ ] Generate/review final 1.0.0 iPhone screenshots after freeze; compare to compiled UI.
+- [x] Full simulator run green: 27 unit + 5 UI tests; 5 physical-only Files tests skipped on simulator (see QA report).
+- [x] Actual PDF result screenshot captured from a running simulator and used in all 20 locale cards.
+- [x] Generate 80 iPhone screenshot drafts (4 × 20, 1320×2868); visually review RU/EN PDF images. Human locale review still pending.
 - [ ] Physical iPhone: from Photos import, from Files import, PDF, exact pixel size, passport crop, save and share, dark/light mode, return/home, manual EXIF check.
 - [ ] Physical iPhone: verify advertising consent (yes/no), native ad and result banner on first and later launches; ATT if applicable.
-- [ ] Confirm UI only advertises actual implemented locale support. Draft localized App Store metadata does **not** mean in-app UI is localized.
+- [x] Record actual app UI scope as RU/EN only; additional 18 App Store locale drafts show English UI and remain unpublished pending locale decision.
 - [ ] Test on iOS 17 compatibility or keep deployment target explicitly documented.
 - [ ] Review privacy manifest, App Store privacy answers and product URLs.
 - [ ] Verify legal claims: no government acceptance guarantee; strong PDF compression may rasterize text.
 
 ## Submission gate — forbidden in this task
 
-- [ ] Reconfirm version 1.0.0 and highest existing ASC build before packaging.
-- [ ] Code-sign/archive production 1.0.0 build.
+- [x] Stage 1.0.0 (11) locally and inspect Release binary Info.plist; re-confirm highest ASC number before actual upload.
+- [ ] Code-sign/archive production 1.0.0 build (unsigned Release/iphoneos build already passes).
 - [ ] Upload .ipa to ASC, add locale metadata, screenshots, release notes.
 - [ ] Conduct TestFlight or device beta review if requested.
 - [ ] Owner explicitly approves App Review submission and public web deploy.
@@ -49,3 +49,5 @@
 - [ ] After release: monitor impressions, product page conversion, downloads per storefront, crashes and app review ratings at 2 and 4 weeks.
 
 The release candidate should be **built and tested locally only** until every required gate is green.
+
+Detailed automated QA evidence: [QA_REPORT_1.0.0_2026-10-10.md](QA_REPORT_1.0.0_2026-10-10.md).
