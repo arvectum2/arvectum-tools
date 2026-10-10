@@ -388,3 +388,6 @@ Progress note (2026-10-10): implementation is direct ChatGPT + RDC + Xcode (no e
 - [ ] Fresh iCloud/Finder backup and 1.2 baseline confirmation **before** physical in-place installation.
 - [ ] Production CloudKit and Watch inter-device convergence, ad/notification/network and privacy acceptance on physical iPhone; no second physical iPhone required.
 - [ ] ASO/SEO and release authorization ONLY AFTER QA.
+
+- [x] Final iOS 27 UI Xcode Test Result: **19/19 passed, 0 failures, 0 skips** on iPhone 18 Pro (commit 1cf9833 app/test code). Paired Watch SE 3/watchOS27 simulator app launches and displays seeded 3/5 partial controls.
+- [ ] Hosted Xcode 27 CI completion and backup-driven physical acceptance still pending; no App Store / TestFlight upload.

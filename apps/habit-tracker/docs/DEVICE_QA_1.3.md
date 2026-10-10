@@ -58,7 +58,9 @@ This is QA only; do not update the App Store listing, publish to TestFlight, mer
 
 ## Release gate
 
-- [ ] Final CI passes on Xcode 27 and local full UI regression passes.
+- [x] Full local iOS 27 UI suite: 19/19 passed, 0 failed, 0 skipped (verified using xcresulttool, iPhone 18 Pro iOS 27.0).
+- [x] watchOS 27 simulator smoke: paired Apple Watch SE 3 40mm, 1.3 Watch app installed/launched, seeded Water 3/5 +/- controls shown in native screenshot; this is not physical Watch sync evidence.
+- [ ] GitHub-hosted Xcode 27 CI must finish successfully.
 - [ ] All above physical acceptance evidence recorded with pass/fail/blocker; zero migration/data-loss issues.
 - [ ] Only **then** begin separate ASO and SEO phase.
 - [ ] Publication requires explicit user approval after ASO/SEO; never automatically upload to TestFlight/App Store.
