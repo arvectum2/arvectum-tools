@@ -48,3 +48,6 @@
 - `HabitAdSDK.initializeIfEligible` defers third-party SDK startup until the eligibility-gated banner mounts.
 - CI checks RU/EN/ES string parity, App Store screenshot sizes, unit/UI regression and the four-target archive/privacy manifest audit.
 - Deliberately retained orchestration files (`TodayView`, `HabitDetailView`, `AddHabitView`): split them further only when characterization tests justify it. A blanket file-count refactor would risk SwiftUI state regressions and undo previous QA.
+
+## CI watchOS SDK selection
+GitHub CI uses `xcodebuild -destination 'platform=iOS Simulator,name=iPhone 17 Pro' test` without forcing `-sdk iphonesimulator`. Forcing the iPhone SDK onto the multi-platform app/Watch scheme makes Xcode 26.6 compile watchOS-only asset catalogs as an iPhone platform, producing a misleading `AppIcon did not have any applicable content` error. Auto-resolved SDK selection preserves the native watchOS icon assets; no icon/image files need replacement.

@@ -52,7 +52,6 @@ jobs:
           xcodebuild \
             -project HabitsByArvectumIOS.xcodeproj \
             -scheme HabitsByArvectum \
-            -sdk iphonesimulator \
             -destination 'platform=iOS Simulator,name=iPhone 17 Pro' \
             CODE_SIGNING_ALLOWED=NO \
             test
