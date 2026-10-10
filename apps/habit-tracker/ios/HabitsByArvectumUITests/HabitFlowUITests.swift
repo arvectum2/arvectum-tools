@@ -400,6 +400,11 @@ final class HabitFlowUITests: XCTestCase {
 
         let skipButton = app.buttons["Skip today"]
         XCTAssertTrue(skipButton.waitForExistence(timeout: 3))
+        // The action is below the history cards on short displays; scroll it
+        // into view instead of requiring initial-viewport visibility.
+        for _ in 0..<6 where !skipButton.isHittable {
+            app.swipeUp()
+        }
         XCTAssertTrue(skipButton.isHittable)
         skipButton.tap()
 
@@ -569,7 +574,7 @@ final class HabitFlowUITests: XCTestCase {
             today,
             contains: [
                 "Manage habits",
-                "Add habit",
+                "Add",
                 "Today",
                 "0 of 2",
                 "Reading",

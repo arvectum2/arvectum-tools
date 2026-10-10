@@ -379,3 +379,12 @@ Progress note (2026-10-10): implementation is direct ChatGPT + RDC + Xcode (no e
 - [ ] Later phase by explicit owner decision: ASO, SEO and publication.
 
 - [x] Test deliberate Yandex 8.6.0 upgrade in an isolated worktree: simulator build succeeds, and new Tapjoy 14.8.0 transitive graph is **correctly rejected** by dependency policy pending privacy/security review. The shipping candidate remains on 8.5.0.
+
+## 1.3 physical-device QA preparation — 2026-10-10
+- [x] Verified 1.2.0 installed on physical iPhone 13, iOS 27.0.1, paired physical Apple Watch SE.
+- [x] Exported ad hoc 1.3.0 (5) candidate for the physical device with production CloudKit and production APS; four signed provisioned bundles validated. SHA-256 and local QA artifact location recorded in docs/DEVICE_QA_1.3.md.
+- [x] Paired iOS 27 iPhone 18 Pro simulator with watchOS 27 Watch SE 3 simulator.
+- [x] Re-ran full iOS 27 UI suite: identified two test-only viewport/VoiceOver expectation issues, then passed both corrected scenarios separately; new full-suite pass to follow.
+- [ ] Fresh iCloud/Finder backup and 1.2 baseline confirmation **before** physical in-place installation.
+- [ ] Production CloudKit and Watch inter-device convergence, ad/notification/network and privacy acceptance on physical iPhone; no second physical iPhone required.
+- [ ] ASO/SEO and release authorization ONLY AFTER QA.
