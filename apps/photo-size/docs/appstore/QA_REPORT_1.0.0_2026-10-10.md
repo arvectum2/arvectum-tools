@@ -42,3 +42,7 @@ No App Store Connect writes, TestFlight upload, GitHub push, merge to `main`, pr
 ## 2026-10-10 build 12 hotfix addendum
 
 Incorporated the latest 0.6.2 memory-safe PDF implementation from upstream main, using file-based source inspection and streaming output. Updated AppModel PDF import, preserved PDF orientation regression, and added large-image-heavy PDF regression. **28 unit tests pass on iOS 26.5 simulator**. The prior build-11 App Review submission was canceled. Build 12 is the only approved candidate; any prior build-11 observations are superseded.
+
+## Final App Store Connect submission
+
+Build 12: `825a5b4d-53f7-480f-8eb7-22f0f2d98cc6`, VALID; version 1.0.0; submission `b4f5f1a7-f8ea-494e-8389-72376e69cbf1`, WAITING_FOR_REVIEW; releaseType AFTER_APPROVAL. This verification supersedes the original build 11 status.
