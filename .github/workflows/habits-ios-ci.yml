@@ -56,12 +56,12 @@ jobs:
       - name: Unit and integration tests
         timeout-minutes: 17
         run: |
-          xcodebuild             -project HabitsByArvectumIOS.xcodeproj             -onlyUsePackageVersionsFromResolvedFile             -scheme HabitsByArvectum             -destination 'platform=iOS Simulator,name=iPhone 18 Pro,OS=27.0'             -parallel-testing-enabled NO             -only-testing:HabitsByArvectumTests             CODE_SIGNING_ALLOWED=NO             SWIFT_ENABLE_BATCH_MODE=NO             test
+          xcodebuild             -project HabitsByArvectumIOS.xcodeproj             -onlyUsePackageVersionsFromResolvedFile             -scheme HabitsByArvectum             -destination 'platform=iOS Simulator,name=iPhone 18 Pro,OS=27.0'             -jobs 2 -parallel-testing-enabled NO             -only-testing:HabitsByArvectumTests             CODE_SIGNING_ALLOWED=NO             COMPILER_INDEX_STORE_ENABLE=NO             test
 
       - name: Essential UI smoke
         timeout-minutes: 12
         run: |
-          xcodebuild             -project HabitsByArvectumIOS.xcodeproj             -onlyUsePackageVersionsFromResolvedFile             -scheme HabitsByArvectum             -destination 'platform=iOS Simulator,name=iPhone 18 Pro,OS=27.0'             -parallel-testing-enabled NO             -only-testing:HabitsByArvectumUITests/HabitFlowUITests/testAccessibilityAuditCoreScreens             -only-testing:HabitsByArvectumUITests/HabitFlowUITests/testMultiCheckHistoryIndividualSlotsPersist             CODE_SIGNING_ALLOWED=NO             SWIFT_ENABLE_BATCH_MODE=NO             test
+          xcodebuild             -project HabitsByArvectumIOS.xcodeproj             -onlyUsePackageVersionsFromResolvedFile             -scheme HabitsByArvectum             -destination 'platform=iOS Simulator,name=iPhone 18 Pro,OS=27.0'             -jobs 2 -parallel-testing-enabled NO             -only-testing:HabitsByArvectumUITests/HabitFlowUITests/testAccessibilityAuditCoreScreens             -only-testing:HabitsByArvectumUITests/HabitFlowUITests/testMultiCheckHistoryIndividualSlotsPersist             CODE_SIGNING_ALLOWED=NO             COMPILER_INDEX_STORE_ENABLE=NO             test
 
       - name: Archive smoke
         run: scripts/archive_smoke.sh
