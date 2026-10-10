@@ -14,9 +14,11 @@
       "screenshots": [
         "Уменьшите фото до нужных КБ",
         "Измените размер в пикселях",
-        "Фото на документы"
+        "Фото на документы",
+        "Сжимайте PDF до нужного лимита"
       ],
-      "privacyPolicyUrl": "https://arvectum.com/photo-pod-razmer-privacy.html"
+      "privacyPolicyUrl": "https://arvectum.com/photo-pod-razmer-privacy.html",
+      "whatsNew": "Версия 1.0: обновили внутреннюю архитектуру приложения, повысили надёжность обработки и переключения файлов, сохранили сжатие фото и PDF до нужного лимита, размеры в пикселях, фото для документов и локальную обработку."
     },
     "en-US": {
       "name": "Compress Photo & PDF to KB",
@@ -27,9 +29,11 @@
       "screenshots": [
         "Compress to your chosen KB limit",
         "Resize pictures in pixels",
-        "Document photo presets"
+        "Document photo presets",
+        "Compress PDFs to a KB/MB limit"
       ],
-      "privacyPolicyUrl": "https://arvectum.com/photo-pod-razmer-privacy.html"
+      "privacyPolicyUrl": "https://arvectum.com/photo-pod-razmer-privacy.html",
+      "whatsNew": "Version 1.0: a cleaner, more reliable app architecture. Compress photos and PDFs to an upload limit, resize images in pixels and prepare document photos—all processed on your iPhone."
     },
     "en-GB": {
       "name": "Photo & PDF Compressor: KB",
@@ -40,9 +44,11 @@
       "screenshots": [
         "Fit strict photo upload limits",
         "Set pixel dimensions",
-        "Document photo sizes"
+        "Document photo sizes",
+        "Reduce PDF size for uploads"
       ],
-      "privacyPolicyUrl": "https://arvectum.com/photo-pod-razmer-privacy.html"
+      "privacyPolicyUrl": "https://arvectum.com/photo-pod-razmer-privacy.html",
+      "whatsNew": "Version 1.0: improved stability and a cleaner app architecture. Reduce photo and PDF file sizes, resize images in pixels and prepare technical document photos on-device."
     },
     "en-AU": {
       "name": "Photo & PDF Compressor: KB",
@@ -53,9 +59,11 @@
       "screenshots": [
         "Shrink photos for forms",
         "Resize images in pixels",
-        "Photo sizing presets"
+        "Photo sizing presets",
+        "Make PDF files fit upload limits"
       ],
-      "privacyPolicyUrl": "https://arvectum.com/photo-pod-razmer-privacy.html"
+      "privacyPolicyUrl": "https://arvectum.com/photo-pod-razmer-privacy.html",
+      "whatsNew": "Version 1.0: improved reliability for photo and PDF compression, image resizing and document photo presets. File processing stays on your iPhone."
     },
     "en-CA": {
       "name": "Photo & PDF Compressor: KB",
@@ -66,9 +74,11 @@
       "screenshots": [
         "Fit the upload size limit",
         "Resize in pixels",
-        "Document photo presets"
+        "Document photo presets",
+        "Shrink a PDF on your iPhone"
       ],
-      "privacyPolicyUrl": "https://arvectum.com/photo-pod-razmer-privacy.html"
+      "privacyPolicyUrl": "https://arvectum.com/photo-pod-razmer-privacy.html",
+      "whatsNew": "Version 1.0: a reliability-focused update for local photo and PDF processing, pixel resizing and document photo presets."
     },
     "es-ES": {
       "name": "Comprimir fotos y PDF",
@@ -79,9 +89,11 @@
       "screenshots": [
         "Reduce fotos a los KB requeridos",
         "Cambia el tamaño en píxeles",
-        "Fotos para documentos"
+        "Fotos para documentos",
+        "Reduce el tamaño de archivos PDF"
       ],
-      "privacyPolicyUrl": "https://arvectum.com/photo-pod-razmer-privacy.html"
+      "privacyPolicyUrl": "https://arvectum.com/photo-pod-razmer-privacy.html",
+      "whatsNew": "Versión 1.0: nueva arquitectura interna y mejoras de estabilidad. Comprime fotos y PDF, ajusta las dimensiones y prepara fotos para documentos desde tu iPhone."
     },
     "es-MX": {
       "name": "Comprimir fotos y PDF",
@@ -92,9 +104,11 @@
       "screenshots": [
         "Baja el peso de tus fotos",
         "Ajusta los píxeles",
-        "Fotos para trámites"
+        "Fotos para trámites",
+        "Baja el peso de tus PDF"
       ],
-      "privacyPolicyUrl": "https://arvectum.com/photo-pod-razmer-privacy.html"
+      "privacyPolicyUrl": "https://arvectum.com/photo-pod-razmer-privacy.html",
+      "whatsNew": "Versión 1.0: mejoramos la estabilidad del procesamiento de fotos y PDF, los tamaños en píxeles y las plantillas para documentos. Todo en tu iPhone."
     },
     "pt-BR": {
       "name": "Comprimir Foto e PDF",
@@ -105,9 +119,11 @@
       "screenshots": [
         "Reduza fotos ao limite de KB",
         "Ajuste dimensões em pixels",
-        "Fotos para documentos"
+        "Fotos para documentos",
+        "Reduza PDFs para enviar"
       ],
-      "privacyPolicyUrl": "https://arvectum.com/photo-pod-razmer-privacy.html"
+      "privacyPolicyUrl": "https://arvectum.com/photo-pod-razmer-privacy.html",
+      "whatsNew": "Versão 1.0: arquitetura renovada e melhorias de estabilidade. Comprima fotos e PDFs, redimensione imagens e prepare arquivos para documentos no iPhone."
     },
     "pt-PT": {
       "name": "Comprimir Fotografias e PDF",
@@ -118,9 +134,11 @@
       "screenshots": [
         "Reduza o tamanho em KB",
         "Altere dimensões em píxeis",
-        "Fotografias para documentos"
+        "Fotografias para documentos",
+        "Reduza o tamanho dos PDF"
       ],
-      "privacyPolicyUrl": "https://arvectum.com/photo-pod-razmer-privacy.html"
+      "privacyPolicyUrl": "https://arvectum.com/photo-pod-razmer-privacy.html",
+      "whatsNew": "Versão 1.0: arquitetura melhorada e mais fiabilidade ao comprimir fotografias e PDFs, ajustar dimensões e preparar fotos para documentos."
     },
     "de-DE": {
       "name": "Fotos & PDF verkleinern",
@@ -131,9 +149,11 @@
       "screenshots": [
         "Fotos auf KB verkleinern",
         "Bildmaße in Pixeln ändern",
-        "Passfoto-Formate"
+        "Passfoto-Formate",
+        "PDF-Dateien auf KB verkleinern"
       ],
-      "privacyPolicyUrl": "https://arvectum.com/photo-pod-razmer-privacy.html"
+      "privacyPolicyUrl": "https://arvectum.com/photo-pod-razmer-privacy.html",
+      "whatsNew": "Version 1.0: überarbeitete Architektur und höhere Zuverlässigkeit. Fotos und PDFs verkleinern, Pixelmaße anpassen und Dokumentfotos lokal vorbereiten."
     },
     "fr-FR": {
       "name": "Compresser photos et PDF",
@@ -144,9 +164,11 @@
       "screenshots": [
         "Réduisez vos photos en Ko",
         "Dimensions en pixels",
-        "Photos pour documents"
+        "Photos pour documents",
+        "Réduisez les fichiers PDF"
       ],
-      "privacyPolicyUrl": "https://arvectum.com/photo-pod-razmer-privacy.html"
+      "privacyPolicyUrl": "https://arvectum.com/photo-pod-razmer-privacy.html",
+      "whatsNew": "Version 1.0 : architecture revue et fiabilité améliorée. Compressez photos et PDF, ajustez les dimensions et préparez les photos pour documents sur iPhone."
     },
     "it": {
       "name": "Comprimi foto e PDF",
@@ -157,9 +179,11 @@
       "screenshots": [
         "Riduci le foto in KB",
         "Modifica le dimensioni in pixel",
-        "Foto per documenti"
+        "Foto per documenti",
+        "Riduci le dimensioni dei PDF"
       ],
-      "privacyPolicyUrl": "https://arvectum.com/photo-pod-razmer-privacy.html"
+      "privacyPolicyUrl": "https://arvectum.com/photo-pod-razmer-privacy.html",
+      "whatsNew": "Versione 1.0: architettura migliorata e maggiore affidabilità. Comprimi foto e PDF, modifica le dimensioni e prepara foto per documenti su iPhone."
     },
     "pl": {
       "name": "Kompresuj zdjęcia i PDF",
@@ -170,9 +194,11 @@
       "screenshots": [
         "Zmniejsz zdjęcia do KB",
         "Wymiary w pikselach",
-        "Zdjęcia do dokumentów"
+        "Zdjęcia do dokumentów",
+        "Zmniejsz rozmiar plików PDF"
       ],
-      "privacyPolicyUrl": "https://arvectum.com/photo-pod-razmer-privacy.html"
+      "privacyPolicyUrl": "https://arvectum.com/photo-pod-razmer-privacy.html",
+      "whatsNew": "Wersja 1.0: ulepszona architektura i niezawodność. Kompresuj zdjęcia i PDF, zmieniaj wymiary obrazów i przygotowuj zdjęcia do dokumentów."
     },
     "tr": {
       "name": "Fotoğraf ve PDF sıkıştır",
@@ -183,9 +209,11 @@
       "screenshots": [
         "Fotoğraf boyutunu KB ile azaltın",
         "Piksel boyutlarını ayarlayın",
-        "Belge fotoğrafı ölçüleri"
+        "Belge fotoğrafı ölçüleri",
+        "PDF dosyalarının boyutunu azaltın"
       ],
-      "privacyPolicyUrl": "https://arvectum.com/photo-pod-razmer-privacy.html"
+      "privacyPolicyUrl": "https://arvectum.com/photo-pod-razmer-privacy.html",
+      "whatsNew": "Sürüm 1.0: yenilenen mimari ve daha kararlı dosya işleme. Fotoğraf ve PDF sıkıştırma, piksel boyutlandırma ve belge fotoğrafı şablonları."
     },
     "id": {
       "name": "Kompres Foto dan PDF",
@@ -196,9 +224,11 @@
       "screenshots": [
         "Kecilkan foto ke batas KB",
         "Ubah dimensi dalam piksel",
-        "Ukuran foto dokumen"
+        "Ukuran foto dokumen",
+        "Kecilkan ukuran file PDF"
       ],
-      "privacyPolicyUrl": "https://arvectum.com/photo-pod-razmer-privacy.html"
+      "privacyPolicyUrl": "https://arvectum.com/photo-pod-razmer-privacy.html",
+      "whatsNew": "Versi 1.0: arsitektur lebih rapi dan pemrosesan file lebih andal. Kompres foto dan PDF, ubah ukuran gambar, dan siapkan foto dokumen di iPhone."
     },
     "hi": {
       "name": "फ़ोटो और PDF कंप्रेस",
@@ -209,9 +239,11 @@
       "screenshots": [
         "फ़ोटो का साइज़ KB में घटाएँ",
         "पिक्सेल में आकार बदलें",
-        "दस्तावेज़ फ़ोटो प्रीसेट"
+        "दस्तावेज़ फ़ोटो प्रीसेट",
+        "PDF फ़ाइल का साइज़ घटाएँ"
       ],
-      "privacyPolicyUrl": "https://arvectum.com/photo-pod-razmer-privacy.html"
+      "privacyPolicyUrl": "https://arvectum.com/photo-pod-razmer-privacy.html",
+      "whatsNew": "संस्करण 1.0: अधिक भरोसेमंद फ़ाइल प्रोसेसिंग के लिए बेहतर संरचना। फ़ोटो और PDF कंप्रेस करें, पिक्सेल आकार बदलें और दस्तावेज़ फ़ोटो तैयार करें।"
     },
     "ja": {
       "name": "写真とPDFを圧縮・サイズ変更",
@@ -222,9 +254,11 @@
       "screenshots": [
         "写真を指定KBまで圧縮",
         "ピクセルでサイズ変更",
-        "証明写真のサイズ設定"
+        "証明写真のサイズ設定",
+        "PDFを指定サイズまで圧縮"
       ],
-      "privacyPolicyUrl": "https://arvectum.com/photo-pod-razmer-privacy.html"
+      "privacyPolicyUrl": "https://arvectum.com/photo-pod-razmer-privacy.html",
+      "whatsNew": "バージョン1.0：内部構成を改善し、ファイル処理の安定性を向上。写真とPDFの圧縮、ピクセル単位のサイズ変更、証明写真の設定に対応。"
     },
     "ko": {
       "name": "사진 및 PDF 압축",
@@ -235,9 +269,11 @@
       "screenshots": [
         "사진 용량을 KB로 줄이기",
         "픽셀 크기 조절",
-        "증명사진 규격"
+        "증명사진 규격",
+        "PDF 파일 용량 줄이기"
       ],
-      "privacyPolicyUrl": "https://arvectum.com/photo-pod-razmer-privacy.html"
+      "privacyPolicyUrl": "https://arvectum.com/photo-pod-razmer-privacy.html",
+      "whatsNew": "버전 1.0: 내부 구조를 개선해 파일 처리 안정성을 높였습니다. 사진 및 PDF 압축, 픽셀 크기 조절, 증명사진 규격을 지원합니다."
     },
     "uk": {
       "name": "Стиснути фото та PDF",
@@ -248,9 +284,11 @@
       "screenshots": [
         "Зменшіть фото до ліміту КБ",
         "Змініть розмір у пікселях",
-        "Формати фото на документи"
+        "Формати фото на документи",
+        "Стискайте PDF до потрібного розміру"
       ],
-      "privacyPolicyUrl": "https://arvectum.com/photo-pod-razmer-privacy.html"
+      "privacyPolicyUrl": "https://arvectum.com/photo-pod-razmer-privacy.html",
+      "whatsNew": "Версія 1.0: оновлена архітектура та надійніша обробка файлів. Стискайте фото й PDF, змінюйте розміри в пікселях і готуйте фото для документів."
     },
     "vi": {
       "name": "Nén ảnh và PDF",
@@ -261,9 +299,11 @@
       "screenshots": [
         "Giảm ảnh đến giới hạn KB",
         "Đổi kích thước theo pixel",
-        "Kích thước ảnh giấy tờ"
+        "Kích thước ảnh giấy tờ",
+        "Giảm dung lượng tệp PDF"
       ],
-      "privacyPolicyUrl": "https://arvectum.com/photo-pod-razmer-privacy.html"
+      "privacyPolicyUrl": "https://arvectum.com/photo-pod-razmer-privacy.html",
+      "whatsNew": "Phiên bản 1.0: cải thiện kiến trúc và độ ổn định. Nén ảnh và PDF, đổi kích thước theo pixel và chuẩn bị ảnh giấy tờ trên iPhone."
     }
   }
 }

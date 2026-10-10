@@ -21,12 +21,17 @@ func color(_ rgb: UInt32) -> NSColor {
                    blue: CGFloat(rgb & 255)/255, alpha: 1)
 }
 let charcoal=color(0x111827), deep=color(0x17283C), mint=color(0x35E0C4), lavender=color(0xB69AFF)
-let fileNames=["01-weight", "02-pixels", "03-documents"]
+let fileNames=["01-weight", "02-pixels", "03-documents", "04-pdf"]
 let previewNames=["01-weight.png","02-pixels.png","03-documents.png"]
 
 func create(locale: String, caption: String, name: String, index: Int) throws {
     let primary = (locale == "ru")
-    let old = appRoot.appendingPathComponent("store-assets/appstore/" + (primary ? "iphone-6.9/" : "en/iphone-6.9/") + (primary ? (index == 2 ? "03-passport.png" : previewNames[index]) : previewNames[index]))
+    let old: URL
+    if index == 3 {
+        old = appRoot.appendingPathComponent("store-assets/appstore/aso/pdf-ui-" + (primary ? "ru" : "en") + ".png")
+    } else {
+        old = appRoot.appendingPathComponent("store-assets/appstore/" + (primary ? "iphone-6.9/" : "en/iphone-6.9/") + (primary ? (index == 2 ? "03-passport.png" : previewNames[index]) : previewNames[index]))
+    }
     guard let input = NSImage(contentsOf: old) else {throw NSError(domain:"Image",code:1,userInfo:[NSLocalizedDescriptionKey:"Missing "+old.path])}
     guard let bitmap=NSBitmapImageRep(bitmapDataPlanes:nil,pixelsWide:width,pixelsHigh:height,bitsPerSample:8,samplesPerPixel:4,hasAlpha:true,isPlanar:false,colorSpaceName:.calibratedRGB,bytesPerRow:0,bitsPerPixel:0) else {fatalError("Bitmap")}
     NSGraphicsContext.saveGraphicsState()
@@ -49,7 +54,7 @@ func create(locale: String, caption: String, name: String, index: Int) throws {
                 withAttributes:[.font:NSFont.systemFont(ofSize:40,weight:.medium),.foregroundColor:lavender])
     // Image region: only real app UI; bottom ad and footer are not used.
     let imageX:CGFloat=66, imageY:CGFloat=345, imageW:CGFloat=1188
-    let cutH:CGFloat = index == 2 ? 2000:1950
+    let cutH:CGFloat = index == 3 ? 1550 : (index == 2 ? 2000 : 1950)
     let imageH=cutH*(imageW/CGFloat(input.size.width))
     let shown=NSRect(x:imageX,y:imageY,width:imageW,height:imageH)
     NSGraphicsContext.current?.saveGraphicsState()
@@ -85,6 +90,6 @@ let requested = Array(CommandLine.arguments.dropFirst())
 var count=0
 for locale in localized.keys.sorted() where requested.isEmpty || requested.contains(locale) {
     guard let attrs=localized[locale],let titles=attrs["screenshots"] as? [String],let name=attrs["name"] as? String else{continue}
-    for i in 0..<3 {try create(locale:locale,caption:titles[i],name:name,index:i); count += 1}
+    for i in 0..<4 {try create(locale:locale,caption:titles[i],name:name,index:i); count += 1}
 }
 print("CREATED \(count) staged localized JPEG screenshots at \(destination.path) (not uploaded)")

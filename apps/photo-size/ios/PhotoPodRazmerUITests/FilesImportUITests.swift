@@ -3,6 +3,15 @@ import XCTest
 final class FilesImportUITests: XCTestCase {
     override func setUpWithError() throws {
         continueAfterFailure = false
+        #if targetEnvironment(simulator)
+        throw XCTSkip("Physical Files integration requires an image preloaded in Files Recents; simulator workflows are in WorkflowUITests.")
+        #endif
+    }
+
+    private func russianApp() -> XCUIApplication {
+        let app = XCUIApplication()
+        app.launchArguments = ["-AppleLanguages", "(ru)", "-AppleLocale", "ru_RU"]
+        return app
     }
 
     private func resolveAdConsentIfNeeded(_ app: XCUIApplication) {
@@ -13,7 +22,7 @@ final class FilesImportUITests: XCTestCase {
     }
 
     private func launchAndImportFirstRecentFile() throws -> XCUIApplication {
-        let app = XCUIApplication()
+        let app = russianApp()
         app.launch()
         resolveAdConsentIfNeeded(app)
 
@@ -89,7 +98,7 @@ final class FilesImportUITests: XCTestCase {
     }
 
     func testDocumentPrintSheetGenerated() throws {
-        let app = XCUIApplication()
+        let app = russianApp()
         app.launch()
         resolveAdConsentIfNeeded(app)
 
@@ -126,7 +135,7 @@ final class FilesImportUITests: XCTestCase {
 
 
     func testExactResizeAndAdvancedToggle() throws {
-        let app = XCUIApplication()
+        let app = russianApp()
         app.launch()
         resolveAdConsentIfNeeded(app)
 
@@ -184,19 +193,5 @@ private extension XCUIElement {
         typeText(text)
     }
 
-    func testBrowseFilesHierarchy() throws {
-        let app = XCUIApplication()
-        app.launch()
-        let filesButton = app.buttons["import-files-button"]
-        XCTAssertTrue(filesButton.waitForExistence(timeout: 8))
-        filesButton.tap()
-        let browse = app.buttons["Обзор"]
-        XCTAssertTrue(browse.waitForExistence(timeout: 8))
-        browse.tap()
-        sleep(2)
-        print("ARVECTUM_BROWSE_HIERARCHY_BEGIN")
-        print(app.debugDescription)
-        print("ARVECTUM_BROWSE_HIERARCHY_END")
-    }
 
 }

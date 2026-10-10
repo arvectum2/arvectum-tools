@@ -8,8 +8,8 @@
 
 - `metadata-2026-10-10.json`: 20 App Store **locales**, including market-adapted name, subtitle, promotional text, keywords, description, privacy-policy link and three screenshot headlines.
 - `validate.py`: validates every locale for limits (name/subtitle 30 chars, promotional text 170 chars, description 4000 chars, keywords **100 UTF-8 bytes**).
-- `generate_screenshots.swift`: renders **60 draft 1320×2868 JPEG screenshots** from actual app UI, replacing the top marketing headline without altering the UI; crops the original in-app ad content, includes real before/after evidence where available.
-- `store-assets/appstore/aso/<locale>/iphone-6.9/`: 3 localized frames per locale; only the largest iPhone size is prepared, which App Store Connect can scale down.
+- `generate_screenshots.swift`: renders **80 draft 1320×2868 JPEG screenshots** from actual app UI, replacing the top marketing headline without altering the UI; crops the original in-app ad content, includes real before/after evidence where available.
+- `store-assets/appstore/aso/<locale>/iphone-6.9/`: 4 localized frames per locale; only the largest iPhone size is prepared, which App Store Connect can scale down.
 - A companion website branch `feature/photo-size-global-seo` contains country-oriented landing pages and PDF intent pages. Nothing is deployed.
 
 ## Locales and initial rollout priorities
@@ -29,7 +29,7 @@
 | Cluster | Query/problem | Destination |
 |---|---|---|
 | Photo file-size constraints | photo to 100kb, compress photo to 1mb, reduce image file size | Name/subtitle/keywords + screenshot 1 |
-| PDF upload limits | compress pdf to 1mb, shrink pdf, pdf 500kb | Name + description + dedicated web pages; **new PDF screenshot needed** |
+| PDF upload limits | compress pdf to 1mb, shrink pdf, pdf 500kb | Name + description + dedicated web pages; **genuine PDF screenshot staged** |
 | Exact image dimensions | resize photo in pixels, image width height, jpg pixel size | Subtitle/keywords + screenshot 2 |
 | Document uploads | passport photo size, visa photo kb, photo for online form | Description + screenshot 3, no eligibility or acceptance guarantee |
 | Privacy | offline image compression, on-device pdf processing | Descriptions and localized website copy (clarify ads use internet) |
@@ -38,7 +38,7 @@ Apple search primarily uses **name, subtitle and keyword field**; promotional te
 
 ## Screenshot order and next design pass
 
-Current draft: 1) photo compressed to a specific KB target, 2) exact pixel dimensions, 3) document presets. Each uses an **actual screenshot**. The current first two sources show a before/after photo comparison. Do not present the draft as a finalized visual pack.
+Current draft: 1) photo compressed to a specific KB target, 2) exact pixel dimensions, 3) document presets, 4) genuine PDF result from the running simulator. Each uses an **actual screenshot**. The current first two sources show a before/after photo comparison. Do not present the draft as a finalized visual pack.
 
 **Before release after refactor, add a genuine PDF-mode screen** and test two first-screen sequences:
 - Set A: **Photo KB → PDF KB → Pixels → Documents**

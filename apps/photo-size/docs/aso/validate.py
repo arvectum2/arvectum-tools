@@ -12,6 +12,8 @@ for locale, a in data["localeData"].items():
         value = a[field]
         if not value.strip() or len(value) > limit:
             errors.append(f"{locale} {field}: {len(value)} chars (max {limit})")
+    if not a.get("whatsNew") or len(a["whatsNew"]) > 4000:
+        errors.append(f"{locale}: missing/too long release notes")
     terms = [t.strip() for t in a["keywords"].split(",")]
     if any(not t or " " in t.strip(" ") and t.strip() != t for t in terms):
         errors.append(f"{locale}: malformed keywords")
@@ -24,8 +26,8 @@ for locale, a in data["localeData"].items():
         a["keywords"] = ",".join(terms)
     if len(a["keywords"].encode("utf-8")) > 100:
         errors.append(f"{locale}: keywords {len(a['keywords'].encode('utf-8'))} bytes (max 100)")
-    if len(a["screenshots"]) != 3 or any(not s.strip() for s in a["screenshots"]):
-        errors.append(f"{locale}: expected 3 screenshot headings")
+    if len(a["screenshots"]) != 4 or any(not s.strip() for s in a["screenshots"]):
+        errors.append(f"{locale}: expected 4 screenshot headings")
     if a.get("privacyPolicyUrl") != "https://arvectum.com/photo-pod-razmer-privacy.html":
         errors.append(f"{locale}: invalid privacy link")
     print(f"{locale:6s} name={len(a['name']):2d} subtitle={len(a['subtitle']):2d} keywords={len(a['keywords'].encode('utf-8')):3d}B promo={len(a['promotionalText']):3d} desc={len(a['description']):4d}")
