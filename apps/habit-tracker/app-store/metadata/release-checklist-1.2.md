@@ -41,6 +41,6 @@
 - [x] Draft submission validated as READY_FOR_REVIEW.
 - [x] Review submission ID: `bee85780-2392-41ae-9bfa-1d0c9a2cbfcc`.
 - [x] Submitted to App Review.
-- [x] Current state: WAITING_FOR_REVIEW.
-- [ ] After Apple approval, manually release 1.2.
+- [x] Historic submission state: WAITING_FOR_REVIEW; release now published (owner-confirmed 2026-10-10).
+- [x] After Apple approval, manually release 1.2 (product owner confirmed published 2026-10-10).
 - [ ] After release, confirm the App Store page exposes the developer website and re-check Yandex app-ads.txt status.
