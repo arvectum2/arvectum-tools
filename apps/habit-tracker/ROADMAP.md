@@ -285,9 +285,9 @@ Physical validation on 2026-10-02 is green for the main single-device/Watch path
 - [x] Current release line retains the same SwiftData/CloudKit model; real 1.2→1.3 simulator upgrade exercised; new schema fixture not applicable until a schema is deliberately changed.
 
 ### Sprint D — monetization / release (priority P1)
-- [ ] Consider at most one native ad on Progress/Statistics after useful content, only after measuring retention impact of Today banner.
-- [ ] Validate three-day/five-launch/three-check-in thresholds with production behavior; no app-open or interstitial ads.
-- [ ] Verify advertising privacy manifests and App Store Privacy against the exact release IPA.
+- [x] Product decision: do NOT add a second native ad to Progress in 1.3 without retention evidence; track as postrelease/evidence-gated instead.
+- [x] Simulated threshold/boundary tests green; the already-shipped gate remains 3 days/5 cold launches/3 check-ins. [ ] Real-world ad fill/eligibility can only be observed on approved physical install; no extra ad slot.
+- [x] Local distribution-signed IPA, all 28 embedded third-party/first-party privacy manifests and vendor behavior documented in privacy-notes-1.3.md. [ ] Physical/runtime disclosure confirmation is the final device acceptance step.
 - [ ] Refresh RU/EN metadata and screenshots, archive smoke, CI and App Review checklist for next release.
 
 ### Later / evidence-gated (P2)
@@ -310,11 +310,15 @@ Physical validation on 2026-10-02 is green for the main single-device/Watch path
 - [x] Automated release hygiene, RU/EN/ES resource parity audit, 138 passing unit/integration tests and 4 passing key simulator UI cases; maximum Dynamic Type and contrast audited.
 - [x] Local unsigned 1.3.0 (build 5) Release archive smoke passed, including embedded iPhone widget/Watch/Watch widget and privacy manifests.
 - [x] Prior 1.2 simulator SwiftData data preserved across a non-destructive update; this is **not** the user's requested iPhone-to-simulator cloud convergence test.
-- [x] Typed goal mode, separated UI components, group KVS transport/merge ledger, and explicit architecture boundary document.
+- [x] Typed goal mode, separated UI components, group KVS transport/merge ledger, isolated SwiftData backup service and DEBUG-only fixture file, lazy-on-eligibility ad initialization, architecture boundary document.
+- [x] Full simulator regression: 140 unit/integration tests, 19 XCUITest cases (18 executed, 1 iOS27-only skip) — all passed; iOS signed development archive and Apple Distribution exported IPA built locally.
+- [x] Twelve App Store-sized regional PNGs generated and checked: iPhone 1320×2868, Watch 416×496, EN/RU/ES. No Apple upload.
+- [x] Exhaustive signed IPA static privacy audit: all four first-party components and 28 total first-/third-party manifests examined; tracking-capable AppMetrica manifest caveat documented. [ ] Last: actual SDK network/eligibility on approved physical iPhone.
 - [x] Draft next-version Store copy RU/EN/es-ES/es-MX; App Store Connect and TestFlight remain untouched.
 - [x] Nine raw iPhone 17 Pro simulator screenshots captured from real 1.3 UI: Today, history, Manage × EN/RU/ES, with no user data.
 - [x] Raw Apple Watch SE 3 screenshots for EN/RU/ES, from synthetic 3/5 preview.
-- [ ] Native editorial review of ES, **final App Store screenshot sizes/captions** for iPhone+Watch and any further evidence-backed localizations.
+- [x] App Store-oriented screenshots exported for EN/RU/ES (iPhone 1320×2868, Watch 416×496), with automated dimensional audit.
+- [ ] Final physical-device editorial review and App Store Connect screenshot acceptance at release; additional languages remain evidence-gated, not a V1.3 scope blocker.
 - [ ] Real production ad-fill/retention check before deciding on any new ad slot; no increase to ad exposure in this branch.
 - [ ] Release-IPA privacy/ad-SDK audit on the final signed binary, separate from unsigned local archive smoke.
 - [ ] **Last after everything else:** actual physical iPhone + simulator iCloud convergence, and paired Watch/physical-device regression (single iPhone; no need to acquire a second one if same-account simulator iCloud functionality is available).
@@ -334,7 +338,7 @@ Physical validation on 2026-10-02 is green for the main single-device/Watch path
 - [ ] Paired Watch physical smoke for partial progress, late/duplicate commands and widget behavior.
 - [x] Flexible weekly consistency (last 4/12 completed weeks) and rolling 30/90-day interval occurrence/mean-gap insights, with dedicated calendar/DST tests.
 - [ ] Validate full import/export and 1.2→1.3 upgrade against real-device persistent data with an explicit non-destructive smoke procedure.
-- [ ] Check retention and actual ad eligibility before any Progress/native ad decision.
+- [x] Deferred additional ad placement until postrelease evidence; no added Progress/native ad in this 1.3 branch. [ ] Physical runtime check of existing banner only at final QA.
 - [x] Initial post-feature localization: all app + Watch/widget + Shortcuts strings translated into Spanish (172 iOS keys), and es-ES/es-MX ASO drafts prepared. [ ] Localization to further priority markets and human review/screenshot capture.
 - [x] Initial modular refactor: typed HabitGoalMode adapter centralizes published integer storage compatibility; Today UI subviews extracted into TodayComponents.swift. [ ] Complete dependency-oriented module split and characterization testing before release.
 - [ ] LAST STEP ONLY: signed-device QA, CloudKit + group iCloud KVS convergence on one authorized physical iPhone plus a simulator, final privacy/ads review and explicit owner release approval. No upload.
@@ -353,3 +357,12 @@ Execution order (each stage must pass build/tests and be reviewed before advanci
 4. **Pre-release stabilization:** clean builds (Debug+Release), full unit/UI suite, Watch pairing/reconnect tests, CloudKit data-preservation upgrade tests, privacy/ads audit, device smoke tests and App Store metadata review. **Do not ship** without separate approval.
 
 Progress note (2026-10-10): implementation is direct ChatGPT + RDC + Xcode (no external coding agent). New features and the simulator regression/unsigned archive smoke are green; the final signed binary, localized screenshots, production ads evidence and cross-device convergence are **not** signed off. The 1.2 App Store release remains untouched.
+
+## 1.3 final non-device acceptance — 2026-10-10
+
+- [x] 140 unit/integration tests + 19 UI cases, 18 executed, 1 platform-specific skip, **0 failures**.
+- [x] Code refactor merged into the isolated ChickMark branch; no published data-schema change.
+- [x] 12 store-sized RU/EN/ES screenshots validated with local automated audit.
+- [x] One and only one existing Today ad: `R-M-20183085-1`; ad SDK starts only after the gate in 1.3. Extra placements deferred, not blockers.
+- [x] **Distribution-signed 1.3.0 (5) IPA exported locally**, validated `codesign`, all four bundles and 28 embedded privacy manifests. SHA-256: `5513fb3db900f9c7eaa11558621caaadb313e79f40c0249cd9f29c6ddbbf1fa5`.
+- [ ] **Only remaining technical validation:** paired physical iPhone/Watch plus an authorized iOS simulator (same iCloud account), non-destructive data/sync/notification/ads/privacy smoke. Separate explicit owner release approval also required. No upload.

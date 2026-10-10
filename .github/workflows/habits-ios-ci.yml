@@ -41,6 +41,9 @@ jobs:
       - name: Localization argument and resource audit
         run: python3 scripts/localization_audit.py
 
+      - name: Localized App Store assets
+        run: python3 scripts/audit_store_assets.py
+
       - name: Generate project
         run: xcodegen generate
 
