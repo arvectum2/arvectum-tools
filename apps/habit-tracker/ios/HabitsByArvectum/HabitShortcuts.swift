@@ -39,6 +39,19 @@ struct HabitShortcutQuery: EntityStringQuery {
     func entities(
         matching string: String
     ) async throws -> [HabitShortcutEntity] {
+        HabitShortcutBridge.filterEntities(
+            HabitShortcutBridge.currentEntities(), matching: string
+        )
+    }
+}
+
+enum HabitShortcutBridge {
+    // Pure filter: App Intents can resolve entities in a separate actor/process.
+    // Keeping search independent of shared UserDefaults makes its behavior
+    // testable without relying on App Intents runtime lifecycle.
+    static func filterEntities(
+        _ entities: [HabitShortcutEntity], matching string: String
+    ) -> [HabitShortcutEntity] {
         let query = string.trimmingCharacters(
             in: .whitespacesAndNewlines
         )
@@ -59,9 +72,7 @@ struct HabitShortcutQuery: EntityStringQuery {
             return lhsIndex < rhsIndex
         }
     }
-}
 
-enum HabitShortcutBridge {
     static func currentEntities(
         now: Date = .now,
         calendar: Calendar = .autoupdatingCurrent

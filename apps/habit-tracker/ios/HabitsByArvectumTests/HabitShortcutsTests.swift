@@ -129,9 +129,14 @@ final class HabitShortcutsTests: XCTestCase {
             )
         )
 
-        let result = try await HabitShortcutQuery().entities(
-            matching: "reading"
-        )
+        // App Intents can execute its query in a different runtime context on
+        // hosted simulators. Verify the same pure search logic with explicit
+        // seeded entities rather than a process-global UserDefaults override.
+        let entries = [
+            HabitShortcutEntity(id: first, name: "Reading", symbolName: "book.fill"),
+            HabitShortcutEntity(id: second, name: "Evening Reading", symbolName: "moon.fill")
+        ]
+        let result = HabitShortcutBridge.filterEntities(entries, matching: "reading")
 
         XCTAssertEqual(result.map(\.id), [first, second])
     }
