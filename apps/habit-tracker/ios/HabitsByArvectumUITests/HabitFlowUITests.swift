@@ -549,6 +549,7 @@ final class HabitFlowUITests: XCTestCase {
         try auditCurrentScreen("create")
     }
 
+#if compiler(>=6.4)
     @MainActor
     func testVoiceOverCoreNavigationOnIOS27() throws {
         guard #available(iOS 27.0, *) else {
@@ -622,6 +623,11 @@ final class HabitFlowUITests: XCTestCase {
             }
         )
     }
+#else
+    func testVoiceOverCoreNavigationOnIOS27() throws {
+        throw XCTSkip("XCUIVoiceOverService requires Xcode 27 / Swift 6.4")
+    }
+#endif
 
     private func auditCurrentScreen(_ surface: String) throws {
         let auditTypes: XCUIAccessibilityAuditType = [
@@ -658,6 +664,7 @@ final class HabitFlowUITests: XCTestCase {
         }
     }
 
+#if compiler(>=6.4)
     @MainActor
     @available(iOS 27.0, *)
     private func voiceOverUtterances(
@@ -677,6 +684,8 @@ final class HabitFlowUITests: XCTestCase {
         }
         return utterances
     }
+
+#endif
 
     private func assertVoiceOverSequence(
         _ utterances: [String],
