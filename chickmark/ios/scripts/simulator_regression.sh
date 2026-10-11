@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-ROOT="$(cd "$(dirname "$0")/../../../.." && pwd)"
+ROOT="$(git -C "$(dirname "$0")" rev-parse --show-toplevel)"
 IOS_DIR="$ROOT/chickmark/ios"
 PROJECT="$IOS_DIR/HabitsByArvectumIOS.xcodeproj"
 SCHEME="HabitsByArvectum"
