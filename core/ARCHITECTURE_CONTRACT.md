@@ -32,7 +32,7 @@ Root may contain only repository metadata, `LICENSE` and `README.md`.
 - `main` in `ArvectumSSD/Arvectum/repos/arvectum-tools` is the canonical integration branch and contains all seven domains.
 - Start an independent task with a branch from the current `main`: `feature/<domain>-<goal>`, `fix/<domain>-<issue>`, `refactor/<domain>-<scope>`, or `release/<domain>-<version>`. Names should describe real, bounded work, not indefinite ownership.
 - When work proceeds in parallel or requires an isolated build, attach the branch as a Git worktree under `ArvectumSSD/Arvectum/worktrees/<domain>-<goal>`. All such worktrees share the **same** canonical Git object database.
-- Existing active `feature/what` and `feature/chickmark-multicheck` are grandfathered in until their respective changes are integrated. They are not additional canonical repositories.
+- Legacy task branches are retired after their contents are integrated (What? and ChickMark merged on 2026-10-11); a branch is not an independent canonical repository.
 - An inactive domain (including Core, Growth, Pushkin, Photo/PDF and Where?) needs **no dedicated branch or worktree**. Create them when a concrete implementation task begins.
 - Keep the branch's changes scoped to its owning domain plus necessary `core/` interfaces or CI changes. Cross-domain changes require explicitly documented coordination and per-domain validation.
 - Before integration: sync with `main`, run architecture validation, run relevant build/tests, review the diff and release impact; merge through reviewed PR or equivalent documented review.

@@ -40,4 +40,4 @@ Sync design: [SYNC_DESIGN.md](SYNC_DESIGN.md).
 
 ## Unreleased 1.3 development
 
-The branch `feature/chickmark-multicheck` contains work-in-progress features, **not an App Store release**. Legacy recurrence, CloudKit schema, Watch and widget identities remain unchanged. New count/duration modes store a stable step count using the published habit and check-in models. Do not ship until full Watch/device, accessibility, migration and regression validation plus final localization/refactor. Details: [ROADMAP.md](ROADMAP.md).
+The former branch `feature/chickmark-multicheck` has been integrated into canonical `main`; these source changes **do not constitute a new App Store release**. Legacy recurrence, CloudKit schema, Watch and widget identities remain unchanged. New count/duration modes store a stable step count using the published habit and check-in models. Do not ship until full Watch/device, accessibility, migration and regression validation plus final localization/refactor. Details: [ROADMAP.md](ROADMAP.md).

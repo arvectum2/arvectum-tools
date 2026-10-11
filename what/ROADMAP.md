@@ -1,13 +1,13 @@
 # What? — Product Roadmap
 
 **Updated:** 2026-10-11
-**Status:** active development in `feature/what`; not released.
-**Evidence:** [feature-branch roadmap snapshot](docs/history/ROADMAP-feature-what-2026-10-11.md).
+**Status:** P0 engineering source integrated into canonical `main` on 2026-10-11; **not released**. Real-device reliability acceptance remains open.
+**Evidence:** [historical feature-branch roadmap snapshot](docs/history/ROADMAP-feature-what-2026-10-11.md).
 **Shared principles:** [Core](../core/CORE_PRINCIPLES.md); **Growth:** [Growth](../growth/ROADMAP.md).
 
 ## P0 — Reliable Apple Watch capture
-- [x] Watch recording, UUID/time, durable local queue, opportunistic transfer to iPhone, ACK and deduplication (implemented in feature branch).
-- [x] Watch-face entry point and immediate recording UX (feature-branch implementation).
+- [x] Watch recording, UUID/time, durable local queue, opportunistic transfer to iPhone, ACK and deduplication (implemented in `main`).
+- [x] Watch-face entry point and immediate recording UX (source integrated into `main`).
 - [ ] Complete remaining disconnected-device, multiple-pending-recording and device-reboot acceptance cases.
 - [ ] Reconcile final physical test evidence and prove no recorded thought is lost.
 
