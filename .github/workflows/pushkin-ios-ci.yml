@@ -5,13 +5,13 @@ on:
     branches:
       - '**'
     paths:
-      - 'apps/pushkin/ios/**'
-      - 'packages/**'
+      - 'pushkin/ios/**'
+      - 'core/packages/**'
       - '.github/workflows/pushkin-ios-ci.yml'
   pull_request:
     paths:
-      - 'apps/pushkin/ios/**'
-      - 'packages/**'
+      - 'pushkin/ios/**'
+      - 'core/packages/**'
       - '.github/workflows/pushkin-ios-ci.yml'
   workflow_dispatch:
 
@@ -27,7 +27,7 @@ jobs:
     runs-on: xcode-27
     defaults:
       run:
-        working-directory: apps/pushkin/ios
+        working-directory: pushkin/ios
 
     steps:
       - uses: actions/checkout@v7

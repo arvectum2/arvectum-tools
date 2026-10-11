@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "sources": [
+    {
+      "id": "reddit-photo-weight",
+      "app": "photo-size",
+      "channel": "reddit",
+      "queries": [
+        "site:reddit.com/r/iphone reduce image file size iphone KB MB",
+        "site:reddit.com/r/ios compress photo under 1 MB iphone"
+      ],
+      "intents": [
+        "reduce_file_size"
+      ],
+      "enabled": true
+    },
+    {
+      "id": "reddit-photo-pixels",
+      "app": "photo-size",
+      "channel": "reddit",
+      "queries": [
+        "site:reddit.com/r/iphone resize image pixels iphone",
+        "site:reddit.com/r/ios exact pixel image resize"
+      ],
+      "intents": [
+        "resize_pixels"
+      ],
+      "enabled": true
+    },
+    {
+      "id": "web-photo-search",
+      "app": "photo-size",
+      "channel": "web_search",
+      "queries": [
+        "how to reduce photo to 500 KB iPhone",
+        "how to resize image pixels iPhone"
+      ],
+      "intents": [
+        "reduce_file_size",
+        "resize_pixels"
+      ],
+      "enabled": true
+    },
+    {
+      "id": "reddit-pushkin",
+      "app": "pushkin",
+      "channel": "reddit",
+      "queries": [
+        "site:reddit.com/r/iphone notification history dismissed notifications",
+        "site:reddit.com/r/ios see old notifications iphone"
+      ],
+      "intents": [
+        "notification_history"
+      ],
+      "enabled": true
+    },
+    {
+      "id": "web-pushkin",
+      "app": "pushkin",
+      "channel": "web_search",
+      "queries": [
+        "iPhone notification history dismissed notifications"
+      ],
+      "intents": [
+        "notification_history"
+      ],
+      "enabled": true
+    },
+    {
+      "id": "reddit-chickmark",
+      "app": "chickmark",
+      "channel": "reddit",
+      "queries": [
+        "site:reddit.com habit tracker simple free app iPhone",
+        "site:reddit.com/r/productivity habit tracker app"
+      ],
+      "intents": [
+        "habit_tracking"
+      ],
+      "enabled": true
+    }
+  ]
+}

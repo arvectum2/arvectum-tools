@@ -5,13 +5,13 @@ on:
     branches:
       - '**'
     paths:
-      - 'apps/photo-size/android/**'
-      - 'packages/**'
+      - 'photo-pdf-to-size/android/**'
+      - 'core/packages/**'
       - '.github/workflows/photo-size-android-ci.yml'
   pull_request:
     paths:
-      - 'apps/photo-size/android/**'
-      - 'packages/**'
+      - 'photo-pdf-to-size/android/**'
+      - 'core/packages/**'
       - '.github/workflows/photo-size-android-ci.yml'
   workflow_dispatch:
 
@@ -27,7 +27,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: apps/photo-size/android
+        working-directory: photo-pdf-to-size/android
 
     steps:
       - uses: actions/checkout@v7
