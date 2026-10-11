@@ -19,8 +19,10 @@
 ## Release 1.0.0 — completed distribution gate
 - [x] Submitted to App Review on 2026-10-10 (product owner confirmation).
 - [x] Passed App Review on 2026-10-11 (product owner confirmation).
-- [x] Published and publicly accessible on App Store (product owner and public listing).
-- [ ] Retrieve App Store Connect version/build number, review events and exact uploaded build provenance when access to Safari's authenticated session works.
+- [x] App Store Connect dashboard verified on 2026-10-11: `Фото и PDF под размер`, iOS `1.0.0`, status `Ready for Distribution` (authenticated Safari visual verification, Mac mini).
+- [x] Publication confirmed by product owner on 2026-10-11.
+- [ ] Verify propagation of public storefront metadata: Apple iTunes lookup (RU) still returned `0.6.2` on 2026-10-11, despite App Store Connect showing `1.0.0 Ready for Distribution`.
+- [ ] Open App Store Connect version detail to obtain exact build number, review events and uploaded build provenance; dashboard status alone does not disclose build number. Safari GUI read is available via screenshot, but scripted navigation is waiting for explicit macOS screen/control permission.
 - [ ] Align release tag and the checked-in iOS `MARKETING_VERSION` with the archived shipping source **only after** verifying the exact build; the default branch currently declares `0.6.0 (8)`.
 
 ## Next: post-release QA and maintenance
