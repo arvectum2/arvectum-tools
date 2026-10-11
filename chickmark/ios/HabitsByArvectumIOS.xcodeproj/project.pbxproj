@@ -65,6 +65,7 @@
 		8A60C3F268C4CA2FD69743D8 /* WatchComplicationBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306AEBE034C4BC280E31DEDD /* WatchComplicationBridge.swift */; };
 		8B9BAC9B835155E06070386C /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = AA2E40BCDDCC905918C98541 /* PrivacyInfo.xcprivacy */; };
 		8C1082897CFCCB0E76326557 /* HabitDayMutationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82B9DF70810EAB9A7DEB5AA0 /* HabitDayMutationTests.swift */; };
+		9334E028EE5B0B97273BDA2D /* ArvectumDiagnostics.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5D09BA90027D7127F9F787 /* ArvectumDiagnostics.swift */; };
 		9395B98E2BB2148C7ED4DFDB /* HabitAdEligibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2276181F533EA10AF63DBC16 /* HabitAdEligibility.swift */; };
 		965A9325AE3E65A61E4B4131 /* HabitsByArvectumWatchWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 9587A52E9C895271311C6192 /* HabitsByArvectumWatchWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		972029E84B175A37E1DD9ABD /* LocalizationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5250B761AAD16F97821D84C /* LocalizationTests.swift */; };
@@ -282,6 +283,7 @@
 		B753E63175CB5EEDE896FC81 /* AddOneOffReminderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddOneOffReminderView.swift; sourceTree = "<group>"; };
 		B8B07C7DF19BB6B0DBBDDFC4 /* PersistenceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceTests.swift; sourceTree = "<group>"; };
 		BA3E55BECC8C7492F385C8C3 /* CompletionUndoToast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionUndoToast.swift; sourceTree = "<group>"; };
+		BB5D09BA90027D7127F9F787 /* ArvectumDiagnostics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArvectumDiagnostics.swift; sourceTree = "<group>"; };
 		BC06E451223241CEB808237F /* ChickMarkGroupCloudSyncTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChickMarkGroupCloudSyncTests.swift; sourceTree = "<group>"; };
 		BD6A6372FD496E67ACCC6E83 /* HabitsByArvectumUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = HabitsByArvectumUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C29378A3FF6234A0F18F3D46 /* WatchHabitSyncStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchHabitSyncStore.swift; sourceTree = "<group>"; };
@@ -343,6 +345,14 @@
 			path = ArvectumDesignTokens;
 			sourceTree = "<group>";
 		};
+		27BA44CA6BF46120D4F242FA /* ArvectumDiagnostics */ = {
+			isa = PBXGroup;
+			children = (
+				BB5D09BA90027D7127F9F787 /* ArvectumDiagnostics.swift */,
+			);
+			path = ArvectumDiagnostics;
+			sourceTree = "<group>";
+		};
 		2F37CA1A8EDC42EA04729045 /* ArvectumPersistence */ = {
 			isa = PBXGroup;
 			children = (
@@ -382,6 +392,7 @@
 			isa = PBXGroup;
 			children = (
 				24E216270EA70DB6C4D8A56F /* ArvectumDesignTokens */,
+				27BA44CA6BF46120D4F242FA /* ArvectumDiagnostics */,
 				2F37CA1A8EDC42EA04729045 /* ArvectumPersistence */,
 			);
 			path = packages;
@@ -874,6 +885,7 @@
 			files = (
 				72E4414F55DBE7D5F39A4A88 /* AddHabitView.swift in Sources */,
 				889C5E9123BF4FA7A4E05F92 /* AddOneOffReminderView.swift in Sources */,
+				9334E028EE5B0B97273BDA2D /* ArvectumDiagnostics.swift in Sources */,
 				70B59937C8FE86B8DEF22A8A /* ArvectumJSONCodec.swift in Sources */,
 				E1F3C4430F5E2A8E0A686C63 /* ArvectumPalette.swift in Sources */,
 				0528F2618E7B149EAD086446 /* ChickMarkBackup.swift in Sources */,

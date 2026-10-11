@@ -167,7 +167,10 @@ final class WatchCaptureController: NSObject, ObservableObject, AVAudioRecorderD
     private func failRecordingStart(_ error: Error, fileURL: URL) {
         try? fileManager.removeItem(at: fileURL)
         let message = (error as NSError).localizedDescription
-        print("What? recording start failed: \(error)")
+        ArvectumDiagnostics.failure(
+            subsystem: "ru.arvectum.tools.what.watch",
+            category: "capture", operation: "start", code: "recorder-start-failed"
+        )
         state = .error("Start failed: \(message)")
         WKInterfaceDevice.current().play(.failure)
     }

@@ -63,6 +63,7 @@ targets:
     platform: watchOS
     deploymentTarget: "10.0"
     sources:
+      - path: ../../core/packages/ArvectumDiagnostics/ArvectumDiagnostics.swift
       - path: Shared
       - path: WhatWatch
     info:

@@ -127,8 +127,16 @@ struct ChickMarkBackupDocument: FileDocument {
         guard let data = configuration.file.regularFileContents else {
             throw BackupError.unreadableDocument
         }
-        backup = try JSONDecoder().decode(ChickMarkBackup.self, from: data)
-        try backup.validate()
+        do {
+            backup = try JSONDecoder().decode(ChickMarkBackup.self, from: data)
+            try backup.validate()
+        } catch {
+            ArvectumDiagnostics.failure(
+                subsystem: "ru.arvectum.tools.habits",
+                category: "backup", operation: "import", code: "invalid-backup"
+            )
+            throw error
+        }
     }
 
     func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {

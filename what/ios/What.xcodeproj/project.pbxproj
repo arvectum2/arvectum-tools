@@ -13,6 +13,7 @@
 		23C3DC142A5320642976B51C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F5BECCDE1474FF547D4DDE /* ContentView.swift */; };
 		2A8F5E422C6CA0E9AC0E6C5A /* WhatWatchComplication.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 30A158E04405BA04A51B6785 /* WhatWatchComplication.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		39D726A0F9A6E5ADA4DBEA21 /* WhatComplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D1A5C9E79CC4A544374E3E /* WhatComplication.swift */; };
+		4563F6DDAE952A234EB4D38C /* ArvectumDiagnostics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DD7CFAD66E2AE8EE31DCBB3 /* ArvectumDiagnostics.swift */; };
 		503FAB8870D0044EF3463F4D /* RecordingEnvelope.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C9581F753BED275286D623 /* RecordingEnvelope.swift */; };
 		5FD6CC8F92C1295674F2E5A7 /* ArvectumJSONCodec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDBB652E6AE51553238F6F4 /* ArvectumJSONCodec.swift */; };
 		62F51A03CFB1699B97BE45DA /* RecordingRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CA5B4FD3F49550A3BF2B59 /* RecordingRepository.swift */; };
@@ -78,6 +79,7 @@
 		1D0B51DE0971B320ECF3899E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		27F5BECCDE1474FF547D4DDE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		28C9581F753BED275286D623 /* RecordingEnvelope.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingEnvelope.swift; sourceTree = "<group>"; };
+		2DD7CFAD66E2AE8EE31DCBB3 /* ArvectumDiagnostics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArvectumDiagnostics.swift; sourceTree = "<group>"; };
 		30A158E04405BA04A51B6785 /* WhatWatchComplication.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = WhatWatchComplication.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		332992BFC549A47C6A09D096 /* WhatIOSTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = WhatIOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3420DB5CB8958565C9B8B79E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -153,6 +155,14 @@
 			path = Shared;
 			sourceTree = "<group>";
 		};
+		3EBC3F3A969E1AE84E6E5F52 /* ArvectumDiagnostics */ = {
+			isa = PBXGroup;
+			children = (
+				2DD7CFAD66E2AE8EE31DCBB3 /* ArvectumDiagnostics.swift */,
+			);
+			path = ArvectumDiagnostics;
+			sourceTree = "<group>";
+		};
 		4BBCCB53865CEEB047835542 = {
 			isa = PBXGroup;
 			children = (
@@ -197,6 +207,7 @@
 		C3F1B1C47BEAD6651E1F6223 /* packages */ = {
 			isa = PBXGroup;
 			children = (
+				3EBC3F3A969E1AE84E6E5F52 /* ArvectumDiagnostics */,
 				27216B0F2D38A469857B18A6 /* ArvectumPersistence */,
 			);
 			path = packages;
@@ -332,6 +343,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4563F6DDAE952A234EB4D38C /* ArvectumDiagnostics.swift in Sources */,
 				686DBE4CA2BBE32B81849C8A /* CaptureView.swift in Sources */,
 				930D8453C63A2A36CD2B7018 /* RecordingEnvelope.swift in Sources */,
 				D2034C64118475AFC5F8A80C /* WatchCaptureController.swift in Sources */,

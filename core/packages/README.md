@@ -24,3 +24,5 @@ Small duplication is preferred over a premature abstraction.
 These are candidates, not pre-approved frameworks.
 
 [ArvectumPersistence](ArvectumPersistence/README.md) — shared wire-compatible JSON codec for ChickMark and What?.
+
+[ArvectumDiagnostics](ArvectumDiagnostics/README.md) — private-by-default local OSLog failures.
