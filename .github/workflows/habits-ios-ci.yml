@@ -6,12 +6,12 @@ on:
       - '**'
     paths:
       - 'chickmark/ios/**'
-      - 'packages/**'
+      - 'core/packages/**'
       - '.github/workflows/habits-ios-ci.yml'
   pull_request:
     paths:
       - 'chickmark/ios/**'
-      - 'packages/**'
+      - 'core/packages/**'
       - '.github/workflows/habits-ios-ci.yml'
   workflow_dispatch:
 

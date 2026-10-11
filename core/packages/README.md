@@ -26,3 +26,5 @@ These are candidates, not pre-approved frameworks.
 [ArvectumPersistence](ArvectumPersistence/README.md) — shared wire-compatible JSON codec for ChickMark and What?.
 
 [ArvectumDiagnostics](ArvectumDiagnostics/README.md) — private-by-default local OSLog failures.
+
+**Core test gate:** run `cd core && swift test`. The [Core CI](../../.github/workflows/core-ci.yml) builds all four iOS apps when shared sources change.

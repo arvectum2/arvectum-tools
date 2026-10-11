@@ -1,0 +1,42 @@
+name: Core modules and consumers
+on:
+  push:
+    branches: ['**']
+    paths: ['core/packages/**', 'core/Package.swift', 'core/tests/**', '.github/workflows/core-ci.yml']
+  pull_request:
+    paths: ['core/packages/**', 'core/Package.swift', 'core/tests/**', '.github/workflows/core-ci.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  core-tests:
+    runs-on: xcode-27
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v7
+      - name: Run Core Swift tests
+        working-directory: core
+        run: swift test
+  consumers:
+    needs: core-tests
+    runs-on: xcode-27
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - {app: chickmark, project: HabitsByArvectumIOS, scheme: HabitsByArvectum}
+          - {app: pushkin, project: ArvectumNotifyIOS, scheme: ArvectumNotify}
+          - {app: photo-pdf-to-size, project: PhotoPodRazmerIOS, scheme: PhotoPodRazmer}
+          - {app: what, project: What, scheme: WhatIOS}
+    steps:
+      - uses: actions/checkout@v7
+      - name: Install XcodeGen
+        run: brew install xcodegen
+      - name: Generate product project
+        working-directory: ${{ matrix.app }}/ios
+        run: xcodegen generate
+      - name: Build product consumer
+        working-directory: ${{ matrix.app }}/ios
+        run: |
+          xcodebuild -project '${{ matrix.project }}.xcodeproj' -scheme '${{ matrix.scheme }}' -destination 'generic/platform=iOS Simulator' -jobs 2 CODE_SIGNING_ALLOWED=NO COMPILER_INDEX_STORE_ENABLE=NO build
