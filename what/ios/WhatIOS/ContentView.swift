@@ -20,6 +20,17 @@ struct ContentView: View {
                 }
             }
             .navigationTitle("What?")
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Picker("Speech language", selection: $store.transcriptionLocale) {
+                        Text("Русский").tag("ru-RU")
+                        Text("English").tag("en-US")
+                        Text("Español").tag("es-ES")
+                    }
+                    .pickerStyle(.menu)
+                    .accessibilityLabel("Transcription language")
+                }
+            }
             .tint(Color(red: 67 / 255, green: 229 / 255, blue: 197 / 255))
             .alert("What?", isPresented: Binding(
                 get: { store.errorMessage != nil },
@@ -56,7 +67,7 @@ struct ContentView: View {
                 Button {
                     store.transcribe(recording)
                 } label: {
-                    Label(store.transcribingID == recording.id ? "Transcribing…" : "Transcribe",
+                    Label(store.transcribingID == recording.id ? "Transcribing…" : (store.transcripts[recording.id] == nil ? "Transcribe" : "Retry transcription"),
                           systemImage: "text.bubble")
                 }
                 .disabled(!store.isAudioAvailable(recording) || store.transcribingID != nil)

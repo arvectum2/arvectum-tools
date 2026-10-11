@@ -10,6 +10,9 @@ final class PhoneStore: NSObject, ObservableObject, AVAudioPlayerDelegate {
     @Published private(set) var transcribingID: UUID?
     @Published private(set) var transcripts: [UUID: String] = [:]
     @Published var errorMessage: String?
+    @Published var transcriptionLocale = UserDefaults.standard.string(forKey: "what.transcription.locale") ?? "ru-RU" {
+        didSet { UserDefaults.standard.set(transcriptionLocale, forKey: "what.transcription.locale") }
+    }
 
     private let repository: RecordingRepository
     private var player: AVAudioPlayer?
@@ -89,11 +92,11 @@ final class PhoneStore: NSObject, ObservableObject, AVAudioPlayerDelegate {
 
     private func beginTranscription(_ recording: RecordingEnvelope) {
         // Only on-device recognition: never silently upload private recordings.
-        let recognizer = SFSpeechRecognizer(locale: Locale.current)
-            ?? SFSpeechRecognizer(locale: Locale(identifier: "en-US"))
-        guard let recognizer, recognizer.supportsOnDeviceRecognition else {
+        guard let recognizer = SFSpeechRecognizer(locale: Locale(identifier: transcriptionLocale)),
+              recognizer.supportsOnDeviceRecognition,
+              recognizer.isAvailable else {
             transcribingID = nil
-            errorMessage = "On-device speech recognition is unavailable for this language."
+            errorMessage = "On-device speech recognition is unavailable for the selected language. Choose another language or check installed speech recognition support in iOS Settings."
             return
         }
         self.recognizer = recognizer
@@ -105,6 +108,13 @@ final class PhoneStore: NSObject, ObservableObject, AVAudioPlayerDelegate {
                 guard let self, self.transcribingID == recording.id else { return }
                 if let result, result.isFinal {
                     let text = result.bestTranscription.formattedString
+                    guard !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+                        self.errorMessage = "Speech was not detected. Try another recording or language."
+                        self.transcribingID = nil
+                        self.recognitionTask = nil
+                        self.recognizer = nil
+                        return
+                    }
                     do {
                         try self.repository.saveTranscript(text, for: recording.id)
                         self.transcripts[recording.id] = text
