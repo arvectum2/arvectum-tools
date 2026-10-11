@@ -29,6 +29,7 @@ targets:
         CFBundleShortVersionString: "$(MARKETING_VERSION)"
         CFBundleVersion: "$(CURRENT_PROJECT_VERSION)"
         LSApplicationCategoryType: public.app-category.productivity
+        NSSpeechRecognitionUsageDescription: "Transcribe your saved voice recordings on this iPhone using on-device speech recognition."
         ITSAppUsesNonExemptEncryption: false
         UILaunchScreen: {}
     settings:

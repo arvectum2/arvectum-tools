@@ -20,6 +20,14 @@ final class RecordingRepositoryTests: XCTestCase {
         XCTAssertEqual(recovered[0].id, recording.id)
     }
 
+    func testTranscriptPersisted() throws {
+        let root = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+        defer { try? FileManager.default.removeItem(at: root) }
+        let id = UUID()
+        try RecordingRepository(rootURL: root).saveTranscript("Test transcript", for: id)
+        XCTAssertEqual(RecordingRepository(rootURL: root).transcripts()[id], "Test transcript")
+    }
+
     func testDuplicateDeliveryCreatesOneRecording() throws {
         let root = FileManager.default.temporaryDirectory
             .appendingPathComponent("what-tests-\(UUID().uuidString)", isDirectory: true)

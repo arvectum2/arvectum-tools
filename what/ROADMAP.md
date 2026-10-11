@@ -1,7 +1,7 @@
 # What? — Product Roadmap
 
 **Updated:** 2026-10-11
-**Status:** P0 engineering source integrated into canonical `main` on 2026-10-11; **not released**. Real-device reliability acceptance remains open.
+**Status:** P0 + initial iPhone playback/on-device transcription implementation on 2026-10-11; **not released to App Store**. Local developer build installed on paired physical iPhone after backing up all 7 existing recordings; manual playback and transcription acceptance still open.
 **Evidence:** [historical feature-branch roadmap snapshot](docs/history/ROADMAP-feature-what-2026-10-11.md).
 **Shared principles:** [Core](../core/CORE_PRINCIPLES.md); **Growth:** [Growth](../growth/ROADMAP.md).
 
@@ -12,11 +12,12 @@
 - [ ] Reconcile final physical test evidence and prove no recorded thought is lost.
 
 ## P1 — Voice + text
-- [ ] Preserve original audio as source of truth.
-- [ ] Add retryable on-device transcription, playback, transcript corrections and timestamps.
+- [x] Preserve original audio as source of truth; transcript stored separately by recording UUID.
+- [x] Add on-device Speech transcription (explicit permission; no cloud fallback), local text persistence, and play/stop controls.
+- [ ] Verify playback and actual Speech recognition of existing audio on physical iPhone; add language selection, retry/cancel controls and transcript corrections.
 
 ## P2 — iPhone inbox
-- [ ] Today/Yesterday views, playback, search, archive/delete and sync status.
+- [ ] Today/Yesterday grouping, search, archive/delete and sync status; playback available in initial list.
 
 ## P3 — Apple Notes / Shortcuts
 - [ ] Export and optional system integration without depending on cloud.

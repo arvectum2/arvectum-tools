@@ -7,6 +7,7 @@ final class RecordingRepository {
     private let rootURL: URL
     private let audioDirectory: URL
     private let indexURL: URL
+    private let transcriptURL: URL
     private let lock = NSLock()
 
     init(rootURL: URL? = nil, fileManager: FileManager = .default) {
@@ -19,6 +20,7 @@ final class RecordingRepository {
         }
         audioDirectory = self.rootURL.appendingPathComponent("Audio", isDirectory: true)
         indexURL = self.rootURL.appendingPathComponent("recordings.json")
+        transcriptURL = self.rootURL.appendingPathComponent("transcripts.json")
         try? fileManager.createDirectory(at: audioDirectory, withIntermediateDirectories: true)
     }
 
@@ -65,6 +67,33 @@ final class RecordingRepository {
         index.append(recording)
         try persistIndex(index)
         return recording
+    }
+
+    func audioExists(for recording: RecordingEnvelope) -> Bool {
+        fileManager.fileExists(atPath: audioURL(for: recording).path)
+    }
+
+    func transcripts() -> [UUID: String] {
+        lock.lock()
+        defer { lock.unlock() }
+        guard let data = try? Data(contentsOf: transcriptURL),
+              let decoded = try? ArvectumJSONCodec.decode([String: String].self, from: data)
+        else { return [:] }
+        return Dictionary(uniqueKeysWithValues: decoded.compactMap { key, value in
+            guard let id = UUID(uuidString: key) else { return nil }
+            return (id, value)
+        })
+    }
+
+    func saveTranscript(_ text: String, for id: UUID) throws {
+        lock.lock()
+        defer { lock.unlock() }
+        var existing: [String: String] = [:]
+        if let data = try? Data(contentsOf: transcriptURL) {
+            existing = (try? ArvectumJSONCodec.decode([String: String].self, from: data)) ?? [:]
+        }
+        existing[id.uuidString] = text
+        try ArvectumJSONCodec.encode(existing).write(to: transcriptURL, options: .atomic)
     }
 
     private func persistIncomingFile(from sourceURL: URL, to destination: URL) throws {

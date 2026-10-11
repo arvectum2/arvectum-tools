@@ -24,6 +24,8 @@
 	<false/>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.productivity</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>Transcribe your saved voice recordings on this iPhone using on-device speech recognition.</string>
 	<key>UILaunchScreen</key>
 	<dict/>
 </dict>
