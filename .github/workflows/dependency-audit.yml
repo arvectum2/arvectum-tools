@@ -1,0 +1,31 @@
+name: Shared Dependency Catalog
+
+on:
+  push:
+    branches: ['**']
+    paths:
+      - 'core/dependencies/**'
+      - 'core/tools/sync_dependencies.py'
+      - 'core/tools/update_dependencies.py'
+      - 'chickmark/ios/project.yml'
+      - 'photo-pdf-to-size/ios/project.yml'
+      - 'photo-pdf-to-size/android/**'
+      - '.github/workflows/dependency-audit.yml'
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  catalog:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Assert shared iOS SDK versions match Core
+        run: python3 core/tools/sync_dependencies.py --check
+      - name: Validate Android version catalog
+        run: python3 -c "import tomllib; tomllib.load(open('core/dependencies/android.versions.toml', 'rb'))"

@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "policy": "Central minimum compatible stable version; automatic PR review, never auto-update published binaries",
+  "swiftPackages": {
+    "YandexMobileAds": {
+      "url": "https://github.com/yandexmobile/yandex-ads-sdk-ios",
+      "version": "8.5.0",
+      "update": "minor"
+    }
+  }
+}

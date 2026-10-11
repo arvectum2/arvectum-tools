@@ -22,7 +22,8 @@ Root may contain only repository metadata, `LICENSE` and `README.md`.
 - Core -> any product or Growth code: **forbidden**.
 - Growth -> private app code as imports: **forbidden**. Reading *documented output/manifests* is allowed; modifying app metadata or public publishing requires explicit approval.
 - Never put app-specific design, monetization thresholds or release tasks in Core. A single app's enhancement cannot silently become a shared policy.
-- Do not extract shared code until two products actually need the same stable API.
+- Do not extract shared code until two products actually need the same stable API. Shared brand tokens live in `core/packages/ArvectumDesignTokens/`; keep product-specific semantics inside product targets.
+- External dependency versions must come from the catalogs in `core/dependencies/`. Build files may contain pinned application/toolchain versions and generated projections only; floating production dependencies (`latest`, `+`, unreviewed major upgrades) are prohibited.
 - Each app owns its `ROADMAP.md` and releases; no copied checkboxes/statuses across roadmaps. Cross-project dependencies are links.
 - One repository, shared `main` integration, short-lived feature/fix/release branches. Existing app branches remain until merged and are not canonical independent codebases.
 
@@ -48,6 +49,6 @@ Changes to this contract or allowlist require review in Core. Do not disable or 
 
 ## Delivery gates
 1. Run architecture check before committing and in every PR/push.
-2. Run scoped application tests for changed directories. Updating Core shared code must trigger dependent app checks.
+2. Run scoped application tests for changed directories. Updating Core shared code must trigger dependent app checks; dependency update PRs are reviewed, not auto-merged.
 3. Check release/build number provenance before marking an App Store build published.
 4. Push `main` and relevant feature branches to GitHub; confirm mirrored branch SHA in GitVerse.

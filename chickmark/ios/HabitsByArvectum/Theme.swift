@@ -2,11 +2,8 @@ import SwiftUI
 import UIKit
 
 extension Color {
-    static let arvectumMint = Color(hex: "43E5C5")
     static let arvectumPurple = Color(hex: "8B5CF6")
     static let arvectumOrange = Color(hex: "F59E42")
-    static let arvectumNavy = Color(hex: "041A33")
-    static let arvectumGraphite = Color(hex: "243446")
 
     static let habitsSecondaryText = Color(
         uiColor: UIColor { traits in

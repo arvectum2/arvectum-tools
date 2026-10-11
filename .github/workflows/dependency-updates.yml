@@ -1,0 +1,46 @@
+name: Dependency update proposals
+
+on:
+  schedule:
+    - cron: '25 4 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: dependency-update-proposals
+  cancel-in-progress: false
+
+jobs:
+  propose:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Fetch stable updates within existing major release
+        run: python3 core/tools/update_dependencies.py --write
+      - name: Assert both apps consume the shared Swift catalog
+        run: python3 core/tools/sync_dependencies.py --check
+      - name: Validate Android version catalog
+        run: python3 -c "import tomllib; tomllib.load(open('core/dependencies/android.versions.toml', 'rb'))"
+      - uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: automation/dependency-updates
+          delete-branch: true
+          commit-message: 'chore(deps): propose compatible shared SDK updates'
+          title: 'chore(deps): review compatible shared SDK updates'
+          body: |
+            Automated proposal, not an automatic merge or production release.
+            Shared Swift SDK changes apply to all consumers via core/tools/sync_dependencies.py.
+            Android versions are drawn from core/dependencies/android.versions.toml.
+            Review SDK/API/privacy changes, SwiftPM lockfiles and run platform builds before merging.
+          add-paths: |
+            core/dependencies/catalog.json
+            core/dependencies/android.versions.toml
+            chickmark/ios/project.yml
+            photo-pdf-to-size/ios/project.yml

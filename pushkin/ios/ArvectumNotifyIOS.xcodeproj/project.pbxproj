@@ -717,6 +717,7 @@
 		AA0C5D1888AC88F5F416CB3A /* PUSHKIN - 포켓CU.shortcut in Resources */ = {isa = PBXBuildFile; fileRef = 7E337CD839AB6C5DED31D00D /* PUSHKIN - 포켓CU.shortcut */; };
 		AA678AAA87A8DBE6D11B7296 /* PUSHKIN - PostNord - Track your parcels.shortcut in Resources */ = {isa = PBXBuildFile; fileRef = 769C6E3392E09DEAFA989472 /* PUSHKIN - PostNord - Track your parcels.shortcut */; };
 		AAA8E13D48E5128C80B88A05 /* PUSHKIN - mLogg Fritid.shortcut in Resources */ = {isa = PBXBuildFile; fileRef = 4A05C6A1AA0F784D8948219C /* PUSHKIN - mLogg Fritid.shortcut */; };
+		AAB2452874A3773DADA3731D /* ArvectumPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D8D140B8054342C6DE76F0 /* ArvectumPalette.swift */; };
 		AAF4B205A5CAACB22C4C89E8 /* PUSHKIN - Strava- corre, camina, pedalea.shortcut in Resources */ = {isa = PBXBuildFile; fileRef = 84793FE3A07D93002F0012F8 /* PUSHKIN - Strava- corre, camina, pedalea.shortcut */; };
 		AB39713528AA341D45C491A2 /* PUSHKIN - OTTO - Online Shopping & Möbel.shortcut in Resources */ = {isa = PBXBuildFile; fileRef = 7B8A0CDB43EA299DFE5FBCA7 /* PUSHKIN - OTTO - Online Shopping & Möbel.shortcut */; };
 		AB9E56B4F26015359D72FDE9 /* PUSHKIN - Hjelp 113.shortcut in Resources */ = {isa = PBXBuildFile; fileRef = 440C5130182CA648C6ECD112 /* PUSHKIN - Hjelp 113.shortcut */; };
@@ -1172,6 +1173,7 @@
 		224F152BF88D309EB874DB6B /* PUSHKIN - ÖBB Tickets.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - ÖBB Tickets.shortcut"; sourceTree = "<group>"; };
 		233CABC7A33914147B2AB3A1 /* PUSHKIN - Enilive.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - Enilive.shortcut"; sourceTree = "<group>"; };
 		23781471D699EDC48D503D7A /* PUSHKIN - Post - Paket Tracking App.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - Post - Paket Tracking App.shortcut"; sourceTree = "<group>"; };
+		23D8D140B8054342C6DE76F0 /* ArvectumPalette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArvectumPalette.swift; sourceTree = "<group>"; };
 		24280BFC51AFE9E0655D5CE7 /* PUSHKIN - nlCabs.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - nlCabs.shortcut"; sourceTree = "<group>"; };
 		242B3161F488E219E71DBBA1 /* PUSHKIN - BRImo BRI.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - BRImo BRI.shortcut"; sourceTree = "<group>"; };
 		243FD7D853398A436E95CDBC /* PUSHKIN - Intune 公司入口網站.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - Intune 公司入口網站.shortcut"; sourceTree = "<group>"; };
@@ -2092,6 +2094,23 @@
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
+		2587CEE239664AF2F57C4284 /* arvectum-tools */ = {
+			isa = PBXGroup;
+			children = (
+				A5616555541DD5E33144336B /* core */,
+			);
+			name = "arvectum-tools";
+			path = ../..;
+			sourceTree = "<group>";
+		};
+		359CDDB88A080005B3747E79 /* ArvectumDesignTokens */ = {
+			isa = PBXGroup;
+			children = (
+				23D8D140B8054342C6DE76F0 /* ArvectumPalette.swift */,
+			);
+			path = ArvectumDesignTokens;
+			sourceTree = "<group>";
+		};
 		3EAE5DA5230842624F03691A /* Coverage */ = {
 			isa = PBXGroup;
 			children = (
@@ -2151,6 +2170,7 @@
 		5E24A853970EE4E87421C056 = {
 			isa = PBXGroup;
 			children = (
+				2587CEE239664AF2F57C4284 /* arvectum-tools */,
 				46667F3182E4AFDCE3E270DE /* ArvectumNotify */,
 				C554B0CD4ED25C98D0A9F0B1 /* ArvectumNotifyTests */,
 				D5C55AF214887475F5DA52E9 /* ArvectumNotifyUITests */,
@@ -3163,6 +3183,22 @@
 				8601E3BCC78E387001931EAD /* PUSHKIN - 高德地圖-導航巴士地鐵出行，高德打車.shortcut */,
 			);
 			path = Micro;
+			sourceTree = "<group>";
+		};
+		A5616555541DD5E33144336B /* core */ = {
+			isa = PBXGroup;
+			children = (
+				C32AAA2F1ED4B19C7777D28C /* packages */,
+			);
+			path = core;
+			sourceTree = "<group>";
+		};
+		C32AAA2F1ED4B19C7777D28C /* packages */ = {
+			isa = PBXGroup;
+			children = (
+				359CDDB88A080005B3747E79 /* ArvectumDesignTokens */,
+			);
+			path = packages;
 			sourceTree = "<group>";
 		};
 		C554B0CD4ED25C98D0A9F0B1 /* ArvectumNotifyTests */ = {
@@ -4323,6 +4359,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A6A4CCB17AF0BE3B487D1FF6 /* ArvectumNotifyApp.swift in Sources */,
+				AAB2452874A3773DADA3731D /* ArvectumPalette.swift in Sources */,
 				DBCE965C64CE19A9959DD772 /* BrandStyle.swift in Sources */,
 				AC5EA6507DD7F3F6C61F92EE /* CaptureNotificationIntent.swift in Sources */,
 				819FC0309FD7AA5390842128 /* CapturedNotification.swift in Sources */,

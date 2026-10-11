@@ -1,0 +1,30 @@
+# Single source of dependency coordinates for Android apps.
+# Update by Dependabot; Gradle retains reproducible resolved versions.
+[versions]
+agp = "9.4.0"
+kotlin = "2.4.10"
+composeBom = "2026.09.00"
+coreKtx = "1.19.1"
+activityCompose = "1.13.0"
+lifecycle = "2.11.0"
+exifinterface = "1.4.2"
+junit = "4.13.2"
+
+[plugins]
+androidApplication = { id = "com.android.application", version.ref = "agp" }
+kotlinCompose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+
+[libraries]
+composeBom = { module = "androidx.compose:compose-bom", version.ref = "composeBom" }
+coreKtx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
+activityCompose = { module = "androidx.activity:activity-compose", version.ref = "activityCompose" }
+material3 = { module = "androidx.compose.material3:material3" }
+composeUi = { module = "androidx.compose.ui:ui" }
+composeUiToolingPreview = { module = "androidx.compose.ui:ui-tooling-preview" }
+composeUiTooling = { module = "androidx.compose.ui:ui-tooling" }
+lifecycleRuntimeKtx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycle" }
+lifecycleRuntimeCompose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "lifecycle" }
+lifecycleViewmodelCompose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycle" }
+lifecycleViewmodelKtx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
+exifinterface = { module = "androidx.exifinterface:exifinterface", version.ref = "exifinterface" }
+junit4 = { module = "junit:junit", version.ref = "junit" }

@@ -3,9 +3,6 @@ import PhotosUI
 import UniformTypeIdentifiers
 
 extension Color {
-    static let arvectumMint = Color(red: 67 / 255, green: 229 / 255, blue: 197 / 255)
-    static let arvectumNavy = Color(red: 4 / 255, green: 26 / 255, blue: 51 / 255)
-    static let arvectumGraphite = Color(red: 36 / 255, green: 52 / 255, blue: 70 / 255)
     static let arvectumPrimaryText = Color(uiColor: UIColor { traits in
         traits.userInterfaceStyle == .dark ? .white : UIColor(red: 4 / 255, green: 26 / 255, blue: 51 / 255, alpha: 1)
     })

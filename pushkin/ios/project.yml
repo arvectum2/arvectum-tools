@@ -16,6 +16,7 @@ targets:
     platform: iOS
     deploymentTarget: "27.0"
     sources:
+      - path: ../../core/packages/ArvectumDesignTokens/ArvectumPalette.swift
       - path: ArvectumNotify
     resources:
       - path: ArvectumNotify/Resources

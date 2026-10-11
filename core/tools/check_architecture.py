@@ -69,6 +69,10 @@ for rel in tracked_files():
         forbidden = list(PRODUCTS)
     else:
         forbidden = []
+    # Repository orchestration tools may explicitly know consumer project manifests;
+    # they do not import product source code or create runtime coupling.
+    if rel.as_posix() == "core/tools/sync_dependencies.py":
+        forbidden = []
     for other in forbidden:
         # Only literal absolute/repo-root path references and relative filesystem traversals.
         # Historical text and documentation are not source dependency edges.

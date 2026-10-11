@@ -26,6 +26,7 @@
 		574DA32357D1D0E06A2E97C6 /* AppModel+Import.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95560A2CFF134BB3B8E6B962 /* AppModel+Import.swift */; };
 		74E5EE3988175CDBE537CBC2 /* AdService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005B847C06E0B95A28BB0C24 /* AdService.swift */; };
 		7F8ECEF56352CCC10E3729D8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B5593105023DBFA51B2853 /* ContentView.swift */; };
+		84F1D8772442A31BB4CEFAA8 /* ArvectumPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C8430E26E50E5BC9F11857 /* ArvectumPalette.swift */; };
 		8680F857E155DD36E72C3771 /* AppModel+Processing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89EE7554AAE420CCFCD6DCDB /* AppModel+Processing.swift */; };
 		894BF3FCC6C64966A8F3115B /* AdPlacements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ABA14F6C19916B76F84EFA8 /* AdPlacements.swift */; };
 		91B61D59E48D42AFD40D7D0D /* SharedControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BF5181B6888781E533A313 /* SharedControls.swift */; };
@@ -85,6 +86,7 @@
 		6EB98F5B7046F064E296DCE0 /* FileExport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileExport.swift; sourceTree = "<group>"; };
 		705150ECFF2DFDD01819AA14 /* PDFEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFEngine.swift; sourceTree = "<group>"; };
 		859CD85E40C881410B84E65B /* PassportCropView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassportCropView.swift; sourceTree = "<group>"; };
+		89C8430E26E50E5BC9F11857 /* ArvectumPalette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArvectumPalette.swift; sourceTree = "<group>"; };
 		89EE7554AAE420CCFCD6DCDB /* AppModel+Processing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppModel+Processing.swift"; sourceTree = "<group>"; };
 		8D2E6DAE150416D54E6F5148 /* WorkflowUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkflowUITests.swift; sourceTree = "<group>"; };
 		92D198F142C4AB1521E5B17B /* AdNativeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdNativeView.swift; sourceTree = "<group>"; };
@@ -166,6 +168,7 @@
 		A9C114D71BFDA3C453DFA7B7 = {
 			isa = PBXGroup;
 			children = (
+				D9C0073708FDC0396AF060AC /* arvectum-tools */,
 				AAF0944D151DFDF8F0DA0C22 /* PhotoPodRazmer */,
 				A6153955BF71CEDD7DC143A4 /* PhotoPodRazmerTests */,
 				CEF7C6BD317029F143EFB7FF /* PhotoPodRazmerUITests */,
@@ -217,6 +220,23 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		D9C0073708FDC0396AF060AC /* arvectum-tools */ = {
+			isa = PBXGroup;
+			children = (
+				F63CB129B5BA49409165991E /* core */,
+			);
+			name = "arvectum-tools";
+			path = ../..;
+			sourceTree = "<group>";
+		};
+		DFF785E678912370362B2133 /* packages */ = {
+			isa = PBXGroup;
+			children = (
+				E41DFFF5FD65517C04564357 /* ArvectumDesignTokens */,
+			);
+			path = packages;
+			sourceTree = "<group>";
+		};
 		E33A926D8EA9C2963C0B0DB9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -228,6 +248,22 @@
 				31BF5181B6888781E533A313 /* SharedControls.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		E41DFFF5FD65517C04564357 /* ArvectumDesignTokens */ = {
+			isa = PBXGroup;
+			children = (
+				89C8430E26E50E5BC9F11857 /* ArvectumPalette.swift */,
+			);
+			path = ArvectumDesignTokens;
+			sourceTree = "<group>";
+		};
+		F63CB129B5BA49409165991E /* core */ = {
+			isa = PBXGroup;
+			children = (
+				DFF785E678912370362B2133 /* packages */,
+			);
+			path = core;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -380,6 +416,7 @@
 				0BC787AC2F11BFF24FD111B9 /* AppModel+Settings.swift in Sources */,
 				CD648EAE9A79683F3C780439 /* AppModel.swift in Sources */,
 				3CB2DE66088898FBE50E0533 /* ArvectumColors.swift in Sources */,
+				84F1D8772442A31BB4CEFAA8 /* ArvectumPalette.swift in Sources */,
 				7F8ECEF56352CCC10E3729D8 /* ContentView.swift in Sources */,
 				2F8C49BE3134AF28B3A580FF /* FileExport.swift in Sources */,
 				C685BAA36108A911AB0432CE /* ImageEngine.swift in Sources */,

@@ -7,3 +7,5 @@ Global policies only; app-specific delivery and growth experiments belong to the
 **Binding:** [Architecture contract](ARCHITECTURE_CONTRACT.md). Run `python3 core/tools/check_architecture.py` before commits.
 
 For concurrent development see the [branch and worktree lifecycle](ARCHITECTURE_CONTRACT.md#branch-and-worktree-lifecycle-binding-decision-2026-10-11).
+
+[Shared dependency catalog](dependencies/README.md) · [Design tokens](packages/ArvectumDesignTokens/README.md).

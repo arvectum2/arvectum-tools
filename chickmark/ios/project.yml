@@ -14,7 +14,7 @@ settings:
 packages:
   YandexMobileAds:
     url: https://github.com/yandexmobile/yandex-ads-sdk-ios
-    version: 8.5.0
+    exactVersion: 8.5.0
 
 targets:
   HabitsByArvectum:
@@ -22,6 +22,7 @@ targets:
     platform: iOS
     deploymentTarget: "17.0"
     sources:
+      - path: ../../core/packages/ArvectumDesignTokens/ArvectumPalette.swift
       - path: HabitsByArvectum
       - path: Shared
     dependencies:
