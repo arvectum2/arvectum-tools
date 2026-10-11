@@ -44,3 +44,4 @@ jobs:
             core/dependencies/android.versions.toml
             chickmark/ios/project.yml
             photo-pdf-to-size/ios/project.yml
+            photo-pdf-to-size/android/gradle/wrapper/gradle-wrapper.properties

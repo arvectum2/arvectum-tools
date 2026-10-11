@@ -4,7 +4,7 @@
 
 - **SwiftPM SDK declarations:** edit `core/dependencies/catalog.json`; run `python3 core/tools/sync_dependencies.py` to update *both* dependent iOS XcodeGen specifications. `--check` fails if they drift. Version values in generated project.yml are synchronized projections, **not independent authority**.
 - **Android libraries and plugins:** edit `core/dependencies/android.versions.toml`; Android Gradle projects resolve aliases directly through the Gradle Version Catalog. No dependency versions live in the app build scripts.
-- **Gradle wrapper, Kotlin/Swift language toolchains and application marketing/build versions** are separate compatibility/release contracts: leave them pinned. A single automatically floating `latest` build is prohibited because it makes releases unreproducible.
+- **Gradle wrapper and application marketing/build versions** are separate compatibility/release contracts: leave them pinned. Wrapper upgrades are proposed in the same review PR; Swift/Xcode toolchain upgrades require a dedicated compatibility review. A single automatically floating `latest` build is prohibited because it makes releases unreproducible.
 - **Shared brand code:** `core/packages/ArvectumDesignTokens/ArvectumPalette.swift` supplies the three identical base colors in ChickMark, Pushkin and Photo/PDF. Product-specific semantic colors/themes remain app-owned.
 
 ## Automatic updates
@@ -21,7 +21,7 @@
 | Android Gradle Plugin | 9.4.0 | 9.4.1 | Update PR candidate |
 | Kotlin Compose plugin | 2.4.10 | 2.4.21 | Update PR candidate |
 | Other listed AndroidX / Compose / JUnit versions | see Android catalog | no same-major stable update returned by metadata during this audit | Keep pinned |
-| Gradle wrapper | 9.7.1 | release 9.8.1 listed upstream | Separate toolchain test needed before upgrade |
+| Gradle wrapper | 9.7.1 | release 9.8.1 listed upstream | Propose and validate together with Android toolchain |
 | AppMetrica, KSCrash, Google UMP, SwiftProtobuf | indirect SwiftPM pins under ChickMark | Managed transitively by the main SDK and package resolver | Do not hand-edit transitive versions |
 
 Run from repository root:

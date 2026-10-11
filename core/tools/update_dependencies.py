@@ -13,6 +13,7 @@ ROOT = Path(__file__).resolve().parents[2]
 UA = {"User-Agent": "ArvectumTools-DependencyAuditor/1.0"}
 CATALOG = ROOT / "core/dependencies/android.versions.toml"
 IOS_CATALOG = ROOT / "core/dependencies/catalog.json"
+GRADLE_WRAPPER = ROOT / "photo-pdf-to-size/android/gradle/wrapper/gradle-wrapper.properties"
 ANDROID = {
     "agp": ("google", "com.android.tools.build:gradle"),
     "kotlin": ("maven", "org.jetbrains.kotlin:kotlin-gradle-plugin"),
@@ -85,6 +86,24 @@ def main():
             changes.append(("swift", name, pkg["version"], new))
             if args.write:
                 pkg["version"] = new
+    # Gradle Wrapper is a pinned build tool, not a floating dependency.
+    # Propose compatible stable wrapper releases alongside AGP/Kotlin updates.
+    wrapper_raw = GRADLE_WRAPPER.read_text()
+    match = re.search(r"gradle-(\d+\.\d+(?:\.\d+)?)-bin\.zip", wrapper_raw)
+    if not match:
+        errors.append("gradle-wrapper: missing pinned distribution URL")
+    else:
+        old = match.group(1)
+        try:
+            new = latest_swift("gradle/gradle", old, args.allow_major)
+        except Exception as e:
+            errors.append(f"gradle-wrapper: {type(e).__name__} {e}")
+        else:
+            if new != old:
+                changes.append(("toolchain", "gradle-wrapper", old, new))
+                if args.write:
+                    wrapper_raw = wrapper_raw.replace(f"gradle-{old}-bin.zip", f"gradle-{new}-bin.zip")
+                    GRADLE_WRAPPER.write_text(wrapper_raw)
     for kind, key, old, new in changes:
         print(f"{kind}: {key}: {old} -> {new}")
     for error in errors:
