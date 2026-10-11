@@ -18,8 +18,8 @@ apps/*/ios/*.xcodeproj/
 apps/*/ios/DerivedData/
 
 # Local App Review physical-device recordings
-apps/photo-size/ios/review-video/
+photo-pdf-to-size/ios/review-video/
 
 # PUSHKIN local research / App Store chart caches
-apps/pushkin/ios/.cache/
-apps/pushkin/ios/scripts/cache/
+pushkin/ios/.cache/
+pushkin/ios/scripts/cache/

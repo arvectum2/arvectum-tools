@@ -5,13 +5,13 @@ on:
     branches:
       - '**'
     paths:
-      - 'apps/photo-size/ios/**'
-      - 'packages/**'
+      - 'photo-pdf-to-size/ios/**'
+      - 'core/packages/**'
       - '.github/workflows/photo-size-ios-ci.yml'
   pull_request:
     paths:
-      - 'apps/photo-size/ios/**'
-      - 'packages/**'
+      - 'photo-pdf-to-size/ios/**'
+      - 'core/packages/**'
       - '.github/workflows/photo-size-ios-ci.yml'
   workflow_dispatch:
 
@@ -27,7 +27,7 @@ jobs:
     runs-on: macos-26
     defaults:
       run:
-        working-directory: apps/photo-size/ios
+        working-directory: photo-pdf-to-size/ios
 
     steps:
       - uses: actions/checkout@v7
