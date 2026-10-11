@@ -1,0 +1,14 @@
+"widget.title" = "Сегодня";
+"widget.displayName" = "Привычки сегодня";
+"widget.description" = "Прогресс на сегодня и отметка привычек без открытия приложения.";
+"widget.empty" = "На сегодня ничего нет";
+"widget.allDone" = "На сегодня всё";
+"widget.remaining.format" = "Осталось: %d";
+"widget.inline.format" = "%d из %d на сегодня";
+"widget.more.format" = "Ещё %d";
+"widget.complete" = "Отметить выполненной";
+"widget.undo" = "Отменить выполнение";
+"widget.preview.water" = "Вода";
+"widget.preview.reading" = "Чтение";
+
+"widget.duration.format" = "%d / %d мин";

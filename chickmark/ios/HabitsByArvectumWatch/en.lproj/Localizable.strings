@@ -1,0 +1,18 @@
+"watch.today" = "Today";
+"watch.progress.format" = "%d of %d";
+"watch.empty" = "Nothing due today";
+"watch.streak.format" = "%d-day streak";
+"watch.weekly.format" = "%d of %d this week";
+"watch.completed" = "Completed";
+"watch.notCompleted" = "Not completed";
+"watch.skipped" = "Skipped";
+"watch.undoHint" = "Double tap to undo completion";
+"watch.completeHint" = "Double tap to mark complete";
+
+"watch.duration.format" = "%d / %d min";
+
+"watch.step.add" = "Add one step";
+"watch.step.remove" = "Undo one step";
+
+"watch.preview.water" = "Water";
+"watch.preview.reading" = "Reading";

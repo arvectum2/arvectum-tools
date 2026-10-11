@@ -1,0 +1,217 @@
+"today.title" = "Today";
+"today.progress.format" = "%d of %d";
+"today.empty.title" = "Start with one habit";
+"today.empty.description" = "It only takes a few seconds. No account or extra setup.";
+"today.none.title" = "You're done for today";
+"today.none.description" = "Your next habit will appear on its scheduled day.";
+
+"habit.add.accessibility" = "Add habit";
+"habit.create" = "Create habit";
+"habit.section" = "Habit";
+"habit.name.placeholder" = "Habit name";
+"habit.streak.one" = "1 day in a row";
+"habit.streak.format" = "%d days in a row";
+"habit.streak.start" = "Start your streak today";
+"habit.complete" = "Mark complete";
+"habit.undo" = "Undo completion";
+"habit.completed.toast" = "Chick-in complete";
+"habit.skipped.today" = "Skipped today";
+"habit.skip.today" = "Skip today";
+"habit.skip.undo" = "Undo skip";
+"habit.new.title" = "New habit";
+"habit.edit.title" = "Edit habit";
+"habit.edit.action" = "Edit";
+
+"section.appearance" = "Appearance";
+"section.days" = "Days";
+"section.reminder" = "Reminder";
+"section.moreOptions" = "More options";
+"appearance.color" = "Color";
+"appearance.icon" = "Icon";
+
+"schedule.everyday" = "Every day";
+"schedule.weekdays" = "Weekdays";
+"schedule.weekdays.description" = "On weekdays";
+"schedule.custom" = "Other schedule";
+"schedule.flexible.toggle" = "Flexible weekly goal";
+"schedule.flexible.target.format" = "%d times per week";
+"schedule.flexible.hint" = "The habit stays on Today until this week's goal is reached.";
+"schedule.flexible.description.format" = "%d times per week";
+"schedule.interval.toggle" = "Repeat after completion";
+"schedule.interval.days.format" = "Every %d days after completion";
+"schedule.interval.hint" = "The next due date is counted from the day you actually complete it.";
+"schedule.interval.description.format" = "Every %d days after completion";
+"habit.streak.weeks.format" = "%d weeks in a row";
+"habit.weekly.progress.format" = "%d of %d this week";
+
+"reminder.toggle" = "Remind me";
+"reminder.time" = "Time";
+"reminder.flexible.unavailable" = "Reminders are available for fixed schedules.";
+"reminder.notification.body" = "Time to complete your habit";
+
+"notification.denied.title" = "Notifications are off";
+"notification.denied.message" = "Allow notifications for ChickMark in iPhone Settings to enable reminders.";
+"notification.openSettings" = "Settings";
+"notification.action.complete" = "Done";
+"notification.action.skip" = "Skip today";
+
+"common.cancel" = "Cancel";
+"common.done" = "Done";
+"common.save" = "Save";
+"common.ok" = "OK";
+"common.undo" = "Undo";
+"common.add" = "Add";
+"common.delete" = "Delete";
+
+"quick.water" = "Water";
+"quick.reading" = "Reading";
+"quick.walk" = "Walk";
+"quick.workout" = "Workout";
+
+"weekday.mon.short" = "Mon";
+"weekday.tue.short" = "Tue";
+"weekday.wed.short" = "Wed";
+"weekday.thu.short" = "Thu";
+"weekday.fri.short" = "Fri";
+"weekday.sat.short" = "Sat";
+"weekday.sun.short" = "Sun";
+
+"detail.history.title" = "Last 6 weeks";
+"detail.history.hint" = "Tap a past day to correct its check-in.";
+"detail.pause" = "Pause habit";
+"detail.resume" = "Resume habit";
+"detail.archive" = "Archive";
+"detail.restore" = "Restore from archive";
+"detail.delete" = "Delete habit";
+"detail.delete.title" = "Delete habit?";
+"detail.delete.message" = "This habit's completion history will also be deleted.";
+"detail.more.accessibility" = "More habit actions";
+
+"archive.title" = "Archived";
+"archive.accessibility" = "Archived habits";
+"archive.empty.title" = "No archived habits";
+"archive.empty.description" = "Archived habits will appear here.";
+"manage.title" = "Manage habits";
+"manage.accessibility" = "Manage habits";
+"manage.active" = "Active";
+"manage.paused" = "Paused";
+"manage.reorder.hint" = "Tap Edit to drag habits into the order you want.";
+"manage.empty.title" = "Nothing here";
+"manage.empty.description" = "Your habits will appear here.";
+"manage.privacy" = "Privacy Policy";
+"manage.support" = "Support";
+
+"stats.streak" = "streak";
+"stats.best.format" = "best %d";
+"stats.completion" = "completed";
+"stats.nextDue" = "next due";
+"stats.interval" = "interval";
+"stats.interval.days.format" = "%d days";
+"stats.checkins" = "check-ins";
+
+"status.completed" = "completed";
+"status.notCompleted" = "not completed";
+"status.skipped" = "skipped";
+"status.missed" = "missed";
+"status.paused" = "paused";
+
+"accessibility.color.format" = "Color %d";
+"accessibility.symbol.format" = "Icon %d";
+"accessibility.selected" = "Selected";
+
+"storage.error.title" = "ChickMark data is temporarily unavailable";
+"storage.error.message" = "Your data was not reset or overwritten. Close and reopen Habits. If the problem continues, update the app before trying again.";
+
+"shortcut.habit.type" = "Habit";
+"shortcut.habit.parameter" = "Habit";
+"shortcut.complete.title" = "Complete Habit";
+"shortcut.complete.description" = "Mark one of today's habits as complete.";
+"shortcut.complete.success" = "Marked %@ complete.";
+"shortcut.undo.title" = "Undo Habit";
+"shortcut.undo.description" = "Mark one of today's habits as incomplete.";
+"shortcut.undo.success" = "Marked %@ incomplete.";
+"shortcut.notDue" = "That habit is not due today.";
+
+"add.menu.habit" = "New habit";
+"add.menu.oneoff" = "One-time reminder";
+"oneoff.section" = "Reminders";
+"oneoff.new.title" = "New reminder";
+"oneoff.edit.title" = "Edit reminder";
+"oneoff.title.placeholder" = "What should I remind you about?";
+"oneoff.when" = "When";
+"oneoff.dateTime" = "Date and time";
+"oneoff.hint" = "This reminder fires once and does not affect habit streaks or statistics.";
+"oneoff.notification.body" = "One-time reminder";
+"oneoff.notification.denied.message" = "Allow notifications for ChickMark in iPhone Settings to receive one-time reminders.";
+"oneoff.complete" = "Mark complete";
+"oneoff.edit" = "Edit";
+"oneoff.delete" = "Delete reminder";
+"oneoff.demo.marathon" = "Buy marathon slot";
+"oneoff.today.format" = "Today, %@";
+"oneoff.tomorrow.format" = "Tomorrow, %@";
+
+"insights.title" = "Consistency";
+"insights.week" = "Last 7 days";
+"insights.month" = "Last 30 days";
+"insights.ratio" = "%d of %d days";
+"insights.skipped" = "Skipped: %d";
+"insights.note" = "Today does not count as missed until it ends.";
+"backup.menu" = "Backup";
+"backup.export" = "Export data";
+"backup.import" = "Import data";
+"backup.chooseMode" = "Restore backup";
+"backup.merge" = "Merge missing records";
+"backup.replace" = "Replace all data";
+"backup.warning" = "The JSON file contains your habits and reminders. Replace deletes current records and may sync deletions through iCloud. Keep your backup secure.";
+"backup.result" = "Backup";
+"backup.success" = "Data imported successfully.";
+
+"habit.multi.target.format" = "Check-ins per day: %d";
+"habit.multi.target.hint" = "Each check counts separately. The habit is complete when all circles are filled.";
+"habit.multi.slot.format" = "Check-in %d of %d";
+"habit.multi.checked" = "Done";
+"habit.multi.unchecked" = "Not done";
+
+"habit.multi.target.locked" = "The number of daily check-ins cannot change after history has started.";
+
+"habit.goal.kind" = "Goal type";
+"habit.goal.checks" = "Check-ins";
+"habit.goal.quantity" = "Count";
+"habit.goal.duration" = "Time";
+"habit.goal.quantity.format" = "Target: %d";
+"habit.goal.duration.format" = "Target: %d minutes";
+"habit.goal.quantity.progress" = "%d / %d";
+"habit.goal.duration.progress" = "%d / %d min";
+"habit.goal.add" = "Add one unit";
+"habit.goal.subtract" = "Undo one unit";
+
+"insights.noData" = "No data";
+
+"groups.select" = "Group";
+"groups.none" = "No group";
+"groups.add" = "New group";
+"groups.delete" = "Delete group (keep habits)";
+"groups.placeholder" = "Group name";
+
+"backup.error.version" = "Unsupported ChickMark backup version.";
+"backup.error.invalid" = "Invalid or inconsistent ChickMark backup data.";
+"backup.error.unreadable" = "The selected backup file is unreadable.";
+
+"insights.weekly.title" = "Weekly goal consistency";
+"insights.fourWeeks" = "4 weeks";
+"insights.twelveWeeks" = "12 weeks";
+"insights.weekly.note" = "This week is not counted as missed. Paused weeks do not lower your rate.";
+"insights.weekly.ratio" = "%d of %d weeks";
+"insights.weekly.neutral" = "Paused: %d weeks";
+"insights.interval.title" = "Repeat history";
+"insights.ninetyDays" = "90 days";
+"insights.interval.note" = "Only actual completions are counted; repeat-after-completion goals have no daily quota.";
+"insights.interval.occurrences" = "completions";
+"insights.interval.average" = "Avg interval: %d days";
+"insights.interval.noGap" = "Not enough history";
+
+"habit.history.edit" = "Edit day";
+"habit.history.progress" = "%d of %d check-ins";
+"habit.history.error" = "Could not save changes";
+
+"quick.multicheck" = "Water (5 times)";

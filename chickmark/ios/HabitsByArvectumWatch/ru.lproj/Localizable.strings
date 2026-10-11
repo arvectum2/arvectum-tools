@@ -1,0 +1,18 @@
+"watch.today" = "Сегодня";
+"watch.progress.format" = "%d из %d";
+"watch.empty" = "На сегодня ничего";
+"watch.streak.format" = "%d дн. подряд";
+"watch.weekly.format" = "%d из %d на неделе";
+"watch.completed" = "Выполнено";
+"watch.notCompleted" = "Не выполнено";
+"watch.skipped" = "Пропущено";
+"watch.undoHint" = "Дважды нажмите, чтобы отменить";
+"watch.completeHint" = "Дважды нажмите, чтобы отметить";
+
+"watch.duration.format" = "%d / %d мин";
+
+"watch.step.add" = "Добавить шаг";
+"watch.step.remove" = "Отменить шаг";
+
+"watch.preview.water" = "Вода";
+"watch.preview.reading" = "Чтение";

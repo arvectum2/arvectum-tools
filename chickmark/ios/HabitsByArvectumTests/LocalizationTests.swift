@@ -1,0 +1,145 @@
+import XCTest
+@testable import HabitsByArvectum
+
+final class LocalizationTests: XCTestCase {
+    private let requiredKeys = [
+        "today.title",
+        "today.progress.format",
+        "today.empty.title",
+        "today.empty.description",
+        "today.none.title",
+        "today.none.description",
+        "habit.add.accessibility",
+        "habit.create",
+        "habit.section",
+        "habit.name.placeholder",
+        "habit.streak.one",
+        "habit.streak.format",
+        "habit.streak.start",
+        "habit.complete",
+        "habit.undo",
+        "habit.new.title",
+        "habit.edit.title",
+        "habit.edit.action",
+        "section.appearance",
+        "section.days",
+        "section.reminder",
+        "section.moreOptions",
+        "appearance.color",
+        "appearance.icon",
+        "schedule.everyday",
+        "schedule.weekdays",
+        "schedule.weekdays.description",
+        "schedule.custom",
+        "reminder.toggle",
+        "reminder.time",
+        "reminder.notification.body",
+        "notification.denied.title",
+        "notification.denied.message",
+        "notification.openSettings",
+        "common.cancel",
+        "common.done",
+        "common.save",
+        "common.ok",
+        "common.add",
+        "common.delete",
+        "add.menu.habit",
+        "add.menu.oneoff",
+        "oneoff.section",
+        "oneoff.new.title",
+        "oneoff.edit.title",
+        "oneoff.title.placeholder",
+        "oneoff.when",
+        "oneoff.dateTime",
+        "oneoff.hint",
+        "oneoff.notification.body",
+        "oneoff.notification.denied.message",
+        "oneoff.complete",
+        "oneoff.edit",
+        "oneoff.delete",
+        "oneoff.today.format",
+        "oneoff.tomorrow.format",
+        "quick.water", "quick.multicheck",
+        "quick.reading",
+        "quick.walk",
+        "quick.workout",
+        "weekday.mon.short",
+        "weekday.tue.short",
+        "weekday.wed.short",
+        "weekday.thu.short",
+        "weekday.fri.short",
+        "weekday.sat.short",
+        "weekday.sun.short",
+        "detail.history.title",
+        "detail.history.hint",
+        "detail.archive",
+        "detail.restore",
+        "detail.delete",
+        "detail.delete.title",
+        "detail.delete.message",
+        "detail.more.accessibility",
+        "stats.streak",
+        "stats.completion",
+        "stats.checkins",
+        "status.completed",
+        "status.notCompleted",
+        "accessibility.color.format",
+        "accessibility.symbol.format",
+        "accessibility.selected",
+        "storage.error.title",
+        "storage.error.message",
+        "shortcut.habit.type",
+        "shortcut.habit.parameter",
+        "shortcut.complete.title",
+        "shortcut.complete.description",
+        "shortcut.complete.success",
+        "shortcut.undo.title",
+        "shortcut.undo.description",
+        "shortcut.undo.success",
+        "shortcut.notDue",
+        "insights.noData", "insights.title", "insights.week", "insights.month",
+        "insights.ratio", "insights.skipped", "insights.note",
+        "backup.menu", "backup.export", "backup.import",
+        "backup.chooseMode", "backup.merge", "backup.replace",
+        "backup.warning", "backup.result", "backup.success",
+        "habit.multi.target.format", "habit.multi.target.hint",
+        "habit.multi.target.locked", "habit.multi.slot.format",
+        "habit.multi.checked", "habit.multi.unchecked",
+        "habit.goal.kind", "habit.goal.checks", "habit.goal.quantity",
+        "habit.goal.duration", "habit.goal.quantity.format",
+        "habit.goal.duration.format", "habit.goal.quantity.progress",
+        "habit.goal.duration.progress", "habit.goal.add", "habit.goal.subtract",
+        "groups.select", "groups.none", "groups.add", "groups.delete", "groups.placeholder",
+        "backup.error.version", "backup.error.invalid", "backup.error.unreadable",
+        "insights.weekly.title", "insights.fourWeeks", "insights.twelveWeeks",
+        "insights.weekly.note", "insights.weekly.ratio", "insights.weekly.neutral",
+        "insights.interval.title", "insights.ninetyDays", "insights.interval.note",
+        "insights.interval.occurrences", "insights.interval.average", "insights.interval.noGap",
+        "habit.history.edit", "habit.history.progress", "habit.history.error"
+    ]
+
+    func testEnglishAndRussianContainAllRequiredKeys() throws {
+        for language in ["en", "ru", "es"] {
+            let path = try XCTUnwrap(
+                Bundle.main.path(
+                    forResource: language,
+                    ofType: "lproj"
+                )
+            )
+            let bundle = try XCTUnwrap(Bundle(path: path))
+
+            for key in requiredKeys {
+                let value = bundle.localizedString(
+                    forKey: key,
+                    value: nil,
+                    table: nil
+                )
+                XCTAssertNotEqual(
+                    value,
+                    key,
+                    "Missing \(language) localization for \(key)"
+                )
+            }
+        }
+    }
+}

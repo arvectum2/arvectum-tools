@@ -1,0 +1,68 @@
+# ChickMark 1.3 — pre-release checklist (UNRELEASED)
+
+**Release status (2026-10-11):** Submitted to Apple App Review; `WAITING_FOR_REVIEW`. Build 1.3.0 (5) processed `VALID`, submission `54aa2ada-e320-450f-ac76-bfd1aa43dd9a`. **Release mode is MANUAL**, not automatic. No public release yet.
+
+## Functionality
+- [x] N/N multi-check, count and duration goals, historical progress editor
+- [x] 7/30-day fixed, 4/12-week flexible, 30/90-day completion-interval insights
+- [x] Groups with local-first iCloud Key-Value Store transport (needs final cross-device proof)
+- [x] JSON export/import with merge/replace and original reminders
+- [x] Watch desired-count protocol, optimistic/offline reconciliation and interactive step controls
+- [ ] Complete physical Watch/iPhone device smoke and CloudKit + KVS convergence at the **very end**
+- [ ] Verify partial state and conflict merge across real iPhone + a simulator signed to the same iCloud account
+
+## Localization/ASO
+- [x] RU/EN/ES app, Watch, widgets and Shortcuts with key parity checks
+- [x] Draft regional Store text: ru-RU, en-US, es-ES and es-MX
+- [ ] Editorial/native review of Spanish and regional marketing copy
+- [x] Captured 9 raw iPhone simulator screenshots in EN/RU/ES (1206×2622) from 1.3 synthetic app data
+- [x] Captured raw Apple Watch SE 3 40mm screenshots, EN/RU/ES, 324×394
+- [x] Offline App Store-oriented screenshots exported for three languages at iPhone 1320×2868 and Watch 416×496, with pixel/dimension audit; not uploaded
+- [ ] Final physical-device typography check and App Store Connect screenshot acceptance at actual release submission
+- [ ] Additional locales only when justified by organic-demand data
+
+## Architecture and quality
+- [x] Typed HabitGoalMode adapter; UI component extraction; group sync ledger isolated from SwiftData schema
+- [x] Published SwiftData schema and Apple entitlement identifiers remain unchanged
+- [x] Local full simulator regression: 140 unit/integration and 19 UI scenarios (18 executed, 1 iOS27-only skip), no failures
+- [ ] Physical signed-device smoke (no actual TestFlight submission), final device step
+- [x] Local distribution-signed IPA verified: iPhone + iOS widget + Watch + Watch widget, all four first-party privacy manifests
+- [x] Reviewed 28 privacy manifests from exported signed IPA and actual ad SDK config; disclosures documented in privacy-notes-1.3.md
+- [ ] Final physical/runtime network and disclosure confirmation immediately before release approval
+- [x] Ad count frozen at one Today banner; unit boundary tests and lazy SDK initialization in 1.3. No new placement without retention data.
+- [ ] Validate existing ad fill/eligibility with a physically authorized install at last acceptance
+- [x] Public App Store page (id6818711298) links Arvectum Developer Website and Privacy Policy; official site and app-ads.txt respond HTTP 200
+
+## Last step: one physical iPhone + iOS simulator
+- [ ] iPhone existing 1.2 data backed up through user-managed encrypted iPhone backup (Xcode cannot read the App Store container)
+- [ ] No destructive production-app replacement before backup, approval and rollback plan
+- [ ] Verify incremental upgrades, cloud-owned habit convergence and conflict retries
+- [ ] Verify group changes propagate through iCloud KVS; simulator must share same Apple Account and have iCloud capability available
+- [ ] Verify backup export/import, paused and skipped day reconciliation, reconnect, duplicate commands
+- [ ] Log device OS, build number and test evidence; revisit if simulator CloudKit services differ from a real second device
+- [ ] Owner explicitly approves release. Until then, HOLD.
+
+## Local signed artifact evidence (not uploaded)
+
+- [x] Xcode 27 generated distribution-signed, no-upload IPA at `/tmp/chickmark-13-final-export-r2/HabitsByArvectum.ipa`.
+- [x] Apple Distribution: LLC ARVECTUM / team `VML75VY94V`, `codesign --verify --deep --strict` passed.
+- [x] SHA-256 `73523aeb9060631ab8c6ffaa711bfc2f5145c8d3905f56f6a6495da3560f7049`.
+- [x] All four target bundles 1.3.0 (5); first-party and vendor privacy manifests inventoried (28 total).
+- [x] Full local UI suite 19 tests including one iOS27-only skip; 18 passed, zero failures. 140 unit/integration tests passed.
+- [x] Code/module refactor, ads lazy-start and screenshot-dimensional CI audit completed.
+- [ ] Final physically authorized QA: real iPhone + iOS simulator, paired Watch; network/ads/CloudKit/KVS/disclosure review.
+- [ ] Separate explicit owner approval to release.
+
+## Actual release submission (2026-10-11)
+
+- [x] Hosted CI Xcode 27 passed (140 unit/integration, essential UI smoke, archive). Local full UI: 19/19 passed.
+- [x] Build 335f4254-5779-4b64-a25a-022e85fd5482 attached to version ea071e25-ab8a-4d5a-b954-1027bd04806a.
+- [x] App Store version and review doctor: 0 blocking errors, 0 warnings. RU, EN, ES-ES, ES-MX metadata and iPhone + Watch screenshots uploaded.
+- [x] Review notes updated with real 1.3 features; age rating advertising declaration corrected to true.
+- [x] Review submission accepted, now WAITING_FOR_REVIEW. No automatic publication enabled.
+- [x] SEO landing pages RU/EN/ES deployed at arvectum.com/tools/chickmark with HTTP 200, SoftwareApplication JSON-LD, sitemap and internal links; site CI checks passed.
+- [x] Physical iPhone13 installed ChickMark 1.3.0 (5), app launched with three visible existing habits (Reading, Water, TabletOS); physical Watch app 1.3.0 (5) installed.
+- [ ] Physical Watch app launch + phone/Watch offline-sync verification: CoreDevice remote tunnel timed out; screenshot was black.
+- [ ] Production iCloud cross-device convergence with simulator signed into same Apple Account; not automatically proven by local CI.
+- [ ] Final on-device Yandex network/privacy observation and actual ad eligibility: not verified.
+- [ ] Apple review approval and deliberate MANUAL public release.

@@ -1,0 +1,14 @@
+"widget.title" = "Hoy";
+"widget.displayName" = "Hábitos de hoy";
+"widget.description" = "Consulta tu progreso y marca hábitos sin abrir la aplicación.";
+"widget.empty" = "No hay hábitos programados para hoy";
+"widget.allDone" = "Todo listo por hoy";
+"widget.remaining.format" = "Quedan %d";
+"widget.inline.format" = "%d de %d hoy";
+"widget.more.format" = "+%d más";
+"widget.complete" = "Marcar como completado";
+"widget.undo" = "Deshacer";
+"widget.preview.water" = "Agua";
+"widget.preview.reading" = "Leer";
+
+"widget.duration.format" = "%d / %d min";

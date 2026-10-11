@@ -1,0 +1,67 @@
+name: Habits iOS CI
+
+on:
+  push:
+    branches:
+      - '**'
+    paths:
+      - 'chickmark/ios/**'
+      - 'packages/**'
+      - '.github/workflows/habits-ios-ci.yml'
+  pull_request:
+    paths:
+      - 'chickmark/ios/**'
+      - 'packages/**'
+      - '.github/workflows/habits-ios-ci.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: habits-ios-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-test:
+    runs-on: xcode-27
+    timeout-minutes: 35
+    defaults:
+      run:
+        working-directory: chickmark/ios
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Verify pinned Xcode
+        run: |
+          xcodebuild -version
+          xcodebuild -version | grep -q '^Xcode 27\.'
+
+      - name: Install XcodeGen
+        run: brew install xcodegen
+
+      - name: Release hygiene
+        run: python3 scripts/release_hygiene.py
+
+      - name: Localization argument and resource audit
+        run: python3 scripts/localization_audit.py
+
+      - name: Localized App Store assets
+        run: python3 scripts/audit_store_assets.py
+
+      - name: Generate project
+        run: scripts/generate_project.sh
+
+      - name: Unit and integration tests
+        timeout-minutes: 17
+        run: |
+          xcodebuild             -project HabitsByArvectumIOS.xcodeproj             -onlyUsePackageVersionsFromResolvedFile             -scheme HabitsByArvectum             -destination 'platform=iOS Simulator,name=iPhone 18 Pro,OS=27.0'             -jobs 2 -parallel-testing-enabled NO             -only-testing:HabitsByArvectumTests             CODE_SIGNING_ALLOWED=NO             COMPILER_INDEX_STORE_ENABLE=NO             test
+
+      - name: Essential UI smoke
+        timeout-minutes: 12
+        run: |
+          xcodebuild             -project HabitsByArvectumIOS.xcodeproj             -onlyUsePackageVersionsFromResolvedFile             -scheme HabitsByArvectum             -destination 'platform=iOS Simulator,name=iPhone 18 Pro,OS=27.0'             -jobs 2 -parallel-testing-enabled NO             -only-testing:HabitsByArvectumUITests/HabitFlowUITests/testAccessibilityAuditCoreScreens             -only-testing:HabitsByArvectumUITests/HabitFlowUITests/testMultiCheckHistoryIndividualSlotsPersist             CODE_SIGNING_ALLOWED=NO             COMPILER_INDEX_STORE_ENABLE=NO             test
+
+      - name: Archive smoke
+        run: scripts/archive_smoke.sh
