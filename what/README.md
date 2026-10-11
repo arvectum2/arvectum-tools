@@ -27,7 +27,7 @@ Implemented:
 Requirements: Xcode 27 and XcodeGen 2.46+.
 
 ```bash
-cd apps/what/ios
+cd what/ios
 xcodegen generate
 
 xcodebuild -project What.xcodeproj -scheme WhatWatch \

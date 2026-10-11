@@ -7,7 +7,7 @@ Native local-first implementation of the What? voice-memory capture path.
 Requirements: Xcode 27 and XcodeGen 2.46+.
 
 ```bash
-cd apps/what/ios
+cd what/ios
 xcodegen generate
 xcodebuild -project What.xcodeproj -scheme WhatWatch \
   -destination 'generic/platform=watchOS Simulator' CODE_SIGNING_ALLOWED=NO build
