@@ -23,7 +23,7 @@
 - [x] Publication confirmed by product owner on 2026-10-11.
 - [ ] Verify propagation of public storefront metadata: Apple iTunes lookup (RU) still returned `0.6.2` on 2026-10-11, despite App Store Connect showing `1.0.0 Ready for Distribution`.
 - [ ] Open App Store Connect version detail to obtain exact build number, review events and uploaded build provenance; dashboard status alone does not disclose build number. Safari GUI read is available via screenshot, but scripted navigation is waiting for explicit macOS screen/control permission.
-- [ ] Align release tag and the checked-in iOS `MARKETING_VERSION` with the archived shipping source **only after** verifying the exact build; the default branch currently declares `0.6.0 (8)`.
+- [ ] Align release tag and the checked-in iOS `MARKETING_VERSION` with the archived shipping source **only after** verifying the exact build; the canonical `main` branch currently declares `0.6.2 (10)`; this is **not** evidence that build 10 is the published 1.0.0.
 
 ## Next: post-release QA and maintenance
 - [ ] Run device regression on image modes, document presets, PDF orientation, large-file memory and export.
