@@ -54,3 +54,8 @@ Experiment candidates after launch:
 3. Define an intentionally smaller MVP.
 4. Validate onboarding and daily check-in tap count.
 5. Validate the delayed-ad thresholds only after the core habit loop is proven.
+
+## ChickMark: sliding recurrence (product decision 2026-10-05)
+- [ ] Support schedules where the next due date is N days after the actual completion date, rather than a fixed calendar interval.
+- [ ] Define overdue, multiple-check-off and timezone behavior before implementation.
+This is a ChickMark-only feature, not a Photo Size or portfolio-level task.
