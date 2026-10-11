@@ -2,7 +2,7 @@
 
 **Updated:** 2026-10-11
 **Ownership:** image/PDF sizing, document presets, export, app-specific UX, SDK integrations, QA and releases.
-**Store status:** iOS v1.0.0 published (user-confirmed). Android publication status requires separate verification.
+**iOS App Store:** v1.0.0 approved and published on 2026-10-11, after submission on 2026-10-10 (product owner confirmation). Apple App ID `6816346084`, bundle ID `ru.arvectum.tools.tosize`. [Public listing](https://apps.apple.com/ru/app/id6816346084). Android publication status is tracked independently.
 **History and detailed specification:** [docs/history/ROADMAP-legacy-2026-10-11.md](docs/history/ROADMAP-legacy-2026-10-11.md). It is reference history, not a live checklist.
 **Common principles:** [Core](../../docs/CORE_PRINCIPLES.md). **Acquisition/ASO and monetization experiments:** [Growth](../../docs/GROWTH_ROADMAP.md).
 
@@ -14,10 +14,16 @@
 - [x] RU/EN localization, system Light/Dark UI and lower primary CTA placement.
 - [x] Home native ad and result banner recorded as production integration in 0.5.1.
 - [x] Store screenshots prepared showing before/after; this is a completed asset task, not a pending product feature.
-- [x] iOS release v1.0.0 published (as confirmed by product owner).
+- [x] iOS release v1.0.0 publicly launched, 2026-10-11.
 
-## Next: verify actual 1.0.0 baseline (release QA, not new features)
-- [ ] Link v1.0.0 shipping build/tag to app version and exact delivered capabilities.
+## Release 1.0.0 — completed distribution gate
+- [x] Submitted to App Review on 2026-10-10 (product owner confirmation).
+- [x] Passed App Review on 2026-10-11 (product owner confirmation).
+- [x] Published and publicly accessible on App Store (product owner and public listing).
+- [ ] Retrieve App Store Connect version/build number, review events and exact uploaded build provenance when access to Safari's authenticated session works.
+- [ ] Align release tag and the checked-in iOS `MARKETING_VERSION` with the archived shipping source **only after** verifying the exact build; the default branch currently declares `0.6.0 (8)`.
+
+## Next: post-release QA and maintenance
 - [ ] Run device regression on image modes, document presets, PDF orientation, large-file memory and export.
 - [ ] Confirm which ads/presets/locales are present in the published build (not just development history).
 - [ ] Close or document known crashes/regressions and classify fixes for the next patch.
