@@ -28,3 +28,5 @@ These are candidates, not pre-approved frameworks.
 [ArvectumDiagnostics](ArvectumDiagnostics/README.md) — private-by-default local OSLog failures.
 
 **Core test gate:** run `cd core && swift test`. The [Core CI](../../.github/workflows/core-ci.yml) builds all four iOS apps when shared sources change.
+
+The Core CI matrix also exercises ChickMark/What? persistence behavior tests, builds both watchOS app schemes, and runs Android tests, lint, and APK generation. Physical-device WatchConnectivity and CloudKit remain release acceptance checks.
