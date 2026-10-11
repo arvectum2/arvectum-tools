@@ -26,6 +26,21 @@ Root may contain only repository metadata, `LICENSE` and `README.md`.
 - Each app owns its `ROADMAP.md` and releases; no copied checkboxes/statuses across roadmaps. Cross-project dependencies are links.
 - One repository, shared `main` integration, short-lived feature/fix/release branches. Existing app branches remain until merged and are not canonical independent codebases.
 
+## Branch and worktree lifecycle (binding decision 2026-10-11)
+
+- **Directories are permanent owners. Branches are temporary change sets.** Do not create permanent `feature/core`, `feature/growth`, `feature/pushkin`, etc. merely to represent a domain.
+- `main` in `ArvectumSSD/Arvectum/repos/arvectum-tools` is the canonical integration branch and contains all seven domains.
+- Start an independent task with a branch from the current `main`: `feature/<domain>-<goal>`, `fix/<domain>-<issue>`, `refactor/<domain>-<scope>`, or `release/<domain>-<version>`. Names should describe real, bounded work, not indefinite ownership.
+- When work proceeds in parallel or requires an isolated build, attach the branch as a Git worktree under `ArvectumSSD/Arvectum/worktrees/<domain>-<goal>`. All such worktrees share the **same** canonical Git object database.
+- Existing active `feature/what` and `feature/chickmark-multicheck` are grandfathered in until their respective changes are integrated. They are not additional canonical repositories.
+- An inactive domain (including Core, Growth, Pushkin, Photo/PDF and Where?) needs **no dedicated branch or worktree**. Create them when a concrete implementation task begins.
+- Keep the branch's changes scoped to its owning domain plus necessary `core/` interfaces or CI changes. Cross-domain changes require explicitly documented coordination and per-domain validation.
+- Before integration: sync with `main`, run architecture validation, run relevant build/tests, review the diff and release impact; merge through reviewed PR or equivalent documented review.
+- After merge: confirm GitHub and GitVerse SHAs, remove obsolete worktrees and completed task branches. Preserve published source via annotated release tags and archival evidence; never keep a duplicate checkout just for historical retention.
+- Do not delete dirty worktrees or unique commits. Audit and preserve valuable state first. Do not force-push or rewrite published history as part of routine cleanup.
+
+This model allows independent concurrent development **without fragmenting the ecosystem into seven permanently diverging codebases**.
+
 ## Automated policy enforcement
 `core/tools/check_architecture.py` checks the exact top-level structure, roadmap presence, symlink escapes, cross-domain source path references, Swift module imports and invalid local project references. It uses a source-only scan to avoid punishing historical prose. Run with `python3 core/tools/check_architecture.py`.
 
