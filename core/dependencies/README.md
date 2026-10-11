@@ -36,3 +36,17 @@ The online auditor requires Python 3.11+; the synchronization checker supports P
 The macOS update job also regenerates XcodeGen project files and SwiftPM `Package.resolved` pins; `core/tools/check_swift_lockfiles.py` rejects stale direct SDK revisions.
 
 ChickMark deliberately uses a compatible minimum SemVer floor (`version:`) while Photo/PDF uses `exactVersion:`; both read the **same** release number from Core. The ChickMark lock audit validates an explicit approved transitive graph, including Tapjoy for Yandex 8.6+.
+
+
+### Indirect SwiftPM release audit (2026-10-11)
+
+Indirect package versions are selected by the direct SDK's constraints and SwiftPM's resolved graph, not by a separately mutable shared version in Core. The following upstream latest-release values were checked against the committed ChickMark lock:
+
+| Transitive package | Baseline locked | Latest upstream release observed | Rule |
+| --- | --- | --- | --- |
+| AppMetrica iOS SDK | 6.7.0 | 7.0.0 | New major: compatibility and privacy review; do not force independently of Yandex Ads |
+| KSCrash | 2.5.1 | 2.6.0 | Compatible minor candidate, but only advance if upstream Yandex package constraints and tests permit |
+| Google User Messaging Platform SwiftPM wrapper | 3.1.0 | 3.1.0 | Current |
+| SwiftProtobuf | 1.38.1 | 1.38.1 | Current |
+
+Yandex Mobile Ads 8.6.0 introduces Tapjoy (`swift-packages`) into its resolved transitive graph. ChickMark's dependency audit explicitly checks that addition. **Never interpret a newer upstream transitive release as permission to override the parent SDK's requirements.**
