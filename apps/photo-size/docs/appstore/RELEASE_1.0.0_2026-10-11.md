@@ -42,7 +42,7 @@ The original signed release was located in a separate local Git worktree that ha
 - Matching signed archive: `PhotoPodRazmer-1.0.0-12.xcarchive`.
 - The archive and exported IPA are now preserved under the canonical ArvectumSSD checkout's ignored directory `apps/photo-size/ios/build/release-1.0.0-12/`; file checksum was verified after copying.
 
-The product source tree in the canonical release integration has been restored exactly to the local shipped-source commit, rather than combining conflicting versions of `AppModel` or the PDF engine. The 1.0.0 (12) source lineage is merged without altering unrelated application branches. The local artifacts and metadata link the submission with this source snapshot; Apple does not expose a public byte-for-byte cryptographic digest of the uploaded binary for an independent comparison.
+The published-source integration merge commit is `81bbfee`. Its entire `apps/photo-size/ios/` tree was verified identical to the local released-source branch before committing, rather than combining conflicting versions of `AppModel` or the PDF engine. The 1.0.0 (12) source lineage is merged without altering unrelated application branches. The local artifacts and metadata link the submission with this source snapshot; Apple does not expose a public byte-for-byte cryptographic digest of the uploaded binary for an independent comparison.
 
 The App Store release source tag is `photo-size-ios-v1.0.0-build12`, pointing to the original build-source commit. This tag is **not** a new binary upload or a new App Store version.
 
@@ -54,3 +54,10 @@ The App Store release source tag is `photo-size-ios-v1.0.0-build12`, pointing to
 - [x] Verify archived 1.0.0 (12) IPA version/bundle, hash and matched local App Store build ID; preserve archive on ArvectumSSD and tag the source commit.
 - [ ] Verify RU storefront propagation: Apple public iTunes lookup returned 0.6.2 on 2026-10-11 while Connect had 1.0.0 Ready for Distribution.
 - [ ] Validate the published build on a physical device for photo/PDF regression and monetization.
+
+## Post-release engineering (not part of the App Store build 12)
+
+- 2026-10-11: Xcode 27.0 / iOS 27.0 simulator: 28 unit tests and 5 workflow/layout UI tests passed with standard Dynamic Type; 5 Files-only device tests were intentionally skipped.
+- An initial run using a simulator preconfigured to **accessibility-extra-extra-extra-large** correctly exposed unreachable consent actions in the original sheet. The consent layout was improved and workflow tests passed at that extreme size. No-scroll layout verification remains scoped to standard Dynamic Type, not maximum Accessibility sizing.
+- Fix is staged as **1.0.1 (13)** *unreleased source code*; it is not the published 1.0.0 (12) binary. Production 1.0.0 code remains accessible by the dedicated source tag.
+- Physical device retest / advertising privacy acceptance and an actual 1.0.1 App Review submission are pending separate release approval.

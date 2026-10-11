@@ -45,3 +45,7 @@ xcodebuild -project PhotoPodRazmerIOS.xcodeproj -scheme PhotoPodRazmer \
 The App Store release target uses bundle ID `ru.arvectum.tools.tosize`. See `docs/appstore/` for release metadata and checklist.
 
 See [ROADMAP.md](ROADMAP.md) for the canonical product contract and [../../BRAND.md](../../BRAND.md) for shared family-level brand rules.
+
+## Release lineage
+
+Published iOS **1.0.0 (12)** is tagged `photo-size-ios-v1.0.0-build12`; its signed IPA/archive is retained locally in the canonical ArvectumSSD checkout under the ignored `ios/build/release-1.0.0-12/` directory. The current `main` source is the **unreleased 1.0.1 (13)** maintenance candidate. See [release evidence](docs/appstore/RELEASE_1.0.0_2026-10-11.md).
