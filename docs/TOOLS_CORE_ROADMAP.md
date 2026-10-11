@@ -1,21 +1,20 @@
 # Arvectum Tools Core — Roadmap
 
-**Owner:** shared engineering infrastructure only.
-**Scope:** common brand/design standards, path-scoped CI, release templates, platform-wide diagnostics, and packages that are proven reusable by at least two apps.
-**Exclusions:** individual app functionality, app-specific defects, ASO, SEO, ads revenue targets, marketing campaigns.
+**Updated:** 2026-10-11. **Owner:** common rules, brand, code reuse, CI and release infrastructure.
 
-## Foundations
-- [x] Monorepo with isolated app folders.
-- [x] Shared product principles and brand rules.
-- [x] Path-scoped CI and repository release checklist (see repository history).
+## Current baseline
+- [x] Monorepo with independent apps and release cycles.
+- [x] Shared brand rules and a canonical common-principles document.
+- [x] Path-scoped CI and release checklist recorded in repository.
+- [x] Separate portfolio roadmap registry with single ownership.
 
-## Extract only on demonstrated reuse
-- [ ] ArvectumDesign — common tokens and stable SwiftUI primitives.
-- [ ] ArvectumAds — only after two apps prove compatible ad-placement/loading needs.
-- [ ] ArvectumAnalytics — privacy-respecting event conventions.
-- [ ] ArvectumStore — shared review/release helpers.
-- [ ] ArvectumPrivacy — shared disclosure/about surfaces.
+## Engineering follow-ups
+- [ ] Audit CI path filters for newly added apps Where? and What?.
+- [ ] Verify shared dependency impact testing and standard release tagging.
+- [ ] Define common cross-app crash and privacy-safe telemetry interfaces only when used by multiple apps.
+- [ ] Extract UI, ads, analytics, store or privacy packages **only** after at least two real consumers require them.
+- [ ] Keep brand/design tokens in [BRAND.md](../BRAND.md), not repeated in app roadmaps.
 
-Product work remains in apps/<product>/ROADMAP.md.
-Promote to packages/ only when reuse and API boundaries are established.
-See [repository architecture](REPO_ARCHITECTURE.md).
+## Hard boundaries
+No app feature prioritization, app-specific ad activation policy, acquisition metrics, ASO/SEO or marketing experiments.
+Canonical policies: [CORE_PRINCIPLES.md](CORE_PRINCIPLES.md) and [REPO_ARCHITECTURE.md](REPO_ARCHITECTURE.md).
