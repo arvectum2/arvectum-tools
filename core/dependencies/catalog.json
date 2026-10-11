@@ -4,7 +4,7 @@
   "swiftPackages": {
     "YandexMobileAds": {
       "url": "https://github.com/yandexmobile/yandex-ads-sdk-ios",
-      "version": "8.5.0",
+      "version": "8.6.0",
       "update": "minor"
     }
   }

@@ -14,7 +14,7 @@ settings:
 packages:
   YandexMobileAds:
     url: https://github.com/yandexmobile/yandex-ads-sdk-ios
-    exactVersion: 8.5.0
+    exactVersion: 8.6.0
 
 targets:
   PhotoPodRazmer:
