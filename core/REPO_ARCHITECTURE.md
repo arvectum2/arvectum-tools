@@ -53,3 +53,7 @@ A monorepo does not imply synchronized versions. Every app keeps its own version
 ## Binding enforcement
 
 See [architecture contract](ARCHITECTURE_CONTRACT.md) and the CI gate `.github/workflows/architecture-contract.yml`. The directory layout, ownership and cross-product dependency boundaries are checked on every push and pull request.
+
+## Parallel worktrees
+
+The binding [branch/worktree lifecycle](ARCHITECTURE_CONTRACT.md#branch-and-worktree-lifecycle-binding-decision-2026-10-11) uses short-lived task branches and optional isolated worktrees under `ArvectumSSD/Arvectum/worktrees/`. App, Core and Growth directories always remain in `main`; an inactive product does not need a permanent feature branch.
