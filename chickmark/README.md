@@ -38,6 +38,6 @@ Canonical plan: [ROADMAP.md](ROADMAP.md).
 Sync design: [SYNC_DESIGN.md](SYNC_DESIGN.md).
 
 
-## Unreleased 1.3 development
+## 1.3 published release and post-release validation
 
-The former branch `feature/chickmark-multicheck` has been integrated into canonical `main`; these source changes **do not constitute a new App Store release**. Legacy recurrence, CloudKit schema, Watch and widget identities remain unchanged. New count/duration modes store a stable step count using the published habit and check-in models. Do not ship until full Watch/device, accessibility, migration and regression validation plus final localization/refactor. Details: [ROADMAP.md](ROADMAP.md).
+The former branch `feature/chickmark-multicheck` has been integrated into canonical `main`; version 1.3.0 (build 5) is now **published, owner-confirmed 2026-10-11**. Legacy recurrence, CloudKit schema, Watch and widget identities remain unchanged. New count/duration modes store a stable step count using the published habit and check-in models. Post-release device/cloud persistence, offline reconciliation and ad/privacy checks remain tracked in [ROADMAP.md](ROADMAP.md). Details: [ROADMAP.md](ROADMAP.md).
