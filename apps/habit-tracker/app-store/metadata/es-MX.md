@@ -2,7 +2,7 @@
 
 Name: ChickMark: hábitos y metas
 Subtitle: Rutinas, progreso y avisos
-Keywords: habitos,metas,calendario,rutina,diario,racha,recordatorios,lista,contador
+Keywords: calendario,diario,racha,recordatorios,lista,contador,seguimiento,disciplina,agenda,productividad
 
 Promotional text:
 Lleva el control de tus hábitos sin complicarte. Registra varias acciones al día, revisa tu progreso y recibe recordatorios.
@@ -22,7 +22,7 @@ Sin necesidad de crear una cuenta. Funciones esenciales gratis y privacidad como
 Support: https://arvectum.com/contact.html
 Marketing URL: https://arvectum.com
 
-Status: UNRELEASED. Screenshots and native speaker review required.
+Status: Submitted in version 1.3. iPhone and Apple Watch screenshots uploaded; Apple review pending.
 
 ## Novedades de la versión 1.3 — borrador sin publicar
 

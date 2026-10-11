@@ -1,6 +1,6 @@
 # ChickMark 1.3 — pre-release checklist (UNRELEASED)
 
-**Release decision:** HOLD. No TestFlight, App Store Connect submission or external deployment without explicit approval.
+**Release status (2026-10-11):** Submitted to Apple App Review; `WAITING_FOR_REVIEW`. Build 1.3.0 (5) processed `VALID`, submission `54aa2ada-e320-450f-ac76-bfd1aa43dd9a`. **Release mode is MANUAL**, not automatic. No public release yet.
 
 ## Functionality
 - [x] N/N multi-check, count and duration goals, historical progress editor
@@ -52,3 +52,17 @@
 - [x] Code/module refactor, ads lazy-start and screenshot-dimensional CI audit completed.
 - [ ] Final physically authorized QA: real iPhone + iOS simulator, paired Watch; network/ads/CloudKit/KVS/disclosure review.
 - [ ] Separate explicit owner approval to release.
+
+## Actual release submission (2026-10-11)
+
+- [x] Hosted CI Xcode 27 passed (140 unit/integration, essential UI smoke, archive). Local full UI: 19/19 passed.
+- [x] Build 335f4254-5779-4b64-a25a-022e85fd5482 attached to version ea071e25-ab8a-4d5a-b954-1027bd04806a.
+- [x] App Store version and review doctor: 0 blocking errors, 0 warnings. RU, EN, ES-ES, ES-MX metadata and iPhone + Watch screenshots uploaded.
+- [x] Review notes updated with real 1.3 features; age rating advertising declaration corrected to true.
+- [x] Review submission accepted, now WAITING_FOR_REVIEW. No automatic publication enabled.
+- [x] SEO landing pages RU/EN/ES deployed at arvectum.com/tools/chickmark with HTTP 200, SoftwareApplication JSON-LD, sitemap and internal links; site CI checks passed.
+- [x] Physical iPhone13 installed ChickMark 1.3.0 (5), app launched with three visible existing habits (Reading, Water, TabletOS); physical Watch app 1.3.0 (5) installed.
+- [ ] Physical Watch app launch + phone/Watch offline-sync verification: CoreDevice remote tunnel timed out; screenshot was black.
+- [ ] Production iCloud cross-device convergence with simulator signed into same Apple Account; not automatically proven by local CI.
+- [ ] Final on-device Yandex network/privacy observation and actual ad eligibility: not verified.
+- [ ] Apple review approval and deliberate MANUAL public release.

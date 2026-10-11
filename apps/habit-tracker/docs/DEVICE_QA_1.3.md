@@ -1,6 +1,6 @@
 # ChickMark 1.3 — final physical iPhone + simulator acceptance
 
-Status: **HOLD UNTIL A FRESH, VERIFIED BACKUP AND CLOUD CI**.
+Status: **1.3.0 (5) already installed in place on the physical iPhone; hosted CI green.** Full phone/Watch/iCloud convergence is still pending. A complete device backup is optional for non-destructive in-place updates, not a prerequisite.
 This is QA only; do not update the App Store listing, publish to TestFlight, merge main or uninstall 1.2.
 
 ## Tested environment

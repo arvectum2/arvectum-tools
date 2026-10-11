@@ -391,3 +391,11 @@ Progress note (2026-10-10): implementation is direct ChatGPT + RDC + Xcode (no e
 
 - [x] Final iOS 27 UI Xcode Test Result: **19/19 passed, 0 failures, 0 skips** on iPhone 18 Pro (commit 1cf9833 app/test code). Paired Watch SE 3/watchOS27 simulator app launches and displays seeded 3/5 partial controls.
 - [ ] Hosted Xcode 27 CI completion and backup-driven physical acceptance still pending; no App Store / TestFlight upload.
+
+## Review submission 1.3 — 2026-10-11
+- [x] Submitted build 1.3.0 (5) to Apple; status WAITING_FOR_REVIEW, manual release remains enabled.
+- [x] Live localized ASO metadata RU/EN/ES-ES/ES-MX, localized screenshots and review notes corrected; final validation zero blockers/warnings.
+- [x] Live SEO landing pages RU/EN/ES, internal links, JSON-LD and sitemap; production HTTP 200.
+- [x] Installed physical iPhone 1.3.0 (5) and Watch 1.3.0 (5).
+- [ ] Full physical Watch sync and CloudKit/KVS cross-device acceptance, and ad/privacy network inspection, remain unverified.
+- [ ] Manual public release only after Apple approval.

@@ -43,4 +43,4 @@ We also improved local reminder reliability and introduced non-disruptive moneti
 
 ## Keywords
 
-routine,daily,planner,checklist,calendar,progress,discipline,motivation,widget,watch,schedule
+routine,planner,checklist,calendar,progress,motivation,discipline,widget,watch,focus,weekly

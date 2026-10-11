@@ -22,7 +22,7 @@ Sin cuenta obligatoria. Las funciones esenciales son gratuitas. Diseñado para r
 Support: https://arvectum.com/contact.html
 Marketing URL: https://arvectum.com
 
-Status: UNRELEASED. Localized App Store screenshots and visual review still required.
+Status: Submitted in version 1.3. iPhone and Apple Watch screenshots uploaded; Apple review pending.
 
 ## Novedades de la versión 1.3 — borrador sin publicar
 
