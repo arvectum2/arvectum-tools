@@ -23,7 +23,7 @@
 - [x] Submitted to App Review on 2026-10-10.
 - [x] App Store Connect confirms iOS **1.0.0 (12)** uploaded on 2026-10-10, in review and then **Ready for Distribution** on 2026-10-11.
 - [x] Product owner confirmed live App Store publication on 2026-10-11.
-- [ ] Locate and verify exact source commit or archive for uploaded build **12**. Current Git `main` is still **0.6.2 (10)**; a version bump alone is not proof of provenance.
+- [x] Recover build **12** source commit `0346d75`, signed IPA/archive and Apple submission evidence; merge the shipped source into canonical `main` and tag `photo-size-ios-v1.0.0-build12`.
 - [ ] Verify public-storefront propagation of 1.0.0 (public iTunes lookup still showed 0.6.2 during this audit).
 
 ## Next: post-release QA and maintenance

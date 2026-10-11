@@ -28,17 +28,29 @@ App Store Connect history additionally shows a **Developer Rejected** state at 2
 
 Source of status: authenticated App Store Connect dashboard, app version page, build metadata page and History page. Public App Store listing: https://apps.apple.com/ru/app/id6816346084
 
-## Source provenance — unresolved, do not invent a tag
+## Source provenance — recovered 2026-10-11
 
-The canonical repository `/Volumes/ArvectumSSD/Arvectum/repos/arvectum-tools` at this audit has `MARKETING_VERSION = 0.6.2` and `CURRENT_PROJECT_VERSION = 10` in `apps/photo-size/ios/project.yml`. The last locally retained PhotoPodRazmer device Release app in Xcode DerivedData is also `0.6.2 (10)`, timestamped October 7. Mac mini's standard Xcode Archives directory has no PhotoPodRazmer 1.0.0 archive; a limited inspection of the connected MacBook Air's Xcode Archives, Desktop, Downloads and Documents also found none.
+The original signed release was located in a separate local Git worktree that had not been merged into the canonical ArvectumSSD repository:
 
-**Consequently no verified source commit, local archive or reproducible build is linked to the uploaded 1.0.0 (12) binary.** Do not create a misleading `v1.0.0` source tag or rewrite the checked-in release version as if current sources were proven to be the uploaded build.
+- Original worktree: `/Users/master/arvectum-tools-aso`
+- Original branch: `release/photo-pdf-1.0.0`
+- **Build-12 source commit:** `0346d7579b8795408788e9cb4037de05d76f9d44` (includes memory-safe PDF engine)
+- Final release documentation commit: `ca034b131099dea4d61824b9df9f484ce2360382`
+- Matching Apple build ID in the local submission record: `825a5b4d-53f7-480f-8eb7-22f0f2d98cc6`
+- Local exported IPA: `PhotoPodRazmer.ipa`, `CFBundleShortVersionString=1.0.0`, `CFBundleVersion=12`, `CFBundleIdentifier=ru.arvectum.tools.tosize`
+- **Local exported IPA SHA-256:** `24ae813d73771947b386aeddfec4f9de263e4cd40231c77ef2a6451864f023eb`
+- Matching signed archive: `PhotoPodRazmer-1.0.0-12.xcarchive`.
+- The archive and exported IPA are now preserved under the canonical ArvectumSSD checkout's ignored directory `apps/photo-size/ios/build/release-1.0.0-12/`; file checksum was verified after copying.
+
+The product source tree in the canonical release integration has been restored exactly to the local shipped-source commit, rather than combining conflicting versions of `AppModel` or the PDF engine. The 1.0.0 (12) source lineage is merged without altering unrelated application branches. The local artifacts and metadata link the submission with this source snapshot; Apple does not expose a public byte-for-byte cryptographic digest of the uploaded binary for an independent comparison.
+
+The App Store release source tag is `photo-size-ios-v1.0.0-build12`, pointing to the original build-source commit. This tag is **not** a new binary upload or a new App Store version.
 
 ## Follow-ups
 
 - [x] Verify 1.0.0 Ready for Distribution directly in authenticated App Store Connect.
 - [x] Verify 1.0.0 build **12** and Apple upload/review/distribution timestamps.
-- [x] Record the difference versus the source-controlled 0.6.2 (10) baseline.
-- [ ] Locate or reconstruct the **exact** sources and export/archive for uploaded 1.0.0 (12), then attach a provenance commit/tag with reproducible evidence.
+- [x] Recover the separate original release worktree and merge release sources into canonical `main`.
+- [x] Verify archived 1.0.0 (12) IPA version/bundle, hash and matched local App Store build ID; preserve archive on ArvectumSSD and tag the source commit.
 - [ ] Verify RU storefront propagation: Apple public iTunes lookup returned 0.6.2 on 2026-10-11 while Connect had 1.0.0 Ready for Distribution.
 - [ ] Validate the published build on a physical device for photo/PDF regression and monetization.

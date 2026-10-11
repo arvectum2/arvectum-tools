@@ -3,252 +3,13 @@ import SwiftUI
 import UIKit
 @preconcurrency import YandexMobileAds
 
-enum AdUnitIDs {
-#if DEBUG
-    static let native = "demo-native-app-yandex"
-    static let banner = "demo-banner-yandex"
-#else
-    static let native = "R-M-20141949-1"
-    static let banner = "R-M-20141949-2"
-#endif
-}
-
-
-@MainActor
-final class NativeAdSession: ObservableObject {
-    private let loader = NativeAdLoader()
-    private var cachedAd: NativeAd?
-    private var isLoading = false
-    private var waiters: [(Result<NativeAd, Error>) -> Void] = []
-
-    func prefetch() {
-        load { _ in }
-    }
-
-    func load(_ completion: @escaping (Result<NativeAd, Error>) -> Void) {
-        if let cachedAd {
-            completion(.success(cachedAd))
-            return
-        }
-
-        waiters.append(completion)
-        guard !isLoading else { return }
-        isLoading = true
-
-        let request = AdRequest(adUnitID: AdUnitIDs.native)
-        let options = NativeAdOptions()
-        loader.loadAd(with: request, options: options) { [weak self] result in
-            guard let self else { return }
-            self.isLoading = false
-            if case .success(let ad) = result {
-                self.cachedAd = ad
-            }
-            let callbacks = self.waiters
-            self.waiters.removeAll()
-            callbacks.forEach { $0(result) }
-        }
-    }
-}
-
-enum AdConsentStore {
-    private static let key = "arvectum.ads.user-consent"
-    static let privacyPolicyURL = URL(string: "https://arvectum.com/photo-pod-razmer-privacy.html")!
-
-    static var storedConsent: Bool? {
-        guard UserDefaults.standard.object(forKey: key) != nil else { return nil }
-        return UserDefaults.standard.bool(forKey: key)
-    }
-
-    static func save(_ consent: Bool) {
-        UserDefaults.standard.set(consent, forKey: key)
-    }
-}
-
-@MainActor
-enum AdSDK {
-    static func configure() {
-        // Privacy-conservative defaults:
-        // - no precise location;
-        // - no positive GDPR consent until the user explicitly grants it;
-        // - ATT is requested only after positive advertising-data consent.
-        YandexAds.setLocationTracking(false)
-        YandexAds.setUserConsent(AdConsentStore.storedConsent ?? false)
-#if DEBUG
-        YandexAds.enableLogging()
-#endif
-        Task {
-            await YandexAds.initializeSDK()
-        }
-    }
-
-    static func setUserConsent(_ consent: Bool) {
-        AdConsentStore.save(consent)
-        YandexAds.setUserConsent(consent)
-
-        if consent {
-            requestTrackingAuthorizationIfNeeded()
-        }
-    }
-
-    private static func requestTrackingAuthorizationIfNeeded() {
-        guard ATTrackingManager.trackingAuthorizationStatus == .notDetermined else { return }
-
-        // Let the SwiftUI consent sheet finish dismissing before the system ATT prompt.
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
-            guard ATTrackingManager.trackingAuthorizationStatus == .notDetermined else { return }
-            ATTrackingManager.requestTrackingAuthorization { _ in }
-        }
-    }
-}
-
-struct MainScreenNativeAdSlot: View {
-    @ObservedObject var session: NativeAdSession
-
-    var body: some View {
-        NativeAdSlot(session: session)
-            .frame(maxWidth: .infinity)
-            .accessibilityElement(children: .contain)
-            .accessibilityIdentifier("main-native-ad-slot")
-    }
-}
-
-struct ResultScreenAdSlot: View {
-    var body: some View {
-        AdaptiveInlineBannerSlot()
-            .frame(maxWidth: .infinity)
-            .accessibilityIdentifier("result-ad-slot-banner")
-    }
-}
-
-struct AdConsentSheet: View {
-    let onDecision: (Bool) -> Void
-
-    var body: some View {
-        VStack(alignment: .leading, spacing: 18) {
-            HStack(spacing: 10) {
-                Image(systemName: "rectangle.badge.person.crop")
-                    .font(.title2)
-                    .foregroundStyle(Color.arvectumMint)
-
-                Text(tr("Реклама в приложении"))
-                    .font(.title3.weight(.semibold))
-                    .foregroundStyle(Color.arvectumPrimaryText)
-            }
-
-            Text(tr("«Фото и PDF под размер» бесплатно и поддерживается рекламой. Реклама будет показываться независимо от вашего выбора. Вы можете разрешить или не разрешить Yandex Mobile Ads обработку данных для рекламы. Если разрешите, iOS может отдельно спросить разрешение на отслеживание. При отказе реклама останется, но без доступа к рекламному идентификатору. Фото и PDF обрабатываются только на устройстве, геолокация отключена."))
-                .font(.body)
-                .foregroundStyle(.secondary)
-                .fixedSize(horizontal: false, vertical: true)
-
-            Link(destination: AdConsentStore.privacyPolicyURL) {
-                Label(tr("Политика конфиденциальности"), systemImage: "safari")
-                    .font(.subheadline.weight(.semibold))
-            }
-
-            Spacer(minLength: 0)
-
-            Button {
-                onDecision(true)
-            } label: {
-                Text(tr("Разрешить обработку данных"))
-                    .font(.headline)
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 48)
-            }
-            .buttonStyle(.plain)
-            .foregroundStyle(Color.arvectumPrimaryText)
-            .background(Color.arvectumMint, in: RoundedRectangle(cornerRadius: 16))
-            .accessibilityIdentifier("ad-consent-accept")
-
-            Button {
-                onDecision(false)
-            } label: {
-                Text(tr("Не разрешать обработку данных"))
-                    .font(.headline)
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 46)
-            }
-            .buttonStyle(.plain)
-            .foregroundStyle(Color.arvectumPrimaryText)
-            .overlay(
-                RoundedRectangle(cornerRadius: 16)
-                    .stroke(Color.arvectumStrongBorder, lineWidth: 1)
-            )
-            .accessibilityIdentifier("ad-consent-decline")
-        }
-        .padding(20)
-        .background(Color.arvectumBackground)
-    }
-}
-
-private struct AdaptiveInlineBannerSlot: View {
-    @State private var loaded = false
-
-    var body: some View {
-        GeometryReader { proxy in
-            AdaptiveInlineBannerRepresentable(
-                availableWidth: proxy.size.width,
-                isLoaded: $loaded
-            )
-        }
-        .frame(height: loaded ? 180 : 1)
-        .clipped()
-        .animation(.easeInOut(duration: 0.2), value: loaded)
-    }
-}
-
-private struct AdaptiveInlineBannerRepresentable: UIViewRepresentable {
-    let availableWidth: CGFloat
-    @Binding var isLoaded: Bool
-
-    func makeCoordinator() -> Coordinator {
-        Coordinator(isLoaded: $isLoaded)
-    }
-
-    func makeUIView(context: Context) -> BannerAdView {
-        let width = max(300, availableWidth)
-        let size = BannerAdSize.inline(width: width, maxHeight: 180)
-        let view = BannerAdView(adSize: size)
-        view.delegate = context.coordinator
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.loadAd(with: AdRequest(adUnitID: AdUnitIDs.banner))
-        return view
-    }
-
-    func updateUIView(_ uiView: BannerAdView, context: Context) {}
-
-    @MainActor
-    final class Coordinator: NSObject, BannerAdViewDelegate {
-        private var isLoaded: Binding<Bool>
-
-        init(isLoaded: Binding<Bool>) {
-            self.isLoaded = isLoaded
-        }
-
-        func bannerAdViewDidLoad(_ bannerAdView: BannerAdView) {
-            isLoaded.wrappedValue = true
-        }
-
-        func bannerAdViewDidFailLoading(_ bannerAdView: BannerAdView, error: Error) {
-            isLoaded.wrappedValue = false
-        }
-
-        func bannerAdViewDidClick(_ bannerAdView: BannerAdView) {}
-
-        func bannerAdView(
-            _ bannerAdView: BannerAdView,
-            didTrackImpression impressionData: ImpressionData?
-        ) {}
-    }
-}
-
 private enum NativeAdPhase {
     case loading
     case loaded
     case failed
 }
 
-private struct NativeAdSlot: View {
+struct NativeAdSlot: View {
     @ObservedObject var session: NativeAdSession
     @State private var phase: NativeAdPhase = .loading
 
@@ -326,19 +87,23 @@ private struct NativeAdRepresentable: UIViewRepresentable {
 #endif
 
             session.load { [weak self] result in
-                guard let self, let adView = self.adView else { return }
-                switch result {
-                case .success(let ad):
-                    self.ad = ad
-                    ad.delegate = self
-                    do {
-                        try ad.bind(with: adView)
-                        self.phase.wrappedValue = .loaded
-                    } catch {
+                // A cached ad can complete synchronously from makeUIView.
+                // Defer all SwiftUI Binding changes until after the view update.
+                DispatchQueue.main.async { [weak self] in
+                    guard let self, let adView = self.adView else { return }
+                    switch result {
+                    case .success(let ad):
+                        self.ad = ad
+                        ad.delegate = self
+                        do {
+                            try ad.bind(with: adView)
+                            self.phase.wrappedValue = .loaded
+                        } catch {
+                            self.phase.wrappedValue = .failed
+                        }
+                    case .failure:
                         self.phase.wrappedValue = .failed
                     }
-                case .failure:
-                    self.phase.wrappedValue = .failed
                 }
             }
         }
