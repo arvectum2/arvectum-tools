@@ -15,7 +15,7 @@ concurrency:
 
 jobs:
   propose:
-    runs-on: ubuntu-latest
+    runs-on: macos-26
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -27,6 +27,19 @@ jobs:
         run: python3 core/tools/sync_dependencies.py --check
       - name: Validate Android version catalog
         run: python3 -c "import tomllib; tomllib.load(open('core/dependencies/android.versions.toml', 'rb'))"
+      - name: Regenerate iOS projects and exact SwiftPM locks
+        run: |
+          brew install xcodegen
+          for entry in "chickmark HabitsByArvectumIOS" "photo-pdf-to-size PhotoPodRazmerIOS"; do
+            set -- $entry
+            APP="$1"
+            PROJECT="$2"
+            (cd "$APP/ios" && xcodegen generate)
+            xcodebuild -project "$APP/ios/$PROJECT.xcodeproj" -resolvePackageDependencies
+          done
+          cp chickmark/ios/HabitsByArvectumIOS.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved chickmark/ios/Package.resolved
+      - name: Verify direct SDK lockfile consistency
+        run: python3 core/tools/check_swift_lockfiles.py
       - uses: peter-evans/create-pull-request@v7
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -45,3 +58,8 @@ jobs:
             chickmark/ios/project.yml
             photo-pdf-to-size/ios/project.yml
             photo-pdf-to-size/android/gradle/wrapper/gradle-wrapper.properties
+            chickmark/ios/Package.resolved
+            chickmark/ios/HabitsByArvectumIOS.xcodeproj/project.pbxproj
+            chickmark/ios/HabitsByArvectumIOS.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved
+            photo-pdf-to-size/ios/PhotoPodRazmerIOS.xcodeproj/project.pbxproj
+            photo-pdf-to-size/ios/PhotoPodRazmerIOS.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved

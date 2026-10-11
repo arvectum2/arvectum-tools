@@ -32,3 +32,5 @@ python3 core/tools/check_architecture.py
 ```
 
 The online auditor requires Python 3.11+; the synchronization checker supports Python 3.9+.
+
+The macOS update job also regenerates XcodeGen project files and SwiftPM `Package.resolved` pins; `core/tools/check_swift_lockfiles.py` rejects stale direct SDK revisions.

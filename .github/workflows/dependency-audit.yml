@@ -27,5 +27,7 @@ jobs:
           python-version: '3.12'
       - name: Assert shared iOS SDK versions match Core
         run: python3 core/tools/sync_dependencies.py --check
+      - name: Ensure direct SwiftPM pins match the shared SDK catalog
+        run: python3 core/tools/check_swift_lockfiles.py
       - name: Validate Android version catalog
         run: python3 -c "import tomllib; tomllib.load(open('core/dependencies/android.versions.toml', 'rb'))"
