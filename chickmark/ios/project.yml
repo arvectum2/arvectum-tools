@@ -14,7 +14,7 @@ settings:
 packages:
   YandexMobileAds:
     url: https://github.com/yandexmobile/yandex-ads-sdk-ios
-    exactVersion: 8.5.0
+    version: 8.5.0
 
 targets:
   HabitsByArvectum:

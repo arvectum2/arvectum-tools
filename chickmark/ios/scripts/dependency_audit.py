@@ -23,6 +23,11 @@ try:
         "yandex-ads-sdk-ios", "appmetrica-sdk-ios", "kscrash",
         "swift-package-manager-google-user-messaging-platform", "swift-protobuf"
     }
+    # Yandex 8.6.0 adds Tapjoy as a transitive SwiftPM package.
+    # Fail closed for any *other* unexpected package identity.
+    approved_floor = tuple(map(int, m.groups())) if m else (0, 0, 0)
+    if approved_floor >= (8, 6, 0):
+        expected.add("swift-packages")
     if set(by_id) != expected:
         errors.append("Unexpected changed package graph: " + str(sorted(set(by_id) ^ expected)))
     direct = by_id.get("yandex-ads-sdk-ios")
@@ -48,4 +53,4 @@ if generated.is_file() and generated.read_bytes() != p.read_bytes():
 if errors:
     print("\n".join(errors), file=sys.stderr)
     sys.exit(1)
-print("SPM audit: compatible direct semver floor, five pinned packages, source revisions and generated lock consistent.")
+print("SPM audit: compatible direct semver floor, approved pinned package graph, source revisions and generated lock consistent.")

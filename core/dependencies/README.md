@@ -34,3 +34,5 @@ python3 core/tools/check_architecture.py
 The online auditor requires Python 3.11+; the synchronization checker supports Python 3.9+.
 
 The macOS update job also regenerates XcodeGen project files and SwiftPM `Package.resolved` pins; `core/tools/check_swift_lockfiles.py` rejects stale direct SDK revisions.
+
+ChickMark deliberately uses a compatible minimum SemVer floor (`version:`) while Photo/PDF uses `exactVersion:`; both read the **same** release number from Core. The ChickMark lock audit validates an explicit approved transitive graph, including Tapjoy for Yandex 8.6+.
