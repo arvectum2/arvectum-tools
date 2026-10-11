@@ -16,14 +16,15 @@
 - [x] Store screenshots prepared showing before/after; this is a completed asset task, not a pending product feature.
 - [x] iOS release v1.0.0 publicly launched, 2026-10-11.
 
-## Release 1.0.0 — completed distribution gate
-- [x] Submitted to App Review on 2026-10-10 (product owner confirmation).
-- [x] Passed App Review on 2026-10-11 (product owner confirmation).
-- [x] App Store Connect dashboard verified on 2026-10-11: `Фото и PDF под размер`, iOS `1.0.0`, status `Ready for Distribution` (authenticated Safari visual verification, Mac mini).
-- [x] Publication confirmed by product owner on 2026-10-11.
-- [ ] Verify propagation of public storefront metadata: Apple iTunes lookup (RU) still returned `0.6.2` on 2026-10-11, despite App Store Connect showing `1.0.0 Ready for Distribution`.
-- [ ] Open App Store Connect version detail to obtain exact build number, review events and uploaded build provenance; dashboard status alone does not disclose build number. Safari GUI read is available via screenshot, but scripted navigation is waiting for explicit macOS screen/control permission.
-- [ ] Align release tag and the checked-in iOS `MARKETING_VERSION` with the archived shipping source **only after** verifying the exact build; the canonical `main` branch currently declares `0.6.2 (10)`; this is **not** evidence that build 10 is the published 1.0.0.
+## Release 1.0.0 — distribution verified
+
+**Verified release record:** [App Store release 1.0.0 (build 12), 2026-10-11](docs/appstore/RELEASE_1.0.0_2026-10-11.md).
+
+- [x] Submitted to App Review on 2026-10-10.
+- [x] App Store Connect confirms iOS **1.0.0 (12)** uploaded on 2026-10-10, in review and then **Ready for Distribution** on 2026-10-11.
+- [x] Product owner confirmed live App Store publication on 2026-10-11.
+- [ ] Locate and verify exact source commit or archive for uploaded build **12**. Current Git `main` is still **0.6.2 (10)**; a version bump alone is not proof of provenance.
+- [ ] Verify public-storefront propagation of 1.0.0 (public iTunes lookup still showed 0.6.2 during this audit).
 
 ## Next: post-release QA and maintenance
 - [ ] Run device regression on image modes, document presets, PDF orientation, large-file memory and export.
