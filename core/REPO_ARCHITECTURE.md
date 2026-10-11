@@ -57,3 +57,10 @@ See [architecture contract](ARCHITECTURE_CONTRACT.md) and the CI gate `.github/w
 ## Parallel worktrees
 
 The binding [branch/worktree lifecycle](ARCHITECTURE_CONTRACT.md#branch-and-worktree-lifecycle-binding-decision-2026-10-11) uses short-lived task branches and optional isolated worktrees under `ArvectumSSD/Arvectum/worktrees/`. App, Core and Growth directories always remain in `main`; an inactive product does not need a permanent feature branch.
+
+## Shared-module extraction status (2026-10-11)
+
+- `ArvectumDesignTokens`: shared base color constants (ChickMark, Pushkin, Photo/PDF)
+- `ArvectumPersistence/ArvectumJSONCodec`: wire-compatible JSON serialization (ChickMark, What?)
+- Product storage backends, permissions/consent, settings namespaces, analytics schemas and domain errors stay **product-owned**, to avoid schema drift and data loss.
+- Promote additional interfaces to Core only after two apps have an identical stable contract and migration tests.

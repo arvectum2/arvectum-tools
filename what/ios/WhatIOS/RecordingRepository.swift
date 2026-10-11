@@ -83,13 +83,13 @@ final class RecordingRepository {
     private func loadIndex() -> [RecordingEnvelope] {
         guard
             let data = try? Data(contentsOf: indexURL),
-            let decoded = try? JSONDecoder().decode([RecordingEnvelope].self, from: data)
+            let decoded = try? ArvectumJSONCodec.decode([RecordingEnvelope].self, from: data)
         else { return [] }
         return decoded
     }
 
     private func persistIndex(_ recordings: [RecordingEnvelope]) throws {
-        let data = try JSONEncoder().encode(recordings)
+        let data = try ArvectumJSONCodec.encode(recordings)
         try data.write(to: indexURL, options: .atomic)
     }
 }

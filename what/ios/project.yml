@@ -19,6 +19,7 @@ targets:
     platform: iOS
     deploymentTarget: "17.0"
     sources:
+      - path: ../../core/packages/ArvectumPersistence/ArvectumJSONCodec.swift
       - path: Shared
       - path: WhatIOS
     info:

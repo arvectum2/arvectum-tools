@@ -22,3 +22,5 @@ Small duplication is preferred over a premature abstraction.
 - `ArvectumPrivacy` — reusable privacy/about UI.
 
 These are candidates, not pre-approved frameworks.
+
+[ArvectumPersistence](ArvectumPersistence/README.md) — shared wire-compatible JSON codec for ChickMark and What?.

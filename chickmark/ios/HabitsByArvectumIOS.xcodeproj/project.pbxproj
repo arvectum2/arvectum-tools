@@ -48,6 +48,7 @@
 		6AA21EB2773E2F1AC8499FC1 /* HabitMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E0447F317827EF30F2EB13 /* HabitMetrics.swift */; };
 		6DB2A5B785ADF35C3D91C9EB /* PersistenceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B07C7DF19BB6B0DBBDDFC4 /* PersistenceTests.swift */; };
 		70AD1A1DB286FF76ACF5322A /* WatchTodayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2FD34B8824BD72DF76BD98 /* WatchTodayView.swift */; };
+		70B59937C8FE86B8DEF22A8A /* ArvectumJSONCodec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B38831019BE56F5DBB3E44 /* ArvectumJSONCodec.swift */; };
 		72E4414F55DBE7D5F39A4A88 /* AddHabitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F995E4D46A90D1D27AF172E7 /* AddHabitView.swift */; };
 		73CEE0D9ED2E1D572078485A /* YandexMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = 43C3EA52554593DD8950E851 /* YandexMobileAds */; };
 		740A4E2D3D31D1D10187BBFD /* HabitProgressEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 595379F0DA6D68FC9689DCCB /* HabitProgressEditor.swift */; };
@@ -209,6 +210,7 @@
 		1886D5E4794832CCBBF3CD08 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1EC6488C5EDFD0074ECDE680 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1F722EA1B5BB1AD9F7A36315 /* HabitSyncProtocolTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitSyncProtocolTests.swift; sourceTree = "<group>"; };
+		20B38831019BE56F5DBB3E44 /* ArvectumJSONCodec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArvectumJSONCodec.swift; sourceTree = "<group>"; };
 		20C35064D7E8AB27D5194A27 /* HabitDayMutation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitDayMutation.swift; sourceTree = "<group>"; };
 		2276181F533EA10AF63DBC16 /* HabitAdEligibility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitAdEligibility.swift; sourceTree = "<group>"; };
 		23E18F2D9262A9288899071E /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
@@ -341,6 +343,14 @@
 			path = ArvectumDesignTokens;
 			sourceTree = "<group>";
 		};
+		2F37CA1A8EDC42EA04729045 /* ArvectumPersistence */ = {
+			isa = PBXGroup;
+			children = (
+				20B38831019BE56F5DBB3E44 /* ArvectumJSONCodec.swift */,
+			);
+			path = ArvectumPersistence;
+			sourceTree = "<group>";
+		};
 		3CED1621C9B26FD831741184 /* HabitsByArvectumWidget */ = {
 			isa = PBXGroup;
 			children = (
@@ -372,6 +382,7 @@
 			isa = PBXGroup;
 			children = (
 				24E216270EA70DB6C4D8A56F /* ArvectumDesignTokens */,
+				2F37CA1A8EDC42EA04729045 /* ArvectumPersistence */,
 			);
 			path = packages;
 			sourceTree = "<group>";
@@ -863,6 +874,7 @@
 			files = (
 				72E4414F55DBE7D5F39A4A88 /* AddHabitView.swift in Sources */,
 				889C5E9123BF4FA7A4E05F92 /* AddOneOffReminderView.swift in Sources */,
+				70B59937C8FE86B8DEF22A8A /* ArvectumJSONCodec.swift in Sources */,
 				E1F3C4430F5E2A8E0A686C63 /* ArvectumPalette.swift in Sources */,
 				0528F2618E7B149EAD086446 /* ChickMarkBackup.swift in Sources */,
 				FB8E09EE5F5D965700A15018 /* ChickMarkBackupService.swift in Sources */,

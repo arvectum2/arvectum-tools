@@ -14,6 +14,7 @@
 		2A8F5E422C6CA0E9AC0E6C5A /* WhatWatchComplication.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 30A158E04405BA04A51B6785 /* WhatWatchComplication.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		39D726A0F9A6E5ADA4DBEA21 /* WhatComplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D1A5C9E79CC4A544374E3E /* WhatComplication.swift */; };
 		503FAB8870D0044EF3463F4D /* RecordingEnvelope.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C9581F753BED275286D623 /* RecordingEnvelope.swift */; };
+		5FD6CC8F92C1295674F2E5A7 /* ArvectumJSONCodec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDBB652E6AE51553238F6F4 /* ArvectumJSONCodec.swift */; };
 		62F51A03CFB1699B97BE45DA /* RecordingRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CA5B4FD3F49550A3BF2B59 /* RecordingRepository.swift */; };
 		686DBE4CA2BBE32B81849C8A /* CaptureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECAA3B8CBC13E2455D09ADE /* CaptureView.swift */; };
 		930D8453C63A2A36CD2B7018 /* RecordingEnvelope.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C9581F753BED275286D623 /* RecordingEnvelope.swift */; };
@@ -84,6 +85,7 @@
 		61B9DCBC7397B955436563CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		6FEDFC32DD8C7A561856A386 /* WatchCaptureController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchCaptureController.swift; sourceTree = "<group>"; };
 		8BFFB46088A8945C66DFE7F4 /* RecordingRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingRepositoryTests.swift; sourceTree = "<group>"; };
+		8DDBB652E6AE51553238F6F4 /* ArvectumJSONCodec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArvectumJSONCodec.swift; sourceTree = "<group>"; };
 		94ABD3BF183D4D22AF1CD0B0 /* WhatApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatApp.swift; sourceTree = "<group>"; };
 		9819634215CFE7B5CB7C96E2 /* WhatWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WhatWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A4ED5C55003D60E489465C5D /* WhatWatchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatWatchApp.swift; sourceTree = "<group>"; };
@@ -118,12 +120,29 @@
 			path = WhatIOS;
 			sourceTree = "<group>";
 		};
+		23AC716F3918831ACFC12775 /* arvectum-tools */ = {
+			isa = PBXGroup;
+			children = (
+				99A8BB5F6F4651E9F1317001 /* core */,
+			);
+			name = "arvectum-tools";
+			path = ../..;
+			sourceTree = "<group>";
+		};
 		2552E17FD64CA0D618598837 /* WhatIOSTests */ = {
 			isa = PBXGroup;
 			children = (
 				8BFFB46088A8945C66DFE7F4 /* RecordingRepositoryTests.swift */,
 			);
 			path = WhatIOSTests;
+			sourceTree = "<group>";
+		};
+		27216B0F2D38A469857B18A6 /* ArvectumPersistence */ = {
+			isa = PBXGroup;
+			children = (
+				8DDBB652E6AE51553238F6F4 /* ArvectumJSONCodec.swift */,
+			);
+			path = ArvectumPersistence;
 			sourceTree = "<group>";
 		};
 		3D057B2BDE821668C713E082 /* Shared */ = {
@@ -137,6 +156,7 @@
 		4BBCCB53865CEEB047835542 = {
 			isa = PBXGroup;
 			children = (
+				23AC716F3918831ACFC12775 /* arvectum-tools */,
 				3D057B2BDE821668C713E082 /* Shared */,
 				1A5685733475ABA552DA6613 /* WhatIOS */,
 				2552E17FD64CA0D618598837 /* WhatIOSTests */,
@@ -164,6 +184,22 @@
 				A4ED5C55003D60E489465C5D /* WhatWatchApp.swift */,
 			);
 			path = WhatWatch;
+			sourceTree = "<group>";
+		};
+		99A8BB5F6F4651E9F1317001 /* core */ = {
+			isa = PBXGroup;
+			children = (
+				C3F1B1C47BEAD6651E1F6223 /* packages */,
+			);
+			path = core;
+			sourceTree = "<group>";
+		};
+		C3F1B1C47BEAD6651E1F6223 /* packages */ = {
+			isa = PBXGroup;
+			children = (
+				27216B0F2D38A469857B18A6 /* ArvectumPersistence */,
+			);
+			path = packages;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -315,6 +351,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5FD6CC8F92C1295674F2E5A7 /* ArvectumJSONCodec.swift in Sources */,
 				23C3DC142A5320642976B51C /* ContentView.swift in Sources */,
 				A42F93400DD2B4DFBB398F4A /* PhoneConnectivityManager.swift in Sources */,
 				B227CE21210C43AAEE1D1BB0 /* PhoneStore.swift in Sources */,

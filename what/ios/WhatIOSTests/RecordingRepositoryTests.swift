@@ -2,6 +2,24 @@ import XCTest
 @testable import WhatIOS
 
 final class RecordingRepositoryTests: XCTestCase {
+    func testSharedJSONCodecIsWireCompatibleWithFoundation() throws {
+        let recording = RecordingEnvelope(
+            id: UUID(uuidString: "00000000-0000-0000-0000-000000000123")!,
+            createdAt: Date(timeIntervalSince1970: 1_700_000_000),
+            duration: 5.5,
+            fileName: "test.m4a"
+        )
+        let existing = try JSONEncoder().encode([recording])
+        let shared = try ArvectumJSONCodec.encode([recording])
+        XCTAssertEqual(
+            try JSONSerialization.jsonObject(with: shared) as? NSArray,
+            try JSONSerialization.jsonObject(with: existing) as? NSArray
+        )
+        let recovered = try ArvectumJSONCodec.decode([RecordingEnvelope].self, from: existing)
+        XCTAssertEqual(recovered.count, 1)
+        XCTAssertEqual(recovered[0].id, recording.id)
+    }
+
     func testDuplicateDeliveryCreatesOneRecording() throws {
         let root = FileManager.default.temporaryDirectory
             .appendingPathComponent("what-tests-\(UUID().uuidString)", isDirectory: true)

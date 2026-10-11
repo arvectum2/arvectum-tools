@@ -22,6 +22,7 @@ targets:
     platform: iOS
     deploymentTarget: "17.0"
     sources:
+      - path: ../../core/packages/ArvectumPersistence/ArvectumJSONCodec.swift
       - path: ../../core/packages/ArvectumDesignTokens/ArvectumPalette.swift
       - path: HabitsByArvectum
       - path: Shared

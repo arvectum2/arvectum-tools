@@ -13,7 +13,7 @@ enum ChickMarkGroups {
     static let storageKey = "chickmark.groups.v1"
 
     static func decode(_ data: Data) -> [ChickMarkGroup] {
-        (try? JSONDecoder().decode([ChickMarkGroup].self, from: data)) ?? []
+        (try? ArvectumJSONCodec.decode([ChickMarkGroup].self, from: data)) ?? []
     }
 
     static func load(defaults: UserDefaults = .standard) -> [ChickMarkGroup] {
@@ -24,7 +24,7 @@ enum ChickMarkGroups {
         _ groups: [ChickMarkGroup],
         defaults: UserDefaults = .standard
     ) {
-        guard let data = try? JSONEncoder().encode(groups) else { return }
+        guard let data = try? ArvectumJSONCodec.encode(groups) else { return }
         let prior = load(defaults: defaults)
         defaults.set(data, forKey: storageKey)
         if defaults === UserDefaults.standard {
