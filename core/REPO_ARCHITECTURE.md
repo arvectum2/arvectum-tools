@@ -49,3 +49,7 @@ CI should be path-scoped where practical: changes to one app should not require 
 ## Release independence
 
 A monorepo does not imply synchronized versions. Every app keeps its own version and release cadence.
+
+## Binding enforcement
+
+See [architecture contract](ARCHITECTURE_CONTRACT.md) and the CI gate `.github/workflows/architecture-contract.yml`. The directory layout, ownership and cross-product dependency boundaries are checked on every push and pull request.

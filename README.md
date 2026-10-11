@@ -17,3 +17,5 @@ Canonical code and roadmaps are in this repository on ArvectumSSD. Only `.github
 [Portfolio status](core/PORTFOLIO.md) · [Core principles](core/CORE_PRINCIPLES.md) · [Growth roadmap](growth/ROADMAP.md).
 
 Release branches and working trees must not duplicate app source directories. GitHub `main` is the source of truth; GitVerse is a mirror.
+
+**Required architecture:** [Core architecture contract](core/ARCHITECTURE_CONTRACT.md) (validated in CI).

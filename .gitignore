@@ -14,8 +14,8 @@ keystore.properties
 *.keystore
 
 # Xcode / iOS generated files
-apps/*/ios/*.xcodeproj/
-apps/*/ios/DerivedData/
+*/ios/*.xcodeproj/
+*/ios/DerivedData/
 
 # Local App Review physical-device recordings
 photo-pdf-to-size/ios/review-video/
@@ -23,3 +23,7 @@ photo-pdf-to-size/ios/review-video/
 # PUSHKIN local research / App Store chart caches
 pushkin/ios/.cache/
 pushkin/ios/scripts/cache/
+
+# Python generated files
+__pycache__/
+*.pyc
