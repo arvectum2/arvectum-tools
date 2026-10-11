@@ -27,3 +27,6 @@ pushkin/ios/scripts/cache/
 # Python generated files
 __pycache__/
 *.pyc
+
+# SwiftPM generated build artifacts
+**/.build/
