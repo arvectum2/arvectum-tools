@@ -2,7 +2,7 @@
 
 **Updated:** 2026-10-11
 **Ownership:** capture/onboarding, notification store, privacy, search and product UX.
-**Status:** submitted to App Review 2026-09-30 per repository; current App Store decision not verified here.
+**Status:** iOS 1.0 **Waiting for Review**, verified in authenticated App Store Connect on 2026-10-11. Submission history is preserved in the release documentation; no publication confirmed.
 **Full historic phases and decision evidence:** [docs/history/ROADMAP-legacy-2026-10-11.md](docs/history/ROADMAP-legacy-2026-10-11.md). Do not treat old unchecked phases as 1.0 blockers.
 **Common rules:** [Core](../../docs/CORE_PRINCIPLES.md). **Growth:** [Growth](../../docs/GROWTH_ROADMAP.md).
 
@@ -13,7 +13,8 @@
 - [x] Full-text search, copy/share/delete, clear history.
 - [x] English app UI and RU/EN store metadata prepared.
 - [x] Signed 1.0.0 (1) archive and App Store submission recorded.
-- [ ] Confirm review outcome and final shipping version (no assumption that review means published).
+- [x] Check App Store Connect on 2026-10-11: iOS 1.0 is **Waiting for Review**.
+- [ ] Confirm future review outcome and publication; do not treat submission as publication.
 - [ ] Complete/manual-record physical offline smoke testing and final visual QA.
 
 ## Immediate post-submission

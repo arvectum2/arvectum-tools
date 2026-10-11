@@ -1,7 +1,7 @@
 # ChickMark — Product Roadmap
 
 **Updated:** 2026-10-11
-**Status:** v1.2.0 (build 4) published (owner-confirmed 2026-10-10); v1.3.0 (build 5) submitted 2026-10-11, WAITING_FOR_REVIEW, manual release. Publication of 1.3 **not confirmed**.
+**Status:** v1.2.0 (build 4) published (owner-confirmed 2026-10-10); v1.3.0 (build 5) submitted 2026-10-11, WAITING_FOR_REVIEW, manual release. Publication of 1.3 **not confirmed**; Apple App Store Connect still shows **Waiting for Review** on 2026-10-11.
 **Authoritative feature evidence:** active [ChickMark branch snapshot](docs/history/ROADMAP-chickmark-branch-2026-10-11.md) from `feature/chickmark-multicheck`; [earlier planning archive](docs/history/ROADMAP-legacy-2026-10-11.md).
 **Shared rules:** [Core](../../docs/CORE_PRINCIPLES.md). **Promotion and ASO metrics:** [Growth](../../docs/GROWTH_ROADMAP.md).
 
