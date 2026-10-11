@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "portfolio": "Arvectum Tools",
+  "growth_policy": {
+    "paid_acquisition": "blocked_until_economics_proven",
+    "default_publication_mode": "approval_required"
+  },
+  "apps": [
+    {
+      "slug": "photo-size",
+      "name_ru": "Фото под размер",
+      "apple_id": "6816346084",
+      "bundle_id": "ru.arvectum.tools.tosize",
+      "platforms": [
+        "ios"
+      ],
+      "status": "published",
+      "price_model": "free",
+      "primary_category": "Utilities",
+      "primary_jobs": [
+        "reduce_file_size",
+        "resize_pixels",
+        "prepare_35x45_technical_file"
+      ],
+      "privacy_positioning": "on-device processing",
+      "growth_mode": [
+        "aso",
+        "seo",
+        "search_intent"
+      ],
+      "storefront_priority": [
+        "ru",
+        "en"
+      ],
+      "canonical_store_url": "https://apps.apple.com/ru/app/id6816346084"
+    },
+    {
+      "slug": "pushkin",
+      "name": "PUSHKIN",
+      "status": "pre_growth_gate",
+      "growth_mode": [
+        "communities",
+        "problem_aware_search",
+        "aso",
+        "seo"
+      ]
+    },
+    {
+      "slug": "chickmark",
+      "name": "ChickMark",
+      "status": "pre_publish",
+      "growth_mode": [
+        "visual_social",
+        "aso",
+        "seo",
+        "communities"
+      ]
+    }
+  ]
+}

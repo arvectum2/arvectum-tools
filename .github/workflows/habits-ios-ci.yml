@@ -5,12 +5,12 @@ on:
     branches:
       - '**'
     paths:
-      - 'apps/habit-tracker/ios/**'
+      - 'chickmark/ios/**'
       - 'packages/**'
       - '.github/workflows/habits-ios-ci.yml'
   pull_request:
     paths:
-      - 'apps/habit-tracker/ios/**'
+      - 'chickmark/ios/**'
       - 'packages/**'
       - '.github/workflows/habits-ios-ci.yml'
   workflow_dispatch:
@@ -28,7 +28,7 @@ jobs:
     timeout-minutes: 35
     defaults:
       run:
-        working-directory: apps/habit-tracker/ios
+        working-directory: chickmark/ios
 
     steps:
       - uses: actions/checkout@v7

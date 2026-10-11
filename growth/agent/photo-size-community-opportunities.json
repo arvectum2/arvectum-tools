@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "updated": "2026-10-04",
+  "app": "photo-size",
+  "policy": {
+    "reply_only_when_relevant": true,
+    "no_duplicate_copy": true,
+    "developer_showcases": "research_only"
+  },
+  "opportunities": [
+    {
+      "priority": "P0",
+      "intent": "private exact file weight",
+      "community": "r/iphone",
+      "url": "https://www.reddit.com/r/iphone/comments/1gvriqq/secure_photoimage_resizer/",
+      "kind": "user_request",
+      "need": "Sensitive government-document photo must go from 3 MB to under 1 MB; user prefers not to use online services.",
+      "fit": "very_high",
+      "action": "Reply only after App Store availability; lead with on-device processing + target file-size limit; disclose developer affiliation."
+    },
+    {
+      "priority": "P1",
+      "intent": "compress large iPhone photos",
+      "community": "r/iphone",
+      "url": "https://www.reddit.com/r/iphone/comments/14xxbrf/how_do_i_reducecompress_image_file_size_when/",
+      "kind": "user_request",
+      "need": "Native camera images are too large; thread continues receiving interest and complaints about resize apps.",
+      "fit": "medium",
+      "action": "After availability, reply only if target-size workflow materially helps; do not pitch storage-cleaner features."
+    },
+    {
+      "priority": "P1",
+      "intent": "exact pixel crop/resize",
+      "community": "r/ios",
+      "url": "https://www.reddit.com/r/ios/comments/1j0swx5/looking_for_a_free_app_that_lets_me_crop_images/",
+      "kind": "user_request",
+      "need": "User wants exact pixel dimensions and is frustrated by being 1 px off.",
+      "fit": "partial",
+      "action": "Research only until exact-width/height crop behavior matches request; current long-side resize may not fully solve it."
+    },
+    {
+      "priority": "RESEARCH",
+      "intent": "target KB/MB wedge",
+      "community": "r/SideProject",
+      "url": "https://www.reddit.com/r/SideProject/comments/1tjjn6p/help_feedback_required_for_my_image_compressor/",
+      "kind": "developer_showcase",
+      "need": "Commentary identifies exact target KB/MB as underserved versus quality sliders.",
+      "fit": "positioning_evidence",
+      "action": "Do not promote here; use as product/ASO evidence."
+    },
+    {
+      "priority": "RESEARCH",
+      "intent": "simple offline compressor",
+      "community": "r/ShowYourApp",
+      "url": "https://www.reddit.com/r/ShowYourApp/comments/1w44fs4/do_we_really_need_another_image_compressor_i_made/",
+      "kind": "developer_showcase",
+      "need": "Competitor positions on target KB, offline, no login and simplicity.",
+      "fit": "competitive_evidence",
+      "action": "Do not promote; monitor feature/positioning language."
+    }
+  ]
+}

@@ -1,46 +1,19 @@
 # Arvectum Tools
 
-Monorepo for the Arvectum consumer utility family.
+A single monorepo for the Arvectum Tools ecosystem. **Git branches describe changes; directories own products.**
 
-**Product rule:** one tool, one job, done.
-**Engineering rule:** app = directory; change = branch.
-**Privacy rule:** local-first unless a product genuinely needs a backend.
+| Domain | Canonical location |
+| --- | --- |
+| Ecosystem-wide principles, brand, CI standards, shared packages | [core/](core/) |
+| Habit tracker | [chickmark/](chickmark/) |
+| Notifications inbox | [pushkin/](pushkin/) |
+| Photo & PDF sizing | [photo-pdf-to-size/](photo-pdf-to-size/) |
+| Apple Watch voice inbox | [what/](what/) |
+| Offline object finder | [where/](where/) |
+| ASO, SEO, acquisition, growth agent | [growth/](growth/) |
 
-## Repository layout
+Canonical code and roadmaps are in this repository on ArvectumSSD. Only `.github/`, Git metadata, legal license and the index README remain at root.
 
-```text
-apps/
-  photo-size/       # «Фото под размер» — iOS + Android
-  pushkin/          # PUSHKIN — iOS notification utility
-  habit-tracker/    # ChickMark: released 1.2; 1.3 development
-packages/           # shared code promoted only after real reuse
-docs/               # repository-wide architecture and release conventions
-BRAND.md            # shared visual language
-PRODUCT_PRINCIPLES.md
-ROADMAP.md           # portfolio roadmap
-```
+[Portfolio status](core/PORTFOLIO.md) · [Core principles](core/CORE_PRINCIPLES.md) · [Growth roadmap](growth/ROADMAP.md).
 
-Each app owns its bundle/application IDs, versioning, store metadata, tests, release cycle and product roadmap. Shared rules and reusable code stay at repository level.
-
-## Active products
-
-- [Фото под размер](apps/photo-size/README.md) — published utility; post-launch iteration.
-- [PUSHKIN](apps/pushkin/README.md) — active feasibility/product development.
-- [ChickMark](apps/habit-tracker/README.md) — 1.2 published; 1.3 features, localization and architecture in an isolated branch (not released).
-
-## Shared-code policy
-
-Do not extract abstractions speculatively. A component becomes shared only when at least two real apps need the same behavior and the common API is clear. See [packages/README.md](packages/README.md).
-
-## Branch model
-
-Long-lived product branches are not the repository structure. Product source lives under `apps/<product>/`; branches describe changes, for example:
-
-- `feature/pushkin-custom-app`
-- `feature/photo-size-localization`
-- `fix/photo-size-dark-mode`
-- `refactor/shared-design-tokens`
-
-`main` remains the releasable integration line.
-
-See [docs/REPO_ARCHITECTURE.md](docs/REPO_ARCHITECTURE.md), the [portfolio roadmap](ROADMAP.md) and the [repository release checklist](docs/RELEASE_CHECKLIST.md).
+Release branches and working trees must not duplicate app source directories. GitHub `main` is the source of truth; GitVerse is a mirror.
