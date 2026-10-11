@@ -1,0 +1,19 @@
+name: Architecture contract
+
+on:
+  push:
+    branches:
+      - '**'
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  architecture:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Enforce Core / Product / Growth ownership
+        run: python3 core/tools/check_architecture.py
