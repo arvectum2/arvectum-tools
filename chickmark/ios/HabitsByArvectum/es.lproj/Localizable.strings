@@ -247,3 +247,6 @@
 "manage.about" = "Acerca de ChickMark";
 
 "habit.multi.today.progress" = "Marcas: %d/%d";
+
+"ads.debug.title" = "Diagnóstico de anuncios";
+"ads.debug.state" = "Estado";

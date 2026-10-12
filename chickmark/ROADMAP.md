@@ -147,3 +147,13 @@ No app-specific tasks are duplicated in Core or Growth.
 - [x] Update UI test navigation after custom Today header refactor; add screenshots and regression tests.
 - [x] Run localization audit, 152 unit tests and iPhone 13 UI smoke tests.
 - [ ] Broaden manual device-by-device review to Apple Watch, widgets, advertisements and iPad (if supported), separately from iPhone audit.
+
+### 1.4 Watch/widget and ad-delivery audit (October 12)
+- [x] Watch: remove duplicate 3/5, fix 0/N progress bar, clear yesterday's manual-override state.
+- [x] Simulator visual review of Watch SE 40 mm screen; watch app + complication build.
+- [x] iPhone widget extension builds; projection, date rollover and commands unit-tested.
+- [x] Replace involuntary Yandex Debug demo ID with live R-M-20183085-1; demo is opt-in.
+- [x] Add debug-only About > Yandex Ads diagnostics of actual request/load/failure.
+- [x] Verify partner.yandex.ru outage (HTTP 503); do not infer placement approval or no-fill status.
+- [ ] After infrastructure recovery, verify Yandex placement registration, ad fill and first revenue impressions in YAN.
+- [ ] Physical Watch and actual Home/Lock Screen widget manual audit.

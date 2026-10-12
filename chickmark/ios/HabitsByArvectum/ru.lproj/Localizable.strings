@@ -268,3 +268,6 @@
 "manage.about" = "О приложении";
 
 "habit.multi.today.progress" = "Отметки: %d/%d";
+
+"ads.debug.title" = "Диагностика РСЯ";
+"ads.debug.state" = "Статус";

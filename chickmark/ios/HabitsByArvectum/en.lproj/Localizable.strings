@@ -268,3 +268,6 @@
 "manage.about" = "About ChickMark";
 
 "habit.multi.today.progress" = "Check-ins: %d/%d";
+
+"ads.debug.title" = "Yandex Ads diagnostics";
+"ads.debug.state" = "Status";

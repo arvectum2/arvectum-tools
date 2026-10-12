@@ -35,6 +35,14 @@ struct WatchTodayView: View {
         .task(id: syncStore.snapshot.generatedAt) {
             locallyVerified = await WatchHealthEvaluator.qualifyingIDs(for: syncStore.snapshot.habits)
         }
+        .onChange(of: syncStore.snapshot.dayKey) { oldDay, newDay in
+            guard oldDay != newDay else { return }
+            // A manual override is valid for one day only. A cached Watch
+            // view can survive midnight and must not suppress the next day's
+            // legitimate HealthKit auto-completion.
+            userOverridden.removeAll()
+            locallyVerified.removeAll()
+        }
         .onAppear {
             syncStore.refresh()
 #if DEBUG
@@ -46,11 +54,22 @@ struct WatchTodayView: View {
 
     private var progressHeader: some View {
         VStack(spacing: 5) {
-            ProgressView(
-                value: Double(verifiedHabits.filter { $0.completed || $0.skipped }.count),
-                total: Double(max(syncStore.snapshot.totalCount, 1))
-            )
-            .tint(.arvectumMint)
+            GeometryReader { geometry in
+                let resolved = verifiedHabits.filter { $0.completed || $0.skipped }.count
+                let fraction = min(
+                    max(CGFloat(resolved) / CGFloat(max(syncStore.snapshot.totalCount, 1)), 0),
+                    1
+                )
+                Capsule()
+                    .fill(Color.secondary.opacity(0.22))
+                    .overlay(alignment: .leading) {
+                        Capsule()
+                            .fill(Color.arvectumMint)
+                            .frame(width: geometry.size.width * fraction)
+                    }
+            }
+            .frame(height: 6)
+            .accessibilityHidden(true)
 
             Text(
                 WatchL10n.format(
@@ -103,13 +122,10 @@ struct WatchTodayView: View {
                         Text(WatchL10n.string("watch.skipped"))
                             .font(.caption2)
                             .foregroundStyle(.secondary)
-                    } else if let target = habit.dailyTarget,
-                              let count = habit.dailyCount {
-                        Text(habit.durationStepMinutes.map {
-                            WatchL10n.format("watch.duration.format", count * $0, target * $0)
-                        } ?? "\(count)/\(target)")
-                            .font(.caption2.monospacedDigit())
-                            .foregroundStyle(.secondary)
+                    } else if habit.dailyTarget != nil && habit.dailyCount != nil {
+                        // Progress is already centered between the +/- controls
+                        // below. Repeating it here wastes scarce watch space.
+                        EmptyView()
                     } else if let target = habit.weeklyTarget,
                               let count = habit.weeklyCount {
                         Text(

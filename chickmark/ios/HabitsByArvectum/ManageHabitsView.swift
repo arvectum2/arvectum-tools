@@ -369,6 +369,12 @@ struct ManageHabitsView: View {
 // Brand identity and legal/help links are intentionally separate from habit
 // management. Original Arvectum wordmark asset; no substitute emblem.
 private struct ChickMarkAboutView: View {
+#if DEBUG
+    @AppStorage(HabitAdDiagnosticStore.statusKey) private var adStatus = "not_requested"
+    @AppStorage(HabitAdDiagnosticStore.unitKey) private var adUnit = ""
+    @AppStorage(HabitAdDiagnosticStore.errorKey) private var adError = ""
+#endif
+
     private var version: String {
         Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "—"
     }
@@ -425,6 +431,28 @@ private struct ChickMarkAboutView: View {
                     Color.habitsSurface,
                     in: RoundedRectangle(cornerRadius: 16, style: .continuous)
                 )
+
+#if DEBUG
+                DisclosureGroup(L10n.string("ads.debug.title")) {
+                    VStack(alignment: .leading, spacing: 5) {
+                        Text(adUnit.isEmpty ? (HabitAdUnitIDs.banner ?? "—") : adUnit)
+                            .font(.caption.monospaced())
+                        Text(L10n.string("ads.debug.state") + ": " + adStatus)
+                            .font(.caption)
+                        if !adError.isEmpty {
+                            Text(adError)
+                                .font(.caption2)
+                                .foregroundStyle(.secondary)
+                                .textSelection(.enabled)
+                        }
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.top, 8)
+                }
+                .font(.footnote)
+                .foregroundStyle(Color.habitsSecondaryText)
+                .accessibilityIdentifier("ads.debug")
+#endif
             }
             .padding(.horizontal, 16)
         }

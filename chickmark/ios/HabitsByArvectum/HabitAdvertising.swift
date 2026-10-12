@@ -3,21 +3,31 @@ import UIKit
 @preconcurrency import YandexMobileAds
 
 enum HabitAdUnitIDs {
+    static let demoBanner = "demo-banner-yandex"
+
+    /// Debug builds on the publisher's iPhone exercise the actual placement.
+    /// Demo is an explicit opt-in only for SDK/UI development.
     static var banner: String? {
+        resolvedBannerID(
+            configured: Bundle.main.object(forInfoDictionaryKey: "YandexBannerAdUnitID")
+                as? String,
+            arguments: ProcessInfo.processInfo.arguments
+        )
+    }
+
+    static func resolvedBannerID(configured: String?, arguments: [String]) -> String? {
 #if DEBUG
-        return "demo-banner-yandex"
-#else
-        guard
-            let raw = Bundle.main.object(
-                forInfoDictionaryKey: "YandexBannerAdUnitID"
-            ) as? String
+        if arguments.contains("--chickmark-demo-ads") {
+            return demoBanner
+        }
+#endif
+        guard let value = configured?.trimmingCharacters(in: .whitespacesAndNewlines),
+              value.range(of: #"^R-M-[0-9]+-[0-9]+$"#,
+                          options: .regularExpression) != nil
         else {
             return nil
         }
-
-        let value = raw.trimmingCharacters(in: .whitespacesAndNewlines)
-        return value.isEmpty ? nil : value
-#endif
+        return value
     }
 }
 
@@ -93,6 +103,9 @@ private struct HabitStickyBannerRepresentable: UIViewRepresentable {
         let view = BannerAdView(adSize: adSize)
         view.delegate = context.coordinator
         view.translatesAutoresizingMaskIntoConstraints = false
+#if DEBUG
+        HabitAdDiagnosticStore.record("request", unit: adUnitID)
+#endif
         view.loadAd(with: AdRequest(adUnitID: adUnitID))
         return view
     }
@@ -120,6 +133,7 @@ private struct HabitStickyBannerRepresentable: UIViewRepresentable {
             )
 #if DEBUG
             HabitDebugLog.emit("HABITS_AD_BANNER_LOADED")
+            HabitAdDiagnosticStore.record("loaded")
 #endif
         }
 
@@ -133,6 +147,7 @@ private struct HabitStickyBannerRepresentable: UIViewRepresentable {
             HabitDebugLog.emit(
                 "HABITS_AD_BANNER_FAILED reason=\(error.localizedDescription)"
             )
+            HabitAdDiagnosticStore.record("failed", error: error.localizedDescription)
 #endif
         }
 
@@ -144,3 +159,21 @@ private struct HabitStickyBannerRepresentable: UIViewRepresentable {
         ) {}
     }
 }
+
+
+#if DEBUG
+/// Read-only developer diagnostics for checking a live ad unit's delivery
+/// without bringing SDK/network traffic to Settings or About.
+enum HabitAdDiagnosticStore {
+    static let statusKey = "habits.ads.debug.status"
+    static let unitKey = "habits.ads.debug.unit"
+    static let errorKey = "habits.ads.debug.error"
+
+    static func record(_ status: String, unit: String? = nil, error: String? = nil) {
+        let defaults = UserDefaults.standard
+        defaults.set(status, forKey: statusKey)
+        if let unit { defaults.set(unit, forKey: unitKey) }
+        defaults.set(error ?? "", forKey: errorKey)
+    }
+}
+#endif
