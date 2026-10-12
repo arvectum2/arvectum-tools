@@ -77,10 +77,11 @@ struct TodayView: View {
                 healthProjectionRevision += 1
             }
             .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    ChickMarkBrandHeader()
-                }
-                ToolbarItemGroup(placement: .topBarTrailing) {
+                ToolbarItem(placement: .principal) {
+                    HStack(spacing: 12) {
+                        ChickMarkBrandHeader()
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        HStack(spacing: 14) {
                     if !habits.isEmpty {
                         NavigationLink {
                             ManageHabitsView()
@@ -115,6 +116,9 @@ struct TodayView: View {
                             .font(.headline)
                     }
                     .accessibilityLabel(L10n.string("common.add"))
+                        }
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 }
             }
             .safeAreaInset(edge: .bottom, spacing: 0) {

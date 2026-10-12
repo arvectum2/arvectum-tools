@@ -9,30 +9,30 @@ struct ChickMarkBrandHeader: View {
 
     var body: some View {
         Link(destination: ChickMarkProductLinks.localizedLandingPage) {
-            HStack(spacing: 7) {
+            HStack(spacing: 10) {
                 Image("ChickMarkMascot")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 32, height: 32)
+                    .frame(width: 44, height: 44)
                     .accessibilityHidden(true)
 
                 VStack(alignment: .leading, spacing: 0) {
                     Text("ChickMark")
-                        .font(.system(size: 15, weight: .bold))
+                        .font(.system(size: 19, weight: .bold))
                         .foregroundStyle(.primary)
                         .lineLimit(1)
 
                     HStack(alignment: .center, spacing: 3) {
                         Text("by")
-                            .font(.system(size: 9, weight: .medium))
+                            .font(.system(size: 11, weight: .medium))
                             .foregroundStyle(Color.habitsSecondaryText)
                         Image("ArvectumTypeOnly")
                             .resizable()
                             .scaledToFit()
-                            .frame(width: 64, height: 15)
+                            .frame(width: 96, height: 23)
                             .accessibilityLabel("Arvectum")
                     }
-                    .frame(height: 14, alignment: .leading)
+                    .frame(height: 20, alignment: .leading)
                 }
                 .fixedSize(horizontal: true, vertical: false)
             }
