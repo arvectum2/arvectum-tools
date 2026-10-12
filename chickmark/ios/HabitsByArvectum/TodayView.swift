@@ -81,18 +81,17 @@ struct TodayView: View {
                 HStack(alignment: .center, spacing: 10) {
                     ChickMarkBrandHeader()
                     Spacer(minLength: 4)
-                    HStack(spacing: 8) {
+                    HStack(spacing: 0) {
                         if !habits.isEmpty {
                             NavigationLink {
                                 ManageHabitsView()
                             } label: {
                                 Image(systemName: "line.3.horizontal")
                                     .font(.system(size: 20, weight: .medium))
-                                    .frame(width: 38, height: 38)
-                                    .background(Color.habitsSurface, in: RoundedRectangle(cornerRadius: 12))
-                                    .overlay(RoundedRectangle(cornerRadius: 12).strokeBorder(Color.primary.opacity(0.12)))
+                                    .frame(width: 42, height: 40)
                             }
                             .accessibilityLabel(L10n.string("manage.accessibility"))
+                            Divider().frame(height: 22)
                         }
 
                         Menu {
@@ -109,14 +108,14 @@ struct TodayView: View {
                         } label: {
                             Image(systemName: "plus")
                                 .font(.system(size: 22, weight: .medium))
-                                .frame(width: 38, height: 38)
-                                .background(Color.habitsSurface, in: RoundedRectangle(cornerRadius: 12))
-                                .overlay(RoundedRectangle(cornerRadius: 12).strokeBorder(Color.primary.opacity(0.12)))
+                                .frame(width: 42, height: 40)
                         }
                         .accessibilityLabel(L10n.string("common.add"))
                     }
                     .tint(.primary)
                     .fixedSize(horizontal: true, vertical: false)
+                    .background(Color.habitsSurface, in: RoundedRectangle(cornerRadius: 12))
+                    .overlay(RoundedRectangle(cornerRadius: 12).strokeBorder(Color.primary.opacity(0.12)))
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.horizontal, 16)
