@@ -12,3 +12,5 @@
 "widget.preview.reading" = "Чтение";
 
 "widget.duration.format" = "%d / %d мин";
+"widget.action.complete.format" = "Отметить «%@» выполненной";
+"widget.action.undo.format" = "Отменить выполнение «%@»";
