@@ -55,6 +55,33 @@ final class HealthHabitIntegrationTests: XCTestCase {
         ))
     }
 
+    func testProgressFormatsActualStepsWithLocaleAndClampsBarOnly() {
+        let progress = HealthHabitProgress(
+            metric: .steps, current: 3333, target: 7777, dayKey: "2026-10-12"
+        )
+        let ru = progress.quantityText(locale: Locale(identifier: "ru_RU"))
+            .replacingOccurrences(of: "\u{00A0}", with: " ")
+            .replacingOccurrences(of: "\u{202F}", with: " ")
+        XCTAssertEqual(ru, "3 333 / 7 777")
+        XCTAssertEqual(progress.fraction, 3333.0 / 7777.0, accuracy: 0.0001)
+
+        let exceeded = HealthHabitProgress(
+            metric: .steps, current: 8000, target: 7777, dayKey: "2026-10-12"
+        )
+        XCTAssertEqual(exceeded.fraction, 1)
+        XCTAssertTrue(exceeded.quantityText(locale: Locale(identifier: "en_US"))
+            .contains("8,000 / 7,777"))
+        XCTAssertEqual(HealthHabitProgress(
+            metric: .steps, current: 0, target: 7777, dayKey: "2026-10-12"
+        ).fraction, 0)
+
+        let distance = HealthHabitProgress(
+            metric: .walkingDistance, current: 2.4, target: 3.5, dayKey: "2026-10-12"
+        )
+        XCTAssertEqual(distance.quantityText(locale: Locale(identifier: "en_US")),
+                       "2.4 / 3.5")
+    }
+
     func testMetricConvertsDistanceAndValidatesThreshold() {
         XCTAssertEqual(HealthHabitMetric.walkingDistance.normalized(2_500), 2.5)
         XCTAssertEqual(HealthHabitMetric.steps.normalized(5_000), 5_000)

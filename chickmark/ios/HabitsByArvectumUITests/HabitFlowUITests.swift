@@ -14,7 +14,7 @@ final class HabitFlowUITests: XCTestCase {
         app.launch()
     }
 
-    func testBrandAndVersionMovedToManage() throws {
+    func testBrandAndVersionInAboutScreen() throws {
         XCTAssertTrue(
             app.links["chickmark.website"].waitForExistence(timeout: 3)
                 || app.buttons["chickmark.website"].waitForExistence(timeout: 3)
@@ -25,8 +25,14 @@ final class HabitFlowUITests: XCTestCase {
         XCTAssertTrue(manage.waitForExistence(timeout: 3))
         manage.tap()
 
-        XCTAssertTrue(app.staticTexts["chickmark.version"].waitForExistence(timeout: 3))
         XCTAssertTrue(app.buttons["manage.language"].exists)
+        XCTAssertFalse(app.staticTexts["chickmark.version"].exists)
+        let about = app.buttons["manage.about"]
+        XCTAssertTrue(about.waitForExistence(timeout: 3))
+        about.tap()
+        XCTAssertTrue(app.staticTexts["chickmark.version"].waitForExistence(timeout: 3))
+        XCTAssertTrue(app.descendants(matching: .any)["manage.privacy"].exists)
+        XCTAssertTrue(app.descendants(matching: .any)["manage.support"].exists)
     }
 
     func testStorageFailureShowsNonDestructiveRecoveryScreen() throws {
@@ -413,12 +419,8 @@ final class HabitFlowUITests: XCTestCase {
             2
         )
 
-        XCTAssertTrue(
-            app.buttons["manage.privacy"].waitForExistence(timeout: 3)
-        )
-        XCTAssertTrue(
-            app.buttons["manage.support"].waitForExistence(timeout: 3)
-        )
+        XCTAssertTrue(app.buttons["manage.language"].exists)
+        XCTAssertTrue(app.buttons["manage.about"].exists)
     }
 
     func testFlexibleWeeklyGoalIsReadableOnTodayAndManage() throws {

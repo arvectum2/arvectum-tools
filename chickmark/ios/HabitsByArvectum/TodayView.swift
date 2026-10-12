@@ -179,6 +179,17 @@ struct TodayView: View {
                 await HabitReminderScheduler.debugDumpIfRequested()
 #endif
             }
+            // Poll while open because HealthKit observations may arrive
+            // later than the user's step count. No polling in background.
+            .task(id: scenePhase == .active) {
+                guard scenePhase == .active else { return }
+                while !Task.isCancelled {
+                    try? await Task.sleep(for: .seconds(120))
+                    guard !Task.isCancelled else { break }
+                    guard !HealthHabitRuleStore.shared.allRules.isEmpty else { continue }
+                    await HealthHabitCoordinator.shared.synchronize()
+                }
+            }
             .task(id: clockTaskID) {
                 let delay = HabitDayBoundary.delay(from: referenceDate)
                 try? await Task.sleep(for: .seconds(delay))
@@ -262,6 +273,10 @@ struct TodayView: View {
                                     target: habit.dailyTarget,
                                     checkIns: displayedCheckIns
                                 ).keys),
+                                healthProgress: HealthHabitCoordinator.shared.progress(
+                                    for: habit.id, on: referenceDate
+                                ),
+                                healthRule: HealthHabitRuleStore.shared.rule(for: habit.id),
                                 celebrationID: chickInCelebrationHabitID == habit.id
                                     ? chickInCelebrationID
                                     : nil,

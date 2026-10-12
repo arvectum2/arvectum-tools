@@ -5,7 +5,6 @@ import UniformTypeIdentifiers
 struct ManageHabitsView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
-    @Environment(\.openURL) private var openURL
     @Query(sort: \Habit.createdAt) private var habits: [Habit]
 
     @AppStorage(ChickMarkGroups.storageKey) private var groupSettings = Data()
@@ -130,12 +129,7 @@ struct ManageHabitsView: View {
         .navigationTitle(L10n.string("manage.title"))
         .navigationBarTitleDisplayMode(.inline)
         .safeAreaInset(edge: .bottom, spacing: 0) {
-            VStack(spacing: 0) {
-                languageSelector
-                brandFooter
-                supportLinks
-            }
-            .background(Color(uiColor: .systemBackground))
+            preferencesPanel
         }
         .toolbar {
             ToolbarItemGroup(placement: .topBarTrailing) {
@@ -243,6 +237,46 @@ struct ManageHabitsView: View {
         } catch { reportBackupError(error) }
     }
 
+    /// A two-row settings group replaces the previous five competing footer
+    /// elements. Brand/legal content has its own uncluttered About screen.
+    private var preferencesPanel: some View {
+        VStack(spacing: 0) {
+            languageSelector
+            Divider()
+                .padding(.leading, 52)
+
+            NavigationLink {
+                ChickMarkAboutView()
+            } label: {
+                HStack(spacing: 12) {
+                    Image(systemName: "info.circle")
+                        .font(.system(size: 18))
+                        .foregroundStyle(Color.habitsSecondaryText)
+                        .frame(width: 22)
+                    Text(L10n.string("manage.about"))
+                        .font(.subheadline.weight(.medium))
+                        .foregroundStyle(.primary)
+                    Spacer()
+                    Image(systemName: "chevron.right")
+                        .font(.caption2.weight(.semibold))
+                        .foregroundStyle(Color.habitsSecondaryText)
+                }
+                .frame(minHeight: 48)
+                .padding(.horizontal, 14)
+                .contentShape(Rectangle())
+            }
+            .buttonStyle(.plain)
+            .accessibilityIdentifier("manage.about")
+        }
+        .background(
+            Color.habitsSurface,
+            in: RoundedRectangle(cornerRadius: 16, style: .continuous)
+        )
+        .padding(.horizontal, 16)
+        .padding(.vertical, 12)
+        .background(Color.habitsBackground)
+    }
+
     private var languageSelector: some View {
         Menu {
             Picker(L10n.string("language.title"), selection: $preferredLanguage) {
@@ -257,10 +291,11 @@ struct ManageHabitsView: View {
                 Image(systemName: "globe")
                     .font(.system(size: 18))
                     .foregroundStyle(Color.habitsSecondaryText)
+                    .frame(width: 22)
                 Text(L10n.string("language.title"))
                     .font(.subheadline.weight(.medium))
                     .foregroundStyle(.primary)
-                Spacer()
+                Spacer(minLength: 8)
                 Text(ChickMarkLanguage.displayName(for: preferredLanguage))
                     .font(.subheadline)
                     .foregroundStyle(Color.habitsSecondaryText)
@@ -268,78 +303,12 @@ struct ManageHabitsView: View {
                     .font(.caption2.weight(.semibold))
                     .foregroundStyle(Color.habitsSecondaryText)
             }
-            .frame(minHeight: 46)
+            .frame(minHeight: 48)
             .padding(.horizontal, 14)
-            .background(
-                Color.habitsSurface,
-                in: RoundedRectangle(cornerRadius: 14, style: .continuous)
-            )
-            .contentShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
+            .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
         .accessibilityIdentifier("manage.language")
-        .padding(.horizontal, 16)
-        .padding(.top, 8)
-    }
-
-    private var brandFooter: some View {
-        HStack(spacing: 4) {
-            Text("by")
-                .font(.caption2.weight(.medium))
-                .foregroundStyle(Color.habitsSecondaryText)
-            Image("ArvectumTypeOnly")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 76, height: 17)
-                .accessibilityLabel("Arvectum")
-
-            Spacer()
-
-            Text("ChickMark v" + (Bundle.main.object(
-                forInfoDictionaryKey: "CFBundleShortVersionString"
-            ) as? String ?? "—"))
-                .font(.caption2.monospacedDigit())
-                .foregroundStyle(Color.habitsSecondaryText)
-                .accessibilityIdentifier("chickmark.version")
-        }
-        .padding(.horizontal, 22)
-        .padding(.top, 12)
-        .padding(.bottom, 3)
-    }
-
-    private var supportLinks: some View {
-        HStack(spacing: 10) {
-            Button {
-                openURL(
-                    URL(string: "https://arvectum.com/privacy")!
-                )
-            } label: {
-                Text(L10n.string("manage.privacy"))
-                    .foregroundStyle(Color(uiColor: .label))
-                    .frame(minHeight: 44)
-                    .padding(.horizontal, 4)
-                    .contentShape(Rectangle())
-            }
-            .buttonStyle(.plain)
-            .accessibilityIdentifier("manage.privacy")
-
-            Button {
-                openURL(
-                    URL(string: "https://arvectum.com/contact.html")!
-                )
-            } label: {
-                Text(L10n.string("manage.support"))
-                    .foregroundStyle(Color(uiColor: .label))
-                    .frame(minWidth: 44, minHeight: 44)
-                    .padding(.horizontal, 4)
-                    .contentShape(Rectangle())
-            }
-            .buttonStyle(.plain)
-            .accessibilityIdentifier("manage.support")
-        }
-        .font(.footnote)
-        .frame(maxWidth: .infinity, minHeight: 44)
-        .background(Color(uiColor: .systemBackground))
     }
 
     private func habitLink(_ habit: Habit) -> some View {
@@ -393,5 +362,99 @@ struct ManageHabitsView: View {
 
         try? modelContext.save()
         HabitDataChangeNotifier.notify()
+    }
+}
+
+
+// Brand identity and legal/help links are intentionally separate from habit
+// management. Original Arvectum wordmark asset; no substitute emblem.
+private struct ChickMarkAboutView: View {
+    private var version: String {
+        Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "—"
+    }
+
+    var body: some View {
+        ScrollView {
+            VStack(spacing: 28) {
+                VStack(spacing: 10) {
+                    Image("ChickMarkMascot")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 78, height: 78)
+                        .accessibilityHidden(true)
+
+                    Text("ChickMark")
+                        .font(.custom("PTSans-Bold", size: 30, relativeTo: .title))
+
+                    HStack(spacing: 4) {
+                        Text("by")
+                            .font(.caption)
+                            .foregroundStyle(Color.habitsSecondaryText)
+                        Image("ArvectumTypeOnly")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 103, height: 24)
+                            .accessibilityLabel("Arvectum")
+                    }
+
+                    Text("v" + version)
+                        .font(.caption.monospacedDigit())
+                        .foregroundStyle(Color.habitsSecondaryText)
+                        .accessibilityIdentifier("chickmark.version")
+                }
+                .frame(maxWidth: .infinity)
+                .padding(.top, 35)
+
+                VStack(spacing: 0) {
+                    aboutLink(
+                        L10n.string("manage.privacy"),
+                        systemImage: "lock.shield",
+                        url: URL(string: "https://arvectum.com/privacy")!,
+                        identifier: "manage.privacy"
+                    )
+                    Divider()
+                        .padding(.leading, 52)
+                    aboutLink(
+                        L10n.string("manage.support"),
+                        systemImage: "questionmark.circle",
+                        url: URL(string: "https://arvectum.com/contact.html")!,
+                        identifier: "manage.support"
+                    )
+                }
+                .background(
+                    Color.habitsSurface,
+                    in: RoundedRectangle(cornerRadius: 16, style: .continuous)
+                )
+            }
+            .padding(.horizontal, 16)
+        }
+        .background(Color.habitsBackground)
+        .navigationTitle(L10n.string("manage.about"))
+        .navigationBarTitleDisplayMode(.inline)
+    }
+
+    private func aboutLink(
+        _ title: String, systemImage: String, url: URL, identifier: String
+    ) -> some View {
+        Link(destination: url) {
+            HStack(spacing: 12) {
+                Image(systemName: systemImage)
+                    .font(.system(size: 18))
+                    .foregroundStyle(Color.habitsSecondaryText)
+                    .frame(width: 22)
+                Text(title)
+                    .font(.subheadline.weight(.medium))
+                    .foregroundStyle(.primary)
+                Spacer()
+                Image(systemName: "arrow.up.right")
+                    .font(.caption2.weight(.semibold))
+                    .foregroundStyle(Color.habitsSecondaryText)
+            }
+            .frame(minHeight: 50)
+            .padding(.horizontal, 14)
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
+        .accessibilityIdentifier(identifier)
     }
 }

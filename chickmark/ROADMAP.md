@@ -119,3 +119,14 @@ No app-specific tasks are duplicated in Core or Growth.
 - [x] Real-device iPhone 13 signed build, install and launch succeeded.
 - [x] iPhone 13 UI tests verify stat heights, HealthKit connect button visibility, and non-scrolling detail overview.
 - [x] 150 unit tests passed, RU/EN/ES localization audit passed.
+
+### About redesign and local HealthKit goal progress (October 12)
+- [x] Replace cluttered Manage footer with a compact two-row Language / About panel.
+- [x] Create dedicated About page with original Arvectum wordmark, app version, privacy and support links.
+- [x] Display live HealthKit goal progress on Today habits: localized current/target numbers, units and a capped visual bar next to existing completion control.
+- [x] Keep readings strictly in memory, not CloudKit, SwiftData, widget snapshots, WatchConnectivity, analytics or ad SDKs; do not replace manual overrides.
+- [x] Refresh HealthKit on foreground/observations and every 120 seconds while Today screen is active.
+- [x] Add step/distance formatting and fraction tests; 151 iOS unit tests passed.
+- [x] iPhone 13 simulator UI tests: About navigation/version/legal, Manage links and habit management passed.
+- [x] Signed physical iPhone 13 build, installation, launch successful.
+- [ ] Confirm real current step count and auto-complete threshold visually with an opted-in physical iPhone.

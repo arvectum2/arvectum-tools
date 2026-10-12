@@ -80,6 +80,38 @@ struct HealthHabitRule: Codable, Equatable {
     }
 }
 
+/// Current-day HealthKit reading, held in memory only. Never serialized to
+/// SwiftData, CloudKit, widget snapshots, WatchConnectivity or telemetry.
+struct HealthHabitProgress: Equatable {
+    let metric: HealthHabitMetric
+    let current: Double
+    let target: Double
+    let dayKey: String
+
+    var fraction: Double {
+        guard current.isFinite, target.isFinite, target > 0 else { return 0 }
+        return min(max(current / target, 0), 1)
+    }
+
+    func quantityText(locale: Locale) -> String {
+        "\(numberText(current, locale: locale)) / \(numberText(target, locale: locale))"
+    }
+
+    func targetText(locale: Locale) -> String {
+        numberText(target, locale: locale)
+    }
+
+    private func numberText(_ number: Double, locale: Locale) -> String {
+        guard number.isFinite else { return "—" }
+        let formatter = NumberFormatter()
+        formatter.locale = locale
+        formatter.numberStyle = .decimal
+        formatter.maximumFractionDigits = metric == .steps ? 0 : 1
+        formatter.minimumFractionDigits = 0
+        return formatter.string(from: NSNumber(value: max(0, number))) ?? "—"
+    }
+}
+
 struct HealthHabitEvidence: Codable {
     let mutationID: UUID
     let metric: HealthHabitMetric
@@ -213,6 +245,13 @@ final class HealthHabitCoordinator {
     private var observers: [HKObserverQuery] = []
     private var runningSync: Task<Void, Never>?
     private(set) var completedDayKeys: Set<String> = []
+    private var liveProgress: [UUID: HealthHabitProgress] = [:]
+
+    func progress(for habitID: UUID, on date: Date = .now) -> HealthHabitProgress? {
+        guard let progress = liveProgress[habitID],
+              progress.dayKey == HabitDayKey.make(for: date) else { return nil }
+        return progress
+    }
 
     func hasLocalCompletion(habitID: UUID, dayKey: String) -> Bool {
         completedDayKeys.contains("\(habitID.uuidString):\(dayKey)")
@@ -318,6 +357,7 @@ final class HealthHabitCoordinator {
         let settings = HealthHabitRuleStore.shared
         guard !settings.allRules.isEmpty else {
             completedDayKeys.removeAll()
+            liveProgress.removeAll()
             LocalHealthWidgetProjection.save(
                 dayKey: HabitDayKey.make(for: .now), habitIDs: []
             )
@@ -341,9 +381,34 @@ final class HealthHabitCoordinator {
         let calendar = Calendar.autoupdatingCurrent
         let earliest = calendar.date(byAdding: .day, value: -6, to: calendar.startOfDay(for: now))!
         var measurements: [String: Double] = [:]
+        var currentProgress: [UUID: HealthHabitProgress] = [:]
+        let todayKey = HabitDayKey.make(for: now, calendar: calendar)
+        let todayStart = calendar.startOfDay(for: now)
 
         for (habitID, rule) in settings.allRules {
-            guard let habit = habits.first(where: { $0.id == habitID }) else { continue }
+            guard let habit = habits.first(where: { $0.id == habitID }),
+                  !habit.isArchived else { continue }
+
+            // Always read today's progress for connected rules, even if the
+            // habit was already auto-completed or manually overridden.
+            // Reuse this metric/day reading for the completion decision.
+            let currentCacheKey = "\(rule.metric.rawValue):\(todayKey)"
+            let todayValue: Double?
+            if let cached = measurements[currentCacheKey] {
+                todayValue = cached
+            } else {
+                todayValue = try? await read(metric: rule.metric, from: todayStart, to: now)
+                if let todayValue, todayValue.isFinite {
+                    measurements[currentCacheKey] = todayValue
+                }
+            }
+            if let todayValue, todayValue.isFinite {
+                currentProgress[habitID] = HealthHabitProgress(
+                    metric: rule.metric, current: todayValue,
+                    target: rule.target, dayKey: todayKey
+                )
+            }
+
             var day = max(earliest, calendar.startOfDay(for: rule.enabledAt))
             while day <= now {
                 let key = HabitDayKey.make(for: day, calendar: calendar)
@@ -372,7 +437,7 @@ final class HealthHabitCoordinator {
             }
         }
         completedDayKeys = derived
-        let todayKey = HabitDayKey.make(for: now, calendar: calendar)
+        liveProgress = currentProgress
         let currentIDs = habits.compactMap { habit -> UUID? in
             guard derived.contains("\(habit.id.uuidString):\(todayKey)"),
                   !mutations.contains(where: { $0.habitID == habit.id && $0.dayKey == todayKey })
