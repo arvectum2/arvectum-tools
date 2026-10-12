@@ -189,20 +189,23 @@ struct WatchTodayView: View {
                     syncStore.adjust(habit, by: -1)
                 } label: {
                     Image(systemName: "minus.circle")
-                        .frame(maxWidth: .infinity, minHeight: 38)
+                        .frame(maxWidth: .infinity, minHeight: 44)
                 }
                 .disabled(count == 0)
                 .accessibilityLabel(WatchL10n.string("watch.step.remove"))
 
                 Text("\(count)/\(target)")
                     .font(.caption2.monospacedDigit())
-                    .accessibilityHidden(true)
+                    .accessibilityLabel(
+                        WatchL10n.format("watch.checkins.progress.format", count, target)
+                    )
+                    .accessibilityIdentifier("watch.checkins.progress")
 
                 Button {
                     syncStore.adjust(habit, by: 1)
                 } label: {
                     Image(systemName: "plus.circle.fill")
-                        .frame(maxWidth: .infinity, minHeight: 38)
+                        .frame(maxWidth: .infinity, minHeight: 44)
                 }
                 .disabled(count == target)
                 .accessibilityLabel(WatchL10n.string("watch.step.add"))
