@@ -14,6 +14,7 @@ struct HabitDetailView: View {
     @Bindable var habit: Habit
     @State private var showingDeleteConfirmation = false
     @State private var showingEditHabit = false
+    @State private var showingExtendedHistory = false
     @State private var editingProgressDay: HabitProgressDaySelection?
 
     @State private var healthProjectionRevision = 0
@@ -46,28 +47,23 @@ struct HabitDetailView: View {
         HabitHistoryCalendar.weekdaySymbols()
     }
 
+    /// The primary habit card fits a single screen. Extra history/insights are
+    /// behind an explicit drilldown; accessibility text sizes retain scrolling.
     var body: some View {
-        ScrollView {
-            VStack(spacing: 16) {
-                identityCard
-                healthIntegrationCard
-                statsCard
-                historyCard
-                if canSkipToday {
-                    skipTodayButton
+        Group {
+            if dynamicTypeSize.isAccessibilitySize {
+                ScrollView {
+                    habitOverview(weeks: 4)
+                        .padding(12)
                 }
-                if habit.isPaused && !habit.isArchived {
-                    resumeButton
+            } else {
+                ViewThatFits(in: .vertical) {
+                    habitOverview(weeks: 4)
+                    habitOverview(weeks: 3)
                 }
-                if habit.usesFlexibleWeeklyTarget {
-                    weeklyInsightsCard
-                } else if habit.usesCompletionInterval {
-                    intervalInsightsCard
-                } else {
-                    insightsCard
-                }
+                .padding(12)
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
             }
-            .padding(16)
         }
         .background(Color.habitsBackground)
         .navigationTitle(habit.name)
@@ -125,6 +121,33 @@ struct HabitDetailView: View {
         .sheet(isPresented: $showingEditHabit) {
             AddHabitView(habit: habit)
         }
+        .sheet(isPresented: $showingExtendedHistory) {
+            NavigationStack {
+                ScrollView {
+                    VStack(spacing: 12) {
+                        historyCard
+                        if habit.usesFlexibleWeeklyTarget {
+                            weeklyInsightsCard
+                        } else if habit.usesCompletionInterval {
+                            intervalInsightsCard
+                        } else {
+                            insightsCard
+                        }
+                    }
+                    .padding(16)
+                }
+                .background(Color.habitsBackground)
+                .navigationTitle(L10n.string("detail.more.title"))
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .confirmationAction) {
+                        Button(L10n.string("common.done")) {
+                            showingExtendedHistory = false
+                        }
+                    }
+                }
+            }
+        }
         .sheet(item: $editingProgressDay) { selection in
             HabitProgressEditor(habit: habit, date: selection.date)
                 .presentationDetents([.medium, .large])
@@ -138,6 +161,40 @@ struct HabitDetailView: View {
             Button(L10n.string("common.cancel"), role: .cancel) {}
         } message: {
             Text(L10n.string("detail.delete.message"))
+        }
+    }
+
+    @ViewBuilder
+    private func habitOverview(weeks: Int) -> some View {
+        VStack(spacing: 10) {
+            identityCard
+            statsCard
+            compactHistoryCard(weeks: weeks)
+            healthIntegrationCard
+
+            if canSkipToday {
+                skipTodayButton
+            }
+            if habit.isPaused && !habit.isArchived {
+                resumeButton
+            }
+
+            Button {
+                showingExtendedHistory = true
+            } label: {
+                HStack {
+                    Label(L10n.string("detail.more.title"), systemImage: "chart.bar.xaxis")
+                        .font(.subheadline.weight(.semibold))
+                    Spacer()
+                    Image(systemName: "chevron.right")
+                        .font(.caption.weight(.semibold))
+                }
+                .frame(minHeight: 44)
+                .padding(.horizontal, 14)
+                .background(Color.habitsSurface, in: RoundedRectangle(cornerRadius: 14))
+            }
+            .buttonStyle(.plain)
+            .accessibilityIdentifier("detail.more")
         }
     }
 
@@ -164,7 +221,7 @@ struct HabitDetailView: View {
                     .font(.caption.weight(.semibold))
                     .foregroundStyle(.tertiary)
             }
-            .padding(14)
+            .padding(10)
             .background(Color.habitsSurface, in: RoundedRectangle(cornerRadius: 16))
         }
         .buttonStyle(.plain)
@@ -178,7 +235,7 @@ struct HabitDetailView: View {
                     identityText
                 }
             } else {
-                HStack(spacing: 14) {
+                HStack(spacing: 12) {
                     identityIcon
                     identityText
                     Spacer()
@@ -186,8 +243,8 @@ struct HabitDetailView: View {
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(16)
-        .background(Color.habitsSurface, in: RoundedRectangle(cornerRadius: 20))
+        .padding(12)
+        .background(Color.habitsSurface, in: RoundedRectangle(cornerRadius: 16))
     }
 
     private var identityIcon: some View {
@@ -198,7 +255,7 @@ struct HabitDetailView: View {
                 .font(.title2)
                 .foregroundStyle(Color.habitsReadableAccent(for: habit.colorHex))
         }
-        .frame(width: 54, height: 54)
+        .frame(width: 44, height: 44)
         .accessibilityHidden(true)
     }
 
@@ -307,37 +364,51 @@ struct HabitDetailView: View {
         }
     }
 
+    private func compactHistoryCard(weeks: Int) -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text(L10n.string("detail.history.recent"))
+                .font(.subheadline.weight(.semibold))
+            historyGrid(
+                days: HabitHistoryCalendar.visibleDays(
+                    endingInWeekContaining: .now, weeks: weeks
+                ),
+                compact: true
+            )
+        }
+        .padding(12)
+        .background(Color.habitsSurface, in: RoundedRectangle(cornerRadius: 16))
+    }
+
     private var historyCard: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text(L10n.string("detail.history.title"))
                 .font(.headline)
-
-            LazyVGrid(
-                columns: Array(
-                    repeating: GridItem(.flexible(), spacing: 6),
-                    count: 7
-                ),
-                spacing: 6
-            ) {
-                ForEach(Array(weekdaySymbols.enumerated()), id: \.offset) { item in
-                    Text(item.element)
-                        .font(.caption2.weight(.semibold))
-                        .foregroundStyle(Color.habitsSecondaryText)
-                        .frame(maxWidth: .infinity)
-                        .accessibilityHidden(true)
-                }
-
-                ForEach(recentDays, id: \.self) { date in
-                    dayCell(date)
-                }
-            }
-
+            historyGrid(days: recentDays, compact: false)
             Text(L10n.string("detail.history.hint"))
                 .font(.caption)
                 .foregroundStyle(Color.habitsSecondaryText)
         }
         .padding(16)
         .background(Color.habitsSurface, in: RoundedRectangle(cornerRadius: 20))
+    }
+
+    private func historyGrid(days: [Date], compact: Bool) -> some View {
+        LazyVGrid(
+            columns: Array(repeating: GridItem(.flexible(), spacing: compact ? 5 : 6), count: 7),
+            spacing: compact ? 5 : 6
+        ) {
+            ForEach(Array(weekdaySymbols.enumerated()), id: \.offset) { item in
+                Text(item.element)
+                    .font(.caption2.weight(.semibold))
+                    .foregroundStyle(Color.habitsSecondaryText)
+                    .frame(maxWidth: .infinity)
+                    .accessibilityHidden(true)
+            }
+
+            ForEach(days, id: \.self) { date in
+                dayCell(date)
+            }
+        }
     }
 
     private var canSkipToday: Bool {
@@ -436,8 +507,8 @@ struct HabitDetailView: View {
             }
         }
         .frame(maxWidth: .infinity)
-        .padding(.vertical, 14)
-        .background(Color.habitsSurface, in: RoundedRectangle(cornerRadius: 18))
+        .padding(.vertical, 8)
+        .background(Color.habitsSurface, in: RoundedRectangle(cornerRadius: 16))
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(label)
         .accessibilityValue(

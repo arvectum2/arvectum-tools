@@ -240,3 +240,6 @@
 // In-app language selection
 "language.title" = "Idioma";
 "language.system" = "Predeterminado del sistema";
+
+"detail.more.title" = "Historial y estadísticas";
+"detail.history.recent" = "Actividad reciente";

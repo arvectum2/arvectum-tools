@@ -37,6 +37,8 @@ targets:
       path: HabitsByArvectum/Info.plist
       properties:
         CFBundleDisplayName: "ChickMark"
+        UIAppFonts:
+          - PTSans-Bold.ttf
         NSHealthShareUsageDescription: "ChickMark reads activity totals only for habits you link to Apple Health."
         CFBundleShortVersionString: "$(MARKETING_VERSION)"
         CFBundleVersion: "$(CURRENT_PROJECT_VERSION)"

@@ -14,13 +14,19 @@ final class HabitFlowUITests: XCTestCase {
         app.launch()
     }
 
-    func testBrandAndVersionVisibleOnEmptyToday() throws {
+    func testBrandAndVersionMovedToManage() throws {
         XCTAssertTrue(
             app.links["chickmark.website"].waitForExistence(timeout: 3)
                 || app.buttons["chickmark.website"].waitForExistence(timeout: 3)
         )
-        XCTAssertTrue(app.staticTexts["ChickMark"].exists)
-        XCTAssertTrue(app.staticTexts["v1.3.1"].exists)
+        XCTAssertFalse(app.staticTexts["chickmark.version"].exists)
+
+        let manage = app.buttons["Manage habits"]
+        XCTAssertTrue(manage.waitForExistence(timeout: 3))
+        manage.tap()
+
+        XCTAssertTrue(app.staticTexts["chickmark.version"].waitForExistence(timeout: 3))
+        XCTAssertTrue(app.buttons["manage.language"].exists)
     }
 
     func testStorageFailureShowsNonDestructiveRecoveryScreen() throws {
@@ -56,7 +62,7 @@ final class HabitFlowUITests: XCTestCase {
             app.navigationBars["Reading"].waitForExistence(timeout: 3)
         )
         XCTAssertTrue(
-            app.staticTexts["Last 6 weeks"].waitForExistence(timeout: 3)
+            app.staticTexts["Recent activity"].waitForExistence(timeout: 3)
         )
     }
 
@@ -95,10 +101,27 @@ final class HabitFlowUITests: XCTestCase {
             app.navigationBars["Read"].waitForExistence(timeout: 3)
         )
         XCTAssertTrue(
-            app.staticTexts["Last 6 weeks"].waitForExistence(timeout: 3)
+            app.staticTexts["Recent activity"].waitForExistence(timeout: 3)
         )
     }
 
+
+    func testHabitDetailOverviewFitsWithoutScrolling() throws {
+        launchSeededDemo()
+        let reading = app.staticTexts["Reading"].firstMatch
+        XCTAssertTrue(reading.waitForExistence(timeout: 3))
+        reading.tap()
+
+        let more = app.buttons["detail.more"]
+        XCTAssertTrue(more.waitForExistence(timeout: 3))
+        XCTAssertTrue(more.isHittable, "The overview must fit without scrolling")
+        let screen = app.windows.firstMatch.frame
+        XCTAssertLessThanOrEqual(more.frame.maxY, screen.maxY - 10)
+
+        more.tap()
+        XCTAssertTrue(app.staticTexts["Last 6 weeks"].waitForExistence(timeout: 3))
+        XCTAssertTrue(app.staticTexts["Consistency"].waitForExistence(timeout: 3))
+    }
 
     func testStoreScreenshotsEnglish() throws {
         storeScreenshots(language: "en", locale: "en_US",

@@ -101,3 +101,12 @@ No app-specific tasks are duplicated in Core or Growth.
 - [x] Localization audit RU/EN/ES and 150 automated unit tests passed.
 - [x] Signed iPhone 13 installation and launch.
 - [ ] Verify appearance and menu interaction manually on physical iPhone; watchOS/widget language remains controlled by its system settings.
+
+### One-screen habit details and Arvectum typography (October 12)
+- [x] Use original Arvectum brand typography: embedded PT Sans Bold (from arvectum-site) for ChickMark in top bar.
+- [x] Move corporate byline (existing branded wordmark image) and dynamic app version to Manage screen; keep main header chicken + ChickMark only.
+- [x] Replace scrolling detail with a 3- or 4-week responsive overview showing identity, stats, activity, HealthKit integration and primary action.
+- [x] Preserve full six-week calendar and trend cards in separate History & insights sheet.
+- [x] Preserve scrolling only for accessibility text sizes and detailed drilldowns.
+- [x] Add iPhone 13-sized UI assertions for no-scroll habit details and relocated version/byline, passing.
+- [x] Full 150 unit tests and RU/EN/ES localization audit pass.

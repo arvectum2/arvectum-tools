@@ -45,6 +45,7 @@
 		4EE9742062EF278CB2273027 /* ChickMarkProductLinksTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF019DE29325FE073474B43 /* ChickMarkProductLinksTests.swift */; };
 		504BCDCB496129794424E3F6 /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C26C1D0FB611A5B2CDBFD3 /* Localization.swift */; };
 		51C0392F0A9541A83F127A98 /* HabitReminderScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1220101A409FCF52DFAEBBFB /* HabitReminderScheduler.swift */; };
+		5954865795923C7683FAA390 /* PTSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = ABCEA223EEF4AFDA3FBFD83A /* PTSans-Bold.ttf */; };
 		5AEA3B2E2298D4D88267CFFC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5C96F4AE76FCEC772BE63744 /* Localizable.strings */; };
 		5EDA528EF01C75F923B3182B /* HabitDeepLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = E780CF37E596549D09FDBA30 /* HabitDeepLink.swift */; };
 		5FD2A3574787D5264BFCF471 /* HabitWidgetCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FE25918D92BA577F2EC9541 /* HabitWidgetCoordinator.swift */; };
@@ -279,6 +280,7 @@
 		A7750B853150D9309328BFDF /* HabitReminderSchedulerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitReminderSchedulerTests.swift; sourceTree = "<group>"; };
 		AA2E40BCDDCC905918C98541 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		AB3AC18F41F6D969FAEBDBF1 /* ChickMarkProductLinks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChickMarkProductLinks.swift; sourceTree = "<group>"; };
+		ABCEA223EEF4AFDA3FBFD83A /* PTSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PTSans-Bold.ttf"; sourceTree = "<group>"; };
 		ABE93E1E4135F211902C4986 /* HabitDayKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitDayKey.swift; sourceTree = "<group>"; };
 		AE43208C8D761531134C4095 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		AEB6456033CD843DAF224614 /* TodayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayView.swift; sourceTree = "<group>"; };
@@ -521,6 +523,7 @@
 				AEB6456033CD843DAF224614 /* TodayView.swift */,
 				D57B4B585FAD393E2DDAC8E3 /* ToggleHabitWidgetIntent.swift */,
 				4348F31300811248BD9B6AC8 /* AppShortcuts.strings */,
+				D649D19BBFAAEA3652178253 /* Fonts */,
 				085843EB015B5129156966B3 /* InfoPlist.strings */,
 				1B6B5D8AA9E9FACDE26D1C2A /* Localizable.strings */,
 			);
@@ -581,6 +584,14 @@
 				751274BF03274060F4190DBE /* ArvectumDiagnostics.swift */,
 			);
 			path = ArvectumDiagnostics;
+			sourceTree = "<group>";
+		};
+		D649D19BBFAAEA3652178253 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				ABCEA223EEF4AFDA3FBFD83A /* PTSans-Bold.ttf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 		F70D04EBBFDB1B6D605D142D /* Shared */ = {
@@ -817,6 +828,7 @@
 				04531C984491BFA9AE5BE40C /* Assets.xcassets in Resources */,
 				7980338892E6A746EB06BA9A /* InfoPlist.strings in Resources */,
 				C6975DC5BF4251768AC90550 /* Localizable.strings in Resources */,
+				5954865795923C7683FAA390 /* PTSans-Bold.ttf in Resources */,
 				B85AA8BBF80AF1143206270E /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

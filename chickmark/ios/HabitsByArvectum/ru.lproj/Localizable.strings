@@ -261,3 +261,6 @@
 // In-app language selection
 "language.title" = "Язык";
 "language.system" = "Как в системе";
+
+"detail.more.title" = "История и аналитика";
+"detail.history.recent" = "Недавняя активность";

@@ -132,6 +132,7 @@ struct ManageHabitsView: View {
         .safeAreaInset(edge: .bottom, spacing: 0) {
             VStack(spacing: 0) {
                 languageSelector
+                brandFooter
                 supportLinks
             }
             .background(Color(uiColor: .systemBackground))
@@ -279,6 +280,31 @@ struct ManageHabitsView: View {
         .accessibilityIdentifier("manage.language")
         .padding(.horizontal, 16)
         .padding(.top, 8)
+    }
+
+    private var brandFooter: some View {
+        HStack(spacing: 4) {
+            Text("by")
+                .font(.caption2.weight(.medium))
+                .foregroundStyle(Color.habitsSecondaryText)
+            Image("ArvectumTypeOnly")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 76, height: 17)
+                .accessibilityLabel("Arvectum")
+
+            Spacer()
+
+            Text("ChickMark v" + (Bundle.main.object(
+                forInfoDictionaryKey: "CFBundleShortVersionString"
+            ) as? String ?? "—"))
+                .font(.caption2.monospacedDigit())
+                .foregroundStyle(Color.habitsSecondaryText)
+                .accessibilityIdentifier("chickmark.version")
+        }
+        .padding(.horizontal, 22)
+        .padding(.top, 12)
+        .padding(.bottom, 3)
     }
 
     private var supportLinks: some View {

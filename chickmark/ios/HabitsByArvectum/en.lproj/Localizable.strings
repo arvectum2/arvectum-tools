@@ -261,3 +261,6 @@
 // In-app language selection
 "language.title" = "Language";
 "language.system" = "System default";
+
+"detail.more.title" = "History & insights";
+"detail.history.recent" = "Recent activity";
