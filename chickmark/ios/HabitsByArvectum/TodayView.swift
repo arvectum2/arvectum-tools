@@ -81,14 +81,16 @@ struct TodayView: View {
                 HStack(alignment: .center, spacing: 10) {
                     ChickMarkBrandHeader()
                     Spacer(minLength: 4)
-                    HStack(spacing: 18) {
+                    HStack(spacing: 8) {
                         if !habits.isEmpty {
                             NavigationLink {
                                 ManageHabitsView()
                             } label: {
                                 Image(systemName: "line.3.horizontal")
                                     .font(.system(size: 20, weight: .medium))
-                                    .frame(width: 32, height: 44)
+                                    .frame(width: 38, height: 38)
+                                    .background(Color.habitsSurface, in: RoundedRectangle(cornerRadius: 12))
+                                    .overlay(RoundedRectangle(cornerRadius: 12).strokeBorder(Color.primary.opacity(0.12)))
                             }
                             .accessibilityLabel(L10n.string("manage.accessibility"))
                         }
@@ -107,7 +109,9 @@ struct TodayView: View {
                         } label: {
                             Image(systemName: "plus")
                                 .font(.system(size: 22, weight: .medium))
-                                .frame(width: 32, height: 44)
+                                .frame(width: 38, height: 38)
+                                .background(Color.habitsSurface, in: RoundedRectangle(cornerRadius: 12))
+                                .overlay(RoundedRectangle(cornerRadius: 12).strokeBorder(Color.primary.opacity(0.12)))
                         }
                         .accessibilityLabel(L10n.string("common.add"))
                     }
