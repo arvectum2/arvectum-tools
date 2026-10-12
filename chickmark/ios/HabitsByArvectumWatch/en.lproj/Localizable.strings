@@ -16,3 +16,4 @@
 
 "watch.preview.water" = "Water";
 "watch.preview.reading" = "Reading";
+"watch.checkins.progress.format" = "%d of %d check-ins";
