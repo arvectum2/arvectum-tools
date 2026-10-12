@@ -9,7 +9,7 @@ struct ChickMarkBrandHeader: View {
 
     var body: some View {
         Link(destination: ChickMarkProductLinks.localizedLandingPage) {
-            HStack(spacing: 10) {
+            HStack(alignment: .center, spacing: 8) {
                 Image("ChickMarkMascot")
                     .resizable()
                     .scaledToFit()
@@ -35,6 +35,13 @@ struct ChickMarkBrandHeader: View {
                     .frame(height: 20, alignment: .leading)
                 }
                 .fixedSize(horizontal: true, vertical: false)
+
+                Text("v" + version)
+                    .font(.system(size: 10, weight: .medium, design: .monospaced))
+                    .foregroundStyle(Color.habitsSecondaryText)
+                    .lineLimit(1)
+                    .accessibilityIdentifier("chickmark.version")
+                    .padding(.leading, 1)
             }
             .contentShape(Rectangle())
         }

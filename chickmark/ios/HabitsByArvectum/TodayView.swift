@@ -76,50 +76,48 @@ struct TodayView: View {
             .onReceive(NotificationCenter.default.publisher(for: .healthHabitProjectionChanged)) { _ in
                 healthProjectionRevision += 1
             }
-            .toolbar {
-                ToolbarItem(placement: .principal) {
-                    HStack(spacing: 12) {
-                        ChickMarkBrandHeader()
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                        HStack(spacing: 14) {
-                    if !habits.isEmpty {
-                        NavigationLink {
-                            ManageHabitsView()
-                        } label: {
-                            Image(systemName: "line.3.horizontal")
-                        }
-                        .accessibilityLabel(
-                            L10n.string("manage.accessibility")
-                        )
-                    }
-
-                    Menu {
-                        Button {
-                            showingAddHabit = true
-                        } label: {
-                            Label(
-                                L10n.string("add.menu.habit"),
-                                systemImage: "repeat"
-                            )
+            .toolbar(.hidden, for: .navigationBar)
+            .safeAreaInset(edge: .top, spacing: 0) {
+                HStack(alignment: .center, spacing: 10) {
+                    ChickMarkBrandHeader()
+                    Spacer(minLength: 4)
+                    HStack(spacing: 18) {
+                        if !habits.isEmpty {
+                            NavigationLink {
+                                ManageHabitsView()
+                            } label: {
+                                Image(systemName: "line.3.horizontal")
+                                    .font(.system(size: 20, weight: .medium))
+                                    .frame(width: 32, height: 44)
+                            }
+                            .accessibilityLabel(L10n.string("manage.accessibility"))
                         }
 
-                        Button {
-                            showingAddOneOffReminder = true
+                        Menu {
+                            Button {
+                                showingAddHabit = true
+                            } label: {
+                                Label(L10n.string("add.menu.habit"), systemImage: "repeat")
+                            }
+                            Button {
+                                showingAddOneOffReminder = true
+                            } label: {
+                                Label(L10n.string("add.menu.oneoff"), systemImage: "bell.badge")
+                            }
                         } label: {
-                            Label(
-                                L10n.string("add.menu.oneoff"),
-                                systemImage: "bell.badge"
-                            )
+                            Image(systemName: "plus")
+                                .font(.system(size: 22, weight: .medium))
+                                .frame(width: 32, height: 44)
                         }
-                    } label: {
-                        Image(systemName: "plus")
-                            .font(.headline)
+                        .accessibilityLabel(L10n.string("common.add"))
                     }
-                    .accessibilityLabel(L10n.string("common.add"))
-                        }
-                    }
-                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .tint(.primary)
+                    .fixedSize(horizontal: true, vertical: false)
                 }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal, 16)
+                .padding(.vertical, 4)
+                .background(Color.habitsBackground)
             }
             .safeAreaInset(edge: .bottom, spacing: 0) {
                 if adEligible {
