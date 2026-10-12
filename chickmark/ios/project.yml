@@ -285,8 +285,8 @@ targets:
         PRODUCT_BUNDLE_IDENTIFIER: ru.arvectum.tools.habits
         PRODUCT_NAME: HabitsByArvectum
         PRODUCT_MODULE_NAME: HabitsByArvectum
-        MARKETING_VERSION: "1.3.0"
-        CURRENT_PROJECT_VERSION: "5"
+        MARKETING_VERSION: "1.3.1"
+        CURRENT_PROJECT_VERSION: "6"
         TARGETED_DEVICE_FAMILY: "1"
         GENERATE_INFOPLIST_FILE: NO
         CODE_SIGN_ENTITLEMENTS: HabitsByArvectum/HabitsByArvectum.entitlements
@@ -334,8 +334,8 @@ targets:
         PRODUCT_BUNDLE_IDENTIFIER: ru.arvectum.tools.habits.watch
         PRODUCT_NAME: HabitsByArvectumWatch
         PRODUCT_MODULE_NAME: HabitsByArvectumWatch
-        MARKETING_VERSION: "1.3.0"
-        CURRENT_PROJECT_VERSION: "5"
+        MARKETING_VERSION: "1.3.1"
+        CURRENT_PROJECT_VERSION: "6"
         GENERATE_INFOPLIST_FILE: NO
         CODE_SIGN_ENTITLEMENTS: HabitsByArvectumWatch/HabitsByArvectumWatch.entitlements
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
@@ -363,8 +363,8 @@ targets:
         PRODUCT_BUNDLE_IDENTIFIER: ru.arvectum.tools.habits.watch.widget
         PRODUCT_NAME: HabitsByArvectumWatchWidget
         PRODUCT_MODULE_NAME: HabitsByArvectumWatchWidget
-        MARKETING_VERSION: "1.3.0"
-        CURRENT_PROJECT_VERSION: "5"
+        MARKETING_VERSION: "1.3.1"
+        CURRENT_PROJECT_VERSION: "6"
         GENERATE_INFOPLIST_FILE: NO
         CODE_SIGN_ENTITLEMENTS: HabitsByArvectumWatchWidget/HabitsByArvectumWatchWidget.entitlements
         APPLICATION_EXTENSION_API_ONLY: YES
@@ -393,8 +393,8 @@ targets:
         PRODUCT_BUNDLE_IDENTIFIER: ru.arvectum.tools.habits.widget
         PRODUCT_NAME: HabitsByArvectumWidget
         PRODUCT_MODULE_NAME: HabitsByArvectumWidget
-        MARKETING_VERSION: "1.3.0"
-        CURRENT_PROJECT_VERSION: "5"
+        MARKETING_VERSION: "1.3.1"
+        CURRENT_PROJECT_VERSION: "6"
         GENERATE_INFOPLIST_FILE: NO
         CODE_SIGN_ENTITLEMENTS: HabitsByArvectumWidget/HabitsByArvectumWidget.entitlements
         APPLICATION_EXTENSION_API_ONLY: YES

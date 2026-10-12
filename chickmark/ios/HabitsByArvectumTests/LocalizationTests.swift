@@ -4,6 +4,7 @@ import XCTest
 final class LocalizationTests: XCTestCase {
     private let requiredKeys = [
         "today.title",
+        "brand.website.accessibility",
         "today.progress.format",
         "today.empty.title",
         "today.empty.description",
