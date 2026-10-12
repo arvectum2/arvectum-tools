@@ -65,7 +65,7 @@ final class HabitReminderCoordinator {
 
         _ = await HabitReminderScheduler.syncAll(
             habits: habits,
-            checkIns: checkIns,
+            checkIns: HealthHabitCoordinator.shared.visibleCheckIns(for: checkIns, habits: habits),
             skips: skips,
             oneOffReminders: oneOffReminders
         )

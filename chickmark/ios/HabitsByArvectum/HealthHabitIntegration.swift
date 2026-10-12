@@ -316,7 +316,16 @@ final class HealthHabitCoordinator {
     private func reconcile() async {
         guard isAvailable, let container else { return }
         let settings = HealthHabitRuleStore.shared
-        guard !settings.allRules.isEmpty else { return }
+        guard !settings.allRules.isEmpty else {
+            completedDayKeys.removeAll()
+            LocalHealthWidgetProjection.save(
+                dayKey: HabitDayKey.make(for: .now), habitIDs: []
+            )
+            HabitWidgetCoordinator.shared.refresh()
+            HabitReminderCoordinator.shared.refresh()
+            NotificationCenter.default.post(name: .healthHabitProjectionChanged, object: nil)
+            return
+        }
 
         let context = ModelContext(container)
         guard let habits = try? context.fetch(FetchDescriptor<Habit>()),
@@ -363,6 +372,16 @@ final class HealthHabitCoordinator {
             }
         }
         completedDayKeys = derived
+        let todayKey = HabitDayKey.make(for: now, calendar: calendar)
+        let currentIDs = habits.compactMap { habit -> UUID? in
+            guard derived.contains("\(habit.id.uuidString):\(todayKey)"),
+                  !mutations.contains(where: { $0.habitID == habit.id && $0.dayKey == todayKey })
+            else { return nil }
+            return habit.id
+        }
+        LocalHealthWidgetProjection.save(dayKey: todayKey, habitIDs: currentIDs)
+        HabitWidgetCoordinator.shared.refresh()
+        HabitReminderCoordinator.shared.refresh()
         NotificationCenter.default.post(name: .healthHabitProjectionChanged, object: nil)
     }
 

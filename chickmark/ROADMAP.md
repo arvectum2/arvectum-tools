@@ -83,3 +83,13 @@ No app-specific tasks are duplicated in Core or Growth.
 - [ ] Device QA: authorizations (including denied access), sleep boundaries, late edits/deletions and Watch out-of-range, day transitions, accurate per-device projections.
 - [ ] Product completeness: extend derived-state composition to widgets, reminders and background reports without persisting HealthKit results to cloud or iCloud backup.
 - [ ] Compliance and privacy manifest/App Store disclosures review before approving version 1.4.
+
+### Local widget and reminder reconciliation, 2026-10-12
+- [x] Reminder schedules consume ephemeral local HealthKit completion projections, not CloudKit rows.
+- [x] Widget reads a transient App Group cache projection outside normal saved snapshots; cache excluded from iCloud backup.
+- [x] Clear widget projection when final HealthKit rule is disconnected; regenerate after manual overrides.
+- [x] Signed iPhone 13 Debug build and on-device installation/launch succeeded.
+- [x] Full 149-test simulator regression passed.
+- [ ] Real HealthKit authorization / permission-denial / sample parity on physical iPhone and Watch still requires interactive QA.
+- [ ] Verify automatic results, iPhone widget and watch complication visually with actual health readings.
+- [ ] Refresh local App Store privacy disclosures before release.
