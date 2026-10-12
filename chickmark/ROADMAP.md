@@ -138,3 +138,12 @@ No app-specific tasks are duplicated in Core or Growth.
 - [x] Regression test for target met + stale manual mutation + skipped/current/historical edge cases.
 - [x] 152 unit tests pass; physical iPhone 13 signed build installed and launched successfully.
 - [ ] Verify current-day checkmark visually in iPhone Mirroring using the existing linked walking habit.
+
+### Whole-app iPhone UI/UX audit (October 12)
+- [x] Visual review of Today, Detail, Manage, About, New habit and dark mode on iPhone 13 simulator.
+- [x] Remove unsolicited keyboard and give Save/Done a discoverable textual control.
+- [x] Compact schedule presets responsively; expose current/target on multi-check rows.
+- [x] Support large-text branded toolbar and legible seven-column calendar dates.
+- [x] Update UI test navigation after custom Today header refactor; add screenshots and regression tests.
+- [x] Run localization audit, 152 unit tests and iPhone 13 UI smoke tests.
+- [ ] Broaden manual device-by-device review to Apple Watch, widgets, advertisements and iPad (if supported), separately from iPhone audit.

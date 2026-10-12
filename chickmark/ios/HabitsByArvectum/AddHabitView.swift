@@ -130,15 +130,27 @@ struct AddHabitView: View {
                 Section {
                     formSectionHeader(L10n.string("section.days"))
 
-                    VStack(spacing: 10) {
-                        schedulePresetButton(
-                            title: L10n.string("schedule.everyday"),
-                            preset: .everyDay
-                        )
-                        schedulePresetButton(
-                            title: L10n.string("schedule.weekdays"),
-                            preset: .weekdays
-                        )
+                    ViewThatFits(in: .horizontal) {
+                        HStack(spacing: 8) {
+                            schedulePresetButton(
+                                title: L10n.string("schedule.everyday"),
+                                preset: .everyDay
+                            )
+                            schedulePresetButton(
+                                title: L10n.string("schedule.weekdays"),
+                                preset: .weekdays
+                            )
+                        }
+                        VStack(spacing: 8) {
+                            schedulePresetButton(
+                                title: L10n.string("schedule.everyday"),
+                                preset: .everyDay
+                            )
+                            schedulePresetButton(
+                                title: L10n.string("schedule.weekdays"),
+                                preset: .weekdays
+                            )
+                        }
                     }
 
                     DisclosureGroup(
@@ -316,19 +328,9 @@ struct AddHabitView: View {
                     : L10n.string("habit.edit.title")
             )
             .navigationBarTitleDisplayMode(.inline)
-            .onAppear {
-                if habit == nil {
-#if DEBUG
-                    if !ProcessInfo.processInfo.arguments.contains(
-                        "--debug-no-autofocus"
-                    ) {
-                        nameFocused = true
-                    }
-#else
-                    nameFocused = true
-#endif
-                }
-            }
+            // Keep the keyboard closed initially: the quick templates,
+            // schedule and primary actions remain visible without scrolling.
+            // Tapping the name field opens the keyboard as usual.
             .alert(
                 L10n.string("notification.denied.title"),
                 isPresented: $showingNotificationDenied
@@ -356,16 +358,18 @@ struct AddHabitView: View {
 
                 ToolbarItem(placement: .topBarTrailing) {
                     Button(action: save) {
-                        Image(systemName: "checkmark")
-                            .fontWeight(.semibold)
-                            .foregroundStyle(.primary)
+                        Text(habit == nil
+                             ? L10n.string("common.done")
+                             : L10n.string("common.save"))
+                            .font(.subheadline.weight(.semibold))
+                            .foregroundStyle(Color.arvectumNavy)
+                            .padding(.horizontal, 14)
+                            .frame(minHeight: 36)
+                            .background(Color.arvectumMint, in: Capsule())
                     }
-                    .accessibilityLabel(
-                        habit == nil
-                            ? L10n.string("common.done")
-                            : L10n.string("common.save")
-                    )
+                    .buttonStyle(.plain)
                     .disabled(!canSave)
+                    .opacity(canSave ? 1 : 0.5)
                 }
             }
         }

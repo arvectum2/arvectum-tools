@@ -266,3 +266,5 @@
 "detail.history.recent" = "Недавняя активность";
 
 "manage.about" = "О приложении";
+
+"habit.multi.today.progress" = "Отметки: %d/%d";

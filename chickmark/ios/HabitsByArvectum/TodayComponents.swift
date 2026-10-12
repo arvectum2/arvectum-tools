@@ -271,6 +271,16 @@ struct HabitRow: View {
                             .accessibilityIdentifier("health.progress.\(habit.id.uuidString)")
                         }
 
+                        if habit.usesDailyMultiple {
+                            Text(L10n.format(
+                                "habit.multi.today.progress",
+                                dailySlots.count, habit.dailyTarget
+                            ))
+                            .font(.caption)
+                            .monospacedDigit()
+                            .foregroundStyle(Color.habitsSecondaryText)
+                            .accessibilityIdentifier("habit.multi.today.progress")
+                        }
                         if skipped {
                             Label(
                                 L10n.string("habit.skipped.today"),

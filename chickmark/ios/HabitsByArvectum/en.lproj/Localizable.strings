@@ -266,3 +266,5 @@
 "detail.history.recent" = "Recent activity";
 
 "manage.about" = "About ChickMark";
+
+"habit.multi.today.progress" = "Check-ins: %d/%d";

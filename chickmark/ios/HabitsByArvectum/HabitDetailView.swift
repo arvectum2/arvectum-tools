@@ -400,7 +400,9 @@ struct HabitDetailView: View {
         ) {
             ForEach(Array(weekdaySymbols.enumerated()), id: \.offset) { item in
                 Text(item.element)
-                    .font(.caption2.weight(.semibold))
+                    // Seven-column calendar stays legible even at AX text sizes;
+                    // the full date remains spoken by the day button below.
+                    .font(.system(size: 11, weight: .semibold))
                     .foregroundStyle(Color.habitsSecondaryText)
                     .frame(maxWidth: .infinity)
                     .accessibilityHidden(true)
@@ -585,7 +587,7 @@ struct HabitDetailView: View {
                     .aspectRatio(1, contentMode: .fit)
 
                 Text("\(calendar.component(.day, from: date))")
-                    .font(.caption2.weight(.semibold))
+                    .font(.system(size: 11, weight: .semibold))
                     .foregroundStyle(completed ? Color.black : .primary)
 
                 if missed {
