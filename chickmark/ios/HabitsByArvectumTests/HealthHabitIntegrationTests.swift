@@ -55,6 +55,41 @@ final class HealthHabitIntegrationTests: XCTestCase {
         ))
     }
 
+    func testTodaysHealthTargetRecompletesAfterManualUncheck() {
+        let day = date(2026, 10, 12)
+        let now = day.addingTimeInterval(3600)
+        let habit = Habit(name: "Walk", createdAt: day)
+        let rule = HealthHabitRule(metric: .steps, target: 7777, enabledAt: day)
+        let mutation = HabitDayMutation(
+            habitID: habit.id, dayKey: HabitDayKey.make(for: day, calendar: calendar),
+            updatedAt: now, mutationID: UUID()
+        )
+        let eligible: (Bool, [HabitSkip], [HabitCheckIn]) -> Bool = {
+            HealthHabitAutoPolicy.shouldComplete(
+                habit: habit, rule: rule, day: day, now: now,
+                checkIns: $2, skips: $1, pausePeriods: [], mutations: [mutation],
+                allowTodayRecompletionAfterUndo: $0, calendar: self.calendar
+            )
+        }
+
+        // Existing manual undo blocks before the threshold is met.
+        XCTAssertFalse(eligible(false, [], []))
+        // A verified current reading of 9316 / 7777 lifts the old block.
+        XCTAssertTrue(eligible(true, [], []))
+        // Explicit skips and manual check-ins still take precedence.
+        XCTAssertFalse(eligible(true, [HabitSkip(habitID: habit.id, day: day)], []))
+        XCTAssertFalse(eligible(true, [], [HabitCheckIn(
+            habitID: habit.id, day: day, calendar: calendar
+        )]))
+        // Never revive historical manually undone days.
+        XCTAssertFalse(HealthHabitAutoPolicy.shouldComplete(
+            habit: habit, rule: rule, day: day,
+            now: day.addingTimeInterval(24 * 3600),
+            checkIns: [], skips: [], pausePeriods: [], mutations: [mutation],
+            allowTodayRecompletionAfterUndo: true, calendar: calendar
+        ))
+    }
+
     func testProgressFormatsActualStepsWithLocaleAndClampsBarOnly() {
         let progress = HealthHabitProgress(
             metric: .steps, current: 3333, target: 7777, dayKey: "2026-10-12"

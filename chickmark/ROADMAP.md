@@ -130,3 +130,11 @@ No app-specific tasks are duplicated in Core or Growth.
 - [x] iPhone 13 simulator UI tests: About navigation/version/legal, Manage links and habit management passed.
 - [x] Signed physical iPhone 13 build, installation, launch successful.
 - [ ] Confirm real current step count and auto-complete threshold visually with an opted-in physical iPhone.
+
+### HealthKit threshold auto-check after manual undo (October 12)
+- [x] Diagnosed on-device: linked steps rule 7777 and a same-day manual day mutation without check-in prevented auto-completion even at 9316+ steps.
+- [x] If today's verified HealthKit reading reaches the goal, allow a local auto check-in despite a previous manual uncheck.
+- [x] Preserve explicit skips, paused/archived state, existing manual completions, and historical-day manual overrides.
+- [x] Regression test for target met + stale manual mutation + skipped/current/historical edge cases.
+- [x] 152 unit tests pass; physical iPhone 13 signed build installed and launched successfully.
+- [ ] Verify current-day checkmark visually in iPhone Mirroring using the existing linked walking habit.

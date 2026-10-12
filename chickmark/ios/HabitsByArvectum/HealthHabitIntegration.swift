@@ -184,8 +184,10 @@ final class HealthHabitRuleStore {
 }
 
 enum HealthHabitAutoPolicy {
-    /// A manual action (including Watch/Shortcuts/undo) always takes precedence.
-    /// A recorded mutation blocks auto-recompletion even if its check-in was removed.
+    /// Explicit skips, pauses, and manual completions take precedence.
+    /// If today's live HealthKit reading reaches the goal, a prior manual
+    /// uncheck must not leave an automatic habit permanently unchecked.
+    /// Historical manual edits remain authoritative.
     static func shouldComplete(
         habit: Habit,
         rule: HealthHabitRule,
@@ -195,6 +197,7 @@ enum HealthHabitAutoPolicy {
         skips: [HabitSkip],
         pausePeriods: [HabitPausePeriod],
         mutations: [HabitDayMutation],
+        allowTodayRecompletionAfterUndo: Bool = false,
         calendar: Calendar = .autoupdatingCurrent
     ) -> Bool {
         guard rule.isValid, !habit.isArchived, !habit.isPaused,
@@ -208,7 +211,13 @@ enum HealthHabitAutoPolicy {
               start >= calendar.startOfDay(for: habit.createdAt) else { return false }
         let key = HabitDayKey.make(for: day, calendar: calendar)
 
-        guard !mutations.contains(where: { $0.habitID == habit.id && $0.dayKey == key }),
+        let hasManualMutation = mutations.contains {
+            $0.habitID == habit.id && $0.dayKey == key
+        }
+        let mayRecompleteToday = allowTodayRecompletionAfterUndo &&
+            calendar.isDate(day, inSameDayAs: now)
+
+        guard (!hasManualMutation || mayRecompleteToday),
               !skips.contains(where: { $0.habitID == habit.id && $0.dayKey == key }),
               !checkIns.contains(where: {
                   $0.habitID == habit.id &&
@@ -415,7 +424,10 @@ final class HealthHabitCoordinator {
                 if HealthHabitAutoPolicy.shouldComplete(
                     habit: habit, rule: rule, day: day, now: now,
                     checkIns: checkIns, skips: skips, pausePeriods: pauses,
-                    mutations: mutations, calendar: calendar
+                    mutations: mutations,
+                    allowTodayRecompletionAfterUndo:
+                        key == todayKey && (todayValue.map { $0 >= rule.target } ?? false),
+                    calendar: calendar
                 ), let end = calendar.date(byAdding: .day, value: 1, to: day) {
                     let cacheKey = "\(rule.metric.rawValue):\(key)"
                     let value: Double?
