@@ -157,6 +157,7 @@ struct TodayView: View {
                 openDebugSurfaceIfRequested()
 #endif
                 await HabitReminderCoordinator.shared.refreshNow()
+                await HealthHabitCoordinator.shared.synchronize()
                 HabitWidgetCoordinator.shared.refresh()
 #if DEBUG
                 await HabitReminderScheduler.debugDumpIfRequested()
@@ -168,6 +169,7 @@ struct TodayView: View {
                 guard !Task.isCancelled else { return }
                 refreshReferenceDate(forceRevision: true)
                 await HabitReminderCoordinator.shared.refreshNow()
+                await HealthHabitCoordinator.shared.synchronize()
                 HabitWidgetCoordinator.shared.refresh()
             }
             .onChange(of: scenePhase) { _, phase in
@@ -176,6 +178,7 @@ struct TodayView: View {
                     registerForegroundLaunchIfNeeded()
                     refreshAdEligibility()
                     HabitReminderCoordinator.shared.refresh()
+                    HealthHabitCoordinator.shared.refresh()
                     HabitWidgetCoordinator.shared.refresh()
                 }
             }

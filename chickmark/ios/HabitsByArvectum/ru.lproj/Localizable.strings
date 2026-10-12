@@ -216,3 +216,28 @@
 
 "quick.multicheck" = "Вода (5 раз)";
 "brand.website.accessibility" = "Открыть сайт ChickMark v%@ от Arvectum";
+
+// HealthKit opt-in (v1.4)
+"health.title" = "Apple Здоровье";
+"health.connect.hint" = "Подключить активность для автоотметок";
+"health.connected.hint" = "Автоматические отметки включены";
+"health.auto.completed" = "Отмечено по данным Здоровья";
+"health.description" = "Выберите показатель. ChickMark отметит привычку, когда дневное значение достигнет цели.";
+"health.rule.section" = "Автоматическое выполнение";
+"health.metric.title" = "Активность";
+"health.metric.steps" = "Шаги";
+"health.metric.distance" = "Дистанция ходьбы и бега";
+"health.metric.workouts" = "Минуты тренировок";
+"health.unit.steps" = "шагов";
+"health.unit.kilometers" = "км";
+"health.unit.minutes" = "мин";
+"health.target" = "Цель на день";
+"health.connect" = "Подключить Здоровье";
+"health.save" = "Сохранить правило";
+"health.disconnect" = "Отключить Здоровье";
+"health.settings" = "Apple Здоровье";
+"health.privacy" = "ChickMark читает дневные показатели активности на iPhone. Исходные данные Здоровья не загружаются в облако и не используются для рекламы. Результат — отметка привычки — сохраняется в обычной истории и может синхронизироваться через iCloud. Ручные действия имеют приоритет. iOS может задерживать обновления. Доступ проверьте в настройках iPhone. При отключении отметки сохраняются.";
+"health.error.unavailable" = "Apple Здоровье недоступно на этом устройстве.";
+"health.error.authorization" = "Не удалось запросить доступ к Здоровью.";
+
+"health.unsupported" = "Пока автоотметки доступны только для обычных привычек с одной отметкой в день по расписанию.";

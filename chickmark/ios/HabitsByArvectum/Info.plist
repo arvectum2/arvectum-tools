@@ -35,6 +35,8 @@
 	<false/>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.healthcare-fitness</string>
+	<key>NSHealthShareUsageDescription</key>
+	<string>ChickMark reads activity totals only for habits you link to Apple Health.</string>
 	<key>SKAdNetworkItems</key>
 	<array>
 		<dict>

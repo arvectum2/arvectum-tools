@@ -38,7 +38,7 @@
 - [ ] Evaluate extra monetization placements only after retention evidence; do not add a second native Progress ad by default.
 
 ### Proposed 1.4 — less manual tracking (not included in 1.3.1)
-- [ ] **P1 · Apple Health / HealthKit auto-check:** optional per-habit authorization and mapping for walk distance, workouts and other reliable HealthKit metrics; show a traceable completion source, handle revoked permission, duplicates, and Watch/iPhone reconciliation; preserve local-first privacy and allow manual correction.
+- [x] **P1 · Apple Health / HealthKit auto-check (development implemented, physical QA pending):** optional per-habit authorization and mapping for walk distance, workouts and other reliable HealthKit metrics; show a traceable completion source, handle revoked permission, duplicates, and Watch/iPhone reconciliation; preserve local-first privacy and allow manual correction.
 - [ ] **P1 · Gentle restart after an interruption:** offer an optional, one-tap return plan after a user-configured gap; preserve all past check-ins and historical streaks, never guilt-trip or silently rewrite missed days.
 - [ ] **P2 · Local weekly summary:** 7-day opt-in, low-noise snapshot with completion consistency, best day and trend; respect pauses/skips and flexible weekly goals; no account or remote analytics.
 - [ ] **P2 · Negative/reduction habits:** distinguish "avoided today", "slipped" and quantity limits from positive habits; define streak, reminder and insight semantics before schema migration.
@@ -51,3 +51,17 @@ Core features stay free. No interruptions during creation, check-off, widgets or
 Delayed initial advertising and its thresholds are **ChickMark-specific**, not portfolio policy.
 
 No app-specific tasks are duplicated in Core or Growth.
+
+## 1.4 HealthKit implementation checkpoint (2026-10-12)
+- [x] Read-only per-habit opt-in: steps, walk/run distance and workout duration.
+- [x] Local rules, HealthKit observers, foreground 7-day catch-up; raw samples never leave HealthKit.
+- [x] Automatic check-in through canonical mutation ledger; manual and Watch corrections take priority.
+- [ ] Verify permissions, background delivery, CloudKit/Watch updates on a physical iPhone.
+- [ ] Check App Store privacy disclosures and HealthKit capability before uploading 1.4.
+
+### Native Apple integrations (future iterations)
+- [x] Siri and Shortcuts — existing App Intents for completing and undoing habits.
+- [x] Apple Watch and WidgetKit — existing check-in and offline Watch sync.
+- [x] Apple Health — optional read-only thresholds (1.4 development, release gated by physical QA and privacy review).
+- [ ] P2 · Apple Reminders — opt-in one-way creation of a reminder from a ChickMark habit; prevent duplicates and clarify it is not two-way status sync.
+- [ ] P2 · Apple Calendar — opt-in event creation with write-only EventKit access; avoid overlapping ChickMark native notifications.

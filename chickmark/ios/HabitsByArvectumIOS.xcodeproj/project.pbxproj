@@ -18,7 +18,10 @@
 		0E47E5487B24DF807F0F1385 /* ManageHabitsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7244BB344EF7352D2851402 /* ManageHabitsView.swift */; };
 		101F4003B6B425A6A3F00968 /* HabitGoalModeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84AAA5B44A1DC2CDE2167BD /* HabitGoalModeTests.swift */; };
 		12436D825F2509786CC8B5D1 /* HabitFrequencyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DEFC0669243FAC8DAA87EF4 /* HabitFrequencyTests.swift */; };
+		162A87AE642A08B55AA131E1 /* ArvectumDiagnostics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751274BF03274060F4190DBE /* ArvectumDiagnostics.swift */; };
 		1B3796126312FFBBB9FB2188 /* HabitMetricsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB9D2034D678C89F73555BE /* HabitMetricsTests.swift */; };
+		1DA617504BFAC9DC0F6CF8DF /* HealthHabitSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B1AF04D5D6B3801B57AEA7 /* HealthHabitSettingsView.swift */; };
+		1E708E85C230328FE1664DAC /* ArvectumPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE8E3DDD5EC0D3A48D3246B /* ArvectumPalette.swift */; };
 		21E8CF6096099D2E30F39784 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3151C4449FA96F91F217BA3F /* Localizable.strings */; };
 		2416FE8391D0811DA7EF9997 /* HabitMultiCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87A11EBE4A7566B04031352 /* HabitMultiCheck.swift */; };
 		24792A58AD5744FC467F6C29 /* ToggleHabitWidgetIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57B4B585FAD393E2DDAC8E3 /* ToggleHabitWidgetIntent.swift */; };
@@ -33,6 +36,7 @@
 		3D615909092A2873B72CDE03 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = AF3A24ACE75EB10202D9164A /* PrivacyInfo.xcprivacy */; };
 		45EE183496DA73DC0C30A282 /* HabitScheduleText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07EEFC14FA3B5F51E4785CA2 /* HabitScheduleText.swift */; };
 		46332C7D33E100BEC6E668FB /* HabitInsights.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAB7F2EEB508F20E0E392A7 /* HabitInsights.swift */; };
+		46F89408911FA802DA008BC4 /* ArvectumJSONCodec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BECFD89120B99FC3C60E32B /* ArvectumJSONCodec.swift */; };
 		48FF93B834C335A493D472FC /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCED7F4CF60499949A8BF95B /* Theme.swift */; };
 		4A34319C1BCEE6CF47469615 /* HabitFrequency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE46D4B140D06C047896374 /* HabitFrequency.swift */; };
 		4BB5BBA0D5D8079522400E06 /* HabitMutationDiagnostics.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EC0923E1405381E65B776F /* HabitMutationDiagnostics.swift */; };
@@ -49,13 +53,13 @@
 		6AA21EB2773E2F1AC8499FC1 /* HabitMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E0447F317827EF30F2EB13 /* HabitMetrics.swift */; };
 		6DB2A5B785ADF35C3D91C9EB /* PersistenceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B07C7DF19BB6B0DBBDDFC4 /* PersistenceTests.swift */; };
 		70AD1A1DB286FF76ACF5322A /* WatchTodayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2FD34B8824BD72DF76BD98 /* WatchTodayView.swift */; };
-		70B59937C8FE86B8DEF22A8A /* ArvectumJSONCodec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B38831019BE56F5DBB3E44 /* ArvectumJSONCodec.swift */; };
 		72E4414F55DBE7D5F39A4A88 /* AddHabitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F995E4D46A90D1D27AF172E7 /* AddHabitView.swift */; };
 		73CEE0D9ED2E1D572078485A /* YandexMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = 43C3EA52554593DD8950E851 /* YandexMobileAds */; };
 		740A4E2D3D31D1D10187BBFD /* HabitProgressEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 595379F0DA6D68FC9689DCCB /* HabitProgressEditor.swift */; };
 		756BF0D21C616996008066BA /* ChickMarkGroupsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D26FBFF0455EF6E74938D0 /* ChickMarkGroupsTests.swift */; };
 		78D9B34075B00AB7403C4CD7 /* HabitWidgetBridgeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36AE87871DB4FF9E94F22171 /* HabitWidgetBridgeTests.swift */; };
 		7936235062D37A0CCD99E48C /* HabitReminderSchedulerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7750B853150D9309328BFDF /* HabitReminderSchedulerTests.swift */; };
+		7980338892E6A746EB06BA9A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 085843EB015B5129156966B3 /* InfoPlist.strings */; };
 		79BE023078AE504630E5DC58 /* HabitSyncProtocolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F722EA1B5BB1AD9F7A36315 /* HabitSyncProtocolTests.swift */; };
 		7A0AA1908654A199DC43DC85 /* HabitSyncReconciler.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB5A0195D0825677F6DA98D /* HabitSyncReconciler.swift */; };
 		7D5ADFF1B2B7A1C1D93A8919 /* SchemaVersioningTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 163EA63394B48294E24CB43C /* SchemaVersioningTests.swift */; };
@@ -66,7 +70,7 @@
 		8A60C3F268C4CA2FD69743D8 /* WatchComplicationBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306AEBE034C4BC280E31DEDD /* WatchComplicationBridge.swift */; };
 		8B9BAC9B835155E06070386C /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = AA2E40BCDDCC905918C98541 /* PrivacyInfo.xcprivacy */; };
 		8C1082897CFCCB0E76326557 /* HabitDayMutationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82B9DF70810EAB9A7DEB5AA0 /* HabitDayMutationTests.swift */; };
-		9334E028EE5B0B97273BDA2D /* ArvectumDiagnostics.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5D09BA90027D7127F9F787 /* ArvectumDiagnostics.swift */; };
+		8DFEB3A0CFCF7BACCFC3FF50 /* HealthHabitIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B69ADD49FAB863708A5D2E /* HealthHabitIntegrationTests.swift */; };
 		9395B98E2BB2148C7ED4DFDB /* HabitAdEligibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2276181F533EA10AF63DBC16 /* HabitAdEligibility.swift */; };
 		965A9325AE3E65A61E4B4131 /* HabitsByArvectumWatchWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 9587A52E9C895271311C6192 /* HabitsByArvectumWatchWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		972029E84B175A37E1DD9ABD /* LocalizationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5250B761AAD16F97821D84C /* LocalizationTests.swift */; };
@@ -106,10 +110,10 @@
 		D93012FB5BB6084E800F292E /* HabitDeepLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = E780CF37E596549D09FDBA30 /* HabitDeepLink.swift */; };
 		DCAE4D8F1BB3ED44221DF94B /* WatchHabitSyncStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29378A3FF6234A0F18F3D46 /* WatchHabitSyncStore.swift */; };
 		DEE31F759CC83FAC00DFB4B9 /* HabitShortcuts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E500D7E41003488A013BCF1 /* HabitShortcuts.swift */; };
+		DF7BEAC0D9729CC5296EB01C /* HealthHabitIntegration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25E2DB2205D515FA46BBB60 /* HealthHabitIntegration.swift */; };
 		E01A570CFB148790E9105E04 /* HabitNotificationActionDiagnostics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 908BB2FCE234BD12B5EECC72 /* HabitNotificationActionDiagnostics.swift */; };
 		E10C39A133AC0A49C0FCE4FA /* HabitWidgetBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16FE7EFD83635E9171BC06BA /* HabitWidgetBridge.swift */; };
 		E1A332FE780817027B4FAA8E /* HabitsByArvectumWatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 3F72C9CC1FB7C0DFC1CB1A71 /* HabitsByArvectumWatch.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		E1F3C4430F5E2A8E0A686C63 /* ArvectumPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF1C8D86D0FBC478205A642 /* ArvectumPalette.swift */; };
 		E3F963D95460DE12EC180EE2 /* WatchComplicationBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306AEBE034C4BC280E31DEDD /* WatchComplicationBridge.swift */; };
 		E6967403BEE90AE879BF8B43 /* HabitShortcutsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A89F4E08119B5DA0549EA7 /* HabitShortcutsTests.swift */; };
 		E85587A04F8788F21E7BDF7C /* WatchComplicationBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306AEBE034C4BC280E31DEDD /* WatchComplicationBridge.swift */; };
@@ -214,17 +218,18 @@
 		1886D5E4794832CCBBF3CD08 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1EC6488C5EDFD0074ECDE680 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1F722EA1B5BB1AD9F7A36315 /* HabitSyncProtocolTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitSyncProtocolTests.swift; sourceTree = "<group>"; };
-		20B38831019BE56F5DBB3E44 /* ArvectumJSONCodec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArvectumJSONCodec.swift; sourceTree = "<group>"; };
 		20C35064D7E8AB27D5194A27 /* HabitDayMutation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitDayMutation.swift; sourceTree = "<group>"; };
 		2276181F533EA10AF63DBC16 /* HabitAdEligibility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitAdEligibility.swift; sourceTree = "<group>"; };
 		23E18F2D9262A9288899071E /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		268F01ED856611FB7C079BDE /* HabitTodayProjection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitTodayProjection.swift; sourceTree = "<group>"; };
 		26A6F8BA98951E9EAE8FE3AA /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		2BECFD89120B99FC3C60E32B /* ArvectumJSONCodec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArvectumJSONCodec.swift; sourceTree = "<group>"; };
 		2D8003130407DFEFE6122B6A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		2E3399B6CE660C30A90E8802 /* HabitTodayProjectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitTodayProjectionTests.swift; sourceTree = "<group>"; };
 		306AEBE034C4BC280E31DEDD /* WatchComplicationBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchComplicationBridge.swift; sourceTree = "<group>"; };
 		36AE87871DB4FF9E94F22171 /* HabitWidgetBridgeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitWidgetBridgeTests.swift; sourceTree = "<group>"; };
 		36CB49BFF73477AACC1C513C /* HabitMultiCheckTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitMultiCheckTests.swift; sourceTree = "<group>"; };
+		37B1AF04D5D6B3801B57AEA7 /* HealthHabitSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthHabitSettingsView.swift; sourceTree = "<group>"; };
 		3994450D5C2D132493FFC8FC /* HabitHistoryCalendarTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitHistoryCalendarTests.swift; sourceTree = "<group>"; };
 		39E7C1CA6AD7DA518A1C362C /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/AppShortcuts.strings; sourceTree = "<group>"; };
 		3AA7A843D4A75761F41CEA60 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -250,6 +255,7 @@
 		6E11D222A3BB20BE7D7152F2 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		6EFF402AF41E0508DF3485CE /* ChickMarkBackup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChickMarkBackup.swift; sourceTree = "<group>"; };
 		736ECF84651A1834D4FDE061 /* HabitDeepLinkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitDeepLinkTests.swift; sourceTree = "<group>"; };
+		751274BF03274060F4190DBE /* ArvectumDiagnostics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArvectumDiagnostics.swift; sourceTree = "<group>"; };
 		754AF88484D07D6E1ABB8D82 /* TodayComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayComponents.swift; sourceTree = "<group>"; };
 		75766395CF3C9486287F9A0A /* HabitsByArvectum.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HabitsByArvectum.entitlements; sourceTree = "<group>"; };
 		77D3E4728149D56F9020EC00 /* WatchLocalization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchLocalization.swift; sourceTree = "<group>"; };
@@ -289,18 +295,22 @@
 		B753E63175CB5EEDE896FC81 /* AddOneOffReminderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddOneOffReminderView.swift; sourceTree = "<group>"; };
 		B8B07C7DF19BB6B0DBBDDFC4 /* PersistenceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceTests.swift; sourceTree = "<group>"; };
 		BA3E55BECC8C7492F385C8C3 /* CompletionUndoToast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionUndoToast.swift; sourceTree = "<group>"; };
-		BB5D09BA90027D7127F9F787 /* ArvectumDiagnostics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArvectumDiagnostics.swift; sourceTree = "<group>"; };
 		BC06E451223241CEB808237F /* ChickMarkGroupCloudSyncTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChickMarkGroupCloudSyncTests.swift; sourceTree = "<group>"; };
 		BD6A6372FD496E67ACCC6E83 /* HabitsByArvectumUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = HabitsByArvectumUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		BE29B38A1894E0BAF703283D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		C25E2DB2205D515FA46BBB60 /* HealthHabitIntegration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthHabitIntegration.swift; sourceTree = "<group>"; };
 		C29378A3FF6234A0F18F3D46 /* WatchHabitSyncStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchHabitSyncStore.swift; sourceTree = "<group>"; };
 		C517D1EFFD7E2EE9D19ABA0B /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C5F1B906C5D98220118F6E72 /* ChickMarkBackupTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChickMarkBackupTests.swift; sourceTree = "<group>"; };
 		C64B529435EC0167EF9CCEED /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C87A11EBE4A7566B04031352 /* HabitMultiCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitMultiCheck.swift; sourceTree = "<group>"; };
 		C990AEEED2A8EA56AF8184B8 /* ChickMarkGroupsCloudSync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChickMarkGroupsCloudSync.swift; sourceTree = "<group>"; };
+		C9B69ADD49FAB863708A5D2E /* HealthHabitIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthHabitIntegrationTests.swift; sourceTree = "<group>"; };
+		C9CEC055065FD3A77D98A0C6 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		CA51BC686DE2EAB3EB275EB6 /* HabitReminderCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitReminderCoordinator.swift; sourceTree = "<group>"; };
 		CC82BE16E4CFB3CD6C2D04E9 /* PhoneWatchSyncCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneWatchSyncCoordinator.swift; sourceTree = "<group>"; };
 		CF084C9547AA74D471B8C21E /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		CFE8E3DDD5EC0D3A48D3246B /* ArvectumPalette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArvectumPalette.swift; sourceTree = "<group>"; };
 		D025914F82E019E2A3B042B2 /* HabitsWatchComplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitsWatchComplication.swift; sourceTree = "<group>"; };
 		D1BE94E48F6FDB45D45B89B1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		D22C8F956F6A7D2DF37112DD /* HabitFlowUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitFlowUITests.swift; sourceTree = "<group>"; };
@@ -313,10 +323,10 @@
 		DCED7F4CF60499949A8BF95B /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		DDB9D2034D678C89F73555BE /* HabitMetricsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitMetricsTests.swift; sourceTree = "<group>"; };
 		E27FE08B9B5050A43E097E12 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/AppShortcuts.strings; sourceTree = "<group>"; };
+		E5DF0C357E074EC5D144DE7E /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E780CF37E596549D09FDBA30 /* HabitDeepLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitDeepLink.swift; sourceTree = "<group>"; };
 		E8EC0923E1405381E65B776F /* HabitMutationDiagnostics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitMutationDiagnostics.swift; sourceTree = "<group>"; };
 		EACBF7F8178427BBB3A7FAF1 /* HabitsByArvectumWidget.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = HabitsByArvectumWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		EAF1C8D86D0FBC478205A642 /* ArvectumPalette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArvectumPalette.swift; sourceTree = "<group>"; };
 		EC77FAA3B558115AFFA6CBCF /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/AppShortcuts.strings; sourceTree = "<group>"; };
 		F4B1E619EDF2ED01AD368C04 /* HabitsByArvectum.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = HabitsByArvectum.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6EDEAB72F03791360B785EC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -343,28 +353,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		24E216270EA70DB6C4D8A56F /* ArvectumDesignTokens */ = {
+		304348DFF2D795AB9C030B9A /* core */ = {
 			isa = PBXGroup;
 			children = (
-				EAF1C8D86D0FBC478205A642 /* ArvectumPalette.swift */,
+				337316B00E50AAEAD8E3C15F /* packages */,
 			);
-			path = ArvectumDesignTokens;
+			path = core;
 			sourceTree = "<group>";
 		};
-		27BA44CA6BF46120D4F242FA /* ArvectumDiagnostics */ = {
+		337316B00E50AAEAD8E3C15F /* packages */ = {
 			isa = PBXGroup;
 			children = (
-				BB5D09BA90027D7127F9F787 /* ArvectumDiagnostics.swift */,
+				617AE89AABE8CE1B7CD61BAF /* ArvectumDesignTokens */,
+				CA0A3A387B4E9D117F02BC1C /* ArvectumDiagnostics */,
+				598A0153FE905BB4DC04D418 /* ArvectumPersistence */,
 			);
-			path = ArvectumDiagnostics;
-			sourceTree = "<group>";
-		};
-		2F37CA1A8EDC42EA04729045 /* ArvectumPersistence */ = {
-			isa = PBXGroup;
-			children = (
-				20B38831019BE56F5DBB3E44 /* ArvectumJSONCodec.swift */,
-			);
-			path = ArvectumPersistence;
+			path = packages;
 			sourceTree = "<group>";
 		};
 		3CED1621C9B26FD831741184 /* HabitsByArvectumWidget */ = {
@@ -382,7 +386,7 @@
 		5081445F99E4AC1F078CE02A = {
 			isa = PBXGroup;
 			children = (
-				B23EB1EB2F009BDA7316FCC4 /* arvectum-tools */,
+				C40222BF6EC395107D1B0972 /* chickmark-healthkit-20261012 */,
 				A8E302424AFFE42130CF0F4A /* HabitsByArvectum */,
 				9CE2CA3E3E154FBA46846BBB /* HabitsByArvectumTests */,
 				B60C0ABE49C9D3BD33E4D63A /* HabitsByArvectumUITests */,
@@ -394,22 +398,20 @@
 			);
 			sourceTree = "<group>";
 		};
-		61C92A5BE91D358C13045C95 /* packages */ = {
+		598A0153FE905BB4DC04D418 /* ArvectumPersistence */ = {
 			isa = PBXGroup;
 			children = (
-				24E216270EA70DB6C4D8A56F /* ArvectumDesignTokens */,
-				27BA44CA6BF46120D4F242FA /* ArvectumDiagnostics */,
-				2F37CA1A8EDC42EA04729045 /* ArvectumPersistence */,
+				2BECFD89120B99FC3C60E32B /* ArvectumJSONCodec.swift */,
 			);
-			path = packages;
+			path = ArvectumPersistence;
 			sourceTree = "<group>";
 		};
-		7842B90798ACCD6C0B061973 /* core */ = {
+		617AE89AABE8CE1B7CD61BAF /* ArvectumDesignTokens */ = {
 			isa = PBXGroup;
 			children = (
-				61C92A5BE91D358C13045C95 /* packages */,
+				CFE8E3DDD5EC0D3A48D3246B /* ArvectumPalette.swift */,
 			);
-			path = core;
+			path = ArvectumDesignTokens;
 			sourceTree = "<group>";
 		};
 		7E01099EBBA8C33F6E3BEA96 /* HabitsByArvectumWatchWidget */ = {
@@ -452,6 +454,7 @@
 				1F722EA1B5BB1AD9F7A36315 /* HabitSyncProtocolTests.swift */,
 				2E3399B6CE660C30A90E8802 /* HabitTodayProjectionTests.swift */,
 				36AE87871DB4FF9E94F22171 /* HabitWidgetBridgeTests.swift */,
+				C9B69ADD49FAB863708A5D2E /* HealthHabitIntegrationTests.swift */,
 				D5250B761AAD16F97821D84C /* LocalizationTests.swift */,
 				B8B07C7DF19BB6B0DBBDDFC4 /* PersistenceTests.swift */,
 				163EA63394B48294E24CB43C /* SchemaVersioningTests.swift */,
@@ -501,6 +504,8 @@
 				7BDA0BB1957D1482062907D0 /* HabitSkipMutation.swift */,
 				268F01ED856611FB7C079BDE /* HabitTodayProjection.swift */,
 				7FE25918D92BA577F2EC9541 /* HabitWidgetCoordinator.swift */,
+				C25E2DB2205D515FA46BBB60 /* HealthHabitIntegration.swift */,
+				37B1AF04D5D6B3801B57AEA7 /* HealthHabitSettingsView.swift */,
 				9E8FFB381C39731633FAC0AD /* Info.plist */,
 				F8C26C1D0FB611A5B2CDBFD3 /* Localization.swift */,
 				B7244BB344EF7352D2851402 /* ManageHabitsView.swift */,
@@ -514,18 +519,10 @@
 				AEB6456033CD843DAF224614 /* TodayView.swift */,
 				D57B4B585FAD393E2DDAC8E3 /* ToggleHabitWidgetIntent.swift */,
 				4348F31300811248BD9B6AC8 /* AppShortcuts.strings */,
+				085843EB015B5129156966B3 /* InfoPlist.strings */,
 				1B6B5D8AA9E9FACDE26D1C2A /* Localizable.strings */,
 			);
 			path = HabitsByArvectum;
-			sourceTree = "<group>";
-		};
-		B23EB1EB2F009BDA7316FCC4 /* arvectum-tools */ = {
-			isa = PBXGroup;
-			children = (
-				7842B90798ACCD6C0B061973 /* core */,
-			);
-			name = "arvectum-tools";
-			path = ../..;
 			sourceTree = "<group>";
 		};
 		B60C0ABE49C9D3BD33E4D63A /* HabitsByArvectumUITests */ = {
@@ -553,6 +550,15 @@
 			path = HabitsByArvectumWatch;
 			sourceTree = "<group>";
 		};
+		C40222BF6EC395107D1B0972 /* chickmark-healthkit-20261012 */ = {
+			isa = PBXGroup;
+			children = (
+				304348DFF2D795AB9C030B9A /* core */,
+			);
+			name = "chickmark-healthkit-20261012";
+			path = ../..;
+			sourceTree = "<group>";
+		};
 		C7466CBFBF01F63AD858D62E /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -564,6 +570,14 @@
 				EACBF7F8178427BBB3A7FAF1 /* HabitsByArvectumWidget.appex */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		CA0A3A387B4E9D117F02BC1C /* ArvectumDiagnostics */ = {
+			isa = PBXGroup;
+			children = (
+				751274BF03274060F4190DBE /* ArvectumDiagnostics.swift */,
+			);
+			path = ArvectumDiagnostics;
 			sourceTree = "<group>";
 		};
 		F70D04EBBFDB1B6D605D142D /* Shared */ = {
@@ -798,6 +812,7 @@
 			files = (
 				090F18A881713459180BF47A /* AppShortcuts.strings in Resources */,
 				04531C984491BFA9AE5BE40C /* Assets.xcassets in Resources */,
+				7980338892E6A746EB06BA9A /* InfoPlist.strings in Resources */,
 				C6975DC5BF4251768AC90550 /* Localizable.strings in Resources */,
 				B85AA8BBF80AF1143206270E /* PrivacyInfo.xcprivacy in Resources */,
 			);
@@ -835,6 +850,7 @@
 				79BE023078AE504630E5DC58 /* HabitSyncProtocolTests.swift in Sources */,
 				80176408032102EE4F01BE32 /* HabitTodayProjectionTests.swift in Sources */,
 				78D9B34075B00AB7403C4CD7 /* HabitWidgetBridgeTests.swift in Sources */,
+				8DFEB3A0CFCF7BACCFC3FF50 /* HealthHabitIntegrationTests.swift in Sources */,
 				972029E84B175A37E1DD9ABD /* LocalizationTests.swift in Sources */,
 				6DB2A5B785ADF35C3D91C9EB /* PersistenceTests.swift in Sources */,
 				7D5ADFF1B2B7A1C1D93A8919 /* SchemaVersioningTests.swift in Sources */,
@@ -895,9 +911,9 @@
 			files = (
 				72E4414F55DBE7D5F39A4A88 /* AddHabitView.swift in Sources */,
 				889C5E9123BF4FA7A4E05F92 /* AddOneOffReminderView.swift in Sources */,
-				9334E028EE5B0B97273BDA2D /* ArvectumDiagnostics.swift in Sources */,
-				70B59937C8FE86B8DEF22A8A /* ArvectumJSONCodec.swift in Sources */,
-				E1F3C4430F5E2A8E0A686C63 /* ArvectumPalette.swift in Sources */,
+				162A87AE642A08B55AA131E1 /* ArvectumDiagnostics.swift in Sources */,
+				46F89408911FA802DA008BC4 /* ArvectumJSONCodec.swift in Sources */,
+				1E708E85C230328FE1664DAC /* ArvectumPalette.swift in Sources */,
 				0528F2618E7B149EAD086446 /* ChickMarkBackup.swift in Sources */,
 				FB8E09EE5F5D965700A15018 /* ChickMarkBackupService.swift in Sources */,
 				D0EA3AABB82B1EB3CF2CD0EA /* ChickMarkBrandHeader.swift in Sources */,
@@ -937,6 +953,8 @@
 				E10C39A133AC0A49C0FCE4FA /* HabitWidgetBridge.swift in Sources */,
 				5FD2A3574787D5264BFCF471 /* HabitWidgetCoordinator.swift in Sources */,
 				35E77969306A355D1FAF0924 /* HabitsByArvectumApp.swift in Sources */,
+				DF7BEAC0D9729CC5296EB01C /* HealthHabitIntegration.swift in Sources */,
+				1DA617504BFAC9DC0F6CF8DF /* HealthHabitSettingsView.swift in Sources */,
 				504BCDCB496129794424E3F6 /* Localization.swift in Sources */,
 				0E47E5487B24DF807F0F1385 /* ManageHabitsView.swift in Sources */,
 				F9666B865AFB7ECDED930CBD /* Models.swift in Sources */,
@@ -982,6 +1000,16 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		085843EB015B5129156966B3 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BE29B38A1894E0BAF703283D /* en */,
+				E5DF0C357E074EC5D144DE7E /* es */,
+				C9CEC055065FD3A77D98A0C6 /* ru */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		1B6B5D8AA9E9FACDE26D1C2A /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -1040,7 +1068,7 @@
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CODE_SIGN_ENTITLEMENTS = HabitsByArvectumWatchWidget/HabitsByArvectumWatchWidget.entitlements;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = HabitsByArvectumWatchWidget/Info.plist;
@@ -1049,7 +1077,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.3.1;
+				MARKETING_VERSION = 1.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.arvectum.tools.habits.watch.widget;
 				PRODUCT_MODULE_NAME = HabitsByArvectumWatchWidget;
 				PRODUCT_NAME = HabitsByArvectumWatchWidget;
@@ -1123,11 +1151,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = HabitsByArvectumWatch/HabitsByArvectumWatch.entitlements;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = HabitsByArvectumWatch/Info.plist;
-				MARKETING_VERSION = 1.3.1;
+				MARKETING_VERSION = 1.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.arvectum.tools.habits.watch;
 				PRODUCT_MODULE_NAME = HabitsByArvectumWatch;
 				PRODUCT_NAME = HabitsByArvectumWatch;
@@ -1143,7 +1171,7 @@
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CODE_SIGN_ENTITLEMENTS = HabitsByArvectumWatchWidget/HabitsByArvectumWatchWidget.entitlements;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = HabitsByArvectumWatchWidget/Info.plist;
@@ -1152,7 +1180,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.3.1;
+				MARKETING_VERSION = 1.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.arvectum.tools.habits.watch.widget;
 				PRODUCT_MODULE_NAME = HabitsByArvectumWatchWidget;
 				PRODUCT_NAME = HabitsByArvectumWatchWidget;
@@ -1188,7 +1216,7 @@
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CODE_SIGN_ENTITLEMENTS = HabitsByArvectumWidget/HabitsByArvectumWidget.entitlements;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = HabitsByArvectumWidget/Info.plist;
@@ -1198,7 +1226,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.3.1;
+				MARKETING_VERSION = 1.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.arvectum.tools.habits.widget;
 				PRODUCT_MODULE_NAME = HabitsByArvectumWidget;
 				PRODUCT_NAME = HabitsByArvectumWidget;
@@ -1234,7 +1262,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = HabitsByArvectum/HabitsByArvectum.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = HabitsByArvectum/Info.plist;
@@ -1243,7 +1271,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.1;
+				MARKETING_VERSION = 1.4.0;
 				OTHER_LDFLAGS = "$(inherited) -ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = ru.arvectum.tools.habits;
 				PRODUCT_MODULE_NAME = HabitsByArvectum;
@@ -1346,7 +1374,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = HabitsByArvectum/HabitsByArvectum.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = HabitsByArvectum/Info.plist;
@@ -1355,7 +1383,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.1;
+				MARKETING_VERSION = 1.4.0;
 				OTHER_LDFLAGS = "$(inherited) -ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = ru.arvectum.tools.habits;
 				PRODUCT_MODULE_NAME = HabitsByArvectum;
@@ -1391,7 +1419,7 @@
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CODE_SIGN_ENTITLEMENTS = HabitsByArvectumWidget/HabitsByArvectumWidget.entitlements;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = HabitsByArvectumWidget/Info.plist;
@@ -1401,7 +1429,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.3.1;
+				MARKETING_VERSION = 1.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.arvectum.tools.habits.widget;
 				PRODUCT_MODULE_NAME = HabitsByArvectumWidget;
 				PRODUCT_NAME = HabitsByArvectumWidget;
@@ -1415,11 +1443,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = HabitsByArvectumWatch/HabitsByArvectumWatch.entitlements;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = HabitsByArvectumWatch/Info.plist;
-				MARKETING_VERSION = 1.3.1;
+				MARKETING_VERSION = 1.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.arvectum.tools.habits.watch;
 				PRODUCT_MODULE_NAME = HabitsByArvectumWatch;
 				PRODUCT_NAME = HabitsByArvectumWatch;

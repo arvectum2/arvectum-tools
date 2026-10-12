@@ -9,6 +9,7 @@ struct HabitDetailView: View {
     @Query(sort: \HabitCheckIn.day) var checkIns: [HabitCheckIn]
     @Query(sort: \HabitSkip.day) var skips: [HabitSkip]
     @Query(sort: \HabitPausePeriod.startedAt) var pausePeriods: [HabitPausePeriod]
+    @Query(sort: \HabitDayMutation.updatedAt) private var dayMutations: [HabitDayMutation]
 
     @Bindable var habit: Habit
     @State private var showingDeleteConfirmation = false
@@ -42,6 +43,7 @@ struct HabitDetailView: View {
         ScrollView {
             VStack(spacing: 16) {
                 identityCard
+                healthIntegrationCard
                 statsCard
                 historyCard
                 if canSkipToday {
@@ -129,6 +131,35 @@ struct HabitDetailView: View {
         }
     }
 
+    private var healthIntegrationCard: some View {
+        NavigationLink {
+            HealthHabitSettingsView(habit: habit)
+        } label: {
+            HStack(spacing: 12) {
+                Image(systemName: "heart.text.square")
+                    .foregroundStyle(Color.accentColor)
+                    .font(.title3)
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(L10n.string("health.title"))
+                        .font(.subheadline.weight(.semibold))
+                    Text(L10n.string(
+                        HealthHabitRuleStore.shared.rule(for: habit.id) == nil
+                            ? "health.connect.hint" : "health.connected.hint"
+                    ))
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                }
+                Spacer()
+                Image(systemName: "chevron.right")
+                    .font(.caption.weight(.semibold))
+                    .foregroundStyle(.tertiary)
+            }
+            .padding(14)
+            .background(Color.habitsSurface, in: RoundedRectangle(cornerRadius: 16))
+        }
+        .buttonStyle(.plain)
+    }
+
     private var identityCard: some View {
         Group {
             if dynamicTypeSize.isAccessibilitySize {
@@ -168,6 +199,18 @@ struct HabitDetailView: View {
             Text(HabitScheduleText.description(for: habit))
                 .font(.subheadline)
                 .foregroundStyle(Color.habitsSecondaryText)
+
+            if let stamp = dayMutations.filter({
+                $0.habitID == habit.id && $0.dayKey == HabitDayKey.make(for: .now)
+            }).max(by: { $0.updatedAt < $1.updatedAt }), HealthHabitRuleStore.shared.source(
+                for: habit.id, dayKey: stamp.dayKey, mutationID: stamp.mutationID
+            ) != nil, habitCheckIns.contains(where: {
+                $0.dayKey == stamp.dayKey
+            }) {
+                Label(L10n.string("health.auto.completed"), systemImage: "heart.fill")
+                    .font(.caption)
+                    .foregroundStyle(Color.habitsSecondaryText)
+            }
 
             if habit.isPaused {
                 Label(
@@ -698,7 +741,12 @@ struct HabitDetailView: View {
             modelContext.delete(mutation)
         }
         modelContext.delete(habit)
-        try? modelContext.save()
+        do { try modelContext.save() } catch {
+            modelContext.rollback()
+            return
+        }
+        HealthHabitRuleStore.shared.disable(for: habit.id)
+        HealthHabitCoordinator.shared.reconfigureObservers()
         HabitDataChangeNotifier.notify()
         dismiss()
     }

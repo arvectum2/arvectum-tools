@@ -216,3 +216,28 @@
 
 "quick.multicheck" = "Water (5 times)";
 "brand.website.accessibility" = "Open ChickMark v%@ website by Arvectum";
+
+// HealthKit opt-in (v1.4)
+"health.title" = "Apple Health";
+"health.connect.hint" = "Connect activity for automatic check-ins";
+"health.connected.hint" = "Automatic check-ins enabled";
+"health.auto.completed" = "Completed from Apple Health";
+"health.description" = "Choose a metric. ChickMark checks in automatically when the daily total meets your goal.";
+"health.rule.section" = "Automatic completion";
+"health.metric.title" = "Activity";
+"health.metric.steps" = "Steps";
+"health.metric.distance" = "Walking and running distance";
+"health.metric.workouts" = "Workout minutes";
+"health.unit.steps" = "steps";
+"health.unit.kilometers" = "km";
+"health.unit.minutes" = "min";
+"health.target" = "Daily goal";
+"health.connect" = "Connect to Health";
+"health.save" = "Save rule";
+"health.disconnect" = "Disconnect Apple Health";
+"health.settings" = "Apple Health";
+"health.privacy" = "ChickMark reads daily activity totals on your iPhone. Raw Health data is never uploaded or used for ads. Completed habit days are saved to your normal habit history, which may sync through iCloud. Manual corrections take priority. iOS may delay updates. Check Health access in Settings if nothing happens. Existing check-ins remain after disconnecting.";
+"health.error.unavailable" = "Apple Health is not available on this device.";
+"health.error.authorization" = "Could not request access to Apple Health.";
+
+"health.unsupported" = "For now, Health auto-check works with ordinary scheduled, single-check habits only.";

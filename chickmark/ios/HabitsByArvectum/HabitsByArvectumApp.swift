@@ -53,6 +53,7 @@ struct HabitsByArvectumApp: App {
             container: container
         )
 #endif
+        HealthHabitCoordinator.shared.configure(container: container)
         PhoneWatchSyncCoordinator.shared.configure(
             modelContainer: container
         )

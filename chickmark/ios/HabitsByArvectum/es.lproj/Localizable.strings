@@ -195,3 +195,28 @@
 
 "quick.multicheck" = "Agua (5 veces)";
 "brand.website.accessibility" = "Abrir el sitio de ChickMark v%@ de Arvectum";
+
+// HealthKit opt-in (v1.4)
+"health.title" = "Salud de Apple";
+"health.connect.hint" = "Conecta actividad para marcar automáticamente";
+"health.connected.hint" = "Marcado automático activado";
+"health.auto.completed" = "Completado con datos de Salud";
+"health.description" = "Elige una métrica. ChickMark marca el hábito al llegar al objetivo diario.";
+"health.rule.section" = "Cumplimiento automático";
+"health.metric.title" = "Actividad";
+"health.metric.steps" = "Pasos";
+"health.metric.distance" = "Distancia caminando y corriendo";
+"health.metric.workouts" = "Minutos de entrenamiento";
+"health.unit.steps" = "pasos";
+"health.unit.kilometers" = "km";
+"health.unit.minutes" = "min";
+"health.target" = "Objetivo diario";
+"health.connect" = "Conectar Salud";
+"health.save" = "Guardar regla";
+"health.disconnect" = "Desconectar Salud";
+"health.settings" = "Salud de Apple";
+"health.privacy" = "ChickMark consulta los totales diarios en el iPhone. Los datos originales de Salud no se suben ni se usan para anuncios. Las marcas se guardan en el historial normal de hábitos y pueden sincronizarse mediante iCloud. Los cambios manuales tienen prioridad. iOS puede retrasar las actualizaciones. Revisa los permisos en Ajustes. Las marcas anteriores se conservan.";
+"health.error.unavailable" = "Salud no está disponible en este dispositivo.";
+"health.error.authorization" = "No se pudo solicitar acceso a Salud.";
+
+"health.unsupported" = "Por ahora, la integración solo funciona con hábitos programados de una marca al día.";
