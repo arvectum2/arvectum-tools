@@ -4,6 +4,22 @@ struct WatchTodayView: View {
     @EnvironmentObject private var syncStore: WatchHabitSyncStore
     @State private var locallyVerified: Set<UUID> = []
     @State private var userOverridden: Set<UUID> = []
+    private var resolvedCount: Int {
+        // totalCount can include habits omitted from the compact Watch list.
+        // Start with the authoritative snapshot counts, then add only
+        // locally verified HealthKit habits not yet completed by the phone.
+        let snapshot = syncStore.snapshot
+        let newlyVerified = snapshot.habits.filter {
+            locallyVerified.contains($0.id) &&
+            !userOverridden.contains($0.id) &&
+            !$0.completed && !$0.skipped
+        }.count
+        return min(
+            max(0, snapshot.totalCount),
+            max(0, snapshot.completedCount + snapshot.skippedCount + newlyVerified)
+        )
+    }
+
     private var verifiedHabits: [HabitSyncHabit] {
         syncStore.snapshot.habits.map { original in
             var habit = original
@@ -43,6 +59,21 @@ struct WatchTodayView: View {
             userOverridden.removeAll()
             locallyVerified.removeAll()
         }
+        .task {
+            // Re-evaluate cached snapshots when the date changes while the
+            // Watch app remains on screen. Sleep until shortly after midnight
+            // instead of polling WatchConnectivity every minute.
+            while !Task.isCancelled {
+                let calendar = Calendar.autoupdatingCurrent
+                let start = calendar.startOfDay(for: .now)
+                let nextDay = calendar.date(byAdding: .day, value: 1, to: start)
+                    ?? Date.now.addingTimeInterval(86_400)
+                let delay = max(30, nextDay.timeIntervalSinceNow + 2)
+                try? await Task.sleep(for: .seconds(delay))
+                guard !Task.isCancelled else { break }
+                syncStore.refresh()
+            }
+        }
         .onAppear {
             syncStore.refresh()
 #if DEBUG
@@ -55,9 +86,8 @@ struct WatchTodayView: View {
     private var progressHeader: some View {
         VStack(spacing: 5) {
             GeometryReader { geometry in
-                let resolved = verifiedHabits.filter { $0.completed || $0.skipped }.count
                 let fraction = min(
-                    max(CGFloat(resolved) / CGFloat(max(syncStore.snapshot.totalCount, 1)), 0),
+                    max(CGFloat(resolvedCount) / CGFloat(max(syncStore.snapshot.totalCount, 1)), 0),
                     1
                 )
                 Capsule()
@@ -74,7 +104,7 @@ struct WatchTodayView: View {
             Text(
                 WatchL10n.format(
                     "watch.progress.format",
-                    verifiedHabits.filter { $0.completed || $0.skipped }.count,
+                    resolvedCount,
                     syncStore.snapshot.totalCount
                 )
             )
