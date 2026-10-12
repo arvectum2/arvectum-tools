@@ -12,3 +12,5 @@
 "widget.preview.reading" = "Reading";
 
 "widget.duration.format" = "%d / %d min";
+"widget.action.complete.format" = "Complete %@";
+"widget.action.undo.format" = "Undo completion of %@";
