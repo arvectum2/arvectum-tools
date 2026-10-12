@@ -64,9 +64,6 @@ struct TodayView: View {
                     pendingOneOffReminders.isEmpty
                 {
                     VStack(spacing: 8) {
-                        ChickMarkBrandHeader()
-                            .padding(.horizontal, 16)
-                            .padding(.top, 16)
                         firstHabitEmptyState
                             .frame(maxHeight: .infinity)
                     }
@@ -74,11 +71,15 @@ struct TodayView: View {
                     todayContent
                 }
             }
-            .navigationTitle(L10n.string("today.title"))
+            .navigationTitle("")
+            .navigationBarTitleDisplayMode(.inline)
             .onReceive(NotificationCenter.default.publisher(for: .healthHabitProjectionChanged)) { _ in
                 healthProjectionRevision += 1
             }
             .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    ChickMarkBrandHeader()
+                }
                 ToolbarItemGroup(placement: .topBarTrailing) {
                     if !habits.isEmpty {
                         NavigationLink {
@@ -212,8 +213,6 @@ struct TodayView: View {
     private var todayContent: some View {
         ScrollView {
             VStack(spacing: 14) {
-                ChickMarkBrandHeader()
-
                 if activeToday.isEmpty && pendingOneOffReminders.isEmpty {
                     noHabitsTodayCard
                 } else {
