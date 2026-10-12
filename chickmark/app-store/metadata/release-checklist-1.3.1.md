@@ -1,8 +1,7 @@
-# ChickMark 1.3.1 (6) — release candidate, NOT submitted
+# ChickMark 1.3.1 (6) — App Store review preparation
 
 Prepared on 2026-10-12 in branch feature/chickmark-1.3.1-branding-links.
-Published baseline remains **1.3.0 (5)** until Apple approves and owner publishes this version.
-Do not submit, release, or overwrite the installed physical app without explicit approval.
+Published baseline remains **1.3.0 (5)** until Apple approves this version. Owner authorized App Review submission and **AFTER_APPROVAL automatic publication** on 2026-10-12; do not replace the installed physical app or erase data as part of QA.
 
 ## What changes
 - Refresh app against the 2026-10-11 Arvectum Tools monorepo/Core refactor.
@@ -11,7 +10,7 @@ Do not submit, release, or overwrite the installed physical app without explicit
 - Keep iOS, Apple Watch, Watch complication, and iOS widget version/build in sync: **1.3.1 (6)**.
 - No data model, CloudKit identity, paid feature, new permissions, or advertising policy changes.
 
-## App Store Connect — URLs to enter in NEW 1.3.1 version metadata
+## App Store Connect — URLs updated and verified in 1.3.1 metadata
 
 | App Store locale | Marketing URL | Support URL |
 | --- | --- | --- |
@@ -39,5 +38,7 @@ Live app page: https://apps.apple.com/app/id6818711298.
 - [x] Final target unit/UI smoke passed: 17 unit tests + 1 UI test, including large-font simulator visual QA.
 - [x] Unsigned archive audit passed: iPhone app, iOS widget, Watch app and Watch widget all 1.3.1 (6), manifest check clean.
 - [ ] Non-destructive real-device iPhone/Watch upgrade + offline-sync sanity.
-- [ ] Version 1.3.1 created in App Store Connect with correct localized Marketing and Support URLs.
-- [ ] Review and owner approval before submission/public release.
+- [x] Former 1.4 PREPARE_FOR_SUBMISSION version repurposed as 1.3.1; automatic release AFTER_APPROVAL confirmed.
+- [x] Four localizations verified in App Store Connect: marketing/support links and What’s New.
+- [x] Owner explicitly authorized submission and automatic publication on 2026-10-12.
+- [ ] Build uploaded, linked to 1.3.1, readiness checked and App Review submission accepted.

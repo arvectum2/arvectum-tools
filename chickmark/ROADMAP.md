@@ -21,13 +21,15 @@
 - [ ] Complete physical-device CloudKit/data-preservation, Watch offline reconciliation and ad/privacy QA evidence. No destructive migration or overwrite of published app.
 - [ ] Verify branch documentation and final release notes against the exact uploaded binary.
 
-## 1.3.1 — branding, web links and post-refactor update (in development)
+## 1.3.1 — branding, web links and post-refactor update (App Store preparation)
 - [x] Adopt current post-refactor Core modules, without changing published storage schema or Watch/widget IDs.
 - [x] Add compact branded Today header (ChickMark, official Arvectum logo, runtime app version).
 - [x] Link the header to locale-specific product pages (RU/EN/ES) and test mappings.
 - [x] Synchronize iOS, Watch and widget target versions at 1.3.1 (6).
 - [x] Regenerated Xcode project; 17 unit tests, 1 UI test and non-uploading release archive audit passed on 2026-10-12.
-- [ ] Enter locale-specific Marketing URL and Support URL in **App Store Connect 1.3.1 metadata**, verify the URLs and submit for review only after release approval.
+- [x] Replace unsubmitted App Store Connect 1.4 placeholder with 1.3.1 and configure AFTER_APPROVAL automatic publication (2026-10-12).
+- [x] Set and verify locale-specific Marketing URL, Support URL and What’s New for RU, EN-US, ES-ES and ES-MX (2026-10-12).
+- [ ] Attach signed 1.3.1 (6) build, pass App Store readiness checks, and submit for Apple review.
 - [ ] Final iPhone/Watch non-destructive upgrade and offline-sync smoke, plus App Review.
 
 ## Product backlog
@@ -35,12 +37,14 @@
 - [ ] Finish edge-case policy/regression coverage for timezone travel, partial goal completion and overlapping interval completions (basic late-completion and future-check-in cases already tested).
 - [ ] Evaluate extra monetization placements only after retention evidence; do not add a second native Progress ad by default.
 
-### Candidates for future product versions (not included in 1.3.1)
-- [ ] **Gentle restart:** optional, guilt-free plan after a missed week; does not erase history or change streak records.
-- [ ] **Local weekly summary:** opt-in, nonjudgmental report of consistency and useful patterns without a social/gamified score.
-- [ ] **HealthKit opt-in automations:** mark compatible walking/workout habits from verified Apple Health events; never transmit Health data to Arvectum servers.
-- [ ] **Negative habits:** explicitly track avoidance/reduction rather than repurposing positive check-offs.
-- [ ] **Habit notes:** short optional notes on a particular check-in, requiring a reviewed schema migration and Watch/backup behavior.
+### Proposed 1.4 — less manual tracking (not included in 1.3.1)
+- [ ] **P1 · Apple Health / HealthKit auto-check:** optional per-habit authorization and mapping for walk distance, workouts and other reliable HealthKit metrics; show a traceable completion source, handle revoked permission, duplicates, and Watch/iPhone reconciliation; preserve local-first privacy and allow manual correction.
+- [ ] **P1 · Gentle restart after an interruption:** offer an optional, one-tap return plan after a user-configured gap; preserve all past check-ins and historical streaks, never guilt-trip or silently rewrite missed days.
+- [ ] **P2 · Local weekly summary:** 7-day opt-in, low-noise snapshot with completion consistency, best day and trend; respect pauses/skips and flexible weekly goals; no account or remote analytics.
+- [ ] **P2 · Negative/reduction habits:** distinguish "avoided today", "slipped" and quantity limits from positive habits; define streak, reminder and insight semantics before schema migration.
+- [ ] **P3 · Notes on a check-in:** short optional comment attached to a specific habit/day, with backup/restore and migration coverage; no notes required for ordinary one-tap completion.
+
+**Implementation gate:** do not start all five at once. Ship HealthKit and Gentle restart first behind independent opt-in flags, with migration/Watch/widget regression; only add subsequent features if they keep the core check-in friction low.
 
 ## Product-specific ad guardrails
 Core features stay free. No interruptions during creation, check-off, widgets or reminders.
