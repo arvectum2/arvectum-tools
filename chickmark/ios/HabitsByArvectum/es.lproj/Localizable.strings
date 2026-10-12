@@ -215,7 +215,7 @@
 "health.save" = "Guardar regla";
 "health.disconnect" = "Desconectar Salud";
 "health.settings" = "Salud de Apple";
-"health.privacy" = "ChickMark consulta los totales diarios en el iPhone. Los datos originales de Salud no se suben ni se usan para anuncios. Las marcas se guardan en el historial normal de hábitos y pueden sincronizarse mediante iCloud. Los cambios manuales tienen prioridad. iOS puede retrasar las actualizaciones. Revisa los permisos en Ajustes. Las marcas anteriores se conservan.";
+"health.privacy" = "Los datos de HealthKit se verifican localmente en el iPhone y Apple Watch. Ni las mediciones ni los resultados calculados se suben a CloudKit ni se usan para publicidad. Los hábitos marcados manualmente siguen sincronizándose como antes. El estado automático puede tardar en actualizarse. Desconectar detiene nuevas verificaciones.";
 "health.error.unavailable" = "Salud no está disponible en este dispositivo.";
 "health.error.authorization" = "No se pudo solicitar acceso a Salud.";
 

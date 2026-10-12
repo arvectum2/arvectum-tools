@@ -236,7 +236,7 @@
 "health.save" = "Save rule";
 "health.disconnect" = "Disconnect Apple Health";
 "health.settings" = "Apple Health";
-"health.privacy" = "ChickMark reads daily activity totals on your iPhone. Raw Health data is never uploaded or used for ads. Completed habit days are saved to your normal habit history, which may sync through iCloud. Manual corrections take priority. iOS may delay updates. Check Health access in Settings if nothing happens. Existing check-ins remain after disconnecting.";
+"health.privacy" = "HealthKit results are checked locally on iPhone and Apple Watch. No health readings or automatically derived results are uploaded to CloudKit or sent for advertising. Ordinary manually checked habits still sync using your existing settings. Automatic activity status may update with a delay. Disconnecting stops new checks.";
 "health.error.unavailable" = "Apple Health is not available on this device.";
 "health.error.authorization" = "Could not request access to Apple Health.";
 

@@ -23,11 +23,18 @@ struct TodayView: View {
     @State private var chickInCelebrationHabitID: UUID?
     @State private var adEligible = false
 
+    @State private var healthProjectionRevision = 0
+
+    private var displayedCheckIns: [HabitCheckIn] {
+        _ = healthProjectionRevision
+        return HealthHabitCoordinator.shared.visibleCheckIns(for: checkIns, habits: habits)
+    }
+
     private var activeToday: [Habit] {
         HabitTodayProjection.orderedDueHabits(
             habits: habits,
             on: referenceDate,
-            checkIns: checkIns,
+            checkIns: displayedCheckIns,
             skips: skips,
             pausePeriods: pausePeriods
         )
@@ -68,6 +75,9 @@ struct TodayView: View {
                 }
             }
             .navigationTitle(L10n.string("today.title"))
+            .onReceive(NotificationCenter.default.publisher(for: .healthHabitProjectionChanged)) { _ in
+                healthProjectionRevision += 1
+            }
             .toolbar {
                 ToolbarItemGroup(placement: .topBarTrailing) {
                     if !habits.isEmpty {
@@ -227,14 +237,14 @@ struct TodayView: View {
                                 ),
                                 streak: HabitMetrics.currentStreak(
                                     habit: habit,
-                                    checkIns: checkIns,
+                                    checkIns: displayedCheckIns,
                                     skips: skips,
                                     pausePeriods: pausePeriods
                                 ),
                                 weeklyCount: HabitFrequency.weeklyCompletionCount(
                                     habit: habit,
                                     containing: referenceDate,
-                                    checkIns: checkIns
+                                    checkIns: displayedCheckIns
                                 ),
                                 weeklyTarget: HabitFrequency.effectiveWeeklyTarget(
                                     habit: habit,
@@ -246,7 +256,7 @@ struct TodayView: View {
                                     habitID: habit.id,
                                     dayKey: HabitDayKey.make(for: referenceDate),
                                     target: habit.dailyTarget,
-                                    checkIns: checkIns
+                                    checkIns: displayedCheckIns
                                 ).keys),
                                 celebrationID: chickInCelebrationHabitID == habit.id
                                     ? chickInCelebrationID
@@ -461,7 +471,7 @@ struct TodayView: View {
         HabitMetrics.isCompleted(
             habitID: habit.id,
             on: date,
-            checkIns: checkIns,
+            checkIns: displayedCheckIns,
                 target: habit.dailyTarget
         )
     }

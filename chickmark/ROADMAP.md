@@ -73,3 +73,13 @@ No app-specific tasks are duplicated in Core or Growth.
 - [x] Smart-metric tests, policy and RU/EN/ES interface updates.
 - [ ] App-close events do not prove actual reading duration; reading-time verification is not yet supported.
 - [ ] Release gate: HealthKit consent and background delivery, real-device night-boundary QA, plus CloudKit/privacy review.
+
+### Local-only HealthKit projection, October 12 (in development)
+- [x] Stop HealthKit-driven writes into SwiftData CloudKit HabitCheckIn and HabitDayMutation.
+- [x] Compute temporary HealthKit-derived completions on iPhone; merge for Today and habit-detail progress without persistence.
+- [x] Add direct HealthKit checks in the Watch app; send user-selected metric and threshold over existing WatchConnectivity snapshots, never derived readings or pass/fail health results.
+- [x] Watch checks honour manual day-level overrides; correct watch manual cancellation of locally verified completion.
+- [x] Keep JSON backups, CloudKit, shared widget snapshots and notifications free of automatically generated check-ins.
+- [ ] Device QA: authorizations (including denied access), sleep boundaries, late edits/deletions and Watch out-of-range, day transitions, accurate per-device projections.
+- [ ] Product completeness: extend derived-state composition to widgets, reminders and background reports without persisting HealthKit results to cloud or iCloud backup.
+- [ ] Compliance and privacy manifest/App Store disclosures review before approving version 1.4.

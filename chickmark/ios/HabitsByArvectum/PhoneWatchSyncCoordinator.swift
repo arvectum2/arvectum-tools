@@ -75,6 +75,8 @@ final class PhoneWatchSyncCoordinator: NSObject, WCSessionDelegate {
             )
         )) ?? []
 
+        let dayMutations = (try? context.fetch(FetchDescriptor<HabitDayMutation>())) ?? []
+
         let now = Date()
         let calendar = Calendar.autoupdatingCurrent
 
@@ -137,7 +139,12 @@ final class PhoneWatchSyncCoordinator: NSObject, WCSessionDelegate {
                             dayKey: HabitDayKey.make(for: date, calendar: calendar),
                             target: habit.dailyTarget, checkIns: checkIns
                         ) : nil,
-                    durationStepMinutes: habit.usesDurationGoal ? 5 : nil
+                    durationStepMinutes: habit.usesDurationGoal ? 5 : nil,
+                    healthRuleMetric: HealthHabitRuleStore.shared.rule(for: habit.id)?.metric.rawValue,
+                    healthRuleTarget: HealthHabitRuleStore.shared.rule(for: habit.id)?.target,
+                    healthManualOverride: dayMutations.contains {
+                        $0.habitID == habit.id && $0.dayKey == HabitDayKey.make(for: date, calendar: calendar)
+                    }
                 )
             }
         }

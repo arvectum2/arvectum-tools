@@ -2,6 +2,17 @@ import SwiftUI
 
 struct WatchTodayView: View {
     @EnvironmentObject private var syncStore: WatchHabitSyncStore
+    @State private var locallyVerified: Set<UUID> = []
+    @State private var userOverridden: Set<UUID> = []
+    private var verifiedHabits: [HabitSyncHabit] {
+        syncStore.snapshot.habits.map { original in
+            var habit = original
+            if locallyVerified.contains(habit.id) && !userOverridden.contains(habit.id) {
+                habit.completed = true
+            }
+            return habit
+        }
+    }
 
     var body: some View {
         ScrollView {
@@ -13,7 +24,7 @@ struct WatchTodayView: View {
                 if syncStore.snapshot.habits.isEmpty {
                     emptyState
                 } else {
-                    ForEach(syncStore.snapshot.habits) { habit in
+                    ForEach(verifiedHabits) { habit in
                         habitButton(habit)
                     }
                 }
@@ -21,6 +32,9 @@ struct WatchTodayView: View {
             .padding(.horizontal, 4)
         }
         .navigationTitle(WatchL10n.string("watch.today"))
+        .task(id: syncStore.snapshot.generatedAt) {
+            locallyVerified = await WatchHealthEvaluator.qualifyingIDs(for: syncStore.snapshot.habits)
+        }
         .onAppear {
             syncStore.refresh()
 #if DEBUG
@@ -33,7 +47,7 @@ struct WatchTodayView: View {
     private var progressHeader: some View {
         VStack(spacing: 5) {
             ProgressView(
-                value: Double(syncStore.snapshot.resolvedCount),
+                value: Double(verifiedHabits.filter { $0.completed || $0.skipped }.count),
                 total: Double(max(syncStore.snapshot.totalCount, 1))
             )
             .tint(.arvectumMint)
@@ -41,7 +55,7 @@ struct WatchTodayView: View {
             Text(
                 WatchL10n.format(
                     "watch.progress.format",
-                    syncStore.snapshot.resolvedCount,
+                    verifiedHabits.filter { $0.completed || $0.skipped }.count,
                     syncStore.snapshot.totalCount
                 )
             )
@@ -67,7 +81,12 @@ struct WatchTodayView: View {
     private func habitButton(_ habit: HabitSyncHabit) -> some View {
         VStack(spacing: 3) {
         Button {
-            syncStore.toggle(habit)
+            if locallyVerified.contains(habit.id) && !userOverridden.contains(habit.id) {
+                userOverridden.insert(habit.id)
+                syncStore.toggle(habit, desiredStateOverride: false)
+            } else {
+                syncStore.toggle(habit)
+            }
         } label: {
             HStack(spacing: 8) {
                 Image(systemName: habit.symbolName)

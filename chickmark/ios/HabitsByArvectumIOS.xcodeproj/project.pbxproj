@@ -34,6 +34,7 @@
 		3A8F1CE386023AFD53D04A02 /* HabitDeepLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = E780CF37E596549D09FDBA30 /* HabitDeepLink.swift */; };
 		3B33A97091850D9E5D73B313 /* HabitHistoryCalendarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3994450D5C2D132493FFC8FC /* HabitHistoryCalendarTests.swift */; };
 		3D615909092A2873B72CDE03 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = AF3A24ACE75EB10202D9164A /* PrivacyInfo.xcprivacy */; };
+		4490AD067F5C4E0A6A91303C /* WatchHealthEvaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 177DC094E58447E014E5C326 /* WatchHealthEvaluator.swift */; };
 		45EE183496DA73DC0C30A282 /* HabitScheduleText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07EEFC14FA3B5F51E4785CA2 /* HabitScheduleText.swift */; };
 		46332C7D33E100BEC6E668FB /* HabitInsights.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAB7F2EEB508F20E0E392A7 /* HabitInsights.swift */; };
 		46F89408911FA802DA008BC4 /* ArvectumJSONCodec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BECFD89120B99FC3C60E32B /* ArvectumJSONCodec.swift */; };
@@ -214,6 +215,7 @@
 		15642C6B472E639208A2EE10 /* WatchTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchTheme.swift; sourceTree = "<group>"; };
 		163EA63394B48294E24CB43C /* SchemaVersioningTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemaVersioningTests.swift; sourceTree = "<group>"; };
 		16FE7EFD83635E9171BC06BA /* HabitWidgetBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitWidgetBridge.swift; sourceTree = "<group>"; };
+		177DC094E58447E014E5C326 /* WatchHealthEvaluator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchHealthEvaluator.swift; sourceTree = "<group>"; };
 		17A36D050A763E54B56D8931 /* HabitNotificationActionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitNotificationActionTests.swift; sourceTree = "<group>"; };
 		1886D5E4794832CCBBF3CD08 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1EC6488C5EDFD0074ECDE680 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -542,6 +544,7 @@
 				A0F717AA559ED78F8825E3B2 /* Info.plist */,
 				AA2E40BCDDCC905918C98541 /* PrivacyInfo.xcprivacy */,
 				C29378A3FF6234A0F18F3D46 /* WatchHabitSyncStore.swift */,
+				177DC094E58447E014E5C326 /* WatchHealthEvaluator.swift */,
 				77D3E4728149D56F9020EC00 /* WatchLocalization.swift */,
 				15642C6B472E639208A2EE10 /* WatchTheme.swift */,
 				AF2FD34B8824BD72DF76BD98 /* WatchTodayView.swift */,
@@ -891,6 +894,7 @@
 				C144C669B49F68E957C10EC4 /* HabitsByArvectumWatchApp.swift in Sources */,
 				E3F963D95460DE12EC180EE2 /* WatchComplicationBridge.swift in Sources */,
 				DCAE4D8F1BB3ED44221DF94B /* WatchHabitSyncStore.swift in Sources */,
+				4490AD067F5C4E0A6A91303C /* WatchHealthEvaluator.swift in Sources */,
 				C0DB7B95ED8C58A4A3633DEA /* WatchLocalization.swift in Sources */,
 				3848EF6123B5824643930E08 /* WatchTheme.swift in Sources */,
 				70AD1A1DB286FF76ACF5322A /* WatchTodayView.swift in Sources */,

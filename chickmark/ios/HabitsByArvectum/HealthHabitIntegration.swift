@@ -202,8 +202,8 @@ enum HealthHabitError: LocalizedError {
     }
 }
 
-/// HealthKit is accessed on the iPhone only; accepted completions use the same
-/// mutation ledger and sync transport as manual check-ins.
+/// HealthKit results stay in transient memory only. No derived completion is
+/// inserted into the SwiftData/CloudKit schema or carried in Watch snapshots.
 @MainActor
 final class HealthHabitCoordinator {
     static let shared = HealthHabitCoordinator()
@@ -212,6 +212,28 @@ final class HealthHabitCoordinator {
     private var container: ModelContainer?
     private var observers: [HKObserverQuery] = []
     private var runningSync: Task<Void, Never>?
+    private(set) var completedDayKeys: Set<String> = []
+
+    func hasLocalCompletion(habitID: UUID, dayKey: String) -> Bool {
+        completedDayKeys.contains("\(habitID.uuidString):\(dayKey)")
+    }
+
+    func visibleCheckIns(for checkIns: [HabitCheckIn],
+                         habits: [Habit], calendar: Calendar = .autoupdatingCurrent) -> [HabitCheckIn] {
+        var result = checkIns
+        for item in completedDayKeys {
+            let fragments = item.split(separator: ":", maxSplits: 1)
+            guard fragments.count == 2, let id = UUID(uuidString: String(fragments[0])),
+                  habits.contains(where: { $0.id == id }) else { continue }
+            let key = String(fragments[1])
+            let parts = key.split(separator: "-").compactMap { Int($0) }
+            guard parts.count == 3,
+                  let day = calendar.date(from: DateComponents(year: parts[0], month: parts[1], day: parts[2])) else { continue }
+            // These are deliberately never inserted into a ModelContext.
+            result.append(HabitCheckIn(habitID: id, day: day, calendar: calendar))
+        }
+        return result
+    }
 
     var isAvailable: Bool { HKHealthStore.isHealthDataAvailable() }
 
@@ -303,7 +325,8 @@ final class HealthHabitCoordinator {
               let pauses = try? context.fetch(FetchDescriptor<HabitPausePeriod>()),
               let initialMutations = try? context.fetch(FetchDescriptor<HabitDayMutation>()) else { return }
         var checkIns = initialCheckIns
-        var mutations = initialMutations
+        let mutations = initialMutations
+        var derived = Set<String>()
 
         let now = Date()
         let calendar = Calendar.autoupdatingCurrent
@@ -330,36 +353,17 @@ final class HealthHabitCoordinator {
                     }
 
                     if let value, value >= rule.target {
-                        let mutationID = UUID()
-                        let didChange = HabitCompletionMutation.setCompletion(
-                            habitID: habitID, dayKey: key, completed: true,
-                            context: context, mutationAt: .now,
-                            mutationID: mutationID, calendar: calendar
-                        )
-                        if didChange {
-                            do {
-                                try context.save()
-                                // Refresh the in-memory view so that flexible weekly
-                                // goals stop after the requested number of days.
-                                checkIns = (try? context.fetch(FetchDescriptor<HabitCheckIn>())) ?? checkIns
-                                mutations = (try? context.fetch(FetchDescriptor<HabitDayMutation>())) ?? mutations
-                                settings.record(
-                                    HealthHabitEvidence(mutationID: mutationID,
-                                                        metric: rule.metric, markedAt: .now),
-                                    habitID: habitID, dayKey: key
-                                )
-                                HabitDataChangeNotifier.notify()
-                            } catch {
-                                context.rollback()
-                                return
-                            }
-                        }
+                        derived.insert("\(habitID.uuidString):\(key)")
+                        // Temporary synthetic history for weekly count policy.
+                        checkIns.append(HabitCheckIn(habitID: habitID, day: day, calendar: calendar))
                     }
                 }
                 guard let next = calendar.date(byAdding: .day, value: 1, to: day) else { break }
                 day = next
             }
         }
+        completedDayKeys = derived
+        NotificationCenter.default.post(name: .healthHabitProjectionChanged, object: nil)
     }
 
     private func read(metric: HealthHabitMetric, from start: Date, to end: Date) async throws -> Double {
@@ -470,4 +474,9 @@ enum HealthSleepIntervals {
         }
         return accumulated
     }
+}
+
+
+extension Notification.Name {
+    static let healthHabitProjectionChanged = Notification.Name("chickmark.health.projectionChanged")
 }

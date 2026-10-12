@@ -18,6 +18,11 @@ struct HabitSyncHabit: Codable, Hashable, Identifiable {
     var dailyTarget: Int? = nil
     var dailyCount: Int? = nil
     var durationStepMinutes: Int? = nil
+    /// User-configured threshold only: never a HealthKit measurement or result.
+    var healthRuleMetric: String? = nil
+    var healthRuleTarget: Double? = nil
+    /// True if the user has explicitly changed this day's completion.
+    var healthManualOverride: Bool = false
 }
 
 struct HabitSyncDayProjection: Codable, Hashable {

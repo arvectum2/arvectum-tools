@@ -78,6 +78,8 @@ struct HealthHabitSettingsView: View {
                     Button(role: .destructive) {
                         HealthHabitRuleStore.shared.disable(for: habit.id)
                         HealthHabitCoordinator.shared.reconfigureObservers()
+                        HealthHabitCoordinator.shared.refresh()
+                        PhoneWatchSyncCoordinator.shared.dataDidChange()
                         isEnabled = false
                         dismiss()
                     } label: {
@@ -127,6 +129,7 @@ struct HealthHabitSettingsView: View {
             let rule = HealthHabitRule(metric: metric, target: target, enabledAt: .now)
             HealthHabitRuleStore.shared.save(rule, for: habit.id)
             HealthHabitCoordinator.shared.reconfigureObservers()
+            PhoneWatchSyncCoordinator.shared.dataDidChange()
             await HealthHabitCoordinator.shared.synchronize()
             isEnabled = true
             errorText = nil

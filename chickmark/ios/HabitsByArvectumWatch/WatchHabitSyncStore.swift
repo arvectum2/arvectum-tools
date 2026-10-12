@@ -62,15 +62,15 @@ final class WatchHabitSyncStore: NSObject, ObservableObject, WCSessionDelegate {
         session.activate()
     }
 
-    func toggle(_ habit: HabitSyncHabit) {
+    func toggle(_ habit: HabitSyncHabit, desiredStateOverride: Bool? = nil) {
         guard
             let index = snapshot.habits.firstIndex(where: { $0.id == habit.id }),
             !snapshot.dayKey.isEmpty
         else { return }
 
-        let desiredState = snapshot.habits[index].skipped
+        let desiredState = desiredStateOverride ?? (snapshot.habits[index].skipped
             ? true
-            : !snapshot.habits[index].completed
+            : !snapshot.habits[index].completed)
         snapshot.habits[index].completed = desiredState
         if let target = snapshot.habits[index].dailyTarget {
             snapshot.habits[index].dailyCount = desiredState ? target : 0

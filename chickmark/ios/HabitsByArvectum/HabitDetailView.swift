@@ -16,8 +16,15 @@ struct HabitDetailView: View {
     @State private var showingEditHabit = false
     @State private var editingProgressDay: HabitProgressDaySelection?
 
+    @State private var healthProjectionRevision = 0
+
+    private var displayedCheckIns: [HabitCheckIn] {
+        _ = healthProjectionRevision
+        return HealthHabitCoordinator.shared.visibleCheckIns(for: checkIns, habits: habits)
+    }
+
     private var habitCheckIns: [HabitCheckIn] {
-        checkIns.filter { $0.habitID == habit.id }
+        displayedCheckIns.filter { $0.habitID == habit.id }
     }
 
     private var habitSkips: [HabitSkip] {
@@ -64,6 +71,9 @@ struct HabitDetailView: View {
         }
         .background(Color.habitsBackground)
         .navigationTitle(habit.name)
+        .onReceive(NotificationCenter.default.publisher(for: .healthHabitProjectionChanged)) { _ in
+            healthProjectionRevision += 1
+        }
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItemGroup(placement: .topBarTrailing) {
@@ -200,13 +210,9 @@ struct HabitDetailView: View {
                 .font(.subheadline)
                 .foregroundStyle(Color.habitsSecondaryText)
 
-            if let stamp = dayMutations.filter({
-                $0.habitID == habit.id && $0.dayKey == HabitDayKey.make(for: .now)
-            }).max(by: { $0.updatedAt < $1.updatedAt }), HealthHabitRuleStore.shared.source(
-                for: habit.id, dayKey: stamp.dayKey, mutationID: stamp.mutationID
-            ) != nil, habitCheckIns.contains(where: {
-                $0.dayKey == stamp.dayKey
-            }) {
+            if HealthHabitCoordinator.shared.hasLocalCompletion(
+                habitID: habit.id, dayKey: HabitDayKey.make(for: .now)
+            ) {
                 Label(L10n.string("health.auto.completed"), systemImage: "heart.fill")
                     .font(.caption)
                     .foregroundStyle(Color.habitsSecondaryText)
@@ -230,20 +236,20 @@ struct HabitDetailView: View {
     private var statsCard: some View {
         let currentStreak = HabitMetrics.currentStreak(
             habit: habit,
-            checkIns: checkIns,
+            checkIns: displayedCheckIns,
             skips: skips,
             pausePeriods: pausePeriods
         )
         let bestStreak = HabitMetrics.bestStreak(
             habit: habit,
-            checkIns: checkIns,
+            checkIns: displayedCheckIns,
             skips: skips,
             pausePeriods: pausePeriods
         )
         let completionPercent = Int(
             HabitMetrics.completionRate(
                 habit: habit,
-                checkIns: checkIns,
+                checkIns: displayedCheckIns,
                 skips: skips,
                 pausePeriods: pausePeriods
             ) * 100
@@ -265,7 +271,7 @@ struct HabitDetailView: View {
                     systemImage: "clock.arrow.circlepath"
                 )
                 stat(
-                    value: "\(HabitMetrics.completedDayCount(habit: habit, checkIns: checkIns))",
+                    value: "\(HabitMetrics.completedDayCount(habit: habit, checkIns: displayedCheckIns))",
                     label: L10n.string("stats.checkins"),
                     systemImage: "checkmark.circle.fill"
                 )
@@ -285,7 +291,7 @@ struct HabitDetailView: View {
                     systemImage: "chart.line.uptrend.xyaxis"
                 )
                 stat(
-                    value: "\(HabitMetrics.completedDayCount(habit: habit, checkIns: checkIns))",
+                    value: "\(HabitMetrics.completedDayCount(habit: habit, checkIns: displayedCheckIns))",
                     label: L10n.string("stats.checkins"),
                     systemImage: "checkmark.circle.fill"
                 )
@@ -340,14 +346,14 @@ struct HabitDetailView: View {
         return HabitFrequency.isDue(
             habit: habit,
             on: .now,
-            checkIns: checkIns,
+            checkIns: displayedCheckIns,
             skips: skips,
             pausePeriods: pausePeriods,
             calendar: calendar
         ) && !HabitMetrics.isCompleted(
             habitID: habit.id,
             on: .now,
-            checkIns: checkIns,
+            checkIns: displayedCheckIns,
             calendar: calendar,
                 target: habit.dailyTarget
         )
@@ -445,7 +451,7 @@ struct HabitDetailView: View {
             HabitFrequency.isDue(
                 habit: habit,
                 on: date,
-                checkIns: checkIns,
+                checkIns: displayedCheckIns,
                 skips: skips,
                 pausePeriods: pausePeriods,
                 calendar: calendar
@@ -461,7 +467,7 @@ struct HabitDetailView: View {
         let completed = HabitMetrics.isCompleted(
             habitID: habit.id,
             on: date,
-            checkIns: checkIns,
+            checkIns: displayedCheckIns,
             calendar: calendar,
                 target: habit.dailyTarget
         )
@@ -596,7 +602,7 @@ struct HabitDetailView: View {
         let desiredState = !HabitMetrics.isCompleted(
             habitID: habit.id,
             on: date,
-            checkIns: checkIns,
+            checkIns: displayedCheckIns,
             calendar: calendar,
                 target: habit.dailyTarget
         )
@@ -653,7 +659,7 @@ struct HabitDetailView: View {
         let calendar = Calendar.autoupdatingCurrent
         guard let dueDate = HabitFrequency.nextCompletionIntervalDueDate(
             habit: habit,
-            checkIns: checkIns,
+            checkIns: displayedCheckIns,
             through: .now,
             calendar: calendar
         ) else {
@@ -725,7 +731,7 @@ struct HabitDetailView: View {
     }
 
     private func deleteHabit() {
-        for checkIn in habitCheckIns {
+        for checkIn in checkIns.filter({ $0.habitID == habit.id }) {
             modelContext.delete(checkIn)
         }
         for skip in habitSkips {
