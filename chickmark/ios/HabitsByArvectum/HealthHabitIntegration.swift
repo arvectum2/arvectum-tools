@@ -6,6 +6,8 @@ enum HealthHabitMetric: String, Codable, CaseIterable, Identifiable {
     case steps
     case walkingDistance
     case workoutMinutes
+    case runningWorkout
+    case sleepHours
 
     var id: String { rawValue }
 
@@ -14,6 +16,8 @@ enum HealthHabitMetric: String, Codable, CaseIterable, Identifiable {
         case .steps: "health.metric.steps"
         case .walkingDistance: "health.metric.distance"
         case .workoutMinutes: "health.metric.workouts"
+        case .runningWorkout: "health.metric.running"
+        case .sleepHours: "health.metric.sleep"
         }
     }
 
@@ -21,7 +25,8 @@ enum HealthHabitMetric: String, Codable, CaseIterable, Identifiable {
         switch self {
         case .steps: "health.unit.steps"
         case .walkingDistance: "health.unit.kilometers"
-        case .workoutMinutes: "health.unit.minutes"
+        case .workoutMinutes, .runningWorkout: "health.unit.minutes"
+        case .sleepHours: "health.unit.hours"
         }
     }
 
@@ -29,7 +34,8 @@ enum HealthHabitMetric: String, Codable, CaseIterable, Identifiable {
         switch self {
         case .steps: 5_000
         case .walkingDistance: 3
-        case .workoutMinutes: 20
+        case .workoutMinutes, .runningWorkout: 20
+        case .sleepHours: 7
         }
     }
 
@@ -39,8 +45,10 @@ enum HealthHabitMetric: String, Codable, CaseIterable, Identifiable {
             HKObjectType.quantityType(forIdentifier: .stepCount)!
         case .walkingDistance:
             HKObjectType.quantityType(forIdentifier: .distanceWalkingRunning)!
-        case .workoutMinutes:
+        case .workoutMinutes, .runningWorkout:
             HKObjectType.workoutType()
+        case .sleepHours:
+            HKObjectType.categoryType(forIdentifier: .sleepAnalysis)!
         }
     }
 
@@ -48,13 +56,18 @@ enum HealthHabitMetric: String, Codable, CaseIterable, Identifiable {
         switch self {
         case .steps: .count()
         case .walkingDistance: .meter()
-        case .workoutMinutes: .minute()
+        case .workoutMinutes, .runningWorkout: .minute()
+        case .sleepHours: .hour()
         }
     }
 
     func normalized(_ value: Double) -> Double {
         self == .walkingDistance ? value / 1_000 : value
     }
+
+    /// A weekly goal is meaningful for an individual qualifying run, not
+    /// cumulative daily steps or arbitrary workout minutes.
+    var supportsWeeklyGoal: Bool { self == .runningWorkout }
 }
 
 struct HealthHabitRule: Codable, Equatable {
@@ -154,7 +167,7 @@ enum HealthHabitAutoPolicy {
     ) -> Bool {
         guard rule.isValid, !habit.isArchived, !habit.isPaused,
               !habit.supportsIncrementalGoal,
-              !habit.usesFlexibleWeeklyTarget,
+              (!habit.usesFlexibleWeeklyTarget || rule.metric.supportsWeeklyGoal),
               !habit.usesCompletionInterval else { return false }
 
         let start = calendar.startOfDay(for: day)
@@ -236,13 +249,21 @@ final class HealthHabitCoordinator {
         }
         guard isAvailable else { return }
         UserDefaults.standard.set(true, forKey: deliveryKey)
-        // A disconnected rule must stop background wake-ups, too.
-        for removed in HealthHabitMetric.allCases where !activeMetrics.contains(removed) {
-            healthStore.disableBackgroundDelivery(for: removed.sampleType) { _, _ in }
+        // Multiple rules can share the same HealthKit sample type (both
+        // "running" and "all workouts" use HKWorkoutType). Observe once per
+        // type; never disable a type still in use by another enabled rule.
+        let requestedTypes = Dictionary(
+            activeMetrics.map { ($0.sampleType.identifier, $0.sampleType) },
+            uniquingKeysWith: { first, _ in first }
+        )
+        for candidate in HealthHabitMetric.allCases {
+            let type = candidate.sampleType
+            if requestedTypes[type.identifier] == nil {
+                healthStore.disableBackgroundDelivery(for: type) { _, _ in }
+            }
         }
 
-        for metric in activeMetrics {
-            let type = metric.sampleType
+        for type in requestedTypes.values {
             let observer = HKObserverQuery(sampleType: type, predicate: nil) { [weak self] _, finish, _ in
                 Task { @MainActor [weak self] in
                     await self?.synchronize()
@@ -277,10 +298,12 @@ final class HealthHabitCoordinator {
 
         let context = ModelContext(container)
         guard let habits = try? context.fetch(FetchDescriptor<Habit>()),
-              let checkIns = try? context.fetch(FetchDescriptor<HabitCheckIn>()),
+              let initialCheckIns = try? context.fetch(FetchDescriptor<HabitCheckIn>()),
               let skips = try? context.fetch(FetchDescriptor<HabitSkip>()),
               let pauses = try? context.fetch(FetchDescriptor<HabitPausePeriod>()),
-              let mutations = try? context.fetch(FetchDescriptor<HabitDayMutation>()) else { return }
+              let initialMutations = try? context.fetch(FetchDescriptor<HabitDayMutation>()) else { return }
+        var checkIns = initialCheckIns
+        var mutations = initialMutations
 
         let now = Date()
         let calendar = Calendar.autoupdatingCurrent
@@ -316,6 +339,10 @@ final class HealthHabitCoordinator {
                         if didChange {
                             do {
                                 try context.save()
+                                // Refresh the in-memory view so that flexible weekly
+                                // goals stop after the requested number of days.
+                                checkIns = (try? context.fetch(FetchDescriptor<HabitCheckIn>())) ?? checkIns
+                                mutations = (try? context.fetch(FetchDescriptor<HabitDayMutation>())) ?? mutations
                                 settings.record(
                                     HealthHabitEvidence(mutationID: mutationID,
                                                         metric: rule.metric, markedAt: .now),
@@ -336,10 +363,23 @@ final class HealthHabitCoordinator {
     }
 
     private func read(metric: HealthHabitMetric, from start: Date, to end: Date) async throws -> Double {
+        if metric == .sleepHours {
+            let calendar = Calendar.autoupdatingCurrent
+            // Attribute the night to the wake-up day; noon-to-noon avoids
+            // splitting sleep at midnight or counting a nap in both days.
+            let wakeDayNoon = calendar.date(bySettingHour: 12, minute: 0, second: 0,
+                                            of: start) ?? start.addingTimeInterval(12 * 3600)
+            guard let priorNoon = calendar.date(byAdding: .day, value: -1,
+                                                 to: wakeDayNoon) else { return 0 }
+            let cappedEnd = min(wakeDayNoon, Date())
+            guard cappedEnd > priorNoon else { return 0 }
+            return try await readSleep(from: priorNoon, to: cappedEnd) / 3600
+        }
+
         let predicate = HKQuery.predicateForSamples(
             withStart: start, end: end, options: [.strictStartDate, .strictEndDate]
         )
-        if metric == .workoutMinutes {
+        if metric == .workoutMinutes || metric == .runningWorkout {
             return try await withCheckedThrowingContinuation { continuation in
                 let query = HKSampleQuery(
                     sampleType: HKObjectType.workoutType(),
@@ -348,8 +388,11 @@ final class HealthHabitCoordinator {
                     sortDescriptors: nil
                 ) { _, samples, error in
                     if let error { continuation.resume(throwing: error); return }
-                    let minutes = (samples ?? []).compactMap { $0 as? HKWorkout }
-                        .reduce(0.0) { $0 + $1.duration / 60 }
+                    let workouts = (samples ?? []).compactMap { $0 as? HKWorkout }
+                    let minutes = metric == .runningWorkout
+                        ? workouts.filter { $0.workoutActivityType == .running }
+                            .map { $0.duration / 60 }.max() ?? 0
+                        : workouts.reduce(0.0) { $0 + $1.duration / 60 }
                     continuation.resume(returning: minutes)
                 }
                 healthStore.execute(query)
@@ -368,5 +411,63 @@ final class HealthHabitCoordinator {
             }
             healthStore.execute(query)
         }
+    }
+
+    private func readSleep(from start: Date, to end: Date) async throws -> TimeInterval {
+        // Overlapping samples are intentionally allowed, then merged to avoid
+        // double counting iPhone/Watch/third-party stage records.
+        let predicate = HKQuery.predicateForSamples(
+            withStart: start, end: end, options: []
+        )
+        return try await withCheckedThrowingContinuation { continuation in
+            let query = HKSampleQuery(
+                sampleType: HKObjectType.categoryType(forIdentifier: .sleepAnalysis)!,
+                predicate: predicate,
+                limit: HKObjectQueryNoLimit,
+                sortDescriptors: nil
+            ) { _, samples, error in
+                if let error { continuation.resume(throwing: error); return }
+                let intervals = (samples ?? []).compactMap { sample -> HealthSleepInterval? in
+                    guard let stage = sample as? HKCategorySample,
+                          let state = HKCategoryValueSleepAnalysis(rawValue: stage.value),
+                          HKCategoryValueSleepAnalysis.allAsleepValues.contains(state) else {
+                        return nil
+                    }
+                    return HealthSleepInterval(start: stage.startDate, end: stage.endDate)
+                }
+                continuation.resume(returning: HealthSleepIntervals.totalDuration(
+                    intervals, from: start, to: end
+                ))
+            }
+            healthStore.execute(query)
+        }
+    }
+}
+
+/// Pure interval union. HealthKit may contain duplicate overlapping sleep
+/// readings from more than one tracker.
+struct HealthSleepInterval {
+    let start: Date
+    let end: Date
+}
+
+enum HealthSleepIntervals {
+    static func totalDuration(
+        _ intervals: [HealthSleepInterval], from start: Date, to end: Date
+    ) -> TimeInterval {
+        guard end > start else { return 0 }
+        let clipped = intervals.compactMap { item -> HealthSleepInterval? in
+            let lower = max(item.start, start)
+            let upper = min(item.end, end)
+            return upper > lower ? HealthSleepInterval(start: lower, end: upper) : nil
+        }.sorted { $0.start < $1.start }
+        var accumulated: TimeInterval = 0
+        var mergedEnd = start
+        for item in clipped {
+            let lower = max(item.start, mergedEnd)
+            if item.end > lower { accumulated += item.end.timeIntervalSince(lower) }
+            mergedEnd = max(mergedEnd, item.end)
+        }
+        return accumulated
     }
 }

@@ -65,3 +65,11 @@ No app-specific tasks are duplicated in Core or Growth.
 - [x] Apple Health — optional read-only thresholds (1.4 development, release gated by physical QA and privacy review).
 - [ ] P2 · Apple Reminders — opt-in one-way creation of a reminder from a ChickMark habit; prevent duplicates and clarify it is not two-way status sync.
 - [ ] P2 · Apple Calendar — opt-in event creation with write-only EventKit access; avoid overlapping ChickMark native notifications.
+
+## Smart habit signals (2026-10-12 implementation)
+- [x] HealthKit running workouts: one run of at least N minutes counts as one day, including flexible weekly goals such as three running days per week.
+- [x] HealthKit sleep: asleep stages merged for the wake-up day (noon to noon), deduplicating overlapping tracker records.
+- [x] iPhone Shortcuts: existing Complete Habit App Intent can be used with application triggers; user-facing per-habit setup guidance added.
+- [x] Smart-metric tests, policy and RU/EN/ES interface updates.
+- [ ] App-close events do not prove actual reading duration; reading-time verification is not yet supported.
+- [ ] Release gate: HealthKit consent and background delivery, real-device night-boundary QA, plus CloudKit/privacy review.

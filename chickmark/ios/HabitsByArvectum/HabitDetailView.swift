@@ -140,7 +140,7 @@ struct HabitDetailView: View {
                     .foregroundStyle(Color.accentColor)
                     .font(.title3)
                 VStack(alignment: .leading, spacing: 4) {
-                    Text(L10n.string("health.title"))
+                    Text(L10n.string("health.integrations.title"))
                         .font(.subheadline.weight(.semibold))
                     Text(L10n.string(
                         HealthHabitRuleStore.shared.rule(for: habit.id) == nil

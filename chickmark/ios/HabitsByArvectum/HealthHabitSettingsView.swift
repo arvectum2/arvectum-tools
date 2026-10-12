@@ -12,7 +12,8 @@ struct HealthHabitSettingsView: View {
 
     private var supportedHabit: Bool {
         !habit.isArchived && !habit.supportsIncrementalGoal &&
-        !habit.usesFlexibleWeeklyTarget && !habit.usesCompletionInterval
+        (!habit.usesFlexibleWeeklyTarget || metric.supportsWeeklyGoal) &&
+        !habit.usesCompletionInterval
     }
 
     private var target: Double? {
@@ -88,6 +89,17 @@ struct HealthHabitSettingsView: View {
                 Text(L10n.string("health.privacy"))
             }
 
+            Section(L10n.string("health.shortcuts.title")) {
+                Label(L10n.string("health.shortcuts.action"), systemImage: "books.vertical")
+                    .font(.subheadline.weight(.semibold))
+                Text(L10n.string("health.shortcuts.instructions"))
+                    .font(.footnote)
+                    .foregroundStyle(.secondary)
+                Text(L10n.string("health.shortcuts.limitation"))
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            }
+
             if let errorText {
                 Section {
                     Text(errorText).foregroundStyle(.red)
@@ -107,7 +119,7 @@ struct HealthHabitSettingsView: View {
 
     @MainActor
     private func enable() async {
-        guard let target, !isSaving else { return }
+        guard let target, supportedHabit, !isSaving else { return }
         isSaving = true
         defer { isSaving = false }
         do {

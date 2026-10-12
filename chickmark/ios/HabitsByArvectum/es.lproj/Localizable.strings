@@ -219,4 +219,20 @@
 "health.error.unavailable" = "Salud no está disponible en este dispositivo.";
 "health.error.authorization" = "No se pudo solicitar acceso a Salud.";
 
-"health.unsupported" = "Por ahora, la integración solo funciona con hábitos programados de una marca al día.";
+"health.unsupported" = "Los objetivos semanales solo se admiten para carreras individuales. Las metas múltiples y los intervalos requieren marcar manualmente.";
+
+"health.metric.running" = "Carrera (una sesión)";
+
+"health.metric.sleep" = "Sueño (día de despertar)";
+
+"health.unit.hours" = "h";
+
+"health.shortcuts.title" = "Lectura y otras apps · Atajos";
+
+"health.shortcuts.action" = "Automatizar una actividad con una app";
+
+"health.shortcuts.instructions" = "Abre Atajos → Automatización → elige un evento (por ejemplo, cerrar Libros) → agrega la acción de ChickMark «Completar hábito» → elige el hábito. También puedes ejecutarla con Siri.";
+
+"health.shortcuts.limitation" = "Cerrar una app no demuestra cuánto has leído. Atajos registra el evento, no los minutos reales de lectura.";
+
+"health.integrations.title" = "Automatizaciones inteligentes";

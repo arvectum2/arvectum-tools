@@ -73,6 +73,60 @@ final class HealthHabitIntegrationTests: XCTestCase {
         XCTAssertNil(store.source(for: habit, dayKey: "2026-10-12", mutationID: UUID()))
     }
 
+    func testSleepUsesActualOverlappingIntervalsOnlyOnce() {
+        let start = date(2026, 10, 12)
+        let end = start.addingTimeInterval(10 * 3600)
+        let intervals = [
+            HealthSleepInterval(start: start, end: start.addingTimeInterval(4 * 3600)),
+            HealthSleepInterval(start: start.addingTimeInterval(3 * 3600),
+                                end: start.addingTimeInterval(7 * 3600)),
+            // Another tracker can report the same sleep interval.
+            HealthSleepInterval(start: start.addingTimeInterval(1 * 3600),
+                                end: start.addingTimeInterval(6 * 3600)),
+            HealthSleepInterval(start: start.addingTimeInterval(-3600),
+                                end: start.addingTimeInterval(3600)),
+            HealthSleepInterval(start: end.addingTimeInterval(3600),
+                                end: end.addingTimeInterval(7200))
+        ]
+        XCTAssertEqual(HealthSleepIntervals.totalDuration(intervals, from: start, to: end),
+                       7 * 3600)
+        XCTAssertEqual(HealthSleepIntervals.totalDuration([], from: start, to: end), 0)
+    }
+
+    func testRunningWeeklyGoalOnlyCountsEligibleDays() {
+        let day = date(2026, 10, 15)
+        let habit = Habit(name: "Run", createdAt: day.addingTimeInterval(-86400))
+        habit.goalMode = .weekly(times: 3)
+        let rule = HealthHabitRule(metric: .runningWorkout, target: 20,
+                                   enabledAt: day.addingTimeInterval(-86400))
+        let ordinaryRule = HealthHabitRule(metric: .steps, target: 5000,
+                                           enabledAt: day.addingTimeInterval(-86400))
+        let isEligible: (HealthHabitRule, [HabitCheckIn]) -> Bool = { rule, checkIns in
+            HealthHabitAutoPolicy.shouldComplete(
+                habit: habit, rule: rule, day: day, now: day.addingTimeInterval(3600),
+                checkIns: checkIns, skips: [], pausePeriods: [], mutations: [], calendar: self.calendar
+            )
+        }
+        XCTAssertTrue(isEligible(rule, []))
+        XCTAssertFalse(isEligible(ordinaryRule, []))
+        let weekStart = HabitFrequency.startOfWeek(containing: day, calendar: calendar)
+        let alreadyDone = (0..<3).map { offset in
+            HabitCheckIn(habitID: habit.id,
+                         day: calendar.date(byAdding: .day, value: offset, to: weekStart)!,
+                         calendar: calendar)
+        }
+        XCTAssertFalse(isEligible(rule, alreadyDone))
+    }
+
+    func testSmartMetricDefaultsAndTypes() {
+        XCTAssertEqual(HealthHabitMetric.sleepHours.defaultTarget, 7)
+        XCTAssertEqual(HealthHabitMetric.runningWorkout.defaultTarget, 20)
+        XCTAssertTrue(HealthHabitMetric.runningWorkout.supportsWeeklyGoal)
+        XCTAssertFalse(HealthHabitMetric.sleepHours.supportsWeeklyGoal)
+        XCTAssertNotEqual(HealthHabitMetric.sleepHours.sampleType,
+                          HealthHabitMetric.runningWorkout.sampleType)
+    }
+
     private func date(_ year: Int, _ month: Int, _ day: Int) -> Date {
         calendar.date(from: DateComponents(year: year, month: month, day: day, hour: 12))!
     }
