@@ -16,3 +16,4 @@
 
 "watch.preview.water" = "Вода";
 "watch.preview.reading" = "Чтение";
+"watch.checkins.progress.format" = "%d из %d отметок";
