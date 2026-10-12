@@ -14,6 +14,15 @@ final class HabitFlowUITests: XCTestCase {
         app.launch()
     }
 
+    func testBrandAndVersionVisibleOnEmptyToday() throws {
+        XCTAssertTrue(
+            app.links["chickmark.website"].waitForExistence(timeout: 3)
+                || app.buttons["chickmark.website"].waitForExistence(timeout: 3)
+        )
+        XCTAssertTrue(app.staticTexts["ChickMark"].exists)
+        XCTAssertTrue(app.staticTexts["v1.3.1"].exists)
+    }
+
     func testStorageFailureShowsNonDestructiveRecoveryScreen() throws {
         app.terminate()
         app.launchArguments = [

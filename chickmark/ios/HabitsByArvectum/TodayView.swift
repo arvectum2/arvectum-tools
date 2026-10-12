@@ -56,7 +56,13 @@ struct TodayView: View {
                 if habits.filter({ !$0.isArchived }).isEmpty &&
                     pendingOneOffReminders.isEmpty
                 {
-                    firstHabitEmptyState
+                    VStack(spacing: 8) {
+                        ChickMarkBrandHeader()
+                            .padding(.horizontal, 16)
+                            .padding(.top, 16)
+                        firstHabitEmptyState
+                            .frame(maxHeight: .infinity)
+                    }
                 } else {
                     todayContent
                 }
@@ -193,6 +199,8 @@ struct TodayView: View {
     private var todayContent: some View {
         ScrollView {
             VStack(spacing: 14) {
+                ChickMarkBrandHeader()
+
                 if activeToday.isEmpty && pendingOneOffReminders.isEmpty {
                     noHabitsTodayCard
                 } else {
