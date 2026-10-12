@@ -236,3 +236,7 @@
 "health.shortcuts.limitation" = "Cerrar una app no demuestra cuánto has leído. Atajos registra el evento, no los minutos reales de lectura.";
 
 "health.integrations.title" = "Automatizaciones inteligentes";
+
+// In-app language selection
+"language.title" = "Idioma";
+"language.system" = "Predeterminado del sistema";

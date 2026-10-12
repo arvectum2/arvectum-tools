@@ -9,6 +9,7 @@ struct ManageHabitsView: View {
     @Query(sort: \Habit.createdAt) private var habits: [Habit]
 
     @AppStorage(ChickMarkGroups.storageKey) private var groupSettings = Data()
+    @AppStorage(ChickMarkLanguage.storageKey) private var preferredLanguage = ChickMarkLanguage.system
     @State private var showingAddGroup = false
     @State private var newGroupName = ""
     @State private var backupDocument: ChickMarkBackupDocument?
@@ -129,7 +130,11 @@ struct ManageHabitsView: View {
         .navigationTitle(L10n.string("manage.title"))
         .navigationBarTitleDisplayMode(.inline)
         .safeAreaInset(edge: .bottom, spacing: 0) {
-            supportLinks
+            VStack(spacing: 0) {
+                languageSelector
+                supportLinks
+            }
+            .background(Color(uiColor: .systemBackground))
         }
         .toolbar {
             ToolbarItemGroup(placement: .topBarTrailing) {
@@ -235,6 +240,45 @@ struct ManageHabitsView: View {
             backupMessage = L10n.string("backup.success")
             showingBackupMessage = true
         } catch { reportBackupError(error) }
+    }
+
+    private var languageSelector: some View {
+        Menu {
+            Picker(L10n.string("language.title"), selection: $preferredLanguage) {
+                Text(L10n.string("language.system"))
+                    .tag(ChickMarkLanguage.system)
+                Text("Русский").tag("ru")
+                Text("English").tag("en")
+                Text("Español").tag("es")
+            }
+        } label: {
+            HStack(spacing: 12) {
+                Image(systemName: "globe")
+                    .font(.system(size: 18))
+                    .foregroundStyle(Color.habitsSecondaryText)
+                Text(L10n.string("language.title"))
+                    .font(.subheadline.weight(.medium))
+                    .foregroundStyle(.primary)
+                Spacer()
+                Text(ChickMarkLanguage.displayName(for: preferredLanguage))
+                    .font(.subheadline)
+                    .foregroundStyle(Color.habitsSecondaryText)
+                Image(systemName: "chevron.up.chevron.down")
+                    .font(.caption2.weight(.semibold))
+                    .foregroundStyle(Color.habitsSecondaryText)
+            }
+            .frame(minHeight: 46)
+            .padding(.horizontal, 14)
+            .background(
+                Color.habitsSurface,
+                in: RoundedRectangle(cornerRadius: 14, style: .continuous)
+            )
+            .contentShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
+        }
+        .buttonStyle(.plain)
+        .accessibilityIdentifier("manage.language")
+        .padding(.horizontal, 16)
+        .padding(.top, 8)
     }
 
     private var supportLinks: some View {

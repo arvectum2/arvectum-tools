@@ -257,3 +257,7 @@
 "health.shortcuts.limitation" = "An app closing does not prove you read for a certain amount of time. Shortcuts registers the chosen event, not actual reading duration.";
 
 "health.integrations.title" = "Smart automations";
+
+// In-app language selection
+"language.title" = "Language";
+"language.system" = "System default";

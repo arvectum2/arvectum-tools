@@ -21,6 +21,18 @@ final class ChickMarkProductLinksTests: XCTestCase {
         )
     }
 
+    func testLanguagePreferenceMapsToAllThreeTranslationBundles() {
+        XCTAssertEqual(L10n.string("manage.title", language: "ru"), "Управление")
+        XCTAssertEqual(L10n.string("manage.title", language: "en"), "Manage habits")
+        XCTAssertEqual(L10n.string("manage.title", language: "es"), "Gestionar hábitos")
+        XCTAssertEqual(L10n.string("language.title", language: "ru"), "Язык")
+        XCTAssertEqual(L10n.string("language.title", language: "en"), "Language")
+        XCTAssertEqual(L10n.string("language.title", language: "es"), "Idioma")
+        XCTAssertEqual(ChickMarkLanguage.effectiveIdentifier(for: "es"), "es")
+        XCTAssertEqual(ChickMarkLanguage.effectiveIdentifier(for: "ru"), "ru")
+        XCTAssertEqual(ChickMarkLanguage.effectiveIdentifier(for: "en"), "en")
+    }
+
     func testVersionComesFromBundleMetadata() {
         let version = Bundle.main.object(
             forInfoDictionaryKey: "CFBundleShortVersionString"

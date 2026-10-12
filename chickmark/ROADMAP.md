@@ -93,3 +93,11 @@ No app-specific tasks are duplicated in Core or Growth.
 - [ ] Real HealthKit authorization / permission-denial / sample parity on physical iPhone and Watch still requires interactive QA.
 - [ ] Verify automatic results, iPhone widget and watch complication visually with actual health readings.
 - [ ] Refresh local App Store privacy disclosures before release.
+
+### In-app language picker (1.4)
+- [x] Add language selector to the ☰ Manage screen (available even before the first habit).
+- [x] Russian / English / Spanish and System default, stored locally.
+- [x] Apply selected language immediately to iPhone UI and ChickMark landing-page links.
+- [x] Localization audit RU/EN/ES and 150 automated unit tests passed.
+- [x] Signed iPhone 13 installation and launch.
+- [ ] Verify appearance and menu interaction manually on physical iPhone; watchOS/widget language remains controlled by its system settings.

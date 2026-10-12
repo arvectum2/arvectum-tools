@@ -4,6 +4,7 @@ import SwiftUI
 @main
 struct HabitsByArvectumApp: App {
     @UIApplicationDelegateAdaptor(HabitsAppDelegate.self) private var appDelegate
+    @AppStorage(ChickMarkLanguage.storageKey) private var preferredLanguage = ChickMarkLanguage.system
     private let modelContainer: ModelContainer
     private let storageUnavailable: Bool
 
@@ -199,11 +200,17 @@ struct HabitsByArvectumApp: App {
 
     var body: some Scene {
         WindowGroup {
-            if storageUnavailable {
-                StorageRecoveryView()
-            } else {
-                TodayView()
+            Group {
+                if storageUnavailable {
+                    StorageRecoveryView()
+                } else {
+                    TodayView()
+                }
             }
+            .environment(\.locale, Locale(
+                identifier: ChickMarkLanguage.effectiveIdentifier(for: preferredLanguage)
+            ))
+            .id(preferredLanguage)
         }
         .modelContainer(modelContainer)
     }

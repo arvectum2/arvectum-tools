@@ -257,3 +257,7 @@
 "health.shortcuts.limitation" = "Закрытие приложения не подтверждает длительность чтения. «Команды» фиксируют событие, а не реально прочитанные минуты.";
 
 "health.integrations.title" = "Умные автоматизации";
+
+// In-app language selection
+"language.title" = "Язык";
+"language.system" = "Как в системе";

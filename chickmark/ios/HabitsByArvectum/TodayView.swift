@@ -82,17 +82,15 @@ struct TodayView: View {
                     ChickMarkBrandHeader()
                     Spacer(minLength: 4)
                     HStack(spacing: 0) {
-                        if !habits.isEmpty {
-                            NavigationLink {
-                                ManageHabitsView()
-                            } label: {
-                                Image(systemName: "line.3.horizontal")
-                                    .font(.system(size: 20, weight: .medium))
-                                    .frame(width: 43, height: 44)
-                                    .contentShape(Rectangle())
-                            }
-                            .accessibilityLabel(L10n.string("manage.accessibility"))
+                        NavigationLink {
+                            ManageHabitsView()
+                        } label: {
+                            Image(systemName: "line.3.horizontal")
+                                .font(.system(size: 20, weight: .medium))
+                                .frame(width: 43, height: 44)
+                                .contentShape(Rectangle())
                         }
+                        .accessibilityLabel(L10n.string("manage.accessibility"))
 
                         Menu {
                             Button {
