@@ -225,6 +225,7 @@ struct HabitDetailView: View {
             .background(Color.habitsSurface, in: RoundedRectangle(cornerRadius: 16))
         }
         .buttonStyle(.plain)
+        .accessibilityIdentifier("health.settings.open")
     }
 
     private var identityCard: some View {
@@ -507,9 +508,12 @@ struct HabitDetailView: View {
             }
         }
         .frame(maxWidth: .infinity)
-        .padding(.vertical, 8)
+        // One fixed row height: the streak's "best" line must not make its
+        // card taller than completion % and check-in count.
+        .frame(height: dynamicTypeSize.isAccessibilitySize ? nil : 102)
         .background(Color.habitsSurface, in: RoundedRectangle(cornerRadius: 16))
         .accessibilityElement(children: .ignore)
+        .accessibilityIdentifier("stats.card." + systemImage)
         .accessibilityLabel(label)
         .accessibilityValue(
             secondary.map { "\(value), \($0)" } ?? value

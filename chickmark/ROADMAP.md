@@ -110,3 +110,12 @@ No app-specific tasks are duplicated in Core or Growth.
 - [x] Preserve scrolling only for accessibility text sizes and detailed drilldowns.
 - [x] Add iPhone 13-sized UI assertions for no-scroll habit details and relocated version/byline, passing.
 - [x] Full 150 unit tests and RU/EN/ES localization audit pass.
+
+### Compact Health automation and uniform stat tiles (October 12)
+- [x] Equal fixed heights for the streak, completion %, and check-ins tiles (normal Dynamic Type).
+- [x] Simplify HealthKit automation settings into one non-scrolling overview (metric, goal, connect/save, disconnect).
+- [x] Remove verbose setup/Shortcuts/privacy paragraphs from automation settings; privacy policy remains accessible from Manage.
+- [x] Preserve accessibility scroll support for enlarged text and inline permission/error states.
+- [x] Real-device iPhone 13 signed build, install and launch succeeded.
+- [x] iPhone 13 UI tests verify stat heights, HealthKit connect button visibility, and non-scrolling detail overview.
+- [x] 150 unit tests passed, RU/EN/ES localization audit passed.

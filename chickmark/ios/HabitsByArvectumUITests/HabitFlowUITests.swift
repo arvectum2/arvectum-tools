@@ -123,6 +123,32 @@ final class HabitFlowUITests: XCTestCase {
         XCTAssertTrue(app.staticTexts["Consistency"].waitForExistence(timeout: 3))
     }
 
+    func testStatsHeightsAndHealthAutomationFitOnIPhone13() throws {
+        launchSeededDemo()
+        let reading = app.staticTexts["Reading"].firstMatch
+        XCTAssertTrue(reading.waitForExistence(timeout: 3))
+        reading.tap()
+
+        let streak = app.descendants(matching: .any)["stats.card.flame.fill"]
+        let percent = app.descendants(matching: .any)["stats.card.chart.line.uptrend.xyaxis"]
+        let checkins = app.descendants(matching: .any)["stats.card.checkmark.circle.fill"]
+        XCTAssertTrue(streak.waitForExistence(timeout: 3))
+        XCTAssertTrue(percent.exists)
+        XCTAssertTrue(checkins.exists)
+        XCTAssertEqual(streak.frame.height, percent.frame.height, accuracy: 1)
+        XCTAssertEqual(streak.frame.height, checkins.frame.height, accuracy: 1)
+
+        let settings = app.buttons["health.settings.open"]
+        XCTAssertTrue(settings.waitForExistence(timeout: 3))
+        settings.tap()
+
+        let action = app.buttons["health.connect.action"]
+        XCTAssertTrue(action.waitForExistence(timeout: 3))
+        XCTAssertTrue(action.isHittable, "Health setup must fit without scrolling")
+        XCTAssertLessThanOrEqual(action.frame.maxY, app.windows.firstMatch.frame.maxY - 10)
+        XCTAssertTrue(app.textFields["health.target"].exists)
+    }
+
     func testStoreScreenshotsEnglish() throws {
         storeScreenshots(language: "en", locale: "en_US",
                          today: "Today", manage: "Manage habits",

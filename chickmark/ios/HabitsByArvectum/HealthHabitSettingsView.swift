@@ -2,6 +2,7 @@ import SwiftUI
 
 struct HealthHabitSettingsView: View {
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     let habit: Habit
 
     @State private var metric: HealthHabitMetric = .steps
@@ -9,6 +10,7 @@ struct HealthHabitSettingsView: View {
     @State private var isEnabled = false
     @State private var isSaving = false
     @State private var errorText: String?
+    @FocusState private var targetFocused: Bool
 
     private var supportedHabit: Bool {
         !habit.isArchived && !habit.supportsIncrementalGoal &&
@@ -23,93 +25,27 @@ struct HealthHabitSettingsView: View {
     }
 
     var body: some View {
-        Form {
-            Section {
-                Label(L10n.string("health.title"), systemImage: "heart.text.square")
-                    .font(.headline)
-                Text(L10n.string("health.description"))
-                    .font(.footnote)
-                    .foregroundStyle(.secondary)
-                if !supportedHabit {
-                    Text(L10n.string("health.unsupported"))
-                        .font(.footnote.weight(.medium))
-                        .foregroundStyle(.orange)
+        Group {
+            if dynamicTypeSize.isAccessibilitySize {
+                ScrollView {
+                    settingsContent
                 }
+            } else {
+                settingsContent
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
             }
-
-            Section(L10n.string("health.rule.section")) {
-                Picker(L10n.string("health.metric.title"), selection: $metric) {
-                    ForEach(HealthHabitMetric.allCases) { value in
-                        Text(L10n.string(value.titleKey)).tag(value)
-                    }
-                }
-                .onChange(of: metric) { _, value in
-                    targetText = String(format: "%.0f", value.defaultTarget)
-                }
-
-                HStack {
-                    Text(L10n.string("health.target"))
-                    Spacer()
-                    TextField(L10n.string("health.target"), text: $targetText)
-                        .keyboardType(.decimalPad)
-                        .multilineTextAlignment(.trailing)
-                        .frame(width: 100)
-                        .accessibilityIdentifier("health.target")
-                    Text(L10n.string(metric.unitKey))
-                        .foregroundStyle(.secondary)
-                }
-            }
-
-            Section {
-                Button {
-                    Task { await enable() }
-                } label: {
-                    HStack {
-                        Spacer()
-                        if isSaving { ProgressView() }
-                        Text(L10n.string(isEnabled ? "health.save" : "health.connect"))
-                        Spacer()
-                    }
-                }
-                .disabled(target == nil || isSaving || !supportedHabit ||
-                          !HealthHabitCoordinator.shared.isAvailable)
-
-                if isEnabled {
-                    Button(role: .destructive) {
-                        HealthHabitRuleStore.shared.disable(for: habit.id)
-                        HealthHabitCoordinator.shared.reconfigureObservers()
-                        HealthHabitCoordinator.shared.refresh()
-                        PhoneWatchSyncCoordinator.shared.dataDidChange()
-                        isEnabled = false
-                        dismiss()
-                    } label: {
-                        Text(L10n.string("health.disconnect"))
-                    }
-                    .disabled(isSaving)
-                }
-            } footer: {
-                Text(L10n.string("health.privacy"))
-            }
-
-            Section(L10n.string("health.shortcuts.title")) {
-                Label(L10n.string("health.shortcuts.action"), systemImage: "books.vertical")
-                    .font(.subheadline.weight(.semibold))
-                Text(L10n.string("health.shortcuts.instructions"))
-                    .font(.footnote)
-                    .foregroundStyle(.secondary)
-                Text(L10n.string("health.shortcuts.limitation"))
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
-            }
-
-            if let errorText {
-                Section {
-                    Text(errorText).foregroundStyle(.red)
+        }
+        .background(Color.habitsBackground)
+        .navigationTitle(L10n.string("health.settings"))
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItemGroup(placement: .keyboard) {
+                Spacer()
+                Button(L10n.string("common.done")) {
+                    targetFocused = false
                 }
             }
         }
-        .navigationTitle(L10n.string("health.settings"))
-        .navigationBarTitleDisplayMode(.inline)
         .task {
             if let existing = HealthHabitRuleStore.shared.rule(for: habit.id) {
                 metric = existing.metric
@@ -117,6 +53,119 @@ struct HealthHabitSettingsView: View {
                 isEnabled = true
             }
         }
+    }
+
+    /// A single-screen configuration surface: only selection, threshold and
+    /// primary actions. Longer privacy/Shortcuts guidance stays in app help.
+    private var settingsContent: some View {
+        VStack(spacing: 14) {
+            HStack(spacing: 10) {
+                Image(systemName: "heart.text.square.fill")
+                    .font(.title2)
+                    .foregroundStyle(Color.accentColor)
+                Text(habit.name)
+                    .font(.headline)
+                    .lineLimit(2)
+                Spacer(minLength: 0)
+                if isEnabled {
+                    Image(systemName: "checkmark.circle.fill")
+                        .foregroundStyle(.green)
+                        .accessibilityLabel(L10n.string("health.connected.hint"))
+                }
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+
+            VStack(spacing: 0) {
+                HStack(spacing: 12) {
+                    Text(L10n.string("health.metric.title"))
+                        .font(.subheadline.weight(.medium))
+                    Spacer(minLength: 8)
+                    Picker(L10n.string("health.metric.title"), selection: $metric) {
+                        ForEach(HealthHabitMetric.allCases) { value in
+                            Text(L10n.string(value.titleKey)).tag(value)
+                        }
+                    }
+                    .labelsHidden()
+                    .pickerStyle(.menu)
+                    .onChange(of: metric) { _, value in
+                        targetText = String(format: "%.0f", value.defaultTarget)
+                    }
+                    .accessibilityIdentifier("health.metric")
+                }
+                .frame(minHeight: 48)
+
+                Divider()
+
+                HStack(spacing: 10) {
+                    Text(L10n.string("health.target"))
+                        .font(.subheadline.weight(.medium))
+                    Spacer(minLength: 8)
+                    TextField(L10n.string("health.target"), text: $targetText)
+                        .keyboardType(.decimalPad)
+                        .focused($targetFocused)
+                        .multilineTextAlignment(.trailing)
+                        .frame(width: 85)
+                        .accessibilityIdentifier("health.target")
+                    Text(L10n.string(metric.unitKey))
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
+                }
+                .frame(minHeight: 48)
+            }
+            .padding(.horizontal, 14)
+            .background(
+                Color.habitsSurface,
+                in: RoundedRectangle(cornerRadius: 16, style: .continuous)
+            )
+
+            if !supportedHabit {
+                Label(L10n.string("health.unsupported"), systemImage: "exclamationmark.circle")
+                    .font(.caption)
+                    .foregroundStyle(.orange)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            }
+
+            Button {
+                targetFocused = false
+                Task { await enable() }
+            } label: {
+                HStack(spacing: 10) {
+                    if isSaving { ProgressView().tint(.white) }
+                    Text(L10n.string(isEnabled ? "health.save" : "health.connect"))
+                        .font(.subheadline.weight(.semibold))
+                }
+                .frame(maxWidth: .infinity, minHeight: 48)
+            }
+            .buttonStyle(.borderedProminent)
+            .disabled(target == nil || isSaving || !supportedHabit ||
+                      !HealthHabitCoordinator.shared.isAvailable)
+            .accessibilityIdentifier("health.connect.action")
+
+            if isEnabled {
+                Button(role: .destructive) {
+                    HealthHabitRuleStore.shared.disable(for: habit.id)
+                    HealthHabitCoordinator.shared.reconfigureObservers()
+                    HealthHabitCoordinator.shared.refresh()
+                    PhoneWatchSyncCoordinator.shared.dataDidChange()
+                    isEnabled = false
+                    dismiss()
+                } label: {
+                    Text(L10n.string("health.disconnect"))
+                        .font(.subheadline)
+                        .frame(maxWidth: .infinity, minHeight: 44)
+                }
+                .buttonStyle(.bordered)
+                .disabled(isSaving)
+            }
+
+            if let errorText {
+                Text(errorText)
+                    .font(.footnote)
+                    .foregroundStyle(.red)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            }
+        }
+        .padding(16)
     }
 
     @MainActor
