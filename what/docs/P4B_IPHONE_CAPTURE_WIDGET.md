@@ -44,3 +44,17 @@
 - [x] Physical build 14 installed with byte-for-byte data integrity check: all 15 recordings, 15 audio files, 7 transcripts, and staged captures preserved (2026-10-13).
 - [ ] Physical iPhone mic shows live signal, saves 5-10 seconds fully, original audio plays and transcribes.
 - [ ] If still missing buffers, check iOS Voice Memos microphone and whether iPhone Mirroring / Continuity Camera holds audio input. Do not guess from current evidence.
+
+
+## iPhone AVAudioEngine zero-input regression (build 15)
+
+- Physical build 14 accepted a 6.600000-second AAC recording but Apple-decoded samples were all exactly zero: peak = 0, RMS = 0, nonzero count = 0. Thus frame counters/duration alone did not imply microphone input was carrying actual sound.
+- Apple-decoded older voice recordings have peak ≈0.41 and RMS ≈0.03–0.05; recognition quality was not at fault.
+- Route setup now prefers built-in iPhone microphone from AVAudioSession.availableInputs and shows AVAudioSession.currentRoute.inputs[].portName on screen. This may avoid an unintended Bluetooth/USB/Continuity input; success must be verified physically, not assumed.
+- MicrophoneCapturePipeline tracks peak amplitude and count of samples above 0.001. Saving rejects zero/no-signal samples with a specific capture error, instead of sending silence to speech recognition.
+- PhoneCaptureValidation.validateFileHasSound reads the decoded M4A as Float32 PCM and checks for audible samples; it is also used by crash recovery. No silent capture will be auto-imported into Inbox.
+- [x] Build and unit-test targets compiled.
+- [x] Standalone Mac regression using source code + actual backed-up iPhone AAC: physical silent note rejected, original voice accepted, synthetic 1+ seconds of PCM captured and decoded AAC accepted.
+- [x] Build 15 installed on physical iPhone 13; 16 recordings, 16 audio files, 7 transcripts and all old app-support files byte-identical to pre-upgrade backup (2026-10-13).
+- [ ] Physical iPhone test: show selected input, speak, confirm Microphone is capturing sound, save and play; check transcription.
+- [ ] If even built-in input is all zeros, verify Apple Voice Memos can record on the same iPhone without an active iPhone Mirroring/Continuity Camera session. This isolates OS-level routing from What? audio code.

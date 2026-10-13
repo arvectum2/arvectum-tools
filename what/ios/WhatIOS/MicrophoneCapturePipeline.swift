@@ -9,6 +9,14 @@ final class MicrophoneCapturePipeline {
         let sampleRate: Double
         let hasInputSignal: Bool
         let writeError: Error?
+        let peak: Float
+        let audibleFrames: Int64
+
+        var containsActualSound: Bool {
+            // Samples with an absolute amplitude below 0.0001 may be
+            // numerical dither; all-zero input must never pass this gate.
+            audibleFrames > 0 && peak >= 0.001
+        }
 
         var audioSeconds: TimeInterval {
             sampleRate > 0 ? Double(framesWritten) / sampleRate : 0
@@ -19,6 +27,8 @@ final class MicrophoneCapturePipeline {
     private var writer: AVAudioFile?
     private var frames: Int64 = 0
     private var hasSignal = false
+    private var maximumPeak: Float = 0
+    private var audibleFrameCount: Int64 = 0
     private var failure: Error?
     private let sampleRate: Double
 
@@ -54,13 +64,17 @@ final class MicrophoneCapturePipeline {
         do {
             try writer.write(from: buffer)
             frames += Int64(buffer.frameLength)
-            if !hasSignal, let data = buffer.floatChannelData {
-                let length = Int(buffer.frameLength)
-                let samples = data[0]
-                for offset in stride(from: 0, to: length, by: 16) {
-                    if abs(samples[offset]) > 0.005 {
+            if let data = buffer.floatChannelData {
+                let count = Int(buffer.frameLength)
+                // Sample the first input channel. We keep only numeric
+                // aggregates; no speech content leaves the phone.
+                let values = data[0]
+                for offset in stride(from: 0, to: count, by: 8) {
+                    let amplitude = abs(values[offset])
+                    maximumPeak = max(maximumPeak, amplitude)
+                    if amplitude >= 0.001 {
                         hasSignal = true
-                        break
+                        audibleFrameCount += 8
                     }
                 }
             }
@@ -74,7 +88,8 @@ final class MicrophoneCapturePipeline {
         defer { lock.unlock() }
         return Status(
             framesWritten: frames, sampleRate: sampleRate,
-            hasInputSignal: hasSignal, writeError: failure
+            hasInputSignal: hasSignal, writeError: failure,
+            peak: maximumPeak, audibleFrames: audibleFrameCount
         )
     }
 
@@ -85,7 +100,8 @@ final class MicrophoneCapturePipeline {
         writer = nil
         return Status(
             framesWritten: frames, sampleRate: sampleRate,
-            hasInputSignal: hasSignal, writeError: failure
+            hasInputSignal: hasSignal, writeError: failure,
+            peak: maximumPeak, audibleFrames: audibleFrameCount
         )
     }
 }

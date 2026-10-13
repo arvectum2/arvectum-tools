@@ -34,6 +34,9 @@ struct PhoneRecordingSheet: View {
                             .font(.caption)
                             .foregroundStyle(recorder.microphoneConnected
                                 ? Color.secondary : Color.orange)
+                            Text("Input: \(recorder.microphoneRoute)")
+                                .font(.caption2)
+                                .foregroundStyle(.secondary)
                         }
                         .onChange(of: context.date) { _, _ in
                             recorder.refreshMicrophoneStatus()

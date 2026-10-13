@@ -11,6 +11,7 @@ final class PhoneRecordingController: NSObject, ObservableObject {
     @Published private(set) var startedAt: Date?
     @Published private(set) var microphoneConnected = false
     @Published private(set) var hasDetectedSignal = false
+    @Published private(set) var microphoneRoute = "Checking microphone…"
     @Published var errorMessage: String?
 
     var onSaved: ((RecordingEnvelope) -> Void)?
@@ -119,6 +120,18 @@ final class PhoneRecordingController: NSObject, ObservableObject {
             let session = AVAudioSession.sharedInstance()
             try session.setCategory(.record, mode: .default)
             try session.setActive(true)
+            if let builtIn = session.availableInputs?.first(where: {
+                $0.portType == .builtInMic
+            }) {
+                // Prefer the actual iPhone microphone over connected
+                // Bluetooth/USB/Continuity input devices when available.
+                try session.setPreferredInput(builtIn)
+            }
+            microphoneRoute = session.currentRoute.inputs
+                .map { $0.portName }.joined(separator: ", ")
+            if microphoneRoute.isEmpty {
+                microphoneRoute = "No active input route"
+            }
             guard session.isInputAvailable else {
                 throw NSError(
                     domain: "What.Microphone", code: 1,
@@ -214,6 +227,9 @@ final class PhoneRecordingController: NSObject, ObservableObject {
             try PhoneCaptureValidation.validate(
                 actualDuration: status.audioSeconds, elapsedTime: elapsed
             )
+            try PhoneCaptureValidation.validateSignal(
+                peak: status.peak, audibleFrames: status.audibleFrames
+            )
             guard files.fileExists(atPath: url.path),
                   let player = try? AVAudioPlayer(contentsOf: url)
             else {
@@ -223,6 +239,7 @@ final class PhoneRecordingController: NSObject, ObservableObject {
             try PhoneCaptureValidation.validate(
                 actualDuration: measured, elapsedTime: elapsed
             )
+            try PhoneCaptureValidation.validateFileHasSound(url)
             let accepted = try repository.acceptTemporaryFile(url, metadata: [
                 TransferMetadataKey.id: item.id.uuidString,
                 TransferMetadataKey.createdAt: item.createdAt.timeIntervalSince1970,
@@ -277,10 +294,13 @@ final class PhoneRecordingController: NSObject, ObservableObject {
                 continue
             }
             if let elapsed = item.expectedElapsed {
+                // Import interrupted-but-complete captures only if both
+                // duration and *decoded AAC sound* pass validation.
                 guard (try? PhoneCaptureValidation.validate(
-                    actualDuration: player.duration,
-                    elapsedTime: elapsed
-                )) != nil else { continue }
+                    actualDuration: player.duration, elapsedTime: elapsed
+                )) != nil,
+                (try? PhoneCaptureValidation.validateFileHasSound(url)) != nil
+                else { continue }
             }
             do {
                 let saved = try repository.acceptTemporaryFile(url, metadata: [

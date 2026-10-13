@@ -954,4 +954,47 @@ final class RecordingRepositoryTests: XCTestCase {
         ))
     }
 
+    func testRealDurationWithAllZeroSamplesIsRejectedAsSilentMicrophone() throws {
+        let url = FileManager.default.temporaryDirectory.appendingPathComponent(
+            "what-zero-input-\(UUID().uuidString).m4a"
+        )
+        defer { try? FileManager.default.removeItem(at: url) }
+        let format = try XCTUnwrap(AVAudioFormat(
+            standardFormatWithSampleRate: 48_000, channels: 1
+        ))
+        let pipeline = try MicrophoneCapturePipeline(
+            url: url, inputFormat: format
+        )
+        for _ in 0..<80 {
+            let buffer = try XCTUnwrap(AVAudioPCMBuffer(
+                pcmFormat: format, frameCapacity: 1_024
+            ))
+            buffer.frameLength = 1_024
+            for offset in 0..<1_024 {
+                buffer.floatChannelData![0][offset] = 0
+            }
+            pipeline.append(buffer)
+        }
+        let status = pipeline.close()
+        XCTAssertGreaterThan(status.audioSeconds, 1)
+        XCTAssertFalse(status.containsActualSound)
+        XCTAssertThrowsError(try PhoneCaptureValidation.validateSignal(
+            peak: status.peak, audibleFrames: status.audibleFrames
+        ))
+        let player = try AVAudioPlayer(contentsOf: url)
+        XCTAssertGreaterThan(player.duration, 1)
+    }
+
+    func testActualSoundSamplesPassMicrophoneSignalGate() throws {
+        XCTAssertThrowsError(try PhoneCaptureValidation.validateSignal(
+            peak: 0, audibleFrames: 0
+        ))
+        XCTAssertNoThrow(try PhoneCaptureValidation.validateSignal(
+            peak: 0.2, audibleFrames: 1_600
+        ))
+        XCTAssertNoThrow(try PhoneCaptureValidation.validateSignal(
+            peak: 0.005, audibleFrames: 24
+        ))
+    }
+
 }
