@@ -1,1 +1,2 @@
 "NSHealthShareUsageDescription" = "ChickMark читает показатели активности только для привычек, связанных с Apple Health. Данные здоровья остаются на устройстве.";
+"NSHealthUpdateUsageDescription" = "ChickMark использует Apple Health для отслеживания выбранных вами целей активности. Приложение не добавляет и не изменяет данные здоровья.";

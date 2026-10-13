@@ -40,6 +40,7 @@ targets:
         UIAppFonts:
           - PTSans-Bold.ttf
         NSHealthShareUsageDescription: "ChickMark reads activity totals only for habits you link to Apple Health."
+        NSHealthUpdateUsageDescription: "ChickMark uses Apple Health to track the activity goals you choose. It does not add or change health data."
         CFBundleShortVersionString: "$(MARKETING_VERSION)"
         CFBundleVersion: "$(CURRENT_PROJECT_VERSION)"
         LSApplicationCategoryType: public.app-category.healthcare-fitness
@@ -289,7 +290,7 @@ targets:
         PRODUCT_NAME: HabitsByArvectum
         PRODUCT_MODULE_NAME: HabitsByArvectum
         MARKETING_VERSION: "1.4.0"
-        CURRENT_PROJECT_VERSION: "7"
+        CURRENT_PROJECT_VERSION: "8"
         TARGETED_DEVICE_FAMILY: "1"
         GENERATE_INFOPLIST_FILE: NO
         CODE_SIGN_ENTITLEMENTS: HabitsByArvectum/HabitsByArvectum.entitlements
@@ -328,6 +329,7 @@ targets:
         WKRunsIndependentlyOfCompanionApp: true
         ITSAppUsesNonExemptEncryption: false
         NSHealthShareUsageDescription: "ChickMark reads activity totals only for habits you connect to Apple Health. Health measurements stay on your device."
+        NSHealthUpdateUsageDescription: "ChickMark uses Apple Health to track the activity goals you choose. It does not add or change health data."
         CFBundleIcons:
           CFBundlePrimaryIcon:
             CFBundleIconName: AppIcon
@@ -339,7 +341,7 @@ targets:
         PRODUCT_NAME: HabitsByArvectumWatch
         PRODUCT_MODULE_NAME: HabitsByArvectumWatch
         MARKETING_VERSION: "1.4.0"
-        CURRENT_PROJECT_VERSION: "7"
+        CURRENT_PROJECT_VERSION: "8"
         GENERATE_INFOPLIST_FILE: NO
         CODE_SIGN_ENTITLEMENTS: HabitsByArvectumWatch/HabitsByArvectumWatch.entitlements
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
@@ -368,7 +370,7 @@ targets:
         PRODUCT_NAME: HabitsByArvectumWatchWidget
         PRODUCT_MODULE_NAME: HabitsByArvectumWatchWidget
         MARKETING_VERSION: "1.4.0"
-        CURRENT_PROJECT_VERSION: "7"
+        CURRENT_PROJECT_VERSION: "8"
         GENERATE_INFOPLIST_FILE: NO
         CODE_SIGN_ENTITLEMENTS: HabitsByArvectumWatchWidget/HabitsByArvectumWatchWidget.entitlements
         APPLICATION_EXTENSION_API_ONLY: YES
@@ -398,7 +400,7 @@ targets:
         PRODUCT_NAME: HabitsByArvectumWidget
         PRODUCT_MODULE_NAME: HabitsByArvectumWidget
         MARKETING_VERSION: "1.4.0"
-        CURRENT_PROJECT_VERSION: "7"
+        CURRENT_PROJECT_VERSION: "8"
         GENERATE_INFOPLIST_FILE: NO
         CODE_SIGN_ENTITLEMENTS: HabitsByArvectumWidget/HabitsByArvectumWidget.entitlements
         APPLICATION_EXTENSION_API_ONLY: YES

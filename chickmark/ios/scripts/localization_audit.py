@@ -51,20 +51,21 @@ for lang in LOCALES[1:]:
     if shortcuts[lang].keys() != shortcuts["en"].keys():
         errors.append(f"AppShortcuts/{lang}: missing or extra keys")
 
-# Watch HealthKit permissions are independent of the iPhone target. A
-# missing purpose string is a fatal privacy violation at authorization time,
-# so verify the source, project spec and localizations before every release.
-watch_dir = ROOT / "HabitsByArvectumWatch"
-watch_info = plistlib.loads((watch_dir / "Info.plist").read_bytes())
-health_key = "NSHealthShareUsageDescription"
-if not str(watch_info.get(health_key, "")).strip():
-    errors.append("Watch Info.plist missing NSHealthShareUsageDescription")
-if health_key not in (ROOT / "project.yml").read_text(encoding="utf-8"):
-    errors.append("XcodeGen watch privacy key absent from project.yml")
-for lang in LOCALES:
-    localized = load(watch_dir / f"{lang}.lproj" / "InfoPlist.strings")
-    if not localized.get(health_key, "").strip():
-        errors.append(f"Watch {lang} missing localized HealthKit permission text")
+# Apple validates *both* HealthKit usage descriptions on every HealthKit
+# capable bundle, including an independent watchOS app, even for read-only
+# access. ITMS-90683 blocks upload otherwise.
+project = (ROOT / "project.yml").read_text(encoding="utf-8")
+for target in ("HabitsByArvectum", "HabitsByArvectumWatch"):
+    info = plistlib.loads((ROOT / target / "Info.plist").read_bytes())
+    for key in ("NSHealthShareUsageDescription", "NSHealthUpdateUsageDescription"):
+        if not str(info.get(key, "")).strip():
+            errors.append(f"{target} Info.plist missing {key}")
+        if project.count(key) < 2:
+            errors.append(f"XcodeGen project.yml missing {key} on both app targets")
+        for lang in LOCALES:
+            localized = load(ROOT / target / f"{lang}.lproj" / "InfoPlist.strings")
+            if not localized.get(key, "").strip():
+                errors.append(f"{target} {lang} missing {key}")
 
 if errors:
     print("\n".join(errors))

@@ -36,6 +36,8 @@
 	<false/>
 	<key>NSHealthShareUsageDescription</key>
 	<string>ChickMark reads activity totals only for habits you connect to Apple Health. Health measurements stay on your device.</string>
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>ChickMark uses Apple Health to track the activity goals you choose. It does not add or change health data.</string>
 	<key>WKApplication</key>
 	<true/>
 	<key>WKCompanionAppBundleIdentifier</key>
