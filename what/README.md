@@ -2,6 +2,10 @@
 
 What? is a local-first voice memory app for Apple Watch + iPhone.
 
+**Product promise: Catch the thought before it disappears. Analyze it later.**
+
+Capture is the product; transcription, search, summaries and any future Siri/Shortcuts integration happen only after the original audio is durably saved. No AI/model download/network dependency in the capture critical path. See [Product Principles](PRODUCT_PRINCIPLES.md).
+
 Core capture contract:
 
 > Tap on the watch face → speak → stop → the recording is durably saved on Apple Watch → transferred to iPhone → deleted from the Watch transfer queue only after an ACK from the iPhone.

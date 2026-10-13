@@ -1,5 +1,20 @@
 # What? — Product Roadmap
 
+**North star (2026-10-13): Catch the thought before it disappears. Analyze it later.** The product is immediate, reliable voice capture, not an AI search engine. See [Product Principles](PRODUCT_PRINCIPLES.md).
+
+### Current engineering priority: Capture First
+
+- [ ] Measure physical Apple Watch complication tap-to-microphone-start latency; target <=2 seconds p95 in normal ready conditions, with cold-launch timing tracked separately.
+- [ ] Validate offline saving with multiple notes, Watch reboot, retransmission after failed ACK, duplicate prevention and delayed automatic delivery.
+- [ ] Verify original audio preserved and playable independently of transcription, models, network, phone connection and search.
+- [ ] Optimize Watch start/stop/durable-save feedback and eliminate any blocking steps from the normal capture path.
+- [ ] Confirm iPhone Review basics: audio, optional transcription/edit, simple precise search, export.
+- [ ] Consider Siri/Shortcuts only as optional post-capture convenience after recording reliability passes acceptance.
+
+**Frozen, not MVP-critical:** RuWordNet, custom semantic models, Qwen/MiniLM research, word atlases, and further Ask memory development. Preserve historical experiments without expanding app complexity. Private device build 22 contains a RuWordNet-derived research corpus whose commercial rights are not cleared; do not ship it publicly. No iPhone data or application changes are authorized by this product-roadmap decision.
+
+**Repository caution:** The active Mac mini worktree contains unrelated uncommitted search experiments. Never accidentally include those in capture-focused commits or builds.
+
 **Updated:** 2026-10-13
 **Status:** Private physical iPhone 13 now runs What? 0.1.0 (22) with an offline Russian concept and morphology graph integrated into Ask memory. The local Swift retrieval engine tested on 15 existing notes places Edelweiss for "цветок" at rank 1, the diary note for "журнал" at rank 2 and the beauty/aesthetics note for "красота" at rank 1, with zero false matches in 20 unrelated controls. Six separate Python concept tests and the full iOS simulator test suite passed. The signed physical build has been installed and all 17 recording records, 17 original audio files and 15 transcripts remained byte-identical after upgrade. The compressed local developer graph (~2.4 MiB) contains noun hierarchies and >313,000 unambiguous Russian inflections; it requires no network during search. It is excluded from GitHub due to RuWordNet corpus redistribution uncertainty: official web site mentions noncommercial use and CC BY-SA 4.0 in different places. Do not release this research graph commercially until written licensing clarification or replacement with clearly permitted corpus. Physical UI acceptance pending; no App Store release.
 **Evidence:** [historical feature-branch roadmap snapshot](docs/history/ROADMAP-feature-what-2026-10-11.md).
