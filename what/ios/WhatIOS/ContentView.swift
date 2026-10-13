@@ -203,7 +203,7 @@ struct ContentView: View {
     }
 
     private func recordingRow(_ recording: RecordingEnvelope) -> some View {
-        VStack(alignment: .leading, spacing: 10) {
+        VStack(alignment: .leading, spacing: 8) {
             HStack {
                 VStack(alignment: .leading, spacing: 3) {
                     Text(recording.createdAt, style: .time).font(.headline)
@@ -223,99 +223,192 @@ struct ContentView: View {
                     .font(.caption)
                     .foregroundStyle(.orange)
             }
-            HStack(spacing: 16) {
-                Button {
-                    store.togglePlayback(recording)
-                } label: {
-                    Label(store.playingID == recording.id ? "Stop" : "Play",
-                          systemImage: store.playingID == recording.id ? "stop.circle.fill" : "play.circle.fill")
-                }
-                .disabled(!store.isAudioAvailable(recording))
-
-                if store.transcribingID == recording.id {
-                    Button {
-                        store.cancelTranscription()
-                    } label: {
-                        Label("Cancel transcription", systemImage: "xmark.circle")
-                    }
-                } else {
-                    Button {
-                        if store.transcripts[recording.id] != nil {
-                            recordingToRetranscribe = recording
-                        } else {
-                            store.transcribe(recording)
-                        }
-                    } label: {
-                        Label(
-                            store.transcripts[recording.id] == nil
-                                ? "Transcribe" : "Retry transcription",
-                            systemImage: "text.bubble"
-                        )
-                    }
-                    .disabled(!store.isAudioAvailable(recording) || store.transcribingID != nil)
-                    .alert("Replace existing transcription?", isPresented: Binding(
-                        get: { recordingToRetranscribe?.id == recording.id },
-                        set: { if !$0 { recordingToRetranscribe = nil } }
-                    )) {
-                        Button("Replace transcription", role: .destructive) {
-                            store.transcribe(recording)
-                            recordingToRetranscribe = nil
-                        }
-                        Button("Cancel", role: .cancel) {
-                            recordingToRetranscribe = nil
-                        }
-                    } message: {
-                        Text("A new transcription will replace your current text, including any manual corrections. The original audio will be kept.")
-                    }
-                }
-
-                Button {
-                    if store.transcribingID == recording.id {
-                        store.cancelTranscription()
-                    }
-                    recordingToEdit = recording
-                } label: {
-                    Label(
-                        store.transcripts[recording.id] == nil ? "Add text" : "Edit text",
-                        systemImage: "square.and.pencil"
-                    )
-                }
-
-                Menu {
-                    if store.isAudioAvailable(recording) {
-                        Button {
-                            preparedExport = store.prepareExport(recording, selection: .audio)
-                        } label: {
-                            Label("Audio (.m4a)", systemImage: "waveform")
-                        }
-                    }
-                    if store.transcripts[recording.id] != nil {
-                        Button {
-                            preparedExport = store.prepareExport(recording, selection: .transcript)
-                        } label: {
-                            Label("Transcript (.txt)", systemImage: "doc.plaintext")
-                        }
-                    }
-                    if store.isAudioAvailable(recording),
-                       store.transcripts[recording.id] != nil {
-                        Button {
-                            preparedExport = store.prepareExport(recording, selection: .audioAndTranscript)
-                        } label: {
-                            Label("Audio + transcript", systemImage: "square.on.square")
-                        }
-                    }
-                } label: {
-                    Label("Export", systemImage: "square.and.arrow.up")
-                }
-                .disabled(!store.isAudioAvailable(recording)
-                    && store.transcripts[recording.id] == nil)
+            // Only two primary actions and one fixed-size overflow control.
+            // Keeping the long labels inside menus prevents even "Play" from
+            // wrapping on narrow iPhones or with larger Dynamic Type.
+            ViewThatFits(in: .horizontal) {
+                recordingActions(recording, stacked: false)
+                recordingActions(recording, stacked: true)
             }
-            .buttonStyle(.borderless)
+
             if let transcript = store.transcripts[recording.id] {
                 Text(transcript).font(.body).textSelection(.enabled)
             }
         }
         .padding(.vertical, 5)
+    }
+
+    @ViewBuilder
+    private func recordingActions(_ recording: RecordingEnvelope, stacked: Bool) -> some View {
+        let hasTranscript = store.transcripts[recording.id] != nil
+
+        Group {
+            if stacked {
+                VStack(alignment: .leading, spacing: 8) {
+                    HStack(spacing: 12) {
+                        playButton(recording)
+                        Spacer(minLength: 4)
+                        actionsMenu(recording)
+                    }
+                    textButton(recording, hasTranscript: hasTranscript)
+                }
+            } else {
+                HStack(spacing: 12) {
+                    playButton(recording)
+                    textButton(recording, hasTranscript: hasTranscript)
+                    Spacer(minLength: 0)
+                    actionsMenu(recording)
+                }
+                .fixedSize(horizontal: true, vertical: false)
+                .frame(maxWidth: .infinity, alignment: .leading)
+            }
+        }
+        .buttonStyle(.borderless)
+    }
+
+    private func playButton(_ recording: RecordingEnvelope) -> some View {
+        Button {
+            store.togglePlayback(recording)
+        } label: {
+            HStack(spacing: 6) {
+                Image(systemName: store.playingID == recording.id
+                    ? "stop.circle.fill" : "play.circle.fill")
+                Text(store.playingID == recording.id ? "Stop" : "Play")
+                    .lineLimit(1)
+            }
+            .font(.subheadline.weight(.semibold))
+            .fixedSize(horizontal: true, vertical: false)
+            .padding(.horizontal, 12)
+            .padding(.vertical, 9)
+            .background(Color.accentColor.opacity(0.12), in: Capsule())
+        }
+        .disabled(!store.isAudioAvailable(recording))
+        .accessibilityLabel(store.playingID == recording.id ? "Stop audio" : "Play audio")
+    }
+
+    private func textButton(
+        _ recording: RecordingEnvelope,
+        hasTranscript: Bool
+    ) -> some View {
+        Button {
+            if store.transcribingID == recording.id {
+                store.cancelTranscription()
+            } else if hasTranscript {
+                recordingToEdit = recording
+            } else {
+                store.transcribe(recording)
+            }
+        } label: {
+            HStack(spacing: 6) {
+                Image(systemName: store.transcribingID == recording.id
+                    ? "xmark.circle" : "text.bubble")
+                Text(store.transcribingID == recording.id
+                    ? "Cancel" : (hasTranscript ? "Edit text" : "Transcribe"))
+                    .lineLimit(1)
+            }
+            .font(.subheadline)
+            .fixedSize(horizontal: true, vertical: false)
+            .padding(.horizontal, 12)
+            .padding(.vertical, 9)
+            .background(Color.secondary.opacity(0.09), in: Capsule())
+        }
+        .disabled(store.transcribingID != nil
+            && store.transcribingID != recording.id)
+    }
+
+    private func actionsMenu(_ recording: RecordingEnvelope) -> some View {
+        Menu {
+            Button {
+                if store.transcribingID == recording.id {
+                    store.cancelTranscription()
+                }
+                recordingToEdit = recording
+            } label: {
+                Label(
+                    store.transcripts[recording.id] == nil ? "Add text" : "Edit text",
+                    systemImage: "square.and.pencil"
+                )
+            }
+
+            if store.transcripts[recording.id] != nil,
+               store.isAudioAvailable(recording) {
+                Button {
+                    recordingToRetranscribe = recording
+                } label: {
+                    Label("Retry transcription", systemImage: "arrow.clockwise")
+                }
+                .disabled(store.transcribingID != nil)
+            }
+
+            Menu {
+                if store.isAudioAvailable(recording) {
+                    Button {
+                        preparedExport = store.prepareExport(recording, selection: .audio)
+                    } label: {
+                        Label("Audio (.m4a)", systemImage: "waveform")
+                    }
+                }
+                if store.transcripts[recording.id] != nil {
+                    Button {
+                        preparedExport = store.prepareExport(recording, selection: .transcript)
+                    } label: {
+                        Label("Transcript (.txt)", systemImage: "doc.plaintext")
+                    }
+                }
+                if store.isAudioAvailable(recording),
+                   store.transcripts[recording.id] != nil {
+                    Button {
+                        preparedExport = store.prepareExport(recording, selection: .audioAndTranscript)
+                    } label: {
+                        Label("Audio + transcript", systemImage: "square.on.square")
+                    }
+                }
+            } label: {
+                Label("Export", systemImage: "square.and.arrow.up")
+            }
+
+            Divider()
+
+            Button {
+                store.setArchived(
+                    recording,
+                    archived: !store.archivedIDs.contains(recording.id)
+                )
+            } label: {
+                Label(
+                    store.archivedIDs.contains(recording.id)
+                        ? "Restore to Inbox" : "Archive recording",
+                    systemImage: store.archivedIDs.contains(recording.id)
+                        ? "tray.and.arrow.up" : "archivebox"
+                )
+            }
+
+            Button(role: .destructive) {
+                recordingToDelete = recording
+            } label: {
+                Label("Delete recording", systemImage: "trash")
+            }
+        } label: {
+            Image(systemName: "ellipsis.circle")
+                .font(.title3)
+                .frame(width: 40, height: 40)
+                .contentShape(Rectangle())
+        }
+        .accessibilityLabel("More recording actions")
+        .alert("Replace existing transcription?", isPresented: Binding(
+            get: { recordingToRetranscribe?.id == recording.id },
+            set: { if !$0 { recordingToRetranscribe = nil } }
+        )) {
+            Button("Replace transcription", role: .destructive) {
+                store.transcribe(recording)
+                recordingToRetranscribe = nil
+            }
+            Button("Cancel", role: .cancel) {
+                recordingToRetranscribe = nil
+            }
+        } message: {
+            Text("A new transcription will replace your current text, including any manual corrections. The original audio will be kept.")
+        }
     }
 
     private func duration(_ value: TimeInterval) -> String {

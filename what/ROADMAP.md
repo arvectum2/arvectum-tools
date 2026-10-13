@@ -1,7 +1,7 @@
 # What? — Product Roadmap
 
 **Updated:** 2026-10-13
-**Status:** As of 2026-10-13, What? 0.1.0 (9) is **installed on physical iPhone 13**. Native audio/transcript/both-file sharing and display of latest Watch queue snapshot are implemented, simulator-tested, and awaiting physical UI acceptance. Verified all 12 original audio files, 12 recording entries and 5 transcripts remained byte-identical to the pre-install backup. Companion watchOS code for build 9 is signed and simulator-tested but the physical Watch installation is **not yet confirmed**: Xcode developer tunnel timed out. The older working Watch build 6 is known to have supported fast audio transfer; do not claim Watch snapshot telemetry is active until build 9 is installed on the Watch. Earlier Inbox (build 8), transcript editing (build 7) and short-audio Watch sync (build 6) passed physical checks. Not submitted to App Store.
+**Status:** As of 2026-10-13, What? 0.1.0 (10) is installed on physical iPhone 13 with a compact action row that keeps Play/Stop and Transcribe/Edit text readable and moves export/retranscription/archive/delete into an accessible overflow menu. Verified with screenshots from an iPhone 13 simulator at both standard and Accessibility Medium text sizes; long labels never wrap within a button. iOS simulator tests pass, physical UI confirmation pending. Export was confirmed successful by the user in build 9; export internals are unchanged in build 10. Original 12 recordings, 12 .m4a files and 5 transcripts are byte-identical before/after upgrade. Companion Watch build 9/10 remains unverified on the physical Watch due to Xcode developer tunnel instability; Watch build 6 was working with instant transfer. App Store submission pending.
 **Evidence:** [historical feature-branch roadmap snapshot](docs/history/ROADMAP-feature-what-2026-10-11.md).
 **Shared principles:** [Core](../core/CORE_PRINCIPLES.md); **Growth:** [Growth](../growth/ROADMAP.md).
 
@@ -33,6 +33,8 @@
 - [ ] Confirm archived state persists after restarting What? (covered by storage tests).
 - [x] Implement last-reported pending count and timestamp via WatchConnectivity.applicationContext (build 9); queue snapshot stored on iPhone and never presented as current connectivity guarantee. Physical delivery check pending.
 - [ ] True transfer progress/real-time connection status remains outside P2; a last-reported snapshot may be delayed by iOS/watchOS.
+
+- [x] Compact iPhone recording controls, eliminating 4-button overflow and word wrapping. Primary Play and text action stay visible; secondary export/retry/archive/delete moved to More menu. Verified on iPhone 13 simulator at normal/Accessibility Medium font sizes and shipped to iPhone build 10 (physical confirmation pending).
 
 ## P3 — Apple Notes / Shortcuts
 - [x] Implement local iOS share sheet exports for original audio (.m4a), editable transcript (.txt), or both; staged copies removed after sharing; source files untouched. Build 9, automated tests pass; physical sharing acceptance pending.
