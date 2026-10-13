@@ -178,3 +178,10 @@ No app-specific tasks are duplicated in Core or Growth.
 - [x] Physical Watch and iPhone signed builds succeeded; 155/155 iOS unit tests and localized permission audit passed.
 - [x] Updated packages installed on both physical devices without deleting data; Watch extension process accessible.
 - [ ] Confirm foreground app remains open on physical unlocked Watch and approve HealthKit prompt if displayed; remote launch previously denied by watchOS when navigation away from clock was prohibited.
+
+### App Store review — 1.4.0, 13 October 2026
+- [x] Replaced unsubmitted 1.3.1 draft with 1.4.0; added four localized release notes and automatic publication after approval.
+- [x] Fixed ITMS-90683 HealthKit purpose strings for both iOS and Watch, built and uploaded release build 8.
+- [x] Attached processed VALID build 8 to the 1.4.0 App Store version.
+- [x] Submitted review ID e8dbe148-4328-4437-bd1b-e0d47a39235b, verified WAITING_FOR_REVIEW and submittedDate 2026-10-13T05:20:06Z.
+- [ ] Apple approval and automatic release.
