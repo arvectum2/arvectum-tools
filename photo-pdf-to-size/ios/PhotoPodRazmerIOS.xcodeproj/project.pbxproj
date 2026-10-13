@@ -26,7 +26,6 @@
 		574DA32357D1D0E06A2E97C6 /* AppModel+Import.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95560A2CFF134BB3B8E6B962 /* AppModel+Import.swift */; };
 		74E5EE3988175CDBE537CBC2 /* AdService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005B847C06E0B95A28BB0C24 /* AdService.swift */; };
 		7F8ECEF56352CCC10E3729D8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B5593105023DBFA51B2853 /* ContentView.swift */; };
-		84F1D8772442A31BB4CEFAA8 /* ArvectumPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C8430E26E50E5BC9F11857 /* ArvectumPalette.swift */; };
 		8680F857E155DD36E72C3771 /* AppModel+Processing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89EE7554AAE420CCFCD6DCDB /* AppModel+Processing.swift */; };
 		894BF3FCC6C64966A8F3115B /* AdPlacements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ABA14F6C19916B76F84EFA8 /* AdPlacements.swift */; };
 		91B61D59E48D42AFD40D7D0D /* SharedControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BF5181B6888781E533A313 /* SharedControls.swift */; };
@@ -39,6 +38,7 @@
 		C4884D75FD456DC59BB3D545 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = F70153CC2BE5352F2D9891E7 /* Localizable.strings */; };
 		C685BAA36108A911AB0432CE /* ImageEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D663780C7734CAD6EA60131 /* ImageEngine.swift */; };
 		C73E964DFBCD3A9EBB101951 /* ImageEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08AEB8D127CD578A7F444A94 /* ImageEngineTests.swift */; };
+		CD0D381811F30C7A0CB9C669 /* ArvectumPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC041F5BDBB8267C481D266 /* ArvectumPalette.swift */; };
 		CD648EAE9A79683F3C780439 /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C025A083FC4B9302AC7033 /* AppModel.swift */; };
 		D7BFF792993B7DDE78512C61 /* AdNativeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92D198F142C4AB1521E5B17B /* AdNativeView.swift */; };
 		E36BFBCAEA2B102563C9B0B6 /* AppModel+Lifecycle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4218562232EFB974A3F790 /* AppModel+Lifecycle.swift */; };
@@ -86,12 +86,12 @@
 		6EB98F5B7046F064E296DCE0 /* FileExport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileExport.swift; sourceTree = "<group>"; };
 		705150ECFF2DFDD01819AA14 /* PDFEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFEngine.swift; sourceTree = "<group>"; };
 		859CD85E40C881410B84E65B /* PassportCropView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassportCropView.swift; sourceTree = "<group>"; };
-		89C8430E26E50E5BC9F11857 /* ArvectumPalette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArvectumPalette.swift; sourceTree = "<group>"; };
 		89EE7554AAE420CCFCD6DCDB /* AppModel+Processing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppModel+Processing.swift"; sourceTree = "<group>"; };
 		8D2E6DAE150416D54E6F5148 /* WorkflowUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkflowUITests.swift; sourceTree = "<group>"; };
 		92D198F142C4AB1521E5B17B /* AdNativeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdNativeView.swift; sourceTree = "<group>"; };
 		95560A2CFF134BB3B8E6B962 /* AppModel+Import.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppModel+Import.swift"; sourceTree = "<group>"; };
 		96A317268BAF55882F262F0D /* PDFTaskCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFTaskCard.swift; sourceTree = "<group>"; };
+		9AC041F5BDBB8267C481D266 /* ArvectumPalette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArvectumPalette.swift; sourceTree = "<group>"; };
 		9C9CFC5AF3ABB172654A63C1 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		9D1A80B3072CE5FACCF31E93 /* AppModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModelTests.swift; sourceTree = "<group>"; };
 		9D663780C7734CAD6EA60131 /* ImageEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageEngine.swift; sourceTree = "<group>"; };
@@ -122,6 +122,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		57D46C8D8AF40F6DCFC0813F /* photo-size-release-1.0.1 */ = {
+			isa = PBXGroup;
+			children = (
+				90090D3FDB67852771A02705 /* core */,
+			);
+			name = "photo-size-release-1.0.1";
+			path = ../..;
+			sourceTree = "<group>";
+		};
 		6420FE95F29032DD6E37E83E /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -131,6 +140,22 @@
 				F70153CC2BE5352F2D9891E7 /* Localizable.strings */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		72E2F247EC5E491B00F36FF0 /* ArvectumDesignTokens */ = {
+			isa = PBXGroup;
+			children = (
+				9AC041F5BDBB8267C481D266 /* ArvectumPalette.swift */,
+			);
+			path = ArvectumDesignTokens;
+			sourceTree = "<group>";
+		};
+		73FFBC04452AD808B1675A08 /* packages */ = {
+			isa = PBXGroup;
+			children = (
+				72E2F247EC5E491B00F36FF0 /* ArvectumDesignTokens */,
+			);
+			path = packages;
 			sourceTree = "<group>";
 		};
 		8C15F6C924310746E867032D /* Advertising */ = {
@@ -143,6 +168,14 @@
 				005B847C06E0B95A28BB0C24 /* AdService.swift */,
 			);
 			path = Advertising;
+			sourceTree = "<group>";
+		};
+		90090D3FDB67852771A02705 /* core */ = {
+			isa = PBXGroup;
+			children = (
+				73FFBC04452AD808B1675A08 /* packages */,
+			);
+			path = core;
 			sourceTree = "<group>";
 		};
 		9B7C0FF2DA88D3ACE5077EE7 /* Products */ = {
@@ -168,7 +201,7 @@
 		A9C114D71BFDA3C453DFA7B7 = {
 			isa = PBXGroup;
 			children = (
-				D9C0073708FDC0396AF060AC /* arvectum-tools */,
+				57D46C8D8AF40F6DCFC0813F /* photo-size-release-1.0.1 */,
 				AAF0944D151DFDF8F0DA0C22 /* PhotoPodRazmer */,
 				A6153955BF71CEDD7DC143A4 /* PhotoPodRazmerTests */,
 				CEF7C6BD317029F143EFB7FF /* PhotoPodRazmerUITests */,
@@ -220,23 +253,6 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		D9C0073708FDC0396AF060AC /* arvectum-tools */ = {
-			isa = PBXGroup;
-			children = (
-				F63CB129B5BA49409165991E /* core */,
-			);
-			name = "arvectum-tools";
-			path = ../..;
-			sourceTree = "<group>";
-		};
-		DFF785E678912370362B2133 /* packages */ = {
-			isa = PBXGroup;
-			children = (
-				E41DFFF5FD65517C04564357 /* ArvectumDesignTokens */,
-			);
-			path = packages;
-			sourceTree = "<group>";
-		};
 		E33A926D8EA9C2963C0B0DB9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -248,22 +264,6 @@
 				31BF5181B6888781E533A313 /* SharedControls.swift */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		E41DFFF5FD65517C04564357 /* ArvectumDesignTokens */ = {
-			isa = PBXGroup;
-			children = (
-				89C8430E26E50E5BC9F11857 /* ArvectumPalette.swift */,
-			);
-			path = ArvectumDesignTokens;
-			sourceTree = "<group>";
-		};
-		F63CB129B5BA49409165991E /* core */ = {
-			isa = PBXGroup;
-			children = (
-				DFF785E678912370362B2133 /* packages */,
-			);
-			path = core;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -336,7 +336,6 @@
 				TargetAttributes = {
 					5689A203222A2852B683EA2B = {
 						DevelopmentTeam = VML75VY94V;
-						ProvisioningStyle = Automatic;
 					};
 					8DBD1656C9C986BA899AC17E = {
 						DevelopmentTeam = VML75VY94V;
@@ -416,7 +415,7 @@
 				0BC787AC2F11BFF24FD111B9 /* AppModel+Settings.swift in Sources */,
 				CD648EAE9A79683F3C780439 /* AppModel.swift in Sources */,
 				3CB2DE66088898FBE50E0533 /* ArvectumColors.swift in Sources */,
-				84F1D8772442A31BB4CEFAA8 /* ArvectumPalette.swift in Sources */,
+				CD0D381811F30C7A0CB9C669 /* ArvectumPalette.swift in Sources */,
 				7F8ECEF56352CCC10E3729D8 /* ContentView.swift in Sources */,
 				2F8C49BE3134AF28B3A580FF /* FileExport.swift in Sources */,
 				C685BAA36108A911AB0432CE /* ImageEngine.swift in Sources */,
@@ -695,7 +694,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "Apple Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 13;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = NO;
@@ -713,6 +713,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = ru.arvectum.tools.tosize;
 				PRODUCT_MODULE_NAME = PhotoPodRazmer;
 				PRODUCT_NAME = PhotoPodRazmer;
+				PROVISIONING_PROFILE_SPECIFIER = "Arvectum Photo Pod Razmer App Store";
 				SDKROOT = iphoneos;
 				SUPPORTS_MACCATALYST = NO;
 				TARGETED_DEVICE_FAMILY = 1;

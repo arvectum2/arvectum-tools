@@ -1,6 +1,6 @@
 # Фото и PDF под размер — Product Roadmap
 
-**Updated:** 2026-10-11
+**Updated:** 2026-10-13
 **Ownership:** image/PDF sizing, document presets, export, app-specific UX, SDK integrations, QA and releases.
 **iOS App Store:** v1.0.0 approved and published on 2026-10-11, after submission on 2026-10-10 (product owner confirmation). Apple App ID `6816346084`, bundle ID `ru.arvectum.tools.tosize`. [Public listing](https://apps.apple.com/ru/app/id6816346084). Android publication status is tracked independently.
 **History and detailed specification:** [docs/history/ROADMAP-legacy-2026-10-11.md](docs/history/ROADMAP-legacy-2026-10-11.md). It is reference history, not a live checklist.
@@ -26,12 +26,16 @@
 - [x] Recover build **12** source commit `0346d75`, signed IPA/archive and Apple submission evidence; merge the shipped source into canonical `main` and tag `photo-size-ios-v1.0.0-build12`.
 - [ ] Verify public-storefront propagation of 1.0.0 (public iTunes lookup still showed 0.6.2 during this audit).
 
-## Next patch — 1.0.1 (13), source-only candidate (not submitted to Apple)
+## Next patch — 1.0.1 (13), uploaded candidate (not submitted to App Review)
 
 - [x] Keep the advertising consent Accept/Decline buttons visible even with iOS 27's maximum accessibility text size by scrolling explanatory text separately.
 - [x] Re-run 28 unit tests plus 5 simulator UI tests on iOS 27 with standard text size; 5 device-only Files tests skipped by design.
 - [x] Reconfirm that extreme accessibility text size needs scrolling; the no-scroll regression applies to the standard text-size matrix only.
-- [ ] Physical iPhone QA and explicit release approval before submitting a newly signed 1.0.1 (13) binary.
+- [x] Signed archive and verified IPA 1.0.1 (13) exported and uploaded to App Store Connect (2026-10-13).
+- [x] Prepared 20 localized release notes and a 1.0.1 draft in App Store Connect.
+- [ ] Physical iPhone regression (Files/Photos, exports, PDF, ads and consent/ATT) and release acceptance.
+- [x] Apple build 13 is VALID and attached; ru/en-US/en-GB screenshots and locale parity verified.
+- [ ] Finish physical UI/advertising checks and submit to App Review. iPhone 13 is connected but locked; see [release handoff](docs/appstore/RELEASE_1.0.1_2026-10-13.md).
 
 ## Next: post-release QA and maintenance
 - [ ] Run device regression on image modes, document presets, PDF orientation, large-file memory and export.
