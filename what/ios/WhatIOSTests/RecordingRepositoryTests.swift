@@ -1373,9 +1373,9 @@ final class RecordingRepositoryTests: XCTestCase {
 
 
     func testBundledRussianGraphFindsConceptsAndRejectsControls() throws {
-        let engine = try XCTUnwrap(
-            RussianConceptSearch(), "The local developer bundle must contain the graph"
-        )
+        guard let engine = RussianConceptSearch() else {
+            throw XCTSkip("Release intentionally excludes the research-only RuWordNet corpus")
+        }
         let examples: [(String, String, Double)] = [
             ("цветок", "Раз 2345 эдельвейс 6789 10", 0.8),
             ("журнал", "Мне нужен читательский дневник", 0.8),
@@ -1426,7 +1426,9 @@ final class RecordingRepositoryTests: XCTestCase {
         try repository.updateTranscript("Раз 2345 эдельвейс 6789", for: flowerID)
         try repository.updateTranscript("Читательский дневник", for: diaryID)
         try repository.updateTranscript("Завтра поеду на автобусе", for: unrelatedID)
-        let ontology = try XCTUnwrap(RussianConceptSearch())
+        guard let ontology = RussianConceptSearch() else {
+            throw XCTSkip("Release intentionally excludes the research-only RuWordNet corpus")
+        }
         let index = LocalSemanticSearch(
             cacheURL: root.appendingPathComponent("semantic-search-index.json")
         )
@@ -1456,6 +1458,64 @@ final class RecordingRepositoryTests: XCTestCase {
             }
         )
         XCTAssertTrue(strict.hits.isEmpty, "Find notes must stay strict")
+    }
+
+    func testWatchCaptureNeverAcceptsHeaderOnlyOrTruncatedAudio() {
+        XCTAssertFalse(WatchCaptureValidation.isPlausibleAudio(
+            bytes: 12, decodedDuration: 0.06, expectedDuration: 6.26
+        ))
+        XCTAssertFalse(WatchCaptureValidation.isPlausibleAudio(
+            bytes: 1_000, decodedDuration: 0.06, expectedDuration: 6.26
+        ))
+        XCTAssertFalse(WatchCaptureValidation.isPlausibleAudio(
+            bytes: 10_000, decodedDuration: 1.0, expectedDuration: 8.0
+        ))
+        XCTAssertFalse(WatchCaptureValidation.isPlausibleAudio(
+            bytes: 4_000, decodedDuration: .nan, expectedDuration: 3
+        ))
+        XCTAssertTrue(WatchCaptureValidation.isPlausibleAudio(
+            bytes: 4_000, decodedDuration: 3.8, expectedDuration: 4.0
+        ))
+        XCTAssertTrue(WatchCaptureValidation.isPlausibleAudio(
+            bytes: 1_500, decodedDuration: 0.40, expectedDuration: 0.45
+        ))
+    }
+
+    func testWatchCrashRecoveryRetainsOnlyDurableUnqueuedAudio() throws {
+        let directory = FileManager.default.temporaryDirectory
+            .appendingPathComponent("what-watch-recovery-\(UUID().uuidString)")
+        defer { try? FileManager.default.removeItem(at: directory) }
+        try FileManager.default.createDirectory(
+            at: directory, withIntermediateDirectories: true
+        )
+        let recoveredID = UUID()
+        let knownID = UUID()
+        let invalidID = UUID()
+        for (id, byteCount) in [
+            (recoveredID, 2_000), (knownID, 2_000), (invalidID, 10)
+        ] {
+            try Data(repeating: 42, count: byteCount).write(
+                to: directory.appendingPathComponent("\(id.uuidString).m4a")
+            )
+        }
+        try Data(repeating: 7, count: 5_000).write(
+            to: directory.appendingPathComponent("queue.json")
+        )
+        let found = WatchQueueRecovery.recover(
+            from: directory,
+            knownIDs: [knownID],
+            decodedDuration: { url in
+                url.lastPathComponent.hasPrefix(invalidID.uuidString) ? 0.01 : 5.0
+            }
+        )
+        XCTAssertEqual(found.map(\.id), [recoveredID])
+        XCTAssertEqual(found.first?.duration, 5)
+        XCTAssertTrue(FileManager.default.fileExists(
+            atPath: directory.appendingPathComponent("\(invalidID.uuidString).m4a").path
+        ), "Recovery must never erase a potentially recoverable recording")
+        XCTAssertTrue(FileManager.default.fileExists(
+            atPath: directory.appendingPathComponent("\(knownID.uuidString).m4a").path
+        ), "Recovery must not touch already-queued original audio")
     }
 
 }

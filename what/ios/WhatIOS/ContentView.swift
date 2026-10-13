@@ -8,7 +8,6 @@ struct ContentView: View {
     @State private var selectedFolder: InboxFolder = .inbox
     @State private var searchText = ""
     @State private var preparedExport: PreparedRecordingExport?
-    @State private var showSmartSearch = false
     @State private var showDiagnostics = false
 
     private var visibleRecordings: [RecordingEnvelope] {
@@ -142,14 +141,6 @@ struct ContentView: View {
             .searchable(text: $searchText, prompt: "Search transcripts and dates")
             .navigationTitle("What?")
             .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    Button {
-                        showSmartSearch = true
-                    } label: {
-                        Image(systemName: "sparkle.magnifyingglass")
-                    }
-                    .accessibilityLabel("Smart search")
-                }
                 ToolbarItemGroup(placement: .topBarTrailing) {
                     Button {
                         store.beginPhoneCapture()
@@ -168,6 +159,10 @@ struct ContentView: View {
                         } label: {
                             Label("Sync diagnostics", systemImage: "applewatch")
                         }
+                        Link(
+                            "Privacy policy",
+                            destination: URL(string: "https://arvectum.com/privacy")!
+                        )
                     } label: {
                         Image(systemName: "ellipsis.circle")
                     }
@@ -177,10 +172,6 @@ struct ContentView: View {
             .tint(Color(red: 67 / 255, green: 229 / 255, blue: 197 / 255))
             .sheet(isPresented: $store.showPhoneCapture) {
                 PhoneRecordingSheet(recorder: store.phoneRecorder)
-            }
-            .sheet(isPresented: $showSmartSearch) {
-                SmartSearchView()
-                    .environmentObject(store)
             }
             .sheet(isPresented: $showDiagnostics) {
                 SyncDiagnosticsView()

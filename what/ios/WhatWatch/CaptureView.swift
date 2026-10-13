@@ -6,6 +6,11 @@ struct CaptureView: View {
     var body: some View {
         VStack(spacing: 12) {
             switch controller.state {
+            case .preparing:
+                ProgressView("Preparing microphone…")
+                    .font(.headline)
+                    .multilineTextAlignment(.center)
+
             case .recording(let startedAt):
                 TimelineView(.periodic(from: startedAt, by: 1)) { context in
                     Text(elapsed(from: startedAt, to: context.date))

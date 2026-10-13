@@ -7,6 +7,7 @@ import WatchKit
 final class WatchCaptureController: NSObject, ObservableObject, AVAudioRecorderDelegate, WCSessionDelegate {
     enum CaptureState: Equatable {
         case idle
+        case preparing
         case recording(Date)
         case saved
         case error(String)
@@ -29,6 +30,7 @@ final class WatchCaptureController: NSObject, ObservableObject, AVAudioRecorderD
     private let immediateRetryInterval: TimeInterval = 20
 
     private var recorder: AVAudioRecorder?
+    private var isStarting = false
     private var activeRecordingID: UUID?
     private var activeCreatedAt: Date?
     private var activated = false
@@ -41,6 +43,7 @@ final class WatchCaptureController: NSObject, ObservableObject, AVAudioRecorderD
 
         try? fileManager.createDirectory(at: outboundDirectory, withIntermediateDirectories: true)
         queue = loadQueue()
+        recoverUnqueuedAudioFiles()
         pendingCount = queue.count
     }
 
@@ -58,13 +61,16 @@ final class WatchCaptureController: NSObject, ObservableObject, AVAudioRecorderD
     }
 
     func startCapture() {
-        guard recorder == nil else { return }
+        guard recorder == nil, !isStarting else { return }
+        isStarting = true
+        state = .preparing
 
         let audioApplication = AVAudioApplication.shared
         switch audioApplication.recordPermission {
         case .granted:
             beginRecording()
         case .denied:
+            isStarting = false
             state = .error("Microphone access is off.")
         case .undetermined:
             AVAudioApplication.requestRecordPermission { [weak self] granted in
@@ -72,11 +78,13 @@ final class WatchCaptureController: NSObject, ObservableObject, AVAudioRecorderD
                     if granted {
                         self?.beginRecording()
                     } else {
+                        self?.isStarting = false
                         self?.state = .error("Microphone access is off.")
                     }
                 }
             }
         @unknown default:
+            isStarting = false
             state = .error("Microphone permission is unavailable.")
         }
     }
@@ -91,10 +99,25 @@ final class WatchCaptureController: NSObject, ObservableObject, AVAudioRecorderD
         activeRecordingID = nil
         activeCreatedAt = nil
 
+        let audioURL = outboundDirectory.appendingPathComponent("\(id.uuidString).m4a")
+        let actualDuration = (try? AVAudioPlayer(contentsOf: audioURL))?.duration ?? 0
+        let fileSize = (try? audioURL.resourceValues(forKeys: [.fileSizeKey]))?.fileSize ?? 0
+        guard WatchCaptureValidation.isPlausibleAudio(
+            bytes: fileSize,
+            decodedDuration: actualDuration,
+            expectedDuration: duration
+        ) else {
+            // Keep the original file for investigation and possible recovery.
+            // Never claim Saved or enqueue a header-only AAC recording.
+            state = .error("Recording audio was incomplete. Try again.")
+            WKInterfaceDevice.current().play(.failure)
+            return
+        }
+
         let envelope = RecordingEnvelope(
             id: id,
             createdAt: createdAt,
-            duration: duration,
+            duration: actualDuration,
             fileName: "\(id.uuidString).m4a"
         )
 
@@ -163,6 +186,7 @@ final class WatchCaptureController: NSObject, ObservableObject, AVAudioRecorderD
             }
 
             self.recorder = recorder
+            isStarting = false
             activeRecordingID = id
             activeCreatedAt = createdAt
             state = .recording(createdAt)
@@ -173,6 +197,9 @@ final class WatchCaptureController: NSObject, ObservableObject, AVAudioRecorderD
     }
 
     private func failRecordingStart(_ error: Error, fileURL: URL) {
+        isStarting = false
+        // A failed prepare has no finalized audio. Deleting its scratch file
+        // is safe; never delete an audio file that already reached recording.
         try? fileManager.removeItem(at: fileURL)
         let message = (error as NSError).localizedDescription
         ArvectumDiagnostics.failure(
@@ -244,6 +271,32 @@ final class WatchCaptureController: NSObject, ObservableObject, AVAudioRecorderD
             return []
         }
         return decoded
+    }
+
+    /// Crash recovery: if audio finished but the process died before updating
+    /// queue.json, recover the original UUID and retry delivery. Invalid or
+    /// unfinished AAC is left untouched, never silently deleted.
+    private func recoverUnqueuedAudioFiles() {
+        let recovered = WatchQueueRecovery.recover(
+            from: outboundDirectory,
+            knownIDs: Set(queue.map(\.id)),
+            fileManager: fileManager,
+            decodedDuration: { url in
+                (try? AVAudioPlayer(contentsOf: url))?.duration
+            }
+        )
+        guard !recovered.isEmpty else { return }
+        queue.append(contentsOf: recovered)
+        do {
+            try persistQueueLocked()
+            ArvectumDiagnostics.failure(
+                subsystem: "ru.arvectum.tools.what.watch",
+                category: "capture", operation: "recover",
+                code: "recovered-unindexed-audio"
+            )
+        } catch {
+            // Never delete recovered audio; scan again on next app launch.
+        }
     }
 
     private func persistQueueLocked() throws {
@@ -378,8 +431,46 @@ final class WatchCaptureController: NSObject, ObservableObject, AVAudioRecorderD
         }
     }
 
+    func audioRecorderDidFinishRecording(
+        _ finishedRecorder: AVAudioRecorder, successfully flag: Bool
+    ) {
+        // stopCapture() deliberately clears the active recorder. This delegate
+        // callback means the recording ended without the user's Stop action.
+        guard recorder === finishedRecorder,
+              let id = activeRecordingID else { return }
+        let url = outboundDirectory.appendingPathComponent("\(id.uuidString).m4a")
+        let creationDate = activeCreatedAt ?? Date()
+        recorder = nil
+        activeRecordingID = nil
+        activeCreatedAt = nil
+        isStarting = false
+
+        let duration = (try? AVAudioPlayer(contentsOf: url))?.duration ?? 0
+        let bytes = (try? url.resourceValues(forKeys: [.fileSizeKey]))?.fileSize ?? 0
+        if WatchCaptureValidation.isPlausibleAudio(
+            bytes: bytes, decodedDuration: duration, expectedDuration: 0
+        ) {
+            do {
+                try enqueue(RecordingEnvelope(
+                    id: id, createdAt: creationDate,
+                    duration: duration, fileName: url.lastPathComponent
+                ))
+                publishQueueStatus()
+                pumpTransfers()
+                state = .error("Recording was interrupted. The audio captured so far was saved.")
+                WKInterfaceDevice.current().play(.success)
+                return
+            } catch {
+                // UUID-named audio remains on disk for next-start recovery.
+            }
+        }
+        state = .error("Recording stopped unexpectedly. Try again.")
+        WKInterfaceDevice.current().play(.failure)
+    }
+
     func audioRecorderEncodeErrorDidOccur(_ recorder: AVAudioRecorder, error: Error?) {
         self.recorder = nil
+        isStarting = false
         activeRecordingID = nil
         activeCreatedAt = nil
         state = .error("The recording stopped unexpectedly.")
