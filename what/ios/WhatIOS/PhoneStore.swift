@@ -37,10 +37,7 @@ final class PhoneStore: NSObject, ObservableObject, AVAudioPlayerDelegate {
             playingID = nil
         }
         if transcribingID == recording.id {
-            transcribingID = nil
-            recognitionTask?.cancel()
-            recognitionTask = nil
-            recognizer = nil
+            cancelTranscription()
         }
 
         do {
@@ -50,6 +47,23 @@ final class PhoneStore: NSObject, ObservableObject, AVAudioPlayerDelegate {
             reload()
             errorMessage = "Recording deletion was not completed: \(error.localizedDescription)"
         }
+    }
+
+    func cancelTranscription() {
+        // Clear the active ID first so late authorization / result callbacks
+        // cannot overwrite a manually corrected transcript.
+        transcribingID = nil
+        recognitionTask?.cancel()
+        recognitionTask = nil
+        recognizer = nil
+    }
+
+    func updateTranscript(_ text: String, for recording: RecordingEnvelope) throws {
+        if transcribingID == recording.id {
+            cancelTranscription()
+        }
+        try repository.updateTranscript(text, for: recording.id)
+        transcripts[recording.id] = text
     }
 
     func isAudioAvailable(_ recording: RecordingEnvelope) -> Bool {
@@ -101,7 +115,8 @@ final class PhoneStore: NSObject, ObservableObject, AVAudioPlayerDelegate {
         transcribingID = recording.id
         SFSpeechRecognizer.requestAuthorization { [weak self] authorization in
             Task { @MainActor [weak self] in
-                guard let self else { return }
+                // Authorization can return after cancellation or deletion.
+                guard let self, self.transcribingID == recording.id else { return }
                 guard authorization == .authorized else {
                     self.transcribingID = nil
                     self.errorMessage = "Allow Speech Recognition in Settings to transcribe on this iPhone."
@@ -113,6 +128,7 @@ final class PhoneStore: NSObject, ObservableObject, AVAudioPlayerDelegate {
     }
 
     private func beginTranscription(_ recording: RecordingEnvelope) {
+        guard transcribingID == recording.id else { return }
         // Only on-device recognition: never silently upload private recordings.
         guard let recognizer = SFSpeechRecognizer(locale: Locale(identifier: transcriptionLocale)),
               recognizer.supportsOnDeviceRecognition,

@@ -361,4 +361,76 @@ final class RecordingRepositoryTests: XCTestCase {
         XCTAssertTrue(repo.allRecordings().isEmpty)
     }
 
+    func testManualTranscriptCorrectionPersistsAfterRelaunchAndPreservesAudio() throws {
+        let root = FileManager.default.temporaryDirectory
+            .appendingPathComponent("what-edit-\(UUID().uuidString)")
+        defer { try? FileManager.default.removeItem(at: root) }
+        try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)
+
+        let id = UUID()
+        let source = root.appendingPathComponent("source.m4a")
+        let originalAudio = Data("original-voice-remains-untouched".utf8)
+        try originalAudio.write(to: source)
+        let repo = RecordingRepository(rootURL: root)
+        _ = try repo.acceptTemporaryFile(source, metadata: [
+            TransferMetadataKey.id: id.uuidString,
+            TransferMetadataKey.createdAt: Date().timeIntervalSince1970,
+            TransferMetadataKey.duration: 2.2
+        ])
+        try repo.saveTranscript("Recognised text with an eror", for: id)
+        try repo.updateTranscript("Recognised text with an error", for: id)
+
+        let reopened = RecordingRepository(rootURL: root)
+        XCTAssertEqual(reopened.transcripts()[id], "Recognised text with an error")
+        let recording = try XCTUnwrap(reopened.allRecordings().first)
+        XCTAssertEqual(try Data(contentsOf: reopened.audioURL(for: recording)), originalAudio)
+        XCTAssertEqual(reopened.allRecordings().count, 1)
+    }
+
+    func testManualTranscriptEditDoesNotEraseOtherTranscripts() throws {
+        let root = FileManager.default.temporaryDirectory
+            .appendingPathComponent("what-other-edits-\(UUID().uuidString)")
+        defer { try? FileManager.default.removeItem(at: root) }
+        try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)
+        let repository = RecordingRepository(rootURL: root)
+        let source = root.appendingPathComponent("source.m4a")
+        try Data("audio".utf8).write(to: source)
+        let ids = [UUID(), UUID()]
+        for id in ids {
+            _ = try repository.acceptTemporaryFile(source, metadata: [
+                TransferMetadataKey.id: id.uuidString,
+                TransferMetadataKey.createdAt: Date().timeIntervalSince1970,
+                TransferMetadataKey.duration: 1.0
+            ])
+            try repository.saveTranscript("Initial", for: id)
+        }
+
+        try repository.updateTranscript("Changed", for: ids[0])
+        let saved = RecordingRepository(rootURL: root).transcripts()
+        XCTAssertEqual(saved[ids[0]], "Changed")
+        XCTAssertEqual(saved[ids[1]], "Initial")
+    }
+
+    func testManualTranscriptEditRejectsEmptyUnknownAndDeletedNotes() throws {
+        let root = FileManager.default.temporaryDirectory
+            .appendingPathComponent("what-edit-invalid-\(UUID().uuidString)")
+        defer { try? FileManager.default.removeItem(at: root) }
+        try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)
+        let repository = RecordingRepository(rootURL: root)
+        let id = UUID()
+
+        XCTAssertThrowsError(try repository.updateTranscript("Text", for: id))
+        let source = root.appendingPathComponent("audio.m4a")
+        try Data("audio".utf8).write(to: source)
+        _ = try repository.acceptTemporaryFile(source, metadata: [
+            TransferMetadataKey.id: id.uuidString,
+            TransferMetadataKey.createdAt: Date().timeIntervalSince1970,
+            TransferMetadataKey.duration: 2.0
+        ])
+        XCTAssertThrowsError(try repository.updateTranscript("   ", for: id))
+        try repository.deleteRecording(id)
+        XCTAssertThrowsError(try repository.updateTranscript("Never restore", for: id))
+        XCTAssertNil(RecordingRepository(rootURL: root).transcripts()[id])
+    }
+
 }

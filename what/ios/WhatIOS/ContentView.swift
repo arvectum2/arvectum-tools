@@ -3,6 +3,8 @@ import SwiftUI
 struct ContentView: View {
     @EnvironmentObject private var store: PhoneStore
     @State private var recordingToDelete: RecordingEnvelope?
+    @State private var recordingToEdit: RecordingEnvelope?
+    @State private var recordingToRetranscribe: RecordingEnvelope?
 
     var body: some View {
         NavigationStack {
@@ -68,6 +70,15 @@ struct ContentView: View {
                 }
             }
             .tint(Color(red: 67 / 255, green: 229 / 255, blue: 197 / 255))
+            .sheet(item: $recordingToEdit) { recording in
+                TranscriptEditorSheet(
+                    recording: recording,
+                    initialText: store.transcripts[recording.id] ?? "",
+                    onSave: { editedText in
+                        try store.updateTranscript(editedText, for: recording)
+                    }
+                )
+            }
             .alert("What?", isPresented: Binding(
                 get: { store.errorMessage != nil },
                 set: { if !$0 { store.errorMessage = nil } }
@@ -100,13 +111,54 @@ struct ContentView: View {
                 }
                 .disabled(!store.isAudioAvailable(recording))
 
-                Button {
-                    store.transcribe(recording)
-                } label: {
-                    Label(store.transcribingID == recording.id ? "Transcribing…" : (store.transcripts[recording.id] == nil ? "Transcribe" : "Retry transcription"),
-                          systemImage: "text.bubble")
+                if store.transcribingID == recording.id {
+                    Button {
+                        store.cancelTranscription()
+                    } label: {
+                        Label("Cancel transcription", systemImage: "xmark.circle")
+                    }
+                } else {
+                    Button {
+                        if store.transcripts[recording.id] != nil {
+                            recordingToRetranscribe = recording
+                        } else {
+                            store.transcribe(recording)
+                        }
+                    } label: {
+                        Label(
+                            store.transcripts[recording.id] == nil
+                                ? "Transcribe" : "Retry transcription",
+                            systemImage: "text.bubble"
+                        )
+                    }
+                    .disabled(!store.isAudioAvailable(recording) || store.transcribingID != nil)
+                    .alert("Replace existing transcription?", isPresented: Binding(
+                        get: { recordingToRetranscribe?.id == recording.id },
+                        set: { if !$0 { recordingToRetranscribe = nil } }
+                    )) {
+                        Button("Replace transcription", role: .destructive) {
+                            store.transcribe(recording)
+                            recordingToRetranscribe = nil
+                        }
+                        Button("Cancel", role: .cancel) {
+                            recordingToRetranscribe = nil
+                        }
+                    } message: {
+                        Text("A new transcription will replace your current text, including any manual corrections. The original audio will be kept.")
+                    }
                 }
-                .disabled(!store.isAudioAvailable(recording) || store.transcribingID != nil)
+
+                Button {
+                    if store.transcribingID == recording.id {
+                        store.cancelTranscription()
+                    }
+                    recordingToEdit = recording
+                } label: {
+                    Label(
+                        store.transcripts[recording.id] == nil ? "Add text" : "Edit text",
+                        systemImage: "square.and.pencil"
+                    )
+                }
             }
             .buttonStyle(.borderless)
             if let transcript = store.transcripts[recording.id] {

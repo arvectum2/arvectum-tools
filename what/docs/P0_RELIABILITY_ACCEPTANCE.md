@@ -34,7 +34,7 @@ WCSession.transferFile is opportunistic and may be delayed by watchOS/iOS for po
 - No device was unpaired from its consumer companion, reset, or erased.
 
 
-## Short-audio fast path (build 6 installed on both physical devices; pending live test)
+## Short-audio fast path (build 6 installed; first physical end-to-end pass)
 
 - Uses immediate WatchConnectivity.sendMessageData for audio <= 768 KiB when the Watch app is active and the iPhone can be woken in the background.
 - Independently queues background transferFile for offline/unreachable or oversized recordings.
@@ -42,4 +42,6 @@ WCSession.transferFile is opportunistic and may be delayed by watchOS/iOS for po
 - Both paths share the recording UUID and repository duplicate/deletion protection.
 - Physical finding: with build 5, an offline rebooted recording stayed in Watch queue after reconnection and after opening Watch app, while the iPhone remained at nine prior recordings. The user had not yet opened the iPhone app for this test at the time of inspection.
 - [ ] Reopen What? on Watch with the iPhone app closed and linked; record a disposable 2-second note. Check Watch pending count clears and iPhone eventually displays exactly one playable copy.
-- [ ] Confirm pre-existing pending recording transfers and is playable, without creating duplicates.
+- [x] Previously stuck pending recording cleared its Watch queue and appeared in iPhone What?, with successful audio playback, after build 6 was installed. The user opened only the Watch app to initiate the check. This demonstrates complete end-to-end delivery without launching the iPhone UI, but does not identify the exact internal channel.
+- [x] User confirmed two new consecutive short recordings cleared the Watch queue automatically, and both appeared on iPhone without manually opening the iPhone app (2026-10-13).\n- [ ] Repeat stress tests after ACK loss / longer offline windows / larger audio; record exact timing and UI duplicate counts.
+- [ ] Inspect logs/diagnostics for actual fast-path vs background file routing and timing when necessary.

@@ -13,7 +13,7 @@ enum IncomingRecordingResult {
 }
 
 final class RecordingRepository {
-    enum RepositoryError: Error { case invalidMetadata }
+    enum RepositoryError: Error { case invalidMetadata, recordingUnavailable, emptyTranscript }
 
     private let fileManager: FileManager
     private let rootURL: URL
@@ -162,6 +162,24 @@ final class RecordingRepository {
         lock.lock()
         defer { lock.unlock() }
         guard !(try loadDeletedIDs()).contains(id) else { return }
+        var existing = loadTranscripts()
+        existing[id.uuidString] = text
+        try ArvectumJSONCodec.encode(existing).write(to: transcriptURL, options: .atomic)
+    }
+
+    /// User-edited text is stored independently from the immutable source audio.
+    /// Unlike the initial speech path, manual edits require an existing, live note.
+    func updateTranscript(_ text: String, for id: UUID) throws {
+        guard !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+            throw RepositoryError.emptyTranscript
+        }
+        lock.lock()
+        defer { lock.unlock() }
+
+        guard !(try loadDeletedIDs()).contains(id),
+              loadIndex().contains(where: { $0.id == id }) else {
+            throw RepositoryError.recordingUnavailable
+        }
         var existing = loadTranscripts()
         existing[id.uuidString] = text
         try ArvectumJSONCodec.encode(existing).write(to: transcriptURL, options: .atomic)

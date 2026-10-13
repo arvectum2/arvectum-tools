@@ -12,6 +12,7 @@
 		1DB28694A4FB2349E0C75253 /* WhatApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94ABD3BF183D4D22AF1CD0B0 /* WhatApp.swift */; };
 		23C3DC142A5320642976B51C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F5BECCDE1474FF547D4DDE /* ContentView.swift */; };
 		2A8F5E422C6CA0E9AC0E6C5A /* WhatWatchComplication.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 30A158E04405BA04A51B6785 /* WhatWatchComplication.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		2FD0DAFDEE58B7F0BCB4612F /* TranscriptEditorSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FEB908379268EDF523C2242 /* TranscriptEditorSheet.swift */; };
 		36706916A594DC5DA493B27E /* WatchTransferRetryPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A4FCD3C72E787C27B7E3EE /* WatchTransferRetryPolicy.swift */; };
 		39D726A0F9A6E5ADA4DBEA21 /* WhatComplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D1A5C9E79CC4A544374E3E /* WhatComplication.swift */; };
 		45DD2FEC2BEEE3E7FA39B5AD /* ArvectumDiagnostics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A27547EE4FDF0C6AC8FC0C /* ArvectumDiagnostics.swift */; };
@@ -87,6 +88,7 @@
 		30A158E04405BA04A51B6785 /* WhatWatchComplication.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = WhatWatchComplication.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		332992BFC549A47C6A09D096 /* WhatIOSTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = WhatIOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3420DB5CB8958565C9B8B79E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		3FEB908379268EDF523C2242 /* TranscriptEditorSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscriptEditorSheet.swift; sourceTree = "<group>"; };
 		45F98A4DA9205ACAB6BCD566 /* ArvectumJSONCodec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArvectumJSONCodec.swift; sourceTree = "<group>"; };
 		57CA5B4FD3F49550A3BF2B59 /* RecordingRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingRepository.swift; sourceTree = "<group>"; };
 		61B9DCBC7397B955436563CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -132,6 +134,7 @@
 				1330B09BE7A27DED3358758C /* PhoneConnectivityManager.swift */,
 				E401399D9CC19485D6B0BBA7 /* PhoneStore.swift */,
 				57CA5B4FD3F49550A3BF2B59 /* RecordingRepository.swift */,
+				3FEB908379268EDF523C2242 /* TranscriptEditorSheet.swift */,
 				94ABD3BF183D4D22AF1CD0B0 /* WhatApp.swift */,
 			);
 			path = WhatIOS;
@@ -380,6 +383,7 @@
 				B227CE21210C43AAEE1D1BB0 /* PhoneStore.swift in Sources */,
 				503FAB8870D0044EF3463F4D /* RecordingEnvelope.swift in Sources */,
 				62F51A03CFB1699B97BE45DA /* RecordingRepository.swift in Sources */,
+				2FD0DAFDEE58B7F0BCB4612F /* TranscriptEditorSheet.swift in Sources */,
 				36706916A594DC5DA493B27E /* WatchTransferRetryPolicy.swift in Sources */,
 				1DB28694A4FB2349E0C75253 /* WhatApp.swift in Sources */,
 			);
@@ -449,7 +453,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = VML75VY94V;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -641,7 +645,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = VML75VY94V;
 				ENABLE_NS_ASSERTIONS = NO;
