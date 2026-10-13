@@ -1,24 +1,27 @@
 # What? — Product Roadmap
 
 **Updated:** 2026-10-13
-**Status:** Development-only build 0.1.0 (3) installed on paired physical iPhone 13 on 2026-10-13; **not released to App Store**. All 7 recordings, audio files and transcripts were backed up before installation and verified byte-identical after installation. Playback and on-device transcription had been previously confirmed on physical iPhone. Delete flow passed repository/simulator tests; actual swipe/confirmation on the physical phone remains to be checked.
+**Status:** Development-only build 0.1.0 (4) installed on physical iPhone 13 on 2026-10-13; not released to App Store. User verified actual deletion in build 3. Build 4 replaces the dismissible action sheet with a two-button alert (Cancel/Delete permanently), awaiting visual confirmation. Before build 4, six remaining audio recordings and transcripts were backed up; all app data was verified byte-identical after installation.
 **Evidence:** [historical feature-branch roadmap snapshot](docs/history/ROADMAP-feature-what-2026-10-11.md).
 **Shared principles:** [Core](../core/CORE_PRINCIPLES.md); **Growth:** [Growth](../growth/ROADMAP.md).
 
 ## P0 — Reliable Apple Watch capture
 - [x] Watch recording, UUID/time, durable local queue, opportunistic transfer to iPhone, ACK and deduplication (implemented in `main`).
 - [x] Watch-face entry point and immediate recording UX (source integrated into `main`).
-- [ ] Complete remaining disconnected-device, multiple-pending-recording and device-reboot acceptance cases.
+- [ ] Complete remaining disconnected-device, multiple-pending-recording and device-reboot acceptance cases (physical checklist: [P0 reliability acceptance](docs/P0_RELIABILITY_ACCEPTANCE.md)).
 - [ ] Reconcile final physical test evidence and prove no recorded thought is lost.
 
 ## P1 — Voice + text
 - [x] Preserve original audio as source of truth; transcript stored separately by recording UUID.
 - [x] Add on-device Speech transcription (explicit permission; no cloud fallback), local text persistence, and play/stop controls.
-- [x] Verify playback and actual Speech recognition of existing audio on physical iPhone; add language selection and retry transcription.\n- [ ] Editable transcript corrections and explicit transcription cancellation.
+- [x] Verify playback and actual Speech recognition of existing audio on physical iPhone; add language selection and retry transcription.
+- [ ] Editable transcript corrections and explicit transcription cancellation.
 
 ## P2 — iPhone inbox
-- [x] Delete with confirmation from iPhone list, including audio/transcript removal and durable tombstones preventing Watch redelivery; shipped to developer build 0.1.0 (3).
-- [ ] Physically verify swipe and context-menu deletion, cancellation, and no reappearance after a late Watch transfer (use a disposable recording only).\n- [ ] Today/Yesterday grouping, search, archive and sync status; playback available in initial list.
+- [x] Delete with confirmation from iPhone list, including audio/transcript removal and durable tombstones preventing Watch redelivery; shipped to developer build 0.1.0 (3); confirmed on physical iPhone on 2026-10-13.
+- [x] User confirmed deletion from the physical iPhone; the system confirmation dialog had no visible Cancel. Replaced with an explicit two-button alert in build 0.1.0 (4).
+- [ ] Verify visible Cancel on physical iPhone, cancellation, and no reappearance after late Watch transfer (use a disposable recording only).
+- [ ] Today/Yesterday grouping, search, archive and sync status; playback available in initial list.
 
 ## P3 — Apple Notes / Shortcuts
 - [ ] Export and optional system integration without depending on cloud.

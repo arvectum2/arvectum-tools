@@ -199,4 +199,74 @@ final class RecordingRepositoryTests: XCTestCase {
         XCTAssertEqual(deletedID, id)
     }
 
+    func testMultipleOfflineTransfersRetainDistinctAudioThroughReceiverRestart() throws {
+        let root = FileManager.default.temporaryDirectory
+            .appendingPathComponent("what-offline-batch-\(UUID().uuidString)")
+        defer { try? FileManager.default.removeItem(at: root) }
+        try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)
+
+        let ids = (0..<3).map { _ in UUID() }
+        let metadata: [[String: Any]] = ids.enumerated().map { position, id in [
+            TransferMetadataKey.id: id.uuidString,
+            TransferMetadataKey.createdAt: 1_700_000_000.0 + Double(position),
+            TransferMetadataKey.duration: Double(position + 1)
+        ]}
+        let sources: [URL] = try ids.enumerated().map { position, id in
+            let source = root.appendingPathComponent("source-\(id.uuidString).m4a")
+            try Data("unique-audio-\(position)".utf8).write(to: source)
+            return source
+        }
+
+        let firstReceiver = RecordingRepository(rootURL: root)
+        _ = try firstReceiver.acceptTemporaryFile(sources[0], metadata: metadata[0])
+
+        // Transfer resumes after receiver relaunch: remaining files arrive later.
+        let relaunchedReceiver = RecordingRepository(rootURL: root)
+        for position in 1..<3 {
+            _ = try relaunchedReceiver.acceptTemporaryFile(
+                sources[position], metadata: metadata[position]
+            )
+        }
+
+        // Watch can retry old deliveries if the ACK was delayed or lost.
+        for position in 0..<3 {
+            _ = try relaunchedReceiver.acceptTemporaryFile(
+                sources[position], metadata: metadata[position]
+            )
+        }
+
+        XCTAssertEqual(Set(relaunchedReceiver.allRecordings().map(\.id)), Set(ids))
+        XCTAssertEqual(relaunchedReceiver.allRecordings().count, 3)
+        for position in 0..<3 {
+            let recording = try XCTUnwrap(relaunchedReceiver.allRecordings().first {
+                $0.id == ids[position]
+            })
+            XCTAssertEqual(
+                try Data(contentsOf: relaunchedReceiver.audioURL(for: recording)),
+                try Data(contentsOf: sources[position])
+            )
+        }
+    }
+
+    func testInvalidTransferNeverCreatesARecordingOrAudioFile() throws {
+        let root = FileManager.default.temporaryDirectory
+            .appendingPathComponent("what-invalid-transfer-\(UUID().uuidString)")
+        defer { try? FileManager.default.removeItem(at: root) }
+        try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)
+        let source = root.appendingPathComponent("source.m4a")
+        try Data("audio".utf8).write(to: source)
+        let receiver = RecordingRepository(rootURL: root)
+        XCTAssertThrowsError(try receiver.acceptTemporaryFile(source, metadata: [
+            TransferMetadataKey.id: "not-a-uuid",
+            TransferMetadataKey.createdAt: Date().timeIntervalSince1970,
+            TransferMetadataKey.duration: 2.0
+        ]))
+        XCTAssertTrue(receiver.allRecordings().isEmpty)
+        XCTAssertTrue(
+            (try FileManager.default.contentsOfDirectory(
+                atPath: root.appendingPathComponent("Audio").path
+            )).isEmpty
+        )
+    }
+
 }

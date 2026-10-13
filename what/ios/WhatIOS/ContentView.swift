@@ -32,6 +32,27 @@ struct ContentView: View {
                             }
                     }
                     .listStyle(.plain)
+                    // An alert shows an explicit Cancel button on iPhone.
+                    // A confirmationDialog may allow dismissing by tapping outside
+                    // without ever rendering its cancel action.
+                    .alert(
+                        "Delete recording?",
+                        isPresented: Binding(
+                            get: { recordingToDelete != nil },
+                            set: { if !$0 { recordingToDelete = nil } }
+                        ),
+                        presenting: recordingToDelete
+                    ) { recording in
+                        Button("Delete permanently", role: .destructive) {
+                            store.delete(recording)
+                            recordingToDelete = nil
+                        }
+                        Button("Cancel", role: .cancel) {
+                            recordingToDelete = nil
+                        }
+                    } message: { _ in
+                        Text("The audio and transcript will be deleted from this iPhone. This cannot be undone.")
+                    }
                 }
             }
             .navigationTitle("What?")
@@ -47,23 +68,6 @@ struct ContentView: View {
                 }
             }
             .tint(Color(red: 67 / 255, green: 229 / 255, blue: 197 / 255))
-            .confirmationDialog(
-                "Delete recording?",
-                isPresented: Binding(
-                    get: { recordingToDelete != nil },
-                    set: { if !$0 { recordingToDelete = nil } }
-                ),
-                titleVisibility: .visible,
-                presenting: recordingToDelete
-            ) { recording in
-                Button("Delete permanently", role: .destructive) {
-                    store.delete(recording)
-                    recordingToDelete = nil
-                }
-                Button("Cancel", role: .cancel) { recordingToDelete = nil }
-            } message: { _ in
-                Text("The audio and transcript will be deleted from this iPhone. This cannot be undone.")
-            }
             .alert("What?", isPresented: Binding(
                 get: { store.errorMessage != nil },
                 set: { if !$0 { store.errorMessage = nil } }
