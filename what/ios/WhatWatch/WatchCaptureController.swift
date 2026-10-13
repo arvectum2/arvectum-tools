@@ -46,6 +46,7 @@ final class WatchCaptureController: NSObject, ObservableObject, AVAudioRecorderD
 
     func activateConnectivity() {
         guard WCSession.isSupported(), !activated else {
+            publishQueueStatus()
             pumpTransfers()
             return
         }
@@ -99,6 +100,7 @@ final class WatchCaptureController: NSObject, ObservableObject, AVAudioRecorderD
 
         do {
             try enqueue(envelope)
+            publishQueueStatus()
             state = .saved
             WKInterfaceDevice.current().play(.success)
             pumpTransfers()
@@ -212,7 +214,20 @@ final class WatchCaptureController: NSObject, ObservableObject, AVAudioRecorderD
         let count = queue.count
         queueLock.unlock()
         publishPendingCount(count)
+        publishQueueStatus()
         pumpTransfers()
+    }
+
+    private func publishQueueStatus() {
+        guard WCSession.isSupported() else { return }
+        let session = WCSession.default
+        guard session.activationState == .activated else { return }
+        let snapshot = WatchQueueSnapshot(
+            pendingCount: queueSnapshot().count,
+            updatedAt: Date()
+        )
+        // Last-value-wins background snapshot. Never use this for audio or ACKs.
+        try? session.updateApplicationContext(snapshot.context)
     }
 
     private func queueSnapshot() -> [RecordingEnvelope] {
@@ -312,6 +327,7 @@ final class WatchCaptureController: NSObject, ObservableObject, AVAudioRecorderD
         error: Error?
     ) {
         if activationState == .activated {
+            publishQueueStatus()
             pumpTransfers()
         }
     }

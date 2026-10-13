@@ -5,38 +5,144 @@ struct ContentView: View {
     @State private var recordingToDelete: RecordingEnvelope?
     @State private var recordingToEdit: RecordingEnvelope?
     @State private var recordingToRetranscribe: RecordingEnvelope?
+    @State private var selectedFolder: InboxFolder = .inbox
+    @State private var searchText = ""
+    @State private var preparedExport: PreparedRecordingExport?
+
+    private var visibleRecordings: [RecordingEnvelope] {
+        InboxOrganizer.recordings(
+            store.recordings,
+            archivedIDs: store.archivedIDs,
+            folder: selectedFolder,
+            query: searchText,
+            transcripts: store.transcripts
+        )
+    }
+
+    private var dayGroups: [InboxDayGroup] {
+        InboxOrganizer.groups(visibleRecordings)
+    }
 
     var body: some View {
         NavigationStack {
-            Group {
+            VStack(spacing: 0) {
+                Picker("Folder", selection: $selectedFolder) {
+                    ForEach(InboxFolder.allCases) { folder in
+                        Text(folder.rawValue).tag(folder)
+                    }
+                }
+                .pickerStyle(.segmented)
+                .padding(.horizontal)
+                .padding(.top, 8)
+
+                HStack(spacing: 5) {
+                    Image(systemName: "iphone.gen3")
+                    Text("Saved locally on iPhone")
+                    Spacer()
+                    Text("\(visibleRecordings.count) recordings")
+                        .monospacedDigit()
+                }
+                .font(.caption)
+                .foregroundStyle(.secondary)
+                .padding(.horizontal)
+                .padding(.top, 8)
+                .padding(.bottom, 4)
+
+                if let snapshot = store.lastWatchQueueSnapshot {
+                    HStack(spacing: 6) {
+                        Image(systemName: "applewatch")
+                        Text("Watch last reported: \(snapshot.pendingCount) waiting")
+                        Spacer()
+                        Text(snapshot.updatedAt, style: .time)
+                    }
+                    .font(.caption2)
+                    .foregroundStyle(.secondary)
+                    .padding(.horizontal)
+                    .padding(.bottom, 6)
+                    .accessibilityLabel(
+                        "Apple Watch last reported \(snapshot.pendingCount) pending recordings"
+                    )
+                } else {
+                    HStack(spacing: 6) {
+                        Image(systemName: "applewatch")
+                        Text("Watch queue status not yet received")
+                        Spacer()
+                    }
+                    .font(.caption2)
+                    .foregroundStyle(.secondary)
+                    .padding(.horizontal)
+                    .padding(.bottom, 6)
+                }
+
                 if store.recordings.isEmpty {
                     ContentUnavailableView(
                         "Nothing yet",
                         systemImage: "waveform",
                         description: Text("Record a thought on Apple Watch. It will appear here after a safe transfer.")
                     )
+                } else if dayGroups.isEmpty {
+                    ContentUnavailableView(
+                        searchText.isEmpty
+                            ? (selectedFolder == .archive ? "Archive is empty" : "Inbox is empty")
+                            : "No matching recordings",
+                        systemImage: searchText.isEmpty ? "tray" : "magnifyingglass",
+                        description: Text(searchText.isEmpty
+                            ? "Archived recordings stay saved on this iPhone."
+                            : "Search looks through saved transcripts and dates.")
+                    )
                 } else {
-                    List(store.recordings) { recording in
-                        recordingRow(recording)
-                            .swipeActions(edge: .trailing, allowsFullSwipe: false) {
-                                Button(role: .destructive) {
-                                    recordingToDelete = recording
-                                } label: {
-                                    Label("Delete", systemImage: "trash")
+                    List {
+                        ForEach(dayGroups) { group in
+                            Section(group.day.rawValue) {
+                                ForEach(group.recordings) { recording in
+                                    recordingRow(recording)
+                                        .swipeActions(edge: .leading, allowsFullSwipe: false) {
+                                            Button {
+                                                store.setArchived(
+                                                    recording,
+                                                    archived: !store.archivedIDs.contains(recording.id)
+                                                )
+                                            } label: {
+                                                Label(
+                                                    selectedFolder == .archive ? "Restore" : "Archive",
+                                                    systemImage: selectedFolder == .archive
+                                                        ? "tray.and.arrow.up" : "archivebox"
+                                                )
+                                            }
+                                            .tint(.indigo)
+                                        }
+                                        .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+                                            Button(role: .destructive) {
+                                                recordingToDelete = recording
+                                            } label: {
+                                                Label("Delete", systemImage: "trash")
+                                            }
+                                        }
+                                        .contextMenu {
+                                            Button {
+                                                store.setArchived(
+                                                    recording,
+                                                    archived: !store.archivedIDs.contains(recording.id)
+                                                )
+                                            } label: {
+                                                Label(
+                                                    selectedFolder == .archive ? "Restore to Inbox" : "Archive recording",
+                                                    systemImage: selectedFolder == .archive
+                                                        ? "tray.and.arrow.up" : "archivebox"
+                                                )
+                                            }
+                                            Button(role: .destructive) {
+                                                recordingToDelete = recording
+                                            } label: {
+                                                Label("Delete recording", systemImage: "trash")
+                                            }
+                                        }
                                 }
                             }
-                            .contextMenu {
-                                Button(role: .destructive) {
-                                    recordingToDelete = recording
-                                } label: {
-                                    Label("Delete recording", systemImage: "trash")
-                                }
-                            }
+                        }
                     }
-                    .listStyle(.plain)
-                    // An alert shows an explicit Cancel button on iPhone.
-                    // A confirmationDialog may allow dismissing by tapping outside
-                    // without ever rendering its cancel action.
+                    .listStyle(.insetGrouped)
+                    .refreshable { store.reload() }
                     .alert(
                         "Delete recording?",
                         isPresented: Binding(
@@ -57,6 +163,7 @@ struct ContentView: View {
                     }
                 }
             }
+            .searchable(text: $searchText, prompt: "Search transcripts and dates")
             .navigationTitle("What?")
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
@@ -70,6 +177,11 @@ struct ContentView: View {
                 }
             }
             .tint(Color(red: 67 / 255, green: 229 / 255, blue: 197 / 255))
+            .sheet(item: $preparedExport, onDismiss: {
+                preparedExport?.cleanUp()
+            }) { export in
+                RecordingShareSheet(export: export)
+            }
             .sheet(item: $recordingToEdit) { recording in
                 TranscriptEditorSheet(
                     recording: recording,
@@ -101,6 +213,15 @@ struct ContentView: View {
                 Spacer()
                 Text(duration(recording.duration))
                     .font(.caption.monospacedDigit()).foregroundStyle(.secondary)
+            }
+            if store.isAudioAvailable(recording) {
+                Label("Audio saved on iPhone", systemImage: "checkmark.circle.fill")
+                    .font(.caption2)
+                    .foregroundStyle(.secondary)
+            } else {
+                Label("Audio missing on iPhone", systemImage: "exclamationmark.triangle")
+                    .font(.caption)
+                    .foregroundStyle(.orange)
             }
             HStack(spacing: 16) {
                 Button {
@@ -159,13 +280,39 @@ struct ContentView: View {
                         systemImage: "square.and.pencil"
                     )
                 }
+
+                Menu {
+                    if store.isAudioAvailable(recording) {
+                        Button {
+                            preparedExport = store.prepareExport(recording, selection: .audio)
+                        } label: {
+                            Label("Audio (.m4a)", systemImage: "waveform")
+                        }
+                    }
+                    if store.transcripts[recording.id] != nil {
+                        Button {
+                            preparedExport = store.prepareExport(recording, selection: .transcript)
+                        } label: {
+                            Label("Transcript (.txt)", systemImage: "doc.plaintext")
+                        }
+                    }
+                    if store.isAudioAvailable(recording),
+                       store.transcripts[recording.id] != nil {
+                        Button {
+                            preparedExport = store.prepareExport(recording, selection: .audioAndTranscript)
+                        } label: {
+                            Label("Audio + transcript", systemImage: "square.on.square")
+                        }
+                    }
+                } label: {
+                    Label("Export", systemImage: "square.and.arrow.up")
+                }
+                .disabled(!store.isAudioAvailable(recording)
+                    && store.transcripts[recording.id] == nil)
             }
             .buttonStyle(.borderless)
             if let transcript = store.transcripts[recording.id] {
                 Text(transcript).font(.body).textSelection(.enabled)
-            } else if !store.isAudioAvailable(recording) {
-                Label("Audio missing on iPhone", systemImage: "exclamationmark.triangle")
-                    .font(.caption).foregroundStyle(.orange)
             }
         }
         .padding(.vertical, 5)

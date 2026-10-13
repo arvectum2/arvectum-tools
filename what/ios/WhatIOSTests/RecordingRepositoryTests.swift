@@ -433,4 +433,233 @@ final class RecordingRepositoryTests: XCTestCase {
         XCTAssertNil(RecordingRepository(rootURL: root).transcripts()[id])
     }
 
+    func testArchivePersistsThroughRelaunchAndWatchRedeliveryWithoutTouchingAudio() throws {
+        let root = FileManager.default.temporaryDirectory
+            .appendingPathComponent("what-archive-\(UUID().uuidString)")
+        defer { try? FileManager.default.removeItem(at: root) }
+        try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)
+        let repo = RecordingRepository(rootURL: root)
+        let source = root.appendingPathComponent("incoming.m4a")
+        let audio = Data("original-audio".utf8)
+        try audio.write(to: source)
+        let id = UUID()
+        let metadata: [String: Any] = [
+            TransferMetadataKey.id: id.uuidString,
+            TransferMetadataKey.createdAt: Date().timeIntervalSince1970,
+            TransferMetadataKey.duration: 1.25
+        ]
+        _ = try repo.acceptTemporaryFile(source, metadata: metadata)
+        try repo.saveTranscript("A note I want later", for: id)
+        try repo.setArchived(id, archived: true)
+
+        // A retry from the Watch must not move the archived entry back to Inbox.
+        _ = try RecordingRepository(rootURL: root)
+            .acceptTemporaryFile(source, metadata: metadata)
+        let reopened = RecordingRepository(rootURL: root)
+        XCTAssertTrue(try reopened.archivedIDs().contains(id))
+        XCTAssertEqual(reopened.allRecordings().count, 1)
+        XCTAssertEqual(reopened.transcripts()[id], "A note I want later")
+        let recording = try XCTUnwrap(reopened.allRecordings().first)
+        XCTAssertEqual(try Data(contentsOf: reopened.audioURL(for: recording)), audio)
+
+        try reopened.setArchived(id, archived: false)
+        XCTAssertFalse(try RecordingRepository(rootURL: root).archivedIDs().contains(id))
+        XCTAssertEqual(try Data(contentsOf: reopened.audioURL(for: recording)), audio)
+    }
+
+    func testDeletingArchivedRecordingErasesArchiveMarkerAndContent() throws {
+        let root = FileManager.default.temporaryDirectory
+            .appendingPathComponent("what-archive-delete-\(UUID().uuidString)")
+        defer { try? FileManager.default.removeItem(at: root) }
+        try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)
+        let repository = RecordingRepository(rootURL: root)
+        let source = root.appendingPathComponent("source.m4a")
+        try Data("recording".utf8).write(to: source)
+        let id = UUID()
+        _ = try repository.acceptTemporaryFile(source, metadata: [
+            TransferMetadataKey.id: id.uuidString,
+            TransferMetadataKey.createdAt: Date().timeIntervalSince1970,
+            TransferMetadataKey.duration: 3.0
+        ])
+        try repository.saveTranscript("Archivable transcript", for: id)
+        try repository.setArchived(id, archived: true)
+        try repository.deleteRecording(id)
+        let reopened = RecordingRepository(rootURL: root)
+        XCTAssertFalse(try reopened.archivedIDs().contains(id))
+        XCTAssertNil(reopened.transcripts()[id])
+        XCTAssertTrue(reopened.allRecordings().isEmpty)
+        XCTAssertFalse(FileManager.default.fileExists(
+            atPath: root.appendingPathComponent("Audio/\(id.uuidString).m4a").path
+        ))
+        XCTAssertThrowsError(try reopened.setArchived(id, archived: false))
+    }
+
+    func testArchiveRejectsUnknownUUIDAndDoesNotCreateMarkers() throws {
+        let root = FileManager.default.temporaryDirectory
+            .appendingPathComponent("what-archive-unknown-\(UUID().uuidString)")
+        defer { try? FileManager.default.removeItem(at: root) }
+        let repo = RecordingRepository(rootURL: root)
+        XCTAssertThrowsError(try repo.setArchived(UUID(), archived: true))
+        XCTAssertTrue(try repo.archivedIDs().isEmpty)
+    }
+
+    func testInboxOrganizerFiltersTextCaseInsensitiveWithArchiveSegregation() {
+        let first = UUID(), second = UUID(), third = UUID()
+        let now = Date(timeIntervalSince1970: 1_700_000_000)
+        let items = [
+            RecordingEnvelope(id: first, createdAt: now, duration: 1, fileName: "a.m4a"),
+            RecordingEnvelope(id: second, createdAt: now.addingTimeInterval(-10),
+                              duration: 2, fileName: "b.m4a"),
+            RecordingEnvelope(id: third, createdAt: now.addingTimeInterval(-20),
+                              duration: 3, fileName: "c.m4a")
+        ]
+        let transcripts = [first: "Купить МОЛОКО", second: "Meeting at noon", third: "Купить хлеб"]
+        let ids: Set<UUID> = [third]
+        let inbox = InboxOrganizer.recordings(
+            items, archivedIDs: ids, folder: .inbox, query: "",
+            transcripts: transcripts
+        )
+        XCTAssertEqual(inbox.map(\.id), [first, second])
+        XCTAssertEqual(InboxOrganizer.recordings(
+            items, archivedIDs: ids, folder: .inbox,
+            query: "молоко", transcripts: transcripts
+        ).map(\.id), [first])
+        XCTAssertEqual(InboxOrganizer.recordings(
+            items, archivedIDs: ids, folder: .archive,
+            query: "КУПИТЬ", transcripts: transcripts
+        ).map(\.id), [third])
+        XCTAssertTrue(InboxOrganizer.recordings(
+            items, archivedIDs: ids, folder: .inbox,
+            query: "  nonexistent  ", transcripts: transcripts
+        ).isEmpty)
+    }
+
+    func testInboxGroupingRespectsCalendarDaysAndOrdering() throws {
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = TimeZone(secondsFromGMT: 0)!
+        let now = try XCTUnwrap(calendar.date(from: DateComponents(
+            year: 2026, month: 10, day: 13, hour: 10
+        )))
+        let today = UUID(), yesterday = UUID(), earlier = UUID()
+        let items = [
+            RecordingEnvelope(id: earlier, createdAt: now.addingTimeInterval(-180_000),
+                              duration: 1, fileName: "earlier.m4a"),
+            RecordingEnvelope(id: today, createdAt: now.addingTimeInterval(-60),
+                              duration: 1, fileName: "today.m4a"),
+            RecordingEnvelope(id: yesterday, createdAt: now.addingTimeInterval(-60_000),
+                              duration: 1, fileName: "yesterday.m4a")
+        ]
+        let groups = InboxOrganizer.groups(items, now: now, calendar: calendar)
+        XCTAssertEqual(groups.map(\.day), [.today, .yesterday, .earlier])
+        XCTAssertEqual(groups.map { $0.recordings.first?.id }, [today, yesterday, earlier])
+    }
+
+    func testWatchQueueStatusSnapshotRoundTripAndValidation() {
+        let original = WatchQueueSnapshot(
+            pendingCount: 3,
+            updatedAt: Date(timeIntervalSince1970: 1_700_000_000)
+        )
+        let recovered = WatchQueueSnapshot(context: original.context)
+        XCTAssertEqual(recovered, original)
+
+        var bad = original.context
+        bad["pendingCount"] = -1
+        XCTAssertNil(WatchQueueSnapshot(context: bad))
+        bad = original.context
+        bad["updatedAt"] = Double.nan
+        XCTAssertNil(WatchQueueSnapshot(context: bad))
+        bad = original.context
+        bad[TransferMetadataKey.type] = "something-else"
+        XCTAssertNil(WatchQueueSnapshot(context: bad))
+    }
+
+    func testWatchQueueCacheRejectsOutOfOrderStatusAndPersists() throws {
+        let suite = "what-queue-\(UUID().uuidString)"
+        let defaults = try XCTUnwrap(UserDefaults(suiteName: suite))
+        defer { defaults.removePersistentDomain(forName: suite) }
+        let cache = WatchQueueStatusCache(defaults: defaults)
+        XCTAssertNil(cache.latest)
+        let newer = WatchQueueSnapshot(
+            pendingCount: 2,
+            updatedAt: Date(timeIntervalSince1970: 1_700_000_100)
+        )
+        let older = WatchQueueSnapshot(
+            pendingCount: 19,
+            updatedAt: Date(timeIntervalSince1970: 1_700_000_090)
+        )
+        XCTAssertTrue(cache.accept(newer))
+        XCTAssertFalse(cache.accept(older))
+        XCTAssertEqual(WatchQueueStatusCache(defaults: defaults).latest, newer)
+        XCTAssertTrue(cache.accept(WatchQueueSnapshot(
+            pendingCount: 0,
+            updatedAt: Date(timeIntervalSince1970: 1_700_000_120)
+        )))
+        XCTAssertEqual(cache.latest?.pendingCount, 0)
+    }
+
+    func testAudioAndTranscriptExportContainsByteIdenticalOriginalAndText() throws {
+        let root = FileManager.default.temporaryDirectory
+            .appendingPathComponent("what-export-test-\(UUID().uuidString)")
+        defer { try? FileManager.default.removeItem(at: root) }
+        try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)
+        let audio = root.appendingPathComponent("original.m4a")
+        let bytes = Data([0x41, 0x41, 0x43, 0x20, 0x01, 0x00, 0x5A])
+        try bytes.write(to: audio)
+        let recording = RecordingEnvelope(
+            id: UUID(),
+            createdAt: Date(timeIntervalSince1970: 1_700_000_000),
+            duration: 2.5,
+            fileName: "original.m4a"
+        )
+        let export = try RecordingExportService.prepare(
+            recording: recording,
+            audioURL: audio,
+            transcript: "Исправленная запись\nВторая строка",
+            selection: .audioAndTranscript
+        )
+        defer { export.cleanUp() }
+        XCTAssertEqual(export.items.count, 2)
+        let audioCopy = try XCTUnwrap(export.items.first(where: { $0.pathExtension == "m4a" }))
+        let textCopy = try XCTUnwrap(export.items.first(where: { $0.pathExtension == "txt" }))
+        XCTAssertEqual(try Data(contentsOf: audioCopy), bytes)
+        XCTAssertEqual(try String(contentsOf: textCopy, encoding: .utf8),
+                       "Исправленная запись\nВторая строка")
+        XCTAssertEqual(try Data(contentsOf: audio), bytes)
+        export.cleanUp()
+        XCTAssertFalse(FileManager.default.fileExists(atPath: export.directory.path))
+        XCTAssertEqual(try Data(contentsOf: audio), bytes)
+    }
+
+    func testExportRejectsMissingAssetsWithoutLeavingStagingData() throws {
+        let missingAudio = FileManager.default.temporaryDirectory
+            .appendingPathComponent("missing-\(UUID().uuidString).m4a")
+        let recording = RecordingEnvelope(
+            id: UUID(),
+            createdAt: Date(timeIntervalSince1970: 1_700_000_000),
+            duration: 1,
+            fileName: "missing.m4a"
+        )
+        XCTAssertThrowsError(try RecordingExportService.prepare(
+            recording: recording,
+            audioURL: missingAudio,
+            transcript: "test",
+            selection: .audio
+        ))
+        XCTAssertThrowsError(try RecordingExportService.prepare(
+            recording: recording,
+            audioURL: missingAudio,
+            transcript: nil,
+            selection: .transcript
+        ))
+        let textOnly = try RecordingExportService.prepare(
+            recording: recording,
+            audioURL: missingAudio,
+            transcript: "Only text",
+            selection: .transcript
+        )
+        XCTAssertEqual(textOnly.items.count, 1)
+        XCTAssertEqual(textOnly.items.first?.pathExtension, "txt")
+        textOnly.cleanUp()
+    }
+
 }

@@ -21,6 +21,7 @@ final class RecordingRepository {
     private let indexURL: URL
     private let transcriptURL: URL
     private let deletedIDsURL: URL
+    private let archivedIDsURL: URL
     // PhoneStore and WatchConnectivity use different repository instances.
     // A shared lock serializes transfer and deletion against the same files.
     private static let sharedStorageLock = NSLock()
@@ -38,6 +39,7 @@ final class RecordingRepository {
         indexURL = self.rootURL.appendingPathComponent("recordings.json")
         transcriptURL = self.rootURL.appendingPathComponent("transcripts.json")
         deletedIDsURL = self.rootURL.appendingPathComponent("deleted-recordings.json")
+        archivedIDsURL = self.rootURL.appendingPathComponent("archived-recordings.json")
         try? fileManager.createDirectory(at: audioDirectory, withIntermediateDirectories: true)
         // Finish cleanup interrupted after writing the durable deletion marker.
         try? resumePendingDeletions()
@@ -134,6 +136,12 @@ final class RecordingRepository {
             try ArvectumJSONCodec.encode(cleaned).write(to: transcriptURL, options: .atomic)
         }
 
+        let archived = try loadArchivedIDs()
+        let remainingArchived = archived.subtracting(deleted)
+        if remainingArchived != archived {
+            try persistArchivedIDs(remainingArchived)
+        }
+
         for id in deleted {
             // Use the canonical UUID-based filename, never a stored path.
             let audio = audioDirectory.appendingPathComponent("\(id.uuidString).m4a")
@@ -141,6 +149,45 @@ final class RecordingRepository {
                 try fileManager.removeItem(at: audio)
             }
         }
+    }
+
+    /// Archive only changes Inbox membership. Audio and transcript stay untouched.
+    /// A late Watch retry for the same UUID cannot unarchive a recording.
+    func setArchived(_ id: UUID, archived: Bool) throws {
+        lock.lock()
+        defer { lock.unlock() }
+        guard !(try loadDeletedIDs()).contains(id),
+              loadIndex().contains(where: { $0.id == id }) else {
+            throw RepositoryError.recordingUnavailable
+        }
+        var ids = try loadArchivedIDs()
+        if archived {
+            ids.insert(id)
+        } else {
+            ids.remove(id)
+        }
+        try persistArchivedIDs(ids)
+    }
+
+    func archivedIDs() throws -> Set<UUID> {
+        lock.lock()
+        defer { lock.unlock() }
+        return try loadArchivedIDs().subtracting(loadDeletedIDs())
+    }
+
+    private func loadArchivedIDs() throws -> Set<UUID> {
+        guard fileManager.fileExists(atPath: archivedIDsURL.path) else { return [] }
+        let data = try Data(contentsOf: archivedIDsURL)
+        let strings = try ArvectumJSONCodec.decode([String].self, from: data)
+        guard strings.allSatisfy({ UUID(uuidString: $0) != nil }) else {
+            throw RepositoryError.invalidMetadata
+        }
+        return Set(strings.compactMap(UUID.init(uuidString:)))
+    }
+
+    private func persistArchivedIDs(_ ids: Set<UUID>) throws {
+        try ArvectumJSONCodec.encode(ids.map(\.uuidString).sorted())
+            .write(to: archivedIDsURL, options: .atomic)
     }
 
     func audioExists(for recording: RecordingEnvelope) -> Bool {

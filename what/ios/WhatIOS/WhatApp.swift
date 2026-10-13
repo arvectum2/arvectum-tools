@@ -15,6 +15,9 @@ struct WhatApp: App {
                 .onReceive(NotificationCenter.default.publisher(for: .whatRecordingReceived)) { _ in
                     store.reload()
                 }
+                .onReceive(NotificationCenter.default.publisher(for: .whatWatchQueueStatusReceived)) { _ in
+                    store.reloadWatchQueueStatus()
+                }
         }
     }
 }

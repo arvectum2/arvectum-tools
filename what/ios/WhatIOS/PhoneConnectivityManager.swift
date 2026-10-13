@@ -5,6 +5,11 @@ final class PhoneConnectivityManager: NSObject, WCSessionDelegate {
     static let shared = PhoneConnectivityManager()
 
     private let repository = RecordingRepository()
+    private let watchQueueCache = WatchQueueStatusCache()
+
+    var lastWatchQueueSnapshot: WatchQueueSnapshot? {
+        watchQueueCache.latest
+    }
     private var activated = false
 
     private override init() {
@@ -23,7 +28,25 @@ final class PhoneConnectivityManager: NSObject, WCSessionDelegate {
         _ session: WCSession,
         activationDidCompleteWith activationState: WCSessionActivationState,
         error: Error?
-    ) {}
+    ) {
+        guard activationState == .activated else { return }
+        receiveQueueSnapshot(session.receivedApplicationContext)
+    }
+
+    func session(_ session: WCSession, didReceiveApplicationContext context: [String: Any]) {
+        receiveQueueSnapshot(context)
+    }
+
+    private func receiveQueueSnapshot(_ context: [String: Any]) {
+        guard let snapshot = WatchQueueSnapshot(context: context),
+              watchQueueCache.accept(snapshot) else { return }
+        DispatchQueue.main.async {
+            NotificationCenter.default.post(
+                name: .whatWatchQueueStatusReceived,
+                object: nil
+            )
+        }
+    }
 
     func sessionDidBecomeInactive(_ session: WCSession) {}
 
@@ -101,4 +124,5 @@ final class PhoneConnectivityManager: NSObject, WCSessionDelegate {
 
 extension Notification.Name {
     static let whatRecordingReceived = Notification.Name("what.recording.received")
+    static let whatWatchQueueStatusReceived = Notification.Name("what.watch.queue.updated")
 }

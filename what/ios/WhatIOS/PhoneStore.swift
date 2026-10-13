@@ -9,6 +9,8 @@ final class PhoneStore: NSObject, ObservableObject, AVAudioPlayerDelegate {
     @Published private(set) var playingID: UUID?
     @Published private(set) var transcribingID: UUID?
     @Published private(set) var transcripts: [UUID: String] = [:]
+    @Published private(set) var archivedIDs = Set<UUID>()
+    @Published private(set) var lastWatchQueueSnapshot: WatchQueueSnapshot?
     @Published var errorMessage: String?
     @Published var transcriptionLocale = UserDefaults.standard.string(forKey: "what.transcription.locale") ?? "ru-RU" {
         didSet { UserDefaults.standard.set(transcriptionLocale, forKey: "what.transcription.locale") }
@@ -23,11 +25,30 @@ final class PhoneStore: NSObject, ObservableObject, AVAudioPlayerDelegate {
         self.repository = repository
         super.init()
         reload()
+        reloadWatchQueueStatus()
+    }
+
+    func reloadWatchQueueStatus() {
+        lastWatchQueueSnapshot = PhoneConnectivityManager.shared.lastWatchQueueSnapshot
     }
 
     func reload() {
         recordings = repository.allRecordings()
         transcripts = repository.transcripts()
+        do {
+            archivedIDs = try repository.archivedIDs()
+        } catch {
+            errorMessage = "Could not read the archive: \(error.localizedDescription)"
+        }
+    }
+
+    func setArchived(_ recording: RecordingEnvelope, archived: Bool) {
+        do {
+            try repository.setArchived(recording.id, archived: archived)
+            archivedIDs = try repository.archivedIDs()
+        } catch {
+            errorMessage = "Could not update the archive: \(error.localizedDescription)"
+        }
     }
 
     func delete(_ recording: RecordingEnvelope) {
@@ -64,6 +85,23 @@ final class PhoneStore: NSObject, ObservableObject, AVAudioPlayerDelegate {
         }
         try repository.updateTranscript(text, for: recording.id)
         transcripts[recording.id] = text
+    }
+
+    func prepareExport(
+        _ recording: RecordingEnvelope,
+        selection: RecordingExportSelection
+    ) -> PreparedRecordingExport? {
+        do {
+            return try RecordingExportService.prepare(
+                recording: recording,
+                audioURL: repository.audioURL(for: recording),
+                transcript: transcripts[recording.id],
+                selection: selection
+            )
+        } catch {
+            errorMessage = "Unable to prepare the export: \(error.localizedDescription)"
+            return nil
+        }
     }
 
     func isAudioAvailable(_ recording: RecordingEnvelope) -> Bool {

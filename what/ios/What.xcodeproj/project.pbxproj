@@ -25,9 +25,13 @@
 		93547A568F8B6FC60070BD9F /* ArvectumJSONCodec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F98A4DA9205ACAB6BCD566 /* ArvectumJSONCodec.swift */; };
 		A2FFB527B39A111ECF5F3A00 /* RecordingRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BFFB46088A8945C66DFE7F4 /* RecordingRepositoryTests.swift */; };
 		A42F93400DD2B4DFBB398F4A /* PhoneConnectivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1330B09BE7A27DED3358758C /* PhoneConnectivityManager.swift */; };
+		AFFF14FF71B201060DB61571 /* InboxOrganizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A671C143C8B8AA6E71D5046 /* InboxOrganizer.swift */; };
 		B227CE21210C43AAEE1D1BB0 /* PhoneStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E401399D9CC19485D6B0BBA7 /* PhoneStore.swift */; };
+		C1FF49CC6828A3F62C630D7B /* WatchQueueSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAAB014EC25B8F1BE07A8003 /* WatchQueueSnapshot.swift */; };
 		CAA46328F53EE3ECF8154113 /* ImmediateRecordingPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD17D674B9340C94107DCF39 /* ImmediateRecordingPayload.swift */; };
 		D2034C64118475AFC5F8A80C /* WatchCaptureController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FEDFC32DD8C7A561856A386 /* WatchCaptureController.swift */; };
+		E279702F2EC466E836C3CC17 /* RecordingExportService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11CFD6F6D4AFB8ABAD4DFDB0 /* RecordingExportService.swift */; };
+		FF2E85A6C1D04A9F2B4A8C9F /* WatchQueueSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAAB014EC25B8F1BE07A8003 /* WatchQueueSnapshot.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,6 +84,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0A671C143C8B8AA6E71D5046 /* InboxOrganizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxOrganizer.swift; sourceTree = "<group>"; };
+		11CFD6F6D4AFB8ABAD4DFDB0 /* RecordingExportService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingExportService.swift; sourceTree = "<group>"; };
 		1330B09BE7A27DED3358758C /* PhoneConnectivityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneConnectivityManager.swift; sourceTree = "<group>"; };
 		1D0B51DE0971B320ECF3899E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		26A27547EE4FDF0C6AC8FC0C /* ArvectumDiagnostics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArvectumDiagnostics.swift; sourceTree = "<group>"; };
@@ -102,6 +108,7 @@
 		CCEC9E429D08B3C421557916 /* WhatIOS.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = WhatIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CECAA3B8CBC13E2455D09ADE /* CaptureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureView.swift; sourceTree = "<group>"; };
 		D6D1A5C9E79CC4A544374E3E /* WhatComplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatComplication.swift; sourceTree = "<group>"; };
+		DAAB014EC25B8F1BE07A8003 /* WatchQueueSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchQueueSnapshot.swift; sourceTree = "<group>"; };
 		E401399D9CC19485D6B0BBA7 /* PhoneStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneStore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -130,9 +137,11 @@
 			isa = PBXGroup;
 			children = (
 				27F5BECCDE1474FF547D4DDE /* ContentView.swift */,
+				0A671C143C8B8AA6E71D5046 /* InboxOrganizer.swift */,
 				3420DB5CB8958565C9B8B79E /* Info.plist */,
 				1330B09BE7A27DED3358758C /* PhoneConnectivityManager.swift */,
 				E401399D9CC19485D6B0BBA7 /* PhoneStore.swift */,
+				11CFD6F6D4AFB8ABAD4DFDB0 /* RecordingExportService.swift */,
 				57CA5B4FD3F49550A3BF2B59 /* RecordingRepository.swift */,
 				3FEB908379268EDF523C2242 /* TranscriptEditorSheet.swift */,
 				94ABD3BF183D4D22AF1CD0B0 /* WhatApp.swift */,
@@ -161,6 +170,7 @@
 			children = (
 				BD17D674B9340C94107DCF39 /* ImmediateRecordingPayload.swift */,
 				28C9581F753BED275286D623 /* RecordingEnvelope.swift */,
+				DAAB014EC25B8F1BE07A8003 /* WatchQueueSnapshot.swift */,
 				89A4FCD3C72E787C27B7E3EE /* WatchTransferRetryPolicy.swift */,
 			);
 			path = Shared;
@@ -359,6 +369,7 @@
 				CAA46328F53EE3ECF8154113 /* ImmediateRecordingPayload.swift in Sources */,
 				930D8453C63A2A36CD2B7018 /* RecordingEnvelope.swift in Sources */,
 				D2034C64118475AFC5F8A80C /* WatchCaptureController.swift in Sources */,
+				FF2E85A6C1D04A9F2B4A8C9F /* WatchQueueSnapshot.swift in Sources */,
 				67A7309CBD38A6A55FD9B3D9 /* WatchTransferRetryPolicy.swift in Sources */,
 				0281431BF7DF8E62E12DCFB2 /* WhatWatchApp.swift in Sources */,
 			);
@@ -379,11 +390,14 @@
 				93547A568F8B6FC60070BD9F /* ArvectumJSONCodec.swift in Sources */,
 				23C3DC142A5320642976B51C /* ContentView.swift in Sources */,
 				620929503466A26358DDC534 /* ImmediateRecordingPayload.swift in Sources */,
+				AFFF14FF71B201060DB61571 /* InboxOrganizer.swift in Sources */,
 				A42F93400DD2B4DFBB398F4A /* PhoneConnectivityManager.swift in Sources */,
 				B227CE21210C43AAEE1D1BB0 /* PhoneStore.swift in Sources */,
 				503FAB8870D0044EF3463F4D /* RecordingEnvelope.swift in Sources */,
+				E279702F2EC466E836C3CC17 /* RecordingExportService.swift in Sources */,
 				62F51A03CFB1699B97BE45DA /* RecordingRepository.swift in Sources */,
 				2FD0DAFDEE58B7F0BCB4612F /* TranscriptEditorSheet.swift in Sources */,
+				C1FF49CC6828A3F62C630D7B /* WatchQueueSnapshot.swift in Sources */,
 				36706916A594DC5DA493B27E /* WatchTransferRetryPolicy.swift in Sources */,
 				1DB28694A4FB2349E0C75253 /* WhatApp.swift in Sources */,
 			);
@@ -453,7 +467,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 9;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = VML75VY94V;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -645,7 +659,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 9;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = VML75VY94V;
 				ENABLE_NS_ASSERTIONS = NO;
