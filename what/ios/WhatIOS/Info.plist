@@ -18,12 +18,25 @@
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
 	<string>$(MARKETING_VERSION)</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>ru.arvectum.tools.what.record</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>what</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.productivity</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Record new voice notes directly on this iPhone. Audio stays on-device.</string>
 	<key>NSSpeechRecognitionUsageDescription</key>
 	<string>Transcribe your saved voice recordings on this iPhone using on-device speech recognition.</string>
 	<key>UILaunchScreen</key>

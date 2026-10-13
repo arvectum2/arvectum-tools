@@ -43,6 +43,7 @@ struct SmartSearchView: View {
     @EnvironmentObject private var store: PhoneStore
     @Environment(\.dismiss) private var dismiss
     @State private var query = ""
+    @FocusState private var searchFocused: Bool
     @State private var searching = false
     @State private var installingAssets = false
     @State private var showDownloadConfirmation = false
@@ -63,6 +64,7 @@ struct SmartSearchView: View {
                     Image(systemName: "magnifyingglass")
                         .foregroundStyle(.secondary)
                     TextField("What was that thought about?", text: $query)
+                        .focused($searchFocused)
                         .submitLabel(.search)
                         .textInputAutocapitalization(.never)
                         .autocorrectionDisabled()
@@ -91,6 +93,12 @@ struct SmartSearchView: View {
                         .font(.caption)
                         .foregroundStyle(.secondary)
                     Spacer()
+                    if searchFocused {
+                        Button("Hide keyboard") {
+                            searchFocused = false
+                        }
+                        .font(.caption)
+                    }
                     Button("Find") { performSearch() }
                         .buttonStyle(.borderedProminent)
                         .disabled(query.trimmingCharacters(in: .whitespacesAndNewlines).count < 2
@@ -115,11 +123,18 @@ struct SmartSearchView: View {
                     )
                 }
             }
+            .onChange(of: store.transcripts.count) { _, _ in
+                if result != nil && !query.isEmpty { performSearch() }
+            }
             .navigationTitle("Smart search")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Done") { dismiss() }
+                }
+                ToolbarItemGroup(placement: .keyboard) {
+                    Spacer()
+                    Button("Done") { searchFocused = false }
                 }
             }
             .confirmationDialog(
@@ -149,9 +164,11 @@ struct SmartSearchView: View {
                 HStack(spacing: 6) {
                     Image(systemName: output.semanticAvailable
                           ? "brain" : "text.magnifyingglass")
-                    Text(output.semanticAvailable
-                         ? "Meaning + text search"
-                         : "Text search (semantic model not installed)")
+                    Text(query.split(whereSeparator: { $0.isWhitespace }).count == 1
+                         ? "Exact word search"
+                         : (output.semanticAvailable
+                             ? "Meaning + text search"
+                             : "Text search (semantic model not installed)"))
                     Spacer()
                     Text("\(output.indexedCount) indexed")
                         .monospacedDigit()
@@ -159,7 +176,28 @@ struct SmartSearchView: View {
                 .font(.caption)
                 .foregroundStyle(.secondary)
 
-                if !output.semanticAvailable && isRussianQuery {
+                let missing = store.recordings.filter {
+                    store.transcripts[$0.id] == nil && store.isAudioAvailable($0)
+                }.count
+                if missing > 0 {
+                    Button {
+                        store.transcribeMissing()
+                    } label: {
+                        Label(
+                            store.batchTranscriptionActive
+                                ? "Transcribing notes…"
+                                : "Transcribe \(missing) unindexed recordings",
+                            systemImage: "waveform.badge.mic"
+                        )
+                    }
+                    .disabled(store.batchTranscriptionActive || store.transcribingID != nil)
+                    .font(.subheadline)
+                    Text("Only saved text is searchable. New audio must be transcribed first.")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+                if !output.semanticAvailable && isRussianQuery &&
+                   query.split(whereSeparator: { $0.isWhitespace }).count > 1 {
                     Button {
                         showDownloadConfirmation = true
                     } label: {
@@ -213,11 +251,13 @@ struct SmartSearchView: View {
             }
         }
         .listStyle(.insetGrouped)
+        .scrollDismissesKeyboard(.interactively)
     }
 
     private func performSearch() {
         let needle = query.trimmingCharacters(in: .whitespacesAndNewlines)
         guard needle.count >= 2 else { return }
+        searchFocused = false
         let recordings = store.recordings
         let transcripts = store.transcripts
         let currentID = UUID()

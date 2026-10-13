@@ -804,4 +804,66 @@ final class RecordingRepositoryTests: XCTestCase {
         XCTAssertTrue(repo.transcripts().isEmpty)
     }
 
+    func testOneWordExactLookupSuppressesSpuriousSemanticResults() throws {
+        let root = FileManager.default.temporaryDirectory
+            .appendingPathComponent("what-rare-word-\(UUID().uuidString)")
+        defer { try? FileManager.default.removeItem(at: root) }
+        let repo = RecordingRepository(rootURL: root)
+        let source = root.appendingPathComponent("source.m4a")
+        try Data("fixture".utf8).write(to: source)
+        let id = UUID()
+        _ = try repo.acceptTemporaryFile(source, metadata: [
+            TransferMetadataKey.id: id.uuidString,
+            TransferMetadataKey.createdAt: Date().timeIntervalSince1970,
+            TransferMetadataKey.duration: 2.2
+        ])
+        try repo.updateTranscript("Купить хлеб для завтрака", for: id)
+        let index = LocalSemanticSearch(cacheURL: root.appendingPathComponent(
+            "semantic-search-index.json"
+        ))
+        let perfectFalsePositive: LocalSemanticSearch.Vectorizer = { _ in [1, 0] }
+        let noMatch = index.search(
+            query: "эдельвейс",
+            recordings: repo.allRecordings(),
+            transcripts: repo.transcripts(),
+            vectorizer: perfectFalsePositive,
+            modelKey: "fake"
+        )
+        XCTAssertTrue(noMatch.hits.isEmpty)
+
+        try repo.updateTranscript("раз два три четыре пять эдельвейс шесть семь", for: id)
+        let found = index.search(
+            query: "эдельвейс",
+            recordings: repo.allRecordings(),
+            transcripts: repo.transcripts(),
+            vectorizer: perfectFalsePositive,
+            modelKey: "fake"
+        )
+        XCTAssertEqual(found.hits.map(\.id), [id])
+        XCTAssertEqual(found.hits.first?.match, .text)
+    }
+
+    func testPhoneCapturedRecordingUsesTheSameDurableRepositoryAsWatch() throws {
+        let root = FileManager.default.temporaryDirectory
+            .appendingPathComponent("what-phone-intake-\(UUID().uuidString)")
+        defer { try? FileManager.default.removeItem(at: root) }
+        let repo = RecordingRepository(rootURL: root)
+        let source = root.appendingPathComponent("phone-recording.m4a")
+        let original = Data("locally-recorded-original".utf8)
+        try original.write(to: source)
+        let id = UUID()
+        _ = try repo.acceptTemporaryFile(source, metadata: [
+            TransferMetadataKey.id: id.uuidString,
+            TransferMetadataKey.createdAt: Date().timeIntervalSince1970,
+            TransferMetadataKey.duration: 3.8
+        ])
+        let reopened = RecordingRepository(rootURL: root)
+        let note = try XCTUnwrap(reopened.allRecordings().first)
+        XCTAssertEqual(note.id, id)
+        XCTAssertEqual(try Data(contentsOf: reopened.audioURL(for: note)), original)
+        XCTAssertTrue(reopened.transcripts().isEmpty)
+        try reopened.updateTranscript("Эдельвейс", for: id)
+        XCTAssertEqual(RecordingRepository(rootURL: root).transcripts()[id], "Эдельвейс")
+    }
+
 }

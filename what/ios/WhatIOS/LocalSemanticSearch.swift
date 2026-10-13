@@ -126,6 +126,13 @@ final class LocalSemanticSearch {
         var cache = loadCache(key: modelKey)
         cache.entries = cache.entries.filter { availableIDs.contains($0.key) && transcripts[$0.key] != nil }
         let queryVector = vectorizer?(needle)
+        let searchTerms = needle.split(whereSeparator: {
+            $0.isWhitespace || $0.isPunctuation
+        })
+        // A single rare word is an exact lookup, not a semantic question.
+        // Averaged contextual token vectors give high false-positive cosine
+        // scores for unrelated notes on one-word queries.
+        let allowSemantic = searchTerms.count >= 2
         var hits: [SemanticSearchHit] = []
         var indexed = 0
 
@@ -168,7 +175,8 @@ final class LocalSemanticSearch {
                     guard position < chunks.count else { return nil }
                     return Self.cosine(vector, chunks[position].vector)
                 } ?? 0
-                let validSemantic = semantic >= 0.62 ? semantic * 0.90 : 0
+                let validSemantic = allowSemantic && semantic >= 0.82
+                    ? semantic * 0.90 : 0
                 let score = max(lexical, validSemantic)
                 if score > bestScore {
                     bestScore = score

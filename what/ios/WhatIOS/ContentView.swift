@@ -150,7 +150,13 @@ struct ContentView: View {
                     }
                     .accessibilityLabel("Smart search")
                 }
-                ToolbarItem(placement: .topBarTrailing) {
+                ToolbarItemGroup(placement: .topBarTrailing) {
+                    Button {
+                        store.showPhoneCapture = true
+                    } label: {
+                        Image(systemName: "plus.circle.fill")
+                    }
+                    .accessibilityLabel("Record on iPhone")
                     Menu {
                         Picker("Speech language", selection: $store.transcriptionLocale) {
                             Text("Русский").tag("ru-RU")
@@ -169,6 +175,9 @@ struct ContentView: View {
                 }
             }
             .tint(Color(red: 67 / 255, green: 229 / 255, blue: 197 / 255))
+            .sheet(isPresented: $store.showPhoneCapture) {
+                PhoneRecordingSheet(recorder: store.phoneRecorder)
+            }
             .sheet(isPresented: $showSmartSearch) {
                 SmartSearchView()
                     .environmentObject(store)

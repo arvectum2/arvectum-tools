@@ -10,6 +10,7 @@
 		0281431BF7DF8E62E12DCFB2 /* WhatWatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4ED5C55003D60E489465C5D /* WhatWatchApp.swift */; };
 		095E000031881CF97192ADAC /* SyncDiagnosticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E1CDF413B1021AF609E11A /* SyncDiagnosticsView.swift */; };
 		1B01BE138A483EA2CE1DB1FE /* WhatWatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 9819634215CFE7B5CB7C96E2 /* WhatWatch.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		1BC48103D6E86867BC619F4B /* PhoneRecordingSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3997C787CF6EC5F61396098 /* PhoneRecordingSheet.swift */; };
 		1DB28694A4FB2349E0C75253 /* WhatApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94ABD3BF183D4D22AF1CD0B0 /* WhatApp.swift */; };
 		23C3DC142A5320642976B51C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F5BECCDE1474FF547D4DDE /* ContentView.swift */; };
 		2A8F5E422C6CA0E9AC0E6C5A /* WhatWatchComplication.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 30A158E04405BA04A51B6785 /* WhatWatchComplication.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -20,11 +21,13 @@
 		503FAB8870D0044EF3463F4D /* RecordingEnvelope.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C9581F753BED275286D623 /* RecordingEnvelope.swift */; };
 		620929503466A26358DDC534 /* ImmediateRecordingPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD17D674B9340C94107DCF39 /* ImmediateRecordingPayload.swift */; };
 		62F51A03CFB1699B97BE45DA /* RecordingRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CA5B4FD3F49550A3BF2B59 /* RecordingRepository.swift */; };
+		678FB4B35F0627D03AE0F736 /* WhatPhoneWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = EBF159B5D81F63DE0DAE6484 /* WhatPhoneWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		67A7309CBD38A6A55FD9B3D9 /* WatchTransferRetryPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A4FCD3C72E787C27B7E3EE /* WatchTransferRetryPolicy.swift */; };
 		686DBE4CA2BBE32B81849C8A /* CaptureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECAA3B8CBC13E2455D09ADE /* CaptureView.swift */; };
 		8429BD4828F55DF8C4718902 /* LocalSemanticSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766855BE51B40DC7C113B75A /* LocalSemanticSearch.swift */; };
 		930D8453C63A2A36CD2B7018 /* RecordingEnvelope.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C9581F753BED275286D623 /* RecordingEnvelope.swift */; };
 		93547A568F8B6FC60070BD9F /* ArvectumJSONCodec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F98A4DA9205ACAB6BCD566 /* ArvectumJSONCodec.swift */; };
+		9624AC1580E81B3F01859FFC /* PhoneRecordingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F96BFC4E2D4DD08402B798 /* PhoneRecordingController.swift */; };
 		A2FFB527B39A111ECF5F3A00 /* RecordingRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BFFB46088A8945C66DFE7F4 /* RecordingRepositoryTests.swift */; };
 		A42F93400DD2B4DFBB398F4A /* PhoneConnectivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1330B09BE7A27DED3358758C /* PhoneConnectivityManager.swift */; };
 		AEB98CE89CFA026E5F1FE370 /* SmartSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B585B95ED7BF383E24A396 /* SmartSearchView.swift */; };
@@ -34,6 +37,7 @@
 		CAA46328F53EE3ECF8154113 /* ImmediateRecordingPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD17D674B9340C94107DCF39 /* ImmediateRecordingPayload.swift */; };
 		D2034C64118475AFC5F8A80C /* WatchCaptureController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FEDFC32DD8C7A561856A386 /* WatchCaptureController.swift */; };
 		E279702F2EC466E836C3CC17 /* RecordingExportService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11CFD6F6D4AFB8ABAD4DFDB0 /* RecordingExportService.swift */; };
+		E3E14B894F6D08B14F550FD7 /* WhatPhoneWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C8C7D0F4914D000D27D69C4 /* WhatPhoneWidget.swift */; };
 		FF2E85A6C1D04A9F2B4A8C9F /* WatchQueueSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAAB014EC25B8F1BE07A8003 /* WatchQueueSnapshot.swift */; };
 /* End PBXBuildFile section */
 
@@ -59,6 +63,13 @@
 			remoteGlobalIDString = 32AC9E0CACE8723A1D1E65A5;
 			remoteInfo = WhatWatchComplication;
 		};
+		8AFC3D8EC9A89922691D4712 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E77A39522192E6739A600951 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 97EFDA2BC785E28D5F65A887;
+			remoteInfo = WhatPhoneWidget;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -71,6 +82,17 @@
 				1B01BE138A483EA2CE1DB1FE /* WhatWatch.app in Embed Watch Content */,
 			);
 			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		70043916768A42F66BD1E583 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				678FB4B35F0627D03AE0F736 /* WhatPhoneWidget.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		BA1A3DAFC4B2BB51C31486B5 /* Embed Foundation Extensions */ = {
@@ -88,6 +110,7 @@
 
 /* Begin PBXFileReference section */
 		0A671C143C8B8AA6E71D5046 /* InboxOrganizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxOrganizer.swift; sourceTree = "<group>"; };
+		0C8C7D0F4914D000D27D69C4 /* WhatPhoneWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatPhoneWidget.swift; sourceTree = "<group>"; };
 		11CFD6F6D4AFB8ABAD4DFDB0 /* RecordingExportService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingExportService.swift; sourceTree = "<group>"; };
 		1330B09BE7A27DED3358758C /* PhoneConnectivityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneConnectivityManager.swift; sourceTree = "<group>"; };
 		14B585B95ED7BF383E24A396 /* SmartSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartSearchView.swift; sourceTree = "<group>"; };
@@ -103,6 +126,7 @@
 		55E1CDF413B1021AF609E11A /* SyncDiagnosticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncDiagnosticsView.swift; sourceTree = "<group>"; };
 		57CA5B4FD3F49550A3BF2B59 /* RecordingRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingRepository.swift; sourceTree = "<group>"; };
 		61B9DCBC7397B955436563CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		656D51A35B41EF02C9891B44 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		6FEDFC32DD8C7A561856A386 /* WatchCaptureController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchCaptureController.swift; sourceTree = "<group>"; };
 		766855BE51B40DC7C113B75A /* LocalSemanticSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalSemanticSearch.swift; sourceTree = "<group>"; };
 		89A4FCD3C72E787C27B7E3EE /* WatchTransferRetryPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchTransferRetryPolicy.swift; sourceTree = "<group>"; };
@@ -115,7 +139,10 @@
 		CECAA3B8CBC13E2455D09ADE /* CaptureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureView.swift; sourceTree = "<group>"; };
 		D6D1A5C9E79CC4A544374E3E /* WhatComplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatComplication.swift; sourceTree = "<group>"; };
 		DAAB014EC25B8F1BE07A8003 /* WatchQueueSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchQueueSnapshot.swift; sourceTree = "<group>"; };
+		E3997C787CF6EC5F61396098 /* PhoneRecordingSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneRecordingSheet.swift; sourceTree = "<group>"; };
 		E401399D9CC19485D6B0BBA7 /* PhoneStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneStore.swift; sourceTree = "<group>"; };
+		E8F96BFC4E2D4DD08402B798 /* PhoneRecordingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneRecordingController.swift; sourceTree = "<group>"; };
+		EBF159B5D81F63DE0DAE6484 /* WhatPhoneWidget.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = WhatPhoneWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -124,6 +151,7 @@
 			children = (
 				CCEC9E429D08B3C421557916 /* WhatIOS.app */,
 				332992BFC549A47C6A09D096 /* WhatIOSTests.xctest */,
+				EBF159B5D81F63DE0DAE6484 /* WhatPhoneWidget.appex */,
 				9819634215CFE7B5CB7C96E2 /* WhatWatch.app */,
 				30A158E04405BA04A51B6785 /* WhatWatchComplication.appex */,
 			);
@@ -147,6 +175,8 @@
 				3420DB5CB8958565C9B8B79E /* Info.plist */,
 				766855BE51B40DC7C113B75A /* LocalSemanticSearch.swift */,
 				1330B09BE7A27DED3358758C /* PhoneConnectivityManager.swift */,
+				E8F96BFC4E2D4DD08402B798 /* PhoneRecordingController.swift */,
+				E3997C787CF6EC5F61396098 /* PhoneRecordingSheet.swift */,
 				E401399D9CC19485D6B0BBA7 /* PhoneStore.swift */,
 				11CFD6F6D4AFB8ABAD4DFDB0 /* RecordingExportService.swift */,
 				57CA5B4FD3F49550A3BF2B59 /* RecordingRepository.swift */,
@@ -193,6 +223,15 @@
 			path = ArvectumPersistence;
 			sourceTree = "<group>";
 		};
+		49330E34C385BD363A9B041C /* WhatPhoneWidget */ = {
+			isa = PBXGroup;
+			children = (
+				656D51A35B41EF02C9891B44 /* Info.plist */,
+				0C8C7D0F4914D000D27D69C4 /* WhatPhoneWidget.swift */,
+			);
+			path = WhatPhoneWidget;
+			sourceTree = "<group>";
+		};
 		4BBCCB53865CEEB047835542 = {
 			isa = PBXGroup;
 			children = (
@@ -200,6 +239,7 @@
 				76F4CFF831968159D7224FAA /* what-delete-20261013 */,
 				1A5685733475ABA552DA6613 /* WhatIOS */,
 				2552E17FD64CA0D618598837 /* WhatIOSTests */,
+				49330E34C385BD363A9B041C /* WhatPhoneWidget */,
 				8C2C38EC2F1EB4FD8C46588C /* WhatWatch */,
 				5A09E2E388975937EAA4F87A /* WhatWatchComplication */,
 				0DF8574158C04AFB8E13F356 /* Products */,
@@ -251,12 +291,14 @@
 			buildConfigurationList = 782F767BC4D93CEF8C041447 /* Build configuration list for PBXNativeTarget "WhatIOS" */;
 			buildPhases = (
 				A5A1B6BD2CFB51585CE66B2F /* Sources */,
+				70043916768A42F66BD1E583 /* Embed Foundation Extensions */,
 				6E46CCD9EF1B3FA1038B67D9 /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				7ADD62A7BEE6736CE974F4FA /* PBXTargetDependency */,
+				F0854EDE386A37D8F9C3472B /* PBXTargetDependency */,
 			);
 			name = WhatIOS;
 			packageProductDependencies = (
@@ -319,6 +361,23 @@
 			productReference = 9819634215CFE7B5CB7C96E2 /* WhatWatch.app */;
 			productType = "com.apple.product-type.application";
 		};
+		97EFDA2BC785E28D5F65A887 /* WhatPhoneWidget */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BFECE361CD751F6224741131 /* Build configuration list for PBXNativeTarget "WhatPhoneWidget" */;
+			buildPhases = (
+				9A17ADDB365912E4094BC7AD /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = WhatPhoneWidget;
+			packageProductDependencies = (
+			);
+			productName = WhatPhoneWidget;
+			productReference = EBF159B5D81F63DE0DAE6484 /* WhatPhoneWidget.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -344,6 +403,10 @@
 						DevelopmentTeam = VML75VY94V;
 						ProvisioningStyle = Automatic;
 					};
+					97EFDA2BC785E28D5F65A887 = {
+						DevelopmentTeam = VML75VY94V;
+						ProvisioningStyle = Automatic;
+					};
 				};
 			};
 			buildConfigurationList = 9F90AA2D54674722B3430887 /* Build configuration list for PBXProject "What" */;
@@ -361,6 +424,7 @@
 			projectRoot = "";
 			targets = (
 				16346F2CC0242052FD285237 /* WhatIOS */,
+				97EFDA2BC785E28D5F65A887 /* WhatPhoneWidget */,
 				64E7F2AEA28675D18885E84F /* WhatIOSTests */,
 				826600D70C7FA881A7064EB6 /* WhatWatch */,
 				32AC9E0CACE8723A1D1E65A5 /* WhatWatchComplication */,
@@ -392,6 +456,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		9A17ADDB365912E4094BC7AD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E3E14B894F6D08B14F550FD7 /* WhatPhoneWidget.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A5A1B6BD2CFB51585CE66B2F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -402,6 +474,8 @@
 				AFFF14FF71B201060DB61571 /* InboxOrganizer.swift in Sources */,
 				8429BD4828F55DF8C4718902 /* LocalSemanticSearch.swift in Sources */,
 				A42F93400DD2B4DFBB398F4A /* PhoneConnectivityManager.swift in Sources */,
+				9624AC1580E81B3F01859FFC /* PhoneRecordingController.swift in Sources */,
+				1BC48103D6E86867BC619F4B /* PhoneRecordingSheet.swift in Sources */,
 				B227CE21210C43AAEE1D1BB0 /* PhoneStore.swift in Sources */,
 				503FAB8870D0044EF3463F4D /* RecordingEnvelope.swift in Sources */,
 				E279702F2EC466E836C3CC17 /* RecordingExportService.swift in Sources */,
@@ -441,9 +515,32 @@
 			target = 32AC9E0CACE8723A1D1E65A5 /* WhatWatchComplication */;
 			targetProxy = 5F37034AF4FFD995C97F5676 /* PBXContainerItemProxy */;
 		};
+		F0854EDE386A37D8F9C3472B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 97EFDA2BC785E28D5F65A887 /* WhatPhoneWidget */;
+			targetProxy = 8AFC3D8EC9A89922691D4712 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		0C8708A11242BB95B63DA933 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = WhatPhoneWidget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = ru.arvectum.tools.what.widget;
+				PRODUCT_NAME = WhatPhoneWidget;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
 		0F3FAA866594BD98CEB89B60 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -479,7 +576,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 12;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = VML75VY94V;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -588,6 +685,24 @@
 			};
 			name = Debug;
 		};
+		78645EE85AB2D82AAF3DE127 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = WhatPhoneWidget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = ru.arvectum.tools.what.widget;
+				PRODUCT_NAME = WhatPhoneWidget;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
 		865A99AF43195ECF141DD2AD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -671,7 +786,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 12;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = VML75VY94V;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -752,6 +867,15 @@
 			buildConfigurations = (
 				0F3FAA866594BD98CEB89B60 /* Debug */,
 				E0686CDF56C13B8FA7845B05 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		BFECE361CD751F6224741131 /* Build configuration list for PBXNativeTarget "WhatPhoneWidget" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				78645EE85AB2D82AAF3DE127 /* Debug */,
+				0C8708A11242BB95B63DA933 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;

@@ -1,7 +1,7 @@
 # What? — Product Roadmap
 
 **Updated:** 2026-10-13
-**Status:** iPhone build 0.1.0 (11) implements P4 first stage: local transcript chunking and a persisted, derived on-device vector cache; contextual Russian/English/etc. embeddings via Apple's NaturalLanguage when language assets are already installed, with Russian model download only after explicit in-app confirmation; lexical fallback when absent; source-linked search results opening original audio. Technical Watch queue line removed from Inbox and moved to Settings → Sync diagnostics. Automated iOS tests and iPhone 13 simulator UI review passed; installed on physical iPhone 13 as build 11. Post-install data was byte-identical for all 13 recordings, 13 audio files, 6 transcripts and all other backed-up files. Semantic model availability and actual query UX still await physical testing. Pre-upgrade physical iPhone backup holds 13 recordings, 13 audio files and 6 transcripts (2026-10-13). User confirmed prior build 10 layout, export, and Watch queue indicator working. Neither note text nor audio is sent to external services. Watch build 10 stays unchanged. Not submitted to App Store.
+**Status:** iPhone build 0.1.0 (12) installed on physical iPhone 13 (2026-10-13): fixes false-positive one-word semantic matches, adds Hide keyboard, clearly reports untranscribed notes and supports batch offline transcription, auto-transcribes newly received Watch recordings when Speech permission already granted. Adds direct local microphone recording on iPhone via +, plus iPhone Home/Lock Screen WidgetKit launcher that opens What? in capture mode via what://record; the widget itself never records in the background. Original audio/metadata share the existing repository, and failed captures retain their recovery copy. Simulator builds/tests passed; signed iPhone+WidgetKit package installed on physical iPhone with backup comparison confirming all 14 audio files, 14 recordings and 6 saved transcripts byte-identical. Live microphone capture, widget placement/launch, automatic new-note transcription and batch indexing still require user acceptance. Backup before change: 14 recordings, 14 audio files and 6 transcripts; Edelweiss was absent from every transcript. Watch build 10 unchanged. Not App Store-released.
 **Evidence:** [historical feature-branch roadmap snapshot](docs/history/ROADMAP-feature-what-2026-10-11.md).
 **Shared principles:** [Core](../core/CORE_PRINCIPLES.md); **Growth:** [Growth](../growth/ROADMAP.md).
 
@@ -45,7 +45,16 @@
 - [x] Dedicated Smart search sheet showing date, matching snippet and match type; opens original audio and full transcript.
 - [x] Offline lexical fallback if language assets absent; explicit opt-in to Apple Russian model download, never automatic.
 - [ ] Physically test Russian meaning-based paraphrase retrieval, English text search, transcript edits, archived hits, deletion purge, and offline mode.
+- [x] Fix rare one-word lookup regression: exact/lexical search for single words instead of accepting misleading mean-pooled semantic matches. Tested with "эдельвейс" and deliberately identical vectors (build 12).
+- [x] Add visible count and explicit bulk offline transcription for notes missing saved text; auto-transcribe new Watch notes only if permission already granted, never overwrite existing manual transcripts.
+- [x] Add Hide keyboard, keyboard Done accessory and swipe-to-dismiss in Smart search (build 12).
 - [ ] Evaluate semantic ranking with 20–30 real Russian notes before asserting production quality.
+
+## P4b — iPhone capture + widgets
+- [x] Add native iPhone microphone capture and Stop/Save, discard, local source-of-truth storage, recovery manifests for interrupted writes, and automatic offline transcription if authorized.
+- [x] Add iOS WidgetKit launcher in small/medium Home Screen and rectangular Lock Screen sizes; widget deep-link opens app and starts capture once foregrounded (no unsupported background microphone access).
+- [ ] Physical acceptance: record/save/reopen/playback/transcribe; record widget setup, first-open confirmation, launch into capture, and unchanged Watch sync.
+- [ ] Strengthen long interrupted iPhone recording reliability and audio session interruption tests.
 
 ## P5 — Ask Your Memory
 - [ ] Retrieval-grounded responses with note/audio timestamp attribution; no unsupported invented statements.

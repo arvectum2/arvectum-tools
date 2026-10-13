@@ -11,7 +11,7 @@ settings:
     CODE_SIGN_STYLE: Automatic
     SWIFT_VERSION: "5.0"
     MARKETING_VERSION: "0.1.0"
-    CURRENT_PROJECT_VERSION: "11"
+    CURRENT_PROJECT_VERSION: "12"
 
 targets:
   WhatIOS:
@@ -30,6 +30,11 @@ targets:
         CFBundleVersion: "$(CURRENT_PROJECT_VERSION)"
         LSApplicationCategoryType: public.app-category.productivity
         NSSpeechRecognitionUsageDescription: "Transcribe your saved voice recordings on this iPhone using on-device speech recognition."
+        NSMicrophoneUsageDescription: "Record new voice notes directly on this iPhone. Audio stays on-device."
+        CFBundleURLTypes:
+          - CFBundleURLName: ru.arvectum.tools.what.record
+            CFBundleURLSchemes:
+              - what
         ITSAppUsesNonExemptEncryption: false
         UILaunchScreen: {}
     settings:
@@ -42,9 +47,31 @@ targets:
         SUPPORTS_MACCATALYST: NO
     dependencies:
       - target: WhatWatch
+      - target: WhatPhoneWidget
     scheme:
       testTargets:
         - WhatIOSTests
+
+  WhatPhoneWidget:
+    type: app-extension
+    platform: iOS
+    deploymentTarget: "17.0"
+    sources:
+      - path: WhatPhoneWidget
+    info:
+      path: WhatPhoneWidget/Info.plist
+      properties:
+        CFBundleDisplayName: "What? Record"
+        CFBundleShortVersionString: "$(MARKETING_VERSION)"
+        CFBundleVersion: "$(CURRENT_PROJECT_VERSION)"
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.widgetkit-extension
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: ru.arvectum.tools.what.widget
+        PRODUCT_NAME: WhatPhoneWidget
+        GENERATE_INFOPLIST_FILE: NO
+        TARGETED_DEVICE_FAMILY: "1"
 
   WhatIOSTests:
     type: bundle.unit-test
