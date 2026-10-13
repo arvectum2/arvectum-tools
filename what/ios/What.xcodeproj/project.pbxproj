@@ -38,6 +38,7 @@
 		D2034C64118475AFC5F8A80C /* WatchCaptureController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FEDFC32DD8C7A561856A386 /* WatchCaptureController.swift */; };
 		E279702F2EC466E836C3CC17 /* RecordingExportService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11CFD6F6D4AFB8ABAD4DFDB0 /* RecordingExportService.swift */; };
 		E3E14B894F6D08B14F550FD7 /* WhatPhoneWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C8C7D0F4914D000D27D69C4 /* WhatPhoneWidget.swift */; };
+		F4303B6D62B69352F08A372A /* PhoneCaptureValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1245823325CC94B431825FC8 /* PhoneCaptureValidation.swift */; };
 		FF2E85A6C1D04A9F2B4A8C9F /* WatchQueueSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAAB014EC25B8F1BE07A8003 /* WatchQueueSnapshot.swift */; };
 /* End PBXBuildFile section */
 
@@ -112,6 +113,7 @@
 		0A671C143C8B8AA6E71D5046 /* InboxOrganizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxOrganizer.swift; sourceTree = "<group>"; };
 		0C8C7D0F4914D000D27D69C4 /* WhatPhoneWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatPhoneWidget.swift; sourceTree = "<group>"; };
 		11CFD6F6D4AFB8ABAD4DFDB0 /* RecordingExportService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingExportService.swift; sourceTree = "<group>"; };
+		1245823325CC94B431825FC8 /* PhoneCaptureValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneCaptureValidation.swift; sourceTree = "<group>"; };
 		1330B09BE7A27DED3358758C /* PhoneConnectivityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneConnectivityManager.swift; sourceTree = "<group>"; };
 		14B585B95ED7BF383E24A396 /* SmartSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartSearchView.swift; sourceTree = "<group>"; };
 		1D0B51DE0971B320ECF3899E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -174,6 +176,7 @@
 				0A671C143C8B8AA6E71D5046 /* InboxOrganizer.swift */,
 				3420DB5CB8958565C9B8B79E /* Info.plist */,
 				766855BE51B40DC7C113B75A /* LocalSemanticSearch.swift */,
+				1245823325CC94B431825FC8 /* PhoneCaptureValidation.swift */,
 				1330B09BE7A27DED3358758C /* PhoneConnectivityManager.swift */,
 				E8F96BFC4E2D4DD08402B798 /* PhoneRecordingController.swift */,
 				E3997C787CF6EC5F61396098 /* PhoneRecordingSheet.swift */,
@@ -473,6 +476,7 @@
 				620929503466A26358DDC534 /* ImmediateRecordingPayload.swift in Sources */,
 				AFFF14FF71B201060DB61571 /* InboxOrganizer.swift in Sources */,
 				8429BD4828F55DF8C4718902 /* LocalSemanticSearch.swift in Sources */,
+				F4303B6D62B69352F08A372A /* PhoneCaptureValidation.swift in Sources */,
 				A42F93400DD2B4DFBB398F4A /* PhoneConnectivityManager.swift in Sources */,
 				9624AC1580E81B3F01859FFC /* PhoneRecordingController.swift in Sources */,
 				1BC48103D6E86867BC619F4B /* PhoneRecordingSheet.swift in Sources */,
@@ -576,7 +580,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 13;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = VML75VY94V;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -786,7 +790,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 13;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = VML75VY94V;
 				ENABLE_NS_ASSERTIONS = NO;

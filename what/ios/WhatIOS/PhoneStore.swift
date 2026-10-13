@@ -173,6 +173,26 @@ final class PhoneStore: NSObject, ObservableObject, AVAudioPlayerDelegate {
         repository.audioExists(for: recording)
     }
 
+    func isAudioComplete(_ recording: RecordingEnvelope) -> Bool {
+        guard repository.audioExists(for: recording),
+              let player = try? AVAudioPlayer(contentsOf: repository.audioURL(for: recording))
+        else { return false }
+        return (try? PhoneCaptureValidation.validate(
+            actualDuration: player.duration,
+            elapsedTime: recording.duration
+        )) != nil
+    }
+
+    func beginPhoneCapture() {
+        player?.stop()
+        player = nil
+        playingID = nil
+        // Do not reconfigure the shared audio session while an old recognition
+        // or playback operation is still using it.
+        if transcribingID != nil { cancelTranscription() }
+        showPhoneCapture = true
+    }
+
     func togglePlayback(_ recording: RecordingEnvelope) {
         if playingID == recording.id {
             player?.stop()
@@ -216,6 +236,11 @@ final class PhoneStore: NSObject, ObservableObject, AVAudioPlayerDelegate {
         }
         guard repository.audioExists(for: recording) else {
             errorMessage = "The audio file is missing. Transcription is unavailable."
+            return
+        }
+        guard isAudioComplete(recording) else {
+            errorMessage = "Audio is incomplete: the microphone did not capture the full recording. Please record it again."
+            if batchTranscriptionActive { transcribeNextInBatch() }
             return
         }
         transcribingID = recording.id

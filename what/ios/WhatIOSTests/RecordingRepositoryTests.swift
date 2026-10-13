@@ -866,4 +866,38 @@ final class RecordingRepositoryTests: XCTestCase {
         XCTAssertEqual(RecordingRepository(rootURL: root).transcripts()[id], "Эдельвейс")
     }
 
+    func testPhoneRecorderRejectsThePhysicalSixSecondCaptureWithOnlySixtyMillisecondsOfAudio() {
+        XCTAssertThrowsError(try PhoneCaptureValidation.validate(
+            actualDuration: 0.06, elapsedTime: 6.261625
+        )) { error in
+            guard case PhoneCaptureValidation.CaptureError.incomplete = error else {
+                return XCTFail("Tiny AAC file must be recognized as interrupted capture")
+            }
+        }
+        XCTAssertThrowsError(try PhoneCaptureValidation.validate(
+            actualDuration: 0, elapsedTime: 6.26
+        ))
+        XCTAssertThrowsError(try PhoneCaptureValidation.validate(
+            actualDuration: 2, elapsedTime: 6.26
+        ))
+    }
+
+    func testPhoneRecorderAcceptsRealAudioLengthAndRejectsUnreadableValues() throws {
+        XCTAssertNoThrow(try PhoneCaptureValidation.validate(
+            actualDuration: 6.18, elapsedTime: 6.26
+        ))
+        XCTAssertNoThrow(try PhoneCaptureValidation.validate(
+            actualDuration: 1.88, elapsedTime: 2.0
+        ))
+        XCTAssertThrowsError(try PhoneCaptureValidation.validate(
+            actualDuration: Double.nan, elapsedTime: 1
+        ))
+        XCTAssertThrowsError(try PhoneCaptureValidation.validate(
+            actualDuration: .infinity, elapsedTime: 1
+        ))
+        XCTAssertThrowsError(try PhoneCaptureValidation.validate(
+            actualDuration: 1, elapsedTime: 0
+        ))
+    }
+
 }

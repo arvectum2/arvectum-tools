@@ -152,7 +152,7 @@ struct ContentView: View {
                 }
                 ToolbarItemGroup(placement: .topBarTrailing) {
                     Button {
-                        store.showPhoneCapture = true
+                        store.beginPhoneCapture()
                     } label: {
                         Image(systemName: "plus.circle.fill")
                     }
@@ -223,12 +223,17 @@ struct ContentView: View {
                 Text(duration(recording.duration))
                     .font(.caption.monospacedDigit()).foregroundStyle(.secondary)
             }
-            if store.isAudioAvailable(recording) {
+            if store.isAudioComplete(recording) {
                 Label("Audio saved on iPhone", systemImage: "checkmark.circle.fill")
                     .font(.caption2)
                     .foregroundStyle(.secondary)
             } else {
-                Label("Audio missing on iPhone", systemImage: "exclamationmark.triangle")
+                Label(
+                    store.isAudioAvailable(recording)
+                        ? "Audio incomplete — please re-record"
+                        : "Audio missing on iPhone",
+                    systemImage: "exclamationmark.triangle"
+                )
                     .font(.caption)
                     .foregroundStyle(.orange)
             }

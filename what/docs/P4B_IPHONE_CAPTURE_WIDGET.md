@@ -17,3 +17,16 @@
 - [ ] Add What? widget on iPhone Home Screen; tap and confirm capture opens. First deep-link open may require iOS confirmation.
 - [ ] Test capture and indexing offline, multiple recordings, and interruptions.
 - [ ] Batch transcribe older unindexed audio; confirm index updates without changing existing manual text.
+
+
+## iPhone microphone regression and fix (build 13)
+
+- First physical iPhone capture at 14:56 on 2026-10-13: stored metadata duration 6.261625 s but real AAC duration 0.060000 s, 12 audio bytes (three packets). Missing audio cannot be recovered.
+- Retained all records and backed up data under ArvectumSSD/backups/what-phone-transcription-failure-20261013.
+- Confirmed bug category: recorder clock was trusted as decoded audio duration. Why audio capture stopped (routing/interruptions/hardware) is not demonstrable from original data.
+- Change AVAudioSession to microphone-only mode and use active hardware sample rate; verify input availability. Handle session interruption and unexpected recorder stop. Stop playback and recognition before capturing to avoid shared audio session conflicts.
+- On Stop, finalize M4A and validate decoded duration using AVAudioPlayer: at least 0.5 s and 65% of elapsed wall time. Persist measured decoded duration instead of recorder clock. On failure, keep recovery copy and warn user.
+- Recover staged files only when they also pass persisted elapsed-time validation. Older broken notes show Audio incomplete; no automatic deletion.
+- [x] Simulator unit tests reject real-world failure input 0.06 s / 6.261625 s and accept normal 6.18 s / 6.26 s.
+- [x] Installed iPhone build 13; all pre-existing 15 recordings, 15 .m4a files and 7 transcripts byte-identical after installation (2026-10-13).
+- [ ] Record 5-10 seconds on iPhone, save, listen, and verify successful transcription.
