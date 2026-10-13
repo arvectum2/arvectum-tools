@@ -1,7 +1,7 @@
 # What? — Product Roadmap
 
 **Updated:** 2026-10-13
-**Status:** Build 0.1.0 (5) installed on physical iPhone 13 on 2026-10-13 with all 9 recordings and associated audio preserved byte-identically after the update; Watch app build 0.1.0 (5) installed on physical Apple Watch SE (watchOS 26.6) after recovering the developer tunnel; command-line launch timed out, so actual on-watch launch and recording remain to be checked. Build 5 includes ACK retry hardening and early WatchConnectivity activation, and physical offline batch results from 2026-10-13. Build 4 was previously installed on physical iPhone 13; the user confirmed the two-button Cancel dialog and 3/3 Watch recordings delivered on opening the iPhone app. Automatic background delivery without opening the iPhone is still unverified (Apple schedules background file transfers opportunistically). Not released to App Store.
+**Status:** Build 0.1.0 (6) installed on physical iPhone 13 and Apple Watch SE on 2026-10-13; direct phone repository verification confirmed all nine earlier notes were byte-identical after updating iPhone. Physical fast-path delivery test pending: add immediate watchOS-to-iOS transfer for short audio using WatchConnectivity.sendMessageData, with a durable-store reply and existing background transferFile fallback. Physical Watch/phone build 5 previously installed; offline batch (3/3) and reboot queue persistence passed. The next disposable recording did not background-deliver within the observation window even with Watch UI open: physical test blocker until build 6 fast-path is tested. Not released to App Store.
 **Evidence:** [historical feature-branch roadmap snapshot](docs/history/ROADMAP-feature-what-2026-10-11.md).
 **Shared principles:** [Core](../core/CORE_PRINCIPLES.md); **Growth:** [Growth](../growth/ROADMAP.md).
 
@@ -10,7 +10,8 @@
 - [x] Watch-face entry point and immediate recording UX (source integrated into `main`).
 - [x] Physical offline batch: three recordings queued while disconnected, 3/3 received after opening iPhone app; visible Cancel also confirmed. Watch-to-iPhone automatic background delivery latency remains unverified.
 - [x] Fix potential stuck Watch queue after a lost ACK: allow rate-limited retry with original UUID; activate WCSession on Watch background launch. Code validated by automated tests; physical Watch build 5 installed (2026-10-13), manual launch/reboot/automatic background delivery checks pending.
-- [ ] Complete remaining device-reboot acceptance and deferred background delivery checks (physical checklist: [P0 reliability acceptance](docs/P0_RELIABILITY_ACCEPTANCE.md)).
+- [ ] Verify immediate short-audio delivery using live WatchConnectivity in build 6 (phone app closed), and background fallback when live messaging is unreachable; complete deferred background delivery checks (physical checklist: [P0 reliability acceptance](docs/P0_RELIABILITY_ACCEPTANCE.md)).
+- [x] User confirmed Watch pending queue survives a full offline device reboot (2026-10-13).
 - [ ] Reconcile final physical test evidence and prove no recorded thought is lost.
 
 ## P1 — Voice + text

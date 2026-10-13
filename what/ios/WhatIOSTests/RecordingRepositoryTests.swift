@@ -296,4 +296,69 @@ final class RecordingRepositoryTests: XCTestCase {
         XCTAssertTrue(policy.shouldSchedule(id, isOutstanding: false, at: now))
     }
 
+    func testImmediatePayloadRoundTripAndDurableRecording() throws {
+        let root = FileManager.default.temporaryDirectory
+            .appendingPathComponent("what-live-\(UUID().uuidString)")
+        defer { try? FileManager.default.removeItem(at: root) }
+        try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)
+
+        let recording = RecordingEnvelope(
+            id: UUID(),
+            createdAt: Date(timeIntervalSince1970: 1_700_000_002),
+            duration: 6.5,
+            fileName: "capture.m4a"
+        )
+        let audio = Data("sample-audio-verified-on-device".utf8)
+        let packet = ImmediateRecordingPayload(recording: recording, audio: audio)
+        let decoded = try ImmediateRecordingPayload.decode(packet.encode())
+        XCTAssertEqual(decoded.recording, recording)
+        XCTAssertEqual(decoded.audio, audio)
+
+        let source = root.appendingPathComponent("source.m4a")
+        try decoded.audio.write(to: source)
+        let repo = RecordingRepository(rootURL: root)
+        let received = try repo.acceptTemporaryFile(
+            source, metadata: decoded.metadata
+        )
+        XCTAssertEqual(received.id, recording.id)
+        XCTAssertEqual(repo.allRecordings().count, 1)
+        let stored = try XCTUnwrap(repo.allRecordings().first)
+        XCTAssertEqual(try Data(contentsOf: repo.audioURL(for: stored)), audio)
+
+        let ack = ImmediateRecordingReply(acknowledgedID: recording.id)
+        XCTAssertEqual(try ImmediateRecordingReply.decode(ack.encode()).acknowledgedID,
+                       recording.id)
+    }
+
+    func testLiveAndBackgroundDeliveryDeduplicateAndHonorDeletion() throws {
+        let root = FileManager.default.temporaryDirectory
+            .appendingPathComponent("what-fast-duplicate-\(UUID().uuidString)")
+        defer { try? FileManager.default.removeItem(at: root) }
+        try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)
+
+        let record = RecordingEnvelope(
+            id: UUID(),
+            createdAt: Date(timeIntervalSince1970: 1_700_000_004),
+            duration: 1.3,
+            fileName: "original.m4a"
+        )
+        let payload = try ImmediateRecordingPayload(
+            recording: record, audio: Data("voice".utf8)
+        ).encode()
+        let decoded = try ImmediateRecordingPayload.decode(payload)
+        let source = root.appendingPathComponent("source.m4a")
+        try decoded.audio.write(to: source)
+        let repo = RecordingRepository(rootURL: root)
+        _ = try repo.acceptTemporaryFile(source, metadata: decoded.metadata)
+        _ = try repo.acceptTemporaryFile(source, metadata: decoded.metadata)
+        XCTAssertEqual(repo.allRecordings().map(\.id), [record.id])
+
+        try repo.deleteRecording(record.id)
+        let lateFile = try repo.acceptTemporaryFile(source, metadata: decoded.metadata)
+        guard case .previouslyDeleted(record.id) = lateFile else {
+            return XCTFail("A slow fallback must not revive a deleted live recording")
+        }
+        XCTAssertTrue(repo.allRecordings().isEmpty)
+    }
+
 }

@@ -25,6 +25,9 @@ final class WatchCaptureController: NSObject, ObservableObject, AVAudioRecorderD
 
     // Protected by queueLock along with the durable outbound queue.
     private var retryPolicy = WatchTransferRetryPolicy()
+    private var immediateAttempts = [UUID: Date]()
+    private let immediateRetryInterval: TimeInterval = 20
+
     private var recorder: AVAudioRecorder?
     private var activeRecordingID: UUID?
     private var activeCreatedAt: Date?
@@ -193,6 +196,7 @@ final class WatchCaptureController: NSObject, ObservableObject, AVAudioRecorderD
         let match = queue.first { $0.id == id }
         queue.removeAll { $0.id == id }
         retryPolicy.didAcknowledge(id)
+        immediateAttempts.removeValue(forKey: id)
 
         do {
             try persistQueueLocked()
@@ -253,14 +257,43 @@ final class WatchCaptureController: NSObject, ObservableObject, AVAudioRecorderD
 
         let now = Date()
         for recording in queue {
+            let url = outboundDirectory.appendingPathComponent(recording.fileName)
+            guard fileManager.fileExists(atPath: url.path) else { continue }
+
+            // The foreground Watch app can wake an iPhone app via live messaging.
+            // Keep transferFile as a background fallback even if live delivery fails.
+            if session.isReachable,
+               (immediateAttempts[recording.id] ?? .distantPast)
+                    .addingTimeInterval(immediateRetryInterval) <= now,
+               let size = try? url.resourceValues(forKeys: [.fileSizeKey]).fileSize,
+               size > 0, size <= ImmediateRecordingPayload.maximumAudioBytes,
+               let audio = try? Data(contentsOf: url),
+               let encoded = try? ImmediateRecordingPayload(
+                    recording: recording, audio: audio
+               ).encode() {
+                immediateAttempts[recording.id] = now
+                session.sendMessageData(encoded, replyHandler: { [weak self] response in
+                    guard let reply = try? ImmediateRecordingReply.decode(response),
+                          reply.acknowledgedID == recording.id else { return }
+                    self?.acknowledge(recording.id)
+                }, errorHandler: { _ in
+                    // Keep the queue and allow a live retry on the next pump.
+                    // Already-queued file transfer is not cancelled.
+                })
+                // A lost reply must not leave an active Watch session waiting
+                // indefinitely for the background file fallback.
+                DispatchQueue.main.asyncAfter(
+                    deadline: .now() + immediateRetryInterval
+                ) { [weak self] in
+                    self?.pumpTransfers()
+                }
+            }
+
             guard retryPolicy.shouldSchedule(
                 recording.id,
                 isOutstanding: outstanding.contains(recording.id),
                 at: now
             ) else { continue }
-
-            let url = outboundDirectory.appendingPathComponent(recording.fileName)
-            guard fileManager.fileExists(atPath: url.path) else { continue }
 
             // The queue remains on disk until the iPhone confirms durable storage.
             session.transferFile(url, metadata: [

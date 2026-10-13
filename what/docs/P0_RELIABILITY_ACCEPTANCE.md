@@ -32,3 +32,14 @@ WCSession.transferFile is opportunistic and may be delayed by watchOS/iOS for po
 - Installed signed What? watch app build 0.1.0 (5) directly using `devicectl device install app`. Verified installed bundle version 5 (previous version was 2), device remains connected.
 - `devicectl device process launch` timed out despite successful install, so launching the app on the watch by hand is **not yet verified**. Watch data container export also timed out. Do not claim on-watch P0 acceptance from these commands.
 - No device was unpaired from its consumer companion, reset, or erased.
+
+
+## Short-audio fast path (build 6 installed on both physical devices; pending live test)
+
+- Uses immediate WatchConnectivity.sendMessageData for audio <= 768 KiB when the Watch app is active and the iPhone can be woken in the background.
+- Independently queues background transferFile for offline/unreachable or oversized recordings.
+- The iPhone writes the original audio to durable repository storage, then sends an immediate reply and redundant queued ACK. Watch erases its copy only after successful storage confirmation.
+- Both paths share the recording UUID and repository duplicate/deletion protection.
+- Physical finding: with build 5, an offline rebooted recording stayed in Watch queue after reconnection and after opening Watch app, while the iPhone remained at nine prior recordings. The user had not yet opened the iPhone app for this test at the time of inspection.
+- [ ] Reopen What? on Watch with the iPhone app closed and linked; record a disposable 2-second note. Check Watch pending count clears and iPhone eventually displays exactly one playable copy.
+- [ ] Confirm pre-existing pending recording transfers and is playable, without creating duplicates.
