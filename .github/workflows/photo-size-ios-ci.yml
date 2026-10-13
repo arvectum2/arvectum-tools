@@ -7,11 +7,19 @@ on:
     paths:
       - 'photo-pdf-to-size/ios/**'
       - 'core/packages/**'
+      - 'core/Package.swift'
+      - 'core/dependencies/catalog.json'
+      - 'core/tools/sync_dependencies.py'
+      - 'core/tools/check_swift_lockfiles.py'
       - '.github/workflows/photo-size-ios-ci.yml'
   pull_request:
     paths:
       - 'photo-pdf-to-size/ios/**'
       - 'core/packages/**'
+      - 'core/Package.swift'
+      - 'core/dependencies/catalog.json'
+      - 'core/tools/sync_dependencies.py'
+      - 'core/tools/check_swift_lockfiles.py'
       - '.github/workflows/photo-size-ios-ci.yml'
   workflow_dispatch:
 
@@ -36,6 +44,14 @@ jobs:
         run: |
           xcodebuild -version
           xcodebuild -version | grep -q '^Xcode 27\.'
+
+      - name: Verify architecture, dependency catalog, and Core package
+        working-directory: .
+        run: |
+          python3 core/tools/check_architecture.py
+          python3 core/tools/sync_dependencies.py --check
+          python3 core/tools/check_swift_lockfiles.py
+          swift test --package-path core
 
       - name: Install XcodeGen
         run: brew install xcodegen

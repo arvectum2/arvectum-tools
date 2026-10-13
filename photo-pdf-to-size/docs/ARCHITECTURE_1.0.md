@@ -8,6 +8,7 @@ Keep a compact local-first file tool whose components can be changed and tested 
 
 ```text
 PhotoPodRazmerApp
+   ├── ArvectumCore (local SwiftPM dependency: shared public brand tokens)
    ├── AppModel (@MainActor, observable state)
    │   ├── Model/AppModel+Navigation       mode/input selection
    │   ├── Model/AppModel+Import           PhotosUI + Files + security-scoped read
@@ -60,3 +61,19 @@ The `Views` layer observes `AppModel`. It does not modify JPEG/PDF bytes. `AppMo
 ## Next modularization (after 1.0)
 
 Only if test data reveals a need: inject engine protocols for fault-injection tests; extract document preset catalog into a versioned package; add low-memory PDF cancellation. Avoid gratuitous network dependencies, class hierarchies and over-generalized abstractions.
+
+## Core integration and advertising dependency maintenance (2026-10-13)
+
+- `ArvectumCore` is now linked as a local SwiftPM product, replacing direct compilation of `ArvectumPalette.swift` in this app. Shared palette values are `public`; app-specific adaptive colors remain in `Views/ArvectumColors.swift`.
+- The app does not import other product modules. The single-package Core target also contains generic codecs/diagnostics, which are not invoked by Photo/PDF; avoid extracting new abstractions until reuse is proven.
+- Yandex Mobile Ads is pinned **exactly to 8.6.0** through `core/dependencies/catalog.json` and the checked-in SwiftPM lockfile. This is the latest stable version verified on 2026-10-13. SDK 8.6 offers new native SwiftUI components, but the existing UIKit native renderer is intentionally retained to avoid changing ad UX, fill behavior, and consent semantics during a Core maintenance patch.
+- No ad IDs, ATT/consent defaults, privacy copy, feature behavior, or App Store versions are changed in this patch. Device-level ad and ATT smoke tests remain a release gate.
+- CI includes Core/package/catalog changes in the iOS build trigger; Android Gradle version-catalog updates trigger the Android workflow.
+
+## Verification record — 2026-10-13
+
+- Xcode 27 on Mac mini: `swift test --package-path core` passed 4 tests; iOS unit suite passed 28 tests.
+- Fresh iOS 27 iPhone 17e simulator: 5 applicable UI tests passed (4 workflow tests plus 1 layout regression); 5 physical-device Files tests correctly skipped. An initial run against an already-running iPhone 18 Pro simulator hit an Xcode accessibility test-runner initialization timeout, not an app assertion; the isolated simulator rerun succeeded.
+- Android Gradle (`test lintDebug assembleDebug`): all tasks successful. Gradle emitted deprecated-feature warnings for future Gradle 10 migration, with no test or build failures.
+- `check_architecture.py`, dependency synchronization, SwiftPM lock audit and `git diff --check`: passed.
+- Physical iPhone advertising/ATT and actual Files/export acceptance remain necessary before a signed App Store submission.

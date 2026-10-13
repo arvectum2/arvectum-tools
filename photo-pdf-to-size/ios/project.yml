@@ -12,6 +12,8 @@ settings:
     SWIFT_VERSION: "5.0"
 
 packages:
+  ArvectumCore:
+    path: ../../core
   YandexMobileAds:
     url: https://github.com/yandexmobile/yandex-ads-sdk-ios
     exactVersion: 8.6.0
@@ -22,7 +24,6 @@ targets:
     platform: iOS
     deploymentTarget: "17.0"
     sources:
-      - path: ../../core/packages/ArvectumDesignTokens/ArvectumPalette.swift
       - path: PhotoPodRazmer
     info:
       path: PhotoPodRazmer/Info.plist
@@ -267,6 +268,8 @@ targets:
         UISupportedInterfaceOrientations:
           - UIInterfaceOrientationPortrait
     dependencies:
+      - package: ArvectumCore
+        product: ArvectumCore
       - package: YandexMobileAds
         product: YandexMobileAds
     settings:
