@@ -1,7 +1,7 @@
 # What? — Product Roadmap
 
 **Updated:** 2026-10-13
-**Status:** As of 2026-10-13, What? 0.1.0 (10) is installed on physical iPhone 13 with a compact action row that keeps Play/Stop and Transcribe/Edit text readable and moves export/retranscription/archive/delete into an accessible overflow menu. Verified with screenshots from an iPhone 13 simulator at both standard and Accessibility Medium text sizes; long labels never wrap within a button. iOS simulator tests pass, physical UI confirmation pending. Export was confirmed successful by the user in build 9; export internals are unchanged in build 10. Original 12 recordings, 12 .m4a files and 5 transcripts are byte-identical before/after upgrade. Companion Watch build 9/10 remains unverified on the physical Watch due to Xcode developer tunnel instability; Watch build 6 was working with instant transfer. App Store submission pending.
+**Status:** As of 2026-10-13, What? 0.1.0 (10) is installed on physical iPhone 13 with a compact action row that keeps Play/Stop and Transcribe/Edit text readable and moves export/retranscription/archive/delete into an accessible overflow menu. Verified with screenshots from an iPhone 13 simulator at both standard and Accessibility Medium text sizes; long labels never wrap within a button. iOS simulator tests pass, physical compact UI confirmed more convenient by the user. Export was confirmed successful by the user in build 9; export internals are unchanged in build 10. Original 12 recordings, 12 .m4a files and 5 transcripts are byte-identical before/after upgrade. Companion Watch build 10 was successfully installed in-place on the physical Apple Watch SE via Xcode developer tunnel on 2026-10-13 (devicectl install returned success), but the tunnel disconnected again before an independent installed-version query. Watch queue status display and fast-transfer regression on build 10 await user confirmation. App Store submission pending.
 **Evidence:** [historical feature-branch roadmap snapshot](docs/history/ROADMAP-feature-what-2026-10-11.md).
 **Shared principles:** [Core](../core/CORE_PRINCIPLES.md); **Growth:** [Growth](../growth/ROADMAP.md).
 
@@ -36,7 +36,7 @@
 
 - [x] Compact iPhone recording controls, eliminating 4-button overflow and word wrapping. Primary Play and text action stay visible; secondary export/retry/archive/delete moved to More menu. Verified on iPhone 13 simulator at normal/Accessibility Medium font sizes and shipped to iPhone build 10 (physical confirmation pending).
 
-## P3 — Apple Notes / Shortcuts
+- [ ] Physically verify iPhone receives the Watch queue snapshot after opening What? on Apple Watch build 10; validate timestamp and queuing/clearing states. The Xcode device tunnel remains intermittent despite successful in-place installation.\n\n## P3 — Apple Notes / Shortcuts
 - [x] Implement local iOS share sheet exports for original audio (.m4a), editable transcript (.txt), or both; staged copies removed after sharing; source files untouched. Build 9, automated tests pass; physical sharing acceptance pending.
 - [ ] Test Save to Files / Apple Notes / Shortcuts on physical iPhone; add direct Shortcuts actions only if user demand justifies the extra complexity.
 
