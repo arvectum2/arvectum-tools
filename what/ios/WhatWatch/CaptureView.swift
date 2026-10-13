@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct CaptureView: View {
-    @StateObject private var controller = WatchCaptureController()
+    @ObservedObject var controller: WatchCaptureController
 
     var body: some View {
         VStack(spacing: 12) {

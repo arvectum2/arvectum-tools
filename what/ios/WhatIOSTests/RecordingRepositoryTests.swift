@@ -269,4 +269,31 @@ final class RecordingRepositoryTests: XCTestCase {
         )
     }
 
+    func testWatchRetryWaitsForACKWithoutDuplicatingOutstandingTransfers() {
+        var policy = WatchTransferRetryPolicy()
+        let id = UUID()
+        let now = Date(timeIntervalSince1970: 1_700_000_000)
+
+        XCTAssertTrue(policy.shouldSchedule(id, isOutstanding: false, at: now))
+        policy.didSchedule(id, at: now)
+        XCTAssertFalse(policy.shouldSchedule(id, isOutstanding: true, at: now.addingTimeInterval(200)))
+        XCTAssertFalse(policy.shouldSchedule(id, isOutstanding: false, at: now.addingTimeInterval(89)))
+
+        policy.didComplete(id, at: now.addingTimeInterval(10))
+        XCTAssertFalse(policy.shouldSchedule(id, isOutstanding: false, at: now.addingTimeInterval(99)))
+        XCTAssertTrue(policy.shouldSchedule(id, isOutstanding: false, at: now.addingTimeInterval(100)))
+        policy.didAcknowledge(id)
+        XCTAssertTrue(policy.shouldSchedule(id, isOutstanding: false, at: now))
+    }
+
+    func testWatchTransferFailureAllowsRetryAndOtherUUIDsAreIndependent() {
+        var policy = WatchTransferRetryPolicy()
+        let id = UUID(), otherID = UUID()
+        let now = Date(timeIntervalSince1970: 1_700_000_000)
+        policy.didSchedule(id, at: now)
+        XCTAssertTrue(policy.shouldSchedule(otherID, isOutstanding: false, at: now))
+        policy.didFail(id)
+        XCTAssertTrue(policy.shouldSchedule(id, isOutstanding: false, at: now))
+    }
+
 }

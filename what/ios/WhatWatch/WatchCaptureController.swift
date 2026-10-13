@@ -21,7 +21,10 @@ final class WatchCaptureController: NSObject, ObservableObject, AVAudioRecorderD
     private let queueIndexURL: URL
 
     private var queue: [RecordingEnvelope] = []
-    private var scheduledIDs = Set<UUID>()
+    static let shared = WatchCaptureController()
+
+    // Protected by queueLock along with the durable outbound queue.
+    private var retryPolicy = WatchTransferRetryPolicy()
     private var recorder: AVAudioRecorder?
     private var activeRecordingID: UUID?
     private var activeCreatedAt: Date?
@@ -189,7 +192,7 @@ final class WatchCaptureController: NSObject, ObservableObject, AVAudioRecorderD
         queueLock.lock()
         let match = queue.first { $0.id == id }
         queue.removeAll { $0.id == id }
-        scheduledIDs.remove(id)
+        retryPolicy.didAcknowledge(id)
 
         do {
             try persistQueueLocked()
@@ -245,26 +248,28 @@ final class WatchCaptureController: NSObject, ObservableObject, AVAudioRecorderD
             ($0.file.metadata?[TransferMetadataKey.id] as? String).flatMap(UUID.init(uuidString:))
         })
 
-        for recording in queueSnapshot() {
-            queueLock.lock()
-            let alreadyScheduled = scheduledIDs.contains(recording.id)
-            queueLock.unlock()
+        queueLock.lock()
+        defer { queueLock.unlock() }
 
-            guard !alreadyScheduled, !outstanding.contains(recording.id) else { continue }
+        let now = Date()
+        for recording in queue {
+            guard retryPolicy.shouldSchedule(
+                recording.id,
+                isOutstanding: outstanding.contains(recording.id),
+                at: now
+            ) else { continue }
 
             let url = outboundDirectory.appendingPathComponent(recording.fileName)
             guard fileManager.fileExists(atPath: url.path) else { continue }
 
+            // The queue remains on disk until the iPhone confirms durable storage.
             session.transferFile(url, metadata: [
                 TransferMetadataKey.type: TransferMetadataKey.recording,
                 TransferMetadataKey.id: recording.id.uuidString,
                 TransferMetadataKey.createdAt: recording.createdAt.timeIntervalSince1970,
                 TransferMetadataKey.duration: recording.duration
             ])
-
-            queueLock.lock()
-            scheduledIDs.insert(recording.id)
-            queueLock.unlock()
+            retryPolicy.didSchedule(recording.id, at: now)
         }
     }
 
@@ -276,6 +281,11 @@ final class WatchCaptureController: NSObject, ObservableObject, AVAudioRecorderD
         if activationState == .activated {
             pumpTransfers()
         }
+    }
+
+    func sessionReachabilityDidChange(_ session: WCSession) {
+        // Helps pending transfers resume quickly when both apps are already active.
+        if session.isReachable { pumpTransfers() }
     }
 
     func session(_ session: WCSession, didReceiveUserInfo userInfo: [String: Any] = [:]) {
@@ -302,16 +312,21 @@ final class WatchCaptureController: NSObject, ObservableObject, AVAudioRecorderD
             return
         }
 
+        queueLock.lock()
         if error != nil {
-            queueLock.lock()
-            scheduledIDs.remove(id)
-            queueLock.unlock()
-
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in
-                self?.pumpTransfers()
-            }
+            retryPolicy.didFail(id)
+        } else {
+            retryPolicy.didComplete(id, at: Date())
         }
-        // Success stays scheduled until the phone confirms durable storage.
+        queueLock.unlock()
+
+        // If transfer succeeded but ACK was lost, retry with the same UUID.
+        // When suspended, reopening the Watch app invokes pumpTransfers instead.
+        let delay: TimeInterval = error == nil
+            ? WatchTransferRetryPolicy.acknowledgementGracePeriod : 2
+        DispatchQueue.main.asyncAfter(deadline: .now() + delay) { [weak self] in
+            self?.pumpTransfers()
+        }
     }
 
     func audioRecorderEncodeErrorDidOccur(_ recorder: AVAudioRecorder, error: Error?) {

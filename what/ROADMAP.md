@@ -1,14 +1,16 @@
 # What? — Product Roadmap
 
 **Updated:** 2026-10-13
-**Status:** Development-only build 0.1.0 (4) installed on physical iPhone 13 on 2026-10-13; not released to App Store. User verified actual deletion in build 3. Build 4 replaces the dismissible action sheet with a two-button alert (Cancel/Delete permanently), awaiting visual confirmation. Before build 4, six remaining audio recordings and transcripts were backed up; all app data was verified byte-identical after installation.
+**Status:** Build 0.1.0 (5) installed on physical iPhone 13 on 2026-10-13 with all 9 recordings and associated audio preserved byte-identically after the update; bundled Watch update is signed but has not been verified installed on physical Watch. Build 5 includes ACK retry hardening and early WatchConnectivity activation, and physical offline batch results from 2026-10-13. Build 4 was previously installed on physical iPhone 13; the user confirmed the two-button Cancel dialog and 3/3 Watch recordings delivered on opening the iPhone app. Automatic background delivery without opening the iPhone is still unverified (Apple schedules background file transfers opportunistically). Not released to App Store.
 **Evidence:** [historical feature-branch roadmap snapshot](docs/history/ROADMAP-feature-what-2026-10-11.md).
 **Shared principles:** [Core](../core/CORE_PRINCIPLES.md); **Growth:** [Growth](../growth/ROADMAP.md).
 
 ## P0 — Reliable Apple Watch capture
 - [x] Watch recording, UUID/time, durable local queue, opportunistic transfer to iPhone, ACK and deduplication (implemented in `main`).
 - [x] Watch-face entry point and immediate recording UX (source integrated into `main`).
-- [ ] Complete remaining disconnected-device, multiple-pending-recording and device-reboot acceptance cases (physical checklist: [P0 reliability acceptance](docs/P0_RELIABILITY_ACCEPTANCE.md)).
+- [x] Physical offline batch: three recordings queued while disconnected, 3/3 received after opening iPhone app; visible Cancel also confirmed. Watch-to-iPhone automatic background delivery latency remains unverified.
+- [x] Fix potential stuck Watch queue after a lost ACK: allow rate-limited retry with original UUID; activate WCSession on Watch background launch. Code validated by automated tests; physical Watch deployment and retest pending.
+- [ ] Complete remaining device-reboot acceptance and deferred background delivery checks (physical checklist: [P0 reliability acceptance](docs/P0_RELIABILITY_ACCEPTANCE.md)).
 - [ ] Reconcile final physical test evidence and prove no recorded thought is lost.
 
 ## P1 — Voice + text
