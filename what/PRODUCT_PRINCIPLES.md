@@ -8,9 +8,9 @@
 
 ## Capture is the product
 
-The normal experience: **tap the Apple Watch complication → recording starts → speak → stop → original audio is durably saved**.
+The normal experience is equally easy on **iPhone and Apple Watch**. On iPhone: **open What? → tap a single large microphone button → speak → stop and save**. On Watch: **tap the complication → speak → stop and save**.
 
-- Capture must not depend on network, iPhone presence, transcription permission, search indexing, language models, Siri, or user login.
+- Capture must not depend on network, transcription permission, indexing, language models, Siri, or login. Watch capture works independently of iPhone presence, while iPhone capture needs no Apple Watch.
 - Original audio remains the source of truth. On the Watch, retain it through failed transfers, reboots and lost ACKs; delete the local outbound copy only after confirmed durable receipt on iPhone.
 - Do not block starting recording on postprocessing, pending model downloads or organizing the library.
 - Make start/stop state and successful durable save obvious. Minimize screens, prompts and configuration after initial microphone permission.
@@ -21,6 +21,14 @@ The normal experience: **tap the Apple Watch complication → recording starts �
 - Tap-to-record start target: **2 seconds or less at p95**, measured on the physical Watch under normal ready conditions; log cold launch separately.
 - No lost saved recordings during Watch offline periods, app termination, Watch restart, multiple queued recordings, ACK loss/retry and reconnection (verify across repeated stress runs).
 - Instrument tap, microphone start, local file finalization, enqueue, transfer and iPhone ACK times in local diagnostics. Never upload speech for telemetry.
+
+## Primary iPhone experience
+
+- App launch opens one Shazam-inspired large microphone button, not the notes inbox.
+- One tap starts phone capture immediately; only the first OS microphone permission dialog may intervene.
+- A bottom My recordings card opens the existing full inbox, search, playback, archive, transcription and export UI.
+- The library has a one-tap return to Capture. The widget and record deep link retain their instant behavior.
+- Recordings are preserved independently of search, cloud services or transcription.
 
 ## Review happens later
 
@@ -40,7 +48,7 @@ Commercial redistribution rights for the private RuWordNet-derived dataset bundl
 
 ## Next engineering order
 
-1. Measure and optimize one-tap Apple Watch microphone readiness.
+1. Measure and optimize one-tap iPhone and Apple Watch microphone readiness.
 2. Verify robust offline local save, queue, transfer/ACK, retransmission, crash and reboot recovery.
 3. Refine fast iPhone review: audio playback, transcription status, transcript edit, simple correct search and export.
 4. Only then test Siri/Shortcuts convenience.

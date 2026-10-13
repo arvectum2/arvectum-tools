@@ -4,7 +4,7 @@ What? is a local-first voice memory app for Apple Watch + iPhone.
 
 **Product promise: Catch the thought before it disappears. Analyze it later.**
 
-Capture is the product; transcription, search, summaries and any future Siri/Shortcuts integration happen only after the original audio is durably saved. No AI/model download/network dependency in the capture critical path. See [Product Principles](PRODUCT_PRINCIPLES.md).
+Capture is the product on **both iPhone and Apple Watch**. iPhone opens straight to the recording button, and all saved notes are one tap away. Transcription, search, summaries and any future Siri/Shortcuts integration happen only after original audio is safely stored. No AI/model download/network dependency in the capture critical path. See [Product Principles](PRODUCT_PRINCIPLES.md).
 
 Core capture contract:
 

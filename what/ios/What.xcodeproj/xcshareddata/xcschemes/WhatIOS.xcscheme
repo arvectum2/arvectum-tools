@@ -50,6 +50,17 @@
                ReferencedContainer = "container:What.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "D1D8C1DDBBB824A85D0D0459"
+               BuildableName = "WhatIOSUITests.xctest"
+               BlueprintName = "WhatIOSUITests"
+               ReferencedContainer = "container:What.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <CommandLineArguments>
       </CommandLineArguments>

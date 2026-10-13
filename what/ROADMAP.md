@@ -2,9 +2,18 @@
 
 **North star (2026-10-13): Catch the thought before it disappears. Analyze it later.** The product is immediate, reliable voice capture, not an AI search engine. See [Product Principles](PRODUCT_PRINCIPLES.md).
 
+### iPhone capture-first home (1.0.0 build 3)
+
+- [x] Launch to a large, single microphone button inspired by Shazam; existing iPhone capture sheet starts audio on appearance.
+- [x] Bottom My recordings card with saved count opens original inbox/Archive/search/playback/transcript/export.
+- [x] Return from library to capture in one tap; widget and deep-link still open immediate recording.
+- [x] Check iOS simulator layout at normal and maximum accessibility system text size.
+- [x] Approved brand emblem integrated as the iPhone/Watch icon and circular one-tap recording button, with reproducible vector source in ios/tools/generate_brand.swift. Released signed App Store archive + exported 1.0.0 (3) IPA. User's records preserved.
+- [ ] Physical iPhone acceptance: new home → capture → stop and save → library → playback and back. Version 1.0.0 (3) installed on iPhone 13; 18 recordings, 18 audio files, 16 transcripts and all 33 existing files verified byte-identical after install.
+
 ### Current engineering priority: Capture First
 
-- [ ] Measure physical Apple Watch complication tap-to-microphone-start latency; target <=2 seconds p95 in normal ready conditions, with cold-launch timing tracked separately.
+- [ ] Measure physical iPhone home-button and Apple Watch complication tap-to-microphone-start latency; target <=2 seconds p95 in normal ready conditions, with cold-launch timing tracked separately.
 - [ ] Validate offline saving with multiple notes, Watch reboot, retransmission after failed ACK, duplicate prevention and delayed automatic delivery.
 - [ ] Verify original audio preserved and playable independently of transcription, models, network, phone connection and search.
 - [ ] Optimize Watch start/stop/durable-save feedback and eliminate any blocking steps from the normal capture path.

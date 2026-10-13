@@ -4,22 +4,22 @@
 - Platforms: iPhone (iOS 17+) + Apple Watch (watchOS 10+)
 - Category: Productivity; free; no ads or in-app purchases
 - English title: What? — Voice Notes
-- English subtitle: Catch thoughts on Apple Watch
+- English subtitle: Catch thoughts in one tap
 - Russian title: What? — Голосовые заметки
-- Russian subtitle: Запиши мысль, пока не ушла
+- Russian subtitle: Запиши мысль в одно касание
 - Support: https://arvectum.com/contact.html
 - Privacy policy: https://arvectum.com/privacy
 - Marketing URL: https://arvectum.com/tools/
 
 ## English description
 
-Catch a thought before it disappears. With What?, one tap on your Apple Watch starts your voice note. Stop when you are ready: your original recording stays on the Watch until safely delivered to your iPhone, including when the phone is offline or away.
+Catch a thought before it disappears. Tap the big microphone button in What? on your iPhone to record immediately. No Apple Watch needed. If you have an Apple Watch, the complication starts recording in one tap without taking out your iPhone. Audio stays safe and local.
 
 On iPhone, play your voice notes, transcribe them on-device, edit text, search by words, archive and export the audio or transcription. No account, no server-side storage, no distractions.
 
 ## Русское описание
 
-Запиши мысль, пока она не ушла. Одно нажатие на Apple Watch — и можно говорить. После остановки оригинальная запись надёжно сохраняется на часах, а при восстановлении связи передаётся на iPhone.
+Запиши мысль, пока она не ушла. Нажми большую кнопку микрофона на iPhone — запись начнётся сразу. Apple Watch не нужны. Если часы есть, запись можно запустить одним нажатием с циферблата. Аудио сохраняется локально.
 
 На iPhone можно слушать записи, расшифровывать их, исправлять текст, искать по словам, архивировать и экспортировать аудио или расшифровку. Без регистрации и облачного хранения записей.
 
@@ -29,13 +29,29 @@ All voice audio and transcriptions remain on the user's paired devices. No analy
 
 - [x] Release source separated from experimental semantic-search corpora.
 - [x] iOS/watchOS signed debug builds installed on real paired devices.
-- [x] 17 iPhone recording entries, 17 M4A audio files, 15 transcripts preserved byte-identically.
+- [x] Final build 1.0.0 (3) physically installed on iPhone 13 after backup; **18 recording records, 18 original M4A files, 16 transcripts and all 33 original app-support files preserved byte-identically**.
 - [x] Watch queue backed up and preserved; no pending transfers at installation.
 - [x] iOS simulator suite: 50 passed, zero failed, three optional experimental checks skipped.
 - [x] Apple required-reason privacy manifests in iOS/watchOS bundles.
 - [x] Release configuration xcarchive generated.
-- [ ] App icon: user to supply one opaque 1024x1024 PNG, used for iPhone and Watch.
-- [ ] Capture-to-microphone p95 measured in physical Watch use; target <=2 sec in warm/normal conditions.
+- [x] App icon supplied by user: matching mint emblem on navy rendered at opaque 1024x1024 for iPhone and Apple Watch. Circular home record button uses matching symbol.
+- [ ] iPhone home → microphone → save → playback physically accepted; Watch and phone start-to-microphone p95 measured; target <=2 sec in warm/normal conditions.
 - [ ] Offline real Watch recording and delayed transfer rechecked on the final signed build.
-- [ ] App Store screenshots without user's private notes.
-- [ ] App Store Connect listing and review submission, after icon is supplied.
+- [x] iPhone 18 Pro Max simulator capture-first screenshot saved at 1320x2868 in releases/what/screenshots; no user's private notes shown.
+- [ ] Additional App Store screenshot review for library and recorder, with only synthetic demonstration content.
+- [x] User-approved What? emblem used for iPhone/Watch icon and circular Quick Capture button; assets in Release 1.0.0 (3).
+- [x] App Store Connect distribution archive and signed IPA successfully exported at releases/what/export-rc3/WhatIOS.ipa (2.3 MB). Exported app has get-task-allow=false.
+- [ ] App Store Connect listing, screenshot upload and review submission (not sent yet; physical final Watch + iPhone acceptance pending).
+
+
+## Release candidate 1.0.0 (3) — 2026-10-13
+
+- Sources: branch release/what-1.0.0, iOS + watchOS apps, WidgetKit complication/phone widget.
+- Capture-first iPhone screen: brand logo, large circular branded record button, local recording begins on a single tap, bottom saved-recordings card. Original inbox/archive/transcription/search/export preserved as a second screen.
+- Original emblem is user-provided. Scalable recreation in ios/tools/generate_brand.swift (source artifact), with iPhone AppIcon and Watch AppIcon fully opaque 1024x1024 PNG and separate mint transparent glyph.
+- Full iOS unit suite: 50 passed, 3 experimental semantic checks skipped, 0 failed.
+- UI interaction test source exists but Simulator AX service failed to initialize in a dedicated attempt (test infrastructure timeout, not a tested acceptance pass). Run separately from reliable unit test scheme. Manual real-device UI acceptance still required.
+- Official archive: /Volumes/ArvectumSSD/Arvectum/releases/what/What-1.0.0-rc3.xcarchive
+- App Store distribution IPA: /Volumes/ArvectumSSD/Arvectum/releases/what/export-rc3/WhatIOS.ipa
+- Verified signed release contains branded iPhone app icon, glyph asset, Watch app + icon, iOS recording widget; original 18/18/16 iPhone user files unchanged byte-for-byte.
+- Remaining: physical iPhone mic capture + navigation, watch complication offline queue / reconnect test on final build, submission screenshots and ASC metadata upload, final Apple review. No user content uploaded anywhere.
