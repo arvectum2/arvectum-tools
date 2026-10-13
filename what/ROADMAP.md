@@ -1,7 +1,7 @@
 # What? — Product Roadmap
 
-**Updated:** 2026-10-11
-**Status:** P0 + initial iPhone playback/on-device transcription implementation on 2026-10-11; **not released to App Store**. Local developer build installed on paired physical iPhone after backing up all 7 existing recordings; manual playback and transcription acceptance still open.
+**Updated:** 2026-10-13
+**Status:** P0 + initial iPhone playback/on-device transcription implementation on 2026-10-11; **not released to App Store**. Local developer build installed on paired physical iPhone after backing up all 7 existing recordings; playback and on-device transcription confirmed on physical iPhone; deletion implemented pending physical acceptance.
 **Evidence:** [historical feature-branch roadmap snapshot](docs/history/ROADMAP-feature-what-2026-10-11.md).
 **Shared principles:** [Core](../core/CORE_PRINCIPLES.md); **Growth:** [Growth](../growth/ROADMAP.md).
 
@@ -14,10 +14,10 @@
 ## P1 — Voice + text
 - [x] Preserve original audio as source of truth; transcript stored separately by recording UUID.
 - [x] Add on-device Speech transcription (explicit permission; no cloud fallback), local text persistence, and play/stop controls.
-- [ ] Verify playback and actual Speech recognition of existing audio on physical iPhone; add language selection, retry/cancel controls and transcript corrections.
+- [x] Verify playback and actual Speech recognition of existing audio on physical iPhone; add language selection and retry transcription.\n- [ ] Editable transcript corrections and explicit transcription cancellation.
 
 ## P2 — iPhone inbox
-- [ ] Today/Yesterday grouping, search, archive/delete and sync status; playback available in initial list.
+- [x] Delete with confirmation from iPhone list, including audio/transcript removal and durable tombstones preventing Watch redelivery.\n- [ ] Today/Yesterday grouping, search, archive and sync status; playback available in initial list.
 
 ## P3 — Apple Notes / Shortcuts
 - [ ] Export and optional system integration without depending on cloud.

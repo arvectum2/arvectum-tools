@@ -37,13 +37,16 @@ final class PhoneConnectivityManager: NSObject, WCSessionDelegate {
         }
 
         do {
-            let recording = try repository.acceptTemporaryFile(file.fileURL, metadata: file.metadata ?? [:])
+            let outcome = try repository.acceptTemporaryFile(file.fileURL, metadata: file.metadata ?? [:])
+            // Already-deleted UUIDs are acknowledged too, so Watch can clear its queue.
             session.transferUserInfo([
                 TransferMetadataKey.type: TransferMetadataKey.acknowledgement,
-                TransferMetadataKey.id: recording.id.uuidString
+                TransferMetadataKey.id: outcome.id.uuidString
             ])
-            DispatchQueue.main.async {
-                NotificationCenter.default.post(name: .whatRecordingReceived, object: recording.id)
+            if case .stored(let recording) = outcome {
+                DispatchQueue.main.async {
+                    NotificationCenter.default.post(name: .whatRecordingReceived, object: recording.id)
+                }
             }
         } catch {
             // No ACK: the Watch keeps its durable local copy and can retry later.

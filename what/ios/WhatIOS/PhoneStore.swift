@@ -30,6 +30,28 @@ final class PhoneStore: NSObject, ObservableObject, AVAudioPlayerDelegate {
         transcripts = repository.transcripts()
     }
 
+    func delete(_ recording: RecordingEnvelope) {
+        if playingID == recording.id {
+            player?.stop()
+            player = nil
+            playingID = nil
+        }
+        if transcribingID == recording.id {
+            transcribingID = nil
+            recognitionTask?.cancel()
+            recognitionTask = nil
+            recognizer = nil
+        }
+
+        do {
+            try repository.deleteRecording(recording.id)
+            reload()
+        } catch {
+            reload()
+            errorMessage = "Recording deletion was not completed: \(error.localizedDescription)"
+        }
+    }
+
     func isAudioAvailable(_ recording: RecordingEnvelope) -> Bool {
         repository.audioExists(for: recording)
     }

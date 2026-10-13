@@ -54,4 +54,149 @@ final class RecordingRepositoryTests: XCTestCase {
             atPath: repository.audioURL(for: recordings[0]).path
         ))
     }
+    func testDeletionErasesAudioTranscriptAndMetadataAndSurvivesRelaunch() throws {
+        let root = FileManager.default.temporaryDirectory
+            .appendingPathComponent("what-delete-\(UUID().uuidString)")
+        defer { try? FileManager.default.removeItem(at: root) }
+        try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)
+        let repo = RecordingRepository(rootURL: root)
+        let source = root.appendingPathComponent("source.m4a")
+        try Data("audio".utf8).write(to: source)
+        let id = UUID()
+        let metadata: [String: Any] = [
+            TransferMetadataKey.id: id.uuidString,
+            TransferMetadataKey.createdAt: Date().timeIntervalSince1970,
+            TransferMetadataKey.duration: 2.5
+        ]
+        let outcome = try repo.acceptTemporaryFile(source, metadata: metadata)
+        guard case .stored(let recording) = outcome else {
+            return XCTFail("Initial transfer should be stored")
+        }
+        try repo.saveTranscript("Private words", for: id)
+        XCTAssertEqual(repo.allRecordings().count, 1)
+        XCTAssertTrue(repo.audioExists(for: recording))
+        XCTAssertEqual(repo.transcripts()[id], "Private words")
+
+        try repo.deleteRecording(id)
+
+        let relaunched = RecordingRepository(rootURL: root)
+        XCTAssertTrue(relaunched.allRecordings().isEmpty)
+        XCTAssertFalse(relaunched.audioExists(for: recording))
+        XCTAssertNil(relaunched.transcripts()[id])
+        XCTAssertFalse(FileManager.default.fileExists(atPath:
+            root.appendingPathComponent("Audio/\(id.uuidString).m4a").path))
+    }
+
+    func testLateWatchRedeliveryDoesNotRestoreDeletedRecording() throws {
+        let root = FileManager.default.temporaryDirectory
+            .appendingPathComponent("what-retry-\(UUID().uuidString)")
+        defer { try? FileManager.default.removeItem(at: root) }
+        try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)
+        let source = root.appendingPathComponent("source.m4a")
+        try Data("audio".utf8).write(to: source)
+        let id = UUID()
+        let metadata: [String: Any] = [
+            TransferMetadataKey.id: id.uuidString,
+            TransferMetadataKey.createdAt: Date().timeIntervalSince1970,
+            TransferMetadataKey.duration: 4.0
+        ]
+        let repo = RecordingRepository(rootURL: root)
+        _ = try repo.acceptTemporaryFile(source, metadata: metadata)
+        try repo.deleteRecording(id)
+
+        let relaunched = RecordingRepository(rootURL: root)
+        let outcome = try relaunched.acceptTemporaryFile(source, metadata: metadata)
+        guard case .previouslyDeleted(let skippedID) = outcome else {
+            return XCTFail("Deleted UUID must be acknowledged without being restored")
+        }
+        XCTAssertEqual(skippedID, id)
+        XCTAssertTrue(relaunched.allRecordings().isEmpty)
+        XCTAssertFalse(FileManager.default.fileExists(atPath:
+            root.appendingPathComponent("Audio/\(id.uuidString).m4a").path))
+        try relaunched.saveTranscript("late", for: id)
+        XCTAssertNil(relaunched.transcripts()[id])
+    }
+
+    func testDeletingOneRecordingPreservesTheOther() throws {
+        let root = FileManager.default.temporaryDirectory
+            .appendingPathComponent("what-two-\(UUID().uuidString)")
+        defer { try? FileManager.default.removeItem(at: root) }
+        try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)
+        let repo = RecordingRepository(rootURL: root)
+        let source = root.appendingPathComponent("source.m4a")
+        try Data("audio".utf8).write(to: source)
+        let ids = [UUID(), UUID()]
+        for id in ids {
+            _ = try repo.acceptTemporaryFile(source, metadata: [
+                TransferMetadataKey.id: id.uuidString,
+                TransferMetadataKey.createdAt: Date().timeIntervalSince1970,
+                TransferMetadataKey.duration: 1.0
+            ])
+            try repo.saveTranscript("Keep \(id.uuidString)", for: id)
+        }
+
+        try repo.deleteRecording(ids[0])
+        XCTAssertEqual(repo.allRecordings().map(\.id), [ids[1]])
+        XCTAssertNotNil(repo.transcripts()[ids[1]])
+        XCTAssertTrue(repo.audioExists(for: repo.allRecordings()[0]))
+        XCTAssertNil(repo.transcripts()[ids[0]])
+    }
+
+    func testDeletedEntryIsCleanedUpOnRelaunchAfterInterruptedDeletion() throws {
+        let root = FileManager.default.temporaryDirectory
+            .appendingPathComponent("what-recovery-\(UUID().uuidString)")
+        defer { try? FileManager.default.removeItem(at: root) }
+        try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)
+        let repo = RecordingRepository(rootURL: root)
+        let source = root.appendingPathComponent("source.m4a")
+        try Data("audio".utf8).write(to: source)
+        let id = UUID()
+        let metadata: [String: Any] = [
+            TransferMetadataKey.id: id.uuidString,
+            TransferMetadataKey.createdAt: Date().timeIntervalSince1970,
+            TransferMetadataKey.duration: 1.0
+        ]
+        _ = try repo.acceptTemporaryFile(source, metadata: metadata)
+        try repo.saveTranscript("Text", for: id)
+        let savedIndex = try Data(contentsOf: root.appendingPathComponent("recordings.json"))
+        let savedText = try Data(contentsOf: root.appendingPathComponent("transcripts.json"))
+        try repo.deleteRecording(id)
+
+        // Simulate interrupted cleanup leaving stale files after tombstone commit.
+        try savedIndex.write(to: root.appendingPathComponent("recordings.json"))
+        try savedText.write(to: root.appendingPathComponent("transcripts.json"))
+        try Data("audio".utf8).write(
+            to: root.appendingPathComponent("Audio/\(id.uuidString).m4a"))
+
+        let reopened = RecordingRepository(rootURL: root)
+        XCTAssertTrue(reopened.allRecordings().isEmpty)
+        XCTAssertNil(reopened.transcripts()[id])
+        XCTAssertFalse(FileManager.default.fileExists(atPath:
+            root.appendingPathComponent("Audio/\(id.uuidString).m4a").path))
+    }
+
+    func testSeparateRepositoriesRespectTheSameDeletionLedger() throws {
+        let root = FileManager.default.temporaryDirectory
+            .appendingPathComponent("what-instances-\(UUID().uuidString)")
+        defer { try? FileManager.default.removeItem(at: root) }
+        try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)
+        let storeRepository = RecordingRepository(rootURL: root)
+        let transferRepository = RecordingRepository(rootURL: root)
+        let source = root.appendingPathComponent("source.m4a")
+        try Data("audio".utf8).write(to: source)
+        let id = UUID()
+        let metadata: [String: Any] = [
+            TransferMetadataKey.id: id.uuidString,
+            TransferMetadataKey.createdAt: Date().timeIntervalSince1970,
+            TransferMetadataKey.duration: 1.0
+        ]
+        _ = try transferRepository.acceptTemporaryFile(source, metadata: metadata)
+        try storeRepository.deleteRecording(id)
+        let response = try transferRepository.acceptTemporaryFile(source, metadata: metadata)
+        guard case .previouslyDeleted(let deletedID) = response else {
+            return XCTFail("Shared storage deletion must be visible to transfer instance")
+        }
+        XCTAssertEqual(deletedID, id)
+    }
+
 }

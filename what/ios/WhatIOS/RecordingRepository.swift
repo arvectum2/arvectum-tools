@@ -1,5 +1,17 @@
 import Foundation
 
+enum IncomingRecordingResult {
+    case stored(RecordingEnvelope)
+    case previouslyDeleted(UUID)
+
+    var id: UUID {
+        switch self {
+        case .stored(let recording): return recording.id
+        case .previouslyDeleted(let id): return id
+        }
+    }
+}
+
 final class RecordingRepository {
     enum RepositoryError: Error { case invalidMetadata }
 
@@ -8,7 +20,11 @@ final class RecordingRepository {
     private let audioDirectory: URL
     private let indexURL: URL
     private let transcriptURL: URL
-    private let lock = NSLock()
+    private let deletedIDsURL: URL
+    // PhoneStore and WatchConnectivity use different repository instances.
+    // A shared lock serializes transfer and deletion against the same files.
+    private static let sharedStorageLock = NSLock()
+    private var lock: NSLock { Self.sharedStorageLock }
 
     init(rootURL: URL? = nil, fileManager: FileManager = .default) {
         self.fileManager = fileManager
@@ -21,13 +37,19 @@ final class RecordingRepository {
         audioDirectory = self.rootURL.appendingPathComponent("Audio", isDirectory: true)
         indexURL = self.rootURL.appendingPathComponent("recordings.json")
         transcriptURL = self.rootURL.appendingPathComponent("transcripts.json")
+        deletedIDsURL = self.rootURL.appendingPathComponent("deleted-recordings.json")
         try? fileManager.createDirectory(at: audioDirectory, withIntermediateDirectories: true)
+        // Finish cleanup interrupted after writing the durable deletion marker.
+        try? resumePendingDeletions()
     }
 
     func allRecordings() -> [RecordingEnvelope] {
         lock.lock()
         defer { lock.unlock() }
-        return loadIndex().sorted { $0.createdAt > $1.createdAt }
+        // If the deletion ledger cannot be read, do not risk displaying erased entries.
+        guard let deleted = try? loadDeletedIDs() else { return [] }
+        return loadIndex().filter { !deleted.contains($0.id) }
+            .sorted { $0.createdAt > $1.createdAt }
     }
 
     func audioURL(for recording: RecordingEnvelope) -> URL {
@@ -35,7 +57,7 @@ final class RecordingRepository {
     }
 
     @discardableResult
-    func acceptTemporaryFile(_ sourceURL: URL, metadata: [String: Any]) throws -> RecordingEnvelope {
+    func acceptTemporaryFile(_ sourceURL: URL, metadata: [String: Any]) throws -> IncomingRecordingResult {
         guard
             let idString = metadata[TransferMetadataKey.id] as? String,
             let id = UUID(uuidString: idString),
@@ -46,6 +68,11 @@ final class RecordingRepository {
         lock.lock()
         defer { lock.unlock() }
 
+        // A late Watch transfer must still be ACKed, but never resurrect deleted data.
+        if try loadDeletedIDs().contains(id) {
+            return .previouslyDeleted(id)
+        }
+
         var index = loadIndex()
         let fileName = "\(id.uuidString).m4a"
         let destination = audioDirectory.appendingPathComponent(fileName)
@@ -54,7 +81,7 @@ final class RecordingRepository {
             if !fileManager.fileExists(atPath: destination.path) {
                 try persistIncomingFile(from: sourceURL, to: destination)
             }
-            return existing
+            return .stored(existing)
         }
 
         try persistIncomingFile(from: sourceURL, to: destination)
@@ -66,7 +93,54 @@ final class RecordingRepository {
         )
         index.append(recording)
         try persistIndex(index)
-        return recording
+        return .stored(recording)
+    }
+
+    /// A durable deletion marker is written before any data is erased. This makes
+    /// deletion resilient to interrupted cleanup and late WatchConnectivity retries.
+    func deleteRecording(_ id: UUID) throws {
+        lock.lock()
+        defer { lock.unlock() }
+
+        var deleted = try loadDeletedIDs()
+        if deleted.insert(id).inserted {
+            try persistDeletedIDs(deleted)
+        }
+
+        try cleanupDeletedArtifacts(deleted)
+    }
+
+    private func resumePendingDeletions() throws {
+        lock.lock()
+        defer { lock.unlock() }
+        try cleanupDeletedArtifacts(loadDeletedIDs())
+    }
+
+    // Caller must hold the shared storage lock.
+    private func cleanupDeletedArtifacts(_ deleted: Set<UUID>) throws {
+        guard !deleted.isEmpty else { return }
+        let index = loadIndex()
+        let remaining = index.filter { !deleted.contains($0.id) }
+        if remaining.count != index.count {
+            try persistIndex(remaining)
+        }
+
+        let existing = loadTranscripts()
+        let cleaned = existing.filter {
+            guard let id = UUID(uuidString: $0.key) else { return true }
+            return !deleted.contains(id)
+        }
+        if cleaned.count != existing.count {
+            try ArvectumJSONCodec.encode(cleaned).write(to: transcriptURL, options: .atomic)
+        }
+
+        for id in deleted {
+            // Use the canonical UUID-based filename, never a stored path.
+            let audio = audioDirectory.appendingPathComponent("\(id.uuidString).m4a")
+            if fileManager.fileExists(atPath: audio.path) {
+                try fileManager.removeItem(at: audio)
+            }
+        }
     }
 
     func audioExists(for recording: RecordingEnvelope) -> Bool {
@@ -76,11 +150,10 @@ final class RecordingRepository {
     func transcripts() -> [UUID: String] {
         lock.lock()
         defer { lock.unlock() }
-        guard let data = try? Data(contentsOf: transcriptURL),
-              let decoded = try? ArvectumJSONCodec.decode([String: String].self, from: data)
-        else { return [:] }
-        return Dictionary(uniqueKeysWithValues: decoded.compactMap { key, value in
-            guard let id = UUID(uuidString: key) else { return nil }
+        // Exclude tombstoned transcripts even if a previous cleanup was interrupted.
+        guard let deleted = try? loadDeletedIDs() else { return [:] }
+        return Dictionary(uniqueKeysWithValues: loadTranscripts().compactMap { key, value in
+            guard let id = UUID(uuidString: key), !deleted.contains(id) else { return nil }
             return (id, value)
         })
     }
@@ -88,12 +161,30 @@ final class RecordingRepository {
     func saveTranscript(_ text: String, for id: UUID) throws {
         lock.lock()
         defer { lock.unlock() }
-        var existing: [String: String] = [:]
-        if let data = try? Data(contentsOf: transcriptURL) {
-            existing = (try? ArvectumJSONCodec.decode([String: String].self, from: data)) ?? [:]
-        }
+        guard !(try loadDeletedIDs()).contains(id) else { return }
+        var existing = loadTranscripts()
         existing[id.uuidString] = text
         try ArvectumJSONCodec.encode(existing).write(to: transcriptURL, options: .atomic)
+    }
+
+    private func loadTranscripts() -> [String: String] {
+        guard let data = try? Data(contentsOf: transcriptURL) else { return [:] }
+        return (try? ArvectumJSONCodec.decode([String: String].self, from: data)) ?? [:]
+    }
+
+    private func loadDeletedIDs() throws -> Set<UUID> {
+        guard fileManager.fileExists(atPath: deletedIDsURL.path) else { return [] }
+        let data = try Data(contentsOf: deletedIDsURL)
+        let strings = try ArvectumJSONCodec.decode([String].self, from: data)
+        guard strings.allSatisfy({ UUID(uuidString: $0) != nil }) else {
+            throw RepositoryError.invalidMetadata
+        }
+        return Set(strings.compactMap(UUID.init(uuidString:)))
+    }
+
+    private func persistDeletedIDs(_ ids: Set<UUID>) throws {
+        let data = try ArvectumJSONCodec.encode(ids.map(\.uuidString).sorted())
+        try data.write(to: deletedIDsURL, options: .atomic)
     }
 
     private func persistIncomingFile(from sourceURL: URL, to destination: URL) throws {

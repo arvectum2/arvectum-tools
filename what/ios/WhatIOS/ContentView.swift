@@ -2,6 +2,7 @@ import SwiftUI
 
 struct ContentView: View {
     @EnvironmentObject private var store: PhoneStore
+    @State private var recordingToDelete: RecordingEnvelope?
 
     var body: some View {
         NavigationStack {
@@ -15,6 +16,20 @@ struct ContentView: View {
                 } else {
                     List(store.recordings) { recording in
                         recordingRow(recording)
+                            .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+                                Button(role: .destructive) {
+                                    recordingToDelete = recording
+                                } label: {
+                                    Label("Delete", systemImage: "trash")
+                                }
+                            }
+                            .contextMenu {
+                                Button(role: .destructive) {
+                                    recordingToDelete = recording
+                                } label: {
+                                    Label("Delete recording", systemImage: "trash")
+                                }
+                            }
                     }
                     .listStyle(.plain)
                 }
@@ -32,6 +47,23 @@ struct ContentView: View {
                 }
             }
             .tint(Color(red: 67 / 255, green: 229 / 255, blue: 197 / 255))
+            .confirmationDialog(
+                "Delete recording?",
+                isPresented: Binding(
+                    get: { recordingToDelete != nil },
+                    set: { if !$0 { recordingToDelete = nil } }
+                ),
+                titleVisibility: .visible,
+                presenting: recordingToDelete
+            ) { recording in
+                Button("Delete permanently", role: .destructive) {
+                    store.delete(recording)
+                    recordingToDelete = nil
+                }
+                Button("Cancel", role: .cancel) { recordingToDelete = nil }
+            } message: { _ in
+                Text("The audio and transcript will be deleted from this iPhone. This cannot be undone.")
+            }
             .alert("What?", isPresented: Binding(
                 get: { store.errorMessage != nil },
                 set: { if !$0 { store.errorMessage = nil } }
