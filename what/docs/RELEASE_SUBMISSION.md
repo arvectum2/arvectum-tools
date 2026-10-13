@@ -7,7 +7,7 @@
 - English subtitle: Catch thoughts on Apple Watch
 - Russian title: What? — Голосовые заметки
 - Russian subtitle: Запиши мысль, пока не ушла
-- Support: https://arvectum.com/contact
+- Support: https://arvectum.com/contact.html
 - Privacy policy: https://arvectum.com/privacy
 - Marketing URL: https://arvectum.com/tools/
 
