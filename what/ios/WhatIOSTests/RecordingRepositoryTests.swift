@@ -997,4 +997,125 @@ final class RecordingRepositoryTests: XCTestCase {
         ))
     }
 
+    func testLexicalSearchCountShorthandAndNoFuzzyTextMatch() {
+        let two = TranscriptLexicalMatcher.tokens("два")
+        let fromNumbers = TranscriptLexicalMatcher.match(
+            query: two, transcript: "раз 2345"
+        )
+        XCTAssertNotNil(fromNumbers)
+        XCTAssertTrue(fromNumbers?.usedNumberAlias == true)
+        XCTAssertNil(TranscriptLexicalMatcher.match(
+            query: two, transcript: "договор номер 2345"
+        ))
+        XCTAssertNil(TranscriptLexicalMatcher.match(
+            query: TranscriptLexicalMatcher.tokens("тест"),
+            transcript: "это текст"
+        ))
+        XCTAssertNotNil(TranscriptLexicalMatcher.match(
+            query: TranscriptLexicalMatcher.tokens("тест"),
+            transcript: "тестовое сообщение"
+        ))
+        XCTAssertNotNil(TranscriptLexicalMatcher.match(
+            query: TranscriptLexicalMatcher.tokens("тест"),
+            transcript: "контрольный тест"
+        ))
+        XCTAssertNil(TranscriptLexicalMatcher.match(
+            query: TranscriptLexicalMatcher.tokens("текст"),
+            transcript: "тестовое сообщение"
+        ))
+    }
+
+    func testCountingWordsAreExpandedOnlyInOrderedCountContext() {
+        let phrase = TranscriptLexicalMatcher.tokens("раз два три четыре пять")
+        let match = TranscriptLexicalMatcher.match(
+            query: phrase, transcript: "раз 2345 шесть семь"
+        )
+        XCTAssertTrue(match?.usedNumberAlias == true)
+        XCTAssertEqual(match?.score, 1.00)
+        for word in ["два", "три", "четыре", "пять"] {
+            XCTAssertNotNil(TranscriptLexicalMatcher.match(
+                query: TranscriptLexicalMatcher.tokens(word),
+                transcript: "раз 2345"
+            ))
+        }
+        XCTAssertNil(TranscriptLexicalMatcher.match(
+            query: TranscriptLexicalMatcher.tokens("четыре"),
+            transcript: "номер 2345"
+        ))
+        XCTAssertNil(TranscriptLexicalMatcher.match(
+            query: TranscriptLexicalMatcher.tokens("два"),
+            transcript: "в 2026 году"
+        ))
+    }
+
+    func testRussianPrefixMatchingRespectsWordBoundaries() {
+        XCTAssertEqual(TranscriptLexicalMatcher.tokens("ТЁСТ, тест!"), ["тест", "тест"])
+        XCTAssertNotNil(TranscriptLexicalMatcher.match(
+            query: TranscriptLexicalMatcher.tokens("тест"),
+            transcript: "Новая тестовая запись."
+        ))
+        XCTAssertNil(TranscriptLexicalMatcher.match(
+            query: TranscriptLexicalMatcher.tokens("тест"),
+            transcript: "проверка текста"
+        ))
+        XCTAssertNil(TranscriptLexicalMatcher.match(
+            query: TranscriptLexicalMatcher.tokens("тест"),
+            transcript: "нетестовая"
+        ))
+    }
+
+    func testSearchIndexResolvesSpokenDigitsWithoutMatchingTextTypo() throws {
+        let root = FileManager.default.temporaryDirectory
+            .appendingPathComponent("what-digits-retrieval-\(UUID().uuidString)")
+        defer { try? FileManager.default.removeItem(at: root) }
+        let repository = RecordingRepository(rootURL: root)
+        try FileManager.default.createDirectory(
+            at: root, withIntermediateDirectories: true
+        )
+        let audio = root.appendingPathComponent("source.m4a")
+        try Data("fixture".utf8).write(to: audio)
+        let countID = UUID(), textID = UUID(), testID = UUID()
+        for id in [countID, textID, testID] {
+            _ = try repository.acceptTemporaryFile(audio, metadata: [
+                TransferMetadataKey.id: id.uuidString,
+                TransferMetadataKey.createdAt: Date().timeIntervalSince1970,
+                TransferMetadataKey.duration: 4.0
+            ])
+        }
+        try repository.updateTranscript("раз 2345", for: countID)
+        try repository.updateTranscript("это обычный текст", for: textID)
+        try repository.updateTranscript("тестовое сообщение", for: testID)
+        let index = LocalSemanticSearch(
+            cacheURL: root.appendingPathComponent("semantic-search-index.json")
+        )
+        let misleadingVector: LocalSemanticSearch.Vectorizer = { _ in [1, 0] }
+        let recordings = repository.allRecordings()
+        let transcripts = repository.transcripts()
+
+        let two = index.search(
+            query: "два", recordings: recordings, transcripts: transcripts,
+            vectorizer: misleadingVector, modelKey: "test-vectors"
+        )
+        XCTAssertEqual(two.hits.map(\.id), [countID])
+        XCTAssertEqual(two.hits.first?.match, .number)
+        XCTAssertEqual(two.hits.first?.snippet, "раз 2345")
+
+        let test = index.search(
+            query: "тест", recordings: recordings, transcripts: transcripts,
+            vectorizer: misleadingVector, modelKey: "test-vectors"
+        )
+        XCTAssertEqual(test.hits.map(\.id), [testID])
+        XCTAssertEqual(test.hits.first?.match, .text)
+
+        let text = index.search(
+            query: "текст", recordings: recordings, transcripts: transcripts,
+            vectorizer: misleadingVector, modelKey: "test-vectors"
+        )
+        XCTAssertEqual(text.hits.map(\.id), [textID])
+
+        // A search index is derived; the user's original transcript remains
+        // exactly as created by Speech recognition.
+        XCTAssertEqual(repository.transcripts()[countID], "раз 2345")
+    }
+
 }

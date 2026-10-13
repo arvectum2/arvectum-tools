@@ -38,3 +38,21 @@
 - [x] Results now say Exact word search for one-word queries, and offer batch transcription for audio with no text.
 - [ ] Confirm offline recognition of new Edelweiss recording in the app, then search again.
 - [ ] Test hide-keyboard button and swipe dismissal on physical device.
+
+
+## Number normalization and lexical search (build 17)
+
+- Reported behavior: Apple Speech may output "раз 2345" when the speaker said "раз два три четыре пять", so searching for "два" failed. The user also observed "тест" matching "текст".
+- Solution: lexical search matches normalized whole-word tokens and (for queries >=4 letters) beginnings of words. It can find "тестовое" from "тест", but does not equate "тест" with "текст", "нетестовая", or unrelated edit-distance typos.
+- Counting alias: when a run of 3–8 consecutive ascending digits from 1 to 9 immediately follows a counting cue ("раз", "один", etc.), index those as lower-ranked derived Russian word tokens. Example: "раз 2345" is also searchable by "два", "три", "четыре", "пять", and "раз два три". Ordinary years, telephone numbers and standalone identifiers are not split into words.
+- A hit found through a number alias is labeled "Number match", and opens the original transcript/audio. Neither original audio nor manually editable transcript is rewritten.
+- Single-word searches remain lexical only. Multiword queries may additionally use installed on-device semantic embeddings. Search does not silently download language assets or upload audio/text.
+- [x] Automated unit and integration tests for both reported cases passed, including deliberately spurious identical semantic vectors.
+- [ ] Physical iPhone build 17 retest: "два" must find original note with text "раз 2345", "тест" must find "тестовое" but not note containing only "текст".
+
+## Physical installation and privacy-safe live index verification (2026-10-13)
+
+- [x] Signed iPhone build 17 installed in place; before/after full App Support comparison confirms original 17 recording records, 17 audio files and 15 transcript entries byte-identical.
+- [x] Regressions reproduced against actual local transcript backup without disclosing contents: 2 transcripts contained the exact shorthand "раз 2345", and both were retrieved by "два" through numeric alias. 1 transcript containing standalone "текст" without "тест" was not returned by query "тест". Other matches were naturally present.
+- [x] Full iOS simulator test suite passed, including integration search against 3 different saved notes and injected misleading embeddings.
+- [ ] Ask user to verify counts and correct result snippets through real iPhone search UI; check that numeric aliases display Number match.

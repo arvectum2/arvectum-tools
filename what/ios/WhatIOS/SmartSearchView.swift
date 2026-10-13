@@ -165,7 +165,7 @@ struct SmartSearchView: View {
                     Image(systemName: output.semanticAvailable
                           ? "brain" : "text.magnifyingglass")
                     Text(query.split(whereSeparator: { $0.isWhitespace }).count == 1
-                         ? "Exact word search"
+                         ? "Word search (including spoken numbers)"
                          : (output.semanticAvailable
                              ? "Meaning + text search"
                              : "Text search (semantic model not installed)"))

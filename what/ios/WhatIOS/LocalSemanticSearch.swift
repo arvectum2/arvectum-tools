@@ -6,6 +6,7 @@ struct SemanticSearchHit: Identifiable {
     enum Match: String {
         case semantic = "Meaning"
         case text = "Text"
+        case number = "Number"
     }
 
     let recording: RecordingEnvelope
@@ -126,9 +127,7 @@ final class LocalSemanticSearch {
         var cache = loadCache(key: modelKey)
         cache.entries = cache.entries.filter { availableIDs.contains($0.key) && transcripts[$0.key] != nil }
         let queryVector = vectorizer?(needle)
-        let searchTerms = needle.split(whereSeparator: {
-            $0.isWhitespace || $0.isPunctuation
-        })
+        let searchTerms = TranscriptLexicalMatcher.tokens(needle)
         // A single rare word is an exact lookup, not a semantic question.
         // Averaged contextual token vectors give high false-positive cosine
         // scores for unrelated notes on one-word queries.
@@ -157,18 +156,11 @@ final class LocalSemanticSearch {
             var bestSnippet = ""
             var bestMatch = SemanticSearchHit.Match.text
 
-            let words = needle
-                .lowercased()
-                .split(whereSeparator: { $0.isWhitespace || $0.isPunctuation })
-                .map(String.init)
-                .filter { $0.count > 1 }
-
             for (position, chunkText) in sourceChunks.enumerated() {
-                let exact = chunkText.localizedStandardContains(needle)
-                let coverage = words.isEmpty ? 0.0 :
-                    Double(words.filter { chunkText.localizedStandardContains($0) }.count)
-                    / Double(words.count)
-                let lexical = exact ? 1.20 : (coverage >= 0.5 ? coverage * 0.65 : 0.0)
+                let lexicalResult = TranscriptLexicalMatcher.match(
+                    query: searchTerms, transcript: chunkText
+                )
+                let lexical = lexicalResult?.score ?? 0
                 // A contextual embedding can be unavailable even if the model
                 // exists. Never label a text-only hit "semantic".
                 let semantic = queryVector.flatMap { vector in
@@ -182,7 +174,8 @@ final class LocalSemanticSearch {
                     bestScore = score
                     bestSnippet = chunkText
                     bestMatch = validSemantic > lexical
-                        ? .semantic : .text
+                        ? .semantic
+                        : (lexicalResult?.usedNumberAlias == true ? .number : .text)
                 }
             }
             if bestScore > 0 {

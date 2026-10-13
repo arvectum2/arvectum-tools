@@ -30,6 +30,7 @@
 		9624AC1580E81B3F01859FFC /* PhoneRecordingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F96BFC4E2D4DD08402B798 /* PhoneRecordingController.swift */; };
 		A2FFB527B39A111ECF5F3A00 /* RecordingRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BFFB46088A8945C66DFE7F4 /* RecordingRepositoryTests.swift */; };
 		A42F93400DD2B4DFBB398F4A /* PhoneConnectivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1330B09BE7A27DED3358758C /* PhoneConnectivityManager.swift */; };
+		A8AC3088BF322AEB5EB000B8 /* TranscriptLexicalMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CFB25EFAE0D572DD9D7A37D /* TranscriptLexicalMatcher.swift */; };
 		AEB98CE89CFA026E5F1FE370 /* SmartSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B585B95ED7BF383E24A396 /* SmartSearchView.swift */; };
 		AFFF14FF71B201060DB61571 /* InboxOrganizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A671C143C8B8AA6E71D5046 /* InboxOrganizer.swift */; };
 		B227CE21210C43AAEE1D1BB0 /* PhoneStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E401399D9CC19485D6B0BBA7 /* PhoneStore.swift */; };
@@ -133,6 +134,7 @@
 		656D51A35B41EF02C9891B44 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		6FEDFC32DD8C7A561856A386 /* WatchCaptureController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchCaptureController.swift; sourceTree = "<group>"; };
 		766855BE51B40DC7C113B75A /* LocalSemanticSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalSemanticSearch.swift; sourceTree = "<group>"; };
+		7CFB25EFAE0D572DD9D7A37D /* TranscriptLexicalMatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscriptLexicalMatcher.swift; sourceTree = "<group>"; };
 		89A4FCD3C72E787C27B7E3EE /* WatchTransferRetryPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchTransferRetryPolicy.swift; sourceTree = "<group>"; };
 		8BFFB46088A8945C66DFE7F4 /* RecordingRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingRepositoryTests.swift; sourceTree = "<group>"; };
 		94ABD3BF183D4D22AF1CD0B0 /* WhatApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatApp.swift; sourceTree = "<group>"; };
@@ -189,6 +191,7 @@
 				14B585B95ED7BF383E24A396 /* SmartSearchView.swift */,
 				55E1CDF413B1021AF609E11A /* SyncDiagnosticsView.swift */,
 				3FEB908379268EDF523C2242 /* TranscriptEditorSheet.swift */,
+				7CFB25EFAE0D572DD9D7A37D /* TranscriptLexicalMatcher.swift */,
 				94ABD3BF183D4D22AF1CD0B0 /* WhatApp.swift */,
 			);
 			path = WhatIOS;
@@ -491,6 +494,7 @@
 				AEB98CE89CFA026E5F1FE370 /* SmartSearchView.swift in Sources */,
 				095E000031881CF97192ADAC /* SyncDiagnosticsView.swift in Sources */,
 				2FD0DAFDEE58B7F0BCB4612F /* TranscriptEditorSheet.swift in Sources */,
+				A8AC3088BF322AEB5EB000B8 /* TranscriptLexicalMatcher.swift in Sources */,
 				C1FF49CC6828A3F62C630D7B /* WatchQueueSnapshot.swift in Sources */,
 				36706916A594DC5DA493B27E /* WatchTransferRetryPolicy.swift in Sources */,
 				1DB28694A4FB2349E0C75253 /* WhatApp.swift in Sources */,
@@ -584,7 +588,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 16;
+				CURRENT_PROJECT_VERSION = 17;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = VML75VY94V;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -794,7 +798,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 16;
+				CURRENT_PROJECT_VERSION = 17;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = VML75VY94V;
 				ENABLE_NS_ASSERTIONS = NO;
