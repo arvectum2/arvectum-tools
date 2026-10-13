@@ -1,6 +1,6 @@
 # ChickMark — Watch & widget UX audit, 2026-10-13
 
-Status: **code corrections committed; new build and device sign-off PENDING**. Desktop Commander stopped responding mid-audit. No claim of a successful install or end-to-end widget test for this commit.
+Status: **device builds, installations and main-screen/gallery audits verified after RDC reconnection**. Full Lock Screen placement and live physical WatchConnectivity/HealthKit sign-off still need on-device validation.
 
 ## Reviewed scope
 - watchOS: Today row, progress, 0/N track, multi-check controls, day rollover, HealthKit auto-state, VoiceOver targets and values.
@@ -19,20 +19,26 @@ Status: **code corrections committed; new build and device sign-off PENDING**. D
 - Empty small widget no longer centers a misleading 0/0 donut; shows a neutral checkmark/empty description.
 - Progress donuts clamp shrinkable center text.
 
-## Verified before the connection outage
+## Previous baseline checks
 - Earlier build of Watch app and complication extension successful on watchOS simulator (commit a9014d5).
 - Earlier iPhone widget extension build successful and 155 unit tests green (commit a9014d5).
 - Prior Watch SE screenshot inspected; new build not yet verified.
 
-## Sign-off checks blocked
-- [ ] Pull the current GitHub branch on Mac mini; regenerate Xcode project only if necessary.
-- [ ] Compile iOS application, widget extension, watch app, complication target; run localization_audit.py and unit tests.
+## Device and UX sign-off
+- [x] Pulled the latest remote ChickMark branch into clean Mac mini worktree.
+- [x] Signed iPhone app and physical Apple Watch app builds, iPhone widget and watchOS complication builds; RU/EN/ES localization audit and 155/155 unit tests.
 - [ ] Re-run Watch SE 40mm + Series 12 (46mm) screenshots in RU/EN/ES, light/dark where supported and enlarged text.
 - [ ] On simulator Home Screen place ChickMark small and medium widgets, photograph empty / partial / complete / long name / XXL text.
 - [ ] On Lock Screen place inline, rectangular and circular widgets; validate truncation and data.
 - [ ] Verify interactive widget check/uncheck and counter refresh on iPhone (including offline/back-online and date rollover).
 - [ ] On physical watch pair test device-initiated completion and ACK/resync, and watchOS HealthKit authorization.
-- [ ] Install resulting signed iPhone and Watch binaries on connected devices after passing tests.
+- [x] Installed signed iPhone 13 app and Apple Watch SE app on both physical devices; watch app launched successfully through CoreDevice.
+
+- [x] On Apple Watch SE 3 (40mm) simulator visually inspected RU and EN full watch screen (0 of 1 track empty, Water/Vода 3/5 only once).
+- [x] Opened real SpringBoard widget gallery on iPhone 13 simulator, searched for ChickMark, added Small and Medium widgets; confirmed sizes and visible empty states on the rendered Home Screen and gallery.
+- [x] Corrected real UI truncation: small empty label now uses concise RU/EN/ES variants instead of clipped “Nothing scheduled t...”.
+- [x] Corrected misleading 0/0 values on empty medium, circular and inline iPhone widgets, and watchOS complications.
+- [x] Tested widget model date rollover/optimistic commands and Watch state via 155 unit tests; non-persistent test runner deliberately has no real shared App Group access, so this does not prove filled-data widget rendering.
 
 ## Safety
 No data migrations or destructive changes. Never mark this audit as physically complete without screenshots and the above checks.

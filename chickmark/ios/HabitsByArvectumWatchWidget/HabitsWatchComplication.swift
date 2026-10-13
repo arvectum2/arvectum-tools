@@ -85,15 +85,23 @@ struct HabitsWatchComplicationView: View {
     }
 
     private var circular: some View {
-        Gauge(value: entry.snapshot.progress) {
-            Image(systemName: "checkmark")
-        } currentValueLabel: {
-            Text(progressText)
-                .font(.caption2.monospacedDigit())
+        Group {
+            if entry.snapshot.totalCount == 0 {
+                Image(systemName: "checkmark.circle")
+                    .font(.headline)
+                    .accessibilityLabel(L10n.string("watch.widget.empty"))
+            } else {
+                Gauge(value: entry.snapshot.progress) {
+                    Image(systemName: "checkmark")
+                } currentValueLabel: {
+                    Text(progressText)
+                        .font(.caption2.monospacedDigit())
+                }
+                .gaugeStyle(.accessoryCircularCapacity)
+                .accessibilityLabel(L10n.string("watch.widget.title"))
+                .accessibilityValue(progressText)
+            }
         }
-        .gaugeStyle(.accessoryCircularCapacity)
-        .accessibilityLabel(L10n.string("watch.widget.title"))
-        .accessibilityValue(progressText)
     }
 
     private var rectangular: some View {
@@ -103,9 +111,11 @@ struct HabitsWatchComplicationView: View {
                 Text(L10n.string("watch.widget.title"))
                     .font(.headline)
                 Spacer(minLength: 4)
-                Text(progressText)
-                    .font(.caption.weight(.semibold))
-                    .monospacedDigit()
+                if entry.snapshot.totalCount > 0 {
+                    Text(progressText)
+                        .font(.caption.weight(.semibold))
+                        .monospacedDigit()
+                }
             }
 
             if let habit = nextUnresolvedHabit {
@@ -125,13 +135,17 @@ struct HabitsWatchComplicationView: View {
 
     private var inline: some View {
         Label {
-            Text(
-                L10n.format(
-                    "watch.widget.inline.format",
-                    entry.snapshot.resolvedCount,
-                    entry.snapshot.totalCount
+            if entry.snapshot.totalCount == 0 {
+                Text(L10n.string("watch.widget.empty"))
+            } else {
+                Text(
+                    L10n.format(
+                        "watch.widget.inline.format",
+                        entry.snapshot.resolvedCount,
+                        entry.snapshot.totalCount
+                    )
                 )
-            )
+            }
         } icon: {
             Image(systemName: "checkmark.circle.fill")
         }

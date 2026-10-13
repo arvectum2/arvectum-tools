@@ -14,3 +14,4 @@
 "widget.duration.format" = "%d / %d min";
 "widget.action.complete.format" = "Completar %@";
 "widget.action.undo.format" = "Deshacer %@";
+"widget.empty.small" = "Nada para hoy";

@@ -157,3 +157,16 @@ No app-specific tasks are duplicated in Core or Growth.
 - [x] Verify partner.yandex.ru outage (HTTP 503); do not infer placement approval or no-fill status.
 - [ ] After infrastructure recovery, verify Yandex placement registration, ad fill and first revenue impressions in YAN.
 - [ ] Physical Watch and actual Home/Lock Screen widget manual audit.
+
+
+### October 13 — final Watch/widget QA pass after RDC recovery
+- [x] RDC command execution restored; pulled GitHub branch and verified a clean worktree before changes.
+- [x] 155/155 iOS unit tests; RU/EN/ES localization audit.
+- [x] iPhone widget extension, Watch app, complications, and signed physical-device app builds pass.
+- [x] Physical iPhone 13 + Apple Watch SE installs succeeded; physical Watch app launch confirmed.
+- [x] Watch SE simulator RU/EN screenshots visually reviewed.
+- [x] ChickMark appears in SpringBoard gallery; small and medium widgets placed successfully on iPhone 13 simulator.
+- [x] Empty widget layout cleaned: short small-widget text, no 0/0 on medium/lock and Watch complications.
+- [ ] Real nonempty widget interactive check/uncheck/refresh on physical phone, offline and day rollover.
+- [ ] Physical WatchConnectivity + watchOS HealthKit consent + tap on modular watch-face complication.
+- [ ] Manually place and screenshot all three Lock Screen widget formats and Watch face families.
