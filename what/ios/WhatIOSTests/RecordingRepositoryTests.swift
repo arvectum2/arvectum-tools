@@ -1371,4 +1371,91 @@ final class RecordingRepositoryTests: XCTestCase {
         }
     }
 
+
+    func testBundledRussianGraphFindsConceptsAndRejectsControls() throws {
+        let engine = try XCTUnwrap(
+            RussianConceptSearch(), "The local developer bundle must contain the graph"
+        )
+        let examples: [(String, String, Double)] = [
+            ("цветок", "Раз 2345 эдельвейс 6789 10", 0.8),
+            ("журнал", "Мне нужен читательский дневник", 0.8),
+            ("красота", "Упор на красоту и эстетику", 1.0),
+            ("птица", "Сегодня увидел воробья", 0.8),
+            ("рыба", "В пруду живёт карась", 0.8),
+            ("мебель", "Купил диван", 0.8),
+            ("музыкальный инструмент", "У меня есть скрипка", 0.8)
+        ]
+        for (query, transcript, expected) in examples {
+            let actual = engine.score(query: query, passage: transcript)
+            XCTAssertNotNil(actual, "\(query) should match its target")
+            XCTAssertGreaterThanOrEqual(actual ?? 0, expected)
+        }
+        for term in [
+            "парашют", "зубочистка", "динозавр", "извержение",
+            "ракета", "метеорит", "картофель"
+        ] {
+            XCTAssertNil(
+                engine.score(query: term, passage: "Новая тетрадочка"),
+                "Concept graph should not match generic ancestor for \(term)"
+            )
+        }
+        XCTAssertNil(
+            engine.score(query: "тест", passage: "Только текст"),
+            "Fuzzy typo matching must remain disabled"
+        )
+    }
+
+    func testAskMemoryReturnsOfflineOntologySourcesNotAppleVectorNoise() throws {
+        let root = FileManager.default.temporaryDirectory
+            .appendingPathComponent("what-ontology-\(UUID().uuidString)")
+        defer { try? FileManager.default.removeItem(at: root) }
+        let repository = RecordingRepository(rootURL: root)
+        try FileManager.default.createDirectory(
+            at: root, withIntermediateDirectories: true
+        )
+        let audio = root.appendingPathComponent("source.m4a")
+        try Data("fixture".utf8).write(to: audio)
+        let flowerID = UUID(), diaryID = UUID(), unrelatedID = UUID()
+        for id in [flowerID, diaryID, unrelatedID] {
+            _ = try repository.acceptTemporaryFile(audio, metadata: [
+                TransferMetadataKey.id: id.uuidString,
+                TransferMetadataKey.createdAt: Date().timeIntervalSince1970,
+                TransferMetadataKey.duration: 3.5
+            ])
+        }
+        try repository.updateTranscript("Раз 2345 эдельвейс 6789", for: flowerID)
+        try repository.updateTranscript("Читательский дневник", for: diaryID)
+        try repository.updateTranscript("Завтра поеду на автобусе", for: unrelatedID)
+        let ontology = try XCTUnwrap(RussianConceptSearch())
+        let index = LocalSemanticSearch(
+            cacheURL: root.appendingPathComponent("semantic-search-index.json")
+        )
+        let recordings = repository.allRecordings()
+        let transcripts = repository.transcripts()
+        for (query, expected) in [("цветок", flowerID), ("журнал", diaryID)] {
+            let output = index.search(
+                query: query, recordings: recordings, transcripts: transcripts,
+                vectorizer: nil, askMode: true,
+                conceptMatcher: { q, passage in
+                    ontology.score(query: q, passage: passage)
+                }
+            )
+            XCTAssertTrue(
+                output.hits.contains(where: {
+                    $0.recording.id == expected && $0.match == .concept
+                }), "Ask memory should retrieve source with offline concept graph"
+            )
+            XCTAssertTrue(GroundedMemoryAnswer.extract(output).evidence
+                .contains(where: { $0.recording.id == expected }))
+        }
+        let strict = index.search(
+            query: "цветок", recordings: recordings, transcripts: transcripts,
+            vectorizer: nil, askMode: false,
+            conceptMatcher: { q, passage in
+                ontology.score(query: q, passage: passage)
+            }
+        )
+        XCTAssertTrue(strict.hits.isEmpty, "Find notes must stay strict")
+    }
+
 }

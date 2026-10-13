@@ -4,8 +4,10 @@ import NaturalLanguage
 /// Serializes inference and cache updates away from SwiftUI's main thread.
 actor SmartSearchWorker {
     private let index: LocalSemanticSearch
+    private let conceptIndex: RussianConceptSearch?
 
     init() {
+        conceptIndex = RussianConceptSearch()
         let support = FileManager.default.urls(
             for: .applicationSupportDirectory, in: .userDomainMask
         ).first!
@@ -59,7 +61,11 @@ actor SmartSearchWorker {
             lexicalQuery: askMode ? GroundedMemoryAnswer.focusQuery(query) : nil,
             askMode: askMode,
             termVectorizer: askMode && embedder.isAvailable
-                ? { embedder.termVectors(for: $0) } : nil
+                ? { embedder.termVectors(for: $0) } : nil,
+            conceptMatcher: askMode && conceptIndex != nil
+                ? { [conceptIndex] query, passage in
+                    conceptIndex?.score(query: query, passage: passage)
+                } : nil
         )
     }
 
@@ -284,7 +290,7 @@ struct SmartSearchView: View {
                 let direct = output.hits.filter { $0.match != .semantic }
                 let meaning = output.hits.filter { $0.match == .semantic }
                 if !direct.isEmpty {
-                    Section("Word and number matches — \(direct.count)") {
+                    Section("Word, number and concept matches — \(direct.count)") {
                         ForEach(direct) { hit in
                             sourceLink(hit)
                         }
@@ -308,6 +314,18 @@ struct SmartSearchView: View {
         let answer = GroundedMemoryAnswer.extract(output)
         List {
             Section {
+                Label(
+                    output.conceptAvailable
+                        ? "Offline Russian concept search: ready"
+                        : "Offline concept graph: not installed",
+                    systemImage: output.conceptAvailable
+                        ? "checkmark.circle.fill" : "exclamationmark.triangle"
+                )
+                .font(.caption)
+                .foregroundStyle(.secondary)
+                Text("Apple contextual similarity is experimental; concept matches do not require its download.")
+                    .font(.caption2)
+                    .foregroundStyle(.secondary)
                 modelAvailabilityRow
                 if modelManager.phase == .ready {
                     Button {
@@ -333,6 +351,12 @@ struct SmartSearchView: View {
                         }
                     }
                 }
+                Label(
+                    "Offline concept and word evidence",
+                    systemImage: "point.3.connected.trianglepath.dotted"
+                )
+                .font(.caption)
+                .foregroundStyle(.secondary)
                 Label("Private, on-device excerpts", systemImage: "checkmark.shield")
                     .font(.caption)
                     .foregroundStyle(.secondary)

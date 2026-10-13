@@ -37,7 +37,8 @@ struct GroundedMemoryAnswer {
 
     static func extract(_ results: SemanticSearchOutput) -> GroundedMemoryAnswer {
         let direct = results.hits.filter {
-            $0.match == .text || $0.match == .number
+            $0.match == .text || $0.match == .number ||
+                $0.match == .concept
         }
         if !direct.isEmpty {
             // Lexical evidence is attributable to actual stored words; no

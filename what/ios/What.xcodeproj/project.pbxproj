@@ -12,6 +12,7 @@
 		1B01BE138A483EA2CE1DB1FE /* WhatWatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 9819634215CFE7B5CB7C96E2 /* WhatWatch.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		1BC48103D6E86867BC619F4B /* PhoneRecordingSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3997C787CF6EC5F61396098 /* PhoneRecordingSheet.swift */; };
 		1DB28694A4FB2349E0C75253 /* WhatApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94ABD3BF183D4D22AF1CD0B0 /* WhatApp.swift */; };
+		234EA537934DE57D638D69B5 /* RussianConceptSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E538C9737AF66FDF491ED6C /* RussianConceptSearch.swift */; };
 		23C3DC142A5320642976B51C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F5BECCDE1474FF547D4DDE /* ContentView.swift */; };
 		2A8F5E422C6CA0E9AC0E6C5A /* WhatWatchComplication.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 30A158E04405BA04A51B6785 /* WhatWatchComplication.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		2FD0DAFDEE58B7F0BCB4612F /* TranscriptEditorSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FEB908379268EDF523C2242 /* TranscriptEditorSheet.swift */; };
@@ -44,6 +45,7 @@
 		E3E14B894F6D08B14F550FD7 /* WhatPhoneWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C8C7D0F4914D000D27D69C4 /* WhatPhoneWidget.swift */; };
 		F4303B6D62B69352F08A372A /* PhoneCaptureValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1245823325CC94B431825FC8 /* PhoneCaptureValidation.swift */; };
 		FF2E85A6C1D04A9F2B4A8C9F /* WatchQueueSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAAB014EC25B8F1BE07A8003 /* WatchQueueSnapshot.swift */; };
+		FF54ED1E32481FA388284457 /* RussianConceptGraph.json.zlib in Resources */ = {isa = PBXBuildFile; fileRef = F2C8058CCA7C6B1AE7E31A06 /* RussianConceptGraph.json.zlib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -116,6 +118,7 @@
 /* Begin PBXFileReference section */
 		0A671C143C8B8AA6E71D5046 /* InboxOrganizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxOrganizer.swift; sourceTree = "<group>"; };
 		0C8C7D0F4914D000D27D69C4 /* WhatPhoneWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatPhoneWidget.swift; sourceTree = "<group>"; };
+		0E538C9737AF66FDF491ED6C /* RussianConceptSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RussianConceptSearch.swift; sourceTree = "<group>"; };
 		11CFD6F6D4AFB8ABAD4DFDB0 /* RecordingExportService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingExportService.swift; sourceTree = "<group>"; };
 		1245823325CC94B431825FC8 /* PhoneCaptureValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneCaptureValidation.swift; sourceTree = "<group>"; };
 		1330B09BE7A27DED3358758C /* PhoneConnectivityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneConnectivityManager.swift; sourceTree = "<group>"; };
@@ -153,6 +156,7 @@
 		E401399D9CC19485D6B0BBA7 /* PhoneStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneStore.swift; sourceTree = "<group>"; };
 		E8F96BFC4E2D4DD08402B798 /* PhoneRecordingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneRecordingController.swift; sourceTree = "<group>"; };
 		EBF159B5D81F63DE0DAE6484 /* WhatPhoneWidget.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = WhatPhoneWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		F2C8058CCA7C6B1AE7E31A06 /* RussianConceptGraph.json.zlib */ = {isa = PBXFileReference; path = RussianConceptGraph.json.zlib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -193,12 +197,14 @@
 				E401399D9CC19485D6B0BBA7 /* PhoneStore.swift */,
 				11CFD6F6D4AFB8ABAD4DFDB0 /* RecordingExportService.swift */,
 				57CA5B4FD3F49550A3BF2B59 /* RecordingRepository.swift */,
+				0E538C9737AF66FDF491ED6C /* RussianConceptSearch.swift */,
 				AF84AA6ED70EBF8AE05B9A8A /* RussianModelManager.swift */,
 				14B585B95ED7BF383E24A396 /* SmartSearchView.swift */,
 				55E1CDF413B1021AF609E11A /* SyncDiagnosticsView.swift */,
 				3FEB908379268EDF523C2242 /* TranscriptEditorSheet.swift */,
 				7CFB25EFAE0D572DD9D7A37D /* TranscriptLexicalMatcher.swift */,
 				94ABD3BF183D4D22AF1CD0B0 /* WhatApp.swift */,
+				A5E146E7268493F480F51E73 /* Resources */,
 			);
 			path = WhatIOS;
 			sourceTree = "<group>";
@@ -298,6 +304,14 @@
 			path = ArvectumDiagnostics;
 			sourceTree = "<group>";
 		};
+		A5E146E7268493F480F51E73 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				F2C8058CCA7C6B1AE7E31A06 /* RussianConceptGraph.json.zlib */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -306,6 +320,7 @@
 			buildConfigurationList = 782F767BC4D93CEF8C041447 /* Build configuration list for PBXNativeTarget "WhatIOS" */;
 			buildPhases = (
 				A5A1B6BD2CFB51585CE66B2F /* Sources */,
+				355E27AFB88E35713CFE6DB8 /* Resources */,
 				70043916768A42F66BD1E583 /* Embed Foundation Extensions */,
 				6E46CCD9EF1B3FA1038B67D9 /* Embed Watch Content */,
 			);
@@ -447,6 +462,17 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXResourcesBuildPhase section */
+		355E27AFB88E35713CFE6DB8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FF54ED1E32481FA388284457 /* RussianConceptGraph.json.zlib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		4B685C8FC35F89EB245B6FF8 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -498,6 +524,7 @@
 				503FAB8870D0044EF3463F4D /* RecordingEnvelope.swift in Sources */,
 				E279702F2EC466E836C3CC17 /* RecordingExportService.swift in Sources */,
 				62F51A03CFB1699B97BE45DA /* RecordingRepository.swift in Sources */,
+				234EA537934DE57D638D69B5 /* RussianConceptSearch.swift in Sources */,
 				BB55F8450C343B8FF6429C27 /* RussianModelManager.swift in Sources */,
 				AEB98CE89CFA026E5F1FE370 /* SmartSearchView.swift in Sources */,
 				095E000031881CF97192ADAC /* SyncDiagnosticsView.swift in Sources */,
@@ -596,7 +623,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 20;
+				CURRENT_PROJECT_VERSION = 22;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = VML75VY94V;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -806,7 +833,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 20;
+				CURRENT_PROJECT_VERSION = 22;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = VML75VY94V;
 				ENABLE_NS_ASSERTIONS = NO;

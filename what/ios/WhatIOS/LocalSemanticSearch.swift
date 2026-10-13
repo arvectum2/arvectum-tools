@@ -7,6 +7,7 @@ struct SemanticSearchHit: Identifiable {
         case semantic = "Meaning"
         case text = "Text"
         case number = "Number"
+        case concept = "Concept"
     }
 
     let recording: RecordingEnvelope
@@ -20,6 +21,19 @@ struct SemanticSearchOutput {
     let hits: [SemanticSearchHit]
     let semanticAvailable: Bool
     let indexedCount: Int
+    let conceptAvailable: Bool
+
+    init(
+        hits: [SemanticSearchHit],
+        semanticAvailable: Bool,
+        indexedCount: Int,
+        conceptAvailable: Bool = false
+    ) {
+        self.hits = hits
+        self.semanticAvailable = semanticAvailable
+        self.indexedCount = indexedCount
+        self.conceptAvailable = conceptAvailable
+    }
 }
 
 /// Index is a disposable derived cache. Original audio and user text stay in
@@ -121,7 +135,8 @@ final class LocalSemanticSearch {
         modelKey: String = "text-only",
         lexicalQuery: String? = nil,
         askMode: Bool = false,
-        termVectorizer: ((String) -> [[Double]])? = nil
+        termVectorizer: ((String) -> [[Double]])? = nil,
+        conceptMatcher: ((String, String) -> Double?)? = nil
     ) -> SemanticSearchOutput {
         let needle = query.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !needle.isEmpty else {
@@ -175,6 +190,12 @@ final class LocalSemanticSearch {
                     query: searchTerms, transcript: chunkText
                 )
                 let lexical = lexicalResult?.score ?? 0
+                // Explicit ontology edges supply stronger, explainable
+                // evidence than weak average-contextual vectors. Only Ask
+                // memory uses concept matches; Find notes remains strict.
+                let conceptual = askMode
+                    ? (conceptMatcher?(lexicalQuery ?? needle, chunkText) ?? 0)
+                    : 0
                 // A contextual embedding can be unavailable even if the model
                 // exists. Never label a text-only hit "semantic".
                 let semantic = queryVector.flatMap { vector -> Double? in
@@ -193,13 +214,17 @@ final class LocalSemanticSearch {
                 let threshold = askMode ? 0.67 : 0.82
                 let validSemantic = allowSemantic && semantic >= threshold
                     ? semantic * 0.90 : 0
-                let score = max(lexical, validSemantic)
+                let score = max(lexical, conceptual, validSemantic)
                 if score > bestScore {
                     bestScore = score
                     bestSnippet = chunkText
-                    bestMatch = validSemantic > lexical
-                        ? .semantic
-                        : (lexicalResult?.usedNumberAlias == true ? .number : .text)
+                    if lexical >= score {
+                        bestMatch = lexicalResult?.usedNumberAlias == true ? .number : .text
+                    } else if conceptual >= score {
+                        bestMatch = .concept
+                    } else {
+                        bestMatch = .semantic
+                    }
                 }
             }
             if bestScore > 0 {
@@ -250,7 +275,8 @@ final class LocalSemanticSearch {
         return SemanticSearchOutput(
             hits: hits,
             semanticAvailable: queryVector != nil,
-            indexedCount: indexed
+            indexedCount: indexed,
+            conceptAvailable: conceptMatcher != nil
         )
     }
 }

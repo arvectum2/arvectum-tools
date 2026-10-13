@@ -48,3 +48,14 @@
 - [x] Simulator build and tests passed, including regression for equally strong semantic hits.
 - [x] Signed build 20 installed on physical iPhone 13; 17 recordings, 17 original M4A files, 15 transcripts and all other prior app-support files verified byte-for-byte identical (2026-10-13).
 - [ ] User confirms model phase and controls, can see quality scores; we decide next model based on actual Apple numbers rather than assumptions.
+
+
+## Private build 22 — offline concept graph validation
+
+The research version of Ask memory uses RussianConceptSearch.swift and a private local compressed noun/concept hierarchy; Apple's contextual model is only an experimental fallback and is not necessary to search ontology relationships.
+The graph includes 36,545 noun synsets, 122,219 lexical entries and 313,873 unambiguous Russian noun inflections, compressed to about 2.4 MiB. It is NOT uploaded to Git.
+Concept matches are labeled separately and always link to original transcription and playable audio. Find notes still uses its strict word matching.
+Local compiled Swift retrieval on 15 backed-up notes ranked flower/Edelweiss 1, journal/diary 2, beauty/aesthetics 1; 20 unrelated controls returned zero false candidates. Six Python tests and full iOS simulator tests passed.
+Signed build 22 installed physically with 17 records, 17 original M4A files and 15 transcripts preserved byte-for-byte.
+CRITICAL LICENSE: RuWordNet official site refers to both noncommercial use and CC BY-SA 4.0. Data are private research-only. Publishing the corpus-derived resource commercially or pushing it to GitHub requires a clear separate rights determination.
+Pending: real user UI acceptance and commercial corpus rights or replacement.
