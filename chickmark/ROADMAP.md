@@ -170,3 +170,11 @@ No app-specific tasks are duplicated in Core or Growth.
 - [ ] Real nonempty widget interactive check/uncheck/refresh on physical phone, offline and day rollover.
 - [ ] Physical WatchConnectivity + watchOS HealthKit consent + tap on modular watch-face complication.
 - [ ] Manually place and screenshot all three Lock Screen widget formats and Watch face families.
+
+### 2026-10-13 — critical physical Watch crash on startup
+- [x] Found missing watchOS `NSHealthShareUsageDescription` despite on-watch HealthKit authorization, which can cause a fatal privacy termination when a HealthKit-linked habit arrives from iPhone.
+- [x] Added permission string in Watch Info.plist and canonical XcodeGen project.yml, RU/EN/ES localizations embedded in watchOS package.
+- [x] Added runtime guard before HealthKit authorization and release-time localization/privacy regression check.
+- [x] Physical Watch and iPhone signed builds succeeded; 155/155 iOS unit tests and localized permission audit passed.
+- [x] Updated packages installed on both physical devices without deleting data; Watch extension process accessible.
+- [ ] Confirm foreground app remains open on physical unlocked Watch and approve HealthKit prompt if displayed; remote launch previously denied by watchOS when navigation away from clock was prohibited.

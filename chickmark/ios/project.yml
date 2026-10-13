@@ -327,6 +327,7 @@ targets:
         WKCompanionAppBundleIdentifier: ru.arvectum.tools.habits
         WKRunsIndependentlyOfCompanionApp: true
         ITSAppUsesNonExemptEncryption: false
+        NSHealthShareUsageDescription: "ChickMark reads activity totals only for habits you connect to Apple Health. Health measurements stay on your device."
         CFBundleIcons:
           CFBundlePrimaryIcon:
             CFBundleIconName: AppIcon

@@ -119,6 +119,7 @@
 		E3F963D95460DE12EC180EE2 /* WatchComplicationBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306AEBE034C4BC280E31DEDD /* WatchComplicationBridge.swift */; };
 		E6967403BEE90AE879BF8B43 /* HabitShortcutsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A89F4E08119B5DA0549EA7 /* HabitShortcutsTests.swift */; };
 		E85587A04F8788F21E7BDF7C /* WatchComplicationBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306AEBE034C4BC280E31DEDD /* WatchComplicationBridge.swift */; };
+		E8BF3A678B6C0D66B825EE3E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BBC2CD90B6967564EC981C13 /* InfoPlist.strings */; };
 		EB3C1198475A671E664B31A8 /* HabitSyncProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13D3C66AF60610CBDB248FB /* HabitSyncProtocol.swift */; };
 		F1F7FDF67A3471937240DD5A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FCA31F7694FCB7DE33B89B23 /* Assets.xcassets */; };
 		F35ABF40F331B07D981E86C4 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 65999EFA3F0C7DC0490E94DE /* Localizable.strings */; };
@@ -236,6 +237,7 @@
 		3994450D5C2D132493FFC8FC /* HabitHistoryCalendarTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitHistoryCalendarTests.swift; sourceTree = "<group>"; };
 		39E7C1CA6AD7DA518A1C362C /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/AppShortcuts.strings; sourceTree = "<group>"; };
 		3AA7A843D4A75761F41CEA60 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		3AD1E183776883F6B043A643 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3D6F46F99E46B49764A0E390 /* HabitGoalMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitGoalMode.swift; sourceTree = "<group>"; };
 		3F72C9CC1FB7C0DFC1CB1A71 /* HabitsByArvectumWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HabitsByArvectumWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		42D26FBFF0455EF6E74938D0 /* ChickMarkGroupsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChickMarkGroupsTests.swift; sourceTree = "<group>"; };
@@ -248,9 +250,11 @@
 		5B384F9752CF25314170B7F4 /* HabitHistoryCalendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitHistoryCalendar.swift; sourceTree = "<group>"; };
 		5C930DE1D91E04C8E406F858 /* ChickMarkBrandHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChickMarkBrandHeader.swift; sourceTree = "<group>"; };
 		5CAB7F2EEB508F20E0E392A7 /* HabitInsights.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitInsights.swift; sourceTree = "<group>"; };
+		5D16BF689AA0FD0DCA2C9453 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		5D9FBEEB427C182F749DFCF4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		5EF019DE29325FE073474B43 /* ChickMarkProductLinksTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChickMarkProductLinksTests.swift; sourceTree = "<group>"; };
 		5FA6F44843E4EC332DD74956 /* ChickMarkBackupService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChickMarkBackupService.swift; sourceTree = "<group>"; };
+		61F3F0E65D67CCD1C03FEE5C /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		672D4F8673EEDD29DD32B521 /* HabitsWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitsWidget.swift; sourceTree = "<group>"; };
 		67C52D8B4207CF8331F30024 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		6943FE5CBF6843BB6E3C2E1C /* HabitDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitDetailView.swift; sourceTree = "<group>"; };
@@ -551,6 +555,7 @@
 				77D3E4728149D56F9020EC00 /* WatchLocalization.swift */,
 				15642C6B472E639208A2EE10 /* WatchTheme.swift */,
 				AF2FD34B8824BD72DF76BD98 /* WatchTodayView.swift */,
+				BBC2CD90B6967564EC981C13 /* InfoPlist.strings */,
 				3151C4449FA96F91F217BA3F /* Localizable.strings */,
 			);
 			path = HabitsByArvectumWatch;
@@ -806,6 +811,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F1F7FDF67A3471937240DD5A /* Assets.xcassets in Resources */,
+				E8BF3A678B6C0D66B825EE3E /* InfoPlist.strings in Resources */,
 				21E8CF6096099D2E30F39784 /* Localizable.strings in Resources */,
 				8B9BAC9B835155E06070386C /* PrivacyInfo.xcprivacy in Resources */,
 			);
@@ -1074,6 +1080,16 @@
 				67C52D8B4207CF8331F30024 /* ru */,
 			);
 			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		BBC2CD90B6967564EC981C13 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3AD1E183776883F6B043A643 /* en */,
+				5D16BF689AA0FD0DCA2C9453 /* es */,
+				61F3F0E65D67CCD1C03FEE5C /* ru */,
+			);
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

@@ -42,3 +42,13 @@ Status: **device builds, installations and main-screen/gallery audits verified a
 
 ## Safety
 No data migrations or destructive changes. Never mark this audit as physically complete without screenshots and the above checks.
+
+## Critical physical Watch startup fix, 13 October
+User reported immediate exit on opening ChickMark on their physical Apple Watch after recent installation. Investigation found WatchHealthEvaluator requests read authorization using HKHealthStore, but the *watchOS target itself* lacked `NSHealthShareUsageDescription` in its Info.plist. The iOS companion Info.plist already contained its own purpose string, which does not authorize the independent Watch process. The missing purpose string is capable of triggering a privacy-violation process termination as soon as a health-linked habit triggers this request. A crash report could not be exported because CoreDevice's Watch systemCrashLogs domain returned a remote-device allocation error.
+
+- [x] Added Watch-specific usage description to Info.plist and project.yml, with RU/EN/ES translations bundled in watchOS.
+- [x] Added guard in WatchHealthEvaluator so a missing/malformed usage description stops an unsafe HealthKit request.
+- [x] Updated release-time localization audit to require the purpose key and its localized variants.
+- [x] Rebuilt signed Watch and iOS companion; verified the built Watch Info.plist contains the purpose string and localized InfoPlist.strings.
+- [x] iPhone and Watch packages installed successfully without clearing user data; 155/155 unit tests pass.
+- [ ] Foreground Watch app startup and HealthKit authorization still require checking on an unlocked physical Watch; the previous CoreDevice launch was refused by watchOS with 'Navigation away from clock is not allowed due to one or more active system states'.

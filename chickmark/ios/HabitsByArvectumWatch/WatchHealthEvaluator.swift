@@ -5,6 +5,13 @@ import HealthKit
 /// samples, totals and pass/fail outcomes never enter WatchConnectivity or CloudKit.
 enum WatchHealthEvaluator {
     static func qualifyingIDs(for habits: [HabitSyncHabit], on date: Date = .now) async -> Set<UUID> {
+        // WatchKit terminates an app requesting HealthKit reads when its own
+        // Info.plist omits the privacy purpose string (the phone's plist does
+        // not cover the independently running watchOS app).
+        guard let purpose = Bundle.main.object(
+            forInfoDictionaryKey: "NSHealthShareUsageDescription"
+        ) as? String, !purpose.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+        else { return [] }
         guard HKHealthStore.isHealthDataAvailable() else { return [] }
         let configured = habits.filter { $0.healthRuleMetric != nil && $0.healthRuleTarget != nil }
         guard !configured.isEmpty else { return [] }
