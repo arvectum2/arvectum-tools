@@ -20,3 +20,18 @@
 - [x] Signed physical iPhone build 18 installed; 17 recordings, 17 M4A audio files, 15 transcripts and all existing backed-up app-support files were preserved byte-identically (2026-10-13).
 - [ ] User validation of Ask memory with a relevant recorded fact, then a question absent from all notes.
 - [ ] Russian paraphrase quality evaluation on-device with user-reviewed expected sources; do not assert reliable generalized question answering before this.
+
+
+## Build 19 — semantic retrieval repair and real-model validation
+
+- User's physical tests: "цветок" did not retrieve "эдельвейс"; "журнал" did not retrieve "дневник"; "красота" did not retrieve "эстетика".
+- Root defect: LocalSemanticSearch only allowed semantic embeddings for >=2 search terms, even in Ask memory. This was intentional and desirable for strict Find notes single-word queries ("тест" must never match "текст"), but not suitable for Ask memory.
+- Second issue: Ask memory discarded approximate semantic hits with an additional cutoff above the search engine cutoff, causing unexplained false negatives.
+- Ask memory now allows embeddings for any query length, compares to mean contextual passage vector **and** candidate contextual word vectors. The local cache stores derived numeric vectors only; no duplicated plaintext transcripts. Cache version incremented for schema change.
+- Find notes stays strictly lexical for one-word queries, retaining prior regressions.
+- Ask memory explicitly shows whether semantic assets are loaded on the device and offers the existing explicit Apple model download confirmation when unavailable. No silent download.
+- Ask memory displays possible *source excerpts*, not a generated answer. Similarity is not a factual-confidence score and user should verify original audio.
+- [x] Simulator regression suite validates one-word Ask vs Find isolation, the three semantic pairs with injected deterministic vectors, and no hallucinated synonyms when assets absent.
+- [ ] The three real Russian Apple embedding cosine scores on physical iPhone remain unmeasured; the developer Xcode probe cannot start while the iPhone is locked.
+- [x] Signed build 19 installed on physical iPhone. All 17 recording records, 17 original audio files, 15 transcripts and other app-support files preserved byte-for-byte.
+- [ ] User validation on physical iPhone build 19; do not assert the three target pairs work solely from synthetic tests.

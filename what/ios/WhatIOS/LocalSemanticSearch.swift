@@ -28,6 +28,7 @@ final class LocalSemanticSearch {
     struct Chunk: Codable {
         // Derived vectors only; no raw transcript content in the cache.
         let vector: [Double]
+        let termVectors: [[Double]]
     }
 
     struct CachedEntry: Codable {
@@ -42,7 +43,7 @@ final class LocalSemanticSearch {
     }
 
     typealias Vectorizer = (String) -> [Double]?
-    static let revision = 1
+    static let revision = 2
 
     private let cacheURL: URL
 
@@ -118,7 +119,9 @@ final class LocalSemanticSearch {
         transcripts: [UUID: String],
         vectorizer: Vectorizer?,
         modelKey: String = "text-only",
-        lexicalQuery: String? = nil
+        lexicalQuery: String? = nil,
+        askMode: Bool = false,
+        termVectorizer: ((String) -> [[Double]])? = nil
     ) -> SemanticSearchOutput {
         let needle = query.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !needle.isEmpty else {
@@ -132,7 +135,10 @@ final class LocalSemanticSearch {
         // A single rare word is an exact lookup, not a semantic question.
         // Averaged contextual token vectors give high false-positive cosine
         // scores for unrelated notes on one-word queries.
-        let allowSemantic = searchTerms.count >= 2
+        // Find notes: single words must remain exact (e.g. тест != текст).
+        // Ask memory: semantic retrieval is precisely why someone might ask
+        // about "цветок" when the source says "эдельвейс".
+        let allowSemantic = askMode || searchTerms.count >= 2
         var hits: [SemanticSearchHit] = []
         var indexed = 0
 
@@ -142,11 +148,18 @@ final class LocalSemanticSearch {
             indexed += 1
 
             let digest = Self.digest(text)
-            if cache.entries[recording.id]?.digest != digest {
+            if cache.entries[recording.id]?.digest != digest ||
+               (askMode && termVectorizer != nil &&
+                cache.entries[recording.id]?.chunks.allSatisfy {
+                    $0.termVectors.isEmpty
+                } == true) {
                 cache.entries[recording.id] = CachedEntry(
                     digest: digest,
                     chunks: Self.chunks(text).map { chunk in
-                        Chunk(vector: vectorizer?(chunk) ?? [])
+                        Chunk(
+                            vector: vectorizer?(chunk) ?? [],
+                            termVectors: askMode ? (termVectorizer?(chunk) ?? []) : []
+                        )
                     }
                 )
             }
@@ -164,11 +177,21 @@ final class LocalSemanticSearch {
                 let lexical = lexicalResult?.score ?? 0
                 // A contextual embedding can be unavailable even if the model
                 // exists. Never label a text-only hit "semantic".
-                let semantic = queryVector.flatMap { vector in
+                let semantic = queryVector.flatMap { vector -> Double? in
                     guard position < chunks.count else { return nil }
-                    return Self.cosine(vector, chunks[position].vector)
+                    let entry = chunks[position]
+                    let passage = Self.cosine(vector, entry.vector) ?? 0
+                    if !askMode { return passage }
+                    // For short concepts, comparing against the mean of a long
+                    // sentence can drown out its important noun. Compare with
+                    // candidate word vectors too, but label as similarity only.
+                    let tokens = entry.termVectors.compactMap {
+                        Self.cosine(vector, $0)
+                    }
+                    return max(passage, tokens.max() ?? 0)
                 } ?? 0
-                let validSemantic = allowSemantic && semantic >= 0.82
+                let threshold = askMode ? 0.67 : 0.82
+                let validSemantic = allowSemantic && semantic >= threshold
                     ? semantic * 0.90 : 0
                 let score = max(lexical, validSemantic)
                 if score > bestScore {
@@ -258,6 +281,28 @@ final class AppleLocalEmbedder {
     }
 
     var isAvailable: Bool { model != nil }
+
+    /// Token-level candidates for short, conceptual questions. Both the
+    /// passage and the query use one Apple contextual model; nothing is
+    /// downloaded or uploaded here. Only derived numeric vectors are cached.
+    func termVectors(for text: String) -> [[Double]] {
+        guard let model,
+              let result = try? model.embeddingResult(for: text, language: nil)
+        else { return [] }
+        var vectors: [[Double]] = []
+        result.enumerateTokenVectors(in: text.startIndex..<text.endIndex) {
+            vector, range in
+            let token = String(text[range])
+            guard token.count >= 3,
+                  token.unicodeScalars.contains(where: {
+                      CharacterSet.letters.contains($0)
+                  }),
+                  vector.count == model.dimension else { return true }
+            vectors.append(vector)
+            return true
+        }
+        return vectors
+    }
 
     deinit { model?.unload() }
 

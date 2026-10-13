@@ -27,7 +27,10 @@ actor SmartSearchWorker {
             transcripts: transcripts,
             vectorizer: embedder.isAvailable ? { embedder.vector(for: $0) } : nil,
             modelKey: embedder.key,
-            lexicalQuery: askMode ? GroundedMemoryAnswer.focusQuery(query) : nil
+            lexicalQuery: askMode ? GroundedMemoryAnswer.focusQuery(query) : nil,
+            askMode: askMode,
+            termVectorizer: askMode && embedder.isAvailable
+                ? { embedder.termVectors(for: $0) } : nil
         )
     }
 
@@ -279,11 +282,25 @@ struct SmartSearchView: View {
         let answer = GroundedMemoryAnswer.extract(output)
         List {
             Section {
+                Label(
+                    output.semanticAvailable
+                        ? "Meaning search available on this iPhone"
+                        : "Meaning model unavailable — word matches only",
+                    systemImage: output.semanticAvailable ? "brain" : "exclamationmark.triangle"
+                )
+                .font(.caption)
+                .foregroundStyle(.secondary)
+                if !output.semanticAvailable && isRussianQuery {
+                    Button("Enable Russian meaning search") {
+                        showDownloadConfirmation = true
+                    }
+                    .disabled(installingAssets)
+                }
                 Label("Private, on-device excerpts", systemImage: "checkmark.shield")
                     .font(.caption)
                     .foregroundStyle(.secondary)
                 Text(
-                    "These passages come from saved notes. This is not a generated answer; every result links to its original recording."
+                    "These are possible matches from saved notes, not a generated answer. Meaning-based matches can be approximate. Open the audio to verify them."
                 )
                 .font(.caption)
                 .foregroundStyle(.secondary)
@@ -299,7 +316,10 @@ struct SmartSearchView: View {
                     "Not enough evidence",
                     systemImage: "text.book.closed",
                     description: Text(
-                        "No sufficiently relevant passage was found in saved transcripts. Try different words or transcribe more recordings."
+                        output.semanticAvailable
+                        ? "No sufficiently similar excerpt was found. Try a broader description or a phrase."
+                        : "Meaning search is not available yet. Enable the language model above or use Find notes for words."
+
                     )
                 )
             }

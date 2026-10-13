@@ -33,7 +33,9 @@ struct GroundedMemoryAnswer {
         // No speculative composition or text generation is performed.
         let sufficientlyGrounded = results.hits.filter { hit in
             switch hit.match {
-            case .semantic: return hit.score >= 0.81
+            // Score is cosine * 0.90. A semantic result is a candidate
+            // excerpt for user inspection, not a factual synthesized answer.
+            case .semantic: return hit.score >= 0.60
             case .text, .number: return hit.score >= 0.72
             }
         }

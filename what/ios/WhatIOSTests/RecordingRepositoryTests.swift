@@ -1190,7 +1190,7 @@ final class RecordingRepositoryTests: XCTestCase {
         let weakHits = recordings.map {
             SemanticSearchHit(
                 recording: $0, snippet: "Weak resemblance",
-                score: 0.76, match: .semantic
+                score: 0.52, match: .semantic
             )
         }
         let weakOutput = SemanticSearchOutput(
@@ -1211,6 +1211,148 @@ final class RecordingRepositoryTests: XCTestCase {
         XCTAssertTrue(answer.evidence.allSatisfy {
             $0.snippet == "Original evidence"
         })
+    }
+
+    func testAskMemoryUsesSemanticOnOneWordButFindNotesRemainsStrict() throws {
+        let root = FileManager.default.temporaryDirectory
+            .appendingPathComponent("what-ask-single-word-\(UUID().uuidString)")
+        defer { try? FileManager.default.removeItem(at: root) }
+        let repo = RecordingRepository(rootURL: root)
+        let source = root.appendingPathComponent("source.m4a")
+        try Data("fixture".utf8).write(to: source)
+        let id = UUID()
+        _ = try repo.acceptTemporaryFile(source, metadata: [
+            TransferMetadataKey.id: id.uuidString,
+            TransferMetadataKey.createdAt: Date().timeIntervalSince1970,
+            TransferMetadataKey.duration: 4.0
+        ])
+        try repo.updateTranscript("Мне встретился эдельвейс", for: id)
+        let search = LocalSemanticSearch(
+            cacheURL: root.appendingPathComponent("semantic-search-index.json")
+        )
+        let embeddings: LocalSemanticSearch.Vectorizer = { text in
+            if text == "цветок" { return [1.0, 0.0] }
+            return [0.0, 1.0]
+        }
+        let termVectors: (String) -> [[Double]] = { text in
+            text.contains("эдельвейс") ? [[0.85, 0.52678]] : []
+        }
+
+        let find = search.search(
+            query: "цветок", recordings: repo.allRecordings(),
+            transcripts: repo.transcripts(), vectorizer: embeddings,
+            modelKey: "synthetic-semantic", askMode: false,
+            termVectorizer: termVectors
+        )
+        XCTAssertTrue(find.hits.isEmpty, "Find notes must stay lexical for one word")
+
+        let ask = search.search(
+            query: "цветок", recordings: repo.allRecordings(),
+            transcripts: repo.transcripts(), vectorizer: embeddings,
+            modelKey: "synthetic-semantic", askMode: true,
+            termVectorizer: termVectors
+        )
+        XCTAssertEqual(ask.hits.count, 1)
+        XCTAssertEqual(ask.hits.first?.recording.id, id)
+        XCTAssertEqual(ask.hits.first?.match, .semantic)
+        XCTAssertEqual(GroundedMemoryAnswer.extract(ask).evidence.count, 1)
+    }
+
+    func testAskMemorySemanticFindsJournalDiaryAndBeautyAestheticsPairs() throws {
+        let pairs = [
+            ("журнал", "дневник"),
+            ("красота", "эстетика"),
+            ("цветок", "эдельвейс")
+        ]
+        for (query, target) in pairs {
+            let root = FileManager.default.temporaryDirectory
+                .appendingPathComponent("what-ask-pair-\(UUID().uuidString)")
+            defer { try? FileManager.default.removeItem(at: root) }
+            let repository = RecordingRepository(rootURL: root)
+            let source = root.appendingPathComponent("note.m4a")
+            try Data("test".utf8).write(to: source)
+            let id = UUID()
+            _ = try repository.acceptTemporaryFile(source, metadata: [
+                TransferMetadataKey.id: id.uuidString,
+                TransferMetadataKey.createdAt: Date().timeIntervalSince1970,
+                TransferMetadataKey.duration: 2.5
+            ])
+            try repository.updateTranscript("Записать \(target)", for: id)
+            let index = LocalSemanticSearch(
+                cacheURL: root.appendingPathComponent("semantic-search-index.json")
+            )
+            let vectorizer: LocalSemanticSearch.Vectorizer = { text in
+                text == query ? [1.0, 0.0] : [0.0, 1.0]
+            }
+            let found = index.search(
+                query: query, recordings: repository.allRecordings(),
+                transcripts: repository.transcripts(), vectorizer: vectorizer,
+                modelKey: "synthetic-pairs", askMode: true,
+                termVectorizer: { text in
+                    text.contains(target) ? [[0.9, 0.43589]] : []
+                }
+            )
+            XCTAssertEqual(found.hits.map(\.id), [id])
+            XCTAssertEqual(found.hits.first?.match, .semantic)
+            XCTAssertEqual(GroundedMemoryAnswer.extract(found).evidence.count, 1)
+        }
+    }
+
+    func testAskMemoryWithoutInstalledModelDoesNotInventSynonyms() throws {
+        let root = FileManager.default.temporaryDirectory
+            .appendingPathComponent("what-ask-no-assets-\(UUID().uuidString)")
+        defer { try? FileManager.default.removeItem(at: root) }
+        let repo = RecordingRepository(rootURL: root)
+        try FileManager.default.createDirectory(
+            at: root, withIntermediateDirectories: true
+        )
+        let source = root.appendingPathComponent("source.m4a")
+        try Data("fixture".utf8).write(to: source)
+        let id = UUID()
+        _ = try repo.acceptTemporaryFile(source, metadata: [
+            TransferMetadataKey.id: id.uuidString,
+            TransferMetadataKey.createdAt: Date().timeIntervalSince1970,
+            TransferMetadataKey.duration: 2.0
+        ])
+        try repo.updateTranscript("Мой дневник", for: id)
+        let out = LocalSemanticSearch(
+            cacheURL: root.appendingPathComponent("semantic-search-index.json")
+        ).search(
+            query: "журнал", recordings: repo.allRecordings(),
+            transcripts: repo.transcripts(), vectorizer: nil, askMode: true
+        )
+        XCTAssertFalse(out.semanticAvailable)
+        XCTAssertFalse(GroundedMemoryAnswer.extract(out).hasEvidence)
+    }
+
+    func testPhysicalAppleRussianSemanticProbe() throws {
+        let embedder = AppleLocalEmbedder(query: "цветок")
+        guard embedder.isAvailable else {
+            print("WHAT_RUSSIAN_MODEL_UNAVAILABLE")
+            throw XCTSkip("Russian contextual embedding assets are not installed")
+        }
+        for (query, concept) in [
+            ("цветок", "эдельвейс"),
+            ("журнал", "дневник"),
+            ("красота", "эстетика")
+        ] {
+            guard let q = embedder.vector(for: query) else {
+                print("WHAT_VECTOR_UNAVAILABLE query=" + query)
+                continue
+            }
+            let passage = embedder.vector(for: "Мне встретился " + concept)
+            let mean = passage.flatMap {
+                LocalSemanticSearch.cosine(q, $0)
+            } ?? -1
+            let terms = embedder.termVectors(for: "Мне встретился " + concept)
+                .compactMap { LocalSemanticSearch.cosine(q, $0) }
+            print(
+                "WHAT_RUSSIAN_PAIR query=" + query +
+                    " concept=" + concept +
+                    " mean=" + String(format: "%.4f", mean) +
+                    " tokenMax=" + String(format: "%.4f", terms.max() ?? -1)
+            )
+        }
     }
 
 }
