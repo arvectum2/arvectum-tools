@@ -662,4 +662,146 @@ final class RecordingRepositoryTests: XCTestCase {
         textOnly.cleanUp()
     }
 
+    func testSemanticChunkingCoversLongTextAndCosine() {
+        let note = "Купить продукты завтра. Записать идеи о встрече! " +
+            String(repeating: "Очень важное напоминание о документах. ", count: 30)
+        let chunks = LocalSemanticSearch.chunks(note, limit: 160)
+        XCTAssertGreaterThan(chunks.count, 2)
+        XCTAssertTrue(chunks.contains { $0.contains("продукты") })
+        XCTAssertTrue(chunks.contains { $0.contains("документах") })
+        XCTAssertLessThanOrEqual(chunks.map(\.count).max() ?? 0, 160)
+        XCTAssertEqual(LocalSemanticSearch.cosine([1, 0], [1, 0]), 1)
+        XCTAssertEqual(LocalSemanticSearch.cosine([1, 0], [0, 1]), 0)
+        XCTAssertNil(LocalSemanticSearch.cosine([0, 0], [0, 1]))
+    }
+
+    func testSemanticSearchFindsMeaningWithoutSharedQueryWords() throws {
+        let root = FileManager.default.temporaryDirectory
+            .appendingPathComponent("what-semantic-\(UUID().uuidString)")
+        defer { try? FileManager.default.removeItem(at: root) }
+        let repo = RecordingRepository(rootURL: root)
+        let audio = root.appendingPathComponent("source.m4a")
+        try Data("fake".utf8).write(to: audio)
+        let relevantID = UUID(), unrelatedID = UUID()
+        for id in [relevantID, unrelatedID] {
+            _ = try repo.acceptTemporaryFile(audio, metadata: [
+                TransferMetadataKey.id: id.uuidString,
+                TransferMetadataKey.createdAt: Date().timeIntervalSince1970,
+                TransferMetadataKey.duration: 3.0
+            ])
+        }
+        try repo.updateTranscript("Кошку нужно отвести к ветеринару", for: relevantID)
+        try repo.updateTranscript("В пятницу купить краску для забора", for: unrelatedID)
+        let index = LocalSemanticSearch(
+            cacheURL: root.appendingPathComponent("semantic-search-index.json")
+        )
+        // A deterministic stand-in for Apple's actual on-device model.
+        let vectorizer: LocalSemanticSearch.Vectorizer = { text in
+            if text.contains("питомц") || text.contains("Кошку") { return [1, 0] }
+            return [0, 1]
+        }
+        let search = index.search(
+            query: "домашние питомцы",
+            recordings: repo.allRecordings(),
+            transcripts: repo.transcripts(),
+            vectorizer: vectorizer,
+            modelKey: "test-embedding"
+        )
+        XCTAssertEqual(search.hits.map(\.id), [relevantID])
+        XCTAssertEqual(search.hits.first?.match, .semantic)
+        XCTAssertEqual(search.indexedCount, 2)
+        XCTAssertTrue(search.semanticAvailable)
+
+        // A cached vector from prior search must be usable after reopening.
+        let reopened = LocalSemanticSearch(
+            cacheURL: root.appendingPathComponent("semantic-search-index.json")
+        )
+        let reused = reopened.search(
+            query: "домашние питомцы", recordings: repo.allRecordings(),
+            transcripts: repo.transcripts(),
+            vectorizer: { text in
+                text.contains("питомц") ? [1, 0] : nil
+            },
+            modelKey: "test-embedding"
+        )
+        XCTAssertEqual(reused.hits.map(\.id), [relevantID])
+    }
+
+    func testSearchFallsBackToRussianTextAndEditsInvalidateCachedVectors() throws {
+        let root = FileManager.default.temporaryDirectory
+            .appendingPathComponent("what-search-edit-\(UUID().uuidString)")
+        defer { try? FileManager.default.removeItem(at: root) }
+        let repo = RecordingRepository(rootURL: root)
+        let source = root.appendingPathComponent("source.m4a")
+        try Data("audio".utf8).write(to: source)
+        let id = UUID()
+        _ = try repo.acceptTemporaryFile(source, metadata: [
+            TransferMetadataKey.id: id.uuidString,
+            TransferMetadataKey.createdAt: Date().timeIntervalSince1970,
+            TransferMetadataKey.duration: 5.0
+        ])
+        try repo.updateTranscript("Я оставил ключи под тумбочкой", for: id)
+        let index = LocalSemanticSearch(
+            cacheURL: root.appendingPathComponent("semantic-search-index.json")
+        )
+        let first = index.search(
+            query: "ключи", recordings: repo.allRecordings(),
+            transcripts: repo.transcripts(), vectorizer: nil
+        )
+        XCTAssertEqual(first.hits.map(\.id), [id])
+        XCTAssertEqual(first.hits.first?.match, .text)
+        XCTAssertFalse(first.semanticAvailable)
+
+        try repo.updateTranscript("Купить молоко и хлеб", for: id)
+        let stale = index.search(
+            query: "ключи", recordings: repo.allRecordings(),
+            transcripts: repo.transcripts(), vectorizer: nil
+        )
+        XCTAssertTrue(stale.hits.isEmpty)
+        let updated = index.search(
+            query: "молоко", recordings: repo.allRecordings(),
+            transcripts: repo.transcripts(), vectorizer: nil
+        )
+        XCTAssertEqual(updated.hits.map(\.id), [id])
+    }
+
+    func testDeletingRecordingAlsoPurgesDerivedSemanticVectors() throws {
+        let root = FileManager.default.temporaryDirectory
+            .appendingPathComponent("what-semantic-delete-\(UUID().uuidString)")
+        defer { try? FileManager.default.removeItem(at: root) }
+        let repo = RecordingRepository(rootURL: root)
+        let audio = root.appendingPathComponent("source.m4a")
+        try Data("audio".utf8).write(to: audio)
+        let id = UUID()
+        _ = try repo.acceptTemporaryFile(audio, metadata: [
+            TransferMetadataKey.id: id.uuidString,
+            TransferMetadataKey.createdAt: Date().timeIntervalSince1970,
+            TransferMetadataKey.duration: 4.0
+        ])
+        try repo.updateTranscript("Конфиденциальное напоминание", for: id)
+        let indexURL = root.appendingPathComponent("semantic-search-index.json")
+        let index = LocalSemanticSearch(cacheURL: indexURL)
+        _ = index.search(
+            query: "напоминание", recordings: repo.allRecordings(),
+            transcripts: repo.transcripts(), vectorizer: { _ in [1, 0] },
+            modelKey: "test"
+        )
+        let before = try JSONDecoder().decode(
+            LocalSemanticSearch.Cache.self,
+            from: Data(contentsOf: indexURL)
+        )
+        XCTAssertNotNil(before.entries[id])
+        XCTAssertFalse(
+            try String(contentsOf: indexURL, encoding: .utf8)
+                .contains("Конфиденциальное напоминание")
+        )
+        try repo.deleteRecording(id)
+        let after = try JSONDecoder().decode(
+            LocalSemanticSearch.Cache.self,
+            from: Data(contentsOf: indexURL)
+        )
+        XCTAssertNil(after.entries[id])
+        XCTAssertTrue(repo.transcripts().isEmpty)
+    }
+
 }

@@ -8,6 +8,8 @@ struct ContentView: View {
     @State private var selectedFolder: InboxFolder = .inbox
     @State private var searchText = ""
     @State private var preparedExport: PreparedRecordingExport?
+    @State private var showSmartSearch = false
+    @State private var showDiagnostics = false
 
     private var visibleRecordings: [RecordingEnvelope] {
         InboxOrganizer.recordings(
@@ -47,32 +49,6 @@ struct ContentView: View {
                 .padding(.horizontal)
                 .padding(.top, 8)
                 .padding(.bottom, 4)
-
-                if let snapshot = store.lastWatchQueueSnapshot {
-                    HStack(spacing: 6) {
-                        Image(systemName: "applewatch")
-                        Text("Watch last reported: \(snapshot.pendingCount) waiting")
-                        Spacer()
-                        Text(snapshot.updatedAt, style: .time)
-                    }
-                    .font(.caption2)
-                    .foregroundStyle(.secondary)
-                    .padding(.horizontal)
-                    .padding(.bottom, 6)
-                    .accessibilityLabel(
-                        "Apple Watch last reported \(snapshot.pendingCount) pending recordings"
-                    )
-                } else {
-                    HStack(spacing: 6) {
-                        Image(systemName: "applewatch")
-                        Text("Watch queue status not yet received")
-                        Spacer()
-                    }
-                    .font(.caption2)
-                    .foregroundStyle(.secondary)
-                    .padding(.horizontal)
-                    .padding(.bottom, 6)
-                }
 
                 if store.recordings.isEmpty {
                     ContentUnavailableView(
@@ -166,17 +142,41 @@ struct ContentView: View {
             .searchable(text: $searchText, prompt: "Search transcripts and dates")
             .navigationTitle("What?")
             .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Picker("Speech language", selection: $store.transcriptionLocale) {
-                        Text("Русский").tag("ru-RU")
-                        Text("English").tag("en-US")
-                        Text("Español").tag("es-ES")
+                ToolbarItem(placement: .topBarLeading) {
+                    Button {
+                        showSmartSearch = true
+                    } label: {
+                        Image(systemName: "sparkle.magnifyingglass")
                     }
-                    .pickerStyle(.menu)
-                    .accessibilityLabel("Transcription language")
+                    .accessibilityLabel("Smart search")
+                }
+                ToolbarItem(placement: .topBarTrailing) {
+                    Menu {
+                        Picker("Speech language", selection: $store.transcriptionLocale) {
+                            Text("Русский").tag("ru-RU")
+                            Text("English").tag("en-US")
+                            Text("Español").tag("es-ES")
+                        }
+                        Button {
+                            showDiagnostics = true
+                        } label: {
+                            Label("Sync diagnostics", systemImage: "applewatch")
+                        }
+                    } label: {
+                        Image(systemName: "ellipsis.circle")
+                    }
+                    .accessibilityLabel("App settings and diagnostics")
                 }
             }
             .tint(Color(red: 67 / 255, green: 229 / 255, blue: 197 / 255))
+            .sheet(isPresented: $showSmartSearch) {
+                SmartSearchView()
+                    .environmentObject(store)
+            }
+            .sheet(isPresented: $showDiagnostics) {
+                SyncDiagnosticsView()
+                    .environmentObject(store)
+            }
             .sheet(item: $preparedExport, onDismiss: {
                 preparedExport?.cleanUp()
             }) { export in

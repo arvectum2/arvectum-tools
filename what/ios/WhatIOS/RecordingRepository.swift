@@ -22,9 +22,10 @@ final class RecordingRepository {
     private let transcriptURL: URL
     private let deletedIDsURL: URL
     private let archivedIDsURL: URL
+    private let semanticIndexURL: URL
     // PhoneStore and WatchConnectivity use different repository instances.
     // A shared lock serializes transfer and deletion against the same files.
-    private static let sharedStorageLock = NSLock()
+    static let sharedStorageLock = NSLock()
     private var lock: NSLock { Self.sharedStorageLock }
 
     init(rootURL: URL? = nil, fileManager: FileManager = .default) {
@@ -40,6 +41,7 @@ final class RecordingRepository {
         transcriptURL = self.rootURL.appendingPathComponent("transcripts.json")
         deletedIDsURL = self.rootURL.appendingPathComponent("deleted-recordings.json")
         archivedIDsURL = self.rootURL.appendingPathComponent("archived-recordings.json")
+        semanticIndexURL = self.rootURL.appendingPathComponent("semantic-search-index.json")
         try? fileManager.createDirectory(at: audioDirectory, withIntermediateDirectories: true)
         // Finish cleanup interrupted after writing the durable deletion marker.
         try? resumePendingDeletions()
@@ -140,6 +142,21 @@ final class RecordingRepository {
         let remainingArchived = archived.subtracting(deleted)
         if remainingArchived != archived {
             try persistArchivedIDs(remainingArchived)
+        }
+
+        // Purge cached semantic vectors together with the primary data.
+        if fileManager.fileExists(atPath: semanticIndexURL.path),
+           let cached = try? Data(contentsOf: semanticIndexURL),
+           var index = try? JSONDecoder().decode(
+                LocalSemanticSearch.Cache.self, from: cached
+           ) {
+            let previousCount = index.entries.count
+            index.entries = index.entries.filter { !deleted.contains($0.key) }
+            if index.entries.count != previousCount {
+                try JSONEncoder().encode(index).write(
+                    to: semanticIndexURL, options: .atomic
+                )
+            }
         }
 
         for id in deleted {

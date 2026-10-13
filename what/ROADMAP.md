@@ -1,7 +1,7 @@
 # What? — Product Roadmap
 
 **Updated:** 2026-10-13
-**Status:** As of 2026-10-13, What? 0.1.0 (10) is installed on physical iPhone 13 with a compact action row that keeps Play/Stop and Transcribe/Edit text readable and moves export/retranscription/archive/delete into an accessible overflow menu. Verified with screenshots from an iPhone 13 simulator at both standard and Accessibility Medium text sizes; long labels never wrap within a button. iOS simulator tests pass, physical compact UI confirmed more convenient by the user. Export was confirmed successful by the user in build 9; export internals are unchanged in build 10. Original 12 recordings, 12 .m4a files and 5 transcripts are byte-identical before/after upgrade. Companion Watch build 10 was successfully installed in-place on the physical Apple Watch SE via Xcode developer tunnel on 2026-10-13 (devicectl install returned success), but the tunnel disconnected again before an independent installed-version query. Watch queue status display and fast-transfer regression on build 10 await user confirmation. App Store submission pending.
+**Status:** iPhone build 0.1.0 (11) implements P4 first stage: local transcript chunking and a persisted, derived on-device vector cache; contextual Russian/English/etc. embeddings via Apple's NaturalLanguage when language assets are already installed, with Russian model download only after explicit in-app confirmation; lexical fallback when absent; source-linked search results opening original audio. Technical Watch queue line removed from Inbox and moved to Settings → Sync diagnostics. Automated iOS tests and iPhone 13 simulator UI review passed; installed on physical iPhone 13 as build 11. Post-install data was byte-identical for all 13 recordings, 13 audio files, 6 transcripts and all other backed-up files. Semantic model availability and actual query UX still await physical testing. Pre-upgrade physical iPhone backup holds 13 recordings, 13 audio files and 6 transcripts (2026-10-13). User confirmed prior build 10 layout, export, and Watch queue indicator working. Neither note text nor audio is sent to external services. Watch build 10 stays unchanged. Not submitted to App Store.
 **Evidence:** [historical feature-branch roadmap snapshot](docs/history/ROADMAP-feature-what-2026-10-11.md).
 **Shared principles:** [Core](../core/CORE_PRINCIPLES.md); **Growth:** [Growth](../growth/ROADMAP.md).
 
@@ -41,7 +41,11 @@
 - [ ] Test Save to Files / Apple Notes / Shortcuts on physical iPhone; add direct Shortcuts actions only if user demand justifies the extra complexity.
 
 ## P4 — Semantic memory
-- [ ] Local transcript chunking, embeddings, semantic search and source references.
+- [x] Local transcript chunking, on-device embedding path (Apple NaturalLanguage), cache invalidation on transcript edit, deletion-safe derived vector storage, hybrid semantic/text retrieval with source attribution. Built for iPhone build 11 with simulator tests; physical model availability and ranking quality not confirmed.
+- [x] Dedicated Smart search sheet showing date, matching snippet and match type; opens original audio and full transcript.
+- [x] Offline lexical fallback if language assets absent; explicit opt-in to Apple Russian model download, never automatic.
+- [ ] Physically test Russian meaning-based paraphrase retrieval, English text search, transcript edits, archived hits, deletion purge, and offline mode.
+- [ ] Evaluate semantic ranking with 20–30 real Russian notes before asserting production quality.
 
 ## P5 — Ask Your Memory
 - [ ] Retrieval-grounded responses with note/audio timestamp attribution; no unsupported invented statements.
