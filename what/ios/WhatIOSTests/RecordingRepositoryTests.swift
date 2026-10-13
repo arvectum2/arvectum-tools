@@ -1206,11 +1206,27 @@ final class RecordingRepositoryTests: XCTestCase {
         let goodOutput = SemanticSearchOutput(
             hits: strongHits, semanticAvailable: true, indexedCount: 5
         )
-        let answer = GroundedMemoryAnswer.extract(goodOutput)
-        XCTAssertEqual(answer.evidence.count, 3)
-        XCTAssertTrue(answer.evidence.allSatisfy {
-            $0.snippet == "Original evidence"
-        })
+        let ambiguous = GroundedMemoryAnswer.extract(goodOutput)
+        XCTAssertFalse(ambiguous.hasEvidence,
+                       "Equal semantic scores must not fabricate three answers")
+        XCTAssertTrue({
+            if case .ambiguousSimilarity = ambiguous.assessment { return true }
+            return false
+        }())
+        let separatedHits = recordings.enumerated().map { index, recording in
+            SemanticSearchHit(
+                recording: recording, snippet: "Original evidence",
+                score: [0.88, 0.77, 0.73, 0.72, 0.69][index],
+                match: .semantic
+            )
+        }
+        let separateOutput = SemanticSearchOutput(
+            hits: separatedHits, semanticAvailable: true, indexedCount: 5
+        )
+        let answer = GroundedMemoryAnswer.extract(separateOutput)
+        XCTAssertEqual(answer.evidence.count, 1)
+        XCTAssertEqual(answer.evidence.first?.recording.id, recordings.first?.id)
+        XCTAssertEqual(answer.assessment == .clearEvidence, true)
     }
 
     func testAskMemoryUsesSemanticOnOneWordButFindNotesRemainsStrict() throws {
@@ -1235,7 +1251,7 @@ final class RecordingRepositoryTests: XCTestCase {
             return [0.0, 1.0]
         }
         let termVectors: (String) -> [[Double]] = { text in
-            text.contains("эдельвейс") ? [[0.85, 0.52678]] : []
+            text.contains("эдельвейс") ? [[0.96, 0.28]] : []
         }
 
         let find = search.search(
@@ -1289,7 +1305,7 @@ final class RecordingRepositoryTests: XCTestCase {
                 transcripts: repository.transcripts(), vectorizer: vectorizer,
                 modelKey: "synthetic-pairs", askMode: true,
                 termVectorizer: { text in
-                    text.contains(target) ? [[0.9, 0.43589]] : []
+                    text.contains(target) ? [[0.96, 0.28]] : []
                 }
             )
             XCTAssertEqual(found.hits.map(\.id), [id])

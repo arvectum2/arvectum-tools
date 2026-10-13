@@ -35,3 +35,16 @@
 - [ ] The three real Russian Apple embedding cosine scores on physical iPhone remain unmeasured; the developer Xcode probe cannot start while the iPhone is locked.
 - [x] Signed build 19 installed on physical iPhone. All 17 recording records, 17 original audio files, 15 transcripts and other app-support files preserved byte-for-byte.
 - [ ] User validation on physical iPhone build 19; do not assert the three target pairs work solely from synthetic tests.
+
+
+## Build 20 — trustworthy model installation feedback and semantic calibration
+
+- User explicitly consented to Apple's Russian contextual model download but app gave no indication of status or completion. Build 20 adds persistent-in-app-session RussianModelManager (check, missing, downloading, verifying, ready, error/retry). When reopening Search the state is probed again, including actual load + extraction of a real Russian embedding vector.
+- While installing: visible animated indeterminate progress, elapsed seconds, stages, and completion/failure message. The download continues while closing/reopening the search sheet as long as the parent app remains running. iOS/Apple owns its background asset service.
+- Apple's public NaturalLanguage API **does not offer a package size or download percentage**, so the confirmation explicitly says the exact MB/GB are unavailable. No invented numbers.
+- User observed 3 generic results for virtually any query. Now GroundedMemoryAnswer does not elevate equally scored contextual embedding nearest neighbors as grounded answers. Strong exact/word evidence is retained; semantic-only requires separation from the runner-up and candidate-set baseline. Ambiguous candidates are hidden until the user explicitly chooses to inspect them.
+- **Caution:** cosine similarity isn't confidence or probability. If Apple contextual embeddings fail to distinguish synonyms well, Ask memory must abstain or switch to a purpose-trained local model; do not mask poor retrieval with arbitrary scoring.
+- Optional Check Russian model quality produces raw cosine values for 3 user-provided word pairs against unrelated control words on-device. The three pairs are test fixtures, NOT hard-coded synonym matches.
+- [x] Simulator build and tests passed, including regression for equally strong semantic hits.
+- [x] Signed build 20 installed on physical iPhone 13; 17 recordings, 17 original M4A files, 15 transcripts and all other prior app-support files verified byte-for-byte identical (2026-10-13).
+- [ ] User confirms model phase and controls, can see quality scores; we decide next model based on actual Apple numbers rather than assumptions.

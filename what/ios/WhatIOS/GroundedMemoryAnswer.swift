@@ -26,19 +26,64 @@ struct GroundedMemoryAnswer {
         return focused.isEmpty ? userQuestion : focused.joined(separator: " ")
     }
 
+    enum Assessment: Equatable {
+        case clearEvidence
+        case weakSimilarity
+        case ambiguousSimilarity
+        case noEvidence
+    }
+
+    let assessment: Assessment
+
     static func extract(_ results: SemanticSearchOutput) -> GroundedMemoryAnswer {
-        // A semantic hit is useful only when its absolute cosine score met
-        // the local engine's threshold. The search engine enforces it and
-        // assigns a score <= 0.90. Lexical evidence has a stronger tier.
-        // No speculative composition or text generation is performed.
-        let sufficientlyGrounded = results.hits.filter { hit in
-            switch hit.match {
-            // Score is cosine * 0.90. A semantic result is a candidate
-            // excerpt for user inspection, not a factual synthesized answer.
-            case .semantic: return hit.score >= 0.60
-            case .text, .number: return hit.score >= 0.72
+        let direct = results.hits.filter {
+            $0.match == .text || $0.match == .number
+        }
+        if !direct.isEmpty {
+            // Lexical evidence is attributable to actual stored words; no
+            // similarity score needs to be mistaken for a probability.
+            return GroundedMemoryAnswer(
+                evidence: Array(direct.prefix(3)),
+                assessment: .clearEvidence
+            )
+        }
+
+        let candidates = results.hits
+            .filter { $0.match == .semantic }
+            .sorted { $0.score > $1.score }
+        guard let top = candidates.first else {
+            return GroundedMemoryAnswer(evidence: [], assessment: .noEvidence)
+        }
+
+        // Contextual token embeddings aren't calibrated sentence similarity.
+        // Arbitrary queries often score every note surprisingly highly.
+        // Require both absolute strength and corpus-level separation.
+        guard top.score >= 0.76 else {
+            return GroundedMemoryAnswer(evidence: [], assessment: .weakSimilarity)
+        }
+        if candidates.count == 1 {
+            // One candidate lacks a baseline; require a strong absolute
+            // similarity before presenting it as a possible source.
+            return GroundedMemoryAnswer(
+                evidence: top.score >= 0.81 ? [top] : [],
+                assessment: top.score >= 0.81 ? .clearEvidence : .weakSimilarity
+            )
+        }
+        let second = candidates[1].score
+        // A run of equal-scoring notes is NOT evidence for three answers.
+        guard top.score - second >= 0.045 else {
+            return GroundedMemoryAnswer(evidence: [], assessment: .ambiguousSimilarity)
+        }
+        if candidates.count >= 3 {
+            let middle = candidates[candidates.count / 2].score
+            guard top.score - middle >= 0.065 else {
+                return GroundedMemoryAnswer(
+                    evidence: [], assessment: .ambiguousSimilarity
+                )
             }
         }
-        return GroundedMemoryAnswer(evidence: Array(sufficientlyGrounded.prefix(3)))
+        return GroundedMemoryAnswer(
+            evidence: [top], assessment: .clearEvidence
+        )
     }
 }

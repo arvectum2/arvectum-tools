@@ -14,6 +14,35 @@ actor SmartSearchWorker {
         )
     }
 
+    /// A controlled on-device diagnostic that exercises the actual Russian
+    /// Apple model with the three examples reported by the user. This never
+    /// sends private note contents to a server and is not used for ranking.
+    func modelQualityProbe() -> [String] {
+        let embedding = AppleLocalEmbedder(query: "цветок")
+        guard embedding.isAvailable else {
+            return ["Russian model has no loadable assets on this iPhone."]
+        }
+        let pairs: [(String, String, String)] = [
+            ("цветок", "эдельвейс", "стол"),
+            ("журнал", "дневник", "лампа"),
+            ("красота", "эстетика", "колесо")
+        ]
+        return pairs.map { query, target, unrelated in
+            guard let vector = embedding.vector(for: query) else {
+                return query + ": query vector unavailable"
+            }
+            let linked = embedding.vector(for: target)
+                .flatMap { LocalSemanticSearch.cosine(vector, $0) }
+            let random = embedding.vector(for: unrelated)
+                .flatMap { LocalSemanticSearch.cosine(vector, $0) }
+            func label(_ value: Double?) -> String {
+                value.map { String(format: "%.3f", $0) } ?? "n/a"
+            }
+            return query + " → " + target + ": " + label(linked)
+                + " | unrelated " + label(random)
+        }
+    }
+
     func find(
         query: String,
         recordings: [RecordingEnvelope],
@@ -34,14 +63,6 @@ actor SmartSearchWorker {
         )
     }
 
-    func installRussianAssets() async throws -> Bool {
-        guard let model = NLContextualEmbedding(language: .russian) else {
-            return false
-        }
-        guard !model.hasAvailableAssets else { return true }
-        // Only called after an explicit confirmation in the iPhone UI.
-        return try await model.requestAssets() == .available
-    }
 }
 
 struct SmartSearchView: View {
@@ -51,8 +72,11 @@ struct SmartSearchView: View {
     @State private var mode: SearchMode = .find
     @FocusState private var searchFocused: Bool
     @State private var searching = false
-    @State private var installingAssets = false
+    @ObservedObject private var modelManager = RussianModelManager.shared
     @State private var showDownloadConfirmation = false
+    @State private var showWeakCandidates = false
+    @State private var evaluatingModel = false
+    @State private var qualityProbeLines: [String] = []
     @State private var result: SemanticSearchOutput?
     @State private var error: String?
     @State private var requestID = UUID()
@@ -126,12 +150,16 @@ struct SmartSearchView: View {
                     Button("Find") { performSearch() }
                         .buttonStyle(.borderedProminent)
                         .disabled(query.trimmingCharacters(in: .whitespacesAndNewlines).count < 2
-                            || searching || installingAssets)
+                            || searching || modelManager.phase.isBusy)
                 }
                 .padding(.horizontal)
                 .padding(.top, 10)
                 .padding(.bottom, 6)
 
+                if modelManager.phase == .requesting ||
+                   modelManager.phase == .verifying {
+                    modelInstallationPanel
+                }
                 if searching {
                     ProgressView("Searching your notes…")
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -149,6 +177,13 @@ struct SmartSearchView: View {
                             "Search for an idea, task, or topic. Results lead back to your original voice recordings. Only notes with saved text are searchable."
                         )
                     )
+                }
+            }
+            .onAppear { modelManager.refresh() }
+            .onChange(of: modelManager.phase) { _, next in
+                if next == .ready && isRussianQuery &&
+                   query.trimmingCharacters(in: .whitespacesAndNewlines).count >= 2 {
+                    performSearch()
                 }
             }
             .onChange(of: store.transcripts.count) { _, _ in
@@ -179,7 +214,7 @@ struct SmartSearchView: View {
                 Button("Download model") { installModel() }
                 Button("Cancel", role: .cancel) {}
             } message: {
-                Text("Apple will download the language model to this iPhone. After installation, your voice notes and searches stay on-device and work without internet.")
+                Text("Download size: Apple does not publish the exact number of MB or GB. Apple also does not provide download percentage. What? will show installation stages and verify that the model works before reporting success. Search and audio remain on-device.")
             }
             .alert("Search", isPresented: Binding(
                 get: { error != nil },
@@ -231,18 +266,9 @@ struct SmartSearchView: View {
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 }
-                if !output.semanticAvailable && isRussianQuery &&
+                if isRussianQuery &&
                    query.split(whereSeparator: { $0.isWhitespace }).count > 1 {
-                    Button {
-                        showDownloadConfirmation = true
-                    } label: {
-                        Label(
-                            installingAssets ? "Installing Russian model…" : "Enable Russian meaning search",
-                            systemImage: "arrow.down.to.line"
-                        )
-                    }
-                    .disabled(installingAssets)
-                    .font(.subheadline)
+                    modelAvailabilityRow
                 }
             }
 
@@ -282,19 +308,30 @@ struct SmartSearchView: View {
         let answer = GroundedMemoryAnswer.extract(output)
         List {
             Section {
-                Label(
-                    output.semanticAvailable
-                        ? "Meaning search available on this iPhone"
-                        : "Meaning model unavailable — word matches only",
-                    systemImage: output.semanticAvailable ? "brain" : "exclamationmark.triangle"
-                )
-                .font(.caption)
-                .foregroundStyle(.secondary)
-                if !output.semanticAvailable && isRussianQuery {
-                    Button("Enable Russian meaning search") {
-                        showDownloadConfirmation = true
+                modelAvailabilityRow
+                if modelManager.phase == .ready {
+                    Button {
+                        evaluateModel()
+                    } label: {
+                        Label(
+                            evaluatingModel
+                                ? "Testing Russian model…"
+                                : "Check Russian model quality",
+                            systemImage: "waveform.path.ecg"
+                        )
                     }
-                    .disabled(installingAssets)
+                    .disabled(evaluatingModel)
+                    if evaluatingModel {
+                        ProgressView("Comparing Russian word meanings…")
+                    }
+                    if !qualityProbeLines.isEmpty {
+                        Text("Actual Apple similarity scores (not accuracy percentages):")
+                            .font(.caption2)
+                            .foregroundStyle(.secondary)
+                        ForEach(qualityProbeLines, id: \.self) { line in
+                            Text(line).font(.caption.monospaced())
+                        }
+                    }
                 }
                 Label("Private, on-device excerpts", systemImage: "checkmark.shield")
                     .font(.caption)
@@ -306,26 +343,118 @@ struct SmartSearchView: View {
                 .foregroundStyle(.secondary)
             }
             if answer.hasEvidence {
-                Section("Found in your notes — \(answer.evidence.count)") {
+                Section("Relevant source excerpts — \(answer.evidence.count)") {
                     ForEach(answer.evidence) { hit in
                         sourceLink(hit)
                     }
                 }
             } else {
                 ContentUnavailableView(
-                    "Not enough evidence",
+                    "No reliable match",
                     systemImage: "text.book.closed",
-                    description: Text(
-                        output.semanticAvailable
-                        ? "No sufficiently similar excerpt was found. Try a broader description or a phrase."
-                        : "Meaning search is not available yet. Enable the language model above or use Find notes for words."
-
-                    )
+                    description: Text(noEvidenceDescription(answer, output: output))
                 )
+                if output.semanticAvailable &&
+                   !output.hits.isEmpty {
+                    Section {
+                        Button(
+                            showWeakCandidates
+                                ? "Hide unverified candidates"
+                                : "Inspect approximate candidates (not answers)"
+                        ) {
+                            showWeakCandidates.toggle()
+                        }
+                    }
+                    if showWeakCandidates {
+                        Section("Unverified suggestions") {
+                            ForEach(Array(output.hits.prefix(5))) { hit in
+                                sourceLink(hit)
+                            }
+                        }
+                    }
+                }
             }
         }
         .listStyle(.insetGrouped)
         .scrollDismissesKeyboard(.interactively)
+    }
+
+    private func noEvidenceDescription(
+        _ answer: GroundedMemoryAnswer,
+        output: SemanticSearchOutput
+    ) -> String {
+        if !output.semanticAvailable {
+            return "The Russian semantic model isn't loaded. No synonym matching is possible until installation is complete."
+        }
+        switch answer.assessment {
+        case .ambiguousSimilarity:
+            return "The model scores several notes almost equally. None is reliable enough to present as an answer."
+        case .weakSimilarity:
+            return "The model found only weak conceptual similarity. Try other phrasing."
+        case .clearEvidence, .noEvidence:
+            return "No matching evidence was found in the saved transcripts."
+        }
+    }
+
+    @ViewBuilder
+    private var modelAvailabilityRow: some View {
+        switch modelManager.phase {
+        case .unchecked, .checking:
+            Label("Checking Russian model…", systemImage: "arrow.triangle.2.circlepath")
+                .font(.caption)
+                .foregroundStyle(.secondary)
+        case .ready:
+            Label("Russian meaning model: installed and working", systemImage: "checkmark.circle")
+                .font(.caption)
+                .foregroundStyle(.secondary)
+        case .requesting:
+            Label("Requesting/downloading model from Apple…", systemImage: "arrow.down.circle")
+                .font(.caption)
+        case .verifying:
+            Label("Download finished — verifying model…", systemImage: "checkmark.shield")
+                .font(.caption)
+        case .missing:
+            Label("Russian meaning model: not installed", systemImage: "exclamationmark.triangle")
+                .font(.caption)
+            Button("Install Russian model") {
+                showDownloadConfirmation = true
+            }
+            .font(.subheadline)
+        case .failed(let message):
+            Text("Russian model not ready: \(message)")
+                .font(.caption)
+                .foregroundStyle(.orange)
+            Button("Retry installation") {
+                showDownloadConfirmation = true
+            }
+            .font(.subheadline)
+        }
+    }
+
+    private var modelInstallationPanel: some View {
+        HStack(spacing: 12) {
+            ProgressView()
+            VStack(alignment: .leading, spacing: 4) {
+                Text(modelManager.phase == .requesting
+                    ? "Apple model: downloading / preparing"
+                    : "Apple model: verifying installed assets")
+                    .font(.subheadline.bold())
+                Text("Size and % are not provided by Apple. Please wait.")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                if let startedAt = modelManager.startedAt {
+                    TimelineView(.periodic(from: .now, by: 1)) { context in
+                        Text("Elapsed \(Int(max(0, context.date.timeIntervalSince(startedAt)))) sec")
+                            .font(.caption.monospacedDigit())
+                    }
+                }
+            }
+            Spacer()
+        }
+        .padding(12)
+        .background(.quaternary.opacity(0.4), in: RoundedRectangle(cornerRadius: 12))
+        .padding(.horizontal)
+        .padding(.top, 8)
     }
 
     private func sourceLink(_ hit: SemanticSearchHit) -> some View {
@@ -361,6 +490,7 @@ struct SmartSearchView: View {
         searchFocused = false
         let recordings = store.recordings
         let transcripts = store.transcripts
+        showWeakCandidates = false
         let currentID = UUID()
         let askMode = mode == .ask
         requestID = currentID
@@ -376,23 +506,19 @@ struct SmartSearchView: View {
         }
     }
 
-    private func installModel() {
-        installingAssets = true
+    private func evaluateModel() {
+        evaluatingModel = true
+        qualityProbeLines = []
         Task {
-            do {
-                let succeeded = try await worker.installRussianAssets()
-                installingAssets = false
-                if succeeded {
-                    performSearch()
-                } else {
-                    error = "The Russian language model is unavailable. Text search still works offline."
-                }
-            } catch {
-                installingAssets = false
-                self.error = "Could not install the language model: \(error.localizedDescription)"
-            }
+            qualityProbeLines = await worker.modelQualityProbe()
+            evaluatingModel = false
         }
     }
+
+    private func installModel() {
+        modelManager.startInstall()
+    }
+
 }
 
 struct SmartSearchRecordingDetail: View {
