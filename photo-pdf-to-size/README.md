@@ -32,7 +32,7 @@ Debug APK: `android/app/build/outputs/apk/debug/app-debug.apk`.
 
 ### iOS
 
-Requirements: Xcode 26.x and XcodeGen.
+Requirements: Xcode 27.x and XcodeGen.
 
 ```bash
 cd ios
@@ -41,6 +41,8 @@ xcodebuild -project PhotoPodRazmerIOS.xcodeproj -scheme PhotoPodRazmer \
   -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' \
   CODE_SIGNING_ALLOWED=NO build
 ```
+
+The iOS project uses the local SwiftPM package `../core/` (resolved from `ios/` as `../../core`) for shared Arvectum brand tokens, with Yandex Mobile Ads pinned to the Core dependency catalog. Run XcodeGen after changing `project.yml`; release and build versions remain product-owned.
 
 The App Store release target uses bundle ID `ru.arvectum.tools.tosize`. See `docs/appstore/` for release metadata and checklist.
 

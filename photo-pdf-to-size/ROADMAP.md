@@ -1,6 +1,6 @@
 # Фото и PDF под размер — Product Roadmap
 
-**Updated:** 2026-10-11
+**Updated:** 2026-10-13
 **Ownership:** image/PDF sizing, document presets, export, app-specific UX, SDK integrations, QA and releases.
 **iOS App Store:** v1.0.0 approved and published on 2026-10-11, after submission on 2026-10-10 (product owner confirmation). Apple App ID `6816346084`, bundle ID `ru.arvectum.tools.tosize`. [Public listing](https://apps.apple.com/ru/app/id6816346084). Android publication status is tracked independently.
 **History and detailed specification:** [docs/history/ROADMAP-legacy-2026-10-11.md](docs/history/ROADMAP-legacy-2026-10-11.md). It is reference history, not a live checklist.
@@ -32,6 +32,15 @@
 - [x] Re-run 28 unit tests plus 5 simulator UI tests on iOS 27 with standard text size; 5 device-only Files tests skipped by design.
 - [x] Reconfirm that extreme accessibility text size needs scrolling; the no-scroll regression applies to the standard text-size matrix only.
 - [ ] Physical iPhone QA and explicit release approval before submitting a newly signed 1.0.1 (13) binary.
+
+## Maintenance: Core and dependency alignment (2026-10-13)
+
+- [x] Replace direct Core palette source inclusion with the local `ArvectumCore` SwiftPM dependency; keep product-specific adaptive colors here.
+- [x] Confirm iOS Yandex Mobile Ads 8.6.0 matches the Core catalog and checked-in SwiftPM lock; keep stable native/banners implementation while adopting Core.
+- [x] Extend scoped CI to verify Core dependency contracts and to respond to Core manifest/catalog edits; ensure Android version-catalog changes run Android CI.
+- [x] Xcode 27 validation: 4 Core tests, 28 iOS unit tests, 5 simulator UI tests passed (5 physical-Files UI tests skipped by design); Android test/lint/assemble passed.
+- [ ] Run real-iPhone advertising checks (native + banner, consent yes/no and ATT status) and export regression before any App Store submission.
+- [ ] Obtain explicit release approval after physical-device acceptance; candidate remains unreleased iOS 1.0.1 (13).
 
 ## Next: post-release QA and maintenance
 - [ ] Run device regression on image modes, document presets, PDF orientation, large-file memory and export.
