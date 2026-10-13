@@ -31,8 +31,8 @@ private struct RecordWidgetView: View {
                     Image(systemName: "mic.fill")
                         .font(.title3)
                     VStack(alignment: .leading, spacing: 2) {
-                        Text("What?").font(.headline)
-                        Text("Record thought").font(.caption2)
+                        Text(CaptureBrand.name).font(.headline)
+                        Text(CaptureBrand.text("Записать мысль", "Record thought")).font(.caption2)
                     }
                     Spacer(minLength: 0)
                 }
@@ -40,8 +40,8 @@ private struct RecordWidgetView: View {
                 HStack(spacing: 14) {
                     Image(systemName: "mic.circle.fill").font(.system(size: 44))
                     VStack(alignment: .leading, spacing: 4) {
-                        Text("What?").font(.headline)
-                        Text("Tap to record an idea").font(.subheadline)
+                        Text(CaptureBrand.name).font(.headline)
+                        Text(CaptureBrand.text("Нажми и говори", "Tap to record an idea")).font(.subheadline)
                             .foregroundStyle(.secondary)
                     }
                     Spacer(minLength: 0)
@@ -49,8 +49,8 @@ private struct RecordWidgetView: View {
             default:
                 VStack(spacing: 8) {
                     Image(systemName: "mic.circle.fill").font(.system(size: 42))
-                    Text("Record").font(.headline)
-                    Text("What?").font(.caption2)
+                    Text(CaptureBrand.text("Запись", "Record")).font(.headline)
+                    Text(CaptureBrand.name).font(.caption2)
                         .foregroundStyle(.secondary)
                 }
             }
@@ -59,7 +59,7 @@ private struct RecordWidgetView: View {
         .foregroundStyle(.primary)
         .containerBackground(.fill.tertiary, for: .widget)
         .widgetURL(recordURL)
-        .accessibilityLabel("Open What? and start voice recording")
+        .accessibilityLabel(CaptureBrand.text("Открыть Ухват и начать запись", "Open UhWhat? and start voice recording"))
     }
 }
 
@@ -68,8 +68,8 @@ private struct WhatPhoneRecordWidget: Widget {
         StaticConfiguration(kind: "WhatPhoneRecord", provider: RecordProvider()) { _ in
             RecordWidgetView()
         }
-        .configurationDisplayName("Record with What?")
-        .description("Open What? and immediately start a voice note on your iPhone.")
+        .configurationDisplayName(CaptureBrand.text("Запись в Ухвате", "Record with UhWhat?"))
+        .description(CaptureBrand.text("Откройте Ухват и сразу запишите мысль на iPhone.", "Open UhWhat? and immediately start a voice note on your iPhone."))
         .supportedFamilies([.systemSmall, .systemMedium, .accessoryRectangular])
     }
 }

@@ -1,6 +1,6 @@
-# What?
+# Ухват / UhWhat?
 
-What? is a local-first voice memory app for Apple Watch + iPhone.
+Ухват (internationally UhWhat?) is a local-first voice memory app for Apple Watch + iPhone.
 
 **Product promise: Catch the thought before it disappears. Analyze it later.**
 

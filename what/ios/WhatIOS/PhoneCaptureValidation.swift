@@ -59,6 +59,19 @@ enum PhoneCaptureValidation {
         throw CaptureError.silentInput
     }
 
+    static func validateRecoveredFile(
+        _ url: URL, actualDuration: TimeInterval,
+        expectedElapsed: TimeInterval?
+    ) throws {
+        guard actualDuration.isFinite,
+              actualDuration >= minimumAudioDuration
+        else { throw CaptureError.incomplete }
+        if let elapsed = expectedElapsed {
+            try validate(actualDuration: actualDuration, elapsedTime: elapsed)
+        }
+        try validateFileHasSound(url)
+    }
+
     static func validate(
         actualDuration: TimeInterval,
         elapsedTime: TimeInterval

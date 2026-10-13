@@ -13,7 +13,9 @@ struct PhoneRecordingSheet: View {
                     .foregroundStyle(recorder.isRecording ? .red : .mint)
                     .accessibilityHidden(true)
 
-                Text(recorder.isRecording ? "Recording on iPhone" : "Voice note")
+                Text(recorder.isRecording
+                    ? CaptureBrand.text("Идёт запись", "Recording on iPhone")
+                    : CaptureBrand.text("Голосовая заметка", "Voice note"))
                     .font(.title2.bold())
 
                 if let date = recorder.startedAt {
@@ -21,20 +23,20 @@ struct PhoneRecordingSheet: View {
                         VStack(spacing: 8) {
                             Text(formatDuration(context.date.timeIntervalSince(date)))
                                 .font(.system(.title, design: .monospaced))
-                                .accessibilityLabel("Recording duration")
+                                .accessibilityLabel(CaptureBrand.text("Длительность записи", "Recording duration"))
                             Text(
                                 recorder.microphoneConnected
                                     ? (recorder.hasDetectedSignal
-                                        ? "Microphone is capturing sound"
-                                        : "Microphone connected — speak now")
+                                        ? CaptureBrand.text("Микрофон записывает звук", "Microphone is capturing sound")
+                                        : CaptureBrand.text("Микрофон готов — говорите", "Microphone connected — speak now"))
                                     : (context.date.timeIntervalSince(date) > 2
-                                        ? "No microphone data yet — check audio input"
-                                        : "Connecting to microphone…")
+                                        ? CaptureBrand.text("Нет звука — проверьте микрофон", "No microphone data yet — check audio input")
+                                        : CaptureBrand.text("Подключаем микрофон…", "Connecting to microphone…"))
                             )
                             .font(.caption)
                             .foregroundStyle(recorder.microphoneConnected
                                 ? Color.secondary : Color.orange)
-                            Text("Input: \(recorder.microphoneRoute)")
+                            Text(CaptureBrand.text("Вход: \(recorder.microphoneRoute)", "Input: \(recorder.microphoneRoute)"))
                                 .font(.caption2)
                                 .foregroundStyle(.secondary)
                         }
@@ -43,7 +45,7 @@ struct PhoneRecordingSheet: View {
                         }
                     }
                 } else {
-                    Text("Your original audio will be saved locally on this iPhone.")
+                    Text(CaptureBrand.text("Аудио сохранится на этом iPhone.", "Your original audio will be saved locally on this iPhone."))
                         .font(.subheadline)
                         .multilineTextAlignment(.center)
                         .foregroundStyle(.secondary)
@@ -55,7 +57,7 @@ struct PhoneRecordingSheet: View {
                             dismiss()
                         }
                     } label: {
-                        Label("Stop and save", systemImage: "stop.circle.fill")
+                        Label(CaptureBrand.text("Стоп и сохранить", "Stop and save"), systemImage: "stop.circle.fill")
                             .font(.headline)
                             .frame(maxWidth: .infinity)
                             .padding(.vertical, 8)
@@ -66,7 +68,9 @@ struct PhoneRecordingSheet: View {
                         recorder.start()
                     } label: {
                         Label(
-                            recorder.requestingPermission ? "Waiting for microphone…" : "Start recording",
+                            recorder.requestingPermission
+                                ? CaptureBrand.text("Ждём разрешения…", "Waiting for microphone…")
+                                : CaptureBrand.text("Начать запись", "Start recording"),
                             systemImage: "mic.fill"
                         )
                             .font(.headline)
@@ -79,18 +83,20 @@ struct PhoneRecordingSheet: View {
                 Spacer()
             }
             .padding(24)
-            .navigationTitle("New recording")
+            .navigationTitle(CaptureBrand.text("Новая запись", "New recording"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button(recorder.isRecording ? "Discard" : "Close", role: recorder.isRecording ? .destructive : nil) {
+                    Button(recorder.isRecording
+                        ? CaptureBrand.text("Удалить", "Discard")
+                        : CaptureBrand.text("Закрыть", "Close"), role: recorder.isRecording ? .destructive : nil) {
                         recorder.discard()
                         dismiss()
                     }
                 }
             }
             .interactiveDismissDisabled(recorder.isRecording)
-            .alert("Phone recording", isPresented: Binding(
+            .alert(CaptureBrand.text("Запись", "Phone recording"), isPresented: Binding(
                 get: { recorder.errorMessage != nil },
                 set: { if !$0 { recorder.errorMessage = nil } }
             )) {

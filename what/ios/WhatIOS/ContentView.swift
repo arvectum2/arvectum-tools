@@ -23,7 +23,7 @@ struct ContentView: View {
         .sheet(isPresented: $store.showPhoneCapture) {
             PhoneRecordingSheet(recorder: store.phoneRecorder)
         }
-        .alert("What?", isPresented: Binding(
+        .alert(CaptureBrand.name, isPresented: Binding(
             get: { store.errorMessage != nil },
             set: { if !$0 { store.errorMessage = nil } }
         )) {

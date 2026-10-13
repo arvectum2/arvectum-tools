@@ -31,6 +31,8 @@ final class PhoneRecordingController: NSObject, ObservableObject {
     private var pipeline: MicrophoneCapturePipeline?
     private var pending: Pending?
     private var startGeneration = UUID()
+    private var captureRequestedAt: TimeInterval?
+    private var readinessLogged = false
     private var interruptionObserver: NSObjectProtocol?
 
     init(repository: RecordingRepository = RecordingRepository(),
@@ -73,12 +75,14 @@ final class PhoneRecordingController: NSObject, ObservableObject {
         guard !isRecording && engine == nil && !requestingPermission else { return }
         let generation = UUID()
         startGeneration = generation
+        captureRequestedAt = ProcessInfo.processInfo.systemUptime
+        readinessLogged = false
         let application = AVAudioApplication.shared
         switch application.recordPermission {
         case .granted:
             begin()
         case .denied:
-            errorMessage = "Enable microphone access to What? in iPhone Settings."
+            errorMessage = CaptureBrand.text("Разрешите Ухвату доступ к микрофону в настройках iPhone.", "Enable microphone access to UhWhat? in iPhone Settings.")
         case .undetermined:
             requestingPermission = true
             AVAudioApplication.requestRecordPermission { [weak self] allowed in
@@ -189,6 +193,7 @@ final class PhoneRecordingController: NSObject, ObservableObject {
         let status = pipeline.status
         if status.framesWritten > 0 {
             microphoneConnected = true
+            noteFirstMicrophoneBuffer(status)
         }
         if status.hasInputSignal {
             hasDetectedSignal = true
@@ -196,6 +201,15 @@ final class PhoneRecordingController: NSObject, ObservableObject {
         if let error = status.writeError {
             errorMessage = "Audio capture stopped: \(error.localizedDescription)"
         }
+    }
+
+    private func noteFirstMicrophoneBuffer(_ status: MicrophoneCapturePipeline.Status) {
+        guard !readinessLogged,
+              let request = captureRequestedAt,
+              let firstFrame = status.firstFrameUptime else { return }
+        readinessLogged = true
+        CaptureLatency.record(startedAt: request, source: "iphone",
+                              now: firstFrame)
     }
 
     @discardableResult
@@ -207,6 +221,7 @@ final class PhoneRecordingController: NSObject, ObservableObject {
         self.engine = nil
         self.pipeline = nil
         let status = pipeline.close()
+        noteFirstMicrophoneBuffer(status)
         pending = nil
         isRecording = false
         startedAt = nil
@@ -293,15 +308,12 @@ final class PhoneRecordingController: NSObject, ObservableObject {
                   player.duration >= PhoneCaptureValidation.minimumAudioDuration else {
                 continue
             }
-            if let elapsed = item.expectedElapsed {
-                // Import interrupted-but-complete captures only if both
-                // duration and *decoded AAC sound* pass validation.
-                guard (try? PhoneCaptureValidation.validate(
-                    actualDuration: player.duration, elapsedTime: elapsed
-                )) != nil,
-                (try? PhoneCaptureValidation.validateFileHasSound(url)) != nil
-                else { continue }
-            }
+            // A process kill can leave expectedElapsed unset. Never import
+            // a silent AAC file as a successful recording in that path.
+            guard (try? PhoneCaptureValidation.validateRecoveredFile(
+                url, actualDuration: player.duration,
+                expectedElapsed: item.expectedElapsed
+            )) != nil else { continue }
             do {
                 let saved = try repository.acceptTemporaryFile(url, metadata: [
                     TransferMetadataKey.id: item.id.uuidString,

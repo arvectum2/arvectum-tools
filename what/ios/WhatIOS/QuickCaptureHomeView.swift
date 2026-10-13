@@ -16,9 +16,7 @@ struct QuickCaptureHomeView: View {
         dynamicTypeSize.isAccessibilitySize
     }
 
-    private var isRussian: Bool {
-        Locale.current.language.languageCode?.identifier == "ru"
-    }
+    private var isRussian: Bool { CaptureBrand.isRussian }
 
     var body: some View {
         GeometryReader { geometry in
@@ -104,7 +102,7 @@ struct QuickCaptureHomeView: View {
                     .frame(width: 40, height: 40)
                     .accessibilityHidden(true)
 
-                Text("What?")
+                Text(CaptureBrand.name)
                     .font(.system(size: 23, weight: .heavy, design: .rounded))
                     .foregroundStyle(.white)
             }

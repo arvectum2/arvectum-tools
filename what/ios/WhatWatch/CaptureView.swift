@@ -7,7 +7,7 @@ struct CaptureView: View {
         VStack(spacing: 12) {
             switch controller.state {
             case .preparing:
-                ProgressView("Preparing microphone…")
+                ProgressView(CaptureBrand.text("Включаем микрофон…", "Preparing microphone…"))
                     .font(.headline)
                     .multilineTextAlignment(.center)
 
@@ -20,7 +20,7 @@ struct CaptureView: View {
                 Button {
                     controller.stopCapture()
                 } label: {
-                    Label("Stop", systemImage: "stop.fill")
+                    Label(CaptureBrand.text("Стоп", "Stop"), systemImage: "stop.fill")
                         .frame(maxWidth: .infinity)
                 }
                 .buttonStyle(.borderedProminent)
@@ -28,7 +28,7 @@ struct CaptureView: View {
             case .saved:
                 Image(systemName: "checkmark.circle.fill")
                     .font(.system(size: 42))
-                Text("Saved")
+                Text(CaptureBrand.text("Сохранено", "Saved"))
                     .font(.headline)
 
             case .error(let message):
@@ -37,7 +37,7 @@ struct CaptureView: View {
                 Text(message)
                     .font(.caption)
                     .multilineTextAlignment(.center)
-                Button("Try again") {
+                Button(CaptureBrand.text("Повторить", "Try again")) {
                     controller.startCapture()
                 }
 
@@ -48,7 +48,7 @@ struct CaptureView: View {
                     VStack(spacing: 6) {
                         Image(systemName: "mic.fill")
                             .font(.system(size: 34))
-                        Text("Record")
+                        Text(CaptureBrand.text("Записать", "Record"))
                             .font(.headline)
                     }
                     .frame(maxWidth: .infinity, minHeight: 78)
@@ -57,7 +57,7 @@ struct CaptureView: View {
             }
 
             if controller.pendingCount > 0 {
-                Label("\(controller.pendingCount) waiting for iPhone", systemImage: "iphone.and.arrow.forward")
+                Label(CaptureBrand.text("Ожидают iPhone: \(controller.pendingCount)", "\(controller.pendingCount) waiting for iPhone"), systemImage: "iphone.and.arrow.forward")
                     .font(.caption2)
                     .foregroundStyle(.secondary)
                     .multilineTextAlignment(.center)

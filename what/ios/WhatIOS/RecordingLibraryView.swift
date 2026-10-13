@@ -28,9 +28,11 @@ struct RecordingLibraryView: View {
     var body: some View {
         NavigationStack {
             VStack(spacing: 0) {
-                Picker("Folder", selection: $selectedFolder) {
+                Picker(CaptureBrand.text("Папка", "Folder"), selection: $selectedFolder) {
                     ForEach(InboxFolder.allCases) { folder in
-                        Text(folder.rawValue).tag(folder)
+                        Text(folder == .inbox
+                            ? CaptureBrand.text("Входящие", "Inbox")
+                            : CaptureBrand.text("Архив", "Archive")).tag(folder)
                     }
                 }
                 .pickerStyle(.segmented)
@@ -39,9 +41,9 @@ struct RecordingLibraryView: View {
 
                 HStack(spacing: 5) {
                     Image(systemName: "iphone.gen3")
-                    Text("Saved locally on iPhone")
+                    Text(CaptureBrand.text("Сохранено на iPhone", "Saved locally on iPhone"))
                     Spacer()
-                    Text("\(visibleRecordings.count) recordings")
+                    Text(CaptureBrand.text("Записей: \(visibleRecordings.count)", "\(visibleRecordings.count) recordings"))
                         .monospacedDigit()
                 }
                 .font(.caption)
@@ -52,9 +54,9 @@ struct RecordingLibraryView: View {
 
                 if store.recordings.isEmpty {
                     ContentUnavailableView(
-                        "Nothing yet",
+                        CaptureBrand.text("Пока нет записей", "Nothing yet"),
                         systemImage: "waveform",
-                        description: Text("Tap the large recording button on iPhone or record a thought on Apple Watch. Every saved note appears here.")
+                        description: Text(CaptureBrand.text("Нажмите большую кнопку записи на iPhone или запишите мысль на Apple Watch. Все записи появятся здесь.", "Tap the large recording button on iPhone or record a thought on Apple Watch. Every saved note appears here."))
                     )
                 } else if dayGroups.isEmpty {
                     ContentUnavailableView(
@@ -69,7 +71,10 @@ struct RecordingLibraryView: View {
                 } else {
                     List {
                         ForEach(dayGroups) { group in
-                            Section(group.day.rawValue) {
+                            Section(CaptureBrand.isRussian
+                                ? (group.day.rawValue == "Today" ? "Сегодня"
+                                   : group.day.rawValue == "Yesterday" ? "Вчера" : "Ранее")
+                                : group.day.rawValue) {
                                 ForEach(group.recordings) { recording in
                                     recordingRow(recording)
                                         .swipeActions(edge: .leading, allowsFullSwipe: false) {
@@ -140,13 +145,13 @@ struct RecordingLibraryView: View {
                 }
             }
             .searchable(text: $searchText, prompt: "Search transcripts and dates")
-            .navigationTitle("What?")
+            .navigationTitle(CaptureBrand.name)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     Button(action: openCaptureHome) {
-                        Label("Record", systemImage: "mic.fill")
+                        Label(CaptureBrand.text("Записать", "Record"), systemImage: "mic.fill")
                     }
-                    .accessibilityLabel("Back to quick recording")
+                    .accessibilityLabel(CaptureBrand.text("Вернуться к быстрой записи", "Back to quick recording"))
                 }
                 ToolbarItemGroup(placement: .topBarTrailing) {
                     Menu {

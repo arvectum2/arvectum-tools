@@ -1,4 +1,4 @@
-# What? — Product Roadmap
+# Ухват / UhWhat? — Product Roadmap
 
 **North star (2026-10-13): Catch the thought before it disappears. Analyze it later.** The product is immediate, reliable voice capture, not an AI search engine. See [Product Principles](PRODUCT_PRINCIPLES.md).
 
@@ -10,6 +10,17 @@
 - [x] Check iOS simulator layout at normal and maximum accessibility system text size.
 - [x] Approved brand emblem integrated as the iPhone/Watch icon and circular one-tap recording button, with reproducible vector source in ios/tools/generate_brand.swift. Released signed App Store archive + exported 1.0.0 (3) IPA. User's records preserved.
 - [ ] Physical iPhone acceptance: new home → capture → stop and save → library → playback and back. Version 1.0.0 (3) installed on iPhone 13; 18 recordings, 18 audio files, 16 transcripts and all 33 existing files verified byte-identical after install.
+
+### Release candidate 1.0.0 (4) — 2026-10-14
+
+- [x] Branded names localized for RU «Ухват» / international «UhWhat?» on installed iPhone/Watch apps, widgets, complication and Quick Capture UI. Existing bundle IDs and deep links retained.
+- [x] Capturing on iPhone is still one tap; recording screen translated for Russian; English remains supported.
+- [x] Record anonymous local warm-path handler-to-microphone readiness latency: first encoded iPhone audio buffer, and Watch recorder start, capped at 30 values; iPhone p95 is available under Sync diagnostics. **Not** cold-launch/watch-face physical tap-to-record.
+- [x] Crash recovery rejects completed-looking silent iPhone AAC even if Stop did not finish writing elapsed metadata; source remains untouched.
+- [x] iOS simulator regression: 51 passed, 3 research checks skipped, 0 failures. RU simulator capture-home/library UI navigation passed; watchOS simulator build passed.
+- [x] RC4 Release signed archive and App Store IPA exported; distribution entitlements get-task-allow=false; no private RuWordNet-derived graph bundled. Russian Quick Capture screenshot saved without real personal notes.
+- [ ] Physical iPhone + Watch final release acceptance, measured latencies, offline delivery/deduplication; verify app icon + both localized labels on actual devices before App Store Connect upload.
+- [ ] Confirm listing, screenshot set and App Store Connect review submission. Do **not** submit without physical reliability gate.
 
 ### Current engineering priority: Capture First
 

@@ -31,6 +31,7 @@ final class WatchCaptureController: NSObject, ObservableObject, AVAudioRecorderD
 
     private var recorder: AVAudioRecorder?
     private var isStarting = false
+    private var captureRequestedAt: TimeInterval?
     private var activeRecordingID: UUID?
     private var activeCreatedAt: Date?
     private var activated = false
@@ -63,6 +64,7 @@ final class WatchCaptureController: NSObject, ObservableObject, AVAudioRecorderD
     func startCapture() {
         guard recorder == nil, !isStarting else { return }
         isStarting = true
+        captureRequestedAt = ProcessInfo.processInfo.systemUptime
         state = .preparing
 
         let audioApplication = AVAudioApplication.shared
@@ -186,6 +188,10 @@ final class WatchCaptureController: NSObject, ObservableObject, AVAudioRecorderD
             }
 
             self.recorder = recorder
+            if let startTime = captureRequestedAt {
+                CaptureLatency.record(startedAt: startTime, source: "watch")
+            }
+            captureRequestedAt = nil
             isStarting = false
             activeRecordingID = id
             activeCreatedAt = createdAt
@@ -197,6 +203,7 @@ final class WatchCaptureController: NSObject, ObservableObject, AVAudioRecorderD
     }
 
     private func failRecordingStart(_ error: Error, fileURL: URL) {
+        captureRequestedAt = nil
         isStarting = false
         // A failed prepare has no finalized audio. Deleting its scratch file
         // is safe; never delete an audio file that already reached recording.

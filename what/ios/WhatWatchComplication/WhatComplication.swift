@@ -30,14 +30,14 @@ private struct CaptureComplicationView: View {
                 HStack(spacing: 6) {
                     Image(systemName: "mic.fill")
                     VStack(alignment: .leading, spacing: 1) {
-                        Text("What?")
+                        Text(CaptureBrand.name)
                             .font(.headline)
-                        Text("Record")
+                        Text(CaptureBrand.text("Запись", "Record"))
                             .font(.caption2)
                     }
                 }
             case .accessoryInline:
-                Label("What? Record", systemImage: "mic.fill")
+                Label(CaptureBrand.text("Ухват: запись", "UhWhat? Record"), systemImage: "mic.fill")
             default:
                 ZStack {
                     AccessoryWidgetBackground()
@@ -57,8 +57,8 @@ struct WhatCaptureComplication: Widget {
         StaticConfiguration(kind: kind, provider: CaptureProvider()) { _ in
             CaptureComplicationView()
         }
-        .configurationDisplayName("Record with What?")
-        .description("Start a new thought from the watch face.")
+        .configurationDisplayName(CaptureBrand.text("Запись в Ухвате", "Record with UhWhat?"))
+        .description(CaptureBrand.text("Запись новой мысли с циферблата часов.", "Start a new thought from the watch face."))
         .supportedFamilies([.accessoryCircular, .accessoryRectangular, .accessoryInline])
     }
 }

@@ -12,6 +12,17 @@ struct SyncDiagnosticsView: View {
                         "\(store.recordings.filter { store.isAudioAvailable($0) }.count)")
                     LabeledContent("Transcribed notes", value: "\(store.transcripts.count)")
                 }
+                Section("iPhone capture responsiveness") {
+                    let samples = CaptureLatency.samples(for: "iphone")
+                    LabeledContent("Captured starts", value: "\(samples.count)")
+                    if let latency = CaptureLatency.p95(milliseconds: samples) {
+                        LabeledContent("Handler to first microphone buffer (p95)",
+                                       value: "\(Int(latency)) ms")
+                    }
+                    Text("Measured after pressing Record and entering the app's recorder; excludes system launch time. Stored only on this iPhone.")
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
+                }
                 Section("Apple Watch — last reported state") {
                     if let snapshot = store.lastWatchQueueSnapshot {
                         LabeledContent("Pending on Watch", value: "\(snapshot.pendingCount)")

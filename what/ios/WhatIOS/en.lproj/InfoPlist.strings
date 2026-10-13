@@ -1,0 +1,3 @@
+"CFBundleDisplayName" = "UhWhat?";
+"NSMicrophoneUsageDescription" = "Record voice thoughts directly on this iPhone. Audio stays on your device.";
+"NSSpeechRecognitionUsageDescription" = "Transcribe saved voice notes on this iPhone using on-device speech recognition.";

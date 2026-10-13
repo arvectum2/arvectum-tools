@@ -6,6 +6,7 @@ import Foundation
 final class MicrophoneCapturePipeline {
     struct Status {
         let framesWritten: Int64
+        let firstFrameUptime: TimeInterval?
         let sampleRate: Double
         let hasInputSignal: Bool
         let writeError: Error?
@@ -26,6 +27,7 @@ final class MicrophoneCapturePipeline {
     private let lock = NSLock()
     private var writer: AVAudioFile?
     private var frames: Int64 = 0
+    private var firstFrameUptime: TimeInterval?
     private var hasSignal = false
     private var maximumPeak: Float = 0
     private var audibleFrameCount: Int64 = 0
@@ -63,6 +65,9 @@ final class MicrophoneCapturePipeline {
         guard let writer, failure == nil, buffer.frameLength > 0 else { return }
         do {
             try writer.write(from: buffer)
+            if firstFrameUptime == nil {
+                firstFrameUptime = ProcessInfo.processInfo.systemUptime
+            }
             frames += Int64(buffer.frameLength)
             if let data = buffer.floatChannelData {
                 let count = Int(buffer.frameLength)
@@ -87,7 +92,8 @@ final class MicrophoneCapturePipeline {
         lock.lock()
         defer { lock.unlock() }
         return Status(
-            framesWritten: frames, sampleRate: sampleRate,
+            framesWritten: frames, firstFrameUptime: firstFrameUptime,
+            sampleRate: sampleRate,
             hasInputSignal: hasSignal, writeError: failure,
             peak: maximumPeak, audibleFrames: audibleFrameCount
         )
@@ -99,7 +105,8 @@ final class MicrophoneCapturePipeline {
         defer { lock.unlock() }
         writer = nil
         return Status(
-            framesWritten: frames, sampleRate: sampleRate,
+            framesWritten: frames, firstFrameUptime: firstFrameUptime,
+            sampleRate: sampleRate,
             hasInputSignal: hasSignal, writeError: failure,
             peak: maximumPeak, audibleFrames: audibleFrameCount
         )

@@ -930,6 +930,12 @@ final class RecordingRepositoryTests: XCTestCase {
         XCTAssertNil(status.writeError)
         let played = try AVAudioPlayer(contentsOf: url)
         XCTAssertEqual(played.duration, status.audioSeconds, accuracy: 0.05)
+        XCTAssertNoThrow(try PhoneCaptureValidation.validateRecoveredFile(
+            url, actualDuration: played.duration, expectedElapsed: nil
+        ), "Audible crash recovery without Stop metadata must be possible")
+        XCTAssertThrowsError(try PhoneCaptureValidation.validateRecoveredFile(
+            url, actualDuration: played.duration, expectedElapsed: 12.0
+        ), "Incomplete AAC duration must be rejected")
         XCTAssertNoThrow(try PhoneCaptureValidation.validate(
             actualDuration: played.duration,
             elapsedTime: status.audioSeconds + 0.1
@@ -983,6 +989,35 @@ final class RecordingRepositoryTests: XCTestCase {
         ))
         let player = try AVAudioPlayer(contentsOf: url)
         XCTAssertGreaterThan(player.duration, 1)
+        XCTAssertThrowsError(try PhoneCaptureValidation.validateRecoveredFile(
+            url, actualDuration: player.duration, expectedElapsed: nil
+        ), "Process-killed silent audio must not become a valid voice note")
+        XCTAssertTrue(FileManager.default.fileExists(atPath: url.path),
+                      "Invalid staged audio must remain untouched for diagnosis")
+    }
+
+    func testCaptureLatencyPercentileAndBoundedLocalHistory() throws {
+        let defaults = try XCTUnwrap(UserDefaults(suiteName: "uhwhat-test-\(UUID())"))
+        defer {
+            for key in defaults.dictionaryRepresentation().keys {
+                defaults.removeObject(forKey: key)
+            }
+        }
+        XCTAssertNil(CaptureLatency.p95(milliseconds: []))
+        XCTAssertEqual(CaptureLatency.p95(milliseconds: [50, 120, 80, 60, 90]),
+                       120)
+        for i in 0..<40 {
+            CaptureLatency.record(startedAt: 10, source: "test",
+                                  now: 10 + Double(i) / 1000,
+                                  defaults: defaults)
+        }
+        let samples = CaptureLatency.samples(for: "test", defaults: defaults)
+        XCTAssertEqual(samples.count, 30)
+        XCTAssertEqual(samples.first!, 10, accuracy: 0.01)
+        XCTAssertEqual(samples.last!, 39, accuracy: 0.01)
+        CaptureLatency.record(startedAt: 12, source: "test",
+                              now: 10, defaults: defaults)
+        XCTAssertEqual(CaptureLatency.samples(for: "test", defaults: defaults).count, 30)
     }
 
     func testActualSoundSamplesPassMicrophoneSignalGate() throws {
