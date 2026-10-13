@@ -5,10 +5,12 @@ import Foundation
 /// iPhone captures are written under Application Support before being imported.
 /// Uncommitted audio is never erased on a failed repository write.
 @MainActor
-final class PhoneRecordingController: NSObject, ObservableObject, AVAudioRecorderDelegate {
+final class PhoneRecordingController: NSObject, ObservableObject {
     @Published private(set) var isRecording = false
     @Published private(set) var requestingPermission = false
     @Published private(set) var startedAt: Date?
+    @Published private(set) var microphoneConnected = false
+    @Published private(set) var hasDetectedSignal = false
     @Published var errorMessage: String?
 
     var onSaved: ((RecordingEnvelope) -> Void)?
@@ -24,7 +26,8 @@ final class PhoneRecordingController: NSObject, ObservableObject, AVAudioRecorde
     private let directory: URL
     private let repository: RecordingRepository
     private let files: FileManager
-    private var recorder: AVAudioRecorder?
+    private var engine: AVAudioEngine?
+    private var pipeline: MicrophoneCapturePipeline?
     private var pending: Pending?
     private var startGeneration = UUID()
     private var interruptionObserver: NSObjectProtocol?
@@ -66,7 +69,7 @@ final class PhoneRecordingController: NSObject, ObservableObject, AVAudioRecorde
     }
 
     func start() {
-        guard !isRecording && recorder == nil && !requestingPermission else { return }
+        guard !isRecording && engine == nil && !requestingPermission else { return }
         let generation = UUID()
         startGeneration = generation
         let application = AVAudioApplication.shared
@@ -108,88 +111,108 @@ final class PhoneRecordingController: NSObject, ObservableObject, AVAudioRecorde
             : "Microphone was interrupted before usable audio was captured. Try recording again."
     }
 
-    nonisolated func audioRecorderDidFinishRecording(
-        _ recorder: AVAudioRecorder, successfully flag: Bool
-    ) {
-        Task { @MainActor [weak self] in
-            guard let self, self.recorder === recorder, self.isRecording else {
-                return
-            }
-            self.handleCaptureInterruption()
-        }
-    }
-
     private func begin() {
-        guard recorder == nil && !isRecording else { return }
-        let item = Pending(
-            id: UUID(), createdAt: Date(), expectedElapsed: nil
-        )
+        guard engine == nil && !isRecording else { return }
+        let item = Pending(id: UUID(), createdAt: Date(), expectedElapsed: nil)
         let url = audioURL(for: item.id)
         do {
             let session = AVAudioSession.sharedInstance()
-            // Capture-only session avoids output route changes and competing
-            // playback configuration while a new microphone recording begins.
             try session.setCategory(.record, mode: .default)
-            try session.setPreferredSampleRate(44_100)
             try session.setActive(true)
             guard session.isInputAvailable else {
                 throw NSError(
-                    domain: "What.PhoneCapture", code: 1,
-                    userInfo: [NSLocalizedDescriptionKey: "No microphone input is available."]
+                    domain: "What.Microphone", code: 1,
+                    userInfo: [NSLocalizedDescriptionKey:
+                        "No microphone input is available on this iPhone."]
+                )
+            }
+            let nextEngine = AVAudioEngine()
+            let input = nextEngine.inputNode
+            let format = input.outputFormat(forBus: 0)
+            guard format.channelCount > 0 && format.sampleRate > 0 else {
+                throw NSError(
+                    domain: "What.Microphone", code: 3,
+                    userInfo: [NSLocalizedDescriptionKey:
+                        "iOS microphone returned no active audio channels."]
                 )
             }
             try files.createDirectory(at: directory, withIntermediateDirectories: true)
             try JSONEncoder().encode(item).write(
                 to: metadataURL(for: item.id), options: .atomic
             )
-            let settings: [String: Any] = [
-                AVFormatIDKey: kAudioFormatMPEG4AAC,
-                AVSampleRateKey: session.sampleRate,
-                AVNumberOfChannelsKey: 1,
-                AVEncoderAudioQualityKey: AVAudioQuality.medium.rawValue
-            ]
-            let next = try AVAudioRecorder(url: url, settings: settings)
-            next.delegate = self
-            guard next.prepareToRecord(), next.record(), next.isRecording else {
-                throw CocoaError(.fileWriteUnknown)
+            let nextPipeline = try MicrophoneCapturePipeline(
+                url: url, inputFormat: format
+            )
+            input.installTap(onBus: 0, bufferSize: 1_024, format: format) {
+                [weak nextPipeline] buffer, _ in
+                nextPipeline?.append(buffer)
             }
-            recorder = next
+            do {
+                try nextEngine.start()
+            } catch {
+                input.removeTap(onBus: 0)
+                _ = nextPipeline.close()
+                throw error
+            }
+            engine = nextEngine
+            pipeline = nextPipeline
             pending = item
             isRecording = true
             startedAt = item.createdAt
+            microphoneConnected = false
+            hasDetectedSignal = false
         } catch {
-            errorMessage = "Could not start recording: \(error.localizedDescription)"
+            errorMessage = "Microphone could not start: \(error.localizedDescription)"
             try? files.removeItem(at: metadataURL(for: item.id))
-            if files.fileExists(atPath: url.path) {
-                // Only a failed and never-started file may be discarded here.
-                try? files.removeItem(at: url)
-            }
+            try? files.removeItem(at: url)
+            engine = nil
+            pipeline = nil
+            try? AVAudioSession.sharedInstance().setActive(false)
+        }
+    }
+
+    func refreshMicrophoneStatus() {
+        guard isRecording, let pipeline else { return }
+        let status = pipeline.status
+        if status.framesWritten > 0 {
+            microphoneConnected = true
+        }
+        if status.hasInputSignal {
+            hasDetectedSignal = true
+        }
+        if let error = status.writeError {
+            errorMessage = "Audio capture stopped: \(error.localizedDescription)"
         }
     }
 
     @discardableResult
     func finish() -> RecordingEnvelope? {
-        guard let recorder, let item = pending else { return nil }
+        guard let engine, let pipeline, let item = pending else { return nil }
         let elapsed = max(0, Date().timeIntervalSince(item.createdAt))
-        recorder.delegate = nil
-        recorder.stop()
-        self.recorder = nil
+        engine.inputNode.removeTap(onBus: 0)
+        engine.stop()
+        self.engine = nil
+        self.pipeline = nil
+        let status = pipeline.close()
         pending = nil
         isRecording = false
         startedAt = nil
+        microphoneConnected = false
+        hasDetectedSignal = false
         try? AVAudioSession.sharedInstance().setActive(false)
 
         let url = audioURL(for: item.id)
         do {
-            // Persist expected capture length even if validation/import fails.
-            // Recovery must not import a half-second fragment as a six-second
-            // recording merely because the audio file is decodable.
             let completed = Pending(
                 id: item.id, createdAt: item.createdAt,
                 expectedElapsed: elapsed
             )
             try JSONEncoder().encode(completed).write(
                 to: metadataURL(for: item.id), options: .atomic
+            )
+            if let error = status.writeError { throw error }
+            try PhoneCaptureValidation.validate(
+                actualDuration: status.audioSeconds, elapsedTime: elapsed
             )
             guard files.fileExists(atPath: url.path),
                   let player = try? AVAudioPlayer(contentsOf: url)
@@ -198,8 +221,7 @@ final class PhoneRecordingController: NSObject, ObservableObject, AVAudioRecorde
             }
             let measured = player.duration
             try PhoneCaptureValidation.validate(
-                actualDuration: measured,
-                elapsedTime: elapsed
+                actualDuration: measured, elapsedTime: elapsed
             )
             let accepted = try repository.acceptTemporaryFile(url, metadata: [
                 TransferMetadataKey.id: item.id.uuidString,
@@ -212,7 +234,6 @@ final class PhoneRecordingController: NSObject, ObservableObject, AVAudioRecorde
             onSaved?(saved)
             return saved
         } catch {
-            // Keep staging file + manifest for recovery; no destructive cleanup.
             errorMessage = "Recording was not saved: \(error.localizedDescription) A recovery copy is kept on this iPhone."
             return nil
         }
@@ -226,12 +247,16 @@ final class PhoneRecordingController: NSObject, ObservableObject, AVAudioRecorde
     func discard() {
         cancelPendingStart()
         guard let item = pending else { return }
-        recorder?.delegate = nil
-        recorder?.stop()
-        recorder = nil
+        engine?.inputNode.removeTap(onBus: 0)
+        engine?.stop()
+        _ = pipeline?.close()
+        engine = nil
+        pipeline = nil
         pending = nil
         isRecording = false
         startedAt = nil
+        microphoneConnected = false
+        hasDetectedSignal = false
         try? AVAudioSession.sharedInstance().setActive(false)
         try? files.removeItem(at: audioURL(for: item.id))
         try? files.removeItem(at: metadataURL(for: item.id))

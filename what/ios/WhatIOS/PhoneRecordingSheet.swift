@@ -17,10 +17,27 @@ struct PhoneRecordingSheet: View {
                     .font(.title2.bold())
 
                 if let date = recorder.startedAt {
-                    TimelineView(.periodic(from: .now, by: 1)) { context in
-                        Text(formatDuration(context.date.timeIntervalSince(date)))
-                            .font(.system(.title, design: .monospaced))
-                            .accessibilityLabel("Recording duration")
+                    TimelineView(.periodic(from: .now, by: 0.5)) { context in
+                        VStack(spacing: 8) {
+                            Text(formatDuration(context.date.timeIntervalSince(date)))
+                                .font(.system(.title, design: .monospaced))
+                                .accessibilityLabel("Recording duration")
+                            Text(
+                                recorder.microphoneConnected
+                                    ? (recorder.hasDetectedSignal
+                                        ? "Microphone is capturing sound"
+                                        : "Microphone connected — speak now")
+                                    : (context.date.timeIntervalSince(date) > 2
+                                        ? "No microphone data yet — check audio input"
+                                        : "Connecting to microphone…")
+                            )
+                            .font(.caption)
+                            .foregroundStyle(recorder.microphoneConnected
+                                ? Color.secondary : Color.orange)
+                        }
+                        .onChange(of: context.date) { _, _ in
+                            recorder.refreshMicrophoneStatus()
+                        }
                     }
                 } else {
                     Text("Your original audio will be saved locally on this iPhone.")

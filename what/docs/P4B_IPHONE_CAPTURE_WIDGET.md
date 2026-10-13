@@ -30,3 +30,17 @@
 - [x] Simulator unit tests reject real-world failure input 0.06 s / 6.261625 s and accept normal 6.18 s / 6.26 s.
 - [x] Installed iPhone build 13; all pre-existing 15 recordings, 15 .m4a files and 7 transcripts byte-identical after installation (2026-10-13).
 - [ ] Record 5-10 seconds on iPhone, save, listen, and verify successful transcription.
+
+
+## Live microphone buffer capture (build 14)
+
+- Build 13 physical retest still failed. Diagnostic AAC file in PhoneCaptures had 0.020000 seconds/12 bytes/three packets after 9.1557599 seconds elapsed; the active microphone session was not actually delivering encoded audio.
+- All existing notes and failed capture staging were backed up to ArvectumSSD/backups/what-mic-failure-after-build13-20261013; do not remove until user explicitly authorizes cleanup.
+- Capture path switched from AVAudioRecorder to AVAudioEngine inputNode.installTap at device-native sample rate; tap buffers are written with AVAudioFile directly to AAC M4A. A frame counter separately tracks real captured audio time; filename header is finalized on file close.
+- iPhone capture UI now says Connecting to microphone, Microphone connected, Microphone is capturing sound, or No microphone data yet (after 2 seconds). This status uses actual input buffers, not elapsed time.
+- Saving requires enough real input frames and independently measured playable AAC duration. Failed captures retain staging/manifest; never silently appear in Inbox.
+- Regression tests for synthetic microphone frame -> playable M4A and zero-frame rejection added and compile. Native Mac AAC codec test produced playable M4A of 1.066 seconds from 51200 source frames.
+- iOS simulator xcodebuild test run hung without test logs after compilation; only build-for-testing completed successfully. Repeat full tests with healthy simulator.
+- [x] Physical build 14 installed with byte-for-byte data integrity check: all 15 recordings, 15 audio files, 7 transcripts, and staged captures preserved (2026-10-13).
+- [ ] Physical iPhone mic shows live signal, saves 5-10 seconds fully, original audio plays and transcribes.
+- [ ] If still missing buffers, check iOS Voice Memos microphone and whether iPhone Mirroring / Continuity Camera holds audio input. Do not guess from current evidence.

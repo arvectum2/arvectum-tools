@@ -1,4 +1,5 @@
 import XCTest
+import AVFoundation
 @testable import WhatIOS
 
 final class RecordingRepositoryTests: XCTestCase {
@@ -897,6 +898,59 @@ final class RecordingRepositoryTests: XCTestCase {
         ))
         XCTAssertThrowsError(try PhoneCaptureValidation.validate(
             actualDuration: 1, elapsedTime: 0
+        ))
+    }
+
+    func testDirectMicrophoneBufferPipelineWritesPlayableAACWithRealFrameDuration() throws {
+        let url = FileManager.default.temporaryDirectory.appendingPathComponent(
+            "what-avaudioengine-test-\(UUID().uuidString).m4a"
+        )
+        defer { try? FileManager.default.removeItem(at: url) }
+        let format = try XCTUnwrap(AVAudioFormat(
+            standardFormatWithSampleRate: 48_000, channels: 1
+        ))
+        let pipeline = try MicrophoneCapturePipeline(
+            url: url, inputFormat: format
+        )
+        for i in 0..<80 {
+            let buffer = try XCTUnwrap(AVAudioPCMBuffer(
+                pcmFormat: format, frameCapacity: 1_024
+            ))
+            buffer.frameLength = 1_024
+            let samples = try XCTUnwrap(buffer.floatChannelData)[0]
+            for j in 0..<1_024 {
+                samples[j] = 0.07 * sin(Float((i * 1_024 + j) % 32) * Float.pi / 16)
+            }
+            pipeline.append(buffer)
+        }
+        let status = pipeline.close()
+        XCTAssertEqual(status.framesWritten, 80 * 1_024)
+        XCTAssertGreaterThan(status.audioSeconds, 1.5)
+        XCTAssertTrue(status.hasInputSignal)
+        XCTAssertNil(status.writeError)
+        let played = try AVAudioPlayer(contentsOf: url)
+        XCTAssertEqual(played.duration, status.audioSeconds, accuracy: 0.05)
+        XCTAssertNoThrow(try PhoneCaptureValidation.validate(
+            actualDuration: played.duration,
+            elapsedTime: status.audioSeconds + 0.1
+        ))
+    }
+
+    func testEnginePipelineWithNoMicrophoneBuffersIsNotAcceptedAsRecording() throws {
+        let url = FileManager.default.temporaryDirectory.appendingPathComponent(
+            "what-empty-audio-engine-\(UUID().uuidString).m4a"
+        )
+        defer { try? FileManager.default.removeItem(at: url) }
+        let format = try XCTUnwrap(AVAudioFormat(
+            standardFormatWithSampleRate: 48_000, channels: 1
+        ))
+        let pipeline = try MicrophoneCapturePipeline(
+            url: url, inputFormat: format
+        )
+        let state = pipeline.close()
+        XCTAssertEqual(state.framesWritten, 0)
+        XCTAssertThrowsError(try PhoneCaptureValidation.validate(
+            actualDuration: state.audioSeconds, elapsedTime: 9.0
         ))
     }
 
