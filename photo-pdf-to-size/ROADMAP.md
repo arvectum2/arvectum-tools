@@ -26,7 +26,7 @@
 - [x] Recover build **12** source commit `0346d75`, signed IPA/archive and Apple submission evidence; merge the shipped source into canonical `main` and tag `photo-size-ios-v1.0.0-build12`.
 - [ ] Verify public-storefront propagation of 1.0.0 (public iTunes lookup still showed 0.6.2 during this audit).
 
-## Next patch — 1.0.1 (13), uploaded candidate (not submitted to App Review)
+## iOS 1.0.1 (13) — submitted to App Review (WAITING_FOR_REVIEW, 2026-10-13)
 
 - [x] Keep the advertising consent Accept/Decline buttons visible even with iOS 27's maximum accessibility text size by scrolling explanatory text separately.
 - [x] Re-run 28 unit tests plus 5 simulator UI tests on iOS 27 with standard text size; 5 device-only Files tests skipped by design.
@@ -35,7 +35,10 @@
 - [x] Prepared 20 localized release notes and a 1.0.1 draft in App Store Connect.
 - [ ] Physical iPhone regression (Files/Photos, exports, PDF, ads and consent/ATT) and release acceptance.
 - [x] Apple build 13 is VALID and attached; ru/en-US/en-GB screenshots and locale parity verified.
-- [ ] Finish physical UI/advertising checks and submit to App Review. iPhone 13 is connected but locked; see [release handoff](docs/appstore/RELEASE_1.0.1_2026-10-13.md).
+- [x] Physical iPhone 13 debug build installed, launched and screenshot captured: main screen and native demo ad visible.
+- [x] Submitted 1.0.1 (13) to App Review 2026-10-13; Apple confirmed WAITING_FOR_REVIEW.
+- [ ] Full physical Files import/export and ATT acceptance still need verification: XCTest UI runner timed out enabling automation, not an app assertion. Do not claim production ads tested. See [release handoff](docs/appstore/RELEASE_1.0.1_2026-10-13.md).
+- [ ] Apple approval and public storefront verification.
 
 ## Next: post-release QA and maintenance
 - [ ] Run device regression on image modes, document presets, PDF orientation, large-file memory and export.
