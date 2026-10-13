@@ -6,7 +6,7 @@
 
 ## Checks to run
 
-- [x] **Offline batch (partial physical pass on 2026-10-13):** turn off the actual Watch-to-iPhone link (verify Watch is disconnected, not merely airplane mode with Bluetooth still active). On Watch, record and save three *distinct*, numbered short voice notes. Verified 3 waiting for iPhone, reconnected, all three appeared after opening iPhone app. **Still verify automatic background delivery without opening iPhone, audio distinctness, and Watch pending count reaching zero.**
+- [x] **Offline batch (partial physical pass on 2026-10-13):** turn off the actual Watch-to-iPhone link (verify Watch is disconnected, not merely airplane mode with Bluetooth still active). On Watch, record and save three *distinct*, numbered short voice notes. Verified 3 waiting for iPhone, reconnected, all three appeared after opening iPhone app. **Still verify automatic background delivery without opening iPhone and audio distinctness. User confirmed Watch pending count cleared to zero after 3/3 arrived.**
 - [ ] **Reboot with pending queue:** disconnect again, record a new disposable note, and reboot Watch *before* reconnecting. Confirm pending count and queued audio still exist after restart. Reconnect and verify the note transfers and plays on iPhone.
 - [ ] **Duplicate and ACK safety:** keep the link connected across a retry/relaunch. Ensure the three notes each appear only once on iPhone even if transfers repeat. Confirm the watch removes a local recording only after phone acknowledgement.
 - [ ] **Deletion versus late transfer:** delete one disposable note on iPhone, then allow a previously queued duplicate delivery of the same UUID; verify it stays deleted. This needs instrumented replay for determinism, not a manual new recording with another UUID.
@@ -23,3 +23,12 @@
 ## Apple background-delivery expectation
 
 WCSession.transferFile is opportunistic and may be delayed by watchOS/iOS for power management. Do not promise immediate delivery after reconnection. The iPhone app must not need to be opened to eventually receive background transfers, but this remains a physical acceptance target, not a guaranteed timing SLA. A lost acknowledgement should trigger another transfer under the 90-second retry gate when the Watch app executes, using the same UUID.
+
+## Physical installation and developer-connection evidence (2026-10-13)
+
+- Paired physical Apple Watch SE running watchOS 26.6 was visible to Xcode as *available (paired)* but the developer tunnel had disconnected; iPhone 13 remained connected.
+- Watch Developer Mode remained enabled; Watch/iPhone consumer pairing remained healthy.
+- Restored developer connection without resetting devices by running `xcrun devicectl manage pair --device <watch-UDID>` against the existing pairing. Verified `Device State: connected` and a tunnel IP in CoreDevice.
+- Installed signed What? watch app build 0.1.0 (5) directly using `devicectl device install app`. Verified installed bundle version 5 (previous version was 2), device remains connected.
+- `devicectl device process launch` timed out despite successful install, so launching the app on the watch by hand is **not yet verified**. Watch data container export also timed out. Do not claim on-watch P0 acceptance from these commands.
+- No device was unpaired from its consumer companion, reset, or erased.
