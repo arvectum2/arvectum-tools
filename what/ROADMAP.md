@@ -1,7 +1,7 @@
 # What? — Product Roadmap
 
 **Updated:** 2026-10-13
-**Status:** Physical iPhone currently runs What? 0.1.0 (16) with successful direct iPhone recording and on-device transcription, 17 preserved recordings, 8 transcripts. User confirmed Home Screen widget opens capture and semantic search results are approximately relevant, but found two regressions: a recognized count "раз 2345" could not be located by the spoken number "два"; a query for "тест" matched an unrelated note containing "текст". Build 17 introduces word-boundary lexical retrieval, Russian counting-sequence aliases for digits in a narrow context (without changing the original transcript), and a distinct Number match label. Pure single-word searches no longer rely on fuzzy/semantic matching. Full iOS simulator regression suite passed. Physical iPhone build 17 installed in place, preserving 17 recordings, 17 original audio files and 15 transcripts byte-identically. Lexical matcher independently checked against real iPhone transcript backup: both notes containing "раз 2345" were found by "два"; a note containing only "текст" did not appear for query "тест". Manual UI verification on physical iPhone remains pending. The previous system-wide iPhone microphone silence cleared after quitting iPhone Mirroring and rebooting the iPhone. No App Store submission.
+**Status:** Physical iPhone is currently on What? 0.1.0 (17); user confirmed both rare-word/number search regressions fixed on device (search "два" finds recognized "раз 2345"; "тест" no longer returns "текст"). Build 18 implements the first retrieval-grounded P5 Ask memory preview alongside Find notes: questions discard neutral conversational terms for lexical retrieval while preserving the original question for on-device contextual embeddings; returns at most 3 actual transcript excerpts, each with date and original-audio navigation; no generative answers or invented content, and no answer when evidence is insufficient. Find notes now groups verified word/number matches separately from semantically similar passages. Full iOS simulator test suite passed, signed build 18 installed on physical iPhone 13, and all prior 17 recordings, 17 original audio files, 15 transcripts plus other app-support files were byte-identical to preinstall backup. New Ask memory UI acceptance by user pending. No automatic model downloads or cloud processing. Watch build 10 unchanged; no App Store release yet.
 **Evidence:** [historical feature-branch roadmap snapshot](docs/history/ROADMAP-feature-what-2026-10-11.md).
 **Shared principles:** [Core](../core/CORE_PRINCIPLES.md); **Growth:** [Growth](../growth/ROADMAP.md).
 
@@ -55,7 +55,9 @@
 - [x] Build 17: searchable derived aliases for recognized Russian counting shorthand "раз 2345": "два", "три", "четыре", "пять" match "раз 2345" (lower-ranked Number match); standalone number 2345, years and identifiers do not spuriously match number words. Original ASR text is untouched.
 - [x] Regression tests for both user-provided cases plus end-to-end LocalSemanticSearch with a deliberately misleading vectorizer passed in iOS simulator.
 - [x] Independently validated search matcher on a backup of real iPhone transcripts: query "два" matched both notes containing "раз 2345"; a text-only note did not match "тест"; tests do not expose note contents.
-- [ ] Confirm same behavior through physical iPhone UI of build 17; investigate other number normalization cases based on actual transcripts before widening aliases.
+- [x] User confirmed both real physical iPhone UI queries work correctly on build 17 (2026-10-13). New normalization issues should be fixed with evidence, not overly broad fuzzy matching.
+- [x] Build 18 separates exact/number matches from semantic-only results in the Find notes UI, so source relevance is visible at a glance.
+- [ ] Evaluate semantic ranking with 20–30 genuine user-confirmed Russian paraphrases on the physical iPhone. Russian NLContextualEmbedding assets are not installed on Mac mini, so benchmark results from that Mac would not reflect the actual iPhone model.
 
 ## P4b — iPhone capture + widgets
 - [x] Add native iPhone microphone capture and Stop/Save, discard, local source-of-truth storage, recovery manifests for interrupted writes, and automatic offline transcription if authorized.
@@ -69,7 +71,10 @@
 - [x] Verified first post-reboot direct iPhone capture in backup: 4.5-second AAC with nonzero signal and a 44-character persisted transcript (2026-10-13). The newly confirmed widget routes into capture; actual widget-originated audio still needs retesting after ensuring microphone works outside iPhone Mirroring.
 
 ## P5 — Ask Your Memory
-- [ ] Retrieval-grounded responses with note/audio timestamp attribution; no unsupported invented statements.
+- [x] P5 initial extractive answer mode (build 18): Ask memory directly from Smart search; question-word filtering improves lexical retrieval, 3 strongest verbatim transcript excerpts maximum, source date and original playable audio, clear no-evidence response. No generated summaries or unsupported facts.
+- [x] Regression tests include Russian question filler ("Где я оставил ключи?"), archived-source-compatible recording references, answer suppression when no transcript mentions query, weak semantic score filtering, and 3-source cap.
+- [ ] Physical iPhone acceptance of Ask memory, including relevant source links and honest no-evidence behavior.
+- [ ] Later P5 extension: genuinely synthesized private answers if an appropriate, accurate on-device generative model becomes available, with claim-by-claim passage attribution and strict abstention. Never imply extractive retrieval is a generative Q&A model.
 
 ## Later
 - [ ] Optional clustering, digests, reminders and additional platforms only after MVP validation.

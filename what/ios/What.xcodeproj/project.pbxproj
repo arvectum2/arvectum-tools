@@ -25,6 +25,7 @@
 		67A7309CBD38A6A55FD9B3D9 /* WatchTransferRetryPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A4FCD3C72E787C27B7E3EE /* WatchTransferRetryPolicy.swift */; };
 		686DBE4CA2BBE32B81849C8A /* CaptureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECAA3B8CBC13E2455D09ADE /* CaptureView.swift */; };
 		8429BD4828F55DF8C4718902 /* LocalSemanticSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766855BE51B40DC7C113B75A /* LocalSemanticSearch.swift */; };
+		90470E2EE34AA46C84E2874C /* GroundedMemoryAnswer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AF4FD056784301068F49063 /* GroundedMemoryAnswer.swift */; };
 		930D8453C63A2A36CD2B7018 /* RecordingEnvelope.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C9581F753BED275286D623 /* RecordingEnvelope.swift */; };
 		93547A568F8B6FC60070BD9F /* ArvectumJSONCodec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F98A4DA9205ACAB6BCD566 /* ArvectumJSONCodec.swift */; };
 		9624AC1580E81B3F01859FFC /* PhoneRecordingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F96BFC4E2D4DD08402B798 /* PhoneRecordingController.swift */; };
@@ -118,6 +119,7 @@
 		1245823325CC94B431825FC8 /* PhoneCaptureValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneCaptureValidation.swift; sourceTree = "<group>"; };
 		1330B09BE7A27DED3358758C /* PhoneConnectivityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneConnectivityManager.swift; sourceTree = "<group>"; };
 		14B585B95ED7BF383E24A396 /* SmartSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartSearchView.swift; sourceTree = "<group>"; };
+		1AF4FD056784301068F49063 /* GroundedMemoryAnswer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroundedMemoryAnswer.swift; sourceTree = "<group>"; };
 		1D0B51DE0971B320ECF3899E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		26A27547EE4FDF0C6AC8FC0C /* ArvectumDiagnostics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArvectumDiagnostics.swift; sourceTree = "<group>"; };
 		27F5BECCDE1474FF547D4DDE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -177,6 +179,7 @@
 			isa = PBXGroup;
 			children = (
 				27F5BECCDE1474FF547D4DDE /* ContentView.swift */,
+				1AF4FD056784301068F49063 /* GroundedMemoryAnswer.swift */,
 				0A671C143C8B8AA6E71D5046 /* InboxOrganizer.swift */,
 				3420DB5CB8958565C9B8B79E /* Info.plist */,
 				766855BE51B40DC7C113B75A /* LocalSemanticSearch.swift */,
@@ -479,6 +482,7 @@
 			files = (
 				93547A568F8B6FC60070BD9F /* ArvectumJSONCodec.swift in Sources */,
 				23C3DC142A5320642976B51C /* ContentView.swift in Sources */,
+				90470E2EE34AA46C84E2874C /* GroundedMemoryAnswer.swift in Sources */,
 				620929503466A26358DDC534 /* ImmediateRecordingPayload.swift in Sources */,
 				AFFF14FF71B201060DB61571 /* InboxOrganizer.swift in Sources */,
 				8429BD4828F55DF8C4718902 /* LocalSemanticSearch.swift in Sources */,
@@ -588,7 +592,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 17;
+				CURRENT_PROJECT_VERSION = 18;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = VML75VY94V;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -798,7 +802,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 17;
+				CURRENT_PROJECT_VERSION = 18;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = VML75VY94V;
 				ENABLE_NS_ASSERTIONS = NO;

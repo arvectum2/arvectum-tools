@@ -117,7 +117,8 @@ final class LocalSemanticSearch {
         recordings: [RecordingEnvelope],
         transcripts: [UUID: String],
         vectorizer: Vectorizer?,
-        modelKey: String = "text-only"
+        modelKey: String = "text-only",
+        lexicalQuery: String? = nil
     ) -> SemanticSearchOutput {
         let needle = query.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !needle.isEmpty else {
@@ -127,7 +128,7 @@ final class LocalSemanticSearch {
         var cache = loadCache(key: modelKey)
         cache.entries = cache.entries.filter { availableIDs.contains($0.key) && transcripts[$0.key] != nil }
         let queryVector = vectorizer?(needle)
-        let searchTerms = TranscriptLexicalMatcher.tokens(needle)
+        let searchTerms = TranscriptLexicalMatcher.tokens(lexicalQuery ?? needle)
         // A single rare word is an exact lookup, not a semantic question.
         // Averaged contextual token vectors give high false-positive cosine
         // scores for unrelated notes on one-word queries.

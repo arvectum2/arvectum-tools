@@ -17,7 +17,8 @@ actor SmartSearchWorker {
     func find(
         query: String,
         recordings: [RecordingEnvelope],
-        transcripts: [UUID: String]
+        transcripts: [UUID: String],
+        askMode: Bool = false
     ) -> SemanticSearchOutput {
         let embedder = AppleLocalEmbedder(query: query)
         return index.search(
@@ -25,7 +26,8 @@ actor SmartSearchWorker {
             recordings: recordings,
             transcripts: transcripts,
             vectorizer: embedder.isAvailable ? { embedder.vector(for: $0) } : nil,
-            modelKey: embedder.key
+            modelKey: embedder.key,
+            lexicalQuery: askMode ? GroundedMemoryAnswer.focusQuery(query) : nil
         )
     }
 
@@ -43,6 +45,7 @@ struct SmartSearchView: View {
     @EnvironmentObject private var store: PhoneStore
     @Environment(\.dismiss) private var dismiss
     @State private var query = ""
+    @State private var mode: SearchMode = .find
     @FocusState private var searchFocused: Bool
     @State private var searching = false
     @State private var installingAssets = false
@@ -53,6 +56,11 @@ struct SmartSearchView: View {
 
     @State private var worker = SmartSearchWorker()
 
+    private enum SearchMode: String, CaseIterable {
+        case find = "Find notes"
+        case ask = "Ask memory"
+    }
+
     private var isRussianQuery: Bool {
         query.unicodeScalars.contains { (0x0400...0x052F).contains($0.value) }
     }
@@ -60,10 +68,23 @@ struct SmartSearchView: View {
     var body: some View {
         NavigationStack {
             VStack(spacing: 0) {
+                Picker("Search mode", selection: $mode) {
+                    ForEach(SearchMode.allCases, id: \.self) { item in
+                        Text(item.rawValue).tag(item)
+                    }
+                }
+                .pickerStyle(.segmented)
+                .padding(.horizontal)
+                .padding(.top, 12)
+
                 HStack(spacing: 10) {
                     Image(systemName: "magnifyingglass")
                         .foregroundStyle(.secondary)
-                    TextField("What was that thought about?", text: $query)
+                    TextField(
+                        mode == .ask ? "What did I say about…?" :
+                            "What was that thought about?",
+                        text: $query
+                    )
                         .focused($searchFocused)
                         .submitLabel(.search)
                         .textInputAutocapitalization(.never)
@@ -112,7 +133,11 @@ struct SmartSearchView: View {
                     ProgressView("Searching your notes…")
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                 } else if let result {
-                    searchResults(result)
+                    if mode == .ask {
+                        groundedAnswerResults(result)
+                    } else {
+                        searchResults(result)
+                    }
                 } else {
                     ContentUnavailableView(
                         "Search your memory",
@@ -125,6 +150,13 @@ struct SmartSearchView: View {
             }
             .onChange(of: store.transcripts.count) { _, _ in
                 if result != nil && !query.isEmpty { performSearch() }
+            }
+            .onChange(of: mode) { _, _ in
+                if result != nil && query.trimmingCharacters(
+                    in: .whitespacesAndNewlines
+                ).count >= 2 {
+                    performSearch()
+                }
             }
             .navigationTitle("Smart search")
             .navigationBarTitleDisplayMode(.inline)
@@ -220,31 +252,19 @@ struct SmartSearchView: View {
                     )
                 )
             } else {
-                Section("\(output.hits.count) results") {
-                    ForEach(output.hits) { hit in
-                        NavigationLink {
-                            SmartSearchRecordingDetail(recording: hit.recording)
-                                .environmentObject(store)
-                        } label: {
-                            VStack(alignment: .leading, spacing: 7) {
-                                HStack {
-                                    Text(hit.recording.createdAt, format:
-                                        .dateTime.day().month().year().hour().minute())
-                                        .font(.caption)
-                                        .foregroundStyle(.secondary)
-                                    Spacer()
-                                    Text(hit.match.rawValue + " match")
-                                        .font(.caption2)
-                                        .foregroundStyle(.secondary)
-                                }
-                                Text(hit.snippet)
-                                    .lineLimit(4)
-                                    .font(.body)
-                                Label("Open original recording", systemImage: "waveform")
-                                    .font(.caption)
-                                    .foregroundStyle(.tint)
-                            }
-                            .padding(.vertical, 5)
+                let direct = output.hits.filter { $0.match != .semantic }
+                let meaning = output.hits.filter { $0.match == .semantic }
+                if !direct.isEmpty {
+                    Section("Word and number matches — \(direct.count)") {
+                        ForEach(direct) { hit in
+                            sourceLink(hit)
+                        }
+                    }
+                }
+                if !meaning.isEmpty {
+                    Section("Similar by meaning — \(meaning.count)") {
+                        ForEach(meaning) { hit in
+                            sourceLink(hit)
                         }
                     }
                 }
@@ -254,6 +274,67 @@ struct SmartSearchView: View {
         .scrollDismissesKeyboard(.interactively)
     }
 
+    @ViewBuilder
+    private func groundedAnswerResults(_ output: SemanticSearchOutput) -> some View {
+        let answer = GroundedMemoryAnswer.extract(output)
+        List {
+            Section {
+                Label("Private, on-device excerpts", systemImage: "checkmark.shield")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                Text(
+                    "These passages come from saved notes. This is not a generated answer; every result links to its original recording."
+                )
+                .font(.caption)
+                .foregroundStyle(.secondary)
+            }
+            if answer.hasEvidence {
+                Section("Found in your notes — \(answer.evidence.count)") {
+                    ForEach(answer.evidence) { hit in
+                        sourceLink(hit)
+                    }
+                }
+            } else {
+                ContentUnavailableView(
+                    "Not enough evidence",
+                    systemImage: "text.book.closed",
+                    description: Text(
+                        "No sufficiently relevant passage was found in saved transcripts. Try different words or transcribe more recordings."
+                    )
+                )
+            }
+        }
+        .listStyle(.insetGrouped)
+        .scrollDismissesKeyboard(.interactively)
+    }
+
+    private func sourceLink(_ hit: SemanticSearchHit) -> some View {
+        NavigationLink {
+            SmartSearchRecordingDetail(recording: hit.recording)
+                .environmentObject(store)
+        } label: {
+            VStack(alignment: .leading, spacing: 7) {
+                HStack {
+                    Text(hit.recording.createdAt, format:
+                        .dateTime.day().month().year().hour().minute())
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                    Spacer()
+                    Text(hit.match.rawValue + " match")
+                        .font(.caption2)
+                        .foregroundStyle(.secondary)
+                }
+                Text(hit.snippet)
+                    .lineLimit(mode == .ask ? 6 : 4)
+                    .font(.body)
+                Label("Open original recording", systemImage: "waveform")
+                    .font(.caption)
+                    .foregroundStyle(.tint)
+            }
+            .padding(.vertical, 5)
+        }
+    }
+
     private func performSearch() {
         let needle = query.trimmingCharacters(in: .whitespacesAndNewlines)
         guard needle.count >= 2 else { return }
@@ -261,11 +342,13 @@ struct SmartSearchView: View {
         let recordings = store.recordings
         let transcripts = store.transcripts
         let currentID = UUID()
+        let askMode = mode == .ask
         requestID = currentID
         searching = true
         Task {
             let output = await worker.find(
-                query: needle, recordings: recordings, transcripts: transcripts
+                query: needle, recordings: recordings, transcripts: transcripts,
+                askMode: askMode
             )
             guard currentID == requestID else { return }
             result = output

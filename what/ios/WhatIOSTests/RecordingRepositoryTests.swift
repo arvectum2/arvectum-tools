@@ -1118,4 +1118,99 @@ final class RecordingRepositoryTests: XCTestCase {
         XCTAssertEqual(repository.transcripts()[countID], "раз 2345")
     }
 
+    func testAskMemoryRemovesQuestionFillerWithoutModifyingOriginalQuery() {
+        XCTAssertEqual(
+            GroundedMemoryAnswer.focusQuery("Где я оставил ключи?"),
+            "ключи"
+        )
+        XCTAssertEqual(
+            GroundedMemoryAnswer.focusQuery("Напомни, что я говорил про документы"),
+            "документы"
+        )
+        XCTAssertEqual(
+            GroundedMemoryAnswer.focusQuery("Что было про договор и счета?"),
+            "договор счета"
+        )
+    }
+
+    func testGroundedAnswerShowsOnlySavedTranscriptEvidenceAndCitesSources() throws {
+        let root = FileManager.default.temporaryDirectory
+            .appendingPathComponent("what-ask-\(UUID().uuidString)")
+        defer { try? FileManager.default.removeItem(at: root) }
+        let repository = RecordingRepository(rootURL: root)
+        let source = root.appendingPathComponent("source.m4a")
+        try Data("audio".utf8).write(to: source)
+        let knownID = UUID()
+        let unrelatedID = UUID()
+        for id in [knownID, unrelatedID] {
+            _ = try repository.acceptTemporaryFile(source, metadata: [
+                TransferMetadataKey.id: id.uuidString,
+                TransferMetadataKey.createdAt: Date().timeIntervalSince1970,
+                TransferMetadataKey.duration: 3.0
+            ])
+        }
+        try repository.updateTranscript("Ключи находятся на верхней полке", for: knownID)
+        try repository.updateTranscript("Посмотреть фильм вечером", for: unrelatedID)
+        let index = LocalSemanticSearch(
+            cacheURL: root.appendingPathComponent("semantic-search-index.json")
+        )
+
+        let question = "Где я оставил ключи?"
+        let answer = index.search(
+            query: question,
+            recordings: repository.allRecordings(),
+            transcripts: repository.transcripts(),
+            vectorizer: nil,
+            lexicalQuery: GroundedMemoryAnswer.focusQuery(question)
+        )
+        let grounded = GroundedMemoryAnswer.extract(answer)
+        XCTAssertEqual(grounded.evidence.count, 1)
+        XCTAssertEqual(grounded.evidence.first?.recording.id, knownID)
+        XCTAssertEqual(grounded.evidence.first?.snippet,
+                       "Ключи находятся на верхней полке")
+        XCTAssertEqual(grounded.evidence.first?.match, .text)
+
+        let unsupported = index.search(
+            query: "Мой паспорт",
+            recordings: repository.allRecordings(),
+            transcripts: repository.transcripts(),
+            vectorizer: nil,
+            lexicalQuery: GroundedMemoryAnswer.focusQuery("Где мой паспорт?")
+        )
+        XCTAssertFalse(GroundedMemoryAnswer.extract(unsupported).hasEvidence)
+    }
+
+    func testGroundedAnswerSuppressesWeakSemanticMatchesAndLimitsSources() {
+        let recordings = (0..<5).map { idx in
+            RecordingEnvelope(
+                id: UUID(), createdAt: Date().addingTimeInterval(Double(idx)),
+                duration: 3, fileName: "\(idx).m4a"
+            )
+        }
+        let weakHits = recordings.map {
+            SemanticSearchHit(
+                recording: $0, snippet: "Weak resemblance",
+                score: 0.76, match: .semantic
+            )
+        }
+        let weakOutput = SemanticSearchOutput(
+            hits: weakHits, semanticAvailable: true, indexedCount: 5
+        )
+        XCTAssertFalse(GroundedMemoryAnswer.extract(weakOutput).hasEvidence)
+        let strongHits = recordings.map {
+            SemanticSearchHit(
+                recording: $0, snippet: "Original evidence",
+                score: 0.88, match: .semantic
+            )
+        }
+        let goodOutput = SemanticSearchOutput(
+            hits: strongHits, semanticAvailable: true, indexedCount: 5
+        )
+        let answer = GroundedMemoryAnswer.extract(goodOutput)
+        XCTAssertEqual(answer.evidence.count, 3)
+        XCTAssertTrue(answer.evidence.allSatisfy {
+            $0.snippet == "Original evidence"
+        })
+    }
+
 }
