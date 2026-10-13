@@ -1,7 +1,7 @@
 # What? — Product Roadmap
 
 **Updated:** 2026-10-13
-**Status:** What? iPhone build 0.1.0 (15) implements source-input diagnosis and a strict real-audio gate after physical build 14 created a 6.600000-second, all-zero AAC file despite receiving a full stream of AVAudioEngine input buffers. Confirmed with Apple decoding that the 6.6-second file's RMS/peak/nonzero frame counts were all zero, while older spoken recordings had expected nonzero amplitudes. Fix: explicitly prefer built-in iPhone microphone when available, show the actual selected iOS input port on capture screen, and reject silent PCM or decoded AAC before recording enters Inbox or triggers transcription. Staged failed recordings are retained; crash recovery validates audio duration and actual signal rather than importing silence. The build compiles for simulator and test target; native Swift regression checks confirmed physical silent AAC rejected, good speech AAC accepted, synthetic buffers encoded/validated. Physical iPhone build 15 installed, with full-byte verification of 16 recordings, 16 original M4A files, 7 transcripts and all staged files. Actual microphone acceptance pending. Existing 16 recorded notes and 7 transcripts retained. Other audio/Watch pipelines unchanged; no App Store release yet.
+**Status:** Physical iPhone 13 now runs What? 0.1.0 (16). User confirmed voice capture returned in both Apple Voice Memos and What? after quitting iPhone Mirroring and rebooting the iPhone (quitting Mirroring alone did not fix it). A fresh post-reboot What? recording was extracted and independently verified on 2026-10-13: 4.500 seconds decoded AAC, peak amplitude ~0.502 and RMS ~0.071 (not digital silence), with a persisted, non-empty 44-character local transcript. This physically validates the iPhone capture → saved original audio → on-device Speech transcription path. Build 16 also refuses to transcribe older empty digital-zero AAC files, without deleting them. iOS simulator test suite passed. Signed build 16 installed on physical iPhone; post-upgrade full app-support byte comparison confirms **17 recordings, 17 original audio files and 8 transcripts** remain unchanged. P4 semantic paraphrase search, WidgetKit real-world launcher and interruption stress acceptance remain pending. Watch build 10 unchanged, App Store release not yet submitted.
 **Evidence:** [historical feature-branch roadmap snapshot](docs/history/ROADMAP-feature-what-2026-10-11.md).
 **Shared principles:** [Core](../core/CORE_PRINCIPLES.md); **Growth:** [Growth](../growth/ROADMAP.md).
 
@@ -53,8 +53,12 @@
 ## P4b — iPhone capture + widgets
 - [x] Add native iPhone microphone capture and Stop/Save, discard, local source-of-truth storage, recovery manifests for interrupted writes, and automatic offline transcription if authorized.
 - [x] Add iOS WidgetKit launcher in small/medium Home Screen and rectangular Lock Screen sizes; widget deep-link opens app and starts capture once foregrounded (no unsupported background microphone access).
-- [ ] Physical acceptance: record/save/reopen/playback/transcribe; record widget setup, first-open confirmation, launch into capture, and unchanged Watch sync.
+- [x] Physical iPhone acceptance: record → save → AAC has actual voice → saved local transcript. Verified 4.5-second real-audio note, 44-character transcript and preservation across upgrade (2026-10-13).
+- [ ] Physical acceptance remaining: record-widget placement/first-open/deep link, repeat capture after long interruption, Watch sync regression following iPhone change.
 - [ ] Strengthen long interrupted iPhone recording reliability and audio session interruption tests.
+- [x] User-confirmed microphone recovery: stopping iPhone Mirroring alone did not restore the mic; rebooting the iPhone did. Voice Memos and What? then successfully recorded audio (2026-10-13). The same on-device output source is still awaiting byte-level verification, and transcription was not yet independently confirmed.
+- [x] Reject silent legacy files before invoking Apple's Speech recognizer, including during batch transcription. No silent file is deleted; audio remains as a diagnostic artifact.
+- [ ] Verify new phone voice capture and actual transcript contents with microphone restored; test WidgetKit shortcut to recording physically. When iPhone is connected again, inspect the newest saved note and audio amplitude without changing user data.
 
 ## P5 — Ask Your Memory
 - [ ] Retrieval-grounded responses with note/audio timestamp attribution; no unsupported invented statements.

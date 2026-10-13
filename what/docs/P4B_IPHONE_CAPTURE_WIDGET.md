@@ -58,3 +58,33 @@
 - [x] Build 15 installed on physical iPhone 13; 16 recordings, 16 audio files, 7 transcripts and all old app-support files byte-identical to pre-upgrade backup (2026-10-13).
 - [ ] Physical iPhone test: show selected input, speak, confirm Microphone is capturing sound, save and play; check transcription.
 - [ ] If even built-in input is all zeros, verify Apple Voice Memos can record on the same iPhone without an active iPhone Mirroring/Continuity Camera session. This isolates OS-level routing from What? audio code.
+
+## Root cause recovery observation (physical, 2026-10-13)
+
+- On the same physical iPhone, even the stock Voice Memos app recorded silence while iPhone Mirroring had been active on the Mac mini. This points to an iOS microphone route/system-state issue rather than an app-only speech model failure.
+- User closed iPhone Mirroring: the microphone did **not** recover immediately.
+- User rebooted iPhone afterward: Voice Memos and What? both recorded audible speech again.
+- Causality remains a strong hypothesis, not proven exclusively by the close/reboot sequence. Avoid claiming a particular private Apple subsystem caused this.
+- Build 15 retains two safety checks (nonzero signal in live buffers and nonzero decoded AAC before import) and a visible input route.
+- Old recordings containing digital zeroes can no longer be sent to Speech recognition; batch conversion skips them with an explanatory error, without deleting them.
+- Follow-up: confirm audio quality and auto-transcription of the first post-reboot recording from a new on-device backup, and widget capture through the home/lock-screen shortcut.
+
+
+## Build 16: recognize only audio with a signal
+- Speech recognition validates decoded audio content, not merely playback duration, before submitting a stored M4A file. Empty digital-zero legacy recordings are skipped in batch mode without deletion or mutation.
+- iPhone microphone returned to normal after user quit iPhone Mirroring and rebooted iPhone; both standard Voice Memos and What? captured audible speech. Do not label restart as a proven exclusive root cause.
+- [x] Full iOS simulator test suite passed using non-parallel test-without-building after rebuilding the test bundle.
+- [ ] Physically install build 16 when iPhone is connected again.
+- [ ] Inspect latest post-restart M4A and actual transcription before marking recognition P4b acceptance complete.
+
+
+## Physical microphone recovery confirmed; build 16 installed (2026-10-13)
+
+- After stopping iPhone Mirroring and restarting the iPhone, Voice Memos and What? both successfully recorded audible audio.
+- Physical What? capture verified from backup, UUID 56CC692E-743B-4308-AB95-87BA91168058: 4.500 seconds, 48 kHz mono AAC, peak amplitude ≈0.502, RMS ≈0.071, and nonzero PCM samples. User transcript persisted (44 characters). Original spoken content is not copied into this technical record.
+- Competing source 6.6-second silent file had peak/RMS/nonzero count all zero. Regression protection in build 16 refuses to submit that file to Speech.
+- Signed physical iPhone build 16 installed in place, and all pre-upgrade 17 recording records, 17 M4A files, 8 transcripts, and other existing app-support files were byte-for-byte identical post install.
+- [x] Record direct from physical iPhone, persist playable real-signal audio, and automatically generate saved on-device transcript.
+- [x] Backward compatibility and data integrity verified.
+- [ ] Install/use What? home-screen widget physically, tap to open capture.
+- [ ] Test offline bulk transcription and semantic search (including old rare-word sample with text available); avoid assuming physical success from simulator tests.

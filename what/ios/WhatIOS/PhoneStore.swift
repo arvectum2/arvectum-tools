@@ -243,6 +243,16 @@ final class PhoneStore: NSObject, ObservableObject, AVAudioPlayerDelegate {
             if batchTranscriptionActive { transcribeNextInBatch() }
             return
         }
+        // A valid-looking AAC file can contain entirely zeroed microphone
+        // buffers (observed after iPhone Mirroring). Never send such files to
+        // Speech: it can only return "No speech detected".
+        guard (try? PhoneCaptureValidation.validateFileHasSound(
+            repository.audioURL(for: recording)
+        )) != nil else {
+            errorMessage = "This recording contains no microphone sound. Restart the iPhone if needed and record again; speech recognition cannot recover missing audio."
+            if batchTranscriptionActive { transcribeNextInBatch() }
+            return
+        }
         transcribingID = recording.id
         SFSpeechRecognizer.requestAuthorization { [weak self] authorization in
             Task { @MainActor [weak self] in
