@@ -34,11 +34,13 @@
 - [x] Implement last-reported pending count and timestamp via WatchConnectivity.applicationContext (build 9); queue snapshot stored on iPhone and never presented as current connectivity guarantee. Physical delivery check pending.
 - [ ] True transfer progress/real-time connection status remains outside P2; a last-reported snapshot may be delayed by iOS/watchOS.
 
-- [x] Compact iPhone recording controls, eliminating 4-button overflow and word wrapping. Primary Play and text action stay visible; secondary export/retry/archive/delete moved to More menu. Verified on iPhone 13 simulator at normal/Accessibility Medium font sizes and shipped to iPhone build 10 (physical confirmation pending).
+- [x] Compact iPhone recording controls, eliminating 4-button overflow and word wrapping. Primary Play and text action stay visible; secondary export/retry/archive/delete moved to More menu. Verified in simulator and user confirmed the new layout is more convenient on physical iPhone (2026-10-13).
 
-- [ ] Physically verify iPhone receives the Watch queue snapshot after opening What? on Apple Watch build 10; validate timestamp and queuing/clearing states. The Xcode device tunnel remains intermittent despite successful in-place installation.\n\n## P3 — Apple Notes / Shortcuts
+- [x] User confirmed last-reported Watch queue status in the iPhone UI after Watch build 10 installation. Normal Watch-to-iPhone delivery is so quick that the queue usually reads 0; the technical line is now hidden in Sync diagnostics (2026-10-13).
+- [ ] Validate pending-count transitions by disconnecting devices and reconnecting; do not assume the visible zero proves fully live connectivity.\n\n## P3 — Apple Notes / Shortcuts
 - [x] Implement local iOS share sheet exports for original audio (.m4a), editable transcript (.txt), or both; staged copies removed after sharing; source files untouched. Build 9, automated tests pass; physical sharing acceptance pending.
-- [ ] Test Save to Files / Apple Notes / Shortcuts on physical iPhone; add direct Shortcuts actions only if user demand justifies the extra complexity.
+- [x] User confirmed original share-sheet export works on physical iPhone. Exact external destinations (Files / Notes / Shortcuts) not yet independently enumerated (2026-10-13).
+- [ ] Validate individual export destinations as needed; add direct Shortcuts actions only if user demand justifies the complexity.
 
 ## P4 — Semantic memory
 - [x] Local transcript chunking, on-device embedding path (Apple NaturalLanguage), cache invalidation on transcript edit, deletion-safe derived vector storage, hybrid semantic/text retrieval with source attribution. Built for iPhone build 11 with simulator tests; physical model availability and ranking quality not confirmed.
@@ -54,11 +56,12 @@
 - [x] Add native iPhone microphone capture and Stop/Save, discard, local source-of-truth storage, recovery manifests for interrupted writes, and automatic offline transcription if authorized.
 - [x] Add iOS WidgetKit launcher in small/medium Home Screen and rectangular Lock Screen sizes; widget deep-link opens app and starts capture once foregrounded (no unsupported background microphone access).
 - [x] Physical iPhone acceptance: record → save → AAC has actual voice → saved local transcript. Verified 4.5-second real-audio note, 44-character transcript and preservation across upgrade (2026-10-13).
-- [ ] Physical acceptance remaining: record-widget placement/first-open/deep link, repeat capture after long interruption, Watch sync regression following iPhone change.
+- [x] User confirmed on physical iPhone: What? iOS Home Screen widget adds successfully and tapping it opens the in-app microphone capture screen directly (2026-10-13). This validates widget placement and deep-link routing, not audio capture quality from the widget.
+- [ ] Physical acceptance remaining: complete a voiced recording launched specifically from the widget with a clean iOS microphone route, then confirm saved audio and automatic transcription; repeat capture after long interruptions and Watch sync regression following iPhone change.
 - [ ] Strengthen long interrupted iPhone recording reliability and audio session interruption tests.
 - [x] User-confirmed microphone recovery: stopping iPhone Mirroring alone did not restore the mic; rebooting the iPhone did. Voice Memos and What? then successfully recorded audio (2026-10-13). The same on-device output source is still awaiting byte-level verification, and transcription was not yet independently confirmed.
 - [x] Reject silent legacy files before invoking Apple's Speech recognizer, including during batch transcription. No silent file is deleted; audio remains as a diagnostic artifact.
-- [ ] Verify new phone voice capture and actual transcript contents with microphone restored; test WidgetKit shortcut to recording physically. When iPhone is connected again, inspect the newest saved note and audio amplitude without changing user data.
+- [x] Verified first post-reboot direct iPhone capture in backup: 4.5-second AAC with nonzero signal and a 44-character persisted transcript (2026-10-13). The newly confirmed widget routes into capture; actual widget-originated audio still needs retesting after ensuring microphone works outside iPhone Mirroring.
 
 ## P5 — Ask Your Memory
 - [ ] Retrieval-grounded responses with note/audio timestamp attribution; no unsupported invented statements.

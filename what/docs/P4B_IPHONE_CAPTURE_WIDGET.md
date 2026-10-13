@@ -88,3 +88,12 @@
 - [x] Backward compatibility and data integrity verified.
 - [ ] Install/use What? home-screen widget physically, tap to open capture.
 - [ ] Test offline bulk transcription and semantic search (including old rare-word sample with text available); avoid assuming physical success from simulator tests.
+
+
+## Widget deep-link acceptance (physical iPhone, 2026-10-13)
+
+- [x] What? home-screen widget is discoverable and can be installed by the user.
+- [x] A tap on the widget opens the correct in-app New recording capture screen directly; URL routing works.
+- [ ] The particular test's audio was not saved successfully while iPhone was connected to Mac mini. User attributes it to a previously observed system audio issue. Earlier confirmed recovery required **both** quitting iPhone Mirroring and rebooting iPhone, so a wired USB connection alone is **not proven** to cause microphone failure. Do not dismiss failed captures merely because a cable was connected.
+- [ ] Retest capture from the widget when the built-in microphone is verified by Voice Memos, with iPhone Mirroring fully quit and any audio route conflict resolved. Confirm audible AAC and saved transcript.
+- [ ] Check microphone route shown by What? and capture a fresh diagnostic copy if widget-launched recording still fails.
