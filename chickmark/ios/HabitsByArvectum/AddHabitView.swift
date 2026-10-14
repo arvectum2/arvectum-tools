@@ -32,7 +32,30 @@ struct AddHabitView: View {
     @State private var goalKind: String
     @State private var quantityTarget: Int
     @State private var durationMinutes: Int
+    @State private var healthEnabled = false
+    @State private var healthMetric: HealthHabitMetric = .steps
+    @State private var healthTargetText = "5000"
+    @State private var didInitializeHealthDraft = false
+    @State private var pendingInitialMetric: HealthHabitMetric?
+    @State private var healthSaving = false
+    @State private var healthSaveError: String?
+    @FocusState private var healthTargetFocused: Bool
     @FocusState private var nameFocused: Bool
+
+    private var linkedHealthRule: HealthHabitRule? {
+        habit.flatMap { HealthHabitRuleStore.shared.rule(for: $0.id) }
+    }
+
+    private var parsedHealthTarget: Double? {
+        HealthHabitTargetInput.parse(healthTargetText, metric: healthMetric)
+    }
+
+    private var healthCompatible: Bool {
+        habit?.isArchived != true &&
+        !completionIntervalEnabled &&
+        (!flexibleWeeklyEnabled || healthMetric.supportsWeeklyGoal) &&
+        (flexibleWeeklyEnabled || (goalKind == "check" && dailyTarget == 1))
+    }
 
     private var quickHabits: [(title: String, symbol: String)] {
         [
@@ -128,17 +151,101 @@ struct AddHabitView: View {
                 }
 
                 Section {
+                    formSectionHeader(L10n.string("health.settings"))
+
+                    Toggle(L10n.string("health.link.toggle"), isOn: $healthEnabled)
+                        .accessibilityIdentifier("habit.health.enabled")
+
+                    if healthEnabled {
+                        HStack {
+                            Text(L10n.string("health.metric.title"))
+                            Spacer(minLength: 8)
+                            Picker(L10n.string("health.metric.title"), selection: $healthMetric) {
+                                ForEach(HealthHabitMetric.allCases) { metric in
+                                    Text(L10n.string(metric.titleKey)).tag(metric)
+                                }
+                            }
+                            .labelsHidden()
+                            .pickerStyle(.menu)
+                            .onChange(of: healthMetric) { _, changed in
+                                if pendingInitialMetric == changed {
+                                    pendingInitialMetric = nil
+                                    return
+                                }
+                                pendingInitialMetric = nil
+                                healthTargetText = HealthHabitTargetInput.editableText(
+                                    changed.defaultTarget
+                                )
+                            }
+                            .accessibilityIdentifier("habit.health.metric")
+                        }
+
+                        HStack(spacing: 10) {
+                            Text(L10n.string("health.target"))
+                                .font(.subheadline.weight(.medium))
+                            Spacer(minLength: 8)
+                            TextField(L10n.string("health.target"), text: $healthTargetText)
+                                .keyboardType(healthMetric == .steps ? .numberPad : .decimalPad)
+                                .focused($healthTargetFocused)
+                                .multilineTextAlignment(.trailing)
+                                .frame(width: 92)
+                                .accessibilityIdentifier("habit.health.target")
+                            Text(L10n.string(healthMetric.unitKey))
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                        }
+                        .frame(minHeight: 44)
+
+                        if !HealthHabitCoordinator.shared.isAvailable {
+                            Label(L10n.string("health.error.unavailable"),
+                                  systemImage: "exclamationmark.circle")
+                                .font(.caption)
+                                .foregroundStyle(.orange)
+                        }
+                        if !healthCompatible {
+                            Label(L10n.string("health.unsupported"),
+                                  systemImage: "exclamationmark.circle")
+                                .font(.caption)
+                                .foregroundStyle(.orange)
+                        } else {
+                            Text(L10n.string("health.local.hint"))
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                        }
+                    }
+
+                    if let healthSaveError {
+                        Text(healthSaveError)
+                            .font(.caption)
+                            .foregroundStyle(.red)
+                            .accessibilityIdentifier("habit.health.error")
+                    }
+                }
+
+                Section {
                     formSectionHeader(L10n.string("section.days"))
 
-                    VStack(spacing: 10) {
-                        schedulePresetButton(
-                            title: L10n.string("schedule.everyday"),
-                            preset: .everyDay
-                        )
-                        schedulePresetButton(
-                            title: L10n.string("schedule.weekdays"),
-                            preset: .weekdays
-                        )
+                    ViewThatFits(in: .horizontal) {
+                        HStack(spacing: 8) {
+                            schedulePresetButton(
+                                title: L10n.string("schedule.everyday"),
+                                preset: .everyDay
+                            )
+                            schedulePresetButton(
+                                title: L10n.string("schedule.weekdays"),
+                                preset: .weekdays
+                            )
+                        }
+                        VStack(spacing: 8) {
+                            schedulePresetButton(
+                                title: L10n.string("schedule.everyday"),
+                                preset: .everyDay
+                            )
+                            schedulePresetButton(
+                                title: L10n.string("schedule.weekdays"),
+                                preset: .weekdays
+                            )
+                        }
                     }
 
                     DisclosureGroup(
@@ -310,25 +417,26 @@ struct AddHabitView: View {
                     }
                 }
             }
+            .onAppear {
+                guard !didInitializeHealthDraft else { return }
+                didInitializeHealthDraft = true
+                if let rule = linkedHealthRule {
+                    pendingInitialMetric = rule.metric
+                    healthMetric = rule.metric
+                    healthTargetText = HealthHabitTargetInput.editableText(rule.target)
+                    healthEnabled = true
+                }
+            }
             .navigationTitle(
                 habit == nil
                     ? L10n.string("habit.new.title")
                     : L10n.string("habit.edit.title")
             )
             .navigationBarTitleDisplayMode(.inline)
-            .onAppear {
-                if habit == nil {
-#if DEBUG
-                    if !ProcessInfo.processInfo.arguments.contains(
-                        "--debug-no-autofocus"
-                    ) {
-                        nameFocused = true
-                    }
-#else
-                    nameFocused = true
-#endif
-                }
-            }
+            .scrollDismissesKeyboard(.interactively)
+            // Keep the keyboard closed initially: the quick templates,
+            // schedule and primary actions remain visible without scrolling.
+            // Tapping the name field opens the keyboard as usual.
             .alert(
                 L10n.string("notification.denied.title"),
                 isPresented: $showingNotificationDenied
@@ -354,18 +462,36 @@ struct AddHabitView: View {
                     .accessibilityLabel(L10n.string("common.cancel"))
                 }
 
+                ToolbarItemGroup(placement: .keyboard) {
+                    if healthTargetFocused {
+                        Spacer()
+                        Button {
+                            healthTargetFocused = false
+                        } label: {
+                            Image(systemName: "chevron.down")
+                                .font(.body.weight(.semibold))
+                                .frame(width: 36, height: 32)
+                        }
+                        .buttonStyle(.plain)
+                        .accessibilityLabel(L10n.string("keyboard.dismiss"))
+                        .accessibilityIdentifier("habit.keyboard.dismiss.arrow")
+                    }
+                }
+
                 ToolbarItem(placement: .topBarTrailing) {
                     Button(action: save) {
-                        Image(systemName: "checkmark")
-                            .fontWeight(.semibold)
-                            .foregroundStyle(.primary)
+                        Text(habit == nil
+                             ? L10n.string("common.done")
+                             : L10n.string("common.save"))
+                            .font(.subheadline.weight(.semibold))
+                            .foregroundStyle(Color.arvectumNavy)
+                            .padding(.horizontal, 14)
+                            .frame(minHeight: 36)
+                            .background(Color.arvectumMint, in: Capsule())
                     }
-                    .accessibilityLabel(
-                        habit == nil
-                            ? L10n.string("common.done")
-                            : L10n.string("common.save")
-                    )
+                    .buttonStyle(.plain)
                     .disabled(!canSave)
+                    .opacity(canSave ? 1 : 0.5)
                 }
             }
         }
@@ -391,7 +517,9 @@ struct AddHabitView: View {
     private var canSave: Bool {
         !name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty &&
         schedule.rawValue != 0 &&
-        !requestingNotificationPermission
+        !requestingNotificationPermission &&
+        !healthSaving &&
+        (!healthEnabled || (healthCompatible && parsedHealthTarget != nil))
     }
 
     private func schedulePresetButton(
@@ -543,8 +671,38 @@ struct AddHabitView: View {
     }
 
     private func save() {
+        guard canSave else { return }
+        nameFocused = false
+        healthTargetFocused = false
+        healthSaveError = nil
+        let existing = linkedHealthRule
+
+        if HealthHabitEditPlan.needsAuthorization(
+            existing: existing, enabled: healthEnabled, metric: healthMetric
+        ) {
+            healthSaving = true
+            Task { @MainActor in
+                defer { healthSaving = false }
+                do {
+                    try await HealthHabitCoordinator.shared.authorize(healthMetric)
+                    commitSave(existing: existing)
+                } catch {
+                    healthSaveError = error.localizedDescription
+                }
+            }
+        } else {
+            commitSave(existing: existing)
+        }
+    }
+
+    private func commitSave(existing: HealthHabitRule?) {
         let trimmed = name.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmed.isEmpty, schedule.rawValue != 0 else { return }
+        let rule = HealthHabitEditPlan.updatedRule(
+            existing: existing, enabled: healthEnabled,
+            metric: healthMetric, target: parsedHealthTarget
+        )
+        guard !healthEnabled || rule != nil else { return }
 
         let components = Calendar.autoupdatingCurrent.dateComponents(
             [.hour, .minute],
@@ -566,7 +724,9 @@ struct AddHabitView: View {
             mode = dailyTarget > 1 ? .multiCheck(times: dailyTarget) : .scheduled
         }
 
+        let savedHabit: Habit
         if let habit {
+            savedHabit = habit
             habit.name = trimmed
             habit.symbolName = symbolName
             habit.colorHex = colorHex
@@ -589,10 +749,31 @@ struct AddHabitView: View {
                 sortOrder: HabitOrdering.nextOrder(in: allHabits)
             )
             modelContext.insert(newHabit)
+            savedHabit = newHabit
             ChickMarkGroups.assign(habitID: newHabit.id, to: selectedGroupID)
         }
 
-        try? modelContext.save()
+        do {
+            try modelContext.save()
+        } catch {
+            healthSaveError = error.localizedDescription
+            return
+        }
+
+        if healthEnabled, let rule {
+            if existing != rule {
+                HealthHabitRuleStore.shared.save(rule, for: savedHabit.id)
+                HealthHabitCoordinator.shared.reconfigureObservers()
+                HealthHabitCoordinator.shared.refresh()
+                PhoneWatchSyncCoordinator.shared.dataDidChange()
+            }
+        } else if existing != nil {
+            HealthHabitRuleStore.shared.disable(for: savedHabit.id)
+            HealthHabitCoordinator.shared.reconfigureObservers()
+            HealthHabitCoordinator.shared.refresh()
+            PhoneWatchSyncCoordinator.shared.dataDidChange()
+        }
+
         HabitDataChangeNotifier.notify()
         dismiss()
     }

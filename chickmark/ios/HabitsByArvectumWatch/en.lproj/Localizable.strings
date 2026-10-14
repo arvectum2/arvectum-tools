@@ -16,3 +16,11 @@
 
 "watch.preview.water" = "Water";
 "watch.preview.reading" = "Reading";
+"watch.checkins.progress.format" = "%d of %d check-ins";
+
+"watch.health.unit.steps" = "steps";
+"watch.health.unit.kilometers" = "km";
+"watch.health.unit.minutes" = "min";
+"watch.health.unit.hours" = "h";
+"watch.health.unit.unknown" = "";
+"watch.health.unavailable" = "Apple Health data unavailable";

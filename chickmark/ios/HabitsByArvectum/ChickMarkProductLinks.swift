@@ -21,9 +21,9 @@ enum ChickMarkProductLinks {
 
     static var localizedLandingPage: URL {
         landingPage(
-            for: Bundle.main.preferredLocalizations.first
-                ?? Locale.preferredLanguages.first
-                ?? "en"
+            for: ChickMarkLanguage.effectiveIdentifier(
+                for: ChickMarkLanguage.selected
+            )
         )
     }
 }

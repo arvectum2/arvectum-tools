@@ -195,3 +195,64 @@
 
 "quick.multicheck" = "Agua (5 veces)";
 "brand.website.accessibility" = "Abrir el sitio de ChickMark v%@ de Arvectum";
+
+// HealthKit opt-in (v1.4)
+"health.title" = "Salud de Apple";
+"health.connect.hint" = "Conecta actividad para marcar automáticamente";
+"health.connected.hint" = "Marcado automático activado";
+"health.auto.completed" = "Completado con datos de Salud";
+"health.description" = "Elige una métrica. ChickMark marca el hábito al llegar al objetivo diario.";
+"health.rule.section" = "Cumplimiento automático";
+"health.metric.title" = "Actividad";
+"health.metric.steps" = "Pasos";
+"health.metric.distance" = "Distancia caminando y corriendo";
+"health.metric.workouts" = "Minutos de entrenamiento";
+"health.unit.steps" = "pasos";
+"health.unit.kilometers" = "km";
+"health.unit.minutes" = "min";
+"health.target" = "Objetivo diario";
+"health.connect" = "Conectar Salud";
+"health.save" = "Guardar regla";
+"health.disconnect" = "Desconectar Salud";
+"health.settings" = "Salud de Apple";
+"health.privacy" = "Los datos de HealthKit se verifican localmente en el iPhone y Apple Watch. Ni las mediciones ni los resultados calculados se suben a CloudKit ni se usan para publicidad. Los hábitos marcados manualmente siguen sincronizándose como antes. El estado automático puede tardar en actualizarse. Desconectar detiene nuevas verificaciones.";
+"health.error.unavailable" = "Salud no está disponible en este dispositivo.";
+"health.error.authorization" = "No se pudo solicitar acceso a Salud.";
+
+"health.unsupported" = "Los objetivos semanales solo se admiten para carreras individuales. Las metas múltiples y los intervalos requieren marcar manualmente.";
+
+"health.metric.running" = "Carrera (una sesión)";
+
+"health.metric.sleep" = "Sueño (día de despertar)";
+
+"health.unit.hours" = "h";
+
+"health.shortcuts.title" = "Lectura y otras apps · Atajos";
+
+"health.shortcuts.action" = "Automatizar una actividad con una app";
+
+"health.shortcuts.instructions" = "Abre Atajos → Automatización → elige un evento (por ejemplo, cerrar Libros) → agrega la acción de ChickMark «Completar hábito» → elige el hábito. También puedes ejecutarla con Siri.";
+
+"health.shortcuts.limitation" = "Cerrar una app no demuestra cuánto has leído. Atajos registra el evento, no los minutos reales de lectura.";
+
+"health.integrations.title" = "Automatizaciones inteligentes";
+
+// In-app language selection
+"language.title" = "Idioma";
+"language.system" = "Predeterminado del sistema";
+
+"detail.more.title" = "Historial y estadísticas";
+"detail.history.recent" = "Actividad reciente";
+
+"manage.about" = "Acerca de ChickMark";
+
+"habit.multi.today.progress" = "Marcas: %d/%d";
+
+"ads.debug.title" = "Diagnóstico de anuncios";
+"ads.debug.state" = "Estado";
+
+"keyboard.dismiss" = "Ocultar teclado";
+"health.edit.target.hint" = "Cambiar el objetivo al editar el hábito";
+
+"health.link.toggle" = "Completar automáticamente con Apple Salud";
+"health.local.hint" = "El progreso se queda en tu dispositivo. Los cambios se aplican al guardar.";

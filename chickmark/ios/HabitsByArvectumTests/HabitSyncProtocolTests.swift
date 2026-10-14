@@ -2,6 +2,38 @@ import XCTest
 @testable import HabitsByArvectum
 
 final class HabitSyncProtocolTests: XCTestCase {
+    func testWatchHealthProgressDoesNotEnterSyncPackets() throws {
+        let progress = WatchHealthProgress(metric: "steps", current: 3_475, target: 7_777)
+        XCTAssertEqual(progress.unitKey, "watch.health.unit.steps")
+        XCTAssertEqual(progress.fraction, 3_475.0 / 7_777.0, accuracy: 0.00001)
+        let text = progress.quantityText(locale: Locale(identifier: "en_US"))
+        XCTAssertEqual(text, "3,475 / 7,777")
+
+        let habitID = UUID()
+        let source = HabitSyncSnapshot(
+            generatedAt: .now, dayKey: "2026-10-14",
+            completedCount: 0, totalCount: 1,
+            habits: [HabitSyncHabit(
+                id: habitID, name: "Walk", symbolName: "figure.walk",
+                colorHex: "43E5C5", completed: false, streak: 0,
+                healthRuleMetric: "steps", healthRuleTarget: 7_777
+            )]
+        )
+        let serialized = try HabitSyncCodec.encode(.snapshot(source))
+        XCTAssertFalse(String(decoding: serialized, as: UTF8.self).contains("3475"))
+    }
+
+    func testWatchHealthProgressClampsAndSupportsAllMetrics() {
+        let distance = WatchHealthProgress(metric: "walkingDistance", current: 1.26, target: 3)
+        XCTAssertEqual(distance.unitKey, "watch.health.unit.kilometers")
+        XCTAssertEqual(distance.quantityText(locale: Locale(identifier: "en_US")), "1.3 / 3")
+        XCTAssertEqual(WatchHealthProgress(metric: "sleepHours", current: 9, target: 7).fraction, 1)
+        XCTAssertEqual(WatchHealthProgress(metric: "runningWorkout", current: 2, target: 20).unitKey,
+                       "watch.health.unit.minutes")
+        XCTAssertEqual(WatchHealthProgress(metric: "steps", current: .nan, target: 7777).fraction, 0)
+        XCTAssertEqual(WatchHealthProgress(metric: "steps", current: 25, target: 0).quantityText(locale: .current), "—")
+    }
+
     func testCompletionPacketRoundTrips() throws {
         let command = HabitCompletionCommand(
             id: UUID(uuidString: "AAAAAAAA-BBBB-CCCC-DDDD-EEEEEEEEEEEE")!,

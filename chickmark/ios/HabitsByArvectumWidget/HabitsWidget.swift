@@ -80,6 +80,7 @@ struct HabitsWidgetProvider: TimelineProvider {
 
 struct HabitsTodayWidgetView: View {
     @Environment(\.widgetFamily) private var family
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     let entry: HabitsWidgetEntry
 
     var body: some View {
@@ -102,41 +103,65 @@ struct HabitsTodayWidgetView: View {
             header
             Spacer(minLength: 0)
 
-            ZStack {
-                Circle()
-                    .stroke(.secondary.opacity(0.18), lineWidth: 8)
-                Circle()
-                    .trim(from: 0, to: entry.snapshot.progress)
-                    .stroke(
-                        Color(hex: "43E5C5"),
-                        style: StrokeStyle(lineWidth: 8, lineCap: .round)
-                    )
-                    .rotationEffect(.degrees(-90))
+            Group {
+                if entry.snapshot.totalCount == 0 {
+                    Image(systemName: "checkmark.circle")
+                        .font(.system(size: 44, weight: .ultraLight))
+                        .foregroundStyle(.secondary)
+                        .accessibilityHidden(true)
+                } else {
+                    ZStack {
+                        Circle()
+                            .stroke(.secondary.opacity(0.18), lineWidth: 8)
+                        Circle()
+                            .trim(from: 0, to: entry.snapshot.progress)
+                            .stroke(
+                                Color(hex: "43E5C5"),
+                                style: StrokeStyle(lineWidth: 8, lineCap: .round)
+                            )
+                            .rotationEffect(.degrees(-90))
 
-                Text(progressText)
-                    .font(.headline.monospacedDigit())
+                        Text(progressText)
+                            .font(.headline.monospacedDigit())
+                            .minimumScaleFactor(0.7)
+                            .lineLimit(1)
+                    }
+                }
             }
             .frame(width: 70, height: 70)
             .frame(maxWidth: .infinity)
 
             Spacer(minLength: 0)
-            Text(summaryText)
-                .font(.caption)
+            Text(
+                entry.snapshot.totalCount == 0
+                    ? WidgetL10n.string("widget.empty.small")
+                    : summaryText
+            )
+                .font(.caption2)
                 .foregroundStyle(.secondary)
                 .lineLimit(2)
+                .minimumScaleFactor(0.85)
         }
     }
 
     private var accessoryCircularView: some View {
-        Gauge(value: entry.snapshot.progress) {
-            Image(systemName: "checkmark")
-        } currentValueLabel: {
-            Text(progressText)
-                .font(.caption2.monospacedDigit())
+        Group {
+            if entry.snapshot.totalCount == 0 {
+                Image(systemName: "checkmark.circle")
+                    .font(.headline)
+                    .accessibilityLabel(WidgetL10n.string("widget.empty.small"))
+            } else {
+                Gauge(value: entry.snapshot.progress) {
+                    Image(systemName: "checkmark")
+                } currentValueLabel: {
+                    Text(progressText)
+                        .font(.caption2.monospacedDigit())
+                }
+                .gaugeStyle(.accessoryCircularCapacity)
+                .accessibilityLabel(WidgetL10n.string("widget.title"))
+                .accessibilityValue(progressText)
+            }
         }
-        .gaugeStyle(.accessoryCircularCapacity)
-        .accessibilityLabel(WidgetL10n.string("widget.title"))
-        .accessibilityValue(progressText)
     }
 
     private var accessoryRectangularView: some View {
@@ -146,9 +171,11 @@ struct HabitsTodayWidgetView: View {
                 Text(WidgetL10n.string("widget.title"))
                     .font(.headline)
                 Spacer(minLength: 4)
-                Text(progressText)
-                    .font(.caption.weight(.semibold))
-                    .monospacedDigit()
+                if entry.snapshot.totalCount > 0 {
+                    Text(progressText)
+                        .font(.caption.weight(.semibold))
+                        .monospacedDigit()
+                }
             }
 
             if let habit = nextUnresolvedHabit {
@@ -179,9 +206,11 @@ struct HabitsTodayWidgetView: View {
             HStack {
                 header
                 Spacer()
-                Text(progressText)
-                    .font(.subheadline.weight(.semibold))
-                    .monospacedDigit()
+                if entry.snapshot.totalCount > 0 {
+                    Text(progressText)
+                        .font(.subheadline.weight(.semibold))
+                        .monospacedDigit()
+                }
             }
 
             if entry.snapshot.habits.isEmpty {
@@ -193,16 +222,16 @@ struct HabitsTodayWidgetView: View {
                 Spacer()
             } else {
                 VStack(spacing: 5) {
-                    ForEach(Array(mediumHabits.prefix(3))) { habit in
+                    ForEach(Array(mediumHabits.prefix(mediumRowLimit))) { habit in
                         habitRow(habit)
                     }
                 }
 
-                if entry.snapshot.habits.count > 3 {
+                if entry.snapshot.habits.count > mediumRowLimit {
                     Text(
                         WidgetL10n.format(
                             "widget.more.format",
-                            entry.snapshot.habits.count - 3
+                            entry.snapshot.habits.count - mediumRowLimit
                         )
                     )
                     .font(.caption2)
@@ -275,17 +304,26 @@ struct HabitsTodayWidgetView: View {
                         ? Color(hex: habit.colorHex)
                         : .secondary
                 )
-                .frame(width: 40, height: 40)
+                .frame(width: 44, height: 44)
                 .contentShape(Rectangle())
             }
             .buttonStyle(.plain)
             .accessibilityLabel(
-                habit.completed
-                    ? WidgetL10n.string("widget.undo")
-                    : WidgetL10n.string("widget.complete")
+                WidgetL10n.format(
+                    habit.completed
+                        ? "widget.action.undo.format"
+                        : "widget.action.complete.format",
+                    habit.name
+                )
             )
         }
-        .frame(minHeight: 40)
+        .frame(minHeight: 44)
+    }
+
+    /// At most two rows in medium widgets; accessibility sizes get one
+    /// generous row to avoid clipping and tiny action hit areas.
+    private var mediumRowLimit: Int {
+        dynamicTypeSize.isAccessibilitySize ? 1 : 2
     }
 
     private var mediumHabits: [HabitWidgetHabit] {
@@ -300,7 +338,7 @@ struct HabitsTodayWidgetView: View {
 
     private var inlineText: String {
         if entry.snapshot.totalCount == 0 {
-            return WidgetL10n.string("widget.empty")
+            return WidgetL10n.string("widget.empty.small")
         }
         return WidgetL10n.format(
             "widget.inline.format",

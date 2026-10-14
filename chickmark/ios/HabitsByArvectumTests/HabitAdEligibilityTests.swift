@@ -2,6 +2,43 @@ import XCTest
 @testable import HabitsByArvectum
 
 final class HabitAdEligibilityTests: XCTestCase {
+    func testRealAdsConfiguredByDefaultEvenForDebugBuild() {
+        XCTAssertEqual(
+            HabitAdUnitIDs.resolvedBannerID(
+                configured: " R-M-20183085-1 ", arguments: ["--ui-testing"]
+            ),
+            "R-M-20183085-1"
+        )
+        XCTAssertEqual(
+            HabitAdUnitIDs.resolvedBannerID(
+                configured: "R-M-20183085-1", arguments: []
+            ),
+            "R-M-20183085-1"
+        )
+    }
+
+    func testInvalidAdUnitFailsClosed() {
+        XCTAssertNil(HabitAdUnitIDs.resolvedBannerID(configured: "", arguments: []))
+        XCTAssertNil(HabitAdUnitIDs.resolvedBannerID(
+            configured: "demo-banner-yandex", arguments: []
+        ))
+        XCTAssertNil(HabitAdUnitIDs.resolvedBannerID(
+            configured: "R-M-1-2;other", arguments: []
+        ))
+    }
+
+#if DEBUG
+    func testDemoRequiresExplicitOptIn() {
+        XCTAssertEqual(
+            HabitAdUnitIDs.resolvedBannerID(
+                configured: "R-M-20183085-1",
+                arguments: ["--chickmark-demo-ads"]
+            ),
+            HabitAdUnitIDs.demoBanner
+        )
+    }
+#endif
+
     func testEligibilityRequiresAllThreeThresholds() {
         let firstLaunch = Date(timeIntervalSince1970: 1_000_000)
         let eligibleAt = firstLaunch.addingTimeInterval(

@@ -9,14 +9,23 @@ struct HabitDetailView: View {
     @Query(sort: \HabitCheckIn.day) var checkIns: [HabitCheckIn]
     @Query(sort: \HabitSkip.day) var skips: [HabitSkip]
     @Query(sort: \HabitPausePeriod.startedAt) var pausePeriods: [HabitPausePeriod]
+    @Query(sort: \HabitDayMutation.updatedAt) private var dayMutations: [HabitDayMutation]
 
     @Bindable var habit: Habit
     @State private var showingDeleteConfirmation = false
     @State private var showingEditHabit = false
+    @State private var showingExtendedHistory = false
     @State private var editingProgressDay: HabitProgressDaySelection?
 
+    @State private var healthProjectionRevision = 0
+
+    private var displayedCheckIns: [HabitCheckIn] {
+        _ = healthProjectionRevision
+        return HealthHabitCoordinator.shared.visibleCheckIns(for: checkIns, habits: habits)
+    }
+
     private var habitCheckIns: [HabitCheckIn] {
-        checkIns.filter { $0.habitID == habit.id }
+        displayedCheckIns.filter { $0.habitID == habit.id }
     }
 
     private var habitSkips: [HabitSkip] {
@@ -38,30 +47,29 @@ struct HabitDetailView: View {
         HabitHistoryCalendar.weekdaySymbols()
     }
 
+    /// The primary habit card fits a single screen. Extra history/insights are
+    /// behind an explicit drilldown; accessibility text sizes retain scrolling.
     var body: some View {
-        ScrollView {
-            VStack(spacing: 16) {
-                identityCard
-                statsCard
-                historyCard
-                if canSkipToday {
-                    skipTodayButton
+        Group {
+            if dynamicTypeSize.isAccessibilitySize {
+                ScrollView {
+                    habitOverview(weeks: 4)
+                        .padding(12)
                 }
-                if habit.isPaused && !habit.isArchived {
-                    resumeButton
+            } else {
+                ViewThatFits(in: .vertical) {
+                    habitOverview(weeks: 4)
+                    habitOverview(weeks: 3)
                 }
-                if habit.usesFlexibleWeeklyTarget {
-                    weeklyInsightsCard
-                } else if habit.usesCompletionInterval {
-                    intervalInsightsCard
-                } else {
-                    insightsCard
-                }
+                .padding(12)
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
             }
-            .padding(16)
         }
         .background(Color.habitsBackground)
         .navigationTitle(habit.name)
+        .onReceive(NotificationCenter.default.publisher(for: .healthHabitProjectionChanged)) { _ in
+            healthProjectionRevision += 1
+        }
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItemGroup(placement: .topBarTrailing) {
@@ -113,6 +121,33 @@ struct HabitDetailView: View {
         .sheet(isPresented: $showingEditHabit) {
             AddHabitView(habit: habit)
         }
+        .sheet(isPresented: $showingExtendedHistory) {
+            NavigationStack {
+                ScrollView {
+                    VStack(spacing: 12) {
+                        historyCard
+                        if habit.usesFlexibleWeeklyTarget {
+                            weeklyInsightsCard
+                        } else if habit.usesCompletionInterval {
+                            intervalInsightsCard
+                        } else {
+                            insightsCard
+                        }
+                    }
+                    .padding(16)
+                }
+                .background(Color.habitsBackground)
+                .navigationTitle(L10n.string("detail.more.title"))
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .confirmationAction) {
+                        Button(L10n.string("common.done")) {
+                            showingExtendedHistory = false
+                        }
+                    }
+                }
+            }
+        }
         .sheet(item: $editingProgressDay) { selection in
             HabitProgressEditor(habit: habit, date: selection.date)
                 .presentationDetents([.medium, .large])
@@ -129,6 +164,39 @@ struct HabitDetailView: View {
         }
     }
 
+    @ViewBuilder
+    private func habitOverview(weeks: Int) -> some View {
+        VStack(spacing: 10) {
+            identityCard
+            statsCard
+            compactHistoryCard(weeks: weeks)
+
+            if canSkipToday {
+                skipTodayButton
+            }
+            if habit.isPaused && !habit.isArchived {
+                resumeButton
+            }
+
+            Button {
+                showingExtendedHistory = true
+            } label: {
+                HStack {
+                    Label(L10n.string("detail.more.title"), systemImage: "chart.bar.xaxis")
+                        .font(.subheadline.weight(.semibold))
+                    Spacer()
+                    Image(systemName: "chevron.right")
+                        .font(.caption.weight(.semibold))
+                }
+                .frame(minHeight: 44)
+                .padding(.horizontal, 14)
+                .background(Color.habitsSurface, in: RoundedRectangle(cornerRadius: 14))
+            }
+            .buttonStyle(.plain)
+            .accessibilityIdentifier("detail.more")
+        }
+    }
+
     private var identityCard: some View {
         Group {
             if dynamicTypeSize.isAccessibilitySize {
@@ -137,7 +205,7 @@ struct HabitDetailView: View {
                     identityText
                 }
             } else {
-                HStack(spacing: 14) {
+                HStack(spacing: 12) {
                     identityIcon
                     identityText
                     Spacer()
@@ -145,8 +213,8 @@ struct HabitDetailView: View {
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(16)
-        .background(Color.habitsSurface, in: RoundedRectangle(cornerRadius: 20))
+        .padding(12)
+        .background(Color.habitsSurface, in: RoundedRectangle(cornerRadius: 16))
     }
 
     private var identityIcon: some View {
@@ -157,7 +225,7 @@ struct HabitDetailView: View {
                 .font(.title2)
                 .foregroundStyle(Color.habitsReadableAccent(for: habit.colorHex))
         }
-        .frame(width: 54, height: 54)
+        .frame(width: 44, height: 44)
         .accessibilityHidden(true)
     }
 
@@ -168,6 +236,14 @@ struct HabitDetailView: View {
             Text(HabitScheduleText.description(for: habit))
                 .font(.subheadline)
                 .foregroundStyle(Color.habitsSecondaryText)
+
+            if HealthHabitCoordinator.shared.hasLocalCompletion(
+                habitID: habit.id, dayKey: HabitDayKey.make(for: .now)
+            ) {
+                Label(L10n.string("health.auto.completed"), systemImage: "heart.fill")
+                    .font(.caption)
+                    .foregroundStyle(Color.habitsSecondaryText)
+            }
 
             if habit.isPaused {
                 Label(
@@ -187,20 +263,20 @@ struct HabitDetailView: View {
     private var statsCard: some View {
         let currentStreak = HabitMetrics.currentStreak(
             habit: habit,
-            checkIns: checkIns,
+            checkIns: displayedCheckIns,
             skips: skips,
             pausePeriods: pausePeriods
         )
         let bestStreak = HabitMetrics.bestStreak(
             habit: habit,
-            checkIns: checkIns,
+            checkIns: displayedCheckIns,
             skips: skips,
             pausePeriods: pausePeriods
         )
         let completionPercent = Int(
             HabitMetrics.completionRate(
                 habit: habit,
-                checkIns: checkIns,
+                checkIns: displayedCheckIns,
                 skips: skips,
                 pausePeriods: pausePeriods
             ) * 100
@@ -222,7 +298,7 @@ struct HabitDetailView: View {
                     systemImage: "clock.arrow.circlepath"
                 )
                 stat(
-                    value: "\(HabitMetrics.completedDayCount(habit: habit, checkIns: checkIns))",
+                    value: "\(HabitMetrics.completedDayCount(habit: habit, checkIns: displayedCheckIns))",
                     label: L10n.string("stats.checkins"),
                     systemImage: "checkmark.circle.fill"
                 )
@@ -242,7 +318,7 @@ struct HabitDetailView: View {
                     systemImage: "chart.line.uptrend.xyaxis"
                 )
                 stat(
-                    value: "\(HabitMetrics.completedDayCount(habit: habit, checkIns: checkIns))",
+                    value: "\(HabitMetrics.completedDayCount(habit: habit, checkIns: displayedCheckIns))",
                     label: L10n.string("stats.checkins"),
                     systemImage: "checkmark.circle.fill"
                 )
@@ -258,31 +334,26 @@ struct HabitDetailView: View {
         }
     }
 
+    private func compactHistoryCard(weeks: Int) -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text(L10n.string("detail.history.recent"))
+                .font(.subheadline.weight(.semibold))
+            historyGrid(
+                days: HabitHistoryCalendar.visibleDays(
+                    endingInWeekContaining: .now, weeks: weeks
+                ),
+                compact: true
+            )
+        }
+        .padding(12)
+        .background(Color.habitsSurface, in: RoundedRectangle(cornerRadius: 16))
+    }
+
     private var historyCard: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text(L10n.string("detail.history.title"))
                 .font(.headline)
-
-            LazyVGrid(
-                columns: Array(
-                    repeating: GridItem(.flexible(), spacing: 6),
-                    count: 7
-                ),
-                spacing: 6
-            ) {
-                ForEach(Array(weekdaySymbols.enumerated()), id: \.offset) { item in
-                    Text(item.element)
-                        .font(.caption2.weight(.semibold))
-                        .foregroundStyle(Color.habitsSecondaryText)
-                        .frame(maxWidth: .infinity)
-                        .accessibilityHidden(true)
-                }
-
-                ForEach(recentDays, id: \.self) { date in
-                    dayCell(date)
-                }
-            }
-
+            historyGrid(days: recentDays, compact: false)
             Text(L10n.string("detail.history.hint"))
                 .font(.caption)
                 .foregroundStyle(Color.habitsSecondaryText)
@@ -291,20 +362,41 @@ struct HabitDetailView: View {
         .background(Color.habitsSurface, in: RoundedRectangle(cornerRadius: 20))
     }
 
+    private func historyGrid(days: [Date], compact: Bool) -> some View {
+        LazyVGrid(
+            columns: Array(repeating: GridItem(.flexible(), spacing: compact ? 5 : 6), count: 7),
+            spacing: compact ? 5 : 6
+        ) {
+            ForEach(Array(weekdaySymbols.enumerated()), id: \.offset) { item in
+                Text(item.element)
+                    // Seven-column calendar stays legible even at AX text sizes;
+                    // the full date remains spoken by the day button below.
+                    .font(.system(size: 11, weight: .semibold))
+                    .foregroundStyle(Color.habitsSecondaryText)
+                    .frame(maxWidth: .infinity)
+                    .accessibilityHidden(true)
+            }
+
+            ForEach(days, id: \.self) { date in
+                dayCell(date)
+            }
+        }
+    }
+
     private var canSkipToday: Bool {
         guard !habit.isArchived, !habit.isPaused else { return false }
         let calendar = Calendar.autoupdatingCurrent
         return HabitFrequency.isDue(
             habit: habit,
             on: .now,
-            checkIns: checkIns,
+            checkIns: displayedCheckIns,
             skips: skips,
             pausePeriods: pausePeriods,
             calendar: calendar
         ) && !HabitMetrics.isCompleted(
             habitID: habit.id,
             on: .now,
-            checkIns: checkIns,
+            checkIns: displayedCheckIns,
             calendar: calendar,
                 target: habit.dailyTarget
         )
@@ -387,9 +479,12 @@ struct HabitDetailView: View {
             }
         }
         .frame(maxWidth: .infinity)
-        .padding(.vertical, 14)
-        .background(Color.habitsSurface, in: RoundedRectangle(cornerRadius: 18))
+        // One fixed row height: the streak's "best" line must not make its
+        // card taller than completion % and check-in count.
+        .frame(height: dynamicTypeSize.isAccessibilitySize ? nil : 102)
+        .background(Color.habitsSurface, in: RoundedRectangle(cornerRadius: 16))
         .accessibilityElement(children: .ignore)
+        .accessibilityIdentifier("stats.card." + systemImage)
         .accessibilityLabel(label)
         .accessibilityValue(
             secondary.map { "\(value), \($0)" } ?? value
@@ -402,7 +497,7 @@ struct HabitDetailView: View {
             HabitFrequency.isDue(
                 habit: habit,
                 on: date,
-                checkIns: checkIns,
+                checkIns: displayedCheckIns,
                 skips: skips,
                 pausePeriods: pausePeriods,
                 calendar: calendar
@@ -418,7 +513,7 @@ struct HabitDetailView: View {
         let completed = HabitMetrics.isCompleted(
             habitID: habit.id,
             on: date,
-            checkIns: checkIns,
+            checkIns: displayedCheckIns,
             calendar: calendar,
                 target: habit.dailyTarget
         )
@@ -461,7 +556,7 @@ struct HabitDetailView: View {
                     .aspectRatio(1, contentMode: .fit)
 
                 Text("\(calendar.component(.day, from: date))")
-                    .font(.caption2.weight(.semibold))
+                    .font(.system(size: 11, weight: .semibold))
                     .foregroundStyle(completed ? Color.black : .primary)
 
                 if missed {
@@ -553,7 +648,7 @@ struct HabitDetailView: View {
         let desiredState = !HabitMetrics.isCompleted(
             habitID: habit.id,
             on: date,
-            checkIns: checkIns,
+            checkIns: displayedCheckIns,
             calendar: calendar,
                 target: habit.dailyTarget
         )
@@ -610,7 +705,7 @@ struct HabitDetailView: View {
         let calendar = Calendar.autoupdatingCurrent
         guard let dueDate = HabitFrequency.nextCompletionIntervalDueDate(
             habit: habit,
-            checkIns: checkIns,
+            checkIns: displayedCheckIns,
             through: .now,
             calendar: calendar
         ) else {
@@ -682,7 +777,7 @@ struct HabitDetailView: View {
     }
 
     private func deleteHabit() {
-        for checkIn in habitCheckIns {
+        for checkIn in checkIns.filter({ $0.habitID == habit.id }) {
             modelContext.delete(checkIn)
         }
         for skip in habitSkips {
@@ -698,7 +793,12 @@ struct HabitDetailView: View {
             modelContext.delete(mutation)
         }
         modelContext.delete(habit)
-        try? modelContext.save()
+        do { try modelContext.save() } catch {
+            modelContext.rollback()
+            return
+        }
+        HealthHabitRuleStore.shared.disable(for: habit.id)
+        HealthHabitCoordinator.shared.reconfigureObservers()
         HabitDataChangeNotifier.notify()
         dismiss()
     }

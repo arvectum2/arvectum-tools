@@ -216,3 +216,64 @@
 
 "quick.multicheck" = "Water (5 times)";
 "brand.website.accessibility" = "Open ChickMark v%@ website by Arvectum";
+
+// HealthKit opt-in (v1.4)
+"health.title" = "Apple Health";
+"health.connect.hint" = "Connect activity for automatic check-ins";
+"health.connected.hint" = "Automatic check-ins enabled";
+"health.auto.completed" = "Completed from Apple Health";
+"health.description" = "Choose a metric. ChickMark checks in automatically when the daily total meets your goal.";
+"health.rule.section" = "Automatic completion";
+"health.metric.title" = "Activity";
+"health.metric.steps" = "Steps";
+"health.metric.distance" = "Walking and running distance";
+"health.metric.workouts" = "Workout minutes";
+"health.unit.steps" = "steps";
+"health.unit.kilometers" = "km";
+"health.unit.minutes" = "min";
+"health.target" = "Daily goal";
+"health.connect" = "Connect to Health";
+"health.save" = "Save rule";
+"health.disconnect" = "Disconnect Apple Health";
+"health.settings" = "Apple Health";
+"health.privacy" = "HealthKit results are checked locally on iPhone and Apple Watch. No health readings or automatically derived results are uploaded to CloudKit or sent for advertising. Ordinary manually checked habits still sync using your existing settings. Automatic activity status may update with a delay. Disconnecting stops new checks.";
+"health.error.unavailable" = "Apple Health is not available on this device.";
+"health.error.authorization" = "Could not request access to Apple Health.";
+
+"health.unsupported" = "For weekly goals, only individual running workouts are supported. Sliding intervals and multi-check goals require manual completion.";
+
+"health.metric.running" = "Running workout (one session)";
+
+"health.metric.sleep" = "Asleep (wake-up day)";
+
+"health.unit.hours" = "hours";
+
+"health.shortcuts.title" = "Reading and other apps · Shortcuts";
+
+"health.shortcuts.action" = "Automate an app-related habit";
+
+"health.shortcuts.instructions" = "Open the iPhone Shortcuts app → Automation → choose a trigger (for example, closing Books) → add ChickMark’s “Complete Habit” action → choose your habit. You can also run that action manually from Siri or a Home Screen shortcut.";
+
+"health.shortcuts.limitation" = "An app closing does not prove you read for a certain amount of time. Shortcuts registers the chosen event, not actual reading duration.";
+
+"health.integrations.title" = "Smart automations";
+
+// In-app language selection
+"language.title" = "Language";
+"language.system" = "System default";
+
+"detail.more.title" = "History & insights";
+"detail.history.recent" = "Recent activity";
+
+"manage.about" = "About ChickMark";
+
+"habit.multi.today.progress" = "Check-ins: %d/%d";
+
+"ads.debug.title" = "Yandex Ads diagnostics";
+"ads.debug.state" = "Status";
+
+"keyboard.dismiss" = "Hide keyboard";
+"health.edit.target.hint" = "Edit the goal in habit settings";
+
+"health.link.toggle" = "Auto-complete using Apple Health";
+"health.local.hint" = "Progress stays on your device. Changes apply when you save.";

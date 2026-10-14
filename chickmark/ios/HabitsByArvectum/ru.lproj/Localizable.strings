@@ -216,3 +216,64 @@
 
 "quick.multicheck" = "Вода (5 раз)";
 "brand.website.accessibility" = "Открыть сайт ChickMark v%@ от Arvectum";
+
+// HealthKit opt-in (v1.4)
+"health.title" = "Apple Здоровье";
+"health.connect.hint" = "Подключить активность для автоотметок";
+"health.connected.hint" = "Автоматические отметки включены";
+"health.auto.completed" = "Отмечено по данным Здоровья";
+"health.description" = "Выберите показатель. ChickMark отметит привычку, когда дневное значение достигнет цели.";
+"health.rule.section" = "Автоматическое выполнение";
+"health.metric.title" = "Активность";
+"health.metric.steps" = "Шаги";
+"health.metric.distance" = "Дистанция ходьбы и бега";
+"health.metric.workouts" = "Минуты тренировок";
+"health.unit.steps" = "шагов";
+"health.unit.kilometers" = "км";
+"health.unit.minutes" = "мин";
+"health.target" = "Цель на день";
+"health.connect" = "Подключить Здоровье";
+"health.save" = "Сохранить правило";
+"health.disconnect" = "Отключить Здоровье";
+"health.settings" = "Apple Здоровье";
+"health.privacy" = "Данные HealthKit проверяются локально на iPhone и Apple Watch. Показатели здоровья и автоматически вычисленные результаты не передаются в CloudKit и не используются для рекламы. Обычные ручные отметки по-прежнему синхронизируются по вашим настройкам. Автоматические статусы могут обновляться с задержкой. Отключение прекращает новые проверки.";
+"health.error.unavailable" = "Apple Здоровье недоступно на этом устройстве.";
+"health.error.authorization" = "Не удалось запросить доступ к Здоровью.";
+
+"health.unsupported" = "Для недельных целей поддерживаются только отдельные пробежки. Скользящие интервалы и многократные отметки пока выполняются вручную.";
+
+"health.metric.running" = "Пробежка (одна тренировка)";
+
+"health.metric.sleep" = "Сон (день пробуждения)";
+
+"health.unit.hours" = "ч";
+
+"health.shortcuts.title" = "Чтение и другие приложения · Команды";
+
+"health.shortcuts.action" = "Автоматизация привычки через приложение";
+
+"health.shortcuts.instructions" = "Откройте «Команды» → «Автоматизация» → задайте событие (например, закрытие приложения «Книги») → добавьте действие ChickMark «Завершить привычку» → выберите привычку. Действие также доступно через Siri и на главном экране.";
+
+"health.shortcuts.limitation" = "Закрытие приложения не подтверждает длительность чтения. «Команды» фиксируют событие, а не реально прочитанные минуты.";
+
+"health.integrations.title" = "Умные автоматизации";
+
+// In-app language selection
+"language.title" = "Язык";
+"language.system" = "Как в системе";
+
+"detail.more.title" = "История и аналитика";
+"detail.history.recent" = "Недавняя активность";
+
+"manage.about" = "О приложении";
+
+"habit.multi.today.progress" = "Отметки: %d/%d";
+
+"ads.debug.title" = "Диагностика РСЯ";
+"ads.debug.state" = "Статус";
+
+"keyboard.dismiss" = "Скрыть клавиатуру";
+"health.edit.target.hint" = "Цель можно изменить в редакторе привычки";
+
+"health.link.toggle" = "Отмечать автоматически через Apple Здоровье";
+"health.local.hint" = "Прогресс считывается локально. Изменения применяются после сохранения.";

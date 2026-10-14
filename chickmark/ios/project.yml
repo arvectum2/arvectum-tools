@@ -37,6 +37,10 @@ targets:
       path: HabitsByArvectum/Info.plist
       properties:
         CFBundleDisplayName: "ChickMark"
+        UIAppFonts:
+          - PTSans-Bold.ttf
+        NSHealthShareUsageDescription: "ChickMark reads activity totals only for habits you link to Apple Health."
+        NSHealthUpdateUsageDescription: "ChickMark uses Apple Health to track the activity goals you choose. It does not add or change health data."
         CFBundleShortVersionString: "$(MARKETING_VERSION)"
         CFBundleVersion: "$(CURRENT_PROJECT_VERSION)"
         LSApplicationCategoryType: public.app-category.healthcare-fitness
@@ -285,8 +289,8 @@ targets:
         PRODUCT_BUNDLE_IDENTIFIER: ru.arvectum.tools.habits
         PRODUCT_NAME: HabitsByArvectum
         PRODUCT_MODULE_NAME: HabitsByArvectum
-        MARKETING_VERSION: "1.3.1"
-        CURRENT_PROJECT_VERSION: "6"
+        MARKETING_VERSION: "1.4.1"
+        CURRENT_PROJECT_VERSION: "14"
         TARGETED_DEVICE_FAMILY: "1"
         GENERATE_INFOPLIST_FILE: NO
         CODE_SIGN_ENTITLEMENTS: HabitsByArvectum/HabitsByArvectum.entitlements
@@ -324,6 +328,8 @@ targets:
         WKCompanionAppBundleIdentifier: ru.arvectum.tools.habits
         WKRunsIndependentlyOfCompanionApp: true
         ITSAppUsesNonExemptEncryption: false
+        NSHealthShareUsageDescription: "ChickMark reads activity totals only for habits you connect to Apple Health. Health measurements stay on your device."
+        NSHealthUpdateUsageDescription: "ChickMark uses Apple Health to track the activity goals you choose. It does not add or change health data."
         CFBundleIcons:
           CFBundlePrimaryIcon:
             CFBundleIconName: AppIcon
@@ -334,8 +340,8 @@ targets:
         PRODUCT_BUNDLE_IDENTIFIER: ru.arvectum.tools.habits.watch
         PRODUCT_NAME: HabitsByArvectumWatch
         PRODUCT_MODULE_NAME: HabitsByArvectumWatch
-        MARKETING_VERSION: "1.3.1"
-        CURRENT_PROJECT_VERSION: "6"
+        MARKETING_VERSION: "1.4.1"
+        CURRENT_PROJECT_VERSION: "14"
         GENERATE_INFOPLIST_FILE: NO
         CODE_SIGN_ENTITLEMENTS: HabitsByArvectumWatch/HabitsByArvectumWatch.entitlements
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
@@ -350,12 +356,14 @@ targets:
       - path: HabitsByArvectumWatchWidget
       - path: Shared/HabitSyncProtocol.swift
       - path: Shared/WatchComplicationBridge.swift
+      - path: Shared/WatchLocalHealthProjection.swift
     info:
       path: HabitsByArvectumWatchWidget/Info.plist
       properties:
         CFBundleDisplayName: "ChickMark"
         CFBundleShortVersionString: "$(MARKETING_VERSION)"
         CFBundleVersion: "$(CURRENT_PROJECT_VERSION)"
+        NSHealthShareUsageDescription: "ChickMark reads your current activity goal progress on your watch face. Your Health data stays on the device."
         NSExtension:
           NSExtensionPointIdentifier: com.apple.widgetkit-extension
     settings:
@@ -363,8 +371,8 @@ targets:
         PRODUCT_BUNDLE_IDENTIFIER: ru.arvectum.tools.habits.watch.widget
         PRODUCT_NAME: HabitsByArvectumWatchWidget
         PRODUCT_MODULE_NAME: HabitsByArvectumWatchWidget
-        MARKETING_VERSION: "1.3.1"
-        CURRENT_PROJECT_VERSION: "6"
+        MARKETING_VERSION: "1.4.1"
+        CURRENT_PROJECT_VERSION: "14"
         GENERATE_INFOPLIST_FILE: NO
         CODE_SIGN_ENTITLEMENTS: HabitsByArvectumWatchWidget/HabitsByArvectumWatchWidget.entitlements
         APPLICATION_EXTENSION_API_ONLY: YES
@@ -393,8 +401,8 @@ targets:
         PRODUCT_BUNDLE_IDENTIFIER: ru.arvectum.tools.habits.widget
         PRODUCT_NAME: HabitsByArvectumWidget
         PRODUCT_MODULE_NAME: HabitsByArvectumWidget
-        MARKETING_VERSION: "1.3.1"
-        CURRENT_PROJECT_VERSION: "6"
+        MARKETING_VERSION: "1.4.1"
+        CURRENT_PROJECT_VERSION: "14"
         GENERATE_INFOPLIST_FILE: NO
         CODE_SIGN_ENTITLEMENTS: HabitsByArvectumWidget/HabitsByArvectumWidget.entitlements
         APPLICATION_EXTENSION_API_ONLY: YES

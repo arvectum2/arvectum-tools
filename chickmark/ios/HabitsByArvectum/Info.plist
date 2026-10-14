@@ -35,6 +35,10 @@
 	<false/>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.healthcare-fitness</string>
+	<key>NSHealthShareUsageDescription</key>
+	<string>ChickMark reads activity totals only for habits you link to Apple Health.</string>
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>ChickMark uses Apple Health to track the activity goals you choose. It does not add or change health data.</string>
 	<key>SKAdNetworkItems</key>
 	<array>
 		<dict>
@@ -949,6 +953,10 @@
 			<key>SKAdNetworkIdentifier</key>
 			<string>53nm4hsx3w.skadnetwork</string>
 		</dict>
+	</array>
+	<key>UIAppFonts</key>
+	<array>
+		<string>PTSans-Bold.ttf</string>
 	</array>
 	<key>UIBackgroundModes</key>
 	<array>
