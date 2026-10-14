@@ -47,6 +47,8 @@ Evidence: [HealthKit 1.4 branch roadmap](https://github.com/arvectum2/arvectum-t
 - [ ] Final iPhone/Watch non-destructive upgrade and offline-sync smoke, plus App Review.
 
 ## Product backlog
+- [ ] **P1 · Ухват → ChickMark note follow-ups (post-Ухват 1.0):** accept an opt-in reminder created for a newly recorded Ухват note after +1/+2/+3 hours; keep it in a separate one-off follow-up/reminders lane, never as a habit check-in or a streak. Show the full on-device transcription in the follow-up detail plus a deep link to original Ухват audio; use generic lock-screen alert text by default.
+- [ ] **P1 · Follow-up lifecycle and handoff reliability:** stable source recording UUID, deduplicate deliveries, edit/reschedule/complete/dismiss, explicit note deletion handling and no automatic completion of other habits. Prototype supported iOS app-to-app mechanism and permission behavior; keep a no-ChickMark fallback reminder inside Ухват. Preserve local-first storage and existing published ChickMark schema.
 - [x] Sliding recurrence: next due date N days after **actual completion** (shipped in 1.3; covered by HabitFrequencyTests.testCompletionIntervalMovesFromActualCompletionDay).
 - [ ] Finish edge-case policy/regression coverage for timezone travel, partial goal completion and overlapping interval completions (basic late-completion and future-check-in cases already tested).
 - [ ] Evaluate extra monetization placements only after retention evidence; do not add a second native Progress ad by default.
