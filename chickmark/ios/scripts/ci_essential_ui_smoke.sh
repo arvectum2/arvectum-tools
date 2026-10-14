@@ -36,8 +36,11 @@ selected_suite_passed() {
   ! grep -Eq "Test Case '.*' failed|Test Suite '.*' failed|with [1-9][0-9]* failures|TEST FAILED|Failing tests:" "$log"
 }
 
-# The workflow retains its outer timeout as a hard safety bound.
-for (( tick=0; tick<90; tick++ )); do
+# Slow Xcode Cloud UI automation startup can exceed 270 seconds before two
+# selected assertions finish; allow 900 seconds while keeping an explicit
+# termination bound and the workflow's 35-minute outer timeout.
+# Strict result matching is unchanged: no synthetic success.
+for (( tick=0; tick<300; tick++ )); do
   if ! kill -0 "$pid" 2>/dev/null; then
     set +e
     wait "$pid"
@@ -80,6 +83,6 @@ for (( tick=0; tick<90; tick++ )); do
   sleep 3
 done
 
-echo 'UI smoke did not complete inside the CI-specific 270-second budget.'
+echo 'UI smoke did not complete inside the CI-specific 900-second budget.'
 tail -n 70 "$log"
 exit 1
