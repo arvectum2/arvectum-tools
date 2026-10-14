@@ -1,7 +1,7 @@
 # Фото и PDF под размер — Product Roadmap
 
 ## Active release checkpoint — 2026-10-14
-**Published baseline:** iOS 1.0.0 (12), owner-confirmed 2026-10-11. **Next:** iOS 1.0.1 (13) submitted to App Review on 2026-10-13, WAITING_FOR_REVIEW (not yet a confirmed release).
+**Published baseline:** iOS 1.0.0 (12), owner-confirmed 2026-10-11. **Next:** iOS 1.0.1 (13), submitted to App Review on 2026-10-13 and still under review (owner-confirmed 2026-10-14), not yet released. Physical iPhone has build 13 installed and accepts non-activated launch; full export/ad QA remains open. [Physical QA evidence](docs/PHYSICAL_QA_2026-10-14.md).
 
 Evidence: [1.0.1 release branch roadmap](https://github.com/arvectum2/arvectum-tools/blob/release/photo-size-ios-1.0.1/photo-pdf-to-size/ROADMAP.md), commit b3bc628. The main-branch candidate checklist below predates submission.
 - [x] Dynamic Type consent fix, signed binary upload, 20 localized release notes, 28 unit and 5 simulator UI tests, plus physical debug launch documented on release branch.
