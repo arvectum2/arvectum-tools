@@ -4,7 +4,7 @@
 - [x] All four iOS/Watch/widget targets advance together from build 12 to build **13**; unchanged app identifiers, version 1.4.1, and SwiftData/CloudKit storage schema.
 - [x] Code fix from PR #32: Watch HealthKit 4500/4400 completion now aligns with iPhone same-day manual-recheck policy; explicit skips stay excluded. Numeric keyboard uses compact native down-chevron accessory rather than gesture recognizer. Physical 1.4.1 (12) failure and acceptance gates recorded in QA.
 - [x] Focused local checks: **170/170 iOS unit tests**, numeric keyboard arrow simulator UI PASS, generic watchOS build PASS, release hygiene and architecture PASS.
-- [ ] Sign and audit release archive, export production-CloudKit internal-only IPA, upload to internal TestFlight and attach to existing group; await Apple VALID processing. Do not install/uninstall user apps and do not submit public App Store review.
+- [x] Signed and privacy-audited Release archive, exported production-CloudKit internal-only IPA 1.4.1 (13), verified all four bundles and Watch background-delivery entitlement, uploaded successfully. Apple App Store Connect API confirmed build VALID and attachment to existing **ChickMark Internal QA** (5 internal builds, same testers). No app installation/uninstall or public review submission.
 - [ ] Physical QA: with iPhone ChickMark untouched, confirm Watch UI **and watch-face complication** complete when HealthKit current steps are at least the target, even after a past day-mutation marker; test keyboard arrow on iPhone.
 
 
