@@ -1,5 +1,12 @@
 # ChickMark — Product Roadmap
 
+## 2026-10-14 — 1.4.1 (12) internal-only Watch Health background QA
+- [x] Advance all four iPhone/Watch/widget targets from build 11 to **build 12** without changing marketing version, app identifiers or data schema.
+- [x] Incorporate PR #28: pull-down numeric keyboard dismissal and real watchOS HealthKit observer/background delivery, plus independent Siri Shortcut filter bug correction.
+- [x] Preliminary checks: 169/169 iOS unit tests, numeric swipe-down simulator UI pass, generic watchOS build pass, signed watchOS archive contains HealthKit Background Delivery entitlement **and matching provisioning profile**, no archive privacy errors.
+- [ ] Upload using internal-only App Store Connect export with Production CloudKit, attach to existing ChickMark Internal QA testers, verify GitHub CI, then physically test complication with Watch app kept closed. Do not submit to App Store review or change installed apps directly.
+
+
 ## 2026-10-14 — follow-up physical QA on internal 1.4.1 (11)
 - [x] Owner confirmed **Watch app itself automatically checks a step habit correctly**, but the Apple Watch **face complication** updates only after manually launching ChickMark. Existing complication consumed a snapshot projected by running Watch app, without a registered watchOS HealthKit background observer.
 - [x] Implement watchOS HKObserverQuery background delivery **only for metrics with opted-in rules in the Watch snapshot**; wake-up handler reads on-watch HealthKit (no permission prompts), verifies day/snapshot/metric+target have not changed, updates local Boolean-only app-group cache and requests a WidgetKit complication reload on changed result. Watch app delegate registers observers at Watch app launch; registration retried after foreground Health authorization. HealthKit Background Delivery entitlement present and signed in watchOS archive and provisioning profile. No raw HealthKit counts are uploaded. OS background budget and WidgetKit rendering remain not guaranteed real-time; background test must be done on physical Watch.
