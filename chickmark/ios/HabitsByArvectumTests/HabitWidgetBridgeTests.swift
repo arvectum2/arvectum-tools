@@ -371,10 +371,11 @@ final class HabitWidgetBridgeTests: XCTestCase {
 
     func testWidgetIntentQueuesCommandAndAwaitsAppRuntimeProcessor() async throws {
         let habitID = UUID()
+        let today = HabitWidgetBridge.dayKey(for: .now)
         HabitWidgetBridge.saveSnapshot(
             HabitWidgetSnapshot(
                 generatedAt: .now,
-                dayKey: "2027-01-15",
+                dayKey: today,
                 completedCount: 0,
                 skippedCount: 0,
                 totalCount: 1,
@@ -399,7 +400,7 @@ final class HabitWidgetBridgeTests: XCTestCase {
 
         let intent = ToggleHabitWidgetIntent(
             habitID: habitID.uuidString,
-            dayKey: "2027-01-15",
+            dayKey: today,
             completed: true
         )
         _ = try await intent.perform()
@@ -408,8 +409,61 @@ final class HabitWidgetBridgeTests: XCTestCase {
         let commands = HabitWidgetBridge.loadCommands()
         XCTAssertEqual(commands.count, 1)
         XCTAssertEqual(commands.first?.habitID, habitID)
-        XCTAssertEqual(commands.first?.dayKey, "2027-01-15")
+        XCTAssertEqual(commands.first?.dayKey, today)
         XCTAssertEqual(commands.first?.completed, true)
+    }
+
+    func testWidgetIntentRefusesStaleAndFutureTimelineEntries() async throws {
+        let habitID = UUID()
+        let today = HabitWidgetBridge.dayKey(for: .now)
+        let snapshot = HabitWidgetSnapshot(
+            generatedAt: .now, dayKey: today, completedCount: 0,
+            skippedCount: 0, totalCount: 1,
+            habits: [HabitWidgetHabit(
+                id: habitID, name: "Water", symbolName: "drop.fill",
+                colorHex: "43E5C5", completed: false, skipped: false, streak: 0
+            )]
+        )
+        HabitWidgetBridge.saveSnapshot(snapshot)
+        var processorRuns = 0
+        HabitWidgetIntentRuntime.processor = { processorRuns += 1 }
+
+        for offset in [-1, 1] {
+            let day = try XCTUnwrap(Calendar.autoupdatingCurrent.date(
+                byAdding: .day, value: offset, to: .now
+            ))
+            let intent = ToggleHabitWidgetIntent(
+                habitID: habitID.uuidString,
+                dayKey: HabitWidgetBridge.dayKey(for: day),
+                completed: true
+            )
+            _ = try await intent.perform()
+        }
+        XCTAssertEqual(HabitWidgetBridge.loadCommands().count, 0)
+        XCTAssertEqual(HabitWidgetBridge.loadSnapshot(), snapshot)
+        XCTAssertEqual(processorRuns, 0)
+    }
+
+    func testWidgetIntentDateGateUsesLocalDayAfterTimezoneAndDSTChanges() throws {
+        var london = Calendar(identifier: .gregorian)
+        london.timeZone = try XCTUnwrap(TimeZone(identifier: "Europe/London"))
+        var newYork = Calendar(identifier: .gregorian)
+        newYork.timeZone = try XCTUnwrap(TimeZone(identifier: "America/New_York"))
+        let instant = try XCTUnwrap(london.date(from: DateComponents(
+            year: 2026, month: 10, day: 25, hour: 0, minute: 30
+        )))
+        XCTAssertTrue(HabitWidgetBridge.acceptsAction(
+            dayKey: "2026-10-25", now: instant, calendar: london
+        ))
+        XCTAssertFalse(HabitWidgetBridge.acceptsAction(
+            dayKey: "2026-10-25", now: instant, calendar: newYork
+        ))
+        XCTAssertTrue(HabitWidgetBridge.acceptsAction(
+            dayKey: "2026-10-24", now: instant, calendar: newYork
+        ))
+        XCTAssertFalse(HabitWidgetBridge.acceptsAction(
+            dayKey: "2026-10-24", now: instant, calendar: london
+        ))
     }
 
     func testCommandQueueIsBoundedToNewestHundredTargets() {

@@ -42,6 +42,12 @@ struct ToggleHabitWidgetIntent: AppIntent {
         guard let id = UUID(uuidString: habitID) else {
             return .result()
         }
+        // Timeline entries may remain visible briefly after local midnight or
+        // timezone changes. Don't record yesterday on a tap meant for today.
+        guard HabitWidgetBridge.acceptsAction(dayKey: dayKey) else {
+            WidgetCenter.shared.reloadTimelines(ofKind: "HabitsTodayWidget")
+            return .result()
+        }
 
         let command = HabitWidgetCommand(
             habitID: id,
