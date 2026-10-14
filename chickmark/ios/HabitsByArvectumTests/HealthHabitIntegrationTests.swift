@@ -332,4 +332,94 @@ final class HealthHabitIntegrationTests: XCTestCase {
         ))
     }
 
+
+    func testUnavailableHealthClearsPreviouslyPublishedDerivedStateWithoutTouchingManualCheckIn() {
+        let day = date(2026, 10, 14)
+        let linked = Habit(name: "Steps", createdAt: day.addingTimeInterval(-86_400))
+        let manual = Habit(name: "Reading", createdAt: day.addingTimeInterval(-86_400))
+        let manuallyCompleted = HabitCheckIn(habitID: manual.id, day: day, calendar: calendar)
+        let key = HabitDayKey.make(for: day, calendar: calendar)
+        var derived = Set(["\(linked.id.uuidString):\(key)"])
+        var live: [UUID: HealthHabitProgress] = [
+            linked.id: HealthHabitProgress(
+                metric: .steps, current: 8200, target: 8000, dayKey: key
+            )
+        ]
+        XCTAssertTrue(HealthHabitCoordinator.clearEphemeralState(
+            completedDayKeys: &derived, liveProgress: &live
+        ))
+        XCTAssertTrue(derived.isEmpty)
+        XCTAssertTrue(live.isEmpty)
+        let projection = HealthHabitCoordinator.projectedCheckIns(
+            for: [manuallyCompleted], habits: [manual, linked],
+            completedDayKeys: derived, calendar: calendar
+        )
+        XCTAssertEqual(projection.map(\.id), [manuallyCompleted.id])
+        XCTAssertFalse(HabitMetrics.isCompleted(
+            habitID: linked.id, on: day, checkIns: projection, calendar: calendar
+        ))
+        XCTAssertTrue(HabitMetrics.isCompleted(
+            habitID: manual.id, on: day, checkIns: projection, calendar: calendar
+        ))
+        XCTAssertFalse(HealthHabitCoordinator.clearEphemeralState(
+            completedDayKeys: &derived, liveProgress: &live
+        ), "Repeated denied/unavailable reads must not generate false state transitions")
+    }
+
+    func testUnavailableHealthClearsLiveProgressEvenWhenNoHabitWasCompleted() {
+        let id = UUID()
+        var derived: Set<String> = []
+        var live = [id: HealthHabitProgress(
+            metric: .walkingDistance, current: 1.5, target: 3, dayKey: "2026-10-15"
+        )]
+        XCTAssertFalse(HealthHabitCoordinator.clearEphemeralState(
+            completedDayKeys: &derived, liveProgress: &live
+        ))
+        XCTAssertTrue(live.isEmpty, "Do not display stale quantities after Health disappears")
+    }
+
+
+    func testUnavailableHealthSynchronizationInvalidatesProjectionWithoutEditingManualStore() async throws {
+        let schema = HabitsSchema.current
+        let config = ModelConfiguration(
+            "HealthUnavailableQA", schema: schema, isStoredInMemoryOnly: true,
+            cloudKitDatabase: .none
+        )
+        let container = try ModelContainer(for: schema, configurations: [config])
+        let context = ModelContext(container)
+        let today = Date()
+        let manual = Habit(name: "Manual", createdAt: today.addingTimeInterval(-86_400))
+        let linked = Habit(name: "Auto", createdAt: today.addingTimeInterval(-86_400))
+        context.insert(manual)
+        context.insert(linked)
+        let checkIn = HabitCheckIn(habitID: manual.id, day: today)
+        context.insert(checkIn)
+        try context.save()
+
+        let key = HabitDayKey.make(for: today)
+        let coordinator = HealthHabitCoordinator()
+        coordinator.seedEphemeralForTests(
+            completedDayKeys: ["\(linked.id.uuidString):\(key)"],
+            progress: [linked.id: HealthHabitProgress(
+                metric: .steps, current: 9000, target: 8000, dayKey: key
+            )]
+        )
+        XCTAssertEqual(coordinator.completedDayKeys.count, 1)
+        XCTAssertNotNil(coordinator.progress(for: linked.id, on: today))
+        coordinator.healthAvailableOverrideForTests = false
+        coordinator.configure(container: container)
+        await coordinator.synchronize()
+        XCTAssertTrue(coordinator.completedDayKeys.isEmpty)
+        XCTAssertNil(coordinator.progress(for: linked.id, on: today))
+        let stored = try context.fetch(FetchDescriptor<HabitCheckIn>())
+        XCTAssertEqual(stored.map(\.id), [checkIn.id])
+        XCTAssertEqual(try context.fetch(FetchDescriptor<Habit>()).count, 2)
+        XCTAssertFalse(HabitMetrics.isCompleted(
+            habitID: linked.id, on: today, checkIns: stored
+        ))
+        XCTAssertTrue(HabitMetrics.isCompleted(
+            habitID: manual.id, on: today, checkIns: stored
+        ))
+    }
+
 }

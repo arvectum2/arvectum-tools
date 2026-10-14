@@ -130,3 +130,13 @@ If a defect is reproduced, record: build SHA, iOS/watchOS version, source data, 
 - **Results:** 39/39 focused XCTest, **188/188 full iOS unit XCTest** with zero failures, architecture contract and en/ru/es localization resource audit PASS. Nonfatal `WCErrorCodeDeviceNotPaired` from unpaired simulator is not physical Watch evidence.
 - **Evidence (Mac mini local):** `/Volumes/ArvectumSSD/Arvectum/builds/chickmark/sprint-a-dst-interval-20261014/focused-tests.log`, `all-unit.log`, `architecture.log`, `localization.log`; XCTest result bundles in the existing local DerivedData path.
 - **Status:** A3 deterministic regression suite expanded; live Simulator WidgetKit refresh at a forced rollover and physical Watch/iPhone day-transition acceptance are still **OPEN**. Do not claim automatic background delivery or a real Lock Screen rendering pass from these unit tests. Submitted 1.4.1 (15) unchanged.
+
+
+## A4 unavailable HealthKit projection regression — 2026-10-15
+
+- **Baseline:** origin/main b1f1123. All CI jobs in previously merged PR #45 and #46 passed, including build-and-test.
+- **Defect and correction:** HealthHabitCoordinator.reconcile() previously exited on unavailable HealthKit without clearing old automatic completions or transient progress. The unavailable path now uses the same invalidation as having zero rules; clears cached Health widget overlay, signals iPhone/Watch/WidgetKit, and refreshes reminders. No manual SwiftData history, privacy permissions, Health samples or public 1.4.1(15) binary were modified.
+- **AUTO:** Two helper regressions verify fail-closed transient completion/progress state and idempotency while preserving manually saved check-ins. A third integration test exercises actual coordinator.synchronize() against in-memory SwiftData with test-only injected Health unavailability. Debug-only injection hooks are excluded from Store builds.
+- **PASS:** HealthHabitIntegrationTests 19/19, complete iOS unit suite 191/191, architecture, release hygiene.
+- **Evidence:** /Volumes/ArvectumSSD/Arvectum/builds/chickmark/sprint-a-health-unavailable-20261015/ (focused-integration.log, full-verified.log, architecture.log, release.log).
+- **Still open A4:** simctl privacy offers motion but no HealthKit permission service. The OS-native denial/revocation sheet and independent Watch/Lock Screen refresh are not yet physically/simulator verified. Do not change the owner's Health permissions.

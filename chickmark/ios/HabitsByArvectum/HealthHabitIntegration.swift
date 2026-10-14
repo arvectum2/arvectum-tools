@@ -337,6 +337,20 @@ final class HealthHabitCoordinator {
     private(set) var completedDayKeys: Set<String> = []
     private var liveProgress: [UUID: HealthHabitProgress] = [:]
 
+#if DEBUG
+    // Disposable XCTest injection. Not compiled into App Store builds and
+    // never changes the owner's real HealthKit permission state.
+    var healthAvailableOverrideForTests: Bool?
+
+    func seedEphemeralForTests(
+        completedDayKeys: Set<String>,
+        progress: [UUID: HealthHabitProgress]
+    ) {
+        self.completedDayKeys = completedDayKeys
+        self.liveProgress = progress
+    }
+#endif
+
     func progress(for habitID: UUID, on date: Date = .now) -> HealthHabitProgress? {
         guard let progress = liveProgress[habitID],
               progress.dayKey == HabitDayKey.make(for: date) else { return nil }
@@ -388,7 +402,14 @@ final class HealthHabitCoordinator {
         return result
     }
 
-    var isAvailable: Bool { HKHealthStore.isHealthDataAvailable() }
+    var isAvailable: Bool {
+#if DEBUG
+        if let healthAvailableOverrideForTests {
+            return healthAvailableOverrideForTests
+        }
+#endif
+        return HKHealthStore.isHealthDataAvailable()
+    }
 
     func configure(container: ModelContainer) {
         self.container = container
@@ -466,24 +487,48 @@ final class HealthHabitCoordinator {
         runningSync = nil
     }
 
+    /// The system may stop providing Health data after previously qualifying
+    /// a goal (for example, Health becoming unavailable). Never keep an old
+    /// derived check-in merely because the refresh could not read new samples.
+    /// Only transient Health projections are cleared; manual SwiftData
+    /// check-ins, rule opt-ins and HealthKit permissions are not changed.
+    @discardableResult
+    static func clearEphemeralState(
+        completedDayKeys: inout Set<String>,
+        liveProgress: inout [UUID: HealthHabitProgress]
+    ) -> Bool {
+        let hadCompletions = !completedDayKeys.isEmpty
+        completedDayKeys.removeAll()
+        liveProgress.removeAll()
+        return hadCompletions
+    }
+
+    private func invalidateDerivedProjection() {
+        let hadCompletions = Self.clearEphemeralState(
+            completedDayKeys: &completedDayKeys, liveProgress: &liveProgress
+        )
+        LocalHealthWidgetProjection.save(
+            dayKey: HabitDayKey.make(for: .now), habitIDs: []
+        )
+        if hadCompletions {
+            PhoneWatchSyncCoordinator.shared.dataDidChange()
+            HabitWidgetCoordinator.shared.refresh()
+        }
+        HabitReminderCoordinator.shared.refresh()
+        NotificationCenter.default.post(name: .healthHabitProjectionChanged, object: nil)
+    }
+
     private func reconcile() async {
-        guard isAvailable, let container else { return }
+        guard let container else { return }
+        // Previously a failed availability guard exited before invalidating
+        // already published iPhone/Widget/Watch Health completions.
+        guard isAvailable else {
+            invalidateDerivedProjection()
+            return
+        }
         let settings = HealthHabitRuleStore.shared
         guard !settings.allRules.isEmpty else {
-            let hadDerivedCompletions = !completedDayKeys.isEmpty
-            completedDayKeys.removeAll()
-            liveProgress.removeAll()
-            LocalHealthWidgetProjection.save(
-                dayKey: HabitDayKey.make(for: .now), habitIDs: []
-            )
-            if hadDerivedCompletions {
-                PhoneWatchSyncCoordinator.shared.dataDidChange()
-            }
-            if hadDerivedCompletions {
-                HabitWidgetCoordinator.shared.refresh()
-            }
-            HabitReminderCoordinator.shared.refresh()
-            NotificationCenter.default.post(name: .healthHabitProjectionChanged, object: nil)
+            invalidateDerivedProjection()
             return
         }
 
