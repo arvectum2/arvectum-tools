@@ -41,3 +41,13 @@ Release publication is confirmed by owner, but this is NOT a full physical-devic
 - [ ] GitHub Actions CI success still required (local pass is not equivalent to CI).
 - [ ] Explicit user approval before internal TestFlight upload, and full in-app habit backup before replacing public 1.4.0 app. Never install development-signed 1.4.1 over the published production CloudKit configuration.
 - [ ] Run actual iPhone and paired Watch HealthKit permission, step reading/target, automatic checkmark, WatchConnectivity reconciliation, manual undo, midnight and data-preserving upgrade tests.
+
+## 2026-10-14 follow-up: 1.4.1 (9) on physical iPhone and Watch
+- [x] Owner created a personal JSON backup before in-place upgrade.
+- [x] Owner installed TestFlight 1.4.1 (9) on iPhone **and** Apple Watch without uninstalling.
+- [x] Changed Apple Health step goal on iPhone; **new target immediately arrived on Watch**. This proves at least the configuration snapshot of WatchConnectivity worked.
+- [ ] After walking and waiting **five minutes**, owner reported that **step readings did not update**. Apple Fitness **had not been opened**. Do not assume that HealthKit had already saved the new step samples, or that the failure was specific to one device; those facts are not verified.
+- [ ] Controlled diagnostic, without opening iPhone Fitness: first note the displayed counts/goal on ChickMark iPhone and Watch; then inspect Apple **Health → Browse → Activity → Steps** and note current count and most recent sample time. Observe whether returning to ChickMark then causes update. Separately check Apple Watch native Activity steps. A possible side effect of opening Health should be recorded rather than assumed absent.
+- [ ] Verify read permission to *Steps* in iPhone Settings → Privacy & Security → Health → ChickMark and, separately, watchOS health permissions. HealthKit does not directly reveal read-denial status to an app.
+- [ ] If current steps already exist in Health but ChickMark remains stale, debug foreground view task lifecycle and query errors/HealthKit authorization; if Health itself is stale, consider a consent-based live Core Motion pedometer foreground source (separate device step counts, no naive sum across phone and Watch, no CloudKit/raw measurements) rather than assuming a 60-second HealthKit SLA.
+- [ ] No app patch/release from this observation yet; reproduce the source-data split first. Retain published 1.4.0 history and 1.4.1 TestFlight backup.
