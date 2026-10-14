@@ -526,3 +526,87 @@ extension HabitFrequencyTests {
         )
     }
 }
+
+extension HabitFrequencyTests {
+    // A3: Completion-relative recurrence is calendar-day based, not N * 86400 seconds.
+    func testSlidingRecurrenceAcrossNewYorkSpringAndAutumnDST() throws {
+        var ny = Calendar(identifier: .gregorian)
+        ny.timeZone = try XCTUnwrap(TimeZone(identifier: "America/New_York"))
+        for (month, day, elapsedHours) in [
+            (3, 7, 47.0),
+            (10, 31, 49.0)
+        ] {
+            let completion = try XCTUnwrap(ny.date(from: DateComponents(
+                year: 2026, month: month, day: day, hour: 12
+            )))
+            let habit = Habit(name: "Change filter", createdAt: completion)
+            habit.completionIntervalDays = 2
+            let checkIn = HabitCheckIn(habitID: habit.id, day: completion, calendar: ny)
+            let due = try XCTUnwrap(HabitFrequency.nextCompletionIntervalDueDate(
+                habit: habit, checkIns: [checkIn],
+                through: ny.date(byAdding: .day, value: 3, to: completion)!, calendar: ny
+            ))
+            let expectedKey = month == 3 ? "2026-03-09" : "2026-11-02"
+            XCTAssertEqual(HabitDayKey.make(for: due, calendar: ny), expectedKey)
+            XCTAssertEqual(due.timeIntervalSince(ny.startOfDay(for: completion)) / 3600,
+                           elapsedHours, accuracy: 0.01)
+            let dayBefore = try XCTUnwrap(ny.date(byAdding: .day, value: -1, to: due))
+            XCTAssertFalse(HabitFrequency.isDue(
+                habit: habit, on: dayBefore, checkIns: [checkIn], calendar: ny
+            ))
+            XCTAssertTrue(HabitFrequency.isDue(
+                habit: habit, on: due, checkIns: [checkIn], calendar: ny
+            ))
+        }
+    }
+
+    func testSlidingRecurrenceUsesLatestActualDateWithOverlappingCompletions() throws {
+        var local = Calendar(identifier: .gregorian)
+        local.timeZone = try XCTUnwrap(TimeZone(identifier: "Europe/London"))
+        func localDay(_ day: Int) throws -> Date {
+            try XCTUnwrap(local.date(from: DateComponents(
+                year: 2026, month: 10, day: day, hour: 12
+            )))
+        }
+        let habit = Habit(name: "Maintenance", createdAt: try localDay(1))
+        habit.completionIntervalDays = 3
+        let first = HabitCheckIn(habitID: habit.id, day: try localDay(1), calendar: local)
+        let early = HabitCheckIn(habitID: habit.id, day: try localDay(2), calendar: local)
+        let latest = HabitCheckIn(habitID: habit.id, day: try localDay(8), calendar: local)
+        let future = HabitCheckIn(habitID: habit.id, day: try localDay(20), calendar: local)
+        let rows = [first, early, latest, future]
+        let due = try XCTUnwrap(HabitFrequency.nextCompletionIntervalDueDate(
+            habit: habit, checkIns: rows,
+            through: try localDay(9), calendar: local
+        ))
+        XCTAssertEqual(HabitDayKey.make(for: due, calendar: local), "2026-10-11")
+        XCTAssertFalse(HabitFrequency.isDue(habit: habit, on: try localDay(10),
+                                           checkIns: rows, calendar: local))
+        XCTAssertTrue(HabitFrequency.isDue(habit: habit, on: try localDay(11),
+                                          checkIns: rows, calendar: local))
+        XCTAssertTrue(HabitFrequency.isDue(habit: habit, on: try localDay(8),
+                                          checkIns: rows, calendar: local))
+    }
+
+    func testSavedLocalCompletionDaySurvivesTravelBeforeIntervalIsDue() throws {
+        var london = Calendar(identifier: .gregorian)
+        london.timeZone = try XCTUnwrap(TimeZone(identifier: "Europe/London"))
+        var losAngeles = Calendar(identifier: .gregorian)
+        losAngeles.timeZone = try XCTUnwrap(TimeZone(identifier: "America/Los_Angeles"))
+        let instant = try XCTUnwrap(ISO8601DateFormatter().date(
+            from: "2026-10-13T23:30:00Z"
+        ))
+        let habit = Habit(name: "Maintenance", createdAt: instant)
+        habit.completionIntervalDays = 2
+        let checkIn = HabitCheckIn(habitID: habit.id, day: instant, calendar: london)
+        XCTAssertEqual(checkIn.dayKey, "2026-10-14")
+        XCTAssertEqual(HabitDayKey.make(for: instant, calendar: losAngeles), "2026-10-13")
+        let reference = try XCTUnwrap(losAngeles.date(from: DateComponents(
+            year: 2026, month: 10, day: 15, hour: 12
+        )))
+        let due = try XCTUnwrap(HabitFrequency.nextCompletionIntervalDueDate(
+            habit: habit, checkIns: [checkIn], through: reference, calendar: losAngeles
+        ))
+        XCTAssertEqual(HabitDayKey.make(for: due, calendar: losAngeles), "2026-10-16")
+    }
+}
