@@ -24,6 +24,18 @@ MVP must work completely offline on iOS, with no account or backend.
 - [ ] Browse and correct stored entries.
 - [ ] Verify offline operation, data integrity and practical search latency.
 
+## P1 — Expiry Tracking / «Сроки годности» (post-MVP)
+**User need:** photograph a medicine, cosmetic or other product (or add a text-only entry), note when its package was opened, and receive a reminder when its usable lifetime ends. This must not delay W0–W3 or require network, an account, a backend, or the ChickMark app.
+
+- [ ] **E0 · Product card:** photo (optional), title, short note, category (medicine/cosmetic/other), opening date, and optional link to an existing Where? object/storage location. Support quick entry without a photo.
+- [ ] **E1 · Two expiry rules:** capture printed/absolute expiration date and separate post-opening lifetime (PAO, e.g. 2 months or 12M). Calculate the effective expiry as the **earlier** of the two when both are set; use the specified one when only one exists. Never infer a medicine's PAO or assert its safety from generic category defaults; show dates and source values for manual verification.
+- [ ] **E2 · Local reminders:** user-controlled notifications (suggest 7 days before and on expiry), rescheduled when dates change, cancelled when deleted/completed, deduplicated per item, with permission-denied handling and scheduling within iOS pending-notification limits. Use privacy-safe notification text by default.
+- [ ] **E3 · Review states:** «В порядке», «Скоро истечёт», «Срок истёк»; mark «Использовано» / «Выброшено»; duplicate an item to record opening a new package without re-entering its description.
+- [ ] **E4 · Offline acceptance:** verify month-boundary and leap-year date arithmetic, time zones/DST, past dates, changed opening dates, reinstall/backup migration where supported, app restart, airplane mode, denied notification permission, many simultaneously tracked items, and no alerts from deleted/retired packages.
+- [ ] **E5 · OCR enhancement (later):** detect printed expiry dates and PAO markings like 6M/12M from packaging photos on-device; require user confirmation before saving inferred dates. Keep OCR optional; manual input must always work.
+
+**Architecture:** isolate product-expiry model/calculation and notification scheduler from the object-location search core so the same module could support a dedicated expiry utility later. Integration with ChickMark is optional and not required for reminders.
+
 ## Later
 - [ ] Explore on-device VLM only after a lightweight offline core proves useful.
 - [ ] Evaluate optional Siri/Apple Intelligence integration where technically feasible.
