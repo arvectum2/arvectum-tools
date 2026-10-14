@@ -71,13 +71,12 @@ final class HabitFlowUITests: XCTestCase {
         XCTAssertEqual(target.value as? String, "5000")
 
         target.tap()
-        XCTAssertFalse(app.buttons["habit.keyboard.dismiss"].exists)
         XCTAssertTrue(app.keyboards.firstMatch.exists, "Numeric step keyboard must open")
-        // Pull down inside the editor; no toolbar is needed and this must
-        // work even when the Form itself cannot scroll further down.
-        let start = app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.30))
-        let finish = app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.52))
-        start.press(forDuration: 0.1, thenDragTo: finish)
+        // Native, narrow keyboard toolbar: a single downward chevron.
+        // No giant text button or swipe recognizer stealing scroll gestures.
+        let arrow = app.buttons["habit.keyboard.dismiss.arrow"]
+        XCTAssertTrue(arrow.waitForExistence(timeout: 5))
+        arrow.tap()
         let keyboardGone = XCTNSPredicateExpectation(
             predicate: NSPredicate(format: "exists == false"),
             object: app.keyboards.firstMatch

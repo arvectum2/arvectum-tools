@@ -1,5 +1,13 @@
 # ChickMark — Product Roadmap
 
+## 2026-10-14 — QA 1.4.1 (12): 4500/4400 steps still unchecked on Watch
+- [x] **Physical observation:** user did not open iPhone; native Watch Activity rings updated and Watch ChickMark displayed e.g. **4500/4400**, yet neither Watch app checkmark nor complication completed. User reports that launching ChickMark on iPhone reconciles the checkmark and syncs it back. Therefore this is **not merely a delayed widget repaint**; Watch local qualification policy can reject correct numeric readings.
+- [x] Found policy divergence: iPhone HealthHabitAutoPolicy.shouldComplete permits same-day re-completion after a historical manual uncheck if live HealthKit reaches today's target. Watch WatchLocalHealthProjection.qualifies rejected every healthManualOverride, even with 4500 >= 4400. Match iPhone behavior on current-day on-Watch HealthKit verification; keep explicit skipped days excluded and do not mutate stored authoritative iPhone snapshot. Update both Watch app derived UI and complication cache merge to respect current verified progress.
+- [x] Added regression test covering Watch step value **4500 / 4400**, stale manual-mutation flag, and Watch face derived count, plus zero case (4399 / 4400), skipped day and prior-target invalidation. Full local 170/170 iOS unit tests and selected numeric-edit UI test passed; Watch generic build passed.
+- [x] **Keyboard:** physical QA reported unusual/jittery swipe dismissal. Removed custom UIWindow pan recognizer; restored native ToolbarItemGroup keyboard placement with only one compact downward-chevron button aligned trailing, with VoiceOver label and no large text control. UI simulator verified button tap dismisses numeric keyboard. Follows native Apple SwiftUI keyboard accessory pattern.
+- [ ] New internal-only versioned TestFlight candidate; verify **without opening iPhone** that Watch screen and Watch face both automatically check at/above goal. Physical behavior still needs acceptance. No public submission or uninstall/reinstall.
+
+
 ## 2026-10-14 — 1.4.1 (12) internal-only Watch Health background QA
 - [x] Advance all four iPhone/Watch/widget targets from build 11 to **build 12** without changing marketing version, app identifiers or data schema.
 - [x] Incorporate PR #28: pull-down numeric keyboard dismissal and real watchOS HealthKit observer/background delivery, plus independent Siri Shortcut filter bug correction.
