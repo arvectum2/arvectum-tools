@@ -122,6 +122,25 @@ struct HabitCompletionCommand: Codable, Hashable, Identifiable {
     }
 }
 
+/// Live Watch controls must not turn an outdated on-screen snapshot into a
+/// historical completion after midnight or timezone travel. Previously the
+/// iPhone WidgetKit intent had this guard but Watch on-screen taps did not.
+enum HabitWatchActionPolicy {
+    static func accepts(
+        snapshotDayKey: String,
+        now: Date = .now,
+        calendar: Calendar = .autoupdatingCurrent
+    ) -> Bool {
+        guard !snapshotDayKey.isEmpty else { return false }
+        let parts = calendar.dateComponents([.year, .month, .day], from: now)
+        let todayKey = String(
+            format: "%04d-%02d-%02d",
+            parts.year ?? 0, parts.month ?? 0, parts.day ?? 0
+        )
+        return snapshotDayKey == todayKey
+    }
+}
+
 enum HabitCompletionCommandQueue {
     static let maximumCount = 100
 
