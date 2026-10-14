@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0281431BF7DF8E62E12DCFB2 /* WhatWatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4ED5C55003D60E489465C5D /* WhatWatchApp.swift */; };
+		0633B2238EF1A5BD5B32969F /* ReviewDemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEC5029D31A75E43264EDFD /* ReviewDemoUITests.swift */; };
 		095E000031881CF97192ADAC /* SyncDiagnosticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E1CDF413B1021AF609E11A /* SyncDiagnosticsView.swift */; };
 		0D212F794FE2ADAC7D18CC52 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 1804DB448307D7581C01F806 /* PrivacyInfo.xcprivacy */; };
 		0DEF1C49F2B4F918B3879CE3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C68EC61E6C6E18D5C445B15F /* InfoPlist.strings */; };
@@ -165,6 +166,7 @@
 		3420DB5CB8958565C9B8B79E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		34695056F0776593473FDE58 /* WatchCaptureValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchCaptureValidation.swift; sourceTree = "<group>"; };
 		347A7E530D49925454ACC690 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		3EEC5029D31A75E43264EDFD /* ReviewDemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewDemoUITests.swift; sourceTree = "<group>"; };
 		3FEB908379268EDF523C2242 /* TranscriptEditorSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscriptEditorSheet.swift; sourceTree = "<group>"; };
 		45AF5A244D5C57B278411CCC /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		504D7E8A050C788BB8AB0E56 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -271,6 +273,7 @@
 			isa = PBXGroup;
 			children = (
 				E6ACA38EC5E339EF4FE47646 /* CaptureFirstUITests.swift */,
+				3EEC5029D31A75E43264EDFD /* ReviewDemoUITests.swift */,
 			);
 			path = WhatIOSUITests;
 			sourceTree = "<group>";
@@ -615,6 +618,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4B245C0DC2EC18A8311E7D0C /* CaptureFirstUITests.swift in Sources */,
+				0633B2238EF1A5BD5B32969F /* ReviewDemoUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -804,7 +808,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = VML75VY94V;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1050,7 +1054,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = VML75VY94V;
 				ENABLE_NS_ASSERTIONS = NO;

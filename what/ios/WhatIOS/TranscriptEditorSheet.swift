@@ -39,28 +39,30 @@ struct TranscriptEditorSheet: View {
                     .font(.body)
                     .focused($isEditing)
                     .scrollContentBackground(.hidden)
-                    .accessibilityLabel("Recording transcription")
+                    .accessibilityLabel(CaptureBrand.text("Текст записи", "Recording transcription"))
                     .padding(8)
                     .background(.quaternary.opacity(0.5), in: RoundedRectangle(cornerRadius: 12))
 
-                Text("Editing changes only the transcript. Your original audio is never modified.")
+                Text(CaptureBrand.text("Исправление текста не меняет оригинальное аудио.", "Editing changes only the transcript. Your original audio is never modified."))
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }
             .padding()
-            .navigationTitle(initialText.isEmpty ? "Add text" : "Edit transcription")
+            .navigationTitle(initialText.isEmpty
+                ? CaptureBrand.text("Добавить текст", "Add text")
+                : CaptureBrand.text("Править расшифровку", "Edit transcription"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("Cancel") { dismiss() }
+                    Button(CaptureBrand.text("Отмена", "Cancel")) { dismiss() }
                 }
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("Save") { save() }
+                    Button(CaptureBrand.text("Сохранить", "Save")) { save() }
                         .disabled(!canSave)
                         .fontWeight(.semibold)
                 }
             }
-            .alert("Could not save changes", isPresented: Binding(
+            .alert(CaptureBrand.text("Не удалось сохранить", "Could not save changes"), isPresented: Binding(
                 get: { saveError != nil },
                 set: { if !$0 { saveError = nil } }
             )) {

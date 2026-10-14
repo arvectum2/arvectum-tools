@@ -61,12 +61,12 @@ struct RecordingLibraryView: View {
                 } else if dayGroups.isEmpty {
                     ContentUnavailableView(
                         searchText.isEmpty
-                            ? (selectedFolder == .archive ? "Archive is empty" : "Inbox is empty")
-                            : "No matching recordings",
+                            ? (selectedFolder == .archive ? CaptureBrand.text("Архив пуст", "Archive is empty") : CaptureBrand.text("Входящие пусты", "Inbox is empty"))
+                            : CaptureBrand.text("Записи не найдены", "No matching recordings"),
                         systemImage: searchText.isEmpty ? "tray" : "magnifyingglass",
                         description: Text(searchText.isEmpty
-                            ? "Archived recordings stay saved on this iPhone."
-                            : "Search looks through saved transcripts and dates.")
+                            ? CaptureBrand.text("Записи в архиве остаются на iPhone.", "Archived recordings stay saved on this iPhone.")
+                            : CaptureBrand.text("Поиск по текстам и датам.", "Search looks through saved transcripts and dates."))
                     )
                 } else {
                     List {
@@ -85,7 +85,7 @@ struct RecordingLibraryView: View {
                                                 )
                                             } label: {
                                                 Label(
-                                                    selectedFolder == .archive ? "Restore" : "Archive",
+                                                    selectedFolder == .archive ? "Restore" : CaptureBrand.text("Архив", "Archive"),
                                                     systemImage: selectedFolder == .archive
                                                         ? "tray.and.arrow.up" : "archivebox"
                                                 )
@@ -96,7 +96,7 @@ struct RecordingLibraryView: View {
                                             Button(role: .destructive) {
                                                 recordingToDelete = recording
                                             } label: {
-                                                Label("Delete", systemImage: "trash")
+                                                Label(CaptureBrand.text("Удалить", "Delete"), systemImage: "trash")
                                             }
                                         }
                                         .contextMenu {
@@ -107,7 +107,7 @@ struct RecordingLibraryView: View {
                                                 )
                                             } label: {
                                                 Label(
-                                                    selectedFolder == .archive ? "Restore to Inbox" : "Archive recording",
+                                                    selectedFolder == .archive ? CaptureBrand.text("Вернуть во входящие", "Restore to Inbox") : CaptureBrand.text("В архив", "Archive recording"),
                                                     systemImage: selectedFolder == .archive
                                                         ? "tray.and.arrow.up" : "archivebox"
                                                 )
@@ -115,7 +115,7 @@ struct RecordingLibraryView: View {
                                             Button(role: .destructive) {
                                                 recordingToDelete = recording
                                             } label: {
-                                                Label("Delete recording", systemImage: "trash")
+                                                Label(CaptureBrand.text("Удалить запись", "Delete recording"), systemImage: "trash")
                                             }
                                         }
                                 }
@@ -125,26 +125,26 @@ struct RecordingLibraryView: View {
                     .listStyle(.insetGrouped)
                     .refreshable { store.reload() }
                     .alert(
-                        "Delete recording?",
+                        CaptureBrand.text("Удалить запись?", "Delete recording?"),
                         isPresented: Binding(
                             get: { recordingToDelete != nil },
                             set: { if !$0 { recordingToDelete = nil } }
                         ),
                         presenting: recordingToDelete
                     ) { recording in
-                        Button("Delete permanently", role: .destructive) {
+                        Button(CaptureBrand.text("Удалить навсегда", "Delete permanently"), role: .destructive) {
                             store.delete(recording)
                             recordingToDelete = nil
                         }
-                        Button("Cancel", role: .cancel) {
+                        Button(CaptureBrand.text("Отмена", "Cancel"), role: .cancel) {
                             recordingToDelete = nil
                         }
                     } message: { _ in
-                        Text("The audio and transcript will be deleted from this iPhone. This cannot be undone.")
+                        Text(CaptureBrand.text("Аудио и текст будут безвозвратно удалены с iPhone.", "The audio and transcript will be deleted from this iPhone. This cannot be undone."))
                     }
                 }
             }
-            .searchable(text: $searchText, prompt: "Search transcripts and dates")
+            .searchable(text: $searchText, prompt: CaptureBrand.text("Поиск по записям", "Search transcripts and dates"))
             .navigationTitle(CaptureBrand.name)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
@@ -155,7 +155,7 @@ struct RecordingLibraryView: View {
                 }
                 ToolbarItemGroup(placement: .topBarTrailing) {
                     Menu {
-                        Picker("Speech language", selection: $store.transcriptionLocale) {
+                        Picker(CaptureBrand.text("Язык распознавания", "Speech language"), selection: $store.transcriptionLocale) {
                             Text("Русский").tag("ru-RU")
                             Text("English").tag("en-US")
                             Text("Español").tag("es-ES")
@@ -163,16 +163,16 @@ struct RecordingLibraryView: View {
                         Button {
                             showDiagnostics = true
                         } label: {
-                            Label("Sync diagnostics", systemImage: "applewatch")
+                            Label(CaptureBrand.text("Диагностика синхронизации", "Sync diagnostics"), systemImage: "applewatch")
                         }
                         Link(
-                            "Privacy policy",
+                            CaptureBrand.text("Конфиденциальность", "Privacy policy"),
                             destination: URL(string: "https://arvectum.com/privacy")!
                         )
                     } label: {
                         Image(systemName: "ellipsis.circle")
                     }
-                    .accessibilityLabel("App settings and diagnostics")
+                    .accessibilityLabel(CaptureBrand.text("Настройки и диагностика", "App settings and diagnostics"))
                 }
             }
             .tint(Color(red: 67 / 255, green: 229 / 255, blue: 197 / 255))
@@ -210,14 +210,14 @@ struct RecordingLibraryView: View {
                     .font(.caption.monospacedDigit()).foregroundStyle(.secondary)
             }
             if store.isAudioComplete(recording) {
-                Label("Audio saved on iPhone", systemImage: "checkmark.circle.fill")
+                Label(CaptureBrand.text("Аудио на iPhone", "Audio saved on iPhone"), systemImage: "checkmark.circle.fill")
                     .font(.caption2)
                     .foregroundStyle(.secondary)
             } else {
                 Label(
                     store.isAudioAvailable(recording)
-                        ? "Audio incomplete — please re-record"
-                        : "Audio missing on iPhone",
+                        ? CaptureBrand.text("Неполное аудио — перезапишите", "Audio incomplete — please re-record")
+                        : CaptureBrand.text("Нет аудио на iPhone", "Audio missing on iPhone"),
                     systemImage: "exclamationmark.triangle"
                 )
                     .font(.caption)
@@ -273,7 +273,9 @@ struct RecordingLibraryView: View {
             HStack(spacing: 6) {
                 Image(systemName: store.playingID == recording.id
                     ? "stop.circle.fill" : "play.circle.fill")
-                Text(store.playingID == recording.id ? "Stop" : "Play")
+                Text(store.playingID == recording.id
+                    ? CaptureBrand.text("Стоп", "Stop")
+                    : CaptureBrand.text("Слушать", "Play"))
                     .lineLimit(1)
             }
             .font(.subheadline.weight(.semibold))
@@ -283,7 +285,8 @@ struct RecordingLibraryView: View {
             .background(Color.accentColor.opacity(0.12), in: Capsule())
         }
         .disabled(!store.isAudioAvailable(recording))
-        .accessibilityLabel(store.playingID == recording.id ? "Stop audio" : "Play audio")
+        .accessibilityLabel(store.playingID == recording.id ? CaptureBrand.text("Остановить аудио", "Stop audio")
+            : CaptureBrand.text("Прослушать аудио", "Play audio"))
     }
 
     private func textButton(
@@ -303,7 +306,10 @@ struct RecordingLibraryView: View {
                 Image(systemName: store.transcribingID == recording.id
                     ? "xmark.circle" : "text.bubble")
                 Text(store.transcribingID == recording.id
-                    ? "Cancel" : (hasTranscript ? "Edit text" : "Transcribe"))
+                    ? CaptureBrand.text("Отмена", "Cancel")
+                    : (hasTranscript
+                        ? CaptureBrand.text("Править текст", "Edit text")
+                        : CaptureBrand.text("Расшифровать", "Transcribe")))
                     .lineLimit(1)
             }
             .font(.subheadline)
@@ -325,7 +331,8 @@ struct RecordingLibraryView: View {
                 recordingToEdit = recording
             } label: {
                 Label(
-                    store.transcripts[recording.id] == nil ? "Add text" : "Edit text",
+                    store.transcripts[recording.id] == nil ? CaptureBrand.text("Добавить текст", "Add text")
+                        : CaptureBrand.text("Править текст", "Edit text"),
                     systemImage: "square.and.pencil"
                 )
             }
@@ -335,7 +342,7 @@ struct RecordingLibraryView: View {
                 Button {
                     recordingToRetranscribe = recording
                 } label: {
-                    Label("Retry transcription", systemImage: "arrow.clockwise")
+                    Label(CaptureBrand.text("Повторить расшифровку", "Retry transcription"), systemImage: "arrow.clockwise")
                 }
                 .disabled(store.transcribingID != nil)
             }
@@ -360,11 +367,11 @@ struct RecordingLibraryView: View {
                     Button {
                         preparedExport = store.prepareExport(recording, selection: .audioAndTranscript)
                     } label: {
-                        Label("Audio + transcript", systemImage: "square.on.square")
+                        Label(CaptureBrand.text("Аудио и текст", "Audio + transcript"), systemImage: "square.on.square")
                     }
                 }
             } label: {
-                Label("Export", systemImage: "square.and.arrow.up")
+                Label(CaptureBrand.text("Экспорт", "Export"), systemImage: "square.and.arrow.up")
             }
 
             Divider()
@@ -377,7 +384,7 @@ struct RecordingLibraryView: View {
             } label: {
                 Label(
                     store.archivedIDs.contains(recording.id)
-                        ? "Restore to Inbox" : "Archive recording",
+                        ? CaptureBrand.text("Вернуть во входящие", "Restore to Inbox") : CaptureBrand.text("В архив", "Archive recording"),
                     systemImage: store.archivedIDs.contains(recording.id)
                         ? "tray.and.arrow.up" : "archivebox"
                 )
@@ -386,7 +393,7 @@ struct RecordingLibraryView: View {
             Button(role: .destructive) {
                 recordingToDelete = recording
             } label: {
-                Label("Delete recording", systemImage: "trash")
+                Label(CaptureBrand.text("Удалить запись", "Delete recording"), systemImage: "trash")
             }
         } label: {
             Image(systemName: "ellipsis.circle")
@@ -394,20 +401,20 @@ struct RecordingLibraryView: View {
                 .frame(width: 40, height: 40)
                 .contentShape(Rectangle())
         }
-        .accessibilityLabel("More recording actions")
-        .alert("Replace existing transcription?", isPresented: Binding(
+        .accessibilityLabel(CaptureBrand.text("Другие действия с записью", "More recording actions"))
+        .alert(CaptureBrand.text("Заменить расшифровку?", "Replace existing transcription?"), isPresented: Binding(
             get: { recordingToRetranscribe?.id == recording.id },
             set: { if !$0 { recordingToRetranscribe = nil } }
         )) {
-            Button("Replace transcription", role: .destructive) {
+            Button(CaptureBrand.text("Заменить текст", "Replace transcription"), role: .destructive) {
                 store.transcribe(recording)
                 recordingToRetranscribe = nil
             }
-            Button("Cancel", role: .cancel) {
+            Button(CaptureBrand.text("Отмена", "Cancel"), role: .cancel) {
                 recordingToRetranscribe = nil
             }
         } message: {
-            Text("A new transcription will replace your current text, including any manual corrections. The original audio will be kept.")
+            Text(CaptureBrand.text("Новая расшифровка заменит исправленный текст. Оригинальное аудио сохранится.", "A new transcription will replace your current text, including any manual corrections. The original audio will be kept."))
         }
     }
 
