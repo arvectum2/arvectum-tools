@@ -22,7 +22,6 @@
 		12436D825F2509786CC8B5D1 /* HabitFrequencyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DEFC0669243FAC8DAA87EF4 /* HabitFrequencyTests.swift */; };
 		162A87AE642A08B55AA131E1 /* ArvectumDiagnostics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751274BF03274060F4190DBE /* ArvectumDiagnostics.swift */; };
 		1B3796126312FFBBB9FB2188 /* HabitMetricsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB9D2034D678C89F73555BE /* HabitMetricsTests.swift */; };
-		1DA617504BFAC9DC0F6CF8DF /* HealthHabitSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B1AF04D5D6B3801B57AEA7 /* HealthHabitSettingsView.swift */; };
 		1E708E85C230328FE1664DAC /* ArvectumPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE8E3DDD5EC0D3A48D3246B /* ArvectumPalette.swift */; };
 		21E8CF6096099D2E30F39784 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3151C4449FA96F91F217BA3F /* Localizable.strings */; };
 		2416FE8391D0811DA7EF9997 /* HabitMultiCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87A11EBE4A7566B04031352 /* HabitMultiCheck.swift */; };
@@ -236,7 +235,6 @@
 		306AEBE034C4BC280E31DEDD /* WatchComplicationBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchComplicationBridge.swift; sourceTree = "<group>"; };
 		36AE87871DB4FF9E94F22171 /* HabitWidgetBridgeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitWidgetBridgeTests.swift; sourceTree = "<group>"; };
 		36CB49BFF73477AACC1C513C /* HabitMultiCheckTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitMultiCheckTests.swift; sourceTree = "<group>"; };
-		37B1AF04D5D6B3801B57AEA7 /* HealthHabitSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthHabitSettingsView.swift; sourceTree = "<group>"; };
 		3994450D5C2D132493FFC8FC /* HabitHistoryCalendarTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitHistoryCalendarTests.swift; sourceTree = "<group>"; };
 		39E7C1CA6AD7DA518A1C362C /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/AppShortcuts.strings; sourceTree = "<group>"; };
 		3AA7A843D4A75761F41CEA60 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -516,7 +514,6 @@
 				268F01ED856611FB7C079BDE /* HabitTodayProjection.swift */,
 				7FE25918D92BA577F2EC9541 /* HabitWidgetCoordinator.swift */,
 				C25E2DB2205D515FA46BBB60 /* HealthHabitIntegration.swift */,
-				37B1AF04D5D6B3801B57AEA7 /* HealthHabitSettingsView.swift */,
 				9E8FFB381C39731633FAC0AD /* Info.plist */,
 				F8C26C1D0FB611A5B2CDBFD3 /* Localization.swift */,
 				B7244BB344EF7352D2851402 /* ManageHabitsView.swift */,
@@ -981,7 +978,6 @@
 				5FD2A3574787D5264BFCF471 /* HabitWidgetCoordinator.swift in Sources */,
 				35E77969306A355D1FAF0924 /* HabitsByArvectumApp.swift in Sources */,
 				DF7BEAC0D9729CC5296EB01C /* HealthHabitIntegration.swift in Sources */,
-				1DA617504BFAC9DC0F6CF8DF /* HealthHabitSettingsView.swift in Sources */,
 				504BCDCB496129794424E3F6 /* Localization.swift in Sources */,
 				0E47E5487B24DF807F0F1385 /* ManageHabitsView.swift in Sources */,
 				F9666B865AFB7ECDED930CBD /* Models.swift in Sources */,

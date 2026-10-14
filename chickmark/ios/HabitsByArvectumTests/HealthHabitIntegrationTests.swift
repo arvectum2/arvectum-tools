@@ -54,6 +54,50 @@ final class HealthHabitIntegrationTests: XCTestCase {
         XCTAssertEqual(HealthHabitTargetInput.editableText(5000), "5000")
     }
 
+    func testUnifiedHealthEditorPlansNewLinkTargetChangeMetricAndDisconnect() {
+        let originalSince = Date(timeIntervalSince1970: 1_760_000_000)
+        let original = HealthHabitRule(
+            metric: .steps, target: 5000, enabledAt: originalSince
+        )
+        let now = originalSince.addingTimeInterval(3600)
+
+        XCTAssertTrue(HealthHabitEditPlan.needsAuthorization(
+            existing: nil, enabled: true, metric: .steps
+        ))
+        XCTAssertFalse(HealthHabitEditPlan.needsAuthorization(
+            existing: original, enabled: true, metric: .steps
+        ))
+        XCTAssertTrue(HealthHabitEditPlan.needsAuthorization(
+            existing: original, enabled: true, metric: .walkingDistance
+        ))
+        XCTAssertFalse(HealthHabitEditPlan.needsAuthorization(
+            existing: original, enabled: false, metric: .steps
+        ))
+
+        let edited = HealthHabitEditPlan.updatedRule(
+            existing: original, enabled: true, metric: .steps, target: 25, now: now
+        )
+        XCTAssertEqual(edited?.target, 25)
+        XCTAssertEqual(edited?.enabledAt, originalSince)
+        XCTAssertEqual(edited?.metric, .steps)
+
+        let switched = HealthHabitEditPlan.updatedRule(
+            existing: original, enabled: true,
+            metric: .walkingDistance, target: 1.5, now: now
+        )
+        XCTAssertEqual(switched?.enabledAt, now)
+        XCTAssertEqual(switched?.metric, .walkingDistance)
+        XCTAssertEqual(HealthHabitEditPlan.updatedRule(
+            existing: nil, enabled: true, metric: .steps, target: 50, now: now
+        )?.enabledAt, now)
+        XCTAssertNil(HealthHabitEditPlan.updatedRule(
+            existing: original, enabled: false, metric: .steps, target: 25
+        ))
+        XCTAssertNil(HealthHabitEditPlan.updatedRule(
+            existing: original, enabled: true, metric: .steps, target: 0
+        ))
+    }
+
     func testAutomaticCompletionHonorsUserActions() {
         let day = date(2026, 10, 12)
         let habit = Habit(name: "Walk", createdAt: day)

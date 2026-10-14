@@ -120,6 +120,26 @@ struct HealthHabitRule: Codable, Equatable {
     }
 }
 
+/// One Save transaction in the unified editor: decide permissions and
+/// reconstruct a rule without rewriting its original opt-in timestamp.
+enum HealthHabitEditPlan {
+    static func needsAuthorization(
+        existing: HealthHabitRule?, enabled: Bool, metric: HealthHabitMetric
+    ) -> Bool {
+        enabled && existing?.metric != metric
+    }
+
+    static func updatedRule(
+        existing: HealthHabitRule?, enabled: Bool, metric: HealthHabitMetric,
+        target: Double?, now: Date = .now
+    ) -> HealthHabitRule? {
+        guard enabled, let target else { return nil }
+        let since = existing?.metric == metric ? (existing?.enabledAt ?? now) : now
+        let rule = HealthHabitRule(metric: metric, target: target, enabledAt: since)
+        return rule.isValid ? rule : nil
+    }
+}
+
 /// Current-day HealthKit reading, held in memory only. Never serialized to
 /// SwiftData, CloudKit, widget snapshots, WatchConnectivity or telemetry.
 struct HealthHabitProgress: Equatable {
