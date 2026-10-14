@@ -1,6 +1,18 @@
 # Arvectum Tools Core — Roadmap
 
-**Updated:** 2026-10-11. **Owner:** common rules, brand, code reuse, CI and release infrastructure.
+## 2026-10-14 implementation checkpoint
+- [x] Shared Swift packages exist: ArvectumDesignTokens, ArvectumPersistence and ArvectumDiagnostics, with privacy-safe local diagnostics.
+- [x] Core CI tests consumers ChickMark, Pushkin, Photo/PDF and What?, watchOS and Android, with reviewed dependency catalogs.
+- [x] Photo/PDF adopted shared ArvectumCore SwiftPM in main on 2026-10-13 and aligned Yandex Mobile Ads 8.6.0 with the Core catalog.
+- [ ] Audit each forthcoming release tag, source/build provenance and GitVerse mirror SHA after integration.
+- [ ] Wire Where? into relevant CI only when buildable iOS source exists, without placeholder jobs.
+- [ ] Keep Core CI dependency-impact testing up to date as consumer entrypoints change.
+- [ ] Extract shared UI, telemetry and ad interfaces only when two stable apps demonstrate genuine need.
+
+This checkpoint supersedes outdated statuses in the older engineering-follow-up section below; Core still owns only cross-product infrastructure.
+
+
+**Updated:** 2026-10-14. **Owner:** common rules, brand, code reuse, CI and release infrastructure.
 
 ## Current baseline
 - [x] Monorepo with independent apps and release cycles.

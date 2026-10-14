@@ -1,6 +1,20 @@
 # What? — Product Roadmap
 
-**Updated:** 2026-10-11
+## Active release checkpoint — 2026-10-14
+**Brand:** Ухват (RU) / UhWhat? (international); What? was the working name and what/ remains the product directory. **Apple:** 1.0.0 build 5, App ID 6822476399, submitted 2026-10-14; last verified state WAITING_FOR_REVIEW, not published. The submitted changes live on [release/what-1.0.0](https://github.com/arvectum2/arvectum-tools/blob/release/what-1.0.0/what/ROADMAP.md), commit ebe3d06, not yet integrated into main.
+
+**North star: Catch the thought before it disappears. Analyze it later.** Native one-tap Watch and iPhone capture, original-audio durability and reliable transfer outrank advanced AI search.
+- [x] Release branch implements iPhone capture-first home, Inbox/Archive, local transcripts, search/export, widget, RU/EN branding; physical upgrade preserved all 33 backed-up files.
+- [x] Watch queue survived offline reboot and automatic short-note transfer was observed on physical devices; UUID/retry/ACK deduplication implemented.
+- [ ] Repeat physical ACK-loss, offline batch, reboot and background delivery acceptance; prove original audio remains playable and capture meets target <=2s ready-state p95 (unverified).
+- [ ] Validate exact build 5 iPhone+Watch end-to-end capture and follow Apple's review decision.
+- [ ] Exclude experimental RuWordNet-derived graph and model research from shipping app; private derived corpus has unresolved commercial distribution rights.
+- [ ] Integrate reviewed, shippable release work into main without losing local recordings or source/build provenance.
+
+The P0–P5 baseline below reflects older main; the release branch contains later implementation work. Do not treat speculative Ask Memory models as a 1.0 release gate.
+
+
+**Updated:** 2026-10-14
 **Status:** P0 + initial iPhone playback/on-device transcription implementation on 2026-10-11; **not released to App Store**. Local developer build installed on paired physical iPhone after backing up all 7 existing recordings; manual playback and transcription acceptance still open.
 **Evidence:** [historical feature-branch roadmap snapshot](docs/history/ROADMAP-feature-what-2026-10-11.md).
 **Shared principles:** [Core](../core/CORE_PRINCIPLES.md); **Growth:** [Growth](../growth/ROADMAP.md).
