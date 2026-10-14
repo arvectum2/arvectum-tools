@@ -57,7 +57,7 @@ struct WatchTodayView: View {
             // The displayed figures belong to this Watch only, not to a
             // WatchConnectivity snapshot. Refresh during an open session.
             while !Task.isCancelled {
-                try? await Task.sleep(for: .seconds(120))
+                try? await Task.sleep(for: .seconds(60))
                 guard !Task.isCancelled else { break }
                 await refreshHealthProgress()
             }

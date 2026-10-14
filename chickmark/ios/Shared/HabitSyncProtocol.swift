@@ -10,6 +10,8 @@ struct HabitSyncHabit: Codable, Hashable, Identifiable {
     var name: String
     var symbolName: String
     var colorHex: String
+    /// Completion may be manual or a transient iPhone-derived Health result.
+    /// The paired-Watch snapshot sends the Boolean, not Health measurements.
     var completed: Bool
     var skipped: Bool = false
     var streak: Int

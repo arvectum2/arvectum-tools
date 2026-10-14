@@ -1,5 +1,16 @@
 # ChickMark — Product Roadmap
 
+## 2026-10-14 — HealthKit polling + Watch completion reconciliation (1.4.1 code patch, not shipped)
+- [x] **Physical iPhone, user-confirmed:** step target exceeded; displayed reading did not change while ChickMark remained open. After opening Apple Fitness and accepting updated terms, Health data appeared in ChickMark and «Прогулка» was marked complete automatically. This proves the iPhone auto-completion worked after new data arrived, NOT that Fitness terms caused the delay.
+- [ ] **Physical Watch:** neither the step reading nor automatic checkmark updated. Published Watch build 1.4.0 (8) has no numeric progress UI; local HealthKit data/permission and WatchConnectivity delivery remain separate unresolved gates.
+- [x] **Original cadence:** foreground Today polls HealthKit every 120 seconds, observer background delivery requested at hourly, and foreground/observer events also refresh. iOS schedules data availability independently.
+- [x] **Next-patch behavior coded:** active foreground poll every 60 seconds on iPhone/Watch (no background polling); phone Health auto-completion projected into paired-Watch Boolean completion snapshot; publish when derived completion state changes. Raw HealthKit data or totals are never sent to WatchConnectivity; synthetic completion not persisted to SwiftData or CloudKit.
+- [x] Local verification: 32 focused Health + Watch sync unit tests, iOS simulator test build and Watch simulator build successful; architecture contract OK.
+- [ ] **Real-device timing QA:** after Fitness/Apple Health ready, keep ChickMark foreground-active; record step readings in Apple Health and ChickMark at 0 / 30 / 60 / 120 seconds, then background/foreground; compare iPhone auto-check and paired-Watch receipt, local permission and reachability. Never promise a 60-second end-to-end guarantee; underlying HealthKit sample delivery may lag.
+- [ ] Signed next release only after non-destructive physical acceptance; published 1.4.0 remains unchanged.
+
+
+
 ## 2026-10-14 — one unified habit editor (1.4.1 candidate, NOT shipped)
 - [x] Apple Health connection, supported metric, numeric threshold, and disconnection are now all controlled by the SAME Create/Edit Habit sheet as habit name, schedule and notifications. This supersedes the older split flow.
 - [x] Remove the separate "Smart automations" navigation card and delete the superseded Apple Health settings screen; preserve HealthKit local-only measurement privacy, current rule preferences, their original opt-in date (when the metric is unchanged), and historical habit records.

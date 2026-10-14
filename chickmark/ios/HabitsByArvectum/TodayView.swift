@@ -179,12 +179,14 @@ struct TodayView: View {
                 await HabitReminderScheduler.debugDumpIfRequested()
 #endif
             }
-            // Poll while open because HealthKit observations may arrive
-            // later than the user's step count. No polling in background.
+            // HealthKit samples may arrive after steps are recorded.
+            // Poll only when active; no guarantee of immediate system writes.
             .task(id: scenePhase == .active) {
                 guard scenePhase == .active else { return }
                 while !Task.isCancelled {
-                    try? await Task.sleep(for: .seconds(120))
+                    try? await Task.sleep(
+                        for: .seconds(HealthHabitRefreshPolicy.foregroundSeconds)
+                    )
                     guard !Task.isCancelled else { break }
                     guard !HealthHabitRuleStore.shared.allRules.isEmpty else { continue }
                     await HealthHabitCoordinator.shared.synchronize()
