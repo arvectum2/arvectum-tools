@@ -45,6 +45,10 @@ for (( tick=0; tick<90; tick++ )); do
     set -e
     pid=""
     tail -n 35 "$log"
+    if [[ "$result" -eq 0 ]] && ! selected_suite_passed; then
+      echo "xcodebuild returned 0 but selected UI test results are missing." >&2
+      exit 1
+    fi
     exit "$result"
   fi
 
@@ -58,6 +62,10 @@ for (( tick=0; tick<90; tick++ )); do
       set -e
       pid=""
       tail -n 35 "$log"
+      if [[ "$result" -eq 0 ]] && ! selected_suite_passed; then
+        echo "xcodebuild returned 0 but selected UI test results are missing." >&2
+        exit 1
+      fi
       exit "$result"
     fi
     echo 'Xcode 27 UI tests passed 2/2 with zero failures; terminating stalled runner teardown.'
