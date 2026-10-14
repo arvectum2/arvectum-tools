@@ -57,22 +57,16 @@ struct HabitsWidgetProvider: TimelineProvider {
         in context: Context,
         completion: @escaping (Timeline<HabitsWidgetEntry>) -> Void
     ) {
-        let now = Date()
-        let entry = HabitsWidgetEntry(
-            date: now,
-            snapshot: HabitWidgetBridge.loadCurrentSnapshot()
-        )
-        let calendar = Calendar.autoupdatingCurrent
-        let nextDay = calendar.date(
-            byAdding: .day,
-            value: 1,
-            to: calendar.startOfDay(for: now)
-        ) ?? now.addingTimeInterval(3600)
-
+        // Future calendar-day snapshots are precomputed by the host app.
+        // Dated entries roll over at midnight even when WidgetKit delays
+        // a new provider invocation or the user never opens ChickMark.
+        let plan = HabitWidgetTimelinePlanner.make()
         completion(
             Timeline(
-                entries: [entry],
-                policy: .after(nextDay.addingTimeInterval(5))
+                entries: plan.items.map {
+                    HabitsWidgetEntry(date: $0.date, snapshot: $0.snapshot)
+                },
+                policy: .after(plan.refreshAfter)
             )
         )
     }

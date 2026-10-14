@@ -167,6 +167,49 @@ enum HabitWidgetBridge {
 }
 
 
+/// WidgetKit needs dated entries for upcoming local calendar days.
+/// Publishing one entry and requesting a reload tomorrow is insufficient:
+/// iOS may defer the reload, leaving yesterday's progress on the Lock Screen.
+/// The host app already persists a 14-day projection, so schedule it directly.
+enum HabitWidgetTimelinePlanner {
+    static let dayCount = 14
+
+    struct Item {
+        let date: Date
+        let snapshot: HabitWidgetSnapshot
+    }
+
+    struct Plan {
+        let items: [Item]
+        let refreshAfter: Date
+    }
+
+    static func make(
+        now: Date = .now,
+        calendar: Calendar = .autoupdatingCurrent
+    ) -> Plan {
+        let start = calendar.startOfDay(for: now)
+        let items = (0..<dayCount).compactMap { offset -> Item? in
+            guard let date = offset == 0 ? now
+                : calendar.date(byAdding: .day, value: offset, to: start)
+            else { return nil }
+            return Item(
+                date: date,
+                snapshot: HabitWidgetBridge.loadCurrentSnapshot(
+                    now: date, calendar: calendar
+                )
+            )
+        }
+        let nextRefresh = calendar.date(
+            byAdding: .day, value: dayCount, to: start
+        ) ?? (items.last?.date ?? now).addingTimeInterval(86_400)
+        return Plan(
+            items: items,
+            refreshAfter: nextRefresh.addingTimeInterval(5)
+        )
+    }
+}
+
 enum HabitWidgetPresentation {
     static func prioritized(
         _ habits: [HabitWidgetHabit]
