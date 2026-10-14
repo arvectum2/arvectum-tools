@@ -124,6 +124,122 @@ final class WatchComplicationBridgeTests: XCTestCase {
         XCTAssertEqual(result.projectedDays, source.projectedDays)
     }
 
+    func testLocalWatchHealthCompletionProjectsWithoutMutatingBase() {
+        let id = UUID()
+        let other = UUID()
+        let dayKey = "2027-01-15"
+        let now = Date(timeIntervalSince1970: 1_800_000_000)
+        let habit = HabitSyncHabit(
+            id: id, name: "Steps", symbolName: "figure.walk",
+            colorHex: "43E5C5", completed: false, streak: 1,
+            healthRuleMetric: "steps", healthRuleTarget: 3000
+        )
+        // Total includes a trimmed habit not present in visible payload.
+        let snapshot = HabitSyncSnapshot(
+            generatedAt: now, dayKey: dayKey,
+            completedCount: 1, skippedCount: 1, totalCount: 4,
+            habits: [habit]
+        )
+        let state = WatchLocalHealthProjection.State(
+            dayKey: dayKey, habitIDs: [id, other], generatedAt: now
+        )
+        let projected = WatchLocalHealthProjection.applying(snapshot, state: state, now: now)
+        XCTAssertEqual(projected.completedCount, 2)
+        XCTAssertEqual(projected.skippedCount, 1)
+        XCTAssertEqual(projected.totalCount, 4)
+        XCTAssertTrue(projected.habits[0].completed)
+        XCTAssertFalse(snapshot.habits[0].completed)
+        XCTAssertEqual(snapshot.completedCount, 1)
+    }
+
+    func testLocalHealthOverlayRespectsManualOverrideAndSkip() {
+        let id = UUID()
+        let now = Date(timeIntervalSince1970: 1_800_000_000)
+        let state = WatchLocalHealthProjection.State(
+            dayKey: "2027-01-15", habitIDs: [id], generatedAt: now
+        )
+        func snapshot(skipped: Bool, overridden: Bool) -> HabitSyncSnapshot {
+            HabitSyncSnapshot(
+                generatedAt: now, dayKey: "2027-01-15",
+                completedCount: 0, skippedCount: skipped ? 1 : 0, totalCount: 1,
+                habits: [
+                    HabitSyncHabit(
+                        id: id, name: "Walk", symbolName: "figure.walk",
+                        colorHex: "43E5C5", completed: false,
+                        skipped: skipped, streak: 0,
+                        healthRuleMetric: "steps", healthRuleTarget: 2000,
+                        healthManualOverride: overridden
+                    )
+                ]
+            )
+        }
+        let undone = WatchLocalHealthProjection.applying(
+            snapshot(skipped: false, overridden: true), state: state, now: now
+        )
+        XCTAssertFalse(undone.habits[0].completed)
+        XCTAssertEqual(undone.completedCount, 0)
+
+        let skipped = WatchLocalHealthProjection.applying(
+            snapshot(skipped: true, overridden: false), state: state, now: now
+        )
+        XCTAssertFalse(skipped.habits[0].completed)
+        XCTAssertEqual(skipped.resolvedCount, 1)
+    }
+
+    func testLocalWatchHealthOverlayExpiresAndNeverCrossesMidnight() {
+        let id = UUID()
+        let now = Date(timeIntervalSince1970: 1_800_000_000)
+        let snapshot = HabitSyncSnapshot(
+            generatedAt: now, dayKey: "2027-01-15",
+            completedCount: 0, totalCount: 1,
+            habits: [
+                HabitSyncHabit(
+                    id: id, name: "Walk", symbolName: "figure.walk",
+                    colorHex: "43E5C5", completed: false, streak: 0,
+                    healthRuleMetric: "steps", healthRuleTarget: 2000
+                )
+            ]
+        )
+        let yesterday = WatchLocalHealthProjection.State(
+            dayKey: "2027-01-14", habitIDs: [id], generatedAt: now
+        )
+        XCTAssertEqual(
+            WatchLocalHealthProjection.applying(snapshot, state: yesterday, now: now),
+            snapshot
+        )
+        let expired = WatchLocalHealthProjection.State(
+            dayKey: snapshot.dayKey, habitIDs: [id],
+            generatedAt: now.addingTimeInterval(-24 * 3600)
+        )
+        XCTAssertEqual(
+            WatchLocalHealthProjection.applying(snapshot, state: expired, now: now),
+            snapshot
+        )
+    }
+
+    func testLocalWatchHealthDoesNotDoubleCountAuthoritativeCheckmark() {
+        let id = UUID()
+        let now = Date(timeIntervalSince1970: 1_800_000_000)
+        let base = HabitSyncSnapshot(
+            generatedAt: now, dayKey: "2027-01-15",
+            completedCount: 1, totalCount: 1,
+            habits: [
+                HabitSyncHabit(
+                    id: id, name: "Steps", symbolName: "figure.walk",
+                    colorHex: "43E5C5", completed: true, streak: 1,
+                    healthRuleMetric: "steps", healthRuleTarget: 5000
+                )
+            ]
+        )
+        let state = WatchLocalHealthProjection.State(
+            dayKey: base.dayKey, habitIDs: [id], generatedAt: now
+        )
+        XCTAssertEqual(
+            WatchLocalHealthProjection.applying(base, state: state, now: now),
+            base
+        )
+    }
+
     func testMissingSnapshotReturnsEmpty() {
         let result = WatchComplicationBridge.loadSnapshot()
 

@@ -479,7 +479,9 @@ final class HealthHabitCoordinator {
             if hadDerivedCompletions {
                 PhoneWatchSyncCoordinator.shared.dataDidChange()
             }
-            HabitWidgetCoordinator.shared.refresh()
+            if hadDerivedCompletions {
+                HabitWidgetCoordinator.shared.refresh()
+            }
             HabitReminderCoordinator.shared.refresh()
             NotificationCenter.default.post(name: .healthHabitProjectionChanged, object: nil)
             return
@@ -572,7 +574,11 @@ final class HealthHabitCoordinator {
             return habit.id
         }
         LocalHealthWidgetProjection.save(dayKey: todayKey, habitIDs: currentIDs)
-        HabitWidgetCoordinator.shared.refresh()
+        // Avoid exhausting WidgetKit reload budgets on unchanged 60s samples:
+        // only a new/removed Health checkoff changes what the widget displays.
+        if completionsChanged {
+            HabitWidgetCoordinator.shared.refresh()
+        }
         HabitReminderCoordinator.shared.refresh()
         NotificationCenter.default.post(name: .healthHabitProjectionChanged, object: nil)
     }
