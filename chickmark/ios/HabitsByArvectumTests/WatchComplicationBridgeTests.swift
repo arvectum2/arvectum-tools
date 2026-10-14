@@ -276,6 +276,91 @@ final class WatchComplicationBridgeTests: XCTestCase {
         )
     }
 
+    func testComplicationLiveStepsReachesTargetWithoutOpeningWatchApp() {
+        let id = UUID()
+        let now = Date(timeIntervalSince1970: 1_800_000_000)
+        let snapshot = HabitSyncSnapshot(
+            generatedAt: now, dayKey: "2027-01-15",
+            completedCount: 0, totalCount: 1,
+            habits: [HabitSyncHabit(
+                id: id, name: "Steps", symbolName: "figure.walk",
+                colorHex: "43E5C5", completed: false, streak: 0,
+                healthRuleMetric: "steps", healthRuleTarget: 4400,
+                healthManualOverride: true
+            )]
+        )
+        let resolved = WatchLocalHealthProjection.applyingLiveSteps(
+            snapshot, steps: 4500, now: now
+        )
+        XCTAssertEqual(resolved.resolvedCount, 1)
+        XCTAssertTrue(resolved.habits[0].completed)
+        XCTAssertFalse(snapshot.habits[0].completed)
+    }
+
+    func testComplicationLiveStepsBelowTargetDoesNotCompleteOrPersist() {
+        let now = Date(timeIntervalSince1970: 1_800_000_000)
+        let id = UUID()
+        let snapshot = HabitSyncSnapshot(
+            generatedAt: now, dayKey: "2027-01-15",
+            completedCount: 0, totalCount: 1,
+            habits: [HabitSyncHabit(
+                id: id, name: "Walk", symbolName: "figure.walk",
+                colorHex: "43E5C5", completed: false, streak: 0,
+                healthRuleMetric: "steps", healthRuleTarget: 4400
+            )]
+        )
+        XCTAssertEqual(
+            WatchLocalHealthProjection.applyingLiveSteps(
+                snapshot, steps: 4399, now: now
+            ), snapshot
+        )
+        XCTAssertEqual(
+            WatchLocalHealthProjection.applyingLiveSteps(
+                snapshot, steps: .nan, now: now
+            ), snapshot
+        )
+        XCTAssertEqual(
+            WatchLocalHealthProjection.applyingLiveSteps(
+                snapshot, steps: 0, now: now
+            ), snapshot
+        )
+    }
+
+    func testComplicationLiveStepsHonoursSkipsAndNeverCountsTwice() {
+        let now = Date(timeIntervalSince1970: 1_800_000_000)
+        let a = HabitSyncHabit(
+            id: UUID(), name: "Walk", symbolName: "figure.walk",
+            colorHex: "43E5C5", completed: false, streak: 0,
+            healthRuleMetric: "steps", healthRuleTarget: 4400
+        )
+        var skipped = HabitSyncHabit(
+            id: UUID(), name: "Skipped", symbolName: "figure.walk",
+            colorHex: "43E5C5", completed: false, streak: 0,
+            healthRuleMetric: "steps", healthRuleTarget: 4400
+        )
+        skipped.skipped = true
+        let already = HabitSyncHabit(
+            id: UUID(), name: "Done", symbolName: "figure.walk",
+            colorHex: "43E5C5", completed: true, streak: 0,
+            healthRuleMetric: "steps", healthRuleTarget: 4400
+        )
+        let baseline = HabitSyncSnapshot(
+            generatedAt: now, dayKey: "2027-01-15",
+            completedCount: 1, skippedCount: 1, totalCount: 3,
+            habits: [a, skipped, already]
+        )
+        let projected = WatchLocalHealthProjection.applyingLiveSteps(
+            baseline, steps: 4500, now: now
+        )
+        XCTAssertEqual(projected.completedCount, 2)
+        XCTAssertEqual(projected.skippedCount, 1)
+        XCTAssertEqual(projected.resolvedCount, 3)
+        XCTAssertTrue(projected.habits[0].completed)
+        XCTAssertTrue(projected.habits[1].skipped)
+        XCTAssertTrue(projected.habits[2].completed)
+        XCTAssertEqual(baseline.completedCount, 1)
+    }
+
     func testWatchFaceRejectsPriorAutomaticCheckoffAfterTargetEdit() {
         let id = UUID()
         let now = Date(timeIntervalSince1970: 1_800_000_000)

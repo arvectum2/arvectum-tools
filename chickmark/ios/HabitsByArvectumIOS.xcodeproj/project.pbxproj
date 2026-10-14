@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		164195FFAFD30E8BA34087D9 /* WatchComplicationHealthReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804C65FA0CA25AB0AA5CE4A2 /* WatchComplicationHealthReader.swift */; };
 		A0042E62380897D7167A133F /* WatchHealthBackgroundDelivery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA037927527E4138A3CE3B4 /* WatchHealthBackgroundDelivery.swift */; };
 		8DE77D96D365B0EF96764222 /* WatchLocalHealthProjection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14F96E05391F9F0AF3CF91C8 /* WatchLocalHealthProjection.swift */; };
 		842C43934755EC794E9E9173 /* WatchLocalHealthProjection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14F96E05391F9F0AF3CF91C8 /* WatchLocalHealthProjection.swift */; };
@@ -214,6 +215,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		804C65FA0CA25AB0AA5CE4A2 /* WatchComplicationHealthReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchComplicationHealthReader.swift; sourceTree = "<group>"; };
 		3BA037927527E4138A3CE3B4 /* WatchHealthBackgroundDelivery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchHealthBackgroundDelivery.swift; sourceTree = "<group>"; };
 		14F96E05391F9F0AF3CF91C8 /* WatchLocalHealthProjection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchLocalHealthProjection.swift; sourceTree = "<group>"; };
 		2214F3379E2C873AFFF9F362 /* WatchHealthProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchHealthProgress.swift; sourceTree = "<group>"; };
@@ -434,6 +436,7 @@
 			children = (
 				AFB87BBC65C671744ED7527A /* HabitsByArvectumWatchWidget.entitlements */,
 				D025914F82E019E2A3B042B2 /* HabitsWatchComplication.swift */,
+				804C65FA0CA25AB0AA5CE4A2 /* WatchComplicationHealthReader.swift */,
 				9128C2E8E95684F31EB22538 /* Info.plist */,
 				FD6387067DD3B41E3F7769A9 /* PrivacyInfo.xcprivacy */,
 				5C96F4AE76FCEC772BE63744 /* Localizable.strings */,
@@ -894,6 +897,7 @@
 			files = (
 				008A101918CA20D451CC7CE5 /* HabitSyncProtocol.swift in Sources */,
 				CCC2560B1FD4730A62F46E3F /* HabitsWatchComplication.swift in Sources */,
+				164195FFAFD30E8BA34087D9 /* WatchComplicationHealthReader.swift in Sources */,
 				8A60C3F268C4CA2FD69743D8 /* WatchComplicationBridge.swift in Sources */,
 				2C3D2D7381CD44217967BA08 /* WatchLocalHealthProjection.swift in Sources */,
 			);
