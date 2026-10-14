@@ -333,6 +333,9 @@ final class HabitFlowUITests: XCTestCase {
         create.tap()
         let name = app.textFields["Habit name"]
         XCTAssertTrue(name.waitForExistence(timeout: 3))
+        // iOS 27 does not always auto-focus a sheet text field after opening.
+        // Explicitly focus before typing, rather than relying on responder state.
+        name.tap()
         name.typeText("Hydrate")
         app.buttons["Other schedule"].tap()
         let stepper = app.steppers.matching(
@@ -385,6 +388,9 @@ final class HabitFlowUITests: XCTestCase {
         let bar = app.navigationBars["New habit"]
         let name = app.textFields["Habit name"]
         XCTAssertTrue(name.waitForExistence(timeout: 3))
+        // iOS 27 does not always auto-focus a sheet text field after opening.
+        // Explicitly focus before typing, rather than relying on responder state.
+        name.tap()
         name.typeText("Hydrate")
         app.buttons["Other schedule"].tap()
         let stepper = app.steppers.matching(
