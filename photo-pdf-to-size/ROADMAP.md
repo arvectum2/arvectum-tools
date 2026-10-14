@@ -1,6 +1,17 @@
 # Фото и PDF под размер — Product Roadmap
 
-**Updated:** 2026-10-13
+## Active release checkpoint — 2026-10-14
+**Published baseline:** iOS 1.0.0 (12), owner-confirmed 2026-10-11. **Next:** iOS 1.0.1 (13) submitted to App Review on 2026-10-13, WAITING_FOR_REVIEW (not yet a confirmed release).
+
+Evidence: [1.0.1 release branch roadmap](https://github.com/arvectum2/arvectum-tools/blob/release/photo-size-ios-1.0.1/photo-pdf-to-size/ROADMAP.md), commit b3bc628. The main-branch candidate checklist below predates submission.
+- [x] Dynamic Type consent fix, signed binary upload, 20 localized release notes, 28 unit and 5 simulator UI tests, plus physical debug launch documented on release branch.
+- [ ] Verify Apple's decision and public 1.0.1 storefront propagation before marking published.
+- [ ] Complete physical Files/Photos import, PDF orientation/large-file export and actual live ad/ATT/consent regression; a debug demo ad is not proof of production fill.
+- [ ] Track Android publication independently: no confirmed Android public release.
+- [ ] Integrate reviewed patch and exact release evidence into main; prioritize later improvements from usage and failures.
+
+
+**Updated:** 2026-10-14
 **Ownership:** image/PDF sizing, document presets, export, app-specific UX, SDK integrations, QA and releases.
 **iOS App Store:** v1.0.0 approved and published on 2026-10-11, after submission on 2026-10-10 (product owner confirmation). Apple App ID `6816346084`, bundle ID `ru.arvectum.tools.tosize`. [Public listing](https://apps.apple.com/ru/app/id6816346084). Android publication status is tracked independently.
 **History and detailed specification:** [docs/history/ROADMAP-legacy-2026-10-11.md](docs/history/ROADMAP-legacy-2026-10-11.md). It is reference history, not a live checklist.

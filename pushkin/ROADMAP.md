@@ -1,6 +1,16 @@
 # PUSHKIN — Product Roadmap
 
-**Updated:** 2026-10-11
+## Active checkpoint — 2026-10-14
+**Last verified state:** iOS 1.0 WAITING_FOR_REVIEW in App Store Connect on 2026-10-11. No newer decision or public publication independently confirmed.
+- [x] Submitted local-only notification history with Shortcuts/App Intents capture, searchable offline storage and fallback onboarding.
+- [ ] Verify App Review outcome and live storefront/build version.
+- [ ] Reproduce, fix and regression-test the deletion crash reported 2026-10-04; preserve existing local history.
+- [ ] Physically validate offline capture and automation enablement/refresh, including Shortcuts' 25-app grouping constraint.
+- [ ] Prioritize simpler guided setup and Russian in-app language after stability; snooze, Save/Done, digests and rules are later.
+- [ ] Revisit monetization only with strict exclusion of notification data from advertising and analytics.
+
+
+**Updated:** 2026-10-14
 **Ownership:** capture/onboarding, notification store, privacy, search and product UX.
 **Status:** iOS 1.0 **Waiting for Review**, verified in authenticated App Store Connect on 2026-10-11. Submission history is preserved in the release documentation; no publication confirmed.
 **Full historic phases and decision evidence:** [docs/history/ROADMAP-legacy-2026-10-11.md](docs/history/ROADMAP-legacy-2026-10-11.md). Do not treat old unchecked phases as 1.0 blockers.

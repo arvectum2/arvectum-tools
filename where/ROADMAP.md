@@ -1,5 +1,14 @@
 # Where? — Product Roadmap
 
+## MVP execution plan — 2026-10-14
+**Stage:** approved concept, no working implementation independently verified. The central value proposition is photograph → remember where stored → find it entirely offline.
+- [ ] W0: capture object and storage-place photos, durable local records, browsing and corrections on actual iPhone.
+- [ ] W1: add offline OCR, editable extracted labels and source-photo provenance.
+- [ ] W2: add local embeddings and hybrid text/semantic retrieval with a small grounded retrieval-quality benchmark.
+- [ ] W3: acceptance in airplane mode, app restart, safe deletion, migrations and measured search latency.
+- [ ] Evaluate Siri/Apple Intelligence only as optional add-on; VLM, NFC tags and Android remain beyond MVP.
+
+
 **Status:** MVP concept approved; implementation status not verified.
 **Owner:** Where? product only.
 

@@ -1,6 +1,15 @@
 # Arvectum Tools — Growth Roadmap
 
-**Updated:** 2026-10-11. **Owner:** portfolio distribution, market research, ASO, SEO, acquisition, conversion, retention measurement and monetization strategy.
+## Growth checkpoint — 2026-10-14
+- [ ] G0: establish a dated per-app App Store Connect baseline (impressions, page views, installs, conversion, retention proxies, ratings), RСЯ fill/revenue and search indexing; missing data must not be called zero.
+- [ ] G1: compare published builds with RU/EN/ES storefront listings, screenshots, support/marketing URLs and SEO product pages.
+- [ ] G2: track search-led discovery via the current Arvectum Tools website hub and individual product pages with Search Console and Yandex Webmaster.
+- [ ] G3: run small hypothesis-driven keyword, creative and community outreach experiments with per-app measures, costs and outcomes.
+- [ ] G4: assess cross-promotion and advertising on both revenue and product retention/reviews.
+- [ ] Growth Agent research and automated monitoring remain paused until a trustworthy data baseline and concrete decision; no external posts without explicit approval.
+
+
+**Updated:** 2026-10-14. **Owner:** portfolio distribution, market research, ASO, SEO, acquisition, conversion, retention measurement and monetization strategy.
 
 ## Current / verify
 - [ ] Audit per-app App Store metadata and screenshot conversion with actual listing data.
