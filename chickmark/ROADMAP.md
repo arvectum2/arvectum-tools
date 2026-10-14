@@ -1,5 +1,12 @@
 # ChickMark — Product Roadmap
 
+## 2026-10-14 — 1.4.1 (10) internal TestFlight QA build (NOT public)
+- [x] Advance **all four iOS/watchOS/widget build numbers** from 1.4.1 (9) to 1.4.1 (10), without changing marketing version, bundle IDs or persistence model.
+- [x] Incorporate Watch-face complication fix from [PR #22](https://github.com/arvectum2/arvectum-tools/pull/22), after real device QA found automatic steps completed in Watch ChickMark but not on the watch-face complication. Native Watch Activity rings preceding the synchronized steps is an observation, not a delivery guarantee.
+- [ ] Check clean CI, full iOS unit tests, signed four-bundle archive and production CloudKit internal-only TestFlight export and upload. Do not submit or publish a public App Store release.
+- [ ] Physically install new internal build non-destructively, observe the Watch-face complication after the Watch ChickMark app has verified HealthKit completion. Validate manual undo, fresh goal and day rollover separately. OS throttling can defer complication repaint.
+
+
 ## 2026-10-14 — WidgetKit reconciliation after physical 1.4.1 (9) TestFlight QA
 - [x] **Observed on real paired devices:** changing the Health step goal on iPhone reached the Watch immediately. After walking, iPhone Health and ChickMark showed the same stale step count for over five minutes. Opening the native Watch Activity rings refreshed data in iPhone Health and ChickMark; automatic checkoff appeared on Watch after opening ChickMark. The widget/complication did not update automatically. This does **not** prove opening Activity guarantees HealthKit delivery.
 - [x] Watch complication code now merges today's *locally verified Boolean Health completion* into its own transient app-group Caches projection (not CloudKit, not the authoritative WCSession snapshot, never raw step data), and requests WidgetKit reload **only when the projected IDs change**.
