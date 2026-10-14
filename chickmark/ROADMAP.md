@@ -1,5 +1,13 @@
 # ChickMark — Product Roadmap
 
+## 2026-10-14 — 1.4.1 (14) internal independent Watch complication HealthKit QA
+- [x] Advance all four targets iPhone, iPhone widget, Watch and Watch complication to build 14, preserving marketing version 1.4.1, bundle identifiers and storage model.
+- [x] Include PR #35 independent Watch WidgetKit extension local HealthKit step reader at each OS-scheduled timeline refresh; native Watch Health observer background path remains. Physically 1.4.1 (13) keyboard and Watch app automatic completion worked but Watch complication did not autonomously update.
+- [x] Preflight: 173/173 local iOS tests, watchOS build, signed Watch widget HealthKit entitlement confirmed in Apple provisioning and archive, archive privacy audit zero errors.
+- [ ] Signed internal-only TestFlight production-CloudKit export and upload, attach existing internal group. Do not submit App Store public release or change devices directly.
+- [ ] Physical validation: after goal reached, **do not open ChickMark on Watch**; watch-face count should eventually reflect completion when WidgetKit refreshes, though Apple OS throttles both WidgetKit and HealthKit.
+
+
 ## 2026-10-14 — follow-up QA 1.4.1 (13): Watch face autonomy
 - [x] Owner reports keyboard arrow now works; automatic checkmark appears in Watch ChickMark at goal after launching the Watch app, and watch-face complication subsequently refreshes. It does not update autonomously before launching Watch ChickMark.
 - [x] Confirmed Apple watchOS limitation: stepCount background HealthKit observer delivery is hourly capped, at most 4 combined background wake-ups/hour with an active complication (Apple HealthKit documentation). The immediate setting is not a guaranteed fast update.
