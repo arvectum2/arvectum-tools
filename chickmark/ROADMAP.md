@@ -1,19 +1,19 @@
 # ChickMark — Product Roadmap
 
 ## Active release checkpoint — 2026-10-14
-**Published baseline:** 1.3.0 (5), owner-confirmed 2026-10-11. **Next release:** 1.4.0 (8), submitted to Apple 2026-10-13, last verified App Store Connect state WAITING_FOR_REVIEW, configured for automatic publication after approval. The unsubmitted 1.3.1 candidate was superseded; its older open submission checkbox below is historical, not active.
+**Current published release:** 1.4.0 (8), approved and published, owner-confirmed on 2026-10-14. The exact 1.4.0 (8) version is also installed on paired physical iPhone 13 and Apple Watch SE as read by CoreDevice on 2026-10-14. Independent country-by-country storefront propagation was not checked. The unsubmitted 1.3.1 candidate was superseded; older preparation checklists below are historical.
 
 Evidence: [HealthKit 1.4 branch roadmap](https://github.com/arvectum2/arvectum-tools/blob/feature/chickmark-healthkit-1.4/chickmark/ROADMAP.md), commit b7e37f5; code remains on this branch pending review and integration into main.
 - [x] 1.4 branch implements opt-in read-only HealthKit-derived rules, local privacy safeguards, Watch/widget improvements and localized HealthKit purpose strings.
 - [x] App Store build 8 validated, uploaded, attached and review submitted on 2026-10-13.
-- [ ] Confirm Apple's decision and live rollout before marking 1.4 published.
-- [ ] Finish physical iPhone+Watch HealthKit consent/readings, offline Watch reconciliation, nonempty widget, ad and privacy acceptance.
+- [x] Owner confirmed Apple's approval and public release of 1.4.0 (8) on 2026-10-14; device inventories show the same version on iPhone and Watch. Regional propagation not independently checked.
+- [ ] Finish physical iPhone+Watch HealthKit consent/readings, offline Watch reconciliation, nonempty widget, ad and privacy acceptance. Device inventory and non-activated launch only are verified; see [physical QA evidence](docs/PHYSICAL_QA_2026-10-14.md).
 - [ ] Merge reviewed 1.4 work and release evidence into main while protecting 1.3 data and rollback.
 - [ ] After release prioritize Gentle restart; weekly summary, reduction habits and check-in notes remain evidence-gated.
 
 
 **Updated:** 2026-10-14
-**Status:** v1.3.0 (build 5) **published — owner-confirmed 2026-10-11**. Installed on paired physical iPhone 13 and Apple Watch SE, verified via CoreDevice app inventory 2026-10-11. Independent public App Store availability/rollout not re-verified in this audit.
+**Historical 2026-10-11 snapshot:** v1.3.0 (build 5) was published, before the later 1.4.0 release. See active checkpoint above for current state. Installed on paired physical iPhone 13 and Apple Watch SE, verified via CoreDevice app inventory 2026-10-11. Independent public App Store availability/rollout not re-verified in this audit.
 **Authoritative feature evidence:** historical [ChickMark branch snapshot](docs/history/ROADMAP-chickmark-branch-2026-10-11.md) formerly from `feature/chickmark-multicheck`, now integrated into `main`; [earlier planning archive](docs/history/ROADMAP-legacy-2026-10-11.md).
 **Shared rules:** [Core](../core/CORE_PRINCIPLES.md). **Promotion and ASO metrics:** [Growth](../growth/ROADMAP.md).
 
@@ -49,8 +49,8 @@ Evidence: [HealthKit 1.4 branch roadmap](https://github.com/arvectum2/arvectum-t
 - [ ] Finish edge-case policy/regression coverage for timezone travel, partial goal completion and overlapping interval completions (basic late-completion and future-check-in cases already tested).
 - [ ] Evaluate extra monetization placements only after retention evidence; do not add a second native Progress ad by default.
 
-### Proposed 1.4 — less manual tracking (not included in 1.3.1)
-- [ ] **P1 · Apple Health / HealthKit auto-check:** optional per-habit authorization and mapping for walk distance, workouts and other reliable HealthKit metrics; show a traceable completion source, handle revoked permission, duplicates, and Watch/iPhone reconciliation; preserve local-first privacy and allow manual correction.
+### Historical 1.4 proposal (HealthKit implemented and shipped in 1.4.0; other features remain backlog)
+- [x] **P1 · Apple Health / HealthKit auto-check (implemented in released 1.4.0; manual QA open):** optional per-habit authorization and mapping for walk distance, workouts and other reliable HealthKit metrics; show a traceable completion source, handle revoked permission, duplicates, and Watch/iPhone reconciliation; preserve local-first privacy and allow manual correction.
 - [ ] **P1 · Gentle restart after an interruption:** offer an optional, one-tap return plan after a user-configured gap; preserve all past check-ins and historical streaks, never guilt-trip or silently rewrite missed days.
 - [ ] **P2 · Local weekly summary:** 7-day opt-in, low-noise snapshot with completion consistency, best day and trend; respect pauses/skips and flexible weekly goals; no account or remote analytics.
 - [ ] **P2 · Negative/reduction habits:** distinguish "avoided today", "slipped" and quantity limits from positive habits; define streak, reminder and insight semantics before schema migration.
