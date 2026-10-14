@@ -1,4 +1,5 @@
 import SwiftUI
+import WidgetKit
 
 struct WatchTodayView: View {
     @EnvironmentObject private var syncStore: WatchHabitSyncStore
@@ -103,6 +104,18 @@ struct WatchTodayView: View {
         healthProgress = evaluation.progress
         locallyVerified = evaluation.qualifyingIDs
         healthEvaluationCompleted = true
+        publishLocalHealthToComplication()
+    }
+
+    /// Watch app HealthKit queries are local; publish only the validated
+    /// completion IDs into an ephemeral, non-backed-up widget cache.
+    private func publishLocalHealthToComplication() {
+        let ids = locallyVerified.subtracting(userOverridden)
+        if WatchLocalHealthProjection.save(
+            dayKey: syncStore.snapshot.dayKey, habitIDs: ids
+        ) {
+            WidgetCenter.shared.reloadTimelines(ofKind: "HabitsWatchComplication")
+        }
     }
 
     private var progressHeader: some View {
@@ -155,6 +168,7 @@ struct WatchTodayView: View {
             if locallyVerified.contains(habit.id) && !userOverridden.contains(habit.id) {
                 userOverridden.insert(habit.id)
                 syncStore.toggle(habit, desiredStateOverride: false)
+                publishLocalHealthToComplication()
             } else {
                 syncStore.toggle(habit)
             }

@@ -356,6 +356,7 @@ targets:
       - path: HabitsByArvectumWatchWidget
       - path: Shared/HabitSyncProtocol.swift
       - path: Shared/WatchComplicationBridge.swift
+      - path: Shared/WatchLocalHealthProjection.swift
     info:
       path: HabitsByArvectumWatchWidget/Info.plist
       properties:

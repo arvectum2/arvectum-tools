@@ -72,6 +72,10 @@ final class WatchHabitSyncStore: NSObject, ObservableObject, WCSessionDelegate {
             ? true
             : !snapshot.habits[index].completed)
         snapshot.habits[index].completed = desiredState
+        if snapshot.habits[index].healthRuleMetric != nil {
+            // Suppress local Health re-completion pending the phone's ACK.
+            snapshot.habits[index].healthManualOverride = true
+        }
         if let target = snapshot.habits[index].dailyTarget {
             snapshot.habits[index].dailyCount = desiredState ? target : 0
         }

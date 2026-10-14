@@ -1,5 +1,15 @@
 # ChickMark — Product Roadmap
 
+## 2026-10-14 — WidgetKit reconciliation after physical 1.4.1 (9) TestFlight QA
+- [x] **Observed on real paired devices:** changing the Health step goal on iPhone reached the Watch immediately. After walking, iPhone Health and ChickMark showed the same stale step count for over five minutes. Opening the native Watch Activity rings refreshed data in iPhone Health and ChickMark; automatic checkoff appeared on Watch after opening ChickMark. The widget/complication did not update automatically. This does **not** prove opening Activity guarantees HealthKit delivery.
+- [x] Watch complication code now merges today's *locally verified Boolean Health completion* into its own transient app-group Caches projection (not CloudKit, not the authoritative WCSession snapshot, never raw step data), and requests WidgetKit reload **only when the projected IDs change**.
+- [x] Preserve manual undo/skip priority and day boundary; Watch cached manual override is set immediately while pending iPhone ACK, and only the un-overridden local checkoffs appear in the complication.
+- [x] Avoid repeatedly requesting an iPhone widget reload every 60 seconds when HealthKit auto-completion is unchanged; the existing local-only phone widget projection remains in place.
+- [x] Verified: 167/167 iOS unit tests, including four new Watch projection edge cases; watchOS generic build passed. No physical devices modified by this patch.
+- [ ] **Real Watch/iPhone widget QA after a new TestFlight build:** open Watch app after Health data arrives, verify Watch complication and iPhone widget without manually toggling; check manual undo, offline sync, midnight rollover. WidgetKit may defer reloads; do not promise instant updates, nor background Watch auto-completion while its app is suspended.
+- [ ] Keep 1.4.1 (9) TestFlight installed until next build is explicitly approved; no public submission or upgrade was performed for the widget patch.
+
+
 ## 2026-10-14 — 1.4.1 (9) candidate preparation (NOT released)
 - [x] Candidate version 1.4.1 (9) pinned across iPhone app, Watch app and both widgets after published 1.4.0 (8); consolidated Watch Health progress, unified habit editing and Health auto-check reconciliation.
 - [ ] Complete versioned archive, CI and physical non-destructive device QA before any upload. See [candidate release gate](docs/RELEASE_CANDIDATE_1.4.1.md).
