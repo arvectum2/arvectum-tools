@@ -1,5 +1,15 @@
 # ChickMark — Product Roadmap
 
+## 2026-10-14 — Public release 1.4.1 (15) P0 audit
+- [x] Build 1.4.1 (14) internal TestFlight physically accepted: keyboard, Watch threshold/checkmark, face autonomously updated without opening ChickMark; background refresh latency exceeded 25 minutes in one observed test. Green CI 38593557338; all four signed builds; zero archive audit errors.
+- [x] Current App Store public 1.4.0 (8) independently verified READY_FOR_SALE using official App Store Connect API. Internal 1.4.1 (14) has buildAudienceType INTERNAL_ONLY and cannot go directly to App Review.
+- [x] Merge physically tested feature branch into dedicated public-release branch from main; conflicts resolved retaining tested 1.4.1 behavior, unrelated Arvectum Tools paths unchanged; Watch build and architecture pass. Public build number all four targets bumped to 15.
+- [x] New localized public 1.4.1 What's New and updated App Review Notes reflect HealthKit, watchOS background, privacy and ads; updated privacy compliance audit identifies all bundled SDK manifests. See app-store/metadata/release-notes-1.4.1.md, review-notes-1.4.1.md, privacy-review-1.4.1.md.
+- [ ] **BLOCKER: App Privacy** — production signed Yandex Mobile Ads and transitively bundled AppMetrica/KSCrash privacy manifests advertise Device ID, advertising and diagnostic data (AppMetrica AdSupport additionally declares linked tracking), conflicting with legacy "No Data Collected" V1 listing. Verify effective collection / disable unwanted SDK tracking and publish corrected Apple App Privacy responses before App Review submission. App Store Connect app privacy questionnaire is UI-only and current Mac Safari is logged out. Do not misrepresent the build or assert compliance.
+- [ ] Manual on-device offline Watch reconciliation, Health consent denial, midnight rollover and nonempty Lock Screen widget / ad behavior remain partially simulated, not fully signed-off on physical Watch; no uninstall/reset of owner's data.
+- [ ] Public App Store 1.4.1 (15) archive, upload and configure metadata; separate user/QA sign-off before submitting, and do not set public automatic release until P0 privacy blocker resolved.
+
+
 ## 2026-10-14 — Independent Watch face Health completion physically confirmed
 - [x] ChickMark 1.4.1 (14), real Apple Watch: when user reached the HealthKit step goal, Watch face complication **updated itself** without opening ChickMark on either Watch or iPhone. Approximately 25 min after goal it was still stale; it updated soon afterward. **The standalone-autonomy acceptance gate is now closed.**
 - [x] Numeric step goal keyboard: user previously confirmed compact down-arrow button works. Watch app HealthKit auto-check: user previously confirmed.
