@@ -140,6 +140,11 @@ enum HealthHabitEditPlan {
     }
 }
 
+enum HealthHabitRefreshPolicy {
+    // Foreground only: background HealthKit deliveries remain OS-scheduled.
+    static let foregroundSeconds: TimeInterval = 60
+}
+
 /// Current-day HealthKit reading, held in memory only. Never serialized to
 /// SwiftData, CloudKit, widget snapshots, WatchConnectivity or telemetry.
 struct HealthHabitProgress: Equatable {
@@ -344,17 +349,41 @@ final class HealthHabitCoordinator {
 
     func visibleCheckIns(for checkIns: [HabitCheckIn],
                          habits: [Habit], calendar: Calendar = .autoupdatingCurrent) -> [HabitCheckIn] {
+        Self.projectedCheckIns(
+            for: checkIns, habits: habits,
+            completedDayKeys: completedDayKeys, calendar: calendar
+        )
+    }
+
+    /// Ephemeral projection shared by the iPhone view and Watch snapshots.
+    /// Synthetic records NEVER enter the ModelContext or CloudKit.
+    static func projectedCheckIns(
+        for checkIns: [HabitCheckIn],
+        habits: [Habit],
+        completedDayKeys: Set<String>,
+        calendar: Calendar = .autoupdatingCurrent
+    ) -> [HabitCheckIn] {
         var result = checkIns
+        let habitIDs = Set(habits.map(\.id))
         for item in completedDayKeys {
             let fragments = item.split(separator: ":", maxSplits: 1)
-            guard fragments.count == 2, let id = UUID(uuidString: String(fragments[0])),
-                  habits.contains(where: { $0.id == id }) else { continue }
+            guard fragments.count == 2,
+                  let id = UUID(uuidString: String(fragments[0])),
+                  habitIDs.contains(id) else { continue }
             let key = String(fragments[1])
             let parts = key.split(separator: "-").compactMap { Int($0) }
             guard parts.count == 3,
-                  let day = calendar.date(from: DateComponents(year: parts[0], month: parts[1], day: parts[2])) else { continue }
-            // These are deliberately never inserted into a ModelContext.
-            result.append(HabitCheckIn(habitID: id, day: day, calendar: calendar))
+                  let day = calendar.date(from: DateComponents(
+                      year: parts[0], month: parts[1], day: parts[2]
+                  )) else { continue }
+            let alreadyCompleted = checkIns.contains {
+                $0.habitID == id &&
+                ($0.dayKey == key || ($0.dayKey == nil &&
+                    HabitDayKey.make(for: $0.day, calendar: calendar) == key))
+            }
+            if !alreadyCompleted {
+                result.append(HabitCheckIn(habitID: id, day: day, calendar: calendar))
+            }
         }
         return result
     }
@@ -441,11 +470,15 @@ final class HealthHabitCoordinator {
         guard isAvailable, let container else { return }
         let settings = HealthHabitRuleStore.shared
         guard !settings.allRules.isEmpty else {
+            let hadDerivedCompletions = !completedDayKeys.isEmpty
             completedDayKeys.removeAll()
             liveProgress.removeAll()
             LocalHealthWidgetProjection.save(
                 dayKey: HabitDayKey.make(for: .now), habitIDs: []
             )
+            if hadDerivedCompletions {
+                PhoneWatchSyncCoordinator.shared.dataDidChange()
+            }
             HabitWidgetCoordinator.shared.refresh()
             HabitReminderCoordinator.shared.refresh()
             NotificationCenter.default.post(name: .healthHabitProjectionChanged, object: nil)
@@ -524,8 +557,14 @@ final class HealthHabitCoordinator {
                 day = next
             }
         }
+        let completionsChanged = completedDayKeys != derived
         completedDayKeys = derived
         liveProgress = currentProgress
+        // Auto check-ins are intentionally not stored in SwiftData. Publish
+        // the resulting Boolean to the paired Watch on state transitions.
+        if completionsChanged {
+            PhoneWatchSyncCoordinator.shared.dataDidChange()
+        }
         let currentIDs = habits.compactMap { habit -> UUID? in
             guard derived.contains("\(habit.id.uuidString):\(todayKey)"),
                   !mutations.contains(where: { $0.habitID == habit.id && $0.dayKey == todayKey })

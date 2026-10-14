@@ -79,12 +79,20 @@ final class PhoneWatchSyncCoordinator: NSObject, WCSessionDelegate {
 
         let now = Date()
         let calendar = Calendar.autoupdatingCurrent
+        // Health auto-completions are transient on iPhone (not SwiftData).
+        // Include their completion state in today's private paired-Watch
+        // snapshot without ever sending step totals or raw HealthKit samples.
+        let currentDayCheckIns = HealthHabitCoordinator.shared.visibleCheckIns(
+            for: checkIns, habits: habits
+        )
 
         func makeHabits(for date: Date) -> [HabitSyncHabit] {
+            let dateCheckIns = calendar.isDate(date, inSameDayAs: now)
+                ? currentDayCheckIns : checkIns
             let due = HabitTodayProjection.orderedDueHabits(
                 habits: habits,
                 on: date,
-                checkIns: checkIns,
+                checkIns: dateCheckIns,
                 skips: skips,
                 pausePeriods: pausePeriods,
                 calendar: calendar
@@ -99,7 +107,7 @@ final class PhoneWatchSyncCoordinator: NSObject, WCSessionDelegate {
                     completed: HabitMetrics.isCompleted(
                         habitID: habit.id,
                         on: date,
-                        checkIns: checkIns,
+                        checkIns: dateCheckIns,
                         calendar: calendar,
                 target: habit.dailyTarget
                     ),
@@ -111,7 +119,7 @@ final class PhoneWatchSyncCoordinator: NSObject, WCSessionDelegate {
                     ),
                     streak: HabitMetrics.currentStreak(
                         habit: habit,
-                        checkIns: checkIns,
+                        checkIns: dateCheckIns,
                         skips: skips,
                         pausePeriods: pausePeriods,
                         today: date,
@@ -129,7 +137,7 @@ final class PhoneWatchSyncCoordinator: NSObject, WCSessionDelegate {
                         ? HabitFrequency.weeklyCompletionCount(
                             habit: habit,
                             containing: date,
-                            checkIns: checkIns,
+                            checkIns: dateCheckIns,
                             calendar: calendar
                         ) : nil,
                     dailyTarget: habit.supportsIncrementalGoal ? habit.dailyTarget : nil,

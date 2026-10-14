@@ -1,8 +1,9 @@
 import Foundation
 import HealthKit
 
-/// Device-local, ephemeral projection. Rules come from the iPhone but HealthKit
-/// samples, totals and pass/fail outcomes never enter WatchConnectivity or CloudKit.
+/// Device-local, ephemeral measurement. Rules come from the iPhone;
+/// raw HealthKit samples and numeric totals never enter WatchConnectivity or
+/// CloudKit. The iPhone can send a completion Boolean to the paired Watch.
 struct WatchHealthEvaluation {
     let progress: [UUID: WatchHealthProgress]
     let qualifyingIDs: Set<UUID>

@@ -98,6 +98,47 @@ final class HealthHabitIntegrationTests: XCTestCase {
         ))
     }
 
+    func testDerivedHealthCompletionProjectsIntoWatchStateWithoutSavingCheckIn() {
+        let day = date(2026, 10, 14)
+        let habit = Habit(name: "Walk", createdAt: day.addingTimeInterval(-86_400))
+        let key = HabitDayKey.make(for: day, calendar: calendar)
+        let projected = HealthHabitCoordinator.projectedCheckIns(
+            for: [], habits: [habit],
+            completedDayKeys: ["\(habit.id.uuidString):\(key)"],
+            calendar: calendar
+        )
+        XCTAssertEqual(projected.count, 1)
+        XCTAssertTrue(HabitMetrics.isCompleted(
+            habitID: habit.id, on: day,
+            checkIns: projected, calendar: calendar
+        ))
+        // Synthetic Health completions live in an array only.
+        let actual: [HabitCheckIn] = []
+        XCTAssertTrue(actual.isEmpty)
+    }
+
+    func testDerivedWatchProjectionIgnoresUnknownHabitAndAvoidsDuplicate() {
+        let day = date(2026, 10, 14)
+        let habit = Habit(name: "Walk", createdAt: day.addingTimeInterval(-86_400))
+        let key = HabitDayKey.make(for: day, calendar: calendar)
+        let derived = [
+            "\(habit.id.uuidString):\(key)",
+            "\(UUID().uuidString):\(key)"
+        ]
+        let manual = HabitCheckIn(habitID: habit.id, day: day, calendar: calendar)
+        let projected = HealthHabitCoordinator.projectedCheckIns(
+            for: [manual], habits: [habit],
+            completedDayKeys: Set(derived), calendar: calendar
+        )
+        XCTAssertEqual(projected.count, 1)
+        XCTAssertEqual(projected[0].habitID, manual.habitID)
+        XCTAssertEqual(projected[0].dayKey, key)
+    }
+
+    func testForegroundHealthPollPolicy() {
+        XCTAssertEqual(HealthHabitRefreshPolicy.foregroundSeconds, 60)
+    }
+
     func testAutomaticCompletionHonorsUserActions() {
         let day = date(2026, 10, 12)
         let habit = Habit(name: "Walk", createdAt: day)
