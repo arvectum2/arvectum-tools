@@ -15,7 +15,7 @@
 
 **Repository caution:** The active Mac mini worktree contains unrelated uncommitted search experiments. Never accidentally include those in capture-focused commits or builds.
 
-**Updated:** 2026-10-13
+**Updated:** 2026-10-14
 **Status:** Private physical iPhone 13 now runs What? 0.1.0 (22) with an offline Russian concept and morphology graph integrated into Ask memory. The local Swift retrieval engine tested on 15 existing notes places Edelweiss for "цветок" at rank 1, the diary note for "журнал" at rank 2 and the beauty/aesthetics note for "красота" at rank 1, with zero false matches in 20 unrelated controls. Six separate Python concept tests and the full iOS simulator test suite passed. The signed physical build has been installed and all 17 recording records, 17 original audio files and 15 transcripts remained byte-identical after upgrade. The compressed local developer graph (~2.4 MiB) contains noun hierarchies and >313,000 unambiguous Russian inflections; it requires no network during search. It is excluded from GitHub due to RuWordNet corpus redistribution uncertainty: official web site mentions noncommercial use and CC BY-SA 4.0 in different places. Do not release this research graph commercially until written licensing clarification or replacement with clearly permitted corpus. Physical UI acceptance pending; no App Store release.
 **Evidence:** [historical feature-branch roadmap snapshot](docs/history/ROADMAP-feature-what-2026-10-11.md).
 **Shared principles:** [Core](../core/CORE_PRINCIPLES.md); **Growth:** [Growth](../growth/ROADMAP.md).
@@ -30,6 +30,15 @@
 - [ ] Finish fallback/ACK-loss stress tests and precise transfer-time instrumentation (physical checklist: [P0 reliability acceptance](docs/P0_RELIABILITY_ACCEPTANCE.md)).
 - [x] User confirmed Watch pending queue survives a full offline device reboot (2026-10-13).
 - [ ] Complete repeated end-to-end/ACK-loss and fallback testing; do not claim all reliability cases proven from a single success.
+
+### P0 — «Ухват»: фирменная иконка, одно касание, сохранение при выходе (backlog 2026-10-14)
+
+**Обещание пользователю:** добавил виджет/complication «Ухват» на циферблат → одно касание → сразу говоришь → заметка сохранится. Не заставлять дополнительно нажимать «Record».
+
+- [ ] **P0 / Watch UI — фирменная иконка.** Заменить системный `mic.fill` на существующую фирменную иконку «Ухват» во всех поддерживаемых формах complication (`accessoryCircular`, `accessoryRectangular`, `accessoryInline`, насколько это позволяет watchOS) и на главной кнопке записи внутри Watch-приложения. Подготовить хорошо различимые монохромные/масштабированные варианты для циферблатов; проверить светлые/тёмные и тонированные стили. Кнопка записи сохраняет понятную подпись и доступность VoiceOver.
+- [ ] **P0 / Watch UX — одно касание с циферблата запускает запись.** Тап по complication должен открывать Watch-приложение **уже в состоянии реальной активной записи** — без промежуточного экрана и повторного тапа по Record. В коде уже есть `what://capture` и `.onOpenURL { startCapture() }`, но их работоспособность при фактическом запуске с циферблата должна быть подтверждена на реальных часах; при необходимости заменить механизм входа. Повторный URL/повторный тап не создаёт дублей; запрос системного разрешения допустим лишь при первом использовании. Измерить tap-to-record для холодного/тёплого запуска, цель нормального готового состояния p95 ≤ 2 с.
+- [ ] **P0 / Watch reliability — автосохранение при выходе без Stop.** Если во время записи пользователь нажимает Digital Crown, уходит на циферблат, переключает приложение или запись прерывается из-за жизненного цикла Watch-приложения, автоматически завершить и зафиксировать уже записанное аудио с тем же UUID в долговечной локальной очереди; явная кнопка Stop не должна быть необходима для сохранности заметки. При внезапном завершении процесса, сбое питания или перезагрузке нельзя полагаться только на lifecycle callback: сохранять recovery-метаданные в начале записи и восстанавливать валидный аудиофайл при следующем старте, не дублируя заметку. Не удалять локальный оригинал до ACK о долговечном приёме на iPhone; не считать нулевые/повреждённые файлы успешными.
+- [ ] **Приёмка на физических Apple Watch:** (1) complication → один тап → сразу запись → Stop → одна воспроизводимая заметка на iPhone; (2) complication → запись → Digital Crown/возврат на циферблат без Stop → заметка сохранена и в итоге синхронизирована; (3) переключение приложения/блокировка экрана; (4) принудительное завершение/перезагрузка во время записи → восстановление доступного аудио после запуска либо явный честный статус ошибки; (5) холодный запуск, разрешения на микрофон, offline/ACK-loss и отсутствие дублей. Не заявлять безусловную гарантию восстановления аудио при аппаратной потере питания без фактической проверки.
 
 ## P1 — Voice + text
 - [x] Preserve original audio as source of truth; transcript stored separately by recording UUID.
