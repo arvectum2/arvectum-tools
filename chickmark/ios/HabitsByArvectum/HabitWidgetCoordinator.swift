@@ -233,5 +233,8 @@ enum HabitDataChangeNotifier {
         PhoneWatchSyncCoordinator.shared.dataDidChange()
         HabitWidgetCoordinator.shared.dataDidChange()
         HabitReminderCoordinator.shared.dataDidChange()
+        Task { @MainActor in
+            await HealthHabitCoordinator.shared.synchronize()
+        }
     }
 }

@@ -10,6 +10,8 @@ struct HabitSyncHabit: Codable, Hashable, Identifiable {
     var name: String
     var symbolName: String
     var colorHex: String
+    /// Completion may be manual or a transient iPhone-derived Health result.
+    /// The paired-Watch snapshot sends the Boolean, not Health measurements.
     var completed: Bool
     var skipped: Bool = false
     var streak: Int
@@ -18,6 +20,11 @@ struct HabitSyncHabit: Codable, Hashable, Identifiable {
     var dailyTarget: Int? = nil
     var dailyCount: Int? = nil
     var durationStepMinutes: Int? = nil
+    /// User-configured threshold only: never a HealthKit measurement or result.
+    var healthRuleMetric: String? = nil
+    var healthRuleTarget: Double? = nil
+    /// True if the user has explicitly changed this day's completion.
+    var healthManualOverride: Bool = false
 }
 
 struct HabitSyncDayProjection: Codable, Hashable {

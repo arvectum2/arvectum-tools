@@ -55,7 +55,6 @@ enum HabitShortcutBridge {
         let query = string.trimmingCharacters(
             in: .whitespacesAndNewlines
         )
-        let entities = HabitShortcutBridge.currentEntities()
         guard !query.isEmpty else { return entities }
 
         let matching = entities.filter {

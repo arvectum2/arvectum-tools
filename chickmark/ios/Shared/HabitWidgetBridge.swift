@@ -38,10 +38,9 @@ enum HabitWidgetBridge {
     ) -> HabitWidgetSnapshot {
         let key = dayKey(for: now, calendar: calendar)
         let snapshot = loadSnapshot()
-        if snapshot.dayKey == key {
-            return snapshot
-        }
-        return loadHorizon().first(where: { $0.dayKey == key }) ?? .empty
+        let base = snapshot.dayKey == key ? snapshot
+            : (loadHorizon().first(where: { $0.dayKey == key }) ?? .empty)
+        return LocalHealthWidgetProjection.decorate(base)
     }
 
     static func loadHorizon() -> [HabitWidgetSnapshot] {
@@ -236,5 +235,55 @@ struct HabitWidgetCommand: Codable, Hashable, Identifiable {
         self.completed = completed
         self.desiredCount = desiredCount
         self.createdAt = createdAt
+    }
+}
+
+
+// Privacy boundary: the widget reads local-only ephemeral derived status from
+// the app group Caches directory (never CloudKit, backed-up preferences or
+// the public widget snapshot). The file is explicitly excluded from backup.
+enum LocalHealthWidgetProjection {
+    struct State: Codable {
+        let dayKey: String
+        let habitIDs: [UUID]
+        let generatedAt: Date
+    }
+
+    static func url() -> URL? {
+        guard let container = FileManager.default.containerURL(
+            forSecurityApplicationGroupIdentifier: HabitWidgetBridge.appGroup
+        ) else { return nil }
+        return container.appendingPathComponent("Library/Caches/chickmark-health-widget-v1.json")
+    }
+
+    static func save(dayKey: String, habitIDs: [UUID]) {
+        guard var url = url() else { return }
+        var folder = url.deletingLastPathComponent()
+        try? FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
+        var values = URLResourceValues()
+        values.isExcludedFromBackup = true
+        try? folder.setResourceValues(values)
+        let state = State(dayKey: dayKey, habitIDs: habitIDs, generatedAt: .now)
+        guard let data = try? JSONEncoder().encode(state) else { return }
+        try? data.write(to: url, options: [.atomic])
+        try? url.setResourceValues(values)
+    }
+
+    static func decorate(_ snapshot: HabitWidgetSnapshot,
+                         now: Date = .now) -> HabitWidgetSnapshot {
+        guard let url = url(), let data = try? Data(contentsOf: url),
+              let state = try? JSONDecoder().decode(State.self, from: data),
+              state.dayKey == snapshot.dayKey,
+              now.timeIntervalSince(state.generatedAt) < 24 * 3600
+        else { return snapshot }
+        var result = snapshot
+        let ids = Set(state.habitIDs)
+        for index in result.habits.indices where ids.contains(result.habits[index].id) {
+            if !result.habits[index].skipped && !result.habits[index].completed {
+                result.habits[index].completed = true
+            }
+        }
+        result.completedCount = result.habits.filter(\.completed).count
+        return result
     }
 }

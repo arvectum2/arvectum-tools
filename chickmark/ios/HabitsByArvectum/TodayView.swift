@@ -23,11 +23,18 @@ struct TodayView: View {
     @State private var chickInCelebrationHabitID: UUID?
     @State private var adEligible = false
 
+    @State private var healthProjectionRevision = 0
+
+    private var displayedCheckIns: [HabitCheckIn] {
+        _ = healthProjectionRevision
+        return HealthHabitCoordinator.shared.visibleCheckIns(for: checkIns, habits: habits)
+    }
+
     private var activeToday: [Habit] {
         HabitTodayProjection.orderedDueHabits(
             habits: habits,
             on: referenceDate,
-            checkIns: checkIns,
+            checkIns: displayedCheckIns,
             skips: skips,
             pausePeriods: pausePeriods
         )
@@ -57,9 +64,6 @@ struct TodayView: View {
                     pendingOneOffReminders.isEmpty
                 {
                     VStack(spacing: 8) {
-                        ChickMarkBrandHeader()
-                            .padding(.horizontal, 16)
-                            .padding(.top, 16)
                         firstHabitEmptyState
                             .frame(maxHeight: .infinity)
                     }
@@ -67,44 +71,56 @@ struct TodayView: View {
                     todayContent
                 }
             }
-            .navigationTitle(L10n.string("today.title"))
-            .toolbar {
-                ToolbarItemGroup(placement: .topBarTrailing) {
-                    if !habits.isEmpty {
+            .navigationTitle("")
+            .navigationBarTitleDisplayMode(.inline)
+            .onReceive(NotificationCenter.default.publisher(for: .healthHabitProjectionChanged)) { _ in
+                healthProjectionRevision += 1
+            }
+            .toolbar(.hidden, for: .navigationBar)
+            .safeAreaInset(edge: .top, spacing: 0) {
+                HStack(alignment: .center, spacing: 10) {
+                    ChickMarkBrandHeader()
+                    Spacer(minLength: 4)
+                    HStack(spacing: 0) {
                         NavigationLink {
                             ManageHabitsView()
                         } label: {
                             Image(systemName: "line.3.horizontal")
+                                .font(.system(size: 20, weight: .medium))
+                                .frame(width: 43, height: 44)
+                                .contentShape(Rectangle())
                         }
-                        .accessibilityLabel(
-                            L10n.string("manage.accessibility")
-                        )
-                    }
+                        .accessibilityLabel(L10n.string("manage.accessibility"))
 
-                    Menu {
-                        Button {
-                            showingAddHabit = true
+                        Menu {
+                            Button {
+                                showingAddHabit = true
+                            } label: {
+                                Label(L10n.string("add.menu.habit"), systemImage: "repeat")
+                            }
+                            Button {
+                                showingAddOneOffReminder = true
+                            } label: {
+                                Label(L10n.string("add.menu.oneoff"), systemImage: "bell.badge")
+                            }
                         } label: {
-                            Label(
-                                L10n.string("add.menu.habit"),
-                                systemImage: "repeat"
-                            )
+                            Image(systemName: "plus")
+                                .font(.system(size: 22, weight: .medium))
+                                .frame(width: 43, height: 44)
+                                .contentShape(Rectangle())
                         }
-
-                        Button {
-                            showingAddOneOffReminder = true
-                        } label: {
-                            Label(
-                                L10n.string("add.menu.oneoff"),
-                                systemImage: "bell.badge"
-                            )
-                        }
-                    } label: {
-                        Image(systemName: "plus")
-                            .font(.headline)
+                        .accessibilityLabel(L10n.string("common.add"))
                     }
-                    .accessibilityLabel(L10n.string("common.add"))
+                    .tint(.primary)
+                    .fixedSize(horizontal: true, vertical: false)
+                    .background(Color.habitsSurface, in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+                    .overlay(RoundedRectangle(cornerRadius: 14, style: .continuous)
+                        .strokeBorder(Color.primary.opacity(0.10), lineWidth: 1))
                 }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal, 16)
+                .padding(.vertical, 4)
+                .background(Color.habitsBackground)
             }
             .safeAreaInset(edge: .bottom, spacing: 0) {
                 if adEligible {
@@ -157,10 +173,24 @@ struct TodayView: View {
                 openDebugSurfaceIfRequested()
 #endif
                 await HabitReminderCoordinator.shared.refreshNow()
+                await HealthHabitCoordinator.shared.synchronize()
                 HabitWidgetCoordinator.shared.refresh()
 #if DEBUG
                 await HabitReminderScheduler.debugDumpIfRequested()
 #endif
+            }
+            // HealthKit samples may arrive after steps are recorded.
+            // Poll only when active; no guarantee of immediate system writes.
+            .task(id: scenePhase == .active) {
+                guard scenePhase == .active else { return }
+                while !Task.isCancelled {
+                    try? await Task.sleep(
+                        for: .seconds(HealthHabitRefreshPolicy.foregroundSeconds)
+                    )
+                    guard !Task.isCancelled else { break }
+                    guard !HealthHabitRuleStore.shared.allRules.isEmpty else { continue }
+                    await HealthHabitCoordinator.shared.synchronize()
+                }
             }
             .task(id: clockTaskID) {
                 let delay = HabitDayBoundary.delay(from: referenceDate)
@@ -168,6 +198,7 @@ struct TodayView: View {
                 guard !Task.isCancelled else { return }
                 refreshReferenceDate(forceRevision: true)
                 await HabitReminderCoordinator.shared.refreshNow()
+                await HealthHabitCoordinator.shared.synchronize()
                 HabitWidgetCoordinator.shared.refresh()
             }
             .onChange(of: scenePhase) { _, phase in
@@ -176,6 +207,7 @@ struct TodayView: View {
                     registerForegroundLaunchIfNeeded()
                     refreshAdEligibility()
                     HabitReminderCoordinator.shared.refresh()
+                    HealthHabitCoordinator.shared.refresh()
                     HabitWidgetCoordinator.shared.refresh()
                 }
             }
@@ -199,8 +231,6 @@ struct TodayView: View {
     private var todayContent: some View {
         ScrollView {
             VStack(spacing: 14) {
-                ChickMarkBrandHeader()
-
                 if activeToday.isEmpty && pendingOneOffReminders.isEmpty {
                     noHabitsTodayCard
                 } else {
@@ -224,14 +254,14 @@ struct TodayView: View {
                                 ),
                                 streak: HabitMetrics.currentStreak(
                                     habit: habit,
-                                    checkIns: checkIns,
+                                    checkIns: displayedCheckIns,
                                     skips: skips,
                                     pausePeriods: pausePeriods
                                 ),
                                 weeklyCount: HabitFrequency.weeklyCompletionCount(
                                     habit: habit,
                                     containing: referenceDate,
-                                    checkIns: checkIns
+                                    checkIns: displayedCheckIns
                                 ),
                                 weeklyTarget: HabitFrequency.effectiveWeeklyTarget(
                                     habit: habit,
@@ -243,8 +273,12 @@ struct TodayView: View {
                                     habitID: habit.id,
                                     dayKey: HabitDayKey.make(for: referenceDate),
                                     target: habit.dailyTarget,
-                                    checkIns: checkIns
+                                    checkIns: displayedCheckIns
                                 ).keys),
+                                healthProgress: HealthHabitCoordinator.shared.progress(
+                                    for: habit.id, on: referenceDate
+                                ),
+                                healthRule: HealthHabitRuleStore.shared.rule(for: habit.id),
                                 celebrationID: chickInCelebrationHabitID == habit.id
                                     ? chickInCelebrationID
                                     : nil,
@@ -458,7 +492,7 @@ struct TodayView: View {
         HabitMetrics.isCompleted(
             habitID: habit.id,
             on: date,
-            checkIns: checkIns,
+            checkIns: displayedCheckIns,
                 target: habit.dailyTarget
         )
     }

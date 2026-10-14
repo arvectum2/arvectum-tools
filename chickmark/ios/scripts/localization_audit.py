@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Ensure RU, EN and ES resource parity before an iOS release."""
 from pathlib import Path
+import plistlib
 import re
 import sys
 
@@ -49,6 +50,22 @@ shortcuts = {
 for lang in LOCALES[1:]:
     if shortcuts[lang].keys() != shortcuts["en"].keys():
         errors.append(f"AppShortcuts/{lang}: missing or extra keys")
+
+# Apple validates *both* HealthKit usage descriptions on every HealthKit
+# capable bundle, including an independent watchOS app, even for read-only
+# access. ITMS-90683 blocks upload otherwise.
+project = (ROOT / "project.yml").read_text(encoding="utf-8")
+for target in ("HabitsByArvectum", "HabitsByArvectumWatch"):
+    info = plistlib.loads((ROOT / target / "Info.plist").read_bytes())
+    for key in ("NSHealthShareUsageDescription", "NSHealthUpdateUsageDescription"):
+        if not str(info.get(key, "")).strip():
+            errors.append(f"{target} Info.plist missing {key}")
+        if project.count(key) < 2:
+            errors.append(f"XcodeGen project.yml missing {key} on both app targets")
+        for lang in LOCALES:
+            localized = load(ROOT / target / f"{lang}.lproj" / "InfoPlist.strings")
+            if not localized.get(key, "").strip():
+                errors.append(f"{target} {lang} missing {key}")
 
 if errors:
     print("\n".join(errors))

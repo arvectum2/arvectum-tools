@@ -195,6 +195,7 @@ struct ChickInCelebrationView: View {
 
 struct HabitRow: View {
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+    @Environment(\.locale) private var locale
     let habit: Habit
     let completed: Bool
     let skipped: Bool
@@ -202,6 +203,8 @@ struct HabitRow: View {
     let weeklyCount: Int
     let weeklyTarget: Int
     let dailySlots: Set<Int>
+    let healthProgress: HealthHabitProgress?
+    let healthRule: HealthHabitRule?
     let celebrationID: UUID?
     let onToggle: () -> Void
     let onSetSlot: (Int, Bool) -> Void
@@ -230,6 +233,54 @@ struct HabitRow: View {
                             .minimumScaleFactor(0.65)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .fixedSize(horizontal: false, vertical: true)
+                        if let healthRule {
+                            VStack(alignment: .leading, spacing: 5) {
+                                HStack(spacing: 4) {
+                                    Image(systemName: "heart.fill")
+                                        .foregroundStyle(Color.habitsReadableAccent(for: habit.colorHex))
+                                    Text(healthProgress?.quantityText(locale: locale) ?? (
+                                        "— / " + HealthHabitProgress(
+                                            metric: healthRule.metric,
+                                            current: 0,
+                                            target: healthRule.target,
+                                            dayKey: ""
+                                        ).targetText(locale: locale)
+                                    ))
+                                    .monospacedDigit()
+                                    Text(L10n.string(healthRule.metric.unitKey))
+                                }
+                                .font(.caption2.weight(.medium))
+                                .foregroundStyle(Color.habitsSecondaryText)
+                                .lineLimit(1)
+                                .minimumScaleFactor(0.75)
+
+                                GeometryReader { geometry in
+                                    Capsule()
+                                        .fill(Color.habitsSecondaryText.opacity(0.15))
+                                        .overlay(alignment: .leading) {
+                                            Capsule()
+                                                .fill(Color.habitsReadableAccent(for: habit.colorHex))
+                                                .frame(width: geometry.size.width *
+                                                    (healthProgress?.fraction ?? 0))
+                                        }
+                                }
+                                .frame(height: 4)
+                                .accessibilityHidden(true)
+                            }
+                            .accessibilityElement(children: .combine)
+                            .accessibilityIdentifier("health.progress.\(habit.id.uuidString)")
+                        }
+
+                        if habit.usesDailyMultiple {
+                            Text(L10n.format(
+                                "habit.multi.today.progress",
+                                dailySlots.count, habit.dailyTarget
+                            ))
+                            .font(.caption)
+                            .monospacedDigit()
+                            .foregroundStyle(Color.habitsSecondaryText)
+                            .accessibilityIdentifier("habit.multi.today.progress")
+                        }
                         if skipped {
                             Label(
                                 L10n.string("habit.skipped.today"),

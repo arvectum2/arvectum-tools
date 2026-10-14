@@ -60,8 +60,7 @@ jobs:
 
       - name: Essential UI smoke
         timeout-minutes: 12
-        run: |
-          xcodebuild             -project HabitsByArvectumIOS.xcodeproj             -onlyUsePackageVersionsFromResolvedFile             -scheme HabitsByArvectum             -destination 'platform=iOS Simulator,name=iPhone 18 Pro,OS=27.0'             -jobs 2 -parallel-testing-enabled NO             -only-testing:HabitsByArvectumUITests/HabitFlowUITests/testAccessibilityAuditCoreScreens             -only-testing:HabitsByArvectumUITests/HabitFlowUITests/testMultiCheckHistoryIndividualSlotsPersist             CODE_SIGNING_ALLOWED=NO             COMPILER_INDEX_STORE_ENABLE=NO             test
+        run: bash scripts/ci_essential_ui_smoke.sh
 
       - name: Archive smoke
         run: scripts/archive_smoke.sh

@@ -35,10 +35,9 @@ enum WatchComplicationBridge {
         calendar: Calendar = .autoupdatingCurrent
     ) -> HabitSyncSnapshot {
         let snapshot = loadSnapshot()
-        return currentSnapshot(
-            snapshot,
-            now: now,
-            calendar: calendar
+        return WatchLocalHealthProjection.decorate(
+            currentSnapshot(snapshot, now: now, calendar: calendar),
+            now: now
         )
     }
 

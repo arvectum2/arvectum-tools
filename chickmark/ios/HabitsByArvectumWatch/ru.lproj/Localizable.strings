@@ -16,3 +16,11 @@
 
 "watch.preview.water" = "Вода";
 "watch.preview.reading" = "Чтение";
+"watch.checkins.progress.format" = "%d из %d отметок";
+
+"watch.health.unit.steps" = "шагов";
+"watch.health.unit.kilometers" = "км";
+"watch.health.unit.minutes" = "мин";
+"watch.health.unit.hours" = "ч";
+"watch.health.unit.unknown" = "";
+"watch.health.unavailable" = "Данные Apple Health недоступны";
