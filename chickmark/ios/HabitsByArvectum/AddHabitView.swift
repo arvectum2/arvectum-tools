@@ -479,6 +479,17 @@ struct AddHabitView: View {
                 }
             }
         }
+        // Form's interactive dismissal only handles scroll gestures that
+        // actually scroll. The number pad can cover the short input section;
+        // support a downward pull anywhere in the editor without an accessory.
+        .background {
+            KeyboardPullDownDismissHost(
+                isActive: nameFocused || healthTargetFocused
+            ) {
+                nameFocused = false
+                healthTargetFocused = false
+            }
+        }
     }
 
     private func formSectionHeader(_ title: String) -> some View {
@@ -773,6 +784,79 @@ struct AddHabitView: View {
                     showingNotificationDenied = true
                 }
             }
+        }
+    }
+}
+
+
+// Observes downward drags on this editor's own UIWindow, including the
+// non-scrollable top of a Form. The recognizer never cancels touches and allows
+// normal scrolling/text-field interactions simultaneously. Unlike a keyboard
+// accessory it occupies no space and cannot cover the step target.
+private struct KeyboardPullDownDismissHost: UIViewRepresentable {
+    let isActive: Bool
+    let onDismiss: () -> Void
+
+    func makeCoordinator() -> Coordinator { Coordinator() }
+
+    func makeUIView(context: Context) -> MountView {
+        let view = MountView(frame: .zero)
+        view.coordinator = context.coordinator
+        return view
+    }
+
+    func updateUIView(_ view: MountView, context: Context) {
+        context.coordinator.isActive = isActive
+        context.coordinator.onDismiss = onDismiss
+        context.coordinator.attach(to: view.window)
+    }
+
+    static func dismantleUIView(_ view: MountView, coordinator: Coordinator) {
+        coordinator.attach(to: nil)
+    }
+
+    final class MountView: UIView {
+        weak var coordinator: Coordinator?
+        override func didMoveToWindow() {
+            super.didMoveToWindow()
+            coordinator?.attach(to: window)
+        }
+    }
+
+    final class Coordinator: NSObject, UIGestureRecognizerDelegate {
+        var isActive = false
+        var onDismiss: (() -> Void)?
+        weak var attachedWindow: UIWindow?
+        private lazy var pull = UIPanGestureRecognizer(
+            target: self,
+            action: #selector(handlePull(_:))
+        )
+
+        func attach(to window: UIWindow?) {
+            guard attachedWindow !== window else { return }
+            attachedWindow?.removeGestureRecognizer(pull)
+            attachedWindow = window
+            guard let window else { return }
+            pull.cancelsTouchesInView = false
+            pull.delegate = self
+            window.addGestureRecognizer(pull)
+        }
+
+        func gestureRecognizer(
+            _ gestureRecognizer: UIGestureRecognizer,
+            shouldReceive touch: UITouch
+        ) -> Bool { isActive }
+
+        func gestureRecognizer(
+            _ gestureRecognizer: UIGestureRecognizer,
+            shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer
+        ) -> Bool { true }
+
+        @objc private func handlePull(_ gesture: UIPanGestureRecognizer) {
+            guard isActive, gesture.state == .ended else { return }
+            let shift = gesture.translation(in: gesture.view)
+            guard shift.y >= 45, shift.y > abs(shift.x) * 1.3 else { return }
+            onDismiss?()
         }
     }
 }

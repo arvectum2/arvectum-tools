@@ -1,5 +1,13 @@
 # ChickMark — Product Roadmap
 
+## 2026-10-14 — follow-up physical QA on internal 1.4.1 (11)
+- [x] Owner confirmed **Watch app itself automatically checks a step habit correctly**, but the Apple Watch **face complication** updates only after manually launching ChickMark. Existing complication consumed a snapshot projected by running Watch app, without a registered watchOS HealthKit background observer.
+- [x] Implement watchOS HKObserverQuery background delivery **only for metrics with opted-in rules in the Watch snapshot**; wake-up handler reads on-watch HealthKit (no permission prompts), verifies day/snapshot/metric+target have not changed, updates local Boolean-only app-group cache and requests a WidgetKit complication reload on changed result. Watch app delegate registers observers at Watch app launch; registration retried after foreground Health authorization. HealthKit Background Delivery entitlement present and signed in watchOS archive and provisioning profile. No raw HealthKit counts are uploaded. OS background budget and WidgetKit rendering remain not guaranteed real-time; background test must be done on physical Watch.
+- [x] Owner confirmed numeric step-goal keyboard had no usable downward swipe after removing bulky toolbar. A simultaneous, non-cancelling UIWindow pan recognizer dismisses focused keyboard on deliberate downward form pull, including when Form itself cannot scroll. Numeric Health editor UI test now verifies keyboard closes; no accessory bar.
+- [x] Fixed deterministic HabitShortcutBridge.filterEntities bug: passed entities were discarded and global snapshot fetched instead. Existing case-insensitive Siri Shortcuts test now passes (4/4); this was a real source of GitHub CI failure for 1.4.1 (11), in addition to hosted-runner SwiftData read-only noise/timeouts.
+- [ ] Physical QA after a separately versioned internal TestFlight build: keep Watch ChickMark closed, pass step threshold on native Activity, leave Watch face visible. Record whether complication changes without opening ChickMark, plus elapsed time and any OS throttling. Separately confirm swipe down numeric keyboard in edit sheet. No public App Store submission.
+
+
 ## 2026-10-14 — 1.4.1 (11) internal Watch + keyboard QA candidate
 - [x] Build number 10 → 11 in all four iPhone, Watch and widget targets, same marketing version 1.4.1, same bundle identifiers/data schema.
 - [x] Include keyboard-toolbar removal, goal-specific watch-face projection invalidation and Watch foreground HealthKit read improvements from PR #26.

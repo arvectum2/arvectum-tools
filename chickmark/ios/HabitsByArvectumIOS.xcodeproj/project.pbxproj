@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A0042E62380897D7167A133F /* WatchHealthBackgroundDelivery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA037927527E4138A3CE3B4 /* WatchHealthBackgroundDelivery.swift */; };
 		8DE77D96D365B0EF96764222 /* WatchLocalHealthProjection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14F96E05391F9F0AF3CF91C8 /* WatchLocalHealthProjection.swift */; };
 		842C43934755EC794E9E9173 /* WatchLocalHealthProjection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14F96E05391F9F0AF3CF91C8 /* WatchLocalHealthProjection.swift */; };
 		2C3D2D7381CD44217967BA08 /* WatchLocalHealthProjection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14F96E05391F9F0AF3CF91C8 /* WatchLocalHealthProjection.swift */; };
@@ -213,6 +214,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3BA037927527E4138A3CE3B4 /* WatchHealthBackgroundDelivery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchHealthBackgroundDelivery.swift; sourceTree = "<group>"; };
 		14F96E05391F9F0AF3CF91C8 /* WatchLocalHealthProjection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchLocalHealthProjection.swift; sourceTree = "<group>"; };
 		2214F3379E2C873AFFF9F362 /* WatchHealthProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchHealthProgress.swift; sourceTree = "<group>"; };
 		038D449A1B80537CAAAD08DE /* WatchComplicationBridgeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchComplicationBridgeTests.swift; sourceTree = "<group>"; };
@@ -555,6 +557,7 @@
 				A0F717AA559ED78F8825E3B2 /* Info.plist */,
 				AA2E40BCDDCC905918C98541 /* PrivacyInfo.xcprivacy */,
 				C29378A3FF6234A0F18F3D46 /* WatchHabitSyncStore.swift */,
+				3BA037927527E4138A3CE3B4 /* WatchHealthBackgroundDelivery.swift */,
 				177DC094E58447E014E5C326 /* WatchHealthEvaluator.swift */,
 				77D3E4728149D56F9020EC00 /* WatchLocalization.swift */,
 				15642C6B472E639208A2EE10 /* WatchTheme.swift */,
@@ -920,6 +923,7 @@
 				E3F963D95460DE12EC180EE2 /* WatchComplicationBridge.swift in Sources */,
 				842C43934755EC794E9E9173 /* WatchLocalHealthProjection.swift in Sources */,
 				DCAE4D8F1BB3ED44221DF94B /* WatchHabitSyncStore.swift in Sources */,
+				A0042E62380897D7167A133F /* WatchHealthBackgroundDelivery.swift in Sources */,
 				4490AD067F5C4E0A6A91303C /* WatchHealthEvaluator.swift in Sources */,
 				6FD84166159F2B65644B6CB1 /* WatchHealthProgress.swift in Sources */,
 				C0DB7B95ED8C58A4A3633DEA /* WatchLocalization.swift in Sources */,

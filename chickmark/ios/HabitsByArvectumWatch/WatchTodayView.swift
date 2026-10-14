@@ -119,6 +119,9 @@ struct WatchTodayView: View {
         locallyVerified = evaluation.qualifyingIDs
         healthEvaluationCompleted = true
         publishLocalHealthToComplication()
+        // Configure after the foreground authorization flow; never request
+        // Health permission from a background wake-up.
+        WatchHealthBackgroundDelivery.shared.configure()
     }
 
     /// Watch app HealthKit queries are local; publish only the validated
