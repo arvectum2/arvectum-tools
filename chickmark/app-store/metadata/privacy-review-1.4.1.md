@@ -1,6 +1,6 @@
-# ChickMark 1.4.1 — App Privacy release compliance (P0)
+# ChickMark 1.4.1 — published App Privacy disclosure
 
-Public deployment MUST NOT be submitted until App Store Connect privacy responses match the actual third-party SDKs.
+App Store Connect App Privacy was corrected and published on 2026-10-14, before version 1.4.1 (15) was submitted to App Review.
 
 Archive inspected: physically tested internal 1.4.1 (14), exact YandexMobileAds dependency used by candidate (15). Its embedded privacy manifests include:
 - Yandex Mobile Ads: Device ID and Advertising Data for third-party advertising; neither linked to user nor marked tracking in Yandex's own manifest.
@@ -12,14 +12,24 @@ Release code audits:
 - Yandex SDK only initializes after existing 3-day / 5-launch / 3-checkoff gate and only when ad placement is eligible. Calls YandexAds.setLocationTracking(false), setUserConsent(false) before initialization; no app-level ATT request. But SDK is distributed in final binary and Apple's privacy responses must be based on actual SDK collection, not on wishful assumptions.
 - App's first-party PrivacyInfo.xcprivacy says NSPrivacyTracking=false and NSPrivacyCollectedDataTypes empty. This is NOT a complete accounting of third-party manifests.
 
-Steps that require authenticated App Store Connect UI and responsible configuration verification:
-1. Log into App Store Connect > ChickMark > App Privacy with Account Holder / Admin / App Manager credentials.
-2. Reconcile App Privacy data types and intended purposes with third-party SDK privacy manifests, Yandex documentation and actual runtime settings. In particular do not leave "No Data Collected" unless you establish that none of the declared data is collected at runtime and can substantiate that answer. Resolve AppMetrica tracking status and any ATT requirement.
-3. Publish corrected App Privacy responses and verify they are live.
-4. Verify public privacy-policy copy accurately describes the advertising provider, data retention, opting out of Health permission and optional iCloud sync.
-5. Only then approve public App Review submission and automatic release setting.
+## Published App Privacy answers, 2026-10-14
+
+| Category | Purpose | Linked | Tracking |
+| --- | --- | --- | --- |
+| Coarse Location | Analytics | No | No |
+| Device ID | Third-Party Advertising, Analytics, App Functionality | No | No |
+| Product Interaction | Analytics | No | No |
+| Advertising Data | Third-Party Advertising | No | No |
+| Crash Data | App Functionality | No | No |
+| Performance Data | App Functionality | No | No |
+| Other Diagnostic Data | Analytics, App Functionality | No | No |
+| Other Data Types | Analytics, App Functionality | No | No |
+
+The published Apple Product Page Preview showed Data Not Linked to You with the eight categories and no unfinished Set Up warnings. No Health/Fitness data was declared remotely collected: raw HealthKit measurements remain local.
+
+Tracking caveat: the transitive AppMetricaAdSupport module in the signed SDK carries a tracking=true privacy manifest for an IDFA-based capability. ChickMark does not request App Tracking Transparency/IDFA, and invokes YandexAds.setLocationTracking(false) and YandexAds.setUserConsent(false) before eligible SDK initialization. Yandex documentation states the AdSupport tracking path operates if IDFA is available and requires the app to request permission. The published No Tracking answer pertains to this actual no-IDFA/no-ATT configuration; changing SDK composition, consent, data linkage, or IDFA access requires a fresh audit and may require ATT.
 
 Sources:
 - https://developer.apple.com/app-store/user-privacy-and-data-use/
-- https://developer.apple.com/help/app-store-connect/manage-app-information/manage-app-privacy
+- https://yandex.com/support/appmetrica-io/en/data-security/app-privacy-apple
 - https://ads.yandex.com/helpcenter/en/dev/ios/app-privacy-apple
