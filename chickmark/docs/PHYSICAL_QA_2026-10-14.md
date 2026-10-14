@@ -16,7 +16,8 @@ These results do NOT prove that either UI stayed open, that a live HealthKit que
 - [ ] **Confirmed product defect in published 1.4.0 (8):** «Прогулка» is linked to HealthKit but its Watch row shows only a checkbox, not steps or target. Release 1.4.0 does not render HealthKit quantity progress.
 - [x] Code correction for a *future patch*, [PR #7](https://github.com/arvectum2/arvectum-tools/pull/7) into the unmerged 1.4 development branch: Watch-local current/target + gauge + unavailable-data message; 17/17 focused tests, watchOS build and architecture checks passed. Not present in the published 1.4.0 binary.
 - [ ] Perform physical QA of this correction with real step data, watch authorization and Watch/iPhone health consistency before any App Store update.
-- [ ] Authorize read-only HealthKit metrics for a disposable test habit; verify actual readings, current-day auto-check and manual correction on iPhone and Watch.
+- [x] **Physical iPhone UI, owner-confirmed 2026-10-14:** the Apple Health-linked «Прогулка» row on the iPhone displays the real step progress and target. This confirms the iPhone-facing HealthKit progress display; it is not proof of correct Watch Health reads or automatic check-in at the threshold.
+- [ ] Complete true HealthKit read authorization/denial, target auto-check, manual undo and correction tests with disposable habit data on iPhone and Watch (the progress display alone does not close them).
 - [ ] Test denied/revoked permission: no crash, no surprise check-ins or raw HealthKit samples uploaded to CloudKit.
 - [ ] Test nonempty iPhone widgets and Watch complications, offline/online reconciliation, date rollover and pending mutations.
 - [ ] Compare preservation of existing habits/history after published 1.4 upgrade; do not delete or reset actual data.
