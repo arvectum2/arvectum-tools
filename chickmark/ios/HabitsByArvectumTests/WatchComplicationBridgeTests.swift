@@ -141,7 +141,8 @@ final class WatchComplicationBridgeTests: XCTestCase {
             habits: [habit]
         )
         let state = WatchLocalHealthProjection.State(
-            dayKey: dayKey, habitIDs: [id, other], generatedAt: now
+            dayKey: dayKey, habitIDs: [id, other], generatedAt: now,
+            rules: [id: .init(metric: "steps", target: 3000)]
         )
         let projected = WatchLocalHealthProjection.applying(snapshot, state: state, now: now)
         XCTAssertEqual(projected.completedCount, 2)
@@ -156,7 +157,8 @@ final class WatchComplicationBridgeTests: XCTestCase {
         let id = UUID()
         let now = Date(timeIntervalSince1970: 1_800_000_000)
         let state = WatchLocalHealthProjection.State(
-            dayKey: "2027-01-15", habitIDs: [id], generatedAt: now
+            dayKey: "2027-01-15", habitIDs: [id], generatedAt: now,
+            rules: [id: .init(metric: "steps", target: 2000)]
         )
         func snapshot(skipped: Bool, overridden: Bool) -> HabitSyncSnapshot {
             HabitSyncSnapshot(
@@ -201,7 +203,8 @@ final class WatchComplicationBridgeTests: XCTestCase {
             ]
         )
         let yesterday = WatchLocalHealthProjection.State(
-            dayKey: "2027-01-14", habitIDs: [id], generatedAt: now
+            dayKey: "2027-01-14", habitIDs: [id], generatedAt: now,
+            rules: [id: .init(metric: "steps", target: 2000)]
         )
         XCTAssertEqual(
             WatchLocalHealthProjection.applying(snapshot, state: yesterday, now: now),
@@ -209,7 +212,8 @@ final class WatchComplicationBridgeTests: XCTestCase {
         )
         let expired = WatchLocalHealthProjection.State(
             dayKey: snapshot.dayKey, habitIDs: [id],
-            generatedAt: now.addingTimeInterval(-24 * 3600)
+            generatedAt: now.addingTimeInterval(-24 * 3600),
+            rules: [id: .init(metric: "steps", target: 2000)]
         )
         XCTAssertEqual(
             WatchLocalHealthProjection.applying(snapshot, state: expired, now: now),
@@ -232,12 +236,73 @@ final class WatchComplicationBridgeTests: XCTestCase {
             ]
         )
         let state = WatchLocalHealthProjection.State(
-            dayKey: base.dayKey, habitIDs: [id], generatedAt: now
+            dayKey: base.dayKey, habitIDs: [id], generatedAt: now,
+            rules: [id: .init(metric: "steps", target: 5000)]
         )
         XCTAssertEqual(
             WatchLocalHealthProjection.applying(base, state: state, now: now),
             base
         )
+    }
+
+    func testWatchFaceRejectsPriorAutomaticCheckoffAfterTargetEdit() {
+        let id = UUID()
+        let now = Date(timeIntervalSince1970: 1_800_000_000)
+        let formerlyReachedGoal = WatchLocalHealthProjection.State(
+            dayKey: "2027-01-15", habitIDs: [id], generatedAt: now,
+            rules: [id: .init(metric: "steps", target: 1_000)]
+        )
+        let updated = HabitSyncSnapshot(
+            generatedAt: now, dayKey: "2027-01-15",
+            completedCount: 0, totalCount: 1,
+            habits: [
+                HabitSyncHabit(
+                    id: id, name: "Walk", symbolName: "figure.walk",
+                    colorHex: "43E5C5", completed: false, streak: 0,
+                    healthRuleMetric: "steps", healthRuleTarget: 2_000
+                )
+            ]
+        )
+        XCTAssertEqual(
+            WatchLocalHealthProjection.applying(updated, state: formerlyReachedGoal, now: now),
+            updated,
+            "The old watchface checkmark must disappear when a goal increases"
+        )
+        var changedMetric = updated
+        changedMetric.habits[0].healthRuleMetric = "walkingDistance"
+        XCTAssertEqual(
+            WatchLocalHealthProjection.applying(changedMetric,
+                state: formerlyReachedGoal, now: now), changedMetric
+        )
+        let legacyWithoutGoalFingerprint = WatchLocalHealthProjection.State(
+            dayKey: "2027-01-15", habitIDs: [id], generatedAt: now
+        )
+        XCTAssertEqual(
+            WatchLocalHealthProjection.applying(updated,
+                state: legacyWithoutGoalFingerprint, now: now), updated
+        )
+    }
+
+    func testWatchHealthStepThresholdAndManualOverride() {
+        let id = UUID()
+        let base = HabitSyncHabit(
+            id: id, name: "Walk", symbolName: "figure.walk",
+            colorHex: "43E5C5", completed: false, streak: 0,
+            healthRuleMetric: "steps", healthRuleTarget: 2_000
+        )
+        XCTAssertFalse(WatchLocalHealthProjection.qualifies(base, value: 1_999))
+        XCTAssertTrue(WatchLocalHealthProjection.qualifies(base, value: 2_000))
+        XCTAssertTrue(WatchLocalHealthProjection.qualifies(base, value: 3_100))
+        XCTAssertFalse(WatchLocalHealthProjection.qualifies(base, value: .nan))
+        var overwritten = base
+        overwritten.healthManualOverride = true
+        XCTAssertFalse(WatchLocalHealthProjection.qualifies(overwritten, value: 3_100))
+        var alreadyCompleted = base
+        alreadyCompleted.completed = true
+        XCTAssertFalse(WatchLocalHealthProjection.qualifies(alreadyCompleted, value: 3_100))
+        var skipped = base
+        skipped.skipped = true
+        XCTAssertFalse(WatchLocalHealthProjection.qualifies(skipped, value: 3_100))
     }
 
     func testMissingSnapshotReturnsEmpty() {

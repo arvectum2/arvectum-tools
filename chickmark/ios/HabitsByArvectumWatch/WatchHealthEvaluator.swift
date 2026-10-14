@@ -64,8 +64,7 @@ enum WatchHealthEvaluator {
             }
             guard value.isFinite else { continue }
             progress[habit.id] = WatchHealthProgress(metric: metric, current: value, target: target)
-            if !habit.completed && !habit.skipped && !habit.healthManualOverride &&
-                value >= target {
+            if WatchLocalHealthProjection.qualifies(habit, value: value) {
                 result.insert(habit.id)
             }
         }
