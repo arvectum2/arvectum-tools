@@ -159,6 +159,93 @@ final class HabitWidgetBridgeTests: XCTestCase {
         )
     }
 
+    func testTimelinePreloadsFourteenDistinctCalendarDaysFromHorizon() throws {
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = try XCTUnwrap(TimeZone(identifier: "Europe/London"))
+        let now = try XCTUnwrap(calendar.date(from: DateComponents(
+            year: 2026, month: 10, day: 24, hour: 23, minute: 58
+        )))
+        let days = (0..<14).compactMap { offset -> HabitWidgetSnapshot? in
+            guard let date = calendar.date(
+                byAdding: .day, value: offset, to: calendar.startOfDay(for: now)
+            ) else { return nil }
+            return HabitWidgetSnapshot(
+                generatedAt: now,
+                dayKey: HabitWidgetBridge.dayKey(for: date, calendar: calendar),
+                completedCount: offset == 0 ? 1 : 0,
+                skippedCount: 0,
+                totalCount: 2,
+                habits: []
+            )
+        }
+        XCTAssertEqual(days.count, 14)
+        HabitWidgetBridge.saveSnapshot(try XCTUnwrap(days.first))
+        HabitWidgetBridge.saveHorizon(days)
+        let plan = HabitWidgetTimelinePlanner.make(now: now, calendar: calendar)
+        XCTAssertEqual(plan.items.count, 14)
+        XCTAssertEqual(plan.items[0].date, now)
+        XCTAssertEqual(plan.items.map { $0.snapshot.dayKey }, days.map(\.dayKey))
+        XCTAssertEqual(plan.items[0].snapshot.completedCount, 1)
+        XCTAssertEqual(plan.items[1].snapshot.completedCount, 0)
+        XCTAssertEqual(
+            plan.items[1].date,
+            calendar.startOfDay(for: try XCTUnwrap(
+                calendar.date(byAdding: .day, value: 1, to: now)
+            ))
+        )
+        let expectedRefresh = try XCTUnwrap(calendar.date(
+            byAdding: .day, value: 14, to: calendar.startOfDay(for: now)
+        ))
+        XCTAssertEqual(plan.refreshAfter, expectedRefresh.addingTimeInterval(5))
+    }
+
+    func testTimelineUsesCalendarMidnightAcrossTwentyThreeAndTwentyFiveHourDays() throws {
+        for (timeZone, year, month, day, hours) in [
+            ("America/New_York", 2026, 3, 7, 23.0),
+            ("America/New_York", 2026, 10, 31, 25.0)
+        ] {
+            var calendar = Calendar(identifier: .gregorian)
+            calendar.timeZone = try XCTUnwrap(TimeZone(identifier: timeZone))
+            let now = try XCTUnwrap(calendar.date(from: DateComponents(
+                year: year, month: month, day: day, hour: 23, minute: 59
+            )))
+            let plan = HabitWidgetTimelinePlanner.make(now: now, calendar: calendar)
+            XCTAssertEqual(plan.items.count, 14)
+            XCTAssertEqual(
+                plan.items[2].date.timeIntervalSince(plan.items[1].date) / 3_600,
+                hours, accuracy: 0.01
+            )
+            for index in 1..<plan.items.count {
+                XCTAssertTrue(calendar.isDate(
+                    plan.items[index].date,
+                    inSameDayAs: try XCTUnwrap(calendar.date(
+                        byAdding: .day, value: index, to: now
+                    ))
+                ))
+            }
+        }
+    }
+
+    func testTimelineDoesNotCarryYesterdaysCompletedStateWithoutFutureProjection() throws {
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = TimeZone(secondsFromGMT: 0)!
+        let now = try XCTUnwrap(calendar.date(from: DateComponents(
+            year: 2026, month: 10, day: 15, hour: 23, minute: 59
+        )))
+        HabitWidgetBridge.saveSnapshot(HabitWidgetSnapshot(
+            generatedAt: now, dayKey: "2026-10-15",
+            completedCount: 2, skippedCount: 0, totalCount: 2,
+            habits: []
+        ))
+        HabitWidgetBridge.saveHorizon([])
+        let plan = HabitWidgetTimelinePlanner.make(now: now, calendar: calendar)
+        XCTAssertEqual(plan.items[0].snapshot.completedCount, 2)
+        XCTAssertEqual(plan.items[1].snapshot, .empty)
+        XCTAssertEqual(plan.items[1].snapshot.completedCount, 0)
+        XCTAssertEqual(plan.items[1].date, try XCTUnwrap(calendar.date(from:
+            DateComponents(year: 2026, month: 10, day: 16))))
+    }
+
     func testOptimisticCommandPromotesProjectedDay() {
         let habitID = UUID()
         HabitWidgetBridge.saveSnapshot(
