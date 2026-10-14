@@ -38,3 +38,9 @@ Release verification: four signed IPA bundles 1.4.1 (12), Production CloudKit, W
 - No uninstall/reinstall or reset of production SwiftData/CloudKit stores.
 - No collection/upload of raw HealthKit step records; local transient widget cache stores completion Boolean only.
 - Defer any claim of autonomous complication refresh until physically observed on Watch.
+
+## Owner's follow-up on physical build 1.4.1 (12)
+- [x] iPhone number-pad custom swipe recognizer dismisses but the movement/jitter feels wrong; requested standard slim bar with a downward arrow.
+- [x] On Watch, Activity rings updated and ChickMark **showed 4500/4400**, but **both Watch app checkbox and watch-face complication remained unchecked**. iPhone was not opened; on opening iPhone ChickMark, auto completion and sync were expected. The Watch app's own completion policy is implicated; not just WidgetKit scheduling.
+- [x] Code follow-up: current-day HealthKit threshold verification can now re-complete despite a stale manual mutation flag, same as existing iPhone policy; skip stays blocked, snapshot persists unchanged; focused unit regression tests verified. Replaced custom UIWindow gesture by compact native keyboard chevron.
+- [ ] Verify this specific scenario on the next internal TestFlight build using Watch app and complication while keeping iPhone ChickMark closed.

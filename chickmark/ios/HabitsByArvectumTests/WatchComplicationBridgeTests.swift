@@ -153,7 +153,7 @@ final class WatchComplicationBridgeTests: XCTestCase {
         XCTAssertEqual(snapshot.completedCount, 1)
     }
 
-    func testLocalHealthOverlayRespectsManualOverrideAndSkip() {
+    func testLocalHealthOverlayRecompletesTodaysThresholdAfterManualUndoButNotSkip() {
         let id = UUID()
         let now = Date(timeIntervalSince1970: 1_800_000_000)
         let state = WatchLocalHealthProjection.State(
@@ -178,14 +178,45 @@ final class WatchComplicationBridgeTests: XCTestCase {
         let undone = WatchLocalHealthProjection.applying(
             snapshot(skipped: false, overridden: true), state: state, now: now
         )
-        XCTAssertFalse(undone.habits[0].completed)
-        XCTAssertEqual(undone.completedCount, 0)
+        // The iPhone also re-completes today's health goal once the
+        // threshold is reached; Watch and face must follow that policy.
+        XCTAssertTrue(undone.habits[0].completed)
+        XCTAssertEqual(undone.completedCount, 1)
 
         let skipped = WatchLocalHealthProjection.applying(
             snapshot(skipped: true, overridden: false), state: state, now: now
         )
         XCTAssertFalse(skipped.habits[0].completed)
         XCTAssertEqual(skipped.resolvedCount, 1)
+    }
+
+    func testWatchRecompletionWhenCurrentStepsExceedGoalAndManualMutationExists() {
+        // Regression from physical 1.4.1 (12) QA: 4500 / 4400 displayed
+        // on Watch but auto-completion remained unchecked until iPhone opened.
+        let id = UUID()
+        let now = Date(timeIntervalSince1970: 1_800_000_000)
+        let habit = HabitSyncHabit(
+            id: id, name: "Walk", symbolName: "figure.walk",
+            colorHex: "43E5C5", completed: false, streak: 0,
+            healthRuleMetric: "steps", healthRuleTarget: 4400,
+            healthManualOverride: true
+        )
+        XCTAssertTrue(WatchLocalHealthProjection.qualifies(habit, value: 4500))
+        XCTAssertFalse(WatchLocalHealthProjection.qualifies(habit, value: 4399))
+
+        let base = HabitSyncSnapshot(
+            generatedAt: now, dayKey: "2027-01-15",
+            completedCount: 0, totalCount: 1, habits: [habit]
+        )
+        let derived = WatchLocalHealthProjection.State(
+            dayKey: base.dayKey, habitIDs: [id], generatedAt: now,
+            rules: [id: .init(metric: "steps", target: 4400)]
+        )
+        let face = WatchLocalHealthProjection.applying(base, state: derived, now: now)
+        XCTAssertEqual(face.completedCount, 1)
+        XCTAssertTrue(face.habits[0].completed)
+        XCTAssertFalse(base.habits[0].completed,
+            "Authoritative phone snapshot must remain immutable")
     }
 
     func testLocalWatchHealthOverlayExpiresAndNeverCrossesMidnight() {
@@ -296,7 +327,7 @@ final class WatchComplicationBridgeTests: XCTestCase {
         XCTAssertFalse(WatchLocalHealthProjection.qualifies(base, value: .nan))
         var overwritten = base
         overwritten.healthManualOverride = true
-        XCTAssertFalse(WatchLocalHealthProjection.qualifies(overwritten, value: 3_100))
+        XCTAssertTrue(WatchLocalHealthProjection.qualifies(overwritten, value: 3_100))
         var alreadyCompleted = base
         alreadyCompleted.completed = true
         XCTAssertFalse(WatchLocalHealthProjection.qualifies(alreadyCompleted, value: 3_100))

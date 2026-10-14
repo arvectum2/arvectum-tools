@@ -32,8 +32,11 @@ enum WatchLocalHealthProjection {
               target.isFinite, target > 0,
               habit.healthRuleMetric != nil, value.isFinite
         else { return false }
-        return value >= target && !habit.completed
-            && !habit.skipped && !habit.healthManualOverride
+        // Match the iPhone's HealthHabitAutoPolicy: a fresh today's
+        // threshold can auto-complete again after a prior manual uncheck.
+        // A synchronized historical mutation marker must not suppress a
+        // currently verified on-Watch result. Explicit skips still win.
+        return value >= target && !habit.completed && !habit.skipped
     }
 
     private static func rules(for habits: [HabitSyncHabit],
@@ -113,7 +116,7 @@ enum WatchLocalHealthProjection {
                   let rule = state.rules?[habit.id],
                   rule.metric == habit.healthRuleMetric,
                   rule.target == habit.healthRuleTarget,
-                  !habit.completed, !habit.skipped, !habit.healthManualOverride
+                  !habit.completed, !habit.skipped
             else { continue }
             projected.habits[index].completed = true
             newlyCompleted += 1
