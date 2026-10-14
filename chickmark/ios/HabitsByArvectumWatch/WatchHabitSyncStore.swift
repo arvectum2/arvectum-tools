@@ -226,23 +226,30 @@ final class WatchHabitSyncStore: NSObject, ObservableObject, WCSessionDelegate {
             let message = try? HabitSyncCodec.message(packet)
         else { return }
 
-        if packet.kind == .setCompletion {
-            try? session.updateApplicationContext(message)
-        }
-
         if let command = packet.command {
-            for transfer in session.outstandingUserInfoTransfers {
+            let transfers = session.outstandingUserInfoTransfers.compactMap {
+                transfer -> (WCSessionUserInfoTransfer, HabitCompletionCommand)? in
                 guard
-                    let existing = try? HabitSyncCodec.packet(
-                        from: transfer.userInfo
-                    ),
-                    let existingCommand = existing.command,
-                    existingCommand.habitID == command.habitID,
-                    existingCommand.dayKey == command.dayKey
-                else { continue }
-
+                    let existing = try? HabitSyncCodec.packet(from: transfer.userInfo),
+                    existing.kind == .setCompletion,
+                    let outstanding = existing.command
+                else { return nil }
+                return (transfer, outstanding)
+            }
+            let plan = HabitDurableDeliveryPlan.plan(
+                new: command, outstanding: transfers.map { $0.1 }
+            )
+            for (transfer, outstanding) in transfers
+                where plan.supersededIDs.contains(outstanding.id) {
                 transfer.cancel()
             }
+            // An identical packet is already safely queued by WatchConnectivity;
+            // leave it untouched, including across offline refresh/restarts.
+            if plan.alreadyQueued { return }
+
+            // App context carries the *latest* command for prompt delivery;
+            // transferUserInfo separately guarantees durable delivery.
+            try? session.updateApplicationContext(message)
         }
 
         session.transferUserInfo(message)

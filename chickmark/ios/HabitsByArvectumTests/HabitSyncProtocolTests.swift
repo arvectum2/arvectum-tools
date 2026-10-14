@@ -489,4 +489,79 @@ final class HabitSyncProtocolTests: XCTestCase {
             acknowledgedCommandIDs: acknowledged
         )
     }
+
+    func testDurableTransferDoesNotRequeueSameOfflineCommandAfterRefresh() {
+        let habit = UUID()
+        let original = HabitCompletionCommand(
+            habitID: habit, dayKey: "2026-10-14", completed: true
+        )
+        let unrelated = HabitCompletionCommand(
+            habitID: UUID(), dayKey: "2026-10-14", completed: false
+        )
+        let plan = HabitDurableDeliveryPlan.plan(
+            new: original, outstanding: [original, unrelated]
+        )
+        XCTAssertTrue(plan.alreadyQueued)
+        XCTAssertTrue(plan.supersededIDs.isEmpty)
+        XCTAssertEqual(
+            HabitDurableDeliveryPlan.plan(new: original, outstanding: []).alreadyQueued,
+            false
+        )
+    }
+
+    func testDurableTransferReplacesOnlyOlderCommandsForSameHabitDay() {
+        let habit = UUID()
+        let older = HabitCompletionCommand(
+            habitID: habit, dayKey: "2026-10-14",
+            completed: true, createdAt: Date(timeIntervalSince1970: 100)
+        )
+        let newest = HabitCompletionCommand(
+            habitID: habit, dayKey: "2026-10-14",
+            completed: false, createdAt: Date(timeIntervalSince1970: 200)
+        )
+        let otherDay = HabitCompletionCommand(
+            habitID: habit, dayKey: "2026-10-15", completed: true
+        )
+        let otherHabit = HabitCompletionCommand(
+            habitID: UUID(), dayKey: "2026-10-14", completed: true
+        )
+        let plan = HabitDurableDeliveryPlan.plan(
+            new: newest, outstanding: [older, otherDay, otherHabit]
+        )
+        XCTAssertFalse(plan.alreadyQueued)
+        XCTAssertEqual(plan.supersededIDs, [older.id])
+        let after = HabitDurableDeliveryPlan.plan(
+            new: newest, outstanding: [older, newest, otherDay, otherHabit]
+        )
+        XCTAssertTrue(after.alreadyQueued)
+        XCTAssertEqual(after.supersededIDs, [older.id])
+    }
+
+    func testDurableTransferKeepsNewestPartialProgressAfterRepeatedFlush() {
+        let habit = UUID()
+        let first = HabitCompletionCommand(
+            habitID: habit, dayKey: "2026-10-15",
+            completed: false, desiredCount: 1
+        )
+        let last = HabitCompletionCommand(
+            habitID: habit, dayKey: "2026-10-15",
+            completed: false, desiredCount: 3
+        )
+        let pending = HabitCompletionCommandQueue.appending(
+            last, to: HabitCompletionCommandQueue.appending(first, to: [])
+        )
+        XCTAssertEqual(pending, [last])
+        let initial = HabitDurableDeliveryPlan.plan(
+            new: last, outstanding: [first]
+        )
+        XCTAssertEqual(initial.supersededIDs, [first.id])
+        XCTAssertFalse(initial.alreadyQueued)
+        let repeatPlan = HabitDurableDeliveryPlan.plan(
+            new: last, outstanding: [last]
+        )
+        XCTAssertTrue(repeatPlan.alreadyQueued)
+        XCTAssertTrue(repeatPlan.supersededIDs.isEmpty)
+        XCTAssertEqual(pending.first?.desiredCount, 3)
+    }
+
 }

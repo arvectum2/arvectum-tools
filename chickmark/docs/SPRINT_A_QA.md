@@ -140,3 +140,13 @@ If a defect is reproduced, record: build SHA, iOS/watchOS version, source data, 
 - **PASS:** HealthHabitIntegrationTests 19/19, complete iOS unit suite 191/191, architecture, release hygiene.
 - **Evidence:** /Volumes/ArvectumSSD/Arvectum/builds/chickmark/sprint-a-health-unavailable-20261015/ (focused-integration.log, full-verified.log, architecture.log, release.log).
 - **Still open A4:** simctl privacy offers motion but no HealthKit permission service. The OS-native denial/revocation sheet and independent Watch/Lock Screen refresh are not yet physically/simulator verified. Do not change the owner's Health permissions.
+
+
+## A2 offline durable-transfer queue dedup — 2026-10-15
+
+- **Baseline:** origin/main commit 4da5620. Isolated worktree fix/chickmark-watch-durable-dedup-20261015. No physical devices or user records modified; App Review build 1.4.1 (15) remains unchanged.
+- **Observed risk:** WatchHabitSyncStore.resendPendingDurably previously canceled ALL outstanding userInfo transfers for the same habit/day (including identical command ID) on every offline refresh, and immediately re-enqueued the same packet. Repeated refresh under bad connectivity could delay guaranteed delivery and ACK.
+- **Correction:** shared pure HabitDurableDeliveryPlan distinguishes identical already-queued transfer IDs from superseded IDs. Repeated identical transfer is retained; superseded commands for the same habit/day are canceled, while independent habit/day transfers remain in place. updateApplicationContext and transferUserInfo are performed for new transfers only. Existing phone-side mutation ledger, ACK semantics, queue size and snapshot protocol stay unchanged.
+- **AUTO:** three new regression tests for idempotent repeated refresh, check-to-undo replacement scoped by habit/day, and repeated partial-goal (1/5 to 3/5) delivery. **PASS** focused HabitSyncProtocolTests 22/22; complete iOS unit suite 194/194; standalone generic watchOS Simulator build; architecture contract and release hygiene.
+- **Evidence:** /Volumes/ArvectumSSD/Arvectum/builds/chickmark/sprint-a-watch-durable-dedup-20261015/ (focused.log, full-unit.log, watch-build.log, architecture.log, release-hygiene.log).
+- **Still OPEN:** on-device offline-to-online delivery/ACK and transient WatchConnectivity scheduling, including airplane mode and a Watch app restart, require simulator pair or physical-device smoke; these cannot be asserted from a pure plan unit test. A2 not marked fully accepted.
