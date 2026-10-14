@@ -491,3 +491,36 @@ final class HabitWidgetBridgeTests: XCTestCase {
         )
     }
 }
+
+extension HabitWidgetBridgeTests {
+    func testWidgetHorizonSwitchesAtLocalDSTMidnightWithoutReusingYesterday() throws {
+        var ny = Calendar(identifier: .gregorian)
+        ny.timeZone = try XCTUnwrap(TimeZone(identifier: "America/New_York"))
+        let now = try XCTUnwrap(ny.date(from: DateComponents(
+            year: 2026, month: 11, day: 1, hour: 23, minute: 59
+        )))
+        let tomorrow = try XCTUnwrap(ny.date(byAdding: .minute, value: 2, to: now))
+        let before = HabitWidgetSnapshot(
+            generatedAt: now, dayKey: "2026-11-01",
+            completedCount: 1, skippedCount: 0, totalCount: 1, habits: []
+        )
+        let after = HabitWidgetSnapshot(
+            generatedAt: now, dayKey: "2026-11-02",
+            completedCount: 0, skippedCount: 0, totalCount: 1, habits: []
+        )
+        HabitWidgetBridge.saveSnapshot(before)
+        HabitWidgetBridge.saveHorizon([after])
+        XCTAssertEqual(HabitWidgetBridge.loadCurrentSnapshot(
+            now: now, calendar: ny
+        ), before)
+        XCTAssertEqual(HabitWidgetBridge.loadCurrentSnapshot(
+            now: tomorrow, calendar: ny
+        ), after)
+        XCTAssertFalse(HabitWidgetBridge.acceptsAction(
+            dayKey: before.dayKey, now: tomorrow, calendar: ny
+        ))
+        XCTAssertTrue(HabitWidgetBridge.acceptsAction(
+            dayKey: after.dayKey, now: tomorrow, calendar: ny
+        ))
+    }
+}

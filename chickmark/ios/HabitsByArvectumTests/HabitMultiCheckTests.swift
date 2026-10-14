@@ -149,3 +149,55 @@ final class HabitMultiCheckTests: XCTestCase {
                           HabitMultiCheck.slotID(habitID: id, dayKey: dayKey, slot: 2))
     }
 }
+
+extension HabitMultiCheckTests {
+    func testPartialFiveCheckGoalStaysPartialAcrossDSTAndTimezoneTravel() throws {
+        let context = ModelContext(try container())
+        let habit = Habit(name: "Water", createdAt: .distantPast)
+        habit.dailyTarget = 5
+        context.insert(habit)
+
+        var ny = Calendar(identifier: .gregorian)
+        ny.timeZone = try XCTUnwrap(TimeZone(identifier: "America/New_York"))
+        var london = Calendar(identifier: .gregorian)
+        london.timeZone = try XCTUnwrap(TimeZone(identifier: "Europe/London"))
+        let dayKey = "2026-11-01" // 25-hour US DST autumn day
+        let day = try XCTUnwrap(HabitMultiCheck.date(from: dayKey, calendar: ny))
+
+        for slot in 1...4 {
+            XCTAssertTrue(HabitMultiCheckMutation.setSlot(
+                habitID: habit.id, dayKey: dayKey, slot: slot,
+                enabled: true, context: context, calendar: ny
+            ))
+        }
+        try context.save()
+        var entries = try context.fetch(FetchDescriptor<HabitCheckIn>())
+        XCTAssertFalse(HabitMetrics.isCompleted(
+            habitID: habit.id, on: day, checkIns: entries, calendar: ny, target: 5
+        ))
+        // Day is keyed by the originally selected local date; a timezone
+        // change must neither complete the partially filled day nor add slots.
+        let sameKeyLondon = try XCTUnwrap(HabitMultiCheck.date(
+            from: dayKey, calendar: london
+        ))
+        XCTAssertFalse(HabitMetrics.isCompleted(
+            habitID: habit.id, on: sameKeyLondon,
+            checkIns: entries, calendar: london, target: 5
+        ))
+        XCTAssertTrue(HabitMultiCheckMutation.setSlot(
+            habitID: habit.id, dayKey: dayKey, slot: 5,
+            enabled: true, context: context, calendar: ny
+        ))
+        try context.save()
+        entries = try context.fetch(FetchDescriptor<HabitCheckIn>())
+        XCTAssertTrue(HabitMetrics.isCompleted(
+            habitID: habit.id, on: sameKeyLondon,
+            checkIns: entries, calendar: london, target: 5
+        ))
+        let nextDay = try XCTUnwrap(ny.date(byAdding: .day, value: 1, to: day))
+        XCTAssertFalse(HabitMetrics.isCompleted(
+            habitID: habit.id, on: nextDay,
+            checkIns: entries, calendar: ny, target: 5
+        ))
+    }
+}
