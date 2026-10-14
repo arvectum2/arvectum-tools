@@ -70,6 +70,46 @@ enum HealthHabitMetric: String, Codable, CaseIterable, Identifiable {
     var supportsWeeklyGoal: Bool { self == .runningWorkout }
 }
 
+/// Strict local parsing for an editable Health goal. In particular, an
+/// existing 5,000-step goal must never silently become 5 on Save.
+enum HealthHabitTargetInput {
+    static func editableText(_ target: Double) -> String {
+        guard target.isFinite else { return "" }
+        if target.rounded(.towardZero) == target { return String(Int(target)) }
+        // Avoid NumberFormatStyle default rounding for user-entered targets.
+        return String(target).replacingOccurrences(
+            of: ".", with: Locale.current.decimalSeparator ?? "."
+        )
+    }
+
+    static func parse(_ raw: String, metric: HealthHabitMetric) -> Double? {
+        let compact = raw.trimmingCharacters(in: .whitespacesAndNewlines)
+            .replacingOccurrences(of: "\u{00A0}", with: "")
+            .replacingOccurrences(of: "\u{202F}", with: "")
+            .replacingOccurrences(of: " ", with: "")
+        guard !compact.isEmpty else { return nil }
+        let normalized: String
+        if metric == .steps {
+            let grouped = compact.range(
+                of: #"^[0-9]{1,3}([,.][0-9]{3})+$"#,
+                options: .regularExpression
+            ) != nil
+            normalized = grouped
+                ? compact.replacingOccurrences(of: ",", with: "")
+                    .replacingOccurrences(of: ".", with: "")
+                : compact
+            guard normalized.allSatisfy({ $0 >= "0" && $0 <= "9" }) else {
+                return nil
+            }
+        } else {
+            normalized = compact.replacingOccurrences(of: ",", with: ".")
+        }
+        guard let value = Double(normalized), value.isFinite,
+              value > 0, value <= 100_000 else { return nil }
+        return value
+    }
+}
+
 struct HealthHabitRule: Codable, Equatable {
     let metric: HealthHabitMetric
     let target: Double
@@ -152,6 +192,22 @@ final class HealthHabitRuleStore {
         guard rule.isValid else { return }
         rules[habitID.uuidString] = rule
         persistRules()
+    }
+
+    /// Editing a threshold never resets its opt-in timestamp, metric, or
+    /// existing check-in history. HealthKit samples remain on the device.
+    @discardableResult
+    func updateTarget(_ target: Double, for habitID: UUID) -> Bool {
+        guard let existing = rules[habitID.uuidString] else { return false }
+        let updated = HealthHabitRule(
+            metric: existing.metric, target: target, enabledAt: existing.enabledAt
+        )
+        guard updated.isValid else { return false }
+        if existing.target != target {
+            rules[habitID.uuidString] = updated
+            persistRules()
+        }
+        return true
     }
 
     func disable(for habitID: UUID) {

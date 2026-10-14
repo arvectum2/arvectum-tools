@@ -7,6 +7,7 @@ struct HealthHabitSettingsView: View {
 
     @State private var metric: HealthHabitMetric = .steps
     @State private var targetText = "5000"
+    @State private var pendingInitialMetric: HealthHabitMetric?
     @State private var isEnabled = false
     @State private var isSaving = false
     @State private var errorText: String?
@@ -19,9 +20,7 @@ struct HealthHabitSettingsView: View {
     }
 
     private var target: Double? {
-        guard let value = Double(targetText.replacingOccurrences(of: ",", with: ".")),
-              value.isFinite, value > 0, value <= 100_000 else { return nil }
-        return value
+        HealthHabitTargetInput.parse(targetText, metric: metric)
     }
 
     var body: some View {
@@ -41,15 +40,17 @@ struct HealthHabitSettingsView: View {
         .toolbar {
             ToolbarItemGroup(placement: .keyboard) {
                 Spacer()
-                Button(L10n.string("common.done")) {
+                Button(L10n.string("keyboard.dismiss")) {
                     targetFocused = false
                 }
+                .accessibilityIdentifier("health.keyboard.dismiss")
             }
         }
         .task {
             if let existing = HealthHabitRuleStore.shared.rule(for: habit.id) {
+                pendingInitialMetric = existing.metric
                 metric = existing.metric
-                targetText = existing.target.formatted()
+                targetText = HealthHabitTargetInput.editableText(existing.target)
                 isEnabled = true
             }
         }
@@ -88,7 +89,14 @@ struct HealthHabitSettingsView: View {
                     .labelsHidden()
                     .pickerStyle(.menu)
                     .onChange(of: metric) { _, value in
-                        targetText = String(format: "%.0f", value.defaultTarget)
+                        if pendingInitialMetric == value {
+                            // Hydrating an existing metric is not a user edit:
+                            // do not overwrite its saved custom target.
+                            pendingInitialMetric = nil
+                            return
+                        }
+                        pendingInitialMetric = nil
+                        targetText = HealthHabitTargetInput.editableText(value.defaultTarget)
                     }
                     .accessibilityIdentifier("health.metric")
                 }
@@ -101,7 +109,7 @@ struct HealthHabitSettingsView: View {
                         .font(.subheadline.weight(.medium))
                     Spacer(minLength: 8)
                     TextField(L10n.string("health.target"), text: $targetText)
-                        .keyboardType(.decimalPad)
+                        .keyboardType(metric == .steps ? .numberPad : .decimalPad)
                         .focused($targetFocused)
                         .multilineTextAlignment(.trailing)
                         .frame(width: 85)
@@ -175,7 +183,9 @@ struct HealthHabitSettingsView: View {
         defer { isSaving = false }
         do {
             try await HealthHabitCoordinator.shared.authorize(metric)
-            let rule = HealthHabitRule(metric: metric, target: target, enabledAt: .now)
+            let existing = HealthHabitRuleStore.shared.rule(for: habit.id)
+            let enabledAt = existing?.metric == metric ? (existing?.enabledAt ?? .now) : .now
+            let rule = HealthHabitRule(metric: metric, target: target, enabledAt: enabledAt)
             HealthHabitRuleStore.shared.save(rule, for: habit.id)
             HealthHabitCoordinator.shared.reconfigureObservers()
             PhoneWatchSyncCoordinator.shared.dataDidChange()

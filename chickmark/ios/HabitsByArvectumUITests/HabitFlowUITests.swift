@@ -35,6 +35,29 @@ final class HabitFlowUITests: XCTestCase {
         XCTAssertTrue(app.descendants(matching: .any)["manage.support"].exists)
     }
 
+    func testCreateFormKeyboardCanBeDismissedWithoutSaving() throws {
+        let create = app.buttons["Create habit"]
+        XCTAssertTrue(create.waitForExistence(timeout: 4))
+        create.tap()
+
+        let name = app.textFields["Habit name"]
+        XCTAssertTrue(name.waitForExistence(timeout: 4))
+        name.tap()
+        name.typeText("Read daily")
+
+        let hide = app.buttons["habit.keyboard.dismiss"]
+        XCTAssertTrue(hide.waitForExistence(timeout: 5))
+        hide.tap()
+        XCTAssertTrue(app.navigationBars["New habit"].exists)
+        let keyboardGone = XCTNSPredicateExpectation(
+            predicate: NSPredicate(format: "exists == false"),
+            object: app.keyboards.firstMatch
+        )
+        XCTAssertEqual(XCTWaiter.wait(for: [keyboardGone], timeout: 5), .completed)
+        // The typed name is retained; hiding is never an implicit Save.
+        XCTAssertEqual(name.value as? String, "Read daily")
+    }
+
     func testStorageFailureShowsNonDestructiveRecoveryScreen() throws {
         app.terminate()
         app.launchArguments = [

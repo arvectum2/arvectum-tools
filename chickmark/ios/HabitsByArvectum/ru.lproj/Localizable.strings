@@ -271,3 +271,6 @@
 
 "ads.debug.title" = "Диагностика РСЯ";
 "ads.debug.state" = "Статус";
+
+"keyboard.dismiss" = "Скрыть клавиатуру";
+"health.edit.target.hint" = "Цель можно изменить в редакторе привычки";

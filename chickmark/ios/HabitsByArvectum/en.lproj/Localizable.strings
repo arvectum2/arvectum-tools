@@ -271,3 +271,6 @@
 
 "ads.debug.title" = "Yandex Ads diagnostics";
 "ads.debug.state" = "Status";
+
+"keyboard.dismiss" = "Hide keyboard";
+"health.edit.target.hint" = "Edit the goal in habit settings";

@@ -211,7 +211,7 @@ struct HabitDetailView: View {
                         .font(.subheadline.weight(.semibold))
                     Text(L10n.string(
                         HealthHabitRuleStore.shared.rule(for: habit.id) == nil
-                            ? "health.connect.hint" : "health.connected.hint"
+                            ? "health.connect.hint" : "health.edit.target.hint"
                     ))
                     .font(.caption)
                     // The Health integration hint must remain legible at
