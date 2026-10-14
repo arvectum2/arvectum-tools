@@ -1,5 +1,13 @@
 # ChickMark — Product Roadmap
 
+## 2026-10-14 — 1.4.1 usability patch prepared (NOT shipped)
+- [x] For an **already linked** Apple Health habit, show the current activity goal and editable numeric threshold directly in the iPhone habit edit form near the habit name. Reuse existing read-only HealthKit association; save only the threshold, preserve the activation date and historical check-ins, refresh iPhone progress and send updated goal metadata to Watch.
+- [x] In both creation and editing forms, add a localized **Hide keyboard** accessory action, plus interactive scroll dismissal; include the numeric goal keyboard and the Apple Health configuration screen.
+- [x] Fix parsing of localized thousands separators such as 5 000, 5,000 and 5.000 for step targets; prevent fractional/zero/out-of-bounds step goals and ensure loading an existing non-default Health metric does not reset a saved threshold.
+- [x] Focused code tests: 28/28 Health and sync cases; iPhone simulator UI smoke for hiding the keyboard: passed. Published 1.4.0 data on physical devices remained untouched.
+- [ ] Ship in a versioned 1.4.1 candidate after sign-off: physical iPhone target edit/save/reopen and actual HealthKit automatic check-in, Watch on-device progress, non-destructive upgrade, and App Store review. Do not equate passing simulated checks with public availability.
+
+
 ## 2026-10-14 — published release + physical Watch observation
 - [x] Owner confirmed ChickMark 1.4.0 (8) approved and publicly released; iPhone and Watch app inventories both show build 8.
 - [x] Owner manually opened Watch app and observed the HealthKit-linked «Прогулка» habit; opening the list did not immediately crash. The Watch design intentionally uses tap-to-check, without per-habit detail navigation.

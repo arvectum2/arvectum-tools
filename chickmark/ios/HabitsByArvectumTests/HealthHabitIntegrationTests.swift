@@ -21,6 +21,39 @@ final class HealthHabitIntegrationTests: XCTestCase {
         XCTAssertNil(store.rule(for: habit))
     }
 
+    func testHealthTargetEditingDoesNotResetOptInOrMetric() {
+        let suite = "HealthEditTargetTests.\(UUID().uuidString)"
+        let defaults = UserDefaults(suiteName: suite)!
+        defer { defaults.removePersistentDomain(forName: suite) }
+        let store = HealthHabitRuleStore(defaults: defaults)
+        let id = UUID()
+        let since = Date(timeIntervalSince1970: 1_760_000_000)
+        store.save(HealthHabitRule(metric: .steps, target: 8_000, enabledAt: since), for: id)
+        XCTAssertTrue(store.updateTarget(750, for: id))
+        XCTAssertEqual(store.rule(for: id)?.target, 750)
+        XCTAssertEqual(store.rule(for: id)?.metric, .steps)
+        XCTAssertEqual(store.rule(for: id)?.enabledAt, since)
+        XCTAssertEqual(HealthHabitRuleStore(defaults: defaults).rule(for: id)?.target, 750)
+        XCTAssertFalse(store.updateTarget(0, for: id))
+        XCTAssertFalse(store.updateTarget(100_001, for: id))
+        XCTAssertFalse(store.updateTarget(500, for: UUID()))
+        XCTAssertEqual(store.rule(for: id)?.target, 750)
+    }
+
+    func testHealthTargetInputHandlesLocalizedThousandsWithoutSilentlyShrinkingSteps() {
+        XCTAssertEqual(HealthHabitTargetInput.parse("5 000", metric: .steps), 5000)
+        XCTAssertEqual(HealthHabitTargetInput.parse("5,000", metric: .steps), 5000)
+        XCTAssertEqual(HealthHabitTargetInput.parse("5.000", metric: .steps), 5000)
+        XCTAssertEqual(HealthHabitTargetInput.parse("7\u{202F}777", metric: .steps), 7777)
+        XCTAssertEqual(HealthHabitTargetInput.parse("600", metric: .steps), 600)
+        XCTAssertNil(HealthHabitTargetInput.parse("2,5", metric: .steps))
+        XCTAssertNil(HealthHabitTargetInput.parse("0", metric: .steps))
+        XCTAssertNil(HealthHabitTargetInput.parse("200000", metric: .steps))
+        XCTAssertEqual(HealthHabitTargetInput.parse("2,5", metric: .walkingDistance), 2.5)
+        XCTAssertEqual(HealthHabitTargetInput.parse("2.5", metric: .walkingDistance), 2.5)
+        XCTAssertEqual(HealthHabitTargetInput.editableText(5000), "5000")
+    }
+
     func testAutomaticCompletionHonorsUserActions() {
         let day = date(2026, 10, 12)
         let habit = Habit(name: "Walk", createdAt: day)

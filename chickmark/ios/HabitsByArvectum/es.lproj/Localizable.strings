@@ -250,3 +250,6 @@
 
 "ads.debug.title" = "Diagnóstico de anuncios";
 "ads.debug.state" = "Estado";
+
+"keyboard.dismiss" = "Ocultar teclado";
+"health.edit.target.hint" = "Cambiar el objetivo al editar el hábito";
