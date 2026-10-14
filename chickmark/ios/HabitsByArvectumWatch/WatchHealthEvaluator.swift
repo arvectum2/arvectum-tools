@@ -12,7 +12,10 @@ struct WatchHealthEvaluation {
 }
 
 enum WatchHealthEvaluator {
-    static func evaluate(for habits: [HabitSyncHabit], on date: Date = .now) async -> WatchHealthEvaluation {
+    static func evaluate(
+        for habits: [HabitSyncHabit], on date: Date = .now,
+        requestAuthorization: Bool = true
+    ) async -> WatchHealthEvaluation {
         // WatchKit terminates an app requesting HealthKit reads when its own
         // Info.plist omits the privacy purpose string (the phone's plist does
         // not cover the independently running watchOS app).
@@ -31,15 +34,17 @@ enum WatchHealthEvaluator {
             sampleType(for: $0.healthRuleMetric)
         })
         guard !types.isEmpty else { return .empty }
-        do {
-            try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
-                store.requestAuthorization(toShare: [], read: types) { success, error in
-                    if let error { continuation.resume(throwing: error) }
-                    else if !success { continuation.resume(throwing: NSError(domain: "HealthAccess", code: 1)) }
-                    else { continuation.resume() }
+        if requestAuthorization {
+            do {
+                try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
+                    store.requestAuthorization(toShare: [], read: types) { success, error in
+                        if let error { continuation.resume(throwing: error) }
+                        else if !success { continuation.resume(throwing: NSError(domain: "HealthAccess", code: 1)) }
+                        else { continuation.resume() }
+                    }
                 }
-            }
-        } catch { return .empty }
+            } catch { return .empty }
+        }
 
         let calendar = Calendar.autoupdatingCurrent
         let start = calendar.startOfDay(for: date)

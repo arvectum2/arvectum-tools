@@ -72,6 +72,17 @@ final class HabitFlowUITests: XCTestCase {
 
         target.tap()
         XCTAssertFalse(app.buttons["habit.keyboard.dismiss"].exists)
+        XCTAssertTrue(app.keyboards.firstMatch.exists, "Numeric step keyboard must open")
+        // Pull down inside the editor; no toolbar is needed and this must
+        // work even when the Form itself cannot scroll further down.
+        let start = app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.30))
+        let finish = app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.52))
+        start.press(forDuration: 0.1, thenDragTo: finish)
+        let keyboardGone = XCTNSPredicateExpectation(
+            predicate: NSPredicate(format: "exists == false"),
+            object: app.keyboards.firstMatch
+        )
+        XCTAssertEqual(XCTWaiter.wait(for: [keyboardGone], timeout: 5), .completed)
         XCTAssertFalse(app.buttons["health.settings.open"].exists)
         // Cancel must not create the habit or persist the link.
         app.buttons["Cancel"].tap()

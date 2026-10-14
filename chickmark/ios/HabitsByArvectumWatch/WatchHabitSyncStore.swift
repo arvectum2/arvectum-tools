@@ -327,6 +327,9 @@ final class WatchHabitSyncStore: NSObject, ObservableObject, WCSessionDelegate {
     private func cacheSnapshot() {
         Self.save(snapshot, key: snapshotKey)
         WatchComplicationBridge.saveSnapshot(snapshot)
+        Task { @MainActor in
+            WatchHealthBackgroundDelivery.shared.configure()
+        }
         WidgetCenter.shared.reloadTimelines(
             ofKind: "HabitsWatchComplication"
         )
