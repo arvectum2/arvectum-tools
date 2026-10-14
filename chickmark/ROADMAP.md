@@ -1,11 +1,18 @@
 # ChickMark — Product Roadmap
 
+## 2026-10-14 — Independent Watch face Health completion physically confirmed
+- [x] ChickMark 1.4.1 (14), real Apple Watch: when user reached the HealthKit step goal, Watch face complication **updated itself** without opening ChickMark on either Watch or iPhone. Approximately 25 min after goal it was still stale; it updated soon afterward. **The standalone-autonomy acceptance gate is now closed.**
+- [x] Numeric step goal keyboard: user previously confirmed compact down-arrow button works. Watch app HealthKit auto-check: user previously confirmed.
+- [x] GitHub Habits iOS CI on build 14 SHA 4f9f588: [run 38593557338](https://github.com/arvectum2/arvectum-tools/actions/runs/38593557338) status **completed / success**. Signed Watch widget extension HealthKit capability and Production CloudKit verified.
+- [ ] Optional optimization: record actual OS refresh intervals across several days and evaluate latency UX; not a blocker for functional acceptance and not a guarantee of realtime updates. Public App Store review remains a separate explicit decision.
+
+
 ## 2026-10-14 — 1.4.1 (14) internal independent Watch complication HealthKit QA
 - [x] Advance all four targets iPhone, iPhone widget, Watch and Watch complication to build 14, preserving marketing version 1.4.1, bundle identifiers and storage model.
 - [x] Include PR #35 independent Watch WidgetKit extension local HealthKit step reader at each OS-scheduled timeline refresh; native Watch Health observer background path remains. Physically 1.4.1 (13) keyboard and Watch app automatic completion worked but Watch complication did not autonomously update.
 - [x] Preflight: 173/173 local iOS tests, watchOS build, signed Watch widget HealthKit entitlement confirmed in Apple provisioning and archive, archive privacy audit zero errors.
-- [ ] Signed internal-only TestFlight production-CloudKit export and upload, attach existing internal group. Do not submit App Store public release or change devices directly.
-- [ ] Physical validation: after goal reached, **do not open ChickMark on Watch**; watch-face count should eventually reflect completion when WidgetKit refreshes, though Apple OS throttles both WidgetKit and HealthKit.
+- [x] Signed internal-only TestFlight Production CloudKit build 1.4.1 (14) exported and uploaded. Apple validated it and API confirmed attachment to existing ChickMark Internal QA group. No public App Store release or direct device installation.
+- [x] **Physical user acceptance PASS** (2026-10-14): after meeting step goal, ChickMark remained unopened on both iPhone and Apple Watch, and the **Watch face complication autonomously changed to checked**. First check at roughly 25 min after goal was still stale; it updated shortly after the user reported that observation, with no app launch. Precise latency and wake source (WidgetKit direct HealthKit query vs Watch host app background observer) unmeasured; do not claim instant refresh or identify specific callback without logs.
 
 
 ## 2026-10-14 — follow-up QA 1.4.1 (13): Watch face autonomy
@@ -14,7 +21,7 @@
 - [x] Added second independent update path: on each WidgetKit timeline request (nominal policy after 15 min; OS scheduling discretionary), the Watch complication extension itself reads Watch-local stepCount via HKStatisticsQuery if linked step habits exist. Apple engineer confirms extensions can read preauthorized HealthKit samples but must not request authorization themselves. No HealthKit permission dialog; 4-second fail-safe to cached snapshot.
 - [x] Watch widget extension gained its own HealthKit entitlement and read purpose string; signed archive and embedded Apple provisioning profile verified extension's healthkit entitlement. Raw step totals do not leave Watch or persist to app-group cache; only derived local completion appears in timeline entry. Existing WidgetKit projection and foreground paths remain as fallback.
 - [x] Added 3 pure regression tests for a 4500/4400 success, 4399/4400 below target, skipped day and double-count prevention. Local 173/173 iOS tests, generic watchOS build and signed archive privacy audit all green.
-- [ ] Version and distribute separate internal TestFlight QA build. Acceptance: after a step goal is crossed, leave ChickMark closed on Watch and check whether the complication updates after OS refresh without user tap; no promise of instant change. No public App Store release or destructive device reinstall.
+- [x] Version and distribute internal-only TestFlight build 1.4.1 (14). End-to-end Watch complication autonomous refresh **observed by user without tapping/opening ChickMark**, after a delay exceeding ~25 minutes. No public release or device reinstall.
 
 
 ## 2026-10-14 — 1.4.1 (13) internal-only Watch step auto-check retest
