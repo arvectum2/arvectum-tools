@@ -98,3 +98,14 @@ If a defect is reproduced, record: build SHA, iOS/watchOS version, source data, 
 3. **A5 / A7:** install nonempty widget formats and visually inspect on iPhone, test languages / large font only if user allows display-preference changes.
 4. **A4:** permission denial in a disposable test setup, not on owner's active Health permissions.
 5. **A6:** YAN dashboard access or screenshot of placement/fill stats; never claim revenue from a successful SDK network request alone.
+
+
+## Follow-up A1/A4 regression evidence — 2026-10-14
+
+- **Source:** based on origin/main `622f38c`, isolated worktree `test/chickmark-sprint-a-data-health-20261014`; no modification or install on the owner's physical iPhone/Watch, no CloudKit restore or permission change.
+- **AUTO / A1:** added tests for idempotent JSON merge across habit/check-in/skip/pause/day-mutation/one-off reminder, preservation of receiving-device history and persisted date key; orphaned check-in rejected in both merge/replace modes **before modifying history**.
+- **AUTO / A1+A4 privacy:** confirm raw measurements, ephemeral Health completion keys and progress do not appear in the JSON backup.
+- **AUTO / A4:** missing readings yield an empty Health completion projection while preserving independent manual check-ins. This does **not** emulate a native HealthKit Deny/Revoke prompt; actual permission-state QA remains OPEN.
+- **Verification:** focused ChickMarkBackupTests + HealthHabitIntegrationTests **22/22 PASS**, complete iOS unit suite **181/181 PASS**, architecture contract **PASS**, release hygiene **PASS**. On an unpaired iOS simulator WatchConnectivity logs a non-fatal `WCErrorCodeDeviceNotPaired`, not a test failure.
+- **Local evidence:** `/Volumes/ArvectumSSD/Arvectum/builds/chickmark/sprint-a-data-health-20261014/` contains `focused.log`, `all-unit.log`, DerivedData / XCTest result bundles. No App Store archive or uploaded binary changed.
+- **Outstanding:** A1 real-device historical counters, multi-device CloudKit and non-destructive upgrade; A4 native HealthKit Deny/Revoke on disposable simulator/device. A1 and A4 stay OPEN until their appropriate acceptance evidence exists.

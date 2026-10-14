@@ -310,4 +310,26 @@ final class HealthHabitIntegrationTests: XCTestCase {
     private func date(_ year: Int, _ month: Int, _ day: Int) -> Date {
         calendar.date(from: DateComponents(year: year, month: month, day: day, hour: 12))!
     }
+
+    // A4: no HealthKit readings / denied access means NO derived check-in.
+    // This tests the local fail-closed projection, not the native permission UI.
+    func testMissingHealthReadingDoesNotSynthesizeCompletionOrRemoveManualHistory() {
+        let day = date(2026, 10, 14)
+        let manual = Habit(name: "Manual", createdAt: day.addingTimeInterval(-86_400))
+        let linked = Habit(name: "Steps", createdAt: day.addingTimeInterval(-86_400))
+        let existing = HabitCheckIn(habitID: manual.id, day: day, calendar: calendar)
+        let projected = HealthHabitCoordinator.projectedCheckIns(
+            for: [existing], habits: [manual, linked],
+            completedDayKeys: [], calendar: calendar
+        )
+        XCTAssertEqual(projected.count, 1)
+        XCTAssertEqual(projected[0].id, existing.id)
+        XCTAssertFalse(HabitMetrics.isCompleted(
+            habitID: linked.id, on: day, checkIns: projected, calendar: calendar
+        ))
+        XCTAssertTrue(HabitMetrics.isCompleted(
+            habitID: manual.id, on: day, checkIns: projected, calendar: calendar
+        ))
+    }
+
 }
