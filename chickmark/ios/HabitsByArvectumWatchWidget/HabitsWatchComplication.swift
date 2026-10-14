@@ -35,12 +35,15 @@ struct HabitsWatchProvider: TimelineProvider {
         in context: Context,
         completion: @escaping (HabitsWatchEntry) -> Void
     ) {
-        completion(
-            HabitsWatchEntry(
-                date: .now,
-                snapshot: WatchComplicationBridge.loadCurrentSnapshot()
-            )
-        )
+        let now = Date()
+        let cached = WatchComplicationBridge.loadCurrentSnapshot(now: now)
+        if context.isPreview {
+            completion(HabitsWatchEntry(date: now, snapshot: cached))
+            return
+        }
+        WatchComplicationHealthReader.project(cached, on: now) { resolved in
+            completion(HabitsWatchEntry(date: now, snapshot: resolved))
+        }
     }
 
     func getTimeline(
@@ -48,22 +51,21 @@ struct HabitsWatchProvider: TimelineProvider {
         completion: @escaping (Timeline<HabitsWatchEntry>) -> Void
     ) {
         let now = Date()
-        let entry = HabitsWatchEntry(
-            date: now,
-            snapshot: WatchComplicationBridge.loadCurrentSnapshot()
-        )
+        let cached = WatchComplicationBridge.loadCurrentSnapshot(now: now)
         let nextRefresh = Calendar.autoupdatingCurrent.date(
             byAdding: .minute,
             value: 15,
             to: now
         ) ?? now.addingTimeInterval(900)
 
-        completion(
-            Timeline(
-                entries: [entry],
-                policy: .after(nextRefresh)
+        WatchComplicationHealthReader.project(cached, on: now) { resolved in
+            completion(
+                Timeline(
+                    entries: [HabitsWatchEntry(date: now, snapshot: resolved)],
+                    policy: .after(nextRefresh)
+                )
             )
-        )
+        }
     }
 }
 

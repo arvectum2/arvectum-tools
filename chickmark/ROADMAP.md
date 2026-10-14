@@ -1,5 +1,14 @@
 # ChickMark — Product Roadmap
 
+## 2026-10-14 — follow-up QA 1.4.1 (13): Watch face autonomy
+- [x] Owner reports keyboard arrow now works; automatic checkmark appears in Watch ChickMark at goal after launching the Watch app, and watch-face complication subsequently refreshes. It does not update autonomously before launching Watch ChickMark.
+- [x] Confirmed Apple watchOS limitation: stepCount background HealthKit observer delivery is hourly capped, at most 4 combined background wake-ups/hour with an active complication (Apple HealthKit documentation). The immediate setting is not a guaranteed fast update.
+- [x] Added second independent update path: on each WidgetKit timeline request (nominal policy after 15 min; OS scheduling discretionary), the Watch complication extension itself reads Watch-local stepCount via HKStatisticsQuery if linked step habits exist. Apple engineer confirms extensions can read preauthorized HealthKit samples but must not request authorization themselves. No HealthKit permission dialog; 4-second fail-safe to cached snapshot.
+- [x] Watch widget extension gained its own HealthKit entitlement and read purpose string; signed archive and embedded Apple provisioning profile verified extension's healthkit entitlement. Raw step totals do not leave Watch or persist to app-group cache; only derived local completion appears in timeline entry. Existing WidgetKit projection and foreground paths remain as fallback.
+- [x] Added 3 pure regression tests for a 4500/4400 success, 4399/4400 below target, skipped day and double-count prevention. Local 173/173 iOS tests, generic watchOS build and signed archive privacy audit all green.
+- [ ] Version and distribute separate internal TestFlight QA build. Acceptance: after a step goal is crossed, leave ChickMark closed on Watch and check whether the complication updates after OS refresh without user tap; no promise of instant change. No public App Store release or destructive device reinstall.
+
+
 ## 2026-10-14 — 1.4.1 (13) internal-only Watch step auto-check retest
 - [x] All four iOS/Watch/widget targets advance together from build 12 to build **13**; unchanged app identifiers, version 1.4.1, and SwiftData/CloudKit storage schema.
 - [x] Code fix from PR #32: Watch HealthKit 4500/4400 completion now aligns with iPhone same-day manual-recheck policy; explicit skips stay excluded. Numeric keyboard uses compact native down-chevron accessory rather than gesture recognizer. Physical 1.4.1 (12) failure and acceptance gates recorded in QA.

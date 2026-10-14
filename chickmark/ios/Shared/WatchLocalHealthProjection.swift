@@ -50,6 +50,30 @@ enum WatchLocalHealthProjection {
         })
     }
 
+    /// A complication timeline can independently read Watch-local step counts
+    /// without waiting for the host Watch app to wake up. No measurements are
+    /// persisted or shared; this projects only the current day's completion.
+    static func applyingLiveSteps(
+        _ snapshot: HabitSyncSnapshot, steps: Double, now: Date = .now
+    ) -> HabitSyncSnapshot {
+        guard steps.isFinite, steps > 0, !snapshot.dayKey.isEmpty else {
+            return snapshot
+        }
+        var rules: [UUID: Rule] = [:]
+        for habit in snapshot.habits {
+            guard habit.healthRuleMetric == "steps",
+                  qualifies(habit, value: steps),
+                  let target = habit.healthRuleTarget else { continue }
+            rules[habit.id] = Rule(metric: "steps", target: target)
+        }
+        guard !rules.isEmpty else { return snapshot }
+        let state = State(
+            dayKey: snapshot.dayKey,
+            habitIDs: Array(rules.keys), generatedAt: now, rules: rules
+        )
+        return applying(snapshot, state: state, now: now)
+    }
+
     private static func cacheURL() -> URL? {
         guard let group = FileManager.default.containerURL(
             forSecurityApplicationGroupIdentifier: WatchComplicationBridge.appGroup

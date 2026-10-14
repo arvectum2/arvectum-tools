@@ -363,6 +363,7 @@ targets:
         CFBundleDisplayName: "ChickMark"
         CFBundleShortVersionString: "$(MARKETING_VERSION)"
         CFBundleVersion: "$(CURRENT_PROJECT_VERSION)"
+        NSHealthShareUsageDescription: "ChickMark reads your current activity goal progress on your watch face. Your Health data stays on the device."
         NSExtension:
           NSExtensionPointIdentifier: com.apple.widgetkit-extension
     settings:
