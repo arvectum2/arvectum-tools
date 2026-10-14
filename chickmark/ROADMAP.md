@@ -1,5 +1,9 @@
 # ChickMark — Product Roadmap
 
+## 2026-10-14 — 1.4.1 (15) cloud CI slower simulator startup
+- [x] Xcode 27 CI completed unit/integration checks but essential two UI tests exceeded the old **270-second** hard-stop while simulator launch/idling was slow; no UI assertion failed in the captured log. Keep both exact test result assertions unchanged and extend the bounded CI smoke allowance to **900 seconds**, within the 35-minute workflow cap. Verify CI green on main.
+
+
 ## 2026-10-14 — Public release 1.4.1 (15) P0 audit
 - [x] Build 1.4.1 (14) internal TestFlight physically accepted: keyboard, Watch threshold/checkmark, face autonomously updated without opening ChickMark; background refresh latency exceeded 25 minutes in one observed test. Green CI 38593557338; all four signed builds; zero archive audit errors.
 - [x] Current App Store public 1.4.0 (8) independently verified READY_FOR_SALE using official App Store Connect API. Internal 1.4.1 (14) has buildAudienceType INTERNAL_ONLY and cannot go directly to App Review.
