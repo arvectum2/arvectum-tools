@@ -23,6 +23,9 @@
 - [ ] Obtain separate approval before uploading an archive to TestFlight or App Store; submission/review/publication are NOT implied by candidate compilation.
 
 ## Local build and test evidence (2026-10-14)
+- Local INTERNAL TestFlight export: **PASSED**, Xcode 27 export method app-store-connect, destination=export (not upload), testFlightInternalTestingOnly=true. Output: /Volumes/ArvectumSSD/Arvectum/builds/chickmark/1.4.1-9/export-internal/HabitsByArvectum.ipa, SHA-256 c59000c2098909a359f42205d872620a268376667098b2b2f35ad7b090196b8f.
+- Exported IPA: four embedded code signatures validate; version 1.4.1 (9) matches; iPhone app provisioning is Apple Store Distribution, aps-environment=production, iCloudContainerEnvironment=Production, get-task-allow=false.
+- IPA is **internal TestFlight only** and is NOT an installed build or public App Store binary. A separate public release build may be needed after physical acceptance.
 - Full HabitsByArvectumTests: **163/163 passed** on iOS 27 iPhone 13 simulator.
 - Two essential UI tests: **2/2 passed** on iOS 27 iPhone 13 simulator (accessibility audit across core screens, multi-check history).
 - Previous unified Health editor and keyboard UI smoke: passed; Watch target built successfully after the Health completion fix.
