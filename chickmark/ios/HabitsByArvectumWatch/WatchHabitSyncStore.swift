@@ -62,7 +62,19 @@ final class WatchHabitSyncStore: NSObject, ObservableObject, WCSessionDelegate {
         session.activate()
     }
 
+    /// A Watch screen can remain open over local midnight. Reload the current
+    /// day's projection before accepting another tap rather than writing an
+    /// accidental historical completion from a stale row.
+    private func ensureCurrentDayForAction() -> Bool {
+        guard HabitWatchActionPolicy.accepts(snapshotDayKey: snapshot.dayKey) else {
+            refresh()
+            return false
+        }
+        return true
+    }
+
     func toggle(_ habit: HabitSyncHabit, desiredStateOverride: Bool? = nil) {
+        guard ensureCurrentDayForAction() else { return }
         guard
             let index = snapshot.habits.firstIndex(where: { $0.id == habit.id }),
             !snapshot.dayKey.isEmpty
@@ -103,6 +115,7 @@ final class WatchHabitSyncStore: NSObject, ObservableObject, WCSessionDelegate {
     /// Partial progress is expressed as a desired count (not a blind toggle).
     /// The same durable queue, ACK and mutation ledger handle offline replay.
     func adjust(_ habit: HabitSyncHabit, by delta: Int) {
+        guard ensureCurrentDayForAction() else { return }
         guard let index = snapshot.habits.firstIndex(where: { $0.id == habit.id }),
               let target = snapshot.habits[index].dailyTarget,
               let current = snapshot.habits[index].dailyCount,

@@ -564,4 +564,44 @@ final class HabitSyncProtocolTests: XCTestCase {
         XCTAssertEqual(pending.first?.desiredCount, 3)
     }
 
+
+    func testWatchActionGateRejectsYesterdayAfterMidnightAndFutureSnapshot() throws {
+        var ny = Calendar(identifier: .gregorian)
+        ny.timeZone = try XCTUnwrap(TimeZone(identifier: "America/New_York"))
+        let now = try XCTUnwrap(ny.date(from: DateComponents(
+            year: 2026, month: 11, day: 2, hour: 0, minute: 1
+        )))
+        XCTAssertFalse(HabitWatchActionPolicy.accepts(
+            snapshotDayKey: "2026-11-01", now: now, calendar: ny
+        ))
+        XCTAssertTrue(HabitWatchActionPolicy.accepts(
+            snapshotDayKey: "2026-11-02", now: now, calendar: ny
+        ))
+        XCTAssertFalse(HabitWatchActionPolicy.accepts(
+            snapshotDayKey: "2026-11-03", now: now, calendar: ny
+        ))
+        XCTAssertFalse(HabitWatchActionPolicy.accepts(
+            snapshotDayKey: "", now: now, calendar: ny
+        ))
+    }
+
+    func testWatchActionGateRecomputesDateAfterTimezoneTravel() throws {
+        let moment = try XCTUnwrap(ISO8601DateFormatter().date(
+            from: "2026-10-14T00:30:00Z"
+        ))
+        var london = Calendar(identifier: .gregorian)
+        london.timeZone = try XCTUnwrap(TimeZone(identifier: "Europe/London"))
+        var newYork = Calendar(identifier: .gregorian)
+        newYork.timeZone = try XCTUnwrap(TimeZone(identifier: "America/New_York"))
+        XCTAssertTrue(HabitWatchActionPolicy.accepts(
+            snapshotDayKey: "2026-10-14", now: moment, calendar: london
+        ))
+        XCTAssertFalse(HabitWatchActionPolicy.accepts(
+            snapshotDayKey: "2026-10-14", now: moment, calendar: newYork
+        ))
+        XCTAssertTrue(HabitWatchActionPolicy.accepts(
+            snapshotDayKey: "2026-10-13", now: moment, calendar: newYork
+        ))
+    }
+
 }
