@@ -32,8 +32,13 @@ struct AddHabitView: View {
     @State private var goalKind: String
     @State private var quantityTarget: Int
     @State private var durationMinutes: Int
-    @State private var healthTargetText = ""
-    @State private var didInitializeHealthTarget = false
+    @State private var healthEnabled = false
+    @State private var healthMetric: HealthHabitMetric = .steps
+    @State private var healthTargetText = "5000"
+    @State private var didInitializeHealthDraft = false
+    @State private var pendingInitialMetric: HealthHabitMetric?
+    @State private var healthSaving = false
+    @State private var healthSaveError: String?
     @FocusState private var healthTargetFocused: Bool
     @FocusState private var nameFocused: Bool
 
@@ -42,8 +47,14 @@ struct AddHabitView: View {
     }
 
     private var parsedHealthTarget: Double? {
-        guard let rule = linkedHealthRule else { return nil }
-        return HealthHabitTargetInput.parse(healthTargetText, metric: rule.metric)
+        HealthHabitTargetInput.parse(healthTargetText, metric: healthMetric)
+    }
+
+    private var healthCompatible: Bool {
+        habit?.isArchived != true &&
+        !completionIntervalEnabled &&
+        (!flexibleWeeklyEnabled || healthMetric.supportsWeeklyGoal) &&
+        (flexibleWeeklyEnabled || (goalKind == "check" && dailyTarget == 1))
     }
 
     private var quickHabits: [(title: String, symbol: String)] {
@@ -139,32 +150,75 @@ struct AddHabitView: View {
                     }
                 }
 
-                if let rule = linkedHealthRule {
-                    Section {
-                        formSectionHeader(L10n.string("health.settings"))
-                        HStack(spacing: 10) {
-                            VStack(alignment: .leading, spacing: 2) {
-                                Text(L10n.string("health.target"))
-                                    .font(.subheadline.weight(.medium))
-                                Text(L10n.string(rule.metric.titleKey))
-                                    .font(.caption)
-                                    .foregroundStyle(.secondary)
+                Section {
+                    formSectionHeader(L10n.string("health.settings"))
+
+                    Toggle(L10n.string("health.link.toggle"), isOn: $healthEnabled)
+                        .accessibilityIdentifier("habit.health.enabled")
+
+                    if healthEnabled {
+                        HStack {
+                            Text(L10n.string("health.metric.title"))
+                            Spacer(minLength: 8)
+                            Picker(L10n.string("health.metric.title"), selection: $healthMetric) {
+                                ForEach(HealthHabitMetric.allCases) { metric in
+                                    Text(L10n.string(metric.titleKey)).tag(metric)
+                                }
                             }
+                            .labelsHidden()
+                            .pickerStyle(.menu)
+                            .onChange(of: healthMetric) { _, changed in
+                                if pendingInitialMetric == changed {
+                                    pendingInitialMetric = nil
+                                    return
+                                }
+                                pendingInitialMetric = nil
+                                healthTargetText = HealthHabitTargetInput.editableText(
+                                    changed.defaultTarget
+                                )
+                            }
+                            .accessibilityIdentifier("habit.health.metric")
+                        }
+
+                        HStack(spacing: 10) {
+                            Text(L10n.string("health.target"))
+                                .font(.subheadline.weight(.medium))
                             Spacer(minLength: 8)
                             TextField(L10n.string("health.target"), text: $healthTargetText)
-                                .keyboardType(rule.metric == .steps ? .numberPad : .decimalPad)
+                                .keyboardType(healthMetric == .steps ? .numberPad : .decimalPad)
                                 .focused($healthTargetFocused)
                                 .multilineTextAlignment(.trailing)
                                 .frame(width: 92)
                                 .accessibilityIdentifier("habit.health.target")
-                            Text(L10n.string(rule.metric.unitKey))
+                            Text(L10n.string(healthMetric.unitKey))
                                 .font(.caption)
                                 .foregroundStyle(.secondary)
                         }
                         .frame(minHeight: 44)
-                        Text(L10n.string("health.edit.target.hint"))
+
+                        if !HealthHabitCoordinator.shared.isAvailable {
+                            Label(L10n.string("health.error.unavailable"),
+                                  systemImage: "exclamationmark.circle")
+                                .font(.caption)
+                                .foregroundStyle(.orange)
+                        }
+                        if !healthCompatible {
+                            Label(L10n.string("health.unsupported"),
+                                  systemImage: "exclamationmark.circle")
+                                .font(.caption)
+                                .foregroundStyle(.orange)
+                        } else {
+                            Text(L10n.string("health.local.hint"))
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                        }
+                    }
+
+                    if let healthSaveError {
+                        Text(healthSaveError)
                             .font(.caption)
-                            .foregroundStyle(.secondary)
+                            .foregroundStyle(.red)
+                            .accessibilityIdentifier("habit.health.error")
                     }
                 }
 
@@ -364,9 +418,14 @@ struct AddHabitView: View {
                 }
             }
             .onAppear {
-                guard !didInitializeHealthTarget, let rule = linkedHealthRule else { return }
-                didInitializeHealthTarget = true
-                healthTargetText = HealthHabitTargetInput.editableText(rule.target)
+                guard !didInitializeHealthDraft else { return }
+                didInitializeHealthDraft = true
+                if let rule = linkedHealthRule {
+                    pendingInitialMetric = rule.metric
+                    healthMetric = rule.metric
+                    healthTargetText = HealthHabitTargetInput.editableText(rule.target)
+                    healthEnabled = true
+                }
             }
             .navigationTitle(
                 habit == nil
@@ -452,7 +511,8 @@ struct AddHabitView: View {
         !name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty &&
         schedule.rawValue != 0 &&
         !requestingNotificationPermission &&
-        (linkedHealthRule == nil || parsedHealthTarget != nil)
+        !healthSaving &&
+        (!healthEnabled || (healthCompatible && parsedHealthTarget != nil))
     }
 
     private func schedulePresetButton(
@@ -604,10 +664,38 @@ struct AddHabitView: View {
     }
 
     private func save() {
+        guard canSave else { return }
+        nameFocused = false
+        healthTargetFocused = false
+        healthSaveError = nil
+        let existing = linkedHealthRule
+
+        if HealthHabitEditPlan.needsAuthorization(
+            existing: existing, enabled: healthEnabled, metric: healthMetric
+        ) {
+            healthSaving = true
+            Task { @MainActor in
+                defer { healthSaving = false }
+                do {
+                    try await HealthHabitCoordinator.shared.authorize(healthMetric)
+                    commitSave(existing: existing)
+                } catch {
+                    healthSaveError = error.localizedDescription
+                }
+            }
+        } else {
+            commitSave(existing: existing)
+        }
+    }
+
+    private func commitSave(existing: HealthHabitRule?) {
         let trimmed = name.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard canSave, !trimmed.isEmpty, schedule.rawValue != 0 else { return }
-        let oldHealthRule = linkedHealthRule
-        let newHealthTarget = oldHealthRule == nil ? nil : parsedHealthTarget
+        guard !trimmed.isEmpty, schedule.rawValue != 0 else { return }
+        let rule = HealthHabitEditPlan.updatedRule(
+            existing: existing, enabled: healthEnabled,
+            metric: healthMetric, target: parsedHealthTarget
+        )
+        guard !healthEnabled || rule != nil else { return }
 
         let components = Calendar.autoupdatingCurrent.dateComponents(
             [.hour, .minute],
@@ -629,7 +717,9 @@ struct AddHabitView: View {
             mode = dailyTarget > 1 ? .multiCheck(times: dailyTarget) : .scheduled
         }
 
+        let savedHabit: Habit
         if let habit {
+            savedHabit = habit
             habit.name = trimmed
             habit.symbolName = symbolName
             habit.colorHex = colorHex
@@ -652,17 +742,31 @@ struct AddHabitView: View {
                 sortOrder: HabitOrdering.nextOrder(in: allHabits)
             )
             modelContext.insert(newHabit)
+            savedHabit = newHabit
             ChickMarkGroups.assign(habitID: newHabit.id, to: selectedGroupID)
         }
 
-        try? modelContext.save()
-        if let habit, let oldHealthRule, let newHealthTarget,
-           oldHealthRule.target != newHealthTarget {
-            if HealthHabitRuleStore.shared.updateTarget(newHealthTarget, for: habit.id) {
+        do {
+            try modelContext.save()
+        } catch {
+            healthSaveError = error.localizedDescription
+            return
+        }
+
+        if healthEnabled, let rule {
+            if existing != rule {
+                HealthHabitRuleStore.shared.save(rule, for: savedHabit.id)
+                HealthHabitCoordinator.shared.reconfigureObservers()
                 HealthHabitCoordinator.shared.refresh()
                 PhoneWatchSyncCoordinator.shared.dataDidChange()
             }
+        } else if existing != nil {
+            HealthHabitRuleStore.shared.disable(for: savedHabit.id)
+            HealthHabitCoordinator.shared.reconfigureObservers()
+            HealthHabitCoordinator.shared.refresh()
+            PhoneWatchSyncCoordinator.shared.dataDidChange()
         }
+
         HabitDataChangeNotifier.notify()
         dismiss()
     }

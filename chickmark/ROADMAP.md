@@ -1,5 +1,12 @@
 # ChickMark — Product Roadmap
 
+## 2026-10-14 — one unified habit editor (1.4.1 candidate, NOT shipped)
+- [x] Apple Health connection, supported metric, numeric threshold, and disconnection are now all controlled by the SAME Create/Edit Habit sheet as habit name, schedule and notifications. This supersedes the older split flow.
+- [x] Remove the separate "Smart automations" navigation card and delete the superseded Apple Health settings screen; preserve HealthKit local-only measurement privacy, current rule preferences, their original opt-in date (when the metric is unchanged), and historical habit records.
+- [x] Changing the threshold of an already-linked habit does not request Health permission again. Linking a new habit or changing the metric requests access BEFORE saving; failures keep the sheet open and avoid persisting a partial new link. Cancel leaves the stored rule untouched.
+- [x] Tests on Mac mini: 29/29 targeted Health + sync tests; 2/2 iOS 27 UI tests for editing + new habit; rebuilt iOS simulator target after deleting the old screen; architecture contract OK.
+- [ ] Physical-device acceptance on iPhone 13: link/create, edit/reopen target, cancel/disable, permission denial, automatic step completion; Watch local step/target display and non-destructive installation before submitting next version.
+
 ## 2026-10-14 — 1.4.1 usability patch prepared (NOT shipped)
 - [x] For an **already linked** Apple Health habit, show the current activity goal and editable numeric threshold directly in the iPhone habit edit form near the habit name. Reuse existing read-only HealthKit association; save only the threshold, preserve the activation date and historical check-ins, refresh iPhone progress and send updated goal metadata to Watch.
 - [x] In both creation and editing forms, add a localized **Hide keyboard** accessory action, plus interactive scroll dismissal; include the numeric goal keyboard and the Apple Health configuration screen.

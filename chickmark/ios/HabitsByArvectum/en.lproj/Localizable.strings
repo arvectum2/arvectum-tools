@@ -274,3 +274,6 @@
 
 "keyboard.dismiss" = "Hide keyboard";
 "health.edit.target.hint" = "Edit the goal in habit settings";
+
+"health.link.toggle" = "Auto-complete using Apple Health";
+"health.local.hint" = "Progress stays on your device. Changes apply when you save.";

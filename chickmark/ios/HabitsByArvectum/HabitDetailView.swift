@@ -170,7 +170,6 @@ struct HabitDetailView: View {
             identityCard
             statsCard
             compactHistoryCard(weeks: weeks)
-            healthIntegrationCard
 
             if canSkipToday {
                 skipTodayButton
@@ -196,38 +195,6 @@ struct HabitDetailView: View {
             .buttonStyle(.plain)
             .accessibilityIdentifier("detail.more")
         }
-    }
-
-    private var healthIntegrationCard: some View {
-        NavigationLink {
-            HealthHabitSettingsView(habit: habit)
-        } label: {
-            HStack(spacing: 12) {
-                Image(systemName: "heart.text.square")
-                    .foregroundStyle(Color.accentColor)
-                    .font(.title3)
-                VStack(alignment: .leading, spacing: 4) {
-                    Text(L10n.string("health.integrations.title"))
-                        .font(.subheadline.weight(.semibold))
-                    Text(L10n.string(
-                        HealthHabitRuleStore.shared.rule(for: habit.id) == nil
-                            ? "health.connect.hint" : "health.edit.target.hint"
-                    ))
-                    .font(.caption)
-                    // The Health integration hint must remain legible at
-                    // caption size on system and high-contrast appearances.
-                    .foregroundStyle(.primary)
-                }
-                Spacer()
-                Image(systemName: "chevron.right")
-                    .font(.caption.weight(.semibold))
-                    .foregroundStyle(.tertiary)
-            }
-            .padding(10)
-            .background(Color.habitsSurface, in: RoundedRectangle(cornerRadius: 16))
-        }
-        .buttonStyle(.plain)
-        .accessibilityIdentifier("health.settings.open")
     }
 
     private var identityCard: some View {

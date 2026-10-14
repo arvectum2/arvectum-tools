@@ -253,3 +253,6 @@
 
 "keyboard.dismiss" = "Ocultar teclado";
 "health.edit.target.hint" = "Cambiar el objetivo al editar el hábito";
+
+"health.link.toggle" = "Completar automáticamente con Apple Salud";
+"health.local.hint" = "El progreso se queda en tu dispositivo. Los cambios se aplican al guardar.";

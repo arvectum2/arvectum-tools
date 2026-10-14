@@ -58,6 +58,31 @@ final class HabitFlowUITests: XCTestCase {
         XCTAssertEqual(name.value as? String, "Read daily")
     }
 
+    func testUnifiedHealthLinkInNewHabitEditorWithoutSecondaryScreen() throws {
+        let create = app.buttons["Create habit"]
+        XCTAssertTrue(create.waitForExistence(timeout: 4))
+        create.tap()
+
+        let health = app.switches["habit.health.enabled"]
+        XCTAssertTrue(health.waitForExistence(timeout: 4))
+        XCTAssertFalse(health.value as? String == "1")
+        XCTAssertFalse(app.textFields["habit.health.target"].exists)
+        health.coordinate(withNormalizedOffset: CGVector(dx: 0.88, dy: 0.5)).tap()
+        XCTAssertEqual(health.value as? String, "1")
+        let target = app.textFields["habit.health.target"]
+        XCTAssertTrue(target.waitForExistence(timeout: 4))
+        XCTAssertEqual(target.value as? String, "5000")
+
+        target.tap()
+        let dismissKeyboard = app.buttons["habit.keyboard.dismiss"]
+        XCTAssertTrue(dismissKeyboard.waitForExistence(timeout: 4))
+        dismissKeyboard.tap()
+        XCTAssertFalse(app.buttons["health.settings.open"].exists)
+        // Cancel must not create the habit or persist the link.
+        app.buttons["Cancel"].tap()
+        XCTAssertTrue(app.buttons["Create habit"].waitForExistence(timeout: 4))
+    }
+
     func testStorageFailureShowsNonDestructiveRecoveryScreen() throws {
         app.terminate()
         app.launchArguments = [
@@ -167,15 +192,22 @@ final class HabitFlowUITests: XCTestCase {
         XCTAssertEqual(streak.frame.height, percent.frame.height, accuracy: 1)
         XCTAssertEqual(streak.frame.height, checkins.frame.height, accuracy: 1)
 
-        let settings = app.buttons["health.settings.open"]
-        XCTAssertTrue(settings.waitForExistence(timeout: 3))
-        settings.tap()
+        // The habit detail now has one edit entry point, not a second
+        // "Smart automations" settings screen.
+        XCTAssertFalse(app.buttons["health.settings.open"].exists)
+        let edit = app.buttons["Edit"]
+        XCTAssertTrue(edit.waitForExistence(timeout: 3))
+        edit.tap()
 
-        let action = app.buttons["health.connect.action"]
-        XCTAssertTrue(action.waitForExistence(timeout: 3))
-        XCTAssertTrue(action.isHittable, "Health setup must fit without scrolling")
-        XCTAssertLessThanOrEqual(action.frame.maxY, app.windows.firstMatch.frame.maxY - 10)
-        XCTAssertTrue(app.textFields["health.target"].exists)
+        let enabled = app.switches["habit.health.enabled"]
+        XCTAssertTrue(enabled.waitForExistence(timeout: 4))
+        XCTAssertTrue(enabled.isHittable, "Health integration must be in Edit habit")
+        // iOS 27 exposes the entire Toggle row as one AX Switch, but an AX
+        // tap at the row centre hits the label, not the native switch knob.
+        enabled.coordinate(withNormalizedOffset: CGVector(dx: 0.88, dy: 0.5)).tap()
+        XCTAssertEqual(enabled.value as? String, "1")
+        XCTAssertTrue(app.textFields["habit.health.target"].waitForExistence(timeout: 3))
+        XCTAssertTrue(app.buttons["Done"].exists || app.buttons["Save"].exists)
     }
 
     func testUXMainShowsMultiCheckCountAndCreationStartsWithoutKeyboard() throws {
