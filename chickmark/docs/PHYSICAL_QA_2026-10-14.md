@@ -34,3 +34,10 @@ These results do NOT prove that either UI stayed open, that a live HealthKit que
 - [ ] Check real RСЯ creative/consent behavior separately from debug diagnostics.
 
 Release publication is confirmed by owner, but this is NOT a full physical-device acceptance sign-off.
+
+## 1.4.1 (9) artifact ready, not yet physically accepted
+- [x] Combined non-published release candidate created in [PR #17](https://github.com/arvectum2/arvectum-tools/pull/17), including updated iOS/Watch Health refreshing, paired-Watch auto-completion Boolean, unified editor, and numeric Watch progress. Full local iOS tests 163/163, essential UI tests 2/2 and archive smoke passed.
+- [x] Internal-only TestFlight IPA locally exported and verified: 1.4.1(9) four signed bundles, CloudKit Production, aps-environment production, get-task-allow false. [Export evidence](https://github.com/arvectum2/arvectum-tools/pull/18). Stored on Mac mini under /Volumes/ArvectumSSD/Arvectum/builds/chickmark/1.4.1-9/export-internal/HabitsByArvectum.ipa. No upload or physical installation performed.
+- [ ] GitHub Actions CI success still required (local pass is not equivalent to CI).
+- [ ] Explicit user approval before internal TestFlight upload, and full in-app habit backup before replacing public 1.4.0 app. Never install development-signed 1.4.1 over the published production CloudKit configuration.
+- [ ] Run actual iPhone and paired Watch HealthKit permission, step reading/target, automatic checkmark, WatchConnectivity reconciliation, manual undo, midnight and data-preserving upgrade tests.
