@@ -4,7 +4,10 @@
 - [x] Advance all four iPhone/Watch/widget targets from build 11 to **build 12** without changing marketing version, app identifiers or data schema.
 - [x] Incorporate PR #28: pull-down numeric keyboard dismissal and real watchOS HealthKit observer/background delivery, plus independent Siri Shortcut filter bug correction.
 - [x] Preliminary checks: 169/169 iOS unit tests, numeric swipe-down simulator UI pass, generic watchOS build pass, signed watchOS archive contains HealthKit Background Delivery entitlement **and matching provisioning profile**, no archive privacy errors.
-- [ ] Upload using internal-only App Store Connect export with Production CloudKit, attach to existing ChickMark Internal QA testers, verify GitHub CI, then physically test complication with Watch app kept closed. Do not submit to App Store review or change installed apps directly.
+- [x] Signed Release archive and internal-only TestFlight export succeeded for build 12. Verified IPA: all four components 1.4.1 (12), production push and CloudKit, Watch HealthKit Background Delivery entitlement in exported Watch binary. Apple App Store Connect API accepted build 12 as VALID and confirmed attachment to the existing **ChickMark Internal QA** internal group (2 existing testers, 4 builds). No user device installation or public App Store review submission.
+- [ ] **Physical Watch QA:** install 1.4.1 (12) through TestFlight without uninstalling; open Watch ChickMark once to ensure observer registration, then return to Watch face and keep ChickMark closed. Exceed the goal, optionally check Apple Activity rings, and observe whether the complication updates without launching ChickMark. Record the native Activity steps, goal and elapsed time; system budgets delivery and WidgetKit refreshes, so no instant-update promise.
+- [ ] **Physical iPhone numeric keyboard QA:** edit step goal, pull **down on the form above the number pad** (not on individual number keys) and verify keyboard disappears. Simulated UI test passed.
+- [ ] GitHub Habits iOS CI for commit c7f7d58 (run 38572244812) pending at time of write; previous deterministic Siri Shortcuts filter bug was fixed and 169 local tests passed.
 
 
 ## 2026-10-14 — follow-up physical QA on internal 1.4.1 (11)
