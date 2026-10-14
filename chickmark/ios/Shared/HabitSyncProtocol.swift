@@ -145,6 +145,32 @@ enum HabitCompletionCommandQueue {
     }
 }
 
+/// WatchConnectivity keeps transferUserInfo packets across temporary
+/// disconnects and app restarts. Re-enqueueing the *same* command on every
+/// refresh cancels a healthy durable transfer and can indefinitely delay ACK
+/// on unstable links. Only an actual newer action for that habit/day replaces it.
+enum HabitDurableDeliveryPlan {
+    struct Decision: Equatable {
+        let alreadyQueued: Bool
+        let supersededIDs: Set<UUID>
+    }
+
+    static func plan(
+        new command: HabitCompletionCommand,
+        outstanding: [HabitCompletionCommand]
+    ) -> Decision {
+        let forTarget = outstanding.filter {
+            $0.habitID == command.habitID && $0.dayKey == command.dayKey
+        }
+        return Decision(
+            alreadyQueued: forTarget.contains { $0.id == command.id },
+            supersededIDs: Set(forTarget.filter {
+                $0.id != command.id
+            }.map(\.id))
+        )
+    }
+}
+
 enum HabitSyncPacketKind: String, Codable {
     case snapshot
     case setCompletion
