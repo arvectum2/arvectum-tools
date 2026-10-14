@@ -3,6 +3,8 @@ import SwiftUI
 struct WatchTodayView: View {
     @EnvironmentObject private var syncStore: WatchHabitSyncStore
     @State private var locallyVerified: Set<UUID> = []
+    @State private var healthProgress: [UUID: WatchHealthProgress] = [:]
+    @State private var healthEvaluationCompleted = false
     @State private var userOverridden: Set<UUID> = []
     private var resolvedCount: Int {
         // totalCount can include habits omitted from the compact Watch list.
@@ -49,7 +51,16 @@ struct WatchTodayView: View {
         }
         .navigationTitle(WatchL10n.string("watch.today"))
         .task(id: syncStore.snapshot.generatedAt) {
-            locallyVerified = await WatchHealthEvaluator.qualifyingIDs(for: syncStore.snapshot.habits)
+            await refreshHealthProgress()
+        }
+        .task {
+            // The displayed figures belong to this Watch only, not to a
+            // WatchConnectivity snapshot. Refresh during an open session.
+            while !Task.isCancelled {
+                try? await Task.sleep(for: .seconds(120))
+                guard !Task.isCancelled else { break }
+                await refreshHealthProgress()
+            }
         }
         .onChange(of: syncStore.snapshot.dayKey) { oldDay, newDay in
             guard oldDay != newDay else { return }
@@ -58,6 +69,8 @@ struct WatchTodayView: View {
             // legitimate HealthKit auto-completion.
             userOverridden.removeAll()
             locallyVerified.removeAll()
+            healthProgress.removeAll()
+            healthEvaluationCompleted = false
         }
         .task {
             // Re-evaluate cached snapshots when the date changes while the
@@ -81,6 +94,15 @@ struct WatchTodayView: View {
             syncStore.debugStressToggleCachedFirstHabitIfRequested()
 #endif
         }
+    }
+
+    @MainActor
+    private func refreshHealthProgress() async {
+        let evaluation = await WatchHealthEvaluator.evaluate(for: syncStore.snapshot.habits)
+        guard !Task.isCancelled else { return }
+        healthProgress = evaluation.progress
+        locallyVerified = evaluation.qualifyingIDs
+        healthEvaluationCompleted = true
     }
 
     private var progressHeader: some View {
@@ -212,6 +234,40 @@ struct WatchTodayView: View {
                 ? WatchL10n.string("watch.undoHint")
                 : WatchL10n.string("watch.completeHint")
         )
+        if let progress = healthProgress[habit.id] {
+            VStack(spacing: 3) {
+                HStack(spacing: 4) {
+                    Text(WatchL10n.string(progress.unitKey))
+                        .lineLimit(1)
+                    Spacer(minLength: 2)
+                    Text(progress.quantityText(locale: .current))
+                        .monospacedDigit()
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.75)
+                }
+                .font(.caption2)
+                .foregroundStyle(.secondary)
+
+                GeometryReader { geometry in
+                    Capsule()
+                        .fill(Color.secondary.opacity(0.2))
+                        .overlay(alignment: .leading) {
+                            Capsule()
+                                .fill(Color.arvectumMint)
+                                .frame(width: geometry.size.width * progress.fraction)
+                        }
+                }
+                .frame(height: 4)
+                .accessibilityHidden(true)
+            }
+            .accessibilityElement(children: .combine)
+            .accessibilityIdentifier("watch.health.progress")
+        } else if healthEvaluationCompleted && habit.healthRuleMetric != nil {
+            Text(WatchL10n.string("watch.health.unavailable"))
+                .font(.caption2)
+                .foregroundStyle(.secondary)
+                .accessibilityIdentifier("watch.health.unavailable")
+        }
         if let target = habit.dailyTarget,
            let count = habit.dailyCount, target > 1 {
             HStack(spacing: 10) {

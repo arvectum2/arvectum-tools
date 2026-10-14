@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		35F03C8DF6CBC39DF94D4CA1 /* WatchHealthProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2214F3379E2C873AFFF9F362 /* WatchHealthProgress.swift */; };
+		6FD84166159F2B65644B6CB1 /* WatchHealthProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2214F3379E2C873AFFF9F362 /* WatchHealthProgress.swift */; };
 		008A101918CA20D451CC7CE5 /* HabitSyncProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13D3C66AF60610CBDB248FB /* HabitSyncProtocol.swift */; };
 		04531C984491BFA9AE5BE40C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F6EDEAB72F03791360B785EC /* Assets.xcassets */; };
 		047B3E29CA022C43E9C1C680 /* CompletionUndoToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3E55BECC8C7492F385C8C3 /* CompletionUndoToast.swift */; };
@@ -209,6 +211,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2214F3379E2C873AFFF9F362 /* WatchHealthProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchHealthProgress.swift; sourceTree = "<group>"; };
 		038D449A1B80537CAAAD08DE /* WatchComplicationBridgeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchComplicationBridgeTests.swift; sourceTree = "<group>"; };
 		07EEFC14FA3B5F51E4785CA2 /* HabitScheduleText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitScheduleText.swift; sourceTree = "<group>"; };
 		088B9D34A2BA3267BAE4FADE /* HabitDesiredCountTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitDesiredCountTests.swift; sourceTree = "<group>"; };
@@ -608,6 +611,7 @@
 				FEB5A0195D0825677F6DA98D /* HabitSyncReconciler.swift */,
 				16FE7EFD83635E9171BC06BA /* HabitWidgetBridge.swift */,
 				306AEBE034C4BC280E31DEDD /* WatchComplicationBridge.swift */,
+				2214F3379E2C873AFFF9F362 /* WatchHealthProgress.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -913,6 +917,7 @@
 				E3F963D95460DE12EC180EE2 /* WatchComplicationBridge.swift in Sources */,
 				DCAE4D8F1BB3ED44221DF94B /* WatchHabitSyncStore.swift in Sources */,
 				4490AD067F5C4E0A6A91303C /* WatchHealthEvaluator.swift in Sources */,
+				6FD84166159F2B65644B6CB1 /* WatchHealthProgress.swift in Sources */,
 				C0DB7B95ED8C58A4A3633DEA /* WatchLocalization.swift in Sources */,
 				3848EF6123B5824643930E08 /* WatchTheme.swift in Sources */,
 				70AD1A1DB286FF76ACF5322A /* WatchTodayView.swift in Sources */,
@@ -988,6 +993,7 @@
 				F406530C70761BF62F10972E /* TodayView.swift in Sources */,
 				833715CE4FBF4F661063A102 /* ToggleHabitWidgetIntent.swift in Sources */,
 				E85587A04F8788F21E7BDF7C /* WatchComplicationBridge.swift in Sources */,
+				35F03C8DF6CBC39DF94D4CA1 /* WatchHealthProgress.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
