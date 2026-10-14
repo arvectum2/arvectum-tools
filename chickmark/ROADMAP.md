@@ -1,5 +1,14 @@
 # ChickMark — Product Roadmap
 
+## 2026-10-14 — App Store 1.4.1 (15) review submission completed
+- [x] Public 1.4.1 (15) was independently verified APP_STORE_ELIGIBLE and VALID, attached to App Store draft with localized RU/EN/ES What's New and App Review Notes.
+- [x] **Apple App Privacy P0 closed** via authenticated App Store Connect: old Data Not Collected replaced by published Data Not Linked to You, eight SDK categories completed (Coarse Location, Device ID, Product Interaction, Advertising Data, Crash Data, Performance Data, Other Diagnostic Data, Other Data Types). See metadata/privacy-review-1.4.1.md for purposes and caveat about AppMetrica AdSupport IDFA capability; ChickMark does not request IDFA/ATT and sets SDK location and consent false.
+- [x] App Store Connect confirmed 1 Item Submitted and independently displayed **iOS 1.4.1 Waiting for Review**. Version has MANUAL release; no public App Store release yet (public 1.4.0 remains live).
+- [x] Complete release branch Habits iOS CI passed (run 38615994169); PR #39 extended Xcode Cloud UI smoke timeout to 900s without changing app assertions. A main CI rerun was requested; its eventual result is separate from the physically tested build.
+- [ ] Await Apple Review decision and subsequently make a deliberate MANUAL public-release decision. No asynchronous promise of release.
+- [ ] Optional extended device QA (offline Watch reconciliation, midnight, revoked Health permission, live Yandex fill) remains; no installed app data was deleted.
+
+
 ## 2026-10-14 — 1.4.1 (15) cloud CI slower simulator startup
 - [x] Xcode 27 CI completed unit/integration checks but essential two UI tests exceeded the old **270-second** hard-stop while simulator launch/idling was slow; no UI assertion failed in the captured log. Keep both exact test result assertions unchanged and extend the bounded CI smoke allowance to **900 seconds**, within the 35-minute workflow cap. Verify CI green on main.
 
@@ -9,11 +18,11 @@
 - [x] Current App Store public 1.4.0 (8) independently verified READY_FOR_SALE using official App Store Connect API. Internal 1.4.1 (14) has buildAudienceType INTERNAL_ONLY and cannot go directly to App Review.
 - [x] Merge physically tested feature branch into dedicated public-release branch from main; conflicts resolved retaining tested 1.4.1 behavior, unrelated Arvectum Tools paths unchanged; Watch build and architecture pass. Public build number all four targets bumped to 15.
 - [x] New localized public 1.4.1 What's New and updated App Review Notes reflect HealthKit, watchOS background, privacy and ads; updated privacy compliance audit identifies all bundled SDK manifests. See app-store/metadata/release-notes-1.4.1.md, review-notes-1.4.1.md, privacy-review-1.4.1.md.
-- [ ] **BLOCKER: App Privacy** — production signed Yandex Mobile Ads and transitively bundled AppMetrica/KSCrash privacy manifests advertise Device ID, advertising and diagnostic data (AppMetrica AdSupport additionally declares linked tracking), conflicting with legacy "No Data Collected" V1 listing. Verify effective collection / disable unwanted SDK tracking and publish corrected Apple App Privacy responses before App Review submission. App Store Connect app privacy questionnaire is UI-only and current Mac Safari is logged out. Do not misrepresent the build or assert compliance.
+- [x] **App Privacy now published**: eight categories and purposes declared after reviewing the Yandex/AppMetrica/KSCrash manifests. The previous Data Not Collected label was corrected before review submission.
 - [ ] Manual on-device offline Watch reconciliation, Health consent denial, midnight rollover and nonempty Lock Screen widget / ad behavior remain partially simulated, not fully signed-off on physical Watch; no uninstall/reset of owner's data.
 - [x] Public-capable signed 1.4.1 (15) archive, 4/4 Apple Distribution IPA components, production push/CloudKit, Watch HealthKit entitlement. Upload succeeded, official App Store Connect API confirmed **VALID / APP_STORE_ELIGIBLE**, attached to iOS App Store draft 1.4.1. Four What’s New locales and App Review Notes updated and verified. Release type **MANUAL** and version status **PREPARE_FOR_SUBMISSION**; no App Review submission or public release.
 - [x] Updated and deployed site privacy policy covering optional ChickMark Apple Health processing; HTTPS /privacy returns 200 with new text. Backed up previous file on hosting; only privacy.html replaced (GitHub arvectum2/arvectum-site PR #14). Site-wide check currently has unrelated pre-existing sitemap/Schlam static issues, not caused by privacy paragraph.
-- [ ] App Store Connect App Privacy questionnaire still requires authenticated web UI and factual reconciliation with Yandex/AppMetrica/KSCrash runtime and compiled privacy manifests. Avoid submitting while this P0 compliance verification is open.
+- [x] App Privacy questionnaire accessed, completed and published; Apple displays Data Not Linked to You. Reassess if SDK collection, user-consent settings or IDFA behavior changes.
 - [ ] Physical offline/overnight/permission-denial and Yandex production-fill QA remain interactive; existing model, backup, CloudKit group code unchanged, full local unit and accepted real Watch foreground/background tests provide partial evidence. No destructive device actions.
 
 
