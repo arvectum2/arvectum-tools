@@ -3,10 +3,12 @@ import WidgetKit
 
 struct WatchTodayView: View {
     @EnvironmentObject private var syncStore: WatchHabitSyncStore
+    @Environment(\.scenePhase) private var scenePhase
     @State private var locallyVerified: Set<UUID> = []
     @State private var healthProgress: [UUID: WatchHealthProgress] = [:]
     @State private var healthEvaluationCompleted = false
     @State private var userOverridden: Set<UUID> = []
+    @State private var healthRefreshSerial = 0
     private var resolvedCount: Int {
         // totalCount can include habits omitted from the compact Watch list.
         // Start with the authoritative snapshot counts, then add only
@@ -88,6 +90,13 @@ struct WatchTodayView: View {
                 syncStore.refresh()
             }
         }
+        .onChange(of: scenePhase) { _, newPhase in
+            guard newPhase == .active else { return }
+            // Returning from native Activity can be the first time the
+            // HealthKit steps are actually available to the Watch app.
+            syncStore.refresh()
+            Task { await refreshHealthProgress() }
+        }
         .onAppear {
             syncStore.refresh()
 #if DEBUG
@@ -99,8 +108,13 @@ struct WatchTodayView: View {
 
     @MainActor
     private func refreshHealthProgress() async {
-        let evaluation = await WatchHealthEvaluator.evaluate(for: syncStore.snapshot.habits)
-        guard !Task.isCancelled else { return }
+        healthRefreshSerial += 1
+        let request = healthRefreshSerial
+        let before = syncStore.snapshot
+        let evaluation = await WatchHealthEvaluator.evaluate(for: before.habits)
+        guard !Task.isCancelled, request == healthRefreshSerial,
+              before.generatedAt == syncStore.snapshot.generatedAt,
+              before.dayKey == syncStore.snapshot.dayKey else { return }
         healthProgress = evaluation.progress
         locallyVerified = evaluation.qualifyingIDs
         healthEvaluationCompleted = true
@@ -112,7 +126,9 @@ struct WatchTodayView: View {
     private func publishLocalHealthToComplication() {
         let ids = locallyVerified.subtracting(userOverridden)
         if WatchLocalHealthProjection.save(
-            dayKey: syncStore.snapshot.dayKey, habitIDs: ids
+            dayKey: syncStore.snapshot.dayKey,
+            habitIDs: ids,
+            habits: syncStore.snapshot.habits
         ) {
             WidgetCenter.shared.reloadTimelines(ofKind: "HabitsWatchComplication")
         }

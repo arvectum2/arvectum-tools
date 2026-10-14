@@ -3,10 +3,48 @@ import Foundation
 /// Watch-only derived Boolean completion for complications. Raw step counts
 /// never leave HealthKit and this cache is excluded from iCloud backup.
 enum WatchLocalHealthProjection {
+    struct Rule: Codable, Equatable {
+        let metric: String
+        let target: Double
+    }
+
     struct State: Codable, Equatable {
         let dayKey: String
         let habitIDs: [UUID]
         let generatedAt: Date
+        /// Local threshold used for this decision. Reject old completions
+        /// after the phone changes a target before the Watch can re-read HK.
+        let rules: [UUID: Rule]?
+
+        init(dayKey: String, habitIDs: [UUID], generatedAt: Date,
+             rules: [UUID: Rule]? = nil) {
+            self.dayKey = dayKey
+            self.habitIDs = habitIDs
+            self.generatedAt = generatedAt
+            self.rules = rules
+        }
+    }
+
+    /// The same deterministic threshold rule drives Watch UI and face,
+    /// including a real manual override and skipped day.
+    static func qualifies(_ habit: HabitSyncHabit, value: Double) -> Bool {
+        guard let target = habit.healthRuleTarget,
+              target.isFinite, target > 0,
+              habit.healthRuleMetric != nil, value.isFinite
+        else { return false }
+        return value >= target && !habit.completed
+            && !habit.skipped && !habit.healthManualOverride
+    }
+
+    private static func rules(for habits: [HabitSyncHabit],
+                              qualifyingIDs: Set<UUID>) -> [UUID: Rule] {
+        Dictionary(uniqueKeysWithValues: habits.compactMap { habit in
+            guard qualifyingIDs.contains(habit.id),
+                  let metric = habit.healthRuleMetric,
+                  let target = habit.healthRuleTarget,
+                  target.isFinite, target > 0 else { return nil }
+            return (habit.id, Rule(metric: metric, target: target))
+        })
     }
 
     private static func cacheURL() -> URL? {
@@ -19,13 +57,17 @@ enum WatchLocalHealthProjection {
     }
 
     @discardableResult
-    static func save(dayKey: String, habitIDs: Set<UUID>, at now: Date = .now) -> Bool {
+    static func save(dayKey: String, habitIDs: Set<UUID>,
+                     habits: [HabitSyncHabit], at now: Date = .now) -> Bool {
         guard var url = cacheURL(), !dayKey.isEmpty else { return false }
-        let sortedIDs = habitIDs.sorted { $0.uuidString < $1.uuidString }
-        if let prior = load(), prior.dayKey == dayKey && prior.habitIDs == sortedIDs {
+        let currentRules = rules(for: habits, qualifyingIDs: habitIDs)
+        let sortedIDs = currentRules.keys.sorted { $0.uuidString < $1.uuidString }
+        if let prior = load(), prior.dayKey == dayKey &&
+            prior.habitIDs == sortedIDs && prior.rules == currentRules {
             return false
         }
-        let state = State(dayKey: dayKey, habitIDs: sortedIDs, generatedAt: now)
+        let state = State(dayKey: dayKey, habitIDs: sortedIDs,
+                          generatedAt: now, rules: currentRules)
         guard let encoded = try? JSONEncoder().encode(state) else { return false }
         var folder = url.deletingLastPathComponent()
         do {
@@ -68,7 +110,9 @@ enum WatchLocalHealthProjection {
         for index in projected.habits.indices {
             let habit = projected.habits[index]
             guard qualifying.contains(habit.id),
-                  habit.healthRuleMetric != nil,
+                  let rule = state.rules?[habit.id],
+                  rule.metric == habit.healthRuleMetric,
+                  rule.target == habit.healthRuleTarget,
                   !habit.completed, !habit.skipped, !habit.healthManualOverride
             else { continue }
             projected.habits[index].completed = true

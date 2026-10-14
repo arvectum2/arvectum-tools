@@ -452,15 +452,6 @@ struct AddHabitView: View {
                 Text(L10n.string("notification.denied.message"))
             }
             .toolbar {
-                ToolbarItemGroup(placement: .keyboard) {
-                    Spacer()
-                    Button(L10n.string("keyboard.dismiss")) {
-                        nameFocused = false
-                        healthTargetFocused = false
-                    }
-                    .accessibilityIdentifier("habit.keyboard.dismiss")
-                }
-
                 ToolbarItem(placement: .topBarLeading) {
                     Button {
                         dismiss()

@@ -35,7 +35,7 @@ final class HabitFlowUITests: XCTestCase {
         XCTAssertTrue(app.descendants(matching: .any)["manage.support"].exists)
     }
 
-    func testCreateFormKeyboardCanBeDismissedWithoutSaving() throws {
+    func testCreateFormHasNoObstructiveKeyboardBar() throws {
         let create = app.buttons["Create habit"]
         XCTAssertTrue(create.waitForExistence(timeout: 4))
         create.tap()
@@ -45,17 +45,14 @@ final class HabitFlowUITests: XCTestCase {
         name.tap()
         name.typeText("Read daily")
 
-        let hide = app.buttons["habit.keyboard.dismiss"]
-        XCTAssertTrue(hide.waitForExistence(timeout: 5))
-        hide.tap()
+        // The system Form already supports interactive keyboard dismissal.
+        // The former full-height keyboard toolbar obscured the step input.
+        XCTAssertFalse(app.buttons["habit.keyboard.dismiss"].exists)
         XCTAssertTrue(app.navigationBars["New habit"].exists)
-        let keyboardGone = XCTNSPredicateExpectation(
-            predicate: NSPredicate(format: "exists == false"),
-            object: app.keyboards.firstMatch
-        )
-        XCTAssertEqual(XCTWaiter.wait(for: [keyboardGone], timeout: 5), .completed)
-        // The typed name is retained; hiding is never an implicit Save.
         XCTAssertEqual(name.value as? String, "Read daily")
+        // No implicit save on keyboard focus; closing the editor cancels.
+        app.buttons["Cancel"].tap()
+        XCTAssertTrue(app.buttons["Create habit"].waitForExistence(timeout: 4))
     }
 
     func testUnifiedHealthLinkInNewHabitEditorWithoutSecondaryScreen() throws {
@@ -74,9 +71,7 @@ final class HabitFlowUITests: XCTestCase {
         XCTAssertEqual(target.value as? String, "5000")
 
         target.tap()
-        let dismissKeyboard = app.buttons["habit.keyboard.dismiss"]
-        XCTAssertTrue(dismissKeyboard.waitForExistence(timeout: 4))
-        dismissKeyboard.tap()
+        XCTAssertFalse(app.buttons["habit.keyboard.dismiss"].exists)
         XCTAssertFalse(app.buttons["health.settings.open"].exists)
         // Cancel must not create the habit or persist the link.
         app.buttons["Cancel"].tap()

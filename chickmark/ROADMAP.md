@@ -1,5 +1,13 @@
 # ChickMark — Product Roadmap
 
+## 2026-10-14 — Physical build 1.4.1 (10) UX and Watch face retest
+- [x] Owner reported keyboard accessory **large 'Hide keyboard' button obscures step-goal input** and forces scrolling. Removed separate keyboard toolbar; retained standard Form interactive scroll keyboard dismissal, without an obstructing bar. Physical swipe interaction still merits manual QA. Two UI simulator tests passed: no accessory button and unified Health editor usable.
+- [x] Owner changed step target on iPhone and saw auto-check disappear appropriately. **Watch-face complication retained old resolved count (1/3)** until owner opened Watch ChickMark app, where updated unchecked state appeared. Caches now bind derived checkoffs to their exact metric/target; stale completion cannot survive new goal once Watch receives corresponding sync snapshot. WidgetKit and WatchConnectivity still OS-scheduled; instant background widget update not guaranteed.
+- [x] After walking and opening native Apple Watch Activity rings, step numbers refreshed in Watch ChickMark, but **automatic checkmark did not appear**. Missing exact watch current/target reading and whether manual override is set: do not pretend root cause proven. Watch now re-reads HealthKit when scene becomes active after returning from Activity; queries race-proofed against older snapshot; deterministic threshold qualification extracted and unit-tested.
+- [x] Initial focused verification: 25/25 unit tests (HealthKit + Watch complication), generic watchOS build, 2/2 simulator UI tests, release hygiene + architecture check. Real device auto-check and complication update remain acceptance gates.
+- [ ] No public App Store submission. Next internal TestFlight candidate only for nondestructive iPhone/Watch QA. Record **exact Watch steps / target** when check fails and whether iPhone auto-checks same habit.
+
+
 ## 2026-10-14 — 1.4.1 (10) internal TestFlight QA build (NOT public)
 - [x] Advance **all four iOS/watchOS/widget build numbers** from 1.4.1 (9) to 1.4.1 (10), without changing marketing version, bundle IDs or persistence model.
 - [x] Incorporate Watch-face complication fix from [PR #22](https://github.com/arvectum2/arvectum-tools/pull/22), after real device QA found automatic steps completed in Watch ChickMark but not on the watch-face complication. Native Watch Activity rings preceding the synchronized steps is an observation, not a delivery guarantee.
