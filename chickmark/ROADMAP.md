@@ -7,7 +7,8 @@ Evidence: [HealthKit 1.4 branch roadmap](https://github.com/arvectum2/arvectum-t
 - [x] 1.4 branch implements opt-in read-only HealthKit-derived rules, local privacy safeguards, Watch/widget improvements and localized HealthKit purpose strings.
 - [x] App Store build 8 validated, uploaded, attached and review submitted on 2026-10-13.
 - [x] Owner confirmed Apple's approval and public release of 1.4.0 (8) on 2026-10-14; device inventories show the same version on iPhone and Watch. Regional propagation not independently checked.
-- [ ] Finish physical iPhone+Watch HealthKit consent/readings, offline Watch reconciliation, nonempty widget, ad and privacy acceptance. Device inventory and non-activated launch only are verified; see [physical QA evidence](docs/PHYSICAL_QA_2026-10-14.md).
+- [ ] Finish physical iPhone+Watch HealthKit consent/readings, offline Watch reconciliation, nonempty widget, ad and privacy acceptance. Watch foreground opened without immediate crash on 2026-10-14, but Health permission/real readings remain unverified; see [physical QA evidence](docs/PHYSICAL_QA_2026-10-14.md).
+- [ ] **Patch after published 1.4.0:** missing step/current-target display for HealthKit-linked «Прогулка» on Watch. Code fix built and tested in [PR #7](https://github.com/arvectum2/arvectum-tools/pull/7), but NOT delivered to end users; physical sensor acceptance and release number/signing/review are still open.
 - [ ] Merge reviewed 1.4 work and release evidence into main while protecting 1.3 data and rollback.
 - [ ] After release prioritize Gentle restart; weekly summary, reduction habits and check-in notes remain evidence-gated.
 
