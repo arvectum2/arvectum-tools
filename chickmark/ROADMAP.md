@@ -2,7 +2,7 @@
 
 ## Active release checkpoint — 2026-10-14
 - [x] **Follow-up TestFlight QA:** native Watch Activity rings opening preceded fresh Apple Health steps across Watch and iPhone, after which ChickMark auto-checked only when Watch app was opened. Widget/complication remained stale. [Code correction PR #22](https://github.com/arvectum2/arvectum-tools/pull/22) merged to feature branch; 167 unit tests and Watch build pass, full CI ongoing. No distribution of correction yet. See [physical QA](docs/PHYSICAL_QA_2026-10-14.md).
-- [ ] Verify Watch complication and iPhone widget separately after next internal build; no guaranteed instant WidgetKit refresh or background Watch Health execution.
+- [ ] **Scope clarified by owner:** the stale widget is the **Apple Watch face complication**; **no iPhone widget is installed**, so no iPhone widget failure was observed. Validate PR #22 via Watch face after opening ChickMark and separately when Watch app is suspended; no guaranteed instant WidgetKit refresh or background Watch Health execution.
 
 **Current published release:** 1.4.0 (8), approved and published, owner-confirmed on 2026-10-14. The exact 1.4.0 (8) version is also installed on paired physical iPhone 13 and Apple Watch SE as read by CoreDevice on 2026-10-14. Independent country-by-country storefront propagation was not checked. The unsubmitted 1.3.1 candidate was superseded; older preparation checklists below are historical.
 

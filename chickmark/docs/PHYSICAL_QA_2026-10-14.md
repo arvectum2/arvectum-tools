@@ -59,3 +59,10 @@ Release publication is confirmed by owner, but this is NOT a full physical-devic
 - [x] Root code issue found for Watch complication: WatchTodayView local HealthKit-derived checkoffs were not projected into WatchComplicationBridge. Fix implemented in [PR #22](https://github.com/arvectum2/arvectum-tools/pull/22) on the ChickMark feature branch. It publishes Boolean-only local ephemeral progress to Watch complication, excludes caches from backups, respects manual undo and avoids repeated unnecessary iPhone widget reload requests. **167/167 iOS unit tests**, generic watchOS build, architecture check passed; no user-device upgrade or public release.
 - [ ] Verify iPhone widget separately from Watch complication in next physical QA; WidgetKit is OS-budgeted and may defer timeline updates even after a correct reload request.
 - [ ] Test updated Watch complication only after a separately versioned internal TestFlight build and user-approved install. Keep 1.4.1(9) unchanged meanwhile. Closing Watch ChickMark before step completion remains an independent background-delivery limitation.
+
+## Precise affected widget: Watch face complication (owner clarification)
+- [x] The stale checkmark was on the **ChickMark complication on the Apple Watch face**, not on an iPhone Home Screen widget.
+- [x] Owner has **not installed any ChickMark iPhone widget**; it cannot be evaluated from this device test, and should not be marked as failing.
+- [ ] Next internal TestFlight watchOS QA after PR #22: when Apple Health has received steps beyond the threshold, launch ChickMark on Watch, do **not** tap the habit or toggle its checkbox, return to the watch face; observe whether complication now reflects the auto-completed habit. Record any OS-scheduled repaint latency.
+- [ ] Separately test background mode, with Watch ChickMark closed before goal completion. Do **not** claim the complication can proactively read steps or update itself while watchOS app is suspended; this remains an OS scheduling/product limitation.
+- [ ] Verify undo/skip and day rollover so local-only derived completion cannot resurrect a manually undone habit or remain on next day's complication.
