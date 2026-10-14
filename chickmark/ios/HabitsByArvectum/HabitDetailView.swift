@@ -214,7 +214,9 @@ struct HabitDetailView: View {
                             ? "health.connect.hint" : "health.connected.hint"
                     ))
                     .font(.caption)
-                    .foregroundStyle(.secondary)
+                    // The Health integration hint must remain legible at
+                    // caption size on system and high-contrast appearances.
+                    .foregroundStyle(.primary)
                 }
                 Spacer()
                 Image(systemName: "chevron.right")
