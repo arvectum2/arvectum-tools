@@ -1,11 +1,19 @@
 # ChickMark — Product Roadmap
 
+## 2026-10-14 — App Review submission now AUTO RELEASE AFTER APPROVAL
+- [x] User explicitly requested publication as soon as Apple approves **ChickMark iOS 1.4.1 (15)**.
+- [x] App Store Connect version page showed **WAITING_FOR_REVIEW** and original releaseType MANUAL; selected AFTER_APPROVAL and pressed Save.
+- [x] Independently verified the persisted AFTER_APPROVAL radio selection after an actual Safari page reload. Save returned to disabled (no unsaved changes). This changes the existing review submission in place; no cancellation/re-submission, new binary or product data changes.
+- [ ] Apple App Review decision pending. **On approval Apple is authorized to release automatically; no separate developer click will be required.** Distribution visibility may lag the approval.
+- [ ] Optional device QA from prior sections is not an App Review submission blocker; avoid uninstalling existing user applications or data.
+
+
 ## 2026-10-14 — App Store 1.4.1 (15) review submission completed
 - [x] Public 1.4.1 (15) was independently verified APP_STORE_ELIGIBLE and VALID, attached to App Store draft with localized RU/EN/ES What's New and App Review Notes.
 - [x] **Apple App Privacy P0 closed** via authenticated App Store Connect: old Data Not Collected replaced by published Data Not Linked to You, eight SDK categories completed (Coarse Location, Device ID, Product Interaction, Advertising Data, Crash Data, Performance Data, Other Diagnostic Data, Other Data Types). See metadata/privacy-review-1.4.1.md for purposes and caveat about AppMetrica AdSupport IDFA capability; ChickMark does not request IDFA/ATT and sets SDK location and consent false.
-- [x] App Store Connect confirmed 1 Item Submitted and independently displayed **iOS 1.4.1 Waiting for Review**. Version has MANUAL release; no public App Store release yet (public 1.4.0 remains live).
+- [x] App Store Connect confirmed 1 Item Submitted and independently displayed **iOS 1.4.1 Waiting for Review**. The version was initially set to MANUAL but **changed to AFTER_APPROVAL and verified after page reload** at user direction; public 1.4.0 remains live until Apple approves and distributes the update.
 - [x] Complete release branch Habits iOS CI passed (run 38615994169); PR #39 extended Xcode Cloud UI smoke timeout to 900s without changing app assertions. A main CI rerun was requested; its eventual result is separate from the physically tested build.
-- [ ] Await Apple Review decision and subsequently make a deliberate MANUAL public-release decision. No asynchronous promise of release.
+- [ ] Await Apple Review decision; App Store Connect is configured to **automatically release after approval**, so no separate manual-release decision is needed.
 - [ ] Optional extended device QA (offline Watch reconciliation, midnight, revoked Health permission, live Yandex fill) remains; no installed app data was deleted.
 
 
