@@ -1,5 +1,13 @@
 # ChickMark — Product Roadmap
 
+## 2026-10-14 — published release + physical Watch observation
+- [x] Owner confirmed ChickMark 1.4.0 (8) approved and publicly released; iPhone and Watch app inventories both show build 8.
+- [x] Owner manually opened Watch app and observed the HealthKit-linked «Прогулка» habit; opening the list did not immediately crash. The Watch design intentionally uses tap-to-check, without per-habit detail navigation.
+- [x] Physical defect reproduced from UX/code: published 1.4.0 has no inline current/target HealthKit progress, even when a rule is configured. Automatic completion and checkbox alone are insufficient as feedback.
+- [x] Fix prepared: locally measured current/goal + gauge below each Watch Health habit, explanatory fallback when Health data are unavailable, no measured value in WatchConnectivity/CloudKit. Watch build, 17 protocol tests and architecture check passed on Mac mini.
+- [ ] Physical user acceptance of the future patch: real step values, permissions, foreground stability, offline sync, day rollover. Do not mark 1.4.0 itself fixed; release approval/version bump for the patch remains open.
+
+
 **Updated:** 2026-10-12
 **Status:** v1.3.0 (build 5) **published — owner-confirmed 2026-10-11**. Installed on paired physical iPhone 13 and Apple Watch SE, verified via CoreDevice app inventory 2026-10-11. Independent public App Store availability/rollout not re-verified in this audit.
 **Authoritative feature evidence:** historical [ChickMark branch snapshot](docs/history/ROADMAP-chickmark-branch-2026-10-11.md) formerly from `feature/chickmark-multicheck`, now integrated into `main`; [earlier planning archive](docs/history/ROADMAP-legacy-2026-10-11.md).
