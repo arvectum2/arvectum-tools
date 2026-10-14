@@ -22,7 +22,7 @@
 
 ## P0 — Reliable Apple Watch capture
 - [x] Watch recording, UUID/time, durable local queue, opportunistic transfer to iPhone, ACK and deduplication (implemented in `main`).
-- [x] Watch-face entry point and immediate recording UX (source integrated into `main`).
+- [ ] **Physical Watch one-tap acceptance:** user confirmed on 2026-10-14 that tapping the Watch face complication opened the Watch app without recording (second Record tap required). Code now routes the complication with `.widgetURL(what://capture)` rather than `Link`, matching the working iPhone widget; verify actual automatic recording after a single Watch-face tap on the physical Watch before checking this item.
 - [x] Physical offline batch: three recordings queued while disconnected, 3/3 received after opening iPhone app; visible Cancel also confirmed. Watch-to-iPhone automatic background delivery latency remains unverified.
 - [x] Fix potential stuck Watch queue after a lost ACK: allow rate-limited retry with original UUID; activate WCSession on Watch background launch. Code validated by automated tests; physical Watch build 5 installed (2026-10-13), manual launch/reboot/automatic background delivery checks pending.
 - [x] Physical recovery of one previously stuck Watch note in build 6: queue cleared without opening iPhone What?, note received and playable. The internal transport was not logged.

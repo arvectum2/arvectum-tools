@@ -24,7 +24,7 @@ private struct CaptureComplicationView: View {
     private let captureURL = URL(string: "what://capture")!
 
     var body: some View {
-        Link(destination: captureURL) {
+        Group {
             switch family {
             case .accessoryRectangular:
                 HStack(spacing: 6) {
@@ -46,6 +46,9 @@ private struct CaptureComplicationView: View {
                 }
             }
         }
+        // Accessory complications have a single tap target. Link can be ignored
+        // by watchOS and only launch the app without passing the capture route.
+        .widgetURL(captureURL)
         .containerBackground(.clear, for: .widget)
     }
 }
