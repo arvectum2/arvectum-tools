@@ -1,5 +1,12 @@
 # ChickMark — Product Roadmap
 
+## 2026-10-14 — 1.4.1 (11) internal Watch + keyboard QA candidate
+- [x] Build number 10 → 11 in all four iPhone, Watch and widget targets, same marketing version 1.4.1, same bundle identifiers/data schema.
+- [x] Include keyboard-toolbar removal, goal-specific watch-face projection invalidation and Watch foreground HealthKit read improvements from PR #26.
+- [x] Prior targeted tests 25 unit + 2 UI and generic Watch build passed. App Store review is NOT requested by this candidate.
+- [ ] Signed archive, internal-only TestFlight upload, group assignment and on-device testing with actual Watch numeric current/target when auto-check fails.
+
+
 ## 2026-10-14 — Physical build 1.4.1 (10) UX and Watch face retest
 - [x] Owner reported keyboard accessory **large 'Hide keyboard' button obscures step-goal input** and forces scrolling. Removed separate keyboard toolbar; retained standard Form interactive scroll keyboard dismissal, without an obstructing bar. Physical swipe interaction still merits manual QA. Two UI simulator tests passed: no accessory button and unified Health editor usable.
 - [x] Owner changed step target on iPhone and saw auto-check disappear appropriately. **Watch-face complication retained old resolved count (1/3)** until owner opened Watch ChickMark app, where updated unchecked state appeared. Caches now bind derived checkoffs to their exact metric/target; stale completion cannot survive new goal once Watch receives corresponding sync snapshot. WidgetKit and WatchConnectivity still OS-scheduled; instant background widget update not guaranteed.
