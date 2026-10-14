@@ -11,6 +11,15 @@
 - [x] Approved brand emblem integrated as the iPhone/Watch icon and circular one-tap recording button, with reproducible vector source in ios/tools/generate_brand.swift. Released signed App Store archive + exported 1.0.0 (3) IPA. User's records preserved.
 - [ ] Physical iPhone acceptance: new home → capture → stop and save → library → playback and back. Version 1.0.0 (3) installed on iPhone 13; 18 recordings, 18 audio files, 16 transcripts and all 33 existing files verified byte-identical after install.
 
+### App Store submission 1.0.0 (5) — 2026-10-14
+
+- [x] Published free public listing in 175 regions; Russian/English ASO descriptions and App Privacy completed.
+- [x] 3 synthetic-data iPhone screenshots + genuine Series 12 watchOS simulator screenshot accepted by ASC; full reviewer notes link to demo MP4 on Arvectum.com.
+- [x] Signed build 5 accepted by ASC and submitted. Apple's status: **Waiting for Review**, App ID `6822476399`.
+- [x] Physical iPhone 13 updated to build 5; every one of 33 backed-up files preserved unchanged, including 23 recordings.
+- [ ] Physical iPhone capture quality and Watch recording/offline delivery tests on build 5; continue post-submission reliability work without modifying submitted build.
+- [ ] Apple App Review decision, any rejection questions, and public launch follow-up.
+
 ### Release candidate 1.0.0 (4) — 2026-10-14
 
 - [x] Branded names localized for RU «Ухват» / international «UhWhat?» on installed iPhone/Watch apps, widgets, complication and Quick Capture UI. Existing bundle IDs and deep links retained.

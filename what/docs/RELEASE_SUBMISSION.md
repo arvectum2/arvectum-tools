@@ -1,3 +1,16 @@
+## App Store Connect submission — 2026-10-14 (current status)
+
+- **Submitted successfully:** App ID `6822476399`, iOS version **1.0.0 (5)**. Apple confirmed **“1 Item Submitted”** and the status **“Waiting for Review”** on 2026-10-14.
+- **Listing and ASO:** Russian `Ухват: голосовые заметки` and English `UhWhat? Voice Notes`; subtitle, descriptions, keywords, support and marketing links saved. Category Productivity / Utilities; age rating 4+.
+- **Media accepted:** 3 iPhone screenshots with synthetic recordings and a 416 × 496 Apple Watch Series 12 screenshot from the watchOS simulator. Original watch screenshot: `releases/what/screenshots/rc5/uhvat-apple-watch-series12.png` on Mac mini.
+- **Review material:** 2,430-character English reviewer walkthrough, no sign-in, contact info reused from ChickMark; 27-second demonstration of synthetic notes accessible via https://arvectum.com/tools/what/review/index.html. Reviewer link and MP4 publicly return HTTP 200.
+- **Privacy:** app declaration “Data Not Collected” was published in App Store Connect. Privacy policy `https://arvectum.com/privacy` saved for both English (U.S.) and Russian localizations.
+- **Commercial setup:** free price ($0.00), public distribution in all 175 App Store countries and regions. Version 1.0.0 build 5 was selected, not the older build 4.
+- **Build/device acceptance:** 51 iOS repository tests passed (3 experimental checks skipped); watchOS simulator build passed. Physical iPhone 13 updated from build 3 to build 5 **after backup** and all 33 local source files, including 23 M4A recordings, had unchanged SHA-256 hashes. The final physical Apple Watch recording, disconnection/reconnection transfer, and tap-to-first-audio timing remain unverified: **do not claim a physical Watch acceptance pass**.
+- **Review outcome:** Pending Apple decision; first-pass approval cannot be guaranteed. Do not upload any personal recordings.
+
+> Earlier RC3/RC4 “not submitted” checklist statuses below are historical and were superseded by this RC5 submission.
+
 # What? 1.0.0 — App Store submission
 
 - Bundle: ru.arvectum.tools.what
