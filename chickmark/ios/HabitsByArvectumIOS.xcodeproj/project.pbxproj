@@ -1102,7 +1102,7 @@
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CODE_SIGN_ENTITLEMENTS = HabitsByArvectumWatchWidget/HabitsByArvectumWatchWidget.entitlements;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = HabitsByArvectumWatchWidget/Info.plist;
@@ -1111,7 +1111,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.4.0;
+				MARKETING_VERSION = 1.4.1;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.arvectum.tools.habits.watch.widget;
 				PRODUCT_MODULE_NAME = HabitsByArvectumWatchWidget;
 				PRODUCT_NAME = HabitsByArvectumWatchWidget;
@@ -1185,11 +1185,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = HabitsByArvectumWatch/HabitsByArvectumWatch.entitlements;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = HabitsByArvectumWatch/Info.plist;
-				MARKETING_VERSION = 1.4.0;
+				MARKETING_VERSION = 1.4.1;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.arvectum.tools.habits.watch;
 				PRODUCT_MODULE_NAME = HabitsByArvectumWatch;
 				PRODUCT_NAME = HabitsByArvectumWatch;
@@ -1205,7 +1205,7 @@
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CODE_SIGN_ENTITLEMENTS = HabitsByArvectumWatchWidget/HabitsByArvectumWatchWidget.entitlements;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = HabitsByArvectumWatchWidget/Info.plist;
@@ -1214,7 +1214,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.4.0;
+				MARKETING_VERSION = 1.4.1;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.arvectum.tools.habits.watch.widget;
 				PRODUCT_MODULE_NAME = HabitsByArvectumWatchWidget;
 				PRODUCT_NAME = HabitsByArvectumWatchWidget;
@@ -1250,7 +1250,7 @@
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CODE_SIGN_ENTITLEMENTS = HabitsByArvectumWidget/HabitsByArvectumWidget.entitlements;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = HabitsByArvectumWidget/Info.plist;
@@ -1260,7 +1260,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.4.0;
+				MARKETING_VERSION = 1.4.1;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.arvectum.tools.habits.widget;
 				PRODUCT_MODULE_NAME = HabitsByArvectumWidget;
 				PRODUCT_NAME = HabitsByArvectumWidget;
@@ -1296,7 +1296,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = HabitsByArvectum/HabitsByArvectum.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = HabitsByArvectum/Info.plist;
@@ -1305,7 +1305,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4.0;
+				MARKETING_VERSION = 1.4.1;
 				OTHER_LDFLAGS = "$(inherited) -ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = ru.arvectum.tools.habits;
 				PRODUCT_MODULE_NAME = HabitsByArvectum;
@@ -1408,7 +1408,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = HabitsByArvectum/HabitsByArvectum.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = HabitsByArvectum/Info.plist;
@@ -1417,7 +1417,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4.0;
+				MARKETING_VERSION = 1.4.1;
 				OTHER_LDFLAGS = "$(inherited) -ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = ru.arvectum.tools.habits;
 				PRODUCT_MODULE_NAME = HabitsByArvectum;
@@ -1453,7 +1453,7 @@
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CODE_SIGN_ENTITLEMENTS = HabitsByArvectumWidget/HabitsByArvectumWidget.entitlements;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = HabitsByArvectumWidget/Info.plist;
@@ -1463,7 +1463,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.4.0;
+				MARKETING_VERSION = 1.4.1;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.arvectum.tools.habits.widget;
 				PRODUCT_MODULE_NAME = HabitsByArvectumWidget;
 				PRODUCT_NAME = HabitsByArvectumWidget;
@@ -1477,11 +1477,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = HabitsByArvectumWatch/HabitsByArvectumWatch.entitlements;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = HabitsByArvectumWatch/Info.plist;
-				MARKETING_VERSION = 1.4.0;
+				MARKETING_VERSION = 1.4.1;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.arvectum.tools.habits.watch;
 				PRODUCT_MODULE_NAME = HabitsByArvectumWatch;
 				PRODUCT_NAME = HabitsByArvectumWatch;

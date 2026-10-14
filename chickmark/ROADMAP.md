@@ -1,5 +1,10 @@
 # ChickMark — Product Roadmap
 
+## 2026-10-14 — 1.4.1 (9) candidate preparation (NOT released)
+- [x] Candidate version 1.4.1 (9) pinned across iPhone app, Watch app and both widgets after published 1.4.0 (8); consolidated Watch Health progress, unified habit editing and Health auto-check reconciliation.
+- [ ] Complete versioned archive, CI and physical non-destructive device QA before any upload. See [candidate release gate](docs/RELEASE_CANDIDATE_1.4.1.md).
+
+
 ## 2026-10-14 — HealthKit polling + Watch completion reconciliation (1.4.1 code patch, not shipped)
 - [x] **Physical iPhone, user-confirmed:** step target exceeded; displayed reading did not change while ChickMark remained open. After opening Apple Fitness and accepting updated terms, Health data appeared in ChickMark and «Прогулка» was marked complete automatically. This proves the iPhone auto-completion worked after new data arrived, NOT that Fitness terms caused the delay.
 - [ ] **Physical Watch:** neither the step reading nor automatic checkmark updated. Published Watch build 1.4.0 (8) has no numeric progress UI; local HealthKit data/permission and WatchConnectivity delivery remain separate unresolved gates.
