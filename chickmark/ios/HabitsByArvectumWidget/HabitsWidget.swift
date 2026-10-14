@@ -126,6 +126,13 @@ struct HabitsTodayWidgetView: View {
                             .minimumScaleFactor(0.7)
                             .lineLimit(1)
                     }
+                    .accessibilityElement(children: .ignore)
+                    .accessibilityLabel(WidgetL10n.string("widget.title"))
+                    .accessibilityValue(
+                        WidgetL10n.format("widget.inline.format",
+                                          entry.snapshot.resolvedCount,
+                                          entry.snapshot.totalCount)
+                    )
                 }
             }
             .frame(width: 70, height: 70)

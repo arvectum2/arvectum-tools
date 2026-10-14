@@ -72,6 +72,17 @@ enum HabitWidgetBridge {
         )
     }
 
+    /// WidgetKit can display yesterday's timeline entry just after midnight.
+    /// Never turn a stale button tap into a historical or future check-in.
+    /// Check at intent execution time, not when the timeline is rendered.
+    static func acceptsAction(
+        dayKey actionDayKey: String,
+        now: Date = .now,
+        calendar: Calendar = .autoupdatingCurrent
+    ) -> Bool {
+        actionDayKey == dayKey(for: now, calendar: calendar)
+    }
+
     static func saveSnapshot(_ snapshot: HabitWidgetSnapshot) {
         guard let data = try? JSONEncoder().encode(snapshot) else { return }
         defaults?.set(data, forKey: snapshotKey)
