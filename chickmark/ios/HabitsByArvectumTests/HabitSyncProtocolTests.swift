@@ -309,6 +309,69 @@ final class HabitSyncProtocolTests: XCTestCase {
         XCTAssertEqual(result.snapshot.completedCount, 0)
     }
 
+    func testOfflineRapidUndoWinsWhenOlderPhoneSnapshotArrivesFirst() {
+        // A2: the Watch queues a check, then an undo while disconnected.
+        // Reconnecting can first deliver an older iPhone completion snapshot.
+        // It must neither resurrect the stale check nor drop the newer undo.
+        let habitID = UUID()
+        let checked = HabitCompletionCommand(
+            id: UUID(), habitID: habitID, dayKey: "2026-10-01",
+            completed: true, createdAt: Date(timeIntervalSince1970: 100)
+        )
+        let undone = HabitCompletionCommand(
+            id: UUID(), habitID: habitID, dayKey: "2026-10-01",
+            completed: false, createdAt: Date(timeIntervalSince1970: 200)
+        )
+        let pending = HabitCompletionCommandQueue.appending(
+            undone, to: HabitCompletionCommandQueue.appending(checked, to: [])
+        )
+        XCTAssertEqual(pending, [undone])
+
+        var stalePhone = snapshot(habitID: habitID, completed: true)
+        stalePhone.generatedAt = Date(timeIntervalSince1970: 150)
+        let beforeACK = HabitSyncReconciler.reconcile(
+            incoming: stalePhone, pendingCommands: pending
+        )
+        XCTAssertEqual(beforeACK.remainingCommands, [undone])
+        XCTAssertFalse(beforeACK.snapshot.habits[0].completed)
+        XCTAssertEqual(beforeACK.snapshot.completedCount, 0)
+
+        var updatedPhone = snapshot(
+            habitID: habitID, completed: false, acknowledged: [undone.id]
+        )
+        updatedPhone.generatedAt = Date(timeIntervalSince1970: 250)
+        let afterACK = HabitSyncReconciler.reconcile(
+            incoming: updatedPhone,
+            currentSnapshot: beforeACK.snapshot,
+            pendingCommands: beforeACK.remainingCommands
+        )
+        XCTAssertTrue(afterACK.remainingCommands.isEmpty)
+        XCTAssertFalse(afterACK.snapshot.habits[0].completed)
+        XCTAssertEqual(afterACK.snapshot.completedCount, 0)
+    }
+
+    func testOfflinePreviousDayCommandCannotMarkTodayAfterReconnection() {
+        // A2/A3: delayed commands from before midnight stay attached to
+        // their original calendar day and must not check today's Watch row.
+        let habitID = UUID()
+        let priorDay = HabitCompletionCommand(
+            habitID: habitID, dayKey: "2026-10-14",
+            completed: true, createdAt: Date(timeIntervalSince1970: 100)
+        )
+        var currentDay = snapshot(habitID: habitID, completed: false)
+        currentDay.dayKey = "2026-10-15"
+        currentDay.generatedAt = Date(timeIntervalSince1970: 200)
+
+        let reconciled = HabitSyncReconciler.reconcile(
+            incoming: currentDay,
+            pendingCommands: [priorDay]
+        )
+        XCTAssertEqual(reconciled.remainingCommands, [priorDay])
+        XCTAssertEqual(reconciled.snapshot.dayKey, "2026-10-15")
+        XCTAssertFalse(reconciled.snapshot.habits[0].completed)
+        XCTAssertEqual(reconciled.snapshot.completedCount, 0)
+    }
+
     func testPayloadBudgetKeepsFullHorizonForTypicalHabitCount() {
         let habits = (0..<6).map { index in
             HabitSyncHabit(

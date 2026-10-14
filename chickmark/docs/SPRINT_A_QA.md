@@ -72,3 +72,29 @@ Check System/RU/EN/ES and back in a disposable simulator, large Dynamic Type and
 ## QA findings and triage
 
 If a defect is reproduced, record: build SHA, iOS/watchOS version, source data, exact action, actual vs expected, whether iPhone or Watch was opened, relevant permission status and whether the symptom persisted after re-foreground. Prefer anonymized event counts and timing. File a focused GitHub issue and regression test before a potential 1.4.2. Never overwrite already submitted 1.4.1.
+
+## Automated sprint execution — 2026-10-14
+
+- Baseline SHA: 46456c22bb78936569be0eebc645ae3ff6c811b8. Executed in a **separate Git worktree** from current main, not on owner device. macOS and Xcode version are in the private QA build log folder.
+- Local logs (Mac mini): /Volumes/ArvectumSSD/Arvectum/builds/chickmark/sprint-a-20261014/
+- Architecture check: **PASS**. Release hygiene: **PASS**. Store assets: **12 PNGs / 0 errors**. watchOS generic Debug build: **PASS**.
+- Baseline all-unit simulator: **173 tests, 0 failed**. Repeated after four A2/A3 regression additions: **177 tests, 0 failed**.
+- New A2 tests:
+  - Offline Watch check then undo: a delayed older iPhone completion cannot resurrect a check or drop the later pending undo, and a subsequent authoritative ACK clears the queue.
+  - Previous-day offline command after midnight: remains attributed to the original day, never checks today's Watch UI.
+- New A3 tests:
+  - 2026-10-14 00:30 UTC: London date Oct 14, New York Oct 13; requested midnight is computed from **local calendar**, not fixed 86,400 sec, and persisted check-in day key is stable.
+  - New York spring and autumn 2026 DST: midnight delay is 22.5 / 24.5 hours from 00:30 local, next calendar day correct.
+- First UI run selected five tests: **accessibility audit PASS**, **unified HealthKit editor PASS**, but **three old XCTest scripts failed** while typing without keyboard focus. The app deliberately does not autofocus the name field anymore; a user must tap it. Repaired **four test paths** to tap explicitly before typing (one extra large-text multi-check path proactively fixed), with no app runtime changes.
+- Repeated the three failing selected UI tests: **3/3 PASS** (Spanish Create, Create/History, Largest Dynamic Type). The proactively updated **Five Multi-Check Buttons at Largest Dynamic Type** also passed in a separate UI run (1/1). Together with the two initial passing cases, **six distinct UI scenarios** now have successful executions. VoiceOver-specific runtime and widget-gallery physical checks remain open.
+- Device read-only: physical iPhone 13 ChickMark **1.4.1 (14) installed**. No uninstall/reinstall, simulator cleanup on physical device, changed real Health consent, CloudKit fetch, Watch toggling or data restore.
+- A6 static SDK: Info.plist / XcodeGen use **R-M-20183085-1**; code gates at 3 days, 5 foreground cold launches and 3 successful checkoffs. Real YAN partner dashboard and filled ad not verified (public partner login redirect is not evidence).
+- **Sprint A acceptance remains open A1–A7** because existing automated coverage is not a physical CloudKit/Watch outage/denied-HealthKit/Lock Screen/live YAN/localization sign-off.
+
+### Next safe physical acceptance (priority order)
+
+1. **A1:** owner visually compare pre/post update history counts and old dates on iPhone; iCloud on a second enrolled device, without restoring backups. If only one enrolled device exists, mark cross-device CloudKit UNVERIFIED.
+2. **A2:** use an expendable newly created habit and temporary Watch offline mode, restore normal connectivity, inspect both directions and ACK resolution. Do not use established habit data.
+3. **A5 / A7:** install nonempty widget formats and visually inspect on iPhone, test languages / large font only if user allows display-preference changes.
+4. **A4:** permission denial in a disposable test setup, not on owner's active Health permissions.
+5. **A6:** YAN dashboard access or screenshot of placement/fill stats; never claim revenue from a successful SDK network request alone.

@@ -137,6 +137,9 @@ final class HabitFlowUITests: XCTestCase {
             "Habit name"
         ]
         XCTAssertTrue(nameField.waitForExistence(timeout: 3))
+        // New habit form deliberately does not steal keyboard focus.
+        // Tap before typing, as a real user would.
+        nameField.tap()
         nameField.typeText("Read")
 
         let doneButton = newHabitBar.buttons["Done"]
@@ -335,6 +338,8 @@ final class HabitFlowUITests: XCTestCase {
         XCTAssertTrue(app.navigationBars["Nuevo hábito"].waitForExistence(timeout: 3))
         let name = app.textFields["Nombre del hábito"]
         XCTAssertTrue(name.waitForExistence(timeout: 3))
+        // Spanish editor also intentionally opens without automatic focus.
+        name.tap()
         name.typeText("Leer")
         app.navigationBars["Nuevo hábito"].buttons["Listo"].tap()
         XCTAssertTrue(app.staticTexts["Leer"].firstMatch.waitForExistence(timeout: 3))
@@ -355,6 +360,7 @@ final class HabitFlowUITests: XCTestCase {
         create.tap()
         let name = app.textFields["Habit name"]
         XCTAssertTrue(name.waitForExistence(timeout: 4))
+        name.tap()
         name.typeText("Vitamins")
         app.buttons["Other schedule"].tap()
         let stepper = app.steppers.matching(
@@ -983,6 +989,9 @@ final class HabitFlowUITests: XCTestCase {
             "Habit name"
         ]
         XCTAssertTrue(nameField.waitForExistence(timeout: 3))
+        // New habit form deliberately does not steal keyboard focus.
+        // Tap before typing, as a real user would.
+        nameField.tap()
         nameField.typeText("Read")
 
         let doneButton = newHabitBar.buttons["Done"]
