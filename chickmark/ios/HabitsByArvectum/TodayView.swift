@@ -22,6 +22,7 @@ struct TodayView: View {
     @State private var chickInCelebrationID: UUID?
     @State private var chickInCelebrationHabitID: UUID?
     @State private var adEligible = false
+    @State private var nativeAdUnavailable = false
 
     @State private var healthProjectionRevision = 0
 
@@ -75,8 +76,13 @@ struct TodayView: View {
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                     }
 
-                    if adEligible {
-                        HabitStickyNativeSlot()
+                    if adEligible && !nativeAdUnavailable {
+                        HabitStickyNativeSlot {
+                            // Remove the *whole footer*, not just ad assets.
+                            // Otherwise the native host may reserve bottom
+                            // safe-area space after a no-fill/binding failure.
+                            nativeAdUnavailable = true
+                        }
                     }
                 }
             }

@@ -194,6 +194,15 @@ final class WatchHabitSyncStore: NSObject, ObservableObject, WCSessionDelegate {
         packet: HabitSyncPacket,
         expectsReply: Bool
     ) {
+#if DEBUG
+        if packet.kind == .setCompletion && Self.debugFlag(
+            argument: "--debug-suspend-watch-delivery",
+            environment: "HABITS_SIMULATE_WATCH_OFFLINE"
+        ) {
+            HabitDebugLog.emit("HABITS_WATCH_SEND_SUSPENDED")
+            return
+        }
+#endif
         guard
             let session,
             let message = try? HabitSyncCodec.message(packet)
@@ -238,6 +247,17 @@ final class WatchHabitSyncStore: NSObject, ObservableObject, WCSessionDelegate {
     }
 
     private func transferDurably(_ packet: HabitSyncPacket) {
+#if DEBUG
+        if Self.debugFlag(
+            argument: "--debug-suspend-watch-delivery",
+            environment: "HABITS_SIMULATE_WATCH_OFFLINE"
+        ) {
+            // Reproduce an offline Watch without turning off an existing
+            // paired simulator or touching any physical device. Pending
+            // commands remain on disk, with no transfer scheduled.
+            return
+        }
+#endif
         guard
             let session,
             let message = try? HabitSyncCodec.message(packet)

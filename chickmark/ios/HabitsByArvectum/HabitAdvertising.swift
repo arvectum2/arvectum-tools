@@ -47,12 +47,14 @@ enum HabitAdSDK {
     }
 }
 
-/// Hosted by TodayView.safeAreaInset(edge: .bottom): the habit list scrolls
-/// in the space *above* this independent, pinned ad surface.
+/// A dedicated bottom sibling of TodayView's ScrollView: habit rows scroll
+/// above the native ad and can never be occluded by its dynamic height.
 struct HabitStickyNativeSlot: View {
+    let onUnavailable: () -> Void
+
     var body: some View {
         if let unitID = HabitAdUnitIDs.native {
-            HabitNativeAdContent(adUnitID: unitID)
+            HabitNativeAdContent(adUnitID: unitID, onUnavailable: onUnavailable)
                 .accessibilityIdentifier("today-sticky-ad-slot")
 #if DEBUG
                 .onAppear {
@@ -72,14 +74,16 @@ private struct HabitNativeAdContent: View {
     @State private var failed = false
     @State private var requested = false
 
-    init(adUnitID: String) {
+    init(adUnitID: String, onUnavailable: @escaping () -> Void) {
         _adState = StateObject(wrappedValue: NativeAdState(
             request: AdRequest(adUnitID: adUnitID)
         ))
         self.adUnitID = adUnitID
+        self.onUnavailable = onUnavailable
     }
 
     let adUnitID: String
+    let onUnavailable: () -> Void
 
     var body: some View {
         VStack(spacing: 0) {
@@ -127,6 +131,19 @@ private struct HabitNativeAdContent: View {
         .task {
             guard !requested else { return }
             requested = true
+#if DEBUG
+            if ProcessInfo.processInfo.arguments.contains("--ui-testing") &&
+                ProcessInfo.processInfo.arguments.contains("--chickmark-demo-ads") &&
+                ProcessInfo.processInfo.arguments.contains("--chickmark-native-simulate-no-fill")
+            {
+                // Deterministic QA of a real empty SDK slot with eligibility
+                // enabled. Do NOT initialise Yandex or generate ad traffic.
+                failed = true
+                HabitAdDiagnosticStore.record("simulated-no-fill", unit: adUnitID)
+                onUnavailable()
+                return
+            }
+#endif
             await HabitAdSDK.initializeIfEligible()
 #if DEBUG
             HabitAdDiagnosticStore.record("request", unit: adUnitID)
@@ -139,6 +156,7 @@ private struct HabitNativeAdContent: View {
     private func hideOnError(_ error: Error, kind: String) {
         loaded = false
         failed = true
+        onUnavailable()
 #if DEBUG
         HabitDebugLog.emit("HABITS_AD_NATIVE_\(kind) reason=\(error.localizedDescription)")
         HabitAdDiagnosticStore.record(kind, unit: adUnitID,
