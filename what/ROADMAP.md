@@ -2,6 +2,8 @@
 
 ## Active release checkpoint — 2026-10-15
 
+**A5 RC:** [Ухват 1.0.2 (7)](../core/A5_SIGNED_RELEASE_CANDIDATES_20261015.md) подписан, iPhone/Watch/complication/widget проверены, CI PASS, **не загружен в ASC**. Отправленная 1.0.1 (6) ещё WAITING_FOR_REVIEW; физическая 1-tap/ACK/офлайн-проверка остаётся OPEN.
+
 **Brand:** Ухват (RU) / UhWhat? (international), code directory what/.
 **Public 1.0.0 (5):** READY_FOR_SALE independently rechecked in App Store Connect API 2026-10-15
 (App ID 6822476399). **Submitted 1.0.1 (6):** Waiting for Review, recorded

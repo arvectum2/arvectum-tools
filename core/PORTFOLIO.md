@@ -4,7 +4,7 @@
 Every task has exactly one owning roadmap. Cross-project dependencies use links,
 not copied checkboxes. Apps release independently.
 
-**Исполняемая очередь 2026-10-15:** [Единый план работ без Where?](EXECUTION_PLAN.md). Where? поставлен на паузу; остальные продукты, Core и Growth остаются в scope.
+**Исполняемая очередь 2026-10-15:** [Единый план работ без Where?](EXECUTION_PLAN.md). [A5: четыре подписанных кандидата, локальный audit и блокеры отправки](A5_SIGNED_RELEASE_CANDIDATES_20261015.md). Where? поставлен на паузу; остальные продукты, Core и Growth остаются в scope.
 
 ## Product roadmaps
 - [Фото и PDF под размер](../photo-pdf-to-size/ROADMAP.md) — photo/PDF resizing, document presets, exports, app-specific UX, implementation and QA.
@@ -22,7 +22,7 @@ are different types of evidence. Unverified new approvals must not be assumed.
 | Product | Last confirmed public iOS release | Pending Apple review | Evidence and remaining work |
 | --- | --- | --- | --- |
 | Фото и PDF под размер | **1.0.1 (13)** READY_FOR_SALE, authenticated ASC **2026-10-15** | None | Post-release PDF rotation fix [PR #72](https://github.com/arvectum2/arvectum-tools/pull/72) merged in main **but not in public 1.0.1**; 31/31 unit + 5/5 UI, CI success; physical Files/Photos/ATT and YAN real impressions OPEN [#73](https://github.com/arvectum2/arvectum-tools/issues/73) |
-| ChickMark | **1.4.0 (8)** | **1.4.1 (15)** **IN_REVIEW**, authenticated ASC 2026-10-15 | A3 Cloud KVS duplicate safety [PR #71](https://github.com/arvectum2/arvectum-tools/pull/71) merged into main; local history 4/19/20 verified, A1/A4/A6/A7 physical/external gates remain open; patches not in Apple's build 15 |
+| ChickMark | **1.4.1 (15)** READY_FOR_SALE, authenticated ASC **2026-10-15** | None | Post-build15 Cloud KVS/native ads changes staged as **signed A5 1.4.2 (16) RC** (NOT uploaded); A1/A4/A6/A7 physical/external gates remain open, [A5 evidence](A5_SIGNED_RELEASE_CANDIDATES_20261015.md) |
 | Pushkin | Not published | **1.0.0 (1)** Waiting for Review, ASC **2026-10-15** | Build 1 VALID; deletion source fix #68 and local Shortcuts lookup fix #69 merged into main **but not in reviewed binary**; real-device QA pending |
 | Ухват / UhWhat? | **1.0.0 (5)** READY_FOR_SALE, ASC 2026-10-15 | **1.0.1 (6)** Waiting for Review, independently reconfirmed 2026-10-15 | A2 source fix #70 merged into main (not submitted build), CI PASS; physical one-tap Watch/interruption/ACK QA open |
 | Where? | Not released | None | MVP W0–W3 not independently implemented |

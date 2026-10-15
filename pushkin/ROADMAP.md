@@ -1,6 +1,8 @@
 # PUSHKIN — Product Roadmap
 
 ## Active checkpoint — 2026-10-15 (independently verified ASC API)
+
+**A5 RC:** [подписанная 1.0.1 (3)](../core/A5_SIGNED_RELEASE_CANDIDATES_20261015.md) подготовлена из исправлений удаления и Shortcuts; IPA и подпись проверены, release-branch CI PASS. **Не загружена в ASC**, первоначальная 1.0.0 всё ещё WAITING_FOR_REVIEW. Физический недеструктивный QA остаётся OPEN.
 **Latest review state:** iOS 1.0 remains under Apple review, independently verified **WAITING_FOR_REVIEW** via ASC API 2026-10-15; no publication confirmed. Physical iPhone carries developer build 1.0.0 (2), which must not be confused with the submitted build 1.0.0 (1). [Physical QA evidence](docs/PHYSICAL_QA_2026-10-14.md).
 - [x] Submitted local-only notification history with Shortcuts/App Intents capture, searchable offline storage and fallback onboarding.
 - [x] Rechecked App Review via authenticated ASC API 2026-10-15: still Waiting for Review, build 1 VALID.
