@@ -4,7 +4,7 @@
 
 ## Provenance
 
-- Compared `origin/main` and `origin/release/photo-size-ios-1.0.1` for iOS code. Remaining differences in that comparison are limited to Xcode project configuration, `project.yml` and a release script; the product source is already integrated via PR #67. The original signed 1.0.1 source remains tagged and immutable.
+- Compared `origin/main` and `origin/release/photo-size-ios-1.0.1` for iOS code. Remaining differences in that comparison are limited to Xcode project configuration, `project.yml` and a release script; the product source is already integrated via PR #67. The original signed 1.0.1 source remains tagged and immutable. **Exact signed-tag provenance:** `PDFEngine.swift` has identical Git object SHA `5158e680564bd86eb0ba67052f4efb17e92b96f0` in signed tag and pre-patch main; seven UI files differ only by post-release Core imports.
 - No release branch, signed archive, customer Photos/Files or real iPhone app was altered.
 
 ## Found issue A4-PDF-ROTATION
@@ -28,7 +28,7 @@
 
 ## Physical device and Files/Photos QA
 
-- Historical 2026-10-14 CoreDevice physical observation reported app 1.0.1(13) installed. **Fresh** CoreDevice `device info apps` on 2026-10-15 currently shows only `ru.arvectum.tools.tosize.uitests.xctrunner` and **does not list `ru.arvectum.tools.tosize`**. Do not infer why the app is absent. Do not install, reinstall or delete anything on owner's iPhone without explicit consent.
+- Historical 2026-10-14 CoreDevice physical observation reported app 1.0.1(13) installed. **Fresh** CoreDevice `device info apps` on 2026-10-15 currently shows only `ru.arvectum.tools.tosize.uitests.xctrunner` and **does not list `ru.arvectum.tools.tosize`**. A CoreDevice developer-app listing may omit some installed apps; do **not** infer uninstall from this listing or why the production bundle is not shown. Do not install, reinstall or delete anything on owner's iPhone without explicit consent.
 - **OPEN physical:** sample import from Files and Photos, real iOS fileExporter save, share sheet, HEIC, PDF page rotations and large file memory on published app, genuine ad/ATT flows. Simulator fixtures cannot replace device or Files-provider validation.
 
 ## Automated evidence
@@ -37,7 +37,7 @@
 - [x] Post-fix two orientation tests GREEN.
 - [x] Full photo/PDF XCTest suite **31/31 PASS**, zero failures, including 2 added source-file integrity tests and large PDF.
 - [x] Five simulator UI tests **5/5 PASS**, four Workflow scenarios plus RU/EN light/dark worst-case native ad layout, no failures. The UI opened the system Files picker but did not actually import a genuine Files-provider document.
-- [ ] New GitHub CI unit/UI regression step; record PR, CI runs and exact merged SHA after execution.
+- [x] New GitHub CI unit/UI regression step and [PR #72](https://github.com/arvectum2/arvectum-tools/pull/72) MERGED into main at `f78c7508a56d9e3c2879eab647148ab7b4fc92bc`. Both [push 38783333767](https://github.com/arvectum2/arvectum-tools/actions/runs/38783333767) and [PR 38783340573](https://github.com/arvectum2/arvectum-tools/actions/runs/38783340573) Actions runs **SUCCESS**, including Core, build and combined unit/UI regressions. GitVerse main mirrored after merge.
 - [ ] Physical/partner acceptance remains OPEN.
 
 **Next release:** candidate next patch may contain the rotation fix after independent CI. Do not amend 1.0.1 or label a future source-only fix public. Keep `Where?` out of scope.
