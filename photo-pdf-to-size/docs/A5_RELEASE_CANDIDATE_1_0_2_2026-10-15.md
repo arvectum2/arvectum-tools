@@ -22,8 +22,8 @@ PR #72: preserve displayed PDF orientation and render 90/270-degree pages using 
 - [x] Reserved unique marketing/build number; cross-target version consistency is enforced by `project.yml`.
 - [ ] Clean generated Xcode project builds on generic iOS Simulator (and watchOS if applicable).
 - [ ] Full app unit/UI regression and clean GitHub Actions release-branch checks.
-- [ ] Distribution-signed `.xcarchive` with correct team, entitlements and embedded extensions; `.ipa` SHA-256 and signing/profile receipt. **Do not claim signing from a simulator build.**
-- [ ] Verify bit-by-bit exported bundle version/build and that any signed artifact includes only intended files.
+- [x] **App Store-exported IPA** `PhotoPodRazmer.ipa` with SHA-256 `e886c0d97c1670a8372a8d6b8840ed3cd1e08c1c22994bc4f338cf2ec6d18676`; Xcode archive SUCCEEDED, export SUCCEEDED, team VML75VY94V. Exported IPA has production Store profiles, disabled `get-task-allow`, and matching version/build in **1/1 bundles**. Xcode may use an Apple Development profile in the intermediate `.xcarchive` for Watch/widget apps; **the exported IPA is independently re-signed**. [Machine-readable receipt](A5_SIGNED_IPA_RECEIPT_1_0_2_2026-10-15.json).
+- [x] Extracted IPA validated: bundle version/build, App Store profile entitlements, `codesign --verify --strict` for all bundles; no RuWordNet-named assets bundled. Physical application behavior and exact signed archive reproducibility remain independent gates.
 - [ ] **Physical/external:** Physical post-release Files/Photos imported fixtures, save/share and PDF orientation+memory, consent/ATT, actual native/banner YAN fill and partner impressions. GitHub issue #73. Real device installation state cannot be concluded from CoreDevice listing.
 - [ ] **Apple:** actual new App Store version + build association, review notes and required locales only after preceding gates pass. No upload or submission in A5 draft phase.
 

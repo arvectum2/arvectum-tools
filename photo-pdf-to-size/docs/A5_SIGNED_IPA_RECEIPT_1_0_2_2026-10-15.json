@@ -1,0 +1,19 @@
+{
+  "app": "photo-pdf-to-size",
+  "a5_date": "2026-10-15",
+  "state": "LOCALLY_EXPORTED_FOR_APP_STORE__NOT_UPLOADED",
+  "source_branch": "release/photo-size-1.0.2-build14-a5-20261015",
+  "source_commit": "09cc2639dd2bf0a17b693369047843712ac78106",
+  "source_baseline_main": "657ce0d6bcce78cf35e07135ef5871da8e07c0ff",
+  "ios_marketing_version": "1.0.2",
+  "ios_build": "14",
+  "ipa_basename": "PhotoPodRazmer.ipa",
+  "ipa_sha256": "e886c0d97c1670a8372a8d6b8840ed3cd1e08c1c22994bc4f338cf2ec6d18676",
+  "ipa_size_bytes": 8722657,
+  "storage_on_owner_mac_mini": "/Volumes/ArvectumSSD/Arvectum/releases/a5-20261015/photo-1.0.2-build14/export/PhotoPodRazmer.ipa",
+  "validated_bundle_ids": [
+    "ru.arvectum.tools.tosize"
+  ],
+  "signature_verification": "codesign --verify --strict PASS on main + all embedded apps/extensions; Apple Store provisioning; get-task-allow=false in all embedded profiles",
+  "distribution_stage": "not sent to App Store Connect; physical/review gates still open"
+}
