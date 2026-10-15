@@ -23,7 +23,7 @@ Also verified physically: app descriptors for software installed **after** base 
 - [x] **App build PASS** with Xcode 27 and existing signed catalog assets (generic iOS Simulator).
 - [x] **17/17 unit PASS**: group boundaries (0/1/25/26/51), 70-element order preservation, dedupe/toggle, corrupt local selection recovery, original capture/delete/store/catalog unit tests; no network.
 - [x] **2/2 focused simulator UI PASS** after correcting test navigation to scroll the lazy SwiftUI List; setup link/status guidance and group select/clear; no real history mutation.
-- [ ] PR CI and mirrored source SHA.
-- [ ] Physical non-destructive validation on real iPhone: open base signed package, cancel and retry, enable automation in Shortcuts, capture notification, late-installed app micro-package, multiple manual group coverage and overlap. **Do not** disable/uninstall existing personal automations or reset personal notification history.
+- [x] **PR #75 MERGED** into main (`d1a051870fa227901f7d07ef38d0a880ad0d4919`). Two independent GitHub runs [push 38813911302](https://github.com/arvectum2/arvectum-tools/actions/runs/38813911302) and [PR 38813914613](https://github.com/arvectum2/arvectum-tools/actions/runs/38813914613): **SUCCESS** for A6 build + unit/UI and existing A1 delete-regression. Confirm GitVerse main SHA after docs commit.
+- [ ] **Physical acceptance issue [#76](https://github.com/arvectum2/arvectum-tools/issues/76)** — non-destructive validation on real iPhone: open base signed package, cancel and retry, enable automation in Shortcuts, capture notification, late-installed app micro-package, multiple manual group coverage and overlap. **Do not** disable/uninstall existing personal automations or reset personal notification history.
 
 No new A6 App Store binary or upload; the A5 signed Pushkin 1.0.1(3) remains unchanged, and new A6 source will need a distinct later build after its QA and review-status check.

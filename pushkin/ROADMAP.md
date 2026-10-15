@@ -5,7 +5,8 @@
 - [x] **A6 guided setup:** показаны три шага (импорт базового подписанного shortcut, ручное включение в Shortcuts, подтверждение минимум одного реального захвата); при поздней установке приложения указан refresh подписанного micro-package.
 - [x] **A6 optional groups:** локальный планировщик групп по 25 приложений из offline-каталога, без дубликатов, с копированием списка. Это удобный размер списка, **не лимит iOS**: [на физическом iPhone 1000 SelectedApps успешно сохранились в одном триггере](docs/PHASE0_SPIKE.md#1000-app-trigger); подтверждение 1000 активных источников не проводилось.
 - [x] **A6 local QA:** Xcode 27 сборка PASS, 17/17 XCTest unit PASS, 2/2 focused UI PASS после исправления тестового поиска offscreen-ссылок. [Протокол](docs/A6_ONBOARDING_QA_2026-10-16.md). Исходные SwiftData/capture/App Intents и подписанные shortcuts не изменены.
-- [ ] A6 GitHub CI и physical Shortcuts/notification проверки с недеструктивными тестовыми данными; signed A5 Pushkin 1.0.1(3) не включает A6 и не обновлён.
+- [x] **A6 PR #75 MERGED** в main (`d1a0518`); два независимых [GitHub push CI 38813911302](https://github.com/arvectum2/arvectum-tools/actions/runs/38813911302) и [PR CI 38813914613](https://github.com/arvectum2/arvectum-tools/actions/runs/38813914613) — SUCCESS, включая отдельные delete-regression jobs.
+- [ ] **A6 physical Shortcuts/notification QA OPEN** [issue #76](https://github.com/arvectum2/arvectum-tools/issues/76): подтвердить enable, late-install micro, 2 ручные группы и реальные уведомления без изменения личной истории. Signed A5 Pushkin 1.0.1(3) не включает A6 и не обновлён.
 
 ## Active checkpoint — 2026-10-15 (independently verified ASC API)
 
