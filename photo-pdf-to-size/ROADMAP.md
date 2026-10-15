@@ -2,8 +2,7 @@
 
 ## Active release checkpoint — 2026-10-15
 
-**Published iOS baseline:** **1.0.1 (13)**, confirmed publicly released
-by the product owner on **2026-10-15**. Previous version 1.0.0 (12)
+**Published iOS baseline:** **1.0.1 (13)**, owner-confirmed and independently verified **READY_FOR_SALE** via authenticated App Store Connect API on **2026-10-15**. Previous version 1.0.0 (12)
 was published 2026-10-11. The signed 1.0.1 build was submitted for review
 2026-10-13 from the release/photo-size-ios-1.0.1 branch.
 This product-owner confirmation supersedes the older under-review state,

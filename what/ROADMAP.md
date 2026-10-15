@@ -3,7 +3,7 @@
 ## Active release checkpoint — 2026-10-15
 
 **Brand:** Ухват (RU) / UhWhat? (international), code directory what/.
-**Public 1.0.0 (5):** READY_FOR_SALE in App Store Connect 2026-10-15
+**Public 1.0.0 (5):** READY_FOR_SALE independently rechecked in App Store Connect API 2026-10-15
 (App ID 6822476399). **Submitted 1.0.1 (6):** Waiting for Review, recorded
 2026-10-15. Exact details and release evidence belong to the
 [1.0.1 release-branch roadmap](https://github.com/arvectum2/arvectum-tools/blob/release/what-1.0.1/what/ROADMAP.md);
