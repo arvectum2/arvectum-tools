@@ -1,0 +1,3 @@
+"CFBundleDisplayName" = "Ухват";
+"NSMicrophoneUsageDescription" = "Записывайте мысли на iPhone. Аудио хранится на вашем устройстве.";
+"NSSpeechRecognitionUsageDescription" = "Расшифровка сохранённых голосовых записей непосредственно на iPhone.";

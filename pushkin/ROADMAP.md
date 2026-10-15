@@ -10,6 +10,8 @@
 - [ ] Revisit monetization only with strict exclusion of notification data from advertising and analytics.
 
 
+**ASC API verified 2026-10-15:** first release iOS 1.0 remains **WAITING_FOR_REVIEW** (App ID 6817847111; build 1 VALID), no public distribution confirmed; crash/Shortcuts QA still open. Previous checkpoint:
+
 **Reconciled 2026-10-15:** No newer Apple review decision or public
 release was established in this roadmap sweep. Waiting for Review means
 **last known on 2026-10-14**, not newly verified today. Deletion crash

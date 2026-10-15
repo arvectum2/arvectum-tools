@@ -12,8 +12,16 @@ struct WhatApp: App {
         WindowGroup {
             ContentView()
                 .environmentObject(store)
-                .onReceive(NotificationCenter.default.publisher(for: .whatRecordingReceived)) { _ in
-                    store.reload()
+                .onReceive(NotificationCenter.default.publisher(for: .whatRecordingReceived)) { message in
+                    store.receivedRecording(message.object as? UUID)
+                }
+                .onOpenURL { url in
+                    if url.scheme == "what" && url.host == "record" {
+                        store.showPhoneCapture = true
+                    }
+                }
+                .onReceive(NotificationCenter.default.publisher(for: .whatWatchQueueStatusReceived)) { _ in
+                    store.reloadWatchQueueStatus()
                 }
         }
     }

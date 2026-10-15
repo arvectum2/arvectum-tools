@@ -10,8 +10,8 @@ settings:
     DEVELOPMENT_TEAM: VML75VY94V
     CODE_SIGN_STYLE: Automatic
     SWIFT_VERSION: "5.0"
-    MARKETING_VERSION: "0.1.0"
-    CURRENT_PROJECT_VERSION: "2"
+    MARKETING_VERSION: "1.0.1"
+    CURRENT_PROJECT_VERSION: "6"
 
 targets:
   WhatIOS:
@@ -25,11 +25,16 @@ targets:
     info:
       path: WhatIOS/Info.plist
       properties:
-        CFBundleDisplayName: "What?"
+        CFBundleDisplayName: "UhWhat?"
         CFBundleShortVersionString: "$(MARKETING_VERSION)"
         CFBundleVersion: "$(CURRENT_PROJECT_VERSION)"
         LSApplicationCategoryType: public.app-category.productivity
         NSSpeechRecognitionUsageDescription: "Transcribe your saved voice recordings on this iPhone using on-device speech recognition."
+        NSMicrophoneUsageDescription: "Record new voice notes directly on this iPhone. Audio stays on-device."
+        CFBundleURLTypes:
+          - CFBundleURLName: ru.arvectum.tools.what.record
+            CFBundleURLSchemes:
+              - what
         ITSAppUsesNonExemptEncryption: false
         UILaunchScreen: {}
     settings:
@@ -37,14 +42,39 @@ targets:
         PRODUCT_BUNDLE_IDENTIFIER: ru.arvectum.tools.what
         PRODUCT_NAME: WhatIOS
         PRODUCT_MODULE_NAME: WhatIOS
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         GENERATE_INFOPLIST_FILE: NO
         TARGETED_DEVICE_FAMILY: "1"
         SUPPORTS_MACCATALYST: NO
     dependencies:
       - target: WhatWatch
+      - target: WhatPhoneWidget
     scheme:
       testTargets:
         - WhatIOSTests
+        - WhatIOSUITests
+
+  WhatPhoneWidget:
+    type: app-extension
+    platform: iOS
+    deploymentTarget: "17.0"
+    sources:
+      - path: Shared/CaptureBrand.swift
+      - path: WhatPhoneWidget
+    info:
+      path: WhatPhoneWidget/Info.plist
+      properties:
+        CFBundleDisplayName: "UhWhat? Record"
+        CFBundleShortVersionString: "$(MARKETING_VERSION)"
+        CFBundleVersion: "$(CURRENT_PROJECT_VERSION)"
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.widgetkit-extension
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: ru.arvectum.tools.what.widget
+        PRODUCT_NAME: WhatPhoneWidget
+        GENERATE_INFOPLIST_FILE: NO
+        TARGETED_DEVICE_FAMILY: "1"
 
   WhatIOSTests:
     type: bundle.unit-test
@@ -59,6 +89,19 @@ targets:
         PRODUCT_BUNDLE_IDENTIFIER: ru.arvectum.tools.what.tests
         GENERATE_INFOPLIST_FILE: YES
 
+  WhatIOSUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    deploymentTarget: "17.0"
+    sources:
+      - path: WhatIOSUITests
+    dependencies:
+      - target: WhatIOS
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: ru.arvectum.tools.what.uitests
+        GENERATE_INFOPLIST_FILE: YES
+
   WhatWatch:
     type: application
     platform: watchOS
@@ -70,13 +113,13 @@ targets:
     info:
       path: WhatWatch/Info.plist
       properties:
-        CFBundleName: "What?"
-        CFBundleDisplayName: "What?"
+        CFBundleName: "UhWhat?"
+        CFBundleDisplayName: "UhWhat?"
         CFBundleShortVersionString: "$(MARKETING_VERSION)"
         CFBundleVersion: "$(CURRENT_PROJECT_VERSION)"
         WKApplication: true
         WKCompanionAppBundleIdentifier: ru.arvectum.tools.what
-        NSMicrophoneUsageDescription: "What? records the thought you speak so it can be saved locally and transferred to your iPhone."
+        NSMicrophoneUsageDescription: "UhWhat? records the thought you speak so it can be saved locally and transferred to your iPhone."
         CFBundleURLTypes:
           - CFBundleURLName: ru.arvectum.tools.what.capture
             CFBundleURLSchemes:
@@ -85,6 +128,7 @@ targets:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: ru.arvectum.tools.what.watch
         PRODUCT_NAME: WhatWatch
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         GENERATE_INFOPLIST_FILE: NO
         TARGETED_DEVICE_FAMILY: "4"
     dependencies:
@@ -96,18 +140,19 @@ targets:
     platform: watchOS
     deploymentTarget: "10.0"
     sources:
+      - path: Shared/CaptureBrand.swift
       - path: WhatWatchComplication
     info:
       path: WhatWatchComplication/Info.plist
       properties:
-        CFBundleDisplayName: "What?"
+        CFBundleDisplayName: "UhWhat?"
         CFBundleShortVersionString: "$(MARKETING_VERSION)"
         CFBundleVersion: "$(CURRENT_PROJECT_VERSION)"
         NSExtension:
           NSExtensionPointIdentifier: com.apple.widgetkit-extension
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: ru.arvectum.tools.what.watch.complication
+        PRODUCT_BUNDLE_IDENTIFIER: ru.arvectum.tools.what.watch.capturewidget
         PRODUCT_NAME: WhatWatchComplication
         GENERATE_INFOPLIST_FILE: NO
         TARGETED_DEVICE_FAMILY: "4"
@@ -123,6 +168,15 @@ schemes:
       config: Debug
       targets:
         - WhatIOSTests
+
+  WhatIOSUITests:
+    build:
+      targets:
+        WhatIOSUITests: all
+    test:
+      config: Debug
+      targets:
+        - WhatIOSUITests
 
   WhatWatch:
     build:

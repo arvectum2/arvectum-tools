@@ -19,15 +19,15 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 
 APP_ID = "6816346084"
-APP_INFO_ID = "271cc548-f2a2-49de-8620-a38cd1d81e06"
-VERSION = "1.0.0"
-BUILD_NUMBER = "12"
+APP_INFO_ID = "4bc8a3a2-1a48-4b6b-8b1b-0b111ed9e149"
+VERSION = os.environ.get("ARVECTUM_APP_VERSION", "1.0.0")
+BUILD_NUMBER = os.environ.get("ARVECTUM_BUILD_NUMBER", "12")
 API = "https://api.appstoreconnect.apple.com/v1"
 ROOT = Path(__file__).resolve().parents[2]
-METADATA = ROOT / "docs/aso/metadata-2026-10-10.json"
+METADATA = Path(os.environ.get("ARVECTUM_RELEASE_METADATA", str(ROOT / "docs/aso/metadata-2026-10-10.json")))
 SHOTS = ROOT / "store-assets/appstore/aso"
 CONFIG = Path.home() / ".config/arvectum/appstore-connect.env"
-STATE = ROOT / "ios/build/release-1.0.0-appstore-state.json"
+STATE = ROOT / f"ios/build/release-{VERSION}-appstore-state.json"
 MAX_RETRIES = 5
 cfg = {}
 for row in CONFIG.read_text().splitlines():
@@ -132,6 +132,9 @@ def prepare():
         except Exception as e:
             failures.append((loc,"version",str(e)[:450]))
             print("VERSION_LOCALE_FAILED",loc,str(e)[:450],flush=True)
+        # Patch releases update version metadata only; published AppInfo fields are locked.
+        if VERSION != "1.0.0":
+            continue
         try:
             a={"name":meta["name"],"subtitle":meta["subtitle"],"privacyPolicyUrl":meta["privacyPolicyUrl"]}
             if loc in app_locales:
@@ -255,7 +258,7 @@ def review():
     existing=rel.get("data")
     old_notes=ROOT/"docs/appstore/REVIEW_NOTES_TEXT_2026-09-27.txt"
     text=old_notes.read_text() if old_notes.exists() else ""
-    text=("Version 1.0.0: internal refactor and stability improvements. "
+    text=(f"Version {VERSION}: improved ad consent accessibility for larger system fonts. "
           "Photo resize, PDF compression, and document-size presets are on-device. "
           "High PDF compression may rasterize pages. Ads use Yandex Mobile Ads; "
           "privacy and ad consent can be accessed on the main screen.\n\n"+text)[:4000]
@@ -326,7 +329,7 @@ def submission():
     attached=request("GET",f"/appStoreVersions/{version_id}?include=build")
     builds=[x for x in attached.get("included",[]) if x["type"]=="builds"]
     if not builds or builds[0]["attributes"].get("version")!=BUILD_NUMBER or builds[0]["attributes"].get("processingState")!="VALID":
-        raise RuntimeError("Release build 11 must be attached and VALID")
+        raise RuntimeError(f"Release build {BUILD_NUMBER} must be attached and VALID")
     for loc in locs:
         locale=loc["attributes"]["locale"]
         sets=paginate(f"/appStoreVersionLocalizations/{loc['id']}/appScreenshotSets?limit=50")

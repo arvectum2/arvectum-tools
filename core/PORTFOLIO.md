@@ -15,15 +15,15 @@ not copied checkboxes. Apps release independently.
 
 ## Release status snapshot — 2026-10-15
 
-This is a dated distribution status overview, not a second feature checklist.
+This is a dated distribution status overview, not a second feature checklist. [App Store and Git provenance evidence](RELEASE_PROVENANCE_20261015.md).
 Owner reports, actual App Store Connect checks and source/build verification
 are different types of evidence. Unverified new approvals must not be assumed.
 
 | Product | Last confirmed public iOS release | Pending Apple review | Evidence and remaining work |
 | --- | --- | --- | --- |
-| Фото и PDF под размер | **1.0.1 (13)** published, owner-confirmed **2026-10-15** | None known | Storefront / ASC propagation not independently rechecked; post-release export and live ads QA open |
+| Фото и PDF под размер | **1.0.1 (13)** READY_FOR_SALE, authenticated ASC **2026-10-15** | None | Exact build 13 VALID; post-release export and live ads QA open |
 | ChickMark | **1.4.0 (8)** | **1.4.1 (15)** Waiting for Review, last checked 2026-10-15 | R1 decision and A1/A4/A6/A7 physical or external acceptance open |
-| Pushkin | Not confirmed published | **1.0.0 (1)** Waiting for Review, last owner report 2026-10-14 | Deletion crash and physical Shortcuts/offline QA open |
+| Pushkin | Not published | **1.0.0 (1)** Waiting for Review, ASC **2026-10-15** | Build 1 VALID; deletion crash and physical Shortcuts/offline QA open |
 | Ухват / UhWhat? | **1.0.0 (5)** READY_FOR_SALE, ASC record 2026-10-15 | **1.0.1 (6)** Waiting for Review, record 2026-10-15 | Physical one-tap Watch capture and interruption tests open |
 | Where? | Not released | None | MVP W0–W3 not independently implemented |
 

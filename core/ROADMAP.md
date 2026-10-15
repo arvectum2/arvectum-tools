@@ -1,6 +1,6 @@
 # Arvectum Tools Core — Roadmap
 
-**Очередность работ 2026-10-15:** [общий execution plan](EXECUTION_PLAN.md). Приоритет — CI/release provenance и помощь живым релизам, без активной разработки Where?.
+**Очередность работ 2026-10-15:** [общий execution plan](EXECUTION_PLAN.md). [Срез A0 — Apple, исходники и GitVerse](RELEASE_PROVENANCE_20261015.md). Приоритет — CI/release provenance и помощь живым релизам, без активной разработки Where?.
 
 ## 2026-10-15 implementation checkpoint
 - [x] Shared Swift packages exist: ArvectumDesignTokens, ArvectumPersistence and ArvectumDiagnostics, with privacy-safe local diagnostics.
