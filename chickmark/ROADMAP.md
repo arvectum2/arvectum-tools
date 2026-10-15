@@ -1,5 +1,11 @@
 # ChickMark — актуальная дорожная карта
 
+## A5 — isolated next-patch candidate (2026-10-15)
+
+- [x] Created isolated A5 release source candidate **1.4.2 (16)** from main. [Release gate](docs/A5_RELEASE_CANDIDATE_1_4_2_2026-10-15.md).
+- [ ] Signing, full independent CI, physical QA and Apple submission remain separate gates; source candidate is **not** an App Store upload or approval.
+
+
 **Источник истины:** этот файл. Прежняя дорожная карта целиком, со всеми исходными чекбоксами, датами и ссылками, без изменений сохранена в [архиве через 1.4.1 (15)](docs/history/ROADMAP-through-2026-10-14-build15.md). Дополнительные старые снимки — в docs/history/. Незакрытые пункты для тестовых сборок (9)–(13) и версий 1.3.x **не переносятся автоматически** в текущий план.
 
 ## Единый срез портфеля — 2026-10-15
