@@ -76,10 +76,33 @@ enum CoverageCatalog {
             }
         }
 
-        return Bundle.main.url(
+        if let bundled = Bundle.main.url(
             forResource: filename,
             withExtension: nil
-        )
+        ) {
+            return bundled
+        }
+
+        // Apple's bundle resource index can fail for a literal filename
+        // containing punctuation, accents or multiple dots, even when the
+        // exact .shortcut file was copied into the app. XcodeGen currently
+        // flattens the bundled micro-packages to the app resource root.
+        guard let root = Bundle.main.resourceURL else { return nil }
+        for subdirectory in subdirectories {
+            let directory = subdirectory.isEmpty
+                ? root
+                : root.appendingPathComponent(subdirectory, isDirectory: true)
+            let exactFile = directory.appendingPathComponent(
+                filename, isDirectory: false
+            )
+            if FileManager.default.fileExists(atPath: exactFile.path) {
+                return exactFile
+            }
+        }
+        let exactFile = root.appendingPathComponent(filename, isDirectory: false)
+        return FileManager.default.fileExists(atPath: exactFile.path)
+            ? exactFile
+            : nil
     }
 
     private static func load() -> CoverageCatalogDocument {
