@@ -110,9 +110,19 @@ final class HabitDesiredCountTests: XCTestCase {
 
         snapshot.generatedAt = now.addingTimeInterval(2)
         snapshot.habits[0].dailyCount = 3
-        let settled = HabitSyncReconciler.reconcile(
+        let matching = HabitSyncReconciler.reconcile(
             incoming: snapshot, pendingCommands: [command]
         )
+        XCTAssertEqual(matching.remainingCommands, [command],
+                       "A matching partial count does not prove the command reached iPhone")
+
+        snapshot.acknowledgedCommandIDs = [command.id]
+        let settled = HabitSyncReconciler.reconcile(
+            incoming: snapshot,
+            currentSnapshot: matching.snapshot,
+            pendingCommands: matching.remainingCommands
+        )
         XCTAssertTrue(settled.remainingCommands.isEmpty)
+        XCTAssertEqual(settled.snapshot.habits[0].dailyCount, 3)
     }
 }
