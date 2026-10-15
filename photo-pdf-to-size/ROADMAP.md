@@ -1,6 +1,16 @@
 # Фото и PDF под размер — Product Roadmap
 
-**Updated:** 2026-10-13
+## 2026-10-15 — Public release confirmation
+
+- [x] **iOS 1.0.1 (13) has been published** — confirmed by the product owner
+  2026-10-15, superseding the historical 2026-10-13 Waiting for Review state.
+  This is owner confirmation, not a fresh independent ASC API verification.
+- [ ] Verify public storefront / ASC propagation of the exact build.
+- [ ] Complete post-publication physical Files/Photos/PDF export, large file,
+  live ad fill, consent and ATT QA; previous demo does not prove live fill.
+- [ ] Merge shipping source and source/build provenance into main separately.
+
+**Updated:** 2026-10-15 (release outcome; original 2026-10-13 history below)
 **Ownership:** image/PDF sizing, document presets, export, app-specific UX, SDK integrations, QA and releases.
 **iOS App Store:** v1.0.0 approved and published on 2026-10-11, after submission on 2026-10-10 (product owner confirmation). Apple App ID `6816346084`, bundle ID `ru.arvectum.tools.tosize`. [Public listing](https://apps.apple.com/ru/app/id6816346084). Android publication status is tracked independently.
 **History and detailed specification:** [docs/history/ROADMAP-legacy-2026-10-11.md](docs/history/ROADMAP-legacy-2026-10-11.md). It is reference history, not a live checklist.
@@ -26,7 +36,7 @@
 - [x] Recover build **12** source commit `0346d75`, signed IPA/archive and Apple submission evidence; merge the shipped source into canonical `main` and tag `photo-size-ios-v1.0.0-build12`.
 - [ ] Verify public-storefront propagation of 1.0.0 (public iTunes lookup still showed 0.6.2 during this audit).
 
-## iOS 1.0.1 (13) — submitted to App Review (WAITING_FOR_REVIEW, 2026-10-13)
+## iOS 1.0.1 (13) — historical App Review state 2026-10-13 (published 2026-10-15)
 
 - [x] Keep the advertising consent Accept/Decline buttons visible even with iOS 27's maximum accessibility text size by scrolling explanatory text separately.
 - [x] Re-run 28 unit tests plus 5 simulator UI tests on iOS 27 with standard text size; 5 device-only Files tests skipped by design.
@@ -38,7 +48,8 @@
 - [x] Physical iPhone 13 debug build installed, launched and screenshot captured: main screen and native demo ad visible.
 - [x] Submitted 1.0.1 (13) to App Review 2026-10-13; Apple confirmed WAITING_FOR_REVIEW.
 - [ ] Full physical Files import/export and ATT acceptance still need verification: XCTest UI runner timed out enabling automation, not an app assertion. Do not claim production ads tested. See [release handoff](docs/appstore/RELEASE_1.0.1_2026-10-13.md).
-- [ ] Apple approval and public storefront verification.
+- [x] Apple approved/publication confirmed by product owner 2026-10-15; independent ASC confirmation is a separate evidence step.
+- [ ] Independently verify exact 1.0.1 public storefront and App Store Connect propagation.
 
 ## Next: post-release QA and maintenance
 - [ ] Run device regression on image modes, document presets, PDF orientation, large-file memory and export.
