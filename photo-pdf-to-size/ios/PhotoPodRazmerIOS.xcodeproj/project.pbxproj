@@ -35,6 +35,7 @@
 		9D825F00961E047BD45E701A /* PDFEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB73B138CC67081AF8838E65 /* PDFEngineTests.swift */; };
 		A4020173E1729A70A112D128 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E54EEFD9D84C1CAF06B85B34 /* Assets.xcassets */; };
 		AF45054A68293FA280DA34FE /* ArvectumCore in Frameworks */ = {isa = PBXBuildFile; productRef = 32CAED4BCA9D046FBF7F00F1 /* ArvectumCore */; };
+		B94265DFA1E39970C6E632A0 /* ImportExportIntegrityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4243F29AAADF120C4D843B36 /* ImportExportIntegrityTests.swift */; };
 		C365D0DE520BD030C8F6623E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F65B1DB20A70EDE63ACD8A44 /* InfoPlist.strings */; };
 		C4884D75FD456DC59BB3D545 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = F70153CC2BE5352F2D9891E7 /* Localizable.strings */; };
 		C685BAA36108A911AB0432CE /* ImageEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D663780C7734CAD6EA60131 /* ImageEngine.swift */; };
@@ -75,6 +76,7 @@
 		357DC3C94F468E01EBFED12A /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		3B1197D2C48FCE7500B11E87 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		404074593195EA93F1DF28D2 /* PhotoPodRazmerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPodRazmerApp.swift; sourceTree = "<group>"; };
+		4243F29AAADF120C4D843B36 /* ImportExportIntegrityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportExportIntegrityTests.swift; sourceTree = "<group>"; };
 		45E950E3E330ED7352B76698 /* AppModel+Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppModel+Navigation.swift"; sourceTree = "<group>"; };
 		499263E4679EADCAE1EA5A65 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4BC9368CF5B6238AB8AD7E58 /* QAFixtures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QAFixtures.swift; sourceTree = "<group>"; };
@@ -169,6 +171,7 @@
 			children = (
 				9D1A80B3072CE5FACCF31E93 /* AppModelTests.swift */,
 				08AEB8D127CD578A7F444A94 /* ImageEngineTests.swift */,
+				4243F29AAADF120C4D843B36 /* ImportExportIntegrityTests.swift */,
 				CB73B138CC67081AF8838E65 /* PDFEngineTests.swift */,
 			);
 			path = PhotoPodRazmerTests;
@@ -415,6 +418,7 @@
 			files = (
 				15735CC0D48C474DF95E86A5 /* AppModelTests.swift in Sources */,
 				C73E964DFBCD3A9EBB101951 /* ImageEngineTests.swift in Sources */,
+				B94265DFA1E39970C6E632A0 /* ImportExportIntegrityTests.swift in Sources */,
 				9D825F00961E047BD45E701A /* PDFEngineTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -539,7 +543,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 13;
+				CURRENT_PROJECT_VERSION = 14;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = PhotoPodRazmer/Info.plist;
@@ -548,7 +552,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -673,7 +677,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 13;
+				CURRENT_PROJECT_VERSION = 14;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = PhotoPodRazmer/Info.plist;
@@ -682,7 +686,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",

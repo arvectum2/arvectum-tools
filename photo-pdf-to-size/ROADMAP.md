@@ -1,5 +1,11 @@
 # Фото и PDF под размер — Product Roadmap
 
+## A5 — isolated next-patch candidate (2026-10-15)
+
+- [x] Created isolated A5 release source candidate **1.0.2 (14)** from main. [Release gate](docs/A5_RELEASE_CANDIDATE_1_0_2_2026-10-15.md).
+- [ ] Signing, full independent CI, physical QA and Apple submission remain separate gates; source candidate is **not** an App Store upload or approval.
+
+
 ## Active release checkpoint — 2026-10-15
 
 **Published iOS baseline:** **1.0.1 (13)**, owner-confirmed and independently verified **READY_FOR_SALE** via authenticated App Store Connect API on **2026-10-15**. Previous version 1.0.0 (12)
