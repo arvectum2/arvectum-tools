@@ -44,3 +44,10 @@
 5. После публичного статуса READY_FOR_SALE проверить витрину и фактические ad impressions/данные распространения. Не заявлять фиксы публичными заранее.
 
 **Where?** остаётся PAUSED.
+
+
+## Additional signed-export reconciliation (2026-10-15)
+
+Two independently exported and successfully verified QA copies also exist under the same SSD release root. The Uhvat copy is at `what-1.0.2-build7/export/WhatIOS.ipa` (SHA-256 `978e49a845db6311e81ba9d0d4bb2be18d9dd9a55ef9fdd84310b1c56db0fce5`); the ChickMark copy is at `chickmark-1.4.2-build16/export/HabitsByArvectum.ipa` (SHA-256 `02dea1db1f58b9eb519ecf42f7bc4ac8989ef5ff4d789a01fa2a5031cc6d107b`). Both copies passed the version/build, all four App Store profiles with `get-task-allow=false`, and `codesign --verify --strict` checks. Each separate export has its own SHA-256; their exact receipt files are preserved in their release branches.
+
+**Only the canonical IPA paths and SHA-256 entries in `A5_SIGNED_AUDIT.json` are selected for any future App Store upload.** The additional QA copies must not be accidentally substituted or uploaded. Both export sets reference the same per-app source RC commit, but independent signing/export is not a bitwise-reproducibility claim.
