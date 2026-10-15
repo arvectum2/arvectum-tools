@@ -203,13 +203,23 @@ final class PDFEngine {
         pageCount: Int
     ) -> RenderedPage {
         let box = page.bounds(for: .mediaBox)
+        // A PDF /Rotate value of 90 or 270 changes the DISPLAY page size,
+        // not the underlying MediaBox. Exporting an unrotated MediaBox
+        // silently turns landscape pages into portrait pages.
+        let rotation = (page.rotation % 360 + 360) % 360
+        let quarterTurn = rotation == 90 || rotation == 270
+        let displayedBox = CGRect(
+            x: 0, y: 0,
+            width: quarterTurn ? box.height : box.width,
+            height: quarterTurn ? box.width : box.height
+        )
         let pageCountScale = min(1, sqrt(12 / CGFloat(max(pageCount, 1))))
         let memoryAwareScale = scale * pageCountScale
-        let maxSide = max(box.width, box.height)
+        let maxSide = max(displayedBox.width, displayedBox.height)
         let boundedScale = min(memoryAwareScale, 2400 / max(maxSide, 1))
         let pixelSize = CGSize(
-            width: max(1, floor(box.width * boundedScale)),
-            height: max(1, floor(box.height * boundedScale))
+            width: max(1, floor(displayedBox.width * boundedScale)),
+            height: max(1, floor(displayedBox.height * boundedScale))
         )
 
         let format = UIGraphicsImageRendererFormat.default()
@@ -220,14 +230,22 @@ final class PDFEngine {
         let image = renderer.image { context in
             UIColor.white.setFill()
             context.fill(CGRect(origin: .zero, size: pixelSize))
-            context.cgContext.saveGState()
-            context.cgContext.translateBy(x: 0, y: pixelSize.height)
-            context.cgContext.scaleBy(x: boundedScale, y: -boundedScale)
-            page.draw(with: .mediaBox, to: context.cgContext)
-            context.cgContext.restoreGState()
+            if quarterTurn {
+                // PDFKit's thumbnail applies the page's /Rotate transform
+                // correctly, while the older page.draw path below assumes an
+                // unrotated MediaBox. Keep the existing draw path for 0/180.
+                let oriented = page.thumbnail(of: pixelSize, for: .mediaBox)
+                oriented.draw(in: CGRect(origin: .zero, size: pixelSize))
+            } else {
+                context.cgContext.saveGState()
+                context.cgContext.translateBy(x: 0, y: pixelSize.height)
+                context.cgContext.scaleBy(x: boundedScale, y: -boundedScale)
+                page.draw(with: .mediaBox, to: context.cgContext)
+                context.cgContext.restoreGState()
+            }
         }
 
-        return RenderedPage(image: image, mediaBox: box)
+        return RenderedPage(image: image, mediaBox: displayedBox)
     }
 
     private func previewImage(_ document: PDFDocument) -> UIImage? {

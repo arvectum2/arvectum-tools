@@ -62,3 +62,19 @@ jobs:
       - name: Build app and unit-test bundle
         run: |
           xcodebuild             -project PhotoPodRazmerIOS.xcodeproj             -scheme PhotoPodRazmer             -sdk iphonesimulator             -destination 'generic/platform=iOS Simulator'             CODE_SIGNING_ALLOWED=NO             build-for-testing
+
+      - name: A4 photo/PDF post-release regression (unit + simulated export UI)
+        timeout-minutes: 22
+        run: |
+          xcodebuild \
+            -project PhotoPodRazmerIOS.xcodeproj \
+            -scheme PhotoPodRazmer \
+            -destination 'platform=iOS Simulator,name=iPhone 18 Pro,OS=27.0' \
+            -parallel-testing-enabled NO \
+            -jobs 2 \
+            CODE_SIGNING_ALLOWED=NO \
+            COMPILER_INDEX_STORE_ENABLE=NO \
+            -only-testing:PhotoPodRazmerTests \
+            -only-testing:PhotoPodRazmerUITests/WorkflowUITests \
+            -only-testing:PhotoPodRazmerUITests/LayoutRegressionUITests \
+            test

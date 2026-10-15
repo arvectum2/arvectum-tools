@@ -1,6 +1,6 @@
 # Фото и PDF под размер iOS 1.0.1 (13) — physical QA evidence, 2026-10-14
 
-State: submitted to Apple and still under review, per owner on 2026-10-14. Do not claim public 1.0.1 until approval.
+Historical state **as of 2026-10-14**: submitted to Apple and still under review. **Superseded 2026-10-15** by ASC READY_FOR_SALE confirmation of 1.0.1 (13). Current follow-ups and simulator/source patch findings are in [A4 post-release QA](A4_POST_RELEASE_QA_2026-10-15.md); this document preserves the earlier physical evidence.
 
 ## Verified by CoreDevice
 - [x] Physical iPhone 13 has ru.arvectum.tools.tosize version 1.0.1 (13) installed.

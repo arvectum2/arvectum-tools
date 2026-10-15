@@ -76,6 +76,71 @@ final class PDFEngineTests: XCTestCase {
         )
     }
 
+    func testMixedOrientationAndRotatedPDFPagesKeepReadableLayout() throws {
+        let original = PDFDocument()
+        let rotations = [0, 90, 180, 270]
+        for (index, rotation) in rotations.enumerated() {
+            let landscape = index.isMultiple(of: 2)
+            let rect = CGRect(
+                x: 0, y: 0,
+                width: landscape ? 842 : 595,
+                height: landscape ? 595 : 842
+            )
+            let pageBytes = UIGraphicsPDFRenderer(bounds: rect).pdfData { context in
+                context.beginPage()
+                UIColor.white.setFill()
+                context.fill(rect)
+                UIColor.black.setFill()
+                context.fill(CGRect(x: 0, y: 0, width: rect.width, height: 95))
+                let noisy = makeNoiseImage(
+                    width: 1200, height: 1000, seed: index + 301
+                )
+                noisy.draw(in: CGRect(
+                    x: 20, y: 110, width: rect.width - 40, height: rect.height - 135
+                ))
+            }
+            let doc = try XCTUnwrap(PDFDocument(data: pageBytes))
+            let page = try XCTUnwrap(doc.page(at: 0))
+            page.rotation = rotation
+            original.insert(page, at: index)
+        }
+        let source = try engine.inspect(data: try XCTUnwrap(original.dataRepresentation()))
+        XCTAssertGreaterThan(source.sizeBytes, 1_000_000)
+        let limit = max(Int64(170_000), source.sizeBytes / 3)
+        XCTAssertLessThan(limit, source.sizeBytes)
+        let result = try engine.compressByBytes(
+            source: source, requestedMaximumBytes: limit
+        )
+        XCTAssertFalse(result.alreadyFit)
+        XCTAssertLessThanOrEqual(result.outputSizeBytes, limit)
+        let output = try XCTUnwrap(PDFDocument(url: result.outputURL))
+        XCTAssertEqual(output.pageCount, original.pageCount)
+        for index in 0..<original.pageCount {
+            let incoming = try XCTUnwrap(original.page(at: index))
+            let outgoing = try XCTUnwrap(output.page(at: index))
+            let originalThumb = incoming.thumbnail(
+                of: CGSize(width: 380, height: 380), for: .mediaBox
+            )
+            let outgoingThumb = outgoing.thumbnail(
+                of: CGSize(width: 380, height: 380), for: .mediaBox
+            )
+            let expectedLandscape = originalThumb.size.width > originalThumb.size.height
+            let actualLandscape = outgoingThumb.size.width > outgoingThumb.size.height
+            XCTAssertEqual(
+                actualLandscape, expectedLandscape,
+                "Page \(index + 1) displayed orientation changed"
+            )
+            let incomingContrast = verticalContrast(originalThumb)
+            let outgoingContrast = verticalContrast(outgoingThumb)
+            if abs(incomingContrast) > 20 {
+                XCTAssertGreaterThan(
+                    incomingContrast * outgoingContrast, 0,
+                    "Page \(index + 1) visual top/bottom flipped"
+                )
+            }
+        }
+    }
+
     private func makeOrientationPDF() -> Data {
         let pageRect = CGRect(x: 0, y: 0, width: 595, height: 842)
         let renderer = UIGraphicsPDFRenderer(bounds: pageRect)
