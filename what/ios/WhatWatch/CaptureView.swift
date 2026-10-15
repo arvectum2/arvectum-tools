@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct CaptureView: View {
+    @Environment(\.scenePhase) private var scenePhase
     @ObservedObject var controller: WatchCaptureController
 
     var body: some View {
@@ -46,8 +47,11 @@ struct CaptureView: View {
                     controller.startCapture()
                 } label: {
                     VStack(spacing: 6) {
-                        Image(systemName: "mic.fill")
-                            .font(.system(size: 34))
+                        Image("WhatGlyph")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 46, height: 46)
+                            .accessibilityHidden(true)
                         Text(CaptureBrand.text("Записать", "Record"))
                             .font(.headline)
                     }
@@ -67,6 +71,13 @@ struct CaptureView: View {
         .tint(Color(red: 67 / 255, green: 229 / 255, blue: 197 / 255))
         .onAppear {
             controller.activateConnectivity()
+        }
+        .onChange(of: scenePhase) { _, phase in
+            if phase == .background {
+                // Digital Crown / app switch: finalize audio before watchOS
+                // suspends the app, even if the user never pressed Stop.
+                controller.finishCaptureWhenBackgrounded()
+            }
         }
         .onOpenURL { url in
             guard url.scheme == "what", url.host == "capture" else { return }

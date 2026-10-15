@@ -2,6 +2,16 @@
 
 **North star (2026-10-13): Catch the thought before it disappears. Analyze it later.** The product is immediate, reliable voice capture, not an AI search engine. See [Product Principles](PRODUCT_PRINCIPLES.md).
 
+### Watch capture reliability — release 1.0.1 (6), 2026-10-15
+
+- [x] Watch-face complication uses `widgetURL(what://capture)` instead of `Link`, routing one tap to existing in-app auto-start handler without requiring an additional Record button tap.
+- [x] Branded `WhatGlyph` replaces the default microphone in the Watch capture button and Watch complication (inline, circular, rectangular); compiled resource verified in both watchOS bundles.
+- [x] Watch scene transition to background finalizes, validates, and queues the active AAC recording with the same UUID, even without the Stop button. If Watch leaves during microphone activation, pending callback is invalidated, preventing accidental post-exit recording.
+- [x] Release archive **1.0.1 (6)** signed for all 4 targets, and exported IPA validated by Apple's upload tool with zero errors.
+- [x] iOS simulator regression on release code: 51 passed, 3 experimental skipped, 2 UI tests passed. watchOS simulator build succeeded.
+- [ ] **Physical acceptance required:** complication → one tap → Watch audio starts; press Digital Crown without Stop after 2–3 seconds; recording reaches iPhone once and plays; background/foreground, offline, ACK/reboot recovery. App Store submission is not evidence of physical reliability.
+- [ ] **Full interruption guarantee:** sudden power loss/force termination may leave incomplete AAC unplayable; original file retained for recovery, but cannot guarantee recovery in every crash until a checkpointed audio writer is implemented and verified.
+
 ### iPhone capture-first home (1.0.0 build 3)
 
 - [x] Launch to a large, single microphone button inspired by Shazam; existing iPhone capture sheet starts audio on appearance.
@@ -18,7 +28,8 @@
 - [x] Signed build 5 accepted by ASC and submitted. Apple's status: **Waiting for Review**, App ID `6822476399`.
 - [x] Physical iPhone 13 updated to build 5; every one of 33 backed-up files preserved unchanged, including 23 recordings.
 - [ ] Physical iPhone capture quality and Watch recording/offline delivery tests on build 5; continue post-submission reliability work without modifying submitted build.
-- [ ] Apple App Review decision, any rejection questions, and public launch follow-up.
+- [x] Public 1.0.0 (5) is READY_FOR_SALE in App Store Connect on 2026-10-15; review accepted.
+- [ ] Monitor 1.0.1 review and handle any review feedback.
 
 ### Release candidate 1.0.0 (4) — 2026-10-14
 

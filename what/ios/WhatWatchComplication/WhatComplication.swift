@@ -24,11 +24,15 @@ private struct CaptureComplicationView: View {
     private let captureURL = URL(string: "what://capture")!
 
     var body: some View {
-        Link(destination: captureURL) {
+        Group {
             switch family {
             case .accessoryRectangular:
                 HStack(spacing: 6) {
-                    Image(systemName: "mic.fill")
+                    Image("WhatGlyph")
+                        .renderingMode(.template)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 24, height: 24)
                     VStack(alignment: .leading, spacing: 1) {
                         Text(CaptureBrand.name)
                             .font(.headline)
@@ -37,15 +41,26 @@ private struct CaptureComplicationView: View {
                     }
                 }
             case .accessoryInline:
-                Label(CaptureBrand.text("Ухват: запись", "UhWhat? Record"), systemImage: "mic.fill")
+                Label {
+                    Text(CaptureBrand.text("Ухват: запись", "UhWhat? Record"))
+                } icon: {
+                    Image("WhatGlyph")
+                        .renderingMode(.template)
+                }
             default:
                 ZStack {
                     AccessoryWidgetBackground()
-                    Image(systemName: "mic.fill")
-                        .font(.title2)
+                    Image("WhatGlyph")
+                        .renderingMode(.template)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 34, height: 34)
                 }
             }
         }
+        // A complication is a single tap surface. A Link can open the Watch
+        // app without delivering the capture URL, resulting in a second tap.
+        .widgetURL(captureURL)
         .containerBackground(.clear, for: .widget)
     }
 }

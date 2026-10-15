@@ -31,6 +31,8 @@ final class WatchCaptureController: NSObject, ObservableObject, AVAudioRecorderD
 
     private var recorder: AVAudioRecorder?
     private var isStarting = false
+    // Invalidates pending microphone-activation callbacks after leaving the app.
+    private var captureGeneration = 0
     private var captureRequestedAt: TimeInterval?
     private var activeRecordingID: UUID?
     private var activeCreatedAt: Date?
@@ -64,30 +66,46 @@ final class WatchCaptureController: NSObject, ObservableObject, AVAudioRecorderD
     func startCapture() {
         guard recorder == nil, !isStarting else { return }
         isStarting = true
+        captureGeneration += 1
+        let generation = captureGeneration
         captureRequestedAt = ProcessInfo.processInfo.systemUptime
         state = .preparing
 
         let audioApplication = AVAudioApplication.shared
         switch audioApplication.recordPermission {
         case .granted:
-            beginRecording()
+            beginRecording(generation: generation)
         case .denied:
             isStarting = false
             state = .error("Microphone access is off.")
         case .undetermined:
             AVAudioApplication.requestRecordPermission { [weak self] granted in
                 DispatchQueue.main.async {
+                    guard let self, self.captureGeneration == generation,
+                          self.isStarting else { return }
                     if granted {
-                        self?.beginRecording()
+                        self.beginRecording(generation: generation)
                     } else {
-                        self?.isStarting = false
-                        self?.state = .error("Microphone access is off.")
+                        self.isStarting = false
+                        self.state = .error("Microphone access is off.")
                     }
                 }
             }
         @unknown default:
             isStarting = false
             state = .error("Microphone permission is unavailable.")
+        }
+    }
+
+    func finishCaptureWhenBackgrounded() {
+        if isStarting {
+            captureGeneration += 1
+            isStarting = false
+            captureRequestedAt = nil
+            state = .idle
+        }
+        if recorder != nil {
+            stopCapture()
         }
     }
 
@@ -140,7 +158,8 @@ final class WatchCaptureController: NSObject, ObservableObject, AVAudioRecorderD
         }
     }
 
-    private func beginRecording() {
+    private func beginRecording(generation: Int) {
+        guard isStarting, captureGeneration == generation else { return }
         let id = UUID()
         let createdAt = Date()
         let url = outboundDirectory.appendingPathComponent("\(id.uuidString).m4a")
@@ -155,7 +174,8 @@ final class WatchCaptureController: NSObject, ObservableObject, AVAudioRecorderD
 
         audioSession.activate { [weak self] activated, error in
             DispatchQueue.main.async {
-                guard let self else { return }
+                guard let self, self.captureGeneration == generation,
+                      self.isStarting else { return }
 
                 guard activated else {
                     self.failRecordingStart(

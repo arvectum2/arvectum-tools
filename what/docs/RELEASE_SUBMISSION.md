@@ -1,3 +1,16 @@
+## Release 1.0.1 (6) — Watch capture fixes, 2026-10-15
+
+- **Distribution:** public 1.0.0 (5) is READY_FOR_SALE; target 1.0.1 (6), App ID 6822476399.
+- **Watch complication:** `widgetURL(what://capture)` rather than `Link`, so one tap should deliver the capture deep-link to the Watch app; `.onOpenURL` already triggers recording.
+- **Branding:** use user-approved WhatGlyph on all Watch complication families and the in-app Record button; watchOS watch + widget asset catalogs confirmed included in compiled archive.
+- **Watch lifecycle:** leaving the app for the watch face/background calls `finishCaptureWhenBackgrounded()`, which stops and queues completed audio. Pending mic requests are invalidated so a late callback cannot start a recording in the background.
+- **Recovery limitations:** WatchQueueRecovery retains unqueued finalized AAC and never deletes incomplete files; not a proven guarantee against forced termination or power loss mid-AAC.
+- **Validation:** iOS simulator 51 pass, 3 experimental skips, 2 UI pass; watchOS simulator build pass. App Store archive 1.0.1 (6) signed, exported, Apple validation passed (no errors).
+- **Signed archive:** `/Volumes/ArvectumSSD/Arvectum/releases/what/What-1.0.1-rc2.xcarchive`.
+- **Distribution IPA:** `/Volumes/ArvectumSSD/Arvectum/releases/what/export-1.0.1-rc2/WhatIOS.ipa`.
+- **Physical Watch acceptance:** not yet executed. Specifically test one-tap capture, Crown-close autosave and one-time iPhone delivery before considering P0 physical acceptance done.
+- **Privacy scope:** no collection, ads, analytics, third-party speech server, or changes to iPhone storage format.
+
 ## App Store Connect submission — 2026-10-14 (current status)
 
 - **Submitted successfully:** App ID `6822476399`, iOS version **1.0.0 (5)**. Apple confirmed **“1 Item Submitted”** and the status **“Waiting for Review”** on 2026-10-14.
