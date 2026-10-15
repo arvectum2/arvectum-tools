@@ -31,6 +31,29 @@ final class WorkflowUITests: XCTestCase {
         XCTAssertTrue(app.buttons["Уменьшить фото"].waitForExistence(timeout: 8))
     }
 
+    /// Hermetic CI guard: verify that a synthetic PDF can be compressed and
+    /// offers both export actions without presenting iOS Files-provider UI.
+    /// The actual document browser/save sheet is tested separately on-device.
+    func testPDFCompressionShowsExportActions() {
+        let app = launch("--qa-pdf-fixture")
+        let button = app.buttons["Уменьшить PDF"]
+        XCTAssertTrue(button.waitForExistence(timeout: 8))
+        XCTAssertTrue(button.isEnabled)
+        button.tap()
+        XCTAssertTrue(app.staticTexts["ГОТОВО"].waitForExistence(timeout: 25))
+        XCTAssertTrue(app.buttons["Сохранить файл"].exists)
+        XCTAssertTrue(app.buttons["Поделиться"].exists)
+    }
+
+    /// Verify the Files import entry point independently of Apple's
+    /// simulator-specific Files app accessibility tree and first-run state.
+    func testFilesImportEntryPointAvailable() {
+        let app = launch("--qa-photo-fixture")
+        let button = app.buttons["import-files-button"]
+        XCTAssertTrue(button.waitForExistence(timeout: 8))
+        XCTAssertTrue(button.isEnabled)
+    }
+
     func testPDFCompressionAndSave() {
         let app = launch("--qa-pdf-fixture")
         let button = app.buttons["Уменьшить PDF"]
