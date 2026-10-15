@@ -26,7 +26,7 @@ Changed the local-half reduction to fold every duplicate using the **existing** 
 - [x] Two additional unit tests exercise repeated IDs in decoded JSON, conflicting same-author/same-time edits, deletion/unassignment precedence and commutativity/idempotence. No iCloud credentials or records used.
 - [x] Complete local iOS unit suite: **216/216 PASS**, no failures, isolated iPhone 17 simulator on iOS 27.
 - [x] Generic iOS `build-for-testing`, architecture, SwiftPM lock catalog, RU/EN/ES localization, release hygiene and 12 Store screenshot checks PASS.
-- [ ] Generic watchOS simulator build, GitHub CI/PR, GitVerse main SHA: attach final outcomes after execution.
+- [x] Generic watchOS simulator build PASS. [PR #71](https://github.com/arvectum2/arvectum-tools/pull/71) **MERGED** at `1a65c96f4752429e061e8d9e94f1690c79fb3476`. Both GitHub [push CI 38776598024](https://github.com/arvectum2/arvectum-tools/actions/runs/38776598024) and [PR CI 38776607069](https://github.com/arvectum2/arvectum-tools/actions/runs/38776607069) completed **SUCCESS** (unit+UI+archive); architecture, dependency catalog and GitVerse mirror passed. After merge, GitHub and GitVerse main SHA independently matched `1a65c96f4752429e061e8d9e94f1690c79fb3476`.
 - [ ] A1 real post-update before/after record identity check and actual second-device CloudKit propagation; no destructive device QA authorized.
 
 ## A4 / Apple Health permission
