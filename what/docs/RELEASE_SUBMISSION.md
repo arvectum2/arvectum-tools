@@ -1,5 +1,8 @@
 ## Release 1.0.1 (6) — Watch capture fixes, 2026-10-15
 
+**App Store Connect final status (2026-10-15):** Upload passed Apple's validation, build 6 processed as `VALID`, and review submission `22bceed6-2be2-41fd-be49-c01c447f6ab6` was accepted with status **WAITING_FOR_REVIEW**. App Store version ID `884bd463-07cb-4e8a-a36c-d59ed3cc471a`; build ID `f75dc11b-bffa-4c24-9b9b-4707a4994630`. The previously published 1.0.0 (5) remains READY_FOR_SALE pending approval. Existing screenshots for en-US were inherited by the new version; ru locale continues to use the existing en-US fallback. Release notes entered for ru and en-US.
+
+
 - **Distribution:** public 1.0.0 (5) is READY_FOR_SALE; target 1.0.1 (6), App ID 6822476399.
 - **Watch complication:** `widgetURL(what://capture)` rather than `Link`, so one tap should deliver the capture deep-link to the Watch app; `.onOpenURL` already triggers recording.
 - **Branding:** use user-approved WhatGlyph on all Watch complication families and the in-app Record button; watchOS watch + widget asset catalogs confirmed included in compiled archive.

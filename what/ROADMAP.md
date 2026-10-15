@@ -8,6 +8,7 @@
 - [x] Branded `WhatGlyph` replaces the default microphone in the Watch capture button and Watch complication (inline, circular, rectangular); compiled resource verified in both watchOS bundles.
 - [x] Watch scene transition to background finalizes, validates, and queues the active AAC recording with the same UUID, even without the Stop button. If Watch leaves during microphone activation, pending callback is invalidated, preventing accidental post-exit recording.
 - [x] Release archive **1.0.1 (6)** signed for all 4 targets, and exported IPA validated by Apple's upload tool with zero errors.
+- [x] Version 1.0.1 (6) uploaded, processed VALID, attached and submitted to App Review: **WAITING_FOR_REVIEW** (2026-10-15).
 - [x] iOS simulator regression on release code: 51 passed, 3 experimental skipped, 2 UI tests passed. watchOS simulator build succeeded.
 - [ ] **Physical acceptance required:** complication → one tap → Watch audio starts; press Digital Crown without Stop after 2–3 seconds; recording reaches iPhone once and plays; background/foreground, offline, ACK/reboot recovery. App Store submission is not evidence of physical reliability.
 - [ ] **Full interruption guarantee:** sudden power loss/force termination may leave incomplete AAC unplayable; original file retained for recovery, but cannot guarantee recovery in every crash until a checkpointed audio writer is implemented and verified.
