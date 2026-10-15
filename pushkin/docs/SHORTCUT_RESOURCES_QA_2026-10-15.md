@@ -12,7 +12,8 @@ CoverageCatalog.bundledURL retains its Bundle.main.url lookup and adds an exact 
 
 - [x] Local isolated iPhone 17 simulator, iOS 27, full original ArvectumNotifyTests suite: **9/9 PASS** after patch (TEST SUCCEEDED).
 - [x] All 1,000 micro-package URL checks and offline local-file assertions pass.
-- [ ] GitHub CI results on independent PR to record after completion.
+- [x] Independent [PR #69](https://github.com/arvectum2/arvectum-tools/pull/69) merged at `afed583` with green GitHub build, architecture, catalog and mirror checks.
+- [x] Combined main source passed all **12/12** Pushkin unit tests on isolated simulator after both PR #68 and PR #69 were merged.
 - [ ] Physical iPhone Shortcut preview / Add to Shortcuts / automatic capture remain onboarding acceptance gates.
 
 This is an independent fix discovered while testing deletion safety; it is not an App Store submission.

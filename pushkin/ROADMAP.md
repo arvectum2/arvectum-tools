@@ -7,7 +7,7 @@
 - [ ] Recheck Apple's decision before preparing a patch; no public distribution confirmed.
 - [x] A1 source correction for unsafe SwiftData deletion and 6/6 local regression tests (3 unit, 3 UI on isolated simulator), 2026-10-15. [QA evidence](docs/DELETE_SAFETY_QA_2026-10-15.md). Original physical stacktrace not yet confirmed.
 - [x] A1 merged source fix [PR #68](https://github.com/arvectum2/arvectum-tools/pull/68) (`6a6c206`): 6/6 unit/UI tests locally plus GitHub CI delete-regression passed on push and PR.
-- [x] Shortcuts micro-package resource lookup fix [PR #69](https://github.com/arvectum2/arvectum-tools/pull/69) (`afed583`), original full unit suite 9/9 pass; [QA](docs/SHORTCUT_RESOURCES_QA_2026-10-15.md).
+- [x] Shortcuts micro-package resource lookup fix [PR #69](https://github.com/arvectum2/arvectum-tools/pull/69) (`afed583`), original full unit suite 9/9 pass; after merging PR #68 and #69, **combined main 12/12 units PASS**. [QA](docs/SHORTCUT_RESOURCES_QA_2026-10-15.md).
 - [ ] A1 physical iPhone regression: use only an explicitly created disposable notification after permission, without resetting existing history; compare with original crash if reproducible.
 - [ ] Physically validate offline capture and automation enablement/refresh, including Shortcuts' 25-app grouping constraint.
 - [ ] Prioritize simpler guided setup and Russian in-app language after stability; snooze, Save/Done, digests and rules are later.
