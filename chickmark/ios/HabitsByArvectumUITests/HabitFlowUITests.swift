@@ -1006,4 +1006,57 @@ final class HabitFlowUITests: XCTestCase {
             app.buttons["Mark complete"].waitForExistence(timeout: 3)
         )
     }
+
+    func testA5HomeWidgetActualRenderedStateAndCheckButton() throws {
+        app.terminate()
+        app.launchArguments = [
+            "-AppleLanguages", "(en)",
+            "-AppleLocale", "en_US",
+            "--ui-testing", "--disable-cloud-sync", "--seed-screenshot-demo"
+        ]
+        app.launch()
+        XCTAssertTrue(
+            app.staticTexts["Water (5 times)"].waitForExistence(timeout: 7)
+        )
+        XCUIDevice.shared.press(.home)
+        let springboard = XCUIApplication(bundleIdentifier: "com.apple.springboard")
+        let water = springboard.staticTexts["Water (5 times)"]
+        try XCTSkipUnless(
+            water.waitForExistence(timeout: 12),
+            "Requires a preconfigured ChickMark medium Home widget on the QA simulator"
+        )
+        let check = springboard.buttons["Complete Water (5 times)"]
+        XCTAssertTrue(check.waitForExistence(timeout: 8))
+        let center = check.frame
+        let coordinate = springboard.coordinate(withNormalizedOffset: CGVector(
+            dx: center.midX / springboard.frame.width,
+            dy: center.midY / springboard.frame.height
+        ))
+        check.tap()
+        // SpringBoard accessibility may lag an updated WidgetKit render.
+        // Test a second real touch at the same control coordinate.
+        Thread.sleep(forTimeInterval: 6)
+        let checkedScreenshot = XCTAttachment(screenshot: springboard.screenshot())
+        checkedScreenshot.name = "A5_Home_Widget_After_Check"
+        checkedScreenshot.lifetime = .keepAlways
+        add(checkedScreenshot)
+        app.activate()
+        XCTAssertTrue(
+            app.staticTexts["1 of 1"].waitForExistence(timeout: 12),
+            "The first widget tap must persist completion in the iPhone app"
+        )
+        XCUIDevice.shared.press(.home)
+        coordinate.tap()
+        Thread.sleep(forTimeInterval: 6)
+        let undoneScreenshot = XCTAttachment(screenshot: springboard.screenshot())
+        undoneScreenshot.name = "A5_Home_Widget_After_Undo"
+        undoneScreenshot.lifetime = .keepAlways
+        add(undoneScreenshot)
+        app.activate()
+        XCTAssertTrue(
+            app.staticTexts["0 of 1"].waitForExistence(timeout: 12),
+            "Undo from actual Home widget must return habit to incomplete in phone app"
+        )
+        print("HABITS_A5_REAL_TOGGLE_AND_UNDO_CONFIRMED")
+    }
 }
