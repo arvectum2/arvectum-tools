@@ -54,6 +54,13 @@ struct HabitsByArvectumApp: App {
             container: container
         )
 #endif
+#if DEBUG
+        // QA-only, in-memory denial of Health availability. Never changes
+        // Apple Health permissions, and is not compiled into release builds.
+        if isUITesting && arguments.contains("--simulate-health-unavailable") {
+            HealthHabitCoordinator.shared.healthAvailableOverrideForTests = false
+        }
+#endif
         HealthHabitCoordinator.shared.configure(container: container)
         PhoneWatchSyncCoordinator.shared.configure(
             modelContainer: container

@@ -1095,6 +1095,57 @@ final class HabitFlowUITests: XCTestCase {
         }
     }
 
+    func testA4UnavailableHealthDoesNotBlockManualHabitCreationOrCompletion() throws {
+        app.terminate()
+        app.launchArguments = [
+            "-AppleLanguages", "(en)",
+            "-AppleLocale", "en_US",
+            "--ui-testing", "--disable-cloud-sync",
+            "--simulate-health-unavailable"
+        ]
+        app.launch()
+        let create = app.buttons["Create habit"]
+        XCTAssertTrue(create.waitForExistence(timeout: 5))
+        create.tap()
+
+        let name = app.textFields["Habit name"]
+        XCTAssertTrue(name.waitForExistence(timeout: 4))
+        name.tap()
+        name.typeText("Walk without Health")
+        let health = app.switches["habit.health.enabled"]
+        XCTAssertTrue(health.waitForExistence(timeout: 4))
+        health.coordinate(withNormalizedOffset: CGVector(dx: 0.88, dy: 0.5)).tap()
+        XCTAssertTrue(
+            app.staticTexts["Apple Health is not available on this device."]
+                .waitForExistence(timeout: 4)
+        )
+
+        let save = app.navigationBars["New habit"].buttons["Done"]
+        XCTAssertTrue(save.isEnabled)
+        save.tap()
+        XCTAssertTrue(
+            app.staticTexts["habit.health.error"].waitForExistence(timeout: 5),
+            "Unavailable Health must explain why the linked habit was not saved"
+        )
+        XCTAssertTrue(app.navigationBars["New habit"].exists)
+
+        health.coordinate(withNormalizedOffset: CGVector(dx: 0.88, dy: 0.5)).tap()
+        save.tap()
+        let manual = app.staticTexts["Walk without Health"].firstMatch
+        XCTAssertTrue(manual.waitForExistence(timeout: 5))
+        let complete = app.buttons["Mark complete"]
+        XCTAssertTrue(complete.waitForExistence(timeout: 5))
+        complete.tap()
+        XCTAssertTrue(
+            app.buttons["Undo completion"].waitForExistence(timeout: 4),
+            "Manual check-in must work without any HealthKit permission"
+        )
+        let screenshot = XCTAttachment(screenshot: XCUIScreen.main.screenshot())
+        screenshot.name = "A4_Health_Unavailable_Manual_CheckIn"
+        screenshot.lifetime = .keepAlways
+        add(screenshot)
+    }
+
     func testA5HomeWidgetActualRenderedStateAndCheckButton() throws {
         app.terminate()
         app.launchArguments = [

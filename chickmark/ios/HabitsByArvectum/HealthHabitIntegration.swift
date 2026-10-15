@@ -341,6 +341,15 @@ final class HealthHabitCoordinator {
     // Disposable XCTest injection. Not compiled into App Store builds and
     // never changes the owner's real HealthKit permission state.
     var healthAvailableOverrideForTests: Bool?
+    // Explicit test boundaries: never query HealthKit or modify the actual
+    // user's permissions when simulating an empty/denied/revoked reading.
+    var healthReadOverrideForTests:
+        (@MainActor (HealthHabitMetric, Date, Date) async throws -> Double)?
+    var healthRuleStoreOverrideForTests: HealthHabitRuleStore?
+
+    func configureWithoutHealthObserversForTests(container: ModelContainer) {
+        self.container = container
+    }
 
     func seedEphemeralForTests(
         completedDayKeys: Set<String>,
@@ -411,6 +420,15 @@ final class HealthHabitCoordinator {
         return HKHealthStore.isHealthDataAvailable()
     }
 
+    private var configuredRuleStore: HealthHabitRuleStore {
+#if DEBUG
+        if let healthRuleStoreOverrideForTests {
+            return healthRuleStoreOverrideForTests
+        }
+#endif
+        return HealthHabitRuleStore.shared
+    }
+
     func configure(container: ModelContainer) {
         self.container = container
         reconfigureObservers()
@@ -433,7 +451,7 @@ final class HealthHabitCoordinator {
     func reconfigureObservers() {
         for observer in observers { healthStore.stop(observer) }
         observers.removeAll()
-        let activeMetrics = HealthHabitRuleStore.shared.activeMetrics
+        let activeMetrics = configuredRuleStore.activeMetrics
         let deliveryKey = "chickmark.health.background.active.v1"
         if activeMetrics.isEmpty {
             // Avoid accessing HealthKit before the user opts in.
@@ -526,7 +544,7 @@ final class HealthHabitCoordinator {
             invalidateDerivedProjection()
             return
         }
-        let settings = HealthHabitRuleStore.shared
+        let settings = configuredRuleStore
         guard !settings.allRules.isEmpty else {
             invalidateDerivedProjection()
             return
@@ -604,6 +622,14 @@ final class HealthHabitCoordinator {
                 day = next
             }
         }
+        // Permission/availability can disappear while one or more
+        // asynchronous Health queries are in flight. Never publish results
+        // obtained before a revocation as if access were still available.
+        guard isAvailable else {
+            invalidateDerivedProjection()
+            return
+        }
+
         let completionsChanged = completedDayKeys != derived
         completedDayKeys = derived
         liveProgress = currentProgress
@@ -629,6 +655,11 @@ final class HealthHabitCoordinator {
     }
 
     private func read(metric: HealthHabitMetric, from start: Date, to end: Date) async throws -> Double {
+#if DEBUG
+        if let healthReadOverrideForTests {
+            return try await healthReadOverrideForTests(metric, start, end)
+        }
+#endif
         if metric == .sleepHours {
             let calendar = Calendar.autoupdatingCurrent
             // Attribute the night to the wake-up day; noon-to-noon avoids

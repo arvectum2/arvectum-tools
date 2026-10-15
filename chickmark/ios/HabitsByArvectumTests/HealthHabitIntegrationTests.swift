@@ -422,4 +422,146 @@ final class HealthHabitIntegrationTests: XCTestCase {
         ))
     }
 
+
+    private struct HealthPermissionQAFixture {
+        let container: ModelContainer
+        let coordinator: HealthHabitCoordinator
+        let manual: Habit
+        let linked: Habit
+        let manualCheckIn: HabitCheckIn
+        let rules: HealthHabitRuleStore
+        let defaultsSuite: String
+    }
+
+    private func makeHealthPermissionQAFixture() throws -> HealthPermissionQAFixture {
+        let schema = HabitsSchema.current
+        let config = ModelConfiguration(
+            "HealthPermissionQA-\(UUID().uuidString)",
+            schema: schema,
+            isStoredInMemoryOnly: true,
+            cloudKitDatabase: .none
+        )
+        let container = try ModelContainer(for: schema, configurations: [config])
+        let context = ModelContext(container)
+        let now = Date()
+        let manual = Habit(name: "Manual after denial", createdAt: now.addingTimeInterval(-3600))
+        let linked = Habit(name: "Steps from Health", createdAt: now.addingTimeInterval(-3600))
+        context.insert(manual)
+        context.insert(linked)
+        let manualCheckIn = HabitCheckIn(habitID: manual.id, day: now)
+        context.insert(manualCheckIn)
+        try context.save()
+
+        let suite = "HealthPermissionQA.\(UUID().uuidString)"
+        let rules = HealthHabitRuleStore(defaults: UserDefaults(suiteName: suite)!)
+        rules.save(
+            HealthHabitRule(metric: .steps, target: 8000,
+                            enabledAt: now.addingTimeInterval(-1800)),
+            for: linked.id
+        )
+        let coordinator = HealthHabitCoordinator()
+        coordinator.healthAvailableOverrideForTests = true
+        coordinator.healthRuleStoreOverrideForTests = rules
+        // No real HKObserverQuery or requestAuthorization is ever installed.
+        coordinator.configureWithoutHealthObserversForTests(container: container)
+        return .init(
+            container: container, coordinator: coordinator,
+            manual: manual, linked: linked, manualCheckIn: manualCheckIn,
+            rules: rules, defaultsSuite: suite
+        )
+    }
+
+    func testA4DeniedReadAndEmptyResultNeverCompleteAutomaticallyOrEraseManualHistory() async throws {
+        let qa = try makeHealthPermissionQAFixture()
+        defer { UserDefaults(suiteName: qa.defaultsSuite)?
+            .removePersistentDomain(forName: qa.defaultsSuite) }
+
+        qa.coordinator.healthReadOverrideForTests = { _, _, _ in 0 }
+        await qa.coordinator.synchronize()
+        XCTAssertTrue(qa.coordinator.completedDayKeys.isEmpty)
+        XCTAssertNotNil(qa.coordinator.progress(for: qa.linked.id),
+                        "HealthKit may return an indistinguishable zero for denied read permission")
+        XCTAssertFalse(qa.coordinator.hasLocalCompletion(
+            habitID: qa.linked.id, dayKey: HabitDayKey.make(for: .now)
+        ))
+
+        qa.coordinator.healthReadOverrideForTests = { _, _, _ in
+            throw HealthHabitError.authorizationFailed
+        }
+        await qa.coordinator.synchronize()
+        XCTAssertTrue(qa.coordinator.completedDayKeys.isEmpty)
+        XCTAssertNil(qa.coordinator.progress(for: qa.linked.id),
+                     "A rejected measurement must not retain the previous progress")
+
+        let context = ModelContext(qa.container)
+        let stored = try context.fetch(FetchDescriptor<HabitCheckIn>())
+        XCTAssertEqual(stored.map(\.id), [qa.manualCheckIn.id])
+        XCTAssertTrue(HabitMetrics.isCompleted(
+            habitID: qa.manual.id, on: .now, checkIns: stored
+        ))
+        XCTAssertFalse(HabitMetrics.isCompleted(
+            habitID: qa.linked.id, on: .now, checkIns: stored
+        ))
+        XCTAssertNotNil(qa.rules.rule(for: qa.linked.id),
+                        "A read failure must not silently delete the user's Health link")
+    }
+
+    func testA4RevokedReadRemovesAutoButKeepsManualAndSupportsManualFallback() async throws {
+        let qa = try makeHealthPermissionQAFixture()
+        defer { UserDefaults(suiteName: qa.defaultsSuite)?
+            .removePersistentDomain(forName: qa.defaultsSuite) }
+        let key = HabitDayKey.make(for: .now)
+        let linkedToken = "\(qa.linked.id.uuidString):\(key)"
+        qa.coordinator.healthReadOverrideForTests = { _, _, _ in 9000 }
+        await qa.coordinator.synchronize()
+        XCTAssertTrue(qa.coordinator.completedDayKeys.contains(linkedToken))
+        XCTAssertNotNil(qa.coordinator.progress(for: qa.linked.id))
+
+        // Simulated revoked HealthKit query. Production read may throw or
+        // return no data; neither can be treated as proof of permission.
+        qa.coordinator.healthReadOverrideForTests = { _, _, _ in
+            throw HealthHabitError.authorizationFailed
+        }
+        await qa.coordinator.synchronize()
+        XCTAssertFalse(qa.coordinator.completedDayKeys.contains(linkedToken))
+        XCTAssertNil(qa.coordinator.progress(for: qa.linked.id))
+        let context = ModelContext(qa.container)
+        let checkIns = try context.fetch(FetchDescriptor<HabitCheckIn>())
+        XCTAssertEqual(checkIns.map(\.id), [qa.manualCheckIn.id])
+
+        // A separate manual action remains available after Health is revoked.
+        let manualAuto = HabitCheckIn(habitID: qa.linked.id, day: .now)
+        context.insert(manualAuto)
+        try context.save()
+        await qa.coordinator.synchronize()
+        let persisted = try context.fetch(FetchDescriptor<HabitCheckIn>())
+        XCTAssertEqual(persisted.count, 2)
+        XCTAssertTrue(HabitMetrics.isCompleted(
+            habitID: qa.linked.id, on: .now, checkIns: persisted
+        ))
+        XCTAssertTrue(qa.coordinator.completedDayKeys.isEmpty)
+    }
+
+    func testA4RevocationDuringOutstandingHealthReadNeverPublishesStaleAutoCheckIn() async throws {
+        let qa = try makeHealthPermissionQAFixture()
+        defer { UserDefaults(suiteName: qa.defaultsSuite)?
+            .removePersistentDomain(forName: qa.defaultsSuite) }
+        qa.coordinator.healthReadOverrideForTests = { _, _, _ in 9000 }
+        await qa.coordinator.synchronize()
+        XCTAssertFalse(qa.coordinator.completedDayKeys.isEmpty)
+        XCTAssertNotNil(qa.coordinator.progress(for: qa.linked.id))
+
+        qa.coordinator.healthReadOverrideForTests = { _, _, _ in
+            // Permission revoked between the initial availability guard
+            // and the arrival of a previously-started successful query.
+            qa.coordinator.healthAvailableOverrideForTests = false
+            return 9000
+        }
+        await qa.coordinator.synchronize()
+        XCTAssertTrue(qa.coordinator.completedDayKeys.isEmpty)
+        XCTAssertNil(qa.coordinator.progress(for: qa.linked.id))
+        let persisted = try ModelContext(qa.container).fetch(FetchDescriptor<HabitCheckIn>())
+        XCTAssertEqual(persisted.map(\.id), [qa.manualCheckIn.id])
+    }
+
 }
