@@ -8,6 +8,7 @@ struct SettingsView: View {
     private var notifications: [CapturedNotification]
 
     @State private var showingDeleteAllConfirmation = false
+    @State private var deleteError: String?
 
     private let privacyURL = URL(
         string: "https://arvectum.com/privacy.html"
@@ -42,11 +43,22 @@ struct SettingsView: View {
                 titleVisibility: .visible
             ) {
                 Button("Delete All", role: .destructive) {
-                    try? modelContext.delete(model: CapturedNotification.self)
-                    try? modelContext.save()
+                    do {
+                        try NotificationHistoryDeletion.deleteAll(in: modelContext)
+                    } catch {
+                        deleteError = error.localizedDescription
+                    }
                 }
             } message: {
                 Text("This cannot be undone. PUSHKIN setup and app coverage stay intact.")
+            }
+            .alert("Couldn’t clear history", isPresented: Binding(
+                get: { deleteError != nil },
+                set: { if !$0 { deleteError = nil } }
+            )) {
+                Button("OK", role: .cancel) { deleteError = nil }
+            } message: {
+                Text(deleteError ?? "Please try again.")
             }
         }
     }

@@ -7,6 +7,7 @@ struct DiagnosticsView: View {
     private var notifications: [CapturedNotification]
 
     @State private var showingResetConfirmation = false
+    @State private var deleteError: String?
 
     private var duplicateCount: Int {
         notifications.lazy.filter(\.duplicateCandidate).count
@@ -42,9 +43,20 @@ struct DiagnosticsView: View {
                 titleVisibility: .visible
             ) {
                 Button("Delete All", role: .destructive) {
-                    try? modelContext.delete(model: CapturedNotification.self)
-                    try? modelContext.save()
+                    do {
+                        try NotificationHistoryDeletion.deleteAll(in: modelContext)
+                    } catch {
+                        deleteError = error.localizedDescription
+                    }
                 }
+            }
+            .alert("Couldn’t clear history", isPresented: Binding(
+                get: { deleteError != nil },
+                set: { if !$0 { deleteError = nil } }
+            )) {
+                Button("OK", role: .cancel) { deleteError = nil }
+            } message: {
+                Text(deleteError ?? "Please try again.")
             }
         }
     }

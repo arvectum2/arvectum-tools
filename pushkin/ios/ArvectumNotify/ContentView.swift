@@ -86,11 +86,14 @@ private struct InboxView: View {
 
     private let automationsURL = URL(string: "shortcuts://automations")!
 
-    private var filteredNotifications: [CapturedNotification] {
-        let query = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !query.isEmpty else { return notifications }
+    @State private var deleteError: String?
 
-        return notifications.filter { item in
+    private var filteredNotifications: [NotificationHistoryItem] {
+        let values = notifications.map(NotificationHistoryItem.init)
+        let query = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !query.isEmpty else { return values }
+
+        return values.filter { item in
             [item.sourceApp, item.titleText, item.subtitleText, item.bodyText]
                 .contains { $0.localizedCaseInsensitiveContains(query) }
         }
@@ -216,6 +219,14 @@ private struct InboxView: View {
             .background(Color.arvectumBackground.ignoresSafeArea())
             .navigationTitle("History")
             .navigationBarTitleDisplayMode(.inline)
+            .alert("Couldn’t delete notification", isPresented: Binding(
+                get: { deleteError != nil },
+                set: { if !$0 { deleteError = nil } }
+            )) {
+                Button("OK", role: .cancel) { deleteError = nil }
+            } message: {
+                Text(deleteError ?? "Please try again.")
+            }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
@@ -335,9 +346,12 @@ private struct InboxView: View {
         pendingCoverageStartedAt = 0
     }
 
-    private func delete(_ item: CapturedNotification) {
-        modelContext.delete(item)
-        try? modelContext.save()
+    private func delete(_ item: NotificationHistoryItem) {
+        do {
+            try NotificationHistoryDeletion.delete(id: item.id, in: modelContext)
+        } catch {
+            deleteError = error.localizedDescription
+        }
     }
 
     private func normalizedAppName(_ value: String) -> String {
@@ -348,7 +362,7 @@ private struct InboxView: View {
 }
 
 private struct NotificationRow: View {
-    let item: CapturedNotification
+    let item: NotificationHistoryItem
 
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
@@ -384,12 +398,42 @@ private struct NotificationRow: View {
 private struct NotificationDetailView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var modelContext
-
     @State private var showingDeleteConfirmation = false
-
-    let item: CapturedNotification
+    @State private var deleteError: String?
+    let item: NotificationHistoryItem
 
     var body: some View {
+        detail(item)
+        .navigationTitle(item.sourceApp)
+        .navigationBarTitleDisplayMode(.inline)
+        .confirmationDialog(
+            "Delete this notification?",
+            isPresented: $showingDeleteConfirmation,
+            titleVisibility: .visible
+        ) {
+            Button("Delete", role: .destructive) {
+                do {
+                    try NotificationHistoryDeletion.delete(
+                        id: item.id,
+                        in: modelContext
+                    )
+                    dismiss()
+                } catch {
+                    deleteError = error.localizedDescription
+                }
+            }
+        }
+        .alert("Couldn’t delete notification", isPresented: Binding(
+            get: { deleteError != nil },
+            set: { if !$0 { deleteError = nil } }
+        )) {
+            Button("OK", role: .cancel) { deleteError = nil }
+        } message: {
+            Text(deleteError ?? "Please try again.")
+        }
+    }
+
+    private func detail(_ item: NotificationHistoryItem) -> some View {
         List {
             Section("From") {
                 Label(item.sourceApp, systemImage: "app.fill")
@@ -439,38 +483,6 @@ private struct NotificationDetailView: View {
         }
         .scrollContentBackground(.hidden)
         .background(Color.arvectumBackground)
-        .navigationTitle(item.sourceApp)
-        .navigationBarTitleDisplayMode(.inline)
-        .confirmationDialog(
-            "Delete this notification?",
-            isPresented: $showingDeleteConfirmation,
-            titleVisibility: .visible
-        ) {
-            Button("Delete", role: .destructive) {
-                modelContext.delete(item)
-                try? modelContext.save()
-                dismiss()
-            }
-        }
-    }
-}
-
-
-private extension CapturedNotification {
-    var shareText: String {
-        var parts = [sourceApp]
-
-        if !titleText.isEmpty {
-            parts.append(titleText)
-        }
-        if !subtitleText.isEmpty {
-            parts.append(subtitleText)
-        }
-        if !bodyText.isEmpty {
-            parts.append(bodyText)
-        }
-
-        return parts.joined(separator: "\n")
     }
 }
 

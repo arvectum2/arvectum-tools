@@ -81,7 +81,10 @@ actor NotifyPersistenceActor {
     }
 
     func deleteAll() throws {
-        try modelContext.delete(model: CapturedNotification.self)
+        let records = try modelContext.fetch(FetchDescriptor<CapturedNotification>())
+        for record in records {
+            modelContext.delete(record)
+        }
         try modelContext.save()
     }
 }

@@ -4,7 +4,8 @@
 **Latest review state:** iOS 1.0 remains under Apple review, independently verified **WAITING_FOR_REVIEW** via ASC API 2026-10-15; no publication confirmed. Physical iPhone carries developer build 1.0.0 (2), which must not be confused with the submitted build 1.0.0 (1). [Physical QA evidence](docs/PHYSICAL_QA_2026-10-14.md).
 - [x] Submitted local-only notification history with Shortcuts/App Intents capture, searchable offline storage and fallback onboarding.
 - [ ] Recheck App Review outcome and live storefront after 2026-10-14; owner says still under review.
-- [ ] Reproduce, fix and regression-test the deletion crash reported 2026-10-04; preserve existing local history.
+- [x] A1 source correction for unsafe SwiftData deletion and 6/6 local regression tests (3 unit, 3 UI on isolated simulator), 2026-10-15. [QA evidence](docs/DELETE_SAFETY_QA_2026-10-15.md). Original physical stacktrace not yet confirmed.
+- [ ] A1 physical iPhone regression: use only an explicitly created disposable notification after permission, without resetting existing history; compare with original crash if reproducible.
 - [ ] Physically validate offline capture and automation enablement/refresh, including Shortcuts' 25-app grouping constraint.
 - [ ] Prioritize simpler guided setup and Russian in-app language after stability; snooze, Save/Done, digests and rules are later.
 - [ ] Revisit monetization only with strict exclusion of notification data from advertising and analytics.
@@ -18,7 +19,7 @@ release was established in this roadmap sweep. Waiting for Review means
 and 25-app/Shortcuts real-device QA remain open.
 [Portfolio registry](../core/PORTFOLIO.md).
 
-**Updated:** 2026-10-15 (Apple status not newly queried)
+**Updated:** 2026-10-15 (A1 delete source fix and local regression; Apple status confirmed earlier via ASC)
 **Ownership:** capture/onboarding, notification store, privacy, search and product UX.
 **Status:** iOS 1.0 **Waiting for Review**, verified in authenticated App Store Connect on 2026-10-11. Submission history is preserved in the release documentation; no publication confirmed.
 **Full historic phases and decision evidence:** [docs/history/ROADMAP-legacy-2026-10-11.md](docs/history/ROADMAP-legacy-2026-10-11.md). Do not treat old unchecked phases as 1.0 blockers.
@@ -37,7 +38,8 @@ and 25-app/Shortcuts real-device QA remain open.
 
 ## Immediate post-submission
 - [ ] Productize app-refresh onboarding with system Add + automation-enable guidance and verified coverage.
-- [ ] Investigate/delete-related crash reported 2026-10-04 and verify fix.
+- [x] Implement and simulator-test immutable history rows/details, stable UUID deletion, delete-all and save error alerts; 6/6 tests passed. [QA details](docs/DELETE_SAFETY_QA_2026-10-15.md).
+- [ ] Verify deletion on physical iPhone and investigate any remaining crash from the original report before publishing a patch.
 - [ ] Russian in-app localization (deferred from 1.0).
 - [ ] Decide ad SDK integration for first post-launch update after verifying policy and UX.
 
