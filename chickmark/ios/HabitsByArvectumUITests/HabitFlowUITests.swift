@@ -1099,4 +1099,50 @@ final class HabitFlowUITests: XCTestCase {
     }
 
 
+    func testA5SmallHomeWidgetActualProgressRing() throws {
+        app.terminate()
+        app.launchArguments = [
+            "-AppleLanguages", "(en)", "-AppleLocale", "en_US",
+            "--ui-testing", "--disable-cloud-sync", "--seed-screenshot-demo"
+        ]
+        app.launch()
+        XCTAssertTrue(app.staticTexts["Water (5 times)"].waitForExistence(timeout: 7))
+        XCUIDevice.shared.press(.home)
+        let springboard = XCUIApplication(bundleIdentifier: "com.apple.springboard")
+        // QA's small widget is pinned on a different Home page from the medium
+        // widget. Do not mistake the medium's "0/1" for a small-widget pass.
+        let smallProgress = springboard.staticTexts["1 remaining"]
+        var found = smallProgress.exists
+        if !found {
+            for _ in 0..<3 {
+                springboard.swipeRight()
+                if smallProgress.waitForExistence(timeout: 2) {
+                    found = true
+                    break
+                }
+            }
+        }
+        try XCTSkipUnless(
+            found,
+            "Requires a pinned ChickMark systemSmall widget on a QA Home page"
+        )
+        XCTAssertTrue(springboard.staticTexts["0/1"].exists)
+        let smallWidgets = springboard.descendants(matching: .icon)
+            .matching(identifier: "ChickMark")
+            .allElementsBoundByIndex.filter {
+                $0.frame.width >= 145 && $0.frame.width < 180 &&
+                $0.frame.height >= 170 && $0.frame.height < 205
+            }
+        XCTAssertGreaterThanOrEqual(
+            smallWidgets.count, 1,
+            "A true systemSmall widget must be present, not a medium progress row"
+        )
+        let shot = XCTAttachment(screenshot: springboard.screenshot())
+        shot.name = "A5_Small_Widget_Real_Home_0of1"
+        shot.lifetime = .keepAlways
+        add(shot)
+        print("HABITS_A5_REAL_SMALL_HOME_WIDGET_0OF1_PASS")
+        XCUIDevice.shared.press(.home)
+    }
+
 }
