@@ -19,11 +19,11 @@ PR #70: Watch durable transactional UUID queue (enqueue, ACK, crash recovery) an
 ## Pre-submission gates
 
 - [x] Isolated branch from frozen `657ce0d6bcce` base; no automatic merge to `main`.
-- [x] Reserved unique marketing/build number; cross-target version consistency is enforced by `project.yml`.
+- [x] Reserved unique marketing/build number; cross-target version consistency is enforced by `project.yml`. Managed signing export settings: [ExportOptions-A5-AppStore.plist](ExportOptions-A5-AppStore.plist).
 - [ ] Clean generated Xcode project builds on generic iOS Simulator (and watchOS if applicable).
 - [ ] Full app unit/UI regression and clean GitHub Actions release-branch checks.
-- [ ] Distribution-signed `.xcarchive` with correct team, entitlements and embedded extensions; `.ipa` SHA-256 and signing/profile receipt. **Do not claim signing from a simulator build.**
-- [ ] Verify bit-by-bit exported bundle version/build and that any signed artifact includes only intended files.
+- [x] **App Store-exported IPA** `WhatIOS.ipa` with SHA-256 `978e49a845db6311e81ba9d0d4bb2be18d9dd9a55ef9fdd84310b1c56db0fce5`; Xcode archive SUCCEEDED, export SUCCEEDED, team VML75VY94V. Exported IPA has production Store profiles, disabled `get-task-allow`, and matching version/build in **4/4 bundles**. Xcode may use an Apple Development profile in the intermediate `.xcarchive` for Watch/widget apps; **the exported IPA is independently re-signed**. [Machine-readable receipt](A5_SIGNED_IPA_RECEIPT_1_0_2_2026-10-15.json).
+- [x] Extracted IPA validated: bundle version/build, App Store profile entitlements, `codesign --verify --strict` for all bundles; no RuWordNet-named assets bundled. Physical application behavior and exact signed archive reproducibility remain independent gates.
 - [ ] **Physical/external:** Await decision for 1.0.1 (6); physical paired Watch/iPhone confirmation of complication one tap, Digital Crown background completion, offline/reconnect 3 recordings and duplicate-ACK cases. Sudden power failure before AAC finalization cannot be claimed lossless.
 - [ ] **Apple:** actual new App Store version + build association, review notes and required locales only after preceding gates pass. No upload or submission in A5 draft phase.
 

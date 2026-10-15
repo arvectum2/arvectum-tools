@@ -1,0 +1,22 @@
+{
+  "app": "what",
+  "a5_date": "2026-10-15",
+  "state": "LOCALLY_EXPORTED_FOR_APP_STORE__NOT_UPLOADED",
+  "source_branch": "release/what-1.0.2-build7-a5-20261015",
+  "source_commit": "fecedac0575b17b8e1dd385e8f1ae1faae27bda7",
+  "source_baseline_main": "657ce0d6bcce78cf35e07135ef5871da8e07c0ff",
+  "ios_marketing_version": "1.0.2",
+  "ios_build": "7",
+  "ipa_basename": "WhatIOS.ipa",
+  "ipa_sha256": "978e49a845db6311e81ba9d0d4bb2be18d9dd9a55ef9fdd84310b1c56db0fce5",
+  "ipa_size_bytes": 2704645,
+  "storage_on_owner_mac_mini": "/Volumes/ArvectumSSD/Arvectum/releases/a5-20261015/what-1.0.2-build7/export/WhatIOS.ipa",
+  "validated_bundle_ids": [
+    "ru.arvectum.tools.what",
+    "ru.arvectum.tools.what.watch",
+    "ru.arvectum.tools.what.watch.capturewidget",
+    "ru.arvectum.tools.what.widget"
+  ],
+  "signature_verification": "codesign --verify --strict PASS on main + all embedded apps/extensions; Apple Store provisioning; get-task-allow=false in all embedded profiles",
+  "distribution_stage": "not sent to App Store Connect; physical/review gates still open"
+}
