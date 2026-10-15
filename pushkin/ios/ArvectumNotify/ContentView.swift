@@ -313,7 +313,7 @@ private struct InboxView: View {
                 .accessibilityIdentifier("coverage-finish-done")
             } else {
                 Text(
-                    "In Shortcuts, tap Add for the PUSHKIN configuration, then turn on its new automation. PUSHKIN will verify coverage automatically after the first notification."
+                    "In Shortcuts, tap Add, then enable the new automation (imports start disabled). PUSHKIN can observe a real notification from this app, but cannot read the Shortcuts enable switch."
                 )
                 .font(.subheadline)
                 .foregroundStyle(.secondary)

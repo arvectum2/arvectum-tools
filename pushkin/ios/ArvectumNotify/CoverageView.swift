@@ -153,15 +153,15 @@ struct CoverageView: View {
 
     var body: some View {
         List {
-            Section("Included") {
+            Section("Offline catalog") {
                 LabeledContent(
-                    "Built-in apps",
+                    "Signed app options",
                     value: "\(CoverageCatalog.entries.count)"
                 )
 
                 if quickRefreshCount > 0 {
                     LabeledContent(
-                        "Apps added later",
+                        "App packages opened",
                         value: "\(quickRefreshCount)"
                     )
                 }
@@ -185,9 +185,20 @@ struct CoverageView: View {
                 }
 
                 Text(
-                    "Search the built-in list. If an app is not there yet, PUSHKIN will show a manual setup path."
+                    "Importing a signed app package opens Shortcuts but does not enable the new automation. Enable it there and check a real notification. If missing from this catalog, use the manual guide."
                 )
                 .foregroundStyle(.secondary)
+            }
+
+            Section("Optional groups") {
+                NavigationLink {
+                    AutomationGroupPlannerView()
+                } label: {
+                    Label("Plan smaller groups", systemImage: "square.stack.3d.up")
+                }
+                .accessibilityIdentifier("coverage-optional-groups")
+                Text("One base shortcut can contain 1,000 app entries. Optional groups of 25 are just a planning convenience, not an iOS limit.")
+                    .foregroundStyle(.secondary)
             }
 
             Section("Shortcuts") {
@@ -199,7 +210,7 @@ struct CoverageView: View {
                 }
 
                 Text(
-                    "Use this if you need to review or re-enable a PUSHKIN automation."
+                    "Newly imported automations are disabled. Turn each one on in Shortcuts; PUSHKIN cannot read its enabled state. A notification from one app does not verify every app."
                 )
                 .foregroundStyle(.secondary)
             }
