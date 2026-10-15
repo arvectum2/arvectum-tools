@@ -243,7 +243,7 @@ final class HabitSyncProtocolTests: XCTestCase {
         XCTAssertTrue(result.snapshot.habits[0].completed)
     }
 
-    func testMatchingNewerAuthoritativeSnapshotClearsPendingWithoutExplicitID() {
+    func testMatchingNewerSnapshotCannotSilentlyAcknowledgeUnreceivedCommand() {
         let habitID = UUID()
         let command = HabitCompletionCommand(
             habitID: habitID,
@@ -262,7 +262,8 @@ final class HabitSyncProtocolTests: XCTestCase {
             pendingCommands: [command]
         )
 
-        XCTAssertTrue(result.remainingCommands.isEmpty)
+        XCTAssertEqual(result.remainingCommands, [command],
+                       "A coincidentally matching snapshot proves no delivery/ACK")
         XCTAssertFalse(result.snapshot.habits[0].completed)
     }
 
@@ -286,6 +287,181 @@ final class HabitSyncProtocolTests: XCTestCase {
         )
 
         XCTAssertEqual(result.remainingCommands, [command])
+    }
+
+    func testHealthRevocationCoincidingWithPendingUndoCannotLoseManualOverride() {
+        let habitID = UUID()
+        let command = HabitCompletionCommand(
+            habitID: habitID, dayKey: "2026-10-01",
+            completed: false, createdAt: Date(timeIntervalSince1970: 10)
+        )
+        var coincidence = snapshot(habitID: habitID, completed: false)
+        coincidence.generatedAt = Date(timeIntervalSince1970: 20)
+        coincidence.habits[0].healthRuleMetric = "steps"
+        coincidence.habits[0].healthRuleTarget = 8000
+        coincidence.habits[0].healthManualOverride = false
+
+        let whileOffline = HabitSyncReconciler.reconcile(
+            incoming: coincidence, pendingCommands: [command]
+        )
+        XCTAssertEqual(whileOffline.remainingCommands, [command])
+        XCTAssertFalse(whileOffline.snapshot.habits[0].completed)
+
+        // When Health becomes available again, the iPhone would
+        // auto-complete unless the undelivered manual undo is retried.
+        var healthRecovered = snapshot(habitID: habitID, completed: true)
+        healthRecovered.generatedAt = Date(timeIntervalSince1970: 30)
+        healthRecovered.habits[0].healthRuleMetric = "steps"
+        let replay = HabitSyncReconciler.reconcile(
+            incoming: healthRecovered,
+            currentSnapshot: whileOffline.snapshot,
+            pendingCommands: whileOffline.remainingCommands
+        )
+        XCTAssertEqual(replay.remainingCommands, [command])
+        XCTAssertFalse(replay.snapshot.habits[0].completed)
+        XCTAssertEqual(replay.snapshot.completedCount, 0)
+
+        var phoneApplied = snapshot(
+            habitID: habitID, completed: false, acknowledged: [command.id]
+        )
+        phoneApplied.generatedAt = Date(timeIntervalSince1970: 40)
+        let afterACK = HabitSyncReconciler.reconcile(
+            incoming: phoneApplied,
+            currentSnapshot: replay.snapshot,
+            pendingCommands: replay.remainingCommands
+        )
+        XCTAssertTrue(afterACK.remainingCommands.isEmpty)
+        XCTAssertFalse(afterACK.snapshot.habits[0].completed)
+    }
+
+    func testPartialCountCoincidenceMustNotDropWatchCommandBeforeACK() {
+        let habitID = UUID()
+        let command = HabitCompletionCommand(
+            habitID: habitID, dayKey: "2026-10-01",
+            completed: false, desiredCount: 3,
+            createdAt: Date(timeIntervalSince1970: 10)
+        )
+        var incoming = snapshot(habitID: habitID, completed: false)
+        incoming.generatedAt = Date(timeIntervalSince1970: 20)
+        incoming.habits[0].dailyTarget = 5
+        incoming.habits[0].dailyCount = 3
+
+        let pending = HabitSyncReconciler.reconcile(
+            incoming: incoming, pendingCommands: [command]
+        )
+        XCTAssertEqual(pending.remainingCommands, [command])
+        XCTAssertEqual(pending.snapshot.habits[0].dailyCount, 3)
+
+        // Other iPhone action changes the count before command delivery.
+        incoming.generatedAt = Date(timeIntervalSince1970: 30)
+        incoming.habits[0].dailyCount = 1
+        let continued = HabitSyncReconciler.reconcile(
+            incoming: incoming,
+            currentSnapshot: pending.snapshot,
+            pendingCommands: pending.remainingCommands
+        )
+        XCTAssertEqual(continued.remainingCommands, [command])
+        XCTAssertEqual(continued.snapshot.habits[0].dailyCount, 3)
+
+        incoming.generatedAt = Date(timeIntervalSince1970: 40)
+        incoming.habits[0].dailyCount = 3
+        incoming.acknowledgedCommandIDs = [command.id]
+        let acked = HabitSyncReconciler.reconcile(
+            incoming: incoming,
+            currentSnapshot: continued.snapshot,
+            pendingCommands: continued.remainingCommands
+        )
+        XCTAssertTrue(acked.remainingCommands.isEmpty)
+        XCTAssertEqual(acked.snapshot.habits[0].dailyCount, 3)
+    }
+
+    func testOfflineIndependentCommandsSurviveRestartAndPartialACKs() throws {
+        let firstID = UUID()
+        let secondID = UUID()
+        let first = HabitCompletionCommand(
+            habitID: firstID, dayKey: "2026-10-01",
+            completed: true, createdAt: Date(timeIntervalSince1970: 100)
+        )
+        let second = HabitCompletionCommand(
+            habitID: secondID, dayKey: "2026-10-01",
+            completed: false, createdAt: Date(timeIntervalSince1970: 101)
+        )
+        let offline = HabitCompletionCommandQueue.appending(
+            second, to: HabitCompletionCommandQueue.appending(first, to: [])
+        )
+        // The Watch's pending commands are persisted in UserDefaults as
+        // JSON. Rehydrate here to model an app restart while disconnected.
+        let restored = try JSONDecoder().decode(
+            [HabitCompletionCommand].self,
+            from: JSONEncoder().encode(offline)
+        )
+        XCTAssertEqual(restored, [first, second])
+
+        var arrived = snapshot(habitID: firstID, completed: true)
+        arrived.generatedAt = Date(timeIntervalSince1970: 120)
+        arrived.habits.append(HabitSyncHabit(
+            id: secondID, name: "Second", symbolName: "checkmark",
+            colorHex: "43E5C5", completed: false, streak: 0
+        ))
+        arrived.totalCount = 2
+        arrived.completedCount = 1
+
+        let noACK = HabitSyncReconciler.reconcile(
+            incoming: arrived, pendingCommands: restored
+        )
+        XCTAssertEqual(noACK.remainingCommands, [first, second],
+                       "Coincidental agreement for two habits is not delivery")
+
+        arrived.generatedAt = Date(timeIntervalSince1970: 130)
+        arrived.acknowledgedCommandIDs = [first.id]
+        let partialACK = HabitSyncReconciler.reconcile(
+            incoming: arrived,
+            currentSnapshot: noACK.snapshot,
+            pendingCommands: noACK.remainingCommands
+        )
+        XCTAssertEqual(partialACK.remainingCommands, [second])
+        XCTAssertEqual(partialACK.snapshot.completedCount, 1)
+
+        arrived.generatedAt = Date(timeIntervalSince1970: 140)
+        arrived.acknowledgedCommandIDs = [first.id, second.id]
+        let fullACK = HabitSyncReconciler.reconcile(
+            incoming: arrived,
+            currentSnapshot: partialACK.snapshot,
+            pendingCommands: partialACK.remainingCommands
+        )
+        XCTAssertTrue(fullACK.remainingCommands.isEmpty)
+        XCTAssertEqual(fullACK.snapshot.completedCount, 1)
+    }
+
+    func testDuplicateOrOldSnapshotWithoutACKCannotConsumeDurablePending() {
+        let habitID = UUID()
+        let command = HabitCompletionCommand(
+            habitID: habitID, dayKey: "2026-10-01",
+            completed: true, createdAt: Date(timeIntervalSince1970: 110)
+        )
+        var current = snapshot(habitID: habitID, completed: false)
+        current.generatedAt = Date(timeIntervalSince1970: 100)
+        var incoming = snapshot(habitID: habitID, completed: true)
+        incoming.generatedAt = Date(timeIntervalSince1970: 120)
+
+        for _ in 0..<5 {
+            let reconciled = HabitSyncReconciler.reconcile(
+                incoming: incoming, currentSnapshot: current,
+                pendingCommands: [command]
+            )
+            XCTAssertEqual(reconciled.remainingCommands, [command])
+            XCTAssertTrue(reconciled.snapshot.habits[0].completed)
+            current = reconciled.snapshot
+            incoming.generatedAt = incoming.generatedAt.addingTimeInterval(-1)
+        }
+
+        incoming.generatedAt = Date(timeIntervalSince1970: 140)
+        incoming.acknowledgedCommandIDs = [command.id]
+        let acked = HabitSyncReconciler.reconcile(
+            incoming: incoming, currentSnapshot: current,
+            pendingCommands: [command]
+        )
+        XCTAssertTrue(acked.remainingCommands.isEmpty)
     }
 
     func testPendingCommandFromDifferentDayDoesNotOverrideSnapshot() {

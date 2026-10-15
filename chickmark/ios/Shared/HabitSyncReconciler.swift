@@ -10,14 +10,14 @@ enum HabitSyncReconciler {
         remainingCommands: [HabitCompletionCommand]
     ) {
         let acknowledged = Set(incoming.acknowledgedCommandIDs)
-        let remaining = pendingCommands.filter { command in
-            guard !acknowledged.contains(command.id) else {
-                return false
-            }
-            return !authoritativeSnapshot(
-                incoming,
-                satisfies: command
-            )
+        // A matching iPhone snapshot is NOT an acknowledgement: it might be
+        // coincidentally equal to a Watch command that has never arrived.
+        // Example: a Health-derived completion disappears when access is
+        // revoked, matching a pending Watch undo; dropping that undo here
+        // loses the user's explicit manual override when Health returns.
+        // Keep durable retry until the phone explicitly ACKs the command ID.
+        let remaining = pendingCommands.filter {
+            !acknowledged.contains($0.id)
         }
 
         let shouldKeepCurrent = currentSnapshot.map {
@@ -53,25 +53,4 @@ enum HabitSyncReconciler {
         return (merged, remaining)
     }
 
-    private static func authoritativeSnapshot(
-        _ snapshot: HabitSyncSnapshot,
-        satisfies command: HabitCompletionCommand
-    ) -> Bool {
-        guard
-            snapshot.dayKey == command.dayKey,
-            snapshot.generatedAt >= command.createdAt,
-            let habit = snapshot.habits.first(where: {
-                $0.id == command.habitID
-            })
-        else {
-            return false
-        }
-
-        if let requested = command.desiredCount,
-           let target = habit.dailyTarget {
-            return habit.dailyCount == min(max(requested, 0), target)
-                && !habit.skipped
-        }
-        return habit.completed == command.completed && !habit.skipped
-    }
 }
