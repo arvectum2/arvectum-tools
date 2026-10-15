@@ -1,0 +1,22 @@
+{
+  "app": "chickmark",
+  "a5_date": "2026-10-15",
+  "state": "LOCALLY_EXPORTED_FOR_APP_STORE__NOT_UPLOADED",
+  "source_branch": "release/chickmark-1.4.2-build16-a5-20261015",
+  "source_commit": "2ef6e536a52921703ddba38869c786cc2800f0de",
+  "source_baseline_main": "657ce0d6bcce78cf35e07135ef5871da8e07c0ff",
+  "ios_marketing_version": "1.4.2",
+  "ios_build": "16",
+  "ipa_basename": "HabitsByArvectum.ipa",
+  "ipa_sha256": "02dea1db1f58b9eb519ecf42f7bc4ac8989ef5ff4d789a01fa2a5031cc6d107b",
+  "ipa_size_bytes": 12425738,
+  "storage_on_owner_mac_mini": "/Volumes/ArvectumSSD/Arvectum/releases/a5-20261015/chickmark-1.4.2-build16/export/HabitsByArvectum.ipa",
+  "validated_bundle_ids": [
+    "ru.arvectum.tools.habits",
+    "ru.arvectum.tools.habits.watch",
+    "ru.arvectum.tools.habits.watch.widget",
+    "ru.arvectum.tools.habits.widget"
+  ],
+  "signature_verification": "codesign --verify --strict PASS on main + all embedded apps/extensions; Apple Store provisioning; get-task-allow=false in all embedded profiles",
+  "distribution_stage": "not sent to App Store Connect; physical/review gates still open"
+}
