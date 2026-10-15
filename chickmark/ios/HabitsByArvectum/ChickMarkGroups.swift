@@ -80,8 +80,25 @@ enum ChickMarkGroups {
         defaults: UserDefaults = .standard
     ) {
         var groups = load(defaults: defaults)
-        let existingIDs = Set(groups.map(\.id))
-        groups += incoming.filter { !existingIDs.contains($0.id) }
+        // JSON merge must preserve the device's existing group names and
+        // assignments while also importing missing members of the *same*
+        // group ID. Merely skipping existing group IDs silently lost those
+        // incoming memberships. A habit can belong to only one group, so
+        // never steal an existing local assignment or duplicate an import.
+        var assigned = Set(groups.flatMap(\.habitIDs))
+        for incomingGroup in incoming {
+            let newMembers = incomingGroup.habitIDs.filter {
+                assigned.insert($0).inserted
+            }
+            if let index = groups.firstIndex(where: { $0.id == incomingGroup.id }) {
+                groups[index].habitIDs.append(contentsOf: newMembers)
+            } else {
+                groups.append(ChickMarkGroup(
+                    id: incomingGroup.id, name: incomingGroup.name,
+                    habitIDs: newMembers
+                ))
+            }
+        }
         save(groups, defaults: defaults)
     }
 }

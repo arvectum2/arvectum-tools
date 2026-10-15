@@ -27,12 +27,19 @@ struct ChickMarkGroupCloudSnapshot: Codable, Equatable {
     /// Deterministic conflict resolution even if two devices have equal clocks.
     /// Clock skew remains a limitation of iCloud KVS last-writer semantics.
     private static func newer<T>(
-        _ lhs: T, _ rhs: T, timestamp: (T) -> Date, author: (T) -> String
+        _ lhs: T, _ rhs: T, timestamp: (T) -> Date,
+        author: (T) -> String, tieBreaker: (T) -> String
     ) -> T {
         if timestamp(lhs) != timestamp(rhs) {
             return timestamp(lhs) > timestamp(rhs) ? lhs : rhs
         }
-        return author(lhs) >= author(rhs) ? lhs : rhs
+        if author(lhs) != author(rhs) {
+            return author(lhs) > author(rhs) ? lhs : rhs
+        }
+        // Same timestamp *and* author can still mean different offline edits
+        // (e.g. a delete in the same clock tick as a rename). A deterministic
+        // payload tie-break is required to make join order-independent.
+        return tieBreaker(lhs) >= tieBreaker(rhs) ? lhs : rhs
     }
 
     func joined(with remote: Self) -> Self {
@@ -41,7 +48,8 @@ struct ChickMarkGroupCloudSnapshot: Codable, Equatable {
             if let prior = groupMap[incoming.id] {
                 groupMap[incoming.id] = Self.newer(
                     prior, incoming,
-                    timestamp: { $0.revisedAt }, author: { $0.author }
+                    timestamp: { $0.revisedAt }, author: { $0.author },
+                    tieBreaker: { ($0.deleted ? "1" : "0") + "|" + $0.name }
                 )
             } else {
                 groupMap[incoming.id] = incoming
@@ -55,7 +63,10 @@ struct ChickMarkGroupCloudSnapshot: Codable, Equatable {
             if let prior = memberMap[incoming.habitID] {
                 memberMap[incoming.habitID] = Self.newer(
                     prior, incoming,
-                    timestamp: { $0.revisedAt }, author: { $0.author }
+                    timestamp: { $0.revisedAt }, author: { $0.author },
+                    tieBreaker: {
+                        $0.groupID.map { "0|" + $0.uuidString } ?? "1|"
+                    }
                 )
             } else {
                 memberMap[incoming.habitID] = incoming
