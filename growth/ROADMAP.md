@@ -1,6 +1,11 @@
 # Arvectum Tools — Growth Roadmap
 
-## Growth checkpoint — 2026-10-14
+## Growth checkpoint — 2026-10-15
+- [x] Reconciled App Store distribution baselines in
+  [Portfolio registry](../core/PORTFOLIO.md): Фото/PDF iOS 1.0.1
+  publicly released (owner confirmed 2026-10-15), Ухват 1.0.0
+  public, ChickMark 1.4.0 public. This does not establish revenue,
+  conversion, or retention analytics.
 - [ ] G0: establish a dated per-app App Store Connect baseline (impressions, page views, installs, conversion, retention proxies, ratings), RСЯ fill/revenue and search indexing; missing data must not be called zero.
 - [ ] G1: compare published builds with RU/EN/ES storefront listings, screenshots, support/marketing URLs and SEO product pages.
 - [ ] G2: track search-led discovery via the current Arvectum Tools website hub and individual product pages with Search Console and Yandex Webmaster.
@@ -9,7 +14,7 @@
 - [ ] Growth Agent research and automated monitoring remain paused until a trustworthy data baseline and concrete decision; no external posts without explicit approval.
 
 
-**Updated:** 2026-10-14. **Owner:** portfolio distribution, market research, ASO, SEO, acquisition, conversion, retention measurement and monetization strategy.
+**Updated:** 2026-10-15. **Owner:** portfolio distribution, market research, ASO, SEO, acquisition, conversion, retention measurement and monetization strategy.
 
 ## Current / verify
 - [ ] Audit per-app App Store metadata and screenshot conversion with actual listing data.

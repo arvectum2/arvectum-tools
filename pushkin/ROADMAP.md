@@ -1,6 +1,6 @@
 # PUSHKIN — Product Roadmap
 
-## Active checkpoint — 2026-10-14
+## Active checkpoint — 2026-10-15 (last Apple evidence 2026-10-14)
 **Latest review state:** iOS 1.0 remains under Apple review, owner-confirmed on 2026-10-14. Last independently recorded App Store Connect state was WAITING_FOR_REVIEW on 2026-10-11; no publication confirmed. Physical iPhone carries developer build 1.0.0 (2), which must not be confused with the submitted build 1.0.0 (1). [Physical QA evidence](docs/PHYSICAL_QA_2026-10-14.md).
 - [x] Submitted local-only notification history with Shortcuts/App Intents capture, searchable offline storage and fallback onboarding.
 - [ ] Recheck App Review outcome and live storefront after 2026-10-14; owner says still under review.
@@ -10,7 +10,13 @@
 - [ ] Revisit monetization only with strict exclusion of notification data from advertising and analytics.
 
 
-**Updated:** 2026-10-14
+**Reconciled 2026-10-15:** No newer Apple review decision or public
+release was established in this roadmap sweep. Waiting for Review means
+**last known on 2026-10-14**, not newly verified today. Deletion crash
+and 25-app/Shortcuts real-device QA remain open.
+[Portfolio registry](../core/PORTFOLIO.md).
+
+**Updated:** 2026-10-15 (Apple status not newly queried)
 **Ownership:** capture/onboarding, notification store, privacy, search and product UX.
 **Status:** iOS 1.0 **Waiting for Review**, verified in authenticated App Store Connect on 2026-10-11. Submission history is preserved in the release documentation; no publication confirmed.
 **Full historic phases and decision evidence:** [docs/history/ROADMAP-legacy-2026-10-11.md](docs/history/ROADMAP-legacy-2026-10-11.md). Do not treat old unchecked phases as 1.0 blockers.

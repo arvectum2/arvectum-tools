@@ -1,21 +1,36 @@
 # Фото и PDF под размер — Product Roadmap
 
-## Active release checkpoint — 2026-10-14
-**Published baseline:** iOS 1.0.0 (12), owner-confirmed 2026-10-11. **Next:** iOS 1.0.1 (13), submitted to App Review on 2026-10-13 and still under review (owner-confirmed 2026-10-14), not yet released. Physical iPhone has build 13 installed and accepts non-activated launch; full export/ad QA remains open. [Physical QA evidence](docs/PHYSICAL_QA_2026-10-14.md).
+## Active release checkpoint — 2026-10-15
 
-Evidence: [1.0.1 release branch roadmap](https://github.com/arvectum2/arvectum-tools/blob/release/photo-size-ios-1.0.1/photo-pdf-to-size/ROADMAP.md), commit b3bc628. The main-branch candidate checklist below predates submission.
-- [x] Dynamic Type consent fix, signed binary upload, 20 localized release notes, 28 unit and 5 simulator UI tests, plus physical debug launch documented on release branch.
-- [ ] Verify Apple's decision and public 1.0.1 storefront propagation before marking published.
-- [ ] Complete physical Files/Photos import, PDF orientation/large-file export and actual live ad/ATT/consent regression; a debug demo ad is not proof of production fill.
-- [ ] Track Android publication independently: no confirmed Android public release.
-- [ ] Integrate reviewed patch and exact release evidence into main; prioritize later improvements from usage and failures.
+**Published iOS baseline:** **1.0.1 (13)**, confirmed publicly released
+by the product owner on **2026-10-15**. Previous version 1.0.0 (12)
+was published 2026-10-11. The signed 1.0.1 build was submitted for review
+2026-10-13 from the release/photo-size-ios-1.0.1 branch.
+This product-owner confirmation supersedes the older under-review state,
+but is not a new independent ASC lookup or storefront propagation check.
+Apple App ID 6816346084; bundle ID ru.arvectum.tools.tosize.
+[Public App Store listing](https://apps.apple.com/ru/app/id6816346084).
 
+- [x] 1.0.1 (13) published — owner-confirmed 2026-10-15.
+- [x] 1.0.1 signed upload, 20 localised release notes, consent text-size fix,
+  28 iOS unit and 5 simulator UI tests recorded in release branch.
+- [ ] Verify exact version via public storefront or authenticated ASC,
+  documenting propagation without changing owner-confirmed release status.
+- [ ] Post-release physical Files/Photos import, image/PDF export, PDF
+  orientation and large-file memory, ATT/consent and live ad fill QA.
+  A demo ad or UI test alone cannot establish real advertising impressions.
+- [ ] Integrate reviewed shipping 1.0.1 code with exact source/build/tag
+  provenance into main. Documentation status updates do not merge application code.
+- [ ] Independently verify Android publication; none confirmed so far.
 
-**Updated:** 2026-10-14
-**Ownership:** image/PDF sizing, document presets, export, app-specific UX, SDK integrations, QA and releases.
-**iOS App Store:** v1.0.0 approved and published on 2026-10-11, after submission on 2026-10-10 (product owner confirmation). Apple App ID `6816346084`, bundle ID `ru.arvectum.tools.tosize`. [Public listing](https://apps.apple.com/ru/app/id6816346084). Android publication status is tracked independently.
-**History and detailed specification:** [docs/history/ROADMAP-legacy-2026-10-11.md](docs/history/ROADMAP-legacy-2026-10-11.md). It is reference history, not a live checklist.
-**Common principles:** [Core](../core/CORE_PRINCIPLES.md). **Acquisition/ASO and monetization experiments:** [Growth](../growth/ROADMAP.md).
+**Updated:** 2026-10-15.
+**Ownership:** image/PDF sizing, presets, export, UX, app-specific SDK, QA and releases.
+**Evidence:** [1.0.0 release](docs/appstore/RELEASE_1.0.0_2026-10-11.md),
+[1.0.1 release branch](https://github.com/arvectum2/arvectum-tools/blob/release/photo-size-ios-1.0.1/photo-pdf-to-size/ROADMAP.md),
+[physical QA](docs/PHYSICAL_QA_2026-10-14.md).
+**Historical roadmap:** [archive](docs/history/ROADMAP-legacy-2026-10-11.md).
+**Core:** [common infrastructure](../core/ROADMAP.md).
+**Growth:** [distribution and ASO](../growth/ROADMAP.md).
 
 ## Current implemented capability (repository-recorded; validate against shipping build)
 - [x] Local image file-size and dimension modes; document-photo presets.
@@ -27,22 +42,15 @@ Evidence: [1.0.1 release branch roadmap](https://github.com/arvectum2/arvectum-t
 - [x] Store screenshots prepared showing before/after; this is a completed asset task, not a pending product feature.
 - [x] iOS release v1.0.0 publicly launched, 2026-10-11.
 
-## Release 1.0.0 — distribution verified
+## Distribution history and current 1.0.1 follow-ups
 
-**Verified release record:** [App Store release 1.0.0 (build 12), 2026-10-11](docs/appstore/RELEASE_1.0.0_2026-10-11.md).
-
-- [x] Submitted to App Review on 2026-10-10.
-- [x] App Store Connect confirms iOS **1.0.0 (12)** uploaded on 2026-10-10, in review and then **Ready for Distribution** on 2026-10-11.
-- [x] Product owner confirmed live App Store publication on 2026-10-11.
-- [x] Recover build **12** source commit `0346d75`, signed IPA/archive and Apple submission evidence; merge the shipped source into canonical `main` and tag `photo-size-ios-v1.0.0-build12`.
-- [ ] Verify public-storefront propagation of 1.0.0 (public iTunes lookup still showed 0.6.2 during this audit).
-
-## Next patch — 1.0.1 (13), source-only candidate (not submitted to Apple)
-
-- [x] Keep the advertising consent Accept/Decline buttons visible even with iOS 27's maximum accessibility text size by scrolling explanatory text separately.
-- [x] Re-run 28 unit tests plus 5 simulator UI tests on iOS 27 with standard text size; 5 device-only Files tests skipped by design.
-- [x] Reconfirm that extreme accessibility text size needs scrolling; the no-scroll regression applies to the standard text-size matrix only.
-- [ ] Physical iPhone QA and explicit release approval before submitting a newly signed 1.0.1 (13) binary.
+- [x] 1.0.0 (12) published 2026-10-11, signed source and archive recorded.
+- [x] 1.0.1 (13) signed, uploaded and sent to App Review on 2026-10-13.
+- [x] 1.0.1 (13) publicly released by 2026-10-15 (owner confirmation).
+- [x] Accessibility consent fixes and automated QA recorded on release branch.
+- [ ] Associate exact public 1.0.1 build with source SHA, release tag,
+  public storefront evidence and reproducible signed archive.
+- [ ] Complete physical post-release validation of Files/PDF/ads/ATT.
 
 ## Maintenance: Core and dependency alignment (2026-10-13)
 
@@ -50,8 +58,10 @@ Evidence: [1.0.1 release branch roadmap](https://github.com/arvectum2/arvectum-t
 - [x] Confirm iOS Yandex Mobile Ads 8.6.0 matches the Core catalog and checked-in SwiftPM lock; keep stable native/banners implementation while adopting Core.
 - [x] Extend scoped CI to verify Core dependency contracts and to respond to Core manifest/catalog edits; ensure Android version-catalog changes run Android CI.
 - [x] Xcode 27 validation: 4 Core tests, 28 iOS unit tests, 5 simulator UI tests passed (5 physical-Files UI tests skipped by design); Android test/lint/assemble passed.
-- [ ] Run real-iPhone advertising checks (native + banner, consent yes/no and ATT status) and export regression before any App Store submission.
-- [ ] Obtain explicit release approval after physical-device acceptance; candidate remains unreleased iOS 1.0.1 (13).
+- [ ] Run real-iPhone advertising checks (native + banner, consent yes/no,
+  ATT status) and export regression as **post-release 1.0.1 QA**.
+- [ ] Use physical QA findings to gate any **future** corrective patch;
+  do not retroactively describe the published 1.0.1 as a candidate.
 
 ## Next: post-release QA and maintenance
 - [ ] Run device regression on image modes, document presets, PDF orientation, large-file memory and export.

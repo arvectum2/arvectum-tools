@@ -1,6 +1,10 @@
 # Arvectum Growth Agent — Roadmap
 
-**Status:** planned / build incrementally
+**Status (2026-10-15):** roadmap kept, execution **paused** pending
+trustworthy growth and revenue baseline and an explicit restart decision
+in [Growth](../ROADMAP.md). No automatic public posts or releases.
+Фото/PDF public iOS baseline updated to 1.0.1 (13) based on owner
+confirmation; this alone does not justify agent activation.
 **Created:** 2026-10-03
 **Principle:** exhaust free distribution before paid acquisition.
 
