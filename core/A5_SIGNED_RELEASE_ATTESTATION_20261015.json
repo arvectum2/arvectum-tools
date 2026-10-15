@@ -1,0 +1,150 @@
+{
+  "purpose": "A5 source-to-signed-IPA provenance; NOT an App Store upload or public release",
+  "date": "2026-10-15",
+  "source_main_baseline": "657ce0d6bcce78cf35e07135ef5871da8e07c0ff",
+  "toolchain": "Xcode 27.0 (27A266a), XcodeGen 2.46.0",
+  "host_artifact_root": "ArvectumSSD/Arvectum/releases/a5-20261015",
+  "verification": "IPA exported with Xcode; ditto extract; codesign --verify --strict for each app/appex, team, get-task-allow false; SHA256",
+  "candidates": [
+    {
+      "product": "Pushkin",
+      "bundle_id": "ru.arvectum.tools.notify",
+      "version": "1.0.1",
+      "build": 3,
+      "source_branch": "release/pushkin-1.0.1-build3-a5-20261015",
+      "source_commit": "c3b0910771f9e651d1fd1d433643229a6a72a170",
+      "source_rc_tag": "pushkin-ios-v1.0.1-build3-rc1",
+      "ipa_sha256": "024939f90c7b9f9452f3e9279e2dca72bb5402b6c9fd44b109e354d43bb49f8b",
+      "ipad_bytes": 14877399,
+      "nested_targets": [
+        {
+          "path": "Payload/ArvectumNotify.app/Info.plist",
+          "id": "ru.arvectum.tools.notify",
+          "version": "1.0.1",
+          "build": "3"
+        }
+      ],
+      "appstore_distribution_signatures_valid": true,
+      "production_get_task_allow_false": true,
+      "distribution_team_ids": [
+        "VML75VY94V"
+      ],
+      "privacy_manifest_count": 1,
+      "private_rag_asset_count": 0
+    },
+    {
+      "product": "Ухват",
+      "bundle_id": "ru.arvectum.tools.what",
+      "version": "1.0.2",
+      "build": 7,
+      "source_branch": "release/what-1.0.2-build7-a5-20261015",
+      "source_commit": "fecedac0575b17b8e1dd385e8f1ae1faae27bda7",
+      "source_rc_tag": "uhvat-ios-v1.0.2-build7-rc1",
+      "ipa_sha256": "0f89bd6aab1756838b701e48941eac93a009a9f4bfe29ea94f158dd707f0ab82",
+      "ipad_bytes": 2704225,
+      "nested_targets": [
+        {
+          "path": "Payload/WhatIOS.app/PlugIns/WhatPhoneWidget.appex/Info.plist",
+          "id": "ru.arvectum.tools.what.widget",
+          "version": "1.0.2",
+          "build": "7"
+        },
+        {
+          "path": "Payload/WhatIOS.app/Watch/WhatWatch.app/PlugIns/WhatWatchComplication.appex/Info.plist",
+          "id": "ru.arvectum.tools.what.watch.capturewidget",
+          "version": "1.0.2",
+          "build": "7"
+        },
+        {
+          "path": "Payload/WhatIOS.app/Watch/WhatWatch.app/Info.plist",
+          "id": "ru.arvectum.tools.what.watch",
+          "version": "1.0.2",
+          "build": "7"
+        },
+        {
+          "path": "Payload/WhatIOS.app/Info.plist",
+          "id": "ru.arvectum.tools.what",
+          "version": "1.0.2",
+          "build": "7"
+        }
+      ],
+      "appstore_distribution_signatures_valid": true,
+      "production_get_task_allow_false": true,
+      "distribution_team_ids": [
+        "VML75VY94V"
+      ],
+      "privacy_manifest_count": 2,
+      "private_rag_asset_count": 0
+    },
+    {
+      "product": "ChickMark",
+      "bundle_id": "ru.arvectum.tools.habits",
+      "version": "1.4.2",
+      "build": 16,
+      "source_branch": "release/chickmark-1.4.2-build16-a5-20261015",
+      "source_commit": "2ef6e536a52921703ddba38869c786cc2800f0de",
+      "source_rc_tag": "chickmark-ios-v1.4.2-build16-rc1",
+      "ipa_sha256": "f94370fa7994d4149f0e751031ba54a2b1fd79950b84a346be4aaec6ba14699a",
+      "ipad_bytes": 12425154,
+      "nested_targets": [
+        {
+          "path": "Payload/HabitsByArvectum.app/PlugIns/HabitsByArvectumWidget.appex/Info.plist",
+          "id": "ru.arvectum.tools.habits.widget",
+          "version": "1.4.2",
+          "build": "16"
+        },
+        {
+          "path": "Payload/HabitsByArvectum.app/Watch/HabitsByArvectumWatch.app/PlugIns/HabitsByArvectumWatchWidget.appex/Info.plist",
+          "id": "ru.arvectum.tools.habits.watch.widget",
+          "version": "1.4.2",
+          "build": "16"
+        },
+        {
+          "path": "Payload/HabitsByArvectum.app/Watch/HabitsByArvectumWatch.app/Info.plist",
+          "id": "ru.arvectum.tools.habits.watch",
+          "version": "1.4.2",
+          "build": "16"
+        },
+        {
+          "path": "Payload/HabitsByArvectum.app/Info.plist",
+          "id": "ru.arvectum.tools.habits",
+          "version": "1.4.2",
+          "build": "16"
+        }
+      ],
+      "appstore_distribution_signatures_valid": true,
+      "production_get_task_allow_false": true,
+      "distribution_team_ids": [
+        "VML75VY94V"
+      ],
+      "privacy_manifest_count": 28,
+      "private_rag_asset_count": 0
+    },
+    {
+      "product": "Фото/PDF",
+      "bundle_id": "ru.arvectum.tools.tosize",
+      "version": "1.0.2",
+      "build": 14,
+      "source_branch": "release/photo-size-1.0.2-build14-a5-20261015",
+      "source_commit": "09cc2639dd2bf0a17b693369047843712ac78106",
+      "source_rc_tag": "photo-size-ios-v1.0.2-build14-rc1",
+      "ipa_sha256": "e886c0d97c1670a8372a8d6b8840ed3cd1e08c1c22994bc4f338cf2ec6d18676",
+      "ipad_bytes": 8722657,
+      "nested_targets": [
+        {
+          "path": "Payload/PhotoPodRazmer.app/Info.plist",
+          "id": "ru.arvectum.tools.tosize",
+          "version": "1.0.2",
+          "build": "14"
+        }
+      ],
+      "appstore_distribution_signatures_valid": true,
+      "production_get_task_allow_false": true,
+      "distribution_team_ids": [
+        "VML75VY94V"
+      ],
+      "privacy_manifest_count": 25,
+      "private_rag_asset_count": 0
+    }
+  ]
+}
