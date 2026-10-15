@@ -435,7 +435,7 @@ private struct ChickMarkAboutView: View {
 #if DEBUG
                 DisclosureGroup(L10n.string("ads.debug.title")) {
                     VStack(alignment: .leading, spacing: 5) {
-                        Text(adUnit.isEmpty ? (HabitAdUnitIDs.banner ?? "—") : adUnit)
+                        Text(adUnit.isEmpty ? (HabitAdUnitIDs.native ?? "—") : adUnit)
                             .font(.caption.monospaced())
                         Text(L10n.string("ads.debug.state") + ": " + adStatus)
                             .font(.caption)

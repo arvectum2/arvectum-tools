@@ -189,6 +189,28 @@ extension HabitsByArvectumApp {
         try? context.save()
     }
 
+    func seedNativeAdLayoutDemoIfRequested(container: ModelContainer) {
+        // Adds synthetic rows only in explicitly requested DEBUG QA runs.
+        // Never changes real customer habits in a release build.
+        guard ProcessInfo.processInfo.arguments.contains(
+            "--debug-seed-native-ad-layout"
+        ) else { return }
+        let context = ModelContext(container)
+        let habits = (try? context.fetch(FetchDescriptor<Habit>())) ?? []
+        for index in 1...12 {
+            let id = UUID(uuidString: String(
+                format: "AAAA0000-0000-4000-8000-%012d", index
+            ))!
+            guard !habits.contains(where: { $0.id == id }) else { continue }
+            context.insert(Habit(
+                id: id, name: "QA Scroll \(index)",
+                symbolName: "checkmark.circle", colorHex: "43E5C5",
+                sortOrder: index + 30
+            ))
+        }
+        try? context.save()
+    }
+
     func seedScreenshotDemoIfRequested(container: ModelContainer) {
         guard ProcessInfo.processInfo.arguments.contains(
             "--seed-screenshot-demo"

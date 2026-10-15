@@ -1146,6 +1146,111 @@ final class HabitFlowUITests: XCTestCase {
         add(screenshot)
     }
 
+    func testA6NativeDemoRemainsPinnedWhileHabitsScroll() throws {
+        app.terminate()
+        app.launchArguments = [
+            "-AppleLanguages", "(en)", "-AppleLocale", "en_US",
+            "--ui-testing", "--disable-cloud-sync",
+            "--debug-seed-native-ad-layout", "--debug-force-ads",
+            "--chickmark-demo-ads"
+        ]
+        app.launch()
+
+        let demoAd = app.staticTexts["Яндекс.Такси"].firstMatch
+        try XCTSkipUnless(
+            demoAd.waitForExistence(timeout: 30),
+            "Yandex native demo did not fill on this CI simulator"
+        )
+        XCTAssertTrue(app.staticTexts["QA Scroll 1"].exists)
+        let initialAdPosition = demoAd.frame
+        let list = app.scrollViews.firstMatch
+        XCTAssertTrue(list.exists)
+
+        let lastHabit = app.staticTexts["QA Scroll 12"].firstMatch
+        // XCTest's generic ScrollView swipe starts near the BOTTOM of its
+        // full-screen AX bounds, which is now occupied by the pinned ad.
+        // Mimic an actual user's finger drag entirely inside the upper habit
+        // list rather than swiping ON the ad.
+        let start = app.coordinate(
+            withNormalizedOffset: CGVector(dx: 0.55, dy: 0.39)
+        )
+        let end = app.coordinate(
+            withNormalizedOffset: CGVector(dx: 0.55, dy: 0.20)
+        )
+        for attempt in 0..<16 {
+            guard !lastHabit.isHittable else { break }
+            start.press(forDuration: 0.08, thenDragTo: end)
+            print("A6_SCROLL_ATTEMPT=\(attempt + 1) last=\(lastHabit.isHittable)")
+        }
+
+        XCTAssertTrue(lastHabit.isHittable, "Final habit must remain reachable")
+        Thread.sleep(forTimeInterval: 1)
+        XCTAssertTrue(demoAd.exists)
+        print("A6_NATIVE_POSITION ad=\(demoAd.frame) list=\(list.frame) finalHabit=\(lastHabit.frame)")
+        XCTAssertLessThanOrEqual(
+            list.frame.maxY, demoAd.frame.minY,
+            "The ScrollView viewport must end above the independent native ad"
+        )
+        XCTAssertEqual(demoAd.frame.minY, initialAdPosition.minY, accuracy: 5)
+        XCTAssertTrue(demoAd.isHittable, "Pinned ad should stay in the viewport")
+        XCTAssertLessThan(
+            lastHabit.frame.maxY,
+            demoAd.frame.minY,
+            "The last habit must be ABOVE the native card, never occluded behind it"
+        )
+
+        let attachment = XCTAttachment(screenshot: XCUIScreen.main.screenshot())
+        attachment.name = "A6_Native_Demo_Footer_After_Habits_Scroll"
+        attachment.lifetime = .keepAlways
+        add(attachment)
+    }
+
+    func testA6NativeDemoAtAXXXLRetainsAccessibleHabitControls() throws {
+        app.terminate()
+        app.launchArguments = [
+            "-AppleLanguages", "(en)", "-AppleLocale", "en_US",
+            "-UIPreferredContentSizeCategoryName",
+            "UICTContentSizeCategoryAccessibilityExtraExtraExtraLarge",
+            "--ui-testing", "--disable-cloud-sync",
+            "--debug-seed-native-ad-layout", "--debug-force-ads",
+            "--chickmark-demo-ads"
+        ]
+        app.launch()
+
+        let demoAd = app.staticTexts["Яндекс.Такси"].firstMatch
+        try XCTSkipUnless(
+            demoAd.waitForExistence(timeout: 30),
+            "No Yandex native demo fill for AXXXL screenshot"
+        )
+        XCTAssertTrue(app.buttons["Manage habits"].isHittable)
+        XCTAssertTrue(app.buttons["Add"].isHittable)
+        let first = app.staticTexts["QA Scroll 1"].firstMatch
+        XCTAssertTrue(first.exists)
+        let adFrame = demoAd.frame
+        XCTAssertGreaterThan(adFrame.minY, app.buttons["Add"].frame.maxY)
+        let screenshot = XCTAttachment(screenshot: XCUIScreen.main.screenshot())
+        screenshot.name = "A6_Native_Demo_AXXXL"
+        screenshot.lifetime = .keepAlways
+        add(screenshot)
+    }
+
+    func testA6NoEligibleUsersHaveNoReservedAdvertisingSpace() throws {
+        app.terminate()
+        app.launchArguments = [
+            "-AppleLanguages", "(en)", "-AppleLocale", "en_US",
+            "--ui-testing", "--disable-cloud-sync",
+            "--debug-seed-native-ad-layout"
+        ]
+        app.launch()
+        XCTAssertTrue(app.staticTexts["QA Scroll 1"].waitForExistence(timeout: 6))
+        XCTAssertFalse(app.descendants(matching: .any)["today-sticky-ad-slot"].exists)
+        XCTAssertFalse(app.staticTexts["Яндекс.Такси"].exists)
+        let list = app.scrollViews.firstMatch
+        XCTAssertTrue(list.exists)
+        list.swipeUp()
+        XCTAssertTrue(app.staticTexts["QA Scroll 12"].waitForExistence(timeout: 5))
+    }
+
     func testA5HomeWidgetActualRenderedStateAndCheckButton() throws {
         app.terminate()
         app.launchArguments = [
