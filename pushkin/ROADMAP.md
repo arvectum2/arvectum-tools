@@ -1,5 +1,11 @@
 # PUSHKIN — Product Roadmap
 
+## A5 — isolated next-patch candidate (2026-10-15)
+
+- [x] Created isolated A5 release source candidate **1.0.1 (3)** from main. [Release gate](docs/A5_RELEASE_CANDIDATE_1_0_1_2026-10-15.md).
+- [ ] Signing, full independent CI, physical QA and Apple submission remain separate gates; source candidate is **not** an App Store upload or approval.
+
+
 ## Active checkpoint — 2026-10-15 (independently verified ASC API)
 **Latest review state:** iOS 1.0 remains under Apple review, independently verified **WAITING_FOR_REVIEW** via ASC API 2026-10-15; no publication confirmed. Physical iPhone carries developer build 1.0.0 (2), which must not be confused with the submitted build 1.0.0 (1). [Physical QA evidence](docs/PHYSICAL_QA_2026-10-14.md).
 - [x] Submitted local-only notification history with Shortcuts/App Intents capture, searchable offline storage and fallback onboarding.
