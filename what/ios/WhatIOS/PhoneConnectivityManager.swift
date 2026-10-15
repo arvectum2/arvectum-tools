@@ -72,6 +72,11 @@ final class PhoneConnectivityManager: NSObject, WCSessionDelegate {
                 .appendingPathComponent("what-live-\(UUID().uuidString).m4a")
             defer { try? FileManager.default.removeItem(at: temp) }
             try payload.audio.write(to: temp, options: .atomic)
+            // Do not ACK unreadable or header-only audio. The Watch retains
+            // the original and retries when the receiver is ready.
+            try WatchDeliveredAudioValidation.validate(
+                temp, expectedDuration: payload.recording.duration
+            )
             let outcome = try repository.acceptTemporaryFile(
                 temp, metadata: payload.metadata
             )
@@ -100,11 +105,17 @@ final class PhoneConnectivityManager: NSObject, WCSessionDelegate {
     }
 
     func session(_ session: WCSession, didReceive file: WCSessionFile) {
-        guard file.metadata?[TransferMetadataKey.type] as? String == TransferMetadataKey.recording else {
+        guard file.metadata?[TransferMetadataKey.type] as? String == TransferMetadataKey.recording,
+              let expectedDuration = file.metadata?[TransferMetadataKey.duration] as? Double else {
             return
         }
 
         do {
+            // WatchConnectivity marks transport delivery before checking
+            // whether its original AAC is actually playable on iPhone.
+            try WatchDeliveredAudioValidation.validate(
+                file.fileURL, expectedDuration: expectedDuration
+            )
             let outcome = try repository.acceptTemporaryFile(file.fileURL, metadata: file.metadata ?? [:])
             // Already-deleted UUIDs are acknowledged too, so Watch can clear its queue.
             session.transferUserInfo([

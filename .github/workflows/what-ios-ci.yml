@@ -1,0 +1,69 @@
+name: Uhvat capture reliability CI
+
+on:
+  push:
+    branches: ['**']
+    paths:
+      - 'what/ios/**'
+      - '.github/workflows/what-ios-ci.yml'
+  pull_request:
+    paths:
+      - 'what/ios/**'
+      - '.github/workflows/what-ios-ci.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: uhvat-capture-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  capture-reliability:
+    runs-on: xcode-27
+    timeout-minutes: 25
+    defaults:
+      run:
+        working-directory: what/ios
+    steps:
+      - uses: actions/checkout@v7
+      - name: Install XcodeGen
+        run: brew install xcodegen
+      - name: Generate What project
+        run: xcodegen generate
+      - name: Test durable Watch queue and receiver AAC validation
+        run: |
+          xcodebuild \
+            -project What.xcodeproj \
+            -scheme WhatIOS \
+            -destination 'platform=iOS Simulator,name=iPhone 18 Pro,OS=27.0' \
+            -parallel-testing-enabled NO \
+            -jobs 2 \
+            CODE_SIGNING_ALLOWED=NO \
+            COMPILER_INDEX_STORE_ENABLE=NO \
+            -only-testing:WhatIOSTests/WatchA2ReliabilityTests \
+            test
+
+  watch-build:
+    runs-on: xcode-27
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: what/ios
+    steps:
+      - uses: actions/checkout@v7
+      - name: Install XcodeGen
+        run: brew install xcodegen
+      - name: Generate What project
+        run: xcodegen generate
+      - name: Compile the Watch app and complication
+        run: |
+          xcodebuild \
+            -project What.xcodeproj \
+            -scheme WhatWatch \
+            -destination 'generic/platform=watchOS Simulator' \
+            -jobs 2 \
+            CODE_SIGNING_ALLOWED=NO \
+            COMPILER_INDEX_STORE_ENABLE=NO \
+            build
