@@ -32,6 +32,8 @@
 
 **Checkpoint A1 (2026-10-15):** [Pushkin PR #68](https://github.com/arvectum2/arvectum-tools/pull/68) слит в main (`6a6c206`) — безопасное удаление SwiftData по UUID, снимки UI, ошибки сохранения, регрессия **3 unit + 3 UI** PASS локально и **дважды GitHub CI PASS**. Исходный физический crash stacktrace не получен; физический тест на специально созданной записи и отдельный корректирующий App Store релиз ещё не проведены. Дополнительно [PR #69](https://github.com/arvectum2/arvectum-tools/pull/69) (`afed583`) исправил поиск встроенных Shortcuts: исходная unit-серия Pushkin **9/9 PASS**, а объединённый main после обоих PR — **12/12 PASS** на изолированном симуляторе. Текущая отправленная Apple 1.0 не содержит ни одного из этих исправлений. [Документация QA](../pushkin/docs/DELETE_SAFETY_QA_2026-10-15.md) и [Shortcuts QA](../pushkin/docs/SHORTCUT_RESOURCES_QA_2026-10-15.md). A2 можно начинать параллельно с ожиданием физической проверки A1.
 
+**Checkpoint A2 (2026-10-15):** [Ухват PR #70](https://github.com/arvectum2/arvectum-tools/pull/70) слит в main (`2f9239f`), GitVerse SHA совпал. Новый атомарный индекс офлайн-очереди Watch сохраняется до изменения памяти и до удаления AAC по ACK; iPhone отклоняет повреждённые аудиофайлы до ACK. Локально 7/7 A2, полный набор 61 тест (0 ошибок, 3 пропуска), iOS/watchOS builds PASS; оба GitHub CI run PASS. **Физическая проверка одного нажатия, Digital Crown, микрофона и потерь соединения остаётся открытой** — Mac mini не имел подключённой физической пары Watch+iPhone. [Протокол A2](../what/docs/A2_CAPTURE_DELIVERY_QA_2026-10-15.md). Изменения **не входят** в отправленный Apple build 1.0.1 (6).
+
 ## Параллельный поток B — Growth и монетизация
 
 | Очередь | Работа | Критерий завершения |

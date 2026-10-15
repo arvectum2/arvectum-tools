@@ -24,7 +24,7 @@ are different types of evidence. Unverified new approvals must not be assumed.
 | Фото и PDF под размер | **1.0.1 (13)** READY_FOR_SALE, authenticated ASC **2026-10-15** | None | Exact build 13 VALID; post-release export and live ads QA open |
 | ChickMark | **1.4.0 (8)** | **1.4.1 (15)** Waiting for Review, last checked 2026-10-15 | R1 decision and A1/A4/A6/A7 physical or external acceptance open |
 | Pushkin | Not published | **1.0.0 (1)** Waiting for Review, ASC **2026-10-15** | Build 1 VALID; deletion source fix #68 and local Shortcuts lookup fix #69 merged into main **but not in reviewed binary**; real-device QA pending |
-| Ухват / UhWhat? | **1.0.0 (5)** READY_FOR_SALE, ASC record 2026-10-15 | **1.0.1 (6)** Waiting for Review, record 2026-10-15 | Physical one-tap Watch capture and interruption tests open |
+| Ухват / UhWhat? | **1.0.0 (5)** READY_FOR_SALE, ASC 2026-10-15 | **1.0.1 (6)** Waiting for Review, independently reconfirmed 2026-10-15 | A2 source fix #70 merged into main (not submitted build), CI PASS; physical one-tap Watch/interruption/ACK QA open |
 | Where? | Not released | None | MVP W0–W3 not independently implemented |
 
 Android publication remains independent: no confirmed public Android release

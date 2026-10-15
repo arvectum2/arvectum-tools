@@ -22,7 +22,7 @@
 - [x] iOS Simulator build-for-testing PASS; watchOS Simulator build PASS; Xcode 27.
 - [x] New focused A2 tests: **7/7 PASS** on isolated iPhone 17, iOS 27 simulator. Cases: offline multi-recording durable queue, repeated ACK, disk commit failure on enqueue/ACK, recovered orphan index, corrupted AAC rejected, playable generated AAC accepted and mismatched duration rejected, p95 percentile helper.
 - [x] Complete WhatIOSTests: **61 tests, 0 failures, 3 skipped** (54 pre-existing tests + 7 new). This is not physical-device acceptance.
-- [ ] GitHub CI acceptance/PR and mirrored main SHA: verify separately after push.
+- [x] [PR #70](https://github.com/arvectum2/arvectum-tools/pull/70) merged into main at `2f9239f` on 2026-10-15. Both GitHub `what-ios-ci.yml` runs passed: [PR run 38772024788](https://github.com/arvectum2/arvectum-tools/actions/runs/38772024788) and [push run 38772015701](https://github.com/arvectum2/arvectum-tools/actions/runs/38772015701), including A2 regression tests and Watch build. Architecture, dependency catalog and mirror checks passed; GitVerse main SHA equals GitHub `2f9239f6a4c3ff6eed405b158cf99b9866b54a23` after merge.
 - [ ] Physical paired Apple Watch/iPhone acceptance: cannot mark complete from simulators.
 
 ## Physical acceptance still required

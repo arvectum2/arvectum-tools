@@ -17,7 +17,7 @@ capture, durable original audio and Watch-to-iPhone delivery have priority.
 - [x] Release 1.0.1 (6) source fixes complication to launch Watch recording
   in one tap, uses branded Watch glyph and saves active recording upon
   app backgrounding. Signed IPA and simulator tests passed, submitted.
-- [x] A2 source-level queue and receiver hardening: atomic on-disk enqueue/ACK/recovery before in-memory mutations; iPhone rejects unreadable/corrupt AAC before ACK. 7/7 focused and 61/61 total tests (3 skipped) pass on simulator, watchOS app+complication build PASS. [A2 QA](docs/A2_CAPTURE_DELIVERY_QA_2026-10-15.md). Changes are **not** in Apple's submitted 1.0.1 (6) binary.
+- [x] A2 source-level queue and receiver hardening: atomic on-disk enqueue/ACK/recovery before in-memory mutations; iPhone rejects unreadable/corrupt AAC before ACK. 7/7 focused tests PASS; complete suite 61 executed, 0 failures, 3 skipped. Both Watch and iOS builds and GitHub PR CI pass. [PR #70](https://github.com/arvectum2/arvectum-tools/pull/70) merged into main at `2f9239f`. [A2 QA](docs/A2_CAPTURE_DELIVERY_QA_2026-10-15.md). Changes are **not** in Apple's submitted 1.0.1 (6) binary.
 - [ ] Physical proof for 1.0.1: one Watch complication tap → audio,
   Digital Crown/background → saved playable audio on iPhone exactly once,
   including offline / ACK / reboot and duplicate-delivery scenarios.
