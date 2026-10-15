@@ -25,6 +25,11 @@ struct HabitSyncHabit: Codable, Hashable, Identifiable {
     var healthRuleTarget: Double? = nil
     /// True if the user has explicitly changed this day's completion.
     var healthManualOverride: Bool = false
+    /// Watch-only optimistic command, not an iPhone Health preference.
+    /// Optional to retain decoding of existing v2 snapshots. While true,
+    /// watch-local Health data cannot overwrite an unsent manual action.
+    /// Cleared on explicit iPhone ACK (or when pending commands disappear).
+    var watchPendingManualAction: Bool? = nil
 }
 
 struct HabitSyncDayProjection: Codable, Hashable {

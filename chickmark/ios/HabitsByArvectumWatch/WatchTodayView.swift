@@ -17,6 +17,7 @@ struct WatchTodayView: View {
         let newlyVerified = snapshot.habits.filter {
             locallyVerified.contains($0.id) &&
             !userOverridden.contains($0.id) &&
+            $0.watchPendingManualAction != true &&
             !$0.completed && !$0.skipped
         }.count
         return min(
@@ -28,7 +29,9 @@ struct WatchTodayView: View {
     private var verifiedHabits: [HabitSyncHabit] {
         syncStore.snapshot.habits.map { original in
             var habit = original
-            if locallyVerified.contains(habit.id) && !userOverridden.contains(habit.id) {
+            if locallyVerified.contains(habit.id) &&
+                !userOverridden.contains(habit.id) &&
+                habit.watchPendingManualAction != true {
                 habit.completed = true
             }
             return habit
@@ -127,7 +130,10 @@ struct WatchTodayView: View {
     /// Watch app HealthKit queries are local; publish only the validated
     /// completion IDs into an ephemeral, non-backed-up widget cache.
     private func publishLocalHealthToComplication() {
-        let ids = locallyVerified.subtracting(userOverridden)
+        let pending = Set(syncStore.snapshot.habits.filter {
+            $0.watchPendingManualAction == true
+        }.map(\.id))
+        let ids = locallyVerified.subtracting(userOverridden).subtracting(pending)
         if WatchLocalHealthProjection.save(
             dayKey: syncStore.snapshot.dayKey,
             habitIDs: ids,
@@ -184,7 +190,9 @@ struct WatchTodayView: View {
     private func habitButton(_ habit: HabitSyncHabit) -> some View {
         VStack(spacing: 3) {
         Button {
-            if locallyVerified.contains(habit.id) && !userOverridden.contains(habit.id) {
+            if locallyVerified.contains(habit.id) &&
+                !userOverridden.contains(habit.id) &&
+                habit.watchPendingManualAction != true {
                 userOverridden.insert(habit.id)
                 syncStore.toggle(habit, desiredStateOverride: false)
                 publishLocalHealthToComplication()
