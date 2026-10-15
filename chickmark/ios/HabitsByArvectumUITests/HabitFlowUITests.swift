@@ -1205,6 +1205,56 @@ final class HabitFlowUITests: XCTestCase {
         add(attachment)
     }
 
+    func testA6SimulatedNoFillRestoresFullHabitScrollViewport() throws {
+        // Baseline: ineligible user does not mount the SDK slot.
+        app.terminate()
+        let commonArgs = [
+            "-AppleLanguages", "(en)", "-AppleLocale", "en_US",
+            "--ui-testing", "--disable-cloud-sync",
+            "--debug-seed-native-ad-layout"
+        ]
+        app.launchArguments = commonArgs
+        app.launch()
+        XCTAssertTrue(app.staticTexts["QA Scroll 1"].waitForExistence(timeout: 6))
+        let baseline = app.scrollViews.firstMatch
+        XCTAssertTrue(baseline.exists)
+        let originalBottom = baseline.frame.maxY
+
+        // Force the eligibility gate open but model a native SDK no-fill
+        // *without* making any request, impression or click.
+        app.terminate()
+        app.launchArguments = commonArgs + [
+            "--debug-force-ads", "--chickmark-demo-ads",
+            "--chickmark-native-simulate-no-fill"
+        ]
+        app.launch()
+        XCTAssertTrue(app.staticTexts["QA Scroll 1"].waitForExistence(timeout: 6))
+        let scroller = app.scrollViews.firstMatch
+        XCTAssertTrue(scroller.exists)
+        XCTAssertEqual(
+            scroller.frame.maxY, originalBottom, accuracy: 3,
+            "No-fill must not reserve a large blank footer"
+        )
+        XCTAssertFalse(app.staticTexts["Яндекс.Такси"].exists)
+
+        let last = app.staticTexts["QA Scroll 12"].firstMatch
+        let start = app.coordinate(
+            withNormalizedOffset: CGVector(dx: 0.55, dy: 0.60)
+        )
+        let end = app.coordinate(
+            withNormalizedOffset: CGVector(dx: 0.55, dy: 0.22)
+        )
+        for _ in 0..<10 {
+            if last.isHittable { break }
+            start.press(forDuration: 0.06, thenDragTo: end)
+        }
+        XCTAssertTrue(last.isHittable)
+        let attachment = XCTAttachment(screenshot: XCUIScreen.main.screenshot())
+        attachment.name = "A6_Simulated_NoFill_No_Blank_Footer"
+        attachment.lifetime = .keepAlways
+        add(attachment)
+    }
+
     func testA6NativeDemoAtAXXXLRetainsAccessibleHabitControls() throws {
         app.terminate()
         app.launchArguments = [
