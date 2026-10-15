@@ -1,5 +1,7 @@
 # Where? — Product Roadmap
 
+**PAUSED (2026-10-15):** разработку MVP W0–W3, сроков годности E0–E5 и release/CI работы не начинаем до отдельного решения владельца. План и продуктовые требования сохранены; никакие чекбоксы не считаются выполненными. [Активная очередь других продуктов](../core/EXECUTION_PLAN.md).
+
 ## MVP execution plan — 2026-10-15
 **Stage:** approved concept; no working implementation independently verified at 2026-10-15 reconciliation. W0–W3 remain MVP; expiry tracking E0–E5 is strictly post-MVP. The central value proposition is photograph → remember where stored → find it entirely offline.
 - [ ] W0: capture object and storage-place photos, durable local records, browsing and corrections on actual iPhone.

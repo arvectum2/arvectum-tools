@@ -1,5 +1,7 @@
 # Arvectum Tools — Growth Roadmap
 
+**Очередность:** [единый план работ](../core/EXECUTION_PLAN.md). B0 (проверяемая аналитика) выполняется параллельно с безопасностью/релизами приложений; Growth Agent активировать поэтапно после качественного data baseline.
+
 ## Growth checkpoint — 2026-10-15
 - [x] Reconciled App Store distribution baselines in
   [Portfolio registry](../core/PORTFOLIO.md): Фото/PDF iOS 1.0.1

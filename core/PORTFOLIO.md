@@ -4,6 +4,8 @@
 Every task has exactly one owning roadmap. Cross-project dependencies use links,
 not copied checkboxes. Apps release independently.
 
+**Исполняемая очередь 2026-10-15:** [Единый план работ без Where?](EXECUTION_PLAN.md). Where? поставлен на паузу; остальные продукты, Core и Growth остаются в scope.
+
 ## Product roadmaps
 - [Фото и PDF под размер](../photo-pdf-to-size/ROADMAP.md) — photo/PDF resizing, document presets, exports, app-specific UX, implementation and QA.
 - [Pushkin](../pushkin/ROADMAP.md) — notifications capture, history, onboarding, search, reliability and app-specific UX.
