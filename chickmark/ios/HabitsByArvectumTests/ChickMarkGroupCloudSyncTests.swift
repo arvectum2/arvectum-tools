@@ -5,6 +5,81 @@ final class ChickMarkGroupCloudSyncTests: XCTestCase {
     private let old = Date(timeIntervalSince1970: 1_000)
     private let recent = Date(timeIntervalSince1970: 2_000)
 
+    func testDuplicatedCloudRecordsCannotCrashAndTombstonesWin() throws {
+        let id = UUID()
+        let habitID = UUID()
+        let older = ChickMarkGroupCloudSnapshot.GroupRecord(
+            id: id, name: "Old", deleted: false,
+            revisedAt: old, author: "watch"
+        )
+        let renamed = ChickMarkGroupCloudSnapshot.GroupRecord(
+            id: id, name: "Current", deleted: false,
+            revisedAt: recent, author: "iphone"
+        )
+        let deleted = ChickMarkGroupCloudSnapshot.GroupRecord(
+            id: id, name: "Current", deleted: true,
+            revisedAt: recent, author: "iphone"
+        )
+        let assigned = ChickMarkGroupCloudSnapshot.MembershipRecord(
+            habitID: habitID, groupID: id, revisedAt: old, author: "watch"
+        )
+        let unassigned = ChickMarkGroupCloudSnapshot.MembershipRecord(
+            habitID: habitID, groupID: nil, revisedAt: recent, author: "iphone"
+        )
+        let duplicate = ChickMarkGroupCloudSnapshot(
+            groups: [older, renamed, deleted, renamed],
+            memberships: [assigned, unassigned, assigned]
+        )
+        // Exercise JSON-decoded legacy/iCloud payloads as well as same-author
+        // same-clock conflicting entries, without touching any Cloud account.
+        let decoded = try JSONDecoder().decode(
+            ChickMarkGroupCloudSnapshot.self,
+            from: JSONEncoder().encode(duplicate)
+        )
+        let canonical = decoded.joined(with: .empty)
+        XCTAssertEqual(canonical.groups.count, 1)
+        XCTAssertTrue(canonical.groups[0].deleted)
+        XCTAssertEqual(canonical.memberships.count, 1)
+        XCTAssertNil(canonical.memberships[0].groupID)
+        XCTAssertTrue(canonical.materialize().isEmpty)
+        XCTAssertEqual(canonical, canonical.joined(with: decoded))
+    }
+
+    func testDuplicateRecordsConvergeRegardlessOfOrderOrPeer() {
+        let groupID = UUID(), habitID = UUID()
+        let created = ChickMarkGroupCloudSnapshot.GroupRecord(
+            id: groupID, name: "Work", deleted: false,
+            revisedAt: recent, author: "same"
+        )
+        let removed = ChickMarkGroupCloudSnapshot.GroupRecord(
+            id: groupID, name: "Work", deleted: true,
+            revisedAt: recent, author: "same"
+        )
+        let assigned = ChickMarkGroupCloudSnapshot.MembershipRecord(
+            habitID: habitID, groupID: groupID,
+            revisedAt: recent, author: "same"
+        )
+        let unassigned = ChickMarkGroupCloudSnapshot.MembershipRecord(
+            habitID: habitID, groupID: nil,
+            revisedAt: recent, author: "same"
+        )
+        let left = ChickMarkGroupCloudSnapshot(
+            groups: [created, removed, created],
+            memberships: [assigned, unassigned]
+        )
+        let right = ChickMarkGroupCloudSnapshot(
+            groups: [removed, created],
+            memberships: [unassigned, assigned, unassigned]
+        )
+        let first = left.joined(with: right)
+        let second = right.joined(with: left)
+        XCTAssertEqual(first, second)
+        XCTAssertTrue(first.materialize().isEmpty)
+        XCTAssertEqual(first.groups.count, 1)
+        XCTAssertEqual(first.memberships.count, 1)
+        XCTAssertEqual(first, first.joined(with: first))
+    }
+
     func testConcurrentDifferentGroupCreationsAreMerged() {
         let groupA = UUID()
         let groupB = UUID()

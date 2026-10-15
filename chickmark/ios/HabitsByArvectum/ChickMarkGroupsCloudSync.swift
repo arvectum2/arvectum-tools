@@ -43,7 +43,22 @@ struct ChickMarkGroupCloudSnapshot: Codable, Equatable {
     }
 
     func joined(with remote: Self) -> Self {
-        var groupMap = Dictionary(uniqueKeysWithValues: groups.map { ($0.id, $0) })
+        // iCloud/JSON payloads may contain repeated record IDs (e.g. an
+        // older device retried an interrupted upload). Dictionary's
+        // uniqueKeysWithValues traps on duplicates; fold records through the
+        // same deterministic LWW rule as cross-device merges instead.
+        var groupMap: [UUID: GroupRecord] = [:]
+        for entry in groups {
+            if let prior = groupMap[entry.id] {
+                groupMap[entry.id] = Self.newer(
+                    prior, entry,
+                    timestamp: { $0.revisedAt }, author: { $0.author },
+                    tieBreaker: { ($0.deleted ? "1" : "0") + "|" + $0.name }
+                )
+            } else {
+                groupMap[entry.id] = entry
+            }
+        }
         for incoming in remote.groups {
             if let prior = groupMap[incoming.id] {
                 groupMap[incoming.id] = Self.newer(
@@ -56,9 +71,20 @@ struct ChickMarkGroupCloudSnapshot: Codable, Equatable {
             }
         }
 
-        var memberMap = Dictionary(
-            uniqueKeysWithValues: memberships.map { ($0.habitID, $0) }
-        )
+        var memberMap: [UUID: MembershipRecord] = [:]
+        for entry in memberships {
+            if let prior = memberMap[entry.habitID] {
+                memberMap[entry.habitID] = Self.newer(
+                    prior, entry,
+                    timestamp: { $0.revisedAt }, author: { $0.author },
+                    tieBreaker: {
+                        $0.groupID.map { "0|" + $0.uuidString } ?? "1|"
+                    }
+                )
+            } else {
+                memberMap[entry.habitID] = entry
+            }
+        }
         for incoming in remote.memberships {
             if let prior = memberMap[incoming.habitID] {
                 memberMap[incoming.habitID] = Self.newer(
