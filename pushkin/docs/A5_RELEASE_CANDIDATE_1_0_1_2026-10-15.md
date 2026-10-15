@@ -22,8 +22,8 @@ PR #68: safe UUID-based SwiftData deletion with rollback; PR #69: reliably locat
 - [x] Reserved unique marketing/build number; cross-target version consistency is enforced by `project.yml`.
 - [ ] Clean generated Xcode project builds on generic iOS Simulator (and watchOS if applicable).
 - [ ] Full app unit/UI regression and clean GitHub Actions release-branch checks.
-- [ ] Distribution-signed `.xcarchive` with correct team, entitlements and embedded extensions; `.ipa` SHA-256 and signing/profile receipt. **Do not claim signing from a simulator build.**
-- [ ] Verify bit-by-bit exported bundle version/build and that any signed artifact includes only intended files.
+- [x] **App Store-exported IPA** `ArvectumNotify.ipa` with SHA-256 `024939f90c7b9f9452f3e9279e2dca72bb5402b6c9fd44b109e354d43bb49f8b`; Xcode archive SUCCEEDED, export SUCCEEDED, team VML75VY94V. Exported IPA has production Store profiles, disabled `get-task-allow`, and matching version/build in **1/1 bundles**. Xcode may use an Apple Development profile in the intermediate `.xcarchive` for Watch/widget apps; **the exported IPA is independently re-signed**. [Machine-readable receipt](A5_SIGNED_IPA_RECEIPT_1_0_1_2026-10-15.json).
+- [x] Extracted IPA validated: bundle version/build, App Store profile entitlements, `codesign --verify --strict` for all bundles; no RuWordNet-named assets bundled. Physical application behavior and exact signed archive reproducibility remain independent gates.
 - [ ] **Physical/external:** Await decision for submitted 1.0.0; physical regression for disposable notification deletion and offline Shortcuts capture, app privacy and actual bundle check. Never overwrite user notification history.
 - [ ] **Apple:** actual new App Store version + build association, review notes and required locales only after preceding gates pass. No upload or submission in A5 draft phase.
 

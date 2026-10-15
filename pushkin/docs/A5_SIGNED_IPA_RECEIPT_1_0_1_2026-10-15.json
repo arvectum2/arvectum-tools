@@ -1,0 +1,19 @@
+{
+  "app": "pushkin",
+  "a5_date": "2026-10-15",
+  "state": "LOCALLY_EXPORTED_FOR_APP_STORE__NOT_UPLOADED",
+  "source_branch": "release/pushkin-1.0.1-build3-a5-20261015",
+  "source_commit": "c3b0910771f9e651d1fd1d433643229a6a72a170",
+  "source_baseline_main": "657ce0d6bcce78cf35e07135ef5871da8e07c0ff",
+  "ios_marketing_version": "1.0.1",
+  "ios_build": "3",
+  "ipa_basename": "ArvectumNotify.ipa",
+  "ipa_sha256": "024939f90c7b9f9452f3e9279e2dca72bb5402b6c9fd44b109e354d43bb49f8b",
+  "ipa_size_bytes": 14877399,
+  "storage_on_owner_mac_mini": "/Volumes/ArvectumSSD/Arvectum/releases/a5-20261015/pushkin-1.0.1-build3/export/ArvectumNotify.ipa",
+  "validated_bundle_ids": [
+    "ru.arvectum.tools.notify"
+  ],
+  "signature_verification": "codesign --verify --strict PASS on main + all embedded apps/extensions; Apple Store provisioning; get-task-allow=false in all embedded profiles",
+  "distribution_stage": "not sent to App Store Connect; physical/review gates still open"
+}
