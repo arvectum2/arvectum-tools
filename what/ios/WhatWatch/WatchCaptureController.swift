@@ -241,30 +241,33 @@ final class WatchCaptureController: NSObject, ObservableObject, AVAudioRecorderD
         queueLock.lock()
         defer { queueLock.unlock() }
 
-        queue.removeAll { $0.id == recording.id }
-        queue.append(recording)
-        try persistQueueLocked()
+        try WatchDurableQueue.enqueue(
+            recording, into: &queue, at: queueIndexURL
+        )
         publishPendingCount(queue.count)
     }
 
     private func acknowledge(_ id: UUID) {
         queueLock.lock()
-        let match = queue.first { $0.id == id }
-        queue.removeAll { $0.id == id }
-        retryPolicy.didAcknowledge(id)
-        immediateAttempts.removeValue(forKey: id)
-
         do {
-            try persistQueueLocked()
-            if let match {
-                try? fileManager.removeItem(at: outboundDirectory.appendingPathComponent(match.fileName))
+            // Keep both the in-memory queue and the original AAC intact if
+            // the atomic queue index write fails (e.g. disk is full).
+            if let match = try WatchDurableQueue.acknowledge(
+                id, in: &queue, at: queueIndexURL
+            ) {
+                retryPolicy.didAcknowledge(id)
+                immediateAttempts.removeValue(forKey: id)
+                try? fileManager.removeItem(
+                    at: outboundDirectory.appendingPathComponent(match.fileName)
+                )
             }
         } catch {
-            if let match, !queue.contains(where: { $0.id == match.id }) {
-                queue.append(match)
-            }
+            ArvectumDiagnostics.failure(
+                subsystem: "ru.arvectum.tools.what.watch",
+                category: "transfer", operation: "acknowledge",
+                code: "queue-index-commit-failed"
+            )
         }
-
         let count = queue.count
         queueLock.unlock()
         publishPendingCount(count)
@@ -313,9 +316,10 @@ final class WatchCaptureController: NSObject, ObservableObject, AVAudioRecorderD
             }
         )
         guard !recovered.isEmpty else { return }
-        queue.append(contentsOf: recovered)
         do {
-            try persistQueueLocked()
+            try WatchDurableQueue.recover(
+                recovered, into: &queue, at: queueIndexURL
+            )
             ArvectumDiagnostics.failure(
                 subsystem: "ru.arvectum.tools.what.watch",
                 category: "capture", operation: "recover",
@@ -324,11 +328,6 @@ final class WatchCaptureController: NSObject, ObservableObject, AVAudioRecorderD
         } catch {
             // Never delete recovered audio; scan again on next app launch.
         }
-    }
-
-    private func persistQueueLocked() throws {
-        let data = try JSONEncoder().encode(queue)
-        try data.write(to: queueIndexURL, options: .atomic)
     }
 
     private func publishPendingCount(_ count: Int) {

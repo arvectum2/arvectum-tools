@@ -16,6 +16,7 @@
 		1B01BE138A483EA2CE1DB1FE /* WhatWatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 9819634215CFE7B5CB7C96E2 /* WhatWatch.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		1BC48103D6E86867BC619F4B /* PhoneRecordingSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3997C787CF6EC5F61396098 /* PhoneRecordingSheet.swift */; };
 		1DB28694A4FB2349E0C75253 /* WhatApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94ABD3BF183D4D22AF1CD0B0 /* WhatApp.swift */; };
+		21A6063DBDDDB23005137B78 /* WatchDurableQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8632BE1ABDF63CB6AD9F3FD6 /* WatchDurableQueue.swift */; };
 		227D739414C4A4B0A524EF61 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BC5256A0E66398B704FA4575 /* InfoPlist.strings */; };
 		234EA537934DE57D638D69B5 /* RussianConceptSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E538C9737AF66FDF491ED6C /* RussianConceptSearch.swift */; };
 		23C3DC142A5320642976B51C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F5BECCDE1474FF547D4DDE /* ContentView.swift */; };
@@ -27,14 +28,15 @@
 		39D726A0F9A6E5ADA4DBEA21 /* WhatComplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D1A5C9E79CC4A544374E3E /* WhatComplication.swift */; };
 		4B245C0DC2EC18A8311E7D0C /* CaptureFirstUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6ACA38EC5E339EF4FE47646 /* CaptureFirstUITests.swift */; };
 		503FAB8870D0044EF3463F4D /* RecordingEnvelope.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C9581F753BED275286D623 /* RecordingEnvelope.swift */; };
+		5139AF52BBA7C50D9EC9818B /* ArvectumDiagnostics.swift in Sources */ = {isa = PBXBuildFile; fileRef = D19478C8FA1C97D399AA6AAC /* ArvectumDiagnostics.swift */; };
 		5FD7F8E32D78068474F665C3 /* CaptureLatency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8DC84E4B7383D9043BF774 /* CaptureLatency.swift */; };
-		6041C39F40A41746E3C23BCC /* ArvectumDiagnostics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B6409CA5C859206CCD4F797 /* ArvectumDiagnostics.swift */; };
 		620929503466A26358DDC534 /* ImmediateRecordingPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD17D674B9340C94107DCF39 /* ImmediateRecordingPayload.swift */; };
 		62F51A03CFB1699B97BE45DA /* RecordingRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CA5B4FD3F49550A3BF2B59 /* RecordingRepository.swift */; };
 		63478656E0292E1123BCAFD8 /* WatchCaptureValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34695056F0776593473FDE58 /* WatchCaptureValidation.swift */; };
 		678FB4B35F0627D03AE0F736 /* WhatPhoneWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = EBF159B5D81F63DE0DAE6484 /* WhatPhoneWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		67A7309CBD38A6A55FD9B3D9 /* WatchTransferRetryPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A4FCD3C72E787C27B7E3EE /* WatchTransferRetryPolicy.swift */; };
 		686DBE4CA2BBE32B81849C8A /* CaptureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECAA3B8CBC13E2455D09ADE /* CaptureView.swift */; };
+		7FCD7C290C214A811D5C2256 /* ArvectumJSONCodec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202AA6EA6548079F9C4DF8F4 /* ArvectumJSONCodec.swift */; };
 		829D95F2391E62D3217A1C1A /* CaptureBrand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A64C8E1ED1DD3595D966992 /* CaptureBrand.swift */; };
 		8429BD4828F55DF8C4718902 /* LocalSemanticSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766855BE51B40DC7C113B75A /* LocalSemanticSearch.swift */; };
 		8DD93A3E6323ADD48EEF25AD /* CaptureBrand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A64C8E1ED1DD3595D966992 /* CaptureBrand.swift */; };
@@ -43,8 +45,10 @@
 		95F903D10357AB8003D0C5B5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 456E30708D79A850A07FE2C5 /* Assets.xcassets */; };
 		9624AC1580E81B3F01859FFC /* PhoneRecordingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F96BFC4E2D4DD08402B798 /* PhoneRecordingController.swift */; };
 		9A039B3C0931BAC0E371889B /* WatchQueueRecovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933E67C2BA97D85D01B0A3BA /* WatchQueueRecovery.swift */; };
+		9C5A13012F4A2E99F5379BB4 /* WatchDurableQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8632BE1ABDF63CB6AD9F3FD6 /* WatchDurableQueue.swift */; };
 		A2FFB527B39A111ECF5F3A00 /* RecordingRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BFFB46088A8945C66DFE7F4 /* RecordingRepositoryTests.swift */; };
 		A42F93400DD2B4DFBB398F4A /* PhoneConnectivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1330B09BE7A27DED3358758C /* PhoneConnectivityManager.swift */; };
+		A6E2132E81B2D8807875BC35 /* WatchDeliveredAudioValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2EC835E1A980C511E5E6EDD /* WatchDeliveredAudioValidation.swift */; };
 		A8AC3088BF322AEB5EB000B8 /* TranscriptLexicalMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CFB25EFAE0D572DD9D7A37D /* TranscriptLexicalMatcher.swift */; };
 		AEB98CE89CFA026E5F1FE370 /* SmartSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B585B95ED7BF383E24A396 /* SmartSearchView.swift */; };
 		AFFF14FF71B201060DB61571 /* InboxOrganizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A671C143C8B8AA6E71D5046 /* InboxOrganizer.swift */; };
@@ -55,9 +59,10 @@
 		C1FF49CC6828A3F62C630D7B /* WatchQueueSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAAB014EC25B8F1BE07A8003 /* WatchQueueSnapshot.swift */; };
 		C611ECB87B428D831936DD84 /* CaptureBrand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A64C8E1ED1DD3595D966992 /* CaptureBrand.swift */; };
 		CA3B9CAADFD199EF8DCFCB82 /* QuickCaptureHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18C5018F3923EB2CC41A40A /* QuickCaptureHomeView.swift */; };
+		CA4DD74B673DCF0AF78F52BE /* WatchDeliveredAudioValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2EC835E1A980C511E5E6EDD /* WatchDeliveredAudioValidation.swift */; };
 		CAA46328F53EE3ECF8154113 /* ImmediateRecordingPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD17D674B9340C94107DCF39 /* ImmediateRecordingPayload.swift */; };
 		D2034C64118475AFC5F8A80C /* WatchCaptureController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FEDFC32DD8C7A561856A386 /* WatchCaptureController.swift */; };
-		D290FBD7B2B8EEDC5EC6F5E1 /* ArvectumJSONCodec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4604F3823A6D4071449CACDC /* ArvectumJSONCodec.swift */; };
+		D456C732D9EC57650A0642D3 /* WatchA2ReliabilityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154E194A750613AB8610B080 /* WatchA2ReliabilityTests.swift */; };
 		D555B919D26F933D9EFAB7E3 /* MicrophoneCapturePipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D93405209E72242B4DFEF0F /* MicrophoneCapturePipeline.swift */; };
 		D617395D9EB07EE903D5910D /* RecordingLibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ABEE922A1A0E2358928B374 /* RecordingLibraryView.swift */; };
 		E279702F2EC466E836C3CC17 /* RecordingExportService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11CFD6F6D4AFB8ABAD4DFDB0 /* RecordingExportService.swift */; };
@@ -152,9 +157,11 @@
 		1245823325CC94B431825FC8 /* PhoneCaptureValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneCaptureValidation.swift; sourceTree = "<group>"; };
 		1330B09BE7A27DED3358758C /* PhoneConnectivityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneConnectivityManager.swift; sourceTree = "<group>"; };
 		14B585B95ED7BF383E24A396 /* SmartSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartSearchView.swift; sourceTree = "<group>"; };
+		154E194A750613AB8610B080 /* WatchA2ReliabilityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchA2ReliabilityTests.swift; sourceTree = "<group>"; };
 		1804DB448307D7581C01F806 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		1AF4FD056784301068F49063 /* GroundedMemoryAnswer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroundedMemoryAnswer.swift; sourceTree = "<group>"; };
 		1D0B51DE0971B320ECF3899E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		202AA6EA6548079F9C4DF8F4 /* ArvectumJSONCodec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArvectumJSONCodec.swift; sourceTree = "<group>"; };
 		246D11929E5A69C73C37010B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		27F5BECCDE1474FF547D4DDE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		28C9581F753BED275286D623 /* RecordingEnvelope.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingEnvelope.swift; sourceTree = "<group>"; };
@@ -170,7 +177,6 @@
 		3FEB908379268EDF523C2242 /* TranscriptEditorSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscriptEditorSheet.swift; sourceTree = "<group>"; };
 		456E30708D79A850A07FE2C5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		45AF5A244D5C57B278411CCC /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		4604F3823A6D4071449CACDC /* ArvectumJSONCodec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArvectumJSONCodec.swift; sourceTree = "<group>"; };
 		504D7E8A050C788BB8AB0E56 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		55E1CDF413B1021AF609E11A /* SyncDiagnosticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncDiagnosticsView.swift; sourceTree = "<group>"; };
 		57CA5B4FD3F49550A3BF2B59 /* RecordingRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingRepository.swift; sourceTree = "<group>"; };
@@ -179,13 +185,13 @@
 		5F5B002901CADCA87C0FB4C0 /* WhatIOSUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = WhatIOSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		61B9DCBC7397B955436563CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		656D51A35B41EF02C9891B44 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		6B6409CA5C859206CCD4F797 /* ArvectumDiagnostics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArvectumDiagnostics.swift; sourceTree = "<group>"; };
 		6FEDFC32DD8C7A561856A386 /* WatchCaptureController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchCaptureController.swift; sourceTree = "<group>"; };
 		766855BE51B40DC7C113B75A /* LocalSemanticSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalSemanticSearch.swift; sourceTree = "<group>"; };
 		7A64C8E1ED1DD3595D966992 /* CaptureBrand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureBrand.swift; sourceTree = "<group>"; };
 		7CD89933E65194E6C772D383 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		7CFB25EFAE0D572DD9D7A37D /* TranscriptLexicalMatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscriptLexicalMatcher.swift; sourceTree = "<group>"; };
 		7FCAEBD0458C93CC98C920F3 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		8632BE1ABDF63CB6AD9F3FD6 /* WatchDurableQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchDurableQueue.swift; sourceTree = "<group>"; };
 		89A4FCD3C72E787C27B7E3EE /* WatchTransferRetryPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchTransferRetryPolicy.swift; sourceTree = "<group>"; };
 		8BFFB46088A8945C66DFE7F4 /* RecordingRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingRepositoryTests.swift; sourceTree = "<group>"; };
 		933E67C2BA97D85D01B0A3BA /* WatchQueueRecovery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchQueueRecovery.swift; sourceTree = "<group>"; };
@@ -198,9 +204,11 @@
 		CCEC9E429D08B3C421557916 /* WhatIOS.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = WhatIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD77D9CE7514B2812E2AA048 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		CECAA3B8CBC13E2455D09ADE /* CaptureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureView.swift; sourceTree = "<group>"; };
+		D19478C8FA1C97D399AA6AAC /* ArvectumDiagnostics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArvectumDiagnostics.swift; sourceTree = "<group>"; };
 		D6D1A5C9E79CC4A544374E3E /* WhatComplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatComplication.swift; sourceTree = "<group>"; };
 		D77CB821F9683C6381DD792C /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DAAB014EC25B8F1BE07A8003 /* WatchQueueSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchQueueSnapshot.swift; sourceTree = "<group>"; };
+		E2EC835E1A980C511E5E6EDD /* WatchDeliveredAudioValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchDeliveredAudioValidation.swift; sourceTree = "<group>"; };
 		E3997C787CF6EC5F61396098 /* PhoneRecordingSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneRecordingSheet.swift; sourceTree = "<group>"; };
 		E401399D9CC19485D6B0BBA7 /* PhoneStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneStore.swift; sourceTree = "<group>"; };
 		E6ACA38EC5E339EF4FE47646 /* CaptureFirstUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureFirstUITests.swift; sourceTree = "<group>"; };
@@ -221,6 +229,14 @@
 				30A158E04405BA04A51B6785 /* WhatWatchComplication.appex */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		1809D47C87586F80A692C34D /* ArvectumDiagnostics */ = {
+			isa = PBXGroup;
+			children = (
+				D19478C8FA1C97D399AA6AAC /* ArvectumDiagnostics.swift */,
+			);
+			path = ArvectumDiagnostics;
 			sourceTree = "<group>";
 		};
 		1A5685733475ABA552DA6613 /* WhatIOS */ = {
@@ -255,18 +271,11 @@
 			path = WhatIOS;
 			sourceTree = "<group>";
 		};
-		254570E2AA5F6287C4016BFC /* ArvectumDiagnostics */ = {
-			isa = PBXGroup;
-			children = (
-				6B6409CA5C859206CCD4F797 /* ArvectumDiagnostics.swift */,
-			);
-			path = ArvectumDiagnostics;
-			sourceTree = "<group>";
-		};
 		2552E17FD64CA0D618598837 /* WhatIOSTests */ = {
 			isa = PBXGroup;
 			children = (
 				8BFFB46088A8945C66DFE7F4 /* RecordingRepositoryTests.swift */,
+				154E194A750613AB8610B080 /* WatchA2ReliabilityTests.swift */,
 			);
 			path = WhatIOSTests;
 			sourceTree = "<group>";
@@ -280,12 +289,12 @@
 			path = WhatIOSUITests;
 			sourceTree = "<group>";
 		};
-		3C34724294C520F5D715B111 /* core */ = {
+		2C8EF1A67222D0376EE6BE39 /* ArvectumPersistence */ = {
 			isa = PBXGroup;
 			children = (
-				DA4CFE470F48B7A11B752A4D /* packages */,
+				202AA6EA6548079F9C4DF8F4 /* ArvectumJSONCodec.swift */,
 			);
-			path = core;
+			path = ArvectumPersistence;
 			sourceTree = "<group>";
 		};
 		3D057B2BDE821668C713E082 /* Shared */ = {
@@ -296,6 +305,8 @@
 				BD17D674B9340C94107DCF39 /* ImmediateRecordingPayload.swift */,
 				28C9581F753BED275286D623 /* RecordingEnvelope.swift */,
 				34695056F0776593473FDE58 /* WatchCaptureValidation.swift */,
+				E2EC835E1A980C511E5E6EDD /* WatchDeliveredAudioValidation.swift */,
+				8632BE1ABDF63CB6AD9F3FD6 /* WatchDurableQueue.swift */,
 				933E67C2BA97D85D01B0A3BA /* WatchQueueRecovery.swift */,
 				DAAB014EC25B8F1BE07A8003 /* WatchQueueSnapshot.swift */,
 				89A4FCD3C72E787C27B7E3EE /* WatchTransferRetryPolicy.swift */,
@@ -317,7 +328,7 @@
 			isa = PBXGroup;
 			children = (
 				3D057B2BDE821668C713E082 /* Shared */,
-				A9050D533F64DC948AFBD3B6 /* what-release-1.0.1 */,
+				DD271C4DBFCC9D1921179DB9 /* what-capture-reliability-a2-20261015 */,
 				1A5685733475ABA552DA6613 /* WhatIOS */,
 				2552E17FD64CA0D618598837 /* WhatIOSTests */,
 				26C2FA087891BD85417AC958 /* WhatIOSUITests */,
@@ -339,12 +350,13 @@
 			path = WhatWatchComplication;
 			sourceTree = "<group>";
 		};
-		65109D2CCA11E9BF8A457FA1 /* ArvectumPersistence */ = {
+		80E6E26E43BFF44859B09A23 /* packages */ = {
 			isa = PBXGroup;
 			children = (
-				4604F3823A6D4071449CACDC /* ArvectumJSONCodec.swift */,
+				1809D47C87586F80A692C34D /* ArvectumDiagnostics */,
+				2C8EF1A67222D0376EE6BE39 /* ArvectumPersistence */,
 			);
-			path = ArvectumPersistence;
+			path = packages;
 			sourceTree = "<group>";
 		};
 		8C2C38EC2F1EB4FD8C46588C /* WhatWatch */ = {
@@ -361,22 +373,21 @@
 			path = WhatWatch;
 			sourceTree = "<group>";
 		};
-		A9050D533F64DC948AFBD3B6 /* what-release-1.0.1 */ = {
+		DD271C4DBFCC9D1921179DB9 /* what-capture-reliability-a2-20261015 */ = {
 			isa = PBXGroup;
 			children = (
-				3C34724294C520F5D715B111 /* core */,
+				FEE525A12DCD04539F760E8A /* core */,
 			);
-			name = "what-release-1.0.1";
+			name = "what-capture-reliability-a2-20261015";
 			path = ../..;
 			sourceTree = "<group>";
 		};
-		DA4CFE470F48B7A11B752A4D /* packages */ = {
+		FEE525A12DCD04539F760E8A /* core */ = {
 			isa = PBXGroup;
 			children = (
-				254570E2AA5F6287C4016BFC /* ArvectumDiagnostics */,
-				65109D2CCA11E9BF8A457FA1 /* ArvectumPersistence */,
+				80E6E26E43BFF44859B09A23 /* packages */,
 			);
-			path = packages;
+			path = core;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -602,7 +613,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6041C39F40A41746E3C23BCC /* ArvectumDiagnostics.swift in Sources */,
+				5139AF52BBA7C50D9EC9818B /* ArvectumDiagnostics.swift in Sources */,
 				C611ECB87B428D831936DD84 /* CaptureBrand.swift in Sources */,
 				5FD7F8E32D78068474F665C3 /* CaptureLatency.swift in Sources */,
 				686DBE4CA2BBE32B81849C8A /* CaptureView.swift in Sources */,
@@ -610,6 +621,8 @@
 				930D8453C63A2A36CD2B7018 /* RecordingEnvelope.swift in Sources */,
 				D2034C64118475AFC5F8A80C /* WatchCaptureController.swift in Sources */,
 				29C27FAB856BF25AAF99EA4B /* WatchCaptureValidation.swift in Sources */,
+				CA4DD74B673DCF0AF78F52BE /* WatchDeliveredAudioValidation.swift in Sources */,
+				21A6063DBDDDB23005137B78 /* WatchDurableQueue.swift in Sources */,
 				9A039B3C0931BAC0E371889B /* WatchQueueRecovery.swift in Sources */,
 				FF2E85A6C1D04A9F2B4A8C9F /* WatchQueueSnapshot.swift in Sources */,
 				67A7309CBD38A6A55FD9B3D9 /* WatchTransferRetryPolicy.swift in Sources */,
@@ -648,7 +661,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D290FBD7B2B8EEDC5EC6F5E1 /* ArvectumJSONCodec.swift in Sources */,
+				7FCD7C290C214A811D5C2256 /* ArvectumJSONCodec.swift in Sources */,
 				BFB62EE79AFCE52D90A0F8B9 /* CaptureBrand.swift in Sources */,
 				FBFF4F6A8BF34A92362B808A /* CaptureLatency.swift in Sources */,
 				23C3DC142A5320642976B51C /* ContentView.swift in Sources */,
@@ -674,6 +687,8 @@
 				2FD0DAFDEE58B7F0BCB4612F /* TranscriptEditorSheet.swift in Sources */,
 				A8AC3088BF322AEB5EB000B8 /* TranscriptLexicalMatcher.swift in Sources */,
 				63478656E0292E1123BCAFD8 /* WatchCaptureValidation.swift in Sources */,
+				A6E2132E81B2D8807875BC35 /* WatchDeliveredAudioValidation.swift in Sources */,
+				9C5A13012F4A2E99F5379BB4 /* WatchDurableQueue.swift in Sources */,
 				30523D17DA33F220A0D9C3FB /* WatchQueueRecovery.swift in Sources */,
 				C1FF49CC6828A3F62C630D7B /* WatchQueueSnapshot.swift in Sources */,
 				36706916A594DC5DA493B27E /* WatchTransferRetryPolicy.swift in Sources */,
@@ -686,6 +701,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A2FFB527B39A111ECF5F3A00 /* RecordingRepositoryTests.swift in Sources */,
+				D456C732D9EC57650A0642D3 /* WatchA2ReliabilityTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
