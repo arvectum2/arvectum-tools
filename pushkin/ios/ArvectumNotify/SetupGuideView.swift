@@ -1,6 +1,8 @@
 import SwiftData
 import SwiftUI
 
+/// Guided setup for the signed 1000-app base package and optional refreshes.
+/// Apple Shortcuts remains the source of truth for automation enablement.
 struct SetupGuideView: View {
     @Environment(\.openURL) private var openURL
 
@@ -8,6 +10,9 @@ struct SetupGuideView: View {
     private var notifications: [CapturedNotification]
 
     @State private var pendingBasePackageURL: URL?
+
+    @AppStorage("pushkin.setup.lastBaseHandoffAt")
+    private var lastBaseHandoffAt = 0.0
 
     private let automationsURL = URL(string: "shortcuts://automations")!
 
@@ -24,10 +29,12 @@ struct SetupGuideView: View {
                     .padding(.bottom, 6)
 
                 List {
-                    chooseAppsSection
-                    coverageRefreshSection
-                    backgroundSection
+                    overviewSection
+                    basePackageSection
+                    enableSection
                     verifySection
+                    coverageRefreshSection
+                    optionalGroupsSection
                     privacySection
                 }
                 .scrollContentBackground(.hidden)
@@ -39,13 +46,29 @@ struct SetupGuideView: View {
             .background {
                 ShortcutPackagePresenter(
                     packageURL: $pendingBasePackageURL
-                ) {}
+                ) {
+                    // Shortcuts opening is NOT evidence of installation,
+                    // user approval or that the automation is enabled.
+                    lastBaseHandoffAt = Date().timeIntervalSince1970
+                }
             }
         }
     }
 
-    private var chooseAppsSection: some View {
-        Section("Turn on PUSHKIN") {
+    private var overviewSection: some View {
+        Section("Before you start") {
+            Label("PUSHKIN works through Apple Shortcuts", systemImage: "switch.2")
+            secondaryText(
+                "iOS does not allow PUSHKIN to read every app's notifications or turn on automations itself. You control which apps are included."
+            )
+            secondaryText(
+                "The signed base shortcut contains 1,000 app entries. iOS 27 has preserved all 1,000 entries in one automation; 25 is not a proven limit. Only apps resolved by Shortcuts at setup time can trigger it."
+            )
+        }
+    }
+
+    private var basePackageSection: some View {
+        Section("1. Add PUSHKIN") {
             if let url = CoverageCatalog.basePackageURL {
                 Button {
                     if url.isFileURL {
@@ -54,56 +77,49 @@ struct SetupGuideView: View {
                         openURL(url)
                     }
                 } label: {
-                    Label(
-                        "Set up notification history",
-                        systemImage: "wand.and.stars"
-                    )
+                    Label("Open base shortcut in Shortcuts", systemImage: "wand.and.stars")
                 }
+                .accessibilityIdentifier("setup-base-automation")
+            } else {
+                Label("Base shortcut is unavailable", systemImage: "exclamationmark.triangle")
+                    .foregroundStyle(.secondary)
             }
 
-            secondaryText(
-                "Add PUSHKIN in Shortcuts once, then enable the automation when iOS asks. You do not need to select apps one by one."
-            )
-
-            Link(destination: automationsURL) {
-                Label(
-                    "Open Shortcuts Automation",
-                    systemImage: "switch.2"
+            if lastBaseHandoffAt > 0 {
+                Label("Shortcuts was opened — finish setup there", systemImage: "arrow.up.right")
+                    .foregroundStyle(.secondary)
+                secondaryText(
+                    "Opening the preview does not mean you tapped Add or enabled the automation."
                 )
             }
+
+            secondaryText(
+                "Review the app list and tap Add in Shortcuts. You do not have to manually select all 1,000 catalog apps."
+            )
         }
     }
 
-    private var coverageRefreshSection: some View {
-        Section("Add more apps") {
-            NavigationLink {
-                CoverageView()
-            } label: {
-                Label("Add or manage apps", systemImage: "square.stack.3d.up")
+    private var enableSection: some View {
+        Section("2. Enable the automation") {
+            Link(destination: automationsURL) {
+                Label("Open Shortcuts automations", systemImage: "switch.2")
             }
+            .accessibilityIdentifier("open-setup-automations")
             secondaryText(
-                "Installed something new? Add it here. Most supported apps take only a few taps."
-            )
-        }
-    }
-
-    private var backgroundSection: some View {
-        Section("If iOS asks") {
-            Text(
-                "Allow the PUSHKIN shortcut to run while the iPhone is locked."
+                "Newly imported Notification automations are disabled. Find PUSHKIN, enable it and select the automatic/immediate option if Shortcuts offers it."
             )
             secondaryText(
-                "This is an iOS confirmation you should normally see only during setup."
+                "Only Shortcuts knows whether an automation is enabled. PUSHKIN cannot check or change that switch."
             )
         }
     }
 
     private var verifySection: some View {
-        Section("Status") {
+        Section("3. Check a real notification") {
             if let last = notifications.first {
-                Label("Capture verified", systemImage: "checkmark.seal.fill")
-                LabeledContent("Captured", value: "\(notifications.count)")
-                LabeledContent("Source apps", value: "\(sourceCount)")
+                Label("At least one capture received", systemImage: "checkmark.seal.fill")
+                LabeledContent("Captured records", value: "\(notifications.count)")
+                LabeledContent("Observed source apps", value: "\(sourceCount)")
                 LabeledContent(
                     "Latest",
                     value: last.capturedAt.formatted(
@@ -111,18 +127,44 @@ struct SetupGuideView: View {
                         time: .shortened
                     )
                 )
+                .accessibilityIdentifier("setup-capture-observed")
                 secondaryText(
-                    "Your automation has successfully written notification data to PUSHKIN."
+                    "This proves PUSHKIN received a notification from at least one source. It does not prove that all selected apps are covered or that the automation is still enabled."
                 )
             } else {
-                Label(
-                    "Waiting for the first capture",
-                    systemImage: "hourglass"
-                )
-                Text(
-                    "Send one real notification from a selected app. This screen will confirm setup automatically."
+                Label("Waiting for first capture", systemImage: "hourglass")
+                secondaryText(
+                    "Send one real notification from an app already installed and included in Shortcuts. Return to History to check the result."
                 )
             }
+        }
+    }
+
+    private var coverageRefreshSection: some View {
+        Section("When you install another app") {
+            NavigationLink {
+                CoverageView()
+            } label: {
+                Label("Add or manage apps", systemImage: "plus.app")
+            }
+            .accessibilityIdentifier("setup-add-app")
+            secondaryText(
+                "An app installed after the base shortcut was imported is not automatically connected, even if it is in the 1,000-app catalog. Import its signed one-app shortcut, enable it and verify a real notification."
+            )
+        }
+    }
+
+    private var optionalGroupsSection: some View {
+        Section("Optional: smaller groups") {
+            NavigationLink {
+                AutomationGroupPlannerView()
+            } label: {
+                Label("Plan groups of apps", systemImage: "square.stack.3d.up")
+            }
+            .accessibilityIdentifier("setup-optional-groups")
+            secondaryText(
+                "If you prefer multiple Notification automations, prepare a local checklist. Groups of 25 are a convenience, not an Apple limitation, and must be configured manually."
+            )
         }
     }
 
@@ -130,7 +172,7 @@ struct SetupGuideView: View {
         Section("Privacy") {
             Label("Stored on this iPhone", systemImage: "lock.shield")
             secondaryText(
-                "No account, cloud sync, ads or analytics. Notification content stays on this iPhone."
+                "No account, cloud sync, ads or analytics. PUSHKIN stores your notification content on this iPhone only."
             )
         }
     }
