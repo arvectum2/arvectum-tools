@@ -22,3 +22,13 @@
 Only test target source and GitHub CI configuration change. **The signed 1.0.2 (14) application IPA and RC1 source tag remain unchanged.** No app production code, permissions, local photo collections, or user iPhone state modified. Re-run the available deterministic and original local UI tests independently, record exact outcomes. No new App Store upload or submission.
 
 **Remaining A4/A5 physical checks:** Files and Photos import, actual Save to Files and Share sheet, rotated PDF readability and big-file memory; ATT Yes/No and YAN Native/Banner real fill/impressions.
+
+## Verified follow-up (same date)
+
+- On a completely new **iPhone 18 Pro, iOS 27.0 simulator on Mac mini**, the two original platform E2E tests were rerun without touching user data: Files collection label test **FAIL (28.975s)**, PDF system save-button test **FAIL (181.848s)**; XCTest also reported an app-idle wait after tapping Save. This confirms **fresh-simulator-state sensitivity**, not that the first-use feature is healthy on a physical iPhone.
+- Screenshot while PDF test was active showed the app's result page and its **Сохранить файл** button. That snapshot alone cannot establish whether Apple's document picker appeared momentarily, presented inaccessible UI, or failed to present; physical verification is required.
+- A pre-warmed iPhone 17 simulator had **5/5 UI PASS**, but this does not override the two failures above. The disposable fresh simulator was shut down and deleted after the test.
+- Stable Mac mini suite after the CI change: **31/31 unit + 5/5 app-owned UI PASS**. Changed only the test bundle and GitHub workflow; production source tree in the A5 release branch was verified identical to signed RC tag.
+- [PR #74](https://github.com/arvectum2/arvectum-tools/pull/74) **MERGED** into main at `134e3fed7ed6718a593b94406f5ea678cba54c15` after two independent GitHub CI **SUCCESS** runs [push 38793584633](https://github.com/arvectum2/arvectum-tools/actions/runs/38793584633), [PR 38793592199](https://github.com/arvectum2/arvectum-tools/actions/runs/38793592199).
+- Test-only cherry-pick into `release/photo-size-1.0.2-build14-a5-20261015` at `7b4318a`; `PhotoPodRazmer` production source Git object SHA is unchanged from signed `photo-size-ios-v1.0.2-build14-rc1`. [Release-branch CI 38795581835](https://github.com/arvectum2/arvectum-tools/actions/runs/38795581835) still requires final disposition.
+- **Physical App Store patch distribution remains blocked** by [#73](https://github.com/arvectum2/arvectum-tools/issues/73). Signed IPA SHA remains unchanged.
