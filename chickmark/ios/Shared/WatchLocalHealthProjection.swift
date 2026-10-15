@@ -37,6 +37,7 @@ enum WatchLocalHealthProjection {
         // A synchronized historical mutation marker must not suppress a
         // currently verified on-Watch result. Explicit skips still win.
         return value >= target && !habit.completed && !habit.skipped
+            && habit.watchPendingManualAction != true
     }
 
     private static func rules(for habits: [HabitSyncHabit],
@@ -140,7 +141,8 @@ enum WatchLocalHealthProjection {
                   let rule = state.rules?[habit.id],
                   rule.metric == habit.healthRuleMetric,
                   rule.target == habit.healthRuleTarget,
-                  !habit.completed, !habit.skipped
+                  !habit.completed, !habit.skipped,
+                  habit.watchPendingManualAction != true
             else { continue }
             projected.habits[index].completed = true
             newlyCompleted += 1

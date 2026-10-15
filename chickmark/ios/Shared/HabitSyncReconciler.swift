@@ -29,11 +29,21 @@ enum HabitSyncReconciler {
             merged = currentSnapshot
         }
 
+        // A more recent displayed snapshot might still contain a marker
+        // from a command already ACKed by the phone. Recompute pending
+        // markers exclusively from the surviving queue, not prior UI state.
+        for index in merged.habits.indices {
+            merged.habits[index].watchPendingManualAction = nil
+        }
+
         for command in remaining where command.dayKey == incoming.dayKey {
             guard let index = merged.habits.firstIndex(where: {
                 $0.id == command.habitID
             }) else { continue }
 
+            if merged.habits[index].healthRuleMetric != nil {
+                merged.habits[index].watchPendingManualAction = true
+            }
             merged.habits[index].completed = command.completed
             if let target = merged.habits[index].dailyTarget {
                 let desired = min(

@@ -413,6 +413,11 @@ final class WatchComplicationBridgeTests: XCTestCase {
         var overwritten = base
         overwritten.healthManualOverride = true
         XCTAssertTrue(WatchLocalHealthProjection.qualifies(overwritten, value: 3_100))
+        var waitingForPhone = base
+        waitingForPhone.watchPendingManualAction = true
+        XCTAssertFalse(WatchLocalHealthProjection.qualifies(
+            waitingForPhone, value: 3_100
+        ), "Pending Watch actions must win over locally cached Health steps")
         var alreadyCompleted = base
         alreadyCompleted.completed = true
         XCTAssertFalse(WatchLocalHealthProjection.qualifies(alreadyCompleted, value: 3_100))

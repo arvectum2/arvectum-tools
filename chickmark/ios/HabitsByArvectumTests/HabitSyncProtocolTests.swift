@@ -464,6 +464,122 @@ final class HabitSyncProtocolTests: XCTestCase {
         XCTAssertTrue(acked.remainingCommands.isEmpty)
     }
 
+    func testWatchHealthPendingUndoSurvivesSnapshotsAndBlocksLocalRecompletionUntilACK() {
+        let id = UUID()
+        let date = Date(timeIntervalSince1970: 1_800_000_000)
+        var phone = snapshot(habitID: id, completed: false)
+        phone.generatedAt = date
+        phone.habits[0].healthRuleMetric = "steps"
+        phone.habits[0].healthRuleTarget = 2000
+        let undo = HabitCompletionCommand(
+            habitID: id, dayKey: phone.dayKey,
+            completed: false, createdAt: date.addingTimeInterval(1)
+        )
+        let state = WatchLocalHealthProjection.State(
+            dayKey: phone.dayKey, habitIDs: [id], generatedAt: date,
+            rules: [id: .init(metric: "steps", target: 2000)]
+        )
+
+        let initial = HabitSyncReconciler.reconcile(
+            incoming: phone, pendingCommands: [undo]
+        )
+        XCTAssertEqual(initial.remainingCommands, [undo])
+        XCTAssertEqual(initial.snapshot.habits[0].watchPendingManualAction, true)
+        XCTAssertFalse(WatchLocalHealthProjection.qualifies(
+            initial.snapshot.habits[0], value: 3000
+        ))
+        XCTAssertFalse(WatchLocalHealthProjection.applying(
+            initial.snapshot, state: state, now: date
+        ).habits[0].completed,
+            "Complication must not use cached steps to undo the pending manual action")
+
+        // A new, coincidentally unchecked iPhone snapshot carries no ACK.
+        phone.generatedAt = date.addingTimeInterval(10)
+        let repeated = HabitSyncReconciler.reconcile(
+            incoming: phone,
+            currentSnapshot: initial.snapshot,
+            pendingCommands: initial.remainingCommands
+        )
+        XCTAssertEqual(repeated.remainingCommands, [undo])
+        XCTAssertEqual(repeated.snapshot.habits[0].watchPendingManualAction, true)
+
+        // After explicit ACK, a fresh Health threshold may auto-complete
+        // again, consistent with the existing iPhone/Watch health policy.
+        phone.acknowledgedCommandIDs = [undo.id]
+        phone.generatedAt = date.addingTimeInterval(20)
+        let acknowledged = HabitSyncReconciler.reconcile(
+            incoming: phone,
+            currentSnapshot: repeated.snapshot,
+            pendingCommands: repeated.remainingCommands
+        )
+        XCTAssertTrue(acknowledged.remainingCommands.isEmpty)
+        XCTAssertNil(acknowledged.snapshot.habits[0].watchPendingManualAction)
+        XCTAssertTrue(WatchLocalHealthProjection.qualifies(
+            acknowledged.snapshot.habits[0], value: 3000
+        ))
+        XCTAssertTrue(WatchLocalHealthProjection.applying(
+            acknowledged.snapshot, state: state, now: date
+        ).habits[0].completed)
+    }
+
+    func testWatchOptimisticHealthFlagDoesNotSurviveACKAgainstNewerLocalSnapshot() {
+        let id = UUID()
+        let date = Date(timeIntervalSince1970: 1_800_000_000)
+        let undo = HabitCompletionCommand(
+            habitID: id, dayKey: "2026-10-01", completed: false,
+            createdAt: date
+        )
+        var cached = snapshot(habitID: id, completed: false)
+        cached.generatedAt = date.addingTimeInterval(20)
+        cached.habits[0].healthRuleMetric = "steps"
+        cached.habits[0].healthRuleTarget = 2000
+        cached.habits[0].watchPendingManualAction = true
+
+        var olderReply = snapshot(
+            habitID: id, completed: false, acknowledged: [undo.id]
+        )
+        olderReply.generatedAt = date.addingTimeInterval(10)
+        let resolved = HabitSyncReconciler.reconcile(
+            incoming: olderReply, currentSnapshot: cached,
+            pendingCommands: [undo]
+        )
+        XCTAssertTrue(resolved.remainingCommands.isEmpty)
+        XCTAssertNil(resolved.snapshot.habits[0].watchPendingManualAction)
+    }
+
+    func testOldV2SnapshotWithoutWatchPendingMarkerDecodesAndRetainsHealthPolicy() throws {
+        let id = UUID()
+        var source = snapshot(habitID: id, completed: false)
+        source.habits[0].healthRuleMetric = "steps"
+        source.habits[0].healthRuleTarget = 2000
+        source.habits[0].watchPendingManualAction = true
+        XCTAssertEqual(source.protocolVersion, 2)
+
+        let encoded = try HabitSyncCodec.encode(.snapshot(source))
+        var wrapper = try XCTUnwrap(
+            JSONSerialization.jsonObject(with: encoded) as? [String: Any]
+        )
+        var snapshotJSON = try XCTUnwrap(wrapper["snapshot"] as? [String: Any])
+        var habitsJSON = try XCTUnwrap(snapshotJSON["habits"] as? [[String: Any]])
+        habitsJSON[0].removeValue(forKey: "watchPendingManualAction")
+        snapshotJSON["habits"] = habitsJSON
+        wrapper["snapshot"] = snapshotJSON
+        let oldPacket = try JSONSerialization.data(withJSONObject: wrapper)
+        let restored = try XCTUnwrap(HabitSyncCodec.decode(oldPacket).snapshot)
+
+        XCTAssertEqual(restored.protocolVersion, 2)
+        XCTAssertNil(restored.habits[0].watchPendingManualAction)
+        XCTAssertTrue(WatchLocalHealthProjection.qualifies(
+            restored.habits[0], value: 3000
+        ))
+        // The new local in-flight marker also round-trips in a v2 packet.
+        let current = try XCTUnwrap(HabitSyncCodec.decode(encoded).snapshot)
+        XCTAssertEqual(current.habits[0].watchPendingManualAction, true)
+        XCTAssertFalse(WatchLocalHealthProjection.qualifies(
+            current.habits[0], value: 3000
+        ))
+    }
+
     func testPendingCommandFromDifferentDayDoesNotOverrideSnapshot() {
         let habitID = UUID()
         let command = HabitCompletionCommand(
