@@ -7,7 +7,7 @@
 (App ID 6822476399). **Submitted 1.0.1 (6):** Waiting for Review, recorded
 2026-10-15. Exact details and release evidence belong to the
 [1.0.1 release-branch roadmap](https://github.com/arvectum2/arvectum-tools/blob/release/what-1.0.1/what/ROADMAP.md);
-release-branch work has **not yet been fully integrated into main**.
+release-proven iOS/watchOS source was **selectively integrated into main** 2026-10-15 via [PR #67](https://github.com/arvectum2/arvectum-tools/pull/67) (`e129efc`); private RuWordNet corpora and research pipeline were not copied.
 
 **North star:** Catch the thought before it disappears. Reliable immediate
 capture, durable original audio and Watch-to-iPhone delivery have priority.
@@ -22,16 +22,17 @@ capture, durable original audio and Watch-to-iPhone delivery have priority.
   including offline / ACK / reboot and duplicate-delivery scenarios.
 - [ ] Measure real capture latency and playback survival; sudden power loss
   or force termination may leave unfinished AAC unplayable.
-- [ ] Integrate shippable release work and provenance into main with no
-  loss of local notes; exclude private RuWordNet-derived corpus with
-  unresolved redistribution rights.
+- [x] Shippable 1.0.1 source, widgets and tests integrated into main with
+  source provenance, without the private RuWordNet corpus. No user-device
+  records were modified in this merge; physical regression remains open.
 - [ ] Keep semantic Ask Memory research out of release-critical P0.
 
 **Updated:** 2026-10-15. **Shared Core:** [Core](../core/ROADMAP.md).
 **Growth:** [Growth](../growth/ROADMAP.md).
-**Note:** P0–P5 checklist below describes older main implementation
-and R&D milestones, not a fresh assertion that released 1.0.0 is missing
-its capture, inbox, transcript or export capabilities.
+**Note:** P0–P5 checklist below retains historic and research milestones.
+The current main now includes the release source; unchecked device/research
+acceptance cases must not be confused with absent capture, Inbox, transcript
+or export features.
 
 ## P0 — Reliable Apple Watch capture
 - [x] Watch recording, UUID/time, durable local queue, opportunistic transfer to iPhone, ACK and deduplication (implemented in `main`).

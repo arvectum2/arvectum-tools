@@ -5,21 +5,24 @@
 **Published iOS baseline:** **1.0.1 (13)**, owner-confirmed and independently verified **READY_FOR_SALE** via authenticated App Store Connect API on **2026-10-15**. Previous version 1.0.0 (12)
 was published 2026-10-11. The signed 1.0.1 build was submitted for review
 2026-10-13 from the release/photo-size-ios-1.0.1 branch.
-This product-owner confirmation supersedes the older under-review state,
-but is not a new independent ASC lookup or storefront propagation check.
+Owner confirmation and an authenticated ASC API lookup both supersede the
+old under-review state; per-region storefront propagation was not checked.
 Apple App ID 6816346084; bundle ID ru.arvectum.tools.tosize.
 [Public App Store listing](https://apps.apple.com/ru/app/id6816346084).
 
 - [x] 1.0.1 (13) published — owner-confirmed 2026-10-15.
 - [x] 1.0.1 signed upload, 20 localised release notes, consent text-size fix,
   28 iOS unit and 5 simulator UI tests recorded in release branch.
-- [ ] Verify exact version via public storefront or authenticated ASC,
-  documenting propagation without changing owner-confirmed release status.
+- [x] Verified exact App Store version 1.0.1 READY_FOR_SALE and build 13 VALID
+  via authenticated ASC API 2026-10-15.
+- [ ] Verify regional public storefront indexing if required by a target market.
 - [ ] Post-release physical Files/Photos import, image/PDF export, PDF
   orientation and large-file memory, ATT/consent and live ad fill QA.
   A demo ad or UI test alone cannot establish real advertising impressions.
-- [ ] Integrate reviewed shipping 1.0.1 code with exact source/build/tag
-  provenance into main. Documentation status updates do not merge application code.
+- [x] Original signed source tagged (`photo-size-ios-v1.0.1-build13`),
+  archived IPA checksum verified, release automation/metadata and signing
+  integrated with Core-based main via PR #67; older direct-palette project
+  deliberately not merged.
 - [ ] Independently verify Android publication; none confirmed so far.
 
 **Updated:** 2026-10-15.

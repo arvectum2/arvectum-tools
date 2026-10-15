@@ -7,7 +7,8 @@
 - [x] Core CI tests consumers ChickMark, Pushkin, Photo/PDF and What?, watchOS and Android, with reviewed dependency catalogs.
 - [x] Photo/PDF adopted shared ArvectumCore SwiftPM in main on 2026-10-13 and aligned Yandex Mobile Ads 8.6.0 with the Core catalog.
 - [x] Dated status registry reconciled for all five products, including owner-confirmed Фото/PDF 1.0.1 publication (see PORTFOLIO.md); status synchronization is not source/build provenance or App Store QA.
-- [ ] Audit each forthcoming release tag, source/build provenance and GitVerse mirror SHA after integration.
+- [x] A0 source/release audit completed 2026-10-15: [PR #67](https://github.com/arvectum2/arvectum-tools/pull/67) merged at `e129efc`, [Core CI](https://github.com/arvectum2/arvectum-tools/actions/runs/38756915944) 10/10 PASS, GitVerse main and four release tag targets match; [provenance report](RELEASE_PROVENANCE_20261015.md).
+- [ ] Audit each **future** release tag, source/build provenance and GitVerse mirror SHA; current audit does not certify future builds.
 - [ ] Wire Where? into relevant CI only when buildable iOS source exists, without placeholder jobs.
 - [ ] Keep Core CI dependency-impact testing up to date as consumer entrypoints change.
 - [ ] Extract shared UI, telemetry and ad interfaces only when two stable apps demonstrate genuine need.

@@ -16,7 +16,7 @@ ASC App IDs: Фото/PDF 6816346084, Ухват 6822476399, ChickMark 681871129
 
 ## GitHub ↔ GitVerse mirror
 
-GitHub Actions [mirror-to-gitverse.yml](../.github/workflows/mirror-to-gitverse.yml) runs on each branch/tag push, on demand and daily, and verifies main SHA. During A0, remote GitVerse `refs/heads/main` equals GitHub `586934a4bd2775ee96cebf6a61a892fd74c6d1ad` **before** the integration commit; GitHub mirror workflow 38752808387 completed SUCCESS. Four release tags have now been independently confirmed in GitVerse with peeled SHA matching GitHub: `photo-size-ios-v1.0.1-build13`→`fa837b3`, `uhvat-ios-v1.0.0-build5`→`8b7df3e`, `uhvat-ios-v1.0.1-build6`→`daf98c0`, and `chickmark-ios-v1.4.1-build15-submitted`→`498a072`. The GitVerse **integration branch** also matched commit `9f77b35` before final approval/merge; recheck `main` after merge.
+GitHub Actions [mirror-to-gitverse.yml](../.github/workflows/mirror-to-gitverse.yml) runs on each branch/tag push, on demand and daily, and verifies main SHA. During A0, remote GitVerse `refs/heads/main` equals GitHub `586934a4bd2775ee96cebf6a61a892fd74c6d1ad` **before** the integration commit; GitHub mirror workflow 38752808387 completed SUCCESS. Four release tags have now been independently confirmed in GitVerse with peeled SHA matching GitHub: `photo-size-ios-v1.0.1-build13`→`fa837b3`, `uhvat-ios-v1.0.0-build5`→`8b7df3e`, `uhvat-ios-v1.0.1-build6`→`daf98c0`, and `chickmark-ios-v1.4.1-build15-submitted`→`498a072`. The GitVerse **integration branch** matched `5228a44` after the signing follow-up; after [PR #67](https://github.com/arvectum2/arvectum-tools/pull/67) merge, GitHub and GitVerse `refs/heads/main` were both verified as `e129efc00614322f1faa6b139b4345efcddfa490` on 2026-10-15.
 
 ## Selective production source integration to main
 
@@ -31,16 +31,17 @@ GitHub Actions [mirror-to-gitverse.yml](../.github/workflows/mirror-to-gitverse.
 - [x] SwiftPM shared dependency lock catalog: PASS.
 - [x] WhatIOS: generic iOS Simulator Debug build PASS (Xcode 27, no signing).
 - [x] WhatWatch: generic watchOS Simulator Debug build PASS (Xcode 27, no signing).
-- [x] Фото/PDF: generic iOS Simulator build-for-testing PASS (Xcode 27, no signing).
+- [x] Фото/PDF: generic iOS Simulator build-for-testing PASS and generic iOS Release-configuration build PASS (Xcode 27, test signing disabled).
 - [x] No ignored/untracked `RussianConceptGraph.json` or derived RuWordNet corpus in imported source or inspected signed IPA.
-- [ ] GitHub PR CI and clean device/Simulator behavior suites: verify after push; builds do not substitute for unit/UI or physical acceptance.
+- [x] [PR #67](https://github.com/arvectum2/arvectum-tools/pull/67) merged 2026-10-15 at `e129efc`. All PR checks PASS. [Core CI 38756915944](https://github.com/arvectum2/arvectum-tools/actions/runs/38756915944) **SUCCESS, 10/10 jobs**: Core tests, Android, iOS consumer builds for all four apps, watchOS builds for What/ChickMark, and iOS behavioral/persistence tests for What/ChickMark. This is automated/simulator evidence, **not physical device QA**.
 - [ ] Independent physical UI, cloud sync, permission and advertising acceptance remain application-specific tasks.
 - [ ] Reproducible bit-for-bit rebuilding / supply-chain attestation not yet established.
 
-## Open evidence / handoff
+## A0 closure and remaining release gates
 
-1. After merging the selective integration, compare origin/main and GitVerse main SHA again and verify new release tags exist on both remotes.
-2. Close A0 only when branch + tag mirror checks and integrated CI pass; if CI is not green, keep the integration PR open.
-3. Preserve release-branch code/IPA unchanged, and do not represent submitted ChickMark/Uhvat/Pushkin updates as publicly live until ASC confirms the transition.
+- [x] Signed IPA checksums and metadata, ASC states, release source tags, GitHub/GitVerse main SHA and CI checked on 2026-10-15.
+- [x] Selective source integration merged; no user-device changes or modification of previously submitted App Store IPA.
+- [ ] Deterministic bit-for-bit rebuild of the previously submitted IPA needs separate signing/reproducibility attestation.
+- [ ] Real-device capture/storage, CloudKit/HealthKit authorization, and production advertising acceptance remain under app-specific A1–A4. Unapproved submitted updates are not public releases.
 
 See [A0 branch inventory](RELEASE_SOURCE_AUDIT_20261015.md) and [execution plan](EXECUTION_PLAN.md).
