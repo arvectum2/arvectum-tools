@@ -1059,4 +1059,44 @@ final class HabitFlowUITests: XCTestCase {
         )
         print("HABITS_A5_REAL_TOGGLE_AND_UNDO_CONFIRMED")
     }
+
+    func testA5LockScreenLiveAfterSeed() throws {
+        app.terminate()
+        app.launchArguments = [
+            "-AppleLanguages", "(en)", "-AppleLocale", "en_US",
+            "--ui-testing", "--disable-cloud-sync", "--seed-screenshot-demo"
+        ]
+        app.launch()
+        XCTAssertTrue(app.staticTexts["Water (5 times)"].waitForExistence(timeout: 7))
+        XCUIDevice.shared.press(.home)
+        let springboard = XCUIApplication(bundleIdentifier: "com.apple.springboard")
+        springboard.coordinate(withNormalizedOffset: CGVector(dx: 0.15, dy: 0.02))
+            .press(forDuration: 0.1, thenDragTo: springboard.coordinate(
+                withNormalizedOffset: CGVector(dx: 0.15, dy: 0.65)
+            ))
+        // Unlike preview fixtures, this tests live WidgetKit on the actual
+        // Notification Center Lock Screen. CI runners without these pinned
+        // widgets must SKIP, not report a false green rendering result.
+        let inline = springboard.staticTexts["0 of 1 today"]
+        let lockWidgets = springboard.buttons.matching(
+            identifier: "ru.arvectum.tools.habits.widget:HabitsTodayWidget"
+        )
+        try XCTSkipUnless(
+            inline.waitForExistence(timeout: 8) && lockWidgets.count >= 2,
+            "Requires preconfigured ChickMark inline, circular and rectangular Lock Screen widgets"
+        )
+        let widths = lockWidgets.allElementsBoundByIndex.map { $0.frame.width }.sorted()
+        XCTAssertEqual(widths.count, 2)
+        XCTAssertLessThan(widths[0], widths[1])
+        XCTAssertTrue(springboard.staticTexts["Water (5 times)"].exists)
+        XCTAssertTrue(springboard.staticTexts["0/1"].exists)
+        print("HABITS_A5_ALL_THREE_LOCK_SCREEN_WIDGETS_LIVE_PASS")
+        let shot = XCTAttachment(screenshot: springboard.screenshot())
+        shot.name = "A5_Lock_Screen_Live_After_Water_Seed"
+        shot.lifetime = .keepAlways
+        add(shot)
+        XCUIDevice.shared.press(.home)
+    }
+
+
 }
