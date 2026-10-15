@@ -2,39 +2,45 @@ import XCTest
 @testable import HabitsByArvectum
 
 final class HabitAdEligibilityTests: XCTestCase {
-    func testRealAdsConfiguredByDefaultEvenForDebugBuild() {
+    func testRealNativeAdsConfiguredByDefaultEvenForDebugBuild() {
         XCTAssertEqual(
-            HabitAdUnitIDs.resolvedBannerID(
+            HabitAdUnitIDs.resolvedNativeID(
                 configured: " R-M-20183085-1 ", arguments: ["--ui-testing"]
             ),
             "R-M-20183085-1"
         )
         XCTAssertEqual(
-            HabitAdUnitIDs.resolvedBannerID(
+            HabitAdUnitIDs.resolvedNativeID(
                 configured: "R-M-20183085-1", arguments: []
             ),
             "R-M-20183085-1"
         )
     }
 
-    func testInvalidAdUnitFailsClosed() {
-        XCTAssertNil(HabitAdUnitIDs.resolvedBannerID(configured: "", arguments: []))
-        XCTAssertNil(HabitAdUnitIDs.resolvedBannerID(
-            configured: "demo-banner-yandex", arguments: []
+    func testInvalidNativeAdUnitFailsClosed() {
+        XCTAssertNil(HabitAdUnitIDs.resolvedNativeID(configured: "", arguments: []))
+        XCTAssertNil(HabitAdUnitIDs.resolvedNativeID(
+            configured: "demo-native-app-yandex", arguments: []
         ))
-        XCTAssertNil(HabitAdUnitIDs.resolvedBannerID(
+        XCTAssertNil(HabitAdUnitIDs.resolvedNativeID(
             configured: "R-M-1-2;other", arguments: []
         ))
+        XCTAssertEqual(
+            Bundle.main.object(forInfoDictionaryKey: "YandexNativeAdUnitID")
+                as? String,
+            "R-M-20183085-1",
+            "The configured ID must be the partner's Native, not a Banner placement"
+        )
     }
 
 #if DEBUG
-    func testDemoRequiresExplicitOptIn() {
+    func testDemoNativeRequiresExplicitOptIn() {
         XCTAssertEqual(
-            HabitAdUnitIDs.resolvedBannerID(
+            HabitAdUnitIDs.resolvedNativeID(
                 configured: "R-M-20183085-1",
                 arguments: ["--chickmark-demo-ads"]
             ),
-            HabitAdUnitIDs.demoBanner
+            HabitAdUnitIDs.demoNative
         )
     }
 #endif

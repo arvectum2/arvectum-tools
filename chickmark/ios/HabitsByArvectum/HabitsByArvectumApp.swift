@@ -32,6 +32,7 @@ struct HabitsByArvectumApp: App {
 
 #if DEBUG
         seedWatchSyncDemoIfRequested(container: container)
+        seedNativeAdLayoutDemoIfRequested(container: container)
         seedScreenshotDemoIfRequested(container: container)
         seedOneOffReminderDemoIfRequested(container: container)
         seedFlexibleWeeklyDemoIfRequested(container: container)

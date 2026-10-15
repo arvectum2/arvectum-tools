@@ -60,15 +60,24 @@ struct TodayView: View {
             ZStack {
                 Color.habitsBackground.ignoresSafeArea()
 
-                if habits.filter({ !$0.isArchived }).isEmpty &&
-                    pendingOneOffReminders.isEmpty
-                {
-                    VStack(spacing: 8) {
+                // A genuine sibling footer ensures the scrollable habits
+                // area stops ABOVE the native ad, not behind it. A nested
+                // safeAreaInset on NavigationStack can instead overlap the
+                // scroll viewport after native content changes height.
+                VStack(spacing: 0) {
+                    if habits.filter({ !$0.isArchived }).isEmpty &&
+                        pendingOneOffReminders.isEmpty
+                    {
                         firstHabitEmptyState
                             .frame(maxHeight: .infinity)
+                    } else {
+                        todayContent
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
                     }
-                } else {
-                    todayContent
+
+                    if adEligible {
+                        HabitStickyNativeSlot()
+                    }
                 }
             }
             .navigationTitle("")
@@ -121,11 +130,6 @@ struct TodayView: View {
                 .padding(.horizontal, 16)
                 .padding(.vertical, 4)
                 .background(Color.habitsBackground)
-            }
-            .safeAreaInset(edge: .bottom, spacing: 0) {
-                if adEligible {
-                    HabitStickyBannerSlot()
-                }
             }
             .sheet(isPresented: $showingAddHabit) {
                 AddHabitView()
@@ -473,17 +477,19 @@ struct TodayView: View {
 
     private func refreshAdEligibility() {
         let arguments = ProcessInfo.processInfo.arguments
-        guard !arguments.contains("--ui-testing") else {
-            adEligible = false
-            return
-        }
-
 #if DEBUG
-        if arguments.contains("--debug-force-ads") {
+        // Isolated demo-only QA. Never force real YAN traffic from XCTest.
+        if arguments.contains("--debug-force-ads") &&
+            arguments.contains("--chickmark-demo-ads")
+        {
             adEligible = true
             return
         }
 #endif
+        guard !arguments.contains("--ui-testing") else {
+            adEligible = false
+            return
+        }
 
         adEligible = HabitAdEligibilityStore.shared.isEligible()
     }

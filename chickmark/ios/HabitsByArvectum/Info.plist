@@ -968,7 +968,7 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
-	<key>YandexBannerAdUnitID</key>
+	<key>YandexNativeAdUnitID</key>
 	<string>R-M-20183085-1</string>
 </dict>
 </plist>
