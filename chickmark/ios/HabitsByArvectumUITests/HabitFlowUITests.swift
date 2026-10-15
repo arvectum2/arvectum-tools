@@ -759,13 +759,20 @@ final class HabitFlowUITests: XCTestCase {
                 "Manage habits",
                 "Add",
                 "Today",
-                "0 of 2",
                 "Reading",
                 "Mark complete",
                 "Water",
                 "Mark complete"
             ],
             surface: "today"
+        )
+
+        XCTAssertTrue(
+            today.contains {
+                $0.localizedCaseInsensitiveContains("Today") &&
+                $0.localizedCaseInsensitiveContains("0 of 2")
+            },
+            "VoiceOver must announce the time period and progress together"
         )
 
         app.buttons["Manage habits"].tap()
@@ -776,9 +783,10 @@ final class HabitFlowUITests: XCTestCase {
         assertVoiceOverSequence(
             manage,
             contains: [
-                "Today",
+                "ChickMark",
                 "Manage habits",
                 "Edit",
+                "Backup",
                 "Active",
                 "Reading",
                 "Water"
@@ -1005,6 +1013,86 @@ final class HabitFlowUITests: XCTestCase {
         XCTAssertTrue(
             app.buttons["Mark complete"].waitForExistence(timeout: 3)
         )
+    }
+
+    /// The largest iOS accessibility text size must not strand essential
+    /// operations off screen. This is a real rendered-screen test, rather
+    /// than a localization/resource-only check.
+    func testA7AXXXLCoreNavigationAndAccessibleHabitControls() throws {
+        app.terminate()
+        app.launchArguments = [
+            "-AppleLanguages", "(en)",
+            "-AppleLocale", "en_US",
+            "-UIPreferredContentSizeCategoryName",
+            "UICTContentSizeCategoryAccessibilityExtraExtraExtraLarge",
+            "--ui-testing", "--seed-watch-sync-demo", "--disable-cloud-sync"
+        ]
+        app.launch()
+        XCTAssertTrue(app.staticTexts["Reading"].waitForExistence(timeout: 7))
+        let manage = app.buttons["Manage habits"]
+        let addButton = app.buttons["Add"]
+        XCTAssertTrue(manage.isHittable, "Manage must remain reachable at AXXXL")
+        XCTAssertTrue(addButton.isHittable, "Add must remain reachable at AXXXL")
+        XCTAssertTrue(app.buttons["Mark complete"].firstMatch.isHittable)
+        let todaySummary = app.descendants(matching: .any)["today.summary"].firstMatch
+        XCTAssertTrue(todaySummary.waitForExistence(timeout: 4))
+        XCTAssertEqual(todaySummary.label, "Today")
+        XCTAssertTrue((todaySummary.value as? String)?.contains("0 of 2") == true)
+        captureStoreScreenshot("A7_AXXXL_Today")
+
+        manage.tap()
+        XCTAssertTrue(app.navigationBars["Manage habits"].waitForExistence(timeout: 5))
+        let reading = app.staticTexts["Reading"].firstMatch
+        XCTAssertTrue(reading.waitForExistence(timeout: 5))
+        XCTAssertTrue(reading.isHittable, "A visible active habit must remain tappable at AXXXL")
+        captureStoreScreenshot("A7_AXXXL_Manage")
+
+        reading.tap()
+        XCTAssertTrue(app.navigationBars["Reading"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.buttons["Edit"].exists)
+        XCTAssertTrue(app.buttons["detail.more"].exists)
+        XCTAssertTrue(app.staticTexts["Every day"].firstMatch.exists)
+        captureStoreScreenshot("A7_AXXXL_Detail_Top")
+
+        let more = app.buttons["detail.more"]
+        if !more.isHittable {
+            app.swipeUp()
+        }
+        XCTAssertTrue(more.isHittable, "Extended history must be reachable by scrolling")
+        more.tap()
+        XCTAssertTrue(app.staticTexts["Last 6 weeks"].waitForExistence(timeout: 5))
+        captureStoreScreenshot("A7_AXXXL_Extended_History")
+    }
+
+    /// Axxxl progress semantics are not allowed to fall back to English.
+    /// Tests user-facing text and the spoken accessibility value in RU/ES.
+    func testA7LocalizedTodayProgressAccessibilityAtAXXXL() throws {
+        for (language, locale, heading, count) in [
+            ("ru", "ru_RU", "Сегодня", "0 из 2"),
+            ("es", "es_ES", "Hoy", "0 de 2")
+        ] {
+            app.terminate()
+            app.launchArguments = [
+                "-AppleLanguages", "(\(language))",
+                "-AppleLocale", locale,
+                "-UIPreferredContentSizeCategoryName",
+                "UICTContentSizeCategoryAccessibilityExtraExtraExtraLarge",
+                "--ui-testing", "--seed-watch-sync-demo",
+                "--disable-cloud-sync"
+            ]
+            app.launch()
+            let progress = app.descendants(matching: .any)["today.summary"].firstMatch
+            XCTAssertTrue(progress.waitForExistence(timeout: 6))
+            XCTAssertEqual(progress.label, heading)
+            XCTAssertTrue(
+                (progress.value as? String)?.contains(count) == true,
+                "\(language) spoken progress must contain the localised count"
+            )
+            let screenshot = XCTAttachment(screenshot: XCUIScreen.main.screenshot())
+            screenshot.name = "A7_AXXXL_Progress_\(language)"
+            screenshot.lifetime = .keepAlways
+            add(screenshot)
+        }
     }
 
     func testA5HomeWidgetActualRenderedStateAndCheckButton() throws {

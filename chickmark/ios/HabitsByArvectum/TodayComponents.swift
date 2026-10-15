@@ -110,7 +110,16 @@ struct TodaySummary: View {
         }
         .padding(16)
         .background(Color.habitsSurface, in: RoundedRectangle(cornerRadius: 20))
-        .accessibilityElement(children: .combine)
+        // A progress-only VoiceOver utterance ("0 of 2, 0%") does not
+        // identify which period is being measured. State the localised
+        // day context explicitly, then the count and percent as the value.
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(L10n.string("today.title"))
+        .accessibilityValue(
+            "\(L10n.format("today.progress.format", completed, total)), " +
+            "\(Int((progress * 100).rounded()))%"
+        )
+        .accessibilityIdentifier("today.summary")
     }
 }
 
