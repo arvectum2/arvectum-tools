@@ -46,3 +46,9 @@
 - **Audio copy NOT YET VERIFIED:** subsequent read-only copy of queued m4a failed with CoreDevice error 4000 / RemotePairingError 1001 (connection tunnel timeout). An existing queue index is not proof that the AAC file is intact until a copy/validation or successful iPhone playback succeeds.
 - The source retry/unlock restoration patch in fix/what-watch-autostart-1.0.2 is not yet installed on Watch QA. Keep release gate BLOCKED.
 - Next non-destructive check: restore connectivity with both devices unlocked/close together; open existing QA app on Watch to pump queue and check outstanding count, verify original 4.4-s note on iPhone. If still pending, obtain AAC copy for integrity validation before any QA update.
+
+## Recovery result (2026-10-16)
+
+- **Owner-reported PASS — missing note was delivered after manually opening the existing Watch QA app:** user placed Watch near iPhone, opened QA app on Watch (which automatically began a new recording), and confirmed: «да, теперь появилась предыдущая запись».
+- This confirms the **prior pending note survived reboot and was eventually delivered**; it does not confirm automatic post-reboot sync, media playback of that specific note, or deduplication during reboot.
+- Strongly suggests WatchConnectivity resuming/pumping only when Watch app enters foreground. The 1.0.2 sync-request + index-unlock recovery source fix remains untested on physical Watch. DO NOT release until the phone-triggered recovery passes with no manual Watch launch.
