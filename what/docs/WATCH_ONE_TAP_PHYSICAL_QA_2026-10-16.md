@@ -75,3 +75,9 @@
 - **USER-REPORTED PHYSICAL PASS — automatic delivery:** following the prescribed test of Watch QA 1.0.2 (8), the owner stated «Появилась запись! Ура!». In this test iPhone was off while recording on Watch, Stop was pressed, Watch was rebooted and unlocked without opening Watch QA, then iPhone QA was opened after iPhone startup. The missing-note issue from build 7 did not reproduce: note appeared automatically, without a manual Watch app launch.
 - **Owner confirmation of audio and exactly-once delivery:** user explicitly stated «Звук есть, дублей нет» immediately after the automatic post-reboot sync test. Marked PASS for this exact QA (8) reboot recording. No independent on-device audio checksum, so this is physical user playback acceptance, not a formal bitwise comparison.
 - This is one complete successful physical reboot-recovery acceptance trial, not proof of every possible network-retry failure mode. The originally failing case is resolved in QA (8); remaining targeted regression checks and production release steps are tracked separately, so public release has not been submitted.
+
+## Full final-branch simulator regression (2026-10-17)
+
+- After the Watch reboot recovery patch and successful physical QA (8) playback/dedup confirmation, ran full WhatIOS scheme test suite on Mac mini Xcode 27.1, iPhone Duo iOS simulator.
+- **PASS:** 63 unit/integration tests executed with 0 failures, 3 skipped; 2 UI tests executed with 0 failures; xcodebuild TEST SUCCEEDED, exit status 0.
+- Test log is stored on ArvectumSSD under builds/what-reboot-recovery-final-gate-20261017/test-ios.log. This is simulator regression evidence, not a production release upload or another physical verification.
