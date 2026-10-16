@@ -1,6 +1,6 @@
 # Watch one-tap physical acceptance — Ухват 1.0.2
 
-**Gate:** BLOCKED — physical one-tap Watch entry PASS by owner report; saved/playable audio on iPhone PASS by owner report; Digital Crown no-Stop autosave PASS by owner report; still awaiting offline transfer/recovery acceptance.
+**Gate:** BLOCKED — physical one-tap Watch entry PASS by owner report; saved/playable audio on iPhone PASS by owner report; Digital Crown no-Stop autosave PASS by owner report; offline Watch-to-iPhone delivery PASS by owner report; still awaiting deduplication/ACK and Watch reboot recovery.
 
 ## Verified on 2026-10-16 (Mac mini, Xcode 27.1)
 
@@ -17,6 +17,9 @@
 - [x] **User-reported physical PASS (2026-10-16):** after recording via Watch, a new note appeared in **Ухват QA** on iPhone and its audio played with sound. This followed the requested Stop-button test. User explicitly confirmed «запись появилась, звук есть». Exactly-once delivery under retries/ACK not separately proven.
 - [x] **User-reported physical PASS (2026-10-16):** after 5–10 seconds of recording, user pressed Digital Crown without Stop and confirmed «сохранилось!». This establishes that the note was saved; independent playback verification of this particular Crown-interrupted note was not explicitly reported.
 - [ ] Repeat from watch face when app was fully closed/previously used. Confirm exactly one new recording per tap, no duplicate.
-- [ ] Validate offline Watch → iPhone transfer, ACK and reboot recovery on physical devices before public release.
+- [x] **User-reported physical PASS (2026-10-16):** with iPhone switched off, made two Watch voice notes. After turning iPhone back on, notes synchronized; audio plays and chronological order is correct. User confirmed «синхронизировалось. звук есть, порядок правильный». Exact count and absence of duplicates were not explicitly stated, so dedup/ACK remain unchecked.
+- [ ] Verify iPhone QA has exactly two new notes and no duplicates from the offline batch.
+- [ ] Test restart of physical Watch while recordings are queued, then reconnect; confirm no loss and playable audio.
+- [ ] Validate duplicate-ACK and retry/reboot recovery before public release.
 
 **Do not upload, submit, or publish any 1.0.2 build until all critical Watch-face capture checks pass, with a recorded physical result.** The signed QA build is NOT a candidate for production upload.

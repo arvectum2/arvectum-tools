@@ -9,7 +9,8 @@
 - [x] **Physical one-tap capture (QA build) — user-confirmed 2026-10-16:** tapping the Watch-face QA complication immediately started a recording on Apple Watch SE, no second tap. [Evidence/checklist](docs/WATCH_ONE_TAP_PHYSICAL_QA_2026-10-16.md).
 - [x] **Physical audio delivery/playback (QA build) — user-confirmed 2026-10-16:** Watch recording appeared as a new note on iPhone and audio played with sound after the Stop-button scenario. [QA evidence](docs/WATCH_ONE_TAP_PHYSICAL_QA_2026-10-16.md).
 - [x] **Physical Digital Crown interruption (QA build) — user-confirmed 2026-10-16:** recording was saved after Digital Crown without Stop. [QA evidence](docs/WATCH_ONE_TAP_PHYSICAL_QA_2026-10-16.md). Playback of this specific recording was not explicitly confirmed.
-- [ ] **Remaining physical release acceptance:** repeat from watch face, offline recording/reconnect, duplicate ACK/transfer and reboot recovery; verify playback of Crown-interrupted note. Successful individual deliveries do not prove exactly-once behavior under retries. Release remains blocked.
+- [x] **Physical offline Watch batch delivery (QA build) — user-confirmed 2026-10-16:** two notes recorded while iPhone switched off; after reconnection they synchronized, played with sound and retained order. [QA evidence](docs/WATCH_ONE_TAP_PHYSICAL_QA_2026-10-16.md).
+- [ ] **Remaining physical release acceptance:** check exact count/no duplicates after offline batch, repeat from watch face, duplicate ACK/retry and Watch reboot recovery; verify playback of Crown-interrupted note. Working offline transfer does not establish exactly-once delivery during retries. Release remains blocked.
 - [ ] **RELEASE BLOCKED**: do not upload, submit, or publish 1.0.2 or any later version until physical one-tap acceptance above passes and is recorded with evidence. Signed IPA / App Store validation / simulator tests alone do not satisfy this gate.
 
 ## A5 — isolated next-patch candidate (2026-10-15)
