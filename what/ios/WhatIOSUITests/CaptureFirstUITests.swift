@@ -62,4 +62,35 @@ final class CaptureFirstUITests: XCTestCase {
         XCTAssertTrue(app.staticTexts[marker].waitForExistence(timeout: 10),
                       "Locally autosaved note must appear in the unified inbox.")
     }
+    func testLongPressGoesToVideoNotAudio() throws {
+        let app = XCUIApplication()
+        app.launch()
+        let record = app.buttons.matching(
+            NSPredicate(format: "label == %@ OR label == %@",
+                        "Начать запись", "Start recording")
+        ).firstMatch
+        XCTAssertTrue(record.waitForExistence(timeout: 10))
+        record.press(forDuration: 0.8)
+
+        let video = app.navigationBars.matching(
+            NSPredicate(format: "label == %@ OR label == %@",
+                        "Видеозаметка", "Video note")
+        ).firstMatch
+        // Simulator hardware may have no camera. In that case the Video
+        // recording sheet reports a camera error instead of a live preview.
+        // Both outcomes prove that Hold routes to Video, never to Audio.
+        let videoHardwareAlert = app.alerts.matching(
+            NSPredicate(format: "label == %@ OR label == %@",
+                        "Видеозапись", "Video capture")
+        ).firstMatch
+        let routedToVideo = video.waitForExistence(timeout: 3)
+            || videoHardwareAlert.waitForExistence(timeout: 3)
+        XCTAssertTrue(routedToVideo,
+                      "Holding the round button must open Video or a Video-specific hardware alert.")
+        let audio = app.navigationBars.matching(
+            NSPredicate(format: "label == %@ OR label == %@",
+                        "Новая запись", "New recording")
+        ).firstMatch
+        XCTAssertFalse(audio.exists, "A long press must not start audio.")
+    }
 }
