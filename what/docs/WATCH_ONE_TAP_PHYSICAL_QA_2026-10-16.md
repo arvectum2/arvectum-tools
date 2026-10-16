@@ -29,3 +29,12 @@
 - Inspected Watch transfer source: queue persists to Documents/WhatOutbound/queue.json; originals .m4a are deleted only on durable ACK. Watch session activates at app init/appear, pumps after activation and transfer completion; if Watch app has not been relaunched post-reboot it may not have resumed transfers. This is a hypothesis, not yet proven on the actual device.
 - Read-only devicectl device copy from for the Watch QA queue index timed out due to intermittent Watch CoreDevice connection. No recordings or containers modified.
 - Recovery priorities: access existing Watch QA container without reinstalling; check queue index and .m4a presence; safely re-activate WCSession/force a non-destructive sync before updating Watch QA on hardware.
+
+## Isolated source-level recovery mitigation (2026-10-16, not deployed to Watch QA)
+
+- iPhone now sends a durable, deduplicated WatchConnectivity sync request when its session becomes active; UI foreground entry can request again after cooldown.
+- Watch listens for that request and retries the local queue, preserving UUIDs and originals until ACK.
+- Watch re-reads the durable queue index and scans for finished orphaned AAC upon app foreground/activation after first device unlock. An unreadable existing index is not overwritten.
+- Verified on Mac mini: Watch Simulator build PASSED; nine focused iOS tests PASSED; original broader 62 unit / 2 UI tests PASSED before last rehydrate change. The newly added restore test is among the nine focused tests.
+- **This does not prove the missing recording is recoverable or identify its cause. The installed physical Watch QA remains the previous build and was NOT uninstalled or replaced.**
+- Next physical checkpoint: determine whether user finalized the recording before reboot, then read Watch's pending count or recover its queue before installing an updated Watch QA build. No production release.

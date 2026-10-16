@@ -71,6 +71,7 @@ struct CaptureView: View {
         .tint(Color(red: 67 / 255, green: 229 / 255, blue: 197 / 255))
         .onAppear {
             controller.activateConnectivity()
+            controller.refreshPendingAudioAfterUnlock()
             if scenePhase == .active {
                 startCaptureOnForeground()
             }
@@ -78,6 +79,7 @@ struct CaptureView: View {
         .onChange(of: scenePhase) { _, phase in
             switch phase {
             case .active:
+                controller.refreshPendingAudioAfterUnlock()
                 // Some physical Watch faces launch the app without forwarding
                 // the complication's widgetURL. Foreground arrival must itself
                 // start recording, including after a previous capture was saved.
