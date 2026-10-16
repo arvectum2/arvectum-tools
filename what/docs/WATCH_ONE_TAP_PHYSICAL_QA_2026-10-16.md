@@ -1,6 +1,6 @@
 # Watch one-tap physical acceptance — Ухват 1.0.2
 
-**Gate:** BLOCKED — physical one-tap Watch entry PASS by owner report; saved/playable audio on iPhone PASS by owner report; Digital Crown no-Stop autosave PASS by owner report; offline Watch-to-iPhone delivery PASS by owner report; still awaiting deduplication/ACK and Watch reboot recovery.
+**Gate:** BLOCKED — physical one-tap Watch entry PASS by owner report; saved/playable audio on iPhone PASS by owner report; Digital Crown no-Stop autosave PASS by owner report; offline Watch-to-iPhone delivery PASS by owner report; **reboot recovery FAIL** (missing on iPhone), despite previous offline no-duplicate PASS; release BLOCKED, original Watch QA data must be preserved.
 
 ## Verified on 2026-10-16 (Mac mini, Xcode 27.1)
 
@@ -18,8 +18,14 @@
 - [x] **User-reported physical PASS (2026-10-16):** after 5–10 seconds of recording, user pressed Digital Crown without Stop and confirmed «сохранилось!». This establishes that the note was saved; independent playback verification of this particular Crown-interrupted note was not explicitly reported.
 - [ ] Repeat from watch face when app was fully closed/previously used. Confirm exactly one new recording per tap, no duplicate.
 - [x] **User-reported physical PASS (2026-10-16):** with iPhone switched off, made two Watch voice notes. After turning iPhone back on, notes synchronized; audio plays and chronological order is correct. User confirmed «синхронизировалось. звук есть, порядок правильный». Exact count and absence of duplicates were not explicitly stated, so dedup/ACK remain unchecked.
-- [ ] Verify iPhone QA has exactly two new notes and no duplicates from the offline batch.
-- [ ] Test restart of physical Watch while recordings are queued, then reconnect; confirm no loss and playable audio.
+- [x] **User-reported physical PASS (2026-10-16):** previous offline batch arrived without duplicates; user said «предыдущие записи появлялись без дублей, там все ок».
+- [ ] **FAIL — RELEASE BLOCKER (2026-10-16):** owner recorded a Watch QA voice note while iPhone was off, rebooted Watch, restored iPhone connection, but the new recording did not appear on iPhone. **Not established whether Watch still retains the audio. Do not uninstall/reset Watch QA or erase data.** Investigate durable queue, transfer activation and remote device availability before retrying.
 - [ ] Validate duplicate-ACK and retry/reboot recovery before public release.
 
 **Do not upload, submit, or publish any 1.0.2 build until all critical Watch-face capture checks pass, with a recorded physical result.** The signed QA build is NOT a candidate for production upload.
+
+## Investigation (2026-10-16)
+
+- Inspected Watch transfer source: queue persists to Documents/WhatOutbound/queue.json; originals .m4a are deleted only on durable ACK. Watch session activates at app init/appear, pumps after activation and transfer completion; if Watch app has not been relaunched post-reboot it may not have resumed transfers. This is a hypothesis, not yet proven on the actual device.
+- Read-only devicectl device copy from for the Watch QA queue index timed out due to intermittent Watch CoreDevice connection. No recordings or containers modified.
+- Recovery priorities: access existing Watch QA container without reinstalling; check queue index and .m4a presence; safely re-activate WCSession/force a non-destructive sync before updating Watch QA on hardware.
