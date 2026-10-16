@@ -1,5 +1,14 @@
 # PUSHKIN — Product Roadmap
 
+## Адаптация iPad / iPhone Duo — 2026-10-16
+
+**Статус:** бэклог P1 после стабильности Shortcuts и приёмки уведомлений; текущий target iPhone-only. [Общая матрица Core](../core/DEVICE_ADAPTATION_ROADMAP.md).
+
+- [ ] **PS-D0 · Аудит:** onboarding для Shortcuts, импорт подписанных micro-shortcut, лента/детали/поиск/фильтры/архив, SwiftData, уведомления и privacy при широком экране.
+- [ ] **PS-D1 · iPad:** адаптивная лента + детали/поиск, удобный onboarding и группы автоматизаций, split-view/landscape, корректные share/sheet/popover, крупный шрифт и клавиатура.
+- [ ] **PS-D2 · iPhone Duo:** внешняя компактная лента и раскрытая двухколоночная лента/детали; fold/unfold и многозадачность не сбрасывают поиск, выбранное уведомление или незавершённый onboarding. Содержимое уведомлений не показывать неожиданно на другом экране.
+- [ ] **PS-D3 · QA:** сохранность истории, без дублей/потерь, физические Shortcuts/App Intents и запросы разрешений, iPad/Duo UI matrix, App Store assets. Включение iPad family и релиз — отдельно, после физических проверок.
+
 ## Active checkpoint — 2026-10-16 (A6 onboarding source)
 
 - [x] **A6 guided setup:** показаны три шага (импорт базового подписанного shortcut, ручное включение в Shortcuts, подтверждение минимум одного реального захвата); при поздней установке приложения указан refresh подписанного micro-package.
