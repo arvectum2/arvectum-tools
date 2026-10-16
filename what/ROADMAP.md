@@ -1,5 +1,17 @@
 # What? — Product Roadmap
 
+## P0 reopened — branded complication on physical Apple Watch (2026-10-17)
+
+**RELEASE STOP.** Owner reports current published complication is a generic microphone and separate QA complication is a blank square. **Watch complication must show the recognizable UhWhat app icon, not an SF microphone or empty square.** [Full audited roadmap matrix](docs/WHAT_ROADMAP_AUDIT_2026-10-17.md).
+
+- [x] Reused identical PNG Watch app icon bytes for full-color Watch complication.
+- [x] Added a native vector silhouette from the exact existing UhWhat icon contours for system-tinted faces and accessoryCorner; no forced monochrome template on the full-color icon.
+- [x] Built watchOS simulator target successfully, verified asset catalog contains WhatComplicationIcon; branded resource regression smoke test passes.
+- [x] **Physical QA9 staged:** in-place signed 1.0.2 (9) installed on paired iPhone and Apple Watch SE with unchanged QA bundle IDs; pre/post Watch pending count 0, 17/17 iPhone QA Application Support file paths and sizes preserved. Installation does NOT prove the icon visually displays.
+- [ ] **HARD RELEASE BLOCKER:** on physical Apple Watch check circular/other used family: no mic/blank square, brand recognized; check full-color and tint where available.
+- [ ] Repeat from complication: **one tap -> immediately recording -> Stop/Crown -> playable on iPhone once** with latest QA9. No release on green compiler result alone.
+- [ ] Review open roadmap with owner and agree what belongs to next submission. Existing export (2026-10-17, SHA-256 39ae71cc...) is **superseded** for submission and cannot be uploaded.
+
 ## P0 release blocker — physical one-tap Watch capture (2026-10-16)
 
 - [x] **Regression reproduced by owner on App Store 1.0.1:** Watch-face complication opens the app but does not start recording. Previous `widgetURL(what://capture)` assumption is not sufficient on physical Watch.

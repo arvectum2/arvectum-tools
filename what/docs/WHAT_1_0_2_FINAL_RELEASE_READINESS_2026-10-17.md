@@ -1,6 +1,7 @@
 # Ухват / UhWhat? — 1.0.2 (7) production IPA readiness, 2026-10-17
 
-**Status: LOCAL APP STORE EXPORT PASSED; NOT UPLOADED / NOT SUBMITTED / NOT PUBLISHED.**
+**Status (UPDATED 2026-10-17): BLOCKED — Watch complication branding fix is not included in the previously exported production IPA.**
+The IPA SHA-256 39ae71cc0c3d65d92d6998823f600e7861c44a91cec75762d33155e3faa99dc6 is now **SUPERSEDED** for submission, despite its previously passing signatures and functional QA. Do not upload it. A new QA Watch complication visual acceptance and another full App Store export are required before release.
 
 ## Evidence and provenance
 
@@ -38,3 +39,10 @@
 - [ ] Actual published release (not claimed).
 
 **No App Store upload/submission/publication initiated in this checkpoint.**
+
+## Additional branding requirement discovered by owner (2026-10-17)
+
+- The actual Watch complication was reported as a generic mic; the standalone QA complication was an empty square. Owner requires the **same recognizable icon as Ухват application**, not a system mic.
+- The complication was changed to use exact byte-identical full-color Watch app icon on full-color watch faces and a native vector path based on identical brand contours for accented/tinted watch faces; added accessoryCorner support. This change **was not** in the previously exported IPA and must be validated visually on physical Watch.
+- Apple controls accented complication coloring by watch-face configuration; the logo silhouette can remain recognizable but full-color appearance isn't guaranteed on every face. An asset catalog inclusion check and physical UI test are explicit gates.
+- iOS 1.0.2 is NOT cleared for upload until the icon is present/recognizable on the physical Watch and existing one-tap capture/audio still works.

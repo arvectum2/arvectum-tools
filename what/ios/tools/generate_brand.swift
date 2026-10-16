@@ -50,3 +50,4 @@ icon.drawRadialGradient(bg,startCenter:CGPoint(x:520,y:570),startRadius:0,
 glyph(icon)
 save(icon,"WhatIOS/Assets.xcassets/AppIcon.appiconset/WhatAppIcon.png")
 save(icon,"WhatWatch/Assets.xcassets/AppIcon.appiconset/WhatWatchIcon.png")
+save(icon,"WhatWatchComplication/Assets.xcassets/WhatComplicationIcon.imageset/WhatComplicationIcon.png")
