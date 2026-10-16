@@ -16,11 +16,11 @@ Source-only implementation for [issue #80](https://github.com/arvectum2/arvectum
 
 ## Verification
 
-- [ ] Xcode 27 iOS simulator build and generic watchOS build.
+- [x] **Xcode 27 iOS simulator build PASS** and generic watchOS Simulator build PASS. Signed Apple distribution/App Store release NOT attempted.
 - [x] **8/8 targeted XCTest PASS:** no history; skipped/paused neutral; flexible weekly goals; completion-relative occurrences; partial multi-check; archived/future-created habits; DST fall-back; previous-week comparison and best-day tie.
-- [ ] Entire existing iOS XCTest regression and focused opt-in UI test on isolated simulator.
-- [x] RU/EN/ES localization, architecture, shared Swift dependency catalog and git diff check PASS. Release hygiene, assets and watchOS build to follow.
-- [ ] GitHub PR CI push/PR, GitVerse mirror and merge after all green.
-- [ ] Physical non-destructive opt-in and accessibility check with disposable demo habits before later release. Do not delete or reset user history or modify genuine Apple Health permissions.
+- [x] **230/230 complete iOS XCTest PASS** and **1/1 focused weekly opt-in UI PASS** on isolated fresh iOS 27 Simulator; the disposable simulator was shut down and deleted, real user data untouched.
+- [x] RU/EN/ES localization, architecture, shared Swift dependency catalog, release hygiene, all 12 App Store PNG assets and git diff check PASS.
+- [x] GitHub [PR #81](https://github.com/arvectum2/arvectum-tools/pull/81) **MERGED** at `9159e1b012ca314c53034da24abd6cee375b6c1b`, with two independent GitHub Habits iOS CI checks [push 38861433076](https://github.com/arvectum2/arvectum-tools/actions/runs/38861433076) SUCCESS (13m55s) and [PR 38861470827](https://github.com/arvectum2/arvectum-tools/actions/runs/38861470827) SUCCESS (15m5s); full iOS unit, system UI-smoke, archive, architecture and catalog PASS. GitVerse mirror workflow SUCCESS; GitHub/GitVerse `main` both exact `9159e1b...`.
+- [ ] **OPEN [physical acceptance #82](https://github.com/arvectum2/arvectum-tools/issues/82):** non-destructive opt-in and accessibility check with disposable demo habits before later release. Do not delete or reset user history or modify genuine Apple Health permissions.
 
 **Release distinction:** Apple-approved public ChickMark **1.4.1(15) READY_FOR_SALE** stays unchanged; the older signed A5 **1.4.2(16) RC remains not submitted**. This source-only P2 feature requires a separately versioned binary after acceptance. The opt-in HealthKit dietaryWater writer remains a separate [issue #79](https://github.com/arvectum2/arvectum-tools/issues/79).
