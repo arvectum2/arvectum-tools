@@ -2,6 +2,10 @@
 
 **Очередность работ 2026-10-15:** [общий execution plan](EXECUTION_PLAN.md). [Срез A0 — Apple, исходники и GitVerse](RELEASE_PROVENANCE_20261015.md). Приоритет — CI/release provenance и помощь живым релизам, без активной разработки Where?.
 
+## Адаптация всех iOS-продуктов: iPad + iPhone Duo — 2026-10-16
+
+- [ ] **Core / device adaptation:** единые условия layout, dynamic resize, iPad Split View/Stage Manager, iPhone Duo 5,4″ closed/7,6″ open, accessibility, сценарии QA и честное определение готовности в [портфельной матрице](DEVICE_ADAPTATION_ROADMAP.md). Изменения UI и release QA выполняются в дорожных картах самих приложений; проверенных релизов ещё нет.
+
 ## 2026-10-15 implementation checkpoint
 - [x] Shared Swift packages exist: ArvectumDesignTokens, ArvectumPersistence and ArvectumDiagnostics, with privacy-safe local diagnostics.
 - [x] Core CI tests consumers ChickMark, Pushkin, Photo/PDF and What?, watchOS and Android, with reviewed dependency catalogs.
