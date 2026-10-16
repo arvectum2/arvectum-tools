@@ -16,11 +16,11 @@
 - [x] **User-reported physical PASS (2026-10-16):** added **Ухват QA — Запись** complication on physical Apple Watch SE; a single tap from watch face started recording immediately, with no second tap. Evidence: owner explicitly confirmed in chat «во! кайф! теперь сразу началась». Latency was not measured; stop/audio integrity/phone delivery have not yet been confirmed.
 - [x] **User-reported physical PASS (2026-10-16):** after recording via Watch, a new note appeared in **Ухват QA** on iPhone and its audio played with sound. This followed the requested Stop-button test. User explicitly confirmed «запись появилась, звук есть». Exactly-once delivery under retries/ACK not separately proven.
 - [x] **User-reported physical PASS (2026-10-16):** after 5–10 seconds of recording, user pressed Digital Crown without Stop and confirmed «сохранилось!». This establishes that the note was saved; independent playback verification of this particular Crown-interrupted note was not explicitly reported.
-- [ ] Repeat from watch face when app was fully closed/previously used. Confirm exactly one new recording per tap, no duplicate.
+- [x] **QA (8) final physical regression PASS (2026-10-17):** one Watch complication tap -> audio capture -> Digital Crown -> iPhone note playable without duplicates. Owner explicitly confirmed «Все супер, звук есть, дублей нет». Fully-closed app state was not separately reported.
 - [x] **User-reported physical PASS (2026-10-16):** with iPhone switched off, made two Watch voice notes. After turning iPhone back on, notes synchronized; audio plays and chronological order is correct. User confirmed «синхронизировалось. звук есть, порядок правильный». Exact count and absence of duplicates were not explicitly stated, so dedup/ACK remain unchecked.
 - [x] **User-reported physical PASS (2026-10-16):** previous offline batch arrived without duplicates; user said «предыдущие записи появлялись без дублей, там все ок».
 - [x] **Historical QA (7) failure, RESOLVED on QA (8):** owner had recorded with iPhone off, pressed Stop and rebooted Watch; background transfer originally did not restart. The original 4.412-s queued note was recovered upon manual opening of Watch QA (7). In QA (8), automatic delivery after the same reboot sequence passed with audio and no duplicates. Do not treat the earlier failure as still active.
-- [x] **Physical reboot/reconnect delivery with no duplicates (QA 8):** owner reported automatic iPhone delivery, playable audio, and exactly one copy after Watch restart without manual Watch app launch. A single trial cannot exercise every network/ACK race.\n- [ ] Repeat one-tap launch on final QA (8) from previously used/closed Watch app; confirm no extra recording and save/playback after Digital Crown; verify retry/ACK edge cases with repeated cold starts if required for final acceptance.
+- [x] **Physical reboot/reconnect delivery with no duplicates (QA 8):** owner reported automatic iPhone delivery, playable audio, and exactly one copy after Watch restart without manual Watch app launch. A single trial cannot exercise every network/ACK race.\n- [x] **QA (8) final one-tap + Crown + playback + no-duplicates PASS.** A fully force-closed app and repeated network/ACK races are not independently tested.
 
 **Do not upload, submit, or publish any 1.0.2 build until all critical Watch-face capture checks pass, with a recorded physical result.** The signed QA build is NOT a candidate for production upload.
 
@@ -81,3 +81,10 @@
 - After the Watch reboot recovery patch and successful physical QA (8) playback/dedup confirmation, ran full WhatIOS scheme test suite on Mac mini Xcode 27.1, iPhone Duo iOS simulator.
 - **PASS:** 63 unit/integration tests executed with 0 failures, 3 skipped; 2 UI tests executed with 0 failures; xcodebuild TEST SUCCEEDED, exit status 0.
 - Test log is stored on ArvectumSSD under builds/what-reboot-recovery-final-gate-20261017/test-ios.log. This is simulator regression evidence, not a production release upload or another physical verification.
+
+## Final QA (8) one-tap and Crown regression acceptance — 2026-10-17
+
+- After verifying QA (8) automatic post-reboot sync, owner performed prescribed regression: one tap on Apple Watch-face QA complication -> several seconds of capture -> Digital Crown instead of Stop -> playback on iPhone.
+- Owner explicitly reported «Все супер, звук есть, дублей нет».
+- **PASS:** watch-face one-tap launch, Digital Crown save/delivery, original audio playable, no duplicate notes. This is the post-fix physical regression test, not just older QA (7) acceptance.
+- This and automatic post-reboot QA (8) sync close the reproduced P0 physical Watch capture/sync blockers. Apple upload still requires release approval and current CI.
