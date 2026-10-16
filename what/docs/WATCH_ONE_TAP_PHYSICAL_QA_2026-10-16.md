@@ -1,6 +1,6 @@
 # Watch one-tap physical acceptance — Ухват 1.0.2
 
-**Gate:** BLOCKED — physical one-tap Watch entry PASS by owner report; saved/playable audio on iPhone PASS by owner report; Digital Crown no-Stop autosave PASS by owner report; offline Watch-to-iPhone delivery PASS by owner report; **reboot recovery FAIL** (missing on iPhone), despite previous offline no-duplicate PASS; release BLOCKED, original Watch QA data must be preserved.
+**Gate (2026-10-17):** CORE PHYSICAL ACCEPTANCE PASS — one-tap Watch launch, Stop/save/audio, offline transfer/order/no duplicates, and automatic Watch reboot recovery/audio/no duplicates verified by owner on physical QA 1.0.2 (8). Earlier QA build (7) reboot failure is preserved below for diagnosis and resolved in QA (8). Public release remains blocked pending remaining targeted edge-case checks, production signing, and release authorization.
 
 ## Verified on 2026-10-16 (Mac mini, Xcode 27.1)
 
@@ -11,7 +11,7 @@
 - Debug-signed **separate** QA build **1.0.2 (7)** installed successfully on physical iPhone 13 as `ru.arvectum.tools.what.qa` (name: UhWhat QA) and physical Apple Watch SE as `ru.arvectum.tools.what.qa.watch` (name: UhWhat QA). Installed complication extension bundle ID: `ru.arvectum.tools.what.qa.watch.capturewidget`, signature verified.
 - QA app is distinct from production bundle IDs; production Watch/iPhone note storage was not touched or reset. No physical Watch microphone activation or watchface tap has been performed by these checks.
 
-## Manual hardware acceptance (still unchecked)
+## Manual hardware acceptance (historical results and pending checks)
 
 - [x] **User-reported physical PASS (2026-10-16):** added **Ухват QA — Запись** complication on physical Apple Watch SE; a single tap from watch face started recording immediately, with no second tap. Evidence: owner explicitly confirmed in chat «во! кайф! теперь сразу началась». Latency was not measured; stop/audio integrity/phone delivery have not yet been confirmed.
 - [x] **User-reported physical PASS (2026-10-16):** after recording via Watch, a new note appeared in **Ухват QA** on iPhone and its audio played with sound. This followed the requested Stop-button test. User explicitly confirmed «запись появилась, звук есть». Exactly-once delivery under retries/ACK not separately proven.
@@ -19,8 +19,8 @@
 - [ ] Repeat from watch face when app was fully closed/previously used. Confirm exactly one new recording per tap, no duplicate.
 - [x] **User-reported physical PASS (2026-10-16):** with iPhone switched off, made two Watch voice notes. After turning iPhone back on, notes synchronized; audio plays and chronological order is correct. User confirmed «синхронизировалось. звук есть, порядок правильный». Exact count and absence of duplicates were not explicitly stated, so dedup/ACK remain unchecked.
 - [x] **User-reported physical PASS (2026-10-16):** previous offline batch arrived without duplicates; user said «предыдущие записи появлялись без дублей, там все ок».
-- [ ] **FAIL — RELEASE BLOCKER (2026-10-16):** owner recorded a Watch QA voice note while iPhone was off, rebooted Watch, restored iPhone connection, but the new recording did not appear on iPhone. **Not established whether Watch still retains the audio. Do not uninstall/reset Watch QA or erase data.** Investigate durable queue, transfer activation and remote device availability before retrying.
-- [ ] Validate duplicate-ACK and retry/reboot recovery before public release.
+- [x] **Historical QA (7) failure, RESOLVED on QA (8):** owner had recorded with iPhone off, pressed Stop and rebooted Watch; background transfer originally did not restart. The original 4.412-s queued note was recovered upon manual opening of Watch QA (7). In QA (8), automatic delivery after the same reboot sequence passed with audio and no duplicates. Do not treat the earlier failure as still active.
+- [x] **Physical reboot/reconnect delivery with no duplicates (QA 8):** owner reported automatic iPhone delivery, playable audio, and exactly one copy after Watch restart without manual Watch app launch. A single trial cannot exercise every network/ACK race.\n- [ ] Repeat one-tap launch on final QA (8) from previously used/closed Watch app; confirm no extra recording and save/playback after Digital Crown; verify retry/ACK edge cases with repeated cold starts if required for final acceptance.
 
 **Do not upload, submit, or publish any 1.0.2 build until all critical Watch-face capture checks pass, with a recorded physical result.** The signed QA build is NOT a candidate for production upload.
 
@@ -73,5 +73,5 @@
 ## User acceptance: automatic transfer after reboot on QA build 8 (2026-10-17)
 
 - **USER-REPORTED PHYSICAL PASS — automatic delivery:** following the prescribed test of Watch QA 1.0.2 (8), the owner stated «Появилась запись! Ура!». In this test iPhone was off while recording on Watch, Stop was pressed, Watch was rebooted and unlocked without opening Watch QA, then iPhone QA was opened after iPhone startup. The missing-note issue from build 7 did not reproduce: note appeared automatically, without a manual Watch app launch.
-- **PENDING independent user confirmation:** audio playback/integrity and lack of duplicate notes specifically for this post-reboot item. Do not mark these as passed based on appearance alone.
-- This is one successful physical reboot-recovery trial, not yet evidence of repeated success under network variation or fresh cold starts. Keep public release on hold until remaining critical checks and release gate review are complete.
+- **Owner confirmation of audio and exactly-once delivery:** user explicitly stated «Звук есть, дублей нет» immediately after the automatic post-reboot sync test. Marked PASS for this exact QA (8) reboot recording. No independent on-device audio checksum, so this is physical user playback acceptance, not a formal bitwise comparison.
+- This is one complete successful physical reboot-recovery acceptance trial, not proof of every possible network-retry failure mode. The originally failing case is resolved in QA (8); remaining targeted regression checks and production release steps are tracked separately, so public release has not been submitted.
