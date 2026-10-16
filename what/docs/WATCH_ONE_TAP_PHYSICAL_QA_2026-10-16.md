@@ -69,3 +69,9 @@
 - **iPhone QA 1.0.2 (8)** had already been installed in place; 13 Application Support files were preserved across upgrade and a backup exists.
 - Post-upgrade read-only Watch queue check was attempted but CoreDevice pairing tunnel timed out; therefore post-upgrade Watch queue index was **not independently read**. No modification or deletion was performed as part of this check.
 - **Pending physical release test:** with iPhone switched off, record on Watch QA build 8, press Stop, reboot Watch, unlock Watch after reboot WITHOUT opening Watch QA, switch on iPhone, open iPhone QA build 8 and wait 2–3 minutes. Confirm that the recording appears automatically and plays, without another tap on the Watch app; inspect for duplicates. App Store release remains BLOCKED until acceptance passes.
+
+## User acceptance: automatic transfer after reboot on QA build 8 (2026-10-17)
+
+- **USER-REPORTED PHYSICAL PASS — automatic delivery:** following the prescribed test of Watch QA 1.0.2 (8), the owner stated «Появилась запись! Ура!». In this test iPhone was off while recording on Watch, Stop was pressed, Watch was rebooted and unlocked without opening Watch QA, then iPhone QA was opened after iPhone startup. The missing-note issue from build 7 did not reproduce: note appeared automatically, without a manual Watch app launch.
+- **PENDING independent user confirmation:** audio playback/integrity and lack of duplicate notes specifically for this post-reboot item. Do not mark these as passed based on appearance alone.
+- This is one successful physical reboot-recovery trial, not yet evidence of repeated success under network variation or fresh cold starts. Keep public release on hold until remaining critical checks and release gate review are complete.
