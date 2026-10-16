@@ -23,12 +23,14 @@ final class GentleRestartUITests: XCTestCase {
         let toggle = app.switches["restart-enabled"]
         XCTAssertTrue(toggle.waitForExistence(timeout: 8))
         let before = toggle.value as? String
-        toggle.tap()
+        // On iOS 27 the accessibility switch can expose a wide Form row;
+        // tap the actual trailing control rather than the row centre.
+        toggle.coordinate(withNormalizedOffset: CGVector(dx: 0.88, dy: 0.5)).tap()
         XCTAssertNotEqual(toggle.value as? String, before)
         XCTAssertTrue(app.descendants(matching: .any)[
             "restart-threshold"
         ].exists)
-        toggle.tap()
+        toggle.coordinate(withNormalizedOffset: CGVector(dx: 0.88, dy: 0.5)).tap()
         XCTAssertEqual(toggle.value as? String, before)
         XCTAssertTrue(app.navigationBars["Gentle Restart"].exists)
     }

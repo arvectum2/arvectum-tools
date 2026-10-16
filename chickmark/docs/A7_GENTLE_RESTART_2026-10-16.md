@@ -16,11 +16,11 @@ The owner reports Apple approval of the latest submitted **ChickMark 1.4.1 (15)*
 
 ## Verification
 
-- [ ] Xcode27 iOS simulator build.
-- [ ] Targeted XCTest cases: due/not yet due, gentle threshold, nonexistent history, archive/pause, current completion, skipped/paused neutral, rolling interval on due day and after overdue, partial multi-check, New York DST/calendar day.
-- [ ] All ChickMark iOS unit tests and app-owned UI smoke; watchOS generic simulator build if feasible.
+- [x] **Xcode 27 iOS simulator build PASS**, without production signing or changing any user's iPhone.
+- [x] **6/6 targeted XCTest PASS:** due/not yet due, gentle threshold, nonexistent history, archive/pause, current completion, skipped/paused neutral, rolling interval on due day and after overdue, partial multi-check, New York DST/calendar day.
+- [x] **222/222 complete ChickMark iOS unit tests PASS;** localization RU/EN/ES audit PASS. **1/1 new Gentle Restart settings UI PASS** on isolated fresh iPhone17e/iOS27 simulator: enable/disable and threshold. First test launch on a busy reused iPhone18Pro could not initialize XCTest AX, subsequent first run on fresh simulator found an XCTest-centred switch tap issue (test only), corrected by tapping actual trailing control. Old UI smoke/Watch generic CI gates still to be checked independently.
 - [ ] Github PR CI (ChickMark unit, watchOS and architecture), mirror GitHub/GitVerse.
-- [ ] Physical optional-enable/turn-off UI and regression with **disposable** habit before any later App Store build. Do not modify existing iCloud, HealthKit or user history.
+- [ ] **Physical acceptance issue [#78](https://github.com/arvectum2/arvectum-tools/issues/78):** optional enable/turn-off UI and regression with **disposable** habit before any later App Store build. Do not modify existing iCloud, HealthKit or user history.
 
 ## Scope boundary
 
