@@ -33,4 +33,33 @@ final class CaptureFirstUITests: XCTestCase {
         XCTAssertTrue(start.waitForExistence(timeout: 5))
         XCTAssertTrue(saved.exists)
     }
+    func testTypedNoteFromPlusPersistsAfterOpeningLibrary() throws {
+        let app = XCUIApplication()
+        app.launch()
+
+        let plus = app.buttons["what.new.text"]
+        XCTAssertTrue(plus.waitForExistence(timeout: 10), "Text + must be visible on home.")
+        plus.tap()
+
+        let editor = app.textViews["what.text.editor"]
+        XCTAssertTrue(editor.waitForExistence(timeout: 5))
+        editor.tap()
+        let marker = "Typed note UITest 20261016"
+        editor.typeText(marker)
+
+        let close = app.buttons.matching(
+            NSPredicate(format: "label == %@ OR label == %@", "Готово", "Done")
+        ).firstMatch
+        XCTAssertTrue(close.exists)
+        close.tap()
+
+        let saved = app.buttons.matching(
+            NSPredicate(format: "label BEGINSWITH %@ OR label BEGINSWITH %@",
+                        "Мои записи", "My recordings")
+        ).firstMatch
+        XCTAssertTrue(saved.waitForExistence(timeout: 5))
+        saved.tap()
+        XCTAssertTrue(app.staticTexts[marker].waitForExistence(timeout: 10),
+                      "Locally autosaved note must appear in the unified inbox.")
+    }
 }

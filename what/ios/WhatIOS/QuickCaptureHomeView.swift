@@ -5,6 +5,8 @@ import SwiftUI
 struct QuickCaptureHomeView: View {
     let recordingsCount: Int
     let startRecording: () -> Void
+    let startVideo: () -> Void
+    let newText: () -> Void
     let openLibrary: () -> Void
 
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
@@ -48,8 +50,8 @@ struct QuickCaptureHomeView: View {
 
                         if !compactLayout {
                             Text(isRussian
-                                ? "Одно нажатие — и говори."
-                                : "One tap. Start speaking.")
+                                ? "Нажми — звук. Удерживай — видео."
+                                : "Tap for audio. Hold for video.")
                                 .font(.subheadline)
                                 .lineLimit(1)
                                 .minimumScaleFactor(0.7)
@@ -65,7 +67,7 @@ struct QuickCaptureHomeView: View {
                         )
                         .padding(.top, compactLayout ? 8 : 25)
 
-                        Text(isRussian ? "Нажми, чтобы записать" : "Tap to record")
+                        Text(isRussian ? "Нажми: звук · Удерживай: видео" : "Tap: audio · Hold: video")
                             .font(.system(size: compactLayout ? 17 : 21, weight: .semibold))
                             .foregroundStyle(.white)
                             .lineLimit(1)
@@ -109,6 +111,16 @@ struct QuickCaptureHomeView: View {
 
             Spacer()
 
+            Button(action: newText) {
+                Image(systemName: "plus")
+                    .font(.title2.weight(.bold))
+                    .foregroundStyle(accent)
+                    .frame(width: 48, height: 48)
+                    .background(.white.opacity(0.08), in: Circle())
+            }
+            .accessibilityLabel(isRussian ? "Создать текстовую заметку" : "New text note")
+            .accessibilityIdentifier("what.new.text")
+
             if !compactLayout {
                 Text(isRussian ? "БЫСТРАЯ ЗАПИСЬ" : "QUICK CAPTURE")
                     .font(.system(size: 9, weight: .semibold, design: .rounded))
@@ -121,8 +133,7 @@ struct QuickCaptureHomeView: View {
     }
 
     private func recordButton(diameter: CGFloat) -> some View {
-        Button(action: startRecording) {
-            ZStack {
+        ZStack {
                 // Echo the approved circular What? brand button. The mint
                 // emblem is extracted from the user-approved app icon.
                 Circle()
@@ -173,12 +184,29 @@ struct QuickCaptureHomeView: View {
             }
             .frame(width: diameter, height: diameter)
             .contentShape(Circle())
+        .highPriorityGesture(
+            LongPressGesture(minimumDuration: 0.5)
+                .exclusively(before: TapGesture())
+                .onEnded { result in
+                    switch result {
+                    case .first(let completed):
+                        if completed { startVideo() }
+                    case .second:
+                        startRecording()
+                    }
+                }
+        )
+        .accessibilityElement(children: .ignore)
+        .accessibilityAddTraits(.isButton)
+        .accessibilityAction { startRecording() }
+        .accessibilityAction(named: Text(isRussian ? "Видеозапись" : "Record video")) {
+            startVideo()
         }
-        .buttonStyle(QuickRecordButtonStyle())
+        .accessibilityIdentifier("what.record.primary")
         .accessibilityLabel(isRussian ? "Начать запись" : "Start recording")
         .accessibilityHint(isRussian
-            ? "Откроет запись и сразу включит микрофон"
-            : "Opens the recorder and immediately activates the microphone")
+            ? "Нажмите для аудио, удерживайте для видео"
+            : "Tap for audio, hold to record video")
     }
 
     private var libraryButton: some View {
@@ -245,6 +273,8 @@ private struct QuickRecordButtonStyle: ButtonStyle {
     QuickCaptureHomeView(
         recordingsCount: 17,
         startRecording: {},
+        startVideo: {},
+        newText: {},
         openLibrary: {}
     )
 }

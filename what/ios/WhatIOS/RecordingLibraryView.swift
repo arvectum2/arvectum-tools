@@ -4,6 +4,10 @@ struct RecordingLibraryView: View {
     let openCaptureHome: () -> Void
     @EnvironmentObject private var store: PhoneStore
     @State private var recordingToDelete: RecordingEnvelope?
+    @State private var localNoteToDelete: LocalNote?
+    @State private var localNoteToEdit: LocalNote?
+    @State private var localVideoToPlay: LocalNote?
+    @State private var typeFilter: NoteTypeFilter = .all
     @State private var recordingToEdit: RecordingEnvelope?
     @State private var recordingToRetranscribe: RecordingEnvelope?
     @State private var selectedFolder: InboxFolder = .inbox
@@ -21,8 +25,40 @@ struct RecordingLibraryView: View {
         )
     }
 
-    private var dayGroups: [InboxDayGroup] {
-        InboxOrganizer.groups(visibleRecordings)
+    private enum NoteTypeFilter: String, CaseIterable, Identifiable {
+        case all, audio, text, video
+        var id: Self { self }
+        var title: String {
+            switch self {
+            case .all: return CaptureBrand.text("Все", "All")
+            case .audio: return CaptureBrand.text("Аудио", "Audio")
+            case .text: return CaptureBrand.text("Текст", "Text")
+            case .video: return CaptureBrand.text("Видео", "Video")
+            }
+        }
+    }
+
+    private var visibleNotes: [UnifiedNote] {
+        UnifiedInbox.visible(
+            recordings: store.recordings,
+            localNotes: store.localNotes,
+            archivedAudioIDs: store.archivedIDs,
+            folder: selectedFolder,
+            query: searchText,
+            transcripts: store.transcripts
+        ).filter { note in
+            if typeFilter == .all { return true }
+            switch note {
+            case .audio:
+                return typeFilter == .audio
+            case .local(let local):
+                return local.kind == .text ? typeFilter == .text : typeFilter == .video
+            }
+        }
+    }
+
+    private var dayGroups: [UnifiedNoteGroup] {
+        UnifiedInbox.groups(visibleNotes)
     }
 
     var body: some View {
@@ -40,10 +76,10 @@ struct RecordingLibraryView: View {
                 .padding(.top, 8)
 
                 HStack(spacing: 5) {
-                    Image(systemName: "iphone.gen3")
-                    Text(CaptureBrand.text("Сохранено на iPhone", "Saved locally on iPhone"))
+                    Image(systemName: "internaldrive")
+                    Text(CaptureBrand.text("Сохранено на устройстве", "Saved on this device"))
                     Spacer()
-                    Text(CaptureBrand.text("Записей: \(visibleRecordings.count)", "\(visibleRecordings.count) recordings"))
+                    Text(CaptureBrand.text("Заметок: \(visibleNotes.count)", "\(visibleNotes.count) notes"))
                         .monospacedDigit()
                 }
                 .font(.caption)
@@ -52,7 +88,7 @@ struct RecordingLibraryView: View {
                 .padding(.top, 8)
                 .padding(.bottom, 4)
 
-                if store.recordings.isEmpty {
+                if store.recordings.isEmpty && store.localNotes.isEmpty {
                     ContentUnavailableView(
                         CaptureBrand.text("Пока нет записей", "Nothing yet"),
                         systemImage: "waveform",
@@ -75,7 +111,10 @@ struct RecordingLibraryView: View {
                                 ? (group.day.rawValue == "Today" ? "Сегодня"
                                    : group.day.rawValue == "Yesterday" ? "Вчера" : "Ранее")
                                 : group.day.rawValue) {
-                                ForEach(group.recordings) { recording in
+                                ForEach(group.notes) { item in
+                                    switch item {
+                                    case .audio(let recording):
+
                                     recordingRow(recording)
                                         .swipeActions(edge: .leading, allowsFullSwipe: false) {
                                             Button {
@@ -118,6 +157,25 @@ struct RecordingLibraryView: View {
                                                 Label(CaptureBrand.text("Удалить запись", "Delete recording"), systemImage: "trash")
                                             }
                                         }
+                                    case .local(let note):
+                                        localNoteRow(note)
+                                            .swipeActions(edge: .leading, allowsFullSwipe: false) {
+                                                Button {
+                                                    store.setArchived(note, archived: !note.archived)
+                                                } label: {
+                                                    Label(note.archived ? "Restore" : "Archive",
+                                                          systemImage: note.archived ? "tray.and.arrow.up" : "archivebox")
+                                                }
+                                                .tint(.indigo)
+                                            }
+                                            .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+                                                Button(role: .destructive) {
+                                                    localNoteToDelete = note
+                                                } label: {
+                                                    Label(CaptureBrand.text("Удалить", "Delete"), systemImage: "trash")
+                                                }
+                                            }
+                                    }
                                 }
                             }
                         }
@@ -154,7 +212,18 @@ struct RecordingLibraryView: View {
                     .accessibilityLabel(CaptureBrand.text("Вернуться к быстрой записи", "Back to quick recording"))
                 }
                 ToolbarItemGroup(placement: .topBarTrailing) {
+                    Button {
+                        store.showTextCapture = true
+                    } label: {
+                        Image(systemName: "plus")
+                    }
+                    .accessibilityLabel(CaptureBrand.text("Создать текстовую заметку", "New text note"))
                     Menu {
+                        Picker(CaptureBrand.text("Тип заметки", "Note type"), selection: $typeFilter) {
+                            ForEach(NoteTypeFilter.allCases) { kind in
+                                Text(kind.title).tag(kind)
+                            }
+                        }
                         Picker(CaptureBrand.text("Язык распознавания", "Speech language"), selection: $store.transcriptionLocale) {
                             Text("Русский").tag("ru-RU")
                             Text("English").tag("en-US")
@@ -185,6 +254,34 @@ struct RecordingLibraryView: View {
             }) { export in
                 RecordingShareSheet(export: export)
             }
+            .sheet(item: $localNoteToEdit) { note in
+                TextNoteSheet(note: note).environmentObject(store)
+            }
+            .sheet(item: $localVideoToPlay) { note in
+                if let url = store.videoURL(for: note) {
+                    VideoPlaybackSheet(url: url)
+                }
+            }
+            .alert(
+                CaptureBrand.text("Удалить заметку?", "Delete note?"),
+                isPresented: Binding(
+                    get: { localNoteToDelete != nil },
+                    set: { if !$0 { localNoteToDelete = nil } }
+                ),
+                presenting: localNoteToDelete
+            ) { note in
+                Button(CaptureBrand.text("Удалить навсегда", "Delete permanently"),
+                       role: .destructive) {
+                    store.delete(note)
+                    localNoteToDelete = nil
+                }
+                Button(CaptureBrand.text("Отмена", "Cancel"), role: .cancel) {
+                    localNoteToDelete = nil
+                }
+            } message: { _ in
+                Text(CaptureBrand.text("Заметка и видео будут удалены с устройства.",
+                                       "This note and its video will be deleted from this device."))
+            }
             .sheet(item: $recordingToEdit) { recording in
                 TranscriptEditorSheet(
                     recording: recording,
@@ -195,6 +292,78 @@ struct RecordingLibraryView: View {
                 )
             }
         }
+    }
+
+    private func localNoteRow(_ note: LocalNote) -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            HStack {
+                Label(note.kind == .text
+                      ? CaptureBrand.text("Текст", "Text")
+                      : CaptureBrand.text("Видео", "Video"),
+                      systemImage: note.kind == .text ? "note.text" : "video.fill")
+                    .font(.headline)
+                Spacer()
+                Text(note.createdAt, style: .time)
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            }
+            if note.kind == .text {
+                Text(note.body)
+                    .lineLimit(4)
+                    .textSelection(.enabled)
+                Button(CaptureBrand.text("Редактировать", "Edit")) {
+                    localNoteToEdit = note
+                }
+                .font(.subheadline.bold())
+            } else {
+                if let url = store.videoURL(for: note),
+                   FileManager.default.fileExists(atPath: url.path) {
+                    HStack {
+                        VideoPoster(url: url)
+                            .frame(width: 76, height: 68)
+                            .clipShape(RoundedRectangle(cornerRadius: 9))
+                            .accessibilityHidden(true)
+                        Button {
+                            localVideoToPlay = note
+                        } label: {
+                            Label(CaptureBrand.text("Смотреть", "Play video"),
+                                  systemImage: "play.rectangle.fill")
+                        }
+                        ShareLink(item: url) {
+                            Label(CaptureBrand.text("Экспорт", "Export"),
+                                  systemImage: "square.and.arrow.up")
+                        }
+                    }
+                    if let duration = note.duration {
+                        Text(self.duration(duration))
+                            .font(.caption.monospacedDigit())
+                            .foregroundStyle(.secondary)
+                    }
+                } else {
+                    Label(CaptureBrand.text("Видео недоступно", "Video missing"),
+                          systemImage: "exclamationmark.triangle")
+                        .foregroundStyle(.orange)
+                }
+            }
+            HStack {
+                Button {
+                    store.setArchived(note, archived: !note.archived)
+                } label: {
+                    Label(note.archived ? CaptureBrand.text("Вернуть", "Restore") :
+                          CaptureBrand.text("В архив", "Archive"),
+                          systemImage: note.archived ? "tray.and.arrow.up" : "archivebox")
+                }
+                Spacer()
+                Button(role: .destructive) {
+                    localNoteToDelete = note
+                } label: {
+                    Image(systemName: "trash")
+                }
+            }
+            .font(.caption)
+            .buttonStyle(.borderless)
+        }
+        .padding(.vertical, 5)
     }
 
     private func recordingRow(_ recording: RecordingEnvelope) -> some View {

@@ -2,10 +2,12 @@ import AVFoundation
 import Combine
 import Foundation
 import Speech
+import UIKit
 
 @MainActor
 final class PhoneStore: NSObject, ObservableObject, AVAudioPlayerDelegate {
     @Published private(set) var recordings: [RecordingEnvelope] = []
+    @Published private(set) var localNotes: [LocalNote] = []
     @Published private(set) var playingID: UUID?
     @Published private(set) var transcribingID: UUID?
     @Published private(set) var transcripts: [UUID: String] = [:]
@@ -13,20 +15,25 @@ final class PhoneStore: NSObject, ObservableObject, AVAudioPlayerDelegate {
     @Published private(set) var lastWatchQueueSnapshot: WatchQueueSnapshot?
     @Published private(set) var batchTranscriptionActive = false
     @Published var showPhoneCapture = false
+    @Published var showTextCapture = false
+    @Published var showVideoCapture = false
     @Published var errorMessage: String?
     @Published var transcriptionLocale = UserDefaults.standard.string(forKey: "what.transcription.locale") ?? "ru-RU" {
         didSet { UserDefaults.standard.set(transcriptionLocale, forKey: "what.transcription.locale") }
     }
 
     private let repository: RecordingRepository
+    private let localNoteRepository: LocalNoteRepository
     private var player: AVAudioPlayer?
     private var recognitionTask: SFSpeechRecognitionTask?
     private var recognizer: SFSpeechRecognizer?
     private var batchIDs: [UUID] = []
     let phoneRecorder = PhoneRecordingController()
 
-    init(repository: RecordingRepository = RecordingRepository()) {
+    init(repository: RecordingRepository = RecordingRepository(),
+         localNoteRepository: LocalNoteRepository = LocalNoteRepository()) {
         self.repository = repository
+        self.localNoteRepository = localNoteRepository
         super.init()
         reload()
         reloadWatchQueueStatus()
@@ -42,11 +49,58 @@ final class PhoneStore: NSObject, ObservableObject, AVAudioPlayerDelegate {
 
     func reload() {
         recordings = repository.allRecordings()
+        do {
+            localNotes = try localNoteRepository.allNotes()
+        } catch {
+            errorMessage = "Could not read saved text/video notes: \(error.localizedDescription)"
+        }
         transcripts = repository.transcripts()
         do {
             archivedIDs = try repository.archivedIDs()
         } catch {
             errorMessage = "Could not read the archive: \(error.localizedDescription)"
+        }
+    }
+
+    func saveText(id: UUID, body: String) {
+        do {
+            _ = try localNoteRepository.saveText(
+                id: id, body: body,
+                sourceDevice: UIDevice.current.userInterfaceIdiom == .pad ? "iPad" : "iPhone"
+            )
+            localNotes = try localNoteRepository.allNotes()
+        } catch {
+            errorMessage = "Text note could not be saved: \(error.localizedDescription)"
+        }
+    }
+
+    func saveVideo(from temporaryURL: URL, duration: TimeInterval) throws {
+        _ = try localNoteRepository.importVideo(
+            from: temporaryURL, duration: duration,
+            sourceDevice: UIDevice.current.userInterfaceIdiom == .pad ? "iPad" : "iPhone"
+        )
+        localNotes = try localNoteRepository.allNotes()
+    }
+
+    func videoURL(for note: LocalNote) -> URL? {
+        localNoteRepository.videoURL(for: note)
+    }
+
+    func setArchived(_ note: LocalNote, archived: Bool) {
+        do {
+            try localNoteRepository.setArchived(note.id, archived: archived)
+            localNotes = try localNoteRepository.allNotes()
+        } catch {
+            errorMessage = "Could not archive the note: \(error.localizedDescription)"
+        }
+    }
+
+    func delete(_ note: LocalNote) {
+        do {
+            try localNoteRepository.delete(note.id)
+            localNotes = try localNoteRepository.allNotes()
+        } catch {
+            errorMessage = "Could not delete the note: \(error.localizedDescription)"
         }
     }
 

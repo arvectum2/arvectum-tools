@@ -24,3 +24,13 @@ xcodebuild -project What.xcodeproj -scheme WhatIOS \
 5. Only after that succeeds does iPhone send a durable ACK.
 6. Watch deletes its local copy only after receiving that ACK.
 7. Duplicate transfers are deduplicated by the stable recording UUID.
+
+
+## Multimodal capture (feature/what-multimodal-20261016)
+
+- Apple Watch: unchanged one-tap **audio-only** complication.
+- iPhone/iPad: existing large round button, **tap for immediate audio**, **hold >=0.5s for video**; separate small **+** for a typed note. There is no three-way mode chooser.
+- Typed drafts autosave atomically while editing; camera videos begin capture when permission is granted, retain an original .mov locally, display preview/poster, and can be shared/deleted.
+- LocalNoteRepository stores new text/video in What/local-notes.json with UUID-based videos under What/Videos; the Watch recordings.json, ACK and deletion tombstones remain untouched. UnifiedInbox merges both ledgers for display, dates, filters, search and archive.
+- iPad is in the supported target family (iOS 17+). No iPhone/iPad cloud sync is included.
+- Development-only simulator validation: iPhone/iPad build, local note repository tests and existing Watch reliability unit suite passed. **Do not ship** without testing camera audio, interruptions, actual hold gesture, offline Watch ACK, iPad layout and video recovery on real devices. Do not install a development build over the user's existing app without a verified data backup.

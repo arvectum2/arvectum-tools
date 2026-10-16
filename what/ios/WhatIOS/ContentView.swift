@@ -14,14 +14,24 @@ struct ContentView: View {
                 )
             } else {
                 QuickCaptureHomeView(
-                    recordingsCount: store.recordings.count,
+                    recordingsCount: store.recordings.count + store.localNotes.count,
                     startRecording: { store.beginPhoneCapture() },
+                    startVideo: { store.showVideoCapture = true },
+                    newText: { store.showTextCapture = true },
                     openLibrary: { showingLibrary = true }
                 )
             }
         }
         .sheet(isPresented: $store.showPhoneCapture) {
             PhoneRecordingSheet(recorder: store.phoneRecorder)
+        }
+        .sheet(isPresented: $store.showTextCapture) {
+            TextNoteSheet()
+                .environmentObject(store)
+        }
+        .sheet(isPresented: $store.showVideoCapture) {
+            VideoCaptureHost()
+                .environmentObject(store)
         }
         .alert(CaptureBrand.name, isPresented: Binding(
             get: { store.errorMessage != nil },
