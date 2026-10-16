@@ -259,6 +259,20 @@ struct ManageHabitsView: View {
                 .padding(.leading, 52)
 
             NavigationLink {
+                ChickMarkWeeklySummaryView()
+            } label: {
+                Label(L10n.string("weekly.title"), systemImage: "chart.bar.xaxis")
+                    .font(.subheadline.weight(.medium))
+                    .frame(maxWidth: .infinity, minHeight: 46, alignment: .leading)
+                    .padding(.horizontal, 14)
+                    .contentShape(Rectangle())
+            }
+            .buttonStyle(.plain)
+            .accessibilityIdentifier("manage.weekly-summary")
+            Divider()
+                .padding(.leading, 52)
+
+            NavigationLink {
                 ChickMarkAboutView()
             } label: {
                 HStack(spacing: 12) {
