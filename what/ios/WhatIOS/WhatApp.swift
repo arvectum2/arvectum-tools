@@ -18,6 +18,9 @@ struct WhatApp: App {
                 .onOpenURL { url in
                     if url.scheme == "what" && url.host == "record" {
                         store.showPhoneCapture = true
+                    } else if url.scheme == "what" && url.host == "note",
+                              let id = UUID(uuidString: url.lastPathComponent) {
+                        store.revealReminder(id)
                     }
                 }
                 .onReceive(NotificationCenter.default.publisher(for: .whatWatchQueueStatusReceived)) { _ in

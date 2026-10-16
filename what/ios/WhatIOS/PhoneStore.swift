@@ -3,12 +3,16 @@ import Combine
 import Foundation
 import Speech
 import UIKit
+import UserNotifications
 
 @MainActor
-final class PhoneStore: NSObject, ObservableObject, AVAudioPlayerDelegate {
+final class PhoneStore: NSObject, ObservableObject, AVAudioPlayerDelegate,
+                        UNUserNotificationCenterDelegate {
     @Published private(set) var recordings: [RecordingEnvelope] = []
     @Published private(set) var localNotes: [LocalNote] = []
     @Published var videoRecoveryNotice: String?
+    @Published var reminderTargetID: UUID?
+    let reminderManager = NoteReminderManager()
     @Published private(set) var playingID: UUID?
     @Published private(set) var transcribingID: UUID?
     @Published private(set) var transcripts: [UUID: String] = [:]
@@ -36,13 +40,42 @@ final class PhoneStore: NSObject, ObservableObject, AVAudioPlayerDelegate {
         self.repository = repository
         self.localNoteRepository = localNoteRepository
         super.init()
+        UNUserNotificationCenter.current().delegate = self
         reload()
         reloadWatchQueueStatus()
+        Task { [weak self] in await self?.reminderManager.reconcile() }
         Task { [weak self] in await self?.recoverInterruptedVideos() }
         phoneRecorder.onSaved = { [weak self] recording in
             self?.reload()
             self?.transcribeIfAuthorized(recording)
         }
+    }
+
+    func revealReminder(_ noteID: UUID) {
+        reload()
+        guard recordings.contains(where: { $0.id == noteID }) ||
+              localNotes.contains(where: { $0.id == noteID }) else { return }
+        reminderTargetID = noteID
+    }
+
+    nonisolated func userNotificationCenter(
+        _ center: UNUserNotificationCenter,
+        didReceive response: UNNotificationResponse,
+        withCompletionHandler completionHandler: @escaping () -> Void
+    ) {
+        if let value = response.notification.request.content.userInfo["noteID"] as? String,
+           let id = UUID(uuidString: value) {
+            Task { @MainActor [weak self] in self?.revealReminder(id) }
+        }
+        completionHandler()
+    }
+
+    nonisolated func userNotificationCenter(
+        _ center: UNUserNotificationCenter,
+        willPresent notification: UNNotification,
+        withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void
+    ) {
+        completionHandler([.banner, .sound])
     }
 
     func reloadWatchQueueStatus() {
@@ -126,6 +159,7 @@ final class PhoneStore: NSObject, ObservableObject, AVAudioPlayerDelegate {
     func delete(_ note: LocalNote) {
         do {
             try localNoteRepository.delete(note.id)
+            reminderManager.noteWasDeleted(note.id)
             localNotes = try localNoteRepository.allNotes()
         } catch {
             errorMessage = "Could not delete the note: \(error.localizedDescription)"
@@ -153,6 +187,7 @@ final class PhoneStore: NSObject, ObservableObject, AVAudioPlayerDelegate {
 
         do {
             try repository.deleteRecording(recording.id)
+            reminderManager.noteWasDeleted(recording.id)
             reload()
         } catch {
             reload()

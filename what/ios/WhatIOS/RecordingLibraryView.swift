@@ -88,6 +88,12 @@ struct RecordingLibraryView: View {
                 .padding(.top, 8)
                 .padding(.bottom, 4)
 
+                if let noteID = store.reminderTargetID {
+                    reminderTargetPanel(noteID)
+                        .padding(.horizontal)
+                        .padding(.vertical, 8)
+                }
+
                 if store.recordings.isEmpty && store.localNotes.isEmpty {
                     ContentUnavailableView(
                         CaptureBrand.text("Пока нет записей", "Nothing yet"),
@@ -349,6 +355,7 @@ struct RecordingLibraryView: View {
                 }
             }
             HStack {
+                reminderMenu(note.id)
                 Button {
                     store.setArchived(note, archived: !note.archived)
                 } label: {
@@ -367,6 +374,101 @@ struct RecordingLibraryView: View {
             .buttonStyle(.borderless)
         }
         .padding(.vertical, 5)
+    }
+
+    @ViewBuilder
+    private func reminderTargetPanel(_ noteID: UUID) -> some View {
+        if let audio = store.recordings.first(where: { $0.id == noteID }) {
+            reminderPanel(
+                id: noteID,
+                summary: store.transcripts[noteID]?.prefix(90).description
+                    ?? CaptureBrand.text("Голосовая заметка", "Voice note")
+            ) {
+                store.togglePlayback(audio)
+            }
+        } else if let note = store.localNotes.first(where: { $0.id == noteID }) {
+            reminderPanel(
+                id: noteID,
+                summary: note.kind == .text
+                    ? String(note.body.prefix(90))
+                    : CaptureBrand.text("Видеозаметка", "Video note")
+            ) {
+                if note.kind == .text {
+                    localNoteToEdit = note
+                } else {
+                    localVideoToPlay = note
+                }
+            }
+        }
+    }
+
+    private func reminderPanel(
+        id: UUID, summary: String, open: @escaping () -> Void
+    ) -> some View {
+        VStack(alignment: .leading, spacing: 10) {
+            HStack {
+                Label(CaptureBrand.text("Напоминание о заметке", "Reminder for a note"),
+                      systemImage: "bell.badge.fill")
+                    .font(.headline)
+                Spacer()
+                Button {
+                    store.reminderTargetID = nil
+                } label: {
+                    Image(systemName: "xmark")
+                }
+                .accessibilityLabel(CaptureBrand.text("Скрыть", "Dismiss"))
+            }
+            Text(summary)
+                .font(.subheadline)
+                .lineLimit(3)
+            HStack {
+                Button(action: open) {
+                    Label(CaptureBrand.text("Открыть", "Open"), systemImage: "arrow.up.right")
+                }
+                Button {
+                    store.reminderManager.markReviewed(id)
+                    store.reminderTargetID = nil
+                } label: {
+                    Label(CaptureBrand.text("Просмотрено", "Reviewed"),
+                          systemImage: "checkmark.circle")
+                }
+                .buttonStyle(.bordered)
+            }
+        }
+        .padding(12)
+        .background(Color.accentColor.opacity(0.1), in: RoundedRectangle(cornerRadius: 14))
+        .accessibilityIdentifier("what.reminder.target")
+    }
+
+    private func reminderMenu(_ noteID: UUID) -> some View {
+        let existing = store.reminderManager.reminder(for: noteID)
+        return Menu {
+            Button(CaptureBrand.text("Через 1 час", "In 1 hour")) {
+                Task { await store.reminderManager.schedule(noteID: noteID, afterHours: 1) }
+            }
+            Button(CaptureBrand.text("Через 2 часа", "In 2 hours")) {
+                Task { await store.reminderManager.schedule(noteID: noteID, afterHours: 2) }
+            }
+            Button(CaptureBrand.text("Через 3 часа", "In 3 hours")) {
+                Task { await store.reminderManager.schedule(noteID: noteID, afterHours: 3) }
+            }
+            if let existing, existing.status == .scheduled {
+                Divider()
+                Text(existing.remindAt, format: .dateTime.day().month().hour().minute())
+                Button(CaptureBrand.text("Отменить напоминание", "Cancel reminder"),
+                       role: .destructive) {
+                    store.reminderManager.cancel(noteID)
+                }
+            }
+            if let existing, existing.status != .reviewed {
+                Button(CaptureBrand.text("Отметить просмотренной", "Mark reviewed")) {
+                    store.reminderManager.markReviewed(noteID)
+                }
+            }
+        } label: {
+            Label(CaptureBrand.text("Напомнить", "Remind"), systemImage: "bell")
+        }
+        .accessibilityIdentifier("what.reminder.menu")
     }
 
     private func recordingRow(_ recording: RecordingEnvelope) -> some View {
@@ -496,6 +598,8 @@ struct RecordingLibraryView: View {
 
     private func actionsMenu(_ recording: RecordingEnvelope) -> some View {
         Menu {
+            reminderMenu(recording.id)
+            Divider()
             Button {
                 if store.transcribingID == recording.id {
                     store.cancelTranscription()

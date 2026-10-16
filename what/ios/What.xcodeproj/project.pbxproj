@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0281431BF7DF8E62E12DCFB2 /* WhatWatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4ED5C55003D60E489465C5D /* WhatWatchApp.swift */; };
+		04604BFD651F2DF50AC1D920 /* NoteReminderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE26A89EE1D5F22115781E2 /* NoteReminderTests.swift */; };
 		0633B2238EF1A5BD5B32969F /* ReviewDemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEC5029D31A75E43264EDFD /* ReviewDemoUITests.swift */; };
 		095E000031881CF97192ADAC /* SyncDiagnosticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E1CDF413B1021AF609E11A /* SyncDiagnosticsView.swift */; };
 		0D212F794FE2ADAC7D18CC52 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 1804DB448307D7581C01F806 /* PrivacyInfo.xcprivacy */; };
@@ -38,6 +39,7 @@
 		678FB4B35F0627D03AE0F736 /* WhatPhoneWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = EBF159B5D81F63DE0DAE6484 /* WhatPhoneWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		67A7309CBD38A6A55FD9B3D9 /* WatchTransferRetryPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A4FCD3C72E787C27B7E3EE /* WatchTransferRetryPolicy.swift */; };
 		686DBE4CA2BBE32B81849C8A /* CaptureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECAA3B8CBC13E2455D09ADE /* CaptureView.swift */; };
+		777FE9D809C98D951CDB114E /* NoteReminderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D470F43BFCDA8910723904 /* NoteReminderService.swift */; };
 		829D95F2391E62D3217A1C1A /* CaptureBrand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A64C8E1ED1DD3595D966992 /* CaptureBrand.swift */; };
 		8429BD4828F55DF8C4718902 /* LocalSemanticSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766855BE51B40DC7C113B75A /* LocalSemanticSearch.swift */; };
 		8DD93A3E6323ADD48EEF25AD /* CaptureBrand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A64C8E1ED1DD3595D966992 /* CaptureBrand.swift */; };
@@ -177,6 +179,7 @@
 		1D0B51DE0971B320ECF3899E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		226693D55A1B1351AC59CBE4 /* front.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = front.mov; sourceTree = "<group>"; };
 		246D11929E5A69C73C37010B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		27D470F43BFCDA8910723904 /* NoteReminderService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteReminderService.swift; sourceTree = "<group>"; };
 		27F5BECCDE1474FF547D4DDE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		28C9581F753BED275286D623 /* RecordingEnvelope.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingEnvelope.swift; sourceTree = "<group>"; };
 		2B8DC84E4B7383D9043BF774 /* CaptureLatency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureLatency.swift; sourceTree = "<group>"; };
@@ -222,6 +225,7 @@
 		A18C5018F3923EB2CC41A40A /* QuickCaptureHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickCaptureHomeView.swift; sourceTree = "<group>"; };
 		A4ED5C55003D60E489465C5D /* WhatWatchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatWatchApp.swift; sourceTree = "<group>"; };
 		AF84AA6ED70EBF8AE05B9A8A /* RussianModelManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RussianModelManager.swift; sourceTree = "<group>"; };
+		BAE26A89EE1D5F22115781E2 /* NoteReminderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteReminderTests.swift; sourceTree = "<group>"; };
 		BD17D674B9340C94107DCF39 /* ImmediateRecordingPayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImmediateRecordingPayload.swift; sourceTree = "<group>"; };
 		C5DBFDE9EA180D6409397677 /* LocalNoteRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNoteRepositoryTests.swift; sourceTree = "<group>"; };
 		CCEC9E429D08B3C421557916 /* WhatIOS.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = WhatIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -273,6 +277,7 @@
 				6F136B782C7BD70B4DF44EA5 /* LocalNoteRepository.swift */,
 				766855BE51B40DC7C113B75A /* LocalSemanticSearch.swift */,
 				2D93405209E72242B4DFEF0F /* MicrophoneCapturePipeline.swift */,
+				27D470F43BFCDA8910723904 /* NoteReminderService.swift */,
 				1245823325CC94B431825FC8 /* PhoneCaptureValidation.swift */,
 				1330B09BE7A27DED3358758C /* PhoneConnectivityManager.swift */,
 				E8F96BFC4E2D4DD08402B798 /* PhoneRecordingController.swift */,
@@ -304,6 +309,7 @@
 			isa = PBXGroup;
 			children = (
 				C5DBFDE9EA180D6409397677 /* LocalNoteRepositoryTests.swift */,
+				BAE26A89EE1D5F22115781E2 /* NoteReminderTests.swift */,
 				8BFFB46088A8945C66DFE7F4 /* RecordingRepositoryTests.swift */,
 				8268E2D4A99F1C2602FA0048 /* VideoCameraSwitchTests.swift */,
 				682F70E02EA71DD9734C7E1A /* VideoCaptureRecoveryTests.swift */,
@@ -722,6 +728,7 @@
 				175D4796E7730E0DA7420308 /* LocalNoteRepository.swift in Sources */,
 				8429BD4828F55DF8C4718902 /* LocalSemanticSearch.swift in Sources */,
 				D555B919D26F933D9EFAB7E3 /* MicrophoneCapturePipeline.swift in Sources */,
+				777FE9D809C98D951CDB114E /* NoteReminderService.swift in Sources */,
 				F4303B6D62B69352F08A372A /* PhoneCaptureValidation.swift in Sources */,
 				A42F93400DD2B4DFBB398F4A /* PhoneConnectivityManager.swift in Sources */,
 				9624AC1580E81B3F01859FFC /* PhoneRecordingController.swift in Sources */,
@@ -758,6 +765,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A568E5D8E61176E8134FC2A5 /* LocalNoteRepositoryTests.swift in Sources */,
+				04604BFD651F2DF50AC1D920 /* NoteReminderTests.swift in Sources */,
 				A2FFB527B39A111ECF5F3A00 /* RecordingRepositoryTests.swift in Sources */,
 				36547C544E7ADF8E5D96016E /* VideoCameraSwitchTests.swift in Sources */,
 				E1410275E080ACF1E274640E /* VideoCaptureRecoveryTests.swift in Sources */,

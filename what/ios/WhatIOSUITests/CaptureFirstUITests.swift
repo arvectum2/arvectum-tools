@@ -104,6 +104,38 @@ final class CaptureFirstUITests: XCTestCase {
         XCTAssertTrue(capture.waitForExistence(timeout: 5))
     }
 
+    func testTextNoteCanOpenReminderPresetsWithoutPermissionPrompt() throws {
+        let app = XCUIApplication()
+        app.launch()
+        let plus = app.buttons["what.new.text"]
+        XCTAssertTrue(plus.waitForExistence(timeout: 10))
+        plus.tap()
+        let editor = app.textViews["what.text.editor"]
+        XCTAssertTrue(editor.waitForExistence(timeout: 5))
+        editor.tap()
+        editor.typeText("Reminder menu test")
+        let done = app.buttons.matching(
+            NSPredicate(format: "label == %@ OR label == %@", "Готово", "Done")
+        ).firstMatch
+        done.tap()
+        let library = app.buttons.matching(
+            NSPredicate(format: "label BEGINSWITH %@ OR label BEGINSWITH %@",
+                        "Мои записи", "My recordings")
+        ).firstMatch
+        XCTAssertTrue(library.waitForExistence(timeout: 5))
+        library.tap()
+        let reminder = app.buttons["what.reminder.menu"].firstMatch
+        XCTAssertTrue(reminder.waitForExistence(timeout: 8))
+        reminder.tap()
+        let option = app.buttons.matching(
+            NSPredicate(format: "label == %@ OR label == %@",
+                        "Через 1 час", "In 1 hour")
+        ).firstMatch
+        XCTAssertTrue(option.waitForExistence(timeout: 5))
+        // Do not select a time; permission must only be requested on opt-in.
+        XCTAssertEqual(app.alerts.count, 0)
+    }
+
     func testLongPressGoesToVideoNotAudio() throws {
         let app = XCUIApplication()
         app.launch()

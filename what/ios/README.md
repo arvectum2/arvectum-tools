@@ -51,3 +51,8 @@ On application launch, VideoCaptureRecovery inspects interrupted sessions. Fully
 ### Adaptive iPad layout (M5a)
 
 The quick-capture home now adapts to shorter/narrower scenes with vertical scrolling without changing its main tap-to-audio/hold-to-video gesture. Library, text-editor and video-preview content use readable maximum widths on a large iPad. The video capture view scrolls to keep Stop/Save and camera rotation accessible when available height is low. Landscape iPad simulator UI tests cover home capture control, + text editor and library/back navigation. Physical Split View resize, very large accessibility type and camera acceptance remain pending.
+
+
+### Per-note reminders (P6a, local only, opt-in)
+
+From an audio, typed-text or video entry in the Inbox, choose Remind → In 1/2/3 hours. This requests local-notification permission only following an explicit user action. The same stable UUID reschedules rather than duplicating notifications; users can cancel or mark reviewed. Deleting the original note cancels its alert. Notification text is always generic, never the private note body or transcript. Notification taps carry the local UUID and show the matching entry in the Inbox, including archived notes, with quick Open/Reviewed actions. Review reminders are stored atomically in Application Support/What/review-reminders.json and pending system notifications are reconciled after relaunch without asking permission automatically. No network, no ChickMark dependency, no automatic reminders. Tests use an injected local scheduler rather than sending real notifications; physical tap-through testing is still pending.

@@ -22,6 +22,15 @@ struct ContentView: View {
                 )
             }
         }
+        .onAppear {
+            if store.reminderTargetID != nil { showingLibrary = true }
+        }
+        .onChange(of: store.reminderTargetID) { _, id in
+            if id != nil { showingLibrary = true }
+        }
+        .onChange(of: store.reminderManager.errorMessage) { _, message in
+            if let message { store.errorMessage = message }
+        }
         .sheet(isPresented: $store.showPhoneCapture) {
             PhoneRecordingSheet(recorder: store.phoneRecorder)
         }
