@@ -59,3 +59,13 @@
 - **iPhone QA build 8 installed in-place successfully** (same app bundle identifier); pre-upgrade backup of the QA app's Application Support is on ArvectumSSD. Read-only post-upgrade verification: 13 files before, 13 after, no missing paths, all sizes unchanged.
 - **Watch QA build 8 NOT installed**: Apple Watch not currently reachable via Mac mini CoreDevice, and user has not confirmed that a recording isn't active. Keep the existing Watch QA build 7 and all Watch user data untouched. Signed Watch QA build 8 remains staged in builds/what-watch-recovery-qa-20261016.
 - **NEXT GATE:** ensure Watch QA capture is stopped, unlock Watch, keep it alongside Mac mini/paired iPhone until CoreDevice connects; install the matching signed Watch QA build 8 in-place (never uninstall) and repeat the reboot/offline sync test **without manually opening the Watch app**.
+
+## QA build 8 deployment to physical devices (2026-10-16)
+
+- User confirmed Watch was unlocked and Watch QA capture was stopped before deployment.
+- Mac mini CoreDevice reconnected to the paired physical Apple Watch SE. Existing Watch QA identified as 1.0.2 (7).
+- **Read-only Watch backup succeeded before deployment:** Documents/WhatOutbound/queue.json recorded 0 pending envelopes. Backed up complete WhatOutbound directory (one index file) to restricted ArvectumSSD builds/what-watch-recovery-qa-20261016/device-backup/.
+- **Watch QA 1.0.2 (8) installed successfully IN PLACE**, bundle ru.arvectum.tools.what.qa.watch unchanged; no uninstall, no container reset. The installer reported successful installation, and its subsequent initial installed-app listing confirmed 1.0.2 (8).
+- **iPhone QA 1.0.2 (8)** had already been installed in place; 13 Application Support files were preserved across upgrade and a backup exists.
+- Post-upgrade read-only Watch queue check was attempted but CoreDevice pairing tunnel timed out; therefore post-upgrade Watch queue index was **not independently read**. No modification or deletion was performed as part of this check.
+- **Pending physical release test:** with iPhone switched off, record on Watch QA build 8, press Stop, reboot Watch, unlock Watch after reboot WITHOUT opening Watch QA, switch on iPhone, open iPhone QA build 8 and wait 2–3 minutes. Confirm that the recording appears automatically and plays, without another tap on the Watch app; inspect for duplicates. App Store release remains BLOCKED until acceptance passes.
