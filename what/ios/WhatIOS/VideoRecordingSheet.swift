@@ -27,8 +27,19 @@ final class VideoCaptureController: NSObject, ObservableObject,
     private var stopping = false
     private var flow = VideoCaptureTransition()
     private var clips: [URL] = []
+    private var hasDamagedSegments = false
+    private nonisolated(unsafe) let recoveryJournal = VideoCaptureJournal()
+    private nonisolated(unsafe) var recoveryID: UUID?
+    // Advanced only on the camera's serial session queue.
+    private nonisolated(unsafe) var nextSegmentNumber = 0
 
-    var onSaved: ((URL, TimeInterval) throws -> Void)?
+    var onSaved: ((URL, TimeInterval, UUID) throws -> Void)?
+
+    deinit {
+        if let recoveryID {
+            VideoCaptureJournal.setActive(recoveryID, active: false)
+        }
+    }
 
     var canSwitchCamera: Bool {
         AVCaptureDevice.default(.builtInWideAngleCamera, for: .video,
@@ -77,14 +88,27 @@ final class VideoCaptureController: NSObject, ObservableObject,
     }
 
     private nonisolated func nextClipURL() throws -> URL {
-        let root = FileManager.default.urls(
-            for: .applicationSupportDirectory, in: .userDomainMask
-        ).first!.appendingPathComponent("What/VideoCaptures", isDirectory: true)
-        try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)
-        return root.appendingPathComponent(UUID().uuidString + ".mov")
+        guard let recoveryID else { throw CaptureError.unavailable }
+        let number = nextSegmentNumber
+        nextSegmentNumber += 1
+        return recoveryJournal.segmentURL(for: recoveryID, index: number)
     }
 
     private func configureAndStart() {
+        do {
+            // Persist capture identity before AVFoundation writes any bytes.
+            recoveryID = try recoveryJournal.begin()
+            if let recoveryID {
+                VideoCaptureJournal.setActive(recoveryID, active: true)
+            }
+        } catch {
+            isPreparing = false
+            errorMessage = CaptureBrand.text(
+                "Не удалось создать безопасное хранилище для видеозаписи: ",
+                "Could not prepare durable video capture storage: "
+            ) + error.localizedDescription
+            return
+        }
         sessionQueue.async { [self] in
             do {
                 session.beginConfiguration()
@@ -152,7 +176,21 @@ final class VideoCaptureController: NSObject, ObservableObject,
 
     func finish(discard: Bool = false) {
         guard !isSaving, !stopping else { return }
-        flow.requestStop(discard: discard)
+        var discardSafely = discard
+        if discard, let recoveryID {
+            do {
+                // Persist the user's explicit Discard before deleting clips.
+                // A crash after dismissal must never resurrect a deleted note.
+                try recoveryJournal.markDiscarded(recoveryID)
+            } catch {
+                discardSafely = false
+                errorMessage = CaptureBrand.text(
+                    "Невозможно безопасно удалить черновик; сохраняем видео. ",
+                    "Cannot safely discard the draft; saving the video. "
+                ) + error.localizedDescription
+            }
+        }
+        flow.requestStop(discard: discardSafely)
         stopping = true
 
         // The pending switch's stopRecording is already in progress;
@@ -166,7 +204,13 @@ final class VideoCaptureController: NSObject, ObservableObject,
                 session.stopRunning()
                 Task { @MainActor in
                     isPreparing = false
-                    if discard { clearTemporaryClips() }
+                    if flow.shouldDiscard {
+                        clearTemporaryClips()
+                        if let recoveryID {
+                            try? recoveryJournal.removeSavedSession(recoveryID)
+                            VideoCaptureJournal.setActive(recoveryID, active: false)
+                        }
+                    }
                 }
             }
         }
@@ -205,6 +249,10 @@ final class VideoCaptureController: NSObject, ObservableObject,
                 clips.append(outputFileURL)
                 closeSession()
                 clearTemporaryClips()
+                if let recoveryID {
+                    try? recoveryJournal.removeSavedSession(recoveryID)
+                    VideoCaptureJournal.setActive(recoveryID, active: false)
+                }
                 isSwitching = false
                 isPreparing = false
                 return
@@ -215,6 +263,7 @@ final class VideoCaptureController: NSObject, ObservableObject,
             } else {
                 // Do not erase a partially written original after a camera
                 // interruption. It remains in VideoCaptures for recovery.
+                hasDamagedSegments = true
                 flow.requestStop(discard: false)
                 stopping = true
                 errorMessage = CaptureBrand.text(
@@ -314,8 +363,14 @@ final class VideoCaptureController: NSObject, ObservableObject,
             return
         }
 
-        let destination = clips[0].deletingLastPathComponent()
-            .appendingPathComponent(UUID().uuidString + "-combined.mov")
+        guard let recoveryID else {
+            errorMessage = "Missing capture ID — original segments were preserved."
+            return
+        }
+        let destination = recoveryJournal.mergedURL(for: recoveryID)
+        // A previous interrupted export can leave a generated partial file.
+        // Only the generated combination, never a camera segment, is replaced.
+        try? FileManager.default.removeItem(at: destination)
         do {
             let composed = try await VideoSegmentComposer.compose(
                 clips, destination: destination
@@ -323,11 +378,14 @@ final class VideoCaptureController: NSObject, ObservableObject,
             // Never treat an absent host callback as a successful save:
             // the segments must remain recoverable in that case.
             guard let onSaved else { throw CaptureError.saveHandlerUnavailable }
-            try onSaved(composed.url, composed.duration)
-            if composed.isTemporaryExport {
-                try? FileManager.default.removeItem(at: composed.url)
+            try onSaved(composed.url, composed.duration, recoveryID)
+            if !hasDamagedSegments {
+                // Only now is the movie durably indexed and safe to clean up.
+                try? recoveryJournal.removeSavedSession(recoveryID)
+                clips.removeAll()
             }
-            clearTemporaryClips()
+            VideoCaptureJournal.setActive(recoveryID, active: false)
+            // Interrupted/corrupt originals stay available for manual salvage.
             didSave = true
         } catch {
             // Keep *all* originals intact if merging or importing failed.
@@ -528,8 +586,8 @@ struct VideoCaptureHost: View {
     var body: some View {
         VideoRecordingSheet(recorder: recorder)
             .onAppear {
-                recorder.onSaved = { [store] url, duration in
-                    try store.saveVideo(from: url, duration: duration)
+                recorder.onSaved = { [store] url, duration, id in
+                    try store.saveVideo(from: url, duration: duration, id: id)
                 }
             }
     }

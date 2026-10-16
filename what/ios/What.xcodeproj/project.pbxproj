@@ -73,9 +73,11 @@
 		D456C732D9EC57650A0642D3 /* WatchA2ReliabilityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154E194A750613AB8610B080 /* WatchA2ReliabilityTests.swift */; };
 		D555B919D26F933D9EFAB7E3 /* MicrophoneCapturePipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D93405209E72242B4DFEF0F /* MicrophoneCapturePipeline.swift */; };
 		D617395D9EB07EE903D5910D /* RecordingLibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ABEE922A1A0E2358928B374 /* RecordingLibraryView.swift */; };
+		E1410275E080ACF1E274640E /* VideoCaptureRecoveryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682F70E02EA71DD9734C7E1A /* VideoCaptureRecoveryTests.swift */; };
 		E279702F2EC466E836C3CC17 /* RecordingExportService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11CFD6F6D4AFB8ABAD4DFDB0 /* RecordingExportService.swift */; };
 		E3893E066893F2910B7CF399 /* ArvectumDiagnostics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F641354BA45B5E4FE581C7 /* ArvectumDiagnostics.swift */; };
 		E3E14B894F6D08B14F550FD7 /* WhatPhoneWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C8C7D0F4914D000D27D69C4 /* WhatPhoneWidget.swift */; };
+		F29A76210DD5A00A0345526E /* VideoCaptureRecovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10A0221F8BF766156AE3B4A9 /* VideoCaptureRecovery.swift */; };
 		F4303B6D62B69352F08A372A /* PhoneCaptureValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1245823325CC94B431825FC8 /* PhoneCaptureValidation.swift */; };
 		F77189CD0E38807FF673FC80 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 504D7E8A050C788BB8AB0E56 /* Assets.xcassets */; };
 		F9C19D9959D6599EB64761DF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 99DB21FE53DE00F00AA709D4 /* InfoPlist.strings */; };
@@ -163,6 +165,7 @@
 		0A671C143C8B8AA6E71D5046 /* InboxOrganizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxOrganizer.swift; sourceTree = "<group>"; };
 		0C8C7D0F4914D000D27D69C4 /* WhatPhoneWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatPhoneWidget.swift; sourceTree = "<group>"; };
 		0E538C9737AF66FDF491ED6C /* RussianConceptSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RussianConceptSearch.swift; sourceTree = "<group>"; };
+		10A0221F8BF766156AE3B4A9 /* VideoCaptureRecovery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCaptureRecovery.swift; sourceTree = "<group>"; };
 		11CFD6F6D4AFB8ABAD4DFDB0 /* RecordingExportService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingExportService.swift; sourceTree = "<group>"; };
 		1245823325CC94B431825FC8 /* PhoneCaptureValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneCaptureValidation.swift; sourceTree = "<group>"; };
 		1330B09BE7A27DED3358758C /* PhoneConnectivityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneConnectivityManager.swift; sourceTree = "<group>"; };
@@ -198,6 +201,7 @@
 		5F5B002901CADCA87C0FB4C0 /* WhatIOSUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = WhatIOSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		61B9DCBC7397B955436563CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		656D51A35B41EF02C9891B44 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		682F70E02EA71DD9734C7E1A /* VideoCaptureRecoveryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCaptureRecoveryTests.swift; sourceTree = "<group>"; };
 		6F136B782C7BD70B4DF44EA5 /* LocalNoteRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNoteRepository.swift; sourceTree = "<group>"; };
 		6FEDFC32DD8C7A561856A386 /* WatchCaptureController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchCaptureController.swift; sourceTree = "<group>"; };
 		7370C6755DFFFA5B932DB2AE /* VideoCaptureTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCaptureTransition.swift; sourceTree = "<group>"; };
@@ -286,6 +290,7 @@
 				5AA9D8C395BF9B08940A7689 /* TextNoteSheet.swift */,
 				3FEB908379268EDF523C2242 /* TranscriptEditorSheet.swift */,
 				7CFB25EFAE0D572DD9D7A37D /* TranscriptLexicalMatcher.swift */,
+				10A0221F8BF766156AE3B4A9 /* VideoCaptureRecovery.swift */,
 				7370C6755DFFFA5B932DB2AE /* VideoCaptureTransition.swift */,
 				4E7551688F04996B25C560E4 /* VideoRecordingSheet.swift */,
 				191682D8916DEBB06E5A1BF8 /* VideoSegmentComposer.swift */,
@@ -301,6 +306,7 @@
 				C5DBFDE9EA180D6409397677 /* LocalNoteRepositoryTests.swift */,
 				8BFFB46088A8945C66DFE7F4 /* RecordingRepositoryTests.swift */,
 				8268E2D4A99F1C2602FA0048 /* VideoCameraSwitchTests.swift */,
+				682F70E02EA71DD9734C7E1A /* VideoCaptureRecoveryTests.swift */,
 				154E194A750613AB8610B080 /* WatchA2ReliabilityTests.swift */,
 				150A216B97AAC70C132ABAB8 /* Fixtures */,
 			);
@@ -733,6 +739,7 @@
 				A30C3DE47ABA4E7759819923 /* TextNoteSheet.swift in Sources */,
 				2FD0DAFDEE58B7F0BCB4612F /* TranscriptEditorSheet.swift in Sources */,
 				A8AC3088BF322AEB5EB000B8 /* TranscriptLexicalMatcher.swift in Sources */,
+				F29A76210DD5A00A0345526E /* VideoCaptureRecovery.swift in Sources */,
 				94DBE713D16466BF0B344B4B /* VideoCaptureTransition.swift in Sources */,
 				B77AF3F4186E6257E152FDCB /* VideoRecordingSheet.swift in Sources */,
 				907B5B5A45A712254AAFE0F5 /* VideoSegmentComposer.swift in Sources */,
@@ -753,6 +760,7 @@
 				A568E5D8E61176E8134FC2A5 /* LocalNoteRepositoryTests.swift in Sources */,
 				A2FFB527B39A111ECF5F3A00 /* RecordingRepositoryTests.swift in Sources */,
 				36547C544E7ADF8E5D96016E /* VideoCameraSwitchTests.swift in Sources */,
+				E1410275E080ACF1E274640E /* VideoCaptureRecoveryTests.swift in Sources */,
 				D456C732D9EC57650A0642D3 /* WatchA2ReliabilityTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -8,6 +8,7 @@ import UIKit
 final class PhoneStore: NSObject, ObservableObject, AVAudioPlayerDelegate {
     @Published private(set) var recordings: [RecordingEnvelope] = []
     @Published private(set) var localNotes: [LocalNote] = []
+    @Published var videoRecoveryNotice: String?
     @Published private(set) var playingID: UUID?
     @Published private(set) var transcribingID: UUID?
     @Published private(set) var transcripts: [UUID: String] = [:]
@@ -37,6 +38,7 @@ final class PhoneStore: NSObject, ObservableObject, AVAudioPlayerDelegate {
         super.init()
         reload()
         reloadWatchQueueStatus()
+        Task { [weak self] in await self?.recoverInterruptedVideos() }
         phoneRecorder.onSaved = { [weak self] recording in
             self?.reload()
             self?.transcribeIfAuthorized(recording)
@@ -74,12 +76,38 @@ final class PhoneStore: NSObject, ObservableObject, AVAudioPlayerDelegate {
         }
     }
 
-    func saveVideo(from temporaryURL: URL, duration: TimeInterval) throws {
+    func saveVideo(from temporaryURL: URL, duration: TimeInterval,
+                   id: UUID = UUID()) throws {
         _ = try localNoteRepository.importVideo(
-            from: temporaryURL, duration: duration,
+            from: temporaryURL, duration: duration, id: id,
             sourceDevice: UIDevice.current.userInterfaceIdiom == .pad ? "iPad" : "iPhone"
         )
         localNotes = try localNoteRepository.allNotes()
+    }
+
+    func recoverInterruptedVideos() async {
+        do {
+            let result = try await VideoCaptureRecovery.recover(
+                journal: VideoCaptureJournal(), repository: localNoteRepository
+            )
+            if result.recovered > 0 { localNotes = try localNoteRepository.allNotes() }
+            if result.unresolved > 0 {
+                videoRecoveryNotice = CaptureBrand.text(
+                    "Восстановлено: \(result.recovered). Часть видеофрагментов оставлена для повторного восстановления.",
+                    "Recovered: \(result.recovered). Some video segments are still saved for another recovery attempt."
+                )
+            } else if result.recovered > 0 {
+                videoRecoveryNotice = CaptureBrand.text(
+                    "Восстановлены видеозаметки: \(result.recovered).",
+                    "Recovered video notes: \(result.recovered)."
+                )
+            }
+        } catch {
+            videoRecoveryNotice = CaptureBrand.text(
+                "Не удалось восстановить видео. Исходные файлы не удалены. ",
+                "Video recovery failed. Original files remain on device. "
+            ) + error.localizedDescription
+        }
     }
 
     func videoURL(for note: LocalNote) -> URL? {

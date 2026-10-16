@@ -33,6 +33,32 @@ struct ContentView: View {
             VideoCaptureHost()
                 .environmentObject(store)
         }
+        .safeAreaInset(edge: .top, spacing: 0) {
+            if let notice = store.videoRecoveryNotice {
+                HStack(spacing: 10) {
+                    Image(systemName: "externaldrive.badge.checkmark")
+                    Text(notice)
+                        .font(.caption)
+                    Spacer(minLength: 4)
+                    Button {
+                        Task { await store.recoverInterruptedVideos() }
+                    } label: {
+                        Image(systemName: "arrow.clockwise")
+                    }
+                    .accessibilityLabel(
+                        CaptureBrand.text("Повторить восстановление", "Retry video recovery")
+                    )
+                    Button {
+                        store.videoRecoveryNotice = nil
+                    } label: {
+                        Image(systemName: "xmark")
+                    }
+                    .accessibilityLabel(CaptureBrand.text("Скрыть", "Dismiss"))
+                }
+                .padding(10)
+                .background(.thinMaterial)
+            }
+        }
         .alert(CaptureBrand.name, isPresented: Binding(
             get: { store.errorMessage != nil },
             set: { if !$0 { store.errorMessage = nil } }

@@ -151,8 +151,20 @@ final class LocalNoteRepository {
         return note
     }
 
+    func hasVideo(id: UUID) throws -> Bool {
+        lock.lock()
+        defer { lock.unlock() }
+        return try readIndex().contains {
+            $0.id == id && $0.kind == .video &&
+            fileManager.fileExists(atPath: videosURL.appendingPathComponent(
+                id.uuidString + ".mov"
+            ).path)
+        }
+    }
+
     @discardableResult
     func importVideo(from source: URL, duration: TimeInterval,
+                     id: UUID = UUID(),
                      sourceDevice: String = "iOS") throws -> LocalNote {
         guard duration > 0, fileManager.fileExists(atPath: source.path),
               let size = try fileManager.attributesOfItem(atPath: source.path)[.size] as? NSNumber,
@@ -160,7 +172,22 @@ final class LocalNoteRepository {
         lock.lock()
         defer { lock.unlock() }
         var notes = try readIndex()
-        let id = UUID()
+        if let existing = notes.first(where: { $0.id == id }) {
+            guard existing.kind == .video else { throw NoteError.incorrectKind }
+            let path = videosURL.appendingPathComponent(id.uuidString + ".mov")
+            if fileManager.fileExists(atPath: path.path) { return existing }
+            // A crashed file-system migration may leave the index but not
+            // the original. Reconstruct the missing media without a duplicate.
+            let staged = videosURL.appendingPathComponent("." + id.uuidString + ".repair")
+            try fileManager.copyItem(at: source, to: staged)
+            do {
+                try fileManager.moveItem(at: staged, to: path)
+            } catch {
+                try? fileManager.removeItem(at: staged)
+                throw error
+            }
+            return existing
+        }
         let name = id.uuidString + ".mov"
         let destination = videosURL.appendingPathComponent(name)
         let staging = videosURL.appendingPathComponent("." + name + ".incoming")

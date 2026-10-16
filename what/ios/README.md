@@ -39,3 +39,10 @@ xcodebuild -project What.xcodeproj -scheme WhatIOS \
 ### Back / front camera switch (feature branch; not yet installed)
 
 The active video recording screen now includes a camera-rotate button. During recording, a camera switch stops the current MOV segment, reconfigures the AVFoundation video input without replacing the microphone input, and resumes with the other camera. Stop/Discard override a pending switch. On Save, segments are exported into one playable local video with their source orientations and audio. Original segments remain untouched until the repository successfully imports the merged video. A single camera segment is imported without transcoding. No data is transmitted to a server. The simulator unit tests use tiny synthetic AV movies (red/back and blue/front) to verify the actual output's frames, combined duration and audio track; actual camera behavior still requires physical iPhone/iPad QA.
+
+
+### Crash-safe video recovery (M7a, simulator-verified)
+
+Each new recording gets a durable UUID and an atomic session manifest in Application Support/What/VideoCaptures/UUID/session.json. Camera input changes write ordered segment files. Stop/Save imports the final original/merged media under this same UUID, then deletes the staging folder only after a confirmed repository commit. A failed import preserves the original files. Explicit Discard is durably marked before deleting; discarded clips will not reappear as notes after a crash.
+
+On application launch, VideoCaptureRecovery inspects interrupted sessions. Fully decodable clips become a single restored video note; the original files remain untouched if some segments are damaged. Repeated launch cannot create duplicate notes, and missing indexed media is repairable. A non-blocking banner reports recovered notes and warns when any damaged segments remain. Eight additional recovery tests use synthetic AVFoundation movie fixtures. iPhone camera/microphone real hardware, forced termination and out-of-space still require physical QA before App Store submission. Existing Watch audio/ACK files are not modified.
