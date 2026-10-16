@@ -1,6 +1,6 @@
 # Watch one-tap physical acceptance — Ухват 1.0.2
 
-**Gate:** BLOCKED — physical one-tap Watch entry PASS by owner report; still awaiting saved/playable audio, interruption and transfer/recovery acceptance.
+**Gate:** BLOCKED — physical one-tap Watch entry PASS by owner report; saved/playable audio on iPhone PASS by owner report; still awaiting Digital Crown interruption and transfer/recovery acceptance.
 
 ## Verified on 2026-10-16 (Mac mini, Xcode 27.1)
 
@@ -14,7 +14,7 @@
 ## Manual hardware acceptance (still unchecked)
 
 - [x] **User-reported physical PASS (2026-10-16):** added **Ухват QA — Запись** complication on physical Apple Watch SE; a single tap from watch face started recording immediately, with no second tap. Evidence: owner explicitly confirmed in chat «во! кайф! теперь сразу началась». Latency was not measured; stop/audio integrity/phone delivery have not yet been confirmed.
-- [ ] Stop after several seconds. Confirm saved status and exactly one playable note in **Ухват QA** on iPhone.
+- [x] **User-reported physical PASS (2026-10-16):** after recording via Watch, a new note appeared in **Ухват QA** on iPhone and its audio played with sound. This followed the requested Stop-button test. User explicitly confirmed «запись появилась, звук есть». Exactly-once delivery under retries/ACK not separately proven.
 - [ ] Return to watch face using Digital Crown while recording and confirm finalized playable note reached iPhone.
 - [ ] Repeat from watch face when app was fully closed/previously used. Confirm exactly one new recording per tap, no duplicate.
 - [ ] Validate offline Watch → iPhone transfer, ACK and reboot recovery on physical devices before public release.
