@@ -54,7 +54,9 @@ struct TodayView: View {
         else { return [] }
         return GentleRestart.candidates(
             habits: habits,
-            checkIns: checkIns,
+            // Same resolved projection as the visible Today checkmark:
+            // never invite a Health-completed habit to restart today.
+            checkIns: displayedCheckIns,
             skips: skips,
             pausePeriods: pausePeriods,
             today: referenceDate,

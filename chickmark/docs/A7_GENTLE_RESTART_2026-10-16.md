@@ -8,7 +8,7 @@ The owner reports Apple approval of the latest submitted **ChickMark 1.4.1 (15)*
 
 - Opt-in local iPhone-only setting in Manage Habits; OFF by default. Choose a quiet period of **3 / 7 / 14 days**.
 - Existing habits only: a hint appears only if at least one genuine **fully completed** past occurrence exists, the habit is due today, not already completed/skipped today, and not archived or currently paused.
-- The comparison uses calendar/day keys (not seconds), ignores neutral **paused and skipped days**, and excludes unfinished partial quantitative check-ins from completed-history evidence.
+- The comparison uses calendar/day keys (not seconds), ignores neutral **paused and skipped days**, and excludes unfinished partial quantitative check-ins from completed-history evidence. Today uses the **same resolved HealthKit/manual check-in projection as the visible habit row**: a habit auto-completed from authorized Health samples must not receive a stale restart hint.
 - For completion-relative routines, an on-time due day is **not** a lapse. Hints require the configured completion deadline to be overdue for the threshold interval.
 - Card contains a link to the existing habit detail, not an automatic check-off. `Maybe tomorrow` silences it for **today only**; next calendar day re-evaluates without changing the recorded history.
 - `@AppStorage` keys stay local and are absent from CloudKit/JSON backups. **No new SwiftData model, migration, HealthKit request, check-in or day mutation.**
