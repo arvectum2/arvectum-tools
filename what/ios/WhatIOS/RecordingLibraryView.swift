@@ -92,7 +92,7 @@ struct RecordingLibraryView: View {
                     ContentUnavailableView(
                         CaptureBrand.text("Пока нет записей", "Nothing yet"),
                         systemImage: "waveform",
-                        description: Text(CaptureBrand.text("Нажмите большую кнопку записи на iPhone или запишите мысль на Apple Watch. Все записи появятся здесь.", "Tap the large recording button on iPhone or record a thought on Apple Watch. Every saved note appears here."))
+                        description: Text(CaptureBrand.text("Нажмите большую кнопку записи или создайте текстовую заметку через «+». Записи с Apple Watch тоже появятся здесь.", "Tap the large recording button or use + for text. Apple Watch audio appears here too."))
                     )
                 } else if dayGroups.isEmpty {
                     ContentUnavailableView(
@@ -101,7 +101,7 @@ struct RecordingLibraryView: View {
                             : CaptureBrand.text("Записи не найдены", "No matching recordings"),
                         systemImage: searchText.isEmpty ? "tray" : "magnifyingglass",
                         description: Text(searchText.isEmpty
-                            ? CaptureBrand.text("Записи в архиве остаются на iPhone.", "Archived recordings stay saved on this iPhone.")
+                            ? CaptureBrand.text("Заметки в архиве остаются на устройстве.", "Archived notes stay on this device.")
                             : CaptureBrand.text("Поиск по текстам и датам.", "Search looks through saved transcripts and dates."))
                     )
                 } else {

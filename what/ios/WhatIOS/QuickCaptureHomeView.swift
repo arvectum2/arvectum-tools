@@ -74,7 +74,7 @@ struct QuickCaptureHomeView: View {
                             .padding(.top, compactLayout ? 7 : 12)
 
                         Label(
-                            isRussian ? "Сохраняется на iPhone" : "Saved on your iPhone",
+                            isRussian ? "Сохраняется на устройстве" : "Saved on this device",
                             systemImage: "lock.shield"
                         )
                         .font(.system(size: 13))

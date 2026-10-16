@@ -14,7 +14,7 @@ struct PhoneRecordingSheet: View {
                     .accessibilityHidden(true)
 
                 Text(recorder.isRecording
-                    ? CaptureBrand.text("Идёт запись", "Recording on iPhone")
+                    ? CaptureBrand.text("Идёт запись", "Recording on device")
                     : CaptureBrand.text("Голосовая заметка", "Voice note"))
                     .font(.title2.bold())
 
@@ -45,7 +45,7 @@ struct PhoneRecordingSheet: View {
                         }
                     }
                 } else {
-                    Text(CaptureBrand.text("Аудио сохранится на этом iPhone.", "Your original audio will be saved locally on this iPhone."))
+                    Text(CaptureBrand.text("Аудио сохранится на этом устройстве.", "Your original audio will be saved locally on this device."))
                         .font(.subheadline)
                         .multilineTextAlignment(.center)
                         .foregroundStyle(.secondary)
