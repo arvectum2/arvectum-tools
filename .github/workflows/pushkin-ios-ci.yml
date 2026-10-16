@@ -38,9 +38,20 @@ jobs:
       - name: Generate project
         run: xcodegen generate
 
-      - name: Build app and test bundles
+      - name: A6 app build and local-only onboarding regression
+        timeout-minutes: 25
         run: |
-          xcodebuild             -project ArvectumNotifyIOS.xcodeproj             -scheme ArvectumNotify             -sdk iphonesimulator             -destination 'generic/platform=iOS Simulator'             CODE_SIGNING_ALLOWED=NO             build-for-testing
+          xcodebuild \
+            -project ArvectumNotifyIOS.xcodeproj \
+            -scheme ArvectumNotify \
+            -destination 'platform=iOS Simulator,name=iPhone 18 Pro,OS=27.0' \
+            -parallel-testing-enabled NO \
+            -jobs 2 \
+            CODE_SIGNING_ALLOWED=NO \
+            COMPILER_INDEX_STORE_ENABLE=NO \
+            -only-testing:ArvectumNotifyTests \
+            -only-testing:ArvectumNotifyUITests/PushkinA6OnboardingUITests \
+            test
 
   delete-regression:
     runs-on: xcode-27

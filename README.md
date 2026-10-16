@@ -5,6 +5,7 @@ A single monorepo for the Arvectum Tools ecosystem. **Git branches describe chan
 | Domain | Canonical location |
 | --- | --- |
 | Ecosystem-wide principles, brand, CI standards, shared packages | [core/](core/) |
+| Adaptive iPad + foldable iPhone Duo roadmap and QA matrix | [core/DEVICE_ADAPTATION_ROADMAP.md](core/DEVICE_ADAPTATION_ROADMAP.md) |
 | Habit tracker | [chickmark/](chickmark/) |
 | Notifications inbox | [pushkin/](pushkin/) |
 | Photo & PDF sizing | [photo-pdf-to-size/](photo-pdf-to-size/) |

@@ -1,6 +1,27 @@
 # PUSHKIN — Product Roadmap
 
+## Адаптация iPad / iPhone Duo — 2026-10-16
+
+**Статус:** бэклог P1 после стабильности Shortcuts и приёмки уведомлений; текущий target iPhone-only. [Общая матрица Core](../core/DEVICE_ADAPTATION_ROADMAP.md).
+
+**Инфраструктура (16.10.2026):** Xcode 27.1 активна, общий адаптивный Core — прототип вне main. PS-D0…D3 остаются открытыми; Duo QA ждёт iOS 27.1 Runtime (T3/T4). Текущий Shortcuts/onboarding не затрагиваем.
+
+- [ ] **PS-D0 · Аудит:** onboarding для Shortcuts, импорт подписанных micro-shortcut, лента/детали/поиск/фильтры/архив, SwiftData, уведомления и privacy при широком экране.
+- [ ] **PS-D1 · iPad:** адаптивная лента + детали/поиск, удобный onboarding и группы автоматизаций, split-view/landscape, корректные share/sheet/popover, крупный шрифт и клавиатура.
+- [ ] **PS-D2 · iPhone Duo:** внешняя компактная лента и раскрытая двухколоночная лента/детали; fold/unfold и многозадачность не сбрасывают поиск, выбранное уведомление или незавершённый onboarding. Содержимое уведомлений не показывать неожиданно на другом экране.
+- [ ] **PS-D3 · QA:** сохранность истории, без дублей/потерь, физические Shortcuts/App Intents и запросы разрешений, iPad/Duo UI matrix, App Store assets. Включение iPad family и релиз — отдельно, после физических проверок.
+
+## Active checkpoint — 2026-10-16 (A6 onboarding source)
+
+- [x] **A6 guided setup:** показаны три шага (импорт базового подписанного shortcut, ручное включение в Shortcuts, подтверждение минимум одного реального захвата); при поздней установке приложения указан refresh подписанного micro-package.
+- [x] **A6 optional groups:** локальный планировщик групп по 25 приложений из offline-каталога, без дубликатов, с копированием списка. Это удобный размер списка, **не лимит iOS**: [на физическом iPhone 1000 SelectedApps успешно сохранились в одном триггере](docs/PHASE0_SPIKE.md#1000-app-trigger); подтверждение 1000 активных источников не проводилось.
+- [x] **A6 local QA:** Xcode 27 сборка PASS, 17/17 XCTest unit PASS, 2/2 focused UI PASS после исправления тестового поиска offscreen-ссылок. [Протокол](docs/A6_ONBOARDING_QA_2026-10-16.md). Исходные SwiftData/capture/App Intents и подписанные shortcuts не изменены.
+- [x] **A6 PR #75 MERGED** в main (`d1a0518`); два независимых [GitHub push CI 38813911302](https://github.com/arvectum2/arvectum-tools/actions/runs/38813911302) и [PR CI 38813914613](https://github.com/arvectum2/arvectum-tools/actions/runs/38813914613) — SUCCESS, включая отдельные delete-regression jobs.
+- [ ] **A6 physical Shortcuts/notification QA OPEN** [issue #76](https://github.com/arvectum2/arvectum-tools/issues/76): подтвердить enable, late-install micro, 2 ручные группы и реальные уведомления без изменения личной истории. Signed A5 Pushkin 1.0.1(3) не включает A6 и не обновлён.
+
 ## Active checkpoint — 2026-10-15 (independently verified ASC API)
+
+**A5 RC:** [подписанная 1.0.1 (3)](../core/A5_SIGNED_RELEASE_CANDIDATES_20261015.md) подготовлена из исправлений удаления и Shortcuts; IPA и подпись проверены, release-branch CI PASS. **Не загружена в ASC**, первоначальная 1.0.0 всё ещё WAITING_FOR_REVIEW. Физический недеструктивный QA остаётся OPEN.
 **Latest review state:** iOS 1.0 remains under Apple review, independently verified **WAITING_FOR_REVIEW** via ASC API 2026-10-15; no publication confirmed. Physical iPhone carries developer build 1.0.0 (2), which must not be confused with the submitted build 1.0.0 (1). [Physical QA evidence](docs/PHYSICAL_QA_2026-10-14.md).
 - [x] Submitted local-only notification history with Shortcuts/App Intents capture, searchable offline storage and fallback onboarding.
 - [x] Rechecked App Review via authenticated ASC API 2026-10-15: still Waiting for Review, build 1 VALID.

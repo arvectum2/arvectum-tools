@@ -59,12 +59,11 @@ jobs:
       - name: Generate project
         run: xcodegen generate
 
-      - name: Build app and unit-test bundle
-        run: |
-          xcodebuild             -project PhotoPodRazmerIOS.xcodeproj             -scheme PhotoPodRazmer             -sdk iphonesimulator             -destination 'generic/platform=iOS Simulator'             CODE_SIGNING_ALLOWED=NO             build-for-testing
-
-      - name: A4 photo/PDF post-release regression (unit + simulated export UI)
-        timeout-minutes: 22
+      # Build on the SAME concrete simulator used by the tests.
+      # Previous generic build-for-testing compiled dual simulator architectures
+      # and needlessly repeated the Xcode build in the next step.
+      - name: A5 photo/PDF deterministic regression (unit + app-owned UI)
+        timeout-minutes: 25
         run: |
           xcodebuild \
             -project PhotoPodRazmerIOS.xcodeproj \
@@ -75,6 +74,15 @@ jobs:
             CODE_SIGNING_ALLOWED=NO \
             COMPILER_INDEX_STORE_ENABLE=NO \
             -only-testing:PhotoPodRazmerTests \
-            -only-testing:PhotoPodRazmerUITests/WorkflowUITests \
             -only-testing:PhotoPodRazmerUITests/LayoutRegressionUITests \
+            -only-testing:PhotoPodRazmerUITests/WorkflowUITests/testPhotoCompressionAndBackNavigation \
+            -only-testing:PhotoPodRazmerUITests/WorkflowUITests/testPixelAndDocumentModesWithPhotoFixture \
+            -only-testing:PhotoPodRazmerUITests/WorkflowUITests/testPDFCompressionShowsExportActions \
+            -only-testing:PhotoPodRazmerUITests/WorkflowUITests/testFilesImportEntryPointAvailable \
             test
+
+      # Tests that depend on Apple's Files document browser/save sheet stay in
+      # WorkflowUITests for local/physical acceptance, but are NOT the CI gate:
+      # on fresh GitHub simulators Files uses locale- and boot-dependent labels,
+      # causing false negatives and long accessibility snapshot timeouts.
+      # See photo-pdf-to-size/docs/A5_CI_SYSTEM_FILES_TRIAGE_2026-10-15.md.

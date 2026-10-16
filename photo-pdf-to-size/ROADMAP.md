@@ -1,6 +1,19 @@
 # Фото и PDF под размер — Product Roadmap
 
+## Адаптация iPad / iPhone Duo — 2026-10-16
+
+**Статус:** бэклог P1 после физической приёмки Files/Photos/PDF/РСЯ; текущий iOS target iPhone-only. [Общая матрица Core](../core/DEVICE_ADAPTATION_ROADMAP.md).
+
+**Инфраструктура (16.10.2026):** Xcode 27.1 активна. Общий адаптивный Core подготовлен как отдельный прототип; второй пилот — предпросмотр + параметры. PP-D0…D3 остаются открытыми; Duo QA ждёт runtime iOS 27.1 (T3/T4). Релизные сборки не меняем.
+
+- [ ] **PP-D0 · Аудит:** импорт Files/Photos, размеры/пресеты, crop/предпросмотр, PDF страницы/повороты, progress, Save/Share/Export, ATT/РСЯ-контейнеры в широких и узких окнах.
+- [ ] **PP-D1 · iPad:** split-layout исходник ↔ результат/параметры, поддержка Stage Manager и Split View, popovers и document picker, portrait/landscape, большой текст, export в Files/Photos.
+- [ ] **PP-D2 · iPhone Duo:** внешний экран с компактным редактором, внутренний — сравнительный предпросмотр; fold/unfold во время ресайза/PDF-экспорта не перезапускает обработку, не теряет параметры и исходный файл; ad-блоки не перекрывают CTA и не блокируют экспорт.
+- [ ] **PP-D3 · QA:** оригиналы не изменяются, корректный размер/ориентация результата, большие PDF/HEIC и память, sandbox/Files picker, consent/ads, iPad+Duo layout, actual device QA, новые App Store скриншоты. iPad target family включать только после проверок. Android в этой задаче не меняется.
+
 ## Active release checkpoint — 2026-10-15
+
+**A5 RC:** [Фото/PDF 1.0.2 (14)](../core/A5_SIGNED_RELEASE_CANDIDATES_20261015.md) подписан с исправлением поворота PDF, IPA проверена, **не загружен в ASC**. Первый релизный GitHub CI упал на системных Files/Save (и тайм-ауте); [PR #74](https://github.com/arvectum2/arvectum-tools/pull/74) слит в main (`134e3fe`) после 2/2 CI SUCCESS с **31 unit + 5 детерминированных UI**. Исправленные тесты перенесены в release-ветку (коммит `7b4318a`), производственный исходный код побайтово совпадает с подписанным тегом; [release CI 38795581835](https://github.com/arvectum2/arvectum-tools/actions/runs/38795581835) ещё выполняется. **На чистом iOS 27-симуляторе Files и Save UI остаются непрошедшими и требуют физической приёмки**, [triage](docs/A5_CI_SYSTEM_FILES_TRIAGE_2026-10-15.md), [issue #73](https://github.com/arvectum2/arvectum-tools/issues/73). Публичная 1.0.1 (13) не изменена; физические Files/Photos/ATT/РСЯ открыты в [issue #73](https://github.com/arvectum2/arvectum-tools/issues/73).
 
 **Published iOS baseline:** **1.0.1 (13)**, owner-confirmed and independently verified **READY_FOR_SALE** via authenticated App Store Connect API on **2026-10-15**. Previous version 1.0.0 (12)
 was published 2026-10-11. The signed 1.0.1 build was submitted for review

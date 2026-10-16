@@ -237,11 +237,38 @@ struct ManageHabitsView: View {
         } catch { reportBackupError(error) }
     }
 
-    /// A two-row settings group replaces the previous five competing footer
-    /// elements. Brand/legal content has its own uncluttered About screen.
+    /// Compact device preferences. Gentle Restart never mutates history.
     private var preferencesPanel: some View {
         VStack(spacing: 0) {
             languageSelector
+            Divider()
+                .padding(.leading, 52)
+
+            NavigationLink {
+                GentleRestartSettingsView()
+            } label: {
+                Label(L10n.string("restart.settings.title"), systemImage: "arrow.uturn.forward.circle")
+                    .font(.subheadline.weight(.medium))
+                    .frame(maxWidth: .infinity, minHeight: 46, alignment: .leading)
+                    .padding(.horizontal, 14)
+                    .contentShape(Rectangle())
+            }
+            .buttonStyle(.plain)
+            .accessibilityIdentifier("manage.gentle-restart")
+            Divider()
+                .padding(.leading, 52)
+
+            NavigationLink {
+                ChickMarkWeeklySummaryView()
+            } label: {
+                Label(L10n.string("weekly.title"), systemImage: "chart.bar.xaxis")
+                    .font(.subheadline.weight(.medium))
+                    .frame(maxWidth: .infinity, minHeight: 46, alignment: .leading)
+                    .padding(.horizontal, 14)
+                    .contentShape(Rectangle())
+            }
+            .buttonStyle(.plain)
+            .accessibilityIdentifier("manage.weekly-summary")
             Divider()
                 .padding(.leading, 52)
 
