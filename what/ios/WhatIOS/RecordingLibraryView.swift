@@ -244,6 +244,9 @@ struct RecordingLibraryView: View {
                     .accessibilityLabel(CaptureBrand.text("Настройки и диагностика", "App settings and diagnostics"))
                 }
             }
+            .frame(maxWidth: 960)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(Color(uiColor: .systemGroupedBackground))
             .tint(Color(red: 67 / 255, green: 229 / 255, blue: 197 / 255))
             .sheet(isPresented: $showDiagnostics) {
                 SyncDiagnosticsView()

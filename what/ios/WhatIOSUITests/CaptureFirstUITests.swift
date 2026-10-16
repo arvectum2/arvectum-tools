@@ -1,4 +1,5 @@
 import XCTest
+import UIKit
 
 final class CaptureFirstUITests: XCTestCase {
     func testCaptureFirstHomeAndLibraryBackNavigation() throws {
@@ -62,6 +63,47 @@ final class CaptureFirstUITests: XCTestCase {
         XCTAssertTrue(app.staticTexts[marker].waitForExistence(timeout: 10),
                       "Locally autosaved note must appear in the unified inbox.")
     }
+    func testIPadLandscapePreservesCaptureTextEditorAndLibrary() throws {
+        guard UIDevice.current.userInterfaceIdiom == .pad else {
+            throw XCTSkip("iPad layout acceptance is specific to iPad.")
+        }
+        let app = XCUIApplication()
+        XCUIDevice.shared.orientation = .landscapeLeft
+        defer { XCUIDevice.shared.orientation = .portrait }
+        app.launch()
+
+        let capture = app.buttons["what.record.primary"]
+        let addText = app.buttons["what.new.text"]
+        XCTAssertTrue(capture.waitForExistence(timeout: 10))
+        XCTAssertTrue(addText.exists)
+        XCTAssertTrue(capture.isHittable)
+        XCTAssertTrue(addText.isHittable)
+
+        addText.tap()
+        let editor = app.textViews["what.text.editor"]
+        XCTAssertTrue(editor.waitForExistence(timeout: 10))
+        let done = app.buttons.matching(
+            NSPredicate(format: "label == %@ OR label == %@", "Готово", "Done")
+        ).firstMatch
+        XCTAssertTrue(done.exists)
+        done.tap()
+
+        let library = app.buttons.matching(
+            NSPredicate(format: "label BEGINSWITH %@ OR label BEGINSWITH %@",
+                        "Мои записи", "My recordings")
+        ).firstMatch
+        XCTAssertTrue(library.waitForExistence(timeout: 5))
+        XCTAssertTrue(library.isHittable)
+        library.tap()
+        let back = app.buttons.matching(
+            NSPredicate(format: "label == %@ OR label == %@",
+                        "Вернуться к быстрой записи", "Back to quick recording")
+        ).firstMatch
+        XCTAssertTrue(back.waitForExistence(timeout: 5))
+        back.tap()
+        XCTAssertTrue(capture.waitForExistence(timeout: 5))
+    }
+
     func testLongPressGoesToVideoNotAudio() throws {
         let app = XCUIApplication()
         app.launch()

@@ -19,6 +19,8 @@ struct TextNoteSheet: View {
                 .font(.body)
                 .scrollContentBackground(.hidden)
                 .padding(.horizontal, 12)
+                .frame(maxWidth: 860)
+                .frame(maxWidth: .infinity)
                 .accessibilityIdentifier("what.text.editor")
                 .focused($editorFocused)
                 .navigationTitle(CaptureBrand.text("Текстовая заметка", "Text note"))

@@ -432,9 +432,11 @@ struct VideoRecordingSheet: View {
 
     var body: some View {
         NavigationStack {
-            VStack(spacing: 16) {
-                ZStack(alignment: .topTrailing) {
-                    CameraPreview(session: recorder.session)
+            GeometryReader { geometry in
+                ScrollView(.vertical) {
+                    VStack(spacing: 16) {
+                        ZStack(alignment: .topTrailing) {
+                            CameraPreview(session: recorder.session)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .clipShape(RoundedRectangle(cornerRadius: 16))
                         .accessibilityLabel(CaptureBrand.text("Превью камеры", "Camera preview"))
@@ -466,7 +468,11 @@ struct VideoRecordingSheet: View {
                         CaptureBrand.text("Переключение ненадолго прерывает запись, но все фрагменты сохраняются в одной видеозаметке.",
                                           "Switching briefly pauses recording; all segments are saved as one note.")
                     )
-                }
+                        }
+                        .frame(
+                            height: min(660, max(180, geometry.size.height * 0.62))
+                        )
+                        .accessibilityIdentifier("what.video.preview")
                 if recorder.isSaving {
                     ProgressView(CaptureBrand.text("Сохраняем видеозаметку…",
                                                   "Saving video note…"))
@@ -509,8 +515,12 @@ struct VideoRecordingSheet: View {
                 .tint(.red)
                 .disabled((!recorder.isRecording && !recorder.isSwitching)
                           || recorder.isSaving)
+                    }
+                    .frame(maxWidth: 900)
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                }
             }
-            .padding()
             .navigationTitle(CaptureBrand.text("Видеозаметка", "Video note"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -561,6 +571,8 @@ struct VideoPlaybackSheet: View {
     var body: some View {
         NavigationStack {
             VideoPlayer(player: AVPlayer(url: url))
+                .frame(maxWidth: 1080)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .padding()
                 .navigationTitle(CaptureBrand.text("Видеозаметка", "Video note"))
                 .toolbar {

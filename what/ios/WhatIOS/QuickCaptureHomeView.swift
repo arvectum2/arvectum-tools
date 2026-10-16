@@ -32,29 +32,27 @@ struct QuickCaptureHomeView: View {
                     .offset(x: geometry.size.width * 0.3, y: -75)
                     .accessibilityHidden(true)
 
-                VStack(spacing: 0) {
-                    topBar
+                ScrollView(.vertical) {
+                    VStack(spacing: 0) {
+                        topBar(showCaption: !compactLayout && geometry.size.width >= 490)
 
-                    Spacer(minLength: compactLayout ? 10 : 22)
+                        Spacer(minLength: compactLayout ? 10 : 22)
 
                     VStack(spacing: compactLayout ? 8 : 16) {
                         Text(isRussian ? "Ухвати мысль" : "Catch that thought")
-                            .font(.system(
-                                size: compactLayout ? 28 : 33,
-                                weight: .bold,
-                                design: .rounded
-                            ))
+                            .font(.system(.largeTitle, design: .rounded, weight: .bold))
                             .foregroundStyle(.white)
                             .minimumScaleFactor(0.75)
-                            .lineLimit(1)
+                            .lineLimit(compactLayout ? 2 : 1)
 
                         if !compactLayout {
                             Text(isRussian
                                 ? "Нажми — звук. Удерживай — видео."
                                 : "Tap for audio. Hold for video.")
                                 .font(.subheadline)
-                                .lineLimit(1)
-                                .minimumScaleFactor(0.7)
+                                .lineLimit(2)
+                                .multilineTextAlignment(.center)
+                                .minimumScaleFactor(0.85)
                                 .foregroundStyle(.white.opacity(0.7))
                         }
 
@@ -70,7 +68,9 @@ struct QuickCaptureHomeView: View {
                         Text(isRussian ? "Нажми: звук · Удерживай: видео" : "Tap: audio · Hold: video")
                             .font(.system(size: compactLayout ? 17 : 21, weight: .semibold))
                             .foregroundStyle(.white)
-                            .lineLimit(1)
+                            .lineLimit(2)
+                            .multilineTextAlignment(.center)
+                            .minimumScaleFactor(0.85)
                             .padding(.top, compactLayout ? 7 : 12)
 
                         Label(
@@ -83,19 +83,24 @@ struct QuickCaptureHomeView: View {
                     }
                     .frame(maxWidth: .infinity)
 
-                    Spacer(minLength: compactLayout ? 10 : 18)
+                        Spacer(minLength: compactLayout ? 10 : 18)
 
-                    libraryButton
-                        .padding(.bottom, 8)
+                        libraryButton
+                            .padding(.bottom, 8)
+                    }
+                    .frame(maxWidth: 640)
+                    .frame(maxWidth: .infinity)
+                    .frame(minHeight: geometry.size.height, alignment: .center)
+                    .padding(.horizontal, geometry.size.width < 430 ? 16 : 25)
                 }
-                .padding(.horizontal, 25)
+                .scrollIndicators(.hidden)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
         .preferredColorScheme(.dark)
     }
 
-    private var topBar: some View {
+    private func topBar(showCaption: Bool) -> some View {
         HStack {
             HStack(spacing: 9) {
                 Image("WhatGlyph")
@@ -121,7 +126,7 @@ struct QuickCaptureHomeView: View {
             .accessibilityLabel(isRussian ? "Создать текстовую заметку" : "New text note")
             .accessibilityIdentifier("what.new.text")
 
-            if !compactLayout {
+            if showCaption {
                 Text(isRussian ? "БЫСТРАЯ ЗАПИСЬ" : "QUICK CAPTURE")
                     .font(.system(size: 9, weight: .semibold, design: .rounded))
                     .tracking(1.7)
