@@ -38,3 +38,11 @@
 - Verified on Mac mini: Watch Simulator build PASSED; nine focused iOS tests PASSED; original broader 62 unit / 2 UI tests PASSED before last rehydrate change. The newly added restore test is among the nine focused tests.
 - **This does not prove the missing recording is recoverable or identify its cause. The installed physical Watch QA remains the previous build and was NOT uninstalled or replaced.**
 - Next physical checkpoint: determine whether user finalized the recording before reboot, then read Watch's pending count or recover its queue before installing an updated Watch QA build. No production release.
+
+## 2026-10-16 physical reboot failure — forensic update
+
+- Owner clarified that **Stop was pressed and capture had ended before reboot**. The missing item was not an interrupted recording.
+- **Read-only device retrieval SUCCEEDED:** Watch QA Documents/WhatOutbound/queue.json exists post-reboot and contains **one** pending envelope with duration **4.412 s**. Index copied to ArvectumSSD under restricted builds/what-watch-qa-20261016/recovery-evidence/; recording UUID/file name is not checked into git. Original Watch QA data remains untouched.
+- **Audio copy NOT YET VERIFIED:** subsequent read-only copy of queued m4a failed with CoreDevice error 4000 / RemotePairingError 1001 (connection tunnel timeout). An existing queue index is not proof that the AAC file is intact until a copy/validation or successful iPhone playback succeeds.
+- The source retry/unlock restoration patch in fix/what-watch-autostart-1.0.2 is not yet installed on Watch QA. Keep release gate BLOCKED.
+- Next non-destructive check: restore connectivity with both devices unlocked/close together; open existing QA app on Watch to pump queue and check outstanding count, verify original 4.4-s note on iPhone. If still pending, obtain AAC copy for integrity validation before any QA update.

@@ -14,6 +14,7 @@
 - [ ] **P0 FAILURE — physical Watch reboot (2026-10-16):** new recording made with iPhone off was not received after Watch reboot and iPhone reconnection. Preserve all Watch QA data; release blocked. [Evidence](docs/WATCH_ONE_TAP_PHYSICAL_QA_2026-10-16.md).
 - [x] **Source-level recovery attempt (not physically proven):** iPhone sends one queued recovery request over WatchConnectivity on activation/foreground; Watch handles request by retrying pending durable transfers (same UUIDs). Must validate with physical Watch and existing missing note before considering release.
 - [ ] **Remaining physical release acceptance:** check exact count/no duplicates after offline batch, repeat from watch face, duplicate ACK/retry and Watch reboot recovery; verify playback of Crown-interrupted note. Working offline transfer does not establish exactly-once delivery during retries. Release remains blocked.
+- [x] **Post-reboot forensic evidence:** physical Watch QA index recovered read-only: one pending envelope, duration 4.412 s, after owner-confirmed Stop before restart. AAC file transfer to Mac failed due to watch connection timeout; original file integrity remains unverified.
 - [ ] **RELEASE BLOCKED**: do not upload, submit, or publish 1.0.2 or any later version until physical one-tap acceptance above passes and is recorded with evidence. Signed IPA / App Store validation / simulator tests alone do not satisfy this gate.
 
 ## A5 — isolated next-patch candidate (2026-10-15)
