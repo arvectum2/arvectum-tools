@@ -52,3 +52,10 @@
 - **Owner-reported PASS — missing note was delivered after manually opening the existing Watch QA app:** user placed Watch near iPhone, opened QA app on Watch (which automatically began a new recording), and confirmed: «да, теперь появилась предыдущая запись».
 - This confirms the **prior pending note survived reboot and was eventually delivered**; it does not confirm automatic post-reboot sync, media playback of that specific note, or deduplication during reboot.
 - Strongly suggests WatchConnectivity resuming/pumping only when Watch app enters foreground. The 1.0.2 sync-request + index-unlock recovery source fix remains untested on physical Watch. DO NOT release until the phone-triggered recovery passes with no manual Watch launch.
+
+## Revised physical QA build 8 staging (2026-10-16)
+
+- A separate, signed QA 1.0.2 (8) build was generated from the recovery-fix branch. Both QA identifiers remain unchanged: iPhone ru.arvectum.tools.what.qa, Watch ru.arvectum.tools.what.qa.watch, complication ru.arvectum.tools.what.qa.watch.capturewidget. Production apps are not changed.
+- **iPhone QA build 8 installed in-place successfully** (same app bundle identifier); pre-upgrade backup of the QA app's Application Support is on ArvectumSSD. Read-only post-upgrade verification: 13 files before, 13 after, no missing paths, all sizes unchanged.
+- **Watch QA build 8 NOT installed**: Apple Watch not currently reachable via Mac mini CoreDevice, and user has not confirmed that a recording isn't active. Keep the existing Watch QA build 7 and all Watch user data untouched. Signed Watch QA build 8 remains staged in builds/what-watch-recovery-qa-20261016.
+- **NEXT GATE:** ensure Watch QA capture is stopped, unlock Watch, keep it alongside Mac mini/paired iPhone until CoreDevice connects; install the matching signed Watch QA build 8 in-place (never uninstall) and repeat the reboot/offline sync test **without manually opening the Watch app**.
