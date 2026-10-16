@@ -286,3 +286,20 @@
 "restart.card.title" = "Ready to pick up again?";
 "restart.card.description" = "Your previous progress is still here. Choose a habit to continue when it suits you.";
 "restart.card.later" = "Maybe tomorrow";
+
+"weekly.title" = "Weekly summary";
+"weekly.optIn" = "Show local weekly summary";
+"weekly.privacy" = "Off by default. Calculated on this device only; no notifications, account, analytics or network sync. Habits linked to Apple Health are excluded, because older automatic completions cannot be inferred from manual check-ins.";
+"weekly.lastCompleted" = "Last completed calendar week";
+"weekly.calendarWeek" = "Week";
+"weekly.scheduled" = "Scheduled days";
+"weekly.neutral" = "Neutral skip/pause days";
+"weekly.flexible" = "Flexible weekly goals met";
+"weekly.rolling" = "Rolling habit occurrences";
+"weekly.activity" = "Activity";
+"weekly.completedDays" = "Completed habit-days";
+"weekly.bestDay" = "Best day";
+"weekly.trend" = "Change vs previous week";
+"weekly.ratio" = "%d of %d";
+"weekly.bestDay.format" = "%@ (%d)";
+"weekly.note" = "Counts include only full past weeks. Today is not scored. Skips and pauses are neutral; weekly targets are judged once per week, and rolling habits are counted as occurrences, not invented misses. Trend compares completed habit-days, not a percentage.";

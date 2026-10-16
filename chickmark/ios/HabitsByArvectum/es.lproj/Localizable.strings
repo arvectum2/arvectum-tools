@@ -265,3 +265,20 @@
 "restart.card.title" = "¿Te apetece retomar?";
 "restart.card.description" = "Tu progreso anterior sigue aquí. Puedes volver a un hábito cuando quieras.";
 "restart.card.later" = "Quizás mañana";
+
+"weekly.title" = "Resumen semanal";
+"weekly.optIn" = "Mostrar resumen local";
+"weekly.privacy" = "Desactivado por defecto. Cálculo en este iPhone, sin avisos, analíticas ni nube. Se excluyen hábitos vinculados a Apple Health: no se pueden inferir las marcas automáticas pasadas de los registros manuales.";
+"weekly.lastCompleted" = "Última semana completa";
+"weekly.calendarWeek" = "Semana";
+"weekly.scheduled" = "Días programados";
+"weekly.neutral" = "Omisiones y pausas neutrales";
+"weekly.flexible" = "Metas semanales logradas";
+"weekly.rolling" = "Repeticiones por intervalo";
+"weekly.activity" = "Actividad";
+"weekly.completedDays" = "Días-hábito completados";
+"weekly.bestDay" = "Mejor día";
+"weekly.trend" = "Cambio frente a la semana anterior";
+"weekly.ratio" = "%d de %d";
+"weekly.bestDay.format" = "%@ (%d)";
+"weekly.note" = "Solo se cuentan semanas completas, nunca el día actual. Las pausas y omisiones son neutrales; las metas flexibles se evalúan una vez por semana y los intervalos por ocurrencias reales. La tendencia compara días-hábito, no porcentajes.";
