@@ -6,6 +6,13 @@
 
 - [ ] **Core / device adaptation:** единые условия layout, dynamic resize, iPad Split View/Stage Manager, iPhone Duo 5,4″ closed/7,6″ open, accessibility, сценарии QA и честное определение готовности в [портфельной матрице](DEVICE_ADAPTATION_ROADMAP.md). Изменения UI и release QA выполняются в дорожных картах самих приложений; проверенных релизов ещё нет.
 
+## Xcode 27.1, Adaptive Core и Duo Runtime — 2026-10-16
+
+- [x] **C-D0 · Toolchain:** Xcode 27.1 (27A9275) активна, first-launch завершён, CoreSimulator 1174.9.2 работает; тип iPhone Duo появился. Xcode 27.0 сохранена для отката.
+- [x] **C-D1 · Общий UI-прототип:** [ArvectumAdaptiveLayout](https://github.com/arvectum2/arvectum-tools/tree/feature/core-adaptive-layout-spike-20261016) в отдельной feature-ветке; 11 первоначальных Core unit-тестов и iOS Simulator build на Xcode 27.1 пройдены. macOS test bundle на новой Xcode требует повторной проверки доступа; в main и приложениях прототипа нет.
+- [ ] **C-D2 · Runtime:** дождаться установки iOS 27.1 (24A94232), создать и загрузить Duo Simulator. iOS 27.0 несовместима с Duo.
+- [ ] **C-D3 · Пилоты:** Ухват → Фото/PDF на общей SwiftUI-основе; QA iPhone/iPad/Duo перед слиянием Core. [Сводный чеклист T0–T5](DEVICE_ADAPTATION_ROADMAP.md).
+
 ## 2026-10-15 implementation checkpoint
 - [x] Shared Swift packages exist: ArvectumDesignTokens, ArvectumPersistence and ArvectumDiagnostics, with privacy-safe local diagnostics.
 - [x] Core CI tests consumers ChickMark, Pushkin, Photo/PDF and What?, watchOS and Android, with reviewed dependency catalogs.
