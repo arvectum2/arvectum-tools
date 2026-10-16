@@ -1,0 +1,27 @@
+# A7 / ChickMark P1 — Gentle Restart, 2026-10-16
+
+## Source and Apple approval
+
+The owner reports Apple approval of the latest submitted **ChickMark 1.4.1 (15)**. A fresh authorized read-only App Store Connect API call on 2026-10-16 confirms `READY_FOR_SALE` (App ID `6818711298`); no later build was uploaded. The separate signed A5 `1.4.2 (16)` IPA is NOT in Apple. The present P1 implementation is source-only and does not alter these binaries.
+
+## Scope
+
+- Opt-in local iPhone-only setting in Manage Habits; OFF by default. Choose a quiet period of **3 / 7 / 14 days**.
+- Existing habits only: a hint appears only if at least one genuine **fully completed** past occurrence exists, the habit is due today, not already completed/skipped today, and not archived or currently paused.
+- The comparison uses calendar/day keys (not seconds), ignores neutral **paused and skipped days**, and excludes unfinished partial quantitative check-ins from completed-history evidence.
+- For completion-relative routines, an on-time due day is **not** a lapse. Hints require the configured completion deadline to be overdue for the threshold interval.
+- Card contains a link to the existing habit detail, not an automatic check-off. `Maybe tomorrow` silences it for **today only**; next calendar day re-evaluates without changing the recorded history.
+- `@AppStorage` keys stay local and are absent from CloudKit/JSON backups. **No new SwiftData model, migration, HealthKit request, check-in or day mutation.**
+- RU/EN/ES strings and accessibility labels. Respect the existing non-shaming language.
+
+## Verification
+
+- [ ] Xcode27 iOS simulator build.
+- [ ] Targeted XCTest cases: due/not yet due, gentle threshold, nonexistent history, archive/pause, current completion, skipped/paused neutral, rolling interval on due day and after overdue, partial multi-check, New York DST/calendar day.
+- [ ] All ChickMark iOS unit tests and app-owned UI smoke; watchOS generic simulator build if feasible.
+- [ ] Github PR CI (ChickMark unit, watchOS and architecture), mirror GitHub/GitVerse.
+- [ ] Physical optional-enable/turn-off UI and regression with **disposable** habit before any later App Store build. Do not modify existing iCloud, HealthKit or user history.
+
+## Scope boundary
+
+`afterCompletion` rolling-repeat scheduling **already exists** with tests; A7 should not reimplement it. Weekly summary is P2. HealthKit water export is a **separate opt-in write** feature requiring per-habit volume/unit mapping, write permissions, stable association with an app-owned HK sample, revocation and duplicate/undo/retry QA. It is not enabled or simulated as success in this patch. Where? remains paused.

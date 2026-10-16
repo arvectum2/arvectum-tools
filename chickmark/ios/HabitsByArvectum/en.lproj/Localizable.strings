@@ -277,3 +277,12 @@
 
 "health.link.toggle" = "Auto-complete using Apple Health";
 "health.local.hint" = "Progress stays on your device. Changes apply when you save.";
+
+"restart.settings.title" = "Gentle Restart";
+"restart.settings.enable" = "Offer a gentle return";
+"restart.settings.threshold" = "After a quiet period";
+"restart.settings.explanation" = "Off by default. Offers a quiet invitation after a break. Previous check-ins, skips, streaks and schedules are never rewritten. This setting stays on this iPhone.";
+"restart.days" = "%d days";
+"restart.card.title" = "Ready to pick up again?";
+"restart.card.description" = "Your previous progress is still here. Choose a habit to continue when it suits you.";
+"restart.card.later" = "Maybe tomorrow";
