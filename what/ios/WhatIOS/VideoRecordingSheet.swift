@@ -3,25 +3,39 @@ import AVKit
 import SwiftUI
 import UIKit
 
-/// Video recording starts immediately after required permissions are granted.
-/// The original .mov is copied to durable local storage before dismissal.
+/// Video capture starts directly from the long press on the home button.
+/// Switching cameras closes the current segment, starts the other camera,
+/// then combines the segments into one local .mov when the user saves.
+/// Original segments are deleted only after the repository confirms the save.
 @MainActor
 final class VideoCaptureController: NSObject, ObservableObject,
                                     AVCaptureFileOutputRecordingDelegate {
     @Published private(set) var isRecording = false
+    @Published private(set) var isSwitching = false
+    @Published private(set) var isSaving = false
+    @Published private(set) var cameraPosition: AVCaptureDevice.Position = .back
     @Published private(set) var startedAt: Date?
     @Published private(set) var isPreparing = false
     @Published var errorMessage: String?
     @Published var didSave = false
 
-    // Capture configuration and output run only on the serial sessionQueue.
     nonisolated(unsafe) let session = AVCaptureSession()
     private nonisolated(unsafe) let fileOutput = AVCaptureMovieFileOutput()
     private nonisolated let sessionQueue = DispatchQueue(label: "ru.arvectum.what.video.session")
+
     private var started = false
-    private var discarded = false
     private var stopping = false
+    private var flow = VideoCaptureTransition()
+    private var clips: [URL] = []
+
     var onSaved: ((URL, TimeInterval) throws -> Void)?
+
+    var canSwitchCamera: Bool {
+        AVCaptureDevice.default(.builtInWideAngleCamera, for: .video,
+                                position: .front) != nil
+            && AVCaptureDevice.default(.builtInWideAngleCamera, for: .video,
+                                       position: .back) != nil
+    }
 
     func start() {
         guard !started else { return }
@@ -46,7 +60,10 @@ final class VideoCaptureController: NSObject, ObservableObject,
                 )
                 return
             }
-            guard !stopping else { isPreparing = false; return }
+            guard !stopping else {
+                isPreparing = false
+                return
+            }
             configureAndStart()
         }
     }
@@ -59,57 +76,98 @@ final class VideoCaptureController: NSObject, ObservableObject,
         }
     }
 
+    private nonisolated func nextClipURL() throws -> URL {
+        let root = FileManager.default.urls(
+            for: .applicationSupportDirectory, in: .userDomainMask
+        ).first!.appendingPathComponent("What/VideoCaptures", isDirectory: true)
+        try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)
+        return root.appendingPathComponent(UUID().uuidString + ".mov")
+    }
+
     private func configureAndStart() {
         sessionQueue.async { [self] in
             do {
                 session.beginConfiguration()
-                session.sessionPreset = .high
-                guard let camera = AVCaptureDevice.default(
-                    .builtInWideAngleCamera, for: .video, position: .back
-                ), let microphone = AVCaptureDevice.default(for: .audio) else {
-                    throw CaptureError.unavailable
+                do {
+                    session.sessionPreset = .high
+                    guard let camera = AVCaptureDevice.default(
+                        .builtInWideAngleCamera, for: .video, position: .back
+                    ), let microphone = AVCaptureDevice.default(for: .audio) else {
+                        throw CaptureError.unavailable
+                    }
+                    let videoInput = try AVCaptureDeviceInput(device: camera)
+                    let audioInput = try AVCaptureDeviceInput(device: microphone)
+                    guard session.canAddInput(videoInput), session.canAddInput(audioInput),
+                          session.canAddOutput(fileOutput) else {
+                        throw CaptureError.unavailable
+                    }
+                    session.addInput(videoInput)
+                    session.addInput(audioInput)
+                    session.addOutput(fileOutput)
+                    session.commitConfiguration()
+                } catch {
+                    session.commitConfiguration()
+                    throw error
                 }
-                let videoInput = try AVCaptureDeviceInput(device: camera)
-                let audioInput = try AVCaptureDeviceInput(device: microphone)
-                guard session.canAddInput(videoInput),
-                      session.canAddInput(audioInput),
-                      session.canAddOutput(fileOutput) else {
-                    throw CaptureError.unavailable
-                }
-                session.addInput(videoInput)
-                session.addInput(audioInput)
-                session.addOutput(fileOutput)
-                session.commitConfiguration()
-                session.startRunning()
 
-                let root = FileManager.default.urls(
-                    for: .applicationSupportDirectory, in: .userDomainMask
-                ).first!.appendingPathComponent("What/VideoCaptures", isDirectory: true)
-                try FileManager.default.createDirectory(
-                    at: root, withIntermediateDirectories: true
+                session.startRunning()
+                fileOutput.startRecording(
+                    to: try nextClipURL(), recordingDelegate: self
                 )
-                let path = root.appendingPathComponent(UUID().uuidString + ".mov")
-                fileOutput.startRecording(to: path, recordingDelegate: self)
             } catch {
                 if session.isRunning { session.stopRunning() }
                 Task { @MainActor in
                     isPreparing = false
-                    errorMessage = "Unable to start video capture: \(error.localizedDescription)"
+                    errorMessage = CaptureBrand.text(
+                        "Не удалось запустить видеозапись: ",
+                        "Unable to start video: "
+                    ) + error.localizedDescription
                 }
             }
         }
     }
 
-    func finish(discard: Bool = false) {
-        guard !stopping else { return }
-        discarded = discard
-        stopping = true
+    /// A movie-file output cannot reliably hot-swap a camera in the middle of
+    /// a file. Close the current segment before reconfiguring the input.
+    func switchCamera() {
+        guard canSwitchCamera, !isSwitching, !isSaving, !stopping,
+              flow.requestSwitch(isRecording: isRecording) else { return }
+        isSwitching = true
+        isRecording = false
+        let target: AVCaptureDevice.Position = cameraPosition == .back ? .front : .back
         sessionQueue.async { [self] in
             if fileOutput.isRecording {
                 fileOutput.stopRecording()
             } else {
-                if session.isRunning { session.stopRunning() }
-                Task { @MainActor in isPreparing = false }
+                Task { @MainActor in
+                    failSwitch(CaptureError.unavailable)
+                }
+            }
+        }
+        // The actual camera replacement begins in didFinishRecordingTo.
+        pendingCameraPosition = target
+    }
+
+    private var pendingCameraPosition: AVCaptureDevice.Position?
+
+    func finish(discard: Bool = false) {
+        guard !isSaving, !stopping else { return }
+        flow.requestStop(discard: discard)
+        stopping = true
+
+        // The pending switch's stopRecording is already in progress;
+        // didFinishRecordingTo will honor this newer Stop/Discard action.
+        if isSwitching { return }
+
+        sessionQueue.async { [self] in
+            if fileOutput.isRecording {
+                fileOutput.stopRecording()
+            } else if session.isRunning {
+                session.stopRunning()
+                Task { @MainActor in
+                    isPreparing = false
+                    if discard { clearTemporaryClips() }
+                }
             }
         }
     }
@@ -120,14 +178,16 @@ final class VideoCaptureController: NSObject, ObservableObject,
         from connections: [AVCaptureConnection]
     ) {
         Task { @MainActor in
-            startedAt = Date()
+            if startedAt == nil { startedAt = Date() }
+            flow.didStartNextClip()
             isPreparing = false
+            isSwitching = false
             isRecording = true
-            if stopping { finishPendingStop() }
+            if stopping { stopPendingClip() }
         }
     }
 
-    private func finishPendingStop() {
+    private func stopPendingClip() {
         sessionQueue.async { [self] in
             if fileOutput.isRecording { fileOutput.stopRecording() }
         }
@@ -141,37 +201,151 @@ final class VideoCaptureController: NSObject, ObservableObject,
     ) {
         Task { @MainActor in
             isRecording = false
-            isPreparing = false
-            let elapsed = startedAt.map { Date().timeIntervalSince($0) } ?? 0
-            sessionQueue.async { [self] in
-                if session.isRunning { session.stopRunning() }
-            }
-            if discarded {
-                try? FileManager.default.removeItem(at: outputFileURL)
+            if flow.shouldDiscard {
+                clips.append(outputFileURL)
+                closeSession()
+                clearTemporaryClips()
+                isSwitching = false
+                isPreparing = false
                 return
             }
-            if let error {
-                errorMessage = "Video capture interrupted: \(error.localizedDescription)"
-                return // Preserve incomplete source for diagnostics/recovery.
+
+            if error == nil {
+                clips.append(outputFileURL)
+            } else {
+                // Do not erase a partially written original after a camera
+                // interruption. It remains in VideoCaptures for recovery.
+                flow.requestStop(discard: false)
+                stopping = true
+                errorMessage = CaptureBrand.text(
+                    "Запись прервана; уже снятые фрагменты будут сохранены. ",
+                    "Capture interrupted; saved segments will be preserved. "
+                ) + error!.localizedDescription
             }
-            do {
-                guard elapsed > 0 else { throw CaptureError.empty }
-                try onSaved?(outputFileURL, elapsed)
-                try? FileManager.default.removeItem(at: outputFileURL)
-                didSave = true
-            } catch {
-                errorMessage = "Video could not be saved: \(error.localizedDescription)"
-                // The source remains in Application Support for recovery.
+
+            if flow.shouldSwitchAfterClip && !stopping {
+                guard let target = pendingCameraPosition else {
+                    failSwitch(CaptureError.unavailable)
+                    return
+                }
+                switchInputAndStartNextClip(target)
+            } else {
+                isSwitching = false
+                closeSession()
+                await saveCompletedVideo()
             }
         }
     }
 
+    private func switchInputAndStartNextClip(_ target: AVCaptureDevice.Position) {
+        sessionQueue.async { [self] in
+            do {
+                guard let oldInput = session.inputs.compactMap({
+                    $0 as? AVCaptureDeviceInput
+                }).first(where: { $0.device.hasMediaType(.video) }),
+                      let nextCamera = AVCaptureDevice.default(
+                        .builtInWideAngleCamera, for: .video, position: target
+                      ) else {
+                    throw CaptureError.unavailable
+                }
+                let nextInput = try AVCaptureDeviceInput(device: nextCamera)
+                session.beginConfiguration()
+                session.removeInput(oldInput)
+                guard session.canAddInput(nextInput) else {
+                    if session.canAddInput(oldInput) {
+                        session.addInput(oldInput)
+                    }
+                    session.commitConfiguration()
+                    throw CaptureError.unavailable
+                }
+                session.addInput(nextInput)
+                session.commitConfiguration()
+                let path = try nextClipURL()
+                fileOutput.startRecording(to: path, recordingDelegate: self)
+                Task { @MainActor in
+                    cameraPosition = target
+                    pendingCameraPosition = nil
+                }
+            } catch {
+                Task { @MainActor in
+                    failSwitch(error)
+                }
+            }
+        }
+    }
+
+    private func failSwitch(_ error: Error) {
+        flow.requestStop(discard: false)
+        stopping = true
+        pendingCameraPosition = nil
+        isSwitching = false
+        isRecording = false
+        closeSession()
+        errorMessage = CaptureBrand.text(
+            "Не удалось переключить камеру. Уже снятое видео сохраняется. ",
+            "Could not switch camera. Saving video captured so far. "
+        ) + error.localizedDescription
+        Task { await saveCompletedVideo() }
+    }
+
+    private func closeSession() {
+        sessionQueue.async { [self] in
+            if session.isRunning { session.stopRunning() }
+        }
+    }
+
+    private func clearTemporaryClips() {
+        for clip in clips { try? FileManager.default.removeItem(at: clip) }
+        clips.removeAll()
+    }
+
+    private func saveCompletedVideo() async {
+        guard !isSaving else { return }
+        isSaving = true
+        isPreparing = false
+        defer { isSaving = false }
+
+        guard !clips.isEmpty else {
+            if errorMessage == nil {
+                errorMessage = CaptureBrand.text(
+                    "Видео не записано.", "No video was captured."
+                )
+            }
+            return
+        }
+
+        let destination = clips[0].deletingLastPathComponent()
+            .appendingPathComponent(UUID().uuidString + "-combined.mov")
+        do {
+            let composed = try await VideoSegmentComposer.compose(
+                clips, destination: destination
+            )
+            // Never treat an absent host callback as a successful save:
+            // the segments must remain recoverable in that case.
+            guard let onSaved else { throw CaptureError.saveHandlerUnavailable }
+            try onSaved(composed.url, composed.duration)
+            if composed.isTemporaryExport {
+                try? FileManager.default.removeItem(at: composed.url)
+            }
+            clearTemporaryClips()
+            didSave = true
+        } catch {
+            // Keep *all* originals intact if merging or importing failed.
+            errorMessage = CaptureBrand.text(
+                "Не удалось сохранить видеозаметку: ",
+                "Video note could not be saved: "
+            ) + error.localizedDescription
+        }
+    }
+
     private enum CaptureError: LocalizedError {
-        case unavailable, empty
+        case unavailable, saveHandlerUnavailable
         var errorDescription: String? {
             switch self {
-            case .unavailable: return "Camera or microphone unavailable"
-            case .empty: return "No video was captured"
+            case .unavailable:
+                return "Requested camera or microphone is unavailable"
+            case .saveHandlerUnavailable:
+                return "Local video storage is not ready"
             }
         }
     }
@@ -201,14 +375,66 @@ struct VideoRecordingSheet: View {
     var body: some View {
         NavigationStack {
             VStack(spacing: 16) {
-                CameraPreview(session: recorder.session)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .clipShape(RoundedRectangle(cornerRadius: 16))
-                    .accessibilityLabel(CaptureBrand.text("Превью камеры", "Camera preview"))
-                if let start = recorder.startedAt {
-                    TimelineView(.periodic(from: .now, by: 0.5)) { time in
-                        Text(duration(time.date.timeIntervalSince(start)))
-                            .font(.title2.monospacedDigit())
+                ZStack(alignment: .topTrailing) {
+                    CameraPreview(session: recorder.session)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .clipShape(RoundedRectangle(cornerRadius: 16))
+                        .accessibilityLabel(CaptureBrand.text("Превью камеры", "Camera preview"))
+
+                    Button {
+                        UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                        recorder.switchCamera()
+                    } label: {
+                        Image(systemName: "camera.rotate.fill")
+                            .font(.title2)
+                            .foregroundStyle(.white)
+                            .frame(width: 52, height: 52)
+                            .background(.black.opacity(0.6), in: Circle())
+                    }
+                    .buttonStyle(.plain)
+                    .disabled(!recorder.canSwitchCamera || !recorder.isRecording
+                              || recorder.isSwitching || recorder.isSaving)
+                    .opacity(recorder.canSwitchCamera ? 1 : 0.45)
+                    .padding(14)
+                    .accessibilityIdentifier("what.video.switchCamera")
+                    .accessibilityLabel(
+                        recorder.cameraPosition == .back
+                            ? CaptureBrand.text("Переключить на фронтальную камеру",
+                                                "Switch to front camera")
+                            : CaptureBrand.text("Переключить на основную камеру",
+                                                "Switch to back camera")
+                    )
+                    .accessibilityHint(
+                        CaptureBrand.text("Переключение ненадолго прерывает запись, но все фрагменты сохраняются в одной видеозаметке.",
+                                          "Switching briefly pauses recording; all segments are saved as one note.")
+                    )
+                }
+                if recorder.isSaving {
+                    ProgressView(CaptureBrand.text("Сохраняем видеозаметку…",
+                                                  "Saving video note…"))
+                } else if recorder.isSwitching {
+                    ProgressView(CaptureBrand.text("Переключаем камеру…",
+                                                  "Switching camera…"))
+                } else if let start = recorder.startedAt {
+                    HStack {
+                        Spacer()
+                        Label(
+                            recorder.cameraPosition == .back
+                                ? CaptureBrand.text("Основная", "Back")
+                                : CaptureBrand.text("Фронтальная", "Front"),
+                            systemImage: recorder.cameraPosition == .back
+                                ? "camera.fill" : "person.crop.square"
+                        )
+                        .font(.subheadline)
+                    }
+                    .overlay {
+                        TimelineView(.periodic(from: .now, by: 0.5)) { time in
+                            Text(duration(time.date.timeIntervalSince(start)))
+                                .font(.title2.monospacedDigit())
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .accessibilityLabel(CaptureBrand.text(
+                                    "Длительность записи", "Recording duration"))
+                        }
                     }
                 } else {
                     ProgressView(CaptureBrand.text("Подготовка камеры…", "Preparing camera…"))
@@ -223,7 +449,8 @@ struct VideoRecordingSheet: View {
                 }
                 .buttonStyle(.borderedProminent)
                 .tint(.red)
-                .disabled(!recorder.isRecording)
+                .disabled((!recorder.isRecording && !recorder.isSwitching)
+                          || recorder.isSaving)
             }
             .padding()
             .navigationTitle(CaptureBrand.text("Видеозаметка", "Video note"))
@@ -231,21 +458,26 @@ struct VideoRecordingSheet: View {
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button(CaptureBrand.text("Отменить", "Discard"), role: .destructive) {
-                        recorder.finish(discard: true)
-                        dismiss()
+                        if !recorder.isSaving {
+                            recorder.finish(discard: true)
+                            dismiss()
+                        }
                     }
                 }
             }
-            .interactiveDismissDisabled(recorder.isRecording)
+            .interactiveDismissDisabled(recorder.isRecording
+                                        || recorder.isSwitching || recorder.isSaving)
             .onAppear { recorder.start() }
             .onChange(of: recorder.didSave) { _, saved in
                 if saved { dismiss() }
             }
             .onChange(of: scenePhase) { _, phase in
-                if phase != .active && recorder.isRecording { recorder.finish() }
+                if phase != .active && (recorder.isRecording || recorder.isSwitching) {
+                    recorder.finish()
+                }
             }
             .onDisappear {
-                if recorder.isRecording { recorder.finish() }
+                if recorder.isRecording || recorder.isSwitching { recorder.finish() }
             }
             .alert(CaptureBrand.text("Видеозапись", "Video capture"),
                    isPresented: Binding(
