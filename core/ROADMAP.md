@@ -6,6 +6,11 @@
 
 - [ ] **Core / device adaptation:** единые условия layout, dynamic resize, iPad Split View/Stage Manager, iPhone Duo 5,4″ closed/7,6″ open, accessibility, сценарии QA и честное определение готовности в [портфельной матрице](DEVICE_ADAPTATION_ROADMAP.md). Изменения UI и release QA выполняются в дорожных картах самих приложений; проверенных релизов ещё нет.
 
+## Adaptive UI Core spike — 2026-10-16
+
+- [x] **Research spike:** audited shared UI opportunities for iPhone / iPad / iPhone Duo, and built a small, testable Core API for width-based layout decisions, centered reading columns and identity-preserving two-region content layout (**11 Core tests PASS; iOS/watchOS Simulator package builds PASS**). [Audit and constraints](docs/ADAPTIVE_LAYOUT_SPIKE_20261016.md), [source and usage](packages/ArvectumAdaptiveLayout/README.md). **This is feature-branch source, not deployed to consumer apps or main.**
+- [ ] **Promotion gate:** integrate into two independent real app screens and pass resize, Dynamic Type, iPad/Duo, app-specific functional and Core CI tests before merging production Core. No app-release or deployment target changes during this spike.
+
 ## 2026-10-15 implementation checkpoint
 - [x] Shared Swift packages exist: ArvectumDesignTokens, ArvectumPersistence and ArvectumDiagnostics, with privacy-safe local diagnostics.
 - [x] Core CI tests consumers ChickMark, Pushkin, Photo/PDF and What?, watchOS and Android, with reviewed dependency catalogs.
