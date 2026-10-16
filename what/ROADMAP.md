@@ -1,5 +1,13 @@
 # What? — Product Roadmap
 
+## P0 release blocker — physical one-tap Watch capture (2026-10-16)
+
+- [x] **Regression reproduced by owner on App Store 1.0.1:** Watch-face complication opens the app but does not start recording. Previous `widgetURL(what://capture)` assumption is not sufficient on physical Watch.
+- [x] **Source fix for 1.0.2:** Watch starts capture when its scene becomes active (including cold appearance and return from Watch face), without waiting for `.onOpenURL`; keep deep link as a secondary trigger and prevent duplicate starts.
+- [x] **Source/simulator checks:** Watch build PASS; physical widget URL is no longer required; simulator cold launch automatically attempted recording (simulator microphone/audio session failed, so real AAC remains unproved); pure launch policy check passed for 5 capture states. iOS regressions: 61 tests (3 skipped), 2 UI tests PASS. Repeated Watch-face and Crown interruption scenarios still require hardware.
+- [ ] **Physical acceptance on release candidate:** tap Watch-face complication once from cold/backgrounded Watch app and verify that microphone recording immediately begins without another tap; test after Stop, after Digital Crown, denied mic permission, offline recording, reboot, and exactly-once iPhone delivery.
+- [ ] **RELEASE BLOCKED**: do not upload, submit, or publish 1.0.2 or any later version until physical one-tap acceptance above passes and is recorded with evidence. Signed IPA / App Store validation / simulator tests alone do not satisfy this gate.
+
 ## A5 — isolated next-patch candidate (2026-10-15)
 
 - [x] Created isolated A5 release source candidate **1.0.2 (7)** from main. [Release gate](docs/A5_RELEASE_CANDIDATE_1_0_2_2026-10-15.md).

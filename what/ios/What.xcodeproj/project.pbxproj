@@ -62,6 +62,7 @@
 		CA4DD74B673DCF0AF78F52BE /* WatchDeliveredAudioValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2EC835E1A980C511E5E6EDD /* WatchDeliveredAudioValidation.swift */; };
 		CAA46328F53EE3ECF8154113 /* ImmediateRecordingPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD17D674B9340C94107DCF39 /* ImmediateRecordingPayload.swift */; };
 		D2034C64118475AFC5F8A80C /* WatchCaptureController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FEDFC32DD8C7A561856A386 /* WatchCaptureController.swift */; };
+		D870CFFB8FDC420EEFA974F4 /* WatchCaptureLaunchPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FB5B073D935F3D8220478D /* WatchCaptureLaunchPolicy.swift */; };
 		D456C732D9EC57650A0642D3 /* WatchA2ReliabilityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154E194A750613AB8610B080 /* WatchA2ReliabilityTests.swift */; };
 		D555B919D26F933D9EFAB7E3 /* MicrophoneCapturePipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D93405209E72242B4DFEF0F /* MicrophoneCapturePipeline.swift */; };
 		D617395D9EB07EE903D5910D /* RecordingLibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ABEE922A1A0E2358928B374 /* RecordingLibraryView.swift */; };
@@ -186,6 +187,7 @@
 		61B9DCBC7397B955436563CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		656D51A35B41EF02C9891B44 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		6FEDFC32DD8C7A561856A386 /* WatchCaptureController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchCaptureController.swift; sourceTree = "<group>"; };
+		37FB5B073D935F3D8220478D /* WatchCaptureLaunchPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchCaptureLaunchPolicy.swift; sourceTree = "<group>"; };
 		766855BE51B40DC7C113B75A /* LocalSemanticSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalSemanticSearch.swift; sourceTree = "<group>"; };
 		7A64C8E1ED1DD3595D966992 /* CaptureBrand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureBrand.swift; sourceTree = "<group>"; };
 		7CD89933E65194E6C772D383 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -367,6 +369,7 @@
 				61B9DCBC7397B955436563CC /* Info.plist */,
 				1804DB448307D7581C01F806 /* PrivacyInfo.xcprivacy */,
 				6FEDFC32DD8C7A561856A386 /* WatchCaptureController.swift */,
+				37FB5B073D935F3D8220478D /* WatchCaptureLaunchPolicy.swift */,
 				A4ED5C55003D60E489465C5D /* WhatWatchApp.swift */,
 				C68EC61E6C6E18D5C445B15F /* InfoPlist.strings */,
 			);
@@ -620,6 +623,7 @@
 				CAA46328F53EE3ECF8154113 /* ImmediateRecordingPayload.swift in Sources */,
 				930D8453C63A2A36CD2B7018 /* RecordingEnvelope.swift in Sources */,
 				D2034C64118475AFC5F8A80C /* WatchCaptureController.swift in Sources */,
+				D870CFFB8FDC420EEFA974F4 /* WatchCaptureLaunchPolicy.swift in Sources */,
 				29C27FAB856BF25AAF99EA4B /* WatchCaptureValidation.swift in Sources */,
 				CA4DD74B673DCF0AF78F52BE /* WatchDeliveredAudioValidation.swift in Sources */,
 				21A6063DBDDDB23005137B78 /* WatchDurableQueue.swift in Sources */,

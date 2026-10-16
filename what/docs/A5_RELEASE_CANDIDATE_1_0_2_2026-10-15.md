@@ -1,3 +1,5 @@
+> **BLOCKED (2026-10-16):** The owner physically confirmed App Store 1.0.1 opens the Watch app from a watch-face complication without starting audio. This defeats the product's primary one-tap promise. A 1.0.2 foreground auto-capture source fix is being developed separately; NO release upload/submission or publication until the corrected build passes physical complication QA, not merely simulator/Xcode build. The previously exported IPA cannot be released.
+
 # what — A5 isolated release candidate 1.0.2 (7)
 
 **State as of 2026-10-15: SOURCE-CANDIDATE ONLY. Not uploaded, not submitted, not public.**
