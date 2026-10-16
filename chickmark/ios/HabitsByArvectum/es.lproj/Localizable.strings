@@ -256,3 +256,12 @@
 
 "health.link.toggle" = "Completar automáticamente con Apple Salud";
 "health.local.hint" = "El progreso se queda en tu dispositivo. Los cambios se aplican al guardar.";
+
+"restart.settings.title" = "Volver con calma";
+"restart.settings.enable" = "Sugerir volver a un hábito";
+"restart.settings.threshold" = "Después de una pausa";
+"restart.settings.explanation" = "Desactivado por defecto. Ofrece una invitación discreta tras una pausa. No modifica registros, omisiones, rachas ni horarios. Ajuste local de este iPhone.";
+"restart.days" = "%d días";
+"restart.card.title" = "¿Te apetece retomar?";
+"restart.card.description" = "Tu progreso anterior sigue aquí. Puedes volver a un hábito cuando quieras.";
+"restart.card.later" = "Quizás mañana";

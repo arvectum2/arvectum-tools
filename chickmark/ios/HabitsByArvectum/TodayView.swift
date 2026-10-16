@@ -26,6 +26,13 @@ struct TodayView: View {
 
     @State private var healthProjectionRevision = 0
 
+    @AppStorage("chickmark.gentleRestart.enabled")
+    private var gentleRestartEnabled = false
+    @AppStorage("chickmark.gentleRestart.quietDays")
+    private var gentleRestartQuietDays = 7
+    @AppStorage("chickmark.gentleRestart.snoozedDayKey")
+    private var gentleRestartSnoozedDayKey = ""
+
     private var displayedCheckIns: [HabitCheckIn] {
         _ = healthProjectionRevision
         return HealthHabitCoordinator.shared.visibleCheckIns(for: checkIns, habits: habits)
@@ -38,6 +45,22 @@ struct TodayView: View {
             checkIns: displayedCheckIns,
             skips: skips,
             pausePeriods: pausePeriods
+        )
+    }
+
+    private var gentleRestartCandidates: [GentleRestartCandidate] {
+        guard gentleRestartEnabled,
+              gentleRestartSnoozedDayKey != HabitDayKey.make(for: referenceDate)
+        else { return [] }
+        return GentleRestart.candidates(
+            habits: habits,
+            // Same resolved projection as the visible Today checkmark:
+            // never invite a Health-completed habit to restart today.
+            checkIns: displayedCheckIns,
+            skips: skips,
+            pausePeriods: pausePeriods,
+            today: referenceDate,
+            minimumQuietDays: gentleRestartQuietDays
         )
     }
 
@@ -241,6 +264,9 @@ struct TodayView: View {
     private var todayContent: some View {
         ScrollView {
             VStack(spacing: 14) {
+                if !gentleRestartCandidates.isEmpty {
+                    gentleRestartCard
+                }
                 if activeToday.isEmpty && pendingOneOffReminders.isEmpty {
                     noHabitsTodayCard
                 } else {
@@ -313,6 +339,43 @@ struct TodayView: View {
             }
             .padding(16)
         }
+    }
+
+    private var gentleRestartCard: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Label(L10n.string("restart.card.title"), systemImage: "arrow.uturn.forward.circle")
+                .font(.headline)
+            Text(L10n.string("restart.card.description"))
+                .font(.subheadline)
+                .foregroundStyle(Color.habitsSecondaryText)
+
+            ForEach(gentleRestartCandidates.prefix(3)) { candidate in
+                if let habit = habits.first(where: { $0.id == candidate.habitID }) {
+                    NavigationLink {
+                        HabitDetailView(habit: habit)
+                    } label: {
+                        HStack(spacing: 8) {
+                            Text(habit.name)
+                                .font(.subheadline.weight(.semibold))
+                            Spacer(minLength: 4)
+                            Image(systemName: "chevron.right")
+                                .font(.caption)
+                        }
+                        .contentShape(Rectangle())
+                    }
+                    .accessibilityIdentifier("restart-open-\(habit.id.uuidString)")
+                }
+            }
+            Button(L10n.string("restart.card.later")) {
+                gentleRestartSnoozedDayKey = HabitDayKey.make(for: referenceDate)
+            }
+            .font(.footnote)
+            .accessibilityIdentifier("restart-later")
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(14)
+        .background(Color.habitsSurface, in: RoundedRectangle(cornerRadius: 18))
+        .accessibilityIdentifier("gentle-restart-card")
     }
 
     private var firstHabitEmptyState: some View {
