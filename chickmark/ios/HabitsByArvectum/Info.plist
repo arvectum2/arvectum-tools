@@ -28,6 +28,14 @@
 				<string>habits-arvectum</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>ru.arvectum.tools.habits.review-note.v1</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>chickmark-review</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>

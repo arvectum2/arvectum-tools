@@ -15,6 +15,12 @@ struct TodayView: View {
     @State private var showingAddHabit = false
     @State private var showingAddOneOffReminder = false
     @State private var editingOneOffReminder: OneOffReminder?
+    @State private var pendingReviewImport: ReviewNoteHandoff?
+    @State private var pendingReviewPasteRequest: ReviewNotePasteRequest?
+    @State private var pastedReviewAwaitingPreview: ReviewNoteHandoff?
+    @State private var noteAttachments: [UUID: ReviewNoteAttachment] = [:]
+    @State private var showingNoteAttachment: ReviewNoteAttachment?
+    @State private var importError: String?
     @State private var undoOffer: CompletionUndoOffer?
     @State private var deepLinkedHabitID: UUID?
     @State private var referenceDate = Date()
@@ -169,6 +175,32 @@ struct TodayView: View {
             .sheet(item: $editingOneOffReminder) { reminder in
                 AddOneOffReminderView(reminder: reminder)
             }
+            .sheet(item: $pendingReviewPasteRequest, onDismiss: {
+                if let transfer = pastedReviewAwaitingPreview {
+                    pastedReviewAwaitingPreview = nil
+                    pendingReviewImport = transfer
+                }
+            }) { request in
+                ReviewNotePasteSheet(request: request) { transfer in
+                    pastedReviewAwaitingPreview = transfer
+                }
+            }
+            .sheet(item: $pendingReviewImport) { transfer in
+                ImportedReviewNoteSheet(transfer: transfer) {
+                    refreshReviewAttachments()
+                }
+            }
+            .sheet(item: $showingNoteAttachment) { value in
+                ReviewNoteAttachmentSheet(attachment: value)
+            }
+            .alert("Передача из Ухвата", isPresented: Binding(
+                get: { importError != nil },
+                set: { if !$0 { importError = nil } }
+            )) {
+                Button("OK") {}
+            } message: {
+                Text(importError ?? "")
+            }
             .navigationDestination(
                 isPresented: Binding(
                     get: { deepLinkedHabitID != nil },
@@ -198,6 +230,7 @@ struct TodayView: View {
                 }
             }
             .task {
+                refreshReviewAttachments()
                 refreshReferenceDate()
                 registerForegroundLaunchIfNeeded()
                 refreshAdEligibility()
@@ -421,6 +454,9 @@ struct TodayView: View {
                         },
                         onDelete: {
                             deleteOneOffReminder(reminder)
+                        },
+                        onOpenNote: noteAttachments[reminder.id].map { attachment in
+                            { showingNoteAttachment = attachment }
                         }
                     )
                 }
@@ -456,11 +492,33 @@ struct TodayView: View {
 
     private func deleteOneOffReminder(_ reminder: OneOffReminder) {
         modelContext.delete(reminder)
-        try? modelContext.save()
-        HabitReminderCoordinator.shared.dataDidChange()
+        do {
+            try modelContext.save()
+            if noteAttachments[reminder.id] != nil {
+                try ReviewNoteAttachmentRepository().remove(reminder.id)
+                refreshReviewAttachments()
+            }
+            HabitReminderCoordinator.shared.dataDidChange()
+        } catch {
+            modelContext.rollback()
+            importError = error.localizedDescription
+        }
+    }
+
+    private func refreshReviewAttachments() {
+        do {
+            noteAttachments = Dictionary(uniqueKeysWithValues:
+                try ReviewNoteAttachmentRepository().all().map { ($0.id, $0) })
+        } catch {
+            importError = "Не удалось открыть переданные заметки: \(error.localizedDescription)"
+        }
     }
 
     private func handleDeepLink(_ url: URL) {
+        if ReviewNoteHandoff.nonce(from: url) != nil {
+            pendingReviewPasteRequest = ReviewNotePasteRequest(url: url)
+            return
+        }
         switch HabitDeepLink.destination(from: url) {
         case .today:
             deepLinkedHabitID = nil

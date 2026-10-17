@@ -401,10 +401,19 @@ enum HabitReminderScheduler {
     }
 
     static func oneOffNotificationContent(
-        for reminder: OneOffReminder
+        for reminder: OneOffReminder,
+        attachmentStore: ReviewNoteAttachmentRepository = ReviewNoteAttachmentRepository()
     ) -> UNMutableNotificationContent {
         let content = UNMutableNotificationContent()
-        content.title = reminder.title
+        // An imported transcript can be the full reminder title in the UI,
+        // but it must NEVER appear on a locked screen or notification.
+        if (try? attachmentStore.get(reminder.id)) != nil {
+            content.title = Locale.current.language.languageCode?.identifier == "ru"
+                ? "ChickMark: вернуться к заметке"
+                : "ChickMark: review a note"
+        } else {
+            content.title = reminder.title
+        }
         content.body = L10n.string("oneoff.notification.body")
         content.sound = .default
         content.categoryIdentifier =

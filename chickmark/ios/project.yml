@@ -24,6 +24,7 @@ targets:
     sources:
       - path: ../../core/packages/ArvectumDiagnostics/ArvectumDiagnostics.swift
       - path: ../../core/packages/ArvectumPersistence/ArvectumJSONCodec.swift
+      - path: ../../core/packages/ArvectumInterapp/ReviewNoteHandoff.swift
       - path: ../../core/packages/ArvectumDesignTokens/ArvectumPalette.swift
       - path: HabitsByArvectum
       - path: Shared
@@ -52,6 +53,11 @@ targets:
           - CFBundleURLName: ru.arvectum.tools.habits
             CFBundleURLSchemes:
               - habits-arvectum
+          # Distinct protocol. Earlier store builds must refuse the new URL
+          # instead of launching with an unsupported destination.
+          - CFBundleURLName: ru.arvectum.tools.habits.review-note.v1
+            CFBundleURLSchemes:
+              - chickmark-review
         UIBackgroundModes:
           - remote-notification
         YandexNativeAdUnitID: "R-M-20183085-1"

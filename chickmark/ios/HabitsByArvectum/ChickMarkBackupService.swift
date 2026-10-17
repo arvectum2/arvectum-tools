@@ -51,7 +51,10 @@ enum ChickMarkBackupService {
                       createdAt: $0.createdAt, isCompleted: $0.isCompleted,
                       completedAt: $0.completedAt)
             },
-            groups: ChickMarkGroups.load()
+            groups: ChickMarkGroups.load(),
+            reviewNotes: try ReviewNoteAttachmentRepository().all().filter { review in
+                oneOffs.contains(where: { $0.id == review.id })
+            }
         )
     }
 
@@ -138,6 +141,16 @@ enum ChickMarkBackupService {
         } catch {
             context.rollback()
             throw error
+        }
+        if let reviewNotes = backup.reviewNotes {
+            let oneOffIDs = Set(try context.fetch(FetchDescriptor<OneOffReminder>()).map(\.id))
+            try ReviewNoteAttachmentRepository().merge(
+                reviewNotes, keepIDs: oneOffIDs, replace: mode == .replace
+            )
+        } else if mode == .replace {
+            // A legacy restore replaces the local one-offs too, so remove
+            // stale attachments without fabricating any new imported notes.
+            try ReviewNoteAttachmentRepository().merge([], keepIDs: [], replace: true)
         }
         if let groups = backup.groups {
             if mode == .replace {

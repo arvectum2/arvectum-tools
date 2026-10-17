@@ -6,6 +6,7 @@ struct OneOffReminderRow: View {
     let onComplete: () -> Void
     let onEdit: () -> Void
     let onDelete: () -> Void
+    let onOpenNote: (() -> Void)?
 
     private var dueText: String {
         let calendar = Calendar.autoupdatingCurrent
@@ -44,13 +45,23 @@ struct OneOffReminderRow: View {
                     .foregroundStyle(.primary)
 
                 Text(dueText)
-                .font(.caption)
-                .foregroundStyle(Color.habitsSecondaryText)
+                    .font(.caption)
+                    .foregroundStyle(Color.habitsSecondaryText)
+                if onOpenNote != nil {
+                    Text("Из Ухвата · есть полный текст")
+                        .font(.caption2)
+                        .foregroundStyle(Color.habitsSecondaryText)
+                }
             }
 
             Spacer(minLength: 4)
 
             Menu {
+                if let onOpenNote {
+                    Button(action: onOpenNote) {
+                        Label("Читать заметку", systemImage: "note.text")
+                    }
+                }
                 Button(action: onEdit) {
                     Label(
                         L10n.string("oneoff.edit"),

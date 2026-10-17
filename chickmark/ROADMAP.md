@@ -117,3 +117,8 @@ A6 (боевые показы РСЯ после установки обновл�
 2. Не путать успешный автоматический тест с физическим пользовательским QA.
 3. Доказательства релиза, App Review и QA сохранять в документах, прошлые списки — в docs/history/.
 4. При изменении релизных условий обновлять эту страницу и протокол спринта, не переписывая исторический документ.
+
+## Межприложенческая связка «Ухват → ChickMark» — 2026-10-17
+
+- [x] Separate non-release branch `feature/what-chickmark-note-handoff-20261017`: shared UUID/nonce contract with local transient clipboard, system paste permission, stable user confirmations, full saved text, source deep link, one-time task rather than recurring habit, backup compatibility and redacted notifications. 3 source-unit and 12 recipient-unit/backup tests green; iPhone Duo cross-app preview UI passed.
+- [ ] Match real signed iPhone apps for notification-allowed confirmation and link-back; configure release privacy disclosure and confirm actual local notification delivery. Existing public ChickMark 1.4.1 (15) has NO new `chickmark-review` scheme; no current phone data migrated or reset. [Protocol/QA](../what/docs/WHAT_P2A_CHICKMARK_HANDOFF_2026-10-17.md).

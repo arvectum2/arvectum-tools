@@ -14,6 +14,7 @@ struct RecordingLibraryView: View {
     @State private var searchText = ""
     @State private var preparedExport: PreparedRecordingExport?
     @State private var showDiagnostics = false
+    @State private var reviewNoteToSend: ReviewNoteHandoffDraft?
 
     private var notesMatchingFolderAndSearch: [UnifiedNote] {
         UnifiedInbox.visible(
@@ -314,6 +315,9 @@ struct RecordingLibraryView: View {
             .sheet(item: $localNoteToEdit) { note in
                 TextNoteSheet(note: note).environmentObject(store)
             }
+            .sheet(item: $reviewNoteToSend) { draft in
+                ReviewNoteHandoffConfirmation(draft: draft)
+            }
             .sheet(item: $localVideoToPlay) { note in
                 if let url = store.videoURL(for: note) {
                     VideoPlaybackSheet(url: url)
@@ -404,6 +408,18 @@ struct RecordingLibraryView: View {
             }
             HStack {
                 reminderMenu(note.id)
+                Button {
+                    reviewNoteToSend = ReviewNoteHandoffDraft(
+                        id: note.id,
+                        kind: note.kind == .text ? .text : .video,
+                        createdAt: note.createdAt,
+                        text: note.body.trimmingCharacters(in: .whitespacesAndNewlines)
+                    )
+                } label: {
+                    Label(CaptureBrand.text("В ChickMark", "To ChickMark"),
+                          systemImage: "arrowshape.turn.up.right")
+                }
+                .accessibilityIdentifier("what.note.sendToChickMark")
                 Button {
                     store.setArchived(note, archived: !note.archived)
                 } label: {
@@ -647,6 +663,19 @@ struct RecordingLibraryView: View {
     private func actionsMenu(_ recording: RecordingEnvelope) -> some View {
         Menu {
             reminderMenu(recording.id)
+            if let transcript = store.transcripts[recording.id],
+               !transcript.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                Button {
+                    reviewNoteToSend = ReviewNoteHandoffDraft(
+                        id: recording.id, kind: .audio,
+                        createdAt: recording.createdAt, text: transcript
+                    )
+                } label: {
+                    Label(CaptureBrand.text("Передать в ChickMark", "Send to ChickMark"),
+                          systemImage: "arrowshape.turn.up.right")
+                }
+                .accessibilityIdentifier("what.note.sendToChickMark")
+            }
             Divider()
             Button {
                 if store.transcribingID == recording.id {

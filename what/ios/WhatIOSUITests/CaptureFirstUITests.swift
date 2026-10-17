@@ -34,6 +34,177 @@ final class CaptureFirstUITests: XCTestCase {
         XCTAssertTrue(start.waitForExistence(timeout: 5))
         XCTAssertTrue(saved.exists)
     }
+    func testExplicitNoteHandoffOpensChickMarkPreviewWithoutAutoSaving() throws {
+        // Requires the independent ChickMark simulator QA build to be installed.
+        let app = XCUIApplication()
+        app.launch()
+        let plus = app.buttons["what.new.text"]
+        XCTAssertTrue(plus.waitForExistence(timeout: 10))
+        plus.tap()
+        let editor = app.textViews["what.text.editor"]
+        XCTAssertTrue(editor.waitForExistence(timeout: 7))
+        editor.tap()
+        let marker = "Cross app review \(UUID().uuidString.prefix(7))"
+        editor.typeText(marker)
+        app.buttons.matching(NSPredicate(format:
+            "label == %@ OR label == %@", "Готово", "Done"
+        )).firstMatch.tap()
+        let library = app.buttons.matching(NSPredicate(format:
+            "label BEGINSWITH %@ OR label BEGINSWITH %@",
+            "Мои записи", "My recordings"
+        )).firstMatch
+        XCTAssertTrue(library.waitForExistence(timeout: 7))
+        library.tap()
+        XCTAssertTrue(app.staticTexts[marker].waitForExistence(timeout: 7))
+        let send = app.buttons["what.note.sendToChickMark"].firstMatch
+        XCTAssertTrue(send.waitForExistence(timeout: 7))
+        send.tap()
+        let confirm = app.buttons["what.note.handoff.confirm"]
+        XCTAssertTrue(confirm.waitForExistence(timeout: 7))
+        confirm.tap()
+
+        let chickmark = XCUIApplication(bundleIdentifier: "ru.arvectum.tools.habits")
+        let springboard = XCUIApplication(bundleIdentifier: "com.apple.springboard")
+        let popup = springboard.alerts.firstMatch
+        if popup.waitForExistence(timeout: 4) {
+            let paste = popup.buttons.matching(NSPredicate(format:
+                "label CONTAINS[c] %@ OR label CONTAINS[c] %@ OR label CONTAINS[c] %@",
+                "Allow Paste", "Вставить", "Allow"
+            )).firstMatch
+            if paste.exists { paste.tap() }
+        }
+        let paste = chickmark.buttons.matching(NSPredicate(format:
+            "label == %@", "Вставить заметку"
+        )).firstMatch
+        XCTAssertTrue(paste.waitForExistence(timeout: 14),
+                      "ChickMark must ask permission before reading temporary clipboard")
+        paste.tap()
+        let pastePrompt = springboard.alerts.firstMatch
+        if pastePrompt.waitForExistence(timeout: 3) {
+            let allow = pastePrompt.buttons.matching(NSPredicate(format:
+                "label CONTAINS[c] %@ OR label CONTAINS[c] %@ OR label CONTAINS[c] %@",
+                "Allow Paste", "Вставить", "Allow"
+            )).firstMatch
+            if allow.exists { allow.tap() }
+        }
+        let recipientConfirm = chickmark.buttons["chickmark.noteReview.confirm"]
+        let recipientIsShowing = recipientConfirm.waitForExistence(timeout: 12)
+        if !recipientIsShowing {
+            print("REVIEW_RECEIVER_DEBUG_TREE_START")
+            print(chickmark.debugDescription)
+            print("REVIEW_RECEIVER_SPRINGBOARD_TREE")
+            print(springboard.debugDescription)
+            print("REVIEW_RECEIVER_DEBUG_TREE_END")
+        }
+        XCTAssertTrue(recipientIsShowing,
+                      "ChickMark should open a confirm-before-save preview")
+        if recipientIsShowing {
+            XCTAssertTrue(chickmark.staticTexts[marker].exists,
+                          "Private note must arrive fully in the recipient preview")
+            chickmark.buttons.matching(NSPredicate(format: "label == %@", "Отмена"))
+                .firstMatch.tap() // Do not create an unnecessary reminder.
+            XCTAssertFalse(recipientConfirm.exists)
+        }
+    }
+
+    func testExplicitNoteHandoffSavesOrHandlesDeniedNotifications() throws {
+        let app = XCUIApplication()
+        app.launch()
+        let add = app.buttons["what.new.text"]
+        XCTAssertTrue(add.waitForExistence(timeout: 12))
+        add.tap()
+        let editor = app.textViews["what.text.editor"]
+        XCTAssertTrue(editor.waitForExistence(timeout: 8))
+        editor.tap()
+        let marker = "Verified imported review \(UUID().uuidString.prefix(7))"
+        editor.typeText(marker)
+        app.buttons.matching(NSPredicate(format:
+            "label == %@ OR label == %@", "Готово", "Done"
+        )).firstMatch.tap()
+        let library = app.buttons.matching(NSPredicate(format:
+            "label BEGINSWITH %@ OR label BEGINSWITH %@",
+            "Мои записи", "My recordings"
+        )).firstMatch
+        XCTAssertTrue(library.waitForExistence(timeout: 8))
+        library.tap()
+        XCTAssertTrue(app.staticTexts[marker].waitForExistence(timeout: 8))
+        app.buttons["what.note.sendToChickMark"].firstMatch.tap()
+        let send = app.buttons["what.note.handoff.confirm"]
+        XCTAssertTrue(send.waitForExistence(timeout: 8))
+        send.tap()
+        let chickmark = XCUIApplication(bundleIdentifier: "ru.arvectum.tools.habits")
+        let paste = chickmark.buttons.matching(NSPredicate(format:
+            "label == %@", "Вставить заметку"
+        )).firstMatch
+        XCTAssertTrue(paste.waitForExistence(timeout: 14))
+        paste.tap()
+        let confirm = chickmark.buttons["chickmark.noteReview.confirm"]
+        XCTAssertTrue(confirm.waitForExistence(timeout: 14),
+                      "Paste must not create the task until user confirms")
+        XCTAssertTrue(chickmark.staticTexts[marker].exists)
+        confirm.tap()
+        let springboard = XCUIApplication(bundleIdentifier: "com.apple.springboard")
+        let alert = springboard.alerts.firstMatch
+        if alert.waitForExistence(timeout: 6) {
+            let allow = alert.buttons.matching(NSPredicate(format:
+                "label CONTAINS[c] %@ OR label CONTAINS[c] %@ OR label CONTAINS[c] %@",
+                "Allow", "Разрешить", "OK"
+            )).firstMatch
+            if allow.exists { allow.tap() }
+        }
+        let deniedAlert = chickmark.alerts.matching(NSPredicate(format:
+            "label == %@", "Не удалось добавить"
+        )).firstMatch
+        if deniedAlert.waitForExistence(timeout: 3) {
+            XCTAssertTrue(chickmark.staticTexts.matching(NSPredicate(format:
+                "label CONTAINS %@", "Разрешите уведомления ChickMark"
+            )).firstMatch.exists,
+            "Denied notification permission must not silently create a task")
+            XCTAssertTrue(confirm.exists, "The unsaved preview must remain available")
+            return
+        }
+        let sourceRow = chickmark.staticTexts["Из Ухвата · есть полный текст"]
+        XCTAssertTrue(sourceRow.waitForExistence(timeout: 8),
+                      "On an authorized simulator, the imported one-off must appear")
+        XCTAssertTrue(chickmark.staticTexts.matching(NSPredicate(format:
+            "label BEGINSWITH %@", "Разобрать заметку:"
+        )).firstMatch.exists)
+    }
+
+    func testChickMarkHandoffShowsStableConfirmationBeforeAnyTransfer() throws {
+        let app = XCUIApplication()
+        app.launch()
+        let plus = app.buttons["what.new.text"]
+        XCTAssertTrue(plus.waitForExistence(timeout: 12))
+        plus.tap()
+        let editor = app.textViews["what.text.editor"]
+        XCTAssertTrue(editor.waitForExistence(timeout: 8))
+        editor.tap()
+        let marker = "Handoff UI \(UUID().uuidString.prefix(8))"
+        editor.typeText(marker)
+        app.buttons.matching(NSPredicate(format:
+            "label == %@ OR label == %@", "Готово", "Done"
+        )).firstMatch.tap()
+        let library = app.buttons.matching(NSPredicate(format:
+            "label BEGINSWITH %@ OR label BEGINSWITH %@",
+            "Мои записи", "My recordings"
+        )).firstMatch
+        XCTAssertTrue(library.waitForExistence(timeout: 8))
+        library.tap()
+        XCTAssertTrue(app.staticTexts[marker].waitForExistence(timeout: 8))
+        let send = app.buttons["what.note.sendToChickMark"].firstMatch
+        XCTAssertTrue(send.waitForExistence(timeout: 8))
+        send.tap()
+        let confirm = app.buttons["what.note.handoff.confirm"]
+        XCTAssertTrue(confirm.waitForExistence(timeout: 8),
+                      "Sending must require a visible explicit consent step")
+        XCTAssertTrue(app.staticTexts[marker].exists)
+        app.buttons.matching(NSPredicate(format:
+            "label == %@ OR label == %@", "Отмена", "Cancel"
+        )).firstMatch.tap()
+        XCTAssertTrue(app.staticTexts[marker].waitForExistence(timeout: 5))
+    }
+
     func testUnifiedLibraryTypeChipsFilterTypedNotesWithoutDeletingThem() throws {
         let app = XCUIApplication()
         app.launch()
