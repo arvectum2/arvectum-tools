@@ -28,6 +28,7 @@
 		36547C544E7ADF8E5D96016E /* VideoCameraSwitchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8268E2D4A99F1C2602FA0048 /* VideoCameraSwitchTests.swift */; };
 		36706916A594DC5DA493B27E /* WatchTransferRetryPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A4FCD3C72E787C27B7E3EE /* WatchTransferRetryPolicy.swift */; };
 		39D726A0F9A6E5ADA4DBEA21 /* WhatComplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D1A5C9E79CC4A544374E3E /* WhatComplication.swift */; };
+		3C065E85B30A37BB3D5F3833 /* PhysicalVideoCaptureUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554A6308CE6E00D0214C452B /* PhysicalVideoCaptureUITests.swift */; };
 		43EC0C5A65B3F7E98125225B /* SpeechAttemptGateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A3AB6AF9B5A87B5CA20344D /* SpeechAttemptGateTests.swift */; };
 		4B245C0DC2EC18A8311E7D0C /* CaptureFirstUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6ACA38EC5E339EF4FE47646 /* CaptureFirstUITests.swift */; };
 		503FAB8870D0044EF3463F4D /* RecordingEnvelope.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C9581F753BED275286D623 /* RecordingEnvelope.swift */; };
@@ -184,6 +185,7 @@
 		4E7551688F04996B25C560E4 /* VideoRecordingSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoRecordingSheet.swift; sourceTree = "<group>"; };
 		4EF0E2FFE3E8099A4E2FAF8D /* SpeechAttemptGate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechAttemptGate.swift; sourceTree = "<group>"; };
 		504D7E8A050C788BB8AB0E56 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		554A6308CE6E00D0214C452B /* PhysicalVideoCaptureUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicalVideoCaptureUITests.swift; sourceTree = "<group>"; };
 		55E1CDF413B1021AF609E11A /* SyncDiagnosticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncDiagnosticsView.swift; sourceTree = "<group>"; };
 		57CA5B4FD3F49550A3BF2B59 /* RecordingRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingRepository.swift; sourceTree = "<group>"; };
 		58E433EB7FDFABF2CA66D5BF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -316,6 +318,7 @@
 			isa = PBXGroup;
 			children = (
 				E6ACA38EC5E339EF4FE47646 /* CaptureFirstUITests.swift */,
+				554A6308CE6E00D0214C452B /* PhysicalVideoCaptureUITests.swift */,
 				3EEC5029D31A75E43264EDFD /* ReviewDemoUITests.swift */,
 				A7594885189CFE2057AA3037 /* SyncDiagnosticsLocalizationUITests.swift */,
 			);
@@ -687,6 +690,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4B245C0DC2EC18A8311E7D0C /* CaptureFirstUITests.swift in Sources */,
+				3C065E85B30A37BB3D5F3833 /* PhysicalVideoCaptureUITests.swift in Sources */,
 				0633B2238EF1A5BD5B32969F /* ReviewDemoUITests.swift in Sources */,
 				F5368DAB2C52D06EE5A584CD /* SyncDiagnosticsLocalizationUITests.swift in Sources */,
 			);
