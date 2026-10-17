@@ -37,6 +37,7 @@ struct HabitsByArvectumApp: App {
         }
 
 #if REVIEW_HANDOFF_QA
+        ReviewNotificationPhysicalQA.cleanupIfRequested(container: container)
         ReviewNotificationPhysicalQA.seedIfRequested(container: container)
 #endif
 #if DEBUG

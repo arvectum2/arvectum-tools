@@ -9,6 +9,7 @@ import UserNotifications
 @MainActor
 enum ReviewNotificationPhysicalQA {
     static let launchFlag = "--review-notification-physical-qa"
+    static let cleanupFlag = "--review-notification-qa-cleanup"
     private static let fileName = "review-notification-physical-qa.json"
     private static let privateSentinel = "QA_PRIVATE_NOTE_NEVER_SHOW_ON_LOCKSCREEN"
 
@@ -51,6 +52,34 @@ enum ReviewNotificationPhysicalQA {
             try JSONEncoder().encode(result).write(to: reportURL, options: .atomic)
         } catch {
             // The notification test must never crash user-facing UI.
+        }
+    }
+
+    /// Remove only our synthetic fixture IDs from the independent Review QA
+    /// bundle. Never delete user-created one-offs or other QA handoff notes.
+    static func cleanupIfRequested(container: ModelContainer) {
+        guard ProcessInfo.processInfo.arguments.contains(cleanupFlag) else { return }
+        do {
+            let context = ModelContext(container)
+            let all = try context.fetch(FetchDescriptor<OneOffReminder>())
+            let fixtures = all.filter { $0.title.contains(privateSentinel) }
+            for reminder in fixtures { context.delete(reminder) }
+            try context.save()
+
+            let repository = ReviewNoteAttachmentRepository()
+            for reminder in fixtures {
+                try? repository.remove(reminder.id)
+            }
+            let ids = fixtures.map {
+                HabitReminderScheduler.oneOffRequestIdentifier(reminderID: $0.id)
+            }
+            let center = UNUserNotificationCenter.current()
+            center.removePendingNotificationRequests(withIdentifiers: ids)
+            center.removeDeliveredNotifications(withIdentifiers: ids)
+            try? FileManager.default.removeItem(at: reportURL)
+        } catch {
+            // Do not delete corresponding attachments or alerts when the
+            // local model save failed: the next explicit QA cleanup can retry.
         }
     }
 
