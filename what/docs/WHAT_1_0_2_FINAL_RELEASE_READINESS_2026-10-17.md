@@ -58,3 +58,7 @@ Previously exported production IPA is still **superseded** and must not be uploa
 ## Final QA11 branch simulator regressions, 2026-10-17
 
 Full Xcode WhatIOS scheme tests PASS: 63 unit/integration (3 skipped), 5 UI, zero failures. The persisted-locale test fixture was corrected to respect saved settings. This does not authorize upload; previous production IPA is superseded and physical QA11 UI is unaccepted.
+
+## QA11 final physical acceptance (2026-10-17)
+
+Owner confirmed «1 - ок, 2 - ок, 3 - ок»: diagnostics Done returns to library, English speech/interface setting updates UI without restart, Russian restores UI, previous recordings persist. All three physically accepted. Previously exported IPA predates these fixes and stays superseded. No Apple upload/submission approved.

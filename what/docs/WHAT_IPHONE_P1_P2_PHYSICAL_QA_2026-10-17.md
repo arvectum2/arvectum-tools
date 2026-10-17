@@ -110,7 +110,7 @@ Release remains blocked pending owner scope agreement, remaining planned work an
 - Español Speech option remains supported, but full Spanish interface is not localized. Menu explicitly labels Spanish Speech as using the English UI. Full es-ES interface is separate backlog.
 - **3/3 simulator UI tests PASS, 0 failures:** RU/EN diagnostics close-to-library, interface switches RU -> EN -> RU with the Speech picker, persists through normal relaunch. Log under builds/what-locale-nav-regression-20261017/ui-test-v2.log on ArvectumSSD. Earlier simulator test failure was an incorrect test locator for a native SwiftUI Picker flattened inside Menu; test fixed after reading accessibility hierarchy.
 - **Signed isolated iPhone QA11** installed in-place on 2026-10-17; phone QA 1.0.2 (11). 22/22 private QA Application Support files read back with matching SHA-256 byte-for-byte before and after. No existing notes touched. Watch QA10 not explicitly updated due intermittent CoreDevice connection.
-- **Physical acceptance pending:** open iPhone QA11 Sync diagnostics, tap Done to return; choose English and check English interface without restart; return Русский and check Russian interface, verify recordings unchanged. No need to re-record Speech test already passed on QA10.
+- **Physical QA11 acceptance PASS (owner, 2026-10-17):** owner replied «1 - ок, 2 - ок, 3 - ок» to exactly the prescribed steps: Done returns to list; setting English changes interface immediately; returning Русский restores Russian UI and existing recordings.
 - Automatic RU/EN transcription remains the default.
 - **No production IPA rebuilt, no App Store upload/review.**
 
@@ -119,4 +119,13 @@ Release remains blocked pending owner scope agreement, remaining planned work an
 - **PASS:** Xcode 27.1 iPhone Duo Simulator full WhatIOS scheme: **63 unit/integration tests, 0 failures, 3 skipped; 5 UI tests, 0 failures; TEST SUCCEEDED**.
 - Complete log on Mac mini ArvectumSSD: builds/what-ui-language-full-regression-20261017/all-tests-v2.log.
 - The first full test run exposed a precondition problem in a UI test: it assumed simulator AppleLanguages overrides a user-persisted Speech/UI language. After the product correctly persisted a chosen language, English diagnostics test could start in Russian. The test now explicitly selects the desired locale through the UI before assertions. No product change was needed to address that test state dependence.
-- Physical iPhone QA11 visual confirmation of Done/back and live UI locale update **still pending owner**. Device storage was checked byte-identical 22/22 after in-place install. Do not overstate simulator results as physical approval.
+- **Physical QA11 PASS:** owner confirmed Done/back, English/Russian live UI switching and original notes intact («1 - ок, 2 - ок, 3 - ок»). 22/22 QA storage files were separately verified byte-identical after installation.
+
+## Stage 7 — completed hardware acceptance QA11 (2026-10-17)
+
+Owner explicitly confirmed all three steps with «1 - ок, 2 - ок, 3 - ок»:
+1. [x] Diagnostics opens and «Готово» dismisses it back to «Мои записи».
+2. [x] Selecting English immediately switches the iPhone UI into English (the same preference controls Speech locale).
+3. [x] Selecting Русский switches the UI back; existing recordings remain.
+
+**Closed:** diagnostics navigation and mismatched RU/EN iPhone interface/recognition setting. **Not implied:** Spanish UI completeness, denied Speech permission, cancellation race tests, force-quit audio reliability, absolute queue safety under any failure. Release remains on hold until owner authorizes scope.
