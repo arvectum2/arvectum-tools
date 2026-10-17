@@ -10,7 +10,7 @@
 - [x] **Physical QA9 staged:** in-place signed 1.0.2 (9) installed on paired iPhone and Apple Watch SE with unchanged QA bundle IDs; pre/post Watch pending count 0, 17/17 iPhone QA Application Support file paths and sizes preserved. Installation does NOT prove the icon visually displays.
 - [x] **Physical QA9 branded-icon PASS — owner 2026-10-17:** on actual Apple Watch face, icon is correct (not mic or blank square); owner also confirmed the recording was saved. Other families/tint combinations not separately examined. [Physical QA](docs/WATCH_BRAND_COMPLICATION_QA_2026-10-17.md).
 - [x] **QA9 owner test flow PASS:** user confirmed «проверка прошла. значок правильный, запись сохранилась» for the requested Watch complication test. Explicit audio playback and no-duplicates on this specific QA9 recording were not separately stated; both were proven on prior QA8 and can be checked again if needed.
-- [ ] Review open roadmap with owner and agree what belongs to next submission. Existing export (2026-10-17, SHA-256 39ae71cc...) is **superseded** for submission and cannot be uploaded.
+- [x] **Roadmap source audit refined (2026-10-17):** 27 traceable requirements (4 ready, 12 partial, 11 not ready); P4/P5 have prototype sources but no exposed navigation, P2 code is present but physical acceptance is pending. [Detailed audit](docs/WHAT_ROADMAP_AUDIT_2026-10-17.md).\n- [ ] **Owner release-scope agreement still OPEN:** review remaining P1/P2 QA and decide whether 1.0.2 is a focused reliability/brand fix or waits for later features. Previous IPA (SHA-256 39ae71cc...) is **superseded** and must not be uploaded.
 
 ## P0 release blocker — physical one-tap Watch capture (2026-10-16)
 

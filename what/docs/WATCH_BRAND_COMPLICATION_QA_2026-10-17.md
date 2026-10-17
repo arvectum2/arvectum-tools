@@ -25,7 +25,7 @@
 - [x] The previously reproduced generic microphone / empty square appearance no longer occurs on owner's tested QA9 watch face. No extra image needed for this case.
 
 ## Other roadmap, not silently declared complete
-Full 27-item audit: what/docs/WHAT_ROADMAP_AUDIT_2026-10-17.md (4 ready, 10 partial, 13 open). Release scope selection is pending owner decision. Text/video/iPad/Duo, reminder/ChickMark, advanced search and physical transcription QA were never declared delivered by this branding fix.
+Full 27-item audit: what/docs/WHAT_ROADMAP_AUDIT_2026-10-17.md (4 ready, 12 partial, 11 open). Release scope selection is pending owner decision. Text/video/iPad/Duo, reminder/ChickMark, advanced search and physical transcription QA were never declared delivered by this branding fix.
 
 ## User verification result (2026-10-17)
 
