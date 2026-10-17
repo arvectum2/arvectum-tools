@@ -39,3 +39,7 @@
 - iPad Pro 11-inch M5 also fails with CoreSimulator 403; automatic runtime selection reports `Could not find an available runtime for device type` even though iOS 27.1 is listed Ready.
 - This establishes an iPad runtime compatibility/registration issue distinct from a total CoreSimulator failure. The iOS runtime's signature still reports Unknown. A signature verification command was attempted but no conclusive successful verification was returned.
 - Existing iPhone Duo simulator and installed runtime were preserved; no destructive reset or reinstall was attempted. iPad simulator acceptance remains BLOCKED pending a compatible runtime or Apple tooling fix.
+
+## Root cause confirmed: device-restricted runtime
+
+`xcrun simctl list runtimes -j` exposes only one `supportedDeviceTypes` entry for iOS 27.1: `iPhone Duo`. Inspecting `Contents/Resources/profile.plist` of the installed iOS 27.1 runtime reveals `restrictedToDeviceTypes = [com.apple.CoreSimulator.SimDeviceType.V68]`. This is the direct cause of CoreSimulator 403 for every iPad, despite iPad types being installed separately. Xcode's SDK and runtime builds match; modifying the app cannot solve it. A standard iOS simulator runtime download was started with `xcodebuild -downloadPlatform iOS -exportPath /Volumes/ArvectumSSD/Arvectum/DevTools/SimulatorRuntimeDownloads -architectureVariant arm64`; install/verification and iPad acceptance are pending download completion. Do not modify the signed/restricted runtime profile in place or delete the existing working iPhone Duo device.
