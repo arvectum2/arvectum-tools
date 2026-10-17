@@ -439,7 +439,12 @@ struct VideoRecordingSheet: View {
                             CameraPreview(session: recorder.session)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .clipShape(RoundedRectangle(cornerRadius: 16))
+                        // The preview is its own accessibility element; an ID
+                        // on the enclosing ZStack can hide the camera switch
+                        // button from VoiceOver and physical XCTest queries.
+                        .accessibilityElement(children: .ignore)
                         .accessibilityLabel(CaptureBrand.text("Превью камеры", "Camera preview"))
+                        .accessibilityIdentifier("what.video.preview")
 
                     Button {
                         UIImpactFeedbackGenerator(style: .light).impactOccurred()
@@ -472,7 +477,7 @@ struct VideoRecordingSheet: View {
                         .frame(
                             height: min(660, max(180, geometry.size.height * 0.62))
                         )
-                        .accessibilityIdentifier("what.video.preview")
+                        .accessibilityElement(children: .contain)
                 if recorder.isSaving {
                     ProgressView(CaptureBrand.text("Сохраняем видеозаметку…",
                                                   "Saving video note…"))

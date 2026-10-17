@@ -48,3 +48,27 @@
 - Captured the physical screen via `devicectl device capture screenshot`, which identifies the exact blocker: iOS secure system sheet **«Введите код-пароль iPhone для приложения „XCTest“» / "Enable UI Automation"**. Owner must enter the device passcode locally; never transmit or store the passcode.
 - Until this local authorization is completed and fresh targeted tests execute, **do not mark physical UI/video acceptance passed**.
 - Diagnostic log: `builds/what-p2a-physical-qa-20261017/iphone-real-ui-20261017.log`; device screenshot (private, not uploaded) `builds/what-p2a-physical-qa-20261017/iphone-ui-automation-diagnostic.png`.
+
+## Физическая приёмка после разрешения XCTest — результаты 17:11–17:25 МСК
+
+- Владелец ввёл код на **самом iPhone**, разрешив XCTest UI Automation. Код не получался и не сохранялся. Устройство: реальный iPhone 13, iOS 27.0.1, по кабелю; отдельный `ru.arvectum.tools.what.p2aqa`, без установки на Watch.
+- **PASS / `TEST SUCCEEDED`:** `CaptureFirstUITests.testCaptureFirstHomeAndLibraryBackNavigation` — главный экран, список записей, возврат; см. `builds/what-p2a-physical-qa-20261017/retry-physical-ui.log`.
+- **PASS (case-level):** `CaptureFirstUITests.testTypedNoteFromPlusPersistsAfterOpeningLibrary` — `+`, ввод текста, сохранение, обнаружение в Inbox; см. `iphone-text-video-physical-20261017.log`. Общая команда содержала отдельный *не прошедший первоначальный* видеотест: не маркировать весь запуск успешным.
+- **PASS / `TEST SUCCEEDED`:** `PhysicalVideoCaptureUITests.testHoldSwitchCameraAndSaveLocalMovie` после исправления accessibility и ожидания закрытия видео-экрана **после окончания экспорта**, а не по раннему существованию домашней кнопки; `iphone-video-durable-save-20261017.log`. Реальное длинное нажатие, переключение задняя→фронтальная, два локальных фрагмента, Stop/Save, запись внесена в индекс.
+- **PASS (case-level):** `PhysicalVideoCaptureUITests.testShortTapStartsAndSavesAudio` — короткое нажатие, Stop/Save, физический аудиофайл. `iphone-audio-video-reopen-20261017.log` (общий запуск имел ошибку в первом варианте тестового утверждения видеоплеера).
+- **PASS / `TEST SUCCEEDED`:** `PhysicalVideoCaptureUITests.testSavedVideosOpenPlayerAfterRelaunch` — видео доступно после перезапуска, встроенный плеер открывается/закрывается; исправлено ошибочное утверждение теста, ожидавшее кнопку *домашнего* экрана при возврате в *список*; `iphone-replay-fix-20261017.log`.
+
+### Объективная проверка реальных файлов
+
+- Исходный незавершённый видеофрагмент первой попытки: MOV 46,21 с, HEVC + AAC, сохранён локально. Автовосстановление при следующем запуске добавило видео в индекс (без дублирования UUID).
+- Прерванная первой версией UI-теста двухкамерная запись: два полноценные исходных MOV (HEVC + AAC), временный `combined.mov` был прерван XCTest до финализации. При следующем запуске восстановлена как единая видеозаметка. Оригиналы не были удалены до успешного импорта.
+- Финальный сохранённый двухкамерный MOV: **19,70 с**, **7 891 522 байта**, видеопоток **H.264 1080×1920**, аудио **AAC**, ненулевой аудиосигнал (mean -40,3 dB, peak -16,9 dB). После закрытия и повторного запуска — в `What/Videos/`, в `local-notes.json`; все новые видеожурналы очищены после импорта. Проверено чтение `ffprobe`, декодирование `ffmpeg` и локальный индекс.
+- Аудиозаметка: **M4A 5,76 с**, **107 770 байт**, AAC 48 кГц, ненулевой аудиосигнал (mean -31,5 dB, peak -9,7 dB), зарегистрирована в `recordings.json` под тем же UUID что и `What/Audio/*.m4a`.
+- Нюанс изображения: проверка `blackdetect` показала практически чёрные первые **15,43 с** от *основной* камеры и нормальный ненулевой видеосигнал после перехода на *фронтальную*. Возможно закрыт объектив основной камеры (телефон лежал на столе); причину не доказали. **Ещё требуется повторить при физически открытом и освещённом объективе основной камеры.** Не объявлять полную валидацию обеих камер.
+- Инвариант безопасности: после всей физической QA вновь скопировано хранилище обычного `ru.arvectum.tools.what.qa` (сборка 13); **26/26 исходных файлов SHA-256 идентичны** до и после, ни одного добавленного/удалённого/изменённого. Само приложение QA13 и отдельное P2a QA1 остались установленными, Watch не обновлялся. Данные других приложений не тронуты.
+
+### Исправление и остающиеся ворота
+
+- В `VideoRecordingSheet` перенесён `what.video.preview` на собственный элемент камеры и включено `.accessibilityElement(children: .contain)` у контейнера, чтобы кнопка `what.video.switchCamera` была доступна и VoiceOver, и XCTest. Реальная физическая UI-автоматизация подтверждена после исправления.
+- В `PhysicalVideoCaptureUITests` добавлены независимые аппаратные сценарии аудио/плеера, безопасная диагностика accessibility и ожидание фактического завершения видеоэкспорта. Тесты работают только с отдельным P2a QA приложением.
+- **Открыто:** основная камера с открытым объективом, отказ/отзыв разрешений, принудительное завершение посреди записи, малый объём диска, длинные ролики, iPad (у runtime iOS 27.1 доступен лишь iPhone Duo), полная Watch P0/P1 регрессия с объединённой P2a веткой, отдельное решение о выпуске. App Store и production не затронуты.
