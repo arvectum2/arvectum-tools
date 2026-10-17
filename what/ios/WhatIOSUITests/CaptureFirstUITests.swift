@@ -63,6 +63,41 @@ final class CaptureFirstUITests: XCTestCase {
         XCTAssertTrue(app.staticTexts[marker].waitForExistence(timeout: 10),
                       "Locally autosaved note must appear in the unified inbox.")
     }
+    func testIPadRotationPreservesVisibleCaptureAndTextControls() throws {
+        guard UIDevice.current.userInterfaceIdiom == .pad else {
+            throw XCTSkip("Rotation acceptance is specific to iPad")
+        }
+        let app = XCUIApplication()
+        XCUIDevice.shared.orientation = .portrait
+        defer { XCUIDevice.shared.orientation = .portrait }
+        app.launch()
+
+        let capture = app.buttons["what.record.primary"]
+        let plus = app.buttons["what.new.text"]
+        let library = app.buttons.matching(NSPredicate(format:
+            "label BEGINSWITH %@ OR label BEGINSWITH %@",
+            "Мои записи", "My recordings"
+        )).firstMatch
+        for orientation: UIDeviceOrientation in [.portrait, .landscapeRight, .portrait] {
+            XCUIDevice.shared.orientation = orientation
+            XCTAssertTrue(capture.waitForExistence(timeout: 12),
+                          "Capture must exist after rotating iPad: \(orientation.rawValue)")
+            XCTAssertTrue(capture.isHittable, "Capture must be visible after rotation")
+            XCTAssertTrue(plus.isHittable, "Text + must remain visible after rotation")
+            XCTAssertTrue(library.isHittable, "Library must remain visible after rotation")
+        }
+        plus.tap()
+        let editor = app.textViews["what.text.editor"]
+        XCTAssertTrue(editor.waitForExistence(timeout: 10))
+        XCTAssertTrue(editor.isHittable, "iPad text editor must not be clipped")
+        let done = app.buttons.matching(NSPredicate(format:
+            "label == %@ OR label == %@", "Готово", "Done"
+        )).firstMatch
+        XCTAssertTrue(done.isHittable)
+        done.tap()
+        XCTAssertTrue(capture.waitForExistence(timeout: 7))
+    }
+
     func testIPadLandscapePreservesCaptureTextEditorAndLibrary() throws {
         guard UIDevice.current.userInterfaceIdiom == .pad else {
             throw XCTSkip("iPad layout acceptance is specific to iPad.")
