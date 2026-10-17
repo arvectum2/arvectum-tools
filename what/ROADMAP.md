@@ -91,8 +91,10 @@ or export features.
 - [x] Watch recording, UUID/time, durable local queue, opportunistic transfer to iPhone, ACK and deduplication (implemented in `main`).
 - [x] Watch-face entry point and immediate recording UX (source integrated into `main`).
 - [x] Automated A2 queue crash/write-failure/offline-batch and receiver AAC integrity regression tests added; no real Watch devices tested yet.
-- [ ] Complete remaining disconnected-device, multiple-pending-recording and device-reboot acceptance cases on a physical paired Watch and iPhone.
-- [ ] Reconcile final physical test evidence and prove no recorded thought is lost.
+- [x] **Physical disconnected Watch and reboot acceptance PASS (QA8):** two Watch notes recorded with iPhone OFF transferred in order with sound and no duplicates; separate Watch reboot with queued audio automatically delivered and playable without manually opening Watch app. QA9 branded complication also physically accepted. [Hardware evidence](docs/WATCH_ONE_TAP_PHYSICAL_QA_2026-10-16.md).
+- [ ] **P0 robustness still open:** repeated disconnects, ACK races under adverse conditions, forced termination during unfinished AAC write and unexpected power loss. Earlier successful tests do not prove an absolute no-loss guarantee.
+- [x] **Core physical acceptance evidence consolidated** for one-tap, Digital Crown, queue, audio/dedup and reboot; physical P1/P2 QA9–11 findings and remaining limitations separately logged. [Physical Watch QA](docs/WATCH_ONE_TAP_PHYSICAL_QA_2026-10-16.md) / [iPhone QA](docs/WHAT_IPHONE_P1_P2_PHYSICAL_QA_2026-10-17.md).
+- [ ] **Absolute no-loss under all failure scenarios NOT proven:** treat catastrophic file corruption, low storage and force-power-off cases as future stress/robustness acceptance, never a universal guarantee.
 
 ## P1/P2 UI defects after QA10 acceptance — 2026-10-17
 
@@ -135,10 +137,13 @@ or export features.
 ## P1 — Voice + transcribed text (existing; not a manually typed note)
 - [x] Preserve original audio as source of truth; transcript stored separately by recording UUID.
 - [x] Add on-device Speech transcription (explicit permission; no cloud fallback), local text persistence, and play/stop controls.
-- [ ] Verify playback and actual Speech recognition of existing audio on physical iPhone; add language selection, retry/cancel controls and transcript corrections.
+- [x] **Physical P1 PASS (QA9–11):** Watch-sourced audio played on iPhone; RU/EN audio notes auto-transcribed; user-corrected text persisted across reopen and remained searchable/playable; repeat recognition confirmed; RU/EN Speech language controls live UI and survives restart. [Evidence](docs/WHAT_IPHONE_P1_P2_PHYSICAL_QA_2026-10-17.md).
+- [ ] **P1 edge cases open:** cancel mid-transcription and Speech permission denied on real devices (without erasing existing notes). Direct iPhone capture is a separate test with iPhone Mirroring inactive; the Mirroring mic conflict is not an app defect.
 
 ## P2 — iPhone inbox
-- [ ] Today/Yesterday grouping, search, archive/delete and sync status; playback available in initial list.
+- [x] **Physical P2 core inbox PASS (QA9–11):** transcript search, playable audio, archive/restore, cached Watch diagnostics view (last Watch pending report 0), and modal Done navigation physically confirmed. Corrected text/audio survived archive cycle. [Evidence](docs/WHAT_IPHONE_P1_P2_PHYSICAL_QA_2026-10-17.md).
+- [x] **Automated repository P2 checks PASS:** Today/Yesterday grouping, archive+delete isolation and persistence/search exercised in isolated XCTest data; no real user notes deleted.
+- [ ] **P2 optional physical QA remaining:** Today/Yesterday date boundaries, test-note deletion confirmation and failure handling, and delayed Watch status differences vs real-time state. Don't infer these from successful search/archive or a cached report.
 
 ## P2a — Unified multimodal capture on iPhone and iPad (new backlog, 2026-10-16)
 
