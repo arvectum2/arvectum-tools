@@ -30,3 +30,9 @@ The separate feature branch feature/what-multimodal-20261016 already contains Lo
 - [ ] Integrate the existing multimodal feature branch and tested Watch fixes in a new, isolated worktree; perform full regression and signed QA with separate app IDs.
 - [ ] Camera/video/iPad physical acceptance, and eventual owner decision on release scope.
 - [ ] No App Store upload or review submitted.
+
+## QA12 hardware blocker and independent P2a branch
+
+Signed iPhone QA12 on ArvectumSSD: builds/what-speech-cancel-qa12-20261017/Build/Products/Debug-iphoneos/WhatIOSQA.app. CoreDevice reports iPhone Nikita unavailable, usage assertion error 4016 when backing up QA Application Support. No installation attempted. Existing iPhone QA11, Watch QA10 and production data remain unchanged. Restore trusted connection first, back up existing data and check hashes before in-place upgrade.
+
+P2a integration is preserved in separate remote branch integration/what-multimodal-watch-20261017 with its own checkpoint in what/docs/WHAT_P2A_WATCH_INTEGRATION_2026-10-17.md. Full integration test case counts are green; Xcode result-finalization, physical camera testing and signed dedicated multimodal QA remain open. No App Store upload.

@@ -96,6 +96,13 @@ or export features.
 - [x] **Core physical acceptance evidence consolidated** for one-tap, Digital Crown, queue, audio/dedup and reboot; physical P1/P2 QA9–11 findings and remaining limitations separately logged. [Physical Watch QA](docs/WATCH_ONE_TAP_PHYSICAL_QA_2026-10-16.md) / [iPhone QA](docs/WHAT_IPHONE_P1_P2_PHYSICAL_QA_2026-10-17.md).
 - [ ] **Absolute no-loss under all failure scenarios NOT proven:** treat catastrophic file corruption, low storage and force-power-off cases as future stress/robustness acceptance, never a universal guarantee.
 
+## QA12 signed but not installed / P2a integration isolated (2026-10-17)
+
+- [x] Signed iPhone QA 1.0.2 (12) built with SpeechAttemptGate; correct QA-only bundle identifiers and signatures.
+- [ ] **Blocked on device access:** iPhone Nikita appeared unavailable in CoreDevice (error 4016). The pre-install App Support backup failed, so **QA12 was NOT installed**. Stable iPhone QA11 and Watch QA10 remain unchanged.
+- [ ] After iPhone reconnect/unlock: backup existing QA app data to ArvectumSSD, install iPhone QA12 in place, compare SHA-256 hashes, then test cancellation on a new synthetic note only.
+- [x] Separate multimodal integration branch created and pushed: integration/what-multimodal-watch-20261017. 92 unit and 9 UI test cases reported 0 failures, but Xcode full-suite result finalization and hardware P2a acceptance are open. Do not merge into App Store code without approval.
+
 ## P1 cancellation/race follow-up and P2a M1 baseline (2026-10-17)
 
 - [x] Speech recognition now checks a unique per-attempt token as well as the recording UUID; late callbacks from a cancelled previous attempt, including after immediate retry of the same note, are ignored.
