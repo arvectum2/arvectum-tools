@@ -24,3 +24,12 @@
 5. После M1–M4 провести отдельную интеграцию/QA Watch и проверку iPad; пока не считать их физически принятыми.
 
 Ограничения: никакой App Store отправки, установки на Watch, удаления старых QA или production записей.
+
+## iPhone 13 connected — installed, pending unlocked acceptance
+
+- Physical device connected by USB, Developer Mode enabled, iOS 27.0.1. Legacy `ru.arvectum.tools.what.qa` remains on device at 1.0.2 (13).
+- Before installing the isolated app, copied `Library/Application Support` from the established legacy QA container to `/Volumes/ArvectumSSD/Arvectum/builds/what-p2a-physical-qa-20261017/device-backup/legacy-qa-app-support`: 26 files. Re-read the same container after installation: **26/26 files SHA-256 identical**. No existing QA or production bundle uninstalled.
+- Imported updated iOS 18+ native async MOV exporter (iOS 17 fallback retained) and minor shared encoder warnings from the desktop QA branch. Physical Debug build on Xcode 27.1 SUCCEEDED. Strict deep code signature PASS; separate ID `ru.arvectum.tools.what.p2aqa`; nested standalone iOS widget, **no Watch app**.
+- Physical `devicectl device install app` succeeded for `Ухват P2a QA` version 1.0.2 (1); device inventory confirms both established QA (13) and separate P2a QA (1).
+- Real-device automated UI test preflight blocked: `Unlock iPhone Nikita to Continue` (locked screen). Foreground launch similarly denied by SpringBoard reason `Locked`. No claim of completed real camera/video/microphone testing until device is unlocked and successful evidence is collected.
+- Standard iOS simulator runtime download launched but has produced no output/artifact; the installed iOS 27.1 runtime has `restrictedToDeviceTypes` iPhone Duo only. iPad simulator still blocked independently of the physical iPhone acceptance.
