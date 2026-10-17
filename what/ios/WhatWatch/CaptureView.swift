@@ -93,7 +93,7 @@ struct CaptureView: View {
             }
         }
         .onOpenURL { url in
-            guard url.scheme == "what", url.host == "capture" else { return }
+            guard url.scheme == WatchCaptureRouting.scheme, url.host == WatchCaptureRouting.captureURL.host else { return }
             // Keep deep-link support; startCapture is idempotent while preparing
             // or recording, so foreground + URL never starts two recordings.
             controller.startCapture()

@@ -1,7 +1,7 @@
 import Foundation
 
-/// The user-facing identity is localized; bundle identifiers and existing
-/// what:// deep links stay unchanged so installed recordings and widgets survive.
+/// User-facing identity is localized. This isolated P2a QA build intentionally
+/// keeps its bundle identifiers and deep links separate from installed QA11.
 enum CaptureBrand {
     /// The phone's app language follows its speech-recognition language so
     /// changing RU ↔ EN never leaves the menu and navigation in another locale.
@@ -37,4 +37,11 @@ enum CaptureBrand {
     static func text(_ russian: String, _ english: String) -> String {
         isRussian ? russian : english
     }
+}
+
+/// Use one unambiguous URL for the isolated Watch QA app and complication.
+/// The stable production and QA11 apps keep their existing URL schemes.
+enum WatchCaptureRouting {
+    static let scheme = "whatp2aqa"
+    static let captureURL = URL(string: "\(scheme)://capture")!
 }

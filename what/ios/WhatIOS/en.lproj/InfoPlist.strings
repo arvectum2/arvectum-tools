@@ -1,4 +1,4 @@
-"CFBundleDisplayName" = "UhWhat?";
+"CFBundleDisplayName" = "UhWhat? P2a QA";
 "NSMicrophoneUsageDescription" = "Record private audio and video notes on this device. Media stays on your device.";
 "NSSpeechRecognitionUsageDescription" = "Transcribe saved voice notes on this device using on-device speech recognition.";
 \n"NSCameraUsageDescription" = "Record private video notes using the camera. Videos stay on this device.";\n

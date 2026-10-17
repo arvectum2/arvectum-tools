@@ -22,7 +22,7 @@ private struct CaptureProvider: TimelineProvider {
 private struct CaptureComplicationView: View {
     @Environment(\.widgetFamily) private var family
     @Environment(\.widgetRenderingMode) private var renderingMode
-    private let captureURL = URL(string: "what://capture")!
+    private let captureURL = WatchCaptureRouting.captureURL
 
     /// Show the actual Watch app icon in full-color rendering mode. On watch
     /// faces that force tint, draw the same vector mark as the app icon.
@@ -72,7 +72,7 @@ private struct CaptureComplicationView: View {
                 mark(size: 38)
             }
         }
-        .accessibilityLabel(CaptureBrand.text("Ухват. Начать запись", "UhWhat? Start recording"))
+        .accessibilityLabel(CaptureBrand.text("Ухват P2a QA. Начать запись", "UhWhat? P2a QA. Start recording"))
         // Keep widgetURL + the on-foreground autostart policy: physical Watch
         // hardware sometimes opens the app without forwarding this URL.
         .widgetURL(captureURL)
@@ -87,7 +87,7 @@ struct WhatCaptureComplication: Widget {
         StaticConfiguration(kind: kind, provider: CaptureProvider()) { _ in
             CaptureComplicationView()
         }
-        .configurationDisplayName(CaptureBrand.text("Запись в Ухвате", "Record with UhWhat?"))
+        .configurationDisplayName(CaptureBrand.text("Запись в Ухват P2a QA", "Record with UhWhat? P2a QA"))
         .description(CaptureBrand.text("Запись новой мысли с циферблата часов.", "Start a new thought from the watch face."))
         .supportedFamilies([.accessoryCircular, .accessoryRectangular, .accessoryInline, .accessoryCorner])
     }

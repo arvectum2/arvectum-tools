@@ -48,8 +48,9 @@ targets:
         TARGETED_DEVICE_FAMILY: "1,2"
         SUPPORTS_MACCATALYST: NO
     dependencies:
-      # No Watch app is embedded in this first P2a QA: video/text only.
-      # Preserve the user's existing paired Watch and established audio QA.
+      # Isolated integration QA: embed the *separate-ID* Watch app only in
+      # P2a QA. Never replace the established ru.arvectum.tools.what.qa pair.
+      - target: WhatWatch
       - target: WhatPhoneWidget
     scheme:
       testTargets:
@@ -125,7 +126,7 @@ targets:
         CFBundleURLTypes:
           - CFBundleURLName: ru.arvectum.tools.what.p2aqa.capture
             CFBundleURLSchemes:
-              - what
+              - whatp2aqa
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: ru.arvectum.tools.what.p2aqa.watch

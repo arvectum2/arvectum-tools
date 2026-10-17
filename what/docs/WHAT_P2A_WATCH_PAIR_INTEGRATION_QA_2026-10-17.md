@@ -1,0 +1,38 @@
+# Ухват P2a — изолированная интеграция iPhone + Apple Watch и iPad checkpoint (17.10.2026)
+
+## Принцип изоляции
+
+- Рабочая ветка `qa/what-multimodal-physical-20261017`, не `main` и не релиз. Проверяем отдельные идентификаторы, **не** заменяем исходные production/QA iPhone/Watch.
+- На физическом iPhone уже был `ru.arvectum.tools.what.p2aqa` 1.0.2 (1). Его Application Support, 8 заметок и 7 видеозаписей **скопированы без изменения** на ArvectumSSD до физической Watch-интеграции (`builds/what-p2a-watch-physical-staging-20261017/device-backup/p2a-iphone-before-watch`).
+- На физическом Watch обнаружена **действующая** `ru.arvectum.tools.what.qa.watch` 1.0.2 (11), отличная от исторического QA (8). Read-only копия `Documents/WhatOutbound` в `builds/what-p2a-watch-physical-staging-20261017/watch-existing-qa-backup` содержит пустую очередь `[]`, **0 ожидающих AAC**. Это не доказывает, что запись не активна прямо сейчас. Ни один действующий Watch bundle не был удалён, переустановлен или обновлён.
+- Запрос процессов/снимка экрана физических часов периодически завершается CoreDevice 4000 или RemotePairingError 1007 (Bluetooth tunnel invalidated). Поэтому **инсталляция P2a Watch на физические часы не выполнялась**: перед этим подтвердить, что часы разблокированы, находятся рядом с iPhone и на них ничего не записывается.
+
+## Что исправлено в изолированном QA-проекте
+
+- В XcodeGen spec (`what/ios/project.yml`) у `WhatIOS.dependencies` добавлен отдельный `WhatWatch`, сгенерирован проект с `Embed Watch Content`; новое Watch-приложение помещается в `WhatIOS.app/Watch/WhatWatch.app`, а complication в `WhatWatch.app/PlugIns`.
+- Только для P2a QA Watch: URL scheme **`whatp2aqa`** и capture URL **`whatp2aqa://capture`**, общий источник `WatchCaptureRouting`. Оригинальный `what://capture` относится к production; у установленной обычной QA другой deep link. Никакие их source/bundle ID не менялись. Раздельный deep link исключает случайный запуск другой установленной Watch QA при тапе по P2a complication.
+- Локализованные RU/EN display names приложения iPhone, Watch и обоих виджетов теперь явно содержат `P2a QA`, чтобы тестовый комплект невозможно было легко спутать с пользовательской версией.
+- Новый unit gate `WatchPackagingIsolationTests`: проверяет `WhatIOS.app/Watch/WhatWatch.app` и расширение, их уникальные идентификаторы, `WKCompanionAppBundleIdentifier`, отсутствие системных схем `what`/`whatqa`, совпадение с константой `WatchCaptureRouting` и отличимое название complication.
+
+## Подтверждения
+
+- `WhatWatch` watchOS Simulator `BUILD SUCCEEDED`, включая Watch complication.
+- Физическая **стадированная, но не установленная** интегрированная сборка `WhatIOS.app` получена с автоматической Development signing. Вложены `ru.arvectum.tools.what.p2aqa`, `ru.arvectum.tools.what.p2aqa.watch`, `ru.arvectum.tools.what.p2aqa.watch.capturewidget`, `ru.arvectum.tools.what.p2aqa.widget`; 4 provisioning profiles. Каждый отдельный bundle прошёл `codesign --verify --strict`, корневой пакет — `codesign --verify --deep --strict`.
+- Таргетные Watch A2 reliability tests: **9 passed, 0 failed, `TEST SUCCEEDED`**. После добавления packaging test полный набор iOS unit/integration: **94 executed / 3 skipped / 0 failed, `TEST SUCCEEDED`**. Логи на ArvectumSSD: `builds/what-p2a-watch-a2-regression-20261017.log`, `builds/what-p2a-watch-packaging-final-20261017.log`, `builds/what-p2a-watch-fullregression-final-20261017.log`. Это автоматические unit-инварианты, не hardware acceptance.
+- Временные отдельные **simulator** iPhone Duo + Watch SE 3 были успешно созданы/спарены и запущены. Ручная установка Watch app без встроенного iPhone companion сначала была удалена watchOS; после встраивания Watch в iPhone package и установки companion Watch app успешно зарегистрировалась и запустилась. Подтверждены оба процесса в paired simulators.
+- Сгенерирован 3-секундный AAC тон с уникальным тестовым UUID на одноразовом Watch симуляторе, добавлен в синтетическую durable queue. WatchConnectivity на отправителе сообщил об успешной передаче файла, однако тестовый UUID **не появился в iPhone recordings.json**, ACK не пришёл: исходный AAC и queue сохранены. Это **неуспешная сквозная симуляторная передача**, её нельзя засчитывать за реальную приемку. Вероятное ограничение выделенного iPhone Duo Simulator или проблема входящего делегата/валидатора — пока не доказано. Диагностика и синтетическое аудио сохранены в `builds/what-p2a-watch-paired-sim-20261017/synthetic-transport-evidence/`. Никакое пользовательское аудио не экспортировалось.
+- Временная pair распарена, оба созданных P2a симулятора удалены. Существующие рабочие iPhone Duo и Uhvat Watch симуляторы не менялись.
+
+## iPad Simulator
+
+- Изначально доступен лишь iOS 27.1 Simulator runtime (24A94232) со значением `restrictedToDeviceTypes = com.apple.CoreSimulator.SimDeviceType.V68`: он предназначен для **iPhone Duo** и не поддерживает создание iPad (CoreSimulator 403). Выгруженный ранее на ArvectumSSD 7,87 ГБ iOS 27.1 runtime — именно этот ограниченный variant, его нельзя корректно использовать как iPad runtime.
+- `xcodebuild -downloadPlatform iOS -buildVersion 27.0 -architectureVariant arm64 -exportPath /Volumes/ArvectumSSD/Arvectum/DevTools/SimulatorRuntimeDownloads` успешно нашёл **стандартный iOS 27.0 runtime 24A434**, размер 8,05 ГБ, и начал фактическую загрузку. По состоянию на 18:30 МСК ~342 МБ / 4,2%; большой пакет загружается медленно. На дату создания этого документа **не импортирован и не проверен**, iPad acceptance пока заблокирован.
+- Не изменять подписанный `profile.plist` ограниченного Duo runtime. После полной загрузки: штатно импортировать runtime через Xcode, проверить `supportedDeviceTypes` (наличие iPad), создать **одноразовый iPad simulator**, запустить целевые UI тесты и проверить семейство iPad `TARGETED_DEVICE_FAMILY = 1,2`.
+
+## Следующие безопасные шаги
+
+1. Продолжить стандартную загрузку iOS 27.0, дождаться полного asset, проверить и импортировать. Не создавать iPad на Duo-only runtime.
+2. До физической установки раздельного P2a Watch bundle подтвердить, что на часах остановлена запись и экран разблокирован; восстановить стабильный CoreDevice transport. Старую Watch QA11 очередь повторно считать и сохранить перед любыми изменениями.
+3. Переустановить **только** `ru.arvectum.tools.what.p2aqa` вместе со встроенным отдельным Watch bundle, проверить SHA-256 файлов P2a до/после и сохранение 8 исходных QA-записей. Существующие `ru.arvectum.tools.what.qa` и `ru.arvectum.tools.what.qa.watch` не удалять и не перезаписывать.
+4. На физической Watch P2a QA: проверить отдельную complication, single-tap capture, Stop/Crown, доставку AAC на P2a iPhone без дублей, Watch offline/reboot/pending ACK, отсутствие перекрёстной отправки в старую QA. Пока `NOT TESTED`.
+5. Только после Watch+iPad acceptance обсуждать merge/release: **никакой App Store публикации не разрешено**.
