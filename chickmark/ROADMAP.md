@@ -133,3 +133,6 @@ A6 (боевые показы РСЯ после установки обновл�
 - [x] Устойчивый единый `ReviewNoteTransferFlowSheet`; сохранение full transcript, открытие исходного UUID и защита от повторного импорта UI — iPhone Duo `TEST SUCCEEDED`.
 - [x] JSON backup для вложений `reviewNotes`: успешные merge/replace, обратная совместимость без нового поля, отказ от испорченной ссылочной записи без изменения БД — 14 tests PASS вместе с privacy-on-missing-attachment. [Подробный QA протокол](../what/docs/WHAT_CHICKMARK_REVIEW_DEVICE_QA_2026-10-17.md).
 - [ ] Физическая QA на обновлённой подписанной изолированной версии ChickMark Review QA с настоящим системным уведомлением; App Store/публичный ChickMark не изменялся.
+
+- [x] **22:22 MSK physical QA install:** independent ChickMark Review QA app updated and launches; local file backup preserved 6/6 byte-identical SHA-256, main ChickMark and Watch untouched.
+- [ ] **Physical push/UX acceptance blocked by Xcode Automation Mode authorization**, not a failing product test; request local user unlock/permission, then rerun. No App Store upload.
