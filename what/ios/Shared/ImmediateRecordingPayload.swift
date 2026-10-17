@@ -9,7 +9,7 @@ struct ImmediateRecordingPayload: Codable {
     let audio: Data
 
     func encode() throws -> Data {
-        var encoder = PropertyListEncoder()
+        let encoder = PropertyListEncoder()
         encoder.outputFormat = .binary
         return try encoder.encode(self)
     }
@@ -31,7 +31,7 @@ struct ImmediateRecordingReply: Codable {
     let acknowledgedID: UUID
 
     func encode() throws -> Data {
-        var encoder = PropertyListEncoder()
+        let encoder = PropertyListEncoder()
         encoder.outputFormat = .binary
         return try encoder.encode(self)
     }

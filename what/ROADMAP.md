@@ -45,7 +45,7 @@
 
 **Инфраструктура (16.10.2026):** Xcode 27.1 активна; частичная поддержка iPad уже реализована в feature/what-multimodal-20261016. Первый пилот адаптивного Core — библиотека/редактор. WH-D0…D3 остаются открытыми; Duo QA ждёт runtime iOS 27.1 (T3/T4). Проверка физической камеры и Watch — отдельно.
 
-- [ ] **WH-D0 · Подтвердить baseline:** перенести/сверить M5a из multimodal feature-ветки и готовность iPad target family 1,2 без случайного включения в релиз.
+- [x] **WH-D0 · Подтвердить baseline (source-only, 2026-10-17):** M5a сохранён в отдельной multimodal+Watch integration-ветке; `TARGETED_DEVICE_FAMILY = 1,2` подтверждён в XcodeGen и сгенерированном Xcode project для iOS, сборка на iOS Simulator прошла. iPad layout/камера не приняты: установленный runtime iOS 27.1 отказывает в создании iPad simulator (CoreSimulator 403). Текущая main, App Store и физические приложения не менялись. [Desktop QA](docs/WHAT_DESKTOP_QA_2026-10-17.md).
 - [ ] **WH-D1 · iPad:** сохранить одну большую круглую кнопку (короткое нажатие — аудио; долгое — видео), отдельный плюс для текстовой заметки; проверить editor, библиотеку, камеру, кнопки Стоп и смены камер, portrait/landscape/Split View/Stage Manager, VoiceOver.
 - [ ] **WH-D2 · iPhone Duo:** закрытый экран — один жест записи и быстрая библиотека; раскрытый — полноценная библиотека/редактор. При fold/unfold во время видео, переключения фронтальной камеры, аудиозаписи или незавершённого текста не терять медиа/черновик и не запускать дубль записи. Watch одно касание сохраняется без изменений.
 - [ ] **WH-D3 · QA и отдельный релиз:** симулятор на обоих размерах Duo, реальные разрешения Camera/Mic, recover journal, большие записи, жесты, background/foreground, Watch ACK, уведомления о заметках и App Store assets. Отсутствие Duo runtime фиксировать как блокер физической/симуляторной приёмки, а не как успешно пройденный тест.
@@ -107,6 +107,16 @@ or export features.
 - [ ] iPad simulator/device not currently configured; physical iPad layout verification remains open.
 - [ ] Review AVFoundation Sendability warning in VideoSegmentComposer and physical interruptions/low-storage before video is shippable.
 - [ ] Do not include P2a in prior production IPA; no App Store upload authorized. [Integration evidence](docs/WHAT_P2A_WATCH_INTEGRATION_2026-10-17.md).
+
+## Desktop-only P2a QA — 2026-10-17
+
+- [x] Dedicated isolated source branch `feature/what-desktop-qa-20261017` on ArvectumSSD; production, signed QA apps and Watch unchanged.
+- [x] 14 focused video merge/recovery XCTest cases passed after moving the video composer to the native async export path on iOS 18+ (iOS 17 retains its completion-handler fallback). Xcode Simulator BUILD SUCCEEDED; no AVAssetExportSession Sendability warnings after patch. Both iOS and watchOS Simulator target builds exit 0 (no physical Watch involved).
+- [x] Separate 1 UI test for hold→video (never audio) passed on iPhone Duo simulator before composer-only change; the gesture code was not modified.
+- [ ] **XCTest runner infrastructure issue remains:** both simulator test sets report zero failed test cases but xcodebuild does not finalize its xcresult/exit; diagnostic runtime build `24A94232` emits `invalidDigitCount`. Do not claim a successful overall xcodebuild test run.
+- [ ] **iPad runtime blocker:** no available compatible iPad simulator; no physical iPad acceptance. iOS 17 legacy export and real camera/mic operations remain hardware/alternate runtime gates.
+
+[Detailed desktop QA](docs/WHAT_DESKTOP_QA_2026-10-17.md).
 
 ## P1 cancellation/race follow-up and P2a M1 baseline (2026-10-17)
 

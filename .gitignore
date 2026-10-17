@@ -30,3 +30,6 @@ __pycache__/
 
 # SwiftPM generated build artifacts
 **/.build/
+
+# Desktop-only local XCTest results and derived artifacts
+/.qa/
