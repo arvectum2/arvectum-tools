@@ -94,6 +94,18 @@ or export features.
 - [ ] Complete remaining disconnected-device, multiple-pending-recording and device-reboot acceptance cases on a physical paired Watch and iPhone.
 - [ ] Reconcile final physical test evidence and prove no recorded thought is lost.
 
+## P1/P2 UI defects after QA10 acceptance — 2026-10-17
+
+- [x] **Physical QA10 English Speech auto-recognition PASS:** user set English, Watch note «The blue lighthouse is next to seven green apples.» appeared as exact automatic transcript; retry/replace produced the same text; locale returned to Russian. Corrected earlier Russian QA note was not overwritten.
+- [x] **Physical QA10 diagnostics Russian labels PASS.**
+- [x] **Navigation defect FIX in source:** diagnostics modal now has localized «Готово» / Done to dismiss back to recording library; previously no close/back action.
+- [x] **UI/Speech language mismatch FIX in source:** Russian ↔ English language setting on iPhone updates both application UI and Speech recognizer locale, live and persisted across restart. Existing stored choices retained. Spanish Speech maintains English-interface fallback clearly labeled until full Spanish UI is available.
+- [x] **Regression UI tests PASS:** 3 simulator tests, 0 failures, covering diagnostics languages/dismiss and RU→EN→RU live navigation/persistence. Watch-to-iPhone delivery and automatic transcription unchanged.
+- [x] **Isolated QA 1.0.2 (11) installed on iPhone in-place:** 22/22 existing QA Application Support files checked byte-identical by SHA-256 before/after. Watch still on QA10 as far as confirmed installations; no Watch reset/uninstall.
+- [ ] **Physical iPhone QA11 acceptance:** verify Done from diagnostics, language UI follows Speech choice, return Russian, old notes intact.
+- [ ] **Spanish UI localization backlog:** es-ES Speech exists, untranslated interface fallback remains English.
+- [ ] **Release on hold:** scope agreement required; previous IPA obsolete. No App Store upload.
+
 ## P1/P2 continuation — language and diagnostics UX (2026-10-17)
 
 - [x] Localized previously English-only Sync diagnostics screen for RU/EN using existing CaptureBrand locale behavior; Watch queue metrics and Speech logic unchanged.

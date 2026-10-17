@@ -46,5 +46,60 @@ final class SyncDiagnosticsLocalizationUITests: XCTestCase {
         XCTAssertTrue(app.staticTexts[recordings].exists)
         XCTAssertTrue(app.staticTexts[pending].exists
                       || app.staticTexts[noQueueReport].exists)
+        // This view is a modal sheet, not a pushed navigation route.
+        // A user must be able to close it without killing the application.
+        let close = app.buttons["syncDiagnosticsClose"]
+        XCTAssertTrue(close.waitForExistence(timeout: 6))
+        close.tap()
+        XCTAssertTrue(app.buttons[settings].waitForExistence(timeout: 7))
+    }
+
+    func testSpeechLanguageAlsoSwitchesTheLiveInterfaceAndPersists() {
+        let app = XCUIApplication()
+        app.launchArguments += ["-AppleLanguages", "(ru)", "-AppleLocale", "ru_RU"]
+        app.launch()
+        let library = app.buttons.matching(
+            NSPredicate(format: "label BEGINSWITH %@ OR label BEGINSWITH %@",
+                        "Мои записи", "My recordings")
+        ).firstMatch
+        XCTAssertTrue(library.waitForExistence(timeout: 15))
+        library.tap()
+
+        selectLocale("English", app: app)
+        XCTAssertTrue(app.buttons["App settings and diagnostics"]
+                      .waitForExistence(timeout: 10))
+        XCTAssertTrue(app.navigationBars["UhWhat?"].exists)
+
+        // This is not only a transient SwiftUI state; the locale must survive
+        // a normal app relaunch and still drive UI and Speech together.
+        app.terminate()
+        app.launch()
+        let englishLibrary = app.buttons.matching(
+            NSPredicate(format: "label BEGINSWITH %@", "My recordings")
+        ).firstMatch
+        XCTAssertTrue(englishLibrary.waitForExistence(timeout: 15))
+        englishLibrary.tap()
+        XCTAssertTrue(app.buttons["App settings and diagnostics"]
+                      .waitForExistence(timeout: 10))
+
+        selectLocale("Русский", app: app)
+        XCTAssertTrue(app.buttons["Настройки и диагностика"]
+                      .waitForExistence(timeout: 10))
+        XCTAssertTrue(app.navigationBars["Ухват"].exists)
+    }
+
+    private func selectLocale(_ locale: String, app: XCUIApplication) {
+        let settings = app.buttons.matching(
+            NSPredicate(format: "label == %@ OR label == %@",
+                        "Настройки и диагностика",
+                        "App settings and diagnostics")
+        ).firstMatch
+        XCTAssertTrue(settings.waitForExistence(timeout: 8))
+        settings.tap()
+        // Native SwiftUI Menu flattens Picker choices into the same menu:
+        // English/Русский are buttons, not a second-level Picker control.
+        let choice = app.buttons[locale]
+        XCTAssertTrue(choice.waitForExistence(timeout: 7))
+        choice.tap()
     }
 }

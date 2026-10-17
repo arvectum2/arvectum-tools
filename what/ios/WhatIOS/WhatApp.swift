@@ -13,6 +13,7 @@ struct WhatApp: App {
         WindowGroup {
             ContentView()
                 .environmentObject(store)
+                .environment(\.locale, CaptureBrand.interfaceLocale)
                 .onChange(of: scenePhase) { _, phase in
                     if phase == .active {
                         PhoneConnectivityManager.shared.requestWatchQueueRecovery()

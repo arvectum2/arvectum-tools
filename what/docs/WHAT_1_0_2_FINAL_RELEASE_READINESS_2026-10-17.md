@@ -50,3 +50,7 @@ The IPA SHA-256 39ae71cc0c3d65d92d6998823f600e7861c44a91cec75762d33155e3faa99dc6
 ## Additional production-source changes after previous IPA (2026-10-17)
 
 SyncDiagnosticsView translated through the app's existing RU/EN CaptureBrand.text locale selection, with 2 new UI tests PASS. QA10 updated on physical Watch/iPhone; screenshot language and EN recognition checks awaiting owner. The old locally-exported 1.0.2(7) IPA predates both branded Watch complication and this localization and MUST NOT be uploaded. No newer production IPA has been built or released at this time.
+
+## QA11 new iPhone UI / Speech locale changes (2026-10-17)
+
+Previously exported production IPA is still **superseded** and must not be uploaded. After QA10 hardware check, owner reported missing diagnostics Done button and a mismatch between English Speech setting and Russian UI. Both fixed in source: diagnostics dismiss action and shared persisted RU/EN locale. Three simulator UI tests passed. Isolated signed iPhone QA11 installed in place, and 22/22 QA app-support files SHA-256 identical after upgrade. Owner visual acceptance on physical iPhone QA11 remains open. No production IPA uploaded or submitted to Apple.

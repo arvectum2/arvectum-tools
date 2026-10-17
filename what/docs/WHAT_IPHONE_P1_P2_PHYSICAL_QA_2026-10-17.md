@@ -92,3 +92,24 @@ Owner reported «да, все прошло правильно» directly after t
 - [ ] Optional permission-denied/cancel path can be inspected separately later; do not revoke user permissions just to force a test unless coordinated.
 
 Release remains blocked pending owner scope agreement, remaining planned work and a fresh production archive (existing IPA predates branded widget/localization).
+
+## Stage 6 — English Speech physical PASS, diagnostics navigation & app language bugs (2026-10-17)
+
+**Owner report on physical iPhone QA10 and Watch QA10:**
+- **PASS** Russian diagnostics labels appeared correctly.
+- **BUG** Sync diagnostics modal lacked a Back/Done button, leaving the owner unable to return normally to the library.
+- **BUG** Changing Speech locale to English left iPhone UI in Russian; owner explicitly requested linked UI and recognition language.
+- **PASS** English locale chosen manually, Watch voice note automatically transcribed into English without error: The blue lighthouse is next to seven green apples.
+- **PASS** Owner used existing retry/replace transcription for this *separate* English test note, resulting in the same correct text, and then restored Speech locale to Russian. The previous corrected Russian QA note was untouched.
+- Audio integrity after this retry was not separately verbally confirmed.
+
+**Implemented in production-source branch and confirmed by simulator:**
+- SyncDiagnosticsView: modal dismissal via localized Done/Готово button. No storage changes.
+- CaptureBrand + PhoneStore: persisted Speech locale becomes a single source of RU/EN interface + recognition language on iPhone. Both languages update in the active screen without killing the app; persisted locale survives relaunch and existing locale values survive upgrades.
+- ContentView is re-created as a view after locale switch, but PhoneStore remains alive and recordings are unchanged. SwiftUI locale environment value applied for formatting.
+- Español Speech option remains supported, but full Spanish interface is not localized. Menu explicitly labels Spanish Speech as using the English UI. Full es-ES interface is separate backlog.
+- **3/3 simulator UI tests PASS, 0 failures:** RU/EN diagnostics close-to-library, interface switches RU -> EN -> RU with the Speech picker, persists through normal relaunch. Log under builds/what-locale-nav-regression-20261017/ui-test-v2.log on ArvectumSSD. Earlier simulator test failure was an incorrect test locator for a native SwiftUI Picker flattened inside Menu; test fixed after reading accessibility hierarchy.
+- **Signed isolated iPhone QA11** installed in-place on 2026-10-17; phone QA 1.0.2 (11). 22/22 private QA Application Support files read back with matching SHA-256 byte-for-byte before and after. No existing notes touched. Watch QA10 not explicitly updated due intermittent CoreDevice connection.
+- **Physical acceptance pending:** open iPhone QA11 Sync diagnostics, tap Done to return; choose English and check English interface without restart; return Русский and check Russian interface, verify recordings unchanged. No need to re-record Speech test already passed on QA10.
+- Automatic RU/EN transcription remains the default.
+- **No production IPA rebuilt, no App Store upload/review.**

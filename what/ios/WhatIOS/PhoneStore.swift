@@ -14,8 +14,12 @@ final class PhoneStore: NSObject, ObservableObject, AVAudioPlayerDelegate {
     @Published private(set) var batchTranscriptionActive = false
     @Published var showPhoneCapture = false
     @Published var errorMessage: String?
-    @Published var transcriptionLocale = UserDefaults.standard.string(forKey: "what.transcription.locale") ?? "ru-RU" {
-        didSet { UserDefaults.standard.set(transcriptionLocale, forKey: "what.transcription.locale") }
+    /// Single persisted RU/EN app-and-Speech preference, also used by
+    /// CaptureBrand. Existing persisted choices survive a QA/production update.
+    @Published var transcriptionLocale = CaptureBrand.selectedTranscriptionLocale {
+        didSet {
+            UserDefaults.standard.set(transcriptionLocale, forKey: CaptureBrand.languagePreferenceKey)
+        }
     }
 
     private let repository: RecordingRepository

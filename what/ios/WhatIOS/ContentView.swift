@@ -12,12 +12,17 @@ struct ContentView: View {
                 RecordingLibraryView(
                     openCaptureHome: { showingLibrary = false }
                 )
+                // Recreate the visible screen after a locale switch so all
+                // CaptureBrand strings are reevaluated, without discarding
+                // the PhoneStore or its original recordings.
+                .id(store.transcriptionLocale)
             } else {
                 QuickCaptureHomeView(
                     recordingsCount: store.recordings.count,
                     startRecording: { store.beginPhoneCapture() },
                     openLibrary: { showingLibrary = true }
                 )
+                .id(store.transcriptionLocale)
             }
         }
         .sheet(isPresented: $store.showPhoneCapture) {

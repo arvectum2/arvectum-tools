@@ -2,6 +2,7 @@ import SwiftUI
 
 struct SyncDiagnosticsView: View {
     @EnvironmentObject private var store: PhoneStore
+    @Environment(\.dismiss) private var dismiss
 
     var body: some View {
         NavigationStack {
@@ -39,6 +40,14 @@ struct SyncDiagnosticsView: View {
             }
             .navigationTitle(CaptureBrand.text("Диагностика синхронизации", "Sync diagnostics"))
             .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .confirmationAction) {
+                    Button(CaptureBrand.text("Готово", "Done")) {
+                        dismiss()
+                    }
+                    .accessibilityIdentifier("syncDiagnosticsClose")
+                }
+            }
         }
     }
 }
