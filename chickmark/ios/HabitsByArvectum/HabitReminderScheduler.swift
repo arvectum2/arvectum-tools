@@ -353,18 +353,31 @@ enum HabitReminderScheduler {
                 content = oneOffNotificationContent(for: reminder)
             }
 
-            let request = UNNotificationRequest(
-                identifier: identifier,
-                content: content,
-                trigger: UNCalendarNotificationTrigger(
-                    dateMatching: components,
-                    repeats: false
-                )
+            let trigger = UNCalendarNotificationTrigger(
+                dateMatching: components, repeats: false
             )
-
+            let request = UNNotificationRequest(
+                identifier: identifier, content: content, trigger: trigger
+            )
+#if REVIEW_HANDOFF_QA
+            ReviewNotificationPhysicalQA.recordSchedulerState(
+                requestID: identifier, nextFire: trigger.nextTriggerDate(), added: nil
+            )
+#endif
             do {
                 try await center.add(request)
+#if REVIEW_HANDOFF_QA
+                ReviewNotificationPhysicalQA.recordSchedulerState(
+                    requestID: identifier, nextFire: trigger.nextTriggerDate(), added: true
+                )
+#endif
             } catch {
+#if REVIEW_HANDOFF_QA
+                ReviewNotificationPhysicalQA.recordSchedulerState(
+                    requestID: identifier, nextFire: trigger.nextTriggerDate(),
+                    added: false, error: error
+                )
+#endif
                 return false
             }
         }

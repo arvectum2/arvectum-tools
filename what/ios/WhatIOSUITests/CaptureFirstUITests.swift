@@ -220,6 +220,41 @@ final class CaptureFirstUITests: XCTestCase {
                       "Opening the review's link must navigate to the source note")
     }
 
+    /// Only run after the QA physical fixture's notification has actually fired.
+    /// This test never seeds a reminder or modifies user/production data.
+    func testTapDeliveredChickMarkReviewNotificationOpensFullText() throws {
+        let recipient = XCUIApplication(bundleIdentifier: chickmarkBundleID)
+        let springboard = XCUIApplication(bundleIdentifier: "com.apple.springboard")
+        XCUIDevice.shared.press(.home)
+
+        // Pull Notification Center from the top edge; a banner may already
+        // have disappeared, but the delivered notification remains listed.
+        let origin = springboard.coordinate(
+            withNormalizedOffset: CGVector(dx: 0.5, dy: 0.01)
+        )
+        let destination = springboard.coordinate(
+            withNormalizedOffset: CGVector(dx: 0.5, dy: 0.72)
+        )
+        origin.press(forDuration: 0.12, thenDragTo: destination)
+        let notice = springboard.staticTexts.matching(NSPredicate(format:
+            "label CONTAINS %@ OR label CONTAINS %@",
+            "вернуться к заметке", "review a note"
+        )).firstMatch
+        if !notice.waitForExistence(timeout: 7) {
+            print("NOTIFICATION_CENTER_QA_TREE_BEGIN")
+            print(springboard.debugDescription)
+            print("NOTIFICATION_CENTER_QA_TREE_END")
+        }
+        XCTAssertTrue(notice.exists, "System must deliver the generic review reminder")
+        notice.tap()
+        let details = recipient.staticTexts["Заметка из Ухвата"]
+        XCTAssertTrue(details.waitForExistence(timeout: 13),
+                      "Tapping the imported reminder must open its full note")
+        XCTAssertTrue(recipient.links.matching(NSPredicate(format:
+            "label == %@", "Открыть оригинал в Ухвате"
+        )).firstMatch.exists)
+    }
+
     func testSavedChickMarkReviewOpensOriginalSourceNote() throws {
         let source = XCUIApplication()
         source.launch()

@@ -139,3 +139,6 @@ A6 (боевые показы РСЯ после установки обновл�
 
 - [x] **22:49 17.10.2026 физический iPhone 13:** импорт одного UUID из Ухвата, SwiftData one-off, видимый исходный текст, глубокая ссылка обратно, повтор без дубля — **UI TEST SUCCEEDED, 32.634 сек.** Отдельно подтверждён файл JSON из QA-контейнера устройства: 1 заметка, UUID уникален, `whatreviewqa://note/...`.
 - [ ] Системное уведомление: физическая доставка в срок и переход по нажатию требуют отдельной приёмки; сохранение OneOff недостаточно.
+
+- [x] **17.10.2026 23:07 physical native notification PASS** (iPhone 13, isolated QA): OS `UNCalendarNotificationTrigger` pending confirmed; notification genuinely appeared in SpringBoard; XCTest tapped it → full imported note opened; `TEST SUCCEEDED` 8.703 sec, tap telemetry 23:07:39, title/body contained no private transcript. [QA log and evidence](../what/docs/WHAT_CHICKMARK_REVIEW_DEVICE_QA_2026-10-17.md).
+- [ ] **Not a release yet:** privacy disclosures/Focus variations and ordinary signed release profile review remain; QA-only fixture excluded from public targets.

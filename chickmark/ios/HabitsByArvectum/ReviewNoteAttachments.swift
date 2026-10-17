@@ -292,6 +292,38 @@ struct ImportedReviewNoteSheet: View {
     }
 }
 
+/// The default tap on a local imported-note reminder opens its text, not a
+/// bare Today screen. Persist just the UUID: cold-start callbacks may arrive
+/// before SwiftUI subscribes. Never persist the transcript in UserDefaults.
+@MainActor
+enum ReviewNoteNotificationNavigation {
+    static let pendingUUIDKey = "chickmark.importedReview.pendingNotificationUUID"
+    static let notificationName = Notification.Name("chickmark.importedReview.openOnNotification")
+
+    static func recordNotificationTap(userInfo: [AnyHashable: Any]) {
+        guard let raw = userInfo[OneOffReminderNotificationActions.reminderIDKey] as? String,
+              let uuid = UUID(uuidString: raw),
+              (try? ReviewNoteAttachmentRepository().get(uuid)) != nil else { return }
+        UserDefaults.standard.set(uuid.uuidString, forKey: pendingUUIDKey)
+#if REVIEW_HANDOFF_QA
+        ReviewNotificationPhysicalQA.recordTap(noteID: uuid)
+#endif
+        NotificationCenter.default.post(name: notificationName, object: nil)
+    }
+
+    static func takePending() -> ReviewNoteAttachment? {
+        let defaults = UserDefaults.standard
+        guard let raw = defaults.string(forKey: pendingUUIDKey),
+              let uuid = UUID(uuidString: raw) else { return nil }
+        guard let result = try? ReviewNoteAttachmentRepository().get(uuid) else {
+            defaults.removeObject(forKey: pendingUUIDKey)
+            return nil
+        }
+        defaults.removeObject(forKey: pendingUUIDKey)
+        return result
+    }
+}
+
 struct ReviewNoteAttachmentSheet: View {
     let attachment: ReviewNoteAttachment
     var body: some View {

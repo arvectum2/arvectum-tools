@@ -36,6 +36,9 @@ struct HabitsByArvectumApp: App {
             return
         }
 
+#if REVIEW_HANDOFF_QA
+        ReviewNotificationPhysicalQA.seedIfRequested(container: container)
+#endif
 #if DEBUG
         seedWatchSyncDemoIfRequested(container: container)
         seedNativeAdLayoutDemoIfRequested(container: container)

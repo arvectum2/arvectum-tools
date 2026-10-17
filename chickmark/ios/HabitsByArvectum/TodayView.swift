@@ -219,6 +219,7 @@ struct TodayView: View {
             }
             .task {
                 refreshReviewAttachments()
+                openImportedNoteFromNotificationIfNeeded()
                 refreshReferenceDate()
                 registerForegroundLaunchIfNeeded()
                 refreshAdEligibility()
@@ -227,6 +228,9 @@ struct TodayView: View {
                 openDebugSurfaceIfRequested()
 #endif
                 await HabitReminderCoordinator.shared.refreshNow()
+#if REVIEW_HANDOFF_QA
+                await ReviewNotificationPhysicalQA.inspectScheduledAndDelivered(context: modelContext)
+#endif
                 await HealthHabitCoordinator.shared.synchronize()
                 HabitWidgetCoordinator.shared.refresh()
 #if DEBUG
@@ -252,6 +256,9 @@ struct TodayView: View {
                 guard !Task.isCancelled else { return }
                 refreshReferenceDate(forceRevision: true)
                 await HabitReminderCoordinator.shared.refreshNow()
+#if REVIEW_HANDOFF_QA
+                await ReviewNotificationPhysicalQA.inspectScheduledAndDelivered(context: modelContext)
+#endif
                 await HealthHabitCoordinator.shared.synchronize()
                 HabitWidgetCoordinator.shared.refresh()
             }
@@ -261,9 +268,20 @@ struct TodayView: View {
                     registerForegroundLaunchIfNeeded()
                     refreshAdEligibility()
                     HabitReminderCoordinator.shared.refresh()
+#if REVIEW_HANDOFF_QA
+                    Task {
+                        await HabitReminderCoordinator.shared.refreshNow()
+                        await ReviewNotificationPhysicalQA.inspectScheduledAndDelivered(context: modelContext)
+                    }
+#endif
                     HealthHabitCoordinator.shared.refresh()
                     HabitWidgetCoordinator.shared.refresh()
                 }
+            }
+            .onReceive(NotificationCenter.default.publisher(
+                for: ReviewNoteNotificationNavigation.notificationName
+            )) { _ in
+                openImportedNoteFromNotificationIfNeeded()
             }
             .onReceive(
                 NotificationCenter.default.publisher(
@@ -490,6 +508,12 @@ struct TodayView: View {
         } catch {
             modelContext.rollback()
             importError = error.localizedDescription
+        }
+    }
+
+    private func openImportedNoteFromNotificationIfNeeded() {
+        if let note = ReviewNoteNotificationNavigation.takePending() {
+            showingNoteAttachment = note
         }
     }
 
