@@ -99,8 +99,8 @@ or export features.
 ## QA12 signed but not installed / P2a integration isolated (2026-10-17)
 
 - [x] Signed iPhone QA 1.0.2 (12) built with SpeechAttemptGate; correct QA-only bundle identifiers and signatures.
-- [ ] **Blocked on device access:** iPhone Nikita appeared unavailable in CoreDevice (error 4016). The pre-install App Support backup failed, so **QA12 was NOT installed**. Stable iPhone QA11 and Watch QA10 remain unchanged.
-- [ ] After iPhone reconnect/unlock: backup existing QA app data to ArvectumSSD, install iPhone QA12 in place, compare SHA-256 hashes, then test cancellation on a new synthetic note only.
+- [x] **Device access restored; QA12 installed (2026-10-17):** iPhone 13 became available and was confirmed as QA11, 22 files were backed up on ArvectumSSD with SHA-256, QA12 signed app installed in place, actual CoreDevice inventory confirms 1.0.2 (12). A post-install full App Support readback gave **22/22 SHA-256-identical files**, 0 missing/added/changed. Physical cancellation test is still pending. Apple Watch untouched (last confirmed Watch QA10).
+- [ ] **QA12 physical Speech cancellation gate:** create a NEW expendable Watch audio note (NOT any earlier accepted or manually corrected note), verify automatic transcript, initiate manual retry and tap Cancel while running; verify original text/audio remain intact. Retry on that same new note once after cancellation and check final audio+text. User must confirm actual outcome.
 - [x] Separate multimodal integration branch created and pushed: integration/what-multimodal-watch-20261017. 92 unit and 9 UI test cases reported 0 failures, but Xcode full-suite result finalization and hardware P2a acceptance are open. Do not merge into App Store code without approval.
 
 ## P1 cancellation/race follow-up and P2a M1 baseline (2026-10-17)

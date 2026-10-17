@@ -112,3 +112,8 @@
 New per-attempt Speech token protects previously corrected text against callbacks arriving after Cancel + immediate same-recording Retry. Five synthetic tests and the full 68 unit (3 skipped) + 5 UI simulator suite passed. Permission-denial on a real device and mid-task cancellation are pending physical acceptance.
 
 P2a M1 is not absent: it exists on feature/what-multimodal-20261016. iOS Simulator compilation succeeded, as did 3/3 M1 LocalNoteRepository tests (after separating test sessions). The next job is an isolated integration and device QA without replacing validated production/QA notes. See WHAT_SPEECH_CANCEL_P2A_BASELINE_2026-10-17.md.
+
+
+## QA12 физическая установка без потери заметок (2026-10-17)
+
+По запросу владельца и после восстановления подключения к Mac mini выполнили обновление только iPhone QA11 → QA12 в существующем контейнере. До обновления скопировано 22 файла Application Support, сохранены SHA-256; после установки и подтверждения версии 1.0.2 (12) все **22/22 файлов побайтово совпали**. Ничего не удалено, Watch не обновлялся. Готово к физической проверке Cancel/Retry на новой тестовой заметке — факт поведения ещё не подтверждён владельцем. Подробности в WHAT_SPEECH_CANCEL_P2A_BASELINE_2026-10-17.md.

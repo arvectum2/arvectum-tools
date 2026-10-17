@@ -36,3 +36,14 @@ The separate feature branch feature/what-multimodal-20261016 already contains Lo
 Signed iPhone QA12 on ArvectumSSD: builds/what-speech-cancel-qa12-20261017/Build/Products/Debug-iphoneos/WhatIOSQA.app. CoreDevice reports iPhone Nikita unavailable, usage assertion error 4016 when backing up QA Application Support. No installation attempted. Existing iPhone QA11, Watch QA10 and production data remain unchanged. Restore trusted connection first, back up existing data and check hashes before in-place upgrade.
 
 P2a integration is preserved in separate remote branch integration/what-multimodal-watch-20261017 with its own checkpoint in what/docs/WHAT_P2A_WATCH_INTEGRATION_2026-10-17.md. Full integration test case counts are green; Xcode result-finalization, physical camera testing and signed dedicated multimodal QA remain open. No App Store upload.
+
+
+## QA12 in-place physical iPhone installation and SHA-256 verification (2026-10-17)
+
+After owner said «готово», trusted CoreDevice connectivity to physical iPhone 13 was restored. Inventory showed QA bundle ru.arvectum.tools.what.qa version 1.0.2 (11). Confirmed locally signed iPhone QA (12) build from builds/what-speech-cancel-qa12-20261017/Build/Products/Debug-iphoneos/WhatIOSQA.app (signed with QA-only ID).
+
+Performed pre-install read-only devicectl device copy from for QA iPhone Application Support to ArvectumSSD at builds/what-speech-cancel-qa12-20261017/device-backup/iphone-support-before-1242. It included 22 files totaling 907507 bytes; recorded individual SHA-256 in manifest-before-1242.json. In-place CoreDevice install returned 0; fresh app inventory confirmed **1.0.2 (12)**. Re-read the entire QA Application Support into iphone-support-after-1242 and compared manifest-after-1242.json against original: **22 files before, 22 after, 0 missing, 0 added, 0 changed SHA-256**.
+
+This proves application-support file contents were byte-identical immediately after install, before user exercised the new feature. It does not itself prove active speech-cancellation behavior or future storage durability.
+
+No App Store upload; no production app uninstall/reinstall; no Watch app update or queue manipulation. Watch still last confirmed QA10. Physical owner cancellation/retry and original audio check are now the remaining QA12 acceptance gate.
