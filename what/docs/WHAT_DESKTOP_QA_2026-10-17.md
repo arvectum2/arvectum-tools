@@ -31,3 +31,11 @@
 - Confirmed Xcode 27.1 / build 27A9275, iOS 27.1 / runtime build 24A94232, iPhone Duo simulator available, 43 registered iPad device types.
 - Creating iPad Air 11-inch M4, iPad Pro 11-inch M4, iPad mini A17 Pro, and iPad 10th generation against this runtime consistently fails with CoreSimulator 403 `Incompatible device`. This is a runtime/device compatibility failure, not evidence of a UI code failure.
 - `simctl runtime list -v` reports iOS 27.1 as `Ready`, but signature state `Unknown`; watchOS 27.0 is `Verified`. Signature verification was initiated; no destructive runtime removal, simulator reset, or reinstall was performed. Further verification or compatible runtime installation remains open.
+
+## Second simulator investigation
+
+- iPhone Duo (iPhone19,4) boots successfully using the installed iOS 27.1 runtime.
+- SDK build and installed runtime build both equal `24A94232`; `simctl runtime match list -v` selects that runtime normally.
+- iPad Pro 11-inch M5 also fails with CoreSimulator 403; automatic runtime selection reports `Could not find an available runtime for device type` even though iOS 27.1 is listed Ready.
+- This establishes an iPad runtime compatibility/registration issue distinct from a total CoreSimulator failure. The iOS runtime's signature still reports Unknown. A signature verification command was attempted but no conclusive successful verification was returned.
+- Existing iPhone Duo simulator and installed runtime were preserved; no destructive reset or reinstall was attempted. iPad simulator acceptance remains BLOCKED pending a compatible runtime or Apple tooling fix.
