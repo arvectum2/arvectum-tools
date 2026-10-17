@@ -11,6 +11,31 @@ final class PhoneConnectivityManager: NSObject, WCSessionDelegate {
         watchQueueCache.latest
     }
     private var activated = false
+    private var lastRecoveryRequestAt = Date.distantPast
+    private let recoveryRequestCooldown: TimeInterval = 60
+
+    /// Persistently asks the Watch to re-pump its own durable queue after
+    /// either side restarts. No audio or Watch storage is modified here.
+    /// One outstanding request is kept at most; the system delivers it
+    /// when the paired Watch becomes available again.
+    func requestWatchQueueRecovery() {
+        guard WCSession.isSupported() else { return }
+        let session = WCSession.default
+        guard session.activationState == .activated,
+              session.isPaired,
+              session.isWatchAppInstalled,
+              Date().timeIntervalSince(lastRecoveryRequestAt) >= recoveryRequestCooldown
+        else { return }
+        let pending = session.outstandingUserInfoTransfers.contains {
+            $0.userInfo[TransferMetadataKey.type] as? String
+                == TransferMetadataKey.syncRequest
+        }
+        guard !pending else { return }
+        lastRecoveryRequestAt = Date()
+        session.transferUserInfo([
+            TransferMetadataKey.type: TransferMetadataKey.syncRequest
+        ])
+    }
 
     private override init() {
         super.init()
@@ -31,6 +56,9 @@ final class PhoneConnectivityManager: NSObject, WCSessionDelegate {
     ) {
         guard activationState == .activated else { return }
         receiveQueueSnapshot(session.receivedApplicationContext)
+        DispatchQueue.main.async { [weak self] in
+            self?.requestWatchQueueRecovery()
+        }
     }
 
     func session(_ session: WCSession, didReceiveApplicationContext context: [String: Any]) {

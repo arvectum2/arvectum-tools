@@ -12,6 +12,10 @@ struct ContentView: View {
                 RecordingLibraryView(
                     openCaptureHome: { showingLibrary = false }
                 )
+                // Recreate the visible screen after a locale switch so all
+                // CaptureBrand strings are reevaluated, without discarding
+                // the PhoneStore or its original recordings.
+                .id(store.transcriptionLocale)
             } else {
                 QuickCaptureHomeView(
                     recordingsCount: store.recordings.count + store.localNotes.count,
@@ -20,6 +24,7 @@ struct ContentView: View {
                     newText: { store.showTextCapture = true },
                     openLibrary: { showingLibrary = true }
                 )
+                .id(store.transcriptionLocale)
             }
         }
         .onAppear {

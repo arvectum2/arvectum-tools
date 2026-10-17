@@ -21,18 +21,36 @@ private struct CaptureProvider: TimelineProvider {
 
 private struct CaptureComplicationView: View {
     @Environment(\.widgetFamily) private var family
+    @Environment(\.widgetRenderingMode) private var renderingMode
     private let captureURL = URL(string: "what://capture")!
+
+    /// Show the actual Watch app icon in full-color rendering mode. On watch
+    /// faces that force tint, draw the same vector mark as the app icon.
+    /// A template-rendered 1024px bitmap can become a blank square there.
+    @ViewBuilder
+    private func mark(size: CGFloat) -> some View {
+        if renderingMode == .fullColor {
+            Image("WhatComplicationIcon")
+                .resizable()
+                .interpolation(.high)
+                .scaledToFit()
+                .frame(width: size, height: size)
+                .clipShape(Circle())
+                .accessibilityHidden(true)
+        } else {
+            WhatComplicationMark()
+                .fill(.primary)
+                .frame(width: size, height: size)
+                .accessibilityHidden(true)
+        }
+    }
 
     var body: some View {
         Group {
             switch family {
             case .accessoryRectangular:
                 HStack(spacing: 6) {
-                    Image("WhatGlyph")
-                        .renderingMode(.template)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 24, height: 24)
+                    mark(size: 27)
                     VStack(alignment: .leading, spacing: 1) {
                         Text(CaptureBrand.name)
                             .font(.headline)
@@ -41,25 +59,22 @@ private struct CaptureComplicationView: View {
                     }
                 }
             case .accessoryInline:
-                Label {
+                HStack(spacing: 4) {
+                    mark(size: 16)
                     Text(CaptureBrand.text("Ухват: запись", "UhWhat? Record"))
-                } icon: {
-                    Image("WhatGlyph")
-                        .renderingMode(.template)
                 }
-            default:
+            case .accessoryCircular, .accessoryCorner:
                 ZStack {
                     AccessoryWidgetBackground()
-                    Image("WhatGlyph")
-                        .renderingMode(.template)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 34, height: 34)
+                    mark(size: 46)
                 }
+            default:
+                mark(size: 38)
             }
         }
-        // A complication is a single tap surface. A Link can open the Watch
-        // app without delivering the capture URL, resulting in a second tap.
+        .accessibilityLabel(CaptureBrand.text("Ухват. Начать запись", "UhWhat? Start recording"))
+        // Keep widgetURL + the on-foreground autostart policy: physical Watch
+        // hardware sometimes opens the app without forwarding this URL.
         .widgetURL(captureURL)
         .containerBackground(.clear, for: .widget)
     }
@@ -74,7 +89,7 @@ struct WhatCaptureComplication: Widget {
         }
         .configurationDisplayName(CaptureBrand.text("Запись в Ухвате", "Record with UhWhat?"))
         .description(CaptureBrand.text("Запись новой мысли с циферблата часов.", "Start a new thought from the watch face."))
-        .supportedFamilies([.accessoryCircular, .accessoryRectangular, .accessoryInline])
+        .supportedFamilies([.accessoryCircular, .accessoryRectangular, .accessoryInline, .accessoryCorner])
     }
 }
 

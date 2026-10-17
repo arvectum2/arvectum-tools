@@ -17,6 +17,8 @@ not copied checkboxes. Apps release independently.
 
 Единая [матрица устройств, приоритетов и критериев QA](DEVICE_ADAPTATION_ROADMAP.md). Конкретные задачи принадлежат пяти продуктовым ROADMAP; статус устройства **не равен** статусу публикации, а iPad-код Ухвата пока находится в отдельной feature-ветке. Where? остаётся на паузе.
 
+**Состояние инфраструктуры (16.10.2026):** Xcode 27.1 активна, CoreSimulator 1174.9.2 работает. **iOS 27.1 Runtime установлена, iPhone Duo создан и успешно загружен.** Тесты fold/unfold и интерфейсов приложений ещё не проводились. Общий адаптивный Core пока в отдельной feature-ветке, релизы не изменены. [Чекпоинты T0–T5](DEVICE_ADAPTATION_ROADMAP.md).
+
 ## Release status snapshot — 2026-10-15
 
 This is a dated distribution status overview, not a second feature checklist. [App Store and Git provenance evidence](RELEASE_PROVENANCE_20261015.md).

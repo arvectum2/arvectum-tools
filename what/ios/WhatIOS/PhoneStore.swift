@@ -23,8 +23,12 @@ final class PhoneStore: NSObject, ObservableObject, AVAudioPlayerDelegate,
     @Published var showTextCapture = false
     @Published var showVideoCapture = false
     @Published var errorMessage: String?
-    @Published var transcriptionLocale = UserDefaults.standard.string(forKey: "what.transcription.locale") ?? "ru-RU" {
-        didSet { UserDefaults.standard.set(transcriptionLocale, forKey: "what.transcription.locale") }
+    /// Single persisted RU/EN app-and-Speech preference, also used by
+    /// CaptureBrand. Existing persisted choices survive a QA/production update.
+    @Published var transcriptionLocale = CaptureBrand.selectedTranscriptionLocale {
+        didSet {
+            UserDefaults.standard.set(transcriptionLocale, forKey: CaptureBrand.languagePreferenceKey)
+        }
     }
 
     private let repository: RecordingRepository
@@ -32,6 +36,8 @@ final class PhoneStore: NSObject, ObservableObject, AVAudioPlayerDelegate,
     private var player: AVAudioPlayer?
     private var recognitionTask: SFSpeechRecognitionTask?
     private var recognizer: SFSpeechRecognizer?
+    /// Also guards against stale callbacks after immediate retry of same UUID.
+    private var speechAttempt = SpeechAttemptGate()
     private var batchIDs: [UUID] = []
     let phoneRecorder = PhoneRecordingController()
 
@@ -244,6 +250,9 @@ final class PhoneStore: NSObject, ObservableObject, AVAudioPlayerDelegate,
     }
 
     private func finishTranscription() {
+        // Invalidate before releasing the recognition task, since Speech may
+        // deliver one more final result or error after completion/cancellation.
+        speechAttempt.invalidate()
         transcribingID = nil
         recognitionTask = nil
         recognizer = nil
@@ -253,8 +262,9 @@ final class PhoneStore: NSObject, ObservableObject, AVAudioPlayerDelegate,
     func cancelTranscription() {
         batchIDs.removeAll()
         batchTranscriptionActive = false
-        // Clear the active ID first so late authorization / result callbacks
-        // cannot overwrite a manually corrected transcript.
+        // Invalidate *before* cancelling; a late callback for an earlier
+        // attempt must not overwrite corrections during a same-UUID retry.
+        speechAttempt.invalidate()
         transcribingID = nil
         recognitionTask?.cancel()
         recognitionTask = nil
@@ -371,24 +381,32 @@ final class PhoneStore: NSObject, ObservableObject, AVAudioPlayerDelegate,
             return
         }
         transcribingID = recording.id
+        let attempt = speechAttempt.begin(for: recording.id)
         SFSpeechRecognizer.requestAuthorization { [weak self] authorization in
             Task { @MainActor [weak self] in
                 // Authorization can return after cancellation or deletion.
-                guard let self, self.transcribingID == recording.id else { return }
+                guard let self, self.transcribingID == recording.id,
+                      self.speechAttempt.accepts(recording: recording.id, attempt: attempt)
+                else { return }
                 guard authorization == .authorized else {
                     self.batchIDs.removeAll()
                     self.batchTranscriptionActive = false
                     self.finishTranscription()
-                    self.errorMessage = "Allow Speech Recognition in Settings to transcribe on this iPhone."
+                    self.errorMessage = CaptureBrand.text(
+                        "Разрешите распознавание речи для Ухвата в настройках iPhone. Аудиозапись сохранена.",
+                        "Allow Speech Recognition for UhWhat? in iPhone Settings. Your audio is safe."
+                    )
                     return
                 }
-                self.beginTranscription(recording)
+                self.beginTranscription(recording, attempt: attempt)
             }
         }
     }
 
-    private func beginTranscription(_ recording: RecordingEnvelope) {
-        guard transcribingID == recording.id else { return }
+    private func beginTranscription(_ recording: RecordingEnvelope, attempt: UUID) {
+        guard transcribingID == recording.id,
+              speechAttempt.accepts(recording: recording.id, attempt: attempt)
+        else { return }
         // Only on-device recognition: never silently upload private recordings.
         guard let recognizer = SFSpeechRecognizer(locale: Locale(identifier: transcriptionLocale)),
               recognizer.supportsOnDeviceRecognition,
@@ -396,7 +414,10 @@ final class PhoneStore: NSObject, ObservableObject, AVAudioPlayerDelegate,
             batchIDs.removeAll()
             batchTranscriptionActive = false
             finishTranscription()
-            errorMessage = "On-device speech recognition is unavailable for the selected language. Choose another language or check installed speech recognition support in iOS Settings."
+            errorMessage = CaptureBrand.text(
+                "Локальное распознавание для выбранного языка недоступно. Выберите другой язык или проверьте поддержку в настройках iOS. Исходное аудио сохранено.",
+                "On-device speech recognition is unavailable for the selected language. Choose another language or check iOS Settings. Original audio is preserved."
+            )
             return
         }
         self.recognizer = recognizer
@@ -405,11 +426,16 @@ final class PhoneStore: NSObject, ObservableObject, AVAudioPlayerDelegate,
         request.shouldReportPartialResults = false
         recognitionTask = recognizer.recognitionTask(with: request) { [weak self] result, error in
             Task { @MainActor [weak self] in
-                guard let self, self.transcribingID == recording.id else { return }
+                guard let self, self.transcribingID == recording.id,
+                      self.speechAttempt.accepts(recording: recording.id, attempt: attempt)
+                else { return }
                 if let result, result.isFinal {
                     let text = result.bestTranscription.formattedString
                     guard !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
-                        self.errorMessage = "Speech was not detected. Try another recording or language."
+                        self.errorMessage = CaptureBrand.text(
+                            "Речь не распознана. Проверьте запись или выберите другой язык. Аудио сохранено.",
+                            "Speech was not detected. Check the recording or choose another language. Audio is safe."
+                        )
                         self.finishTranscription()
                         return
                     }
@@ -417,12 +443,18 @@ final class PhoneStore: NSObject, ObservableObject, AVAudioPlayerDelegate,
                         try self.repository.saveTranscript(text, for: recording.id)
                         self.transcripts[recording.id] = text
                     } catch {
-                        self.errorMessage = "Transcription completed, but saving the text failed."
+                        self.errorMessage = CaptureBrand.text(
+                            "Речь распознана, но сохранить текст не удалось. Исходное аудио не удалено.",
+                            "Speech was recognized, but the text could not be saved. Original audio was not deleted."
+                        )
                     }
                     self.finishTranscription()
                 } else if let error {
                     self.finishTranscription()
-                    self.errorMessage = "Transcription failed: \(error.localizedDescription)"
+                    self.errorMessage = CaptureBrand.text(
+                        "Ошибка распознавания: \(error.localizedDescription). Исходное аудио сохранено.",
+                        "Transcription failed: \(error.localizedDescription). Original audio was preserved."
+                    )
                 }
             }
         }

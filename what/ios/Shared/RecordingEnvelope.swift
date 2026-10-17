@@ -11,6 +11,7 @@ enum TransferMetadataKey {
     static let type = "type"
     static let recording = "recording"
     static let acknowledgement = "ack"
+    static let syncRequest = "sync-request"
     static let id = "id"
     static let createdAt = "createdAt"
     static let duration = "duration"

@@ -1,8 +1,49 @@
 # What? — Product Roadmap
 
+## P0 reopened — branded complication on physical Apple Watch (2026-10-17)
+
+**RELEASE STOP.** Owner reports current published complication is a generic microphone and separate QA complication is a blank square. **Watch complication must show the recognizable UhWhat app icon, not an SF microphone or empty square.** [Full audited roadmap matrix](docs/WHAT_ROADMAP_AUDIT_2026-10-17.md).
+
+- [x] Reused identical PNG Watch app icon bytes for full-color Watch complication.
+- [x] Added a native vector silhouette from the exact existing UhWhat icon contours for system-tinted faces and accessoryCorner; no forced monochrome template on the full-color icon.
+- [x] Built watchOS simulator target successfully, verified asset catalog contains WhatComplicationIcon; branded resource regression smoke test passes.
+- [x] **Physical QA9 staged:** in-place signed 1.0.2 (9) installed on paired iPhone and Apple Watch SE with unchanged QA bundle IDs; pre/post Watch pending count 0, 17/17 iPhone QA Application Support file paths and sizes preserved. Installation does NOT prove the icon visually displays.
+- [x] **Physical QA9 branded-icon PASS — owner 2026-10-17:** on actual Apple Watch face, icon is correct (not mic or blank square); owner also confirmed the recording was saved. Other families/tint combinations not separately examined. [Physical QA](docs/WATCH_BRAND_COMPLICATION_QA_2026-10-17.md).
+- [x] **QA9 owner test flow PASS:** user confirmed «проверка прошла. значок правильный, запись сохранилась» for the requested Watch complication test. Explicit audio playback and no-duplicates on this specific QA9 recording were not separately stated; both were proven on prior QA8 and can be checked again if needed.
+- [x] **Roadmap source audit refined (2026-10-17):** 27 traceable requirements (4 ready, 12 partial, 11 not ready); P4/P5 have prototype sources but no exposed navigation, P2 code is present but physical acceptance is pending. [Detailed audit](docs/WHAT_ROADMAP_AUDIT_2026-10-17.md).\n- [ ] **Owner release-scope agreement still OPEN:** review remaining P1/P2 QA and decide whether 1.0.2 is a focused reliability/brand fix or waits for later features. Previous IPA (SHA-256 39ae71cc...) is **superseded** and must not be uploaded.
+
+## P0 release blocker — physical one-tap Watch capture (2026-10-16)
+
+- [x] **Regression reproduced by owner on App Store 1.0.1:** Watch-face complication opens the app but does not start recording. Previous `widgetURL(what://capture)` assumption is not sufficient on physical Watch.
+- [x] **Source fix for 1.0.2:** Watch starts capture when its scene becomes active (including cold appearance and return from Watch face), without waiting for `.onOpenURL`; keep deep link as a secondary trigger and prevent duplicate starts.
+- [x] **Source/simulator checks:** Watch build PASS; physical widget URL is no longer required; simulator cold launch automatically attempted recording (simulator microphone/audio session failed, so real AAC remains unproved); pure launch policy check passed for 5 capture states. iOS regressions: 61 tests (3 skipped), 2 UI tests PASS. Repeated Watch-face and Crown interruption scenarios still require hardware.
+- [x] **Isolated physical QA build installed:** separate `ru.arvectum.tools.what.qa` on iPhone 13 and `ru.arvectum.tools.what.qa.watch` on paired physical Apple Watch SE; watch complication extension embedded and signed. Production app/data unmodified. [QA protocol](docs/WATCH_ONE_TAP_PHYSICAL_QA_2026-10-16.md).
+- [x] **Physical one-tap capture (QA build) — user-confirmed 2026-10-16:** tapping the Watch-face QA complication immediately started a recording on Apple Watch SE, no second tap. [Evidence/checklist](docs/WATCH_ONE_TAP_PHYSICAL_QA_2026-10-16.md).
+- [x] **Physical audio delivery/playback (QA build) — user-confirmed 2026-10-16:** Watch recording appeared as a new note on iPhone and audio played with sound after the Stop-button scenario. [QA evidence](docs/WATCH_ONE_TAP_PHYSICAL_QA_2026-10-16.md).
+- [x] **Physical Digital Crown interruption (QA build) — user-confirmed 2026-10-16:** recording was saved after Digital Crown without Stop. [QA evidence](docs/WATCH_ONE_TAP_PHYSICAL_QA_2026-10-16.md). Playback of this specific recording was not explicitly confirmed.
+- [x] **Physical offline Watch batch delivery (QA build) — user-confirmed 2026-10-16:** two notes recorded while iPhone switched off; after reconnection they synchronized, played with sound and retained order. [QA evidence](docs/WATCH_ONE_TAP_PHYSICAL_QA_2026-10-16.md).
+- [x] **Offline batch dedup QA — user-confirmed 2026-10-16:** prior two notes were delivered without duplicates.
+- [x] **P0 reboot transfer regression — reproduced in QA7, FIX VERIFIED in QA8 (2026-10-17):** initial saved recording was not delivered after reboot until manually reopening Watch QA; after recovery patch, offline-saved note reached iPhone automatically post-reboot with playable audio and without duplicates. [Historical failure and physical retest](docs/WATCH_ONE_TAP_PHYSICAL_QA_2026-10-16.md).
+- [x] **Source-level recovery + physical verification:** iPhone queues background-deliverable WatchConnectivity recovery request at activation/foreground; Watch re-reads persisted queue after unlock and reschedules pending UUIDs. The previously failing physical reboot-to-iPhone scenario succeeded on QA8.
+- [x] **Final targeted one-tap/Crown physical regression — QA8 PASS (2026-10-17):** Watch complication one tap -> record -> Digital Crown -> iPhone playable audio with no duplicates. Reboot automatic delivery/audio/no-duplicate separately passed on QA8. Force-quit/repeated network-edge tests remain optional robustness follow-ups.
+- [x] **Post-reboot forensic evidence:** physical Watch QA index recovered read-only: one pending envelope, duration 4.412 s, after owner-confirmed Stop before restart. AAC file transfer to Mac failed due to watch connection timeout; original file integrity remains unverified.
+- [x] **Physical reboot note recovered by manual Watch relaunch — user-confirmed 2026-10-16:** previously missing 4.412-s queue entry appeared on iPhone when existing Watch QA was opened after reboot. Underlying automatic wake/retry remains broken; patched source still requires a physical test. [QA evidence](docs/WATCH_ONE_TAP_PHYSICAL_QA_2026-10-16.md).
+- [x] **Recovery QA build (8) staging history:** iPhone upgraded first, verified 13 Application Support files intact and backed up on ArvectumSSD; Watch upgraded in place after link restoration. See completed physical verification below.\n- [x] **Matched physical recovery QA8 installed (2026-10-16):** Watch and iPhone QA installed in place as 1.0.2 (8), Watch pre-upgrade queue was empty/backed up, no app removals. [Subsequent physical reboot acceptance PASS](docs/WATCH_ONE_TAP_PHYSICAL_QA_2026-10-16.md).
+- [x] **Automatic physical Watch reboot recovery — QA8 FULL USER PASS (2026-10-17):** after Stop → Watch reboot → iPhone return, recording arrived automatically without reopening Watch QA. Owner independently confirmed audio playback and no duplicates («Звук есть, дублей нет»). [Acceptance evidence](docs/WATCH_ONE_TAP_PHYSICAL_QA_2026-10-16.md).
+- [x] **Full final-branch iOS regression (2026-10-17):** 63 unit/integration tests (3 skipped), 2 UI tests, zero failures on iPhone Duo Simulator. Physical QA (8) reboot delivery/audio/dedup separately confirmed by owner.
+- [x] **Production 1.0.2 (7) locally built and exported for App Store (2026-10-17):** full Release archive and IPA export succeeded; four signed bundles have production IDs, Apple Distribution certificate, get-task-allow=false, strict codesign PASS, SHA-256 39ae71cc0c3d65d92d6998823f600e7861c44a91cec75762d33155e3faa99dc6. [Release evidence](docs/WHAT_1_0_2_FINAL_RELEASE_READINESS_2026-10-17.md).\n- [ ] **FINAL RELEASE GATE:** PR #84 CI/review, current App Store Connect state/build checks, explicit owner authorization to upload/submit and server-side validation. No upload/publication has occurred; do not silently submit.
+
+## A5 — isolated next-patch candidate (2026-10-15)
+
+- [x] Created isolated A5 release source candidate **1.0.2 (7)** from main. [Release gate](docs/A5_RELEASE_CANDIDATE_1_0_2_2026-10-15.md).
+- [ ] Signing, full independent CI, physical QA and Apple submission remain separate gates; source candidate is **not** an App Store upload or approval.
+
+
 ## Адаптация iPad / iPhone Duo — 2026-10-16
 
 **Статус:** бэклог; реализация iPad **частично есть только в feature/what-multimodal-20261016**, а не в текущей main и не в опубликованной версии. [Общая матрица Core](../core/DEVICE_ADAPTATION_ROADMAP.md).
+
+**Инфраструктура (16.10.2026):** Xcode 27.1 активна; частичная поддержка iPad уже реализована в feature/what-multimodal-20261016. Первый пилот адаптивного Core — библиотека/редактор. WH-D0…D3 остаются открытыми; Duo QA ждёт runtime iOS 27.1 (T3/T4). Проверка физической камеры и Watch — отдельно.
 
 - [ ] **WH-D0 · Подтвердить baseline:** перенести/сверить M5a из multimodal feature-ветки и готовность iPad target family 1,2 без случайного включения в релиз.
 - [ ] **WH-D1 · iPad:** сохранить одну большую круглую кнопку (короткое нажатие — аудио; долгое — видео), отдельный плюс для текстовой заметки; проверить editor, библиотеку, камеру, кнопки Стоп и смены камер, portrait/landscape/Split View/Stage Manager, VoiceOver.
@@ -50,16 +91,69 @@ or export features.
 - [x] Watch recording, UUID/time, durable local queue, opportunistic transfer to iPhone, ACK and deduplication (implemented in `main`).
 - [x] Watch-face entry point and immediate recording UX (source integrated into `main`).
 - [x] Automated A2 queue crash/write-failure/offline-batch and receiver AAC integrity regression tests added; no real Watch devices tested yet.
-- [ ] Complete remaining disconnected-device, multiple-pending-recording and device-reboot acceptance cases on a physical paired Watch and iPhone.
-- [ ] Reconcile final physical test evidence and prove no recorded thought is lost.
+- [x] **Physical disconnected Watch and reboot acceptance PASS (QA8):** two Watch notes recorded with iPhone OFF transferred in order with sound and no duplicates; separate Watch reboot with queued audio automatically delivered and playable without manually opening Watch app. QA9 branded complication also physically accepted. [Hardware evidence](docs/WATCH_ONE_TAP_PHYSICAL_QA_2026-10-16.md).
+- [ ] **P0 robustness still open:** repeated disconnects, ACK races under adverse conditions, forced termination during unfinished AAC write and unexpected power loss. Earlier successful tests do not prove an absolute no-loss guarantee.
+- [x] **Core physical acceptance evidence consolidated** for one-tap, Digital Crown, queue, audio/dedup and reboot; physical P1/P2 QA9–11 findings and remaining limitations separately logged. [Physical Watch QA](docs/WATCH_ONE_TAP_PHYSICAL_QA_2026-10-16.md) / [iPhone QA](docs/WHAT_IPHONE_P1_P2_PHYSICAL_QA_2026-10-17.md).
+- [ ] **Absolute no-loss under all failure scenarios NOT proven:** treat catastrophic file corruption, low storage and force-power-off cases as future stress/robustness acceptance, never a universal guarantee.
+
+## P1 cancellation/race follow-up and P2a M1 baseline (2026-10-17)
+
+- [x] Speech recognition now checks a unique per-attempt token as well as the recording UUID; late callbacks from a cancelled previous attempt, including after immediate retry of the same note, are ignored.
+- [x] Speech denial, on-device recognition unavailability, silence and transcription errors now have RU/EN explanations; original audio/Watch delivery logic unchanged.
+- [x] 5 focused synthetic tests PASS; serial full simulator suite PASS: 68 unit/integration (3 skipped) + 5 UI, zero failures.
+- [x] Existing M1 source in separate multimodal feature branch builds with Xcode 27.1 and passes 3 isolated LocalNoteRepositoryTests. The work is not yet integrated with latest Watch fixes.
+- [ ] Physical cancellation QA on isolated iPhone build: create a NEW throwaway test note, cancel a running re-transcription, verify saved audio and corrected text intact. Do not alter existing reviewed notes.
+- [ ] P2a integration in separate worktree, complete Watch reliability regression and physical iOS video/text acceptance. No mixing into old release IPA.
+- [ ] Existing production 1.0.2 IPA remains superseded. No App Store upload without a release-scope decision.
+
+## P1/P2 UI defects after QA10 acceptance — 2026-10-17
+
+- [x] **Physical QA10 English Speech auto-recognition PASS:** user set English, Watch note «The blue lighthouse is next to seven green apples.» appeared as exact automatic transcript; retry/replace produced the same text; locale returned to Russian. Corrected earlier Russian QA note was not overwritten.
+- [x] **Physical QA10 diagnostics Russian labels PASS.**
+- [x] **Navigation defect FIX in source:** diagnostics modal now has localized «Готово» / Done to dismiss back to recording library; previously no close/back action.
+- [x] **UI/Speech language mismatch FIX in source:** Russian ↔ English language setting on iPhone updates both application UI and Speech recognizer locale, live and persisted across restart. Existing stored choices retained. Spanish Speech maintains English-interface fallback clearly labeled until full Spanish UI is available.
+- [x] **Full regression PASS (2026-10-17):** 63 unit/integration tests (3 skipped, 0 failures), 5 UI tests (0 failures), Xcode TEST SUCCEEDED. Includes diagnostics RU/EN dismissal and live RU→EN→RU setting/persistence; no changes to Watch queue or automatic Speech. [Evidence](docs/WHAT_IPHONE_P1_P2_PHYSICAL_QA_2026-10-17.md).
+- [x] **Isolated QA 1.0.2 (11) installed on iPhone in-place:** 22/22 existing QA Application Support files checked byte-identical by SHA-256 before/after. Watch still on QA10 as far as confirmed installations; no Watch reset/uninstall.
+- [x] **Physical QA11 acceptance PASS (owner, 2026-10-17):** Done closes diagnostics, English changes UI immediately, Русский restores Russian UI; recordings intact.
+- [ ] **Spanish UI localization backlog:** es-ES Speech exists, untranslated interface fallback remains English.
+- [ ] **Release on hold:** scope agreement required; previous IPA obsolete. No App Store upload.
+
+## P1/P2 continuation — language and diagnostics UX (2026-10-17)
+
+- [x] Localized previously English-only Sync diagnostics screen for RU/EN using existing CaptureBrand locale behavior; Watch queue metrics and Speech logic unchanged.
+- [x] Added and passed Russian + English diagnostics navigation and label UI tests on iPhone Duo Simulator (**2 tests, 0 failures**).
+- [x] QA 1.0.2 (10) installed in place on iPhone 13 and Apple Watch SE; all 4 bundle signatures verified. 21/21 iPhone QA storage files retain names/sizes, Watch queue 0 before/after upgrade. No QA or production app removal.
+- [x] **Hardware UI gate QA10 PASS:** Russian diagnostics labels on physical iPhone confirmed by owner.
+- [x] **Physical P1 English Speech/retry PASS (QA10, 2026-10-17):** Watch English note automatically transcribed perfectly; retry/replace gave the same text; recognition locale restored to Russian. Original audio replay of the EN note was not separately reported.
+- [ ] **Other remaining P1 edge cases:** cancellation, permission denied, direct iPhone mic with Mirroring off (no application mic bug), and release-scope decision. [Step-by-step physical QA](docs/WHAT_IPHONE_P1_P2_PHYSICAL_QA_2026-10-17.md).
+- [ ] **No public upload:** previous signed production IPA predates branded Watch complication and translated diagnostics, and is superseded.
+
+## Active P1/P2 physical iPhone QA — 2026-10-17
+
+- [x] Audit physical app scope: «Ухват QA» version 1.0.2 (9) is installed on iPhone 13; existing production storage and notes remain untouched.
+- [x] Focused iPhone Duo Simulator regression: **14 tests, 0 failures**, covering transcript edits/persistence, search/day grouping, archive, original audio and text export, and delete isolation.
+- [x] **Physical P1 automatic Russian Speech from Watch — owner-confirmed 2026-10-17:** Watch QA9 note automatically transcribed on iPhone: «Проверка охвата бирюзовой маяк стоит на полке номер семь напомнить про зелёный чай в субботу». Keep automatic transcription as default. Two observed deviations: «Ухвата» -> «охвата» and «Бирюзовый» -> «бирюзовой».
+- [x] **Physical P1 corrected transcript persistence/audio PASS — owner 2026-10-17:** QA9 edited text survived ordinary app reopen, search found the note, original Watch-sourced audio remained playable.
+- [ ] **Additional P1 edge cases:** permission denial, retry cancellation and direct iPhone microphone capture with Mirroring inactive (separate QA, not an application bug); English recognition/retry and language restoration physically passed.
+- [x] **Physical P2 search PASS — owner 2026-10-17:** search locates the edited test transcript in iPhone QA9.
+- [x] **Physical P2 archive/restore PASS — owner 2026-10-17:** synthetic QA9 note moved out of Inbox to Archive, text and audio retained, restored to Inbox with corrected transcript/playback intact. No deletion of other notes requested.
+- [x] **Mirroring microphone question CLOSED — not an UhWhat defect (2026-10-17):** user identified iPhone Mirroring capturing camera/microphone as the cause. Remove this from app defect/release blockers. Optional direct iPhone mic QA only when Mirroring is off.
+- [x] **Physical P1/P2 core acceptance PASS:** RU/EN automatic transcription, corrected text/audio/search, archive/restore, diagnostics, and QA11 language UI/Dismiss confirmed. [Evidence](docs/WHAT_IPHONE_P1_P2_PHYSICAL_QA_2026-10-17.md). No upload.
+
+- [x] **Physical P2 Watch diagnostics PASS — owner screenshot 2026-10-17:** last reported Watch queue 0 at 09:43:42; 15 phone notes/15 stored audio files/10 transcripts. Last Watch report is a cached snapshot, not a live guarantee.
+- [ ] **Optional P1/P2 edge cases:** retry cancellation, denied Speech permission, direct phone capture with Mirroring inactive (not an UhWhat bug) and release scope agreement. RU/EN switching and retry separately PASSED. No upload.
+- [x] **Diagnostics RU/EN localization PASS:** earlier English screenshot came from QA9; QA10 user confirmed RU, QA11 confirmed live English/Russian switching.
 
 ## P1 — Voice + transcribed text (existing; not a manually typed note)
 - [x] Preserve original audio as source of truth; transcript stored separately by recording UUID.
 - [x] Add on-device Speech transcription (explicit permission; no cloud fallback), local text persistence, and play/stop controls.
-- [ ] Verify playback and actual Speech recognition of existing audio on physical iPhone; add language selection, retry/cancel controls and transcript corrections.
+- [x] **Physical P1 PASS (QA9–11):** Watch-sourced audio played on iPhone; RU/EN audio notes auto-transcribed; user-corrected text persisted across reopen and remained searchable/playable; repeat recognition confirmed; RU/EN Speech language controls live UI and survives restart. [Evidence](docs/WHAT_IPHONE_P1_P2_PHYSICAL_QA_2026-10-17.md).
+- [ ] **P1 edge cases open:** cancel mid-transcription and Speech permission denied on real devices (without erasing existing notes). Direct iPhone capture is a separate test with iPhone Mirroring inactive; the Mirroring mic conflict is not an app defect.
 
 ## P2 — iPhone inbox
-- [ ] Today/Yesterday grouping, search, archive/delete and sync status; playback available in initial list.
+- [x] **Physical P2 core inbox PASS (QA9–11):** transcript search, playable audio, archive/restore, cached Watch diagnostics view (last Watch pending report 0), and modal Done navigation physically confirmed. Corrected text/audio survived archive cycle. [Evidence](docs/WHAT_IPHONE_P1_P2_PHYSICAL_QA_2026-10-17.md).
+- [x] **Automated repository P2 checks PASS:** Today/Yesterday grouping, archive+delete isolation and persistence/search exercised in isolated XCTest data; no real user notes deleted.
+- [ ] **P2 optional physical QA remaining:** Today/Yesterday date boundaries, test-note deletion confirmation and failure handling, and delayed Watch status differences vs real-time state. Don't infer these from successful search/archive or a cached report.
 
 ## P2a — Unified multimodal capture on iPhone and iPad (new backlog, 2026-10-16)
 
