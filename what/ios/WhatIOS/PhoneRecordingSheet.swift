@@ -98,7 +98,7 @@ struct PhoneRecordingSheet: View {
             .interactiveDismissDisabled(recorder.isRecording)
             .alert(CaptureBrand.text("Запись", "Phone recording"), isPresented: Binding(
                 get: { recorder.errorMessage != nil },
-                set: { if !$0 { recorder.errorMessage = nil } }
+                set: { _ in /* OK handles dismissal; avoid publishing during SwiftUI updates. */ }
             )) {
                 Button("OK") { recorder.errorMessage = nil }
             } message: {

@@ -555,7 +555,7 @@ struct VideoRecordingSheet: View {
             .alert(CaptureBrand.text("Видеозапись", "Video capture"),
                    isPresented: Binding(
                        get: { recorder.errorMessage != nil },
-                       set: { if !$0 { recorder.errorMessage = nil } }
+                       set: { _ in /* OK handles dismissal; avoid publishing during SwiftUI updates. */ }
                    )) {
                 Button("OK") { recorder.errorMessage = nil; dismiss() }
             } message: {

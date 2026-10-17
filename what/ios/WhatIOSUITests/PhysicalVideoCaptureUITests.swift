@@ -3,6 +3,132 @@ import XCTest
 /// Runs only against the isolated P2a QA bundle on an actual iPhone.
 /// No existing voice-note data, production bundles, or Watch apps are used.
 final class PhysicalVideoCaptureUITests: XCTestCase {
+    func testDiscardPhysicalVideoDoesNotSave() throws {
+        #if targetEnvironment(simulator)
+        throw XCTSkip("Physical capture is required for discard acceptance")
+        #else
+        let app = XCUIApplication()
+        app.launch()
+        let home = app.buttons["what.record.primary"]
+        XCTAssertTrue(home.waitForExistence(timeout: 15))
+        home.press(forDuration: 0.8)
+        let camera = app.buttons["what.video.switchCamera"]
+        let ready = XCTNSPredicateExpectation(
+            predicate: NSPredicate(format: "enabled == true"), object: camera
+        )
+        XCTAssertEqual(XCTWaiter.wait(for: [ready], timeout: 20), .completed)
+        Thread.sleep(forTimeInterval: 3)
+        let discard = app.buttons.matching(NSPredicate(format:
+            "label == %@ OR label == %@", "Отменить", "Discard"
+        )).firstMatch
+        XCTAssertTrue(discard.waitForExistence(timeout: 10))
+        discard.tap()
+        let returned = XCTNSPredicateExpectation(
+            predicate: NSPredicate(format: "hittable == true"), object: home
+        )
+        XCTAssertEqual(XCTWaiter.wait(for: [returned], timeout: 15), .completed)
+        Thread.sleep(forTimeInterval: 4) // Allow AVFoundation to close its clip.
+        #endif
+    }
+    /// The disposable iPhone Duo simulator has microphone access revoked by
+    /// simctl privacy. No real iPhone permissions are touched.
+    func testMicrophoneDeniedShowsErrorWithoutStartingCapture() throws {
+        #if targetEnvironment(simulator)
+        let app = XCUIApplication()
+        app.launch()
+        let record = app.buttons["what.record.primary"]
+        XCTAssertTrue(record.waitForExistence(timeout: 15))
+        record.tap()
+        let microphoneDenied = app.alerts.firstMatch
+        XCTAssertTrue(microphoneDenied.waitForExistence(timeout: 15),
+                      "Denied microphone permission must be explained")
+        let details = microphoneDenied.staticTexts.allElementsBoundByIndex
+            .map(\.label).joined(separator: " ").lowercased()
+        XCTAssertTrue(details.contains("микрофон") || details.contains("microphone"),
+                      "Denied permission alert must specifically mention the microphone: \(details)")
+        let stop = app.buttons.matching(NSPredicate(format:
+            "label == %@ OR label == %@", "Стоп и сохранить", "Stop and save"
+        )).firstMatch
+        XCTAssertFalse(stop.exists, "No recording must begin after access denial")
+        microphoneDenied.buttons["OK"].tap()
+        let retry = app.buttons.matching(NSPredicate(format:
+            "label == %@ OR label == %@", "Начать запись", "Start recording"
+        )).firstMatch
+        let home = app.buttons["what.record.primary"]
+        let recoverable = retry.waitForExistence(timeout: 5) || home.exists
+        if !recoverable { print("MIC_DENIAL_UI_TREE\n\(app.debugDescription)") }
+        XCTAssertTrue(recoverable, "User must be able to retry capture or return home")
+        #else
+        throw XCTSkip("This test only modifies permissions on a disposable simulator")
+        #endif
+    }
+
+    /// A bounded 90-second capture smoke test on the isolated QA application.
+    /// Not a substitute for multi-hour recording or low-storage stress tests.
+    func testNinetySecondContinuousPhysicalVideoSaves() throws {
+        #if targetEnvironment(simulator)
+        throw XCTSkip("A physical camera and microphone are required")
+        #else
+        let app = XCUIApplication()
+        app.launch()
+        let home = app.buttons["what.record.primary"]
+        XCTAssertTrue(home.waitForExistence(timeout: 15))
+        home.press(forDuration: 0.8)
+        let save = app.buttons.matching(NSPredicate(format:
+            "label == %@ OR label == %@", "Стоп и сохранить", "Stop and save"
+        )).firstMatch
+        XCTAssertTrue(save.waitForExistence(timeout: 18))
+        // A running camera is indicated by the enabled switch control.
+        let camera = app.buttons["what.video.switchCamera"]
+        let ready = XCTNSPredicateExpectation(
+            predicate: NSPredicate(format: "enabled == true"), object: camera
+        )
+        XCTAssertEqual(XCTWaiter.wait(for: [ready], timeout: 20), .completed)
+        Thread.sleep(forTimeInterval: 90)
+        XCTAssertTrue(save.isEnabled, "Long recording must remain stoppable")
+        save.tap()
+        let videoTitle = app.navigationBars.matching(NSPredicate(format:
+            "label == %@ OR label == %@", "Видеозаметка", "Video note"
+        )).firstMatch
+        let closed = XCTNSPredicateExpectation(
+            predicate: NSPredicate(format: "exists == false"), object: videoTitle
+        )
+        XCTAssertEqual(XCTWaiter.wait(for: [closed], timeout: 180), .completed,
+                       "Long video must finish export and local import")
+        let backHome = XCTNSPredicateExpectation(
+            predicate: NSPredicate(format: "hittable == true"), object: home
+        )
+        XCTAssertEqual(XCTWaiter.wait(for: [backHome], timeout: 15), .completed)
+        #endif
+    }
+    /// Deliberately terminates only the independently installed P2a QA app.
+    /// Run alone: the host backs up its journal *before* restarting and
+    /// independently verifies recovery on the next launch.
+    func testCrashAfterSwitchLeavesVideoRecoveryJournal() throws {
+        #if targetEnvironment(simulator)
+        throw XCTSkip("Physical camera required for crash recovery acceptance")
+        #else
+        let app = XCUIApplication()
+        app.launch()
+        let primary = app.buttons["what.record.primary"]
+        XCTAssertTrue(primary.waitForExistence(timeout: 12))
+        primary.press(forDuration: 0.8)
+        let camera = app.buttons["what.video.switchCamera"]
+        XCTAssertTrue(camera.waitForExistence(timeout: 15))
+        XCTAssertTrue(camera.isEnabled, "First video segment must be recording")
+        Thread.sleep(forTimeInterval: 3)
+        camera.tap() // The first closed segment must survive the process kill.
+        let switched = XCTNSPredicateExpectation(
+            predicate: NSPredicate(format: "enabled == true"), object: camera
+        )
+        XCTAssertEqual(XCTWaiter.wait(for: [switched], timeout: 20), .completed)
+        Thread.sleep(forTimeInterval: 3) // Second segment currently open.
+        print("P2A_QA_ABRUPT_TERMINATION_AFTER_SWITCH")
+        app.terminate() // XCTest forcibly terminates the isolated test app.
+        XCTAssertEqual(app.state, .notRunning)
+        // Do NOT relaunch here. The host takes a forensic backup first.
+        #endif
+    }
     func testShortTapStartsAndSavesAudio() throws {
         #if targetEnvironment(simulator)
         throw XCTSkip("Physical iPhone microphone required")

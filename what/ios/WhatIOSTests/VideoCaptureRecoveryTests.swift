@@ -2,7 +2,56 @@ import AVFoundation
 import XCTest
 @testable import WhatIOS
 
+/// Deterministic simulated ENOSPC. No real simulator or iPhone storage is filled.
+private final class SimulatedOutOfSpaceFileManager: FileManager {
+    override func copyItem(at srcURL: URL, to dstURL: URL) throws {
+        throw NSError(domain: NSCocoaErrorDomain, code: NSFileWriteOutOfSpaceError,
+                      userInfo: [NSLocalizedDescriptionKey: "Simulated disk full during media import"])
+    }
+}
+
 final class VideoCaptureRecoveryTests: XCTestCase {
+    func testSimulatedDiskFullPreservesOriginalAndRetryRecoversExactlyOnce() async throws {
+        let root = try temporaryRoot()
+        defer { try? FileManager.default.removeItem(at: root) }
+        let journal = VideoCaptureJournal(rootURL: root.appendingPathComponent("VideoCaptures"))
+        let id = try journal.begin()
+        try copyFixture("back", journal: journal, session: id, index: 0)
+        let original = journal.segmentURL(for: id, index: 0)
+        let beforeBytes = try Data(contentsOf: original)
+        let notesRoot = root.appendingPathComponent("What")
+
+        // The original segment is never imported or deleted on an ENOSPC copy.
+        let failingRepository = LocalNoteRepository(
+            rootURL: notesRoot, fileManager: SimulatedOutOfSpaceFileManager()
+        )
+        let failure = try await VideoCaptureRecovery.recover(
+            journal: journal, repository: failingRepository
+        )
+        XCTAssertEqual(failure.recovered, 0)
+        XCTAssertEqual(failure.unresolved, 1)
+        XCTAssertTrue(try failingRepository.allNotes().isEmpty)
+        XCTAssertEqual(try Data(contentsOf: original), beforeBytes)
+        XCTAssertEqual(try journal.pendingSessions().count, 1)
+
+        // The retry must use the same UUID and add exactly one note.
+        let healthyRepository = LocalNoteRepository(rootURL: notesRoot)
+        let retried = try await VideoCaptureRecovery.recover(
+            journal: journal, repository: healthyRepository
+        )
+        XCTAssertEqual(retried.recovered, 1)
+        XCTAssertEqual(retried.unresolved, 0)
+        XCTAssertEqual(try healthyRepository.allNotes().map(\.id), [id])
+        let onceMore = try await VideoCaptureRecovery.recover(
+            journal: journal, repository: healthyRepository
+        )
+        XCTAssertEqual(onceMore.recovered, 0)
+        XCTAssertEqual(try healthyRepository.allNotes().count, 1)
+        XCTAssertTrue(try journal.pendingSessions().isEmpty)
+        let saved = try XCTUnwrap(healthyRepository.allNotes().first)
+        let url = try XCTUnwrap(healthyRepository.videoURL(for: saved))
+        XCTAssertTrue(FileManager.default.fileExists(atPath: url.path))
+    }
     private func temporaryRoot() throws -> URL {
         let url = FileManager.default.temporaryDirectory
             .appendingPathComponent("what-recovery-\(UUID().uuidString)")
