@@ -100,7 +100,8 @@ or export features.
 
 - [x] Merged existing multimodal feature source with tested Watch P0/P1 fixes in **separate worktree**, preserving the original feature/release branches.
 - [x] Resolved two source/generator conflicts: combined note-type Picker and linked RU/EN language Picker, regenerated Xcode project for iPhone + iPad families.
-- [x] Integration compiled; simulator **92 unit/integration (3 skipped) and 9 UI (1 iPad skipped), 0 test failures**. Test runner's terminal exit/result bundle pending; do not claim clean final xcodebuild exit until confirmed.
+- [x] Integration compiled; simulator **92 unit/integration (3 skipped) and 9 UI (1 iPad skipped), 0 test-case failures**. Targeted long-press run also returned TEST SUCCEEDED.
+- [ ] **Runner finalization issue:** integrated full test process remained alive for 6+ minutes after test-case completion without TEST SUCCEEDED or a finalized xcresult Info.plist; the stale test runner was terminated. Resolve this Xcode result reporting issue before calling the overall full test a clean terminal run.
 - [x] Watch one-tap launch policy and branded complication smoke checks PASS. UI accessibility test for long press now recognizes actual video panel identifier; original video gesture needed no code fix.
 - [ ] Separate fully signed **multimodal QA app identity** and physical test of text/video, camera switching and legacy audio/Watch synchronization before any merge to a release.
 - [ ] iPad simulator/device not currently configured; physical iPad layout verification remains open.

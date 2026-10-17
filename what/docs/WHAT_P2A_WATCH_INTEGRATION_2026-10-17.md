@@ -31,3 +31,7 @@
 ## Separate Speech QA12
 
 The fixed Speech cancellation/retry race source is built as a **signed iPhone QA 1.0.2 (12)** on ArvectumSSD. At installation preparation, CoreDevice identified iPhone Nikita as unavailable; backup copy failed, therefore **QA12 was not installed**. Stable QA11 app and existing notes are untouched. Reconnect/unlock device, make a backup, then verify all source-file hashes before attempting in-place update. Apple Watch QA was not changed.
+
+## Full test runner cleanup caveat
+
+The full integrated test cases reported 92 unit/integration and 9 UI results with zero failures, but xcodebuild stayed alive for more than six minutes after the suite and the xcresult bundle remained incomplete without Info.plist. Only that exact hung test process was terminated. A clean terminal-successful full Xcode run and finalized result bundle are still open infrastructure checks. Do not treat the lack of an exit marker as proof of an application crash; the targeted long-press and isolated M1 cases had clean TEST SUCCEEDED exits.
