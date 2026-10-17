@@ -96,6 +96,16 @@ or export features.
 - [x] **Core physical acceptance evidence consolidated** for one-tap, Digital Crown, queue, audio/dedup and reboot; physical P1/P2 QA9–11 findings and remaining limitations separately logged. [Physical Watch QA](docs/WATCH_ONE_TAP_PHYSICAL_QA_2026-10-16.md) / [iPhone QA](docs/WHAT_IPHONE_P1_P2_PHYSICAL_QA_2026-10-17.md).
 - [ ] **Absolute no-loss under all failure scenarios NOT proven:** treat catastrophic file corruption, low storage and force-power-off cases as future stress/robustness acceptance, never a universal guarantee.
 
+## P1 cancellation/race follow-up and P2a M1 baseline (2026-10-17)
+
+- [x] Speech recognition now checks a unique per-attempt token as well as the recording UUID; late callbacks from a cancelled previous attempt, including after immediate retry of the same note, are ignored.
+- [x] Speech denial, on-device recognition unavailability, silence and transcription errors now have RU/EN explanations; original audio/Watch delivery logic unchanged.
+- [x] 5 focused synthetic tests PASS; serial full simulator suite PASS: 68 unit/integration (3 skipped) + 5 UI, zero failures.
+- [x] Existing M1 source in separate multimodal feature branch builds with Xcode 27.1 and passes 3 isolated LocalNoteRepositoryTests. The work is not yet integrated with latest Watch fixes.
+- [ ] Physical cancellation QA on isolated iPhone build: create a NEW throwaway test note, cancel a running re-transcription, verify saved audio and corrected text intact. Do not alter existing reviewed notes.
+- [ ] P2a integration in separate worktree, complete Watch reliability regression and physical iOS video/text acceptance. No mixing into old release IPA.
+- [ ] Existing production 1.0.2 IPA remains superseded. No App Store upload without a release-scope decision.
+
 ## P1/P2 UI defects after QA10 acceptance — 2026-10-17
 
 - [x] **Physical QA10 English Speech auto-recognition PASS:** user set English, Watch note «The blue lighthouse is next to seven green apples.» appeared as exact automatic transcript; retry/replace produced the same text; locale returned to Russian. Corrected earlier Russian QA note was not overwritten.

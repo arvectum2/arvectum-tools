@@ -106,3 +106,9 @@
 ## QA11 — физическая приёмка завершена (2026-10-17)
 
 Владелец ответил «1 - ок, 2 - ок, 3 - ок» на три шага: (1) «Готово» закрывает диагностику, (2) English мгновенно переводит iPhone интерфейс, (3) возврат на русский возвращает русский UI и сохраняет записи. **Дефекты навигации и рассогласования RU/EN локалей закрыты на реальном устройстве.** Полный набор 63 unit/integration + 5 UI тестов без ошибок. Spanish UI, отмена/отказ Speech разрешения, мультимедиа и согласование состава релиза — открытые задачи.
+
+## Speech cancel and P2a verification (2026-10-17)
+
+New per-attempt Speech token protects previously corrected text against callbacks arriving after Cancel + immediate same-recording Retry. Five synthetic tests and the full 68 unit (3 skipped) + 5 UI simulator suite passed. Permission-denial on a real device and mid-task cancellation are pending physical acceptance.
+
+P2a M1 is not absent: it exists on feature/what-multimodal-20261016. iOS Simulator compilation succeeded, as did 3/3 M1 LocalNoteRepository tests (after separating test sessions). The next job is an isolated integration and device QA without replacing validated production/QA notes. See WHAT_SPEECH_CANCEL_P2A_BASELINE_2026-10-17.md.
