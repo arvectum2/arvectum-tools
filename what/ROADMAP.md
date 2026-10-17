@@ -96,6 +96,17 @@ or export features.
 - [x] **Core physical acceptance evidence consolidated** for one-tap, Digital Crown, queue, audio/dedup and reboot; physical P1/P2 QA9–11 findings and remaining limitations separately logged. [Physical Watch QA](docs/WATCH_ONE_TAP_PHYSICAL_QA_2026-10-16.md) / [iPhone QA](docs/WHAT_IPHONE_P1_P2_PHYSICAL_QA_2026-10-17.md).
 - [ ] **Absolute no-loss under all failure scenarios NOT proven:** treat catastrophic file corruption, low storage and force-power-off cases as future stress/robustness acceptance, never a universal guarantee.
 
+## P2a isolated integration checkpoint — 2026-10-17
+
+- [x] Merged existing multimodal feature source with tested Watch P0/P1 fixes in **separate worktree**, preserving the original feature/release branches.
+- [x] Resolved two source/generator conflicts: combined note-type Picker and linked RU/EN language Picker, regenerated Xcode project for iPhone + iPad families.
+- [x] Integration compiled; simulator **92 unit/integration (3 skipped) and 9 UI (1 iPad skipped), 0 test failures**. Test runner's terminal exit/result bundle pending; do not claim clean final xcodebuild exit until confirmed.
+- [x] Watch one-tap launch policy and branded complication smoke checks PASS. UI accessibility test for long press now recognizes actual video panel identifier; original video gesture needed no code fix.
+- [ ] Separate fully signed **multimodal QA app identity** and physical test of text/video, camera switching and legacy audio/Watch synchronization before any merge to a release.
+- [ ] iPad simulator/device not currently configured; physical iPad layout verification remains open.
+- [ ] Review AVFoundation Sendability warning in VideoSegmentComposer and physical interruptions/low-storage before video is shippable.
+- [ ] Do not include P2a in prior production IPA; no App Store upload authorized. [Integration evidence](docs/WHAT_P2A_WATCH_INTEGRATION_2026-10-17.md).
+
 ## P1 cancellation/race follow-up and P2a M1 baseline (2026-10-17)
 
 - [x] Speech recognition now checks a unique per-attempt token as well as the recording UUID; late callbacks from a cancelled previous attempt, including after immediate retry of the same note, are ignored.

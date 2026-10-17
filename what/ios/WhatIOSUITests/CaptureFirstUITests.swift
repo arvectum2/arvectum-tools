@@ -146,9 +146,12 @@ final class CaptureFirstUITests: XCTestCase {
         XCTAssertTrue(record.waitForExistence(timeout: 10))
         record.press(forDuration: 0.8)
 
+        // iOS 27 simulator exposes NavigationStack's title as an
+        // accessibility identifier, not necessarily a label. Test both.
         let video = app.navigationBars.matching(
-            NSPredicate(format: "label == %@ OR label == %@",
-                        "Видеозаметка", "Video note")
+            NSPredicate(format:
+                "identifier == %@ OR identifier == %@ OR label == %@ OR label == %@",
+                "Видеозаметка", "Video note", "Видеозаметка", "Video note")
         ).firstMatch
         // Simulator hardware may have no camera. In that case the Video
         // recording sheet reports a camera error instead of a live preview.
@@ -166,5 +169,11 @@ final class CaptureFirstUITests: XCTestCase {
                         "Новая запись", "New recording")
         ).firstMatch
         XCTAssertFalse(audio.exists, "A long press must not start audio.")
+
+        // The simulator may asynchronously dismiss its hardware-unavailable
+        // video sheet while camera permissions resolve. End only this
+        // synthetic UI-test app instance rather than attempting to tap a
+        // button that may disappear during animation.
+        app.terminate()
     }
 }
