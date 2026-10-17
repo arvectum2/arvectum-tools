@@ -99,12 +99,16 @@ or export features.
 - [x] Audit physical app scope: «Ухват QA» version 1.0.2 (9) is installed on iPhone 13; existing production storage and notes remain untouched.
 - [x] Focused iPhone Duo Simulator regression: **14 tests, 0 failures**, covering transcript edits/persistence, search/day grouping, archive, original audio and text export, and delete isolation.
 - [x] **Physical P1 automatic Russian Speech from Watch — owner-confirmed 2026-10-17:** Watch QA9 note automatically transcribed on iPhone: «Проверка охвата бирюзовой маяк стоит на полке номер семь напомнить про зелёный чай в субботу». Keep automatic transcription as default. Two observed deviations: «Ухвата» -> «охвата» and «Бирюзовый» -> «бирюзовой».
-- [x] **Physical P1 corrected transcript persistence/audio PASS — owner 2026-10-17:** QA9 edited text survived ordinary app reopen, search found the note, original Watch-sourced audio remained playable.\n- [ ] **Additional P1 edge cases:** EN language switching/recognition, Speech permission denied, retry/cancel and direct iPhone mic (separately diagnosed), not yet physically accepted.
+- [x] **Physical P1 corrected transcript persistence/audio PASS — owner 2026-10-17:** QA9 edited text survived ordinary app reopen, search found the note, original Watch-sourced audio remained playable.
+- [ ] **Additional P1 edge cases:** EN language switching/recognition, Speech permission denied, retry/cancel and direct iPhone mic (separately diagnosed), not yet physically accepted.
 - [x] **Physical P2 search PASS — owner 2026-10-17:** search locates the edited test transcript in iPhone QA9.
 - [x] **Physical P2 archive/restore PASS — owner 2026-10-17:** synthetic QA9 note moved out of Inbox to Archive, text and audio retained, restored to Inbox with corrected transcript/playback intact. No deletion of other notes requested.
-- [ ] **Separate iPhone microphone input-route QA:** user reports iPhone microphone unavailable while device is connected to Mac mini; test iPhone-native capture separately after connection/routing diagnosis. Do not infer root cause without inspection.\n- [ ] **Blocker:** unit tests cannot attest physical Apple Speech recognition or real UI until owner confirms. [Watch-first physical QA](docs/WHAT_IPHONE_P1_P2_PHYSICAL_QA_2026-10-17.md). No upload.
+- [x] **Mirroring microphone question CLOSED — not an UhWhat defect (2026-10-17):** user identified iPhone Mirroring capturing camera/microphone as the cause. Remove this from app defect/release blockers. Optional direct iPhone mic QA only when Mirroring is off.
+- [ ] **Blocker:** unit tests cannot attest physical Apple Speech recognition or real UI until owner confirms. [Watch-first physical QA](docs/WHAT_IPHONE_P1_P2_PHYSICAL_QA_2026-10-17.md). No upload.
 
-- [ ] **Physical P2 remaining:** Watch sync diagnostics UI/queue status, selected edge-case checks (locale, retry, permission, direct phone mic), and scope agreement. No App Store upload.
+- [x] **Physical P2 Watch diagnostics PASS — owner screenshot 2026-10-17:** last reported Watch queue 0 at 09:43:42; 15 phone notes/15 stored audio files/10 transcripts. Last Watch report is a cached snapshot, not a live guarantee.
+- [ ] **Optional P1/P2 edge cases remaining:** language switching, retry/cancel, denied permission, separate direct phone recording with Mirroring off if desired, and release scope agreement. No App Store upload.
+- [ ] **Polish backlog:** Diagnostics UI labels are still English in owner's screenshot; RU localization can be addressed independently of reliable capture and transfer.
 
 ## P1 — Voice + transcribed text (existing; not a manually typed note)
 - [x] Preserve original audio as source of truth; transcript stored separately by recording UUID.
