@@ -31,14 +31,14 @@
 - [x] **Russian-language recognition confirmed by real output:** intelligible Russian transcript received. Manual locale-switch UI has not been explicitly exercised.
 - [x] **Auto-transcription PASS:** user confirmed «Расшифровка у нас автоматическая (это хорошо, так и оставим)». Preserve automatic recognition as default. Manual transcription/retry is a fallback, not mandatory.
 - [x] **Real Russian transcript exists, semantic content preserved.** Exact user result: «Проверка охвата бирюзовой маяк стоит на полке номер семь напомнить про зелёный чай в субботу». Two errors against target: «Ухвата» -> «охвата» and «Бирюзовый» -> «бирюзовой»; punctuation omitted. Keywords «маяк», «номер семь», «зелёный чай» and «в субботу» survived. This is a quality observation, not a guarantee.
-- [ ] Re-play the original note; Speech/transcript is an accessory and must not alter recorded audio.
+- [x] **Owner physical PASS 2026-10-17:** audible playback of the same corrected note confirmed.
 
 ## Stage 2 — correction and search (OWNER, after Stage 1)
 
-- [ ] Tap «Править текст» (or «…» -> «Добавить текст»), append a harmless unique marker «контрольный маяк девятнадцать», tap «Сохранить».
-- [ ] Leave «Ухват QA» (ordinary app switch), return and verify text is still edited.
-- [ ] In Inbox search field enter «маяк» and confirm this note appears; enter unique marker and verify it appears. Test no-results search.
-- [ ] Check recording playback unchanged after editing.
+- [x] **Owner physical PASS 2026-10-17:** edited the transcript on the Watch-sourced QA9 test note and saved. Owner said «правка сохранилась». Exact presence/spelling of the optional unique marker was not separately quoted.
+- [x] **Owner physical PASS 2026-10-17:** text correction persisted after the instructed leave/reopen check, reported «правка сохранилась». This is an ordinary app reopen, not an OS-level hard reset.
+- [x] **Owner physical PASS 2026-10-17:** library search finds the edited QA test note («в поиске ищется»). Specific matching of the optional unique marker and empty/no-results search were not explicitly reported; leave those as optional extended UX tests.
+- [x] **Owner physical PASS 2026-10-17:** original recording still plays after correction («аудио воспроизводится»).
 
 ## Stage 3 — archive and non-destructive navigation (OWNER)
 
@@ -60,5 +60,9 @@
 
 - **PASS:** after Apple Watch capture, iPhone automatically generated Russian transcription without a manual Transcribe step. User explicitly wants this to remain the default behavior.
 - This particular recognizer result preserves meaning with deviations in the product name and adjective; record as an ASR quality note, not a functional blocker.
-- **UNCONFIRMED:** playback of this specific new note, manually corrected text persistence/search, archive/restore, permission denial, direct iPhone microphone. Do not check these based solely on the transcript.
+- **2026-10-17 FOLLOW-UP PASS:** user reported edited text retained, found in search and audio plays. Remaining unconfirmed: physical archive/restore, denied Speech permission, direct iPhone microphone.
 - Next user checkpoint: select only this new QA note, tap «Править текст», correct «охвата» -> «Ухвата» and «бирюзовой» -> «Бирюзовый», append «контрольный маяк девятнадцать», save. Leave and reopen app to verify persistence, then search for the marker, and replay the same audio. Do not alter older notes.
+
+## Stage 2 physical result — text / search / audio PASS (2026-10-17)
+
+Owner reported «правка сохранилась, в поиске ищется, аудио воспроизводится» after being asked to correct the ASR text, reopen QA, search and play the original Watch-sourced recording. All core Step 2 behaviors are confirmed on physical iPhone QA9. Optional specific-marker and no-results-query checks are not separately evidenced. Next acceptance: **archive/restore only the same test recording** and verify edited text and original audio survive.
