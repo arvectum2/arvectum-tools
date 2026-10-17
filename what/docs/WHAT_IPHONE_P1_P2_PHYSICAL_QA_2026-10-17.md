@@ -17,11 +17,19 @@
 - Log on ArvectumSSD: builds/what-p1p2-acceptance-20261017/focused-regressions.log.
 - Unit tests use isolated repositories and synthetic recordings, not the user's private notes. Simulator tests **do not demonstrate actual Apple Speech transcription quality** on hardware.
 
+## Accepted primary input: Apple Watch (2026-10-17)
+
+- Owner reports that the iPhone microphone does not work while iPhone is connected to Mac mini for QA. Do not require repeated physical disconnect/reconnect merely to exercise Speech, correction, library, search and archive.
+- **Primary physical acceptance input is Watch QA (9)**, already independently verified for one-tap recording and transfer. Dictate the fixed Russian test phrase on Apple Watch, tap Stop, wait for it to arrive on iPhone QA (9), then run Apple Speech and P1/P2 iPhone flows on that incoming note.
+- This validates real Watch microphone -> durable transfer -> iPhone stored audio -> actual **iPhone-side** SFSpeechRecognizer -> text persistence/correction -> search/archive. Differences in acoustic microphone quality can change recognition accuracy, but do not invalidate processing/UX acceptance.
+- **Separate unresolved iPhone direct microphone QA**: the on-iPhone microphone/audio capture path is NOT verified by Watch-sourced notes; diagnose the Mac mini connection/input-route issue separately and run one dedicated, minimally disruptive round of iPhone-native capture QA. Do not claim a software bug or audio-route root cause until reproduced without the tether/connection.
+- All destructive tests remain isolated to a new synthetic QA note. Production storage never touched.
+
 ## Stage 1 — real iPhone transcription / original audio (OWNER)
 
-- [ ] iPhone «Ухват QA» -> large main record button. Speak the test phrase clearly for 8–15 seconds, then tap Stop. Confirm note appears in «Мои записи», plays back audibly.
-- [ ] Open «Мои записи» -> «…» -> **Язык распознавания** -> «Русский» if needed (ru-RU).
-- [ ] On that note tap **«Расшифровать»** (or inspect the automatically generated transcript if Speech permission had previously been granted). Grant Speech permission on first request if comfortable; do not force permission if user declines.
+- [ ] **From Apple Watch QA** complication record the fixed test phrase clearly for 8–15 seconds; tap Stop. On paired iPhone «Ухват QA» verify the note arrives under «Мои записи» and plays. This is a Watch-sourced acceptance note, not proof that the iPhone microphone capture works.
+- [ ] On iPhone open «Мои записи» -> «…» -> **Язык распознавания** -> «Русский» if needed (ru-RU).
+- [ ] On that Watch-delivered note in iPhone QA tap **«Расшифровать»** (or inspect the automatically generated transcript if Speech permission had previously been granted). Grant Speech permission on first request if comfortable; do not force permission if user declines.
 - [ ] Confirm transcript is present and includes at least recognisable «бирюзовый», «маяк» or «зелёный чай». Record exact spelling errors as a product finding, not as fabricated PASS; microphone/Voice text recognition can't be automated by local Swift unit tests.
 - [ ] Re-play the original note; Speech/transcript is an accessory and must not alter recorded audio.
 

@@ -98,9 +98,9 @@ or export features.
 
 - [x] Audit physical app scope: «Ухват QA» version 1.0.2 (9) is installed on iPhone 13; existing production storage and notes remain untouched.
 - [x] Focused iPhone Duo Simulator regression: **14 tests, 0 failures**, covering transcript edits/persistence, search/day grouping, archive, original audio and text export, and delete isolation.
-- [ ] **Physical P1:** new harmless test audio -> audible playback -> RU Speech recognizer output on actual iPhone, and text correction across app relaunch.
+- [ ] **Physical P1 (Watch-sourced, iPhone-processed):** dictate a harmless Russian phrase on Watch QA9, confirm delivery/audio on iPhone QA9, actual iPhone Speech transcription and text correction across app relaunch. This is a valid real-device P1 processing test, without requiring iPhone mic capture.
 - [ ] **Physical P2:** find this test transcript in library, archive/restore only the test note, verify original audio and text are retained.
-- [ ] **Blocker:** tests cannot attest Apple Speech recognition or physical UI until owner confirms. [Step-by-step QA](docs/WHAT_IPHONE_P1_P2_PHYSICAL_QA_2026-10-17.md). No upload.
+- [ ] **Separate iPhone microphone input-route QA:** user reports iPhone microphone unavailable while device is connected to Mac mini; test iPhone-native capture separately after connection/routing diagnosis. Do not infer root cause without inspection.\n- [ ] **Blocker:** unit tests cannot attest physical Apple Speech recognition or real UI until owner confirms. [Watch-first physical QA](docs/WHAT_IPHONE_P1_P2_PHYSICAL_QA_2026-10-17.md). No upload.
 
 ## P1 — Voice + transcribed text (existing; not a manually typed note)
 - [x] Preserve original audio as source of truth; transcript stored separately by recording UUID.
