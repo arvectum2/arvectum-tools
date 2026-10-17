@@ -1,6 +1,6 @@
 # Ухват — фирменный значок на циферблате, 2026-10-17
 
-**Gate: physical visual test OPEN, production upload STOPPED.**
+**Gate: owner-confirmed visual acceptance PASS on their actual Watch face; production upload remains STOPPED pending roadmap/release-scope review.**
 
 ## Defect reported by owner
 - Released Watch complication appears as generic SF microphone instead of UhWhat's navy/mint identity.
@@ -18,10 +18,15 @@
 - The previously exported production 1.0.2 (7) IPA (SHA-256 39ae71cc...) is superseded for release; it predates the branding change.
 
 ## Watch face acceptance checklist (OWNER INPUT REQUIRED)
-- [ ] Add/reselect «Ухват QA — Запись» complication in watch face edit mode. If watchOS shows an old cached icon, remove this complication slot and select it again. Check that a mint logo silhouette / correct app icon appears instead of an empty square or mic.
-- [ ] Check appearance on a full-color face, and tinted/one-color face if available. Note: watchOS may apply face tint and disallow maintaining the navy background in accented mode. Recognisable silhouette is still required.
-- [ ] Tap complication **once**, confirm recording starts with no extra tap. Speak a few seconds, press Stop or Digital Crown, verify playable audio on iPhone QA, exactly one note.
-- [ ] If still blank or mic, get screenshot of the face/complication from owner or device and investigate WidgetKit face rendering / family-specific availability. **Do not submit to App Store.**
+- [x] **Physical owner PASS (2026-10-17):** user confirmed «проверка прошла. значок правильный, запись сохранилась». Correct branded icon now appears on their actual Watch face instead of blank square/microphone. Exact face/family and whether it is tinted were not separately identified.
+- [ ] Optional cross-face QA: other widget families and tinted/one-color watch face appearance remain unverified. watchOS may apply tint and disallow navy background in accented mode; silhouette should remain recognizable.
+- [x] **Owner-reported test flow PASS (2026-10-17):** user responded «проверка прошла. значок правильный, запись сохранилась» after the prescribed one-tap/record/save check. Recording saved, but sound playback and duplicate count for this exact QA9 note were not explicitly stated. Earlier QA8 sound + no-duplicate acceptance remains valid for that earlier build.
+- [ ] Explicit QA9 confirmation of playback/no duplicate, if required for final release acceptance.
+- [x] The previously reproduced generic microphone / empty square appearance no longer occurs on owner's tested QA9 watch face. No extra image needed for this case.
 
 ## Other roadmap, not silently declared complete
 Full 27-item audit: what/docs/WHAT_ROADMAP_AUDIT_2026-10-17.md (4 ready, 10 partial, 13 open). Release scope selection is pending owner decision. Text/video/iPad/Duo, reminder/ChickMark, advanced search and physical transcription QA were never declared delivered by this branding fix.
+
+## User verification result (2026-10-17)
+
+**Owner:** «проверка прошла. значок правильный, запись сохранилась». The actual watch-face brand image and saved capture are confirmed. Do not silently treat sound/dedup or alternate face families as proven from this short report. App Store upload remains on hold by owner's explicit instruction.
