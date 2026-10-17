@@ -96,6 +96,15 @@ or export features.
 - [x] **Core physical acceptance evidence consolidated** for one-tap, Digital Crown, queue, audio/dedup and reboot; physical P1/P2 QA9–11 findings and remaining limitations separately logged. [Physical Watch QA](docs/WATCH_ONE_TAP_PHYSICAL_QA_2026-10-16.md) / [iPhone QA](docs/WHAT_IPHONE_P1_P2_PHYSICAL_QA_2026-10-17.md).
 - [ ] **Absolute no-loss under all failure scenarios NOT proven:** treat catastrophic file corruption, low storage and force-power-off cases as future stress/robustness acceptance, never a universal guarantee.
 
+## QA13 deterministic Speech cancellation test mode — 2026-10-17
+
+- [x] Physical QA12 owner report: manual retranscription finishes before they can press Cancel. This is not a cancellation failure; physical Cancel remains untested. Do not ask for ever-longer audio.
+- [x] Added a **QA-only 25-second hold on the final result of explicit manual retranscription**, exposed through a temporary toggle in QA Sync diagnostics. Automatic transcription remains fast. This test mode is present ONLY in the isolated QA worktree, NOT production source/PR #84.
+- [x] Built signed QA 1.0.2 (13) with QA bundle identity and installed in place on physical iPhone 13. Before/after Application Support device copies: **23/23 SHA-256 byte-identical files**, 0 missing or changed. No manual Watch install.
+- [ ] **Physical QA13 acceptance:** toggle on the test hold in diagnostics; edit only a disposable test note with «Контроль отмены 13»; start manual repeat, press in-progress «Отмена», wait >=30 seconds, ensure marker and audio remain; toggle OFF.
+- [ ] After Cancel passes, separately test immediate same-note retry with QA hold OFF. Do not alter the earlier corrected «бирюзовый маяк» test note or production app.
+- [ ] No App Store upload; QA-only hold must never ship.
+
 ## QA12 signed but not installed / P2a integration isolated (2026-10-17)
 
 - [x] Signed iPhone QA 1.0.2 (12) built with SpeechAttemptGate; correct QA-only bundle identifiers and signatures.

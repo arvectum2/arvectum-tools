@@ -47,3 +47,12 @@ Performed pre-install read-only devicectl device copy from for QA iPhone Applica
 This proves application-support file contents were byte-identical immediately after install, before user exercised the new feature. It does not itself prove active speech-cancellation behavior or future storage durability.
 
 No App Store upload; no production app uninstall/reinstall; no Watch app update or queue manipulation. Watch still last confirmed QA10. Physical owner cancellation/retry and original audio check are now the remaining QA12 acceptance gate.
+
+
+## QA13 — deterministic physical cancellation check (2026-10-17)
+
+QA12 owner found manual retry finishes too fast to cancel, neither pass nor fail. QA13 implements a temporary opt-in diagnostic ONLY in the local isolated QA source worktree, NOT in production/PR #84: under Sync diagnostics toggle «Задержать результат повторной расшифровки на 25 секунд». This in-memory switch resets on app relaunch and delays only the final real Speech callback from the explicit manual repeat; incoming automatic notes still transcribe immediately. The delayed callback checks the exact same recording UUID and Speech attempt token after 25 seconds; cancellation invalidates the token and should prevent replacement of manually corrected text. Audio repository and Watch delivery are unchanged.
+
+QA 1.0.2 (13) signed, QA bundle ID verified, installed in place on iPhone 13; inventory confirmed version. Pre-install and post-install private QA Application Support snapshots saved on ArvectumSSD in builds/what-speech-cancel-hold-qa13-20261017/device-backup, with 23/23 SHA-256-identical files, no additions or removals. No production app, Watch or user notes removed; no public upload.
+
+Physical procedure: on iPhone QA13 open «Мои записи» -> «…» -> «Диагностика синхронизации», enable 25-second QA-only hold, tap «Готово»; ONLY on the latest disposable QA test note edit the text to include «Контроль отмены 13»; choose «Повторить расшифровку» -> «Заменить текст» and tap the in-progress «Отмена» button; wait >=30 seconds; the marker and original audio should remain intact. Disable the test toggle after checking. Physical acceptance remains pending user report.
