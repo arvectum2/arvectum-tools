@@ -40,3 +40,11 @@
 - Rechecked 14 focused video merge/recovery simulator test **cases** after the async-export fix: 14 cases, 0 failures. The Xcode 27.1 test runner again hung in result finalization, emitting `invalidDigitCount(94232)`; no clean `TEST SUCCEEDED`/exit was observed.
 - An iPhone XCTest run compiled and installed its dedicated QA runner, then Xcode preflight repeatedly reported the physical iPhone locked. The run was stopped after prolonged preflight wait; nothing in the existing QA13 container was changed.
 - The standard iOS runtime download process had still produced no artifact after nearly an hour and was terminated; iPad simulator fix remains open.
+
+## First unlocked physical UI run — iOS permission gate
+
+- On physical wired iPhone 13, launching `ru.arvectum.tools.what.p2aqa` via `devicectl device process launch` **succeeded** after the owner unlocked the device. QA13 and separate P2a QA1 remained installed.
+- Started 3 targeted physical UI cases (home/library, typed-note autosave, camera switch and local video save). The XCTest runner launched, but no cases executed: it reported `Timed out while enabling automation mode` (`com.apple.dt.XCTest.XCTFuture`, code 1000).
+- Captured the physical screen via `devicectl device capture screenshot`, which identifies the exact blocker: iOS secure system sheet **«Введите код-пароль iPhone для приложения „XCTest“» / "Enable UI Automation"**. Owner must enter the device passcode locally; never transmit or store the passcode.
+- Until this local authorization is completed and fresh targeted tests execute, **do not mark physical UI/video acceptance passed**.
+- Diagnostic log: `builds/what-p2a-physical-qa-20261017/iphone-real-ui-20261017.log`; device screenshot (private, not uploaded) `builds/what-p2a-physical-qa-20261017/iphone-ui-automation-diagnostic.png`.
