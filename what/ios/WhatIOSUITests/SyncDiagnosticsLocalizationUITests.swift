@@ -31,11 +31,16 @@ final class SyncDiagnosticsLocalizationUITests: XCTestCase {
         let app = XCUIApplication()
         app.launchArguments += ["-AppleLanguages", "(\(language))", "-AppleLocale", locale]
         app.launch()
+        // A previously saved speech/UI locale has priority over system
+        // -AppleLanguages, so this test must first select the requested
+        // locale through the actual UI rather than assuming a clean install.
         let library = app.buttons.matching(
-            NSPredicate(format: "label BEGINSWITH %@", libraryButton)
+            NSPredicate(format: "label BEGINSWITH %@ OR label BEGINSWITH %@",
+                        "Мои записи", "My recordings")
         ).firstMatch
         XCTAssertTrue(library.waitForExistence(timeout: 15))
         library.tap()
+        selectLocale(language == "ru" ? "Русский" : "English", app: app)
         let options = app.buttons[settings]
         XCTAssertTrue(options.waitForExistence(timeout: 10))
         options.tap()

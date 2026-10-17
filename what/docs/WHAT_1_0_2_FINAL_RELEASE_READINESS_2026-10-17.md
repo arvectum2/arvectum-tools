@@ -54,3 +54,7 @@ SyncDiagnosticsView translated through the app's existing RU/EN CaptureBrand.tex
 ## QA11 new iPhone UI / Speech locale changes (2026-10-17)
 
 Previously exported production IPA is still **superseded** and must not be uploaded. After QA10 hardware check, owner reported missing diagnostics Done button and a mismatch between English Speech setting and Russian UI. Both fixed in source: diagnostics dismiss action and shared persisted RU/EN locale. Three simulator UI tests passed. Isolated signed iPhone QA11 installed in place, and 22/22 QA app-support files SHA-256 identical after upgrade. Owner visual acceptance on physical iPhone QA11 remains open. No production IPA uploaded or submitted to Apple.
+
+## Final QA11 branch simulator regressions, 2026-10-17
+
+Full Xcode WhatIOS scheme tests PASS: 63 unit/integration (3 skipped), 5 UI, zero failures. The persisted-locale test fixture was corrected to respect saved settings. This does not authorize upload; previous production IPA is superseded and physical QA11 UI is unaccepted.

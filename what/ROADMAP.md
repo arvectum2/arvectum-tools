@@ -100,7 +100,7 @@ or export features.
 - [x] **Physical QA10 diagnostics Russian labels PASS.**
 - [x] **Navigation defect FIX in source:** diagnostics modal now has localized «Готово» / Done to dismiss back to recording library; previously no close/back action.
 - [x] **UI/Speech language mismatch FIX in source:** Russian ↔ English language setting on iPhone updates both application UI and Speech recognizer locale, live and persisted across restart. Existing stored choices retained. Spanish Speech maintains English-interface fallback clearly labeled until full Spanish UI is available.
-- [x] **Regression UI tests PASS:** 3 simulator tests, 0 failures, covering diagnostics languages/dismiss and RU→EN→RU live navigation/persistence. Watch-to-iPhone delivery and automatic transcription unchanged.
+- [x] **Full regression PASS (2026-10-17):** 63 unit/integration tests (3 skipped, 0 failures), 5 UI tests (0 failures), Xcode TEST SUCCEEDED. Includes diagnostics RU/EN dismissal and live RU→EN→RU setting/persistence; no changes to Watch queue or automatic Speech. [Evidence](docs/WHAT_IPHONE_P1_P2_PHYSICAL_QA_2026-10-17.md).
 - [x] **Isolated QA 1.0.2 (11) installed on iPhone in-place:** 22/22 existing QA Application Support files checked byte-identical by SHA-256 before/after. Watch still on QA10 as far as confirmed installations; no Watch reset/uninstall.
 - [ ] **Physical iPhone QA11 acceptance:** verify Done from diagnostics, language UI follows Speech choice, return Russian, old notes intact.
 - [ ] **Spanish UI localization backlog:** es-ES Speech exists, untranslated interface fallback remains English.
@@ -112,7 +112,7 @@ or export features.
 - [x] Added and passed Russian + English diagnostics navigation and label UI tests on iPhone Duo Simulator (**2 tests, 0 failures**).
 - [x] QA 1.0.2 (10) installed in place on iPhone 13 and Apple Watch SE; all 4 bundle signatures verified. 21/21 iPhone QA storage files retain names/sizes, Watch queue 0 before/after upgrade. No QA or production app removal.
 - [ ] **Hardware UI gate:** physical iPhone QA10 check diagnostics labels in Russian; confirm observed text, not just simulator.
-- [ ] **Hardware P1 gate:** set English recognition before creating a NEW Watch QA10 note; verify automatic EN transcription, optionally retry after confirmation, preserve original audio, restore locale to Russian. Do not retry on manually corrected Russian test note.
+- [x] **Physical P1 English Speech/retry PASS (QA10, 2026-10-17):** Watch English note automatically transcribed perfectly; retry/replace gave the same text; recognition locale restored to Russian. Original audio replay of the EN note was not separately reported.
 - [ ] **Other remaining P1 edge cases:** cancellation, permission denied, direct iPhone mic with Mirroring off (no application mic bug), and release-scope decision. [Step-by-step physical QA](docs/WHAT_IPHONE_P1_P2_PHYSICAL_QA_2026-10-17.md).
 - [ ] **No public upload:** previous signed production IPA predates branded Watch complication and translated diagnostics, and is superseded.
 
@@ -122,7 +122,7 @@ or export features.
 - [x] Focused iPhone Duo Simulator regression: **14 tests, 0 failures**, covering transcript edits/persistence, search/day grouping, archive, original audio and text export, and delete isolation.
 - [x] **Physical P1 automatic Russian Speech from Watch — owner-confirmed 2026-10-17:** Watch QA9 note automatically transcribed on iPhone: «Проверка охвата бирюзовой маяк стоит на полке номер семь напомнить про зелёный чай в субботу». Keep automatic transcription as default. Two observed deviations: «Ухвата» -> «охвата» and «Бирюзовый» -> «бирюзовой».
 - [x] **Physical P1 corrected transcript persistence/audio PASS — owner 2026-10-17:** QA9 edited text survived ordinary app reopen, search found the note, original Watch-sourced audio remained playable.
-- [ ] **Additional P1 edge cases:** EN language switching/recognition, Speech permission denied, retry/cancel and direct iPhone mic (separately diagnosed), not yet physically accepted.
+- [ ] **Additional P1 edge cases:** permission denial, retry cancellation and direct iPhone microphone capture with Mirroring inactive (separate QA, not an application bug); English recognition/retry and language restoration physically passed.
 - [x] **Physical P2 search PASS — owner 2026-10-17:** search locates the edited test transcript in iPhone QA9.
 - [x] **Physical P2 archive/restore PASS — owner 2026-10-17:** synthetic QA9 note moved out of Inbox to Archive, text and audio retained, restored to Inbox with corrected transcript/playback intact. No deletion of other notes requested.
 - [x] **Mirroring microphone question CLOSED — not an UhWhat defect (2026-10-17):** user identified iPhone Mirroring capturing camera/microphone as the cause. Remove this from app defect/release blockers. Optional direct iPhone mic QA only when Mirroring is off.
