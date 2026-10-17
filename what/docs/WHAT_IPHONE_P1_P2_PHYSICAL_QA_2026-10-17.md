@@ -1,6 +1,6 @@
 # Ухват — физическая приёмка P1/P2 на iPhone, 17.10.2026
 
-**State: AUTOTESTS PASS; PHYSICAL QA PENDING. No production installation or App Store upload.**
+**State: AUTOTESTS PASS; REAL iPHONE AUTO-TRANSCRIPTION PASS; correction/search/archive physical QA pending. No production installation or App Store upload.**
 
 ## Setup
 
@@ -27,10 +27,10 @@
 
 ## Stage 1 — real iPhone transcription / original audio (OWNER)
 
-- [ ] **From Apple Watch QA** complication record the fixed test phrase clearly for 8–15 seconds; tap Stop. On paired iPhone «Ухват QA» verify the note arrives under «Мои записи» and plays. This is a Watch-sourced acceptance note, not proof that the iPhone microphone capture works.
-- [ ] On iPhone open «Мои записи» -> «…» -> **Язык распознавания** -> «Русский» if needed (ru-RU).
-- [ ] On that Watch-delivered note in iPhone QA tap **«Расшифровать»** (or inspect the automatically generated transcript if Speech permission had previously been granted). Grant Speech permission on first request if comfortable; do not force permission if user declines.
-- [ ] Confirm transcript is present and includes at least recognisable «бирюзовый», «маяк» or «зелёный чай». Record exact spelling errors as a product finding, not as fabricated PASS; microphone/Voice text recognition can't be automated by local Swift unit tests.
+- [x] **Physical QA9 Watch-sourced note delivered and transcribed on iPhone (2026-10-17):** owner recorded test phrase on Watch and reported automatic iPhone Speech transcription. Playback of this particular note was not explicitly confirmed; direct iPhone microphone not tested.
+- [x] **Russian-language recognition confirmed by real output:** intelligible Russian transcript received. Manual locale-switch UI has not been explicitly exercised.
+- [x] **Auto-transcription PASS:** user confirmed «Расшифровка у нас автоматическая (это хорошо, так и оставим)». Preserve automatic recognition as default. Manual transcription/retry is a fallback, not mandatory.
+- [x] **Real Russian transcript exists, semantic content preserved.** Exact user result: «Проверка охвата бирюзовой маяк стоит на полке номер семь напомнить про зелёный чай в субботу». Two errors against target: «Ухвата» -> «охвата» and «Бирюзовый» -> «бирюзовой»; punctuation omitted. Keywords «маяк», «номер семь», «зелёный чай» and «в субботу» survived. This is a quality observation, not a guarantee.
 - [ ] Re-play the original note; Speech/transcript is an accessory and must not alter recorded audio.
 
 ## Stage 2 — correction and search (OWNER, after Stage 1)
@@ -55,3 +55,10 @@
 - Export / Apple Notes / Shortcuts integration remains separate P3; text/video, iPad/Duo, reminders/ChickMark and semantic search remain separate roadmap milestones.
 - If audio does not play or recognizer returns silence/empty/error, record observed text and app screen; do not mark P1 complete.
 - Release remains on hold until owner agrees scope; pre-branding production IPA is obsolete.
+
+## Physical Speech observation and product decision (2026-10-17)
+
+- **PASS:** after Apple Watch capture, iPhone automatically generated Russian transcription without a manual Transcribe step. User explicitly wants this to remain the default behavior.
+- This particular recognizer result preserves meaning with deviations in the product name and adjective; record as an ASR quality note, not a functional blocker.
+- **UNCONFIRMED:** playback of this specific new note, manually corrected text persistence/search, archive/restore, permission denial, direct iPhone microphone. Do not check these based solely on the transcript.
+- Next user checkpoint: select only this new QA note, tap «Править текст», correct «охвата» -> «Ухвата» and «бирюзовой» -> «Бирюзовый», append «контрольный маяк девятнадцать», save. Leave and reopen app to verify persistence, then search for the marker, and replay the same audio. Do not alter older notes.
