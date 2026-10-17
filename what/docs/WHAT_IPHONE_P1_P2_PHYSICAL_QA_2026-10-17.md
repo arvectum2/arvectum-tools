@@ -1,6 +1,6 @@
 # Ухват — физическая приёмка P1/P2 на iPhone, 17.10.2026
 
-**State: AUTOTESTS PASS; REAL iPHONE AUTO-TRANSCRIPTION PASS; correction/search/archive physical QA pending. No production installation or App Store upload.**
+**State: AUTOTESTS PASS; REAL iPHONE auto-transcription, corrected text, search, audio, archive/restore PASS on QA9; remaining edge cases still open. No production installation or App Store upload.**
 
 ## Setup
 
@@ -42,9 +42,9 @@
 
 ## Stage 3 — archive and non-destructive navigation (OWNER)
 
-- [ ] On **only this test recording** tap «…» -> «В архив». Verify absent from «Входящие» and present in «Архив».
-- [ ] Return to Inbox, switch back to Archive, verify text/audio still present and search with marker works.
-- [ ] Tap «…» -> «Вернуть во входящие» for **only this test recording**. Verify it is again in Inbox and still playable.
+- [x] **Physical owner PASS 2026-10-17:** test recording moved into «Архив», disappeared from «Входящие», and appeared in «Архив». Owner reported «да, все прошло правильно» in answer to full Stage 3 instructions.
+- [x] **Physical owner PASS 2026-10-17:** corrected text and original audio retained in archive, then correctly playable after return to Inbox. Separate unique-marker-only search while in archive was not explicitly reported; do not infer that isolated subtest.
+- [x] **Physical owner PASS 2026-10-17:** test recording returned to Inbox; corrected transcript and playable audio intact. This check does not demonstrate destructive delete behavior or other notes' state.
 - [ ] Open «…» -> «Диагностика синхронизации» and inspect pending count. Do not infer «zero» from lack of visible spinner.
 - [ ] Confirm cancellation of transcript retry retains corrected text; cancellation / permissions QA optional and non-destructive.
 
@@ -60,9 +60,13 @@
 
 - **PASS:** after Apple Watch capture, iPhone automatically generated Russian transcription without a manual Transcribe step. User explicitly wants this to remain the default behavior.
 - This particular recognizer result preserves meaning with deviations in the product name and adjective; record as an ASR quality note, not a functional blocker.
-- **2026-10-17 FOLLOW-UP PASS:** user reported edited text retained, found in search and audio plays. Remaining unconfirmed: physical archive/restore, denied Speech permission, direct iPhone microphone.
+- **2026-10-17 FOLLOW-UP PASS:** user reported edited text retained, found in search and audio plays. Archive/restore subsequently confirmed by owner. Remaining unconfirmed: denied Speech permission and direct iPhone microphone.
 - Next user checkpoint: select only this new QA note, tap «Править текст», correct «охвата» -> «Ухвата» and «бирюзовой» -> «Бирюзовый», append «контрольный маяк девятнадцать», save. Leave and reopen app to verify persistence, then search for the marker, and replay the same audio. Do not alter older notes.
 
 ## Stage 2 physical result — text / search / audio PASS (2026-10-17)
 
 Owner reported «правка сохранилась, в поиске ищется, аудио воспроизводится» after being asked to correct the ASR text, reopen QA, search and play the original Watch-sourced recording. All core Step 2 behaviors are confirmed on physical iPhone QA9. Optional specific-marker and no-results-query checks are not separately evidenced. Next acceptance: **archive/restore only the same test recording** and verify edited text and original audio survive.
+
+## Stage 3 physical result — archive and restore PASS (2026-10-17)
+
+Owner reported «да, все прошло правильно» directly after the four-step instruction to archive **only** the new synthetic QA9 note, verify it moved from Inbox to Archive, check the edited transcript and original sound, and restore it back to Inbox. Mark all three core Stage 3 checks PASS, including retained text and sound after restore. No deletion was requested or conducted. Pending distinct checks: Watch sync diagnostics UI/readback, Speech locale/permission/retry edge cases, and native iPhone microphone capture under Mac mini attachment conditions.
