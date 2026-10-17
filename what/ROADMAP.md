@@ -94,6 +94,14 @@ or export features.
 - [ ] Complete remaining disconnected-device, multiple-pending-recording and device-reboot acceptance cases on a physical paired Watch and iPhone.
 - [ ] Reconcile final physical test evidence and prove no recorded thought is lost.
 
+## Active P1/P2 physical iPhone QA — 2026-10-17
+
+- [x] Audit physical app scope: «Ухват QA» version 1.0.2 (9) is installed on iPhone 13; existing production storage and notes remain untouched.
+- [x] Focused iPhone Duo Simulator regression: **14 tests, 0 failures**, covering transcript edits/persistence, search/day grouping, archive, original audio and text export, and delete isolation.
+- [ ] **Physical P1:** new harmless test audio -> audible playback -> RU Speech recognizer output on actual iPhone, and text correction across app relaunch.
+- [ ] **Physical P2:** find this test transcript in library, archive/restore only the test note, verify original audio and text are retained.
+- [ ] **Blocker:** tests cannot attest Apple Speech recognition or physical UI until owner confirms. [Step-by-step QA](docs/WHAT_IPHONE_P1_P2_PHYSICAL_QA_2026-10-17.md). No upload.
+
 ## P1 — Voice + transcribed text (existing; not a manually typed note)
 - [x] Preserve original audio as source of truth; transcript stored separately by recording UUID.
 - [x] Add on-device Speech transcription (explicit permission; no cloud fallback), local text persistence, and play/stop controls.
