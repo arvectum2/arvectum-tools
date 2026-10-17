@@ -46,3 +46,7 @@ The IPA SHA-256 39ae71cc0c3d65d92d6998823f600e7861c44a91cec75762d33155e3faa99dc6
 - The complication was changed to use exact byte-identical full-color Watch app icon on full-color watch faces and a native vector path based on identical brand contours for accented/tinted watch faces; added accessoryCorner support. This change **was not** in the previously exported IPA and must be validated visually on physical Watch.
 - Apple controls accented complication coloring by watch-face configuration; the logo silhouette can remain recognizable but full-color appearance isn't guaranteed on every face. An asset catalog inclusion check and physical UI test are explicit gates.
 - iOS 1.0.2 is NOT cleared for upload until the icon is present/recognizable on the physical Watch and existing one-tap capture/audio still works.
+
+## Additional production-source changes after previous IPA (2026-10-17)
+
+SyncDiagnosticsView translated through the app's existing RU/EN CaptureBrand.text locale selection, with 2 new UI tests PASS. QA10 updated on physical Watch/iPhone; screenshot language and EN recognition checks awaiting owner. The old locally-exported 1.0.2(7) IPA predates both branded Watch complication and this localization and MUST NOT be uploaded. No newer production IPA has been built or released at this time.

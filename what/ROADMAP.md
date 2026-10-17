@@ -94,6 +94,16 @@ or export features.
 - [ ] Complete remaining disconnected-device, multiple-pending-recording and device-reboot acceptance cases on a physical paired Watch and iPhone.
 - [ ] Reconcile final physical test evidence and prove no recorded thought is lost.
 
+## P1/P2 continuation — language and diagnostics UX (2026-10-17)
+
+- [x] Localized previously English-only Sync diagnostics screen for RU/EN using existing CaptureBrand locale behavior; Watch queue metrics and Speech logic unchanged.
+- [x] Added and passed Russian + English diagnostics navigation and label UI tests on iPhone Duo Simulator (**2 tests, 0 failures**).
+- [x] QA 1.0.2 (10) installed in place on iPhone 13 and Apple Watch SE; all 4 bundle signatures verified. 21/21 iPhone QA storage files retain names/sizes, Watch queue 0 before/after upgrade. No QA or production app removal.
+- [ ] **Hardware UI gate:** physical iPhone QA10 check diagnostics labels in Russian; confirm observed text, not just simulator.
+- [ ] **Hardware P1 gate:** set English recognition before creating a NEW Watch QA10 note; verify automatic EN transcription, optionally retry after confirmation, preserve original audio, restore locale to Russian. Do not retry on manually corrected Russian test note.
+- [ ] **Other remaining P1 edge cases:** cancellation, permission denied, direct iPhone mic with Mirroring off (no application mic bug), and release-scope decision. [Step-by-step physical QA](docs/WHAT_IPHONE_P1_P2_PHYSICAL_QA_2026-10-17.md).
+- [ ] **No public upload:** previous signed production IPA predates branded Watch complication and translated diagnostics, and is superseded.
+
 ## Active P1/P2 physical iPhone QA — 2026-10-17
 
 - [x] Audit physical app scope: «Ухват QA» version 1.0.2 (9) is installed on iPhone 13; existing production storage and notes remain untouched.
