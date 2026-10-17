@@ -60,3 +60,9 @@ Physical procedure: on iPhone QA13 open «Мои записи» -> «…» -> «
 ## QA13 physical follow-up (2026-10-17)
 
 After installation and the guided delayed-retry test, owner reported verbatim «Измененный текст сохраняется, исходный звук сохраняется». **Physical preservation of the edited transcript and original audio PASS.** The reply did not explicitly say whether the in-progress Cancel button was pressed. **Cancel-action and stale-result suppression on physical iPhone remain unconfirmed** until owner answers that one point. Do not substitute fast result completion or data preservation alone for an observed cancellation event. QA-only hold remains outside production source; remind owner to disable it after the test.
+
+## Owner-confirmed QA13 physical cancellation PASS (2026-10-17)
+
+Owner clarified: «Да, я поставил переключатель и нажал отмена в отведенные 25 секунд». In the immediately preceding test report owner said «Измененный текст сохраняется, исходный звук сохраняется». These statements collectively confirm the actual **in-progress Cancel interaction** in the QA-only controlled 25-second hold, and preservation of manually corrected text plus original AAC after cancellation. Mark that precise scenario as **PHYSICAL PASS**. This is not a demonstration of every arbitrary low-storage/corrupt-audio/permitted-denied edge case. The QA-only delay stays outside production code and must be toggled off for normal QA use.
+
+Next: P2a integrated iPhone text/video capture physical QA with an *independent* app ID. Do not overwrite the stable QA13 or production notes.

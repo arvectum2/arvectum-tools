@@ -102,7 +102,7 @@ or export features.
 - [x] Added a **QA-only 25-second hold on the final result of explicit manual retranscription**, exposed through a temporary toggle in QA Sync diagnostics. Automatic transcription remains fast. This test mode is present ONLY in the isolated QA worktree, NOT production source/PR #84.
 - [x] Built signed QA 1.0.2 (13) with QA bundle identity and installed in place on physical iPhone 13. Before/after Application Support device copies: **23/23 SHA-256 byte-identical files**, 0 missing or changed. No manual Watch install.
 - [x] **Physical QA13 data preservation PASS (owner, 2026-10-17):** owner confirmed «Измененный текст сохраняется, исходный звук сохраняется» after the staged delayed-retry test. Corrected text and original audio both survived; no note loss reported.
-- [ ] **Physical QA13 Cancel action still awaiting explicit confirmation:** owner has not yet stated whether the in-progress «Отмена» button was successfully pressed during the QA-only 25-second hold. Do not mark cancelled-callback behavior physically PASS until confirmed. QA hold should be OFF after the test.
+- [x] **Physical QA13 in-progress Cancel PASS (owner, 2026-10-17):** owner confirmed enabling the QA delay and pressing «Отмена» within the 25-second hold. Owner independently reported edited transcript and original audio remained intact. This completes the intentionally delayed Cancel-and-preserve acceptance. QA-only hold should be disabled after test.
 - [ ] After Cancel passes, separately test immediate same-note retry with QA hold OFF. Do not alter the earlier corrected «бирюзовый маяк» test note or production app.
 - [ ] No App Store upload; QA-only hold must never ship.
 
