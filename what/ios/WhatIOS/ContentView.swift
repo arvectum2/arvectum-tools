@@ -33,7 +33,10 @@ struct ContentView: View {
         .onChange(of: store.reminderTargetID) { _, id in
             if id != nil { showingLibrary = true }
         }
-        .onChange(of: store.reminderManager.errorMessage) { _, message in
+        .onReceive(store.reminderManager.$errorMessage) { message in
+            // Subscribe to the nested ObservableObject directly. An error
+            // from enabling an opt-in rule must be visible even when the
+            // PhoneStore itself has not emitted a state change.
             if let message { store.errorMessage = message }
         }
         .sheet(isPresented: $store.showPhoneCapture) {

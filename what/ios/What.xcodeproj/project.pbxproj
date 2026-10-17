@@ -42,6 +42,7 @@
 		686DBE4CA2BBE32B81849C8A /* CaptureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECAA3B8CBC13E2455D09ADE /* CaptureView.swift */; };
 		743820B0065F039D612CA1D6 /* ArvectumDiagnostics.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57BDD107F05153C6DDF22D4 /* ArvectumDiagnostics.swift */; };
 		777FE9D809C98D951CDB114E /* NoteReminderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D470F43BFCDA8910723904 /* NoteReminderService.swift */; };
+		7F50926EC0DC9A0BB5632002 /* UnifiedNoteKindFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D70C4EC8940024A47D2702F /* UnifiedNoteKindFilter.swift */; };
 		829D95F2391E62D3217A1C1A /* CaptureBrand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A64C8E1ED1DD3595D966992 /* CaptureBrand.swift */; };
 		8429BD4828F55DF8C4718902 /* LocalSemanticSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766855BE51B40DC7C113B75A /* LocalSemanticSearch.swift */; };
 		8DD93A3E6323ADD48EEF25AD /* CaptureBrand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A64C8E1ED1DD3595D966992 /* CaptureBrand.swift */; };
@@ -184,6 +185,7 @@
 		1A3AB6AF9B5A87B5CA20344D /* SpeechAttemptGateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechAttemptGateTests.swift; sourceTree = "<group>"; };
 		1AF4FD056784301068F49063 /* GroundedMemoryAnswer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroundedMemoryAnswer.swift; sourceTree = "<group>"; };
 		1D0B51DE0971B320ECF3899E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		1D70C4EC8940024A47D2702F /* UnifiedNoteKindFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnifiedNoteKindFilter.swift; sourceTree = "<group>"; };
 		226693D55A1B1351AC59CBE4 /* front.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = front.mov; sourceTree = "<group>"; };
 		246D11929E5A69C73C37010B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		27D470F43BFCDA8910723904 /* NoteReminderService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteReminderService.swift; sourceTree = "<group>"; };
@@ -310,6 +312,7 @@
 				5AA9D8C395BF9B08940A7689 /* TextNoteSheet.swift */,
 				3FEB908379268EDF523C2242 /* TranscriptEditorSheet.swift */,
 				7CFB25EFAE0D572DD9D7A37D /* TranscriptLexicalMatcher.swift */,
+				1D70C4EC8940024A47D2702F /* UnifiedNoteKindFilter.swift */,
 				10A0221F8BF766156AE3B4A9 /* VideoCaptureRecovery.swift */,
 				7370C6755DFFFA5B932DB2AE /* VideoCaptureTransition.swift */,
 				4E7551688F04996B25C560E4 /* VideoRecordingSheet.swift */,
@@ -772,6 +775,7 @@
 				A30C3DE47ABA4E7759819923 /* TextNoteSheet.swift in Sources */,
 				2FD0DAFDEE58B7F0BCB4612F /* TranscriptEditorSheet.swift in Sources */,
 				A8AC3088BF322AEB5EB000B8 /* TranscriptLexicalMatcher.swift in Sources */,
+				7F50926EC0DC9A0BB5632002 /* UnifiedNoteKindFilter.swift in Sources */,
 				F29A76210DD5A00A0345526E /* VideoCaptureRecovery.swift in Sources */,
 				94DBE713D16466BF0B344B4B /* VideoCaptureTransition.swift in Sources */,
 				B77AF3F4186E6257E152FDCB /* VideoRecordingSheet.swift in Sources */,

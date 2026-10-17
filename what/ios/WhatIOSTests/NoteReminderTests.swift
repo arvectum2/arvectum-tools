@@ -8,8 +8,12 @@ private final class FakeNoteScheduler: NoteReminderScheduling {
     var pending = [String: NoteReminder]()
     var cancelled = [String]()
     var scheduledCount = 0
+    var permissionPromptCount = 0
 
-    func requestAccess() async throws -> Bool { accessGranted }
+    func requestAccess() async throws -> Bool {
+        permissionPromptCount += 1
+        return accessGranted
+    }
     func notificationsAuthorized() async -> Bool { accessGranted }
     func pendingIdentifiers() async -> Set<String> { Set(pending.keys) }
 
@@ -36,6 +40,158 @@ final class NoteReminderTests: XCTestCase {
             at: directory, withIntermediateDirectories: true
         )
         return directory
+    }
+
+    private func isolatedPreferences() -> UserDefaults {
+        let suiteName = "what-auto-reminders-tests-\(UUID().uuidString)"
+        let defaults = UserDefaults(suiteName: suiteName)!
+        defaults.removePersistentDomain(forName: suiteName)
+        return defaults
+    }
+
+    func testAutomaticFollowUpDefaultsOffAndNeverRequestsPermissionOnLaunch() async throws {
+        let directory = try root()
+        defer { try? FileManager.default.removeItem(at: directory) }
+        let fake = FakeNoteScheduler()
+        let defaults = isolatedPreferences()
+        let manager = NoteReminderManager(repository: NoteReminderRepository(rootURL: directory),
+                                          scheduler: fake, preferences: defaults)
+        XCTAssertEqual(manager.automaticDelayHours, 0)
+        await manager.scheduleAutomaticallyIfEnabled(noteID: UUID())
+        XCTAssertEqual(fake.permissionPromptCount, 0)
+        XCTAssertEqual(fake.scheduledCount, 0)
+        XCTAssertTrue(try NoteReminderRepository(rootURL: directory).all().isEmpty)
+    }
+
+    func testExplicitOptInSchedulesOnlyOnceAndNeverOverridesManualOrCancelled() async throws {
+        let directory = try root()
+        defer { try? FileManager.default.removeItem(at: directory) }
+        let fake = FakeNoteScheduler()
+        let defaults = isolatedPreferences()
+        let repo = NoteReminderRepository(rootURL: directory)
+        let manager = NoteReminderManager(repository: repo, scheduler: fake,
+                                          preferences: defaults)
+        await manager.configureAutomaticFollowUp(hours: 2)
+        XCTAssertEqual(manager.automaticDelayHours, 2)
+        XCTAssertEqual(fake.permissionPromptCount, 1)
+
+        let watchNote = UUID()
+        await manager.scheduleAutomaticallyIfEnabled(noteID: watchNote)
+        await manager.scheduleAutomaticallyIfEnabled(noteID: watchNote) // Duplicate ACK.
+        let scheduled = try XCTUnwrap(manager.reminder(for: watchNote))
+        XCTAssertTrue(abs(scheduled.remindAt.timeIntervalSinceNow - 7200) < 5)
+        XCTAssertEqual(fake.scheduledCount, 1)
+        XCTAssertEqual(fake.permissionPromptCount, 1,
+                       "A background Watch delivery must never prompt")
+        XCTAssertEqual(fake.pending.count, 1)
+        XCTAssertEqual(try repo.all().count, 1)
+
+        let manuallyScheduled = UUID()
+        await manager.schedule(noteID: manuallyScheduled, afterHours: 3)
+        let original = try XCTUnwrap(manager.reminder(for: manuallyScheduled))
+        await manager.scheduleAutomaticallyIfEnabled(noteID: manuallyScheduled)
+        XCTAssertEqual(manager.reminder(for: manuallyScheduled), original)
+        XCTAssertEqual(fake.scheduledCount, 2)
+
+        manager.cancel(manuallyScheduled)
+        await manager.scheduleAutomaticallyIfEnabled(noteID: manuallyScheduled)
+        XCTAssertEqual(manager.reminder(for: manuallyScheduled)?.status, .cancelled)
+        XCTAssertEqual(fake.scheduledCount, 2,
+                       "Automatic mode must never resurrect an explicit cancellation")
+        let relaunched = NoteReminderManager(repository: repo, scheduler: fake,
+                                             preferences: defaults)
+        XCTAssertEqual(relaunched.automaticDelayHours, 2)
+        await relaunched.configureAutomaticFollowUp(hours: 0)
+        XCTAssertEqual(relaunched.automaticDelayHours, 0)
+        await relaunched.scheduleAutomaticallyIfEnabled(noteID: UUID())
+        XCTAssertEqual(fake.scheduledCount, 2)
+        XCTAssertEqual(NoteReminderManager(repository: repo, scheduler: fake,
+                                           preferences: defaults).automaticDelayHours, 0)
+        XCTAssertEqual(manager.reminder(for: watchNote), scheduled,
+                       "Turning off the rule must not erase existing reminders")
+    }
+
+    func testPermissionDenialDoesNotEnableAutomaticRuleOrPersistSettings() async throws {
+        let directory = try root()
+        defer { try? FileManager.default.removeItem(at: directory) }
+        let fake = FakeNoteScheduler()
+        fake.accessGranted = false
+        let defaults = isolatedPreferences()
+        let manager = NoteReminderManager(repository: NoteReminderRepository(rootURL: directory),
+                                          scheduler: fake, preferences: defaults)
+        await manager.configureAutomaticFollowUp(hours: 1)
+        XCTAssertEqual(manager.automaticDelayHours, 0)
+        XCTAssertEqual(fake.permissionPromptCount, 1)
+        XCTAssertNotNil(manager.errorMessage)
+        await manager.scheduleAutomaticallyIfEnabled(noteID: UUID())
+        XCTAssertEqual(fake.scheduledCount, 0)
+        XCTAssertTrue(try NoteReminderRepository(rootURL: directory).all().isEmpty)
+        XCTAssertEqual(NoteReminderManager(repository: NoteReminderRepository(rootURL: directory),
+                                           scheduler: fake, preferences: defaults).automaticDelayHours, 0)
+    }
+
+    func testAutomaticRuleDoesNotPromptIfUserRevokesPermissionLater() async throws {
+        let directory = try root()
+        defer { try? FileManager.default.removeItem(at: directory) }
+        let fake = FakeNoteScheduler()
+        let manager = NoteReminderManager(repository: NoteReminderRepository(rootURL: directory),
+                                          scheduler: fake, preferences: isolatedPreferences())
+        await manager.configureAutomaticFollowUp(hours: 1)
+        fake.accessGranted = false
+        await manager.scheduleAutomaticallyIfEnabled(noteID: UUID())
+        XCTAssertEqual(fake.permissionPromptCount, 1)
+        XCTAssertEqual(fake.scheduledCount, 0)
+    }
+
+    func testCatchUpOnRelaunchOnlyForNewNotesSinceOptIn() async throws {
+        let directory = try root()
+        defer { try? FileManager.default.removeItem(at: directory) }
+        let fake = FakeNoteScheduler()
+        let defaults = isolatedPreferences()
+        let repo = NoteReminderRepository(rootURL: directory)
+        let manager = NoteReminderManager(repository: repo, scheduler: fake,
+                                          preferences: defaults)
+        let old = UUID(), recent = UUID(), veryOld = UUID()
+        let beforeOptIn = Date().addingTimeInterval(-40)
+        await manager.configureAutomaticFollowUp(hours: 2)
+        let createdAfterOptIn = Date().addingTimeInterval(1)
+        let input: [(id: UUID, createdAt: Date)] = [
+            (old, beforeOptIn),
+            (recent, createdAfterOptIn),
+            (veryOld, Date().addingTimeInterval(-4 * 24 * 3600))
+        ]
+        await manager.catchUpNewNotes(input)
+        await manager.catchUpNewNotes(input) // Launch/reconnect duplication.
+        XCTAssertNil(manager.reminder(for: old))
+        XCTAssertNil(manager.reminder(for: veryOld))
+        XCTAssertEqual(manager.reminder(for: recent)?.status, .scheduled)
+        XCTAssertEqual(fake.scheduledCount, 1)
+        XCTAssertEqual(fake.permissionPromptCount, 1,
+                       "Relaunch catch-up must never show another permission prompt")
+        XCTAssertEqual(try repo.all().count, 1)
+
+        let anotherManager = NoteReminderManager(repository: repo, scheduler: fake,
+                                                 preferences: defaults)
+        await anotherManager.catchUpNewNotes(input)
+        XCTAssertEqual(fake.scheduledCount, 1,
+                       "New manager must recognize existing UUID reminder")
+        await anotherManager.configureAutomaticFollowUp(hours: 0)
+        await anotherManager.catchUpNewNotes([(UUID(), Date().addingTimeInterval(2))])
+        XCTAssertEqual(fake.scheduledCount, 1)
+    }
+
+    func testMigratedOptInRuleDoesNotBackfillOldInbox() async throws {
+        let directory = try root()
+        defer { try? FileManager.default.removeItem(at: directory) }
+        let fake = FakeNoteScheduler()
+        let defaults = isolatedPreferences()
+        defaults.set(1, forKey: "what.autoFollowUp.hours")
+        let manager = NoteReminderManager(repository: NoteReminderRepository(rootURL: directory),
+                                          scheduler: fake, preferences: defaults)
+        XCTAssertEqual(manager.automaticDelayHours, 1)
+        await manager.catchUpNewNotes([(UUID(), Date().addingTimeInterval(-90))])
+        XCTAssertEqual(fake.scheduledCount, 0)
+        XCTAssertEqual(fake.permissionPromptCount, 0)
     }
 
     func testManualReminderHasStableIDAndIsIdempotentlyRescheduled() async throws {

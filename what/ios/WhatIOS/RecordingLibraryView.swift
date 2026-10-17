@@ -7,7 +7,7 @@ struct RecordingLibraryView: View {
     @State private var localNoteToDelete: LocalNote?
     @State private var localNoteToEdit: LocalNote?
     @State private var localVideoToPlay: LocalNote?
-    @State private var typeFilter: NoteTypeFilter = .all
+    @State private var typeFilter: UnifiedNoteKindFilter = .all
     @State private var recordingToEdit: RecordingEnvelope?
     @State private var recordingToRetranscribe: RecordingEnvelope?
     @State private var selectedFolder: InboxFolder = .inbox
@@ -15,30 +15,7 @@ struct RecordingLibraryView: View {
     @State private var preparedExport: PreparedRecordingExport?
     @State private var showDiagnostics = false
 
-    private var visibleRecordings: [RecordingEnvelope] {
-        InboxOrganizer.recordings(
-            store.recordings,
-            archivedIDs: store.archivedIDs,
-            folder: selectedFolder,
-            query: searchText,
-            transcripts: store.transcripts
-        )
-    }
-
-    private enum NoteTypeFilter: String, CaseIterable, Identifiable {
-        case all, audio, text, video
-        var id: Self { self }
-        var title: String {
-            switch self {
-            case .all: return CaptureBrand.text("Все", "All")
-            case .audio: return CaptureBrand.text("Аудио", "Audio")
-            case .text: return CaptureBrand.text("Текст", "Text")
-            case .video: return CaptureBrand.text("Видео", "Video")
-            }
-        }
-    }
-
-    private var visibleNotes: [UnifiedNote] {
+    private var notesMatchingFolderAndSearch: [UnifiedNote] {
         UnifiedInbox.visible(
             recordings: store.recordings,
             localNotes: store.localNotes,
@@ -46,15 +23,79 @@ struct RecordingLibraryView: View {
             folder: selectedFolder,
             query: searchText,
             transcripts: store.transcripts
-        ).filter { note in
-            if typeFilter == .all { return true }
-            switch note {
-            case .audio:
-                return typeFilter == .audio
-            case .local(let local):
-                return local.kind == .text ? typeFilter == .text : typeFilter == .video
-            }
+        )
+    }
+
+    private var visibleNotes: [UnifiedNote] {
+        typeFilter.notes(in: notesMatchingFolderAndSearch)
+    }
+
+    private func filterTitle(_ filter: UnifiedNoteKindFilter) -> String {
+        switch filter {
+        case .all: return CaptureBrand.text("Все", "All")
+        case .audio: return CaptureBrand.text("Аудио", "Audio")
+        case .text: return CaptureBrand.text("Текст", "Text")
+        case .video: return CaptureBrand.text("Видео", "Video")
         }
+    }
+
+    private func filterSymbol(_ filter: UnifiedNoteKindFilter) -> String {
+        switch filter {
+        case .all: return "square.grid.2x2"
+        case .audio: return "waveform"
+        case .text: return "note.text"
+        case .video: return "video.fill"
+        }
+    }
+
+    private var visibleTypeFilters: some View {
+        ScrollView(.horizontal) {
+            HStack(spacing: 8) {
+                ForEach(UnifiedNoteKindFilter.allCases) { filter in
+                    let selected = typeFilter == filter
+                    let total = filter.count(in: notesMatchingFolderAndSearch)
+                    Button {
+                        typeFilter = filter
+                    } label: {
+                        HStack(spacing: 5) {
+                            Image(systemName: filterSymbol(filter))
+                            Text(filterTitle(filter)).lineLimit(1)
+                            Text(total.formatted())
+                                .monospacedDigit()
+                                .foregroundStyle(selected ? Color.primary : Color.secondary)
+                        }
+                        .font(.subheadline.weight(selected ? .semibold : .regular))
+                        .padding(.horizontal, 11)
+                        .padding(.vertical, 9)
+                        .background(
+                            selected ? Color.accentColor.opacity(0.18) : Color.secondary.opacity(0.08),
+                            in: Capsule()
+                        )
+                        .overlay(Capsule().strokeBorder(
+                            selected ? Color.accentColor : Color.clear,
+                            lineWidth: 1
+                        ))
+                    }
+                    .buttonStyle(.plain)
+                    .accessibilityIdentifier("what.filter.\(filter.rawValue)")
+                    .accessibilityLabel("\(filterTitle(filter)), \(total)")
+                    .accessibilityAddTraits(selected ? [.isSelected] : [])
+                }
+            }
+            .padding(.horizontal)
+            .padding(.vertical, 5)
+        }
+        .scrollIndicators(.hidden)
+        .accessibilityIdentifier("what.library.typeFilters")
+    }
+
+    private var emptyFolderMessage: String {
+        guard typeFilter != .all else {
+            return selectedFolder == .archive
+                ? CaptureBrand.text("Архив пуст", "Archive is empty")
+                : CaptureBrand.text("Входящие пусты", "Inbox is empty")
+        }
+        return CaptureBrand.text("Заметок этого типа нет", "No notes of this type")
     }
 
     private var dayGroups: [UnifiedNoteGroup] {
@@ -88,6 +129,8 @@ struct RecordingLibraryView: View {
                 .padding(.top, 8)
                 .padding(.bottom, 4)
 
+                visibleTypeFilters
+
                 if let noteID = store.reminderTargetID {
                     reminderTargetPanel(noteID)
                         .padding(.horizontal)
@@ -103,13 +146,20 @@ struct RecordingLibraryView: View {
                 } else if dayGroups.isEmpty {
                     ContentUnavailableView(
                         searchText.isEmpty
-                            ? (selectedFolder == .archive ? CaptureBrand.text("Архив пуст", "Archive is empty") : CaptureBrand.text("Входящие пусты", "Inbox is empty"))
+                            ? emptyFolderMessage
                             : CaptureBrand.text("Записи не найдены", "No matching recordings"),
                         systemImage: searchText.isEmpty ? "tray" : "magnifyingglass",
                         description: Text(searchText.isEmpty
                             ? CaptureBrand.text("Заметки в архиве остаются на устройстве.", "Archived notes stay on this device.")
                             : CaptureBrand.text("Поиск по текстам и датам.", "Search looks through saved transcripts and dates."))
                     )
+                    if typeFilter != .all {
+                        Button(CaptureBrand.text("Показать все типы", "Show all types")) {
+                            typeFilter = .all
+                        }
+                        .accessibilityIdentifier("what.filter.reset")
+                        .padding(.top, 6)
+                    }
                 } else {
                     List {
                         ForEach(dayGroups) { group in
@@ -130,7 +180,7 @@ struct RecordingLibraryView: View {
                                                 )
                                             } label: {
                                                 Label(
-                                                    selectedFolder == .archive ? "Restore" : CaptureBrand.text("Архив", "Archive"),
+                                                    selectedFolder == .archive ? CaptureBrand.text("Вернуть", "Restore") : CaptureBrand.text("Архив", "Archive"),
                                                     systemImage: selectedFolder == .archive
                                                         ? "tray.and.arrow.up" : "archivebox"
                                                 )
@@ -169,7 +219,9 @@ struct RecordingLibraryView: View {
                                                 Button {
                                                     store.setArchived(note, archived: !note.archived)
                                                 } label: {
-                                                    Label(note.archived ? "Restore" : "Archive",
+                                                    Label(note.archived
+                                                              ? CaptureBrand.text("Вернуть", "Restore")
+                                                              : CaptureBrand.text("В архив", "Archive"),
                                                           systemImage: note.archived ? "tray.and.arrow.up" : "archivebox")
                                                 }
                                                 .tint(.indigo)
@@ -225,11 +277,7 @@ struct RecordingLibraryView: View {
                     }
                     .accessibilityLabel(CaptureBrand.text("Создать текстовую заметку", "New text note"))
                     Menu {
-                        Picker(CaptureBrand.text("Тип заметки", "Note type"), selection: $typeFilter) {
-                            ForEach(NoteTypeFilter.allCases) { kind in
-                                Text(kind.title).tag(kind)
-                            }
-                        }
+                        AutoFollowUpSettingsMenu(manager: store.reminderManager)
                         Picker(CaptureBrand.text("Язык интерфейса и распознавания", "Interface and speech language"), selection: $store.transcriptionLocale) {
                             Text("Русский").tag("ru-RU")
                             Text("English").tag("en-US")
@@ -697,5 +745,47 @@ struct RecordingLibraryView: View {
     private func duration(_ value: TimeInterval) -> String {
         let total = max(0, Int(value.rounded()))
         return String(format: "%d:%02d", total / 60, total % 60)
+    }
+}
+
+
+/// An explicit, discoverable opt-in. Editing an old recording or reopening
+/// the Inbox never triggers automatic reminders or prompts for permission.
+private struct AutoFollowUpSettingsMenu: View {
+    @ObservedObject var manager: NoteReminderManager
+
+    private func title(for hours: Int) -> String {
+        switch hours {
+        case 1: return CaptureBrand.text("Через 1 час", "After 1 hour")
+        case 2: return CaptureBrand.text("Через 2 часа", "After 2 hours")
+        case 3: return CaptureBrand.text("Через 3 часа", "After 3 hours")
+        default: return CaptureBrand.text("Выключено", "Off")
+        }
+    }
+
+    var body: some View {
+        Menu {
+            ForEach([0, 1, 2, 3], id: \.self) { hours in
+                Button {
+                    Task { await manager.configureAutomaticFollowUp(hours: hours) }
+                } label: {
+                    if manager.automaticDelayHours == hours {
+                        Label(title(for: hours), systemImage: "checkmark")
+                    } else {
+                        Text(title(for: hours))
+                    }
+                }
+            }
+            Divider()
+            Text(CaptureBrand.text(
+                "Только новые заметки, с разрешения пользователя",
+                "New notes only, with your permission"
+            ))
+        } label: {
+            Label(CaptureBrand.text("Автоматически напоминать о новых заметках",
+                                    "Automatically remind about new notes"),
+                  systemImage: "bell.badge")
+        }
+        .accessibilityIdentifier("what.settings.autoFollowUp")
     }
 }

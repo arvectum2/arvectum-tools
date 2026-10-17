@@ -42,6 +42,11 @@ struct TextNoteSheet: View {
                     guard ready else { return }
                     store.saveText(id: id, body: text)
                 }
+                .onDisappear {
+                    // Only newly created notes are eligible for automatic
+                    // follow-up. Editing an old note must never reschedule it.
+                    if note == nil { store.finishedNewTextNote(id: id) }
+                }
                 .overlay(alignment: .topLeading) {
                     if bodyText.isEmpty {
                         Text(CaptureBrand.text("Запишите мысль…", "Catch a thought…"))

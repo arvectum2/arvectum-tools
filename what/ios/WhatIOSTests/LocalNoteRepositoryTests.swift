@@ -44,6 +44,51 @@ final class LocalNoteRepositoryTests: XCTestCase {
         XCTAssertTrue(FileManager.default.fileExists(atPath: source.path))
     }
 
+    func testUnifiedKindFiltersRespectFolderSearchAndKeepNoteIDs() throws {
+        let now = Date()
+        let audio = RecordingEnvelope(id: UUID(), createdAt: now.addingTimeInterval(-30),
+                                      duration: 7, fileName: "watch.m4a")
+        let text = LocalNote(id: UUID(), kind: .text, createdAt: now,
+                             updatedAt: now, body: "Бирюзовый блокнот", fileName: nil,
+                             duration: nil, archived: false, sourceDevice: "iPad")
+        let video = LocalNote(id: UUID(), kind: .video,
+                              createdAt: now.addingTimeInterval(-10), updatedAt: now,
+                              body: "", fileName: "capture.mov", duration: 20,
+                              archived: false, sourceDevice: "iPhone")
+        let archivedVideo = LocalNote(id: UUID(), kind: .video,
+                                      createdAt: now.addingTimeInterval(-60), updatedAt: now,
+                                      body: "", fileName: "old.mov", duration: 11,
+                                      archived: true, sourceDevice: "iPad")
+        let inbox = UnifiedInbox.visible(
+            recordings: [audio], localNotes: [text, video, archivedVideo],
+            archivedAudioIDs: [], folder: .inbox, query: "", transcripts: [:]
+        )
+        XCTAssertEqual(UnifiedNoteKindFilter.all.count(in: inbox), 3)
+        XCTAssertEqual(UnifiedNoteKindFilter.audio.notes(in: inbox).map(\.id), [audio.id])
+        XCTAssertEqual(UnifiedNoteKindFilter.text.notes(in: inbox).map(\.id), [text.id])
+        XCTAssertEqual(UnifiedNoteKindFilter.video.notes(in: inbox).map(\.id), [video.id])
+        XCTAssertEqual(UnifiedNoteKindFilter.all.notes(in: inbox).map(\.id),
+                       [text.id, video.id, audio.id])
+        XCTAssertEqual(inbox.count, 3, "Filters must not mutate their input notes")
+
+        let searching = UnifiedInbox.visible(
+            recordings: [audio], localNotes: [text, video, archivedVideo],
+            archivedAudioIDs: [], folder: .inbox, query: "Бирюзовый", transcripts: [:]
+        )
+        XCTAssertEqual(UnifiedNoteKindFilter.all.count(in: searching), 1)
+        XCTAssertEqual(UnifiedNoteKindFilter.text.count(in: searching), 1)
+        XCTAssertEqual(UnifiedNoteKindFilter.video.count(in: searching), 0)
+        let archived = UnifiedInbox.visible(
+            recordings: [audio], localNotes: [text, video, archivedVideo],
+            archivedAudioIDs: [], folder: .archive, query: "", transcripts: [:]
+        )
+        XCTAssertEqual(UnifiedNoteKindFilter.video.notes(in: archived).map(\.id),
+                       [archivedVideo.id])
+        XCTAssertEqual(UnifiedNoteKindFilter.audio.count(in: archived), 0)
+        XCTAssertEqual(Set(UnifiedNoteKindFilter.all.notes(in: archived).map(\.id)),
+                       [archivedVideo.id])
+    }
+
     func testUnifiedInboxCombinesAndFiltersAudioTextVideo() throws {
         let now = Date()
         let audio = RecordingEnvelope(id: UUID(), createdAt: now,

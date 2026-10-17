@@ -50,10 +50,22 @@ final class PhoneStore: NSObject, ObservableObject, AVAudioPlayerDelegate,
         reload()
         reloadWatchQueueStatus()
         Task { [weak self] in await self?.reminderManager.reconcile() }
+        Task { [weak self] in
+            guard let self else { return }
+            let candidates: [(id: UUID, createdAt: Date)] = self.recordings.map {
+                (id: $0.id, createdAt: $0.createdAt)
+            } + self.localNotes.map { (id: $0.id, createdAt: $0.createdAt) }
+            await self.reminderManager.catchUpNewNotes(candidates)
+        }
         Task { [weak self] in await self?.recoverInterruptedVideos() }
         phoneRecorder.onSaved = { [weak self] recording in
-            self?.reload()
-            self?.transcribeIfAuthorized(recording)
+            guard let self else { return }
+            let alreadyIndexed = self.recordings.contains { $0.id == recording.id }
+            self.reload()
+            if !alreadyIndexed {
+                Task { await self.reminderManager.scheduleAutomaticallyIfEnabled(noteID: recording.id) }
+            }
+            self.transcribeIfAuthorized(recording)
         }
     }
 
@@ -115,21 +127,40 @@ final class PhoneStore: NSObject, ObservableObject, AVAudioPlayerDelegate,
         }
     }
 
+    /// Called after the *new* text editor closes. Autosave stays immediate;
+    /// auto-follow-up starts only when the user finishes composing the note.
+    func finishedNewTextNote(id: UUID) {
+        guard let note = localNotes.first(where: { $0.id == id && $0.kind == .text }),
+              !note.body.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+        else { return }
+        Task { await reminderManager.scheduleAutomaticallyIfEnabled(noteID: id) }
+    }
+
     func saveVideo(from temporaryURL: URL, duration: TimeInterval,
                    id: UUID = UUID()) throws {
+        let alreadyIndexed = localNotes.contains { $0.id == id }
         _ = try localNoteRepository.importVideo(
             from: temporaryURL, duration: duration, id: id,
             sourceDevice: UIDevice.current.userInterfaceIdiom == .pad ? "iPad" : "iPhone"
         )
         localNotes = try localNoteRepository.allNotes()
+        if !alreadyIndexed {
+            Task { await reminderManager.scheduleAutomaticallyIfEnabled(noteID: id) }
+        }
     }
 
     func recoverInterruptedVideos() async {
         do {
+            let previouslyIndexed = Set(localNotes.map(\.id))
             let result = try await VideoCaptureRecovery.recover(
                 journal: VideoCaptureJournal(), repository: localNoteRepository
             )
-            if result.recovered > 0 { localNotes = try localNoteRepository.allNotes() }
+            if result.recovered > 0 {
+                localNotes = try localNoteRepository.allNotes()
+                for note in localNotes where !previouslyIndexed.contains(note.id) {
+                    await reminderManager.scheduleAutomaticallyIfEnabled(noteID: note.id)
+                }
+            }
             if result.unresolved > 0 {
                 videoRecoveryNotice = CaptureBrand.text(
                     "Восстановлено: \(result.recovered). Часть видеофрагментов оставлена для повторного восстановления.",
@@ -205,10 +236,16 @@ final class PhoneStore: NSObject, ObservableObject, AVAudioPlayerDelegate,
     /// was already granted; never silently prompt for permission from a background
     /// WatchConnectivity callback.
     func receivedRecording(_ recordingID: UUID?) {
+        let previouslyIndexed = recordingID.map { id in
+            recordings.contains { $0.id == id }
+        } ?? false
         reload()
         guard let recordingID,
               let recording = recordings.first(where: { $0.id == recordingID })
         else { return }
+        if !previouslyIndexed {
+            Task { await reminderManager.scheduleAutomaticallyIfEnabled(noteID: recordingID) }
+        }
         transcribeIfAuthorized(recording)
     }
 

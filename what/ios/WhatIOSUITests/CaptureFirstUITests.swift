@@ -34,6 +34,53 @@ final class CaptureFirstUITests: XCTestCase {
         XCTAssertTrue(start.waitForExistence(timeout: 5))
         XCTAssertTrue(saved.exists)
     }
+    func testUnifiedLibraryTypeChipsFilterTypedNotesWithoutDeletingThem() throws {
+        let app = XCUIApplication()
+        app.launch()
+        let add = app.buttons["what.new.text"]
+        XCTAssertTrue(add.waitForExistence(timeout: 12))
+        add.tap()
+        let editor = app.textViews["what.text.editor"]
+        XCTAssertTrue(editor.waitForExistence(timeout: 8))
+        editor.tap()
+        let marker = "Type filter UI " + UUID().uuidString.prefix(7)
+        editor.typeText(marker)
+        let done = app.buttons.matching(NSPredicate(format:
+            "label == %@ OR label == %@", "Готово", "Done"
+        )).firstMatch
+        done.tap()
+
+        let library = app.buttons.matching(NSPredicate(format:
+            "label BEGINSWITH %@ OR label BEGINSWITH %@",
+            "Мои записи", "My recordings"
+        )).firstMatch
+        XCTAssertTrue(library.waitForExistence(timeout: 10))
+        library.tap()
+
+        let all = app.buttons["what.filter.all"]
+        let text = app.buttons["what.filter.text"]
+        let audio = app.buttons["what.filter.audio"]
+        let video = app.buttons["what.filter.video"]
+        XCTAssertTrue(all.waitForExistence(timeout: 10))
+        XCTAssertTrue(text.exists && audio.exists && video.exists)
+        XCTAssertTrue(app.staticTexts[marker].waitForExistence(timeout: 10))
+
+        audio.tap()
+        XCTAssertFalse(app.staticTexts[marker].exists,
+                       "Audio-only filter must not show text notes")
+        text.tap()
+        XCTAssertTrue(app.staticTexts[marker].waitForExistence(timeout: 5))
+        video.tap()
+        XCTAssertFalse(app.staticTexts[marker].exists,
+                       "Video-only filter must not show text notes")
+        let reset = app.buttons["what.filter.reset"]
+        XCTAssertTrue(reset.waitForExistence(timeout: 5),
+                      "Empty filtered folder must offer a one-tap reset")
+        reset.tap()
+        XCTAssertTrue(app.staticTexts[marker].waitForExistence(timeout: 5))
+        XCTAssertTrue(all.exists)
+    }
+
     func testTypedNoteFromPlusPersistsAfterOpeningLibrary() throws {
         let app = XCUIApplication()
         app.launch()
@@ -137,6 +184,38 @@ final class CaptureFirstUITests: XCTestCase {
         XCTAssertTrue(back.waitForExistence(timeout: 5))
         back.tap()
         XCTAssertTrue(capture.waitForExistence(timeout: 5))
+    }
+
+    func testAutoFollowUpSettingsAreExplicitAndDoNotPromptOnOpen() throws {
+        let app = XCUIApplication()
+        app.launch()
+        let library = app.buttons.matching(NSPredicate(format:
+            "label BEGINSWITH %@ OR label BEGINSWITH %@",
+            "Мои записи", "My recordings"
+        )).firstMatch
+        XCTAssertTrue(library.waitForExistence(timeout: 10))
+        library.tap()
+        let settings = app.buttons.matching(NSPredicate(format:
+            "label == %@ OR label == %@",
+            "Настройки и диагностика", "App settings and diagnostics"
+        )).firstMatch
+        XCTAssertTrue(settings.waitForExistence(timeout: 8))
+        settings.tap()
+        let automation = app.buttons["what.settings.autoFollowUp"]
+        XCTAssertTrue(automation.waitForExistence(timeout: 8),
+                      "Automatic follow-up should be discoverable in settings")
+        automation.tap()
+        let off = app.buttons.matching(NSPredicate(format:
+            "label CONTAINS %@ OR label CONTAINS %@", "Выключено", "Off"
+        )).firstMatch
+        let one = app.buttons.matching(NSPredicate(format:
+            "label CONTAINS %@ OR label CONTAINS %@", "Через 1 час", "After 1 hour"
+        )).firstMatch
+        XCTAssertTrue(off.waitForExistence(timeout: 6),
+                      "The opt-in rule must always provide Off")
+        XCTAssertTrue(one.exists, "One-hour opt-in must be available")
+        // Merely opening settings must not prompt for notification access.
+        XCTAssertEqual(app.alerts.count, 0)
     }
 
     func testTextNoteCanOpenReminderPresetsWithoutPermissionPrompt() throws {
