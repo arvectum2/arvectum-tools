@@ -23,9 +23,9 @@ struct WhatApp: App {
                     store.receivedRecording(message.object as? UUID)
                 }
                 .onOpenURL { url in
-                    if url.scheme == "what" && url.host == "record" {
+                    if url.scheme == "whatp2aqa" && url.host == "record" {
                         store.showPhoneCapture = true
-                    } else if url.scheme == "what" && url.host == "note",
+                    } else if url.scheme == "whatp2aqa" && url.host == "note",
                               let id = UUID(uuidString: url.lastPathComponent) {
                         store.revealReminder(id)
                     }

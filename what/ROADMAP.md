@@ -96,6 +96,14 @@ or export features.
 - [x] **Core physical acceptance evidence consolidated** for one-tap, Digital Crown, queue, audio/dedup and reboot; physical P1/P2 QA9–11 findings and remaining limitations separately logged. [Physical Watch QA](docs/WATCH_ONE_TAP_PHYSICAL_QA_2026-10-16.md) / [iPhone QA](docs/WHAT_IPHONE_P1_P2_PHYSICAL_QA_2026-10-17.md).
 - [ ] **Absolute no-loss under all failure scenarios NOT proven:** treat catastrophic file corruption, low storage and force-power-off cases as future stress/robustness acceptance, never a universal guarantee.
 
+## Isolated physical P2a QA staged — 2026-10-17
+
+- [x] Separate source QA branch qa/what-multimodal-physical-20261017 with iPhone ID ru.arvectum.tools.what.p2aqa, independent sandbox, distinct URL scheme and no embedded Watch app.
+- [x] Signed physical iPhone build PASS; strict code signature and distinct ID verified.
+- [x] Targeted QA simulator UI tests PASS 2/2, TEST SUCCEEDED (text note through plus, video through long press).
+- [ ] Installation and physical M1–M4 acceptance pending: trusted iPhone currently unavailable. No existing QA13/production app or Watch updates.
+- [ ] Full iPhone video/audio/camera/interruptions and iPad/Watch later acceptance; keep release on hold. See docs/WHAT_P2A_ISOLATED_PHYSICAL_QA_2026-10-17.md.
+
 ## P2a isolated integration checkpoint — 2026-10-17
 
 - [x] Merged existing multimodal feature source with tested Watch P0/P1 fixes in **separate worktree**, preserving the original feature/release branches.

@@ -21,7 +21,7 @@ private struct RecordProvider: TimelineProvider {
 
 private struct RecordWidgetView: View {
     @Environment(\.widgetFamily) private var family
-    private let recordURL = URL(string: "what://record")!
+    private let recordURL = URL(string: "whatp2aqa://record")!
 
     var body: some View {
         Group {
