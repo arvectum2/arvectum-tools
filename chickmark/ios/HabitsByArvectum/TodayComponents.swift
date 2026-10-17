@@ -47,10 +47,15 @@ struct OneOffReminderRow: View {
                 Text(dueText)
                     .font(.caption)
                     .foregroundStyle(Color.habitsSecondaryText)
-                if onOpenNote != nil {
-                    Text("Из Ухвата · есть полный текст")
-                        .font(.caption2)
-                        .foregroundStyle(Color.habitsSecondaryText)
+                if let onOpenNote {
+                    Button(action: onOpenNote) {
+                        Label("Открыть заметку из Ухвата", systemImage: "doc.text")
+                            .font(.caption2)
+                    }
+                    .buttonStyle(.plain)
+                    .foregroundStyle(Color.arvectumMint)
+                    .accessibilityIdentifier("chickmark.noteReview.open.\(reminder.id.uuidString)")
+                    .accessibilityValue(reminder.title)
                 }
             }
 

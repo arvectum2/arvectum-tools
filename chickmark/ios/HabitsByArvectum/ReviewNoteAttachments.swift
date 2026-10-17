@@ -145,7 +145,6 @@ struct ReviewNotePasteSheet: View {
                         return
                     }
                     onReceived(payload)
-                    dismiss()
                 }
                 .accessibilityLabel("Вставить заметку")
                 .accessibilityIdentifier("chickmark.noteReview.paste")
@@ -170,6 +169,27 @@ struct ReviewNotePasteSheet: View {
     }
 }
 
+/// One physical sheet for every stage of the local note import. Swapping
+/// the content avoids presenting a second sheet while the first dismisses,
+/// which caused intermittent failures on repeated iOS 27 handoffs.
+struct ReviewNoteTransferFlowSheet: View {
+    let request: ReviewNotePasteRequest
+    let afterSave: () -> Void
+    @State private var received: ReviewNoteHandoff?
+
+    var body: some View {
+        Group {
+            if let received {
+                ImportedReviewNoteSheet(transfer: received, afterSave: afterSave)
+            } else {
+                ReviewNotePasteSheet(request: request) { payload in
+                    received = payload
+                }
+            }
+        }
+    }
+}
+
 struct ImportedReviewNoteSheet: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var modelContext
@@ -183,6 +203,16 @@ struct ImportedReviewNoteSheet: View {
     var body: some View {
         NavigationStack {
             Form {
+                if duplicate {
+                    Section {
+                        Label("Заметка уже передана", systemImage: "checkmark.circle.fill")
+                            .font(.headline)
+                        Text("Для этой заметки уже существует разовая задача. Повторно создавать её не нужно.")
+                            .font(.footnote)
+                            .foregroundStyle(.secondary)
+                    }
+                    .accessibilityIdentifier("chickmark.noteReview.duplicate")
+                }
                 Section("Из Ухвата") {
                     Label(transfer.kind == .audio ? "Голосовая заметка" :
                           transfer.kind == .text ? "Текстовая заметка" : "Видеозаметка",
@@ -219,11 +249,6 @@ struct ImportedReviewNoteSheet: View {
                         .disabled(saving || dueAt <= Date() || duplicate)
                         .accessibilityIdentifier("chickmark.noteReview.confirm")
                 }
-            }
-            .alert("Заметка уже передана", isPresented: $duplicate) {
-                Button("OK") { dismiss() }
-            } message: {
-                Text("Повторная отправка не создаст ещё одну задачу.")
             }
             .alert("Не удалось добавить", isPresented: Binding(
                 get: { error != nil }, set: { if !$0 { error = nil } }

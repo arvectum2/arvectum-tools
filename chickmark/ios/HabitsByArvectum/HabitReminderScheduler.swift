@@ -407,7 +407,12 @@ enum HabitReminderScheduler {
         let content = UNMutableNotificationContent()
         // An imported transcript can be the full reminder title in the UI,
         // but it must NEVER appear on a locked screen or notification.
-        if (try? attachmentStore.get(reminder.id)) != nil {
+        // Fail closed: restoring an older backup or a damaged attachment file
+        // must never publish a truncated private transcript on the lock screen.
+        // All imported one-offs use this reserved title prefix.
+        let isImported = reminder.title.hasPrefix("Разобрать заметку:") ||
+            (try? attachmentStore.get(reminder.id)) != nil
+        if isImported {
             content.title = Locale.current.language.languageCode?.identifier == "ru"
                 ? "ChickMark: вернуться к заметке"
                 : "ChickMark: review a note"

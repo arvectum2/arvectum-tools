@@ -78,12 +78,17 @@ struct ReviewNoteHandoffConfirmation: View {
                 ]
             )
             UIApplication.shared.open(payload.recipientURL, options: [:]) { opened in
-                guard !opened else { return }
                 Task { @MainActor in
-                    errorMessage = CaptureBrand.text(
-                        "ChickMark не найден или не поддерживает приём заметок. Обновите приложение и повторите передачу.",
-                        "ChickMark is unavailable or cannot receive notes. Update the app and retry."
-                    )
+                    if opened {
+                        // Leaving this modal around obscures the correct note
+                        // when ChickMark's "Open original" link returns here.
+                        dismiss()
+                    } else {
+                        errorMessage = CaptureBrand.text(
+                            "ChickMark не найден или не поддерживает приём заметок. Обновите приложение и повторите передачу.",
+                            "ChickMark is unavailable or cannot receive notes. Update the app and retry."
+                        )
+                    }
                 }
             }
         } catch {

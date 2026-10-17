@@ -2,6 +2,12 @@ import XCTest
 import UIKit
 
 final class CaptureFirstUITests: XCTestCase {
+#if REVIEW_HANDOFF_QA
+    private let chickmarkBundleID = "ru.arvectum.tools.chickmark.reviewqa"
+#else
+    private let chickmarkBundleID = "ru.arvectum.tools.habits"
+#endif
+
     func testCaptureFirstHomeAndLibraryBackNavigation() throws {
         let app = XCUIApplication()
         app.launch()
@@ -63,13 +69,13 @@ final class CaptureFirstUITests: XCTestCase {
         XCTAssertTrue(confirm.waitForExistence(timeout: 7))
         confirm.tap()
 
-        let chickmark = XCUIApplication(bundleIdentifier: "ru.arvectum.tools.habits")
+        let chickmark = XCUIApplication(bundleIdentifier: chickmarkBundleID)
         let springboard = XCUIApplication(bundleIdentifier: "com.apple.springboard")
         let popup = springboard.alerts.firstMatch
         if popup.waitForExistence(timeout: 4) {
             let paste = popup.buttons.matching(NSPredicate(format:
-                "label CONTAINS[c] %@ OR label CONTAINS[c] %@ OR label CONTAINS[c] %@",
-                "Allow Paste", "Вставить", "Allow"
+                "label == %@ OR label == %@ OR label == %@ OR label == %@",
+                "Allow Paste", "Разрешить вставку", "Allow", "Разрешить"
             )).firstMatch
             if paste.exists { paste.tap() }
         }
@@ -82,8 +88,8 @@ final class CaptureFirstUITests: XCTestCase {
         let pastePrompt = springboard.alerts.firstMatch
         if pastePrompt.waitForExistence(timeout: 3) {
             let allow = pastePrompt.buttons.matching(NSPredicate(format:
-                "label CONTAINS[c] %@ OR label CONTAINS[c] %@ OR label CONTAINS[c] %@",
-                "Allow Paste", "Вставить", "Allow"
+                "label == %@ OR label == %@ OR label == %@ OR label == %@",
+                "Allow Paste", "Разрешить вставку", "Allow", "Разрешить"
             )).firstMatch
             if allow.exists { allow.tap() }
         }
@@ -132,7 +138,7 @@ final class CaptureFirstUITests: XCTestCase {
         let send = app.buttons["what.note.handoff.confirm"]
         XCTAssertTrue(send.waitForExistence(timeout: 8))
         send.tap()
-        let chickmark = XCUIApplication(bundleIdentifier: "ru.arvectum.tools.habits")
+        let chickmark = XCUIApplication(bundleIdentifier: chickmarkBundleID)
         let paste = chickmark.buttons.matching(NSPredicate(format:
             "label == %@", "Вставить заметку"
         )).firstMatch
@@ -146,11 +152,13 @@ final class CaptureFirstUITests: XCTestCase {
         let springboard = XCUIApplication(bundleIdentifier: "com.apple.springboard")
         let alert = springboard.alerts.firstMatch
         if alert.waitForExistence(timeout: 6) {
+            // Exact labels: `CONTAINS Allow` accidentally selects `Don’t Allow`.
             let allow = alert.buttons.matching(NSPredicate(format:
-                "label CONTAINS[c] %@ OR label CONTAINS[c] %@ OR label CONTAINS[c] %@",
-                "Allow", "Разрешить", "OK"
+                "label == %@ OR label == %@ OR label == %@ OR label == %@",
+                "Allow", "Разрешить", "Allow Notifications", "Разрешить уведомления"
             )).firstMatch
-            if allow.exists { allow.tap() }
+            XCTAssertTrue(allow.exists, "Notification permission alert must be accepted, not denied")
+            allow.tap()
         }
         let deniedAlert = chickmark.alerts.matching(NSPredicate(format:
             "label == %@", "Не удалось добавить"
@@ -163,12 +171,148 @@ final class CaptureFirstUITests: XCTestCase {
             XCTAssertTrue(confirm.exists, "The unsaved preview must remain available")
             return
         }
-        let sourceRow = chickmark.staticTexts["Из Ухвата · есть полный текст"]
+        let sourceRow = chickmark.buttons.matching(NSPredicate(format:
+            "label CONTAINS %@", "Открыть заметку из Ухвата"
+        )).firstMatch
         XCTAssertTrue(sourceRow.waitForExistence(timeout: 8),
-                      "On an authorized simulator, the imported one-off must appear")
+                      "On an authorized simulator, the imported one-off must expose full text")
         XCTAssertTrue(chickmark.staticTexts.matching(NSPredicate(format:
             "label BEGINSWITH %@", "Разобрать заметку:"
         )).firstMatch.exists)
+    }
+
+    func testImportedChickMarkNoteLinkBackOpensOriginalInWhat() throws {
+        // Run only after a successful synthetic QA import in the other test.
+        let chickmark = XCUIApplication(bundleIdentifier: chickmarkBundleID)
+        chickmark.launch()
+        let openImportedNote = chickmark.buttons.matching(NSPredicate(format:
+            "label CONTAINS %@", "Открыть заметку из Ухвата"
+        )).firstMatch
+        XCTAssertTrue(openImportedNote.waitForExistence(timeout: 14),
+                      "Imported note must remain accessible via an obvious button after relaunch")
+        openImportedNote.tap()
+        let fullTextLink = chickmark.links["Открыть оригинал в Ухвате"].firstMatch
+        XCTAssertTrue(fullTextLink.waitForExistence(timeout: 8),
+                      "Saved review note must preserve a link to the original")
+        fullTextLink.tap()
+        let springboard = XCUIApplication(bundleIdentifier: "com.apple.springboard")
+        let popup = springboard.alerts.firstMatch
+        if popup.waitForExistence(timeout: 3) {
+            let open = popup.buttons.matching(NSPredicate(format:
+                "label == %@ OR label == %@ OR label == %@ OR label == %@",
+                "Open", "Открыть", "Continue", "Продолжить"
+            )).firstMatch
+            if open.exists { open.tap() }
+        }
+        let source = XCUIApplication(bundleIdentifier: "ru.arvectum.tools.what.reviewqa")
+        // SwiftUI exposes this panel as StaticText and Button children,
+        // not as an enclosing accessibility Other.
+        let highlightedOriginal = source.staticTexts.matching(NSPredicate(format:
+            "identifier == %@ AND (label == %@ OR label == %@)",
+            "what.reminder.target", "Original note", "Исходная заметка"
+        )).firstMatch
+        if !highlightedOriginal.waitForExistence(timeout: 10) {
+            print("LINK_BACK_SOURCE_APP_TREE_START")
+            print(source.debugDescription)
+            print("LINK_BACK_SOURCE_APP_TREE_END")
+        }
+        XCTAssertTrue(highlightedOriginal.exists,
+                      "Opening the review's link must navigate to the source note")
+    }
+
+    func testSavedChickMarkReviewOpensOriginalSourceNote() throws {
+        let source = XCUIApplication()
+        source.launch()
+        let newText = source.buttons["what.new.text"]
+        XCTAssertTrue(newText.waitForExistence(timeout: 12))
+        newText.tap()
+        let editor = source.textViews["what.text.editor"]
+        XCTAssertTrue(editor.waitForExistence(timeout: 7))
+        editor.tap()
+        let marker = "Source deep link \(UUID().uuidString.prefix(8))"
+        editor.typeText(marker)
+        source.buttons.matching(NSPredicate(format:
+            "label == %@ OR label == %@", "Готово", "Done"
+        )).firstMatch.tap()
+        let library = source.buttons.matching(NSPredicate(format:
+            "label BEGINSWITH %@ OR label BEGINSWITH %@",
+            "Мои записи", "My recordings"
+        )).firstMatch
+        XCTAssertTrue(library.waitForExistence(timeout: 8))
+        library.tap()
+        XCTAssertTrue(source.staticTexts[marker].waitForExistence(timeout: 8))
+        source.buttons["what.note.sendToChickMark"].firstMatch.tap()
+        let submit = source.buttons["what.note.handoff.confirm"]
+        XCTAssertTrue(submit.waitForExistence(timeout: 8))
+        submit.tap()
+        let recipient = XCUIApplication(bundleIdentifier: chickmarkBundleID)
+        let paste = recipient.buttons["chickmark.noteReview.paste"]
+        XCTAssertTrue(paste.waitForExistence(timeout: 14))
+        paste.tap()
+        let create = recipient.buttons["chickmark.noteReview.confirm"]
+        XCTAssertTrue(create.waitForExistence(timeout: 15))
+        XCTAssertTrue(recipient.staticTexts[marker].exists)
+        create.tap()
+        let springboard = XCUIApplication(bundleIdentifier: "com.apple.springboard")
+        let systemAlert = springboard.alerts.firstMatch
+        if systemAlert.waitForExistence(timeout: 4) {
+            let allowed = systemAlert.buttons.matching(NSPredicate(format:
+                "label == %@ OR label == %@ OR label == %@ OR label == %@",
+                "Allow", "Разрешить", "Allow Notifications", "Разрешить уведомления"
+            )).firstMatch
+            XCTAssertTrue(allowed.exists)
+            allowed.tap()
+        }
+        let imported = recipient.buttons.matching(NSPredicate(format:
+            "identifier BEGINSWITH %@ AND value CONTAINS %@",
+            "chickmark.noteReview.open.", marker
+        )).firstMatch
+        XCTAssertTrue(imported.waitForExistence(timeout: 12),
+                      "Imported one-off must offer a direct source-text action")
+        imported.tap()
+        let link = recipient.links.matching(NSPredicate(format:
+            "label == %@", "Открыть оригинал в Ухвате"
+        )).firstMatch
+        XCTAssertTrue(link.waitForExistence(timeout: 8),
+                      "Full text and original deep link must be accessible")
+        let displayedText = recipient.descendants(matching: .any)
+            .matching(NSPredicate(format: "label CONTAINS %@", marker)).firstMatch
+        XCTAssertTrue(displayedText.exists,
+                      "Imported full text must be visible in the details sheet")
+        link.tap()
+        let revealed = source.descendants(matching: .any)
+            .matching(identifier: "what.reminder.target").firstMatch
+        let didReveal = revealed.waitForExistence(timeout: 10)
+        if !didReveal {
+            print("SOURCE_DEEPLINK_DEBUG_BEGIN")
+            print("SOURCE_APP_TREE: \(source.debugDescription)")
+            print("RECIPIENT_APP_TREE: \(recipient.debugDescription)")
+            print("SPRINGBOARD_TREE: \(XCUIApplication(bundleIdentifier: "com.apple.springboard").debugDescription)")
+            print("SOURCE_DEEPLINK_DEBUG_END")
+        }
+        XCTAssertTrue(didReveal, "Source app must open original note by UUID")
+        XCTAssertTrue(source.descendants(matching: .any)
+            .matching(NSPredicate(format: "label CONTAINS %@", marker))
+            .firstMatch.exists, "Original note must remain in UhWhat")
+        XCTAssertFalse(source.buttons["what.note.handoff.confirm"].exists,
+                       "An old send modal must not hide the returned original")
+
+        // Resending the exact same note UUID must open a duplicate warning,
+        // never schedule a second one-off task.
+        let sendAgain = source.buttons["what.note.sendToChickMark"].firstMatch
+        XCTAssertTrue(sendAgain.waitForExistence(timeout: 6))
+        sendAgain.tap()
+        let confirmAgain = source.buttons["what.note.handoff.confirm"]
+        XCTAssertTrue(confirmAgain.waitForExistence(timeout: 6))
+        confirmAgain.tap()
+        let pasteAgain = recipient.buttons["chickmark.noteReview.paste"]
+        XCTAssertTrue(pasteAgain.waitForExistence(timeout: 12))
+        pasteAgain.tap()
+        let duplicate = recipient.staticTexts["Заметка уже передана"]
+        XCTAssertTrue(duplicate.waitForExistence(timeout: 10),
+                      "A confirmed imported UUID must show persistent duplicate notice")
+        XCTAssertFalse(recipient.buttons["chickmark.noteReview.confirm"].isEnabled,
+                       "An already-imported note must not be confirmed twice")
     }
 
     func testChickMarkHandoffShowsStableConfirmationBeforeAnyTransfer() throws {

@@ -259,3 +259,17 @@ Keep product features in this roadmap; common engineering in Core and acquisitio
 - [x] Unified Inbox **visible** type chips (All/Audio/Text/Video), dynamic counts, combined search + Inbox/Archive, filter reset, localized swipe controls, VoiceOver identifiers. iPhone Duo + iPad Air 11″ UI tests PASS; no media ledger migration or data deletion.
 - [x] Optional automatic follow-up reminder choices Off/+1h/+2h/+3h, default Off, guarded permission, durable UUID dedupe and explicit manual override; new local text/audio/video and newly received Watch audio event hooks, bounded on-launch recovery without prompting. **Full iOS unit suite: 101 cases, 3 environment skips, 0 failures, clean TEST SUCCEEDED; targeted iPhone/iPad UI tests green.**
 - [ ] Still not shipped: real push arrival/tap-through QA, quiet-hour policy, physical P2a app update and separate ChickMark handoff protocol. No new physical Watch tests requested; prior P0/ACK evidence reused. [M6/P6 feature evidence](docs/WHAT_P2A_LIBRARY_AUTO_FOLLOWUP_2026-10-17.md).
+
+## P6c · Изолированная приёмка связки с ChickMark — 2026-10-17, QA only
+
+- [x] Подписанные независимые телефонные QA-app IDs без Watch/iCloud/App Group. Реальная первая установка и запуск двух QA приложений iPhone 13 PASS, user/prod data не изменены.
+- [x] Simulator: системное **Allow** + подтверждённое создание разовой задачи + самостоятельный full-text ledger + обратная кнопка ChickMark → точная исходная заметка в Ухвате; отдельные UI `TEST SUCCEEDED`, ChickMark import/backup **14/14 PASS**.
+- [x] Последние независимые Debug `.app` подписаны для `generic/platform=iOS`; latest QA schemes **`chickmark-review-qa`/`whatreviewqa`**. Лежат только на ArvectumSSD, App Store не затронут.
+- [ ] **Физическая финальная приёмка открыта:** телефон стал `unavailable`, XCTest UI не сумел включить automation mode; последние QA-бинарники ещё не установлены. Нужны вновь подключённый разблокированный iPhone, реальные разрешения и тест локального уведомления. [Подробно](docs/WHAT_CHICKMARK_REVIEW_DEVICE_QA_2026-10-17.md).
+
+### Offline-review acceptance 22:08 MSK, 2026-10-17
+
+- [x] `WhatReviewQA` + `ChickMarkReviewQA` isolated iPhone-only XcodeGen projects and independently signed app IDs; latest generic iOS signed builds verified while the physical iPhone was disconnected.
+- [x] iPhone Duo simulator complete handoff **including real confirmation, local one-off, correct source UUID/deep link, re-entry to source and duplicate resend** — `TEST SUCCEEDED`, with no pre-existing/production app data touched.
+- [x] Full What iOS suite **104 tests (3 skips, 0 failures)**; ChickMark imported-note/backup suite **14 tests (0 failures)**; record full JSON backup merge/replace and fail-closed notification tests passed. [QA evidence](docs/WHAT_CHICKMARK_REVIEW_DEVICE_QA_2026-10-17.md).
+- [ ] Physical iPhone 13 notification appearance and tap-through: latest signed QA builds not installed since disconnect; prior physical UI runner timed out on automation, no evidence of successful physical completion. No release/main merge.

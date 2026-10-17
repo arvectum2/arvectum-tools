@@ -72,7 +72,15 @@ final class PhoneStore: NSObject, ObservableObject, AVAudioPlayerDelegate,
     func revealReminder(_ noteID: UUID) {
         reload()
         guard recordings.contains(where: { $0.id == noteID }) ||
-              localNotes.contains(where: { $0.id == noteID }) else { return }
+              localNotes.contains(where: { $0.id == noteID }) else {
+            // The user might have deleted or moved the original note since
+            // copying its URL to ChickMark. Do not silently open a blank Home.
+            errorMessage = CaptureBrand.text(
+                "Исходная заметка больше недоступна в Ухвате.",
+                "The original note is no longer available in UhWhat."
+            )
+            return
+        }
         reminderTargetID = noteID
     }
 

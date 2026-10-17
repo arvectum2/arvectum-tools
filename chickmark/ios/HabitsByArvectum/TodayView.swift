@@ -15,9 +15,7 @@ struct TodayView: View {
     @State private var showingAddHabit = false
     @State private var showingAddOneOffReminder = false
     @State private var editingOneOffReminder: OneOffReminder?
-    @State private var pendingReviewImport: ReviewNoteHandoff?
     @State private var pendingReviewPasteRequest: ReviewNotePasteRequest?
-    @State private var pastedReviewAwaitingPreview: ReviewNoteHandoff?
     @State private var noteAttachments: [UUID: ReviewNoteAttachment] = [:]
     @State private var showingNoteAttachment: ReviewNoteAttachment?
     @State private var importError: String?
@@ -175,18 +173,8 @@ struct TodayView: View {
             .sheet(item: $editingOneOffReminder) { reminder in
                 AddOneOffReminderView(reminder: reminder)
             }
-            .sheet(item: $pendingReviewPasteRequest, onDismiss: {
-                if let transfer = pastedReviewAwaitingPreview {
-                    pastedReviewAwaitingPreview = nil
-                    pendingReviewImport = transfer
-                }
-            }) { request in
-                ReviewNotePasteSheet(request: request) { transfer in
-                    pastedReviewAwaitingPreview = transfer
-                }
-            }
-            .sheet(item: $pendingReviewImport) { transfer in
-                ImportedReviewNoteSheet(transfer: transfer) {
+            .sheet(item: $pendingReviewPasteRequest) { request in
+                ReviewNoteTransferFlowSheet(request: request) {
                     refreshReviewAttachments()
                 }
             }
@@ -603,6 +591,10 @@ struct TodayView: View {
     }
 
     private func refreshAdEligibility() {
+#if REVIEW_HANDOFF_QA
+        adEligible = false
+        return
+#endif
         let arguments = ProcessInfo.processInfo.arguments
 #if DEBUG
         // Isolated demo-only QA. Never force real YAN traffic from XCTest.

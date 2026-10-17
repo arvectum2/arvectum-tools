@@ -9,8 +9,16 @@ struct ReviewNoteHandoff: Codable, Equatable, Identifiable {
 
     static let clipboardType = "ru.arvectum.tools.what.review-note.v1"
     static let clipboardMarker = "uhwhat-review-v1:"
+#if REVIEW_HANDOFF_QA
+    static let targetScheme = "chickmark-review-qa"
+#else
     static let targetScheme = "chickmark-review"
+#endif
+#if REVIEW_HANDOFF_QA
+    static let sourceScheme = "whatreviewqa"
+#else
     static let sourceScheme = "whatp2aqa"
+#endif
     static let maximumTextBytes = 32_768
     static let validFor: TimeInterval = 300
 

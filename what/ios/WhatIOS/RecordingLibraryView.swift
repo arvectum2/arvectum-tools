@@ -471,9 +471,10 @@ struct RecordingLibraryView: View {
     ) -> some View {
         VStack(alignment: .leading, spacing: 10) {
             HStack {
-                Label(CaptureBrand.text("Напоминание о заметке", "Reminder for a note"),
-                      systemImage: "bell.badge.fill")
+                Label(CaptureBrand.text("Исходная заметка", "Original note"),
+                      systemImage: "doc.text.magnifyingglass")
                     .font(.headline)
+                    .accessibilityIdentifier("what.note.deepLinkResolved")
                 Spacer()
                 Button {
                     store.reminderTargetID = nil

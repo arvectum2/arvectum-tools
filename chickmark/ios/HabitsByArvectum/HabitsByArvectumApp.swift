@@ -13,9 +13,15 @@ struct HabitsByArvectumApp: App {
         let schema = HabitsSchema.current
         let arguments = ProcessInfo.processInfo.arguments
         let isUITesting = arguments.contains("--ui-testing")
+#if REVIEW_HANDOFF_QA
+        // The independently signed QA bundle must never access production
+        // CloudKit, WatchConnectivity, widgets, or HealthKit.
+        let cloudSyncDisabled = true
+#else
         let cloudSyncDisabled = isUITesting || arguments.contains(
             "--disable-cloud-sync"
         )
+#endif
         let bootstrap = Self.bootstrapModelContainer(
             schema: schema,
             isStoredInMemoryOnly: isUITesting,
@@ -62,6 +68,7 @@ struct HabitsByArvectumApp: App {
             HealthHabitCoordinator.shared.healthAvailableOverrideForTests = false
         }
 #endif
+#if !REVIEW_HANDOFF_QA
         HealthHabitCoordinator.shared.configure(container: container)
         PhoneWatchSyncCoordinator.shared.configure(
             modelContainer: container
@@ -69,6 +76,7 @@ struct HabitsByArvectumApp: App {
         HabitWidgetCoordinator.shared.configure(
             modelContainer: container
         )
+#endif
     }
 
     private struct ContainerBootstrap {

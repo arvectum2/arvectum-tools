@@ -122,3 +122,14 @@ A6 (боевые показы РСЯ после установки обновл�
 
 - [x] Separate non-release branch `feature/what-chickmark-note-handoff-20261017`: shared UUID/nonce contract with local transient clipboard, system paste permission, stable user confirmations, full saved text, source deep link, one-time task rather than recurring habit, backup compatibility and redacted notifications. 3 source-unit and 12 recipient-unit/backup tests green; iPhone Duo cross-app preview UI passed.
 - [ ] Match real signed iPhone apps for notification-allowed confirmation and link-back; configure release privacy disclosure and confirm actual local notification delivery. Existing public ChickMark 1.4.1 (15) has NO new `chickmark-review` scheme; no current phone data migrated or reset. [Protocol/QA](../what/docs/WHAT_P2A_CHICKMARK_HANDOFF_2026-10-17.md).
+
+### Изолированный Review QA (2026-10-17)
+
+- [x] Только QA-ветка: независимый ChickMark Review QA без production CloudKit, Watch, HealthKit, App Group, рекламных запросов; SwiftData OneOff + full-text/local source link с системной `PasteButton`, generic private notification title. 14/14 import + legacy backup XCTest и iPhone Duo simulator подтвердили успешное создание после OS **Allow**, чтение и открытие оригинала.
+- [ ] Физическое разрешённое push-уведомление и linkback: ожидается повторное подключение iPhone; свежая signed QA-app подготовлена, но устройство `unavailable`. Ничего не обновляли в публичном ChickMark. [QA-отчёт](../what/docs/WHAT_CHICKMARK_REVIEW_DEVICE_QA_2026-10-17.md).
+
+### Дополнительные локальные проверки 17.10.2026
+
+- [x] Устойчивый единый `ReviewNoteTransferFlowSheet`; сохранение full transcript, открытие исходного UUID и защита от повторного импорта UI — iPhone Duo `TEST SUCCEEDED`.
+- [x] JSON backup для вложений `reviewNotes`: успешные merge/replace, обратная совместимость без нового поля, отказ от испорченной ссылочной записи без изменения БД — 14 tests PASS вместе с privacy-on-missing-attachment. [Подробный QA протокол](../what/docs/WHAT_CHICKMARK_REVIEW_DEVICE_QA_2026-10-17.md).
+- [ ] Физическая QA на обновлённой подписанной изолированной версии ChickMark Review QA с настоящим системным уведомлением; App Store/публичный ChickMark не изменялся.
