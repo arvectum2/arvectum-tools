@@ -25,3 +25,9 @@
 - With a compatible iPad simulator/runtime, exercise existing `testIPadLandscapePreservesCaptureTextEditorAndLibrary` plus portrait and compact windows; then confirm physical layout.
 - With iPhone/Watch access, back up user/QA data before installing an isolated P2a bundle; test video/audio, camera switch, text autosave, Watch one-tap/ACK and interrupt/recovery cases. Do not overwrite an existing signed app by accident.
 - Investigate Xcode's `invalidDigitCount` and result-bundle finalization separately from app crashes. Keep multimodal release and production IPA isolated until physical acceptance and explicit release authorization.
+
+## Follow-up simulator diagnosis (2026-10-17)
+
+- Confirmed Xcode 27.1 / build 27A9275, iOS 27.1 / runtime build 24A94232, iPhone Duo simulator available, 43 registered iPad device types.
+- Creating iPad Air 11-inch M4, iPad Pro 11-inch M4, iPad mini A17 Pro, and iPad 10th generation against this runtime consistently fails with CoreSimulator 403 `Incompatible device`. This is a runtime/device compatibility failure, not evidence of a UI code failure.
+- `simctl runtime list -v` reports iOS 27.1 as `Ready`, but signature state `Unknown`; watchOS 27.0 is `Verified`. Signature verification was initiated; no destructive runtime removal, simulator reset, or reinstall was performed. Further verification or compatible runtime installation remains open.
