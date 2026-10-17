@@ -118,24 +118,49 @@ enum VideoSegmentComposer {
             throw CompositionError.exportUnavailable
         }
         exporter.videoComposition = videoComposition
-        exporter.outputFileType = .mov
-        exporter.outputURL = destination
 
+        if #available(iOS 18.0, *) {
+            // Swift's async export API keeps the session lifecycle in one
+            // concurrency domain and avoids a non-Sendable callback capture.
+            try await exporter.export(to: destination, as: .mov)
+        } else {
+            // iOS 17 still needs the completion-handler API. The wrapper
+            // owns the session across the one-shot export callback.
+            exporter.outputFileType = .mov
+            exporter.outputURL = destination
+            try await LegacyVideoExport.run(exporter)
+        }
+
+        return Result(url: destination, duration: cursor.seconds, isTemporaryExport: true)
+    }
+}
+
+/// AVAssetExportSession predates Swift Sendable. Its legacy completion
+/// callback runs after export has finished; this box only retains the
+/// session and reads completion status. No caller mutates the export
+/// session after calling run. iOS 18+ uses the native async API instead.
+private final class LegacyVideoExport: @unchecked Sendable {
+    private let session: AVAssetExportSession
+
+    private init(_ session: AVAssetExportSession) {
+        self.session = session
+    }
+
+    static func run(_ session: AVAssetExportSession) async throws {
+        let box = LegacyVideoExport(session)
         try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
-            exporter.exportAsynchronously {
-                switch exporter.status {
+            box.session.exportAsynchronously {
+                switch box.session.status {
                 case .completed:
                     continuation.resume()
                 case .failed, .cancelled:
                     continuation.resume(
-                        throwing: exporter.error ?? CompositionError.exportFailed
+                        throwing: box.session.error ?? VideoSegmentComposer.CompositionError.exportFailed
                     )
                 default:
-                    continuation.resume(throwing: CompositionError.exportFailed)
+                    continuation.resume(throwing: VideoSegmentComposer.CompositionError.exportFailed)
                 }
             }
         }
-
-        return Result(url: destination, duration: cursor.seconds, isTemporaryExport: true)
     }
 }
