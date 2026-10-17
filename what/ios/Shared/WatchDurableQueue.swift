@@ -4,6 +4,17 @@ import Foundation
 /// corresponding on-disk index is atomically committed. The original audio
 /// files are never touched by these mutations.
 enum WatchDurableQueue {
+    /// Restores the persisted queue after a locked-at-boot file became readable.
+    /// A concurrent in-memory recording is retained and every UUID occurs once.
+    /// Disk entries take precedence because they predate the current session.
+    static func mergeRestored(
+        disk: [RecordingEnvelope],
+        memory: [RecordingEnvelope]
+    ) -> [RecordingEnvelope] {
+        let diskIDs = Set(disk.map(\.id))
+        return disk + memory.filter { !diskIDs.contains($0.id) }
+    }
+
     static func enqueue(
         _ recording: RecordingEnvelope,
         into queue: inout [RecordingEnvelope],

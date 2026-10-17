@@ -330,6 +330,52 @@ final class WatchCaptureController: NSObject, ObservableObject, AVAudioRecorderD
         }
     }
 
+    /// Re-read the queue after the user unlocks Watch following a reboot.
+    /// File protection can make the initial index/audio scan in init fail.
+    /// An unreadable existing index is NEVER replaced with an empty queue.
+    func refreshPendingAudioAfterUnlock() {
+        queueLock.lock()
+        if fileManager.fileExists(atPath: queueIndexURL.path) {
+            guard let index = try? Data(contentsOf: queueIndexURL),
+                  let diskEntries = try? JSONDecoder().decode(
+                    [RecordingEnvelope].self, from: index
+                  )
+            else {
+                queueLock.unlock()
+                ArvectumDiagnostics.failure(
+                    subsystem: "ru.arvectum.tools.what.watch",
+                    category: "transfer", operation: "refresh",
+                    code: "queue-index-temporarily-unavailable"
+                )
+                return
+            }
+            queue = WatchDurableQueue.mergeRestored(disk: diskEntries, memory: queue)
+        }
+
+        let recovered = WatchQueueRecovery.recover(
+            from: outboundDirectory,
+            knownIDs: Set(queue.map(\.id)),
+            fileManager: fileManager,
+            decodedDuration: { url in
+                (try? AVAudioPlayer(contentsOf: url))?.duration
+            }
+        )
+        if !recovered.isEmpty {
+            do {
+                try WatchDurableQueue.recover(
+                    recovered, into: &queue, at: queueIndexURL
+                )
+            } catch {
+                // Keep source audio. Retry on next foreground/session activation.
+            }
+        }
+        let count = queue.count
+        queueLock.unlock()
+        publishPendingCount(count)
+        publishQueueStatus()
+        pumpTransfers()
+    }
+
     private func publishPendingCount(_ count: Int) {
         DispatchQueue.main.async { [weak self] in
             self?.pendingCount = count
@@ -406,8 +452,7 @@ final class WatchCaptureController: NSObject, ObservableObject, AVAudioRecorderD
         error: Error?
     ) {
         if activationState == .activated {
-            publishQueueStatus()
-            pumpTransfers()
+            refreshPendingAudioAfterUnlock()
         }
     }
 
@@ -417,15 +462,20 @@ final class WatchCaptureController: NSObject, ObservableObject, AVAudioRecorderD
     }
 
     func session(_ session: WCSession, didReceiveUserInfo userInfo: [String: Any] = [:]) {
-        guard
-            userInfo[TransferMetadataKey.type] as? String == TransferMetadataKey.acknowledgement,
-            let idString = userInfo[TransferMetadataKey.id] as? String,
-            let id = UUID(uuidString: idString)
-        else {
-            return
+        switch userInfo[TransferMetadataKey.type] as? String {
+        case TransferMetadataKey.syncRequest:
+            // A newly unlocked Watch may have missed its first queue read.
+            // The phone's durable request rehydrates and re-pumps without
+            // creating a new note or discarding the original audio.
+            refreshPendingAudioAfterUnlock()
+        case TransferMetadataKey.acknowledgement:
+            guard let idString = userInfo[TransferMetadataKey.id] as? String,
+                  let id = UUID(uuidString: idString)
+            else { return }
+            acknowledge(id)
+        default:
+            break
         }
-
-        acknowledge(id)
     }
 
     func session(

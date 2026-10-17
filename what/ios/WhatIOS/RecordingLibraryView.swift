@@ -155,10 +155,10 @@ struct RecordingLibraryView: View {
                 }
                 ToolbarItemGroup(placement: .topBarTrailing) {
                     Menu {
-                        Picker(CaptureBrand.text("Язык распознавания", "Speech language"), selection: $store.transcriptionLocale) {
+                        Picker(CaptureBrand.text("Язык интерфейса и распознавания", "Interface and speech language"), selection: $store.transcriptionLocale) {
                             Text("Русский").tag("ru-RU")
                             Text("English").tag("en-US")
-                            Text("Español").tag("es-ES")
+                            Text(CaptureBrand.text("Español (интерфейс EN)", "Español (English interface)")).tag("es-ES")
                         }
                         Button {
                             showDiagnostics = true

@@ -71,18 +71,38 @@ struct CaptureView: View {
         .tint(Color(red: 67 / 255, green: 229 / 255, blue: 197 / 255))
         .onAppear {
             controller.activateConnectivity()
+            controller.refreshPendingAudioAfterUnlock()
+            if scenePhase == .active {
+                startCaptureOnForeground()
+            }
         }
         .onChange(of: scenePhase) { _, phase in
-            if phase == .background {
+            switch phase {
+            case .active:
+                controller.refreshPendingAudioAfterUnlock()
+                // Some physical Watch faces launch the app without forwarding
+                // the complication's widgetURL. Foreground arrival must itself
+                // start recording, including after a previous capture was saved.
+                startCaptureOnForeground()
+            case .background:
                 // Digital Crown / app switch: finalize audio before watchOS
                 // suspends the app, even if the user never pressed Stop.
                 controller.finishCaptureWhenBackgrounded()
+            default:
+                break
             }
         }
         .onOpenURL { url in
             guard url.scheme == "what", url.host == "capture" else { return }
+            // Keep deep-link support; startCapture is idempotent while preparing
+            // or recording, so foreground + URL never starts two recordings.
             controller.startCapture()
         }
+    }
+
+    private func startCaptureOnForeground() {
+        guard WatchCaptureLaunchPolicy.shouldAutoStart(controller.state) else { return }
+        controller.startCapture()
     }
 
     private func elapsed(from start: Date, to end: Date) -> String {
