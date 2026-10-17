@@ -136,3 +136,6 @@ A6 (боевые показы РСЯ после установки обновл�
 
 - [x] **22:22 MSK physical QA install:** independent ChickMark Review QA app updated and launches; local file backup preserved 6/6 byte-identical SHA-256, main ChickMark and Watch untouched.
 - [ ] **Physical push/UX acceptance blocked by Xcode Automation Mode authorization**, not a failing product test; request local user unlock/permission, then rerun. No App Store upload.
+
+- [x] **22:49 17.10.2026 физический iPhone 13:** импорт одного UUID из Ухвата, SwiftData one-off, видимый исходный текст, глубокая ссылка обратно, повтор без дубля — **UI TEST SUCCEEDED, 32.634 сек.** Отдельно подтверждён файл JSON из QA-контейнера устройства: 1 заметка, UUID уникален, `whatreviewqa://note/...`.
+- [ ] Системное уведомление: физическая доставка в срок и переход по нажатию требуют отдельной приёмки; сохранение OneOff недостаточно.

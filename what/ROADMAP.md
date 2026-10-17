@@ -276,3 +276,6 @@ Keep product features in this roadmap; common engineering in Core and acquisitio
 
 - [x] **2026-10-17 22:22 physical reattach:** final isolated What Review QA and ChickMark Review QA installed in-place and launch on iPhone 13; 6/6 preexisting recipient files SHA-256 intact after update. Production, Watch, existing older QA unaffected.
 - [ ] **Physical automation gate:** Xcode UI runner cannot enter Automation Mode while Mac mini reports mode disabled and requires local user authentication. Device E2E and actual push not yet verified; wait for an authorized device prompt. [Details](docs/WHAT_CHICKMARK_REVIEW_DEVICE_QA_2026-10-17.md).
+
+- [x] **22:49 physical phone E2E PASS:** Xcode automation authorized after retry, smoke UI PASS 10.331s and real UhWhat Review QA → ChickMark Review QA → OneOff → original-source note → duplicate UUID refusal PASS 32.634s. Recipient device Application Support confirms one UUID-unique full-text attachment; no production/Watch data touched.
+- [ ] **Only remaining phone notification gate:** wait for or explicitly schedule a near-term synthetic notification to confirm lock-screen/system delivery and tap-through (not covered by OneOff creation E2E).
