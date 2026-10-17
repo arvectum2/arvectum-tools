@@ -225,3 +225,10 @@ or export features.
 - [ ] Optional clustering and additional platforms only after MVP validation.
 
 Keep product features in this roadmap; common engineering in Core and acquisition/monetization experiments in Growth.
+
+## Physical multimodal P2a isolated QA — 2026-10-17
+
+- [x] Separately identified QA iPhone app `ru.arvectum.tools.what.p2aqa` built, signed, and installed alongside unchanged QA13 on wired iPhone 13; 26/26 QA13 Application Support files SHA-256 identical before/after. No Watch installation.
+- [x] Physical video/camera-switch end-to-end XCTest authored, and signed physical `build-for-testing` succeeded; 14 focused simulator video test cases passed (runner shutdown still unreliable).
+- [ ] Unlock iPhone and run UI acceptance for typed note, short audio tap, long video hold, camera switch, video+audio playback, cancel/interruption/recovery, and private local storage. Installation/compilation alone is NOT acceptance.
+- [ ] Resolve device-restricted iOS 27.1 runtime (`restrictedToDeviceTypes` iPhone Duo only) to perform independent iPad simulator/physical acceptance.

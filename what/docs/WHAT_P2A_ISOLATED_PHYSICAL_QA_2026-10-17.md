@@ -13,7 +13,7 @@
 - Xcode 27.1: подписанная Debug iPhone-сборка SUCCESS, codesign --verify --strict --deep PASS, верные QA IDs, Watch directory отсутствует.
 - 2/2 UI-теста в этой QA-конфигурации прошли на iPhone Duo simulator: текстовая заметка через «+» сохраняется; длинное нажатие открывает «Видеозаметка», не аудиозапись. Результат **TEST SUCCEEDED**.
 - Артефакт на ArvectumSSD: builds/what-p2a-isolated-phone-qa1-20261017/Build/Products/Debug-iphoneos/WhatIOS.app. Лог: builds/what-p2a-isolated-phone-qa1-smoke-v2-20261017.log.
-- **На реальный iPhone эта сборка ещё НЕ установлена**: CoreDevice показывает устройство unavailable. Существующая QA13 и production с данными не затронуты.
+- **Позднее в тот же день сборка установлена на iPhone 13**: подробные результаты и проверка 26/26 файлов действующей QA13 — ниже. Производственная версия и QA13 не затронуты.
 
 ## Следующая физическая приёмка (после восстановления связи)
 
@@ -33,3 +33,10 @@
 - Physical `devicectl device install app` succeeded for `Ухват P2a QA` version 1.0.2 (1); device inventory confirms both established QA (13) and separate P2a QA (1).
 - Real-device automated UI test preflight blocked: `Unlock iPhone Nikita to Continue` (locked screen). Foreground launch similarly denied by SpringBoard reason `Locked`. No claim of completed real camera/video/microphone testing until device is unlocked and successful evidence is collected.
 - Standard iOS simulator runtime download launched but has produced no output/artifact; the installed iOS 27.1 runtime has `restrictedToDeviceTypes` iPhone Duo only. iPad simulator still blocked independently of the physical iPhone acceptance.
+
+## Automated test readiness
+
+- New isolated `PhysicalVideoCaptureUITests.testHoldSwitchCameraAndSaveLocalMovie` automates real-device camera-switch recording. `xcodebuild build-for-testing` for physical iOS destination reports **TEST BUILD SUCCEEDED**. This does **not** mean the camera E2E test passed.
+- Rechecked 14 focused video merge/recovery simulator test **cases** after the async-export fix: 14 cases, 0 failures. The Xcode 27.1 test runner again hung in result finalization, emitting `invalidDigitCount(94232)`; no clean `TEST SUCCEEDED`/exit was observed.
+- An iPhone XCTest run compiled and installed its dedicated QA runner, then Xcode preflight repeatedly reported the physical iPhone locked. The run was stopped after prolonged preflight wait; nothing in the existing QA13 container was changed.
+- The standard iOS runtime download process had still produced no artifact after nearly an hour and was terminated; iPad simulator fix remains open.
