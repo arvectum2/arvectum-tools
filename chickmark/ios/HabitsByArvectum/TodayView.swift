@@ -15,6 +15,10 @@ struct TodayView: View {
     @State private var showingAddHabit = false
     @State private var showingAddOneOffReminder = false
     @State private var editingOneOffReminder: OneOffReminder?
+    @State private var pendingReviewPasteRequest: ReviewNotePasteRequest?
+    @State private var noteAttachments: [UUID: ReviewNoteAttachment] = [:]
+    @State private var showingNoteAttachment: ReviewNoteAttachment?
+    @State private var importError: String?
     @State private var undoOffer: CompletionUndoOffer?
     @State private var deepLinkedHabitID: UUID?
     @State private var referenceDate = Date()
@@ -172,6 +176,22 @@ struct TodayView: View {
             .sheet(item: $editingOneOffReminder) { reminder in
                 AddOneOffReminderView(reminder: reminder)
             }
+            .sheet(item: $pendingReviewPasteRequest) { request in
+                ReviewNoteTransferFlowSheet(request: request) {
+                    refreshReviewAttachments()
+                }
+            }
+            .sheet(item: $showingNoteAttachment) { value in
+                ReviewNoteAttachmentSheet(attachment: value)
+            }
+            .alert(L10n.string("review.import.alert"), isPresented: Binding(
+                get: { importError != nil },
+                set: { if !$0 { importError = nil } }
+            )) {
+                Button("OK") {}
+            } message: {
+                Text(importError ?? "")
+            }
             .navigationDestination(
                 isPresented: Binding(
                     get: { deepLinkedHabitID != nil },
@@ -201,6 +221,8 @@ struct TodayView: View {
                 }
             }
             .task {
+                refreshReviewAttachments()
+                openImportedNoteFromNotificationIfNeeded()
                 refreshReferenceDate()
                 registerForegroundLaunchIfNeeded()
                 refreshAdEligibility()
@@ -209,6 +231,9 @@ struct TodayView: View {
                 openDebugSurfaceIfRequested()
 #endif
                 await HabitReminderCoordinator.shared.refreshNow()
+#if REVIEW_HANDOFF_QA
+                await ReviewNotificationPhysicalQA.inspectScheduledAndDelivered(context: modelContext)
+#endif
                 await HealthHabitCoordinator.shared.synchronize()
                 HabitWidgetCoordinator.shared.refresh()
 #if DEBUG
@@ -234,6 +259,9 @@ struct TodayView: View {
                 guard !Task.isCancelled else { return }
                 refreshReferenceDate(forceRevision: true)
                 await HabitReminderCoordinator.shared.refreshNow()
+#if REVIEW_HANDOFF_QA
+                await ReviewNotificationPhysicalQA.inspectScheduledAndDelivered(context: modelContext)
+#endif
                 await HealthHabitCoordinator.shared.synchronize()
                 HabitWidgetCoordinator.shared.refresh()
             }
@@ -243,9 +271,20 @@ struct TodayView: View {
                     registerForegroundLaunchIfNeeded()
                     refreshAdEligibility()
                     HabitReminderCoordinator.shared.refresh()
+#if REVIEW_HANDOFF_QA
+                    Task {
+                        await HabitReminderCoordinator.shared.refreshNow()
+                        await ReviewNotificationPhysicalQA.inspectScheduledAndDelivered(context: modelContext)
+                    }
+#endif
                     HealthHabitCoordinator.shared.refresh()
                     HabitWidgetCoordinator.shared.refresh()
                 }
+            }
+            .onReceive(NotificationCenter.default.publisher(
+                for: ReviewNoteNotificationNavigation.notificationName
+            )) { _ in
+                openImportedNoteFromNotificationIfNeeded()
             }
             .onReceive(
                 NotificationCenter.default.publisher(
@@ -424,6 +463,9 @@ struct TodayView: View {
                         },
                         onDelete: {
                             deleteOneOffReminder(reminder)
+                        },
+                        onOpenNote: noteAttachments[reminder.id].map { attachment in
+                            { showingNoteAttachment = attachment }
                         }
                     )
                 }
@@ -459,11 +501,39 @@ struct TodayView: View {
 
     private func deleteOneOffReminder(_ reminder: OneOffReminder) {
         modelContext.delete(reminder)
-        try? modelContext.save()
-        HabitReminderCoordinator.shared.dataDidChange()
+        do {
+            try modelContext.save()
+            if noteAttachments[reminder.id] != nil {
+                try ReviewNoteAttachmentRepository().remove(reminder.id)
+                refreshReviewAttachments()
+            }
+            HabitReminderCoordinator.shared.dataDidChange()
+        } catch {
+            modelContext.rollback()
+            importError = error.localizedDescription
+        }
+    }
+
+    private func openImportedNoteFromNotificationIfNeeded() {
+        if let note = ReviewNoteNotificationNavigation.takePending() {
+            showingNoteAttachment = note
+        }
+    }
+
+    private func refreshReviewAttachments() {
+        do {
+            noteAttachments = Dictionary(uniqueKeysWithValues:
+                try ReviewNoteAttachmentRepository().all().map { ($0.id, $0) })
+        } catch {
+            importError = L10n.string("review.import.failure") + error.localizedDescription
+        }
     }
 
     private func handleDeepLink(_ url: URL) {
+        if ReviewNoteHandoff.nonce(from: url) != nil {
+            pendingReviewPasteRequest = ReviewNotePasteRequest(url: url)
+            return
+        }
         switch HabitDeepLink.destination(from: url) {
         case .today:
             deepLinkedHabitID = nil
@@ -548,6 +618,10 @@ struct TodayView: View {
     }
 
     private func refreshAdEligibility() {
+#if REVIEW_HANDOFF_QA
+        adEligible = false
+        return
+#endif
         let arguments = ProcessInfo.processInfo.arguments
 #if DEBUG
         // Isolated demo-only QA. Never force real YAN traffic from XCTest.

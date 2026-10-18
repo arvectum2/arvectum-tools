@@ -17,6 +17,8 @@ struct ChickMarkBackup: Codable {
     let oneOffs: [OneOffRecord]
     // Optional for backwards-compatible imports of backups made before groups.
     var groups: [ChickMarkGroup]?
+    /// Optional: backups written by older ChickMark versions omit this key.
+    var reviewNotes: [ReviewNoteAttachment]? = nil
 
     struct HabitRecord: Codable {
         let id: UUID
@@ -90,6 +92,15 @@ struct ChickMarkBackup: Codable {
               Set(mutations.map(\.id)).count == mutations.count,
               Set(oneOffs.map(\.id)).count == oneOffs.count
         else { throw BackupError.invalidData }
+        let reviewNotes = reviewNotes ?? []
+        guard Set(reviewNotes.map(\.id)).count == reviewNotes.count,
+              reviewNotes.allSatisfy({ note in
+                  oneOffs.contains(where: { $0.id == note.id }) &&
+                  note.sourceURL.scheme == ReviewNoteHandoff.sourceScheme &&
+                  note.sourceURL.host == "note" &&
+                  note.sourceURL.path == "/\(note.id.uuidString)" &&
+                  note.text.utf8.count <= ReviewNoteHandoff.maximumTextBytes
+              }) else { throw BackupError.invalidData }
         let habitIDs = Set(habits.map(\.id))
         guard checkIns.allSatisfy({ habitIDs.contains($0.habitID) }),
               skips.allSatisfy({ habitIDs.contains($0.habitID) }),

@@ -326,6 +326,80 @@ final class HabitReminderSchedulerTests: XCTestCase {
         }
     }
 
+    // Reconciliation must never remove the active request just to immediately
+    // recreate it. Background suspension during that old remove/add window
+    // caused real iPhone notifications to disappear from the system queue.
+    func testIdenticalSchedulesDoNotRemoveOrResubmitPendingRequests() {
+        let due = date(2026, 10, 19, hour: 9, calendar: utcCalendar)
+        let oneOff = makeRequest(id: "one-off-reminder-a", due: due)
+        let recurring = makeRequest(id: "habit-reminder-b-2026-10-19", due: due)
+        let result = HabitReminderScheduler.reconcile(
+            existing: [oneOff, recurring], desired: [oneOff, recurring]
+        )
+        XCTAssertTrue(result.toAdd.isEmpty)
+        XCTAssertTrue(result.toRemove.isEmpty)
+    }
+
+    func testChangedOneOffDueTimeReplacesWithoutRemovingIdentifier() {
+        let start = date(2026, 10, 19, hour: 9, calendar: utcCalendar)
+        let old = makeRequest(id: "one-off-reminder-a", due: start)
+        let new = makeRequest(id: "one-off-reminder-a", due: start.addingTimeInterval(75))
+        let changes = HabitReminderScheduler.reconcile(
+            existing: [old], desired: [new]
+        )
+        XCTAssertEqual(changes.toAdd.map(\.identifier), [old.identifier])
+        XCTAssertTrue(changes.toRemove.isEmpty)
+    }
+
+    func testCanceledOneOffOnlyRemovesStaleManagedIdentifier() {
+        let due = date(2026, 10, 19, hour: 9, calendar: utcCalendar)
+        let previous = makeRequest(id: "one-off-reminder-stale", due: due)
+        let kept = makeRequest(id: "one-off-reminder-kept", due: due)
+        let unrelated = makeRequest(id: "unrelated-app-request", due: due)
+        let changes = HabitReminderScheduler.reconcile(
+            existing: [previous, kept, unrelated], desired: [kept]
+        )
+        XCTAssertTrue(changes.toAdd.isEmpty)
+        XCTAssertEqual(changes.toRemove, [previous.identifier])
+    }
+
+    func testNewOneOffKeepsPreviouslyScheduledHabitUntouched() {
+        let due = date(2026, 10, 19, hour: 9, calendar: utcCalendar)
+        let habit = makeRequest(id: "habit-reminder-123-2026-10-19", due: due)
+        let oneOff = makeRequest(id: "one-off-reminder-456", due: due)
+        let changes = HabitReminderScheduler.reconcile(
+            existing: [habit], desired: [oneOff, habit]
+        )
+        XCTAssertEqual(changes.toAdd.map(\.identifier), [oneOff.identifier])
+        XCTAssertTrue(changes.toRemove.isEmpty)
+    }
+
+    func testChangedNotificationBodyRequiresReplacementWithoutDelete() {
+        let due = date(2026, 10, 19, hour: 9, calendar: utcCalendar)
+        let old = makeRequest(id: "habit-reminder-a-2026-10-19", due: due)
+        let new = makeRequest(id: old.identifier, due: due, title: "Updated habit")
+        let changes = HabitReminderScheduler.reconcile(
+            existing: [old], desired: [new]
+        )
+        XCTAssertEqual(changes.toAdd.count, 1)
+        XCTAssertTrue(changes.toRemove.isEmpty)
+    }
+
+    private func makeRequest(
+        id: String, due: Date, title: String = "Review"
+    ) -> UNNotificationRequest {
+        var components = utcCalendar.dateComponents(
+            [.year, .month, .day, .hour, .minute, .second], from: due
+        )
+        components.timeZone = utcCalendar.timeZone
+        let content = UNMutableNotificationContent()
+        content.title = title
+        content.body = "Time to review"
+        content.sound = .default
+        let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
+        return UNNotificationRequest(identifier: id, content: content, trigger: trigger)
+    }
+
     private var utcCalendar: Calendar {
         var calendar = Calendar(identifier: .gregorian)
         calendar.timeZone = TimeZone(secondsFromGMT: 0)!
