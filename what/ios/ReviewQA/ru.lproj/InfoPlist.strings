@@ -1,0 +1,4 @@
+"CFBundleDisplayName" = "Ухват Review QA";
+"NSMicrophoneUsageDescription" = "Ухват использует микрофон для аудио- и видеозаметок. Записи остаются на устройстве.";
+"NSSpeechRecognitionUsageDescription" = "Расшифровка голосовых записей выполняется непосредственно на устройстве.";
+\n"NSCameraUsageDescription" = "Ухват использует камеру для записи видеозаметок только на устройстве.";\n
