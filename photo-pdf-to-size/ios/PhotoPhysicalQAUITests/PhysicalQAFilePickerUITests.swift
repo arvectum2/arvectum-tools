@@ -46,9 +46,20 @@ final class PhysicalQAFilePickerUITests: XCTestCase {
             print(app.debugDescription)
             print("QA_IPAD_FILEPICKER_TREE_END")
         }
-        XCTAssertTrue(hasLocalLocation,
-            "Must first open local device location; never select from Recents")
-        localLocation.tap()
+        if hasLocalLocation {
+            localLocation.tap()
+        } else {
+            // iPhone iOS 27 sometimes restores Files already positioned at
+            // On My iPhone. Its navigation title is nonbreaking-space aware,
+            // and the QA directory still must be selected by exact name.
+            let alreadyLocal = app.navigationBars.staticTexts.matching(
+                NSPredicate(format:
+                    "label CONTAINS[c] %@ AND (label CONTAINS[c] %@ OR label CONTAINS[c] %@)",
+                    "На", "iPhone", "iPad")
+            ).firstMatch
+            XCTAssertTrue(alreadyLocal.waitForExistence(timeout: 7),
+                "Must be in a local-device location before selecting QA file")
+        }
         let folder = app.staticTexts.matching(NSPredicate(
             format: "label == %@ OR label == %@",
                    "Photo PDF QA", "Фото PDF QA"
@@ -97,8 +108,8 @@ final class PhysicalQAFilePickerUITests: XCTestCase {
         // FileExporter can initially show a saved destination or browse root.
         // Never approve a save outside the exact QA-owned folder.
         let qaDestination = app.buttons.matching(NSPredicate(
-            format: "label CONTAINS %@ AND label CONTAINS %@",
-                   "Photo PDF QA", "Меню действий"
+            format: "(label CONTAINS %@ OR label CONTAINS %@) AND label CONTAINS %@",
+                   "Photo PDF QA", "Фото PDF QA", "Меню действий"
         )).firstMatch
         let destinationVisible = qaDestination.waitForExistence(timeout: 10)
         if !destinationVisible {
