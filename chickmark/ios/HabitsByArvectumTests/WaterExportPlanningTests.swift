@@ -165,6 +165,20 @@ final class WaterExportPlanningTests: XCTestCase {
         XCTAssertTrue(store.canSafelyReconcile)
     }
 
+    func testVersionWatermarkNeverDecreasesAfterRecordRemoval() {
+        let suite = "water-watermark-test-\(UUID().uuidString)"
+        let defaults = UserDefaults(suiteName: suite)!
+        defer { defaults.removePersistentDomain(forName: suite) }
+        let store = WaterExportLocalStore(defaults: defaults)
+        XCTAssertEqual(store.highestVersion(habitID: habitID, dayKey: day), 0)
+        XCTAssertTrue(store.noteVersion(5, habitID: habitID, dayKey: day))
+        XCTAssertTrue(store.noteVersion(3, habitID: habitID, dayKey: day))
+        XCTAssertEqual(store.highestVersion(habitID: habitID, dayKey: day), 5)
+        store.setReceipt(nil, habitID: habitID, dayKey: day)
+        XCTAssertEqual(store.highestVersion(habitID: habitID, dayKey: day), 5)
+        XCTAssertTrue(store.canSafelyReconcile)
+    }
+
     func testCorruptReceiptAndPendingLedgersFailClosedIndependently() {
         let suite = "water-corrupted-receipt-\(UUID().uuidString)"
         let defaults = UserDefaults(suiteName: suite)!
@@ -172,7 +186,8 @@ final class WaterExportPlanningTests: XCTestCase {
         let store = WaterExportLocalStore(defaults: defaults)
         store.setRule(optIn, for: habitID)
         for key in ["chickmark.water.receipts.v1",
-                    "chickmark.water.pendingWriteVersions.v1"] {
+                    "chickmark.water.pendingWriteVersions.v1",
+                    "chickmark.water.highestSyncVersions.v1"] {
             defaults.set(Data("not-json".utf8), forKey: key)
             XCTAssertFalse(store.canSafelyReconcile, "Must block on \(key)")
             defaults.removeObject(forKey: key)

@@ -179,6 +179,28 @@ final class WaterExportSyncTests: XCTestCase {
         XCTAssertTrue(syncResult9)
         XCTAssertEqual(driver.removals.count, 2)
     }
+    func testSameDayUndoAndSecondWaterEntryKeepVersionIncreasing() async throws {
+        let (store, driver, day, suite) = setup()
+        defer { UserDefaults(suiteName: suite)?.removePersistentDomain(forName: suite) }
+        let engine = WaterExportSyncEngine(driver: driver, store: store)
+        let first = try await engine.reconcile(habitID: habit, dayKey: day,
+            goal: .quantity(count: 10), count: 2)
+        XCTAssertTrue(first)
+        XCTAssertEqual(store.highestVersion(habitID: habit, dayKey: day), 1)
+        let deleted = try await engine.reconcile(habitID: habit, dayKey: day,
+            goal: .quantity(count: 10), count: 0)
+        XCTAssertTrue(deleted)
+        XCTAssertNil(store.receipt(habitID: habit, dayKey: day))
+        XCTAssertEqual(store.highestVersion(habitID: habit, dayKey: day), 1)
+        let again = try await engine.reconcile(habitID: habit, dayKey: day,
+            goal: .quantity(count: 10), count: 4)
+        XCTAssertTrue(again)
+        XCTAssertEqual(driver.upserts.map(\.version), [1, 2],
+            "Recreated daily sample must never reuse sync version 1.")
+        XCTAssertEqual(driver.removals.count, 1)
+        XCTAssertEqual(store.receipt(habitID: habit, dayKey: day)?.syncVersion, 2)
+    }
+
     func testCrashAfterAppleWriteRetriesWithHigherSyncVersion() async throws {
         let (store, driver, day, suite) = setup()
         defer { UserDefaults(suiteName: suite)?.removePersistentDomain(forName: suite) }

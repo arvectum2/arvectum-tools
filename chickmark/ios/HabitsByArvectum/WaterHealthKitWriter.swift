@@ -115,29 +115,36 @@ struct WaterExportSyncEngine {
                 // A failed update may have been superseded by an undo back to
                 // the original valid quantity. Restore that quantity with a
                 // strictly newer version rather than deleting it.
-                let version = max(previous.syncVersion, pendingVersion) + 1
+                let version = max(
+                    previous.syncVersion, pendingVersion,
+                    store.highestVersion(habitID: habitID, dayKey: dayKey)
+                ) + 1
                 store.setPendingVersion(version, habitID: habitID, dayKey: dayKey)
                 try await driver.upsert(identifier: identifier,
                     millilitres: previous.millilitres,
                     version: version, dayKey: dayKey)
+                store.noteVersion(version, habitID: habitID, dayKey: dayKey)
                 store.setReceipt(WaterExportReceipt(
                     syncIdentifier: identifier, quantity: previous.quantity,
                     millilitres: previous.millilitres, syncVersion: version
                 ), habitID: habitID, dayKey: dayKey)
             } else {
                 try await driver.removeOwn(identifier: identifier)
+                store.noteVersion(pendingVersion, habitID: habitID, dayKey: dayKey)
             }
             store.setPendingVersion(nil, habitID: habitID, dayKey: dayKey)
             return true
         case .upsert(let identifier, let millilitres, let version):
             guard driver.isWriteAuthorized() else { throw WaterExportError.notAuthorized }
             let committedVersion = max(
-                version,
-                (store.pendingVersion(habitID: habitID, dayKey: dayKey) ?? 0) + 1
-            )
+                version - 1,
+                store.pendingVersion(habitID: habitID, dayKey: dayKey) ?? 0,
+                store.highestVersion(habitID: habitID, dayKey: dayKey)
+            ) + 1
             store.setPendingVersion(committedVersion, habitID: habitID, dayKey: dayKey)
             try await driver.upsert(identifier: identifier, millilitres: millilitres,
                                     version: committedVersion, dayKey: dayKey)
+            store.noteVersion(committedVersion, habitID: habitID, dayKey: dayKey)
             // Persist only on confirmed success. The metadata ID is stable
             // across attempts, and HK manages its own sync-version replacement.
             store.setReceipt(WaterExportReceipt(
@@ -150,6 +157,12 @@ struct WaterExportSyncEngine {
         case .delete(let identifier):
             guard driver.isWriteAuthorized() else { throw WaterExportError.notAuthorized }
             try await driver.removeOwn(identifier: identifier)
+            if let previous {
+                store.noteVersion(previous.syncVersion, habitID: habitID, dayKey: dayKey)
+            }
+            if let pendingVersion = store.pendingVersion(habitID: habitID, dayKey: dayKey) {
+                store.noteVersion(pendingVersion, habitID: habitID, dayKey: dayKey)
+            }
             store.setReceipt(nil, habitID: habitID, dayKey: dayKey)
             store.setPendingVersion(nil, habitID: habitID, dayKey: dayKey)
             return true

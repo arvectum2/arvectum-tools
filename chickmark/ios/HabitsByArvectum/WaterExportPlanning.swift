@@ -96,6 +96,7 @@ final class WaterExportLocalStore {
     private let rulesKey = "chickmark.water.rules.v1"
     private let receiptsKey = "chickmark.water.receipts.v1"
     private let pendingKey = "chickmark.water.pendingWriteVersions.v1"
+    private let versionsKey = "chickmark.water.highestSyncVersions.v1"
 
     init(defaults: UserDefaults = .standard) {
         self.defaults = defaults
@@ -109,6 +110,7 @@ final class WaterExportLocalStore {
         readable([String: WaterExportRule].self, key: rulesKey)
             && readable([String: WaterExportReceipt].self, key: receiptsKey)
             && readable([String: Int].self, key: pendingKey)
+            && readable([String: Int].self, key: versionsKey)
     }
 
     private func readable<T: Decodable>(_ type: T.Type, key: String) -> Bool {
@@ -170,6 +172,24 @@ final class WaterExportLocalStore {
         var all = load([String: Int].self, key: pendingKey) ?? [:]
         all[key] = version
         save(all, key: pendingKey)
+    }
+
+    /// Monotonic sync-version watermark survives an undo/deletion. Without
+    /// it, a re-created record for the same habit and day would restart at
+    /// version 1 even if HealthKit had already seen version 4 for that ID.
+    func highestVersion(habitID: UUID, dayKey: String) -> Int {
+        let key = WaterExportPlanning.syncIdentifier(habitID: habitID, dayKey: dayKey)
+        return max(0, load([String: Int].self, key: versionsKey)?[key] ?? 0)
+    }
+
+    @discardableResult
+    func noteVersion(_ version: Int, habitID: UUID, dayKey: String) -> Bool {
+        guard canSafelyReconcile, version > 0 else { return false }
+        let key = WaterExportPlanning.syncIdentifier(habitID: habitID, dayKey: dayKey)
+        var all = load([String: Int].self, key: versionsKey) ?? [:]
+        all[key] = max(all[key] ?? 0, version)
+        save(all, key: versionsKey)
+        return true
     }
 
     func pendingDays(for habitID: UUID) -> [String] {
