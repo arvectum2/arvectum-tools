@@ -30,3 +30,6 @@ __pycache__/
 
 # SwiftPM generated build artifacts
 **/.build/
+
+# Generated isolated iPhone QA info plist (XcodeGen)
+what/ios/WhatPhysicalQA/Info.plist
