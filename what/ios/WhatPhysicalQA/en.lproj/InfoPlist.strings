@@ -1,0 +1,5 @@
+"CFBundleDisplayName" = "UhWhat 1.1 QA";
+"NSMicrophoneUsageDescription" = "Record private audio and video notes on this device. Media stays on your device.";
+"NSSpeechRecognitionUsageDescription" = "Transcribe saved voice notes on this device using on-device speech recognition.";
+
+"NSCameraUsageDescription" = "Record private video notes using the camera. Videos stay on this device.";
