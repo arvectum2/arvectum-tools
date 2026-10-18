@@ -5,6 +5,10 @@ options:
     iOS: "17.0"
     watchOS: "10.0"
 
+packages:
+  ArvectumCore:
+    path: ../../core
+
 settings:
   base:
     DEVELOPMENT_TEAM: VML75VY94V
@@ -44,9 +48,11 @@ targets:
         PRODUCT_MODULE_NAME: WhatIOS
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         GENERATE_INFOPLIST_FILE: NO
-        TARGETED_DEVICE_FAMILY: "1"
+        TARGETED_DEVICE_FAMILY: "1,2"
         SUPPORTS_MACCATALYST: NO
     dependencies:
+      - package: ArvectumCore
+        product: ArvectumCore
       - target: WhatWatch
       - target: WhatPhoneWidget
     scheme:
@@ -74,7 +80,7 @@ targets:
         PRODUCT_BUNDLE_IDENTIFIER: ru.arvectum.tools.what.widget
         PRODUCT_NAME: WhatPhoneWidget
         GENERATE_INFOPLIST_FILE: NO
-        TARGETED_DEVICE_FAMILY: "1"
+        TARGETED_DEVICE_FAMILY: "1,2"
 
   WhatIOSTests:
     type: bundle.unit-test

@@ -25,7 +25,8 @@ struct QuickCaptureHomeView: View {
 
                 Circle()
                     .fill(accent.opacity(0.09))
-                    .frame(width: 410, height: 410)
+                    .frame(width: min(410, geometry.size.width * 0.85),
+                           height: min(410, geometry.size.width * 0.85))
                     .blur(radius: 85)
                     .offset(x: geometry.size.width * 0.3, y: -75)
                     .accessibilityHidden(true)
@@ -86,7 +87,7 @@ struct QuickCaptureHomeView: View {
                     libraryButton
                         .padding(.bottom, 8)
                 }
-                .padding(.horizontal, 25)
+                .padding(.horizontal, min(25, geometry.size.width * 0.045))
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         }

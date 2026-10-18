@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0281431BF7DF8E62E12DCFB2 /* WhatWatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4ED5C55003D60E489465C5D /* WhatWatchApp.swift */; };
+		044388FB9C3287BEA15AA6DC /* ArvectumCore in Frameworks */ = {isa = PBXBuildFile; productRef = DEFB26E81F3BF2637929AA30 /* ArvectumCore */; };
 		0633B2238EF1A5BD5B32969F /* ReviewDemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEC5029D31A75E43264EDFD /* ReviewDemoUITests.swift */; };
 		095E000031881CF97192ADAC /* SyncDiagnosticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E1CDF413B1021AF609E11A /* SyncDiagnosticsView.swift */; };
 		0D212F794FE2ADAC7D18CC52 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 1804DB448307D7581C01F806 /* PrivacyInfo.xcprivacy */; };
@@ -28,15 +29,14 @@
 		39D726A0F9A6E5ADA4DBEA21 /* WhatComplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D1A5C9E79CC4A544374E3E /* WhatComplication.swift */; };
 		4B245C0DC2EC18A8311E7D0C /* CaptureFirstUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6ACA38EC5E339EF4FE47646 /* CaptureFirstUITests.swift */; };
 		503FAB8870D0044EF3463F4D /* RecordingEnvelope.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C9581F753BED275286D623 /* RecordingEnvelope.swift */; };
-		5139AF52BBA7C50D9EC9818B /* ArvectumDiagnostics.swift in Sources */ = {isa = PBXBuildFile; fileRef = D19478C8FA1C97D399AA6AAC /* ArvectumDiagnostics.swift */; };
 		5FD7F8E32D78068474F665C3 /* CaptureLatency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8DC84E4B7383D9043BF774 /* CaptureLatency.swift */; };
 		620929503466A26358DDC534 /* ImmediateRecordingPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD17D674B9340C94107DCF39 /* ImmediateRecordingPayload.swift */; };
 		62F51A03CFB1699B97BE45DA /* RecordingRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CA5B4FD3F49550A3BF2B59 /* RecordingRepository.swift */; };
 		63478656E0292E1123BCAFD8 /* WatchCaptureValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34695056F0776593473FDE58 /* WatchCaptureValidation.swift */; };
 		678FB4B35F0627D03AE0F736 /* WhatPhoneWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = EBF159B5D81F63DE0DAE6484 /* WhatPhoneWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		67A7309CBD38A6A55FD9B3D9 /* WatchTransferRetryPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A4FCD3C72E787C27B7E3EE /* WatchTransferRetryPolicy.swift */; };
+		6808782DEC9A52705F09D547 /* AdaptiveLayoutUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297C36478231B0A41DEC67DB /* AdaptiveLayoutUITests.swift */; };
 		686DBE4CA2BBE32B81849C8A /* CaptureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECAA3B8CBC13E2455D09ADE /* CaptureView.swift */; };
-		7FCD7C290C214A811D5C2256 /* ArvectumJSONCodec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202AA6EA6548079F9C4DF8F4 /* ArvectumJSONCodec.swift */; };
 		829D95F2391E62D3217A1C1A /* CaptureBrand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A64C8E1ED1DD3595D966992 /* CaptureBrand.swift */; };
 		8429BD4828F55DF8C4718902 /* LocalSemanticSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766855BE51B40DC7C113B75A /* LocalSemanticSearch.swift */; };
 		8DD93A3E6323ADD48EEF25AD /* CaptureBrand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A64C8E1ED1DD3595D966992 /* CaptureBrand.swift */; };
@@ -48,8 +48,10 @@
 		9C5A13012F4A2E99F5379BB4 /* WatchDurableQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8632BE1ABDF63CB6AD9F3FD6 /* WatchDurableQueue.swift */; };
 		A2FFB527B39A111ECF5F3A00 /* RecordingRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BFFB46088A8945C66DFE7F4 /* RecordingRepositoryTests.swift */; };
 		A42F93400DD2B4DFBB398F4A /* PhoneConnectivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1330B09BE7A27DED3358758C /* PhoneConnectivityManager.swift */; };
+		A43D2CC80B5AE0CF434A64E3 /* ArvectumJSONCodec.swift in Sources */ = {isa = PBXBuildFile; fileRef = E102CCDB0DE952508F02C601 /* ArvectumJSONCodec.swift */; };
 		A6E2132E81B2D8807875BC35 /* WatchDeliveredAudioValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2EC835E1A980C511E5E6EDD /* WatchDeliveredAudioValidation.swift */; };
 		A8AC3088BF322AEB5EB000B8 /* TranscriptLexicalMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CFB25EFAE0D572DD9D7A37D /* TranscriptLexicalMatcher.swift */; };
+		ACDC7799D95828863B504A27 /* ArvectumDiagnostics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49713BC6A5E5232134EF9946 /* ArvectumDiagnostics.swift */; };
 		AEB98CE89CFA026E5F1FE370 /* SmartSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B585B95ED7BF383E24A396 /* SmartSearchView.swift */; };
 		AFFF14FF71B201060DB61571 /* InboxOrganizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A671C143C8B8AA6E71D5046 /* InboxOrganizer.swift */; };
 		B0C96BCEE812143920F8FA66 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 58E433EB7FDFABF2CA66D5BF /* Assets.xcassets */; };
@@ -161,10 +163,10 @@
 		1804DB448307D7581C01F806 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		1AF4FD056784301068F49063 /* GroundedMemoryAnswer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroundedMemoryAnswer.swift; sourceTree = "<group>"; };
 		1D0B51DE0971B320ECF3899E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		202AA6EA6548079F9C4DF8F4 /* ArvectumJSONCodec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArvectumJSONCodec.swift; sourceTree = "<group>"; };
 		246D11929E5A69C73C37010B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		27F5BECCDE1474FF547D4DDE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		28C9581F753BED275286D623 /* RecordingEnvelope.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingEnvelope.swift; sourceTree = "<group>"; };
+		297C36478231B0A41DEC67DB /* AdaptiveLayoutUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveLayoutUITests.swift; sourceTree = "<group>"; };
 		2B8DC84E4B7383D9043BF774 /* CaptureLatency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureLatency.swift; sourceTree = "<group>"; };
 		2D93405209E72242B4DFEF0F /* MicrophoneCapturePipeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MicrophoneCapturePipeline.swift; sourceTree = "<group>"; };
 		2DAF10FAA909DE7229482FBC /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
@@ -177,6 +179,7 @@
 		3FEB908379268EDF523C2242 /* TranscriptEditorSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscriptEditorSheet.swift; sourceTree = "<group>"; };
 		456E30708D79A850A07FE2C5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		45AF5A244D5C57B278411CCC /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		49713BC6A5E5232134EF9946 /* ArvectumDiagnostics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArvectumDiagnostics.swift; sourceTree = "<group>"; };
 		504D7E8A050C788BB8AB0E56 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		55E1CDF413B1021AF609E11A /* SyncDiagnosticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncDiagnosticsView.swift; sourceTree = "<group>"; };
 		57CA5B4FD3F49550A3BF2B59 /* RecordingRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingRepository.swift; sourceTree = "<group>"; };
@@ -204,18 +207,30 @@
 		CCEC9E429D08B3C421557916 /* WhatIOS.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = WhatIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD77D9CE7514B2812E2AA048 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		CECAA3B8CBC13E2455D09ADE /* CaptureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureView.swift; sourceTree = "<group>"; };
-		D19478C8FA1C97D399AA6AAC /* ArvectumDiagnostics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArvectumDiagnostics.swift; sourceTree = "<group>"; };
 		D6D1A5C9E79CC4A544374E3E /* WhatComplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatComplication.swift; sourceTree = "<group>"; };
 		D77CB821F9683C6381DD792C /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DAAB014EC25B8F1BE07A8003 /* WatchQueueSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchQueueSnapshot.swift; sourceTree = "<group>"; };
+		E102CCDB0DE952508F02C601 /* ArvectumJSONCodec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArvectumJSONCodec.swift; sourceTree = "<group>"; };
 		E2EC835E1A980C511E5E6EDD /* WatchDeliveredAudioValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchDeliveredAudioValidation.swift; sourceTree = "<group>"; };
 		E3997C787CF6EC5F61396098 /* PhoneRecordingSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneRecordingSheet.swift; sourceTree = "<group>"; };
 		E401399D9CC19485D6B0BBA7 /* PhoneStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneStore.swift; sourceTree = "<group>"; };
+		E636A02A7F2781E5CBE6E6FA /* core */ = {isa = PBXFileReference; lastKnownFileType = folder; name = core; path = ../../core; sourceTree = SOURCE_ROOT; };
 		E6ACA38EC5E339EF4FE47646 /* CaptureFirstUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureFirstUITests.swift; sourceTree = "<group>"; };
 		E8F96BFC4E2D4DD08402B798 /* PhoneRecordingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneRecordingController.swift; sourceTree = "<group>"; };
 		EBF159B5D81F63DE0DAE6484 /* WhatPhoneWidget.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = WhatPhoneWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2BFC9C4506A03AAA4B5CCC7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B7852B4D0353B822905EA5CC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				044388FB9C3287BEA15AA6DC /* ArvectumCore in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		0DF8574158C04AFB8E13F356 /* Products */ = {
@@ -229,14 +244,6 @@
 				30A158E04405BA04A51B6785 /* WhatWatchComplication.appex */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		1809D47C87586F80A692C34D /* ArvectumDiagnostics */ = {
-			isa = PBXGroup;
-			children = (
-				D19478C8FA1C97D399AA6AAC /* ArvectumDiagnostics.swift */,
-			);
-			path = ArvectumDiagnostics;
 			sourceTree = "<group>";
 		};
 		1A5685733475ABA552DA6613 /* WhatIOS */ = {
@@ -283,18 +290,11 @@
 		26C2FA087891BD85417AC958 /* WhatIOSUITests */ = {
 			isa = PBXGroup;
 			children = (
+				297C36478231B0A41DEC67DB /* AdaptiveLayoutUITests.swift */,
 				E6ACA38EC5E339EF4FE47646 /* CaptureFirstUITests.swift */,
 				3EEC5029D31A75E43264EDFD /* ReviewDemoUITests.swift */,
 			);
 			path = WhatIOSUITests;
-			sourceTree = "<group>";
-		};
-		2C8EF1A67222D0376EE6BE39 /* ArvectumPersistence */ = {
-			isa = PBXGroup;
-			children = (
-				202AA6EA6548079F9C4DF8F4 /* ArvectumJSONCodec.swift */,
-			);
-			path = ArvectumPersistence;
 			sourceTree = "<group>";
 		};
 		3D057B2BDE821668C713E082 /* Shared */ = {
@@ -327,8 +327,9 @@
 		4BBCCB53865CEEB047835542 = {
 			isa = PBXGroup;
 			children = (
+				E46E3C0944926CF339B5BBFE /* core-ipad-duo-pilots-20261018 */,
+				5F67277EF111A1AA7623FCC4 /* Packages */,
 				3D057B2BDE821668C713E082 /* Shared */,
-				DD271C4DBFCC9D1921179DB9 /* what-capture-reliability-a2-20261015 */,
 				1A5685733475ABA552DA6613 /* WhatIOS */,
 				2552E17FD64CA0D618598837 /* WhatIOSTests */,
 				26C2FA087891BD85417AC958 /* WhatIOSUITests */,
@@ -350,13 +351,20 @@
 			path = WhatWatchComplication;
 			sourceTree = "<group>";
 		};
-		80E6E26E43BFF44859B09A23 /* packages */ = {
+		5F67277EF111A1AA7623FCC4 /* Packages */ = {
 			isa = PBXGroup;
 			children = (
-				1809D47C87586F80A692C34D /* ArvectumDiagnostics */,
-				2C8EF1A67222D0376EE6BE39 /* ArvectumPersistence */,
+				E636A02A7F2781E5CBE6E6FA /* core */,
 			);
-			path = packages;
+			name = Packages;
+			sourceTree = "<group>";
+		};
+		7A48CD417C290101D918BF4E /* ArvectumDiagnostics */ = {
+			isa = PBXGroup;
+			children = (
+				49713BC6A5E5232134EF9946 /* ArvectumDiagnostics.swift */,
+			);
+			path = ArvectumDiagnostics;
 			sourceTree = "<group>";
 		};
 		8C2C38EC2F1EB4FD8C46588C /* WhatWatch */ = {
@@ -373,21 +381,38 @@
 			path = WhatWatch;
 			sourceTree = "<group>";
 		};
-		DD271C4DBFCC9D1921179DB9 /* what-capture-reliability-a2-20261015 */ = {
+		D98A6CD14481AB237864EEBE /* packages */ = {
 			isa = PBXGroup;
 			children = (
-				FEE525A12DCD04539F760E8A /* core */,
+				7A48CD417C290101D918BF4E /* ArvectumDiagnostics */,
+				EE0205E49F62501D8BEA4C2F /* ArvectumPersistence */,
 			);
-			name = "what-capture-reliability-a2-20261015";
+			path = packages;
+			sourceTree = "<group>";
+		};
+		E36EB07B9325506904158BB2 /* core */ = {
+			isa = PBXGroup;
+			children = (
+				D98A6CD14481AB237864EEBE /* packages */,
+			);
+			path = core;
+			sourceTree = "<group>";
+		};
+		E46E3C0944926CF339B5BBFE /* core-ipad-duo-pilots-20261018 */ = {
+			isa = PBXGroup;
+			children = (
+				E36EB07B9325506904158BB2 /* core */,
+			);
+			name = "core-ipad-duo-pilots-20261018";
 			path = ../..;
 			sourceTree = "<group>";
 		};
-		FEE525A12DCD04539F760E8A /* core */ = {
+		EE0205E49F62501D8BEA4C2F /* ArvectumPersistence */ = {
 			isa = PBXGroup;
 			children = (
-				80E6E26E43BFF44859B09A23 /* packages */,
+				E102CCDB0DE952508F02C601 /* ArvectumJSONCodec.swift */,
 			);
-			path = core;
+			path = ArvectumPersistence;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -399,6 +424,7 @@
 			buildPhases = (
 				A5A1B6BD2CFB51585CE66B2F /* Sources */,
 				355E27AFB88E35713CFE6DB8 /* Resources */,
+				B7852B4D0353B822905EA5CC /* Frameworks */,
 				70043916768A42F66BD1E583 /* Embed Foundation Extensions */,
 				6E46CCD9EF1B3FA1038B67D9 /* Embed Watch Content */,
 			);
@@ -410,6 +436,7 @@
 			);
 			name = WhatIOS;
 			packageProductDependencies = (
+				DEFB26E81F3BF2637929AA30 /* ArvectumCore */,
 			);
 			productName = WhatIOS;
 			productReference = CCEC9E429D08B3C421557916 /* WhatIOS.app */;
@@ -553,6 +580,9 @@
 			);
 			mainGroup = 4BBCCB53865CEEB047835542;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				3DC70B5AC0EDE02B92E1081E /* XCLocalSwiftPackageReference "../../core" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 0DF8574158C04AFB8E13F356 /* Products */;
 			projectDirPath = "";
@@ -613,7 +643,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5139AF52BBA7C50D9EC9818B /* ArvectumDiagnostics.swift in Sources */,
+				ACDC7799D95828863B504A27 /* ArvectumDiagnostics.swift in Sources */,
 				C611ECB87B428D831936DD84 /* CaptureBrand.swift in Sources */,
 				5FD7F8E32D78068474F665C3 /* CaptureLatency.swift in Sources */,
 				686DBE4CA2BBE32B81849C8A /* CaptureView.swift in Sources */,
@@ -634,6 +664,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6808782DEC9A52705F09D547 /* AdaptiveLayoutUITests.swift in Sources */,
 				4B245C0DC2EC18A8311E7D0C /* CaptureFirstUITests.swift in Sources */,
 				0633B2238EF1A5BD5B32969F /* ReviewDemoUITests.swift in Sources */,
 			);
@@ -661,7 +692,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7FCD7C290C214A811D5C2256 /* ArvectumJSONCodec.swift in Sources */,
+				A43D2CC80B5AE0CF434A64E3 /* ArvectumJSONCodec.swift in Sources */,
 				BFB62EE79AFCE52D90A0F8B9 /* CaptureBrand.swift in Sources */,
 				FBFF4F6A8BF34A92362B808A /* CaptureLatency.swift in Sources */,
 				23C3DC142A5320642976B51C /* ContentView.swift in Sources */,
@@ -789,7 +820,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = ru.arvectum.tools.what.widget;
 				PRODUCT_NAME = WhatPhoneWidget;
 				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -895,7 +926,7 @@
 				PRODUCT_NAME = WhatIOS;
 				SDKROOT = iphoneos;
 				SUPPORTS_MACCATALYST = NO;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -951,7 +982,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = ru.arvectum.tools.what.widget;
 				PRODUCT_NAME = WhatPhoneWidget;
 				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -1116,7 +1147,7 @@
 				PRODUCT_NAME = WhatIOS;
 				SDKROOT = iphoneos;
 				SUPPORTS_MACCATALYST = NO;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -1187,6 +1218,20 @@
 			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		3DC70B5AC0EDE02B92E1081E /* XCLocalSwiftPackageReference "../../core" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../../core;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		DEFB26E81F3BF2637929AA30 /* ArvectumCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ArvectumCore;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = E77A39522192E6739A600951 /* Project object */;
 }

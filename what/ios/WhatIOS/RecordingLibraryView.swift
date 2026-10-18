@@ -1,4 +1,5 @@
 import SwiftUI
+import ArvectumCore
 
 struct RecordingLibraryView: View {
     let openCaptureHome: () -> Void
@@ -27,7 +28,8 @@ struct RecordingLibraryView: View {
 
     var body: some View {
         NavigationStack {
-            VStack(spacing: 0) {
+            ArvectumReadableColumn(maxWidth: 960) {
+                VStack(spacing: 0) {
                 Picker(CaptureBrand.text("Папка", "Folder"), selection: $selectedFolder) {
                     ForEach(InboxFolder.allCases) { folder in
                         Text(folder == .inbox
@@ -143,6 +145,7 @@ struct RecordingLibraryView: View {
                         Text(CaptureBrand.text("Аудио и текст будут безвозвратно удалены с iPhone.", "The audio and transcript will be deleted from this iPhone. This cannot be undone."))
                     }
                 }
+            }
             }
             .searchable(text: $searchText, prompt: CaptureBrand.text("Поиск по записям", "Search transcripts and dates"))
             .navigationTitle(CaptureBrand.name)
