@@ -1,0 +1,106 @@
+import XCTest
+@testable import HabitsByArvectum
+
+final class WaterExportPlanningTests: XCTestCase {
+    private let habitID = UUID(uuidString: "00000000-0000-0000-0000-000000000071")!
+    private let day = "2026-10-18"
+    private var utc: Calendar {
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = TimeZone(secondsFromGMT: 0)!
+        return calendar
+    }
+    private var optIn: WaterExportRule {
+        WaterExportRule(
+            millilitresPerUnit: 250,
+            enabledAt: utc.date(from: DateComponents(year: 2026, month: 10, day: 18))!
+        )
+    }
+    private func evaluate(
+        _ count: Int, rule: WaterExportRule?, receipt: WaterExportReceipt? = nil,
+        goal: HabitGoalMode = .quantity(count: 10), dayKey: String = "2026-10-18"
+    ) -> WaterExportAction {
+        WaterExportPlanning.action(
+            habitID: habitID, dayKey: dayKey, goal: goal, currentCount: count,
+            rule: rule, receipt: receipt, calendar: utc
+        )
+    }
+    func testDisabledByDefaultRegardlessOfHabitNameOrQuantity() {
+        XCTAssertEqual(evaluate(3, rule: nil), .none)
+    }
+    func testExplicitVolumeConversionUsesUserSuppliedSize() {
+        XCTAssertEqual(evaluate(3, rule: optIn), .upsert(
+            identifier: WaterExportPlanning.syncIdentifier(habitID: habitID, dayKey: day),
+            millilitres: 750, syncVersion: 1))
+    }
+    func testIdenticalCountAndVolumeAreIdempotent() {
+        let identifier = WaterExportPlanning.syncIdentifier(habitID: habitID, dayKey: day)
+        XCTAssertEqual(evaluate(3, rule: optIn,
+            receipt: .init(syncIdentifier: identifier, quantity: 3,
+                           millilitres: 750, syncVersion: 5)), .none)
+    }
+    func testCorrectionsAdvanceVersionWithoutDuplicatingDay() {
+        let identifier = WaterExportPlanning.syncIdentifier(habitID: habitID, dayKey: day)
+        XCTAssertEqual(evaluate(2, rule: optIn,
+            receipt: .init(syncIdentifier: identifier, quantity: 3,
+                           millilitres: 750, syncVersion: 5)),
+            .upsert(identifier: identifier, millilitres: 500, syncVersion: 6))
+    }
+    func testUndoRequestsRemovalOnlyOfOwnRecordedSample() {
+        let identifier = WaterExportPlanning.syncIdentifier(habitID: habitID, dayKey: day)
+        XCTAssertEqual(evaluate(0, rule: optIn,
+            receipt: .init(syncIdentifier: identifier, quantity: 1,
+                           millilitres: 250, syncVersion: 1)),
+            .delete(identifier: identifier))
+        XCTAssertEqual(evaluate(0, rule: optIn), .none)
+    }
+    func testDisablingRuleRemovesPreviouslyOwnedSampleOnly() {
+        let identifier = WaterExportPlanning.syncIdentifier(habitID: habitID, dayKey: day)
+        let receipt = WaterExportReceipt(syncIdentifier: identifier, quantity: 2,
+                                         millilitres: 500, syncVersion: 1)
+        XCTAssertEqual(evaluate(2, rule: nil, receipt: receipt), .delete(identifier: identifier))
+        XCTAssertEqual(evaluate(2, rule: nil), .none)
+    }
+    func testNoSyncForNonQuantitativeHabit() {
+        XCTAssertEqual(evaluate(1, rule: optIn, goal: .scheduled), .none)
+        XCTAssertEqual(evaluate(1, rule: optIn, goal: .duration(minutes: 30)), .none)
+    }
+    func testOptInNeverBackfillsPreviousDays() {
+        XCTAssertEqual(evaluate(5, rule: optIn, dayKey: "2026-10-17"), .none)
+        XCTAssertEqual(evaluate(5, rule: optIn, dayKey: "2026-10-18"), .upsert(
+            identifier: WaterExportPlanning.syncIdentifier(habitID: habitID, dayKey: day),
+            millilitres: 1250, syncVersion: 1))
+    }
+    func testInvalidAndNonexistentDayIsIgnored() {
+        XCTAssertEqual(evaluate(4, rule: optIn, dayKey: "2026-02-30"), .none)
+    }
+    func testInvalidVolumeRejected() {
+        XCTAssertFalse(WaterExportRule(millilitresPerUnit: 0, enabledAt: .now).isValid)
+        XCTAssertFalse(WaterExportRule(millilitresPerUnit: 1001, enabledAt: .now).isValid)
+        XCTAssertTrue(WaterExportRule(millilitresPerUnit: 300, enabledAt: .now).isValid)
+    }
+    func testCountClampsToHabitTarget() {
+        XCTAssertEqual(evaluate(100, rule: optIn, goal: .quantity(count: 8)), .upsert(
+            identifier: WaterExportPlanning.syncIdentifier(habitID: habitID, dayKey: day),
+            millilitres: 2000, syncVersion: 1))
+    }
+    func testLocalStoreIsolatedByUserDefaultsSuite() {
+        let suite = "chickmark-water-test-\(UUID().uuidString)"
+        let defaults = UserDefaults(suiteName: suite)!
+        defer { defaults.removePersistentDomain(forName: suite) }
+        let store = WaterExportLocalStore(defaults: defaults)
+        XCTAssertNil(store.rule(for: habitID))
+        store.setRule(optIn, for: habitID)
+        XCTAssertEqual(store.rule(for: habitID), optIn)
+        let identifier = WaterExportPlanning.syncIdentifier(habitID: habitID, dayKey: day)
+        let receipt = WaterExportReceipt(syncIdentifier: identifier,
+                                         quantity: 3, millilitres: 750, syncVersion: 1)
+        store.setReceipt(receipt, habitID: habitID, dayKey: day)
+        XCTAssertEqual(store.receipt(habitID: habitID, dayKey: day), receipt)
+        store.setRule(nil, for: habitID)
+        XCTAssertNil(store.rule(for: habitID))
+        // Keep receipt after opt-out until confirmed removal from Apple Health.
+        XCTAssertEqual(store.receipt(habitID: habitID, dayKey: day), receipt)
+        store.setReceipt(nil, habitID: habitID, dayKey: day)
+        XCTAssertNil(store.receipt(habitID: habitID, dayKey: day))
+    }
+}
