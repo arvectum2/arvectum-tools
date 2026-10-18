@@ -1,5 +1,17 @@
 # Arvectum Tools Core — Roadmap
 
+## Контрольная точка · 18.10.2026
+**Приоритет:** достоверные релизы, общие CI и адаптивный UI. Источники задач — [очередь Core](EXECUTION_PLAN.md), [матрица устройств](DEVICE_ADAPTATION_ROADMAP.md), [реестр](PORTFOLIO.md).
+
+- [x] Отразить в реестре дату и статус новых отправок Ухвата 1.1.0(8) и ChickMark 1.5.0(18), не называя отправку публикацией ([аудит релизной ветки](https://github.com/arvectum2/arvectum-tools/blob/release/what-chickmark-20261018-rc1/what/docs/RELEASE_AUDIT_WHAT_CHICKMARK_2026-10-18.md)).
+- [ ] **C18-A · Release provenance:** после решения Apple проверить READY_FOR_SALE, реальные витрины, теги исходников, подписанные архивы и зеркало GitVerse; будущие релизы не наследуют успех старого CI.
+- [ ] **C18-B · Adaptive Core:** Xcode 27.1 и iPhone Duo runtime готовы, но общий ArvectumAdaptiveLayout остаётся в feature-ветке. Подтвердить два потребителя, Dynamic Type, iPad Split View/Stage Manager, Duo fold/unfold и жизненный цикл сцены до интеграции в main.
+- [ ] **C18-C · StoreKit:** внедрить и протестировать согласованную политику C-R1…C-R4 (третий квалифицированный запуск, далее +5, только после успешного действия), без запросов во время записи или импорта и без попыток узнавать факт оставления оценки; app-specific QA остаётся у приложений.
+- [ ] **C18-D · CI:** защищать iOS/watchOS/Android dependency-impact checks, не запускать фиктивные job для приостановленного Where?, не заменять физический QA зелёным CI.
+
+**Границы:** UX, HealthKit и уведомления принадлежат приложениям; ASO/SEO/экономика — [Growth](../growth/ROADMAP.md).
+
+
 **Очередность работ 2026-10-15:** [общий execution plan](EXECUTION_PLAN.md). [Срез A0 — Apple, исходники и GitVerse](RELEASE_PROVENANCE_20261015.md). Приоритет — CI/release provenance и помощь живым релизам, без активной разработки Where?.
 
 ## P2 · Единый запрос оценки App Store — 2026-10-17

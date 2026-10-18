@@ -6,6 +6,19 @@ not copied checkboxes. Apps release independently.
 
 **Исполняемая очередь 2026-10-15:** [Единый план работ без Where?](EXECUTION_PLAN.md). [A5: четыре подписанных кандидата, локальный audit и блокеры отправки](A5_SIGNED_RELEASE_CANDIDATES_20261015.md). Where? поставлен на паузу; остальные продукты, Core и Growth остаются в scope.
 
+## Срез портфеля · 18.10.2026 (по имеющимся релизным доказательствам)
+**Источник:** [аудит отправок от 18 октября](https://github.com/arvectum2/arvectum-tools/blob/release/what-chickmark-20261018-rc1/what/docs/RELEASE_AUDIT_WHAT_CHICKMARK_2026-10-18.md). Это датированный документальный срез, **не новый live-опрос ASC**; WAITING_FOR_REVIEW не означает публикацию.
+
+| Продукт | Последняя подтверждённая публичная iOS версия | Более новая ветка / кандидат | Открытый gate |
+| --- | --- | --- | --- |
+| ChickMark | 1.4.1(15), ASC READY_FOR_SALE 16.10 | 1.5.0(18) submitted 18.10 09:01 МСК, WAITING_FOR_REVIEW | Apple, storefront, безопасный upgrade |
+| Ухват / UhWhat? | 1.0.0(5), ASC READY_FOR_SALE 15.10 | 1.1.0(8) submitted 18.10 09:01 МСК, WAITING_FOR_REVIEW | Apple, Watch/data/iPad acceptance |
+| Фото и PDF под размер | 1.0.1(13), ASC READY_FOR_SALE 15.10 | 1.0.2(14) signed, upload не подтверждён | Files/PDF/РСЯ device QA |
+| Pushkin | публикация не подтверждена | 1.0.0(1) WAITING_FOR_REVIEW при проверке 15.10 | повторная ASC проверка, Shortcuts/delete QA |
+| Where? | нет | PAUSED, W0–W3/E0–E5 — план | команда на возобновление |
+
+**Инфраструктура:** Xcode 27.1 и Duo runtime готовы, но Core adaptive — прототип, app-specific iPad/Duo acceptance не завершён. **Growth:** измерение реальных установок и монетизации до любых закупок трафика или автоматизации.
+
 ## Product roadmaps
 - [Фото и PDF под размер](../photo-pdf-to-size/ROADMAP.md) — photo/PDF resizing, document presets, exports, app-specific UX, implementation and QA.
 - [Pushkin](../pushkin/ROADMAP.md) — notifications capture, history, onboarding, search, reliability and app-specific UX.
