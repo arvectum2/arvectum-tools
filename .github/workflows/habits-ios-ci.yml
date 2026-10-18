@@ -7,11 +7,17 @@ on:
     paths:
       - 'chickmark/ios/**'
       - 'core/packages/**'
+      - 'core/tools/sync_dependencies.py'
+      - 'core/dependencies/catalog.json'
+      - 'core/Package.swift'
       - '.github/workflows/habits-ios-ci.yml'
   pull_request:
     paths:
       - 'chickmark/ios/**'
       - 'core/packages/**'
+      - 'core/tools/sync_dependencies.py'
+      - 'core/dependencies/catalog.json'
+      - 'core/Package.swift'
       - '.github/workflows/habits-ios-ci.yml'
   workflow_dispatch:
 

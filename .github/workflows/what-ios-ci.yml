@@ -5,10 +5,14 @@ on:
     branches: ['**']
     paths:
       - 'what/ios/**'
+      - 'core/Package.swift'
+      - 'core/packages/**'
       - '.github/workflows/what-ios-ci.yml'
   pull_request:
     paths:
       - 'what/ios/**'
+      - 'core/Package.swift'
+      - 'core/packages/**'
       - '.github/workflows/what-ios-ci.yml'
   workflow_dispatch:
 

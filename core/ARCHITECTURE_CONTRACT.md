@@ -43,7 +43,7 @@ Root may contain only repository metadata, `LICENSE` and `README.md`.
 This model allows independent concurrent development **without fragmenting the ecosystem into seven permanently diverging codebases**.
 
 ## Automated policy enforcement
-`core/tools/check_architecture.py` checks the exact top-level structure, roadmap presence, symlink escapes, cross-domain source path references, Swift module imports and invalid local project references. It uses a source-only scan to avoid punishing historical prose. Run with `python3 core/tools/check_architecture.py`.
+`core/tools/check_architecture.py` checks the exact top-level structure, roadmap presence, symlink escapes, cross-domain source path references, Swift module imports and invalid local project references. It uses a source-only scan to avoid punishing historical prose. Run with `python3 core/tools/check_architecture.py`. CI trigger impact is independently checked by `python3 core/tools/check_ci_coverage.py`; this read-only orchestration check is permitted to name product workflow paths, not import product code.
 
 Changes to this contract or allowlist require review in Core. Do not disable or suppress the CI check to get unrelated code merged.
 

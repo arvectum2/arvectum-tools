@@ -7,11 +7,13 @@ on:
     paths:
       - 'pushkin/ios/**'
       - 'core/packages/**'
+      - 'core/Package.swift'
       - '.github/workflows/pushkin-ios-ci.yml'
   pull_request:
     paths:
       - 'pushkin/ios/**'
       - 'core/packages/**'
+      - 'core/Package.swift'
       - '.github/workflows/pushkin-ios-ci.yml'
   workflow_dispatch:
 
