@@ -3,6 +3,29 @@ import XCTest
 @testable import WhatIOS
 
 final class VideoCameraSwitchTests: XCTestCase {
+    func testExportGateRejectsPreviousSegmentsWhileLastMOVIsOpen() {
+        XCTAssertFalse(VideoCaptureFinalizationGate.canCompose(
+            startedSegments: 4, finalizedSegments: 3,
+            writerIsRecording: false
+        ))
+        XCTAssertFalse(VideoCaptureFinalizationGate.canCompose(
+            startedSegments: 4, finalizedSegments: 4,
+            writerIsRecording: true
+        ))
+        XCTAssertFalse(VideoCaptureFinalizationGate.canCompose(
+            startedSegments: 0, finalizedSegments: 0,
+            writerIsRecording: false
+        ))
+        XCTAssertTrue(VideoCaptureFinalizationGate.canCompose(
+            startedSegments: 4, finalizedSegments: 4,
+            writerIsRecording: false
+        ))
+        XCTAssertTrue(VideoCaptureFinalizationGate.canCompose(
+            startedSegments: 1, finalizedSegments: 1,
+            writerIsRecording: false
+        ))
+    }
+
     func testSwitchThenStopRetainsAllEarlierSegments() {
         var flow = VideoCaptureTransition()
         XCTAssertTrue(flow.requestSwitch(isRecording: true))

@@ -39,7 +39,7 @@ final class VideoCaptureController: NSObject, ObservableObject,
     private nonisolated(unsafe) var nextSegmentNumber = 0
 
     var onSaved: ((URL, TimeInterval, UUID) throws -> Void)?
-    var onRecoverAfterBackground: ((UUID) async -> Bool)?
+    var onRecoverAfterBackground: ((UUID, Int) async -> Bool)?
 
     deinit {
         if let recoveryID {
@@ -240,7 +240,12 @@ final class VideoCaptureController: NSObject, ObservableObject,
                 guard !stillRecording else { continue }
                 closeSession()
                 VideoCaptureJournal.setActive(id, active: false)
-                let recovered = await onRecoverAfterBackground?(id) ?? false
+                let expectedSegments = await withCheckedContinuation { continuation in
+                    sessionQueue.async { [self] in
+                        continuation.resume(returning: nextSegmentNumber)
+                    }
+                }
+                let recovered = await onRecoverAfterBackground?(id, expectedSegments) ?? false
                 if recovered {
                     didSave = true
                     endBackgroundSaveTask()
@@ -464,6 +469,29 @@ final class VideoCaptureController: NSObject, ObservableObject,
             errorMessage = "Missing capture ID — original segments were preserved."
             return
         }
+        // A switch may have started the next segment before a background
+        // Stop invokes a stale didFinish callback from the previous segment.
+        // In that case `clips` is a playable prefix while the last original
+        // MOV is still being finalized. Never commit it as the complete note.
+        let state = await withCheckedContinuation { continuation in
+            sessionQueue.async { [self] in
+                continuation.resume(returning: (
+                    started: nextSegmentNumber,
+                    recording: fileOutput.isRecording
+                ))
+            }
+        }
+        guard VideoCaptureFinalizationGate.canCompose(
+            startedSegments: state.started, finalizedSegments: clips.count,
+            writerIsRecording: state.recording
+        ) else {
+            errorMessage = CaptureBrand.text(
+                "Последний фрагмент видео ещё сохраняется. Исходные файлы оставлены для восстановления.",
+                "The final video segment has not finished writing. Original files are preserved for recovery."
+            )
+            return
+        }
+
         let destination = recoveryJournal.mergedURL(for: recoveryID)
         // A previous interrupted export can leave a generated partial file.
         // Only the generated combination, never a camera segment, is replaced.
@@ -705,10 +733,22 @@ struct VideoCaptureHost: View {
                 recorder.onSaved = { [store] url, duration, id in
                     try store.saveVideo(from: url, duration: duration, id: id)
                 }
-                recorder.onRecoverAfterBackground = { [store] id in
-                    await store.recoverInterruptedVideos()
-                    return store.localNotes.contains { $0.id == id && $0.kind == .video }
+                recorder.onRecoverAfterBackground = { [store] id, expectedSegments in
+                    await store.recoverInterruptedVideos(
+                        requireCompleteSegments: true,
+                        expectedSegmentCount: expectedSegments
+                    )
+                    // A partial note is NOT proof of complete recovery. The
+                    // journal must be cleaned before dismissing this sheet.
+                    let stillPending = (try? VideoCaptureJournal().pendingSessions())?
+                        .contains(where: { $0.id == id }) ?? true
+                    return !stillPending && store.localNotes.contains {
+                        $0.id == id && $0.kind == .video
+                    }
                 }
+#if REVIEW_HANDOFF_QA
+                PhysicalCaptureQAProbe.shared.attachVideoRecorderIfRequested(recorder)
+#endif
             }
     }
 }

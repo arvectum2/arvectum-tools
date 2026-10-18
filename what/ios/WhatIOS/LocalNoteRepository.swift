@@ -151,6 +151,14 @@ final class LocalNoteRepository {
         return note
     }
 
+    /// Duration of an already indexed copy. Used to prevent crash recovery
+    /// from deleting source segments that contain more than the saved note.
+    func indexedVideoDuration(id: UUID) throws -> TimeInterval? {
+        lock.lock()
+        defer { lock.unlock() }
+        return try readIndex().first { $0.id == id && $0.kind == .video }?.duration
+    }
+
     func hasVideo(id: UUID) throws -> Bool {
         lock.lock()
         defer { lock.unlock() }
