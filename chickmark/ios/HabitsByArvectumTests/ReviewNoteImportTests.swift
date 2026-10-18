@@ -53,7 +53,9 @@ final class ReviewNoteImportTests: XCTestCase {
         XCTAssertEqual(oneOffs.count, 1)
         XCTAssertEqual(oneOffs[0].id, transfer.noteID)
         XCTAssertFalse(oneOffs[0].isCompleted)
-        XCTAssertTrue(oneOffs[0].title.hasPrefix("Разобрать заметку"))
+        XCTAssertTrue(["ru", "en", "es"].contains {
+            oneOffs[0].title.hasPrefix(L10n.string("review.note.prefix", language: $0))
+        })
         XCTAssertEqual(try ledger.get(transfer.noteID)?.text, transfer.text)
         XCTAssertEqual(try ledger.get(transfer.noteID)?.sourceURL, transfer.sourceURL)
         XCTAssertThrowsError(try ReviewNoteImportService.create(
@@ -99,6 +101,34 @@ final class ReviewNoteImportTests: XCTestCase {
             for: ordinary, attachmentStore: repository).title, ordinary.title)
     }
 
+    func testReviewHandoffLocalizedInAllThreeAppLanguages() {
+        let translations: [String: (String, String)] = [
+            "ru": ("Заметка из Ухвата", "Разобрать заметку: "),
+            "en": ("Note from UhWhat?", "Review note: "),
+            "es": ("Nota de UhWhat?", "Revisar nota: ")
+        ]
+        for (language, expected) in translations {
+            XCTAssertEqual(L10n.string("review.source.title", language: language), expected.0)
+            XCTAssertEqual(L10n.string("review.note.prefix", language: language), expected.1)
+            XCTAssertFalse(L10n.string("review.paste.instructions", language: language).isEmpty)
+            XCTAssertFalse(L10n.string("review.notification.genericTitle", language: language).isEmpty)
+        }
+    }
+
+    func testPrivateNotificationTitleStaysGenericForEveryImportedLanguage() throws {
+        let repo = ReviewNoteAttachmentRepository(rootURL: FileManager.default.temporaryDirectory
+            .appendingPathComponent("missing-sidecar-\(UUID().uuidString)"))
+        for language in ["ru", "en", "es"] {
+            let title = L10n.string("review.note.prefix", language: language) + "SECRET_\(language)"
+            let reminder = OneOffReminder(title: title, dueAt: Date().addingTimeInterval(3600))
+            let content = HabitReminderScheduler.oneOffNotificationContent(
+                for: reminder, attachmentStore: repo
+            )
+            XCTAssertFalse(content.title.contains("SECRET"))
+            XCTAssertFalse(content.body.contains("SECRET"))
+        }
+    }
+
     func testImportedMetadataCodableBackupCompatibility() throws {
         let transfer = try ReviewNoteHandoff(noteID: UUID(), kind: .text,
             createdAt: Date(), text: "Unique Russian punctuation: поехать в Санкт-Петербург")
@@ -106,7 +136,8 @@ final class ReviewNoteImportTests: XCTestCase {
         let encoded = try JSONEncoder().encode([attachment])
         let decoded = try JSONDecoder().decode([ReviewNoteAttachment].self, from: encoded)
         XCTAssertEqual(decoded, [attachment])
-        XCTAssertTrue(attachment.sourceURL.absoluteString.hasPrefix("whatp2aqa://note/"))
+        XCTAssertTrue(attachment.sourceURL.absoluteString.hasPrefix("what://note/"),
+            "App Store ChickMark must link back to the installed public UhWhat? app")
     }
 
     @MainActor

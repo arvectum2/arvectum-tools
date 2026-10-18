@@ -98,8 +98,8 @@ enum ReviewNoteImportService {
         }
         let firstLine = transfer.text.split(separator: "\n", maxSplits: 1)
             .first.map(String.init)?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-        let heading = firstLine.isEmpty ? "Видео" : String(firstLine.prefix(84))
-        let title = "Разобрать заметку: \(heading)"
+        let heading = firstLine.isEmpty ? L10n.string("review.video.fallback") : String(firstLine.prefix(84))
+        let title = L10n.string("review.note.prefix") + heading
         try attachments.put(ReviewNoteAttachment(transfer))
         do {
             context.insert(OneOffReminder(id: transfer.noteID,
@@ -131,9 +131,9 @@ struct ReviewNotePasteSheet: View {
             VStack(spacing: 16) {
                 Image(systemName: "doc.on.clipboard")
                     .font(.largeTitle)
-                Text("Заметка из Ухвата")
+                Text(L10n.string("review.source.title"))
                     .font(.title2.weight(.semibold))
-                Text("Нажмите системную кнопку «Вставить», чтобы разрешить ChickMark прочитать только что переданную заметку. Ещё одно подтверждение потребуется перед созданием разового напоминания.")
+                Text(L10n.string("review.paste.instructions"))
                     .multilineTextAlignment(.center)
                     .foregroundStyle(.secondary)
                 PasteButton(payloadType: String.self) { strings in
@@ -141,23 +141,23 @@ struct ReviewNotePasteSheet: View {
                           let payload = try? ReviewNoteHandoff.decodeClipboardString(
                               raw, from: request.url
                           ) else {
-                        errorMessage = "Буфер обмена изменился или ссылка истекла. Повторите передачу из Ухвата."
+                        errorMessage = L10n.string("review.paste.expired")
                         return
                     }
                     onReceived(payload)
                 }
-                .accessibilityLabel("Вставить заметку")
+                .accessibilityLabel(L10n.string("review.paste.accessibility"))
                 .accessibilityIdentifier("chickmark.noteReview.paste")
             }
             .padding(24)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .navigationTitle("Получить заметку")
+            .navigationTitle(L10n.string("review.paste.title"))
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("Отмена") { dismiss() }
+                    Button(L10n.string("common.cancel")) { dismiss() }
                 }
             }
-            .alert("Не удалось вставить заметку", isPresented: Binding(
+            .alert(L10n.string("review.paste.failed"), isPresented: Binding(
                 get: { errorMessage != nil },
                 set: { if !$0 { errorMessage = nil } }
             )) {
@@ -205,17 +205,18 @@ struct ImportedReviewNoteSheet: View {
             Form {
                 if duplicate {
                     Section {
-                        Label("Заметка уже передана", systemImage: "checkmark.circle.fill")
+                        Label(L10n.string("review.duplicate.title"), systemImage: "checkmark.circle.fill")
+                            .accessibilityIdentifier("chickmark.noteReview.duplicateTitle")
                             .font(.headline)
-                        Text("Для этой заметки уже существует разовая задача. Повторно создавать её не нужно.")
+                        Text(L10n.string("review.duplicate.message"))
                             .font(.footnote)
                             .foregroundStyle(.secondary)
                     }
                     .accessibilityIdentifier("chickmark.noteReview.duplicate")
                 }
-                Section("Из Ухвата") {
-                    Label(transfer.kind == .audio ? "Голосовая заметка" :
-                          transfer.kind == .text ? "Текстовая заметка" : "Видеозаметка",
+                Section(L10n.string("review.source.section")) {
+                    Label(transfer.kind == .audio ? L10n.string("review.kind.audio") :
+                          transfer.kind == .text ? L10n.string("review.kind.text") : L10n.string("review.kind.video"),
                           systemImage: "arrow.right.circle")
                     Text(transfer.createdAt, format: .dateTime.day().month().year().hour().minute())
                         .font(.caption).foregroundStyle(.secondary)
@@ -224,33 +225,33 @@ struct ImportedReviewNoteSheet: View {
                             .font(.body)
                             .textSelection(.enabled)
                     } else {
-                        Text("Без текста. Оригинал остаётся в Ухвате.")
+                        Text(L10n.string("review.empty.text"))
                             .foregroundStyle(.secondary)
                     }
-                    Link("Открыть оригинал", destination: transfer.sourceURL)
+                    Link(L10n.string("review.source.open"), destination: transfer.sourceURL)
                 }
-                Section("Напомнить") {
-                    DatePicker("Когда вернуться", selection: $dueAt,
+                Section(L10n.string("review.remind.section")) {
+                    DatePicker(L10n.string("review.due.label"), selection: $dueAt,
                                in: Date()..., displayedComponents: [.date, .hourAndMinute])
                 }
                 Section {
-                    Text("Разовая задача, не привычка. Текст будет сохранён только в ChickMark после подтверждения. Уведомление не содержит расшифровку.")
+                    Text(L10n.string("review.privacy.explanation"))
                         .font(.footnote).foregroundStyle(.secondary)
                 }
             }
-            .navigationTitle("Добавить из Ухвата")
+            .navigationTitle(L10n.string("review.add.title"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("Отмена") { dismiss() }
+                    Button(L10n.string("common.cancel")) { dismiss() }
                 }
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("Создать") { Task { await save() } }
+                    Button(L10n.string("review.add.create")) { Task { await save() } }
                         .disabled(saving || dueAt <= Date() || duplicate)
                         .accessibilityIdentifier("chickmark.noteReview.confirm")
                 }
             }
-            .alert("Не удалось добавить", isPresented: Binding(
+            .alert(L10n.string("review.add.failed"), isPresented: Binding(
                 get: { error != nil }, set: { if !$0 { error = nil } }
             )) {
                 Button("OK") {}
@@ -273,7 +274,7 @@ struct ImportedReviewNoteSheet: View {
         saving = true
         defer { saving = false }
         guard await HabitReminderScheduler.ensureAuthorization() else {
-            error = "Разрешите уведомления ChickMark в настройках, чтобы создать напоминание."
+            error = L10n.string("review.notification.permission")
             return
         }
         do {
@@ -336,15 +337,17 @@ struct ReviewNoteAttachmentSheet: View {
                     if !attachment.text.isEmpty {
                         Text(attachment.text).textSelection(.enabled)
                     } else {
-                        Text("Транскрипции нет; откройте оригинал в Ухвате.")
+                        Text(L10n.string("review.attachment.noText"))
                     }
-                    Link("Открыть оригинал в Ухвате", destination: attachment.sourceURL)
+                    Link(L10n.string("review.source.openInApp"), destination: attachment.sourceURL)
+                        .accessibilityIdentifier("chickmark.noteReview.openOriginal")
                         .buttonStyle(.borderedProminent)
                 }
                 .padding()
                 .frame(maxWidth: .infinity, alignment: .leading)
             }
-            .navigationTitle("Заметка из Ухвата")
+            .navigationTitle(L10n.string("review.source.title"))
+            .accessibilityIdentifier("chickmark.noteReview.details")
         }
     }
 }

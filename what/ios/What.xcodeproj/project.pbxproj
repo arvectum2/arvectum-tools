@@ -18,10 +18,12 @@
 		1B01BE138A483EA2CE1DB1FE /* WhatWatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 9819634215CFE7B5CB7C96E2 /* WhatWatch.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		1BC48103D6E86867BC619F4B /* PhoneRecordingSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3997C787CF6EC5F61396098 /* PhoneRecordingSheet.swift */; };
 		1DB28694A4FB2349E0C75253 /* WhatApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94ABD3BF183D4D22AF1CD0B0 /* WhatApp.swift */; };
+		1EE6229562D613652C4DE89B /* ReviewNoteHandoff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F3A2DC65EFF7271FFB58294 /* ReviewNoteHandoff.swift */; };
 		21A6063DBDDDB23005137B78 /* WatchDurableQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8632BE1ABDF63CB6AD9F3FD6 /* WatchDurableQueue.swift */; };
 		227D739414C4A4B0A524EF61 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BC5256A0E66398B704FA4575 /* InfoPlist.strings */; };
 		234EA537934DE57D638D69B5 /* RussianConceptSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E538C9737AF66FDF491ED6C /* RussianConceptSearch.swift */; };
 		23C3DC142A5320642976B51C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F5BECCDE1474FF547D4DDE /* ContentView.swift */; };
+		24F976DFFFDDFC65423CDCA5 /* ArvectumJSONCodec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BF4CD35FAABC687B1C525FC /* ArvectumJSONCodec.swift */; };
 		29C27FAB856BF25AAF99EA4B /* WatchCaptureValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34695056F0776593473FDE58 /* WatchCaptureValidation.swift */; };
 		2A8F5E422C6CA0E9AC0E6C5A /* WhatWatchComplication.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 30A158E04405BA04A51B6785 /* WhatWatchComplication.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		2FD0DAFDEE58B7F0BCB4612F /* TranscriptEditorSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FEB908379268EDF523C2242 /* TranscriptEditorSheet.swift */; };
@@ -41,22 +43,20 @@
 		678FB4B35F0627D03AE0F736 /* WhatPhoneWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = EBF159B5D81F63DE0DAE6484 /* WhatPhoneWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		67A7309CBD38A6A55FD9B3D9 /* WatchTransferRetryPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A4FCD3C72E787C27B7E3EE /* WatchTransferRetryPolicy.swift */; };
 		686DBE4CA2BBE32B81849C8A /* CaptureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECAA3B8CBC13E2455D09ADE /* CaptureView.swift */; };
-		732184E032337C3686D13EC5 /* ReviewNoteHandoff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F5D951CD2035FF96F2B0DF /* ReviewNoteHandoff.swift */; };
 		777FE9D809C98D951CDB114E /* NoteReminderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D470F43BFCDA8910723904 /* NoteReminderService.swift */; };
 		7F50926EC0DC9A0BB5632002 /* UnifiedNoteKindFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D70C4EC8940024A47D2702F /* UnifiedNoteKindFilter.swift */; };
 		829D95F2391E62D3217A1C1A /* CaptureBrand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A64C8E1ED1DD3595D966992 /* CaptureBrand.swift */; };
 		8429BD4828F55DF8C4718902 /* LocalSemanticSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766855BE51B40DC7C113B75A /* LocalSemanticSearch.swift */; };
+		8688773D22884C3679EB5ECE /* ArvectumDiagnostics.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8B904CFCC919060128DE9D /* ArvectumDiagnostics.swift */; };
 		8DD93A3E6323ADD48EEF25AD /* CaptureBrand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A64C8E1ED1DD3595D966992 /* CaptureBrand.swift */; };
 		90470E2EE34AA46C84E2874C /* GroundedMemoryAnswer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AF4FD056784301068F49063 /* GroundedMemoryAnswer.swift */; };
 		907B5B5A45A712254AAFE0F5 /* VideoSegmentComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 191682D8916DEBB06E5A1BF8 /* VideoSegmentComposer.swift */; };
-		918D57F0ECBED753B8130126 /* ArvectumDiagnostics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C5E456592457A0821FA3A6 /* ArvectumDiagnostics.swift */; };
 		930D8453C63A2A36CD2B7018 /* RecordingEnvelope.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C9581F753BED275286D623 /* RecordingEnvelope.swift */; };
 		94A02EB26655A77F160CBCF6 /* WhatComplicationMark.swift in Sources */ = {isa = PBXBuildFile; fileRef = A837788192B4123FD29CD0D1 /* WhatComplicationMark.swift */; };
 		94DBE713D16466BF0B344B4B /* VideoCaptureTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7370C6755DFFFA5B932DB2AE /* VideoCaptureTransition.swift */; };
 		95F903D10357AB8003D0C5B5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 456E30708D79A850A07FE2C5 /* Assets.xcassets */; };
 		9624AC1580E81B3F01859FFC /* PhoneRecordingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F96BFC4E2D4DD08402B798 /* PhoneRecordingController.swift */; };
 		9A039B3C0931BAC0E371889B /* WatchQueueRecovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933E67C2BA97D85D01B0A3BA /* WatchQueueRecovery.swift */; };
-		9A46091A7BB14662AD7F0085 /* ArvectumJSONCodec.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2FB490D86DE9E2B9D600E0 /* ArvectumJSONCodec.swift */; };
 		9C5A13012F4A2E99F5379BB4 /* WatchDurableQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8632BE1ABDF63CB6AD9F3FD6 /* WatchDurableQueue.swift */; };
 		A2FFB527B39A111ECF5F3A00 /* RecordingRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BFFB46088A8945C66DFE7F4 /* RecordingRepositoryTests.swift */; };
 		A30C3DE47ABA4E7759819923 /* TextNoteSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA9D8C395BF9B08940A7689 /* TextNoteSheet.swift */; };
@@ -205,11 +205,11 @@
 		37FB5B073D935F3D8220478D /* WatchCaptureLaunchPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchCaptureLaunchPolicy.swift; sourceTree = "<group>"; };
 		3EEC5029D31A75E43264EDFD /* ReviewDemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewDemoUITests.swift; sourceTree = "<group>"; };
 		3FEB908379268EDF523C2242 /* TranscriptEditorSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscriptEditorSheet.swift; sourceTree = "<group>"; };
-		41C5E456592457A0821FA3A6 /* ArvectumDiagnostics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArvectumDiagnostics.swift; sourceTree = "<group>"; };
 		456E30708D79A850A07FE2C5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		45AF5A244D5C57B278411CCC /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4E7551688F04996B25C560E4 /* VideoRecordingSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoRecordingSheet.swift; sourceTree = "<group>"; };
 		4EF0E2FFE3E8099A4E2FAF8D /* SpeechAttemptGate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechAttemptGate.swift; sourceTree = "<group>"; };
+		4F3A2DC65EFF7271FFB58294 /* ReviewNoteHandoff.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewNoteHandoff.swift; sourceTree = "<group>"; };
 		504D7E8A050C788BB8AB0E56 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		554A6308CE6E00D0214C452B /* PhysicalVideoCaptureUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicalVideoCaptureUITests.swift; sourceTree = "<group>"; };
 		55E1CDF413B1021AF609E11A /* SyncDiagnosticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncDiagnosticsView.swift; sourceTree = "<group>"; };
@@ -236,18 +236,18 @@
 		8632BE1ABDF63CB6AD9F3FD6 /* WatchDurableQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchDurableQueue.swift; sourceTree = "<group>"; };
 		89A4FCD3C72E787C27B7E3EE /* WatchTransferRetryPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchTransferRetryPolicy.swift; sourceTree = "<group>"; };
 		8BFFB46088A8945C66DFE7F4 /* RecordingRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingRepositoryTests.swift; sourceTree = "<group>"; };
-		91F5D951CD2035FF96F2B0DF /* ReviewNoteHandoff.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewNoteHandoff.swift; sourceTree = "<group>"; };
 		933E67C2BA97D85D01B0A3BA /* WatchQueueRecovery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchQueueRecovery.swift; sourceTree = "<group>"; };
 		94ABD3BF183D4D22AF1CD0B0 /* WhatApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatApp.swift; sourceTree = "<group>"; };
 		9819634215CFE7B5CB7C96E2 /* WhatWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WhatWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9BF4CD35FAABC687B1C525FC /* ArvectumJSONCodec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArvectumJSONCodec.swift; sourceTree = "<group>"; };
 		A18C5018F3923EB2CC41A40A /* QuickCaptureHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickCaptureHomeView.swift; sourceTree = "<group>"; };
 		A4ED5C55003D60E489465C5D /* WhatWatchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatWatchApp.swift; sourceTree = "<group>"; };
 		A7594885189CFE2057AA3037 /* SyncDiagnosticsLocalizationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncDiagnosticsLocalizationUITests.swift; sourceTree = "<group>"; };
 		A837788192B4123FD29CD0D1 /* WhatComplicationMark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatComplicationMark.swift; sourceTree = "<group>"; };
+		AD8B904CFCC919060128DE9D /* ArvectumDiagnostics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArvectumDiagnostics.swift; sourceTree = "<group>"; };
 		AF84AA6ED70EBF8AE05B9A8A /* RussianModelManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RussianModelManager.swift; sourceTree = "<group>"; };
 		B443BA7E93D732977AB2850B /* ReviewNoteHandoffTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewNoteHandoffTests.swift; sourceTree = "<group>"; };
 		BAE26A89EE1D5F22115781E2 /* NoteReminderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteReminderTests.swift; sourceTree = "<group>"; };
-		BB2FB490D86DE9E2B9D600E0 /* ArvectumJSONCodec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArvectumJSONCodec.swift; sourceTree = "<group>"; };
 		BD17D674B9340C94107DCF39 /* ImmediateRecordingPayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImmediateRecordingPayload.swift; sourceTree = "<group>"; };
 		C5DBFDE9EA180D6409397677 /* LocalNoteRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNoteRepositoryTests.swift; sourceTree = "<group>"; };
 		CCEC9E429D08B3C421557916 /* WhatIOS.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = WhatIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -266,13 +266,20 @@
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
-		0B8841CDF86456FBE94603E7 /* what-chickmark-note-handoff-20261017 */ = {
+		06804EBEEC7CD5DEF386C240 /* ArvectumPersistence */ = {
 			isa = PBXGroup;
 			children = (
-				DF893208F3BF5D8F530CB47B /* core */,
+				9BF4CD35FAABC687B1C525FC /* ArvectumJSONCodec.swift */,
 			);
-			name = "what-chickmark-note-handoff-20261017";
-			path = ../..;
+			path = ArvectumPersistence;
+			sourceTree = "<group>";
+		};
+		06C8194AF9C1169E565F6272 /* ArvectumInterapp */ = {
+			isa = PBXGroup;
+			children = (
+				4F3A2DC65EFF7271FFB58294 /* ReviewNoteHandoff.swift */,
+			);
+			path = ArvectumInterapp;
 			sourceTree = "<group>";
 		};
 		0DF8574158C04AFB8E13F356 /* Products */ = {
@@ -286,6 +293,14 @@
 				30A158E04405BA04A51B6785 /* WhatWatchComplication.appex */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		1420C4835F5A4427C967853A /* ArvectumDiagnostics */ = {
+			isa = PBXGroup;
+			children = (
+				AD8B904CFCC919060128DE9D /* ArvectumDiagnostics.swift */,
+			);
+			path = ArvectumDiagnostics;
 			sourceTree = "<group>";
 		};
 		150A216B97AAC70C132ABAB8 /* Fixtures */ = {
@@ -367,14 +382,6 @@
 			path = WhatIOSUITests;
 			sourceTree = "<group>";
 		};
-		29F52AB2F49526AF4F8B2E4A /* ArvectumPersistence */ = {
-			isa = PBXGroup;
-			children = (
-				BB2FB490D86DE9E2B9D600E0 /* ArvectumJSONCodec.swift */,
-			);
-			path = ArvectumPersistence;
-			sourceTree = "<group>";
-		};
 		3D057B2BDE821668C713E082 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
@@ -392,6 +399,15 @@
 			path = Shared;
 			sourceTree = "<group>";
 		};
+		41FF0775F7E2D11A53478940 /* what-chickmark-release-20261018 */ = {
+			isa = PBXGroup;
+			children = (
+				C2A979308687EA163E06961D /* core */,
+			);
+			name = "what-chickmark-release-20261018";
+			path = ../..;
+			sourceTree = "<group>";
+		};
 		49330E34C385BD363A9B041C /* WhatPhoneWidget */ = {
 			isa = PBXGroup;
 			children = (
@@ -406,7 +422,7 @@
 			isa = PBXGroup;
 			children = (
 				3D057B2BDE821668C713E082 /* Shared */,
-				0B8841CDF86456FBE94603E7 /* what-chickmark-note-handoff-20261017 */,
+				41FF0775F7E2D11A53478940 /* what-chickmark-release-20261018 */,
 				1A5685733475ABA552DA6613 /* WhatIOS */,
 				2552E17FD64CA0D618598837 /* WhatIOSTests */,
 				26C2FA087891BD85417AC958 /* WhatIOSUITests */,
@@ -429,16 +445,6 @@
 			path = WhatWatchComplication;
 			sourceTree = "<group>";
 		};
-		8AEA9DAFFFB1B30F22B52A2F /* packages */ = {
-			isa = PBXGroup;
-			children = (
-				DFDF1DE351AB0D081C997EAE /* ArvectumDiagnostics */,
-				EFCFFECA43E574175E43288F /* ArvectumInterapp */,
-				29F52AB2F49526AF4F8B2E4A /* ArvectumPersistence */,
-			);
-			path = packages;
-			sourceTree = "<group>";
-		};
 		8C2C38EC2F1EB4FD8C46588C /* WhatWatch */ = {
 			isa = PBXGroup;
 			children = (
@@ -454,28 +460,22 @@
 			path = WhatWatch;
 			sourceTree = "<group>";
 		};
-		DF893208F3BF5D8F530CB47B /* core */ = {
+		C2A979308687EA163E06961D /* core */ = {
 			isa = PBXGroup;
 			children = (
-				8AEA9DAFFFB1B30F22B52A2F /* packages */,
+				EF2AA9394DCCE4F56514BEEF /* packages */,
 			);
 			path = core;
 			sourceTree = "<group>";
 		};
-		DFDF1DE351AB0D081C997EAE /* ArvectumDiagnostics */ = {
+		EF2AA9394DCCE4F56514BEEF /* packages */ = {
 			isa = PBXGroup;
 			children = (
-				41C5E456592457A0821FA3A6 /* ArvectumDiagnostics.swift */,
+				1420C4835F5A4427C967853A /* ArvectumDiagnostics */,
+				06C8194AF9C1169E565F6272 /* ArvectumInterapp */,
+				06804EBEEC7CD5DEF386C240 /* ArvectumPersistence */,
 			);
-			path = ArvectumDiagnostics;
-			sourceTree = "<group>";
-		};
-		EFCFFECA43E574175E43288F /* ArvectumInterapp */ = {
-			isa = PBXGroup;
-			children = (
-				91F5D951CD2035FF96F2B0DF /* ReviewNoteHandoff.swift */,
-			);
-			path = ArvectumInterapp;
+			path = packages;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -711,7 +711,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				918D57F0ECBED753B8130126 /* ArvectumDiagnostics.swift in Sources */,
+				8688773D22884C3679EB5ECE /* ArvectumDiagnostics.swift in Sources */,
 				C611ECB87B428D831936DD84 /* CaptureBrand.swift in Sources */,
 				5FD7F8E32D78068474F665C3 /* CaptureLatency.swift in Sources */,
 				686DBE4CA2BBE32B81849C8A /* CaptureView.swift in Sources */,
@@ -763,7 +763,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9A46091A7BB14662AD7F0085 /* ArvectumJSONCodec.swift in Sources */,
+				24F976DFFFDDFC65423CDCA5 /* ArvectumJSONCodec.swift in Sources */,
 				BFB62EE79AFCE52D90A0F8B9 /* CaptureBrand.swift in Sources */,
 				FBFF4F6A8BF34A92362B808A /* CaptureLatency.swift in Sources */,
 				23C3DC142A5320642976B51C /* ContentView.swift in Sources */,
@@ -784,7 +784,7 @@
 				E279702F2EC466E836C3CC17 /* RecordingExportService.swift in Sources */,
 				D617395D9EB07EE903D5910D /* RecordingLibraryView.swift in Sources */,
 				62F51A03CFB1699B97BE45DA /* RecordingRepository.swift in Sources */,
-				732184E032337C3686D13EC5 /* ReviewNoteHandoff.swift in Sources */,
+				1EE6229562D613652C4DE89B /* ReviewNoteHandoff.swift in Sources */,
 				AF3881CEB93D6A1814CF19A8 /* ReviewNoteHandoffButton.swift in Sources */,
 				234EA537934DE57D638D69B5 /* RussianConceptSearch.swift in Sources */,
 				BB55F8450C343B8FF6429C27 /* RussianModelManager.swift in Sources */,
@@ -906,7 +906,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = ru.arvectum.tools.what.p2aqa.widget;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.arvectum.tools.what.widget;
 				PRODUCT_NAME = WhatPhoneWidget;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -948,7 +948,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 8;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = VML75VY94V;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -968,7 +968,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
-				MARKETING_VERSION = 1.0.2;
+				MARKETING_VERSION = 1.1.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -991,7 +991,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = ru.arvectum.tools.what.p2aqa.tests;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.arvectum.tools.what.tests;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WhatIOS.app/WhatIOS";
@@ -1010,7 +1010,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = ru.arvectum.tools.what.p2aqa;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.arvectum.tools.what;
 				PRODUCT_MODULE_NAME = WhatIOS;
 				PRODUCT_NAME = WhatIOS;
 				SDKROOT = iphoneos;
@@ -1029,7 +1029,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = ru.arvectum.tools.what.p2aqa.watch.capturewidget;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.arvectum.tools.what.watch.capturewidget;
 				PRODUCT_NAME = WhatWatchComplication;
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -1048,7 +1048,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = ru.arvectum.tools.what.p2aqa.watch.capturewidget;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.arvectum.tools.what.watch.capturewidget;
 				PRODUCT_NAME = WhatWatchComplication;
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -1068,7 +1068,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = ru.arvectum.tools.what.p2aqa.widget;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.arvectum.tools.what.widget;
 				PRODUCT_NAME = WhatPhoneWidget;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1086,7 +1086,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = ru.arvectum.tools.what.p2aqa.uitests;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.arvectum.tools.what.uitests;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = WhatIOS;
@@ -1099,7 +1099,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = WhatWatch/Info.plist;
-				PRODUCT_BUNDLE_IDENTIFIER = ru.arvectum.tools.what.p2aqa.watch;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.arvectum.tools.what.watch;
 				PRODUCT_NAME = WhatWatch;
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -1114,7 +1114,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = WhatWatch/Info.plist;
-				PRODUCT_BUNDLE_IDENTIFIER = ru.arvectum.tools.what.p2aqa.watch;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.arvectum.tools.what.watch;
 				PRODUCT_NAME = WhatWatch;
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -1134,7 +1134,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = ru.arvectum.tools.what.p2aqa.uitests;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.arvectum.tools.what.uitests;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = WhatIOS;
@@ -1152,7 +1152,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = ru.arvectum.tools.what.p2aqa.tests;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.arvectum.tools.what.tests;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WhatIOS.app/WhatIOS";
@@ -1194,7 +1194,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 8;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = VML75VY94V;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -1208,7 +1208,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
-				MARKETING_VERSION = 1.0.2;
+				MARKETING_VERSION = 1.1.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1231,7 +1231,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = ru.arvectum.tools.what.p2aqa;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.arvectum.tools.what;
 				PRODUCT_MODULE_NAME = WhatIOS;
 				PRODUCT_NAME = WhatIOS;
 				SDKROOT = iphoneos;

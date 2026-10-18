@@ -2,17 +2,17 @@ import Foundation
 import XCTest
 @testable import WhatIOS
 
-/// Regression gate: two different UhWhat? QA apps must not steal each other's
-/// Watch-face deep links or use one another's bundle identifiers.
+/// Production release gate: the public iPhone/Watch/Widget IDs must match
+/// the published app so App Store upgrades preserve Watch recordings.
 final class WatchPackagingIsolationTests: XCTestCase {
-    func testEmbeddedWatchAndComplicationBelongOnlyToP2aQA() throws {
+    func testEmbeddedWatchAndComplicationUseProductionIdentity() throws {
         let host = Bundle.main
-        XCTAssertEqual(host.bundleIdentifier, "ru.arvectum.tools.what.p2aqa")
+        XCTAssertEqual(host.bundleIdentifier, "ru.arvectum.tools.what")
         let watchPath = host.bundleURL.appendingPathComponent("Watch/WhatWatch.app")
         XCTAssertTrue(FileManager.default.fileExists(atPath: watchPath.path),
-                      "The Watch app must be embedded in the iPhone QA package")
+                      "The production iPhone app must embed its Watch companion")
         let watch = try XCTUnwrap(Bundle(url: watchPath))
-        XCTAssertEqual(watch.bundleIdentifier, "ru.arvectum.tools.what.p2aqa.watch")
+        XCTAssertEqual(watch.bundleIdentifier, "ru.arvectum.tools.what.watch")
         XCTAssertEqual(watch.object(forInfoDictionaryKey: "WKCompanionAppBundleIdentifier") as? String,
                        host.bundleIdentifier)
 
@@ -21,8 +21,9 @@ final class WatchPackagingIsolationTests: XCTestCase {
         let schemes = urlTypes.flatMap { $0["CFBundleURLSchemes"] as? [String] ?? [] }
         XCTAssertEqual(schemes, [WatchCaptureRouting.scheme])
         XCTAssertEqual(WatchCaptureRouting.captureURL.absoluteString,
-                       "whatp2aqa://capture")
-        XCTAssertFalse(schemes.contains("what"))
+                       "what://capture")
+        XCTAssertTrue(schemes.contains("what"))
+        XCTAssertFalse(schemes.contains("whatp2aqa"))
         XCTAssertFalse(schemes.contains("whatqa"))
 
         let complicationPath = watchPath.appendingPathComponent(
@@ -30,10 +31,10 @@ final class WatchPackagingIsolationTests: XCTestCase {
         )
         let complication = try XCTUnwrap(Bundle(url: complicationPath))
         XCTAssertEqual(complication.bundleIdentifier,
-                       "ru.arvectum.tools.what.p2aqa.watch.capturewidget")
+                       "ru.arvectum.tools.what.watch.capturewidget")
         let label = try XCTUnwrap(complication.object(
             forInfoDictionaryKey: "CFBundleDisplayName") as? String)
-        XCTAssertTrue(label.contains("P2a QA"),
-                      "The QA complication must have a distinct localized name: \(label)")
+        XCTAssertFalse(label.contains("QA"),
+                       "Production Watch complication cannot display QA branding: \(label)")
     }
 }

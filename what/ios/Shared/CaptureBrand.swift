@@ -1,7 +1,7 @@
 import Foundation
 
-/// User-facing identity is localized. This isolated P2a QA build intentionally
-/// keeps its bundle identifiers and deep links separate from installed QA11.
+/// Public voice-inbox identity stays unchanged across app upgrades; the
+/// same Watch/phone URL scheme also routes new text and video notes.
 enum CaptureBrand {
     /// The phone's app language follows its speech-recognition language so
     /// changing RU ↔ EN never leaves the menu and navigation in another locale.
@@ -39,9 +39,8 @@ enum CaptureBrand {
     }
 }
 
-/// Use one unambiguous URL for the isolated Watch QA app and complication.
-/// The stable production and QA11 apps keep their existing URL schemes.
+/// Use one stable URL for the production Watch app and its complication.
 enum WatchCaptureRouting {
-    static let scheme = "whatp2aqa"
+    static let scheme = "what"
     static let captureURL = URL(string: "\(scheme)://capture")!
 }

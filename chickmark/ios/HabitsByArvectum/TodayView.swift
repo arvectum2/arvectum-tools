@@ -181,7 +181,7 @@ struct TodayView: View {
             .sheet(item: $showingNoteAttachment) { value in
                 ReviewNoteAttachmentSheet(attachment: value)
             }
-            .alert("Передача из Ухвата", isPresented: Binding(
+            .alert(L10n.string("review.import.alert"), isPresented: Binding(
                 get: { importError != nil },
                 set: { if !$0 { importError = nil } }
             )) {
@@ -522,7 +522,7 @@ struct TodayView: View {
             noteAttachments = Dictionary(uniqueKeysWithValues:
                 try ReviewNoteAttachmentRepository().all().map { ($0.id, $0) })
         } catch {
-            importError = "Не удалось открыть переданные заметки: \(error.localizedDescription)"
+            importError = L10n.string("review.import.failure") + error.localizedDescription
         }
     }
 

@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Ухват P2a QA</string>
+	<string>Ухват</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -22,10 +22,10 @@
 	<array>
 		<dict>
 			<key>CFBundleURLName</key>
-			<string>ru.arvectum.tools.what.p2aqa.capture</string>
+			<string>ru.arvectum.tools.what.capture</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>whatp2aqa</string>
+				<string>what</string>
 			</array>
 		</dict>
 	</array>
@@ -36,6 +36,6 @@
 	<key>WKApplication</key>
 	<true/>
 	<key>WKCompanionAppBundleIdentifier</key>
-	<string>ru.arvectum.tools.what.p2aqa</string>
+	<string>ru.arvectum.tools.what</string>
 </dict>
 </plist>

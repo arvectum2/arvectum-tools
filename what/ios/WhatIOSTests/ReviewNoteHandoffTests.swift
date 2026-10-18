@@ -18,7 +18,7 @@ final class ReviewNoteHandoffTests: XCTestCase {
         XCTAssertEqual(try ReviewNoteHandoff.decodeClipboardString(
             payload.clipboardString(), from: link), payload)
         XCTAssertEqual(recovered.sourceURL.absoluteString,
-                       "whatp2aqa://note/\(id.uuidString)")
+                       "what://note/\(id.uuidString)")
     }
 
     func testWrongNonceExpiredAndExternalLinksAreRejected() throws {

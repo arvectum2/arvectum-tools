@@ -49,7 +49,7 @@ struct OneOffReminderRow: View {
                     .foregroundStyle(Color.habitsSecondaryText)
                 if let onOpenNote {
                     Button(action: onOpenNote) {
-                        Label("Открыть заметку из Ухвата", systemImage: "doc.text")
+                        Label(L10n.string("review.oneoff.open"), systemImage: "doc.text")
                             .font(.caption2)
                     }
                     .buttonStyle(.plain)
@@ -64,7 +64,7 @@ struct OneOffReminderRow: View {
             Menu {
                 if let onOpenNote {
                     Button(action: onOpenNote) {
-                        Label("Читать заметку", systemImage: "note.text")
+                        Label(L10n.string("review.oneoff.read"), systemImage: "note.text")
                     }
                 }
                 Button(action: onEdit) {

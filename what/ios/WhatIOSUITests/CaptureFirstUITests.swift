@@ -247,12 +247,9 @@ final class CaptureFirstUITests: XCTestCase {
         }
         XCTAssertTrue(notice.exists, "System must deliver the generic review reminder")
         notice.tap()
-        let details = recipient.staticTexts["Заметка из Ухвата"]
-        XCTAssertTrue(details.waitForExistence(timeout: 13),
+        let link = recipient.links["chickmark.noteReview.openOriginal"]
+        XCTAssertTrue(link.waitForExistence(timeout: 13),
                       "Tapping the imported reminder must open its full note")
-        XCTAssertTrue(recipient.links.matching(NSPredicate(format:
-            "label == %@", "Открыть оригинал в Ухвате"
-        )).firstMatch.exists)
     }
 
     func testSavedChickMarkReviewOpensOriginalSourceNote() throws {
@@ -305,9 +302,7 @@ final class CaptureFirstUITests: XCTestCase {
         XCTAssertTrue(imported.waitForExistence(timeout: 12),
                       "Imported one-off must offer a direct source-text action")
         imported.tap()
-        let link = recipient.links.matching(NSPredicate(format:
-            "label == %@", "Открыть оригинал в Ухвате"
-        )).firstMatch
+        let link = recipient.links["chickmark.noteReview.openOriginal"]
         XCTAssertTrue(link.waitForExistence(timeout: 8),
                       "Full text and original deep link must be accessible")
         let displayedText = recipient.descendants(matching: .any)
@@ -343,9 +338,20 @@ final class CaptureFirstUITests: XCTestCase {
         let pasteAgain = recipient.buttons["chickmark.noteReview.paste"]
         XCTAssertTrue(pasteAgain.waitForExistence(timeout: 12))
         pasteAgain.tap()
-        let duplicate = recipient.staticTexts["Заметка уже передана"]
-        XCTAssertTrue(duplicate.waitForExistence(timeout: 10),
-                      "A confirmed imported UUID must show persistent duplicate notice")
+        // SwiftUI Label inside a Form Section is not always exposed as a
+        // StaticText; the logical row can be a grouped accessibility element.
+        // SwiftUI propagates the Form Section's accessibility identifier
+        // down onto its rows, overriding the nested Label identifier.
+        // Verify the actual duplicate section and the disabled Create action.
+        let duplicate = recipient.staticTexts
+            .matching(identifier: "chickmark.noteReview.duplicate").firstMatch
+        if !duplicate.waitForExistence(timeout: 8) {
+            print("DUPLICATE_VIEW_DEBUG_BEGIN")
+            print(recipient.debugDescription)
+            print("DUPLICATE_VIEW_DEBUG_END")
+        }
+        XCTAssertTrue(duplicate.exists,
+                      "An imported UUID must show a persistent duplicate warning")
         XCTAssertFalse(recipient.buttons["chickmark.noteReview.confirm"].isEnabled,
                        "An already-imported note must not be confirmed twice")
     }

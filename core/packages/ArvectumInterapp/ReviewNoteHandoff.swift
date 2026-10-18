@@ -17,7 +17,7 @@ struct ReviewNoteHandoff: Codable, Equatable, Identifiable {
 #if REVIEW_HANDOFF_QA
     static let sourceScheme = "whatreviewqa"
 #else
-    static let sourceScheme = "whatp2aqa"
+    static let sourceScheme = "what"
 #endif
     static let maximumTextBytes = 32_768
     static let validFor: TimeInterval = 300

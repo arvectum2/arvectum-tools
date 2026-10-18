@@ -72,7 +72,7 @@ private struct CaptureComplicationView: View {
                 mark(size: 38)
             }
         }
-        .accessibilityLabel(CaptureBrand.text("Ухват P2a QA. Начать запись", "UhWhat? P2a QA. Start recording"))
+        .accessibilityLabel(CaptureBrand.text("Ухват. Начать запись", "UhWhat?. Start recording"))
         // Keep widgetURL + the on-foreground autostart policy: physical Watch
         // hardware sometimes opens the app without forwarding this URL.
         .widgetURL(captureURL)
@@ -87,7 +87,7 @@ struct WhatCaptureComplication: Widget {
         StaticConfiguration(kind: kind, provider: CaptureProvider()) { _ in
             CaptureComplicationView()
         }
-        .configurationDisplayName(CaptureBrand.text("Запись в Ухват P2a QA", "Record with UhWhat? P2a QA"))
+        .configurationDisplayName(CaptureBrand.text("Запись в Ухват", "Record with UhWhat?"))
         .description(CaptureBrand.text("Запись новой мысли с циферблата часов.", "Start a new thought from the watch face."))
         .supportedFamilies([.accessoryCircular, .accessoryRectangular, .accessoryInline, .accessoryCorner])
     }

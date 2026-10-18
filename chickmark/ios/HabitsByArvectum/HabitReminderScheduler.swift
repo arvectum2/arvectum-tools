@@ -476,12 +476,17 @@ enum HabitReminderScheduler {
         // Fail closed: restoring an older backup or a damaged attachment file
         // must never publish a truncated private transcript on the lock screen.
         // All imported one-offs use this reserved title prefix.
-        let isImported = reminder.title.hasPrefix("Разобрать заметку:") ||
-            (try? attachmentStore.get(reminder.id)) != nil
+        // Titles already saved under Russian/English/Spanish must remain
+        // protected even when the user changes their chosen UI language or
+        // the attachment file is missing during backup/restore.
+        let protectedPrefixes = ["ru", "en", "es"].map {
+            L10n.string("review.note.prefix", language: $0)
+        }
+        let isImported = protectedPrefixes.contains(where: {
+            reminder.title.hasPrefix($0)
+        }) || (try? attachmentStore.get(reminder.id)) != nil
         if isImported {
-            content.title = Locale.current.language.languageCode?.identifier == "ru"
-                ? "ChickMark: вернуться к заметке"
-                : "ChickMark: review a note"
+            content.title = L10n.string("review.notification.genericTitle")
         } else {
             content.title = reminder.title
         }

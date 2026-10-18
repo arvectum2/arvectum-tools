@@ -10,8 +10,8 @@ settings:
     DEVELOPMENT_TEAM: VML75VY94V
     CODE_SIGN_STYLE: Automatic
     SWIFT_VERSION: "5.0"
-    MARKETING_VERSION: "1.0.2"
-    CURRENT_PROJECT_VERSION: "1"
+    MARKETING_VERSION: "1.1.0"
+    CURRENT_PROJECT_VERSION: "8"
 
 targets:
   WhatIOS:
@@ -26,7 +26,7 @@ targets:
     info:
       path: WhatIOS/Info.plist
       properties:
-        CFBundleDisplayName: "Ухват P2a QA"
+        CFBundleDisplayName: "Ухват"
         CFBundleShortVersionString: "$(MARKETING_VERSION)"
         CFBundleVersion: "$(CURRENT_PROJECT_VERSION)"
         LSApplicationCategoryType: public.app-category.productivity
@@ -34,14 +34,25 @@ targets:
         NSMicrophoneUsageDescription: "Record private audio and video notes on this device. Media stays on-device."
         NSCameraUsageDescription: "Record private video notes using the camera. Videos stay on-device."
         CFBundleURLTypes:
-          - CFBundleURLName: ru.arvectum.tools.what.p2aqa.record
+          - CFBundleURLName: ru.arvectum.tools.what.record
             CFBundleURLSchemes:
-              - whatp2aqa
+              - what
         ITSAppUsesNonExemptEncryption: false
         UILaunchScreen: {}
+        # Apple's iPad multitasking requires every orientation for the iPad.
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationPortraitUpsideDown
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+        "UISupportedInterfaceOrientations~ipad":
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationPortraitUpsideDown
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: ru.arvectum.tools.what.p2aqa
+        PRODUCT_BUNDLE_IDENTIFIER: ru.arvectum.tools.what
         PRODUCT_NAME: WhatIOS
         PRODUCT_MODULE_NAME: WhatIOS
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
@@ -49,8 +60,8 @@ targets:
         TARGETED_DEVICE_FAMILY: "1,2"
         SUPPORTS_MACCATALYST: NO
     dependencies:
-      # Isolated integration QA: embed the *separate-ID* Watch app only in
-      # P2a QA. Never replace the established ru.arvectum.tools.what.qa pair.
+      # Production Watch companion and WidgetKit extensions are bundled
+      # with the same release and use the public ru.arvectum.tools.what IDs.
       - target: WhatWatch
       - target: WhatPhoneWidget
     scheme:
@@ -75,7 +86,7 @@ targets:
           NSExtensionPointIdentifier: com.apple.widgetkit-extension
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: ru.arvectum.tools.what.p2aqa.widget
+        PRODUCT_BUNDLE_IDENTIFIER: ru.arvectum.tools.what.widget
         PRODUCT_NAME: WhatPhoneWidget
         GENERATE_INFOPLIST_FILE: NO
         TARGETED_DEVICE_FAMILY: "1,2"
@@ -90,7 +101,7 @@ targets:
       - target: WhatIOS
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: ru.arvectum.tools.what.p2aqa.tests
+        PRODUCT_BUNDLE_IDENTIFIER: ru.arvectum.tools.what.tests
         GENERATE_INFOPLIST_FILE: YES
 
   WhatIOSUITests:
@@ -103,7 +114,7 @@ targets:
       - target: WhatIOS
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: ru.arvectum.tools.what.p2aqa.uitests
+        PRODUCT_BUNDLE_IDENTIFIER: ru.arvectum.tools.what.uitests
         GENERATE_INFOPLIST_FILE: YES
 
   WhatWatch:
@@ -118,19 +129,19 @@ targets:
       path: WhatWatch/Info.plist
       properties:
         CFBundleName: "UhWhat?"
-        CFBundleDisplayName: "Ухват P2a QA"
+        CFBundleDisplayName: "Ухват"
         CFBundleShortVersionString: "$(MARKETING_VERSION)"
         CFBundleVersion: "$(CURRENT_PROJECT_VERSION)"
         WKApplication: true
-        WKCompanionAppBundleIdentifier: ru.arvectum.tools.what.p2aqa
+        WKCompanionAppBundleIdentifier: ru.arvectum.tools.what
         NSMicrophoneUsageDescription: "UhWhat? records the thought you speak so it can be saved locally and transferred to your iPhone."
         CFBundleURLTypes:
-          - CFBundleURLName: ru.arvectum.tools.what.p2aqa.capture
+          - CFBundleURLName: ru.arvectum.tools.what.capture
             CFBundleURLSchemes:
-              - whatp2aqa
+              - what
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: ru.arvectum.tools.what.p2aqa.watch
+        PRODUCT_BUNDLE_IDENTIFIER: ru.arvectum.tools.what.watch
         PRODUCT_NAME: WhatWatch
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         GENERATE_INFOPLIST_FILE: NO
@@ -149,14 +160,14 @@ targets:
     info:
       path: WhatWatchComplication/Info.plist
       properties:
-        CFBundleDisplayName: "Ухват P2a QA"
+        CFBundleDisplayName: "Ухват"
         CFBundleShortVersionString: "$(MARKETING_VERSION)"
         CFBundleVersion: "$(CURRENT_PROJECT_VERSION)"
         NSExtension:
           NSExtensionPointIdentifier: com.apple.widgetkit-extension
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: ru.arvectum.tools.what.p2aqa.watch.capturewidget
+        PRODUCT_BUNDLE_IDENTIFIER: ru.arvectum.tools.what.watch.capturewidget
         PRODUCT_NAME: WhatWatchComplication
         GENERATE_INFOPLIST_FILE: NO
         TARGETED_DEVICE_FAMILY: "4"
