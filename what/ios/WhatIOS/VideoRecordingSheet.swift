@@ -28,12 +28,18 @@ final class VideoCaptureController: NSObject, ObservableObject,
     private var flow = VideoCaptureTransition()
     private var clips: [URL] = []
     private var hasDamagedSegments = false
+    // Preserve enough background execution time for AVCaptureMovieFileOutput
+    // to finalize its current MOV and the repository to durably commit it.
+    private var backgroundSaveTask: UIBackgroundTaskIdentifier = .invalid
+    private var backgroundSaveRequested = false
+    private var foregroundRecoveryInFlight = false
     private nonisolated(unsafe) let recoveryJournal = VideoCaptureJournal()
     private nonisolated(unsafe) var recoveryID: UUID?
     // Advanced only on the camera's serial session queue.
     private nonisolated(unsafe) var nextSegmentNumber = 0
 
     var onSaved: ((URL, TimeInterval, UUID) throws -> Void)?
+    var onRecoverAfterBackground: ((UUID) async -> Bool)?
 
     deinit {
         if let recoveryID {
@@ -174,6 +180,92 @@ final class VideoCaptureController: NSObject, ObservableObject,
 
     private var pendingCameraPosition: AVCaptureDevice.Position?
 
+    /// Inactive precedes Background. Claim a finite iOS background task *before*
+    /// requesting AVFoundation's asynchronous stop callback and file import.
+    /// Never allow recording video indefinitely behind other apps.
+    func finishForBackground(includePreparing: Bool = false) {
+        // A camera/microphone permission sheet temporarily makes the scene
+        // inactive: do NOT cancel the very first capture while awaiting Allow.
+        // Only a real .background transition may stop a preparing camera.
+        guard isRecording || isSwitching || isSaving
+              || (includePreparing && isPreparing) else { return }
+        backgroundSaveRequested = true
+        if backgroundSaveTask == .invalid {
+            backgroundSaveTask = UIApplication.shared.beginBackgroundTask(
+                withName: "UhWhat finalize video capture"
+            ) { [weak self] in
+                Task { @MainActor [weak self] in
+                    // On expiration keep the source journal intact: launch
+                    // recovery can handle a finalized but unindexed segment.
+                    self?.endBackgroundSaveTask()
+                }
+            }
+        }
+        if !isSaving { finish() }
+    }
+
+    /// AVFoundation may have stopped its file writer during suspension without
+    /// delivering didFinishRecordingTo. Only after the session queue confirms
+    /// no writer remains may launch-style recovery inspect these sources.
+    func recoverWhenForegrounded() async {
+        guard backgroundSaveRequested, !foregroundRecoveryInFlight, !didSave,
+              let id = recoveryID else { return }
+        foregroundRecoveryInFlight = true
+        defer { foregroundRecoveryInFlight = false }
+        // Prefer the genuine AVCaptureFileOutput callback over a fallback.
+        for _ in 0..<12 {
+            if didSave { return }
+            if isSaving {
+                try? await Task.sleep(nanoseconds: 500_000_000)
+                continue
+            }
+            let recording = await withCheckedContinuation { continuation in
+                sessionQueue.async { [self] in
+                    let wasRecording = fileOutput.isRecording
+                    if wasRecording { fileOutput.stopRecording() }
+                    continuation.resume(returning: wasRecording)
+                }
+            }
+            if !recording {
+                // Some iOS versions finish the file but suppress the delegate
+                // after a background interruption. Give that callback priority.
+                try? await Task.sleep(nanoseconds: 1_000_000_000)
+                if didSave { return }
+                if isSaving { continue }
+                let stillRecording = await withCheckedContinuation { continuation in
+                    sessionQueue.async { [self] in
+                        continuation.resume(returning: fileOutput.isRecording)
+                    }
+                }
+                guard !stillRecording else { continue }
+                closeSession()
+                VideoCaptureJournal.setActive(id, active: false)
+                let recovered = await onRecoverAfterBackground?(id) ?? false
+                if recovered {
+                    didSave = true
+                    endBackgroundSaveTask()
+                } else {
+                    errorMessage = CaptureBrand.text(
+                        "Не удалось сразу восстановить видеозапись после сворачивания. Исходный файл сохранён для повторной попытки.",
+                        "Could not immediately recover background video. Original file remains available for retry."
+                    )
+                    endBackgroundSaveTask()
+                }
+                return
+            }
+            try? await Task.sleep(nanoseconds: 500_000_000)
+        }
+        // Still writing? Never read an in-flight MOV as if it were finished.
+    }
+
+    private func endBackgroundSaveTask() {
+        let identifier = backgroundSaveTask
+        backgroundSaveTask = .invalid
+        if identifier != .invalid {
+            UIApplication.shared.endBackgroundTask(identifier)
+        }
+    }
+
     func finish(discard: Bool = false) {
         guard !isSaving, !stopping else { return }
         var discardSafely = discard
@@ -245,6 +337,7 @@ final class VideoCaptureController: NSObject, ObservableObject,
     ) {
         Task { @MainActor in
             isRecording = false
+            if didSave { return } // already recovered by foreground fallback
             if flow.shouldDiscard {
                 clips.append(outputFileURL)
                 closeSession()
@@ -255,6 +348,7 @@ final class VideoCaptureController: NSObject, ObservableObject,
                 }
                 isSwitching = false
                 isPreparing = false
+                endBackgroundSaveTask()
                 return
             }
 
@@ -352,7 +446,10 @@ final class VideoCaptureController: NSObject, ObservableObject,
         guard !isSaving else { return }
         isSaving = true
         isPreparing = false
-        defer { isSaving = false }
+        defer {
+            isSaving = false
+            endBackgroundSaveTask()
+        }
 
         guard !clips.isEmpty else {
             if errorMessage == nil {
@@ -545,8 +642,10 @@ struct VideoRecordingSheet: View {
                 if saved { dismiss() }
             }
             .onChange(of: scenePhase) { _, phase in
-                if phase != .active && (recorder.isRecording || recorder.isSwitching) {
-                    recorder.finish()
+                if phase != .active {
+                    recorder.finishForBackground(includePreparing: phase == .background)
+                } else {
+                    Task { await recorder.recoverWhenForegrounded() }
                 }
             }
             .onDisappear {
@@ -605,6 +704,10 @@ struct VideoCaptureHost: View {
             .onAppear {
                 recorder.onSaved = { [store] url, duration, id in
                     try store.saveVideo(from: url, duration: duration, id: id)
+                }
+                recorder.onRecoverAfterBackground = { [store] id in
+                    await store.recoverInterruptedVideos()
+                    return store.localNotes.contains { $0.id == id && $0.kind == .video }
                 }
             }
     }

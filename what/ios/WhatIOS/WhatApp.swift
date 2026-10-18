@@ -22,6 +22,9 @@ struct WhatApp: App {
                 .environmentObject(store)
                 .environment(\.locale, CaptureBrand.interfaceLocale)
                 .onChange(of: scenePhase) { _, phase in
+#if REVIEW_HANDOFF_QA
+                    PhysicalCaptureQAProbe.shared.observeScenePhase(phase, store: store)
+#endif
 #if !REVIEW_HANDOFF_QA
                     if phase == .active {
                         PhoneConnectivityManager.shared.requestWatchQueueRecovery()
