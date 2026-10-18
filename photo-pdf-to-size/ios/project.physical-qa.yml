@@ -36,6 +36,8 @@ targets:
       path: PhotoPhysicalQA/Info.plist
       properties:
         CFBundleDisplayName: "Фото PDF QA"
+        UIFileSharingEnabled: true
+        LSSupportsOpeningDocumentsInPlace: true
         CFBundleShortVersionString: "$(MARKETING_VERSION)"
         CFBundleVersion: "$(CURRENT_PROJECT_VERSION)"
         LSApplicationCategoryType: public.app-category.utilities
@@ -282,6 +284,7 @@ targets:
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: ru.arvectum.tools.tosize.physicalqa
+        SWIFT_ACTIVE_COMPILATION_CONDITIONS: "$(inherited) DEBUG PHOTO_PHYSICAL_QA"
         OTHER_LDFLAGS:
           - "$(inherited)"
           - "-ObjC"
@@ -325,6 +328,7 @@ targets:
     deploymentTarget: "17.0"
     sources:
       - path: PhotoPodRazmerUITests
+      - path: PhotoPhysicalQAUITests
     dependencies:
       - target: PhotoPodRazmer
     settings:

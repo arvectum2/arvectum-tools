@@ -32,10 +32,20 @@
 
 ## Ещё требуется до нового релиза
 
-- [ ] Настоящий Files import -> сжатие -> сохранение -> повторное открытие специально созданного тестового файла. Нельзя выбирать произвольный файл в Recents, там могут быть личные данные.
+- [x] Контейнерный физический файловый цикл: синтетический PDF (1 400 686 байт, 1 страница) передан только в Documents изолированного QA-приложения через CoreDevice. Обратное копирование файла подтвердило идентичный SHA-256. Настоящий PDFEngine.inspect(fileURL:) + compressByBytes на iPhone обработал его в PDF 48 736 байт (лимит 500 000), с 1 страницей. Выходной файл забран обратно на Mac; статус QA-приложения passed, alreadyFit=false. Личные документы не читались.
+- [ ] Отдельно остаётся системный Files picker -> выбор точного QA-файла -> системный fileExporter. Изолированный physical UI тест остановился до первого assert: XCTest Runner timeout enabling automation mode. Этот полный UI путь пока НЕ принят. Нельзя выбирать случайные элементы Recents.
+
 - [ ] Системный Photos picker с тестовым изображением и отдельным разрешением, без чтения личной фототеки.
 - [ ] Большие, повёрнутые PDF, ограничения места на диске, проверка сохранённого результата и EXIF.
 - [ ] Реклама и согласие РСЯ, App Store review, новая подписанная сборка.
 - [ ] Публикация iPad-версии; настоящий fold/unfold Duo физически не проверялся.
 
 Существующие релизы Apple, Growth и Where? не затрагивались.
+
+## Дополнительные артефакты физического файлового цикла
+
+- Mac mini ArvectumSSD/Arvectum/tmp/Arvectum-QA-Files/ARVECTUM_QA_LARGE_INPUT.pdf — синтетический вход
+- Mac mini ArvectumSSD/Arvectum/tmp/Arvectum-QA-Files/ARVECTUM_QA_OUTPUT.pdf — настоящий выход с iPhone, 48 736 байт
+- Mac mini ArvectumSSD/Arvectum/tmp/Arvectum-QA-Files/ROUNDTRIP_RESULT.json — отчёт on-device QA
+- Mac mini ArvectumSSD/Arvectum/tmp/photo-file-full-picker-20261018.log — XCTest Runner, заблокированный до assertions
+- Только QA-приложение включает файловый шаринг Documents и DEBUG PHOTO_PHYSICAL_QA; production артефакты не менялись.
