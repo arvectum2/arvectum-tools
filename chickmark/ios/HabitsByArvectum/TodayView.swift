@@ -108,6 +108,8 @@ struct TodayView: View {
                         }
                     }
                 }
+                .frame(maxWidth: 840)
+                .frame(maxWidth: .infinity)
             }
             .navigationTitle("")
             .navigationBarTitleDisplayMode(.inline)
@@ -155,7 +157,8 @@ struct TodayView: View {
                     .overlay(RoundedRectangle(cornerRadius: 14, style: .continuous)
                         .strokeBorder(Color.primary.opacity(0.10), lineWidth: 1))
                 }
-                .frame(maxWidth: .infinity, alignment: .leading)
+                .frame(maxWidth: 840, alignment: .leading)
+                .frame(maxWidth: .infinity)
                 .padding(.horizontal, 16)
                 .padding(.vertical, 4)
                 .background(Color.habitsBackground)

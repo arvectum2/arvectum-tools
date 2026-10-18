@@ -34,6 +34,8 @@ struct SettingsView: View {
                 .scrollContentBackground(.hidden)
                 .background(Color.arvectumBackground)
             }
+            .frame(maxWidth: 960)
+            .frame(maxWidth: .infinity)
             .background(Color.arvectumBackground.ignoresSafeArea())
             .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.inline)
