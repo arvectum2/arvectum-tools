@@ -2,9 +2,9 @@ name: Core modules and consumers
 on:
   push:
     branches: ['**']
-    paths: ['core/packages/**', 'core/Package.swift', 'core/tests/**', '.github/workflows/core-ci.yml']
+    paths: ['core/packages/**', 'core/Package.swift', 'core/tests/**', 'core/dependencies/catalog.json', 'core/dependencies/android.versions.toml', 'core/tools/sync_dependencies.py', 'core/tools/check_swift_lockfiles.py', '.github/workflows/core-ci.yml']
   pull_request:
-    paths: ['core/packages/**', 'core/Package.swift', 'core/tests/**', '.github/workflows/core-ci.yml']
+    paths: ['core/packages/**', 'core/Package.swift', 'core/tests/**', 'core/dependencies/catalog.json', 'core/dependencies/android.versions.toml', 'core/tools/sync_dependencies.py', 'core/tools/check_swift_lockfiles.py', '.github/workflows/core-ci.yml']
   workflow_dispatch:
 permissions:
   contents: read

@@ -6,6 +6,10 @@ not copied checkboxes. Apps release independently.
 
 **Исполняемая очередь 2026-10-15:** [Единый план работ без Where?](EXECUTION_PLAN.md). [A5: четыре подписанных кандидата, локальный audit и блокеры отправки](A5_SIGNED_RELEASE_CANDIDATES_20261015.md). Where? поставлен на паузу; остальные продукты, Core и Growth остаются в scope.
 
+## Новый авторизованный срез Apple · 18.10.2026
+
+[Read-only ASC API audit](RELEASE_STATUS_ASC_2026-10-18.md): у Ухвата **1.0.1 READY_FOR_SALE** (обновление относительно исторического среза ниже); **1.1.0 WAITING_FOR_REVIEW**; ChickMark **1.4.1 READY_FOR_SALE / 1.5.0 WAITING_FOR_REVIEW**; Pushkin **1.0 WAITING_FOR_REVIEW**; Фото/PDF **1.0.1 READY_FOR_SALE**. Более ранние таблицы ниже сохранены как датированная история и **не являются свежим состоянием Apple**. Состояние storefront, физического апгрейда и бизнес-метрик отдельно не проверялось.
+
 ## Срез портфеля · 18.10.2026 (по имеющимся релизным доказательствам)
 **Источник:** [аудит отправок от 18 октября](https://github.com/arvectum2/arvectum-tools/blob/release/what-chickmark-20261018-rc1/what/docs/RELEASE_AUDIT_WHAT_CHICKMARK_2026-10-18.md). Это датированный документальный срез, **не новый live-опрос ASC**; WAITING_FOR_REVIEW не означает публикацию.
 

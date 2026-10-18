@@ -7,12 +7,14 @@ on:
     paths:
       - 'photo-pdf-to-size/android/**'
       - 'core/packages/**'
+      - 'core/tools/sync_dependencies.py'
       - 'core/dependencies/android.versions.toml'
       - '.github/workflows/photo-size-android-ci.yml'
   pull_request:
     paths:
       - 'photo-pdf-to-size/android/**'
       - 'core/packages/**'
+      - 'core/tools/sync_dependencies.py'
       - 'core/dependencies/android.versions.toml'
       - '.github/workflows/photo-size-android-ci.yml'
   workflow_dispatch:

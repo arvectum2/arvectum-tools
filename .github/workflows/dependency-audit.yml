@@ -6,6 +6,7 @@ on:
     paths:
       - 'core/dependencies/**'
       - 'core/tools/sync_dependencies.py'
+      - 'core/tools/check_swift_lockfiles.py'
       - 'core/tools/update_dependencies.py'
       - 'chickmark/ios/project.yml'
       - 'photo-pdf-to-size/ios/project.yml'
