@@ -109,7 +109,9 @@ final class VideoCaptureJournal {
                 $0.lastPathComponent.hasPrefix("segment-") &&
                 $0.pathExtension.lowercased() == "mov"
             }.sorted { $0.lastPathComponent < $1.lastPathComponent }
-            guard !clips.isEmpty else { return nil }
+            // A crash before AVFoundation finalized its first segment may
+            // leave only a manifest. Surface it as unresolved rather than
+            // silently forgetting that the user started a recording.
             return Pending(id: id, folder: folder, segments: clips)
         }.sorted { $0.id.uuidString < $1.id.uuidString }
     }
@@ -193,6 +195,9 @@ enum VideoCaptureRecovery {
                 valid.append(clip)
             }
 
+            // An empty session or an unfinalized first MOV is not playable.
+            // Keep its manifest and original bytes for another attempt, and
+            // report the unresolved capture to the UI without inventing a note.
             guard !valid.isEmpty else {
                 unresolved += 1
                 continue

@@ -179,8 +179,13 @@ final class LocalNoteRepository {
             // A crashed file-system migration may leave the index but not
             // the original. Reconstruct the missing media without a duplicate.
             let staged = videosURL.appendingPathComponent("." + id.uuidString + ".repair")
-            try fileManager.copyItem(at: source, to: staged)
+            // A prior crash or ENOSPC can leave a partial, per-UUID staging
+            // file. Remove only that private staging file, never the source.
+            if fileManager.fileExists(atPath: staged.path) {
+                try fileManager.removeItem(at: staged)
+            }
             do {
+                try fileManager.copyItem(at: source, to: staged)
                 try fileManager.moveItem(at: staged, to: path)
             } catch {
                 try? fileManager.removeItem(at: staged)
@@ -191,8 +196,13 @@ final class LocalNoteRepository {
         let name = id.uuidString + ".mov"
         let destination = videosURL.appendingPathComponent(name)
         let staging = videosURL.appendingPathComponent("." + name + ".incoming")
-        try fileManager.copyItem(at: source, to: staging)
+        if fileManager.fileExists(atPath: staging.path) {
+            try fileManager.removeItem(at: staging)
+        }
         do {
+            // Some file systems leave a partially copied staging file when
+            // copyItem throws ENOSPC. Catch must cover the copy as well.
+            try fileManager.copyItem(at: source, to: staging)
             try fileManager.moveItem(at: staging, to: destination)
             let now = Date()
             let note = LocalNote(id: id, kind: .video, createdAt: now,
