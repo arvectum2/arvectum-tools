@@ -30,6 +30,43 @@ final class PhysicalVideoCaptureUITests: XCTestCase {
         Thread.sleep(forTimeInterval: 4) // Allow AVFoundation to close its clip.
         #endif
     }
+    /// Exercises a multi-segment discard with the real front/back cameras.
+    /// The host must independently verify that VideoCaptures stays empty and
+    /// that local-notes.json has not changed (isolated QA container only).
+    func testDiscardAfterCameraSwitchLeavesNoCaptureFiles() throws {
+        #if targetEnvironment(simulator)
+        throw XCTSkip("Physical cameras required for multi-segment discard audit")
+        #else
+        let app = XCUIApplication()
+        app.launch()
+        let home = app.buttons["what.record.primary"]
+        XCTAssertTrue(home.waitForExistence(timeout: 15))
+        home.press(forDuration: 0.8)
+        let camera = app.buttons["what.video.switchCamera"]
+        let ready = XCTNSPredicateExpectation(
+            predicate: NSPredicate(format: "enabled == true"), object: camera
+        )
+        XCTAssertEqual(XCTWaiter.wait(for: [ready], timeout: 20), .completed)
+        Thread.sleep(forTimeInterval: 3)
+        camera.tap()
+        let switched = XCTNSPredicateExpectation(
+            predicate: NSPredicate(format: "enabled == true"), object: camera
+        )
+        XCTAssertEqual(XCTWaiter.wait(for: [switched], timeout: 20), .completed)
+        Thread.sleep(forTimeInterval: 3)
+        let discard = app.buttons.matching(NSPredicate(format:
+            "label == %@ OR label == %@", "Отменить", "Discard"
+        )).firstMatch
+        XCTAssertTrue(discard.waitForExistence(timeout: 10))
+        discard.tap()
+        let returned = XCTNSPredicateExpectation(
+            predicate: NSPredicate(format: "hittable == true"), object: home
+        )
+        XCTAssertEqual(XCTWaiter.wait(for: [returned], timeout: 20), .completed)
+        Thread.sleep(forTimeInterval: 4) // AVFoundation delegate cleanup.
+        #endif
+    }
+
     /// The disposable iPhone Duo simulator has microphone access revoked by
     /// simctl privacy. No real iPhone permissions are touched.
     func testMicrophoneDeniedShowsErrorWithoutStartingCapture() throws {
