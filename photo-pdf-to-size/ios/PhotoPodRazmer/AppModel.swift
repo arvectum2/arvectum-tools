@@ -107,6 +107,11 @@ final class AppModel: ObservableObject {
                 errorMessage = error.localizedDescription
             }
         }
+        #if PHOTO_PHYSICAL_QA
+        if args.contains("--qa-physical-pdf-roundtrip") {
+            PhysicalFileRoundTripQA.run(engine: pdfEngine)
+        }
+        #endif
         #endif
     }
 

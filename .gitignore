@@ -34,3 +34,4 @@ __pycache__/
 # Generated isolated iPhone QA Info.plists (XcodeGen)
 what/ios/WhatPhysicalQA/Info.plist
 pushkin/ios/PushkinPhysicalQA/Info.plist
+photo-pdf-to-size/ios/PhotoPhysicalQA/Info.plist
