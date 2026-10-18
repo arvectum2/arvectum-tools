@@ -45,8 +45,16 @@ final class WatchCaptureController: NSObject, ObservableObject, AVAudioRecorderD
         super.init()
 
         try? fileManager.createDirectory(at: outboundDirectory, withIntermediateDirectories: true)
-        queue = loadQueue()
-        recoverUnqueuedAudioFiles()
+        // File protection may hide queue.json during locked-at-boot startup.
+        // Never overwrite an unreadable queue with an empty orphan scan.
+        if let restored = loadQueue() {
+            queue = restored
+            try? WatchAcknowledgementJournal.reconcile(
+                queue: &queue, at: queueIndexURL, outbound: outboundDirectory,
+                fileManager: fileManager
+            )
+            recoverUnqueuedAudioFiles()
+        }
         pendingCount = queue.count
     }
 
@@ -252,14 +260,12 @@ final class WatchCaptureController: NSObject, ObservableObject, AVAudioRecorderD
         do {
             // Keep both the in-memory queue and the original AAC intact if
             // the atomic queue index write fails (e.g. disk is full).
-            if let match = try WatchDurableQueue.acknowledge(
-                id, in: &queue, at: queueIndexURL
+            if try WatchAcknowledgementJournal.acknowledge(
+                id, in: &queue, at: queueIndexURL,
+                outbound: outboundDirectory, fileManager: fileManager
             ) {
                 retryPolicy.didAcknowledge(id)
                 immediateAttempts.removeValue(forKey: id)
-                try? fileManager.removeItem(
-                    at: outboundDirectory.appendingPathComponent(match.fileName)
-                )
             }
         } catch {
             ArvectumDiagnostics.failure(
@@ -293,13 +299,11 @@ final class WatchCaptureController: NSObject, ObservableObject, AVAudioRecorderD
         return queue
     }
 
-    private func loadQueue() -> [RecordingEnvelope] {
-        guard
-            let data = try? Data(contentsOf: queueIndexURL),
-            let decoded = try? JSONDecoder().decode([RecordingEnvelope].self, from: data)
-        else {
-            return []
-        }
+    private func loadQueue() -> [RecordingEnvelope]? {
+        guard fileManager.fileExists(atPath: queueIndexURL.path) else { return [] }
+        guard let data = try? Data(contentsOf: queueIndexURL),
+              let decoded = try? JSONDecoder().decode([RecordingEnvelope].self, from: data)
+        else { return nil }
         return decoded
     }
 
@@ -309,7 +313,11 @@ final class WatchCaptureController: NSObject, ObservableObject, AVAudioRecorderD
     private func recoverUnqueuedAudioFiles() {
         let recovered = WatchQueueRecovery.recover(
             from: outboundDirectory,
-            knownIDs: Set(queue.map(\.id)),
+            knownIDs: Set(queue.map(\.id)).union(
+                WatchAcknowledgementJournal.pendingIDs(
+                    in: outboundDirectory, fileManager: fileManager
+                )
+            ),
             fileManager: fileManager,
             decodedDuration: { url in
                 (try? AVAudioPlayer(contentsOf: url))?.duration
@@ -351,10 +359,27 @@ final class WatchCaptureController: NSObject, ObservableObject, AVAudioRecorderD
             }
             queue = WatchDurableQueue.mergeRestored(disk: diskEntries, memory: queue)
         }
+        do {
+            try WatchAcknowledgementJournal.reconcile(
+                queue: &queue, at: queueIndexURL, outbound: outboundDirectory,
+                fileManager: fileManager
+            )
+        } catch {
+            // Keep originals and markers for the next unlock/relaunch.
+            ArvectumDiagnostics.failure(
+                subsystem: "ru.arvectum.tools.what.watch",
+                category: "transfer", operation: "refresh",
+                code: "acknowledgement-reconcile-failed"
+            )
+        }
 
         let recovered = WatchQueueRecovery.recover(
             from: outboundDirectory,
-            knownIDs: Set(queue.map(\.id)),
+            knownIDs: Set(queue.map(\.id)).union(
+                WatchAcknowledgementJournal.pendingIDs(
+                    in: outboundDirectory, fileManager: fileManager
+                )
+            ),
             fileManager: fileManager,
             decodedDuration: { url in
                 (try? AVAudioPlayer(contentsOf: url))?.duration
@@ -491,6 +516,13 @@ final class WatchCaptureController: NSObject, ObservableObject, AVAudioRecorderD
         }
 
         queueLock.lock()
+        // A delayed file-transfer completion can race with a newer live ACK.
+        // Once the durable queue no longer has this UUID, ignore stale retry
+        // callbacks instead of recreating backoff state for a removed note.
+        guard queue.contains(where: { $0.id == id }) else {
+            queueLock.unlock()
+            return
+        }
         if error != nil {
             retryPolicy.didFail(id)
         } else {
