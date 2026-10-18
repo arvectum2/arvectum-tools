@@ -284,7 +284,6 @@ targets:
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: ru.arvectum.tools.tosize.physicalqa
-        SWIFT_ACTIVE_COMPILATION_CONDITIONS: "$(inherited) DEBUG PHOTO_PHYSICAL_QA"
         OTHER_LDFLAGS:
           - "$(inherited)"
           - "-ObjC"
@@ -298,6 +297,8 @@ targets:
         ENABLE_USER_SCRIPT_SANDBOXING: YES
         SUPPORTS_MACCATALYST: NO
       configs:
+        Debug:
+          SWIFT_ACTIVE_COMPILATION_CONDITIONS: "$(inherited) DEBUG PHOTO_PHYSICAL_QA"
         Release:
           CODE_SIGN_STYLE: Manual
           CODE_SIGN_IDENTITY: "Apple Distribution"
