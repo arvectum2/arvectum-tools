@@ -52,6 +52,9 @@ struct HabitsByArvectumApp: App {
         skipFirstIncompleteHabitIfRequested(container: container)
         HabitMutationDiagnostics.runIfRequested(container: container)
 #endif
+        #if DEBUG && WATER_PHYSICAL_QA
+        WaterReadinessProbe.runIfRequested()
+        #endif
         if !cloudSyncDisabled {
             ChickMarkGroupsCloudSync.shared.start()
         }
