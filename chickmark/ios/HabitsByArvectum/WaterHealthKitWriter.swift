@@ -171,11 +171,24 @@ final class WaterExportCoordinator {
     }
 
     func requestWriteAccess() async throws {
+        #if DEBUG
+        // UI test runs always use isolated test data. Even if a test taps
+        // Save, it must never trigger a system Health permission dialog or
+        // write to the simulator's (possibly persistent) health database.
+        if ProcessInfo.processInfo.arguments.contains("--ui-testing") {
+            throw WaterExportError.notAuthorized
+        }
+        #endif
         try await driver.requestWriteAccess()
     }
 
     func checkAuthorization() -> Bool {
-        driver.isWriteAuthorized()
+        #if DEBUG
+        if ProcessInfo.processInfo.arguments.contains("--ui-testing") {
+            return false
+        }
+        #endif
+        return driver.isWriteAuthorized()
     }
 
     func rule(for habitID: UUID) -> WaterExportRule? {

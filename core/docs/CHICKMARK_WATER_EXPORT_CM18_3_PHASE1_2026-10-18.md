@@ -20,13 +20,16 @@
 | Fake HealthKit driver: permissions, errors, crash, undo, retry | **8/8 PASS** |
 | Full ChickMark tests | **266/266 PASS**, no failures |
 | Opt-in UI, default OFF, explicit ON, Cancel on iPad | **1/1 PASS** |
-| Same isolated opt-in UI on ordinary iPhone 17 Pro | **1/1 PASS** |
+| Safe opt-in and denied-permission UI on iPad | **2/2 PASS** |
+| Safe opt-in and denied-permission UI on ordinary iPhone 17 Pro | **2/2 PASS** |
 | iOS simulator build | **PASS** |
 | Architecture/dependency checks | **PASS** |
 
 The compiled app's localized InfoPlist.strings resources for en, ru and es were directly verified: all system HealthKit write-permission descriptions disclose adding water. scripts/localization_audit.py now prevents a false promise that the phone app never writes health data. Watch stays read-only.
 
 When a habit is deleted, obsolete local export settings are cleared only after all owned HealthKit samples and pending write intents have been successfully cleaned; failures retain receipts for retry.
+
+Additional defensive QA: the DEBUG-only --ui-testing route rejects WRITE authorization before it can touch HKHealthStore, even if an automated test clicks Save. A second UI test on both iPad and ordinary iPhone confirms a denied permission produces a visible error and **does not persist** a per-habit opt-in rule. No Apple Health permission prompt or sample operation occurred in either simulator test. Normal Release builds do not include the test-only authorization guard.
 
 iPad SwiftUI Stepper content is accessibility-grouped; the UI test targets the actual switch control and deliberately CANCELS, never pressing Save or granting real permission.
 

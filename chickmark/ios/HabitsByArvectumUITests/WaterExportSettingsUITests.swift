@@ -3,6 +3,44 @@ import XCTest
 /// Tests only navigation and explicit consent UI. No HealthKit writer is
 /// configured during --ui-testing and Save/permissions are never invoked.
 final class WaterExportSettingsUITests: XCTestCase {
+    func testDeniedPermissionDoesNotPersistOptInOrOpenHealth() {
+        let app = XCUIApplication()
+        app.launchArguments = [
+            "-AppleLanguages", "(en)",
+            "-AppleLocale", "en_US",
+            "--ui-testing", "--disable-cloud-sync",
+            "--seed-water-settings-demo"
+        ]
+        app.launch()
+        let habit = app.staticTexts["Water QA"].firstMatch
+        XCTAssertTrue(habit.waitForExistence(timeout: 15))
+        habit.tap()
+        let more = app.buttons["More habit actions"]
+        XCTAssertTrue(more.waitForExistence(timeout: 8))
+        more.tap()
+        let open = app.buttons["Export water to Apple Health"]
+        XCTAssertTrue(open.waitForExistence(timeout: 8))
+        open.tap()
+        let toggle = app.switches["water.export.toggle"]
+        XCTAssertTrue(toggle.waitForExistence(timeout: 8))
+        XCTAssertEqual(toggle.value as? String, "0")
+        toggle.coordinate(withNormalizedOffset: CGVector(dx: 0.94, dy: 0.50)).tap()
+        XCTAssertEqual(toggle.value as? String, "1")
+        // On DEBUG --ui-testing Save is guaranteed to reject permission
+        // BEFORE reaching HKHealthStore. No Apple Health dialog is opened.
+        app.buttons["Save"].tap()
+        let denied = app.alerts["Water export unavailable"]
+        XCTAssertTrue(denied.waitForExistence(timeout: 10))
+        denied.buttons["OK"].tap()
+        app.buttons["Cancel"].tap()
+        more.tap()
+        open.tap()
+        let reopened = app.switches["water.export.toggle"]
+        XCTAssertTrue(reopened.waitForExistence(timeout: 8))
+        XCTAssertEqual(reopened.value as? String, "0",
+            "Denied Health permission must not persist the opt-in rule.")
+    }
+
     func testQuantityHabitHasWaterExportScreenButNoAutomaticPermission() {
         let app = XCUIApplication()
         app.launchArguments = [
