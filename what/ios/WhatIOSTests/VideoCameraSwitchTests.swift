@@ -93,6 +93,109 @@ final class VideoCameraSwitchTests: XCTestCase {
         }
     }
 
+    func testTenAlternatingCameraSegmentsExportFramesAndAudioInOrder() async throws {
+        // Ten actual MOV inputs, not a synthetic metadata-only composition.
+        // This tests repeated camera switches without recording new media.
+        let sources = try (0..<10).map { try fixture($0.isMultiple(of: 2) ? "back" : "front") }
+        let destination = FileManager.default.temporaryDirectory
+            .appendingPathComponent("what-ten-switches-\(UUID().uuidString).mov")
+        defer { try? FileManager.default.removeItem(at: destination) }
+        let sourceSizes = try sources.map {
+            try XCTUnwrap(FileManager.default.attributesOfItem(atPath: $0.path)[.size]
+                          as? NSNumber).int64Value
+        }
+        let originalBytes = try sources.map { try Data(contentsOf: $0) }
+        let durations = try await withThrowingTaskGroup(of: (Int, Double).self) { group in
+            for (index, source) in sources.enumerated() {
+                group.addTask {
+                    (index, try await AVURLAsset(url: source).load(.duration).seconds)
+                }
+            }
+            var values = [Double](repeating: 0, count: sources.count)
+            for try await (index, seconds) in group { values[index] = seconds }
+            return values
+        }
+        let result = try await VideoSegmentComposer.compose(sources, destination: destination)
+        XCTAssertTrue(result.isTemporaryExport)
+        let movie = AVURLAsset(url: destination)
+        let outputDuration = try await movie.load(.duration).seconds
+        let expectedDuration = durations.reduce(0, +)
+        XCTAssertEqual(outputDuration, expectedDuration, accuracy: 0.15)
+        let audioTracks = try await movie.loadTracks(withMediaType: .audio)
+        let isPlayable = try await movie.load(.isPlayable)
+        XCTAssertFalse(audioTracks.isEmpty)
+        XCTAssertTrue(isPlayable)
+        let generator = AVAssetImageGenerator(asset: movie)
+        generator.appliesPreferredTrackTransform = true
+        generator.requestedTimeToleranceBefore = CMTime(seconds: 0.05, preferredTimescale: 600)
+        generator.requestedTimeToleranceAfter = CMTime(seconds: 0.05, preferredTimescale: 600)
+        var cursor = 0.0
+        for i in sources.indices {
+            let requested = CMTime(seconds: cursor + durations[i] * 0.5,
+                                   preferredTimescale: 600)
+            var actual = CMTime.invalid
+            let frame = try generator.copyCGImage(at: requested, actualTime: &actual)
+            let color = try averagePixel(frame)
+            print("STRESS_FRAME index=\(i) requested=\(requested.seconds) actual=\(actual.seconds) duration=\(durations[i]) rgb=\(color)")
+            if i.isMultiple(of: 2) {
+                XCTAssertGreaterThan(color.0, color.2 + 65,
+                                     "Back camera segment \(i) should be red")
+            } else {
+                XCTAssertGreaterThan(color.2, color.0 + 65,
+                                     "Front camera segment \(i) should be blue")
+            }
+            cursor += durations[i]
+        }
+        for (index, source) in sources.enumerated() {
+            XCTAssertEqual(try Data(contentsOf: source), originalBytes[index])
+            XCTAssertEqual(try XCTUnwrap(FileManager.default.attributesOfItem(
+                atPath: source.path)[.size] as? NSNumber).int64Value, sourceSizes[index])
+        }
+    }
+
+    func testConservativeStorageBudgetHandlesSingleMultiAndOverflow() {
+        let mib: Int64 = 1024 * 1024
+        XCTAssertEqual(VideoStorageBudget.requiredFreeBytes(sourceBytes: mib,
+                                                            segmentCount: 1), 33 * mib)
+        XCTAssertEqual(VideoStorageBudget.requiredFreeBytes(sourceBytes: mib,
+                                                            segmentCount: 2), 35 * mib)
+        XCTAssertEqual(VideoStorageBudget.requiredFreeBytes(sourceBytes: Int64.max,
+                                                            segmentCount: 2), Int64.max)
+    }
+
+    func testLowFreeSpaceBlocksExportWithoutDeletingOriginalSegments() async throws {
+        let root = FileManager.default.temporaryDirectory
+            .appendingPathComponent("what-lowspace-\(UUID().uuidString)",
+                                    isDirectory: true)
+        try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)
+        defer { try? FileManager.default.removeItem(at: root) }
+        let originals = try [fixture("back"), fixture("front")]
+        let copies = try originals.enumerated().map { index, source in
+            let url = root.appendingPathComponent("segment-\(index).mov")
+            try FileManager.default.copyItem(at: source, to: url)
+            return url
+        }
+        let bytes = try copies.map { try Data(contentsOf: $0) }
+        let destination = root.appendingPathComponent("combined.mov")
+        do {
+            _ = try await VideoSegmentComposer.compose(
+                copies, destination: destination, availableBytesOverride: 1024
+            )
+            XCTFail("Export must refuse impossible free space")
+        } catch VideoStorageBudget.StorageError.insufficientSpace(let required, let available) {
+            XCTAssertGreaterThan(required, available)
+            XCTAssertEqual(available, 1024)
+        }
+        XCTAssertFalse(FileManager.default.fileExists(atPath: destination.path))
+        for (index, source) in copies.enumerated() {
+            XCTAssertEqual(try Data(contentsOf: source), bytes[index])
+        }
+        // A later retry succeeds with the exact same input files.
+        let success = try await VideoSegmentComposer.compose(copies, destination: destination)
+        XCTAssertTrue(success.duration > 1.3)
+        XCTAssertTrue(FileManager.default.fileExists(atPath: destination.path))
+    }
+
     private func averagePixel(_ image: CGImage) throws -> (Int, Int, Int) {
         var pixel = [UInt8](repeating: 0, count: 4)
         let success = pixel.withUnsafeMutableBytes { ptr -> Bool in
