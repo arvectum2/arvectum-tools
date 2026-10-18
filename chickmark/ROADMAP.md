@@ -12,6 +12,10 @@
 **Границы:** одноразовый import владеет ChickMark, создание текста/звука и передача — [Ухват](../what/ROADMAP.md), общие адаптивные/StoreKit функции — [Core](../core/ROADMAP.md).
 
 
+## 1.5.0 + адаптивность · 18.10.2026
+
+[Интеграционный QA](../core/docs/ADAPTIVE_CHICKMARK_1_5_INTEGRATION_2026-10-18.md): в отдельной ветке перенесён актуальный код уже отправленной ChickMark 1.5.0(18) поверх адаптивности, чтобы следующий релиз не потерял handoff заметок Ухвата, вложения, уведомления и backup. Core 13/13, ChickMark unit 245/245, iPad UI 2/2, iPhone/Duo UI 1/1 + 1/1, simulator build PASS. Исходная 1.5.0 (18) в Apple не менялась; не переиспользовать build 18 для нового выпуска.
+
 ## Адаптивный пилот ChickMark · 18.10.2026
 
 [QA](../core/docs/ADAPTIVE_CHICKMARK_PUSHKIN_2026-10-18.md): iPad-ориентации, центрированные Today, sticky ad и HabitDetail; iPhone portrait без изменений. Debug build PASS; изолированная привычка/поворот на iPad и Duo **2/2 PASS**. Следом отдельные full QA, CloudKit, HealthKit и релиз; не трогать рассматриваемую Apple 1.5.0.

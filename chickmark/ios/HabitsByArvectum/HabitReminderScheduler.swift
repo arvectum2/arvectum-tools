@@ -261,17 +261,18 @@ enum HabitReminderScheduler {
         calendar: Calendar = .autoupdatingCurrent
     ) async -> Bool {
         let center = UNUserNotificationCenter.current()
-        await removeAllManagedRequests(center: center)
-
         let eligibleHabits = habits.filter(shouldSchedule)
         let pendingOneOffs = oneOffReminders.filter {
             !$0.isCompleted && $0.dueAt > referenceDate
         }
 
-        guard !eligibleHabits.isEmpty || !pendingOneOffs.isEmpty else {
-            return true
+        // Do not erase the previously scheduled requests before rebuilding.
+        // UNUserNotificationCenter.removePendingNotificationRequests is
+        // asynchronous; a subsequent add may race with that removal and leave
+        // NO pending requests when iOS suspends the app immediately.
+        if !eligibleHabits.isEmpty || !pendingOneOffs.isEmpty {
+            guard await isAuthorized() else { return false }
         }
-        guard await isAuthorized() else { return false }
 
         let habitCandidates = reminderPlan(
             habits: eligibleHabits,
@@ -327,9 +328,11 @@ enum HabitReminderScheduler {
 
         let plan = Array(reservedOneOffs) + Array(recurringHabits)
 
+        var desiredRequests: [UNNotificationRequest] = []
+        desiredRequests.reserveCapacity(plan.count)
         for item in plan {
             var components = calendar.dateComponents(
-                [.year, .month, .day, .hour, .minute],
+                [.year, .month, .day, .hour, .minute, .second],
                 from: item.fireDate
             )
             components.calendar = nil
@@ -353,37 +356,100 @@ enum HabitReminderScheduler {
                 content = oneOffNotificationContent(for: reminder)
             }
 
-            let request = UNNotificationRequest(
-                identifier: identifier,
-                content: content,
-                trigger: UNCalendarNotificationTrigger(
-                    dateMatching: components,
-                    repeats: false
-                )
+            let trigger = UNCalendarNotificationTrigger(
+                dateMatching: components, repeats: false
             )
+            desiredRequests.append(UNNotificationRequest(
+                identifier: identifier, content: content, trigger: trigger
+            ))
+        }
 
+        let existing = await center.pendingNotificationRequests()
+        let changes = reconcile(existing: existing, desired: desiredRequests)
+
+        // Schedule replacements FIRST; never introduce an empty-queue gap.
+        // Adding a request with an existing identifier replaces just that item.
+        for request in changes.toAdd {
+            let trigger = request.trigger as? UNCalendarNotificationTrigger
+#if REVIEW_HANDOFF_QA
+            ReviewNotificationPhysicalQA.recordSchedulerState(
+                requestID: request.identifier, nextFire: trigger?.nextTriggerDate(),
+                added: nil
+            )
+#endif
             do {
                 try await center.add(request)
+#if REVIEW_HANDOFF_QA
+                ReviewNotificationPhysicalQA.recordSchedulerState(
+                    requestID: request.identifier, nextFire: trigger?.nextTriggerDate(),
+                    added: true
+                )
+#endif
             } catch {
+#if REVIEW_HANDOFF_QA
+                ReviewNotificationPhysicalQA.recordSchedulerState(
+                    requestID: request.identifier, nextFire: trigger?.nextTriggerDate(),
+                    added: false, error: error
+                )
+#endif
+                // Retain all previously pending items on failure; a later
+                // refresh can retry without losing reminders already queued.
                 return false
             }
         }
 
+        // Only truly stale identifiers are removed, *after* additions finish.
+        // There is no delete/add pair for a current reminder. A rapid
+        // background suspension therefore preserves its old valid request.
+        if !changes.toRemove.isEmpty {
+            center.removePendingNotificationRequests(withIdentifiers: changes.toRemove)
+        }
         return true
     }
 
-    private static func removeAllManagedRequests(
-        center: UNUserNotificationCenter
-    ) async {
-        let ids = await center.pendingNotificationRequests()
-            .map(\.identifier)
-            .filter {
-                $0.hasPrefix(prefix) || $0.hasPrefix(oneOffPrefix)
-            }
+    struct ScheduleChanges {
+        let toAdd: [UNNotificationRequest]
+        let toRemove: [String]
+    }
 
-        if !ids.isEmpty {
-            center.removePendingNotificationRequests(withIdentifiers: ids)
-        }
+    static func reconcile(
+        existing: [UNNotificationRequest],
+        desired: [UNNotificationRequest]
+    ) -> ScheduleChanges {
+        let previous = Dictionary(uniqueKeysWithValues: existing
+            .filter(isManaged)
+            .map { ($0.identifier, $0) })
+        let wanted = Set(desired.map(\.identifier))
+        return ScheduleChanges(
+            toAdd: desired.filter { request in
+                guard let current = previous[request.identifier] else { return true }
+                return !sameNotification(current, request)
+            },
+            toRemove: previous.keys.filter { !wanted.contains($0) }.sorted()
+        )
+    }
+
+    private static func isManaged(_ request: UNNotificationRequest) -> Bool {
+        request.identifier.hasPrefix(prefix + "-") ||
+            request.identifier.hasPrefix(oneOffPrefix + "-")
+    }
+
+    private static func sameNotification(
+        _ old: UNNotificationRequest,
+        _ new: UNNotificationRequest
+    ) -> Bool {
+        guard let oldTrigger = old.trigger as? UNCalendarNotificationTrigger,
+              let newTrigger = new.trigger as? UNCalendarNotificationTrigger
+        else { return false }
+        return oldTrigger.repeats == newTrigger.repeats &&
+            oldTrigger.dateComponents == newTrigger.dateComponents &&
+            old.content.title == new.content.title &&
+            old.content.body == new.content.body &&
+            old.content.categoryIdentifier == new.content.categoryIdentifier &&
+            NSDictionary(dictionary: old.content.userInfo)
+                .isEqual(to: new.content.userInfo) &&
+            ((old.content.sound == nil && new.content.sound == nil) ||
+             (old.content.sound?.isEqual(new.content.sound) == true))
     }
 
     static func notificationContent(
@@ -401,10 +467,29 @@ enum HabitReminderScheduler {
     }
 
     static func oneOffNotificationContent(
-        for reminder: OneOffReminder
+        for reminder: OneOffReminder,
+        attachmentStore: ReviewNoteAttachmentRepository = ReviewNoteAttachmentRepository()
     ) -> UNMutableNotificationContent {
         let content = UNMutableNotificationContent()
-        content.title = reminder.title
+        // An imported transcript can be the full reminder title in the UI,
+        // but it must NEVER appear on a locked screen or notification.
+        // Fail closed: restoring an older backup or a damaged attachment file
+        // must never publish a truncated private transcript on the lock screen.
+        // All imported one-offs use this reserved title prefix.
+        // Titles already saved under Russian/English/Spanish must remain
+        // protected even when the user changes their chosen UI language or
+        // the attachment file is missing during backup/restore.
+        let protectedPrefixes = ["ru", "en", "es"].map {
+            L10n.string("review.note.prefix", language: $0)
+        }
+        let isImported = protectedPrefixes.contains(where: {
+            reminder.title.hasPrefix($0)
+        }) || (try? attachmentStore.get(reminder.id)) != nil
+        if isImported {
+            content.title = L10n.string("review.notification.genericTitle")
+        } else {
+            content.title = reminder.title
+        }
         content.body = L10n.string("oneoff.notification.body")
         content.sound = .default
         content.categoryIdentifier =

@@ -223,6 +223,15 @@ final class HabitsAppDelegate: NSObject, UIApplicationDelegate,
     ) {
         let userInfo = response.notification.request.content.userInfo
 
+        if response.actionIdentifier == UNNotificationDefaultActionIdentifier,
+           userInfo[OneOffReminderNotificationActions.reminderIDKey] != nil {
+            Task { @MainActor in
+                ReviewNoteNotificationNavigation.recordNotificationTap(userInfo: userInfo)
+                completionHandler()
+            }
+            return
+        }
+
         if response.actionIdentifier ==
             OneOffReminderNotificationActions.completeIdentifier,
            let rawReminderID = userInfo[
