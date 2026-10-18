@@ -3,6 +3,16 @@ import Foundation
 import XCTest
 @testable import WhatIOS
 
+/// Simulates a process dying after queue ACK commit but before audio deletion.
+private final class AckAudioDeletionFailureFileManager: FileManager {
+    override func removeItem(at URL: URL) throws {
+        if URL.pathExtension == "m4a" {
+            throw NSError(domain: NSCocoaErrorDomain, code: NSFileWriteNoPermissionError)
+        }
+        try super.removeItem(at: URL)
+    }
+}
+
 final class WatchA2ReliabilityTests: XCTestCase {
     private func envelope(_ id: UUID = UUID()) -> RecordingEnvelope {
         RecordingEnvelope(
@@ -52,6 +62,108 @@ final class WatchA2ReliabilityTests: XCTestCase {
         XCTAssertNil(try WatchDurableQueue.acknowledge(
             originals[1].id, in: &queue, at: index
         ))
+    }
+
+    func testImmediateAndBackgroundACKOrderLeavesExactlyOnePendingNote() throws {
+        let dir = try temporaryDirectory()
+        defer { try? FileManager.default.removeItem(at: dir) }
+        let index = dir.appendingPathComponent("queue.json")
+        let first = envelope(), second = envelope()
+        var queue: [RecordingEnvelope] = []
+        for item in [first, second] {
+            try Data(repeating: 0x55, count: 2_048).write(
+                to: dir.appendingPathComponent(item.fileName)
+            )
+            try WatchDurableQueue.enqueue(item, into: &queue, at: index)
+        }
+        XCTAssertTrue(try WatchAcknowledgementJournal.acknowledge(
+            first.id, in: &queue, at: index, outbound: dir
+        ))
+        // A background ACK for the same UUID arriving after the live reply
+        // cannot touch a later recording's queue entry or source file.
+        XCTAssertFalse(try WatchAcknowledgementJournal.acknowledge(
+            first.id, in: &queue, at: index, outbound: dir
+        ))
+        XCTAssertEqual(queue.map(\.id), [second.id])
+        XCTAssertFalse(FileManager.default.fileExists(
+            atPath: dir.appendingPathComponent(first.fileName).path
+        ))
+        XCTAssertTrue(FileManager.default.fileExists(
+            atPath: dir.appendingPathComponent(second.fileName).path
+        ))
+        XCTAssertTrue(WatchAcknowledgementJournal.pendingIDs(in: dir).isEmpty)
+        XCTAssertEqual(try JSONDecoder().decode([RecordingEnvelope].self,
+            from: Data(contentsOf: index)).map(\.id), [second.id])
+    }
+
+    func testCrashAfterACKQueueCommitBeforeAudioDeletionNeverResurrectsOrphan() throws {
+        let dir = try temporaryDirectory()
+        defer { try? FileManager.default.removeItem(at: dir) }
+        let index = dir.appendingPathComponent("queue.json")
+        let recording = envelope()
+        let audio = dir.appendingPathComponent(recording.fileName)
+        try Data(repeating: 0x55, count: 2_048).write(to: audio)
+        var queue: [RecordingEnvelope] = []
+        try WatchDurableQueue.enqueue(recording, into: &queue, at: index)
+        XCTAssertTrue(try WatchAcknowledgementJournal.acknowledge(
+            recording.id, in: &queue, at: index, outbound: dir,
+            fileManager: AckAudioDeletionFailureFileManager()
+        ))
+        XCTAssertTrue(queue.isEmpty)
+        XCTAssertTrue(FileManager.default.fileExists(atPath: audio.path))
+        XCTAssertEqual(WatchAcknowledgementJournal.pendingIDs(in: dir), [recording.id])
+
+        // Simulate reboot: a finalized source exists despite a persisted ACK.
+        // Recovery scanner must not treat it as a new unsent recording.
+        let known = WatchAcknowledgementJournal.pendingIDs(in: dir)
+        let recovered = WatchQueueRecovery.recover(
+            from: dir, knownIDs: known,
+            decodedDuration: { _ in 1.5 }
+        )
+        XCTAssertTrue(recovered.isEmpty)
+        var rebooted = try JSONDecoder().decode([RecordingEnvelope].self,
+            from: Data(contentsOf: index))
+        try WatchAcknowledgementJournal.reconcile(
+            queue: &rebooted, at: index, outbound: dir
+        )
+        XCTAssertTrue(rebooted.isEmpty)
+        XCTAssertFalse(FileManager.default.fileExists(atPath: audio.path))
+        XCTAssertTrue(WatchAcknowledgementJournal.pendingIDs(in: dir).isEmpty)
+    }
+
+    func testACKIndexWriteFailurePreservesOriginalAndReconcilesAfterUnlock() throws {
+        let dir = try temporaryDirectory()
+        defer { try? FileManager.default.removeItem(at: dir) }
+        let index = dir.appendingPathComponent("queue.json")
+        let recording = envelope()
+        let audio = dir.appendingPathComponent(recording.fileName)
+        try Data(repeating: 0x33, count: 2_048).write(to: audio)
+        var queue: [RecordingEnvelope] = []
+        try WatchDurableQueue.enqueue(recording, into: &queue, at: index)
+
+        // Block the index commit after the ACK marker has been persisted.
+        try FileManager.default.removeItem(at: index)
+        try FileManager.default.createDirectory(at: index, withIntermediateDirectories: true)
+        XCTAssertThrowsError(try WatchAcknowledgementJournal.acknowledge(
+            recording.id, in: &queue, at: index, outbound: dir
+        ))
+        XCTAssertEqual(queue.map(\.id), [recording.id])
+        XCTAssertTrue(FileManager.default.fileExists(atPath: audio.path))
+        XCTAssertEqual(WatchAcknowledgementJournal.pendingIDs(in: dir), [recording.id])
+        // Once storage becomes writable, reload original pending queue and
+        // complete the ACK before orphan discovery or another transfer.
+        try FileManager.default.removeItem(at: index)
+        try JSONEncoder().encode(queue).write(to: index, options: .atomic)
+        var rebooted = try JSONDecoder().decode([RecordingEnvelope].self,
+            from: Data(contentsOf: index))
+        try WatchAcknowledgementJournal.reconcile(
+            queue: &rebooted, at: index, outbound: dir
+        )
+        XCTAssertTrue(rebooted.isEmpty)
+        XCTAssertTrue(WatchAcknowledgementJournal.pendingIDs(in: dir).isEmpty)
+        XCTAssertFalse(FileManager.default.fileExists(atPath: audio.path))
+        XCTAssertTrue(try JSONDecoder().decode([RecordingEnvelope].self,
+            from: Data(contentsOf: index)).isEmpty)
     }
 
     func testEnqueueFailureDoesNotChangeQueueOrEraseAudio() throws {
