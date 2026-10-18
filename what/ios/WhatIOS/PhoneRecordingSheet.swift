@@ -14,7 +14,7 @@ struct PhoneRecordingSheet: View {
                     .accessibilityHidden(true)
 
                 Text(recorder.isRecording
-                    ? CaptureBrand.text("Идёт запись", "Recording on iPhone")
+                    ? CaptureBrand.text("Идёт запись", "Recording on device")
                     : CaptureBrand.text("Голосовая заметка", "Voice note"))
                     .font(.title2.bold())
 
@@ -45,7 +45,7 @@ struct PhoneRecordingSheet: View {
                         }
                     }
                 } else {
-                    Text(CaptureBrand.text("Аудио сохранится на этом iPhone.", "Your original audio will be saved locally on this iPhone."))
+                    Text(CaptureBrand.text("Аудио сохранится на этом устройстве.", "Your original audio will be saved locally on this device."))
                         .font(.subheadline)
                         .multilineTextAlignment(.center)
                         .foregroundStyle(.secondary)
@@ -98,7 +98,7 @@ struct PhoneRecordingSheet: View {
             .interactiveDismissDisabled(recorder.isRecording)
             .alert(CaptureBrand.text("Запись", "Phone recording"), isPresented: Binding(
                 get: { recorder.errorMessage != nil },
-                set: { if !$0 { recorder.errorMessage = nil } }
+                set: { _ in /* OK handles dismissal; avoid publishing during SwiftUI updates. */ }
             )) {
                 Button("OK") { recorder.errorMessage = nil }
             } message: {

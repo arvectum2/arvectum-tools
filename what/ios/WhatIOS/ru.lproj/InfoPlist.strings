@@ -1,3 +1,5 @@
 "CFBundleDisplayName" = "Ухват";
-"NSMicrophoneUsageDescription" = "Записывайте мысли на iPhone. Аудио хранится на вашем устройстве.";
-"NSSpeechRecognitionUsageDescription" = "Расшифровка сохранённых голосовых записей непосредственно на iPhone.";
+"NSMicrophoneUsageDescription" = "Ухват использует микрофон для аудио- и видеозаметок. Записи остаются на устройстве.";
+"NSSpeechRecognitionUsageDescription" = "Расшифровка голосовых записей выполняется непосредственно на устройстве.";
+
+"NSCameraUsageDescription" = "Ухват использует камеру для записи видеозаметок только на устройстве.";

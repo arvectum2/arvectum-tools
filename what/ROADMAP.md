@@ -1,5 +1,9 @@
 # What? — Product Roadmap
 
+## Мультимодальный iPad/Duo · 18.10.2026
+
+[QA 1.1.0](../core/docs/ADAPTIVE_T4_T5_MULTIMODAL_2026-10-18.md): интегрированы общие адаптивные редакторы в actual 1.1.0 с текстом/аудио/видео/ChickMark. Core 13/13, What 104 unit (3 skipped), iPad UI 5/5 и Duo 4 executed (2 skipped) прошли. По решению владельца физический Duo не блокирует разработку; симуляторная проверка и исправления по user feedback. Живое fold/unfold не доказано. Релиз и данные на обычном iPhone — отдельные ворота.
+
 ## Пилот iPad/Duo · 18.10.2026
 
 В отдельной ветке feature/core-ipad-duo-pilots-20261018: ArvectumCore, читаемая библиотека/редактор, широкий/компактный layout, iPad target только для QA; Debug build PASS, 61 unit (3 skipped) и 2 UI PASS. Мультимодальная версия 1.1.0 не интегрирована и не менялась, WH-D0…D3 и физическая приёмка всё ещё открыты. [QA](../core/docs/ADAPTIVE_T4_T5_PILOT_2026-10-18.md).

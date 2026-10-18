@@ -162,4 +162,16 @@ final class WatchA2ReliabilityTests: XCTestCase {
         XCTAssertNil(CaptureLatency.p95(milliseconds: [.nan, -.infinity]))
         XCTAssertEqual(CaptureLatency.p95(milliseconds: [120, 80, 250, 110]), 250)
     }
+    func testWatchRecoveryRequestMetadataIsDistinctFromAudioAndAck() {
+        XCTAssertNotEqual(TransferMetadataKey.syncRequest, TransferMetadataKey.recording)
+        XCTAssertNotEqual(TransferMetadataKey.syncRequest, TransferMetadataKey.acknowledgement)
+    }
+
+    func testRestoringQueueAfterRebootDoesNotDuplicatePendingUUIDs() {
+        let first = RecordingEnvelope(id: UUID(), createdAt: Date(), duration: 2, fileName: "a.m4a")
+        let second = RecordingEnvelope(id: UUID(), createdAt: Date(), duration: 4, fileName: "b.m4a")
+        let restored = WatchDurableQueue.mergeRestored(disk: [first], memory: [first, second])
+        XCTAssertEqual(restored.map(\.id), [first.id, second.id])
+    }
+
 }
