@@ -1,5 +1,12 @@
 # ChickMark — актуальная дорожная карта
 
+## PR #90 объединён в main · 18.10.2026
+
+- [x] Код ChickMark 1.5.0 и адаптивных экранов iPad/Duo находится в main после PR #90, 38/38 CI PASS; отправленный Apple бинарник 1.5.0(18) не менялся.
+- [x] Тесты переходов, сохранности и layout на симуляторах пройдены; физический Duo не обязателен для продолжения разработки.
+- [ ] Экспорт воды CM18-3: отдельно [draft PR #94](https://github.com/arvectum2/arvectum-tools/pull/94), 276/276 unit, 2/2 iPad UI, не в main и не отправлен Apple. Реальный HealthKit write/delete остаётся релизным gate.
+
+
 ## Актуальный релизный чекпоинт · 18.10.2026
 **Подтверждённая публичная версия:** ChickMark 1.4.1(15), ASC READY_FOR_SALE 16.10. **1.5.0 (build 18)** с разовыми напоминаниями Ухвата, Watch и виджетами **отправлена на App Review 18.10 09:01 МСК**; upload VALID, состояние WAITING_FOR_REVIEW, выпуск не подтверждён ([релизный аудит](https://github.com/arvectum2/arvectum-tools/blob/release/what-chickmark-20261018-rc1/what/docs/RELEASE_AUDIT_WHAT_CHICKMARK_2026-10-18.md)).
 

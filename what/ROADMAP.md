@@ -1,5 +1,12 @@
 # What? — Product Roadmap
 
+## PR #90 объединён в main · 18.10.2026
+
+- [x] Исходники реального Ухвата 1.1.0 (текст/аудио/видео, Watch, ChickMark handoff) и iPad/Duo адаптивность в main через PR #90, 38/38 GitHub checks.
+- [x] Финальные тесты на обычном iPhone: 104 executed, 0 failures, 3 expected skip; [протокол](../core/docs/ADAPTIVE_MAIN_INTEGRATION_2026-10-18.md).
+- [ ] Ранее отправленная Apple сборка 1.1.0(8) не заменялась новым бинарником. Новые iPad-релизы, реальные доступы камеры, окончательная физическая приёмка и настоящее fold/unfold не закрыты.
+
+
 ## Мультимодальный iPad/Duo · 18.10.2026
 
 [QA 1.1.0](../core/docs/ADAPTIVE_T4_T5_MULTIMODAL_2026-10-18.md): интегрированы общие адаптивные редакторы в actual 1.1.0 с текстом/аудио/видео/ChickMark. Core 13/13, What 104 unit (3 skipped), iPad UI 5/5 и Duo 4 executed (2 skipped) прошли. По решению владельца физический Duo не блокирует разработку; симуляторная проверка и исправления по user feedback. Живое fold/unfold не доказано. Релиз и данные на обычном iPhone — отдельные ворота.
