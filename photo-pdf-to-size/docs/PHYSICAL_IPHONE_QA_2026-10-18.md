@@ -59,3 +59,16 @@
 - Mac mini ArvectumSSD/Arvectum/tmp/Arvectum-QA-Files/ROUNDTRIP_RESULT.json — отчёт on-device QA
 - Mac mini ArvectumSSD/Arvectum/tmp/photo-file-full-picker-20261018.log — XCTest Runner, заблокированный до assertions
 - Только QA-приложение включает файловый шаринг Documents и DEBUG PHOTO_PHYSICAL_QA; production артефакты не менялись.
+
+## Без физического iPhone: Duo Simulator, 18 октября 2026
+
+После слияния Pushkin QA #99 и обновления ветки Foto/PDF:
+
+- Синтетический PDF 1 400 686 байт помещён в приватный Documents QA-приложения на Duo Simulator. Реальный PDFEngine.inspect(fileURL:) + compressByBytes дал **48 736 байт**, **1 страницу**, alreadyFit=false, status=passed. Байты и число страниц совпали с физическим iPhone.
+- Четыре профильных Duo UI-теста **4/4 PASS**: сжатие фото и PDF, доступность Files import и режимы размера.
+- Строгий системный Files picker QA-тест **1/1 PASS**, 25.557 с: picker → только папка Photo PDF QA → только ARVECTUM_QA_INPUT.pdf → импорт и сжатие. Никогда не выбирает случайные файлы Recents.
+- Предыдущие Duo-прогоны были нестабильны при поиске QA-папки и ожидании доступности кнопки после системного picker. Финальный тест ждёт активной функциональной кнопки, а не вложенный SwiftUI StaticText, который iOS 27 объединяет с Button.
+- **Только симулятор:** физический путь через Files Importer и FileExporter, сохранение файла в выбранное пользователем место и повторное открытие результата в Files остаются OPEN. Не выдавать симуляторную успешность за физическую приёмку.
+- Логи на Mac mini ArvectumSSD: photo-qa-duo-build-20261018.log, photo-qa-duo-ui-20261018.xcresult, photo-qa-duo-picker-import-log-20261018.xcresult.
+
+QA флаг PHOTO_PHYSICAL_QA существует только в секции configs.Debug изолированного проекта. Его Release не содержит диагностических компиляционных флагов.
