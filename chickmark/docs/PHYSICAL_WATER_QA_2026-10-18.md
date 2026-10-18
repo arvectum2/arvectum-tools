@@ -18,7 +18,8 @@
 | Actual device HKHealthStore.isHealthDataAvailable | TRUE |
 | Physical dietaryWater write authorization for QA app | notDetermined, raw value 0 |
 | Probe requested HealthKit permission or read/wrote/deleted a sample | NO, all flags false |
-| Automated physical iPhone UI test | BLOCKED: XCTest timeout while enabling UI Automation, before assertions |
+| Automated physical iPhone UI test (initial attempt) | BLOCKED: XCTest timeout enabling UI Automation before assertions |
+| Automated physical iPhone UI retry after owner enabled UI Automation | **2/2 PASS, zero failures**; export OFF by default and denied-write leaves opt-in OFF |
 | Previously completed simulated iPad and standard iPhone UI | 2/2 per simulator, not equivalent to physical device acceptance |
 
 Local artifacts, stored privately under ArvectumSSD/Arvectum/tmp on Mac mini:
@@ -27,11 +28,13 @@ Local artifacts, stored privately under ArvectumSSD/Arvectum/tmp on Mac mini:
 - water-physical-ui-retry-20261018.log and xcresult
 - water-readiness-iphone13-20261018.json
 
-The failed UI runner was removed from iPhone. The standalone QA app remains installed. No existing user app or medical data was removed or modified.
+The failed first-run UI runner was removed from iPhone. After owner enabled UI Automation and explicitly requested another run, the physical retest passed **2/2** with TEST SUCCEEDED. The standalone QA app remains installed. No existing personal app or medical data was removed or modified.
+
+Latest physical UI log and xcresult: water-physical-ui-after-toggle-20261018.log and water-physical-ui-after-toggle-20261018.xcresult on Mac mini ArvectumSSD. Both testDeniedPermissionDoesNotPersistOptInOrOpenHealth and testQuantityHabitHasWaterExportScreenButNoAutomaticPermission passed. The DEBUG --ui-testing guard intercepted permission requests; no real HealthKit authorization or sample operations occurred.
 
 ## Open acceptance gates
 
-1. On the physical iPhone, check Settings > Developer > Enable UI Automation and leave the phone unlocked. Retry UI consent tests; do not change personal HealthKit permissions for this.
+1. **CLOSED:** Owner enabled Settings > Developer > Enable UI Automation; physical consent UI tests **2/2 PASS**. No personal Apple Health settings changed.
 2. Real HealthKit dietaryWater authorization, sample write, same-day change/undo and own-sample deletion have NOT been performed. Before actual write/delete, obtain explicit consent in the isolated QA app's system permission prompt and use only disposable, distinctly identifiable test samples with guaranteed own-source cleanup. Do not read other Health entries.
 3. Draft PR #94 is not ready for merge/release until live HealthKit acceptance and product CI finish; existing Store binary and CloudKit remain unchanged.
 
