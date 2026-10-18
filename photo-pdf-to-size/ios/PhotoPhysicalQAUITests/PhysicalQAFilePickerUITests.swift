@@ -31,8 +31,8 @@ final class PhysicalQAFilePickerUITests: XCTestCase {
         // Navigate into the local device location first; the first picker
         // screen may be Recents or the root Browse list.
         let localLocation = app.cells.matching(NSPredicate(
-            format: "identifier CONTAINS %@ AND label CONTAINS[c] %@",
-                    "DOC.sidebar.item.", "iPhone"
+            format: "identifier CONTAINS %@ AND (label CONTAINS[c] %@ OR label CONTAINS[c] %@)",
+                    "DOC.sidebar.item.", "iPhone", "iPad"
         )).firstMatch
         if !localLocation.waitForExistence(timeout: 5) {
             let browse = app.buttons.matching(NSPredicate(
@@ -40,7 +40,13 @@ final class PhysicalQAFilePickerUITests: XCTestCase {
             )).firstMatch
             if browse.waitForExistence(timeout: 4) { browse.tap() }
         }
-        XCTAssertTrue(localLocation.waitForExistence(timeout: 10),
+        let hasLocalLocation = localLocation.waitForExistence(timeout: 10)
+        if !hasLocalLocation {
+            print("QA_IPAD_FILEPICKER_TREE_BEGIN")
+            print(app.debugDescription)
+            print("QA_IPAD_FILEPICKER_TREE_END")
+        }
+        XCTAssertTrue(hasLocalLocation,
             "Must first open local device location; never select from Recents")
         localLocation.tap()
         let folder = app.staticTexts.matching(NSPredicate(
@@ -85,6 +91,78 @@ final class PhysicalQAFilePickerUITests: XCTestCase {
                        "Synthetic PDF was not imported and made compressible")
         compress.tap()
         XCTAssertTrue(app.staticTexts["ГОТОВО"].waitForExistence(timeout: 30))
-        XCTAssertTrue(app.buttons["Сохранить файл"].exists)
+        let export = app.buttons["Сохранить файл"]
+        XCTAssertTrue(export.exists)
+        export.tap()
+        // FileExporter can initially show a saved destination or browse root.
+        // Never approve a save outside the exact QA-owned folder.
+        let qaDestination = app.buttons.matching(NSPredicate(
+            format: "label CONTAINS %@ AND label CONTAINS %@",
+                   "Photo PDF QA", "Меню действий"
+        )).firstMatch
+        let destinationVisible = qaDestination.waitForExistence(timeout: 10)
+        if !destinationVisible {
+            print("QA_EXPORT_DESTINATION_TREE_BEGIN")
+            print(app.debugDescription)
+            print("QA_EXPORT_DESTINATION_TREE_END")
+        }
+        XCTAssertTrue(destinationVisible,
+            "System exporter's current path must be exact Photo PDF QA folder")
+        // The true system Save action has a stable FileProvider identifier;
+        // never tap a generic button or approve an arbitrary destination.
+        let save = app.buttons.matching(NSPredicate(
+            format: "identifier == %@ AND label == %@",
+                   "DOCPicker.actionButton", "Сохранить"
+        )).firstMatch
+        XCTAssertTrue(save.waitForExistence(timeout: 10))
+        XCTAssertTrue(save.isEnabled)
+        save.tap()
+        let done = app.staticTexts["ГОТОВО"].firstMatch
+        XCTAssertTrue(done.waitForExistence(timeout: 10))
+
+        // Close the round trip by opening ONLY the known output file through
+        // the same system Files importer. This catches a silent save failure
+        // despite the exporter dismissing successfully.
+        app.buttons["home-button"].tap()
+        let pdfMode = app.buttons["PDF"]
+        XCTAssertTrue(pdfMode.waitForExistence(timeout: 8))
+        pdfMode.tap()
+        let chooseAgain = app.buttons.matching(NSPredicate(
+            format: "label CONTAINS %@ OR label CONTAINS %@",
+                    "Выбрать PDF", "PDF выбран"
+        )).firstMatch
+        XCTAssertTrue(chooseAgain.waitForExistence(timeout: 8))
+        chooseAgain.tap()
+        let exportedFile = app.cells.matching(NSPredicate(
+            format: "identifier == %@", "pdf-do-razmera, pdf"
+        )).firstMatch
+        if !exportedFile.waitForExistence(timeout: 6) {
+            let browse = app.buttons.matching(NSPredicate(
+                format: "label == %@ OR label == %@", "Обзор", "Browse"
+            )).firstMatch
+            if browse.waitForExistence(timeout: 3) { browse.tap() }
+            let local = app.cells.matching(NSPredicate(
+                format: "identifier CONTAINS %@ AND (label CONTAINS[c] %@ OR label CONTAINS[c] %@)",
+                       "DOC.sidebar.item.", "iPhone", "iPad"
+            )).firstMatch
+            XCTAssertTrue(local.waitForExistence(timeout: 8))
+            local.tap()
+            let qaFolder = app.staticTexts.matching(NSPredicate(
+                format: "label == %@ OR label == %@", "Photo PDF QA", "Фото PDF QA"
+            )).firstMatch
+            XCTAssertTrue(qaFolder.waitForExistence(timeout: 8))
+            qaFolder.tap()
+        }
+        XCTAssertTrue(exportedFile.waitForExistence(timeout: 10),
+            "The saved QA PDF must appear in the system Files picker")
+        exportedFile.tap()
+        let compressAgain = app.buttons["Уменьшить PDF"]
+        XCTAssertTrue(compressAgain.waitForExistence(timeout: 8))
+        let readyAgain = XCTNSPredicateExpectation(
+            predicate: NSPredicate(format: "enabled == true"),
+            object: compressAgain
+        )
+        XCTAssertEqual(XCTWaiter.wait(for: [readyAgain], timeout: 10), .completed,
+            "Reopening the exported PDF must succeed without touching personal files")
     }
 }

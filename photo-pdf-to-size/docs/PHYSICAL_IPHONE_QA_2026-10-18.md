@@ -72,3 +72,7 @@
 - Логи на Mac mini ArvectumSSD: photo-qa-duo-build-20261018.log, photo-qa-duo-ui-20261018.xcresult, photo-qa-duo-picker-import-log-20261018.xcresult.
 
 QA флаг PHOTO_PHYSICAL_QA существует только в секции configs.Debug изолированного проекта. Его Release не содержит диагностических компиляционных флагов.
+
+## Дополнение: системный экспорт и повторный импорт в симуляторах
+
+Полный цикл прошёл на Duo (1/1 PASS) и iPad Air (1/1 PASS), с независимой проверкой созданного PDF по контрольной сумме и структуре. См. SYSTEM_FILE_EXPORT_QA_2026-10-18.md. Физический системный экспорт на iPhone остаётся открытым.
