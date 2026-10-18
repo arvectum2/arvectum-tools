@@ -42,6 +42,16 @@
 
 Существующие релизы Apple, Growth и Where? не затрагивались.
 
+## iPhone Duo Simulator: системный Files Picker · 18.10.2026
+
+- Реальный SwiftUI fileImporter открывает системный FileProvider на iPhone Duo Simulator, iOS 27.1. Используется только отдельное QA-приложение с локальным ARVECTUM_QA_INPUT.pdf (624 байта, 1 страница).
+- Первый UI-прогон обнаружил ошибку теста: поиск «На iPhone» без учёта неразрывного пробела в DOC.sidebar.item.На iPhone.
+- Второй UI-прогон дошёл до тестовой папки, но нажатие на вложенную подпись StaticText ARVECTUM_QA_INPUT не завершало импорт в FileProvider.
+- После изменения теста на **точный идентификатор системной файловой ячейки** ARVECTUM_QA_INPUT, pdf и двуязычное имя папки, PhysicalQAFilePickerUITests.testImportSyntheticPDFViaPhysicalFilesPickerAndCompress **1/1 PASS, 26.152 s, TEST SUCCEEDED**.
+- Проверены путь *локальная папка QA → системный выбор PDF → импорт → сжатие → экран результата → кнопка сохранения*. Никакой файл из Recents не выбран.
+- Отчёт ArvectumSSD/Arvectum/tmp/photo-sim-picker-exact-cell-20261018.log и xcresult. Отдельный тест обработки байтов PDF на том же Duo Simulator также PASS: 1 400 686 → 48 736 байт с сохранением страницы.
+- **Физический Files picker на iPhone остаётся отдельным открытым gate**, поскольку телефон временно недоступен. Ещё не проведено физическое подтверждение записи через системную панель fileExporter и повторного открытия сохранённого файла.
+
 ## Дополнительные артефакты физического файлового цикла
 
 - Mac mini ArvectumSSD/Arvectum/tmp/Arvectum-QA-Files/ARVECTUM_QA_LARGE_INPUT.pdf — синтетический вход
