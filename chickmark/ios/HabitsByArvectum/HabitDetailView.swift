@@ -14,6 +14,7 @@ struct HabitDetailView: View {
     @Bindable var habit: Habit
     @State private var showingDeleteConfirmation = false
     @State private var showingEditHabit = false
+    @State private var showingWaterExport = false
     @State private var showingExtendedHistory = false
     @State private var editingProgressDay: HabitProgressDaySelection?
 
@@ -86,6 +87,14 @@ struct HabitDetailView: View {
                 }
 
                 Menu {
+                    if !habit.isArchived && habit.usesQuantitativeGoal {
+                        Button {
+                            showingWaterExport = true
+                        } label: {
+                            Label(L10n.string("water.export.title"), systemImage: "drop.fill")
+                        }
+                        .accessibilityIdentifier("water.export.entry")
+                    }
                     if !habit.isArchived && !habit.isPaused {
                         Button(action: togglePause) {
                             Label(
@@ -122,6 +131,9 @@ struct HabitDetailView: View {
         }
         .sheet(isPresented: $showingEditHabit) {
             AddHabitView(habit: habit)
+        }
+        .sheet(isPresented: $showingWaterExport) {
+            WaterExportPreferencesView(habit: habit)
         }
         .sheet(isPresented: $showingExtendedHistory) {
             NavigationStack {

@@ -95,6 +95,7 @@ final class WaterExportLocalStore {
     private let defaults: UserDefaults
     private let rulesKey = "chickmark.water.rules.v1"
     private let receiptsKey = "chickmark.water.receipts.v1"
+    private let pendingKey = "chickmark.water.pendingWriteVersions.v1"
 
     init(defaults: UserDefaults = .standard) {
         self.defaults = defaults
@@ -102,6 +103,22 @@ final class WaterExportLocalStore {
 
     func rule(for habitID: UUID) -> WaterExportRule? {
         load([String: WaterExportRule].self, key: rulesKey)?[habitID.uuidString]
+    }
+
+    var allRules: [(habitID: UUID, rule: WaterExportRule)] {
+        (load([String: WaterExportRule].self, key: rulesKey) ?? [:])
+            .compactMap { key, rule in
+                UUID(uuidString: key).map { (habitID: $0, rule: rule) }
+            }
+    }
+
+    func receipts(for habitID: UUID) -> [(dayKey: String, receipt: WaterExportReceipt)] {
+        let prefix = "ru.arvectum.chickmark.water.v1.\(habitID.uuidString)."
+        return (load([String: WaterExportReceipt].self, key: receiptsKey) ?? [:])
+            .compactMap { key, receipt in
+                guard key.hasPrefix(prefix), receipt.syncIdentifier == key else { return nil }
+                return (String(key.dropFirst(prefix.count)), receipt)
+            }
     }
 
     func setRule(_ rule: WaterExportRule?, for habitID: UUID) {
@@ -115,6 +132,38 @@ final class WaterExportLocalStore {
         load([String: WaterExportReceipt].self, key: receiptsKey)?[
             WaterExportPlanning.syncIdentifier(habitID: habitID, dayKey: dayKey)
         ]
+    }
+
+    /// Persist the intended metadata version BEFORE the HealthKit call.
+    /// An interrupted successful write is replayed with a higher version,
+    /// which replaces (rather than doubles) the previously saved sample.
+    func pendingVersion(habitID: UUID, dayKey: String) -> Int? {
+        let key = WaterExportPlanning.syncIdentifier(habitID: habitID, dayKey: dayKey)
+        return load([String: Int].self, key: pendingKey)?[key]
+    }
+
+    func setPendingVersion(_ version: Int?, habitID: UUID, dayKey: String) {
+        let key = WaterExportPlanning.syncIdentifier(habitID: habitID, dayKey: dayKey)
+        var all = load([String: Int].self, key: pendingKey) ?? [:]
+        all[key] = version
+        save(all, key: pendingKey)
+    }
+
+    func pendingDays(for habitID: UUID) -> [String] {
+        let prefix = "ru.arvectum.chickmark.water.v1.\(habitID.uuidString)."
+        return (load([String: Int].self, key: pendingKey) ?? [:]).keys
+            .filter { $0.hasPrefix(prefix) }
+            .map { String($0.dropFirst(prefix.count)) }
+    }
+
+    var allKnownHabitIDs: Set<UUID> {
+        let prefix = "ru.arvectum.chickmark.water.v1."
+        let suffixes = Array((load([String: WaterExportReceipt].self, key: receiptsKey) ?? [:]).keys)
+            + Array((load([String: Int].self, key: pendingKey) ?? [:]).keys)
+        return Set(suffixes.compactMap { key in
+            guard key.hasPrefix(prefix) else { return nil }
+            return UUID(uuidString: String(key.dropFirst(prefix.count).prefix(36)))
+        })
     }
 
     /// Only the successful HealthKit writer may commit or clear this receipt.

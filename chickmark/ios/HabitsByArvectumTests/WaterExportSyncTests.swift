@@ -1,0 +1,201 @@
+import XCTest
+@testable import HabitsByArvectum
+
+@MainActor
+private final class FakeWaterHealthDriver: WaterHealthWriting {
+    var authorized = true
+    var fail = false
+    var failAfterWrite = false
+    var upserts: [(id: String, ml: Int, version: Int)] = []
+    var removals: [String] = []
+
+    func requestWriteAccess() async throws {
+        if !authorized { throw WaterExportError.notAuthorized }
+    }
+    func isWriteAuthorized() -> Bool { authorized }
+    func upsert(identifier: String, millilitres: Int,
+                version: Int, dayKey: String) async throws {
+        if fail { throw WaterExportError.failed }
+        upserts.append((identifier, millilitres, version))
+        if failAfterWrite { throw WaterExportError.failed }
+    }
+    func removeOwn(identifier: String) async throws {
+        if fail { throw WaterExportError.failed }
+        removals.append(identifier)
+    }
+}
+
+@MainActor
+final class WaterExportSyncTests: XCTestCase {
+    private let habit = UUID(uuidString: "00000000-0000-0000-0000-0000000000A7")!
+    private func setup() -> (WaterExportLocalStore, FakeWaterHealthDriver, String, String) {
+        let suite = "water-sync-test-\(UUID().uuidString)"
+        let defaults = UserDefaults(suiteName: suite)!
+        let store = WaterExportLocalStore(defaults: defaults)
+        let start = Calendar.current.startOfDay(for: .now)
+        store.setRule(WaterExportRule(millilitresPerUnit: 250, enabledAt: start), for: habit)
+        return (store, FakeWaterHealthDriver(), HabitDayKey.make(for: .now), suite)
+    }
+    func testUpsertThenDuplicateIsNoopAndIncrementIsVersioned() async throws {
+        let (store, driver, day, suite) = setup()
+        defer { UserDefaults(suiteName: suite)?.removePersistentDomain(forName: suite) }
+        let engine = WaterExportSyncEngine(driver: driver, store: store)
+        let syncResult0 = try await engine.reconcile(habitID: habit, dayKey: day,
+            goal: .quantity(count: 10), count: 3)
+        XCTAssertTrue(syncResult0)
+        XCTAssertEqual(driver.upserts.map(\.ml), [750])
+        XCTAssertEqual(store.receipt(habitID: habit, dayKey: day)?.syncVersion, 1)
+        let syncResult1 = try await engine.reconcile(habitID: habit, dayKey: day,
+            goal: .quantity(count: 10), count: 3)
+        XCTAssertFalse(syncResult1)
+        XCTAssertEqual(driver.upserts.count, 1)
+        let syncResult2 = try await engine.reconcile(habitID: habit, dayKey: day,
+            goal: .quantity(count: 10), count: 4)
+        XCTAssertTrue(syncResult2)
+        XCTAssertEqual(driver.upserts.map(\.ml), [750, 1000])
+        XCTAssertEqual(driver.upserts.map(\.version), [1, 2])
+        XCTAssertEqual(store.receipt(habitID: habit, dayKey: day)?.millilitres, 1000)
+    }
+    func testDeniedPermissionCannotWriteOrCommitReceipt() async throws {
+        let (store, driver, day, suite) = setup()
+        defer { UserDefaults(suiteName: suite)?.removePersistentDomain(forName: suite) }
+        driver.authorized = false
+        let engine = WaterExportSyncEngine(driver: driver, store: store)
+        do {
+            _ = try await engine.reconcile(habitID: habit, dayKey: day,
+                goal: .quantity(count: 10), count: 2)
+            XCTFail("Expected write permission denial")
+        } catch {}
+        XCTAssertTrue(driver.upserts.isEmpty)
+        XCTAssertNil(store.receipt(habitID: habit, dayKey: day))
+    }
+    func testFailureRetainsPriorReceiptForRetry() async throws {
+        let (store, driver, day, suite) = setup()
+        defer { UserDefaults(suiteName: suite)?.removePersistentDomain(forName: suite) }
+        let engine = WaterExportSyncEngine(driver: driver, store: store)
+        let syncResult3 = try await engine.reconcile(habitID: habit, dayKey: day,
+            goal: .quantity(count: 10), count: 2)
+        XCTAssertTrue(syncResult3)
+        driver.fail = true
+        do {
+            _ = try await engine.reconcile(habitID: habit, dayKey: day,
+                goal: .quantity(count: 10), count: 5)
+            XCTFail("Expected injected failure")
+        } catch {}
+        XCTAssertEqual(store.receipt(habitID: habit, dayKey: day)?.millilitres, 500)
+        driver.fail = false
+        let syncResult4 = try await engine.reconcile(habitID: habit, dayKey: day,
+            goal: .quantity(count: 10), count: 5)
+        XCTAssertTrue(syncResult4)
+        XCTAssertEqual(driver.upserts.map(\.version), [1, 3])
+        XCTAssertEqual(store.receipt(habitID: habit, dayKey: day)?.millilitres, 1250)
+    }
+    func testUndoAndOptOutRemoveOnlyRecordedIdentifier() async throws {
+        let (store, driver, day, suite) = setup()
+        defer { UserDefaults(suiteName: suite)?.removePersistentDomain(forName: suite) }
+        let engine = WaterExportSyncEngine(driver: driver, store: store)
+        let syncResult5 = try await engine.reconcile(habitID: habit, dayKey: day,
+            goal: .quantity(count: 10), count: 1)
+        XCTAssertTrue(syncResult5)
+        let syncResult6 = try await engine.reconcile(habitID: habit, dayKey: day,
+            goal: .quantity(count: 10), count: 0)
+        XCTAssertTrue(syncResult6)
+        XCTAssertEqual(driver.removals, [
+            WaterExportPlanning.syncIdentifier(habitID: habit, dayKey: day)
+        ])
+        XCTAssertNil(store.receipt(habitID: habit, dayKey: day))
+        let syncResult7 = try await engine.reconcile(habitID: habit, dayKey: day,
+            goal: .quantity(count: 10), count: 0)
+        XCTAssertFalse(syncResult7)
+        // Existing entry removed on explicit rule disable.
+        let syncResult8 = try await engine.reconcile(habitID: habit, dayKey: day,
+            goal: .quantity(count: 10), count: 2)
+        XCTAssertTrue(syncResult8)
+        store.setRule(nil, for: habit)
+        let syncResult9 = try await engine.reconcile(habitID: habit, dayKey: day,
+            goal: .quantity(count: 10), count: 2)
+        XCTAssertTrue(syncResult9)
+        XCTAssertEqual(driver.removals.count, 2)
+    }
+    func testCrashAfterAppleWriteRetriesWithHigherSyncVersion() async throws {
+        let (store, driver, day, suite) = setup()
+        defer { UserDefaults(suiteName: suite)?.removePersistentDomain(forName: suite) }
+        let engine = WaterExportSyncEngine(driver: driver, store: store)
+        driver.failAfterWrite = true
+        do {
+            _ = try await engine.reconcile(habitID: habit, dayKey: day,
+                goal: .quantity(count: 10), count: 2)
+            XCTFail("Expected simulated crash after HealthKit write")
+        } catch {}
+        XCTAssertEqual(driver.upserts.map(\.version), [1])
+        XCTAssertNil(store.receipt(habitID: habit, dayKey: day))
+        XCTAssertEqual(store.pendingVersion(habitID: habit, dayKey: day), 1)
+        driver.failAfterWrite = false
+        let recovered = try await engine.reconcile(habitID: habit, dayKey: day,
+            goal: .quantity(count: 10), count: 2)
+        XCTAssertTrue(recovered)
+        XCTAssertEqual(driver.upserts.map(\.version), [1, 2])
+        XCTAssertEqual(store.receipt(habitID: habit, dayKey: day)?.syncVersion, 2)
+        XCTAssertNil(store.pendingVersion(habitID: habit, dayKey: day))
+    }
+    func testUndoAfterInterruptedFirstWriteRemovesOnlyPendingOwnSample() async throws {
+        let (store, driver, day, suite) = setup()
+        defer { UserDefaults(suiteName: suite)?.removePersistentDomain(forName: suite) }
+        let engine = WaterExportSyncEngine(driver: driver, store: store)
+        driver.failAfterWrite = true
+        do {
+            _ = try await engine.reconcile(habitID: habit, dayKey: day,
+                goal: .quantity(count: 10), count: 1)
+        } catch {}
+        driver.failAfterWrite = false
+        let removed = try await engine.reconcile(habitID: habit, dayKey: day,
+            goal: .quantity(count: 10), count: 0)
+        XCTAssertTrue(removed)
+        XCTAssertEqual(driver.removals, [
+            WaterExportPlanning.syncIdentifier(habitID: habit, dayKey: day)
+        ])
+        XCTAssertNil(store.receipt(habitID: habit, dayKey: day))
+        XCTAssertNil(store.pendingVersion(habitID: habit, dayKey: day))
+    }
+    func testFailedUpdateThenRevertCompensatesWithoutDeletingOriginal() async throws {
+        let (store, driver, day, suite) = setup()
+        defer { UserDefaults(suiteName: suite)?.removePersistentDomain(forName: suite) }
+        let engine = WaterExportSyncEngine(driver: driver, store: store)
+        let initial = try await engine.reconcile(habitID: habit, dayKey: day,
+            goal: .quantity(count: 10), count: 2)
+        XCTAssertTrue(initial)
+        driver.failAfterWrite = true
+        do {
+            _ = try await engine.reconcile(habitID: habit, dayKey: day,
+                goal: .quantity(count: 10), count: 3)
+        } catch {}
+        driver.failAfterWrite = false
+        let restored = try await engine.reconcile(habitID: habit, dayKey: day,
+            goal: .quantity(count: 10), count: 2)
+        XCTAssertTrue(restored)
+        XCTAssertEqual(driver.upserts.map(\.version), [1, 2, 3])
+        XCTAssertEqual(driver.upserts.map(\.ml), [500, 750, 500])
+        XCTAssertTrue(driver.removals.isEmpty)
+        XCTAssertEqual(store.receipt(habitID: habit, dayKey: day)?.millilitres, 500)
+    }
+    func testDeleteFailureRetainsReceiptForLaterRetry() async throws {
+        let (store, driver, day, suite) = setup()
+        defer { UserDefaults(suiteName: suite)?.removePersistentDomain(forName: suite) }
+        let engine = WaterExportSyncEngine(driver: driver, store: store)
+        let syncResult10 = try await engine.reconcile(habitID: habit, dayKey: day,
+            goal: .quantity(count: 10), count: 3)
+        XCTAssertTrue(syncResult10)
+        driver.fail = true
+        do {
+            _ = try await engine.reconcile(habitID: habit, dayKey: day,
+                goal: .quantity(count: 10), count: 0)
+            XCTFail("Expected injected delete failure")
+        } catch {}
+        XCTAssertNotNil(store.receipt(habitID: habit, dayKey: day))
+        driver.fail = false
+        let syncResult11 = try await engine.reconcile(habitID: habit, dayKey: day,
+            goal: .quantity(count: 10), count: 0)
+        XCTAssertTrue(syncResult11)
+        XCTAssertNil(store.receipt(habitID: habit, dayKey: day))
+    }
+}

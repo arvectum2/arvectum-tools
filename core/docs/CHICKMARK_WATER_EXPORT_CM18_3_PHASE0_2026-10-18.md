@@ -1,5 +1,7 @@
 # ChickMark CM18-3 — Apple Health dietaryWater export: Phase 0 (18.10.2026)
 
+**Historical snapshot only:** the [phase 1 QA](CHICKMARK_WATER_EXPORT_CM18_3_PHASE1_2026-10-18.md) supersedes these original implementation limits.
+
 **Status: groundwork only. This branch does NOT write Apple Health data.**
 Branch feature/chickmark-water-export-20261018, from adaptive PR #90 head 4c8bfb2.
 

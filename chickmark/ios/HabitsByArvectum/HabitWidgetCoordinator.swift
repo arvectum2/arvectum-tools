@@ -236,5 +236,8 @@ enum HabitDataChangeNotifier {
         Task { @MainActor in
             await HealthHabitCoordinator.shared.synchronize()
         }
+        Task { @MainActor in
+            WaterExportCoordinator.shared.requestSync()
+        }
     }
 }

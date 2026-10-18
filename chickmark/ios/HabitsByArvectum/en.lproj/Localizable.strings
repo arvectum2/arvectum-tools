@@ -334,3 +334,11 @@
 "review.import.alert" = "Transfer from UhWhat?";
 "review.import.failure" = "Could not open imported notes: ";
 "review.notification.genericTitle" = "ChickMark: review a note";
+
+"water.export.title" = "Export water to Apple Health";
+"water.export.toggle" = "Add water to Apple Health";
+"water.export.volume" = "Millilitres per check-in: %d ml";
+"water.export.example" = "Each check-in adds the exact volume you choose, not an assumed glass size.";
+"water.export.explanation" = "This applies only to this quantity habit, from the day you enable it. Past days are not imported. Undo or corrections update only the entries ChickMark created.";
+"water.export.privacy" = "Water amounts stay on your device. ChickMark will ask Apple Health for write permission when you save.";
+"water.export.error" = "Water export unavailable";

@@ -334,3 +334,11 @@
 "review.import.alert" = "Передача из Ухвата";
 "review.import.failure" = "Не удалось открыть переданные заметки: ";
 "review.notification.genericTitle" = "ChickMark: вернуться к заметке";
+
+"water.export.title" = "Экспорт воды в «Здоровье»";
+"water.export.toggle" = "Записывать воду в «Здоровье»";
+"water.export.volume" = "Миллилитров за отметку: %d мл";
+"water.export.example" = "Каждая отметка добавляет выбранный объём, а не условный стакан воды.";
+"water.export.explanation" = "Только для этой количественной привычки и начиная со дня включения. Прошлые дни не импортируются. Отмена и исправления затрагивают только записи ChickMark.";
+"water.export.privacy" = "Данные остаются на устройстве. При сохранении ChickMark запросит разрешение на запись в Apple Health.";
+"water.export.error" = "Экспорт воды недоступен";

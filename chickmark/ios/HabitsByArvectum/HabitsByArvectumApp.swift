@@ -41,6 +41,7 @@ struct HabitsByArvectumApp: App {
         ReviewNotificationPhysicalQA.seedIfRequested(container: container)
 #endif
 #if DEBUG
+        seedWaterSettingsDemoIfRequested(container: container)
         seedWatchSyncDemoIfRequested(container: container)
         seedNativeAdLayoutDemoIfRequested(container: container)
         seedScreenshotDemoIfRequested(container: container)
@@ -74,6 +75,10 @@ struct HabitsByArvectumApp: App {
 #endif
 #if !REVIEW_HANDOFF_QA
         HealthHabitCoordinator.shared.configure(container: container)
+        if !isUITesting {
+            // Zero HealthKit writes without explicit per-habit opt-in.
+            WaterExportCoordinator.shared.configure(container: container)
+        }
         PhoneWatchSyncCoordinator.shared.configure(
             modelContainer: container
         )

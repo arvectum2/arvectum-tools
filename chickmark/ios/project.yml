@@ -42,7 +42,7 @@ targets:
         UIAppFonts:
           - PTSans-Bold.ttf
         NSHealthShareUsageDescription: "ChickMark reads activity totals only for habits you link to Apple Health."
-        NSHealthUpdateUsageDescription: "ChickMark uses Apple Health to track the activity goals you choose. It does not add or change health data."
+        NSHealthUpdateUsageDescription: "ChickMark adds dietary water only when you explicitly enable export for a quantity habit. You can revoke write access in Health settings."
         CFBundleShortVersionString: "$(MARKETING_VERSION)"
         CFBundleVersion: "$(CURRENT_PROJECT_VERSION)"
         LSApplicationCategoryType: public.app-category.healthcare-fitness
