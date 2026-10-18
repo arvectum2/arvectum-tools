@@ -10,7 +10,10 @@ enum VideoStorageBudget {
         var errorDescription: String? {
             switch self {
             case .insufficientSpace:
-                return "Not enough free storage to safely save this video. Original segments remain on this device. Free up space and retry recovery."
+                return CaptureBrand.text(
+                    "Недостаточно свободного места для безопасного сохранения видео. Исходные фрагменты остаются на устройстве. Освободите место и повторите восстановление.",
+                    "Not enough free storage to safely save this video. Original segments remain on this device. Free up space and retry recovery."
+                )
             }
         }
     }
