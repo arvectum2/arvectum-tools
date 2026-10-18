@@ -48,10 +48,27 @@ Evidence retained privately under ArvectumSSD/Arvectum/tmp/chickmark-water-live-
 
 **Live write + own sample deletion ACCEPTED.** Testing denial/revocation from iOS Settings, same-day edits across several checkins, and app life-cycle interruption after save remain independent gates. This does not claim that all production water-export UI journeys are accepted.
 
+## Live same-day edit, idempotent retry and undo (20:5x MSK, 18 Oct 2026)
+
+On the **physical iPhone 13**, the separately signed ChickMark Water QA ran the actual WaterExportSyncEngine + WaterHealthKitWriter using a synthetic QUANTITY habit, a unique per-run UserDefaults suite and an app-specific HealthKit sync identifier. Only prior authorized dietaryWater **WRITE** access was used; no Health READ access or user data was accessed. A durable journal was saved before every operation.
+
+- One completion (250 mL) saved: local receipt millilitres=250, syncVersion **1**.
+- Two completions (500 mL) saved under the same identifier: receipt millilitres=500, syncVersion **2**, strict version increase.
+- Reconciliation of the same two completions a second time: returned **no operation**, receipt/version unchanged.
+- Undo to zero completions: called production own-source scoped removal; local receipt was cleared.
+- Independent exact-own-ID second deletion (without reading Health data) returned **0 residual samples**.
+- Physical journal stage=completedClean; firstVersion=1, secondVersion=2, noOpConfirmed=true, receiptCleared=true, residualOwnSamples=0.
+- Reopening the QA app with the **same** test arguments did not repeat any writes: journal SHA-256 matched exactly.
+- Only the unique synthetic QA preference suite was removed. Existing user habits, permissions, production ChickMark, Watch/CloudKit records and Health history were not accessed.
+
+Evidence: ArvectumSSD/Arvectum/tmp/chickmark-water-edit-build-20261018.log, chickmark-water-edit-undo-physical-20261018.json and chickmark-water-edit-undo-after-relaunch-20261018.json (private to Mac mini). Test source: WaterPhysicalQA/WaterEditUndoProbe.swift, DEBUG+WATER_PHYSICAL_QA and exact bundle/launch-argument guarded.
+
+**Acceptance scope:** Real sync engine's HealthKit save/edit, idempotent reconciliation and own-source undo are PASS. The journal and writer receipts confirm successful HealthKit calls, but, without READ permission, no independent measurement of the intermediate number of Health samples was performed. This is not yet an end-to-end tap/undo through the production habit UI. Physical permission revocation/regrant, crash between save and receipt commit, and real iPhone/Watch synchronization still OPEN.
+
 ## Open acceptance gates
 
 1. **CLOSED:** Owner enabled Settings > Developer > Enable UI Automation; physical consent UI tests **2/2 PASS**. No personal Apple Health settings changed.
-2. **CLOSED:** Real write-only HealthKit permission, one disposable 250 mL dietaryWater sample and exact own-source deletion were verified, with zero residual. Still OPEN: multiple checkins/edit/undo via the actual habit UI, permission revoke/regrant, and interruption recovery.
+2. **CLOSED:** Real write-only HealthKit permission, one disposable 250 mL dietaryWater sample and exact own-source deletion were verified, with zero residual. Same-day edit/no-op/undo through the actual sync engine now PASS; still OPEN: the actual habit UI's end-to-end path, permission revoke/regrant, and interruption recovery.
 
 3. Draft PR #94 is not ready for merge/release until live HealthKit acceptance and product CI finish; existing Store binary and CloudKit remain unchanged.
 
