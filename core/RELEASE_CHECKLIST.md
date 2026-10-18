@@ -40,7 +40,7 @@ Use this as the repository-level release gate. Product-specific store and compli
 ## 6. Release
 
 - Release commit is on the product's intended integration line.
-- Tag format: `<product>/v<version>` for new releases unless an existing product convention requires otherwise.
+- Release tag follows the product's established convention and identifies the exact source/build; existing tags use forms such as `chickmark-ios-v1.4.1-build15` or `uhvat-ios-v1.0.0-build5`. Do not introduce a competing tag pattern during Core cleanup; baseline tags are not product releases.
 - Signing/archive artifact is reproducible from tracked source plus protected credentials.
 - Submission status and store build/version are recorded in the product docs.
 

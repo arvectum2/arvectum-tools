@@ -1,68 +1,33 @@
-# Arvectum Tools Core — Roadmap
+# Arvectum Tools Core — дорожная карта
 
-## Контрольная точка · 18.10.2026
-**Приоритет:** достоверные релизы, общие CI и адаптивный UI. Источники задач — [очередь Core](EXECUTION_PLAN.md), [матрица устройств](DEVICE_ADAPTATION_ROADMAP.md), [реестр](PORTFOLIO.md).
+**Актуально на 18.10.2026.** **Владелец:** общая архитектура, SwiftPM, CI, контракты данных, зависимости, инженерные стандарты и release provenance. **Опорное состояние:** [Baseline 2026-10-18](BASELINE_2026-10-18.md).
 
-- [x] Отразить в реестре дату и статус новых отправок Ухвата 1.1.0(8) и ChickMark 1.5.0(18), не называя отправку публикацией ([аудит релизной ветки](https://github.com/arvectum2/arvectum-tools/blob/release/what-chickmark-20261018-rc1/what/docs/RELEASE_AUDIT_WHAT_CHICKMARK_2026-10-18.md)).
-- [ ] **C18-A · Release provenance:** после решения Apple проверить READY_FOR_SALE, реальные витрины, теги исходников, подписанные архивы и зеркало GitVerse; будущие релизы не наследуют успех старого CI.
-- [ ] **C18-B · Adaptive Core:** Xcode 27.1 и iPhone Duo runtime готовы, но общий ArvectumAdaptiveLayout остаётся в feature-ветке. Подтвердить два потребителя, Dynamic Type, iPad Split View/Stage Manager, Duo fold/unfold и жизненный цикл сцены до интеграции в main.
-- [ ] **C18-C · StoreKit:** внедрить и протестировать согласованную политику C-R1…C-R4 (третий квалифицированный запуск, далее +5, только после успешного действия), без запросов во время записи или импорта и без попыток узнавать факт оставления оценки; app-specific QA остаётся у приложений.
-- [ ] **C18-D · CI:** защищать iOS/watchOS/Android dependency-impact checks, не запускать фиктивные job для приостановленного Where?, не заменять физический QA зелёным CI.
+## Проверенная основа
 
-**Границы:** UX, HealthKit и уведомления принадлежат приложениям; ASO/SEO/экономика — [Growth](../growth/ROADMAP.md).
+- [x] Единый монорепозиторий и независимые релизы продуктов; каноническая интеграция в main.
+- [x] Рабочий SwiftPM-модуль ArvectumCore: DesignTokens, Persistence, Diagnostics. Продуктовые данные/UX остаются внутри продуктов.
+- [x] Архитектурный контракт, централизованный каталог версий, проверки SwiftPM lock-файлов.
+- [x] Core CI с потребителями ChickMark, Pushkin, Ухват, Фото/PDF; отдельные проверки iOS/watchOS/Android. Зелёный кодовый CI не заменяет физическую проверку.
+- [x] Xcode 27.1, iPhone Duo runtime и независимый прототип AdaptiveLayout; прототип ещё **не в main**.
+- [x] Связанный релизный реестр с разделением «публично», «отправлено Apple» и «исходники/QA».
 
+## Приоритеты для следующих шагов
 
-**Очередность работ 2026-10-15:** [общий execution plan](EXECUTION_PLAN.md). [Срез A0 — Apple, исходники и GitVerse](RELEASE_PROVENANCE_20261015.md). Приоритет — CI/release provenance и помощь живым релизам, без активной разработки Where?.
+- [ ] **C0 · Core baseline upkeep (P0):** при существенном изменении общей инфраструктуры выполнить [проверку baseline](README.md#быстрая-проверка), обновить датированный протокол и подтвердить CI; не менять приложение без его релизных ворот.
+- [ ] **C1 · Release provenance (P0, по событию):** после решения Apple сверить ASC/READY_FOR_SALE, source SHA, подписанные бинарники, теги, GitHub/GitVerse и физическую установку. Сейчас новые Ухват 1.1.0(8) и ChickMark 1.5.0(18) имеют статус **submitted**, не опубликованы по последним доступным доказательствам. [Портфель](PORTFOLIO.md).
+- [ ] **C2 · Поддержка CI (P1):** поддерживать dependency-impact coverage четырёх собираемых iOS продуктов, watchOS, Android, manifests и lockfiles; подключать Where? только после создания реального собираемого приложения. Регрессии отслеживать в owning roadmap.
+- [ ] **C3 · AdaptiveLayout (P1, gated):** два реальных потребителя, совместимость iPad Split View/Stage Manager и iPhone Duo fold/unfold, Dynamic Type/VoiceOver, scene lifecycle; только после acceptance перенести компонент из feature/core-adaptive-layout-spike-20261016 в общий пакет. [Матрица](DEVICE_ADAPTATION_ROADMAP.md).
+- [ ] **C4 · StoreKit review policy (P2):** локальная оценка квалифицированных сессий (3, затем 8, 13 и т. д.), вызов RequestReviewAction **после успешного действия**, без вмешательства в запись/обработку и без обещания показа/знания, оценил ли пользователь приложение. Общий API выделять после двух реальных потребителей, испытания — в продуктах.
+- [ ] **C5 · Общие библиотеки (gated):** выделять новый API для ads/telemetry/privacy только когда минимум два стабильных приложения используют одинаковую семантику; без скрытых сетевых/пользовательских логов и новой зависимости ради абстракции.
 
-## P2 · Единый запрос оценки App Store — 2026-10-17
+## Что не включено в Core
 
-- [ ] **C-R1 · Shared policy:** во всех опубликованных iOS/iPadOS-приложениях Arvectum Tools предлагать оценку на **3-м квалифицированном использовании**, затем повторно через **каждые 5 следующих запусков** (3, 8, 13, 18, …). Счётчик хранится локально и отдельно для каждого приложения; повторное поднятие приложения из фона в рамках того же сеанса не считать новым запуском.
-- [ ] **C-R2 · Нативный показ:** по достижении порога вызывать StoreKit `RequestReviewAction` в удобный момент **после успешного основного действия**, а не при старте, во время записи, редактирования или другой критичной операции. Один запрос за сеанс; если подходящего момента нет, отложить до следующего подходящего момента. Не использовать навязчивый собственный alert перед системным.
-- [ ] **C-R3 · Ограничения Apple:** приложение **не может узнать**, поставил ли пользователь оценку или показала ли система диалог. StoreKit самостоятельно учитывает оставленные оценки, системный отказ от запросов и ограничение **до 3 показов за 365 дней**; собственную проверку факта оценки и обещание гарантированного показа не реализовывать. Тестировать логику счётчиков отдельно от системного окна (оно не появляется в TestFlight). Если приложение включает watchOS-расширение, не мешать мгновенным сценариям Apple Watch; запрос инициировать из поддерживаемого пользовательского интерфейса хост-приложения.
-- [ ] **C-R4 · Внедрение и QA:** выделять общий Swift-компонент только при появлении минимум двух реальных потребителей (Core principles); подключить ко всем применимым приложениям, проверить 2/3/4/7/8/13 запусков, сохранение счётчика после перезапуска, отсутствие дублей при foreground/resume, отсутствие прерываний критических сценариев. Отмечать интеграцию и приёмку по каждому приложению отдельно, без создания дублирующих задач в их roadmap.
+- Сценарии отдельных приложений (запись, HealthKit write, Shortcuts, реклама, хранение пользовательских данных) принадлежат их [дорожным картам](PORTFOLIO.md).
+- SEO/ASO, сообщества, активность Growth Agent, измерение дохода и закупка трафика — [Growth](../growth/ROADMAP.md).
+- Where? — на паузе; запрещено начинать реализацию через «общие» задачи.
 
-Документация Apple: [Requesting App Store reviews](https://developer.apple.com/documentation/storekit/requesting-app-store-reviews) и [RequestReviewAction](https://developer.apple.com/documentation/storekit/requestreviewaction). Это единая **политика Core**, а не маркетинговый эксперимент Growth; внешние метрики рейтингов и ASO остаются в Growth.
+## Документы и история
 
-## Адаптация всех iOS-продуктов: iPad + iPhone Duo — 2026-10-16
+[Baseline](BASELINE_2026-10-18.md) · [Принципы](CORE_PRINCIPLES.md) · [Контракт](ARCHITECTURE_CONTRACT.md) · [Список релизных ворот](RELEASE_CHECKLIST.md) · [Execution plan, историческая очередь среза 15.10](EXECUTION_PLAN.md) · [Архив прежней версии этого roadmap](history/ROADMAP_SNAPSHOT_2026-10-18.md).
 
-- [ ] **Core / device adaptation:** единые условия layout, dynamic resize, iPad Split View/Stage Manager, iPhone Duo 5,4″ closed/7,6″ open, accessibility, сценарии QA и честное определение готовности в [портфельной матрице](DEVICE_ADAPTATION_ROADMAP.md). Изменения UI и release QA выполняются в дорожных картах самих приложений; проверенных релизов ещё нет.
-
-## Xcode 27.1, Adaptive Core и Duo Runtime — 2026-10-16
-
-- [x] **C-D0 · Toolchain:** Xcode 27.1 (27A9275) активна, first-launch завершён, CoreSimulator 1174.9.2 работает; тип iPhone Duo появился. Xcode 27.0 сохранена для отката.
-- [x] **C-D1 · Общий UI-прототип:** [ArvectumAdaptiveLayout](https://github.com/arvectum2/arvectum-tools/tree/feature/core-adaptive-layout-spike-20261016) в отдельной feature-ветке; 11 первоначальных Core unit-тестов и iOS Simulator build на Xcode 27.1 пройдены. macOS test bundle на новой Xcode требует повторной проверки доступа; в main и приложениях прототипа нет.
-- [x] **C-D2 · Runtime и первый запуск:** iOS 27.1 (24A94232) установлена, iPhone Duo создан и загружен до готовности; `simctl bootstatus` PASS (16.10.2026, 17:46 МСК).
-- [ ] **C-D3 · Fold/unfold и пилоты:** проверить оба экрана Duo и смену размера, затем Ухват → Фото/PDF на общей SwiftUI-основе; iPhone/iPad/Duo QA перед слиянием Core. [Сводный чеклист T0–T5](DEVICE_ADAPTATION_ROADMAP.md).
-
-## 2026-10-15 implementation checkpoint
-- [x] Shared Swift packages exist: ArvectumDesignTokens, ArvectumPersistence and ArvectumDiagnostics, with privacy-safe local diagnostics.
-- [x] Core CI tests consumers ChickMark, Pushkin, Photo/PDF and What?, watchOS and Android, with reviewed dependency catalogs.
-- [x] Photo/PDF adopted shared ArvectumCore SwiftPM in main on 2026-10-13 and aligned Yandex Mobile Ads 8.6.0 with the Core catalog.
-- [x] Dated status registry reconciled for all five products, including owner-confirmed Фото/PDF 1.0.1 publication (see PORTFOLIO.md); status synchronization is not source/build provenance or App Store QA.
-- [x] A0 source/release audit completed 2026-10-15: [PR #67](https://github.com/arvectum2/arvectum-tools/pull/67) merged at `e129efc`, [Core CI](https://github.com/arvectum2/arvectum-tools/actions/runs/38756915944) 10/10 PASS, GitVerse main and four release tag targets match; [provenance report](RELEASE_PROVENANCE_20261015.md).
-- [ ] Audit each **future** release tag, source/build provenance and GitVerse mirror SHA; current audit does not certify future builds.
-- [ ] Wire Where? into relevant CI only when buildable iOS source exists, without placeholder jobs.
-- [ ] Keep Core CI dependency-impact testing up to date as consumer entrypoints change.
-- [ ] Extract shared UI, telemetry and ad interfaces only when two stable apps demonstrate genuine need.
-
-This checkpoint supersedes outdated statuses in the older engineering-follow-up section below; Core still owns only cross-product infrastructure.
-
-
-**Updated:** 2026-10-15. **Owner:** common rules, brand, code reuse, CI and release infrastructure.
-
-## Current baseline
-- [x] Monorepo with independent apps and release cycles.
-- [x] Shared brand rules and a canonical common-principles document.
-- [x] Path-scoped CI and release checklist recorded in repository.
-- [x] Separate portfolio roadmap registry with single ownership.
-
-## Engineering follow-ups
-- [ ] Audit CI path filters for newly added apps Where? and What?.
-- [ ] Verify shared dependency impact testing and standard release tagging.
-- [ ] Define common cross-app crash and privacy-safe telemetry interfaces only when used by multiple apps.
-- [ ] Extract UI, ads, analytics, store or privacy packages **only** after at least two real consumers require them.
-- [ ] Keep brand/design tokens in [core/BRAND.md](BRAND.md), not repeated in app roadmaps.
-
-## Hard boundaries
-No app feature prioritization, app-specific ad activation policy, acquisition metrics, ASO/SEO or marketing experiments.
-Canonical policies: [CORE_PRINCIPLES.md](CORE_PRINCIPLES.md) and [REPO_ARCHITECTURE.md](REPO_ARCHITECTURE.md).
+**Правило:** один активный чеклист на уровень Core. Старые чекпоинты остаются как датированные доказательства, но не дублируют незавершённые задачи.

@@ -23,4 +23,21 @@ final class ArvectumCoreTests: XCTestCase {
     func testPrivateDiagnostics() {
         ArvectumDiagnostics.failure(subsystem: "ru.arvectum.tools.tests", category: "core", operation: "test", code: "synthetic")
     }
+
+    /// A fixture from the previously persisted Foundation default JSON contract.
+    /// This must keep decoding correctly across Core toolchain/refactor changes.
+    func testPersistedWireFixtureRemainsCompatible() throws {
+        let fixture = Data(#"{"id":"00000000-0000-0000-0000-000000000042","date":725846400,"label":"Пример"}"#.utf8)
+        let decoded = try ArvectumJSONCodec.decode(Item.self, from: fixture)
+        XCTAssertEqual(decoded.id.uuidString, "00000000-0000-0000-0000-000000000042")
+        XCTAssertEqual(decoded.date.timeIntervalSinceReferenceDate, 725846400)
+        XCTAssertEqual(decoded.label, "Пример")
+        let reencoded = try ArvectumJSONCodec.encode(decoded)
+        XCTAssertEqual(try JSONDecoder().decode(Item.self, from: reencoded), decoded)
+    }
+
+    func testInvalidPersistedShapeFailsClosed() {
+        let fixture = Data(#"{"id":"00000000-0000-0000-0000-000000000042","date":"not-a-date","label":"Пример"}"#.utf8)
+        XCTAssertThrowsError(try ArvectumJSONCodec.decode(Item.self, from: fixture))
+    }
 }
