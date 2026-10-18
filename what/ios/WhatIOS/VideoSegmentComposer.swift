@@ -24,8 +24,17 @@ enum VideoSegmentComposer {
         let isTemporaryExport: Bool
     }
 
-    static func compose(_ clips: [URL], destination: URL) async throws -> Result {
+    static func compose(
+        _ clips: [URL], destination: URL,
+        availableBytesOverride: Int64? = nil
+    ) async throws -> Result {
         guard !clips.isEmpty else { throw CompositionError.noClips }
+        // The source files remain in their crash journal on failure. Check
+        // available storage *before* an expensive AVAssetExportSession starts.
+        try VideoStorageBudget.ensureCapacity(
+            for: clips, destination: destination,
+            availableBytesOverride: availableBytesOverride
+        )
 
         // No transcoding or replacement of the original when no switch occurred.
         if clips.count == 1 {
