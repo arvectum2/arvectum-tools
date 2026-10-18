@@ -54,6 +54,7 @@ struct HabitsByArvectumApp: App {
 #endif
         #if DEBUG && WATER_PHYSICAL_QA
         WaterReadinessProbe.runIfRequested()
+        WaterLiveWriteProbe.runIfRequested()
         #endif
         if !cloudSyncDisabled {
             ChickMarkGroupsCloudSync.shared.start()

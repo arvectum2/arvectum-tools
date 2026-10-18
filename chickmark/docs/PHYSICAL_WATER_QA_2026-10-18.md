@@ -32,10 +32,27 @@ The failed first-run UI runner was removed from iPhone. After owner enabled UI A
 
 Latest physical UI log and xcresult: water-physical-ui-after-toggle-20261018.log and water-physical-ui-after-toggle-20261018.xcresult on Mac mini ArvectumSSD. Both testDeniedPermissionDoesNotPersistOptInOrOpenHealth and testQuantityHabitHasWaterExportScreenButNoAutomaticPermission passed. The DEBUG --ui-testing guard intercepted permission requests; no real HealthKit authorization or sample operations occurred.
 
+## Live HealthKit acceptance (20:20 MSK, 18 Oct 2026)
+
+The device owner approved native write-only HealthKit permission for independently signed **ChickMark Water QA** on physical iPhone 13. The isolated DEBUG-only probe was armed ONLY with explicit --ui-testing --disable-cloud-sync --water-live-qa arguments and exact ru.arvectum.tools.chickmark.waterqa identity.
+
+A one-time journal was persisted BEFORE the actual operation (identifier private to this QA bundle). The probe exercised the **production WaterHealthKitWriter**:
+- requestWriteAccess(): system native consent, without requesting READ permissions.
+- upsert(): a single synthetic 250 mL dietaryWater quantity with unique metadata sync identifier/version 1.
+- removeOwn(): deletes matching identifier scoped to the application's HKSource.default(), never another app's samples.
+- Independent second own-ID source-scoped deleteObjects verification returned exactly **0 residual items**.
+- Journal: stage=completedClean, saveCompleted=true, ownDeletionCompleted=true, residualOwnSamples=0. No retry or additional writes occurred.
+- No user's pre-existing medical records were read. The QA file remained in its private app Documents directory. Existing production ChickMark and Watch data were not altered.
+
+Evidence retained privately under ArvectumSSD/Arvectum/tmp/chickmark-water-live-build-20261018.log and chickmark-water-live-report-snapshot5-20261018.json. The probe includes a persistent one-shot journal and fail-closed cleanup-recovery state for interruption between save and delete.
+
+**Live write + own sample deletion ACCEPTED.** Testing denial/revocation from iOS Settings, same-day edits across several checkins, and app life-cycle interruption after save remain independent gates. This does not claim that all production water-export UI journeys are accepted.
+
 ## Open acceptance gates
 
 1. **CLOSED:** Owner enabled Settings > Developer > Enable UI Automation; physical consent UI tests **2/2 PASS**. No personal Apple Health settings changed.
-2. Real HealthKit dietaryWater authorization, sample write, same-day change/undo and own-sample deletion have NOT been performed. Before actual write/delete, obtain explicit consent in the isolated QA app's system permission prompt and use only disposable, distinctly identifiable test samples with guaranteed own-source cleanup. Do not read other Health entries.
+2. **CLOSED:** Real write-only HealthKit permission, one disposable 250 mL dietaryWater sample and exact own-source deletion were verified, with zero residual. Still OPEN: multiple checkins/edit/undo via the actual habit UI, permission revoke/regrant, and interruption recovery.
+
 3. Draft PR #94 is not ready for merge/release until live HealthKit acceptance and product CI finish; existing Store binary and CloudKit remain unchanged.
 
 Growth and Where? untouched.
