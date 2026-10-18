@@ -153,6 +153,30 @@ struct WaterExportSyncEngine {
     }
 }
 
+/// Treat either SwiftData read failure as an untrusted snapshot, never as an
+/// empty habit list or empty check-in list. Empty arrays are legitimate ONLY
+/// when both queries succeeded. Otherwise the reconciler could misidentify
+/// existing habits as deleted and erase previously exported HealthKit samples.
+@MainActor
+struct WaterExportSnapshot {
+    let habits: [Habit]
+    let checkIns: [HabitCheckIn]
+
+    static func load(
+        readHabits: () throws -> [Habit],
+        readCheckIns: () throws -> [HabitCheckIn]
+    ) -> WaterExportSnapshot? {
+        do {
+            // Neither query result is acted on until BOTH have succeeded.
+            let habits = try readHabits()
+            let checkIns = try readCheckIns()
+            return WaterExportSnapshot(habits: habits, checkIns: checkIns)
+        } catch {
+            return nil
+        }
+    }
+}
+
 /// Driven by local durable check-in changes, not by HealthKit observers.
 /// Serializes writes to avoid old/out-of-order aggregate counts racing with
 /// newer updates and only considers habits with explicit opt-in or receipts.
@@ -216,9 +240,21 @@ final class WaterExportCoordinator {
     }
 
     private func reconcile(context: ModelContext) async {
+        // Fail CLOSED on either storage error. Using ?? [] here would
+        // incorrectly interpret a transient SwiftData failure as deleted
+        // habits/unchecked days, deleting the user's valid HealthKit history.
+        guard let snapshot = WaterExportSnapshot.load(
+            readHabits: { try context.fetch(FetchDescriptor<Habit>()) },
+            readCheckIns: { try context.fetch(FetchDescriptor<HabitCheckIn>()) }
+        ) else {
+            #if DEBUG
+            print("Water export suspended: SwiftData snapshot unavailable")
+            #endif
+            return
+        }
         let rules = store.allRules
-        let allHabits = ((try? context.fetch(FetchDescriptor<Habit>())) ?? [])
-        let allChecks = ((try? context.fetch(FetchDescriptor<HabitCheckIn>())) ?? [])
+        let allHabits = snapshot.habits
+        let allChecks = snapshot.checkIns
         let ids = Set(rules.map(\.habitID))
         let withReceipts = allHabits.filter { !store.receipts(for: $0.id).isEmpty }
         let involved = allHabits.filter { ids.contains($0.id) }

@@ -26,6 +26,53 @@ private final class FakeWaterHealthDriver: WaterHealthWriting {
 }
 
 @MainActor
+final class WaterExportSnapshotTests: XCTestCase {
+    private struct SimulatedReadError: Error {}
+
+    func testValidEmptyDatabaseIsNotConflatedWithQueryFailure() {
+        let snapshot = WaterExportSnapshot.load(
+            readHabits: { [] },
+            readCheckIns: { [] }
+        )
+        XCTAssertNotNil(snapshot)
+        XCTAssertEqual(snapshot?.habits.count, 0)
+        XCTAssertEqual(snapshot?.checkIns.count, 0)
+    }
+
+    func testHabitFetchFailureSkipsAllHealthReconciliation() {
+        var checksQueried = false
+        let snapshot = WaterExportSnapshot.load(
+            readHabits: { throw SimulatedReadError() },
+            readCheckIns: {
+                checksQueried = true
+                return []
+            }
+        )
+        XCTAssertNil(snapshot, "A failed habit read must NEVER become an empty list")
+        XCTAssertFalse(checksQueried, "Do not run further queries on failed snapshot")
+    }
+
+    func testCheckInFetchFailureCannotEraseExistingWaterSamples() {
+        let habit = Habit(name: "Water QA")
+        let snapshot = WaterExportSnapshot.load(
+            readHabits: { [habit] },
+            readCheckIns: { throw SimulatedReadError() }
+        )
+        XCTAssertNil(snapshot, "A failed check-in read must NEVER become count 0")
+    }
+
+    func testSuccessfulSnapshotContainsBothDataSets() {
+        let habit = Habit(name: "Water QA")
+        let snapshot = WaterExportSnapshot.load(
+            readHabits: { [habit] },
+            readCheckIns: { [] }
+        )
+        XCTAssertEqual(snapshot?.habits.map(\.id), [habit.id])
+        XCTAssertEqual(snapshot?.checkIns.count, 0)
+    }
+}
+
+@MainActor
 final class WaterExportSyncTests: XCTestCase {
     private let habit = UUID(uuidString: "00000000-0000-0000-0000-0000000000A7")!
     private func setup() -> (WaterExportLocalStore, FakeWaterHealthDriver, String, String) {

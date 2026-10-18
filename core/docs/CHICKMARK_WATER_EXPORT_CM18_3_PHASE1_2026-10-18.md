@@ -18,7 +18,7 @@
 | --- | --- |
 | Pure opt-in and conversion, including deleted-habit ledgers | **13/13 PASS** |
 | Fake HealthKit driver: permissions, errors, crash, undo, retry | **8/8 PASS** |
-| Full ChickMark tests | **266/266 PASS**, no failures |
+| Full ChickMark tests | **270/270 PASS**, no failures |
 | Opt-in UI, default OFF, explicit ON, Cancel on iPad | **1/1 PASS** |
 | Safe opt-in and denied-permission UI on iPad | **2/2 PASS** |
 | Safe opt-in and denied-permission UI on ordinary iPhone 17 Pro | **2/2 PASS** |
@@ -32,6 +32,14 @@ When a habit is deleted, obsolete local export settings are cleared only after a
 Additional defensive QA: the DEBUG-only --ui-testing route rejects WRITE authorization before it can touch HKHealthStore, even if an automated test clicks Save. A second UI test on both iPad and ordinary iPhone confirms a denied permission produces a visible error and **does not persist** a per-habit opt-in rule. No Apple Health permission prompt or sample operation occurred in either simulator test. Normal Release builds do not include the test-only authorization guard.
 
 iPad SwiftUI Stepper content is accessibility-grouped; the UI test targets the actual switch control and deliberately CANCELS, never pressing Save or granting real permission.
+
+## Fail-closed SwiftData read hardening
+
+Important fix: the previous best-effort SwiftData fallback could interpret a storage error as a genuine empty habit/check-in list, potentially deleting valid Apple Health water samples. WaterExportSnapshot.load now returns no snapshot on either query failure. The coordinator stops reconciliation without changing samples or receipts. Legitimately empty query results are distinct from errors.
+
+- Four additional tests inject failed habit reads, failed check-in reads, and valid empty/nonempty reads.
+- Isolated iPad QA: **270/270 ChickMark unit PASS** (previous 266 + 4) and **2/2 export/denial UI PASS**. No real Apple Health data touched.
+- An unrelated pre-existing CrossSurfaceDurabilityTests intentionally forces a read-only SwiftData store error; the suite completes successfully.
 
 ## Unverified release gates
 
