@@ -15,7 +15,7 @@ A single monorepo for the Arvectum Tools ecosystem. **Git branches describe chan
 
 Canonical code and roadmaps are in this repository on ArvectumSSD. Only `.github/`, Git metadata, legal license and the index README remain at root.
 
-[Portfolio status](core/PORTFOLIO.md) · [Core principles](core/CORE_PRINCIPLES.md) · [Growth roadmap](growth/ROADMAP.md).
+[Portfolio status](core/PORTFOLIO.md) · [Core baseline 2026-10-18](core/BASELINE_2026-10-18.md) · [Core principles](core/CORE_PRINCIPLES.md) · [Growth roadmap](growth/ROADMAP.md).
 
 Release branches and working trees must not duplicate app source directories. GitHub `main` is the source of truth; GitVerse is a mirror.
 
