@@ -171,8 +171,8 @@ final class PhoneStore: NSObject, ObservableObject, AVAudioPlayerDelegate,
             }
             if result.unresolved > 0 {
                 videoRecoveryNotice = CaptureBrand.text(
-                    "Восстановлено: \(result.recovered). Часть видеофрагментов оставлена для повторного восстановления.",
-                    "Recovered: \(result.recovered). Some video segments are still saved for another recovery attempt."
+                    "Восстановлено: \(result.recovered). Не все прерванные записи удалось восстановить. Доступные исходные данные сохранены для повторной попытки.",
+                    "Recovered: \(result.recovered). Some interrupted recordings could not be restored. Available originals were kept for retry."
                 )
             } else if result.recovered > 0 {
                 videoRecoveryNotice = CaptureBrand.text(

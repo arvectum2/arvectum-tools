@@ -10,6 +10,15 @@ private final class SimulatedOutOfSpaceFileManager: FileManager {
     }
 }
 
+/// Simulates a copy that leaves a partially written destination on ENOSPC.
+private final class PartialCopyOutOfSpaceFileManager: FileManager {
+    override func copyItem(at srcURL: URL, to dstURL: URL) throws {
+        try Data([0, 1, 2, 3]).write(to: dstURL)
+        throw NSError(domain: NSCocoaErrorDomain, code: NSFileWriteOutOfSpaceError,
+                      userInfo: [NSLocalizedDescriptionKey: "Simulated partial ENOSPC copy"])
+    }
+}
+
 final class VideoCaptureRecoveryTests: XCTestCase {
     func testSimulatedDiskFullPreservesOriginalAndRetryRecoversExactlyOnce() async throws {
         let root = try temporaryRoot()
@@ -52,6 +61,107 @@ final class VideoCaptureRecoveryTests: XCTestCase {
         let url = try XCTUnwrap(healthyRepository.videoURL(for: saved))
         XCTAssertTrue(FileManager.default.fileExists(atPath: url.path))
     }
+    func testPartialENOSPCImportRemovesStagingAndRetriesWithSameUUID() async throws {
+        let root = try temporaryRoot()
+        defer { try? FileManager.default.removeItem(at: root) }
+        let journal = VideoCaptureJournal(rootURL: root.appendingPathComponent("VideoCaptures"))
+        let id = try journal.begin()
+        try copyFixture("back", journal: journal, session: id, index: 0)
+        let original = journal.segmentURL(for: id, index: 0)
+        let originalBytes = try Data(contentsOf: original)
+        let notesRoot = root.appendingPathComponent("What")
+        let partialRepository = LocalNoteRepository(
+            rootURL: notesRoot, fileManager: PartialCopyOutOfSpaceFileManager()
+        )
+        let failed = try await VideoCaptureRecovery.recover(
+            journal: journal, repository: partialRepository
+        )
+        XCTAssertEqual(failed.recovered, 0)
+        XCTAssertEqual(failed.unresolved, 1)
+        let incoming = notesRoot.appendingPathComponent(
+            "Videos/.\(id.uuidString).mov.incoming"
+        )
+        XCTAssertFalse(FileManager.default.fileExists(atPath: incoming.path),
+                       "Failed copy must clean its partial target")
+        XCTAssertEqual(try Data(contentsOf: original), originalBytes)
+        XCTAssertTrue(try partialRepository.allNotes().isEmpty)
+
+        // Also handle an orphan left by an older app version before upgrade.
+        try Data([9, 9]).write(to: incoming)
+        let healthy = LocalNoteRepository(rootURL: notesRoot)
+        let recovered = try await VideoCaptureRecovery.recover(
+            journal: journal, repository: healthy
+        )
+        XCTAssertEqual(recovered.recovered, 1)
+        XCTAssertEqual(recovered.unresolved, 0)
+        XCTAssertEqual(try healthy.allNotes().map(\.id), [id])
+        XCTAssertFalse(FileManager.default.fileExists(atPath: incoming.path))
+        XCTAssertTrue(try journal.pendingSessions().isEmpty)
+    }
+
+    func testPartialENOSPCRepairDoesNotBlockSubsequentRepair() throws {
+        let root = try temporaryRoot()
+        defer { try? FileManager.default.removeItem(at: root) }
+        let notesRoot = root.appendingPathComponent("What")
+        let original = LocalNoteRepository(rootURL: notesRoot)
+        let id = UUID()
+        let source = try fixture("back")
+        let first = try original.importVideo(from: source, duration: 0.8, id: id)
+        let media = try XCTUnwrap(original.videoURL(for: first))
+        try FileManager.default.removeItem(at: media)
+        XCTAssertFalse(try original.hasVideo(id: id))
+        let failing = LocalNoteRepository(
+            rootURL: notesRoot, fileManager: PartialCopyOutOfSpaceFileManager()
+        )
+        XCTAssertThrowsError(try failing.importVideo(from: source, duration: 0.8, id: id))
+        let repair = notesRoot.appendingPathComponent("Videos/.\(id.uuidString).repair")
+        XCTAssertFalse(FileManager.default.fileExists(atPath: repair.path))
+        XCTAssertEqual(try original.allNotes().map(\.id), [id])
+        XCTAssertFalse(FileManager.default.fileExists(atPath: media.path))
+        try Data([8, 8]).write(to: repair) // orphan left from an older version
+        let fixed = try original.importVideo(from: source, duration: 0.8, id: id)
+        XCTAssertEqual(fixed.id, id)
+        XCTAssertEqual(try original.allNotes().count, 1)
+        XCTAssertTrue(try original.hasVideo(id: id))
+        XCTAssertFalse(FileManager.default.fileExists(atPath: repair.path))
+    }
+
+    func testCrashBeforeFirstSegmentReportsUnresolvedWithoutInventingNote() async throws {
+        let root = try temporaryRoot()
+        defer { try? FileManager.default.removeItem(at: root) }
+        let journal = VideoCaptureJournal(rootURL: root.appendingPathComponent("VideoCaptures"))
+        let repository = LocalNoteRepository(rootURL: root.appendingPathComponent("What"))
+        let id = try journal.begin()
+        let manifest = root.appendingPathComponent(
+            "VideoCaptures/\(id.uuidString)/session.json"
+        )
+        let originalManifest = try Data(contentsOf: manifest)
+        XCTAssertEqual(try journal.pendingSessions().map(\.id), [id])
+        let first = try await VideoCaptureRecovery.recover(
+            journal: journal, repository: repository
+        )
+        XCTAssertEqual(first.recovered, 0)
+        XCTAssertEqual(first.unresolved, 1)
+        XCTAssertTrue(try repository.allNotes().isEmpty)
+        XCTAssertEqual(try Data(contentsOf: manifest), originalManifest)
+        // Next-launch retry must stay idempotent and show the warning.
+        let again = try await VideoCaptureRecovery.recover(
+            journal: journal, repository: repository
+        )
+        XCTAssertEqual(again.unresolved, 1)
+        XCTAssertTrue(try repository.allNotes().isEmpty)
+
+        // The same manifest can recover when a finalized clip later appears.
+        try copyFixture("front", journal: journal, session: id, index: 0)
+        let recovered = try await VideoCaptureRecovery.recover(
+            journal: journal, repository: repository
+        )
+        XCTAssertEqual(recovered.recovered, 1)
+        XCTAssertEqual(recovered.unresolved, 0)
+        XCTAssertEqual(try repository.allNotes().map(\.id), [id])
+        XCTAssertTrue(try journal.pendingSessions().isEmpty)
+    }
+
     private func temporaryRoot() throws -> URL {
         let url = FileManager.default.temporaryDirectory
             .appendingPathComponent("what-recovery-\(UUID().uuidString)")
