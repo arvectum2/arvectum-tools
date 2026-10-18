@@ -103,4 +103,30 @@ final class WaterExportPlanningTests: XCTestCase {
         store.setReceipt(nil, habitID: habitID, dayKey: day)
         XCTAssertNil(store.receipt(habitID: habitID, dayKey: day))
     }
+    func testOwnedReceiptsAndPendingIntentsAreDiscoverableForDeletedHabits() {
+        let suite = "water-orphan-test-\(UUID().uuidString)"
+        let defaults = UserDefaults(suiteName: suite)!
+        defer { defaults.removePersistentDomain(forName: suite) }
+        let store = WaterExportLocalStore(defaults: defaults)
+        store.setRule(optIn, for: habitID)
+        let own = WaterExportPlanning.syncIdentifier(habitID: habitID, dayKey: day)
+        store.setReceipt(.init(syncIdentifier: own,
+                               quantity: 2, millilitres: 500, syncVersion: 1),
+                         habitID: habitID, dayKey: day)
+        let pendingDay = "2026-10-19"
+        store.setPendingVersion(2, habitID: habitID, dayKey: pendingDay)
+
+        XCTAssertTrue(store.allKnownHabitIDs.contains(habitID))
+        XCTAssertEqual(store.receipts(for: habitID).map(\.dayKey), [day])
+        XCTAssertEqual(store.pendingDays(for: habitID), [pendingDay])
+
+        // Dropping local opt-in is NOT sufficient to forget HealthKit cleanup.
+        store.setRule(nil, for: habitID)
+        XCTAssertTrue(store.allKnownHabitIDs.contains(habitID))
+        XCTAssertNotNil(store.receipt(habitID: habitID, dayKey: day))
+        store.setReceipt(nil, habitID: habitID, dayKey: day)
+        XCTAssertTrue(store.allKnownHabitIDs.contains(habitID))
+        store.setPendingVersion(nil, habitID: habitID, dayKey: pendingDay)
+        XCTAssertFalse(store.allKnownHabitIDs.contains(habitID))
+    }
 }

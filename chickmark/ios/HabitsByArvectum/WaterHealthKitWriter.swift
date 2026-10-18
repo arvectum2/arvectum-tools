@@ -251,6 +251,13 @@ final class WaterExportCoordinator {
                     // Leave receipt/intent for later cleanup on next launch.
                 }
             }
+            // An app-deleted habit must not retain an obsolete local opt-in
+            // forever. Clear the rule ONLY if all its own HealthKit samples
+            // and pending writes have been successfully reconciled.
+            if store.receipts(for: orphanID).isEmpty &&
+               store.pendingDays(for: orphanID).isEmpty {
+                store.setRule(nil, for: orphanID)
+            }
         }
     }
 }
