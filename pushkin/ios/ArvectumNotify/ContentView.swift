@@ -216,6 +216,8 @@ private struct InboxView: View {
                     }
                 }
             }
+            .frame(maxWidth: 960)
+            .frame(maxWidth: .infinity)
             .background(Color.arvectumBackground.ignoresSafeArea())
             .navigationTitle("History")
             .navigationBarTitleDisplayMode(.inline)

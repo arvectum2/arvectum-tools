@@ -77,14 +77,22 @@ struct ContentView: View {
                     }
                 } else {
                     ScrollView(showsIndicators: false) {
-                        VStack(spacing: 4) {
-                            if model.inputKind == .photo {
-                                MainTaskCard(pickerItem: $pickerItem)
-                            } else {
-                                PDFTaskCard()
+                        VStack(spacing: 10) {
+                            ArvectumAdaptiveContentStack(minimumPaneWidth: 300, spacing: 16, showTrailingInCompact: false) {
+                                Group {
+                                    if model.inputKind == .photo {
+                                        MainTaskCard(pickerItem: $pickerItem)
+                                    } else {
+                                        PDFTaskCard()
+                                    }
+                                }
+                            } trailing: {
+                                AdaptiveSourcePreview()
                             }
                             MainScreenNativeAdSlot(session: mainNativeAdSession)
                         }
+                        .frame(maxWidth: 1120)
+                        .frame(maxWidth: .infinity)
                     }
                 }
 

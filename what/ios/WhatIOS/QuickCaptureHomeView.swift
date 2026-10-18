@@ -5,6 +5,8 @@ import SwiftUI
 struct QuickCaptureHomeView: View {
     let recordingsCount: Int
     let startRecording: () -> Void
+    let startVideo: () -> Void
+    let newText: () -> Void
     let openLibrary: () -> Void
 
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
@@ -25,34 +27,33 @@ struct QuickCaptureHomeView: View {
 
                 Circle()
                     .fill(accent.opacity(0.09))
-                    .frame(width: 410, height: 410)
+                    .frame(width: min(410, geometry.size.width * 0.86),
+                           height: min(410, geometry.size.width * 0.86))
                     .blur(radius: 85)
                     .offset(x: geometry.size.width * 0.3, y: -75)
                     .accessibilityHidden(true)
 
-                VStack(spacing: 0) {
-                    topBar
+                ScrollView(.vertical) {
+                    VStack(spacing: 0) {
+                        topBar(showCaption: !compactLayout && geometry.size.width >= 490)
 
-                    Spacer(minLength: compactLayout ? 10 : 22)
+                        Spacer(minLength: compactLayout ? 10 : 22)
 
                     VStack(spacing: compactLayout ? 8 : 16) {
                         Text(isRussian ? "Ухвати мысль" : "Catch that thought")
-                            .font(.system(
-                                size: compactLayout ? 28 : 33,
-                                weight: .bold,
-                                design: .rounded
-                            ))
+                            .font(.system(.largeTitle, design: .rounded, weight: .bold))
                             .foregroundStyle(.white)
                             .minimumScaleFactor(0.75)
-                            .lineLimit(1)
+                            .lineLimit(compactLayout ? 2 : 1)
 
                         if !compactLayout {
                             Text(isRussian
-                                ? "Одно нажатие — и говори."
-                                : "One tap. Start speaking.")
+                                ? "Нажми — звук. Удерживай — видео."
+                                : "Tap for audio. Hold for video.")
                                 .font(.subheadline)
-                                .lineLimit(1)
-                                .minimumScaleFactor(0.7)
+                                .lineLimit(2)
+                                .multilineTextAlignment(.center)
+                                .minimumScaleFactor(0.85)
                                 .foregroundStyle(.white.opacity(0.7))
                         }
 
@@ -65,14 +66,16 @@ struct QuickCaptureHomeView: View {
                         )
                         .padding(.top, compactLayout ? 8 : 25)
 
-                        Text(isRussian ? "Нажми, чтобы записать" : "Tap to record")
+                        Text(isRussian ? "Нажми: звук · Удерживай: видео" : "Tap: audio · Hold: video")
                             .font(.system(size: compactLayout ? 17 : 21, weight: .semibold))
                             .foregroundStyle(.white)
-                            .lineLimit(1)
+                            .lineLimit(2)
+                            .multilineTextAlignment(.center)
+                            .minimumScaleFactor(0.85)
                             .padding(.top, compactLayout ? 7 : 12)
 
                         Label(
-                            isRussian ? "Сохраняется на iPhone" : "Saved on your iPhone",
+                            isRussian ? "Сохраняется на устройстве" : "Saved on this device",
                             systemImage: "lock.shield"
                         )
                         .font(.system(size: 13))
@@ -81,19 +84,24 @@ struct QuickCaptureHomeView: View {
                     }
                     .frame(maxWidth: .infinity)
 
-                    Spacer(minLength: compactLayout ? 10 : 18)
+                        Spacer(minLength: compactLayout ? 10 : 18)
 
-                    libraryButton
-                        .padding(.bottom, 8)
+                        libraryButton
+                            .padding(.bottom, 8)
+                    }
+                    .frame(maxWidth: 640)
+                    .frame(maxWidth: .infinity)
+                    .frame(minHeight: geometry.size.height, alignment: .center)
+                    .padding(.horizontal, geometry.size.width < 430 ? 16 : 25)
                 }
-                .padding(.horizontal, 25)
+                .scrollIndicators(.hidden)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
         .preferredColorScheme(.dark)
     }
 
-    private var topBar: some View {
+    private func topBar(showCaption: Bool) -> some View {
         HStack {
             HStack(spacing: 9) {
                 Image("WhatGlyph")
@@ -109,7 +117,17 @@ struct QuickCaptureHomeView: View {
 
             Spacer()
 
-            if !compactLayout {
+            Button(action: newText) {
+                Image(systemName: "plus")
+                    .font(.title2.weight(.bold))
+                    .foregroundStyle(accent)
+                    .frame(width: 48, height: 48)
+                    .background(.white.opacity(0.08), in: Circle())
+            }
+            .accessibilityLabel(isRussian ? "Создать текстовую заметку" : "New text note")
+            .accessibilityIdentifier("what.new.text")
+
+            if showCaption {
                 Text(isRussian ? "БЫСТРАЯ ЗАПИСЬ" : "QUICK CAPTURE")
                     .font(.system(size: 9, weight: .semibold, design: .rounded))
                     .tracking(1.7)
@@ -121,8 +139,7 @@ struct QuickCaptureHomeView: View {
     }
 
     private func recordButton(diameter: CGFloat) -> some View {
-        Button(action: startRecording) {
-            ZStack {
+        ZStack {
                 // Echo the approved circular What? brand button. The mint
                 // emblem is extracted from the user-approved app icon.
                 Circle()
@@ -173,12 +190,29 @@ struct QuickCaptureHomeView: View {
             }
             .frame(width: diameter, height: diameter)
             .contentShape(Circle())
+        .highPriorityGesture(
+            LongPressGesture(minimumDuration: 0.5)
+                .exclusively(before: TapGesture())
+                .onEnded { result in
+                    switch result {
+                    case .first(let completed):
+                        if completed { startVideo() }
+                    case .second:
+                        startRecording()
+                    }
+                }
+        )
+        .accessibilityElement(children: .ignore)
+        .accessibilityAddTraits(.isButton)
+        .accessibilityAction { startRecording() }
+        .accessibilityAction(named: Text(isRussian ? "Видеозапись" : "Record video")) {
+            startVideo()
         }
-        .buttonStyle(QuickRecordButtonStyle())
+        .accessibilityIdentifier("what.record.primary")
         .accessibilityLabel(isRussian ? "Начать запись" : "Start recording")
         .accessibilityHint(isRussian
-            ? "Откроет запись и сразу включит микрофон"
-            : "Opens the recorder and immediately activates the microphone")
+            ? "Нажмите для аудио, удерживайте для видео"
+            : "Tap for audio, hold to record video")
     }
 
     private var libraryButton: some View {
@@ -245,6 +279,8 @@ private struct QuickRecordButtonStyle: ButtonStyle {
     QuickCaptureHomeView(
         recordingsCount: 17,
         startRecording: {},
+        startVideo: {},
+        newText: {},
         openLibrary: {}
     )
 }

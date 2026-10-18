@@ -5,7 +5,10 @@ import SwiftData
 enum ChickMarkBackupService {
     enum ImportMode { case merge, replace }
 
-    static func capture(from context: ModelContext) throws -> ChickMarkBackup {
+    static func capture(
+        from context: ModelContext,
+        attachments: ReviewNoteAttachmentRepository = ReviewNoteAttachmentRepository()
+    ) throws -> ChickMarkBackup {
         let habits = try context.fetch(FetchDescriptor<Habit>())
         let ids = Set(habits.map(\.id))
         let checkIns = try context.fetch(FetchDescriptor<HabitCheckIn>())
@@ -51,14 +54,18 @@ enum ChickMarkBackupService {
                       createdAt: $0.createdAt, isCompleted: $0.isCompleted,
                       completedAt: $0.completedAt)
             },
-            groups: ChickMarkGroups.load()
+            groups: ChickMarkGroups.load(),
+            reviewNotes: try attachments.all().filter { review in
+                oneOffs.contains(where: { $0.id == review.id })
+            }
         )
     }
 
     static func restore(
         _ backup: ChickMarkBackup,
         to context: ModelContext,
-        mode: ImportMode
+        mode: ImportMode,
+        attachments: ReviewNoteAttachmentRepository = ReviewNoteAttachmentRepository()
     ) throws {
         // Validate the entire document before any mutation.
         try backup.validate()
@@ -138,6 +145,16 @@ enum ChickMarkBackupService {
         } catch {
             context.rollback()
             throw error
+        }
+        if let reviewNotes = backup.reviewNotes {
+            let oneOffIDs = Set(try context.fetch(FetchDescriptor<OneOffReminder>()).map(\.id))
+            try attachments.merge(
+                reviewNotes, keepIDs: oneOffIDs, replace: mode == .replace
+            )
+        } else if mode == .replace {
+            // A legacy restore replaces the local one-offs too, so remove
+            // stale attachments without fabricating any new imported notes.
+            try attachments.merge([], keepIDs: [], replace: true)
         }
         if let groups = backup.groups {
             if mode == .replace {

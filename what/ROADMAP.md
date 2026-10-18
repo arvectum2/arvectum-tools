@@ -1,7 +1,15 @@
 # What? — Product Roadmap
 
+## Мультимодальный iPad/Duo · 18.10.2026
+
+[QA 1.1.0](../core/docs/ADAPTIVE_T4_T5_MULTIMODAL_2026-10-18.md): интегрированы общие адаптивные редакторы в actual 1.1.0 с текстом/аудио/видео/ChickMark. Core 13/13, What 104 unit (3 skipped), iPad UI 5/5 и Duo 4 executed (2 skipped) прошли. По решению владельца физический Duo не блокирует разработку; симуляторная проверка и исправления по user feedback. Живое fold/unfold не доказано. Релиз и данные на обычном iPhone — отдельные ворота.
+
+## Пилот iPad/Duo · 18.10.2026
+
+В отдельной ветке feature/core-ipad-duo-pilots-20261018: ArvectumCore, читаемая библиотека/редактор, широкий/компактный layout, iPad target только для QA; Debug build PASS, 61 unit (3 skipped) и 2 UI PASS. Мультимодальная версия 1.1.0 не интегрирована и не менялась, WH-D0…D3 и физическая приёмка всё ещё открыты. [QA](../core/docs/ADAPTIVE_T4_T5_PILOT_2026-10-18.md).
+
 ## Актуальный релизный чекпоинт · 18.10.2026
-**Ухват / UhWhat:** последняя подтверждённая публичная iOS версия — 1.0.0(5), ASC 15.10. **1.1.0 (build 8)** с Watch/complication/widget и интеграцией ChickMark **отправлена в App Review 18.10 09:01 МСК**: upload VALID, WAITING_FOR_REVIEW на момент [релизного аудита](https://github.com/arvectum2/arvectum-tools/blob/release/what-chickmark-20261018-rc1/what/docs/RELEASE_AUDIT_WHAT_CHICKMARK_2026-10-18.md). До READY_FOR_SALE не считать выпущенной.
+**Ухват / UhWhat:** последняя подтверждённая публичная iOS версия — 1.0.1(6), ASC 18.10. **1.1.0 (build 8)** с Watch/complication/widget и интеграцией ChickMark **отправлена в App Review 18.10 09:01 МСК**: upload VALID, WAITING_FOR_REVIEW на момент [релизного аудита](https://github.com/arvectum2/arvectum-tools/blob/release/what-chickmark-20261018-rc1/what/docs/RELEASE_AUDIT_WHAT_CHICKMARK_2026-10-18.md). До READY_FOR_SALE не считать выпущенной.
 
 - [x] **WH18-0 · Реализовано в кандидатах:** единый local-first Inbox audio/text/video, короткое касание большой кнопки — аудио, удержание — видео, отдельный «+» — текст; автонапоминания о новых заметках по opt-in Off/+1/+2/+3 ч; ручная отправка полной заметки в разовое напоминание ChickMark. Изменения не приписывать публичной 1.0.0.
 - [x] **WH18-1 · QA evidence:** физическая проверка обеих камер iPhone 13, recovery и сохранности старых файлов; Watch→iPhone UUID/ACK+транскрипция; изолированная физическая связка с ChickMark (импорт, обратная ссылка, дедупликация, реальное приватное уведомление). Это разные QA-сценарии, не замена полной приёмке публичного обновления.

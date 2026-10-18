@@ -1,4 +1,5 @@
 import SwiftUI
+import ArvectumCore
 
 /// Manual corrections are an independent local text draft.
 /// Dismissal discards the draft; Save persists atomically before closing.
@@ -30,7 +31,8 @@ struct TranscriptEditorSheet: View {
 
     var body: some View {
         NavigationStack {
-            VStack(alignment: .leading, spacing: 12) {
+            ArvectumReadableColumn(maxWidth: 760) {
+                VStack(alignment: .leading, spacing: 12) {
                 Text(recording.createdAt, format: .dateTime.day().month().year().hour().minute())
                     .font(.caption)
                     .foregroundStyle(.secondary)
@@ -48,6 +50,7 @@ struct TranscriptEditorSheet: View {
                     .foregroundStyle(.secondary)
             }
             .padding()
+            }
             .navigationTitle(initialText.isEmpty
                 ? CaptureBrand.text("Добавить текст", "Add text")
                 : CaptureBrand.text("Править расшифровку", "Edit transcription"))

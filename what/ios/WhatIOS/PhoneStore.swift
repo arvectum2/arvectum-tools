@@ -2,10 +2,17 @@ import AVFoundation
 import Combine
 import Foundation
 import Speech
+import UIKit
+import UserNotifications
 
 @MainActor
-final class PhoneStore: NSObject, ObservableObject, AVAudioPlayerDelegate {
+final class PhoneStore: NSObject, ObservableObject, AVAudioPlayerDelegate,
+                        UNUserNotificationCenterDelegate {
     @Published private(set) var recordings: [RecordingEnvelope] = []
+    @Published private(set) var localNotes: [LocalNote] = []
+    @Published var videoRecoveryNotice: String?
+    @Published var reminderTargetID: UUID?
+    let reminderManager = NoteReminderManager()
     @Published private(set) var playingID: UUID?
     @Published private(set) var transcribingID: UUID?
     @Published private(set) var transcripts: [UUID: String] = [:]
@@ -13,27 +20,88 @@ final class PhoneStore: NSObject, ObservableObject, AVAudioPlayerDelegate {
     @Published private(set) var lastWatchQueueSnapshot: WatchQueueSnapshot?
     @Published private(set) var batchTranscriptionActive = false
     @Published var showPhoneCapture = false
+    @Published var showTextCapture = false
+    @Published var showVideoCapture = false
     @Published var errorMessage: String?
-    @Published var transcriptionLocale = UserDefaults.standard.string(forKey: "what.transcription.locale") ?? "ru-RU" {
-        didSet { UserDefaults.standard.set(transcriptionLocale, forKey: "what.transcription.locale") }
+    /// Single persisted RU/EN app-and-Speech preference, also used by
+    /// CaptureBrand. Existing persisted choices survive a QA/production update.
+    @Published var transcriptionLocale = CaptureBrand.selectedTranscriptionLocale {
+        didSet {
+            UserDefaults.standard.set(transcriptionLocale, forKey: CaptureBrand.languagePreferenceKey)
+        }
     }
 
     private let repository: RecordingRepository
+    private let localNoteRepository: LocalNoteRepository
     private var player: AVAudioPlayer?
     private var recognitionTask: SFSpeechRecognitionTask?
     private var recognizer: SFSpeechRecognizer?
+    /// Also guards against stale callbacks after immediate retry of same UUID.
+    private var speechAttempt = SpeechAttemptGate()
     private var batchIDs: [UUID] = []
     let phoneRecorder = PhoneRecordingController()
 
-    init(repository: RecordingRepository = RecordingRepository()) {
+    init(repository: RecordingRepository = RecordingRepository(),
+         localNoteRepository: LocalNoteRepository = LocalNoteRepository()) {
         self.repository = repository
+        self.localNoteRepository = localNoteRepository
         super.init()
+        UNUserNotificationCenter.current().delegate = self
         reload()
         reloadWatchQueueStatus()
-        phoneRecorder.onSaved = { [weak self] recording in
-            self?.reload()
-            self?.transcribeIfAuthorized(recording)
+        Task { [weak self] in await self?.reminderManager.reconcile() }
+        Task { [weak self] in
+            guard let self else { return }
+            let candidates: [(id: UUID, createdAt: Date)] = self.recordings.map {
+                (id: $0.id, createdAt: $0.createdAt)
+            } + self.localNotes.map { (id: $0.id, createdAt: $0.createdAt) }
+            await self.reminderManager.catchUpNewNotes(candidates)
         }
+        Task { [weak self] in await self?.recoverInterruptedVideos() }
+        phoneRecorder.onSaved = { [weak self] recording in
+            guard let self else { return }
+            let alreadyIndexed = self.recordings.contains { $0.id == recording.id }
+            self.reload()
+            if !alreadyIndexed {
+                Task { await self.reminderManager.scheduleAutomaticallyIfEnabled(noteID: recording.id) }
+            }
+            self.transcribeIfAuthorized(recording)
+        }
+    }
+
+    func revealReminder(_ noteID: UUID) {
+        reload()
+        guard recordings.contains(where: { $0.id == noteID }) ||
+              localNotes.contains(where: { $0.id == noteID }) else {
+            // The user might have deleted or moved the original note since
+            // copying its URL to ChickMark. Do not silently open a blank Home.
+            errorMessage = CaptureBrand.text(
+                "Исходная заметка больше недоступна в Ухвате.",
+                "The original note is no longer available in UhWhat."
+            )
+            return
+        }
+        reminderTargetID = noteID
+    }
+
+    nonisolated func userNotificationCenter(
+        _ center: UNUserNotificationCenter,
+        didReceive response: UNNotificationResponse,
+        withCompletionHandler completionHandler: @escaping () -> Void
+    ) {
+        if let value = response.notification.request.content.userInfo["noteID"] as? String,
+           let id = UUID(uuidString: value) {
+            Task { @MainActor [weak self] in self?.revealReminder(id) }
+        }
+        completionHandler()
+    }
+
+    nonisolated func userNotificationCenter(
+        _ center: UNUserNotificationCenter,
+        willPresent notification: UNNotification,
+        withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void
+    ) {
+        completionHandler([.banner, .sound])
     }
 
     func reloadWatchQueueStatus() {
@@ -42,11 +110,104 @@ final class PhoneStore: NSObject, ObservableObject, AVAudioPlayerDelegate {
 
     func reload() {
         recordings = repository.allRecordings()
+        do {
+            localNotes = try localNoteRepository.allNotes()
+        } catch {
+            errorMessage = "Could not read saved text/video notes: \(error.localizedDescription)"
+        }
         transcripts = repository.transcripts()
         do {
             archivedIDs = try repository.archivedIDs()
         } catch {
             errorMessage = "Could not read the archive: \(error.localizedDescription)"
+        }
+    }
+
+    func saveText(id: UUID, body: String) {
+        do {
+            _ = try localNoteRepository.saveText(
+                id: id, body: body,
+                sourceDevice: UIDevice.current.userInterfaceIdiom == .pad ? "iPad" : "iPhone"
+            )
+            localNotes = try localNoteRepository.allNotes()
+        } catch {
+            errorMessage = "Text note could not be saved: \(error.localizedDescription)"
+        }
+    }
+
+    /// Called after the *new* text editor closes. Autosave stays immediate;
+    /// auto-follow-up starts only when the user finishes composing the note.
+    func finishedNewTextNote(id: UUID) {
+        guard let note = localNotes.first(where: { $0.id == id && $0.kind == .text }),
+              !note.body.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+        else { return }
+        Task { await reminderManager.scheduleAutomaticallyIfEnabled(noteID: id) }
+    }
+
+    func saveVideo(from temporaryURL: URL, duration: TimeInterval,
+                   id: UUID = UUID()) throws {
+        let alreadyIndexed = localNotes.contains { $0.id == id }
+        _ = try localNoteRepository.importVideo(
+            from: temporaryURL, duration: duration, id: id,
+            sourceDevice: UIDevice.current.userInterfaceIdiom == .pad ? "iPad" : "iPhone"
+        )
+        localNotes = try localNoteRepository.allNotes()
+        if !alreadyIndexed {
+            Task { await reminderManager.scheduleAutomaticallyIfEnabled(noteID: id) }
+        }
+    }
+
+    func recoverInterruptedVideos() async {
+        do {
+            let previouslyIndexed = Set(localNotes.map(\.id))
+            let result = try await VideoCaptureRecovery.recover(
+                journal: VideoCaptureJournal(), repository: localNoteRepository
+            )
+            if result.recovered > 0 {
+                localNotes = try localNoteRepository.allNotes()
+                for note in localNotes where !previouslyIndexed.contains(note.id) {
+                    await reminderManager.scheduleAutomaticallyIfEnabled(noteID: note.id)
+                }
+            }
+            if result.unresolved > 0 {
+                videoRecoveryNotice = CaptureBrand.text(
+                    "Восстановлено: \(result.recovered). Часть видеофрагментов оставлена для повторного восстановления.",
+                    "Recovered: \(result.recovered). Some video segments are still saved for another recovery attempt."
+                )
+            } else if result.recovered > 0 {
+                videoRecoveryNotice = CaptureBrand.text(
+                    "Восстановлены видеозаметки: \(result.recovered).",
+                    "Recovered video notes: \(result.recovered)."
+                )
+            }
+        } catch {
+            videoRecoveryNotice = CaptureBrand.text(
+                "Не удалось восстановить видео. Исходные файлы не удалены. ",
+                "Video recovery failed. Original files remain on device. "
+            ) + error.localizedDescription
+        }
+    }
+
+    func videoURL(for note: LocalNote) -> URL? {
+        localNoteRepository.videoURL(for: note)
+    }
+
+    func setArchived(_ note: LocalNote, archived: Bool) {
+        do {
+            try localNoteRepository.setArchived(note.id, archived: archived)
+            localNotes = try localNoteRepository.allNotes()
+        } catch {
+            errorMessage = "Could not archive the note: \(error.localizedDescription)"
+        }
+    }
+
+    func delete(_ note: LocalNote) {
+        do {
+            try localNoteRepository.delete(note.id)
+            reminderManager.noteWasDeleted(note.id)
+            localNotes = try localNoteRepository.allNotes()
+        } catch {
+            errorMessage = "Could not delete the note: \(error.localizedDescription)"
         }
     }
 
@@ -71,6 +232,7 @@ final class PhoneStore: NSObject, ObservableObject, AVAudioPlayerDelegate {
 
         do {
             try repository.deleteRecording(recording.id)
+            reminderManager.noteWasDeleted(recording.id)
             reload()
         } catch {
             reload()
@@ -82,10 +244,16 @@ final class PhoneStore: NSObject, ObservableObject, AVAudioPlayerDelegate {
     /// was already granted; never silently prompt for permission from a background
     /// WatchConnectivity callback.
     func receivedRecording(_ recordingID: UUID?) {
+        let previouslyIndexed = recordingID.map { id in
+            recordings.contains { $0.id == id }
+        } ?? false
         reload()
         guard let recordingID,
               let recording = recordings.first(where: { $0.id == recordingID })
         else { return }
+        if !previouslyIndexed {
+            Task { await reminderManager.scheduleAutomaticallyIfEnabled(noteID: recordingID) }
+        }
         transcribeIfAuthorized(recording)
     }
 
@@ -127,6 +295,9 @@ final class PhoneStore: NSObject, ObservableObject, AVAudioPlayerDelegate {
     }
 
     private func finishTranscription() {
+        // Invalidate before releasing the recognition task, since Speech may
+        // deliver one more final result or error after completion/cancellation.
+        speechAttempt.invalidate()
         transcribingID = nil
         recognitionTask = nil
         recognizer = nil
@@ -136,8 +307,9 @@ final class PhoneStore: NSObject, ObservableObject, AVAudioPlayerDelegate {
     func cancelTranscription() {
         batchIDs.removeAll()
         batchTranscriptionActive = false
-        // Clear the active ID first so late authorization / result callbacks
-        // cannot overwrite a manually corrected transcript.
+        // Invalidate *before* cancelling; a late callback for an earlier
+        // attempt must not overwrite corrections during a same-UUID retry.
+        speechAttempt.invalidate()
         transcribingID = nil
         recognitionTask?.cancel()
         recognitionTask = nil
@@ -254,24 +426,32 @@ final class PhoneStore: NSObject, ObservableObject, AVAudioPlayerDelegate {
             return
         }
         transcribingID = recording.id
+        let attempt = speechAttempt.begin(for: recording.id)
         SFSpeechRecognizer.requestAuthorization { [weak self] authorization in
             Task { @MainActor [weak self] in
                 // Authorization can return after cancellation or deletion.
-                guard let self, self.transcribingID == recording.id else { return }
+                guard let self, self.transcribingID == recording.id,
+                      self.speechAttempt.accepts(recording: recording.id, attempt: attempt)
+                else { return }
                 guard authorization == .authorized else {
                     self.batchIDs.removeAll()
                     self.batchTranscriptionActive = false
                     self.finishTranscription()
-                    self.errorMessage = "Allow Speech Recognition in Settings to transcribe on this iPhone."
+                    self.errorMessage = CaptureBrand.text(
+                        "Разрешите распознавание речи для Ухвата в настройках iPhone. Аудиозапись сохранена.",
+                        "Allow Speech Recognition for UhWhat? in iPhone Settings. Your audio is safe."
+                    )
                     return
                 }
-                self.beginTranscription(recording)
+                self.beginTranscription(recording, attempt: attempt)
             }
         }
     }
 
-    private func beginTranscription(_ recording: RecordingEnvelope) {
-        guard transcribingID == recording.id else { return }
+    private func beginTranscription(_ recording: RecordingEnvelope, attempt: UUID) {
+        guard transcribingID == recording.id,
+              speechAttempt.accepts(recording: recording.id, attempt: attempt)
+        else { return }
         // Only on-device recognition: never silently upload private recordings.
         guard let recognizer = SFSpeechRecognizer(locale: Locale(identifier: transcriptionLocale)),
               recognizer.supportsOnDeviceRecognition,
@@ -279,7 +459,10 @@ final class PhoneStore: NSObject, ObservableObject, AVAudioPlayerDelegate {
             batchIDs.removeAll()
             batchTranscriptionActive = false
             finishTranscription()
-            errorMessage = "On-device speech recognition is unavailable for the selected language. Choose another language or check installed speech recognition support in iOS Settings."
+            errorMessage = CaptureBrand.text(
+                "Локальное распознавание для выбранного языка недоступно. Выберите другой язык или проверьте поддержку в настройках iOS. Исходное аудио сохранено.",
+                "On-device speech recognition is unavailable for the selected language. Choose another language or check iOS Settings. Original audio is preserved."
+            )
             return
         }
         self.recognizer = recognizer
@@ -288,11 +471,16 @@ final class PhoneStore: NSObject, ObservableObject, AVAudioPlayerDelegate {
         request.shouldReportPartialResults = false
         recognitionTask = recognizer.recognitionTask(with: request) { [weak self] result, error in
             Task { @MainActor [weak self] in
-                guard let self, self.transcribingID == recording.id else { return }
+                guard let self, self.transcribingID == recording.id,
+                      self.speechAttempt.accepts(recording: recording.id, attempt: attempt)
+                else { return }
                 if let result, result.isFinal {
                     let text = result.bestTranscription.formattedString
                     guard !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
-                        self.errorMessage = "Speech was not detected. Try another recording or language."
+                        self.errorMessage = CaptureBrand.text(
+                            "Речь не распознана. Проверьте запись или выберите другой язык. Аудио сохранено.",
+                            "Speech was not detected. Check the recording or choose another language. Audio is safe."
+                        )
                         self.finishTranscription()
                         return
                     }
@@ -300,12 +488,18 @@ final class PhoneStore: NSObject, ObservableObject, AVAudioPlayerDelegate {
                         try self.repository.saveTranscript(text, for: recording.id)
                         self.transcripts[recording.id] = text
                     } catch {
-                        self.errorMessage = "Transcription completed, but saving the text failed."
+                        self.errorMessage = CaptureBrand.text(
+                            "Речь распознана, но сохранить текст не удалось. Исходное аудио не удалено.",
+                            "Speech was recognized, but the text could not be saved. Original audio was not deleted."
+                        )
                     }
                     self.finishTranscription()
                 } else if let error {
                     self.finishTranscription()
-                    self.errorMessage = "Transcription failed: \(error.localizedDescription)"
+                    self.errorMessage = CaptureBrand.text(
+                        "Ошибка распознавания: \(error.localizedDescription). Исходное аудио сохранено.",
+                        "Transcription failed: \(error.localizedDescription). Original audio was preserved."
+                    )
                 }
             }
         }

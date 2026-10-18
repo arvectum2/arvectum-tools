@@ -40,6 +40,8 @@ struct SetupGuideView: View {
                 .scrollContentBackground(.hidden)
                 .background(Color.arvectumBackground)
             }
+            .frame(maxWidth: 960)
+            .frame(maxWidth: .infinity)
             .background(Color.arvectumBackground.ignoresSafeArea())
             .navigationTitle("Apps & Setup")
             .navigationBarTitleDisplayMode(.inline)

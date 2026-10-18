@@ -12,16 +12,69 @@ struct ContentView: View {
                 RecordingLibraryView(
                     openCaptureHome: { showingLibrary = false }
                 )
+                // Recreate the visible screen after a locale switch so all
+                // CaptureBrand strings are reevaluated, without discarding
+                // the PhoneStore or its original recordings.
+                .id(store.transcriptionLocale)
             } else {
                 QuickCaptureHomeView(
-                    recordingsCount: store.recordings.count,
+                    recordingsCount: store.recordings.count + store.localNotes.count,
                     startRecording: { store.beginPhoneCapture() },
+                    startVideo: { store.showVideoCapture = true },
+                    newText: { store.showTextCapture = true },
                     openLibrary: { showingLibrary = true }
                 )
+                .id(store.transcriptionLocale)
             }
+        }
+        .onAppear {
+            if store.reminderTargetID != nil { showingLibrary = true }
+        }
+        .onChange(of: store.reminderTargetID) { _, id in
+            if id != nil { showingLibrary = true }
+        }
+        .onReceive(store.reminderManager.$errorMessage) { message in
+            // Subscribe to the nested ObservableObject directly. An error
+            // from enabling an opt-in rule must be visible even when the
+            // PhoneStore itself has not emitted a state change.
+            if let message { store.errorMessage = message }
         }
         .sheet(isPresented: $store.showPhoneCapture) {
             PhoneRecordingSheet(recorder: store.phoneRecorder)
+        }
+        .sheet(isPresented: $store.showTextCapture) {
+            TextNoteSheet()
+                .environmentObject(store)
+        }
+        .sheet(isPresented: $store.showVideoCapture) {
+            VideoCaptureHost()
+                .environmentObject(store)
+        }
+        .safeAreaInset(edge: .top, spacing: 0) {
+            if let notice = store.videoRecoveryNotice {
+                HStack(spacing: 10) {
+                    Image(systemName: "externaldrive.badge.checkmark")
+                    Text(notice)
+                        .font(.caption)
+                    Spacer(minLength: 4)
+                    Button {
+                        Task { await store.recoverInterruptedVideos() }
+                    } label: {
+                        Image(systemName: "arrow.clockwise")
+                    }
+                    .accessibilityLabel(
+                        CaptureBrand.text("Повторить восстановление", "Retry video recovery")
+                    )
+                    Button {
+                        store.videoRecoveryNotice = nil
+                    } label: {
+                        Image(systemName: "xmark")
+                    }
+                    .accessibilityLabel(CaptureBrand.text("Скрыть", "Dismiss"))
+                }
+                .padding(10)
+                .background(.thinMaterial)
+            }
         }
         .alert(CaptureBrand.name, isPresented: Binding(
             get: { store.errorMessage != nil },

@@ -6,6 +6,7 @@ struct OneOffReminderRow: View {
     let onComplete: () -> Void
     let onEdit: () -> Void
     let onDelete: () -> Void
+    let onOpenNote: (() -> Void)?
 
     private var dueText: String {
         let calendar = Calendar.autoupdatingCurrent
@@ -44,13 +45,28 @@ struct OneOffReminderRow: View {
                     .foregroundStyle(.primary)
 
                 Text(dueText)
-                .font(.caption)
-                .foregroundStyle(Color.habitsSecondaryText)
+                    .font(.caption)
+                    .foregroundStyle(Color.habitsSecondaryText)
+                if let onOpenNote {
+                    Button(action: onOpenNote) {
+                        Label(L10n.string("review.oneoff.open"), systemImage: "doc.text")
+                            .font(.caption2)
+                    }
+                    .buttonStyle(.plain)
+                    .foregroundStyle(Color.arvectumMint)
+                    .accessibilityIdentifier("chickmark.noteReview.open.\(reminder.id.uuidString)")
+                    .accessibilityValue(reminder.title)
+                }
             }
 
             Spacer(minLength: 4)
 
             Menu {
+                if let onOpenNote {
+                    Button(action: onOpenNote) {
+                        Label(L10n.string("review.oneoff.read"), systemImage: "note.text")
+                    }
+                }
                 Button(action: onEdit) {
                     Label(
                         L10n.string("oneoff.edit"),
