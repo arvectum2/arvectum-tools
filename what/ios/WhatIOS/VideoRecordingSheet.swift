@@ -183,8 +183,12 @@ final class VideoCaptureController: NSObject, ObservableObject,
     /// Inactive precedes Background. Claim a finite iOS background task *before*
     /// requesting AVFoundation's asynchronous stop callback and file import.
     /// Never allow recording video indefinitely behind other apps.
-    func finishForBackground() {
-        guard isRecording || isSwitching || isPreparing || isSaving else { return }
+    func finishForBackground(includePreparing: Bool = false) {
+        // A camera/microphone permission sheet temporarily makes the scene
+        // inactive: do NOT cancel the very first capture while awaiting Allow.
+        // Only a real .background transition may stop a preparing camera.
+        guard isRecording || isSwitching || isSaving
+              || (includePreparing && isPreparing) else { return }
         backgroundSaveRequested = true
         if backgroundSaveTask == .invalid {
             backgroundSaveTask = UIApplication.shared.beginBackgroundTask(
@@ -639,7 +643,7 @@ struct VideoRecordingSheet: View {
             }
             .onChange(of: scenePhase) { _, phase in
                 if phase != .active {
-                    recorder.finishForBackground()
+                    recorder.finishForBackground(includePreparing: phase == .background)
                 } else {
                     Task { await recorder.recoverWhenForegrounded() }
                 }
