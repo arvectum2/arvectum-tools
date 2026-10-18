@@ -72,6 +72,9 @@ struct CaptureView: View {
         .onAppear {
             controller.activateConnectivity()
             controller.refreshPendingAudioAfterUnlock()
+#if WATCH_PHYSICAL_QA
+            WatchPhysicalQAProbe.shared.startIfRequested(controller: controller)
+#endif
             if scenePhase == .active {
                 startCaptureOnForeground()
             }
