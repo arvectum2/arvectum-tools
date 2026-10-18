@@ -157,11 +157,16 @@ final class PhoneStore: NSObject, ObservableObject, AVAudioPlayerDelegate,
         }
     }
 
-    func recoverInterruptedVideos() async {
+    func recoverInterruptedVideos(
+        requireCompleteSegments: Bool = false,
+        expectedSegmentCount: Int = 0
+    ) async {
         do {
             let previouslyIndexed = Set(localNotes.map(\.id))
             let result = try await VideoCaptureRecovery.recover(
-                journal: VideoCaptureJournal(), repository: localNoteRepository
+                journal: VideoCaptureJournal(), repository: localNoteRepository,
+                requireCompleteSegments: requireCompleteSegments,
+                expectedSegmentCount: expectedSegmentCount
             )
             if result.recovered > 0 {
                 localNotes = try localNoteRepository.allNotes()

@@ -126,6 +126,97 @@ final class VideoCaptureRecoveryTests: XCTestCase {
         XCTAssertFalse(FileManager.default.fileExists(atPath: repair.path))
     }
 
+    func testForegroundRejectsPartialFourClipVideoUntilLastClipFinalizes() async throws {
+        let root = try temporaryRoot()
+        defer { try? FileManager.default.removeItem(at: root) }
+        let journal = VideoCaptureJournal(rootURL: root.appendingPathComponent("VideoCaptures"))
+        let repository = LocalNoteRepository(rootURL: root.appendingPathComponent("What"))
+        let id = try journal.begin()
+        for index in 0..<3 {
+            try copyFixture(index.isMultiple(of: 2) ? "back" : "front",
+                            journal: journal, session: id, index: index)
+        }
+        let last = journal.segmentURL(for: id, index: 3)
+        try Data("unfinalized AVCaptureMovieFileOutput".utf8).write(to: last)
+        let before = try Data(contentsOf: last)
+
+        let tooEarly = try await VideoCaptureRecovery.recover(
+            journal: journal, repository: repository,
+            requireCompleteSegments: true, expectedSegmentCount: 4
+        )
+        XCTAssertEqual(tooEarly.recovered, 0)
+        XCTAssertEqual(tooEarly.unresolved, 1)
+        XCTAssertTrue(try repository.allNotes().isEmpty)
+        XCTAssertEqual(try journal.pendingSessions().first?.segments.count, 4)
+        XCTAssertEqual(try Data(contentsOf: last), before)
+
+        // The same UUID must import all four segments, not just the first
+        // three, after AVFoundation has produced the final playable MOV.
+        try FileManager.default.removeItem(at: last)
+        try copyFixture("front", journal: journal, session: id, index: 3)
+        let complete = try await VideoCaptureRecovery.recover(
+            journal: journal, repository: repository,
+            requireCompleteSegments: true, expectedSegmentCount: 4
+        )
+        XCTAssertEqual(complete.recovered, 1)
+        XCTAssertEqual(complete.unresolved, 0)
+        let note = try XCTUnwrap(repository.allNotes().first)
+        XCTAssertEqual(note.id, id)
+        XCTAssertGreaterThan(note.duration ?? 0, 2.8)
+        XCTAssertTrue(try journal.pendingSessions().isEmpty)
+        let duplicate = try await VideoCaptureRecovery.recover(
+            journal: journal, repository: repository
+        )
+        XCTAssertEqual(duplicate.recovered, 0)
+        XCTAssertEqual(try repository.allNotes().map(\.id), [id])
+    }
+
+    func testForegroundDoesNotImportPlayablePrefixWhenExpectedClipMissing() async throws {
+        let root = try temporaryRoot()
+        defer { try? FileManager.default.removeItem(at: root) }
+        let journal = VideoCaptureJournal(rootURL: root.appendingPathComponent("VideoCaptures"))
+        let repository = LocalNoteRepository(rootURL: root.appendingPathComponent("What"))
+        let id = try journal.begin()
+        for index in 0..<3 {
+            try copyFixture("back", journal: journal, session: id, index: index)
+        }
+        let incomplete = try await VideoCaptureRecovery.recover(
+            journal: journal, repository: repository,
+            requireCompleteSegments: true, expectedSegmentCount: 4
+        )
+        XCTAssertEqual(incomplete.recovered, 0)
+        XCTAssertEqual(incomplete.unresolved, 1)
+        XCTAssertTrue(try repository.allNotes().isEmpty)
+        XCTAssertEqual(try journal.pendingSessions().count, 1)
+    }
+
+    func testPreviouslyIndexedPartialNeverDeletesLaterPlayableSegment() async throws {
+        let root = try temporaryRoot()
+        defer { try? FileManager.default.removeItem(at: root) }
+        let journal = VideoCaptureJournal(rootURL: root.appendingPathComponent("VideoCaptures"))
+        let repository = LocalNoteRepository(rootURL: root.appendingPathComponent("What"))
+        let id = try journal.begin()
+        try copyFixture("back", journal: journal, session: id, index: 0)
+        try copyFixture("front", journal: journal, session: id, index: 1)
+        let first = journal.segmentURL(for: id, index: 0)
+        let second = journal.segmentURL(for: id, index: 1)
+        let firstDuration = try await AVURLAsset(url: first).load(.duration).seconds
+        let partiallySaved = try repository.importVideo(
+            from: first, duration: firstDuration, id: id
+        )
+        let original = try Data(contentsOf: second)
+        let result = try await VideoCaptureRecovery.recover(
+            journal: journal, repository: repository
+        )
+        XCTAssertEqual(result.recovered, 0)
+        XCTAssertEqual(result.unresolved, 1)
+        XCTAssertEqual(try repository.allNotes().map(\.id), [id])
+        XCTAssertEqual(try repository.allNotes().first?.duration,
+                       partiallySaved.duration)
+        XCTAssertEqual(try Data(contentsOf: second), original)
+        XCTAssertEqual(try journal.pendingSessions().count, 1)
+    }
+
     func testCrashBeforeFirstSegmentReportsUnresolvedWithoutInventingNote() async throws {
         let root = try temporaryRoot()
         defer { try? FileManager.default.removeItem(at: root) }

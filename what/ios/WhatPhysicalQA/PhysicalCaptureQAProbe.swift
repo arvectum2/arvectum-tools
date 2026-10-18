@@ -4,9 +4,10 @@ import Foundation
 import UIKit
 import SwiftUI
 
-/// Foreground-only, opt-in physical recording probe used when XCTest UI
+/// Opt-in physical recording probe used when XCTest UI
 /// automation is unavailable. Exists exclusively in the distinct QA bundle.
-/// Launch explicitly with QA-only `flips`, `180s`, `early-crash` or `verify`.
+/// Launch explicitly with QA-only `flips`, `180s`, `early-crash`, `verify`,
+/// `background-sheet` or `background-after-flips`.
 @MainActor
 final class PhysicalCaptureQAProbe {
     static let shared = PhysicalCaptureQAProbe()
@@ -16,6 +17,8 @@ final class PhysicalCaptureQAProbe {
     private var backgroundSheetOriginalIDs = Set<UUID>()
     private var hasBackgroundedSheet = false
     private var activeMode: String?
+    private var flipSequenceStarted = false
+
 
     private struct Status: Codable {
         let stage: String
@@ -45,12 +48,12 @@ final class PhysicalCaptureQAProbe {
               }) else { return }
         hasStarted = true
         let mode = String(argument.dropFirst("what-physical-qa=".count))
-        guard ["flips", "180s", "early-crash", "verify", "background-sheet"].contains(mode) else { return }
+        guard ["flips", "180s", "early-crash", "verify", "background-sheet", "background-after-flips"].contains(mode) else { return }
         activeMode = mode
         originalIdleTimerDisabled = UIApplication.shared.isIdleTimerDisabled
         UIApplication.shared.isIdleTimerDisabled = true
         write("starting", mode: mode)
-        if mode == "background-sheet" {
+        if mode == "background-sheet" || mode == "background-after-flips" {
             // Present the ACTUAL SwiftUI video sheet so that its existing
             // scenePhase != active -> recorder.finish() hook is exercised.
             backgroundSheetOriginalIDs = Set(store.localNotes.map(\.id))
@@ -165,38 +168,82 @@ final class PhysicalCaptureQAProbe {
         }
     }
 
+    /// Real VideoRecordingSheet owns the recorder; the QA probe only observes
+    /// and requests camera flips via its public production API.
+    func attachVideoRecorderIfRequested(_ recorder: VideoCaptureController) {
+        guard activeMode == "background-after-flips", !flipSequenceStarted else { return }
+        flipSequenceStarted = true
+        Task { @MainActor [self] in
+            for _ in 0..<80 where !recorder.isRecording && recorder.errorMessage == nil {
+                try? await Task.sleep(nanoseconds: 250_000_000)
+            }
+            guard recorder.isRecording else {
+                write("failed", mode: "background-after-flips",
+                      details: recorder.errorMessage ?? "Camera did not start")
+                finishIdleTimer()
+                return
+            }
+            for index in 0..<3 {
+                try? await Task.sleep(nanoseconds: 2_000_000_000)
+                let expected = recorder.cameraPosition == .back
+                    ? AVCaptureDevice.Position.front : AVCaptureDevice.Position.back
+                recorder.switchCamera()
+                for _ in 0..<100 where recorder.cameraPosition != expected
+                    || !recorder.isRecording || recorder.isSwitching {
+                    try? await Task.sleep(nanoseconds: 200_000_000)
+                }
+                guard recorder.cameraPosition == expected, recorder.isRecording,
+                      !recorder.isSwitching else {
+                    write("failed", mode: "background-after-flips",
+                          flips: index,
+                          details: recorder.errorMessage ?? "Camera switch did not finish")
+                    finishIdleTimer()
+                    return
+                }
+                write("flipping", mode: "background-after-flips",
+                      flips: index + 1)
+            }
+            try? await Task.sleep(nanoseconds: 1_000_000_000)
+            write("ready-for-background", mode: "background-after-flips", flips: 3,
+                  details: "Three real camera swaps completed; background now")
+        }
+    }
+
     /// Observe real ScenePhase transitions without synthesizing a background
     /// notification. Only the independent QA executable has this hook.
     func observeScenePhase(_ phase: ScenePhase, store: PhoneStore) {
-        guard activeMode == "background-sheet" else { return }
+        guard let activeMode,
+              ["background-sheet", "background-after-flips"].contains(activeMode) else { return }
         switch phase {
         case .background:
             hasBackgroundedSheet = true
-            write("backgrounded", mode: "background-sheet",
+            write("backgrounded", mode: activeMode,
+                  flips: activeMode == "background-after-flips" ? 3 : 0,
                   details: "ScenePhase.background observed")
         case .active where hasBackgroundedSheet:
             hasBackgroundedSheet = false
-            write("foregrounded", mode: "background-sheet")
+            write("foregrounded", mode: activeMode)
             Task { @MainActor [self] in
                 for _ in 0..<60 {
                     let new = store.localNotes.filter {
                         $0.kind == .video && !backgroundSheetOriginalIDs.contains($0.id)
                     }
                     if new.count == 1 {
-                        write("saved-after-background", mode: "background-sheet",
+                        write("saved-after-background", mode: activeMode,
+                              flips: activeMode == "background-after-flips" ? 3 : 0,
                               details: "Exactly one new durable video UUID, duration=\(new[0].duration ?? 0)")
                         finishIdleTimer()
                         return
                     }
                     if new.count > 1 {
-                        write("failed", mode: "background-sheet",
+                        write("failed", mode: activeMode,
                               details: "Multiple new video UUIDs after one background")
                         finishIdleTimer()
                         return
                     }
                     try? await Task.sleep(nanoseconds: 500_000_000)
                 }
-                write("unresolved", mode: "background-sheet",
+                write("unresolved", mode: activeMode,
                       details: "No new durable note after foreground; inspect capture journal")
                 finishIdleTimer()
             }

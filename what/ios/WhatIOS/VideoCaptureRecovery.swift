@@ -151,7 +151,9 @@ enum VideoCaptureRecovery {
 
     static func recover(
         journal: VideoCaptureJournal,
-        repository: LocalNoteRepository
+        repository: LocalNoteRepository,
+        requireCompleteSegments: Bool = false,
+        expectedSegmentCount: Int = 0
     ) async throws -> Result {
         let pending = try journal.pendingSessions()
         var recovered = 0
@@ -161,8 +163,11 @@ enum VideoCaptureRecovery {
             // Crash after durable repository commit but before source cleanup:
             // never add a second note for the same capture UUID.
             if try repository.hasVideo(id: session.id) {
-                // On a previous partial salvage, do not delete corrupt clips.
+                // On a previous partial salvage, never delete a later segment
+                // that has not yet been included in the saved movie. It may
+                // become finalized after the foreground recovery returned.
                 var allReadable = true
+                var combinedSourceDuration = 0.0
                 for clip in session.segments {
                     let asset = AVURLAsset(url: clip)
                     guard let duration = try? await asset.load(.duration),
@@ -173,8 +178,13 @@ enum VideoCaptureRecovery {
                         allReadable = false
                         break
                     }
+                    combinedSourceDuration += duration.seconds
                 }
-                if allReadable {
+                let indexedDuration = try repository.indexedVideoDuration(id: session.id) ?? 0
+                // Already-indexed partial clips might have extra readable
+                // content: retain ALL originals for a safe future repair.
+                if allReadable, session.segments.count >= expectedSegmentCount,
+                   combinedSourceDuration <= indexedDuration + 0.15 {
                     try? journal.removeSavedSession(session.id)
                 } else {
                     unresolved += 1
@@ -193,6 +203,16 @@ enum VideoCaptureRecovery {
                     continue
                 }
                 valid.append(clip)
+            }
+
+            // Foreground return is NOT a crash: the final camera segment may
+            // still be flushing to disk. Do not import a playable *prefix* of
+            // an incomplete multi-camera recording as the final note.
+            if requireCompleteSegments,
+               (session.segments.count < expectedSegmentCount ||
+                valid.count != session.segments.count) {
+                unresolved += 1
+                continue
             }
 
             // An empty session or an unfinalized first MOV is not playable.
