@@ -70,7 +70,9 @@ targets:
         GENERATE_INFOPLIST_FILE: NO
         TARGETED_DEVICE_FAMILY: "1,2"
         SUPPORTS_MACCATALYST: NO
-        SWIFT_ACTIVE_COMPILATION_CONDITIONS: "$(inherited) DEBUG REVIEW_HANDOFF_QA"
+      configs:
+        Debug:
+          SWIFT_ACTIVE_COMPILATION_CONDITIONS: "$(inherited) DEBUG REVIEW_HANDOFF_QA"
     dependencies:
       - package: ArvectumCore
         product: ArvectumCore
