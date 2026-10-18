@@ -18,7 +18,7 @@
 | --- | --- |
 | Pure opt-in and conversion, including deleted-habit ledgers | **13/13 PASS** |
 | Fake HealthKit driver: permissions, errors, crash, undo, retry | **8/8 PASS** |
-| Full ChickMark tests | **273/273 PASS**, no failures |
+| Full ChickMark tests | **274/274 PASS**, no failures |
 | Opt-in UI, default OFF, explicit ON, Cancel on iPad | **1/1 PASS** |
 | Safe opt-in and denied-permission UI on iPad | **2/2 PASS** |
 | Safe opt-in and denied-permission UI on ordinary iPhone 17 Pro | **2/2 PASS** |
@@ -46,7 +46,14 @@ Important fix: the previous best-effort SwiftData fallback could interpret a sto
 WaterExportLocalStore now exposes a fail-closed canSafelyReconcile guard. Persisted JSON for all three maps (per-habit consent rules, successful own-sample receipts, interrupted-write versions) must decode successfully **before any HealthKit upsert, delete or local receipt cleanup**. A corrupted map is not assumed to mean an empty map. Missing keys from a fresh, never-opted-in installation remain valid and do not block startup.
 
 - Tests cover damaged consent JSON with a valid own-sample receipt; corrupt receipts and pending-intent maps; and a fake HealthKit writer that must observe **zero** upserts and deletions if consent cannot be read.
-- Following this change: **273/273 ChickMark unit PASS** and **2/2 iPad opt-in/denial UI PASS**; no actual HealthKit data accessed.
+- Following this change: **274/274 ChickMark unit PASS** and **2/2 iPad opt-in/denial UI PASS**; no actual HealthKit data accessed.
+
+## Manual settings cannot overwrite unreadable ledgers
+
+The per-habit settings editor now refuses Save before a HealthKit authorization prompt if any consent/receipt/pending-write JSON is damaged, and the local rule setter itself returns failure without modifying the original bytes. The editor shows a localized recovery message in RU/EN/ES instead of dismissing and claiming an export was enabled. The protection also applies to opt-out: a corrupt receipt must remain available for later recovery.
+
+- One added unit test verifies corrupt consent is preserved after attempted enable and disable, and a corrupt receipt prevents overwriting a healthy opt-in.
+- **274/274 ChickMark unit PASS**, **2/2 iPad export/denied-permission UI PASS**. CI localization and release hygiene audits PASS.
 
 ## Unverified release gates
 

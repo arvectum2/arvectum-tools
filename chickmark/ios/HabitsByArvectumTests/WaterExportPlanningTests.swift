@@ -129,6 +129,24 @@ final class WaterExportPlanningTests: XCTestCase {
         store.setPendingVersion(nil, habitID: habitID, dayKey: pendingDay)
         XCTAssertFalse(store.allKnownHabitIDs.contains(habitID))
     }
+    func testManualEnableOrDisableCannotOverwriteDamagedWaterLedgers() {
+        let suite = "water-rule-atomic-\(UUID().uuidString)"
+        let defaults = UserDefaults(suiteName: suite)!
+        defer { defaults.removePersistentDomain(forName: suite) }
+        let store = WaterExportLocalStore(defaults: defaults)
+        let broken = Data("not-json".utf8)
+        defaults.set(broken, forKey: "chickmark.water.rules.v1")
+        XCTAssertFalse(store.setRule(optIn, for: habitID))
+        XCTAssertFalse(store.setRule(nil, for: habitID))
+        XCTAssertEqual(defaults.data(forKey: "chickmark.water.rules.v1"), broken)
+        defaults.removeObject(forKey: "chickmark.water.rules.v1")
+        XCTAssertTrue(store.setRule(optIn, for: habitID))
+        XCTAssertEqual(store.rule(for: habitID), optIn)
+        defaults.set(broken, forKey: "chickmark.water.receipts.v1")
+        XCTAssertFalse(store.setRule(nil, for: habitID))
+        XCTAssertEqual(store.rule(for: habitID), optIn)
+    }
+
     func testCorruptConsentLedgerNeverBecomesEmptyOrTriggersHealthCleanup() {
         let suite = "water-corrupted-consent-\(UUID().uuidString)"
         let defaults = UserDefaults(suiteName: suite)!

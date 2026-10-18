@@ -223,7 +223,10 @@ final class WaterExportCoordinator {
         store.rule(for: habitID)
     }
 
-    func setRule(_ rule: WaterExportRule?, for habitID: UUID) {
+    var canUpdateRules: Bool { store.canSafelyReconcile }
+
+    @discardableResult
+    func setRule(_ rule: WaterExportRule?, for habitID: UUID) -> Bool {
         store.setRule(rule, for: habitID)
     }
 

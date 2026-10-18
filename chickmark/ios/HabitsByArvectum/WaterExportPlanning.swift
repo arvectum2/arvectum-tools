@@ -139,11 +139,16 @@ final class WaterExportLocalStore {
             }
     }
 
-    func setRule(_ rule: WaterExportRule?, for habitID: UUID) {
-        guard rule == nil || rule?.isValid == true else { return }
+    @discardableResult
+    func setRule(_ rule: WaterExportRule?, for habitID: UUID) -> Bool {
+        // Never silently overwrite a damaged consent/receipt/intent ledger
+        // with an empty dictionary when the user taps Save or Cancel.
+        guard canSafelyReconcile,
+              rule == nil || rule?.isValid == true else { return false }
         var all = load([String: WaterExportRule].self, key: rulesKey) ?? [:]
         all[habitID.uuidString] = rule
         save(all, key: rulesKey)
+        return true
     }
 
     func receipt(habitID: UUID, dayKey: String) -> WaterExportReceipt? {

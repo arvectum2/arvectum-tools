@@ -321,3 +321,5 @@
 "water.export.explanation" = "Solo para este hábito cuantitativo desde el día en que se active. No se importan días anteriores. Las correcciones afectan únicamente a los datos creados por ChickMark.";
 "water.export.privacy" = "Los datos permanecen en el dispositivo. ChickMark solicitará permiso para escribir en Salud al guardar.";
 "water.export.error" = "Exportación de agua no disponible";
+
+"water.export.storage.error" = "ChickMark no puede leer los ajustes de exportación de agua. No se cambió nada. Vuelve a abrir la app e inténtalo de nuevo.";

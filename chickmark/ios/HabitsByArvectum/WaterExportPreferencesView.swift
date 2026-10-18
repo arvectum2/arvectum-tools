@@ -71,6 +71,10 @@ struct WaterExportPreferencesView: View {
 
     private func save() {
         guard habit.usesQuantitativeGoal else { return }
+        guard coordinator.canUpdateRules else {
+            errorMessage = L10n.string("water.export.storage.error")
+            return
+        }
         saving = true
         Task { @MainActor in
             defer { saving = false }
@@ -80,15 +84,21 @@ struct WaterExportPreferencesView: View {
                     // dietaryWater. A failed/denied request creates no rule.
                     try await coordinator.requestWriteAccess()
                     let enabledAt = coordinator.rule(for: habit.id)?.enabledAt ?? Date()
-                    coordinator.setRule(WaterExportRule(
+                    guard coordinator.setRule(WaterExportRule(
                         millilitresPerUnit: millilitres, enabledAt: enabledAt
-                    ), for: habit.id)
+                    ), for: habit.id) else {
+                        errorMessage = L10n.string("water.export.storage.error")
+                        return
+                    }
                 } catch {
                     errorMessage = error.localizedDescription
                     return
                 }
             } else {
-                coordinator.setRule(nil, for: habit.id)
+                guard coordinator.setRule(nil, for: habit.id) else {
+                    errorMessage = L10n.string("water.export.storage.error")
+                    return
+                }
             }
             coordinator.requestSync()
             dismiss()
