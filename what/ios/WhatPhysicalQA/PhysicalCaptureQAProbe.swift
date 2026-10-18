@@ -2,6 +2,7 @@
 import AVFoundation
 import Foundation
 import UIKit
+import SwiftUI
 
 /// Foreground-only, opt-in physical recording probe used when XCTest UI
 /// automation is unavailable. Exists exclusively in the distinct QA bundle.
@@ -12,6 +13,9 @@ final class PhysicalCaptureQAProbe {
     private var controller: VideoCaptureController?
     private var hasStarted = false
     private var originalIdleTimerDisabled: Bool?
+    private var backgroundSheetOriginalIDs = Set<UUID>()
+    private var hasBackgroundedSheet = false
+    private var activeMode: String?
 
     private struct Status: Codable {
         let stage: String
@@ -41,10 +45,20 @@ final class PhysicalCaptureQAProbe {
               }) else { return }
         hasStarted = true
         let mode = String(argument.dropFirst("what-physical-qa=".count))
-        guard ["flips", "180s", "early-crash", "verify"].contains(mode) else { return }
+        guard ["flips", "180s", "early-crash", "verify", "background-sheet"].contains(mode) else { return }
+        activeMode = mode
         originalIdleTimerDisabled = UIApplication.shared.isIdleTimerDisabled
         UIApplication.shared.isIdleTimerDisabled = true
         write("starting", mode: mode)
+        if mode == "background-sheet" {
+            // Present the ACTUAL SwiftUI video sheet so that its existing
+            // scenePhase != active -> recorder.finish() hook is exercised.
+            backgroundSheetOriginalIDs = Set(store.localNotes.map(\.id))
+            store.showVideoCapture = true
+            write("sheet-presented", mode: mode,
+                  details: "Production VideoRecordingSheet requested")
+            return
+        }
         if mode == "verify" {
             Task { @MainActor [self] in
                 let videos = store.localNotes.filter { $0.kind == .video }.prefix(2)
@@ -148,6 +162,46 @@ final class PhysicalCaptureQAProbe {
                       details: capture.errorMessage ?? "Video save timeout")
             }
             finishIdleTimer()
+        }
+    }
+
+    /// Observe real ScenePhase transitions without synthesizing a background
+    /// notification. Only the independent QA executable has this hook.
+    func observeScenePhase(_ phase: ScenePhase, store: PhoneStore) {
+        guard activeMode == "background-sheet" else { return }
+        switch phase {
+        case .background:
+            hasBackgroundedSheet = true
+            write("backgrounded", mode: "background-sheet",
+                  details: "ScenePhase.background observed")
+        case .active where hasBackgroundedSheet:
+            hasBackgroundedSheet = false
+            write("foregrounded", mode: "background-sheet")
+            Task { @MainActor [self] in
+                for _ in 0..<60 {
+                    let new = store.localNotes.filter {
+                        $0.kind == .video && !backgroundSheetOriginalIDs.contains($0.id)
+                    }
+                    if new.count == 1 {
+                        write("saved-after-background", mode: "background-sheet",
+                              details: "Exactly one new durable video UUID, duration=\(new[0].duration ?? 0)")
+                        finishIdleTimer()
+                        return
+                    }
+                    if new.count > 1 {
+                        write("failed", mode: "background-sheet",
+                              details: "Multiple new video UUIDs after one background")
+                        finishIdleTimer()
+                        return
+                    }
+                    try? await Task.sleep(nanoseconds: 500_000_000)
+                }
+                write("unresolved", mode: "background-sheet",
+                      details: "No new durable note after foreground; inspect capture journal")
+                finishIdleTimer()
+            }
+        default:
+            break
         }
     }
 

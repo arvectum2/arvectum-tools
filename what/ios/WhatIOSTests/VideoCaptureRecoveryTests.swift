@@ -213,6 +213,46 @@ final class VideoCaptureRecoveryTests: XCTestCase {
         ))
     }
 
+    func testForegroundFallbackWaitsForWriterReleaseAndRecoversSameUUIDOnce() async throws {
+        let root = try temporaryRoot()
+        defer { try? FileManager.default.removeItem(at: root) }
+        let journal = VideoCaptureJournal(
+            rootURL: root.appendingPathComponent("VideoCaptures")
+        )
+        let repo = LocalNoteRepository(rootURL: root.appendingPathComponent("What"))
+        let id = try journal.begin()
+        try copyFixture("back", journal: journal, session: id, index: 0)
+        VideoCaptureJournal.setActive(id, active: true)
+        defer { VideoCaptureJournal.setActive(id, active: false) }
+
+        // Foreground fallback must never import a live camera writer's file.
+        let premature = try await VideoCaptureRecovery.recover(
+            journal: journal, repository: repo
+        )
+        XCTAssertEqual(premature.recovered, 0)
+        XCTAssertTrue(try repo.allNotes().isEmpty)
+        XCTAssertTrue(FileManager.default.fileExists(
+            atPath: journal.segmentURL(for: id, index: 0).path
+        ))
+
+        // VideoCaptureController releases its active marker ONLY when the
+        // serial capture queue confirms AVCaptureMovieFileOutput stopped.
+        VideoCaptureJournal.setActive(id, active: false)
+        let recovered = try await VideoCaptureRecovery.recover(
+            journal: journal, repository: repo
+        )
+        XCTAssertEqual(recovered.recovered, 1)
+        XCTAssertEqual(recovered.unresolved, 0)
+        XCTAssertEqual(try repo.allNotes().map(\.id), [id])
+        XCTAssertTrue(try journal.pendingSessions().isEmpty)
+
+        let again = try await VideoCaptureRecovery.recover(
+            journal: journal, repository: repo
+        )
+        XCTAssertEqual(again.recovered, 0)
+        XCTAssertEqual(try repo.allNotes().map(\.id), [id])
+    }
+
     func testCrashAfterFirstClipRestoresNoteAndRemovesCommittedOriginals() async throws {
         let root = try temporaryRoot()
         defer { try? FileManager.default.removeItem(at: root) }
