@@ -298,10 +298,11 @@ targets:
         ENABLE_USER_SCRIPT_SANDBOXING: true
         SUPPORTS_MACCATALYST: false
         OTHER_LDFLAGS: "$(inherited) -ObjC"
-        SWIFT_ACTIVE_COMPILATION_CONDITIONS: "$(inherited) DEBUG WATER_PHYSICAL_QA"
       configs:
-        Debug: {}
-        Release: {}
+        Debug:
+          SWIFT_ACTIVE_COMPILATION_CONDITIONS: "$(inherited) DEBUG WATER_PHYSICAL_QA"
+        Release:
+          SWIFT_ACTIVE_COMPILATION_CONDITIONS: "$(inherited)"
     scheme:
       testTargets:
       - HabitsByArvectumUITests
