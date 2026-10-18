@@ -18,7 +18,7 @@
 | --- | --- |
 | Pure opt-in and conversion, including deleted-habit ledgers | **13/13 PASS** |
 | Fake HealthKit driver: permissions, errors, crash, undo, retry | **8/8 PASS** |
-| Full ChickMark tests | **270/270 PASS**, no failures |
+| Full ChickMark tests | **273/273 PASS**, no failures |
 | Opt-in UI, default OFF, explicit ON, Cancel on iPad | **1/1 PASS** |
 | Safe opt-in and denied-permission UI on iPad | **2/2 PASS** |
 | Safe opt-in and denied-permission UI on ordinary iPhone 17 Pro | **2/2 PASS** |
@@ -40,6 +40,13 @@ Important fix: the previous best-effort SwiftData fallback could interpret a sto
 - Four additional tests inject failed habit reads, failed check-in reads, and valid empty/nonempty reads.
 - Isolated iPad QA: **270/270 ChickMark unit PASS** (previous 266 + 4) and **2/2 export/denial UI PASS**. No real Apple Health data touched.
 - An unrelated pre-existing CrossSurfaceDurabilityTests intentionally forces a read-only SwiftData store error; the suite completes successfully.
+
+## Corrupted local ledger hardening
+
+WaterExportLocalStore now exposes a fail-closed canSafelyReconcile guard. Persisted JSON for all three maps (per-habit consent rules, successful own-sample receipts, interrupted-write versions) must decode successfully **before any HealthKit upsert, delete or local receipt cleanup**. A corrupted map is not assumed to mean an empty map. Missing keys from a fresh, never-opted-in installation remain valid and do not block startup.
+
+- Tests cover damaged consent JSON with a valid own-sample receipt; corrupt receipts and pending-intent maps; and a fake HealthKit writer that must observe **zero** upserts and deletions if consent cannot be read.
+- Following this change: **273/273 ChickMark unit PASS** and **2/2 iPad opt-in/denial UI PASS**; no actual HealthKit data accessed.
 
 ## Unverified release gates
 

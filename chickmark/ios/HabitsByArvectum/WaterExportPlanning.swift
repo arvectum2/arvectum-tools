@@ -101,6 +101,24 @@ final class WaterExportLocalStore {
         self.defaults = defaults
     }
 
+    /// Fail closed when a persisted ledger cannot be decoded. A damaged
+    /// consent map must NOT be interpreted as no consent and used to erase
+    /// previously exported HealthKit water samples. This protects all three
+    /// separately persisted maps: opt-ins, applied receipts and write intents.
+    var canSafelyReconcile: Bool {
+        readable([String: WaterExportRule].self, key: rulesKey)
+            && readable([String: WaterExportReceipt].self, key: receiptsKey)
+            && readable([String: Int].self, key: pendingKey)
+    }
+
+    private func readable<T: Decodable>(_ type: T.Type, key: String) -> Bool {
+        guard let data = defaults.data(forKey: key) else {
+            // Never opted in or no previous export is a valid empty ledger.
+            return true
+        }
+        return (try? JSONDecoder().decode(type, from: data)) != nil
+    }
+
     func rule(for habitID: UUID) -> WaterExportRule? {
         load([String: WaterExportRule].self, key: rulesKey)?[habitID.uuidString]
     }

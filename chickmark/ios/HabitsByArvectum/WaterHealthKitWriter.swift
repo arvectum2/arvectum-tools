@@ -90,6 +90,10 @@ struct WaterExportSyncEngine {
     func reconcile(habitID: UUID, dayKey: String,
                    goal: HabitGoalMode, count: Int,
                    calendar: Calendar = .autoupdatingCurrent) async throws -> Bool {
+        guard store.canSafelyReconcile else {
+            // A corrupt preference or receipt must never trigger deletion.
+            throw WaterExportError.failed
+        }
         let rule = store.rule(for: habitID)
         let previous = store.receipt(habitID: habitID, dayKey: dayKey)
         let action = WaterExportPlanning.action(
@@ -240,6 +244,14 @@ final class WaterExportCoordinator {
     }
 
     private func reconcile(context: ModelContext) async {
+        // A broken local receipt/consent ledger is NOT a valid empty ledger.
+        // Do not begin any HealthKit write/delete or prune local state.
+        guard store.canSafelyReconcile else {
+            #if DEBUG
+            print("Water export suspended: local consent/receipt ledger unreadable")
+            #endif
+            return
+        }
         // Fail CLOSED on either storage error. Using ?? [] here would
         // incorrectly interpret a transient SwiftData failure as deleted
         // habits/unchecked days, deleting the user's valid HealthKit history.

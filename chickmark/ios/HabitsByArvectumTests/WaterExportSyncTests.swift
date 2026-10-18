@@ -83,6 +83,21 @@ final class WaterExportSyncTests: XCTestCase {
         store.setRule(WaterExportRule(millilitresPerUnit: 250, enabledAt: start), for: habit)
         return (store, FakeWaterHealthDriver(), HabitDayKey.make(for: .now), suite)
     }
+    func testDamagedConsentDoesNotInvokeHealthKitFakeWriter() async {
+        let (store, driver, day, suite) = setup()
+        let defaults = UserDefaults(suiteName: suite)!
+        defer { defaults.removePersistentDomain(forName: suite) }
+        defaults.set(Data("not-valid-json".utf8), forKey: "chickmark.water.rules.v1")
+        let engine = WaterExportSyncEngine(driver: driver, store: store)
+        do {
+            _ = try await engine.reconcile(habitID: habit, dayKey: day,
+                goal: .quantity(count: 10), count: 2)
+            XCTFail("Corrupt consent must suspend export")
+        } catch {}
+        XCTAssertTrue(driver.upserts.isEmpty)
+        XCTAssertTrue(driver.removals.isEmpty)
+    }
+
     func testUpsertThenDuplicateIsNoopAndIncrementIsVersioned() async throws {
         let (store, driver, day, suite) = setup()
         defer { UserDefaults(suiteName: suite)?.removePersistentDomain(forName: suite) }

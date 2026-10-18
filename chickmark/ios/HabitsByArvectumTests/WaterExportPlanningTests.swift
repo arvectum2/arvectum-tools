@@ -129,4 +129,36 @@ final class WaterExportPlanningTests: XCTestCase {
         store.setPendingVersion(nil, habitID: habitID, dayKey: pendingDay)
         XCTAssertFalse(store.allKnownHabitIDs.contains(habitID))
     }
+    func testCorruptConsentLedgerNeverBecomesEmptyOrTriggersHealthCleanup() {
+        let suite = "water-corrupted-consent-\(UUID().uuidString)"
+        let defaults = UserDefaults(suiteName: suite)!
+        defer { defaults.removePersistentDomain(forName: suite) }
+        let store = WaterExportLocalStore(defaults: defaults)
+        XCTAssertTrue(store.canSafelyReconcile)
+        let identifier = WaterExportPlanning.syncIdentifier(habitID: habitID, dayKey: day)
+        store.setReceipt(.init(syncIdentifier: identifier,
+                               quantity: 2, millilitres: 500, syncVersion: 1),
+                         habitID: habitID, dayKey: day)
+        defaults.set(Data("broken json".utf8), forKey: "chickmark.water.rules.v1")
+        XCTAssertFalse(store.canSafelyReconcile)
+        XCTAssertNotNil(store.receipt(habitID: habitID, dayKey: day))
+        // Nothing in the app is allowed to infer opt-out from this damage.
+        defaults.removeObject(forKey: "chickmark.water.rules.v1")
+        XCTAssertTrue(store.canSafelyReconcile)
+    }
+
+    func testCorruptReceiptAndPendingLedgersFailClosedIndependently() {
+        let suite = "water-corrupted-receipt-\(UUID().uuidString)"
+        let defaults = UserDefaults(suiteName: suite)!
+        defer { defaults.removePersistentDomain(forName: suite) }
+        let store = WaterExportLocalStore(defaults: defaults)
+        store.setRule(optIn, for: habitID)
+        for key in ["chickmark.water.receipts.v1",
+                    "chickmark.water.pendingWriteVersions.v1"] {
+            defaults.set(Data("not-json".utf8), forKey: key)
+            XCTAssertFalse(store.canSafelyReconcile, "Must block on \(key)")
+            defaults.removeObject(forKey: key)
+            XCTAssertTrue(store.canSafelyReconcile)
+        }
+    }
 }
