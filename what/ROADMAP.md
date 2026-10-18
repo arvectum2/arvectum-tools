@@ -285,3 +285,10 @@ Keep product features in this roadmap; common engineering in Core and acquisitio
 
 - [x] **2026-10-17 23:55 OneOff fast-background race fixed in QA:** replace destructive remove/rebuild of `UNUserNotificationCenter` with incremental ID/content/trigger reconciliation; preserve pending requests during app suspension and avoid notification time rounding. 243 ChickMark unit tests PASS; real iPhone QA `pending=true` after three rapid backgrounds, then OS `delivered=true`, privacy-safe content. Four synthetic QA tasks removed without changing one real QA handoff. [Detailed evidence](docs/WHAT_CHICKMARK_REVIEW_DEVICE_QA_2026-10-17.md).
 - [ ] **Tap UI rerun with stronger Notification Center navigation (non-release blocker):** second physical XCTest tapping notification found unrelated device notification but could not locate ChickMark card; OS delivery confirmed by app's `UNUserNotificationCenter` and previous tap E2E PASS. Focus/system summaries/accessibility variability require an additional acceptance variant before claiming every presentation mode supported.
+
+### App Review release checkpoint — 18.10.2026 09:01 MSK
+
+- [x] Public UhWhat 1.1.0 (8), `ru.arvectum.tools.what`, Watch + complication + iPhone widget signed with production IDs; Apple validation, upload and processing `VALID`.
+- [x] App Store version 1.1.0 bound to build 8; 13-inch iPad screenshot `COMPLETE`; RU/EN Whats New and reviewer instructions; final production-ID handoff/dedup UI suite PASS with ChickMark build18.
+- [x] Apple App Review **submitted**, review ID `99f4a905-196a-47d0-9856-afc80339f025`, state **WAITING_FOR_REVIEW**. Release on approval automatically, but *not live yet*. [Release audit](docs/RELEASE_AUDIT_WHAT_CHICKMARK_2026-10-18.md).
+- [ ] Wait for App Review decision and actual `READY_FOR_SALE` before claiming rollout. Optional future roadmap items remain open as documented.

@@ -122,13 +122,13 @@
 
 ## Релизные гейты (подлежат проверке/отметке в этом RC)
 
-- [ ] Полная source/README/Privacy Manifest/InfoPlist/Watch/widget проверка *внутри production archive*; 4 подписанных публичных ID в каждом IPA, нет QA-routing, debug fixtures и приватных корпусов.
-- [ ] Чистая проверка production What и ChickMark unit + двухстороннего передачи на iPhone Simulator с production ID.
+- [x] Bundle ID, InfoPlist, privacy manifests, Watch/widgets проверены *внутри production IPA*: 4 подписанных публичных ID в каждой, 0 QA-routing/debug fixtures и приватных корпусов. Проверка общего сайта privacy policy и нового содержания ASC App Privacy остаётся процессом постоянного контроля.
+- [x] Production What 104 unit tests (3 skipped), ChickMark 245 unit tests (0 failures), полный E2E между публичными ID в iPhone Simulator PASS 33.965 с.
 - [ ] Контрольный Watch физический regression для production-signed TestFlight — по возможности; QA Watch по separate bundle уже подтверждён, но это не binary-equivalence.
-- [ ] App Store archive + signed export / altool validation для двух новых сборок, SHA-256 receipts на ArvectumSSD.
-- [ ] ASC metadata: RU/EN/ES new-version release notes, privacy disclosures, required iPad/iPhone screenshots и review demo/navigational notes; подтвердить public site privacy policy учитывает локальный текст/камера/clipboard.
-- [ ] ASC версия и сборка действительно загружены/processed, назначены к соответствующим appStoreVersion, заявка отправлена на App Review; статусы подтверждать API, не по локальной сборке.
-- [ ] Отчёт владельцу и решение об автоматическом/ручном выпуске обновления после одобрения (не менять неизвестный setting наугад).
+- [x] App Store archives + подписанный экспорт / Apple validation обеих новых сборок, SHA-256 receipts на ArvectumSSD.
+- [x] ASC metadata: Whats New RU/EN/ES, description/support URL, reviewer notes и обязательные скриншоты iPhone/iPad/Watch COMPLETE; обработка API Apple позволила отправку на review. Изменения текста публичной privacy policy/контроля фактического сбора данных требуют отдельного аудита, не заявляются закрытыми.
+- [x] ASC обе версии и корректные сборки 8/18 VALID, прикреплены к своим appStoreVersion; заявки отправлены в App Review. Обе версии `WAITING_FOR_REVIEW`, подтверждено API 18.10.2026.
+- [x] Отчёт пользователю об отправке обеих версий; `releaseType=AFTER_APPROVAL` подтверждён API. После одобрения Apple публикация происходит автоматически. Не менять настройку вручную.
 
 ## Результаты релизной приёмки 18.10.2026 (08:56 МСК)
 
@@ -139,3 +139,16 @@
 - **ASC upload:** Apple приняла `What 8` (build VALID), связка с версией 1.1.0 подтверждена через API. Apple приняла бинарный файл ChickMark (18) — `UPLOAD SUCCEEDED`; после загрузки до подтверждения `processingState=VALID` и привязки к 1.5.0 **НЕ считать готовым к ревью**. Более старый ChickMark 17 также VALID, **но запрещён к отправке**: новое локализованное окно только в 18.
 - **Незакрытые риски:** физический iPad/Duo/Stage Manager и весь набор Focus/критического power loss не проверены; это отдельные стресс-/совместимые режимы, а не регрессии проверенной функциональности. Экспорт воды в HealthKit, Apple Reminders и семантический поиск остаются будущими эпиками, не представлены в описаниях текущих версий.
 - **Дальнейшая операция:** прикрепить ChickMark 18 **только после VALID**, подтвердить metadata обоих и отправить оба App Store Review submission. `releaseType=AFTER_APPROVAL` уже установлен в карточках — при успешном ревью Apple выпустит обновление автоматически. Записать точный review ID / статус через API и обновить этот отчёт отдельным коммитом.
+
+## Сдано на App Review — 18.10.2026 09:01 МСК
+
+| Приложение | Версия / сборка | Публичный bundle ID | Apple build ID | Review submission ID | Подтверждённый статус |
+|---|---|---|---|---|---|
+| Ухват | 1.1.0 (8) | `ru.arvectum.tools.what` | `c6181e49-1110-49f8-8413-9b0b4650b910` | `99f4a905-196a-47d0-9856-afc80339f025` | **WAITING_FOR_REVIEW** |
+| ChickMark | 1.5.0 (18) | `ru.arvectum.tools.habits` | `5fd86f3a-d92e-4311-89b6-a3935fbf60ce` | `e940c694-8652-4b88-b5f3-065f75e83ca5` | **WAITING_FOR_REVIEW** |
+
+Обе заявки были созданы, содержат **только** правильную версию/сборку и отправлены через API Apple (`submitted=true`). Состояния независимо проверены `GET /v1/reviewSubmissions/{id}` и `GET /v1/appStoreVersions/{id}`; в обоих случаях `WAITING_FOR_REVIEW`. Старый ChickMark 17 в App Review не отправлялся. Подписанные IPA и диагностические receipts лежат **на ArvectumSSD**, не коммитятся в Git и не заменяют установленные на физических устройствах приложения. Код релизного кандидата — коммит `21ecb71` в `release/what-chickmark-20261018-rc1`.
+
+**Публично на момент отправки:** остаются версии 1.0.1 Ухвата и 1.4.1 ChickMark. В карточках обеих новых версий `releaseType=AFTER_APPROVAL`, следовательно после одобрения Apple обновления выходят автоматически. Статус APP REVIEW (а не продажа/публикация) — конечный результат текущего этапа. Не говорить «опубликовано» до получения `READY_FOR_SALE`.
+
+**Что остаётся в будущих дорожных картах:** HealthKit WRITE экспорта воды, Apple Reminders, семантическая память, полный аппаратный iPad/Duo, стресс-тестирование экстремального отключения питания, Focus/quiet-hours permutations и расширенные локализации What. Их не следует помечать реализованными или обещать в release notes 1.1.0/1.5.0.

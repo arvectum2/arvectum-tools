@@ -145,3 +145,10 @@ A6 (боевые показы РСЯ после установки обновл�
 
 - [x] **2026-10-17 23:55 incremental notification scheduling:** stable queued requests retained on successive `refresh`, updates by identifier without delete gap; canceled/completed only removed after additions succeed; one-off trigger keeps seconds and timezone. All **243** ChickMark unit tests PASS. Physical iPhone QA pending after immediate and 2 rapid backgrounds, then `delivered=true`, `privateTextOnNotification=false`. Four synthetic QA fixtures removed and original handoff data preserved. [Protocol](../what/docs/WHAT_CHICKMARK_REVIEW_DEVICE_QA_2026-10-17.md).
 - [ ] A second post-fix Notification Center tap automation couldn't find the ChickMark card even though `UNUserNotificationCenter.deliveredNotifications()` contained it; prior tap-to-full-text physical PASS valid for unchanged handler. Consider handling Focus/notification stacks in release QA.
+
+### App Review release checkpoint — 18.10.2026 09:01 MSK
+
+- [x] Public ChickMark 1.5.0 (**build 18**, not superseded 17) production bundle/Watch/widgets signed; RU/EN/ES new note import UI localized; 245 unit tests and production-ID E2E PASS; Apple validation/upload processing VALID.
+- [x] ASC 1.5.0 attached to build 18; Whats New four localizations + review instructions + required screenshot assets `COMPLETE`.
+- [x] Apple App Review **submitted**, review ID `e940c694-8652-4b88-b5f3-065f75e83ca5`, state **WAITING_FOR_REVIEW**. Automatic release after approval; *not live yet*. [Release audit](../what/docs/RELEASE_AUDIT_WHAT_CHICKMARK_2026-10-18.md).
+- [ ] Watch official review and READY_FOR_SALE before marking public rollout complete. Future HealthKit WRITE water export and other separate epics stay open.
