@@ -1,5 +1,13 @@
 # Arvectum Tools — Roadmap Registry
 
+## PR #90 объединён в main · 18.10.2026
+
+- [x] Общий адаптивный Core, Ухват 1.1.0, ChickMark 1.5.0, Pushkin и Фото/PDF включены в стабильную main: c86bc54, 38/38 CI PASS. [Технический акт](docs/ADAPTIVE_MAIN_INTEGRATION_2026-10-18.md).
+- [ ] Выпуск каждой iOS-версии остаётся независимым; код в main не означает опубликованную iPad-версию или одобрение Apple, не доказывает физический fold/unfold Duo.
+- [ ] Экспорт воды в Apple Health живёт только в [draft PR #94](https://github.com/arvectum2/arvectum-tools/pull/94) от main, не выпускался и не проверялся на реальном Apple Health.
+- [ ] Growth и Where? на паузе по решению владельца.
+
+
 **Ownership rule:** This file is an index, not a duplicate execution plan.
 Every task has exactly one owning roadmap. Cross-project dependencies use links,
 not copied checkboxes. Apps release independently.
@@ -21,7 +29,7 @@ not copied checkboxes. Apps release independently.
 | Pushkin | публикация не подтверждена | 1.0.0(1) WAITING_FOR_REVIEW при проверке 15.10 | повторная ASC проверка, Shortcuts/delete QA |
 | Where? | нет | PAUSED, W0–W3/E0–E5 — план | команда на возобновление |
 
-**Инфраструктура:** Xcode 27.1 и Duo runtime готовы, но Core adaptive — прототип, app-specific iPad/Duo acceptance не завершён. **Growth:** измерение реальных установок и монетизации до любых закупок трафика или автоматизации.
+**Инфраструктура:** Xcode 27.1 и Duo runtime готовы, но Core adaptive уже в main (PR #90), однако app-specific iPad/Duo release acceptance ещё не завершён. **Growth:** измерение реальных установок и монетизации до любых закупок трафика или автоматизации.
 
 ## Product roadmaps
 - [Фото и PDF под размер](../photo-pdf-to-size/ROADMAP.md) — photo/PDF resizing, document presets, exports, app-specific UX, implementation and QA.
