@@ -98,3 +98,9 @@ XCTest PhysicalVideoCaptureUITests.testCrashAfterSwitchLeavesVideoRecoveryJourna
 - Файл `Library/Application Support/What/local-notes.json` в QA-контейнере сохранил размер 1 KB и дату изменения 20:49, тогда как тест исполнялся в 21:15: отменённое видео в локальный индекс не попало. Это проверка файловой очистки/индекса в текущем сценарии, а не стресс-тест нехватки памяти.
 - Лог и `.xcresult` на ArvectumSSD/Arvectum/tmp/what-discard-after-switch-physical-20261018; в Git добавлен только исходник XCTest и этот протокол, без аудио/видео.
 - OPEN: внезапный обрыв в первые секунды до закрытия первого сегмента, низкая память/место, многократное переключение, реальные Watch ACK race и итоговый App Store rollout.
+
+## Продолжение: 6 реальных смен камер, 191 сек и SIGKILL первого сегмента (18.10.2026)
+
+Новая изолированная физическая приёмка выполнена на том же iPhone 13 в отдельном QA bundle; **6 переключений → один MOV 22,69 с**, **непрерывное видео → MOV 191,38 с**, **SIGKILL первого сегмента → восстановленный MOV 9,32 с**, один UUID после повторных запусков; все три ролика с реальными видео и аудио, два последних проверены AVURLAsset на телефоне. Не выдавать эти проверки за многочасовую запись, отказ реального диска или Watch ACK.
+
+Системный XCTest UI Automation не инициализировался дважды (`Timed out while enabling automation mode`), поэтому камера проверена через специально разрешённый QA-only probe в том же source-controller, без production App/Watch; подробности, ограничения, журнал и безмедийные доказательства: [PHYSICAL_VIDEO_STRESS_RECOVERY_2026-10-18.md](PHYSICAL_VIDEO_STRESS_RECOVERY_2026-10-18.md).

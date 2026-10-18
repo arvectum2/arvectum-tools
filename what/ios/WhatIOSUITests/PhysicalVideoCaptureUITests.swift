@@ -100,6 +100,86 @@ final class PhysicalVideoCaptureUITests: XCTestCase {
         #endif
     }
 
+    /// Actual physical-camera flip stress, isolated QA bundle only.
+    /// Verify local note count and temporary captures independently via devicectl.
+    func testSixPhysicalCameraSwitchesSaveOneVideo() throws {
+        #if targetEnvironment(simulator)
+        throw XCTSkip("Real back/front camera switches require a physical iPhone")
+        #else
+        let app = XCUIApplication()
+        app.launch()
+        let home = app.buttons["what.record.primary"]
+        XCTAssertTrue(home.waitForExistence(timeout: 20))
+        home.press(forDuration: 0.8)
+        let switchButton = app.buttons["what.video.switchCamera"]
+        let saving = app.buttons.matching(NSPredicate(format:
+            "label == %@ OR label == %@", "Стоп и сохранить", "Stop and save"
+        )).firstMatch
+        XCTAssertTrue(switchButton.waitForExistence(timeout: 20))
+        let initiallyReady = XCTNSPredicateExpectation(
+            predicate: NSPredicate(format: "enabled == true"), object: switchButton
+        )
+        XCTAssertEqual(XCTWaiter.wait(for: [initiallyReady], timeout: 25), .completed)
+        for index in 0..<6 {
+            Thread.sleep(forTimeInterval: 3)
+            let beforeLabel = switchButton.label
+            switchButton.tap()
+            let changed = XCTNSPredicateExpectation(
+                predicate: NSPredicate(format: "label != %@", beforeLabel),
+                object: switchButton
+            )
+            XCTAssertEqual(XCTWaiter.wait(for: [changed], timeout: 25), .completed,
+                           "Camera direction should change at flip \(index + 1)")
+            let ready = XCTNSPredicateExpectation(
+                predicate: NSPredicate(format: "enabled == true"), object: switchButton
+            )
+            XCTAssertEqual(XCTWaiter.wait(for: [ready], timeout: 25), .completed)
+            print("WHAT_PHYSICAL_CAMERA_FLIP_\(index + 1)_PASS")
+        }
+        Thread.sleep(forTimeInterval: 3)
+        XCTAssertTrue(saving.isEnabled)
+        saving.tap()
+        let returned = XCTNSPredicateExpectation(
+            predicate: NSPredicate(format: "hittable == true"), object: home
+        )
+        XCTAssertEqual(XCTWaiter.wait(for: [returned], timeout: 180), .completed,
+                       "Combined camera video must save and return Home")
+        print("WHAT_PHYSICAL_SIX_CAMERA_FLIPS_AND_SAVE_PASS")
+        #endif
+    }
+
+    /// More than double the previous 90-second real-camera acceptance.
+    /// Only adds a disposable video to ru.arvectum.tools.what.multimodalqa.
+    func testThreeMinuteContinuousPhysicalVideoSaves() throws {
+        #if targetEnvironment(simulator)
+        throw XCTSkip("Real camera and microphone required for three-minute recording")
+        #else
+        let app = XCUIApplication()
+        app.launch()
+        let home = app.buttons["what.record.primary"]
+        XCTAssertTrue(home.waitForExistence(timeout: 20))
+        home.press(forDuration: 0.8)
+        let stop = app.buttons.matching(NSPredicate(format:
+            "label == %@ OR label == %@", "Стоп и сохранить", "Stop and save"
+        )).firstMatch
+        XCTAssertTrue(stop.waitForExistence(timeout: 20))
+        let camera = app.buttons["what.video.switchCamera"]
+        let ready = XCTNSPredicateExpectation(
+            predicate: NSPredicate(format: "enabled == true"), object: camera
+        )
+        XCTAssertEqual(XCTWaiter.wait(for: [ready], timeout: 25), .completed)
+        Thread.sleep(forTimeInterval: 180)
+        XCTAssertTrue(stop.isEnabled, "Camera must remain stoppable at three minutes")
+        stop.tap()
+        let returned = XCTNSPredicateExpectation(
+            predicate: NSPredicate(format: "hittable == true"), object: home
+        )
+        XCTAssertEqual(XCTWaiter.wait(for: [returned], timeout: 180), .completed,
+                       "Three-minute MOV must commit to the local QA library")
+        print("WHAT_PHYSICAL_180_SECOND_MOV_SAVED_PASS")
+        #endif
+    }
+
     /// A bounded 90-second capture smoke test on the isolated QA application.
     /// Not a substitute for multi-hour recording or low-storage stress tests.
     func testNinetySecondContinuousPhysicalVideoSaves() throws {

@@ -16,6 +16,9 @@ struct WhatApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+#if REVIEW_HANDOFF_QA
+                .onAppear { PhysicalCaptureQAProbe.shared.startIfRequested(store: store) }
+#endif
                 .environmentObject(store)
                 .environment(\.locale, CaptureBrand.interfaceLocale)
                 .onChange(of: scenePhase) { _, phase in
