@@ -27,6 +27,11 @@ targets:
       - path: PhotoPodRazmer
         excludes:
           - Info.plist
+          - Resources/en.lproj/InfoPlist.strings
+          - Resources/ru.lproj/InfoPlist.strings
+      - path: PhotoPhysicalQA
+        excludes:
+          - Info.plist
     info:
       path: PhotoPhysicalQA/Info.plist
       properties:
