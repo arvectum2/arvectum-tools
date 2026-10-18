@@ -11,6 +11,10 @@
 **Примечание:** 25 элементов — размер удобной группы в A6, не доказанный системный лимит; физически сохранялся триггер 1000 SelectedApps, но доставка от всех источников не подтверждена.
 
 
+## Адаптивный пилот Pushkin · 18.10.2026
+
+[QA](../core/docs/ADAPTIVE_CHICKMARK_PUSHKIN_2026-10-18.md): iPad-ориентации, читаемые History/Search, Setup и Settings, SwiftUI-native sidebar на широком экране. Debug build PASS; fixture истории, поиск и вкладки через поворот **4/4 UI PASS** на Duo/iPad. Реальные Shortcuts/notifications и релиз остаются открыты; пользовательская история не затронута.
+
 ## Адаптация iPad / iPhone Duo — 2026-10-16
 
 **Статус:** бэклог P1 после стабильности Shortcuts и приёмки уведомлений; текущий target iPhone-only. [Общая матрица Core](../core/DEVICE_ADAPTATION_ROADMAP.md).

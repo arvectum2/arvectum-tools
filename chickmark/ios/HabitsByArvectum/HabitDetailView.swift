@@ -65,6 +65,8 @@ struct HabitDetailView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
             }
         }
+        .frame(maxWidth: 840)
+        .frame(maxWidth: .infinity)
         .background(Color.habitsBackground)
         .navigationTitle(habit.name)
         .onReceive(NotificationCenter.default.publisher(for: .healthHabitProjectionChanged)) { _ in

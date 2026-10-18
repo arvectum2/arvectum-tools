@@ -25,6 +25,7 @@ targets:
       - path: ../../core/packages/ArvectumDiagnostics/ArvectumDiagnostics.swift
       - path: ../../core/packages/ArvectumPersistence/ArvectumJSONCodec.swift
       - path: ../../core/packages/ArvectumDesignTokens/ArvectumPalette.swift
+      - path: ../../core/packages/ArvectumAdaptiveLayout/ArvectumAdaptiveLayout.swift
       - path: HabitsByArvectum
       - path: Shared
     dependencies:
@@ -48,6 +49,11 @@ targets:
         UILaunchScreen: {}
         UISupportedInterfaceOrientations:
           - UIInterfaceOrientationPortrait
+        "UISupportedInterfaceOrientations~ipad":
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationPortraitUpsideDown
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
         CFBundleURLTypes:
           - CFBundleURLName: ru.arvectum.tools.habits
             CFBundleURLSchemes:
@@ -291,7 +297,7 @@ targets:
         PRODUCT_MODULE_NAME: HabitsByArvectum
         MARKETING_VERSION: "1.4.1"
         CURRENT_PROJECT_VERSION: "15"
-        TARGETED_DEVICE_FAMILY: "1"
+        TARGETED_DEVICE_FAMILY: "1,2"
         GENERATE_INFOPLIST_FILE: NO
         CODE_SIGN_ENTITLEMENTS: HabitsByArvectum/HabitsByArvectum.entitlements
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
