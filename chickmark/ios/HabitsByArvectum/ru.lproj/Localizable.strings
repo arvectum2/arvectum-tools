@@ -1,5 +1,5 @@
 "today.title" = "Сегодня";
-"today.progress.format" = "%d из %d";
+"today.progress.format" = "Отмечено: %d из %d";
 "today.empty.title" = "Начните с одной привычки";
 "today.empty.description" = "Создание занимает несколько секунд. Без регистрации и лишних настроек.";
 "today.none.title" = "На сегодня всё";

@@ -1037,7 +1037,7 @@ final class HabitFlowUITests: XCTestCase {
         let todaySummary = app.descendants(matching: .any)["today.summary"].firstMatch
         XCTAssertTrue(todaySummary.waitForExistence(timeout: 4))
         XCTAssertEqual(todaySummary.label, "Today")
-        XCTAssertTrue((todaySummary.value as? String)?.contains("0 of 2") == true)
+        XCTAssertTrue((todaySummary.value as? String)?.contains("Marked: 0 of 2") == true)
         captureStoreScreenshot("A7_AXXXL_Today")
 
         manage.tap()
@@ -1068,8 +1068,8 @@ final class HabitFlowUITests: XCTestCase {
     /// Tests user-facing text and the spoken accessibility value in RU/ES.
     func testA7LocalizedTodayProgressAccessibilityAtAXXXL() throws {
         for (language, locale, heading, count) in [
-            ("ru", "ru_RU", "Сегодня", "0 из 2"),
-            ("es", "es_ES", "Hoy", "0 de 2")
+            ("ru", "ru_RU", "Сегодня", "Отмечено: 0 из 2"),
+            ("es", "es_ES", "Hoy", "Marcados: 0 de 2")
         ] {
             app.terminate()
             app.launchArguments = [

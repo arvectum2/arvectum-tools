@@ -1,5 +1,5 @@
 "today.title" = "Today";
-"today.progress.format" = "%d of %d";
+"today.progress.format" = "Marked: %d of %d";
 "today.empty.title" = "Start with one habit";
 "today.empty.description" = "It only takes a few seconds. No account or extra setup.";
 "today.none.title" = "You're done for today";

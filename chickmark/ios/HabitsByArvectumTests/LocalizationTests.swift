@@ -119,6 +119,17 @@ final class LocalizationTests: XCTestCase {
         "habit.history.edit", "habit.history.progress", "habit.history.error"
     ]
 
+    func testTodayProgressNamesResolvedNotJustCompletedHabits() {
+        for (language, expected) in [
+            ("ru", "Отмечено: 1 из 3"),
+            ("en", "Marked: 1 of 3"),
+            ("es", "Marcados: 1 de 3")
+        ] {
+            let template = L10n.string("today.progress.format", language: language)
+            XCTAssertEqual(String(format: template, 1, 3), expected)
+        }
+    }
+
     func testEnglishAndRussianContainAllRequiredKeys() throws {
         for language in ["en", "ru", "es"] {
             let path = try XCTUnwrap(

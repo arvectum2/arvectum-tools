@@ -1,6 +1,6 @@
 // ChickMark Spanish localization (neutral ES/LatAm)
 "today.title" = "Hoy";
-"today.progress.format" = "%d de %d";
+"today.progress.format" = "Marcados: %d de %d";
 "today.empty.title" = "Empieza con un hábito";
 "today.empty.description" = "Solo necesitas unos segundos. Sin cuenta ni configuraciones complicadas.";
 "today.none.title" = "Todo listo por hoy";

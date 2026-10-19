@@ -106,17 +106,18 @@ struct OneOffReminderRow: View {
 }
 
 struct TodaySummary: View {
-    let completed: Int
+    // Counts both completed and intentionally skipped habits.
+    let resolved: Int
     let total: Int
 
     private var progress: Double {
         guard total > 0 else { return 0 }
-        return Double(completed) / Double(total)
+        return Double(resolved) / Double(total)
     }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
-            Text(L10n.format("today.progress.format", completed, total))
+            Text(L10n.format("today.progress.format", resolved, total))
                 .font(.subheadline.weight(.semibold))
                 .foregroundStyle(Color.habitsSecondaryText)
 
@@ -132,7 +133,7 @@ struct TodaySummary: View {
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(L10n.string("today.title"))
         .accessibilityValue(
-            "\(L10n.format("today.progress.format", completed, total)), " +
+            "\(L10n.format("today.progress.format", resolved, total)), " +
             "\(Int((progress * 100).rounded()))%"
         )
         .accessibilityIdentifier("today.summary")

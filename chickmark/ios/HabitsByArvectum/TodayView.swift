@@ -314,7 +314,7 @@ struct TodayView: View {
                 } else {
                     if !activeToday.isEmpty {
                         TodaySummary(
-                            completed: resolvedCount,
+                            resolved: resolvedCount,
                             total: activeToday.count
                         )
 
