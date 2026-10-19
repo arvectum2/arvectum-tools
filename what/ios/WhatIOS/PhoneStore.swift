@@ -212,7 +212,20 @@ final class PhoneStore: NSObject, ObservableObject, AVAudioPlayerDelegate,
             reminderManager.noteWasDeleted(note.id)
             localNotes = try localNoteRepository.allNotes()
         } catch {
-            errorMessage = "Could not delete the note: \(error.localizedDescription)"
+            // An interrupted MOV cleanup may throw AFTER the note was
+            // journaled as deleted. Refresh the Inbox and cancel reminders
+            // for a logically deleted UUID, rather than showing a phantom
+            // note or sending a notification for a hidden item.
+            if let visible = try? localNoteRepository.allNotes() {
+                localNotes = visible
+                if !visible.contains(where: { $0.id == note.id }) {
+                    reminderManager.noteWasDeleted(note.id)
+                }
+            }
+            errorMessage = CaptureBrand.text(
+                "Не удалось завершить удаление файла заметки. Если удаление уже подтверждено, очистка будет повторена при следующем запуске. ",
+                "Note media cleanup could not finish. If deletion was already committed, cleanup will retry on the next launch. "
+            ) + error.localizedDescription
         }
     }
 
