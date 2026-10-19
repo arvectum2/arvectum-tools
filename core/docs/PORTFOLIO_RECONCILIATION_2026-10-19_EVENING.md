@@ -11,6 +11,10 @@
 - [ ] Ухват: реальные входящий звонок, 30+минутное видео, радио-offline/reboot Watch и production upgrade остаются открыты. Безопасные 420s/watch-ACK QA уже проверены.
 - [ ] Следующий physical QA: ChickMark real UI + разрешения/CloudKit/Watch, Фото/PDF Photos picker/ad permissions. Новых Apple отправок/сброса данных/деплоя сайта не делали.
 
+## Growth read-only baseline: новая сверка
+
+Apple RU публичные оценки (19.10): **Pushkin 0**, **Ухват 0**, **ChickMark 5.0 / 2 оценки**, **Фото/PDF 5.0 / 2 оценки**. Нулевые количества означают отсутствие оценок по RU Lookup, а не нулевые установки. Текущий ASC API key возвращает **403 FORBIDDEN_ERROR** на Analytics Reports всех четырёх приложений — impressions, downloads и conversion помечены «нет доступа». [Подробный отчёт](../../growth/docs/APP_STORE_BASELINE_2026-10-19.md). Новых ключей не создавали.
+
 ## Светофор продуктов и инфраструктуры
 
 | Направление | Статус | Публично / фактически | Ближайшие незавершённые критерии |

@@ -1,5 +1,12 @@
 # Arvectum Tools — план исполнения без Where?
 
+## 19.10.2026 · Growth baseline read-only
+
+- [x] По четырём текущим RU карточкам Apple зафиксированы публичные версии, рейтинг и число оценок: **0/0/2/2 оценки** для Pushkin/Ухват/ChickMark/ФотоPDF.
+- [ ] **Analytics BLOCKED:** текущий ASC API key возвращает **403 FORBIDDEN_ERROR** на каждом GET analyticsReportRequests. Нельзя объявить установки, impressions и конверсию нулевыми. [Точный отчёт](../growth/docs/APP_STORE_BASELINE_2026-10-19.md). Получить отдельный доступ для скачивания отчётов.
+- [ ] РСЯ доход и Yandex/Google search impressions пока не подтверждены. Site PR #15 CI зелёный, но деплой только после согласования.
+
+
 ## 19.10.2026 · новая очередь по результатам реальной работы
 
 - [x] **P0-1 Pushkin:** повторный authenticated ASC GET — 1.0.1(5) всё ещё **WAITING_FOR_REVIEW**, releaseType AFTER_APPROVAL; публикация автоматическая после решения Apple.

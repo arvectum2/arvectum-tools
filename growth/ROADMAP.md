@@ -1,5 +1,13 @@
 # Arvectum Tools — Growth Roadmap
 
+## 19.10.2026 · базовые RU рейтинги измерены, ASC Analytics заблокированы
+
+- [x] Apple RU Lookup: Pushkin **1.0 — 0 оценок**, Ухват **1.1.0 — 0 оценок**, ChickMark **1.5.0 — 5.0/5 (2 оценки)**, Фото/PDF **1.0.1 — 5.0/5 (2 оценки)**. **Это не установки и не глобальный рейтинг.** [Акт baseline](docs/APP_STORE_BASELINE_2026-10-19.md).
+- [ ] **G0 Analytics 403:** у текущего ASC ключа для всех 4 apps GET analyticsReportRequests вернул **403 FORBIDDEN_ERROR**. Impressions/downloads/views/conversion помечены **нет доступа**, не 0. Apple предписывает соответствующие API roles: Admin для первоначального запроса отчёта, Sales and Reports/Finance для чтения уже запрошенного.
+- [ ] Запрашивать отдельный минимальный доступ к отчётам после одобрения владельца; существующий publishing key не менять.
+- [x] SEO site PR #15 **2/2 CI SUCCESS**, но всё ещё OPEN и **не deployed**.
+
+
 ## 19.10.2026 · G1 CI сайта исправлен, деплой НЕ сделан
 
 - [x] [arvectum-site PR #15](https://github.com/arvectum2/arvectum-site/pull/15) branch growth/tools-public-release-20261019 обновлена коммитом **8b5dc3f**. GitHub проверки **verify SUCCESS**, **Mirror repository SUCCESS**, PR **OPEN**.

@@ -1,5 +1,10 @@
 # Arvectum Tools — Roadmap Registry
 
+## 19.10.2026 · Growth measurement access
+
+Apple RU публичные оценки: Pushkin 0, Ухват 0, ChickMark 2 (5.0), Фото/PDF 2 (5.0). Для Analytics Reports текущий ASC API key получил **403** на всех четырёх приложениях. Не считать downloads/views/conversion равными нулю. [Документ](../growth/docs/APP_STORE_BASELINE_2026-10-19.md). РСЯ/SEO метрики ещё не сняты.
+
+
 ## 19.10.2026 · P0 progress после единой сверки
 
 - [x] Pushkin App Review подтверждён WAITING_FOR_REVIEW, AFTER_APPROVAL; public 1.0 остаётся.
