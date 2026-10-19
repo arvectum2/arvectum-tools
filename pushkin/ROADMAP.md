@@ -1,5 +1,11 @@
 # PUSHKIN — Product Roadmap
 
+## P0 · CI подписанного 1.0.1(4) завершён (19.10.2026)
+
+- [x] [Draft PR #126](https://github.com/arvectum2/arvectum-tools/pull/126): **build-for-testing SUCCESS, delete-regression SUCCESS**, architecture/catalog/GitVerse SUCCESS на последнем коммите. Подписанный iPhone-only архив и IPA ранее проверены на исходном SHA 5876711, включая 1001 shortcut; App Store 1.0 пока не менялся.
+- [ ] Перед Apple: реальная Shortcuts-автоматизация и доставка тестового уведомления, физический migration/upgrade с сохранением пользовательской истории. Ни прежние изолированные unit/UI тесты, ни зелёный CI не доказывают эти операции.
+
+
 ## Исполнение P0 · 19.10.2026 — подписанный patch без отправки Apple
 
 - [x] **PS19-1a · Локальный RC:** отдельная ветка [release/pushkin-1.0.1-build4-20261019](https://github.com/arvectum2/arvectum-tools/tree/release/pushkin-1.0.1-build4-20261019), [draft PR #126](https://github.com/arvectum2/arvectum-tools/pull/126). Собраны и проверены signed archive + IPA **1.0.1(4)**, iPhone-only, 1001 shortcuts, Apple Distribution и SHA-256; source commit `5876711`. [Release provenance](https://github.com/arvectum2/arvectum-tools/blob/release/pushkin-1.0.1-build4-20261019/pushkin/docs/RELEASE_PATCH_1_0_1_BUILD4_20261019.md).

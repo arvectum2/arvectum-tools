@@ -1,5 +1,10 @@
 # Arvectum Tools — Roadmap Registry
 
+## Контроль исполнения · 19.10.2026
+
+Пушкин [подписанный 1.0.1(4) / PR #126](https://github.com/arvectum2/arvectum-tools/pull/126), CI PASS, **не App Store**. Ухват [QA диагностика PR #127 MERGED](https://github.com/arvectum2/arvectum-tools/pull/127), непрерывный physical long-video gate открыт. ChickMark [draft вода PR #94](https://github.com/arvectum2/arvectum-tools/pull/94) только локальная интеграция. Growth [site PR #15](https://github.com/arvectum2/arvectum-site/pull/15), не развернут; ASC категория пока Health & Fitness. Источник конкретного выполнения — дорожные карты владельцев.
+
+
 ## Исполнение после публикаций · 19.10.2026
 
 [Рабочая очередь](EXECUTION_PLAN.md): Pushkin 1.0.1(4) signed candidate, [draft PR #126](https://github.com/arvectum2/arvectum-tools/pull/126), **не App Store**; HealthKit water live QA отдельно доказана на одном тестовом образце, PR #94 draft; Ухват — остаётся физический long-video gate. Публичные версии не изменились.

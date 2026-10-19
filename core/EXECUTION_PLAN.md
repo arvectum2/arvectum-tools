@@ -1,5 +1,13 @@
 # Arvectum Tools — план исполнения без Where?
 
+## Исполняемый чекпоинт · 19.10.2026
+
+- [x] **Pushkin**: подписанный iPhone patch 1.0.1(4), [PR #126](https://github.com/arvectum2/arvectum-tools/pull/126) full CI SUCCESS. До отправки Apple обязателен реальный Shortcuts notification capture + недеструктивный upgrade.
+- [x] **Ухват**: [QA-only PR #127](https://github.com/arvectum2/arvectum-tools/pull/127) MERGED, Xcode build и CI PASS; диагностика writer/session/file bytes готова. Физическая 8+ минутная запись и безопасный upgrade всё ещё открыты.
+- [ ] **ChickMark**: [draft PR #94](https://github.com/arvectum2/arvectum-tools/pull/94) добавил 3 сценария fake HealthKit; CI последнего SHA сверить перед merge. Реальные HealthKit-согласия, CloudKit/Watch upgrade не трогать без отдельной QA процедуры.
+- [ ] **Growth**: [site PR #15](https://github.com/arvectum2/arvectum-site/pull/15) готов к разбору baseline CI проблем (старый `schlam`) и публикации; категория ChickMark упирается в 409 опубликованной `READY_FOR_SALE` appInfo. Доступность страницы в репозитории ≠ деплой.
+
+
 ## Результат исполнения 19.10 · фокус на P0
 
 - [x] **Pushkin patch 1.0.1(4):** релизная ветка, [draft PR #126](https://github.com/arvectum2/arvectum-tools/pull/126), подписанный iPhone IPA c проверенным профилем, bundle, 1001 micro shortcuts и SHA. 17/17 unit PASS; физические изолированные 17+3 PASS по 18.10. В ASC не загружено.

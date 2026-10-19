@@ -1,5 +1,11 @@
 # What? — Product Roadmap
 
+## P0 · QA диагностика долгого видео уже в main (19.10.2026)
+
+- [x] [PR #127](https://github.com/arvectum2/arvectum-tools/pull/127) **MERGED** (5768ba0): только под `REVIEW_HANDOFF_QA` каждые 30 секунд журналируются реальные `AVCaptureSession.isRunning`, `AVCaptureMovieFileOutput.isRecording`, размер текущего MOV/сегмент и SwiftUI status. Локальный Xcode 27.1 **BUILD SUCCEEDED**, GitHub capture-reliability/watch-build CI **SUCCESS**. Аудио/видео не читается в лог; производственная логика не менялась.
+- [ ] 8+-минутная непрерывная физическая запись и причина остановки ~340 секунд **не подтверждены**; следующий физический прогон должен сравнить file writer против логического UI статуса на отдельном QA-бандле. [Протокол](docs/PHYSICAL_LONG_VIDEO_LIVENESS_QA_2026-10-19.md).
+
+
 ## Исполнение P0 · проверка видео и исходной QA (19.10.2026)
 
 - [x] Из предыдущего независимого полного [тестового прогона видеосегментов](docs/PHYSICAL_12_FLIPS_LONG_VIDEO_2026-10-19.md) известны **126 XCTest / 0 failures / 3 skipped**, включая recovery и сегменты. [PR #125](https://github.com/arvectum2/arvectum-tools/pull/125) merged, GitHub capture-reliability и watch-build CI SUCCESS.

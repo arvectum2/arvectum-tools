@@ -1,5 +1,12 @@
 # Arvectum Tools — Growth Roadmap
 
+## Growth · Релизы и ASO, 19.10.2026
+
+- [x] Проверены публичные версии Apple RU: Pushkin 1.0, Ухват 1.1.0, ChickMark 1.5.0 и Фото/PDF 1.0.1.
+- [x] Подготовлена новая RU/EN landing page Пушкина + прямые ссылки App Store на опубликованный Ухват + ссылка из Tools hub: [arvectum-site PR #15](https://github.com/arvectum2/arvectum-site/pull/15). SEO 54 страницы/0 orphans PASS; **не развернуто на хостинге**. PR verify красный только из-за ранее существовавших static ошибок страниц `/schlam/`, assets What также превышают старые лимиты; не называть общую проверку зелёной.
+- [ ] **Категория ChickMark:** согласовано **Productivity** вместо Health & Fitness, но ASC API PATCH `/v1/appInfos/{id}` на опубликованном `READY_FOR_SALE` вернул **409 ENTITY_ERROR.RELATIONSHIP.INVALID_STATE**. Категория **не изменилась**; перенести в следующий редактируемый App Store version, не создавать отдельный бинарник лишь ради метаданных. [Краткий протокол](docs/CHICKMARK_CATEGORY_ASC_2026-10-19.md).
+
+
 ## Публичные релизы: новая база ASO · 19.10.2026
 
 - [x] **G19-0 · Доступность:** Pushkin **1.0**, Ухват **1.1.0** и ChickMark **1.5.0** доступны в Apple RU storefront; Фото/PDF **1.0.1**. [Read-only реестр](../core/docs/PUBLIC_RELEASE_RECONCILIATION_2026-10-19.md). Старая фраза «Pushkin после решения Apple» ниже — исторический план.

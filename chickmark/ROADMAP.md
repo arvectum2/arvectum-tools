@@ -1,5 +1,11 @@
 # ChickMark — актуальная дорожная карта
 
+## CM18-3 · Дополнительные safe-unit тесты воды (19.10.2026)
+
+- [x] В [draft PR #94](https://github.com/arvectum2/arvectum-tools/pull/94), source `b673339`, добавлены **3 fake-HealthKit** регрессии: реальные изменения количества/undo/re-entry одного дня, revoke→regrant WRITE и независимые дни с удалением только нужного дня. `swiftc -frontend -parse` PASS; **новый GitHub CI ещё выполнялся** на момент фиксации, результаты не заявлять успешными заранее.
+- [ ] QA real habit UI (несколько отметок/undo), физическое revoke/regrant и safe upgrade по-прежнему открыты. Существующая физическая проба одного тестового образца 250 мл, запись + own-source deletion 0 residual, уже подтверждена; повторные операции с личным Apple Health не проводить.
+
+
 ## Исполнение CM18-3 · уточнение физического HealthKit QA (19.10.2026)
 
 - [x] **Подтверждена физическая запись и безопасное удаление:** по сохранённому [протоколу 18.10](docs/PHYSICAL_WATER_QA_2026-10-18.md) владелец разрешил write-only HealthKit в изолированном `ru.arvectum.tools.chickmark.waterqa`; production `WaterHealthKitWriter` создал **250 мл dietaryWater**, затем удалил только свой образец; повторная own-ID source-scoped проверка показала **0 оставшихся**. Данные пользовательского ChickMark/Watch не изменены; **в этом этапе не выполнялись повторные операции с Apple Health**.
