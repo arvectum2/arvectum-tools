@@ -43,6 +43,79 @@ final class WatchCaptureController: NSObject, ObservableObject, AVAudioRecorderD
     // change the radio, Watch pairing, WCSession or any non-QA build.
     private let qaTransportLock = NSLock()
     private var qaTransportHeld = false
+    private var qaHeldAcknowledgementID: UUID?
+    private var qaSuppressedAcknowledgementCount = 0
+
+    /// QA-only simulation of a lost reply AND lost durable UserInfo ACK.
+    /// The production queue, file, pairing and system radios are unchanged.
+    func qaHoldAcknowledgements(for id: UUID) {
+        qaTransportLock.lock()
+        qaHeldAcknowledgementID = id
+        qaSuppressedAcknowledgementCount = 0
+        qaTransportLock.unlock()
+    }
+
+    /// Never leave a QA transport filter active indefinitely if the receiver
+    /// is unreachable. Clearing the filter does NOT delete source files.
+    func qaReleaseAcknowledgementHoldForSafety(for id: UUID) {
+        qaTransportLock.lock()
+        if qaHeldAcknowledgementID == id {
+            qaHeldAcknowledgementID = nil
+            qaSuppressedAcknowledgementCount = 0
+        }
+        qaTransportLock.unlock()
+        pumpTransfers()
+    }
+
+    func qaDroppedAcknowledgements(for id: UUID) -> Int {
+        qaTransportLock.lock()
+        defer { qaTransportLock.unlock() }
+        guard qaHeldAcknowledgementID == id else { return 0 }
+        return qaSuppressedAcknowledgementCount
+    }
+
+    private func qaShouldDropAcknowledgement(for id: UUID) -> Bool {
+        qaTransportLock.lock()
+        defer { qaTransportLock.unlock() }
+        guard qaHeldAcknowledgementID == id else { return false }
+        qaSuppressedAcknowledgementCount += 1
+        return true
+    }
+
+    /// The first delivery must have been durably ACKed by iPhone (then
+    /// deliberately ignored here). Re-send the SAME UUID through the ordinary
+    /// background WCSession path only after lifting the QA ACK filter.
+    /// Does not modify the retry policy or bypass receiver validation.
+    @discardableResult
+    func qaResendAfterDroppedACK(for id: UUID) -> Bool {
+        qaTransportLock.lock()
+        guard qaHeldAcknowledgementID == id,
+              qaSuppressedAcknowledgementCount > 0 else {
+            qaTransportLock.unlock()
+            return false
+        }
+        qaTransportLock.unlock()
+
+        guard let original = queueSnapshot().first(where: { $0.id == id }) else {
+            return false
+        }
+        let source = outboundDirectory.appendingPathComponent(original.fileName)
+        guard fileManager.fileExists(atPath: source.path), WCSession.isSupported(),
+              WCSession.default.activationState == .activated else { return false }
+
+        qaTransportLock.lock()
+        // Restore normal ACK handling BEFORE the duplicate is sent.
+        qaHeldAcknowledgementID = nil
+        qaSuppressedAcknowledgementCount = 0
+        qaTransportLock.unlock()
+        WCSession.default.transferFile(source, metadata: [
+            TransferMetadataKey.type: TransferMetadataKey.recording,
+            TransferMetadataKey.id: original.id.uuidString,
+            TransferMetadataKey.createdAt: original.createdAt.timeIntervalSince1970,
+            TransferMetadataKey.duration: original.duration
+        ])
+        return true
+    }
 
     func qaSetTransportHeld(_ held: Bool) {
         qaTransportLock.lock()
@@ -276,6 +349,9 @@ final class WatchCaptureController: NSObject, ObservableObject, AVAudioRecorderD
     }
 
     private func acknowledge(_ id: UUID) {
+#if WATCH_PHYSICAL_QA
+        guard !qaShouldDropAcknowledgement(for: id) else { return }
+#endif
         queueLock.lock()
         do {
             // Keep both the in-memory queue and the original AAC intact if
