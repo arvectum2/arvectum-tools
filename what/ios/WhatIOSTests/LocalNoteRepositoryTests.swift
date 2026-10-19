@@ -1,6 +1,21 @@
 import XCTest
 @testable import WhatIOS
 
+/// Forces failure after deletion intent + index commit, mimicking ENOSPC,
+/// file protection, or a crash before removing the UUID-named video.
+private final class FailOnceVideoDeleteFileManager: FileManager {
+    var failVideoDelete = true
+
+    override func removeItem(at url: URL) throws {
+        if failVideoDelete, url.pathExtension == "mov",
+           url.deletingLastPathComponent().lastPathComponent == "Videos" {
+            failVideoDelete = false
+            throw CocoaError(.fileWriteNoPermission)
+        }
+        try super.removeItem(at: url)
+    }
+}
+
 final class LocalNoteRepositoryTests: XCTestCase {
     private func root() -> URL {
         FileManager.default.temporaryDirectory
@@ -41,6 +56,115 @@ final class LocalNoteRepositoryTests: XCTestCase {
         XCTAssertTrue(FileManager.default.fileExists(atPath: repo.videoURL(for: note)!.path))
         try repo.delete(note.id)
         XCTAssertFalse(FileManager.default.fileExists(atPath: repo.videoURL(for: note)!.path))
+        XCTAssertTrue(FileManager.default.fileExists(atPath: source.path))
+    }
+
+    func testPendingVideoDeletionRecoversAfterFileRemovalFails() throws {
+        let path = root()
+        defer { try? FileManager.default.removeItem(at: path) }
+        try FileManager.default.createDirectory(at: path,
+                                                withIntermediateDirectories: true)
+        let source = path.appendingPathComponent("original.mov")
+        try Data(repeating: 0x7f, count: 8_192).write(to: source)
+        let manager = FailOnceVideoDeleteFileManager()
+        let repo = LocalNoteRepository(rootURL: path, fileManager: manager)
+        let note = try repo.importVideo(from: source, duration: 11)
+        let video = try XCTUnwrap(repo.videoURL(for: note))
+        XCTAssertThrowsError(try repo.delete(note.id))
+        XCTAssertTrue(FileManager.default.fileExists(atPath: video.path))
+        XCTAssertTrue(try repo.allNotes().isEmpty)
+        XCTAssertFalse(try repo.hasVideo(id: note.id))
+        // A recovery retry cannot resurrect an already-deleted UUID, even
+        // though its original MOV has not yet been physically removed.
+        XCTAssertThrowsError(try repo.importVideo(
+            from: source, duration: 11, id: note.id
+        ))
+        XCTAssertTrue(FileManager.default.fileExists(atPath: source.path))
+        let journal = path.appendingPathComponent("pending-local-video-deletions.json")
+        XCTAssertEqual(try JSONDecoder().decode(
+            [String].self, from: Data(contentsOf: journal)
+        ), [note.id.uuidString])
+
+        // New process reads persisted intent, removes ONLY the UUID.mov and
+        // clears the intent marker without resurrecting the note.
+        let relaunched = LocalNoteRepository(rootURL: path)
+        XCTAssertTrue(try relaunched.allNotes().isEmpty)
+        XCTAssertFalse(FileManager.default.fileExists(atPath: video.path))
+        XCTAssertTrue(FileManager.default.fileExists(atPath: source.path))
+        XCTAssertEqual(try JSONDecoder().decode(
+            [String].self, from: Data(contentsOf: journal)
+        ), [])
+    }
+
+    func testJournalCommitFailureDoesNotDeleteVideoOrNote() throws {
+        let path = root()
+        defer { try? FileManager.default.removeItem(at: path) }
+        try FileManager.default.createDirectory(at: path,
+                                                withIntermediateDirectories: true)
+        let source = path.appendingPathComponent("source.mov")
+        try Data(repeating: 0x55, count: 4_096).write(to: source)
+        let repo = LocalNoteRepository(rootURL: path)
+        let note = try repo.importVideo(from: source, duration: 6)
+        let video = try XCTUnwrap(repo.videoURL(for: note))
+        let journal = path.appendingPathComponent("pending-local-video-deletions.json")
+        try FileManager.default.createDirectory(at: journal,
+                                                withIntermediateDirectories: true)
+        XCTAssertThrowsError(try repo.delete(note.id))
+        XCTAssertTrue(FileManager.default.fileExists(atPath: video.path))
+        XCTAssertTrue(FileManager.default.fileExists(atPath: source.path))
+        XCTAssertThrowsError(try repo.allNotes())
+        try FileManager.default.removeItem(at: journal)
+        XCTAssertEqual(try repo.allNotes().map(\.id), [note.id])
+    }
+
+    func testCrashImmediatelyAfterDurableDeletionIntentRecoversOnRelaunch() throws {
+        let path = root()
+        defer { try? FileManager.default.removeItem(at: path) }
+        try FileManager.default.createDirectory(at: path,
+                                                withIntermediateDirectories: true)
+        let source = path.appendingPathComponent("source.mov")
+        try Data(repeating: 0x66, count: 4_096).write(to: source)
+        let repo = LocalNoteRepository(rootURL: path)
+        let note = try repo.importVideo(from: source, duration: 6)
+        let video = try XCTUnwrap(repo.videoURL(for: note))
+        let journal = path.appendingPathComponent("pending-local-video-deletions.json")
+
+        // Simulate a power failure after the UUID intent was atomically saved,
+        // but BEFORE the note index was committed. No delete() call can make
+        // this interruption deterministic without terminating XCTest itself.
+        try JSONEncoder().encode([note.id.uuidString]).write(
+            to: journal, options: .atomic
+        )
+        XCTAssertTrue(FileManager.default.fileExists(atPath: video.path))
+        // The old index still contains the video at the crash checkpoint.
+        let rawIndex = try Data(contentsOf: path.appendingPathComponent("local-notes.json"))
+        XCTAssertEqual(try JSONDecoder().decode([LocalNote].self,
+            from: rawIndex).map(\.id), [note.id])
+
+        let relaunched = LocalNoteRepository(rootURL: path)
+        XCTAssertTrue(try relaunched.allNotes().isEmpty)
+        XCTAssertFalse(FileManager.default.fileExists(atPath: video.path))
+        XCTAssertTrue(FileManager.default.fileExists(atPath: source.path))
+        XCTAssertEqual(try JSONDecoder().decode(
+            [String].self, from: Data(contentsOf: journal)
+        ), [])
+    }
+
+    func testExplicitVideoDeleteNeverSweepsUnknownOrUnfinishedMOVFiles() throws {
+        let path = root()
+        defer { try? FileManager.default.removeItem(at: path) }
+        try FileManager.default.createDirectory(at: path,
+                                                withIntermediateDirectories: true)
+        let source = path.appendingPathComponent("source.mov")
+        try Data(repeating: 0x41, count: 512).write(to: source)
+        let repo = LocalNoteRepository(rootURL: path)
+        let note = try repo.importVideo(from: source, duration: 3)
+        let unknown = path.appendingPathComponent("Videos/orphan-but-not-consented.mov")
+        try Data(repeating: 0x42, count: 512).write(to: unknown)
+        try repo.delete(note.id)
+        let reloaded = LocalNoteRepository(rootURL: path)
+        XCTAssertTrue(try reloaded.allNotes().isEmpty)
+        XCTAssertTrue(FileManager.default.fileExists(atPath: unknown.path))
         XCTAssertTrue(FileManager.default.fileExists(atPath: source.path))
     }
 

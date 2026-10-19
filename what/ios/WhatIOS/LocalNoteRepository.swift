@@ -88,11 +88,14 @@ enum UnifiedInbox {
 /// Dedicated on-device ledger for new media. Existing recordings.json stays
 /// wire-compatible with Watch ACK and tombstone logic.
 final class LocalNoteRepository {
-    enum NoteError: Error { case missingNote, invalidMedia, incorrectKind }
+    enum NoteError: Error { case missingNote, invalidMedia, incorrectKind, deletionInProgress }
     private let fileManager: FileManager
     private let root: URL
     private let indexURL: URL
     private let videosURL: URL
+    // A durable intent marker outlives an interrupted local note deletion.
+    // Only explicit UUIDs from this journal are eligible for media cleanup.
+    private let pendingDeletionURL: URL
     private let lock = RecordingRepository.sharedStorageLock
 
     init(rootURL: URL? = nil, fileManager: FileManager = .default) {
@@ -106,7 +109,11 @@ final class LocalNoteRepository {
         }
         indexURL = root.appendingPathComponent("local-notes.json")
         videosURL = root.appendingPathComponent("Videos", isDirectory: true)
+        pendingDeletionURL = root.appendingPathComponent("pending-local-video-deletions.json")
         try? fileManager.createDirectory(at: videosURL, withIntermediateDirectories: true)
+        // Respect an unreadable or locked journal: do not guess which MOVs
+        // are abandoned. The next clean launch or unlock retries instead.
+        try? resumePendingVideoDeletions()
     }
 
     private func readIndex() throws -> [LocalNote] {
@@ -120,16 +127,71 @@ final class LocalNoteRepository {
         try ArvectumJSONCodec.encode(notes).write(to: indexURL, options: .atomic)
     }
 
+    // The deletion ledger is UUID-based, not a directory sweep. Existing
+    // unknown videos may belong to recoverable interrupted recordings.
+    private func pendingVideoDeletionIDs() throws -> Set<UUID> {
+        guard fileManager.fileExists(atPath: pendingDeletionURL.path) else { return [] }
+        let strings = try ArvectumJSONCodec.decode(
+            [String].self, from: Data(contentsOf: pendingDeletionURL)
+        )
+        guard strings.allSatisfy({ UUID(uuidString: $0) != nil }) else {
+            throw NoteError.invalidMedia
+        }
+        return Set(strings.compactMap(UUID.init(uuidString:)))
+    }
+
+    private func persistPendingVideoDeletions(_ ids: Set<UUID>) throws {
+        try ArvectumJSONCodec.encode(ids.map(\.uuidString).sorted())
+            .write(to: pendingDeletionURL, options: .atomic)
+    }
+
+    /// Runs at startup. The explicit deletion intent must survive until BOTH
+    /// the note index is updated and its canonical UUID.mov is removed.
+    private func resumePendingVideoDeletions() throws {
+        lock.lock()
+        defer { lock.unlock() }
+        try finishPendingVideoDeletionsLocked()
+    }
+
+    // Caller holds the shared storage lock.
+    private func finishPendingVideoDeletionsLocked() throws {
+        var pending = try pendingVideoDeletionIDs()
+        guard !pending.isEmpty else { return }
+        let notes = try readIndex()
+        let remaining = notes.filter { !pending.contains($0.id) }
+        if remaining.count != notes.count {
+            try writeIndex(remaining)
+        }
+        // Commit the index before deleting source media. If deletion fails,
+        // keep the UUID in the journal to resume next time.
+        for id in pending.sorted(by: { $0.uuidString < $1.uuidString }) {
+            let media = videosURL.appendingPathComponent(id.uuidString + ".mov")
+            if fileManager.fileExists(atPath: media.path) {
+                try fileManager.removeItem(at: media)
+            }
+            let stillPending = pending.subtracting([id])
+            try persistPendingVideoDeletions(stillPending)
+            pending = stillPending
+        }
+    }
+
     func allNotes() throws -> [LocalNote] {
         lock.lock()
         defer { lock.unlock() }
-        return try readIndex().sorted { $0.createdAt > $1.createdAt }
+        // Hide already-requested deletions even if startup cleanup was
+        // interrupted by file protection or ENOSPC.
+        let pending = try pendingVideoDeletionIDs()
+        return try readIndex().filter { !pending.contains($0.id) }
+            .sorted { $0.createdAt > $1.createdAt }
     }
 
     @discardableResult
     func saveText(id: UUID, body: String, sourceDevice: String = "iOS") throws -> LocalNote? {
         lock.lock()
         defer { lock.unlock() }
+        guard !(try pendingVideoDeletionIDs()).contains(id) else {
+            throw NoteError.deletionInProgress
+        }
         var notes = try readIndex()
         if let index = notes.firstIndex(where: { $0.id == id }) {
             guard notes[index].kind == .text else { throw NoteError.incorrectKind }
@@ -162,6 +224,7 @@ final class LocalNoteRepository {
     func hasVideo(id: UUID) throws -> Bool {
         lock.lock()
         defer { lock.unlock() }
+        guard !(try pendingVideoDeletionIDs()).contains(id) else { return false }
         return try readIndex().contains {
             $0.id == id && $0.kind == .video &&
             fileManager.fileExists(atPath: videosURL.appendingPathComponent(
@@ -179,6 +242,9 @@ final class LocalNoteRepository {
               size.int64Value > 0 else { throw NoteError.invalidMedia }
         lock.lock()
         defer { lock.unlock() }
+        guard !(try pendingVideoDeletionIDs()).contains(id) else {
+            throw NoteError.deletionInProgress
+        }
         var notes = try readIndex()
         if let existing = notes.first(where: { $0.id == id }) {
             guard existing.kind == .video else { throw NoteError.incorrectKind }
@@ -236,6 +302,9 @@ final class LocalNoteRepository {
     func setArchived(_ id: UUID, archived: Bool) throws {
         lock.lock()
         defer { lock.unlock() }
+        guard !(try pendingVideoDeletionIDs()).contains(id) else {
+            throw NoteError.missingNote
+        }
         var notes = try readIndex()
         guard let index = notes.firstIndex(where: { $0.id == id }) else {
             throw NoteError.missingNote
@@ -248,13 +317,28 @@ final class LocalNoteRepository {
         lock.lock()
         defer { lock.unlock() }
         var notes = try readIndex()
-        guard let index = notes.firstIndex(where: { $0.id == id }) else { return }
-        let removed = notes.remove(at: index)
-        // Persist deletion before removing media. If interrupted, the note
-        // stays hidden rather than resurrecting deleted user content.
+        guard let index = notes.firstIndex(where: { $0.id == id }) else {
+            // A previous deletion may have stopped after committing its
+            // index. Explicitly retry cleanup rather than losing intent.
+            if try pendingVideoDeletionIDs().contains(id) {
+                try finishPendingVideoDeletionsLocked()
+            }
+            return
+        }
+        let removed = notes[index]
+        if removed.kind == .video {
+            var pending = try pendingVideoDeletionIDs()
+            if pending.insert(id).inserted {
+                // On failure, leave BOTH index and original unchanged.
+                try persistPendingVideoDeletions(pending)
+            }
+        }
+        notes.remove(at: index)
         try writeIndex(notes)
-        if let url = videoURL(for: removed), fileManager.fileExists(atPath: url.path) {
-            try fileManager.removeItem(at: url)
+        if removed.kind == .video {
+            // Removal is idempotent and journalled across crashes. Never
+            // delete unknown MOVs or temporary recovery segments.
+            try finishPendingVideoDeletionsLocked()
         }
     }
 }
