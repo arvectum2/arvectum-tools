@@ -12,3 +12,9 @@ Call `.appStoreUpdatePrompt()` on the iOS app's root view. For app-level initial
 - iOS app only; Watch extensions inherit phone-app upgrades. Android's Play Store update flow is separate.
 - Does not show during `--ui-testing` automated launch.
 - Release remains independently gated by product QA and owner approval; code in main does not update an App Store binary.
+
+## QA only
+
+Under a Debug build, launch with **both** `--ui-testing` and `--qa-appstore-update` to show an intentionally synthetic version `99.9.9`. This fixture exists only to test iOS system alert behavior, deferral across launches, consent-sheet interaction and the positive button. The test URL points to a nonexistent App Store ID and must never be used to claim a live published update was installed. The whole fixture is behind `#if DEBUG` and is excluded from Release.
+
+iOS UI test suites each contain `AppStoreUpdatePromptUITests`. Real app-store redirect, download and in-place production upgrade remain separate device/release gates.

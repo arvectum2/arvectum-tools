@@ -42,6 +42,7 @@
 		C4884D75FD456DC59BB3D545 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = F70153CC2BE5352F2D9891E7 /* Localizable.strings */; };
 		C685BAA36108A911AB0432CE /* ImageEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D663780C7734CAD6EA60131 /* ImageEngine.swift */; };
 		C73E964DFBCD3A9EBB101951 /* ImageEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08AEB8D127CD578A7F444A94 /* ImageEngineTests.swift */; };
+		CAE9F723AB4378DF165700D1 /* AppStoreUpdatePromptUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C2BEE4260F53FA7FA646769 /* AppStoreUpdatePromptUITests.swift */; };
 		CD648EAE9A79683F3C780439 /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C025A083FC4B9302AC7033 /* AppModel.swift */; };
 		D7BFF792993B7DDE78512C61 /* AdNativeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92D198F142C4AB1521E5B17B /* AdNativeView.swift */; };
 		E36BFBCAEA2B102563C9B0B6 /* AppModel+Lifecycle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4218562232EFB974A3F790 /* AppModel+Lifecycle.swift */; };
@@ -92,6 +93,7 @@
 		859CD85E40C881410B84E65B /* PassportCropView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassportCropView.swift; sourceTree = "<group>"; };
 		86220EAB9DCD77B6155B0390 /* AdaptiveLayoutUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveLayoutUITests.swift; sourceTree = "<group>"; };
 		89EE7554AAE420CCFCD6DCDB /* AppModel+Processing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppModel+Processing.swift"; sourceTree = "<group>"; };
+		8C2BEE4260F53FA7FA646769 /* AppStoreUpdatePromptUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoreUpdatePromptUITests.swift; sourceTree = "<group>"; };
 		8D2E6DAE150416D54E6F5148 /* WorkflowUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkflowUITests.swift; sourceTree = "<group>"; };
 		92D198F142C4AB1521E5B17B /* AdNativeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdNativeView.swift; sourceTree = "<group>"; };
 		95560A2CFF134BB3B8E6B962 /* AppModel+Import.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppModel+Import.swift"; sourceTree = "<group>"; };
@@ -215,6 +217,7 @@
 			isa = PBXGroup;
 			children = (
 				86220EAB9DCD77B6155B0390 /* AdaptiveLayoutUITests.swift */,
+				8C2BEE4260F53FA7FA646769 /* AppStoreUpdatePromptUITests.swift */,
 				FAA4A5EFD1913620F19DA676 /* FilesImportUITests.swift */,
 				51511B7AEB7D0B5421F72F64 /* LayoutRegressionUITests.swift */,
 				8D2E6DAE150416D54E6F5148 /* WorkflowUITests.swift */,
@@ -380,6 +383,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				82639370FD85983CEC19E62F /* AdaptiveLayoutUITests.swift in Sources */,
+				CAE9F723AB4378DF165700D1 /* AppStoreUpdatePromptUITests.swift in Sources */,
 				F17F62FE21A2AC89FA0CFB55 /* FilesImportUITests.swift in Sources */,
 				4F900A2725EFC0A15AE49B0F /* LayoutRegressionUITests.swift in Sources */,
 				FCE6C79A3351D95AF2E4F003 /* WorkflowUITests.swift in Sources */,

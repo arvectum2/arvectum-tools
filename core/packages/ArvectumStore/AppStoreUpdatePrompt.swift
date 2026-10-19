@@ -150,10 +150,23 @@ private struct AppStoreUpdatePromptModifier: ViewModifier {
         let copy = AppStoreUpdateCopy.forLocale(preferredLocale ?? environmentLocale)
         content
             .task(id: enabled) {
-                guard enabled, !didCheck,
-                      !ProcessInfo.processInfo.arguments.contains("--ui-testing") else {
+                guard enabled, !didCheck else { return }
+                let args = ProcessInfo.processInfo.arguments
+#if DEBUG
+                // Deterministic UI automation, compiled out of App Store builds.
+                // A synthetic release is shown only when *both* QA flags are present.
+                if args.contains("--ui-testing") && args.contains("--qa-appstore-update"),
+                   let fixtureURL = URL(string: "https://apps.apple.com/ru/app/id000000000") {
+                    didCheck = true
+                    release = AppStorePublishedUpdate(
+                        version: "99.9.9",
+                        storeURL: fixtureURL
+                    )
+                    showingAlert = true
                     return
                 }
+#endif
+                guard !args.contains("--ui-testing") else { return }
                 didCheck = true
                 guard let bundleID = Bundle.main.bundleIdentifier,
                       let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
