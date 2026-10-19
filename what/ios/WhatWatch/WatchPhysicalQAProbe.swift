@@ -11,6 +11,63 @@ final class WatchPhysicalQAProbe {
     private var heldTransport = false
     private var capturedID: UUID?
     private var existingBeforeTest = Set<UUID>()
+    private var timeline = [TimelineEvent]()
+    private var recordingStartedAt: Date?
+    private var interruptionObserver: NSObjectProtocol?
+    private var routeObserver: NSObjectProtocol?
+
+    private struct TimelineEvent: Codable {
+        let at: Date
+        let event: String
+        let details: String
+    }
+
+    func observeLifecycle(_ event: String, state: WatchCaptureController.CaptureState) {
+        let stateLabel: String
+        switch state {
+        case .idle: stateLabel = "idle"
+        case .preparing: stateLabel = "preparing"
+        case .recording: stateLabel = "recording"
+        case .saved: stateLabel = "saved"
+        case .error: stateLabel = "error"
+        }
+        record(event, details: "state=" + stateLabel)
+    }
+
+    private func record(_ event: String, details: String = "") {
+        guard started else { return }
+        timeline.append(TimelineEvent(at: Date(), event: event, details: details))
+        if timeline.count > 100 { timeline.removeFirst() }
+        guard let base = FileManager.default.urls(for: .documentDirectory,
+                                               in: .userDomainMask).first else { return }
+        let folder = base.appendingPathComponent("WatchPhysicalQA", isDirectory: true)
+        try? FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
+        if let bytes = try? JSONEncoder().encode(timeline) {
+            try? bytes.write(to: folder.appendingPathComponent("timeline.json"), options: .atomic)
+        }
+    }
+
+    private func monitorAudioSession() {
+        let center = NotificationCenter.default
+        interruptionObserver = center.addObserver(
+            forName: AVAudioSession.interruptionNotification,
+            object: AVAudioSession.sharedInstance(), queue: .main
+        ) { [weak self] notification in
+            let typ = notification.userInfo?[AVAudioSessionInterruptionTypeKey]
+            Task { @MainActor [weak self] in
+                self?.record("audio-interruption", details: String(describing: typ))
+            }
+        }
+        routeObserver = center.addObserver(
+            forName: AVAudioSession.routeChangeNotification,
+            object: AVAudioSession.sharedInstance(), queue: .main
+        ) { [weak self] notification in
+            let reason = notification.userInfo?[AVAudioSessionRouteChangeReasonKey]
+            Task { @MainActor [weak self] in
+                self?.record("audio-route-change", details: String(describing: reason))
+            }
+        }
+    }
 
     private struct Status: Codable {
         let stage: String
@@ -56,6 +113,9 @@ final class WatchPhysicalQAProbe {
         guard hold || arguments.contains("what-watch-qa-record-once") else { return }
         started = true
         existingBeforeTest = Set(currentOutboundAudioIDs())
+        timeline = []
+        monitorAudioSession()
+        record("qa-start", details: "mode=" + (hold ? "hold" : "direct"))
         heldTransport = hold
         if hold { controller.qaSetTransportHeld(true) }
         let permission: String
@@ -70,6 +130,7 @@ final class WatchPhysicalQAProbe {
         guard AVAudioApplication.shared.recordPermission == .granted else { return }
         // Only QA can initiate an unattended microphone recording, and ONLY
         // with the explicit, opt-in launch argument from a developer test.
+        record("start-capture-called")
         controller.startCapture()
         pollRecording(controller, attempts: 0)
     }
@@ -77,15 +138,25 @@ final class WatchPhysicalQAProbe {
     private func pollRecording(_ controller: WatchCaptureController, attempts: Int) {
         switch controller.state {
         case .recording:
+            recordingStartedAt = Date()
+            record("recording-observed")
             capturedID = currentOutboundAudioIDs().first {
                 !existingBeforeTest.contains($0)
             }
             write("recording", pending: controller.pendingCount)
             DispatchQueue.main.asyncAfter(deadline: .now() + 7) { [weak self] in
+                guard let self else { return }
+                self.record("stop-timer-fired", details: "elapsed=" + String(
+                    Date().timeIntervalSince(self.recordingStartedAt ?? Date())
+                ))
+                self.record("before-stop", details: "sourceCount=" + String(
+                    self.currentOutboundAudioIDs().count
+                ))
                 controller.stopCapture()
-                self?.captureFinished(controller)
+                self.captureFinished(controller)
             }
         case .error(let message):
+            record("recording-state-error", details: message)
             write("failed", pending: controller.pendingCount, details: message)
         default:
             if attempts >= 60 {
@@ -135,6 +206,7 @@ final class WatchPhysicalQAProbe {
     private func captureFinished(_ controller: WatchCaptureController) {
         switch controller.state {
         case .saved:
+            record("watch-saved", details: "pending=" + String(controller.pendingCount))
             capturedID = capturedID ?? currentOutboundAudioIDs().first {
                 !existingBeforeTest.contains($0)
             }
@@ -164,6 +236,7 @@ final class WatchPhysicalQAProbe {
                 checkAcknowledgement(controller)
             }
         case .error(let error):
+            record("watch-finish-error", details: error)
             let fresh = currentOutboundAudioIDs().first {
                 !existingBeforeTest.contains($0)
             }

@@ -74,12 +74,16 @@ struct CaptureView: View {
             controller.refreshPendingAudioAfterUnlock()
 #if WATCH_PHYSICAL_QA
             WatchPhysicalQAProbe.shared.startIfRequested(controller: controller)
+            WatchPhysicalQAProbe.shared.observeLifecycle("view-appear", state: controller.state)
 #endif
             if scenePhase == .active {
                 startCaptureOnForeground()
             }
         }
         .onChange(of: scenePhase) { _, phase in
+#if WATCH_PHYSICAL_QA
+            WatchPhysicalQAProbe.shared.observeLifecycle("phase-" + String(describing: phase), state: controller.state)
+#endif
             switch phase {
             case .active:
                 controller.refreshPendingAudioAfterUnlock()
