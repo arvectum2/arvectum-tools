@@ -1,5 +1,15 @@
 # PUSHKIN — Product Roadmap
 
+## 19.10.2026 — Release Candidate Pushkin 1.0.1 (5)
+
+- [x] Production Release archive, locally exported Distribution-signed App Store IPA and SHA-256 ready. NO upload to Apple.
+- [x] Physical QA bundle upgraded in place from build 7 to 8 with 8 of 8 records completely equal (all persisted fields and identifiers). Existing notification automation E2E and cleanup also passed.
+- [x] Designated project CI unit, A6 onboarding, and notification deletion suites passed on a clean simulator. Separate legacy all-UI exploratory suite failed preconditions and was stopped; test-harness debt remains documented.
+- [ ] Actual public App Store Pushkin app is NOT installed on connected iPhone, so production-user history upgrade is not verifiable there. Do not claim completed.
+- [ ] APPLE REVIEW AND UPLOAD are blocked until the owner's explicit approval for exactly this build. After approval use automatic AFTER_APPROVAL availability, never manual.
+- [x] Candidate and evidence: docs/PUSHKIN_1_0_1_BUILD5_RELEASE_CANDIDATE_2026-10-19.md.
+
+
 ## P0 — 19.10.2026, итог: реальный триггер Shortcuts ПРОЙДЕН
 
 - [x] Настоящая локальная нотификация iPhone → iOS 27 Shortcuts Notification trigger → QA AppIntent → штатная логика CaptureNotificationIntent → SwiftData. Маркер 0 → 1, всего 7 → 8 записей, повторный аудит после очистки подтверждает тот же UUID без дублей. Документ: docs/PHYSICAL_NOTIFICATION_SHORTCUTS_E2E_ACCEPTED_2026-10-19.md.
