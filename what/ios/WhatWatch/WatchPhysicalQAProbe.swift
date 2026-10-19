@@ -9,6 +9,7 @@ final class WatchPhysicalQAProbe {
     static let shared = WatchPhysicalQAProbe()
     private var started = false
     private var heldTransport = false
+    private var dropACKMode = false
     private var capturedID: UUID?
     private var existingBeforeTest = Set<UUID>()
     private var timeline = [TimelineEvent]()
@@ -110,13 +111,15 @@ final class WatchPhysicalQAProbe {
             return
         }
         let hold = arguments.contains("what-watch-qa-hold-and-send")
-        guard hold || arguments.contains("what-watch-qa-record-once") else { return }
+        let droppedAck = arguments.contains("what-watch-qa-drop-ack")
+        guard hold || droppedAck || arguments.contains("what-watch-qa-record-once") else { return }
         started = true
         existingBeforeTest = Set(currentOutboundAudioIDs())
         timeline = []
         monitorAudioSession()
-        record("qa-start", details: "mode=" + (hold ? "hold" : "direct"))
+        record("qa-start", details: "mode=" + (hold ? "hold" : (droppedAck ? "drop-ack" : "direct")))
         heldTransport = hold
+        dropACKMode = droppedAck
         if hold { controller.qaSetTransportHeld(true) }
         let permission: String
         switch AVAudioApplication.shared.recordPermission {
@@ -142,6 +145,11 @@ final class WatchPhysicalQAProbe {
             record("recording-observed")
             capturedID = currentOutboundAudioIDs().first {
                 !existingBeforeTest.contains($0)
+            }
+            if dropACKMode, let id = capturedID {
+                // Arm before stopCapture() enqueues and WatchConnectivity sends.
+                controller.qaHoldAcknowledgements(for: id)
+                record("ack-filter-armed", details: id.uuidString)
             }
             write("recording", pending: controller.pendingCount)
             DispatchQueue.main.asyncAfter(deadline: .now() + 7) { [weak self] in
@@ -203,6 +211,49 @@ final class WatchPhysicalQAProbe {
         }
     }
 
+    private func waitForSuppressedACK(_ controller: WatchCaptureController,
+                                      attempt: Int = 0) {
+        guard let id = capturedID else {
+            write("failed", pending: controller.pendingCount,
+                  details: "Could not identify newly started QA capture UUID")
+            return
+        }
+        let count = controller.qaDroppedAcknowledgements(for: id)
+        if count > 0 {
+            let original = currentOutboundAudioIDs().contains(id)
+            guard original, controller.pendingCount > 0 else {
+                write("failed", pending: controller.pendingCount,
+                      details: "Original missing before ACK release")
+                return
+            }
+            record("ack-suppressed", details: "count=\(count), sourceKept=true")
+            write("ack-dropped", pending: controller.pendingCount,
+                  details: "Receiver durably ACKed, Watch retained same UUID; suppressed=\(count)")
+            // Give the duplicate a chance to arrive as a separate, real
+            // background WCSessionFile before checking idempotency on iPhone.
+            if controller.qaResendAfterDroppedACK(for: id) {
+                record("same-uuid-retransmission", details: id.uuidString)
+                write("duplicate-in-flight", pending: controller.pendingCount,
+                      details: "Same AAC and UUID resent via transferFile")
+                checkAcknowledgement(controller)
+            } else {
+                controller.qaReleaseAcknowledgementHoldForSafety(for: id)
+                write("unresolved", pending: controller.pendingCount,
+                      details: "Resend not scheduled, ACK hold released for safe future retry; original preserved")
+            }
+            return
+        }
+        if attempt >= 120 {
+            controller.qaReleaseAcknowledgementHoldForSafety(for: id)
+            write("unresolved", pending: controller.pendingCount,
+                  details: "No ACK in 60s; QA hold released; original preserved for normal retry")
+            return
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+            self?.waitForSuppressedACK(controller, attempt: attempt + 1)
+        }
+    }
+
     private func captureFinished(_ controller: WatchCaptureController) {
         switch controller.state {
         case .saved:
@@ -212,7 +263,10 @@ final class WatchPhysicalQAProbe {
             }
             write("saved-on-watch", pending: controller.pendingCount,
                   details: "7-second physical AAC stored locally")
-            if heldTransport {
+            if dropACKMode {
+                record("watch-queued-for-lost-ack")
+                waitForSuppressedACK(controller)
+            } else if heldTransport {
                 // Wait while the original is durably queued, then release
                 // only this QA-app transport. No system network toggles.
                 DispatchQueue.main.asyncAfter(deadline: .now() + 10) { [weak self] in

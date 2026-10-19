@@ -30,6 +30,75 @@ final class WatchA2ReliabilityTests: XCTestCase {
         return dir
     }
 
+    func testLostACKRealisticAACResendPreservesSameUUIDAndDeletesOnlyAfterACK() throws {
+        let dir = try temporaryDirectory()
+        defer { try? FileManager.default.removeItem(at: dir) }
+        let outbound = dir.appendingPathComponent("outbound", isDirectory: true)
+        let phone = dir.appendingPathComponent("phone", isDirectory: true)
+        try FileManager.default.createDirectory(at: outbound,
+                                                withIntermediateDirectories: true)
+        let id = UUID()
+        let original = outbound.appendingPathComponent("\(id.uuidString).m4a")
+        let format = try XCTUnwrap(AVAudioFormat(
+            standardFormatWithSampleRate: 48_000, channels: 1
+        ))
+        let pipeline = try MicrophoneCapturePipeline(url: original, inputFormat: format)
+        for frame in 0..<110 {
+            let buffer = try XCTUnwrap(AVAudioPCMBuffer(
+                pcmFormat: format, frameCapacity: 1024
+            ))
+            buffer.frameLength = 1024
+            let samples = try XCTUnwrap(buffer.floatChannelData)[0]
+            for i in 0..<1024 {
+                samples[i] = 0.04 * sin(Float((frame * 1024 + i) % 32) * Float.pi / 16)
+            }
+            pipeline.append(buffer)
+        }
+        let result = pipeline.close()
+        XCTAssertNil(result.writeError)
+        let duration = try WatchDeliveredAudioValidation.validate(
+            original, expectedDuration: result.audioSeconds
+        )
+        let entry = RecordingEnvelope(
+            id: id, createdAt: Date(), duration: duration,
+            fileName: "\(id.uuidString).m4a"
+        )
+        let index = outbound.appendingPathComponent("queue.json")
+        var queue = [RecordingEnvelope]()
+        try WatchDurableQueue.enqueue(entry, into: &queue, at: index)
+        let repository = RecordingRepository(rootURL: phone)
+        let metadata: [String: Any] = [
+            TransferMetadataKey.id: id.uuidString,
+            TransferMetadataKey.createdAt: entry.createdAt.timeIntervalSince1970,
+            TransferMetadataKey.duration: duration
+        ]
+        let first = try repository.acceptTemporaryFile(original, metadata: metadata)
+        XCTAssertEqual(first.id, id)
+        // Suppress the first receiver ACK. The original MUST stay queued.
+        XCTAssertEqual(queue.map(\.id), [id])
+        XCTAssertTrue(FileManager.default.fileExists(atPath: original.path))
+        XCTAssertEqual(try JSONDecoder().decode([RecordingEnvelope].self,
+            from: Data(contentsOf: index)).map(\.id), [id])
+
+        // Replay actual AAC bytes with unchanged UUID through the same phone
+        // storage path; the second ACK must not create a second note.
+        let second = try repository.acceptTemporaryFile(original, metadata: metadata)
+        XCTAssertEqual(second.id, id)
+        XCTAssertEqual(repository.allRecordings().map(\.id), [id])
+        let stored = try XCTUnwrap(repository.allRecordings().first)
+        XCTAssertEqual(try Data(contentsOf: original),
+                       try Data(contentsOf: repository.audioURL(for: stored)))
+        XCTAssertTrue(try WatchAcknowledgementJournal.acknowledge(
+            id, in: &queue, at: index, outbound: outbound
+        ))
+        XCTAssertTrue(queue.isEmpty)
+        XCTAssertFalse(FileManager.default.fileExists(atPath: original.path))
+        XCTAssertEqual(repository.allRecordings().map(\.id), [id])
+        XCTAssertFalse(try WatchAcknowledgementJournal.acknowledge(
+            id, in: &queue, at: index, outbound: outbound
+        ))
+    }
+
     func testBatchQueueAndACKSurviveRelaunchWithoutDuplicates() throws {
         let dir = try temporaryDirectory()
         defer { try? FileManager.default.removeItem(at: dir) }
