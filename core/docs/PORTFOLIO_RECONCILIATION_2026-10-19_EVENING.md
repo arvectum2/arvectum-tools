@@ -2,6 +2,15 @@
 
 **Канонический текущий срез.** Ниже статусы из официального публичного Apple RU Lookup, authenticated App Store Connect для Пушкина, GitHub PR и протоколов физического QA. Старые датированные абзацы во вложенных дорожных картах — история, а не текущие команды к действию. Исходники в main, сборка на устройстве, загрузка в ASC, App Review и публичная App Store-версия — пять разных состояний.
 
+## Проверено позднее 19.10 — приоритетные задачи (поверх исходного среза)
+
+- [x] Pushkin App Review read-only повторно **WAITING_FOR_REVIEW**, releaseType **AFTER_APPROVAL**; решение Apple остаётся внешним блокером.
+- [x] **ChickMark**: Water settings/consent **2/2 simulator UI PASS**, на физическом iPhone XCUITest Runner дважды timeout при включении automation, реальный Settings revoke/regrant не зачтён. [Протокол](../../chickmark/docs/WATER_SETTINGS_QA_RECHECK_2026-10-19.md).
+- [x] **Фото/PDF**: настоящий iPhone QA PDF 0/90/180/270 градусов, 4 страницы **2 999 791→464 545 байт**, визуальная корреляция страниц min **0.99257**, прежние тестовые файлы восстановлены. [Протокол](../../photo-pdf-to-size/docs/PHYSICAL_ROTATED_FOUR_PAGE_PDF_2026-10-19.md). Физический Files exporter roundtrip также был ранее PASS.
+- [x] **Growth site**: [PR #15](https://github.com/arvectum2/arvectum-site/pull/15), commit **8b5dc3f**, оба GH checks **SUCCESS** и полный локальный npm run verify PASS. Исправлена область действия CI для noindex /schlam и оптимизированы два скриншота Ухвата. **PR не merged, сайт не deployed**. Прежняя красная CI проверка ниже — архивное состояние.
+- [ ] Ухват: реальные входящий звонок, 30+минутное видео, радио-offline/reboot Watch и production upgrade остаются открыты. Безопасные 420s/watch-ACK QA уже проверены.
+- [ ] Следующий physical QA: ChickMark real UI + разрешения/CloudKit/Watch, Фото/PDF Photos picker/ad permissions. Новых Apple отправок/сброса данных/деплоя сайта не делали.
+
 ## Светофор продуктов и инфраструктуры
 
 | Направление | Статус | Публично / фактически | Ближайшие незавершённые критерии |
@@ -12,7 +21,7 @@
 | Фото и PDF под размер | 🟡 Выпущен, следующий RC локально | Public **1.0.1 (13)**; signed **1.0.2 (14)** с поворотами PDF не опубликован | Реальные Files/Photos импорт и экспорт, rotated/large PDF, native/banner РСЯ/consent/no-fill, согласование отдельного выпуска; Android статус отдельно не доказан |
 | Where? | ⚪ Пауза по решению владельца | Нет подтверждённого релиза; local-only MVP и expiry/PAO спланированы, не реализованы | Не начинать разработку до новой команды владельца |
 | Core | 🟡 База интегрирована | AdaptiveLayout + 4 активных продукта в main через PR #90, 38/38 CI PASS | App-specific iPad/VoiceOver/system QA, реальная Duo fold/unfold не проверена, provenance выпусков и безопасные upgrade-тесты |
-| Growth | 🟡 Есть материалы, нет достоверной базы метрик | App Store карточки доступны; сайт [PR #15](https://github.com/arvectum2/arvectum-site/pull/15) OPEN, CI **verify FAILURE**, не считать развёрнутым | Исправить/доказать verify, отдельно согласовать merge и деплой; снять базовые ASO/RСЯ/SEO показатели; категория ChickMark |
+| Growth | 🟡 Есть материалы, нет достоверной базы метрик | App Store карточки доступны; сайт [PR #15](https://github.com/arvectum2/arvectum-site/pull/15) OPEN, CI **verify SUCCESS** и Mirror SUCCESS, PR OPEN, **не deployed** | CI исправлен; согласовать merge/deploy отдельно; снять базовые ASO/RСЯ/SEO показатели; категория ChickMark |
 | Growth Agent | ⚪ Пауза | Проектная карта есть, агент не активирован | Не запускать парсеры/посты/платные действия без baseline и отдельного решения |
 
 **Итог по 8 направлениям:** 🟡 **6 активных / частично готовых**, ⚪ **2 на паузе** (Where? и Growth Agent). В единой очереди **4 P0**, **5 P1**; решённые релизы и тесты отмечены выполненными внутри своих направлений, поэтому не приравниваются к «закрыто всё приложение».
@@ -49,7 +58,7 @@
 | P0-2 | Ухват | Изолированное безопасное тестирование звонка, 30+ мин, Watch offline/reboot | Результаты реальные, медиа playable, старые UUID без потери | Watch/телефон и тестовое окно; production личные данные не трогать |
 | P0-3 | ChickMark | Довести HealthKit UI check-in/edit/undo + Settings revoke/regrant и синхронизацию с Watch/CloudKit | Device-evidence, idempotence, нет чужих HealthKit samples, безопасный апгрейд | Физические разрешения/второе устройство |
 | P0-4 | Фото/PDF | Files/Photos, rotated PDF, исходники и экспорт на физическом iPhone | Вход/результат/оригинал, корректная ориентация, размер и доступы | Физические системные picker/Files |
-| P1-1 | Growth / Site | Проверить красный CI verify в site PR #15, исправить причины и снова проверить | PR checks зелёные; деплой — отдельно после согласования | Верификация текущего сайта и не затронуть /schlam |
+| P1-1 | Growth / Site | **CI исправлен 8b5dc3f, 2/2 GH PASS.** Теперь подготовить безопасный merge/deploy с отдельным разрешением | После согласования: работающий сайт/URL/SEO/index checks | Без согласования не деплоить; /schlam остаётся noindex |
 | P1-2 | Growth | Baseline просмотров/показов/загрузок/конверсии, индексации, РСЯ дохода по приложениям | Таблица с датой, источником, регионом, «недоступно» вместо 0 | Доступ к статистике, наличие новых данных |
 | P1-3 | ChickMark / Growth | Подготовить смену Health & Fitness → Productivity для следующей editable App Store версии | ASC приняла изменение и публичная категория изменилась после отдельного релиза | Публичная READY_FOR_SALE редакция ранее отклонила PATCH HTTP 409 |
 | P1-4 | Core + все активные приложения | Доказать iPad Split View/Dynamic Type/VoiceOver и безопасные scene transitions | App-specific UI/physical acceptance; Duo — только при наличии железа | Нельзя приписывать поддержку из одного merge адаптивного Core |

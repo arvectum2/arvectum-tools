@@ -1,5 +1,14 @@
 # Arvectum Tools — Growth Roadmap
 
+## 19.10.2026 · G1 CI сайта исправлен, деплой НЕ сделан
+
+- [x] [arvectum-site PR #15](https://github.com/arvectum2/arvectum-site/pull/15) branch growth/tools-public-release-20261019 обновлена коммитом **8b5dc3f**. GitHub проверки **verify SUCCESS**, **Mirror repository SUCCESS**, PR **OPEN**.
+- [x] Причина прежнего FAILURE устранена: частные /schlam HTML demo имеют robots noindex, не в sitemap; к ним неприменимы обязательные публичные canonical/favicon/placeholder требования, но сохранены тесты noindex, внутренних ресурсов и безопасности путей. На намеренно испорченных noindex, sitemap или canonical тесты **краснеют**.
+- [x] Два скриншота Ухвата оптимизированы 847 728→242 068 и 273 269→163 777 байт; ограничения ресурсов соблюдены. **Локальный npm run verify PASS**: SEO/JS/граф/статика/ресурсы/PHP.
+- [ ] **G1 Deploy still OPEN:** PR не merged в site main, сайт не развернут. Требуются отдельное согласование merge/deploy, post-deploy smoke, sitemap, HTTP, Search Console/Вебмастер. Нельзя считать страницу опубликованной по зелёному CI.
+- [ ] **G0/2:** baseline ASO/SEO/РСЯ и категория ChickMark Productivity ещё не выполнены.
+
+
 ## 19.10.2026, вечер — Growth: четыре публичных продукта, Pushkin ожидает Apple
 
 **Текущее:** публичны Pushkin 1.0, Ухват 1.1.0, ChickMark 1.5.0, Фото/PDF 1.0.1. **Pushkin 1.0.1 (5)** submitted и WAITING_FOR_REVIEW, **AFTER_APPROVAL: автопубликация**, а не ручной выпуск.

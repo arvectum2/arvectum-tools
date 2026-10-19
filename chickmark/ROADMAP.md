@@ -1,5 +1,13 @@
 # ChickMark — актуальная дорожная карта
 
+## 19.10.2026 · P0 Water consent UI: simulator PASS, физический runner blocker
+
+- [x] Изолированный **iOS 27 Simulator 2/2 PASS**, 0 ошибок: количество воды выключено по умолчанию, добровольное включение, Cancel и отказ разрешения не сохраняют opt-in. [Акт](docs/WATER_SETTINGS_QA_RECHECK_2026-10-19.md).
+- [ ] **Физический UI STILL OPEN:** iPhone XCTest Runner дважды остановился на системном **Timed out while enabling automation mode**, до assertions; не считать UI hardware тест пройденным или доказанной ошибкой приложения.
+- [x] Ранее отдельный реальный HealthKit QA 250→500→0→750→0 мл и удаление только собственных записей PASS. Этот факт **не заменяет** живые check-in/edit/undo, системный revoke/regrant или двухустройственный CloudKit.
+- [ ] Публично ChickMark 1.5.0, HealthKit water по-прежнему только в source main; отправки новой версии не было.
+
+
 ## 19.10.2026, вечер — ChickMark: HealthKit water в main, не в публичной версии
 
 **Текущее:** публично **1.5.0 (18)**, RU категория **Health & Fitness**. [PR #94](https://github.com/arvectum2/arvectum-tools/pull/94) **MERGED** в main — добровольный экспорт dietaryWater, выключен по умолчанию; версия в Store эту новинку не содержит.

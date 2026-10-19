@@ -1,5 +1,14 @@
 # Arvectum Tools — Roadmap Registry
 
+## 19.10.2026 · P0 progress после единой сверки
+
+- [x] Pushkin App Review подтверждён WAITING_FOR_REVIEW, AFTER_APPROVAL; public 1.0 остаётся.
+- [x] ChickMark simulator Water consent UI **2/2 PASS**, но physical iOS automation 2× timeout; реальный HealthKit journal clean из предыдущего независимого теста PASS.
+- [x] Фото/PDF synthetic 4-page 0/90/180/270 на реальном iPhone: 2 999 791→464 545 байт; визуальная корреляция >0.99 по каждой странице. Прежние QA файлы восстановлены, production ничего не меняли.
+- [x] Growth site PR #15 CI **verify и Mirror SUCCESS**, npm verify PASS; PR по-прежнему OPEN, деплоя нет.
+- [ ] Ухват реальный звонок/30+ мин/Watch airplane/reboot и иные физические release gates не выполнены. Не путать готовность тестового кода с публикацией.
+
+
 ## 19.10.2026, вечер — единый реестр (актуально)
 
 [Каноническая матрица публичных версий, PR и release gates](docs/PORTFOLIO_RECONCILIATION_2026-10-19_EVENING.md). Apple RU Lookup: **Pushkin 1.0**, **Ухват 1.1.0**, **ChickMark 1.5.0**, **Фото/PDF 1.0.1**. Отдельно Pushkin **1.0.1(5) WAITING_FOR_REVIEW** (Apple build5 VALID, submitted 19.10.2026, автоматическая публикация **AFTER_APPROVAL**). Source features и физический QA других продуктов ещё не означают их новые Store-бинарники.

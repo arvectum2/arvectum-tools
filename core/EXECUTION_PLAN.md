@@ -1,5 +1,15 @@
 # Arvectum Tools — план исполнения без Where?
 
+## 19.10.2026 · новая очередь по результатам реальной работы
+
+- [x] **P0-1 Pushkin:** повторный authenticated ASC GET — 1.0.1(5) всё ещё **WAITING_FOR_REVIEW**, releaseType AFTER_APPROVAL; публикация автоматическая после решения Apple.
+- [ ] **P0-2 Ухват:** физические 420s video + Watch ACK QA доказаны ранее; **настоящий входящий звонок, 30+ минут, отключение радио/перезапуск физических Watch и signed production upgrade не выполнены**. Не создавать риски на личном устройстве без окна QA.
+- [x] **P0-3 ChickMark промежуточный:** Water consent simulator 2/2 PASS; реальный HealthKit scoped write/edit/undo из прошлого акта PASS. **Живой UI hardware** остался заблокирован iOS XCTest automation timeout; настоящий revoke/regrant/CloudKit/Watch не зачтён.
+- [x] **P0-4 Фото/PDF промежуточный:** физическая проверка четырёх повёрнутых страниц 3.0 МБ→464 КБ, визуальная корреляция >0.99, QA файлы восстановлены. Ранее Files full roundtrip PASS; Photos/ad permissions всё ещё OPEN.
+- [x] **P1 Growth CI:** site PR #15 теперь **2/2 GitHub SUCCESS**, локальный npm verify PASS; **нет merge/deploy** без отдельного согласования.
+- [ ] Далее по приоритету: добить реальные QA-блокеры Ухвата/ChickMark/Фото и сбор baseline Growth. Where? и Growth Agent PAUSED.
+
+
 ## 19.10.2026, вечер — единая исполняемая очередь
 
 [Текущий светофор и строгие release gates](docs/PORTFOLIO_RECONCILIATION_2026-10-19_EVENING.md). Уже завершено: **Pushkin build5 App Review submitted WAITING_FOR_REVIEW с AFTER_APPROVAL**, 8/8 GH checks SUCCESS, QA no-loss; **Ухват 420 s physical MOV**, ChickMark HealthKit water **PR #94 MERGED**. Старые даты/статусы ниже остаются историей.
