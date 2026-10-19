@@ -262,6 +262,104 @@ final class WaterExportSyncTests: XCTestCase {
         XCTAssertTrue(driver.removals.isEmpty)
         XCTAssertEqual(store.receipt(habitID: habit, dayKey: day)?.millilitres, 500)
     }
+    // Real-world quantity UI edits ultimately drive this same daily count
+    // reconciler. All records here are isolated and use the fake Health driver.
+    func testWaterCheckinsEditUndoAndReentryKeepOneOwnedDailySample() async throws {
+        let (store, driver, day, suite) = setup()
+        defer { UserDefaults(suiteName: suite)?.removePersistentDomain(forName: suite) }
+        let engine = WaterExportSyncEngine(driver: driver, store: store)
+        let goal: HabitGoalMode = .quantity(count: 10)
+
+        for count in [1, 2, 3, 2, 0, 4] {
+            let change1 = try await engine.reconcile(
+                habitID: habit, dayKey: day, goal: goal, count: count
+            )
+            XCTAssertTrue(change1, "Each real change must be reconciled")
+        }
+
+        let ownID = WaterExportPlanning.syncIdentifier(habitID: habit, dayKey: day)
+        XCTAssertEqual(Set(driver.upserts.map(\.id)), [ownID],
+            "Every edit must address the same daily sample, not add a new one")
+        XCTAssertEqual(driver.upserts.map(\.ml), [250, 500, 750, 500, 1000])
+        XCTAssertEqual(driver.upserts.map(\.version), [1, 2, 3, 4, 5])
+        XCTAssertEqual(driver.removals, [ownID], "Undo to zero removes only own sample")
+        XCTAssertEqual(store.receipt(habitID: habit, dayKey: day)?.millilitres, 1000)
+        XCTAssertEqual(store.highestVersion(habitID: habit, dayKey: day), 5)
+        let change2 = try await engine.reconcile(
+            habitID: habit, dayKey: day, goal: goal, count: 4
+        )
+        XCTAssertFalse(change2, "Second request for the same count must not write again")
+    }
+
+    func testRevokedWritePermissionPreservesReceiptUntilRegrant() async throws {
+        let (store, driver, day, suite) = setup()
+        defer { UserDefaults(suiteName: suite)?.removePersistentDomain(forName: suite) }
+        let engine = WaterExportSyncEngine(driver: driver, store: store)
+        let goal: HabitGoalMode = .quantity(count: 10)
+        let change3 = try await engine.reconcile(
+            habitID: habit, dayKey: day, goal: goal, count: 2
+        )
+        XCTAssertTrue(change3)
+        driver.authorized = false
+        do {
+            _ = try await engine.reconcile(habitID: habit, dayKey: day,
+                                           goal: goal, count: 3)
+            XCTFail("Revoked authorization must reject a new HealthKit write")
+        } catch WaterExportError.notAuthorized {
+            // Expected: the habit itself still exists; HealthKit is unchanged.
+        }
+        XCTAssertEqual(driver.upserts.map(\.ml), [500])
+        XCTAssertTrue(driver.removals.isEmpty)
+        XCTAssertEqual(store.receipt(habitID: habit, dayKey: day)?.millilitres, 500)
+
+        driver.authorized = true
+        let change4 = try await engine.reconcile(
+            habitID: habit, dayKey: day, goal: goal, count: 3
+        )
+        XCTAssertTrue(change4)
+        XCTAssertEqual(driver.upserts.map(\.ml), [500, 750])
+        XCTAssertEqual(driver.upserts.map(\.version), [1, 2])
+        XCTAssertEqual(store.receipt(habitID: habit, dayKey: day)?.millilitres, 750)
+        XCTAssertNil(store.pendingVersion(habitID: habit, dayKey: day))
+    }
+
+    func testTwoDaysExportIndependentlyAndUndoOnlyTargetDay() async throws {
+        let (store, driver, today, suite) = setup()
+        defer { UserDefaults(suiteName: suite)?.removePersistentDomain(forName: suite) }
+        let tomorrowDate = try XCTUnwrap(Calendar.current.date(
+            byAdding: .day, value: 1, to: .now
+        ))
+        let tomorrow = HabitDayKey.make(for: tomorrowDate)
+        XCTAssertNotEqual(today, tomorrow)
+        let engine = WaterExportSyncEngine(driver: driver, store: store)
+        let goal: HabitGoalMode = .quantity(count: 10)
+
+        let change5 = try await engine.reconcile(
+            habitID: habit, dayKey: today, goal: goal, count: 1
+        )
+
+        XCTAssertTrue(change5)
+        let change6 = try await engine.reconcile(
+            habitID: habit, dayKey: tomorrow, goal: goal, count: 2
+        )
+        XCTAssertTrue(change6)
+        XCTAssertEqual(Set(driver.upserts.map(\.id)).count, 2,
+                       "Days must have independent HealthKit sync identifiers")
+        XCTAssertEqual(driver.upserts.map(\.ml), [250, 500])
+        XCTAssertEqual(driver.upserts.map(\.version), [1, 1])
+
+        let change7 = try await engine.reconcile(
+            habitID: habit, dayKey: today, goal: goal, count: 0
+        )
+
+        XCTAssertTrue(change7)
+        XCTAssertEqual(driver.removals, [
+            WaterExportPlanning.syncIdentifier(habitID: habit, dayKey: today)
+        ])
+        XCTAssertNil(store.receipt(habitID: habit, dayKey: today))
+        XCTAssertEqual(store.receipt(habitID: habit, dayKey: tomorrow)?.millilitres, 500)
+    }
+
     func testDeleteFailureRetainsReceiptForLaterRetry() async throws {
         let (store, driver, day, suite) = setup()
         defer { UserDefaults(suiteName: suite)?.removePersistentDomain(forName: suite) }
