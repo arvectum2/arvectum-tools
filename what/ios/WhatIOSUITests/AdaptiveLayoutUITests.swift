@@ -6,6 +6,28 @@ final class AdaptiveLayoutUITests: XCTestCase {
     /// content_size accessibility-extra-extra-extra-large. It checks that
     /// the capture-first UX and empty-note editor remain usable without
     /// modifying camera/microphone permissions or writing new user notes.
+    func testCaptureAccessibilityLabelsAndActions() {
+        let app = XCUIApplication()
+        app.launch()
+        let record = app.buttons["what.record.primary"]
+        XCTAssertTrue(record.waitForExistence(timeout: 12))
+        XCTAssertTrue(
+            ["Начать запись", "Start recording"].contains(record.label),
+            "Primary VoiceOver element must describe audio capture"
+        )
+        let video = app.buttons["what.new.video"]
+        XCTAssertTrue(video.exists)
+        XCTAssertTrue(["Видео", "Video"].contains(video.label))
+        let text = app.buttons["what.new.text"]
+        XCTAssertTrue(text.exists)
+        XCTAssertTrue(
+            ["Создать текстовую заметку", "New text note"].contains(text.label)
+        )
+        XCTAssertTrue(record.isHittable)
+        XCTAssertTrue(video.isHittable)
+        XCTAssertTrue(text.isHittable)
+    }
+
     func testCaptureAlternativesAreDiscoverable() {
         let app = XCUIApplication()
         app.launch()

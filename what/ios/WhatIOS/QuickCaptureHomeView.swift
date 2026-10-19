@@ -232,9 +232,11 @@ struct QuickCaptureHomeView: View {
         }
         .accessibilityIdentifier("what.record.primary")
         .accessibilityLabel(isRussian ? "Начать запись" : "Start recording")
+        // VoiceOver activation is a double-tap. The video action is
+        // available in the accessibility actions menu, not via long-press.
         .accessibilityHint(isRussian
-            ? "Нажмите для аудио, удерживайте для видео"
-            : "Tap for audio, hold to record video")
+            ? "Двойное касание — аудиозапись. Для видео выберите действие «Видеозапись»."
+            : "Double-tap to record audio. Choose the Record video action for video.")
     }
 
     private var libraryButton: some View {
