@@ -1,5 +1,14 @@
 # What? — Product Roadmap
 
+## WH19-IPAD-A11Y · Максимальный системный текст на iPad (19.10.2026)
+
+- [x] На отдельном iPad-симуляторе `Arvectum-T5-iPad` вручную установлен **accessibility-extra-extra-extra-large** через `simctl ui content_size`, затем запущен воспроизводимый `AdaptiveLayoutUITests.testAccessibilityTextSizePreservesCaptureAndEmptyTextEditor`.
+- [x] **1/1 PASS:** основная большая круглая кнопка записи остаётся hittable, «+» открывает пустой текстовый редактор, `Готово` закрывает его без создания заметки, Inbox доступен, кнопка фильтра «Все» hittable и возврат к записи работает. На экране не требуются разрешения камеры/микрофона. После теста размер текста восстановлен к исходному `large`.
+- [x] Отдельный iPad rotation/navigation UI тест в том же релизном коде — 1/1 PASS. Общая поддержка iPad в `main`: `TARGETED_DEVICE_FAMILY=1,2`.
+- [ ] Реальные VoiceOver, Stage Manager, Split View и физический iPad здесь **не проверены**; тест максимального Dynamic Type не заменяет их.
+
+[Подробный протокол](docs/IPAD_ACCESSIBILITY_DYNAMIC_TYPE_QA_2026-10-19.md).
+
 ## Сводный светофор · исходный код main / QA · 19.10.2026
 
 Актуальные статусы, в отличие от исторических невыполненных M1–M7 и WH-D0–D3 ниже. Старые чекбоксы — снимок **плана**, а не достоверная оценка текущего `main`; наличие кода не означает доступность функции в опубликованной версии App Store.
