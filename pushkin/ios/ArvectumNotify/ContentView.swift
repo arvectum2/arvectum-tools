@@ -45,7 +45,7 @@ struct ContentView: View {
                 }
                 .tag(2)
         }
-        .tint(.arvectumMint)
+        .tint(.arvectumInteractiveTint)
         .task {
 #if DEBUG
             StoreScreenshotFixture.installIfRequested(into: modelContext)
@@ -169,7 +169,7 @@ private struct InboxView: View {
                                     systemImage: "wand.and.stars"
                                 )
                             }
-                            .buttonStyle(.borderedProminent)
+                            .buttonStyle(ArvectumPrimaryActionStyle())
                             .accessibilityIdentifier("setup-pushkin")
                         }
 
@@ -287,12 +287,16 @@ private struct InboxView: View {
         }
     }
 
+    private var pendingCoverageDisplayName: String {
+        PushkinDisplayName.brief(pendingCoverageTitle)
+    }
+
     private var pendingCoverageCard: some View {
         VStack(alignment: .leading, spacing: 10) {
             Label(
                 pendingCoverageVerified
                     ? pc("Test capture received")
-                    : String(format: pc("Finish adding %@"), pendingCoverageTitle),
+                    : String(format: pc("Finish adding %@"), pendingCoverageDisplayName),
                 systemImage: pendingCoverageVerified
                     ? "checkmark.seal.fill"
                     : "switch.2"
@@ -301,7 +305,7 @@ private struct InboxView: View {
 
             if pendingCoverageVerified {
                 Text(
-                    String(format: pc("PUSHKIN received a notification from %@. This confirms that source only; check the automation in Shortcuts."), pendingCoverageTitle)
+                    String(format: pc("PUSHKIN received a notification from %@. This confirms that source only; check the automation in Shortcuts."), pendingCoverageDisplayName)
                 )
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
@@ -324,7 +328,7 @@ private struct InboxView: View {
                         systemImage: "arrow.up.forward.app"
                     )
                 }
-                .buttonStyle(.borderedProminent)
+                .buttonStyle(ArvectumPrimaryActionStyle())
                 .accessibilityIdentifier("finish-coverage-automations")
             }
         }

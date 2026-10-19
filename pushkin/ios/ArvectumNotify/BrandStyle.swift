@@ -33,6 +33,16 @@ extension Color {
         }
     )
 
+    // Interactive controls must remain legible on light backgrounds.
+    // The brand mint on white has insufficient contrast for text and tab labels.
+    static let arvectumInteractiveTint = Color(
+        uiColor: UIColor { traits in
+            traits.userInterfaceStyle == .dark
+                ? UIColor(red: 67/255, green: 229/255, blue: 197/255, alpha: 1)
+                : UIColor(red: 0/255, green: 122/255, blue: 104/255, alpha: 1)
+        }
+    )
+
     static let arvectumBorder = Color(
         uiColor: UIColor { traits in
             traits.userInterfaceStyle == .dark
@@ -67,6 +77,34 @@ struct ArvectumBrandHeader: View {
         .frame(maxWidth: .infinity, alignment: .leading)
         .accessibilityElement(children: .combine)
         .accessibilityIdentifier("pushkin-brand-compact")
+    }
+}
+
+/// Main action: mint surface always pairs with dark navy content,
+/// even on dark appearance and when the default tint is different.
+struct ArvectumPrimaryActionStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .font(.subheadline.weight(.semibold))
+            .foregroundStyle(Color.arvectumNavy)
+            .padding(.horizontal, 16)
+            .frame(minHeight: 44)
+            .background(
+                Color.arvectumMint.opacity(configuration.isPressed ? 0.86 : 1),
+                in: Capsule()
+            )
+    }
+}
+
+/// Shorten only the *visible* pending-connection heading; preserve the full
+/// source name elsewhere for accurate coverage matching.
+enum PushkinDisplayName {
+    static func brief(_ officialName: String) -> String {
+        let trimmed = officialName.trimmingCharacters(in: .whitespacesAndNewlines)
+        let prefix = trimmed.split(separator: ":", maxSplits: 1).first
+            .map { String($0).trimmingCharacters(in: .whitespacesAndNewlines) }
+            ?? ""
+        return !prefix.isEmpty && prefix.count <= 28 ? prefix : trimmed
     }
 }
 

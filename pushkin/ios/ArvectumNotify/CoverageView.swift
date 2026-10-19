@@ -219,7 +219,7 @@ struct CoverageView: View {
         .background(Color.arvectumBackground)
         .navigationTitle(pc("Apps"))
         .navigationBarTitleDisplayMode(.inline)
-        .tint(.arvectumMint)
+        .tint(.arvectumInteractiveTint)
         .sheet(isPresented: $showAppPicker) {
             CoverageAppPicker { app in
                 recordQuickRefresh(app)
@@ -443,7 +443,7 @@ private struct ManualCoverageGuide: View {
         .background(Color.arvectumBackground)
         .navigationTitle(pc("Add Manually"))
         .navigationBarTitleDisplayMode(.inline)
-        .tint(.arvectumMint)
+        .tint(.arvectumInteractiveTint)
         .accessibilityIdentifier("manual-coverage-guide")
     }
 

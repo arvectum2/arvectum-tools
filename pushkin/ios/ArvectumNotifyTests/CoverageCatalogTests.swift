@@ -25,6 +25,15 @@ final class CoverageCatalogTests: XCTestCase {
         )
     }
 
+    func testPendingSourceNameIsBriefWithoutChangingSourceIdentity() {
+        XCTAssertEqual(
+            PushkinDisplayName.brief("CapCut: Photo & Video Editor"),
+            "CapCut"
+        )
+        XCTAssertEqual(PushkinDisplayName.brief("Telegram"), "Telegram")
+        XCTAssertEqual(PushkinDisplayName.brief("  "), "")
+    }
+
     func testProductionCatalogHasExactly1000UniqueApps() {
         let entries = CoverageCatalog.entries
         XCTAssertEqual(entries.count, 1000)
