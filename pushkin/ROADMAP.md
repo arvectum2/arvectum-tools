@@ -1,5 +1,13 @@
 # PUSHKIN — Product Roadmap
 
+## ВЫПОЛНЕНО · 19.10.2026 — релиз 1.0.1(4) в очереди Apple
+
+- [x] [PR #126](https://github.com/arvectum2/arvectum-tools/pull/126) **MERGED** (`22b0f69`), полный CI SUCCESS; signed IPA build **4**, источник `5876711`, iPhone-only. 20/20 физических unit/UI QA и 1/1 native signed Shortcut preview без импорта PASS.
+- [x] ASC Validate/Upload **SUCCEEDED**, обработка **VALID**, version **1.0.1**, build **4**, RU/en-US What's New и имеющиеся iPhone скриншоты/Review Detail. Review submission **WAITING_FOR_REVIEW**, version **WAITING_FOR_REVIEW**, release **MANUAL**; **не опубликовано**, публично ещё 1.0.
+- [ ] По реальной Shortcuts automation: QA-only файл был сгенерирован из шаблона с привязкой к QA App Intent, но Apple `shortcuts sign --mode anyone` отвечал `NSURLErrorDomain 500`; файл **не импортировали**. Read-only Automation XCTest не нашёл вкладку, **0 изменений личных автоматизаций**. Настоящая доставка через новую тестовую автоматизацию **не доказана**; не приписывать статусу WAITING_FOR_REVIEW готовность этого сценария.
+- [ ] После ответа Apple: вручную выпустить при одобрении, проверить наличие в RU storefront, подписанное in-place production upgrade и сохранность истории — **никакого uninstall/сброса**.
+
+
 ## Физическая приёмка iPhone 13 · обновлено 19.10.2026, 13:05 MSK
 
 - [x] Источник патча `1.0.1(4)` в независимом Apple Development QA bundle `ru.arvectum.tools.notify.physicalqa`: **17/17 unit + 3/3 UI = 20/20 PASS**, 0 errors. Поиск, удаление одной синтетической записи, очистка только тестовой истории, доступность подписанных пакетов.

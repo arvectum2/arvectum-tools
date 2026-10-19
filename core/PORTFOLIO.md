@@ -1,5 +1,13 @@
 # Arvectum Tools — Roadmap Registry
 
+## Актуальный статус публикаций · 19.10.2026
+
+- **Пушкин:** публично App Store **1.0**; **1.0.1(4) VALID + WAITING_FOR_REVIEW**, ручная публикация после одобрения, PR #126 merged. Содержимое уведомлений пользователя не копировалось.
+- **Ухват:** публично **1.1.0**; QA-исправления в `main`, физический 420s+background PASS, новая бинарная версия не подана Apple.
+- **ChickMark:** публично **1.5.0**; native HealthKit water экспорт реализован и интегрирован в `main` (PR #94), личные/production данные не изменены, новая версия не отправлена.
+- **Фото/PDF:** публично **1.0.1**, без изменений; **Where?** остаётся на паузе.
+
+
 ## Physical gate checkpoint · 19.10.2026
 
 Подключённый iPhone 13: **Pushkin 20/20 physical unit/UI + 1/1 native signed Shortcut preview**; Ухват **420 s continuous capture + playable MOV with audio**, 18 QA notes preserved on update; ChickMark **15/15 physical QA** (13 fake HealthKit sync + 2 UI), реальный HealthKit одноразовый QA журнал неизменён и clean. Все доказательства в локальных app roadmaps. **Ни одна App Store версия не обновлялась.**

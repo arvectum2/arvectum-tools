@@ -1,5 +1,18 @@
 # Arvectum Tools — план исполнения без Where?
 
+## Текущий светофор · 19 октября 2026, после App Review submission
+
+- [x] **Пушкин (публично 1.0)** — crashfix+Shortcuts **1.0.1(4)**: App Store validation+upload PASS, build 4 `VALID`, RU/EN What's New, iPhone screenshots и App Review contact сверены; **review submission в `WAITING_FOR_REVIEW`**, manual release. [PR #126 MERGED](https://github.com/arvectum2/arvectum-tools/pull/126). В App Store **1.0.1 ещё НЕ опубликована**.
+- [x] **Ухват (публично 1.1.0)** — [PR #128 MERGED](https://github.com/arvectum2/arvectum-tools/pull/128), physical 420s continuous capture + playable аудио/видео, безопасный QA update 18/18; дополнительно 3 реальных смены камеры → background → новое сохранённое MOV 25.56s, 0 утраченных прежних заметок. [Evidence](../what/docs/PHYSICAL_BACKGROUND_3_FLIPS_BUILD9_2026-10-19.md).
+- [x] **ChickMark (публично 1.5.0)** — [PR #94 MERGED](https://github.com/arvectum2/arvectum-tools/pull/94) в `main`; CI full pass; opt-in HealthKit `dietaryWater` OFF по умолчанию. Physical 15/15 (13 fake-sync+2 UI), и **реальный HealthKit** 250→500→0→750→0 мл: `completedClean`, 0 owned residual; repeat launch no writes. [Evidence](../chickmark/docs/PHYSICAL_WATER_EDIT_UNDO_2026-10-19.md).
+- [ ] **Пушкин gate после ревью** — настоящая временная Shortcuts automation с доставкой: не доказана; Apple signing нового QA-only shortcut ответил HTTP/URL `500`, read-only Automation UI недоступен тесту. Пользовательские Shortcuts **не изменялись**; public production migration также не проверена.
+- [ ] **ChickMark gate следующего бинарника** — live check-in/edit/undo через **реальный UI**, физическое Settings revoke→regrant, безопасный production/Watch/CloudKit upgrade. Категория Productivity только в новой редактируемой App Store версии (для published 1.5.0 ASC вернул 409). Пока **не отправлен в App Review**.
+- [ ] **Ухват дальнейший gate** — входящий звонок/сложные interruption, 30+ минут и физический Watch offline/reboot, безопасное обновление production bundle; **не** делать разрушительные тесты на личных данных.
+- [ ] **Growth** — [arvectum-site PR #15](https://github.com/arvectum2/arvectum-site/pull/15), новые страницы в исходниках, деплой требует устранения прежних `/schlam` CI проблем.
+
+**Ни один прежний блок ниже не считать актуальным статусом выпуска без сверки с этим срезом.**
+
+
 ## Практическая приёмка на подключённом iPhone · 19.10.2026, 13:05 MSK
 
 - [x] **Pushkin**: signed RC 1.0.1(4) на Mac mini, 20/20 physical synthetic QA PASS + 1/1 native signed Shortcut pre-import preview PASS; пользовательские Shortcuts НЕ изменены. [PR #126](https://github.com/arvectum2/arvectum-tools/pull/126). *Gate:* настоящий Shortcut notification capture, миграция Store-данных.

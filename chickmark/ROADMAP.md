@@ -1,5 +1,13 @@
 # ChickMark — актуальная дорожная карта
 
+## ВЫПОЛНЕНО · 19.10.2026 — native HealthKit вода интегрирована
+
+- [x] [PR #94](https://github.com/arvectum2/arvectum-tools/pull/94) **MERGED** (`b189a6a`), полный GitHub CI SUCCESS. Export `dietaryWater` в `main` с per-habit explicit opt-in OFF, отдельным выбором 10…1000 мл, RU/EN/ES и точным own-ID delete; **публичный бинарник 1.5.0 функции не содержит**.
+- [x] Physical iPhone13 QA: 13 fake HealthKit sync+2 UI = **15/15 PASS**; одноразовый реальный HealthKit `WaterHealthKitWriter` + production sync engine **250→500→0→750→0** мл PASS; journal `completedClean`, **0 own residual**; второй запуск не повторил запись. [Доказательства](docs/PHYSICAL_WATER_EDIT_UNDO_2026-10-19.md).
+- [ ] Осталось до App Review: проверка настоящего **UI** habit check-in→undo с HealthKit, iOS Settings revoke/regrant и безопасный переход личной базы/CloudKit/Watch. Эти сценарии **не** объявлять пройденными на основании engine-level QA.
+- [ ] Сменить категорию App Store c Health & Fitness на **Productivity** в следующем *редактируемом* версии: published 1.5.0 API PATCH вернул 409. Новую версию и загрузку бинарника не создавать без отдельной полной приёмки.
+
+
 ## CM18-3 · физический iPhone 13, 19.10.2026
 
 - [x] `ChickMark Water QA` `1.5.0(202)` на iPhone, **13/13 fake HealthKit sync + 2/2 UI = 15/15 PASS**, без ошибок/пропусков. Unit включают multi-checkin 250→500→750 мл, undo/reentry, revoke→regrant mock и раздельные дни; UI проверяет включение только по явному согласию и безопасный отказ. [Протокол](docs/PHYSICAL_WATER_QA_2026-10-19.md), [draft PR #94](https://github.com/arvectum2/arvectum-tools/pull/94).

@@ -1,5 +1,12 @@
 # What? — Product Roadmap
 
+## ВЫПОЛНЕНО · 19.10.2026 — видео и background
+
+- [x] [PR #128 MERGED](https://github.com/arvectum2/arvectum-tools/pull/128), физические QA **420 секунд**, работа MOV writer до 118,678,546 байт и сохранение playable **434.885s MOV с аудио+видео**; in-place QA 8→9: 18 прежних заметок побайтово сохранены.
+- [x] Дополнительно физический QA после 3 смен front/back и ухода через Settings в `ScenePhase.background`: **одна** заметка 25.56s, все 19 предшествующих QA ID сохранены; [акт испытания](docs/PHYSICAL_BACKGROUND_3_FLIPS_BUILD9_2026-10-19.md). **Публичная App Store версия остаётся 1.1.0**.
+- [ ] Ещё необходимы именно физический звонок, аппаратный Watch offline/reboot, длительные 30+ мин в контролируемой среде и неразрушающее production upgrade. Не приписывать их успешным штатным foreground/background тестам.
+
+
 ## Длинное видео · физический iPhone 13, 19.10.2026
 
 - [x] **Реальная 420-секундная foreground AVFoundation запись SUCCESS** после прошлого ~340-секундного обрыва: на 420 с `sessionRunning=true, writerRecording=true`, MOV вырос до **118,678,546 байт**. Нативный callback сохранил одно новое видео, фактическая длительность индекса **434.885 с**.
