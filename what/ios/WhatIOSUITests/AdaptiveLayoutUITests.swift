@@ -28,6 +28,30 @@ final class AdaptiveLayoutUITests: XCTestCase {
         XCTAssertTrue(text.isHittable)
     }
 
+#if compiler(>=6.4)
+    @MainActor
+    func testActualVoiceOverCaptureSpeech() throws {
+        guard #available(iOS 27.0, *) else {
+            throw XCTSkip("Actual VoiceOver requires iOS 27")
+        }
+        let app = XCUIApplication()
+        app.launchArguments = ["-AppleLanguages", "(ru)", "-AppleLocale", "ru_RU"]
+        app.launch()
+        XCTAssertTrue(app.buttons["what.record.primary"].waitForExistence(timeout: 12))
+        let service = XCUIDevice.shared.voiceOverService
+        defer { _ = try? service.disable() }
+        _ = try? service.disable()
+        _ = try service.enable()
+        var spoken = [try service.currentSpeech().utterance]
+        for _ in 1..<7 { spoken.append(try service.moveForward().utterance) }
+        print("WHAT_VOICEOVER_SPEECH=\(spoken)")
+        XCTAssertTrue(spoken.contains {
+            $0.localizedCaseInsensitiveContains("Начать запись") ||
+            $0.localizedCaseInsensitiveContains("Start recording")
+        }, "VoiceOver should reach the primary audio action")
+    }
+#endif
+
     func testCaptureAlternativesAreDiscoverable() {
         let app = XCUIApplication()
         app.launch()

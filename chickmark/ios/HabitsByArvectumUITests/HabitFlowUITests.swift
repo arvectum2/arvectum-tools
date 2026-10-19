@@ -743,6 +743,25 @@ final class HabitFlowUITests: XCTestCase {
 
 #if compiler(>=6.4)
     @MainActor
+    func testVoiceOverTodayShortSpeechSmoke() throws {
+        guard #available(iOS 27.0, *) else {
+            throw XCTSkip("VoiceOver speech service requires iOS 27")
+        }
+        launchSeededDemo()
+        let service = XCUIDevice.shared.voiceOverService
+        defer { _ = try? service.disable() }
+        _ = try? service.disable()
+        _ = try service.enable()
+        var spoken = [try service.currentSpeech().utterance]
+        for _ in 1..<6 { spoken.append(try service.moveForward().utterance) }
+        print("CHICKMARK_VOICEOVER_TODAY=\(spoken)")
+        XCTAssertTrue(spoken.contains { $0.localizedCaseInsensitiveContains("Today") })
+        XCTAssertTrue(spoken.contains { $0.localizedCaseInsensitiveContains("Manage habits") })
+    }
+#endif
+
+#if compiler(>=6.4)
+    @MainActor
     func testVoiceOverCoreNavigationOnIOS27() throws {
         guard #available(iOS 27.0, *) else {
             throw XCTSkip("XCUIVoiceOverService requires iOS 27+")

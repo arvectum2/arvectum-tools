@@ -7,9 +7,6 @@ final class AdaptiveLayoutUITests: XCTestCase {
 #if compiler(>=6.4)
     @MainActor
     func testVoiceOverHistorySpeechWithoutDecorativeSearchIcon() throws {
-        guard ProcessInfo.processInfo.environment["ARVECTUM_VOICEOVER_QA"] == "1" else {
-            throw XCTSkip("Opt-in VoiceOver service QA; isolated simulator only")
-        }
         guard #available(iOS 27.0, *) else {
             throw XCTSkip("VoiceOver service requires iOS 27")
         }
