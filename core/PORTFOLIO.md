@@ -1,5 +1,10 @@
 # Arvectum Tools — Roadmap Registry
 
+## Исполнение после публикаций · 19.10.2026
+
+[Рабочая очередь](EXECUTION_PLAN.md): Pushkin 1.0.1(4) signed candidate, [draft PR #126](https://github.com/arvectum2/arvectum-tools/pull/126), **не App Store**; HealthKit water live QA отдельно доказана на одном тестовом образце, PR #94 draft; Ухват — остаётся физический long-video gate. Публичные версии не изменились.
+
+
 ## Актуальный публичный срез · 19.10.2026
 
 [Сверка Apple RU storefront и следующая исполняемая очередь](docs/PUBLIC_RELEASE_RECONCILIATION_2026-10-19.md): **Pushkin 1.0, Ухват 1.1.0 и ChickMark 1.5.0 опубликованы**, прямой публичный Apple Lookup API. **Фото/PDF 1.0.1** без новой версии; **Where? на паузе**.

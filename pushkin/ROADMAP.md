@@ -1,5 +1,12 @@
 # PUSHKIN — Product Roadmap
 
+## Исполнение P0 · 19.10.2026 — подписанный patch без отправки Apple
+
+- [x] **PS19-1a · Локальный RC:** отдельная ветка [release/pushkin-1.0.1-build4-20261019](https://github.com/arvectum2/arvectum-tools/tree/release/pushkin-1.0.1-build4-20261019), [draft PR #126](https://github.com/arvectum2/arvectum-tools/pull/126). Собраны и проверены signed archive + IPA **1.0.1(4)**, iPhone-only, 1001 shortcuts, Apple Distribution и SHA-256; source commit `5876711`. [Release provenance](https://github.com/arvectum2/arvectum-tools/blob/release/pushkin-1.0.1-build4-20261019/pushkin/docs/RELEASE_PATCH_1_0_1_BUILD4_20261019.md).
+- [x] **PS19-1b · Code QA:** новый patch `build-for-testing` PASS, **17/17 unit PASS**. Предыдущая физическая изолированная QA 18.10: **17 unit + 3 UI PASS** (реальные пользовательские уведомления не трогали).
+- [ ] **PS19-1c · Gate:** новый simulator UI-запуск неоднократно **BUILD INTERRUPTED**, не PASS. GitHub PR CI пока исполняется; настоящие Shortcuts/App Intents и тестовая доставка уведомления с сохранением истории требуют согласованной физической проверки. **IPA не загружать в ASC и не отправлять на review до прохождения gate.**
+
+
 ## Текущий публичный статус и P0 · 19.10.2026
 
 - [x] **PS19-0 · Опубликовано:** Apple RU storefront возвращает **Pushkin 1.0** (дата Apple 18.10.2026 21:34:41 UTC). [Публичная карточка](https://apps.apple.com/ru/app/id6817847111); [общий аудит](../core/docs/PUBLIC_RELEASE_RECONCILIATION_2026-10-19.md). Старые ожидания Apple ниже — исторические срезы.
