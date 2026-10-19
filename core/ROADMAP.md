@@ -2,9 +2,11 @@
 
 ## 19.10.2026 — необязательное обновление App Store (Core, единая задача)
 
+**Статус: интегрировано в `main`.** [PR #133](https://github.com/arvectum2/arvectum-tools/pull/133) MERGED, squash `08107c3`; [техническая приёмка](docs/APP_STORE_UPDATE_INTEGRATION_2026-10-19.md). Это не новая публикация в App Store.
+
 - [x] Проверка опубликованной версии по Apple Lookup API при запуске, сравнение с установленной; диалог «Обновить» / «Позже», без принуждения и без блокировки офлайн. SwiftPM Core: 19/19 PASS.
-- [x] Подключено к iOS ChickMark, Pushkin, Фото/PDF и Ухват; Xcode 27.1 iOS Simulator build всех четырёх: 4/4 PASS (19.10.2026).
-- [ ] Реальная публикация каждого приложения остаётся независимой; Where? после возобновления, Android потребует отдельного Google Play flow.
+- [x] Подключено к iOS ChickMark, Pushkin, Фото/PDF и Ухват; Xcode 27.1 iOS Simulator build всех четырёх: 4/4 PASS и watchOS 2/2 PASS (19.10.2026).
+- [ ] Физический UI E2E предложения на реальном устройстве и отдельные согласованные релизы четырёх приложений; Where? после возобновления, Android — отдельный Google Play flow.
 
 
 ## 19.10.2026, вечер — Core: release provenance и адаптация
