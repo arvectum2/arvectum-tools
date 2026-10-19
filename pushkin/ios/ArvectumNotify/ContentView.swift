@@ -112,7 +112,12 @@ private struct InboxView: View {
                         Image(systemName: "magnifyingglass")
                             .foregroundStyle(.secondary)
 
-                        TextField(pc("Search notifications"), text: $searchText)
+                        TextField(
+                            "",
+                            text: $searchText,
+                            prompt: Text(pc("Search notifications"))
+                                .foregroundStyle(Color.arvectumSearchHint)
+                        )
                             .textInputAutocapitalization(.never)
                             .autocorrectionDisabled()
 

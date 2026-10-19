@@ -43,6 +43,17 @@ extension Color {
         }
     )
 
+    // A hint must stay readable against light white and dark graphite
+    // input surfaces. SwiftUI's default placeholder can be too dim on
+    // custom dark backgrounds.
+    static let arvectumSearchHint = Color(
+        uiColor: UIColor { traits in
+            traits.userInterfaceStyle == .dark
+                ? UIColor(red: 197/255, green: 210/255, blue: 224/255, alpha: 1)
+                : UIColor(red: 82/255, green: 96/255, blue: 111/255, alpha: 1)
+        }
+    )
+
     static let arvectumBorder = Color(
         uiColor: UIColor { traits in
             traits.userInterfaceStyle == .dark
