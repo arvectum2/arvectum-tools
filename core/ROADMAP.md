@@ -13,6 +13,7 @@
 - [x] D2/P1 Ухват: видимые Видео/Текст, один hint, склонение счётчика, library identifier, обновлённые UI-тесты; build, два UI и AXXXL UI PASS. Физический VoiceOver/iPad открыты.
 - [x] D2/P1 ChickMark: семантически точный «Отмечено: N из M» для RU/EN/ES, Simulator BUILD и 2/2 localization unit PASS.
 - [ ] D2/P1 ChickMark: AXXXL core navigation UI PASS; отдельно остаются проверка добавления и VoiceOver.
+- [x] D3/P1 Pushkin: AXXXL onboarding/coverage и settings/privacy — 2 UI PASS, исправлена маленькая область нажатия в верхнем toolbar переносом явной кнопки 48pt вне скролла. Остальные VoiceOver и физические QA открыты.
 - [ ] D3/P1: product UX QA (VoiceOver, Dynamic Type, тёмная тема, reduce motion) и отдельные UI PR для каждого приложения.
 - [ ] D4: интеграция Core после review и независимые продуктовые релизы только по явному разрешению владельца.
 - [ ] D5: Where? остается на паузе: только принципы в документе, не реализация.

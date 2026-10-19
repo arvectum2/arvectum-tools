@@ -28,6 +28,20 @@ struct SetupGuideView: View {
                     .padding(.top, 8)
                     .padding(.bottom, 6)
 
+                NavigationLink {
+                    CoverageView()
+                } label: {
+                    Label(pc("Add or manage apps"), systemImage: "plus.app")
+                        .font(.subheadline.weight(.semibold))
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.85)
+                        .frame(maxWidth: .infinity)
+                        .frame(minHeight: 48)
+                }
+                .accessibilityIdentifier("setup-quick-add")
+                .padding(.horizontal, 14)
+                .padding(.bottom, 6)
+
                 List {
                     overviewSection
                     basePackageSection

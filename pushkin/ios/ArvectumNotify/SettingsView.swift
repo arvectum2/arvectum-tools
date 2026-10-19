@@ -88,6 +88,7 @@ struct SettingsView: View {
                 Label(pc("Delete all history"), systemImage: "trash")
             }
             .disabled(notifications.isEmpty)
+            .accessibilityIdentifier("pushkin.settings.clear-history")
         }
     }
 
@@ -112,6 +113,7 @@ struct SettingsView: View {
             Link(destination: privacyURL) {
                 Label(pc("Privacy policy"), systemImage: "hand.raised.fill")
             }
+            .accessibilityIdentifier("pushkin.settings.privacy-policy")
 
             LabeledContent(pc("Product"), value: "PUSHKIN")
             LabeledContent(pc("Developer"), value: "Arvectum")

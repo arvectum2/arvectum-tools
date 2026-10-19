@@ -22,7 +22,7 @@ final class MinimalUXUITests: XCTestCase {
 
         let settings = app.tabBars.buttons["Настройки"].firstMatch
         settings.tap()
-        XCTAssertTrue(app.staticTexts["На этом iPhone"].firstMatch
+        XCTAssertTrue(app.staticTexts["На iPhone"].firstMatch
             .waitForExistence(timeout: 8))
     }
 

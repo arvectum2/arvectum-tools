@@ -66,6 +66,7 @@ extension Color {
 /// primary screen heading; never consume a full-width row for a logo.
 struct ArvectumBrandHeader: View {
     let productName: String
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     var body: some View {
         HStack(spacing: 8) {
@@ -81,6 +82,8 @@ struct ArvectumBrandHeader: View {
         }
         .padding(.horizontal, 12)
         .frame(height: 34)
+        // Keep decorative branding inside its fixed-height chip at AXXXL.
+        .dynamicTypeSize(dynamicTypeSize.isAccessibilitySize ? .xxxLarge : dynamicTypeSize)
         .background(
             Color.arvectumNavy,
             in: RoundedRectangle(cornerRadius: 12, style: .continuous)
@@ -184,8 +187,8 @@ enum PushkinCopy {
         "Empty": "Нет данных",
         "Apps & Setup": "Источники",
         "Before you start": "Перед началом",
-        "PUSHKIN works through Apple Shortcuts": "Пушкин работает через «Команды»",
-        "iOS does not allow PUSHKIN to read every app's notifications or turn on automations itself. You control which apps are included.": "iOS не разрешает Пушкину читать все уведомления или включать автоматизации самостоятельно. Вы выбираете источники в приложении «Команды».",
+        "PUSHKIN works through Apple Shortcuts": "Через «Команды»",
+        "iOS does not allow PUSHKIN to read every app's notifications or turn on automations itself. You control which apps are included.": "Пушкин не читает уведомления напрямую. Выберите приложения и включите автоматизацию в «Командах».",
         "The base shortcut includes 1,000 entries. Only apps recognized by Shortcuts when you configure the automation can send captures.": "Базовая команда содержит 1 000 вариантов приложений. Сработать смогут только те, которые «Команды» распознали при настройке.",
         "1. Add PUSHKIN": "1. Добавьте команду",
         "Open base shortcut in Shortcuts": "Открыть базовую команду",
@@ -218,10 +221,10 @@ enum PushkinCopy {
         "Delete All": "Удалить всё",
         "This cannot be undone. PUSHKIN setup and app coverage stay intact.": "Восстановить историю не получится. Настройки подключения источников сохранятся.",
         "Couldn’t clear history": "Не удалось очистить историю",
-        "On this iPhone": "На этом iPhone",
-        "Notifications saved": "Сохранено уведомлений",
-        "Notification content stays on this device": "Содержимое хранится на устройстве",
-        "Everything stays on this iPhone. No account, cloud sync, ads or analytics in version 1.0.": "Данные уведомлений остаются на этом iPhone. Нет учётной записи, синхронизации с облаком, рекламы или аналитики.",
+        "On this iPhone": "На iPhone",
+        "Notifications saved": "Уведомлений",
+        "Notification content stays on this device": "Только на iPhone",
+        "Everything stays on this iPhone. No account, cloud sync, ads or analytics in version 1.0.": "Уведомления хранятся на iPhone. Без аккаунта, синхронизации с облаком, рекламы и аналитики.",
         "Delete all history": "Удалить всю историю",
         "Help & feedback": "Помощь и обратная связь",
         "Support and missing-app requests": "Поддержка и новые источники",
