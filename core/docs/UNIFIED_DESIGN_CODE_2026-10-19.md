@@ -208,3 +208,17 @@
 - Два теста VoiceOver истории/настроек и системный Accessibility Audit оставлены opt-in через ARVECTUM_VOICEOVER_QA=1 и ARVECTUM_ACCESSIBILITY_AUDIT_QA=1. Штатный UI suite не должен из-за них прерываться без специального включения.
 - Ухват: исправлена accessibilityHint первичной кнопки (двойное касание для аудио, action Видеозапись для видео); UITest audio/video/text labels and tappability PASS. Build-for-testing Ухвата и Пушкина PASS.
 - Открыто: независимый полный VoiceOver на всех 4 продуктах, реальные жесты/rotor и физическая приёмка, системный аудит второстепенных экранов. Никаких пользовательских настроек не меняли.
+
+
+## 14. VoiceOver acceptance · 20.10.2026
+
+Среда: изолированный iPhone 17 Pro simulator iOS 27, Xcode 27.1, Mac mini volume 0, user iPhone не трогали. Все четыре теста реально использовали XCUIDevice.shared.voiceOverService для получения utterances, а не только accessibility properties.
+
+- Ухват: testActualVoiceOverCaptureSpeech PASS 21.207s, произнесены Ухват, Создать текстовую заметку, Ухвати мысль, Начать запись с корректной подсказкой для VoiceOver, Видео. Файл what-voiceover-speech-short-20261020.log.
+- ChickMark: testVoiceOverTodayShortSpeechSmoke PASS 26.017s, произнесены ChickMark, Manage habits, Add, Today Marked: 0 of 2, 0%, Reading, Mark complete. Файл chickmark-voiceover-speech-short-20261020.log.
+- Фото/PDF: testActualVoiceOverPhotoResultSpeech PASS 26.176s после скрытия декоративных Wordmark/Preview. Озвучены На главный экран, ГОТОВО, Изменить настройки, Фото подготовлено, До, После, размер. Без лишнего Image. Файл photo-voiceover-speech-rebooted-20261020.log. PDF отдельно действительно произнёс PDF уже подходит, До, 249 КБ, После, но runner завершился BUILD INTERRUPTED: для PDF теста PASS нет.
+- Пушкин: testVoiceOverHistorySpeechWithoutDecorativeSearchIcon PASS 20.476s. Озвучены PUSHKIN История, Подключить приложение, PUSHKIN, Поиск уведомлений и статус CapCut без исходного Search Image. Файл pushkin-voiceover-short-4app-20261020.log.
+- PDF VoiceOver test оставлен opt-in через ARVECTUM_VOICEOVER_QA=1, поскольку отдельные запуски нестабильны; не запускать в стандартном CI до стабилизации среды.\n- Короткие VoiceOver smoke tests PASS для 4 из 4 приложений, но НЕ полный аудит доступности. Открыты все secondary screens, VoiceOver gestures/rotor, PDF test PASS, системный performAccessibilityAudit и physical-device QA. Длинный VoiceOver Settings Пушкина и системный аудит opt-in; короткий History теперь обычный тест.
+- При BUILD INTERRUPTED симулятор может сохранить VoiceOverTouchEnabled=1; перезапускать и выключать только выделенный QA-симулятор, проверять VoiceOverTouchEnabled=0. Не менять реальные пользовательские accessibility settings.
+
+Исходники и результаты только на ArvectumSSD, main и App Store не затронуты.

@@ -9,12 +9,12 @@
 - [x] D1/P0 Pushkin: корректное описание охвата, RU/EN главных экранов; Debug iOS Simulator BUILD, 5 unit + 5 UI PASS. Не опубликовано.
 - [x] D1/P0 Фото/PDF: CTA вне ScrollView, iPhone 17 Pro normal 2/2 PASS, iPhone SE normal 2/2 PASS и AXXXL 2/2 PASS; скриншоты проверены.
 - [x] D1/P1 Фото/PDF: Files exporter фото/PDF 2/2 E2E PASS, сообщение после успешной записи, unit распознавания Cancel PASS; рекламная геометрия loaded/no-fill 2/2 UI PASS, доступность consent при AXXXL PASS. Live РСЯ и физические QA gates открыты.
-- [x] D1/P1 Pushkin: компактный хедер, mint+navy CTA, читаемые акценты, контрастный placeholder; 1 unit + 2 UI PASS, Dark + Increase Contrast screenshot PASS, Simulator BUILD PASS. Secondary views / VoiceOver / Dynamic Type открыты.
+- [x] D1/P1 Pushkin: контраст, компактный хедер, onboarding UX, unit/UI PASS и отдельный VoiceOver истории 1/1 PASS; secondary views и полная навигация/VoiceOver открыты.
 - [x] D2/P1 Ухват: видимые Видео/Текст, один hint, склонение счётчика, library identifier, обновлённые UI-тесты; build, два UI и AXXXL UI PASS. Физический VoiceOver/iPad открыты.
 - [x] D2/P1 ChickMark: семантически точный «Отмечено: N из M» для RU/EN/ES, Simulator BUILD и 2/2 localization unit PASS.
-- [ ] D2/P1 ChickMark: AXXXL core navigation UI PASS; отдельно остаются проверка добавления и VoiceOver.
+- [ ] D2/P1 ChickMark: AXXXL core navigation и короткий VoiceOver Today PASS; остаются создание, rotor/gestures, физический QA.
 - [x] D3/P1 Pushkin: AXXXL onboarding/coverage и settings/privacy — 2 UI PASS, исправлена маленькая область нажатия в верхнем toolbar переносом явной кнопки 48pt вне скролла. Остальные VoiceOver и физические QA открыты.
-- [x] D3/P1 VoiceOver: реальный сервис VoiceOver в Пушкине выявил и после исправления перестал произносить лишнюю декоративную Search Image; фразы подтверждены журналом, но runner INTERRUPTED (не PASS). Ухват: VoiceOver hint и label UI PASS.
+- [x] D3/P1 VoiceOver: реальные короткие тесты XCUIVoiceOverService iOS 27 **4/4 приложений PASS** (Пушкин/История, Ухват/Capture, ChickMark/Today, Фото-PDF/фото). Исправлены Search Image Пушкина и безымянные изображения Фото/PDF. PDF-результат произнесён, но тестовый раннер INTERRUPTED; не PASS.
 - [ ] D3/P1 Полные opt-in VoiceOver/a11y audits, второстепенные экраны и физическая проверка открыты.
 - [ ] D3/P1: product UX QA (VoiceOver, Dynamic Type, тёмная тема, reduce motion) и отдельные UI PR для каждого приложения.
 - [ ] D4: интеграция Core после review и независимые продуктовые релизы только по явному разрешению владельца.

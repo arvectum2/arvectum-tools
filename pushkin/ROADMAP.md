@@ -2,8 +2,8 @@
 
 ### UX/дизайн-код: очередь D1 (19.10.2026, план)
 
-- [x] VoiceOver iOS 27: реальные произнесённые элементы истории получены через XCTest VoiceOverService; обнаружена лишняя остановка Search Image, лупа помечена декоративной; следующий журнал озвучивания подтверждает отсутствие Search Image. Полный прогон INTERRUPTED, не PASS.
-- [ ] Повторить реальный VoiceOver и системный Accessibility Audit при стабильной среде; тесты opt-in. Физический iPhone не затрагивался.
+- [x] VoiceOver iOS 27: короткий тест реального озвучивания истории через XCUIVoiceOverService PASS, исправлен Search Image. Названия истории, поиска, добавления и подключения CapCut произносятся корректно.
+- [ ] Проверить полный VoiceOver setup/settings/Shortcuts и системный Accessibility Audit. История коротко PASS; Settings/audit остаются opt-in.
 
 - [x] P1: AXXXL-навигaция и настройки: Setup → каталог через всегда видимую 48pt кнопку, настройки → политика конфиденциальности; два независимых UI-теста PASS на iPhone 17 Pro Simulator. Реальный VoiceOver и физические устройства отдельно.
 

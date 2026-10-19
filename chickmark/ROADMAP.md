@@ -1,6 +1,7 @@
 # ChickMark — актуальная дорожная карта
 
 ### UX/дизайн-код: очередь D2 (19.10.2026, план)
+- [x] iPhone 17 Pro iOS 27: реальный VoiceOver Today PASS. Произносит ChickMark, Manage habits, Add, Today Marked: 0 of 2, 0%, Reading, Mark complete. Полный rotor/physical QA открыт.
 
 - [x] Из-за семантики resolvedCount (выполнено или пропущено) используется «Отмечено: N из M»; EN/ES/RU, VoiceOver-значение и unit-тест 2/2 PASS, Simulator BUILD PASS.
 - [ ] Проверить, нужен ли прямой первый шаг «Новая привычка» при сохранении разового напоминания; без предварительного переписывания навигации.

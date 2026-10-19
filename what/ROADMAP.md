@@ -3,7 +3,7 @@
 ### UX/дизайн-код: очередь D2 (19.10.2026, план)
 
 - [x] VoiceOver: подсказка аудио объясняет двойное касание и действие Видеозапись вместо удержания; проверка audio/video/text accessibility labels на iPhone 17 Pro Simulator PASS.
-- [ ] Озвучивание через VoiceOverService в Ухвате и физическая проверка Watch/iPhone открыты.
+- [x] XCUIVoiceOverService на iPhone 17 Pro iOS 27: короткий VoiceOver аудио/видео/текста PASS, включая исправленную подсказку. [ ] Полная проверка редактора, Watch и физического VoiceOver открыта.
 
 - [x] Кнопки «Видео» и «Текст» видны на Home; мгновенное аудио и long-press сохранены (BUILD + UI discoverability + long-press PASS).
 - [x] Дублированную инструкцию убрали; в компактной раскладке HStack → VStack. iPhone 17 Pro AXXXL UI PASS: аудио, текст, пустой редактор, библиотека. iPad/Duo/физический VoiceOver ещё открыты.
