@@ -20,3 +20,11 @@ Next safe steps:
 5. No IPA upload, TestFlight, App Review or Apple release without fresh explicit owner permission. Public Pushkin 1.0, attempted 1.0.1(4) withdrawn; future authorized distribution setting should be AFTER_APPROVAL.
 
 Evidence, iOS screenshots and log output: /Volumes/ArvectumSSD/Arvectum/tmp/pushkin-temporary-automation-20261019.
+
+## Additional physical QA result at 16:19 Moscow time
+
+- Exactly one shortcut named "Новая команда 4", zero actions, UUID 84D2754E-B585-4D91-AD51-582212D4C174; confirmed using AppleScript. MacBook Air and Mac mini both still list exactly one such Shortcut.
+- AppleScript delete on the EXACT UUID returned success but had no effect. The shortcut remains and cleanup is NOT completed.
+- iPhone now launches the signed XCTest runner, but security UI prompts for the iPhone passcode to Enable UI Automation. XCTest timed out without obtaining this permission, and did not reach the deletion action.
+- A deletion-specific QA XCTest is prepared in the isolated nonproduction worktree. Once owner authorizes automation using their passcode on the iPhone itself, retry the exact cleanup, verify the iCloud item disappears on both Macs and confirm old automations remain unchanged.
+- No active QA automation was created, no user automations edited, no App Store submission/upload took place.
