@@ -14,6 +14,8 @@
 - [x] D2/P1 ChickMark: семантически точный «Отмечено: N из M» для RU/EN/ES, Simulator BUILD и 2/2 localization unit PASS.
 - [ ] D2/P1 ChickMark: AXXXL core navigation UI PASS; отдельно остаются проверка добавления и VoiceOver.
 - [x] D3/P1 Pushkin: AXXXL onboarding/coverage и settings/privacy — 2 UI PASS, исправлена маленькая область нажатия в верхнем toolbar переносом явной кнопки 48pt вне скролла. Остальные VoiceOver и физические QA открыты.
+- [x] D3/P1 VoiceOver: реальный сервис VoiceOver в Пушкине выявил и после исправления перестал произносить лишнюю декоративную Search Image; фразы подтверждены журналом, но runner INTERRUPTED (не PASS). Ухват: VoiceOver hint и label UI PASS.
+- [ ] D3/P1 Полные opt-in VoiceOver/a11y audits, второстепенные экраны и физическая проверка открыты.
 - [ ] D3/P1: product UX QA (VoiceOver, Dynamic Type, тёмная тема, reduce motion) и отдельные UI PR для каждого приложения.
 - [ ] D4: интеграция Core после review и независимые продуктовые релизы только по явному разрешению владельца.
 - [ ] D5: Where? остается на паузе: только принципы в документе, не реализация.

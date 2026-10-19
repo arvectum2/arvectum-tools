@@ -196,3 +196,15 @@
 - Первый тест выявил 36pt фактическую область кнопки в toolbar. Пытались увеличить frame до 48pt, но системный layout сжал tappable size. Исправили конструктивно: вынесли кнопку перехода к управлению источниками в видимую 48pt строку между бренд-хедером и прокручиваемым List. Повторный AXXXL UI PASS.
 - Микрокопирайтинг Setup/Settings RU стал короче без утверждения доступа ко всем уведомлениям; добавлены стабильные UI identifiers для настройки приватности/очистки истории.
 - Полноценный физический VoiceOver, производительность и работа с Shortcuts остаются отдельными воротами качества.
+
+
+## 13. VoiceOver QA · 20.10.2026
+
+Изолированный iPhone 17 Pro Simulator, iOS 27.0, Xcode 27.1. На Mac mini volume=0. Физический iPhone пользователя не переключался.
+
+- Настоящий XCUIDevice.shared.voiceOverService был включён в UI-тесте. Получены utterances истории Пушкина: PUSHKIN История Heading, Подключить приложение Button, Search Image, Поиск уведомлений Text field.
+- Декоративная иконка magnifyingglass получила accessibilityHidden(true). Повторный журнал реальных VoiceOver utterances подтвердил исчезновение отдельной Search Image: теперь после бренда произносится Поиск уведомлений Text field.
+- При этом UI-раннер неоднократно завершался BUILD INTERRUPTED (много запущенных симуляторов, большой swap, нестабильный RDC). Поэтому фиксируем фактические utterances и выполненную правку, а не полный VoiceOver E2E PASS. Системный performAccessibilityAudit также INTERRUPTED до результата.
+- Два теста VoiceOver истории/настроек и системный Accessibility Audit оставлены opt-in через ARVECTUM_VOICEOVER_QA=1 и ARVECTUM_ACCESSIBILITY_AUDIT_QA=1. Штатный UI suite не должен из-за них прерываться без специального включения.
+- Ухват: исправлена accessibilityHint первичной кнопки (двойное касание для аудио, action Видеозапись для видео); UITest audio/video/text labels and tappability PASS. Build-for-testing Ухвата и Пушкина PASS.
+- Открыто: независимый полный VoiceOver на всех 4 продуктах, реальные жесты/rotor и физическая приёмка, системный аудит второстепенных экранов. Никаких пользовательских настроек не меняли.
