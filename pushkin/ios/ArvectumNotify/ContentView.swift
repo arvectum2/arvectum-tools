@@ -29,19 +29,19 @@ struct ContentView: View {
         TabView(selection: $selectedTab) {
             InboxView()
                 .tabItem {
-                    Label("History", systemImage: "tray.full")
+                    Label(pc("History"), systemImage: "tray.full")
                 }
                 .tag(0)
 
             SetupGuideView()
                 .tabItem {
-                    Label("Apps", systemImage: "square.stack.3d.up")
+                    Label(pc("Apps"), systemImage: "square.stack.3d.up")
                 }
                 .tag(1)
 
             SettingsView()
                 .tabItem {
-                    Label("Settings", systemImage: "gearshape")
+                    Label(pc("Settings"), systemImage: "gearshape")
                 }
                 .tag(2)
         }
@@ -112,7 +112,7 @@ private struct InboxView: View {
                         Image(systemName: "magnifyingglass")
                             .foregroundStyle(.secondary)
 
-                        TextField("Search notifications", text: $searchText)
+                        TextField(pc("Search notifications"), text: $searchText)
                             .textInputAutocapitalization(.never)
                             .autocorrectionDisabled()
 
@@ -124,7 +124,7 @@ private struct InboxView: View {
                                     .foregroundStyle(.secondary)
                             }
                             .buttonStyle(.plain)
-                            .accessibilityLabel("Clear search")
+                            .accessibilityLabel(pc("Clear search"))
                         }
                     }
                     .padding(.horizontal, 14)
@@ -149,10 +149,10 @@ private struct InboxView: View {
                     if notifications.isEmpty {
                     VStack(spacing: 18) {
                         ContentUnavailableView(
-                            "Never lose a notification",
+                            pc("History is empty"),
                             systemImage: "bell.badge",
                             description: Text(
-                                "Set up PUSHKIN once, then incoming notifications can be archived automatically."
+                                pc("Connect the apps you want to track in Shortcuts. Notifications captured from those sources will appear here.")
                             )
                         )
 
@@ -165,7 +165,7 @@ private struct InboxView: View {
                                 }
                             } label: {
                                 Label(
-                                    "Set up PUSHKIN",
+                                    pc("Set up PUSHKIN"),
                                     systemImage: "wand.and.stars"
                                 )
                             }
@@ -175,7 +175,7 @@ private struct InboxView: View {
 
                         Link(destination: automationsURL) {
                             Label(
-                                "Enable PUSHKIN automation",
+                                pc("Enable PUSHKIN automation"),
                                 systemImage: "switch.2"
                             )
                         }
@@ -196,18 +196,18 @@ private struct InboxView: View {
                                 Button(role: .destructive) {
                                     delete(item)
                                 } label: {
-                                    Label("Delete", systemImage: "trash")
+                                    Label(pc("Delete"), systemImage: "trash")
                                 }
                             }
                             .contextMenu {
                                 Button {
                                     UIPasteboard.general.string = item.shareText
                                 } label: {
-                                    Label("Copy", systemImage: "doc.on.doc")
+                                    Label(pc("Copy"), systemImage: "doc.on.doc")
                                 }
 
                                 ShareLink(item: item.shareText) {
-                                    Label("Share", systemImage: "square.and.arrow.up")
+                                    Label(pc("Share"), systemImage: "square.and.arrow.up")
                                 }
                             }
                         }
@@ -219,15 +219,15 @@ private struct InboxView: View {
             .frame(maxWidth: 960)
             .frame(maxWidth: .infinity)
             .background(Color.arvectumBackground.ignoresSafeArea())
-            .navigationTitle("History")
+            .navigationTitle(pc("History"))
             .navigationBarTitleDisplayMode(.inline)
-            .alert("Couldn’t delete notification", isPresented: Binding(
+            .alert(pc("Couldn’t delete notification"), isPresented: Binding(
                 get: { deleteError != nil },
                 set: { if !$0 { deleteError = nil } }
             )) {
                 Button("OK", role: .cancel) { deleteError = nil }
             } message: {
-                Text(deleteError ?? "Please try again.")
+                Text(deleteError ?? pc("Please try again."))
             }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
@@ -235,7 +235,7 @@ private struct InboxView: View {
                         showAppPicker = true
                     } label: {
                         Label(
-                            "Add app",
+                            pc("Add app"),
                             systemImage: "plus.app"
                         )
                     }
@@ -281,11 +281,9 @@ private struct InboxView: View {
             let source = normalizedAppName(item.sourceApp)
             guard !source.isEmpty else { return false }
 
-            return candidates.contains { candidate in
-                candidate == source
-                    || candidate.contains(source)
-                    || source.contains(candidate)
-            }
+            // A substring overlap is not evidence that this exact source
+            // was captured (e.g. "Mail" could match "Gmail").
+            return candidates.contains(source)
         }
     }
 
@@ -293,8 +291,8 @@ private struct InboxView: View {
         VStack(alignment: .leading, spacing: 10) {
             Label(
                 pendingCoverageVerified
-                    ? "Coverage verified"
-                    : "Finish adding \(pendingCoverageTitle)",
+                    ? pc("Test capture received")
+                    : String(format: pc("Finish adding %@"), pendingCoverageTitle),
                 systemImage: pendingCoverageVerified
                     ? "checkmark.seal.fill"
                     : "switch.2"
@@ -303,26 +301,26 @@ private struct InboxView: View {
 
             if pendingCoverageVerified {
                 Text(
-                    "PUSHKIN has captured a notification from \(pendingCoverageTitle). Coverage is active."
+                    String(format: pc("PUSHKIN received a notification from %@. This confirms that source only; check the automation in Shortcuts."), pendingCoverageTitle)
                 )
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
 
-                Button("Done") {
+                Button(pc("Done")) {
                     clearPendingCoverage()
                 }
                 .buttonStyle(.bordered)
                 .accessibilityIdentifier("coverage-finish-done")
             } else {
                 Text(
-                    "In Shortcuts, tap Add, then enable the new automation (imports start disabled). PUSHKIN can observe a real notification from this app, but cannot read the Shortcuts enable switch."
+                    pc("In Shortcuts, tap Add, then enable the new automation (imports start disabled). PUSHKIN can observe a real notification from this app, but cannot read the Shortcuts enable switch.")
                 )
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
 
                 Link(destination: automationsURL) {
                     Label(
-                        "Open Automations",
+                        pc("Open Automations"),
                         systemImage: "arrow.up.forward.app"
                     )
                 }
@@ -388,7 +386,7 @@ private struct NotificationRow: View {
                 .lineLimit(2)
 
             if item.duplicateCandidate {
-                Label("Possible duplicate", systemImage: "doc.on.doc")
+                Label(pc("Possible duplicate"), systemImage: "doc.on.doc")
                     .font(.caption)
                     .foregroundStyle(.orange)
             }
@@ -409,11 +407,11 @@ private struct NotificationDetailView: View {
         .navigationTitle(item.sourceApp)
         .navigationBarTitleDisplayMode(.inline)
         .confirmationDialog(
-            "Delete this notification?",
+            pc("Delete this notification?"),
             isPresented: $showingDeleteConfirmation,
             titleVisibility: .visible
         ) {
-            Button("Delete", role: .destructive) {
+            Button(pc("Delete"), role: .destructive) {
                 do {
                     try NotificationHistoryDeletion.delete(
                         id: item.id,
@@ -425,23 +423,23 @@ private struct NotificationDetailView: View {
                 }
             }
         }
-        .alert("Couldn’t delete notification", isPresented: Binding(
+        .alert(pc("Couldn’t delete notification"), isPresented: Binding(
             get: { deleteError != nil },
             set: { if !$0 { deleteError = nil } }
         )) {
             Button("OK", role: .cancel) { deleteError = nil }
         } message: {
-            Text(deleteError ?? "Please try again.")
+            Text(deleteError ?? pc("Please try again."))
         }
     }
 
     private func detail(_ item: NotificationHistoryItem) -> some View {
         List {
-            Section("From") {
+            Section(pc("From")) {
                 Label(item.sourceApp, systemImage: "app.fill")
             }
 
-            Section("Notification") {
+            Section(pc("Notification")) {
                 if !item.titleText.isEmpty {
                     Text(item.titleText)
                         .font(.headline)
@@ -450,14 +448,14 @@ private struct NotificationDetailView: View {
                     Text(item.subtitleText)
                         .foregroundStyle(.secondary)
                 }
-                Text(item.bodyText.isEmpty ? "No message body" : item.bodyText)
+                Text(item.bodyText.isEmpty ? pc("No message body") : item.bodyText)
                     .textSelection(.enabled)
                     .foregroundStyle(item.bodyText.isEmpty ? .secondary : .primary)
             }
 
-            Section("Time") {
+            Section(pc("Time")) {
                 LabeledContent(
-                    "Received",
+                    pc("Received"),
                     value: item.receivedAt.formatted(
                         date: .abbreviated,
                         time: .shortened
@@ -469,17 +467,17 @@ private struct NotificationDetailView: View {
                 Button {
                     UIPasteboard.general.string = item.shareText
                 } label: {
-                    Label("Copy text", systemImage: "doc.on.doc")
+                    Label(pc("Copy text"), systemImage: "doc.on.doc")
                 }
 
                 ShareLink(item: item.shareText) {
-                    Label("Share", systemImage: "square.and.arrow.up")
+                    Label(pc("Share"), systemImage: "square.and.arrow.up")
                 }
 
                 Button(role: .destructive) {
                     showingDeleteConfirmation = true
                 } label: {
-                    Label("Delete", systemImage: "trash")
+                    Label(pc("Delete"), systemImage: "trash")
                 }
             }
         }
@@ -497,7 +495,7 @@ private struct DiagnosticPayloadRow: View {
             Text(label)
                 .font(.caption)
                 .foregroundStyle(.secondary)
-            Text(value.isEmpty ? "Empty" : value)
+            Text(value.isEmpty ? pc("Empty") : value)
                 .textSelection(.enabled)
         }
     }

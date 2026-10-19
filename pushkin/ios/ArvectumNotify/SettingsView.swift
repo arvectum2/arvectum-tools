@@ -37,14 +37,14 @@ struct SettingsView: View {
             .frame(maxWidth: 960)
             .frame(maxWidth: .infinity)
             .background(Color.arvectumBackground.ignoresSafeArea())
-            .navigationTitle("Settings")
+            .navigationTitle(pc("Settings"))
             .navigationBarTitleDisplayMode(.inline)
             .confirmationDialog(
-                "Delete all notification history?",
+                pc("Delete all notification history?"),
                 isPresented: $showingDeleteAllConfirmation,
                 titleVisibility: .visible
             ) {
-                Button("Delete All", role: .destructive) {
+                Button(pc("Delete All"), role: .destructive) {
                     do {
                         try NotificationHistoryDeletion.deleteAll(in: modelContext)
                     } catch {
@@ -52,32 +52,32 @@ struct SettingsView: View {
                     }
                 }
             } message: {
-                Text("This cannot be undone. PUSHKIN setup and app coverage stay intact.")
+                Text(pc("This cannot be undone. PUSHKIN setup and app coverage stay intact."))
             }
-            .alert("Couldn’t clear history", isPresented: Binding(
+            .alert(pc("Couldn’t clear history"), isPresented: Binding(
                 get: { deleteError != nil },
                 set: { if !$0 { deleteError = nil } }
             )) {
                 Button("OK", role: .cancel) { deleteError = nil }
             } message: {
-                Text(deleteError ?? "Please try again.")
+                Text(deleteError ?? pc("Please try again."))
             }
         }
     }
 
     private var localSection: some View {
-        Section("On this iPhone") {
+        Section(pc("On this iPhone")) {
             LabeledContent(
-                "Notifications saved",
+                pc("Notifications saved"),
                 value: "\(notifications.count)"
             )
 
             Label(
-                "Notification content stays on this device",
+                pc("Notification content stays on this device"),
                 systemImage: "lock.shield.fill"
             )
             Text(
-                "Everything stays on this iPhone. No account, cloud sync, ads or analytics in version 1.0."
+                pc("Everything stays on this iPhone. No account, cloud sync, ads or analytics in version 1.0.")
             )
             .font(.footnote)
             .foregroundStyle(.secondary)
@@ -85,39 +85,39 @@ struct SettingsView: View {
             Button(role: .destructive) {
                 showingDeleteAllConfirmation = true
             } label: {
-                Label("Delete all history", systemImage: "trash")
+                Label(pc("Delete all history"), systemImage: "trash")
             }
             .disabled(notifications.isEmpty)
         }
     }
 
     private var supportSection: some View {
-        Section("Help & feedback") {
+        Section(pc("Help & feedback")) {
             Link(destination: supportURL) {
                 Label(
-                    "Support and missing-app requests",
+                    pc("Support and missing-app requests"),
                     systemImage: "bubble.left.and.bubble.right"
                 )
             }
 
             Text(
-                "Missing an app? Send us its exact name. The most-requested apps move to the top of our update list."
+                pc("Missing an app? Send us its exact name. The most-requested apps move to the top of our update list.")
             )
             .font(.footnote)
             .foregroundStyle(.secondary)
         }
     }
     private var aboutSection: some View {
-        Section("About") {
+        Section(pc("About")) {
             Link(destination: privacyURL) {
-                Label("Privacy policy", systemImage: "hand.raised.fill")
+                Label(pc("Privacy policy"), systemImage: "hand.raised.fill")
             }
 
-            LabeledContent("Product", value: "PUSHKIN")
-            LabeledContent("Developer", value: "Arvectum")
-            LabeledContent("Version", value: appVersion)
+            LabeledContent(pc("Product"), value: "PUSHKIN")
+            LabeledContent(pc("Developer"), value: "Arvectum")
+            LabeledContent(pc("Version"), value: appVersion)
 
-            Text("Never lose an important notification again.")
+            Text(pc("Review notifications captured from apps you connected."))
                 .font(.footnote)
                 .foregroundStyle(.secondary)
         }
@@ -125,11 +125,11 @@ struct SettingsView: View {
 
 #if DEBUG
     private var debugSection: some View {
-        Section("Developer") {
+        Section(pc("Developer")) {
             NavigationLink {
                 DiagnosticsView()
             } label: {
-                Label("Diagnostics", systemImage: "waveform.path.ecg")
+                Label(pc("Diagnostics"), systemImage: "waveform.path.ecg")
             }
         }
     }

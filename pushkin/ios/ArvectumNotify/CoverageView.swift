@@ -153,71 +153,71 @@ struct CoverageView: View {
 
     var body: some View {
         List {
-            Section("Offline catalog") {
+            Section(pc("Offline catalog")) {
                 LabeledContent(
-                    "Signed app options",
+                    pc("Signed app options"),
                     value: "\(CoverageCatalog.entries.count)"
                 )
 
                 if quickRefreshCount > 0 {
                     LabeledContent(
-                        "App packages opened",
+                        pc("App packages opened"),
                         value: "\(quickRefreshCount)"
                     )
                 }
 
                 if !lastQuickRefreshName.isEmpty {
                     LabeledContent(
-                        "Latest",
+                        pc("Latest"),
                         value: lastQuickRefreshName
                     )
                 }
             }
 
-            Section("Add an app") {
+            Section(pc("Add an app")) {
                 Button {
                     showAppPicker = true
                 } label: {
                     Label(
-                        "Add app to PUSHKIN",
+                        pc("Add app to PUSHKIN"),
                         systemImage: "plus.app.fill"
                     )
                 }
 
                 Text(
-                    "Importing a signed app package opens Shortcuts but does not enable the new automation. Enable it there and check a real notification. If missing from this catalog, use the manual guide."
+                    pc("Importing a signed app package opens Shortcuts but does not enable the new automation. Enable it there and check a real notification. If missing from this catalog, use the manual guide.")
                 )
                 .foregroundStyle(.secondary)
             }
 
-            Section("Optional groups") {
+            Section(pc("Optional groups")) {
                 NavigationLink {
                     AutomationGroupPlannerView()
                 } label: {
-                    Label("Plan smaller groups", systemImage: "square.stack.3d.up")
+                    Label(pc("Plan smaller groups"), systemImage: "square.stack.3d.up")
                 }
                 .accessibilityIdentifier("coverage-optional-groups")
-                Text("One base shortcut can contain 1,000 app entries. Optional groups of 25 are just a planning convenience, not an iOS limit.")
+                Text(pc("One base shortcut can contain 1,000 app entries. Optional groups of 25 are just a planning convenience, not an iOS limit."))
                     .foregroundStyle(.secondary)
             }
 
-            Section("Shortcuts") {
+            Section(pc("Shortcuts")) {
                 Link(destination: automationsURL) {
                     Label(
-                        "Open Shortcuts automations",
+                        pc("Open Shortcuts automations"),
                         systemImage: "arrow.up.forward.app"
                     )
                 }
 
                 Text(
-                    "Newly imported automations are disabled. Turn each one on in Shortcuts; PUSHKIN cannot read its enabled state. A notification from one app does not verify every app."
+                    pc("Newly imported automations are disabled. Turn each one on in Shortcuts; PUSHKIN cannot read its enabled state. A notification from one app does not verify every app.")
                 )
                 .foregroundStyle(.secondary)
             }
         }
         .scrollContentBackground(.hidden)
         .background(Color.arvectumBackground)
-        .navigationTitle("Apps")
+        .navigationTitle(pc("Apps"))
         .navigationBarTitleDisplayMode(.inline)
         .tint(.arvectumMint)
         .sheet(isPresented: $showAppPicker) {
@@ -262,26 +262,26 @@ struct CoverageAppPicker: View {
 
     private var searchSection: some View {
         Section {
-            TextField("Search apps", text: $query)
+            TextField(pc("Search apps"), text: $query)
                 .textInputAutocapitalization(.never)
                 .autocorrectionDisabled()
                 .accessibilityIdentifier("app-search")
         } footer: {
             Text(
-                "Searches the offline catalog bundled with this version of PUSHKIN."
+                pc("Searches the offline catalog bundled with this version of PUSHKIN.")
             )
         }
     }
 
     @ViewBuilder
     private var catalogSection: some View {
-        Section(trimmedQuery.isEmpty ? "Popular apps" : "In PUSHKIN") {
+        Section(trimmedQuery.isEmpty ? pc("Popular apps") : pc("In PUSHKIN")) {
             if catalogResults.isEmpty {
                 ContentUnavailableView(
-                    "Not in this version",
+                    pc("Not in this version"),
                     systemImage: "square.dashed",
                     description: Text(
-                        "You can still add this app manually in Shortcuts."
+                        pc("You can still add this app manually in Shortcuts.")
                     )
                 )
             } else {
@@ -314,15 +314,15 @@ struct CoverageAppPicker: View {
                 } label: {
                     Label(
                         catalogResults.isEmpty
-                            ? "Add manually"
-                            : "App not listed? Add manually",
+                            ? pc("Add manually")
+                            : pc("App not listed? Add manually"),
                         systemImage: "hand.tap"
                     )
                 }
                 .accessibilityIdentifier("manual-add-app")
             } footer: {
                 Text(
-                    "Manual setup takes a few more taps, but stays entirely on your iPhone and needs no PUSHKIN server."
+                    pc("Manual setup takes a few more taps, but stays entirely on your iPhone and needs no PUSHKIN server.")
                 )
             }
         }
@@ -337,10 +337,10 @@ struct CoverageAppPicker: View {
             }
             .scrollContentBackground(.hidden)
             .background(Color.arvectumBackground)
-            .navigationTitle("Add App")
+            .navigationTitle(pc("Add App"))
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("Cancel") {
+                    Button(pc("Cancel")) {
                         dismiss()
                     }
                 }
@@ -379,69 +379,69 @@ private struct ManualCoverageGuide: View {
         List {
             Section {
                 Label(
-                    "This path is only for apps missing from the built-in catalog.",
+                    pc("This path is only for apps missing from the built-in catalog."),
                     systemImage: "iphone"
                 )
                 Text(
-                    "Nothing is uploaded. You create one Notification automation directly in Apple's Shortcuts app."
+                    pc("Nothing is uploaded. You create one Notification automation directly in Apple's Shortcuts app.")
                 )
                 .foregroundStyle(.secondary)
             }
 
-            Section("1. Choose the app") {
+            Section(pc("1. Choose the app")) {
                 Text(
-                    "Open Shortcuts → Automation → + → Notification → App, then choose the app you want to add."
+                    pc("Open Shortcuts → Automation → + → Notification → App, then choose the app you want to add.")
                 )
 
                 Button {
                     openURL(automationsURL)
                 } label: {
                     Label(
-                        "Open Shortcuts Automations",
+                        pc("Open Shortcuts Automations"),
                         systemImage: "arrow.up.forward.app"
                     )
                 }
                 .accessibilityIdentifier("open-manual-automations")
 
                 if !appName.isEmpty {
-                    LabeledContent("You searched for", value: appName)
+                    LabeledContent(pc("You searched for"), value: appName)
                 }
             }
 
-            Section("2. Add the PUSHKIN action") {
+            Section(pc("2. Add the PUSHKIN action")) {
                 Text(
-                    "Add the action PUSHKIN → Archive Notification."
+                    pc("Add the action PUSHKIN → Archive Notification.")
                 )
             }
 
-            Section("3. Map the notification") {
-                mappingRow("Source app", "Notification → App")
-                mappingRow("Title", "Notification → Title")
-                mappingRow("Subtitle", "Notification → Subtitle")
-                mappingRow("Message", "Notification → Text")
+            Section(pc("3. Map the notification")) {
+                mappingRow(pc("Source app"), "Notification → App")
+                mappingRow(pc("Title"), "Notification → Title")
+                mappingRow(pc("Subtitle"), "Notification → Subtitle")
+                mappingRow(pc("Message"), "Notification → Text")
 
                 Text(
-                    "When Shortcuts asks how the automation should run, choose the immediate/automatic option."
+                    pc("When Shortcuts asks how the automation should run, choose the immediate/automatic option.")
                 )
                 .foregroundStyle(.secondary)
             }
 
-            Section("4. Save") {
+            Section(pc("4. Save")) {
                 Text(
-                    "Save and make sure the new automation is enabled. The first matching notification should then appear in PUSHKIN automatically."
+                    pc("Save and make sure the new automation is enabled. The first matching notification should then appear in PUSHKIN automatically.")
                 )
             }
 
-            Section("Help us improve the catalog") {
+            Section(pc("Help us improve the catalog")) {
                 Text(
-                    "Want this app to become a one-tap option? Mention its exact name in an App Store review or send it to Arvectum support. Requested apps can be added in regular catalog updates."
+                    pc("Want this app to become a one-tap option? Mention its exact name in an App Store review or send it to Arvectum support. Requested apps can be added in regular catalog updates.")
                 )
                 .foregroundStyle(.secondary)
             }
         }
         .scrollContentBackground(.hidden)
         .background(Color.arvectumBackground)
-        .navigationTitle("Add Manually")
+        .navigationTitle(pc("Add Manually"))
         .navigationBarTitleDisplayMode(.inline)
         .tint(.arvectumMint)
         .accessibilityIdentifier("manual-coverage-guide")

@@ -5,6 +5,27 @@ final class MinimalUXUITests: XCTestCase {
         continueAfterFailure = false
     }
 
+    func testRussianNavigationAndEmptyState() throws {
+        let app = XCUIApplication(bundleIdentifier: "ru.arvectum.tools.notify")
+        app.launchArguments += ["-AppleLanguages", "(ru)", "-AppleLocale", "ru_RU"]
+        app.launch()
+
+        XCTAssertTrue(app.tabBars.buttons["История"].firstMatch
+            .waitForExistence(timeout: 8))
+        XCTAssertTrue(app.tabBars.buttons["Источники"].firstMatch.exists)
+        XCTAssertTrue(app.tabBars.buttons["Настройки"].firstMatch.exists)
+
+        let sources = app.tabBars.buttons["Источники"].firstMatch
+        sources.tap()
+        XCTAssertTrue(app.navigationBars["Источники"].firstMatch
+            .waitForExistence(timeout: 8))
+
+        let settings = app.tabBars.buttons["Настройки"].firstMatch
+        settings.tap()
+        XCTAssertTrue(app.staticTexts["На этом iPhone"].firstMatch
+            .waitForExistence(timeout: 8))
+    }
+
     func testReleaseShellIsConsumerFacing() throws {
         let app = XCUIApplication(bundleIdentifier: "ru.arvectum.tools.notify")
         app.launch()

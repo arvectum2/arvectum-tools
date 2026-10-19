@@ -59,7 +59,7 @@ final class NotificationDeletionUITests: XCTestCase {
         delete.tap()
 
         app.tabBars.buttons["History"].tap()
-        XCTAssertTrue(app.staticTexts["Never lose a notification"].firstMatch
+        XCTAssertTrue(app.staticTexts["History is empty"].firstMatch
             .waitForExistence(timeout: 8))
         XCTAssertTrue(app.tabBars.buttons["Settings"].exists)
     }

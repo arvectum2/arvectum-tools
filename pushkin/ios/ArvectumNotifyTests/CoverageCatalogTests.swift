@@ -2,6 +2,29 @@ import XCTest
 @testable import ArvectumNotify
 
 final class CoverageCatalogTests: XCTestCase {
+    func testRussianCopyAndEnglishFallback() {
+        XCTAssertEqual(
+            PushkinCopy.text("History", language: "ru-RU"),
+            "История"
+        )
+        XCTAssertEqual(
+            PushkinCopy.text("Apps", language: "ru"),
+            "Источники"
+        )
+        XCTAssertEqual(
+            PushkinCopy.text("History", language: "en-GB"),
+            "History"
+        )
+        XCTAssertEqual(
+            PushkinCopy.text("Unknown label", language: "ru"),
+            "Unknown label"
+        )
+        XCTAssertEqual(
+            PushkinCopy.text("History is empty", language: "ru-RU"),
+            "История пока пуста"
+        )
+    }
+
     func testProductionCatalogHasExactly1000UniqueApps() {
         let entries = CoverageCatalog.entries
         XCTAssertEqual(entries.count, 1000)
