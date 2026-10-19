@@ -5,7 +5,7 @@ let package = Package(
  platforms: [.iOS(.v17), .watchOS(.v10), .macOS(.v14)],
  products: [.library(name: "ArvectumCore", targets: ["ArvectumCore"])],
  targets: [
- .target(name: "ArvectumCore", path: "packages", exclude: ["README.md","ArvectumDesignTokens/README.md","ArvectumDiagnostics/README.md","ArvectumPersistence/README.md","ArvectumAdaptiveLayout/README.md","ArvectumInterapp"],
- sources: ["ArvectumDesignTokens/ArvectumPalette.swift","ArvectumDiagnostics/ArvectumDiagnostics.swift","ArvectumPersistence/ArvectumJSONCodec.swift","ArvectumAdaptiveLayout/ArvectumAdaptiveLayout.swift"]),
+ .target(name: "ArvectumCore", path: "packages", exclude: ["README.md","ArvectumDesignTokens/README.md","ArvectumDiagnostics/README.md","ArvectumPersistence/README.md","ArvectumAdaptiveLayout/README.md","ArvectumInterapp","ArvectumStore/README.md"],
+ sources: ["ArvectumDesignTokens/ArvectumPalette.swift","ArvectumDiagnostics/ArvectumDiagnostics.swift","ArvectumPersistence/ArvectumJSONCodec.swift","ArvectumAdaptiveLayout/ArvectumAdaptiveLayout.swift","ArvectumStore/AppStoreUpdatePrompt.swift"]),
  .testTarget(name: "ArvectumCoreTests", dependencies: ["ArvectumCore"], path: "tests")
  ])

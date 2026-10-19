@@ -18,6 +18,7 @@ targets:
     sources:
       - path: ../../core/packages/ArvectumDesignTokens/ArvectumPalette.swift
       - path: ../../core/packages/ArvectumAdaptiveLayout/ArvectumAdaptiveLayout.swift
+      - path: ../../core/packages/ArvectumStore/AppStoreUpdatePrompt.swift
       - path: ArvectumNotify
     resources:
       - path: ArvectumNotify/Resources

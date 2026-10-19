@@ -1,3 +1,4 @@
+import ArvectumCore
 import SwiftUI
 
 @main
@@ -13,6 +14,7 @@ struct PhotoPodRazmerApp: App {
         WindowGroup {
             ContentView()
                 .environmentObject(model)
+                .appStoreUpdatePrompt(enabled: !showingInitialAdConsent)
                 .sheet(isPresented: $showingInitialAdConsent) {
                     AdConsentSheet { value in
                         AdSDK.setUserConsent(value)

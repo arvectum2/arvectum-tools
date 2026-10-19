@@ -1,5 +1,12 @@
 # Arvectum Tools Core — дорожная карта
 
+## 19.10.2026 — необязательное обновление App Store (Core, единая задача)
+
+- [x] Проверка опубликованной версии по Apple Lookup API при запуске, сравнение с установленной; диалог «Обновить» / «Позже», без принуждения и без блокировки офлайн. SwiftPM Core: 19/19 PASS.
+- [x] Подключено к iOS ChickMark, Pushkin, Фото/PDF и Ухват; Xcode 27.1 iOS Simulator build всех четырёх: 4/4 PASS (19.10.2026).
+- [ ] Реальная публикация каждого приложения остаётся независимой; Where? после возобновления, Android потребует отдельного Google Play flow.
+
+
 ## 19.10.2026, вечер — Core: release provenance и адаптация
 
 **Текущее:** [общий светофор](docs/PORTFOLIO_RECONCILIATION_2026-10-19_EVENING.md). Публичная версия ≠ исходники в main ≠ App Review. Pushkin 1.0.1(5) уже WAITING_FOR_REVIEW и **AFTER_APPROVAL**; другие приложения выпускаются независимо.

@@ -1,3 +1,4 @@
+import ArvectumCore
 import SwiftUI
 
 @main
@@ -21,6 +22,7 @@ struct WhatApp: App {
 #endif
                 .environmentObject(store)
                 .environment(\.locale, CaptureBrand.interfaceLocale)
+                .appStoreUpdatePrompt(locale: CaptureBrand.interfaceLocale)
                 .onChange(of: scenePhase) { _, phase in
 #if REVIEW_HANDOFF_QA
                     PhysicalCaptureQAProbe.shared.observeScenePhase(phase, store: store)

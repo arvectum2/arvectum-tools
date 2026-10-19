@@ -9,6 +9,7 @@ These rules apply to **every** app. Product-specific choices live only in each a
 - Keep essential utility flows usable without ad interruption.
 - Minimize speculative complexity and avoid premature cross-app frameworks.
 - Evaluate new features by actual user utility and available evidence.
+- On iOS app launch, check the public App Store version asynchronously and offer a dismissible update prompt ("Update" / "Later") only when a newer published version exists; no forced upgrade and no startup blocker. The shared implementation belongs to Core.
 
 ## Architecture and delivery
 - Monorepo with independent apps in `<product>/`; each has its own release lifecycle.
