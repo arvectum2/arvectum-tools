@@ -1,5 +1,12 @@
 # PUSHKIN — Product Roadmap
 
+## P0 — 19.10.2026: временная QA-команда, требуется удаление
+
+- [ ] Пустая тестовая "Новая команда 4" (из разрешённой проверки iOS 27) пока существует в синхронизируемой библиотеке Shortcuts. Действий и триггеров у неё нет, ничего не включено. XCTest заблокирован системной ошибкой доверия Apple Development. После восстановления доверия удалить только эту команду и проверить отсутствие в CLI.
+- [ ] Реальная доставка через Notification trigger остаётся НЕ ПРОВЕРЕННОЙ. Перед повторным тестом обязательно завершить очистку. Протокол: docs/SHORTCUTS_IOS27_TEMP_QA_PENDING_CLEANUP_2026-10-19.md.
+- [x] Экспериментальные мутирующие UI-тесты вынесены из Git worktree в локальные QA-артефакты. Никаких действий с Apple Store Connect не выполнялось.
+
+
 ## 19.10.2026 · PR #130 merged, QA snapshot after cleanup
 
 - [x] [PR #130 MERGED](https://github.com/arvectum2/arvectum-tools/pull/130) → `main` (`65d69d1`). GitHub CI `build-for-testing`, `delete-regression`, architecture, catalog, GitVerse — **PASS** after rerunning a transient simulator `Failed to get background assertion` failure.
