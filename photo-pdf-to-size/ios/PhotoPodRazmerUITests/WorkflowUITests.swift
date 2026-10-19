@@ -62,6 +62,119 @@ final class WorkflowUITests: XCTestCase {
         )
     }
 
+    /// Exercise the actual system Files exporter, not just the result CTA.
+    /// This uses a synthetic local fixture and a disposable QA simulator.
+    private func assertExportCompletes(fixture: String, processAction: String) {
+        let app = launch(fixture)
+        XCTAssertTrue(app.buttons[processAction].waitForExistence(timeout: 8))
+        app.buttons[processAction].tap()
+        XCTAssertTrue(app.staticTexts["ГОТОВО"].waitForExistence(timeout: 25))
+
+        let success = app.descendants(matching: .any)["export-success"]
+        XCTAssertFalse(success.exists, "Do not report success before saving")
+        app.buttons["result-save-primary"].tap()
+
+        // The system FileExporter button is separate from the in-app CTA.
+        let systemSave = app.buttons["Сохранить"]
+        XCTAssertTrue(
+            systemSave.waitForExistence(timeout: 12),
+            "System Files save UI did not open"
+        )
+        XCTAssertFalse(success.exists, "Opening the picker does not save")
+        let attachment = XCTAttachment(screenshot: XCUIScreen.main.screenshot())
+        attachment.name = fixture == "--qa-pdf-fixture"
+            ? "PDF system Files exporter" : "Photo system Files exporter"
+        attachment.lifetime = .keepAlways
+        add(attachment)
+        systemSave.tap()
+        let replace = app.buttons["Заменить"]
+        if replace.waitForExistence(timeout: 2) { replace.tap() }
+
+        XCTAssertTrue(
+            success.waitForExistence(timeout: 12),
+            "Success must follow a completed Files export"
+        )
+        XCTAssertTrue(app.buttons["result-save-primary"].isHittable)
+    }
+
+    func testPhotoFileExporterAndSuccessFeedback() {
+        assertExportCompletes(
+            fixture: "--qa-photo-fixture",
+            processAction: "Уменьшить фото"
+        )
+    }
+
+    func testPDFFileExporterAndSuccessFeedback() {
+        assertExportCompletes(
+            fixture: "--qa-pdf-fixture",
+            processAction: "Уменьшить PDF"
+        )
+    }
+
+    /// The two deterministic ad states must not obscure export or privacy.
+    /// This covers UI geometry only: no real network ads or impressions.
+    private func assertResultAdState(_ state: String) {
+        let app = XCUIApplication()
+        app.launchArguments = [
+            "-AppleLanguages", "(ru)", "-AppleLocale", "ru_RU",
+            "--qa-photo-fixture"
+        ]
+        app.launchEnvironment["ARVECTUM_RESULT_AD_QA_FIXTURE"] = state
+        app.launch()
+        let decline = app.buttons["ad-consent-decline"]
+        if decline.waitForExistence(timeout: 2) { decline.tap() }
+
+        XCTAssertTrue(app.buttons["Уменьшить фото"].waitForExistence(timeout: 8))
+        app.buttons["Уменьшить фото"].tap()
+        XCTAssertTrue(app.staticTexts["ГОТОВО"].waitForExistence(timeout: 25))
+
+        let save = app.buttons["result-save-primary"]
+        XCTAssertTrue(save.isHittable)
+        XCTAssertLessThanOrEqual(save.frame.maxY, app.frame.maxY + 1)
+        XCTAssertTrue(app.buttons["Реклама и конфиденциальность"].isHittable)
+        XCTAssertTrue(app.buttons["edit-settings-button"].isHittable)
+        let fixtureID = state == "loaded" ? "result-ad-loaded-qa" : "result-ad-no-fill"
+        let fixture = app.descendants(matching: .any)[fixtureID]
+        XCTAssertTrue(fixture.waitForExistence(timeout: 8))
+        if state == "loaded" {
+            XCTAssertGreaterThanOrEqual(fixture.frame.height, 178)
+            XCTAssertLessThanOrEqual(fixture.frame.height, 182)
+        }
+
+        let evidence = XCTAttachment(screenshot: XCUIScreen.main.screenshot())
+        evidence.name = "Result ad geometry: \(state)"
+        evidence.lifetime = .keepAlways
+        add(evidence)
+    }
+
+    func testResultLoadedAdDoesNotBlockExportOrPrivacy() {
+        assertResultAdState("loaded")
+    }
+
+    func testResultNoFillAdDoesNotBlockExportOrPrivacy() {
+        assertResultAdState("no-fill")
+    }
+
+    func testPrivacyConsentControlsRemainReachableFromResult() {
+        let app = launch("--qa-photo-fixture")
+        XCTAssertTrue(app.buttons["Уменьшить фото"].waitForExistence(timeout: 8))
+        app.buttons["Уменьшить фото"].tap()
+        XCTAssertTrue(app.staticTexts["ГОТОВО"].waitForExistence(timeout: 25))
+
+        let privacy = app.buttons["Реклама и конфиденциальность"]
+        XCTAssertTrue(privacy.isHittable)
+        privacy.tap()
+
+        let allow = app.buttons["ad-consent-accept"]
+        let decline = app.buttons["ad-consent-decline"]
+        XCTAssertTrue(allow.waitForExistence(timeout: 8))
+        XCTAssertTrue(decline.isHittable)
+        XCTAssertTrue(allow.isHittable)
+        decline.tap()
+        XCTAssertTrue(app.staticTexts["ГОТОВО"].waitForExistence(timeout: 8))
+        XCTAssertTrue(app.buttons["result-save-primary"].isHittable)
+    }
+
     func testPhotoCompressionAndBackNavigation() {
         let app = launch("--qa-photo-fixture")
         let button = app.buttons["Уменьшить фото"]

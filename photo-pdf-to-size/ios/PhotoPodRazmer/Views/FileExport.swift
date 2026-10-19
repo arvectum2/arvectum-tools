@@ -2,6 +2,14 @@ import SwiftUI
 import PhotosUI
 import UniformTypeIdentifiers
 
+/// A user's Cancel action in the system Files picker is not a failed
+/// export. Keep genuine IO errors visible while ignoring this one condition.
+func isCanceledFileExport(_ error: Error) -> Bool {
+    let value = error as NSError
+    return value.domain == NSCocoaErrorDomain
+        && value.code == NSUserCancelledError
+}
+
 struct ExportDocument: FileDocument {
     static var readableContentTypes: [UTType] { [.data, .jpeg, .png, .heic, .pdf] }
     static var writableContentTypes: [UTType] { [.data, .jpeg, .png, .heic, .pdf] }

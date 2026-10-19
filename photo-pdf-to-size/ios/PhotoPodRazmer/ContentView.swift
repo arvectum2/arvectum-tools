@@ -125,6 +125,18 @@ struct ContentView: View {
                     )
                     .accessibilityIdentifier("result-save-primary")
                     .padding(.vertical, 8)
+
+                    // State changes only after fileExporter reports success;
+                    // never claim a file was saved when the picker is canceled.
+                    if model.saved {
+                        Label(tr("Файл сохранён"), systemImage: "checkmark.circle.fill")
+                            .font(.footnote.weight(.semibold))
+                            .foregroundStyle(Color.arvectumAccentText)
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.85)
+                            .frame(maxWidth: .infinity)
+                            .accessibilityIdentifier("export-success")
+                    }
                 }
 
                 HStack(spacing: 6) {
@@ -204,7 +216,9 @@ struct ContentView: View {
             case .success:
                 model.markSaved(true)
             case .failure(let error):
-                model.markSaveFailed(error)
+                if !isCanceledFileExport(error) {
+                    model.markSaveFailed(error)
+                }
             }
         }
         .sheet(isPresented: Binding(
