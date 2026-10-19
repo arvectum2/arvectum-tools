@@ -1,5 +1,18 @@
 # Arvectum Tools — Roadmap Registry
 
+## 19.10.2026, вечер — единый реестр (актуально)
+
+[Каноническая матрица публичных версий, PR и release gates](docs/PORTFOLIO_RECONCILIATION_2026-10-19_EVENING.md). Apple RU Lookup: **Pushkin 1.0**, **Ухват 1.1.0**, **ChickMark 1.5.0**, **Фото/PDF 1.0.1**. Отдельно Pushkin **1.0.1(5) WAITING_FOR_REVIEW** (Apple build5 VALID, submitted 19.10.2026, автоматическая публикация **AFTER_APPROVAL**). Source features и физический QA других продуктов ещё не означают их новые Store-бинарники.
+
+- [x] Pushkin PR #131 и восемь GitHub checks PASS; обязательные Shortcuts Notification E2E и безопасное обновление QA 8/8 PASS, временные команды удалены. Новый Apple Review submitted и подтверждён.
+- [x] Ухват: физический 420s+завершённый MOV и background QA; ChickMark: PR #94 MERGED, HealthKit water в main, real QA выполнен, в public 1.5.0 функции нет.
+- [ ] Ухват/ChickMark/Фото-PDF: отдельные device QA и согласование новых выпусков, отчёты в продуктовых Roadmap.
+- [ ] Growth site PR #15 **OPEN/verify FAILURE**, не deployed; категория ChickMark по-прежнему Health & Fitness; метрики неизвестны.
+- [ ] Where? и Growth Agent **PAUSED**, Core продолжает обслуживать только четыре активных приложения.
+
+**Все блоки ниже — датированные исторические срезы.** Например, прошлые 1.0.1(4) review/ручной выпуск, draft #94 и незакрытая 8-минутная запись Ухвата больше не являются текущим статусом.
+
+
 ## 19.10.2026 — Pushkin App Review
 
 Production Pushkin 1.0.1 build 5 uploaded to Apple and validated. New review submission confirmed WAITING_FOR_REVIEW, automatic release AFTER_APPROVAL. Eight GitHub checks passed. Public storefront remains 1.0 until Apple approves. Details: pushkin/docs/APPLE_REVIEW_SUBMISSION_1_0_1_BUILD5_2026-10-19.md.

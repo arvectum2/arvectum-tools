@@ -1,5 +1,21 @@
 # Arvectum Tools Core — дорожная карта
 
+## 19.10.2026, вечер — Core: release provenance и адаптация
+
+**Текущее:** [общий светофор](docs/PORTFOLIO_RECONCILIATION_2026-10-19_EVENING.md). Публичная версия ≠ исходники в main ≠ App Review. Pushkin 1.0.1(5) уже WAITING_FOR_REVIEW и **AFTER_APPROVAL**; другие приложения выпускаются независимо.
+
+- [x] **C0:** единый ArvectumCore (DesignTokens/Persistence/Diagnostics/AdaptiveLayout), PR #90 и **38/38 интеграционных CI PASS**, четыре активных продукта используют адаптивный слой в main.
+- [x] **C1 этап Pushkin:** PR #131 **8/8 GitHub checks SUCCESS**, IPA release provenance и QA-переход с сохранностью 8/8, ASC build5 VALID, submitted WAITING_FOR_REVIEW.
+- [ ] **C1 следующий:** после одобрения Apple сверить build5 READY_FOR_SALE, source SHA, signed archive, GitHub/GitVerse tag, RU/другие storefronts; не путать upload с publication.
+- [ ] **C2:** сохранять зелёные архитектурные контракты, зависимости, iOS/watchOS и Android CI при изменениях Core, но не присваивать продуктовым тестам общий статус.
+- [ ] **C3:** матрица iPad Split View, Dynamic Type/VoiceOver, scene lifecycle по каждому приложению. Отсутствие реального Duo не блокирует код/симулятор, но **не позволяет утверждать доказанную физическую смену экранов**.
+- [ ] **C4:** общий review prompt использовать только с доказанным app-specific триггером успешного действия, без агрессивных запросов.
+- [x] **C5:** не вводить общий Ads/HealthKit/Telemetrics API без минимум двух реальных потребителей с одинаковой семантикой.
+- [ ] Where? остаётся на паузе, не начинать её через задачи Core.
+
+Архивные разделы ниже оставлены для provenance, даже если ранние фразы о старых review-статусах теперь неактуальны.
+
+
 ## Публичный checkpoint · 19.10.2026
 
 - [x] [Apple RU подтверждение](docs/PUBLIC_RELEASE_RECONCILIATION_2026-10-19.md): Pushkin 1.0, Ухват 1.1.0, ChickMark 1.5.0 опубликованы.

@@ -1,5 +1,20 @@
 # PUSHKIN — Product Roadmap
 
+## 19.10.2026, вечер — App Review 1.0.1 (5), автоматический выпуск
+
+**Текущее:** публично **1.0** (RU Lookup). После согласования владельца **1.0.1 (build 5)** принята Apple (binary VALID), App Review **WAITING_FOR_REVIEW**, политика **AFTER_APPROVAL**. Текущая версия ещё не опубликована. [Подтверждение ASC](docs/APPLE_REVIEW_SUBMISSION_1_0_1_BUILD5_2026-10-19.md).
+
+- [x] GitHub PR #131 **8/8 checks SUCCESS**; локальная производственная сборка и подпись IPA PASS.
+- [x] На iPhone изолированный QA update 7→8: **8/8** синтетических записей сохранились с одинаковыми значениями/идентификаторами; реальная Notification→Shortcuts→AppIntent→SwiftData цепочка PASS.
+- [x] Временные QA-команды удалены с подтверждением на двух Mac; пять исходных автоматизаций сохранены.
+- [x] Apple build 5 связана с 1.0.1; отдельная новая Review Submission подтверждена **WAITING_FOR_REVIEW**; выпуск **автоматический после одобрения**.
+- [ ] **P0 внешний:** дождаться решения Apple, проверить build5/READY_FOR_SALE/фактическое распространение RU и при необходимости других витрин; затем передать дату в Growth.
+- [ ] **P1 предел QA:** на подключённом iPhone нет публичного production bundle; не объявлять upgrade реальной личной App Store базы протестированным и не перезаписывать её ради приёмки.
+- [ ] Любой дополнительный build/upload/review или изменение карточки — только после нового отдельного согласия. **Ручную публикацию не включать.**
+
+[Канонический портфельный светофор](../core/docs/PORTFOLIO_RECONCILIATION_2026-10-19_EVENING.md). **Ниже — исторические чекпоинты, включая отозванную 1.0.1(4); они не отменяют текущий App Review.**
+
+
 ## 19.10.2026 — Apple Review submitted, Pushkin 1.0.1 (5)
 
 - [x] All 8 GitHub PR checks SUCCESS; signed IPA hash and physical QA verified.

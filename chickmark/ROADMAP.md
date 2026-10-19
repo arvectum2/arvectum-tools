@@ -1,5 +1,19 @@
 # ChickMark — актуальная дорожная карта
 
+## 19.10.2026, вечер — ChickMark: HealthKit water в main, не в публичной версии
+
+**Текущее:** публично **1.5.0 (18)**, RU категория **Health & Fitness**. [PR #94](https://github.com/arvectum2/arvectum-tools/pull/94) **MERGED** в main — добровольный экспорт dietaryWater, выключен по умолчанию; версия в Store эту новинку не содержит.
+
+- [x] Источник WaterHealthKitWriter и синхронизация встроены; **15/15** QA (13 fake HealthKit + 2 isolated UI) PASS; отдельный настоящий физический QA-цикл **250→500→0→750→0 мл** PASS без остаточных чужих samples.
+- [ ] **P0:** пользовательский живой habit check-in/edit/undo + HealthKit Settings revoke→regrant (не mock) на iPhone, идемпотентность и точное удаление **только собственных** samples.
+- [ ] **P0:** CloudKit на двух устройствах, backup/restore без риска пользовательских данных, Watch/widgets и signed in-place upgrade при следующем RC.
+- [ ] **P1 · карточка Apple:** согласованная категория **Productivity**. Неподвижная публичная READY_FOR_SALE 1.5.0 ранее ответила **409** на PATCH; выполнить в следующей разрешённой редактируемой версии и перепроверить опубликованную карточку.
+- [ ] **P1:** физические iPad/Duo/split/VoiceOver, межприложный одноразовый handoff из Ухвата с корректной дедупликацией и отказом разрешений.
+- [ ] Для новой сборки/App Review получить отдельное согласие. Сама интеграция PR #94 не означает публикацию нового бинарника.
+
+[Единый портфельный срез](../core/docs/PORTFOLIO_RECONCILIATION_2026-10-19_EVENING.md). Ниже сохранены архивные состояния draft PR #94, теперь заменённые этим merge-результатом.
+
+
 ## ВЫПОЛНЕНО · 19.10.2026 — native HealthKit вода интегрирована
 
 - [x] [PR #94](https://github.com/arvectum2/arvectum-tools/pull/94) **MERGED** (`b189a6a`), полный GitHub CI SUCCESS. Export `dietaryWater` в `main` с per-habit explicit opt-in OFF, отдельным выбором 10…1000 мл, RU/EN/ES и точным own-ID delete; **публичный бинарник 1.5.0 функции не содержит**.

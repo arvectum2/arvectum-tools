@@ -1,5 +1,21 @@
 # Arvectum Tools — план исполнения без Where?
 
+## 19.10.2026, вечер — единая исполняемая очередь
+
+[Текущий светофор и строгие release gates](docs/PORTFOLIO_RECONCILIATION_2026-10-19_EVENING.md). Уже завершено: **Pushkin build5 App Review submitted WAITING_FOR_REVIEW с AFTER_APPROVAL**, 8/8 GH checks SUCCESS, QA no-loss; **Ухват 420 s physical MOV**, ChickMark HealthKit water **PR #94 MERGED**. Старые даты/статусы ниже остаются историей.
+
+- [ ] **P0-A · Pushkin/Core/Growth:** после Apple review read-only подтвердить READY_FOR_SALE и фактический public build; если Apple запросит правку — не посылать другой build без нового одобрения.
+- [ ] **P0-B · Ухват:** реальный звонок, длинная 30+ мин запись, Watch offline/reboot и no-loss upgrade на безопасном QA устройстве, только после этого оценить следующую версию.
+- [ ] **P0-C · ChickMark:** живой UI HealthKit dietaryWater и разрешения, CloudKit/Watch sync и safe upgrade; отдельно составить следующий RC.
+- [ ] **P0-D · Фото/PDF:** реальные Files/Photos/PDF import/export + ad consent/no-fill physical QA до решения о 1.0.2.
+- [ ] **P1-A · Growth:** [site PR #15](https://github.com/arvectum2/arvectum-site/pull/15) verify FAILURE, не deployed; анализ причин/CI, затем согласованный деплой и baseline.
+- [ ] **P1-B · Growth/ChickMark:** категория Productivity на следующей editable ASC версии, не считать уже изменённой.
+- [ ] **P1-C · Core:** app-specific accessibility/iPad/Duo simulator и физические permissions; C1 release provenance каждого очередного бинарника.
+- [ ] **PAUSE:** не начинать Where? и Growth Agent без новой команды владельца.
+
+**Правило:** исходники и QA ≠ App Store release; по этому обновлению не загружать новые приложения в Apple, не деплоить сайт, не менять карточки и не удалять пользовательские данные.
+
+
 ## 19.10.2026 — Pushkin 1.0.1 (5) submitted to Apple
 
 - [x] Eight GitHub checks PASS; Apple processed build5 VALID and new App Review submission WAITING_FOR_REVIEW.
