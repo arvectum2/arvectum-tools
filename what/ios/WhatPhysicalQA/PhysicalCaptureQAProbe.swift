@@ -215,8 +215,9 @@ final class PhysicalCaptureQAProbe {
                 for elapsed in 1...requestedSeconds {
                     try? await Task.sleep(nanoseconds: 1_000_000_000)
                     if elapsed.isMultiple(of: 30) {
+                        let transport = await capture.qaRecordingTransport()
                         trace("long-recording-heartbeat", details:
-                              "elapsed=\(elapsed)s recording=\(capture.isRecording) preparing=\(capture.isPreparing) saving=\(capture.isSaving) error=\(capture.errorMessage ?? "none")")
+                              "elapsed=\(elapsed)s recording=\(capture.isRecording) preparing=\(capture.isPreparing) saving=\(capture.isSaving) error=\(capture.errorMessage ?? "none") " + transport)
                     }
                     guard capture.isRecording else {
                         trace("unexpected-capture-stop", details:

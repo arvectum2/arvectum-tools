@@ -54,6 +54,33 @@ final class VideoCaptureController: NSObject, ObservableObject,
                                        position: .back) != nil
     }
 
+    #if REVIEW_HANDOFF_QA
+    /// Read-only AVFoundation liveness snapshot on the capture serial queue.
+    /// Logical SwiftUI isRecording can remain true if a device stops its
+    /// writer without delivering the expected callback.
+    func qaRecordingTransport() async -> String {
+        await withCheckedContinuation { (continuation: CheckedContinuation<String, Never>) in
+            sessionQueue.async { [self] in
+                let clipIndex = max(0, nextSegmentNumber - 1)
+                let fileBytes: Int64
+                if let id = recoveryID, nextSegmentNumber > 0 {
+                    let url = recoveryJournal.segmentURL(for: id, index: clipIndex)
+                    fileBytes = (try? url.resourceValues(
+                        forKeys: [.fileSizeKey]
+                    ))?.fileSize.map(Int64.init) ?? -1
+                } else {
+                    fileBytes = -1
+                }
+                continuation.resume(returning:
+                    "sessionRunning=\(session.isRunning) "
+                    + "writerRecording=\(fileOutput.isRecording) "
+                    + "clipIndex=\(clipIndex) fileSizeBytes=\(fileBytes)"
+                )
+            }
+        }
+    }
+    #endif
+
     func start() {
         guard !started else { return }
         started = true
