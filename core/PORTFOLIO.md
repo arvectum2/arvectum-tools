@@ -1,5 +1,10 @@
 # Arvectum Tools — Roadmap Registry
 
+## 19.10.2026 · Core: необязательное обновление App Store интегрировано
+
+- [x] [PR #133](https://github.com/arvectum2/arvectum-tools/pull/133) **MERGED в main** (`08107c3`): общий Apple Lookup / «Обновить» / «Позже» подключён к iOS ChickMark, Pushkin, Фото/PDF и Ухват. Core 19/19, iOS 4/4, watchOS 2/2 локально PASS. [Акт](docs/APP_STORE_UPDATE_INTEGRATION_2026-10-19.md).
+- [ ] Отдельная физическая проверка диалога и публикация будущих бинарников после app-specific QA/согласования. Публичные версии не изменены этой интеграцией; Where? на паузе, Android вне данного механизма.
+
 ## 19.10.2026 · Growth measurement access
 
 Apple RU публичные оценки: Pushkin 0, Ухват 0, ChickMark 2 (5.0), Фото/PDF 2 (5.0). Для Analytics Reports текущий ASC API key получил **403** на всех четырёх приложениях. Не считать downloads/views/conversion равными нулю. [Документ](../growth/docs/APP_STORE_BASELINE_2026-10-19.md). РСЯ/SEO метрики ещё не сняты.
