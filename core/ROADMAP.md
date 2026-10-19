@@ -7,7 +7,7 @@
 - [x] D0: исследование Apple HIG и релевантных приложений; проверка реальных экранов/исходников четырёх продуктов, фиксация ограничений бенчмарка.
 - [x] D0: общие semantic tokens и метрики в SwiftPM Core, unit-тесты; без изменения существующего UI. **SwiftPM Core: 21/21 PASS на macOS 19.10.2026; продуктовые UI/build тесты остаются отдельной задачей.**
 - [x] D1/P0 Pushkin: корректное описание охвата, RU/EN главных экранов; Debug iOS Simulator BUILD, 5 unit + 5 UI PASS. Не опубликовано.
-- [ ] D1/P0 Фото/PDF: закрепить экспортный CTA и подтвердить simulator QA.
+- [ ] D1/P0 Фото/PDF: CTA закреплён вне ScrollView, iOS Simulator BUILD PASS; UI тесты фото+PDF добавлены, выполнение полного UI прогона прервано средой — до merge/релиза подтвердить.
 - [ ] D1/P1 Pushkin: оставшиеся secondary views, компактный бренд-хедер, Dynamic Type.
 - [ ] D2/P1: Ухват — discoverability аудио/видео/текста; ChickMark — прогресс и путь добавления.
 - [ ] D3/P1: product UX QA (VoiceOver, Dynamic Type, тёмная тема, reduce motion) и отдельные UI PR для каждого приложения.

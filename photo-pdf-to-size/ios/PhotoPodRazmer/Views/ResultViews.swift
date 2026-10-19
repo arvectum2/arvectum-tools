@@ -54,7 +54,6 @@ struct BeforeAfterPreview: View {
 
 struct PDFResultCard: View {
     let result: ResultPDF
-    let onSave: () -> Void
     let onShare: () -> Void
     let onBack: () -> Void
 
@@ -107,16 +106,6 @@ struct PDFResultCard: View {
                 .font(.caption)
                 .foregroundStyle(.secondary)
 
-            Button(action: onSave) {
-                Label(tr("Сохранить файл"), systemImage: "square.and.arrow.down")
-                    .font(.headline)
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 48)
-            }
-            .buttonStyle(.plain)
-            .foregroundStyle(Color.arvectumPrimaryText)
-            .background(Color.arvectumMint, in: RoundedRectangle(cornerRadius: 16))
-
             Button(action: onShare) {
                 Label(tr("Поделиться"), systemImage: "square.and.arrow.up")
                     .font(.headline)
@@ -156,7 +145,6 @@ struct PDFResultCard: View {
 
 struct ResultCard: View {
     let result: ResultImage
-    let onSave: () -> Void
     let onSavePrintSheet: () -> Void
     let onShare: () -> Void
     let onBack: () -> Void
@@ -204,18 +192,6 @@ struct ResultCard: View {
                     .font(.footnote)
                     .foregroundStyle(.secondary)
             }
-
-            Spacer(minLength: 0)
-
-            Button(action: onSave) {
-                Label("Сохранить файл", systemImage: "square.and.arrow.down")
-                    .font(.headline)
-                    .frame(maxWidth: .infinity)
-                    .frame(height: result.mode == .passport ? 42 : 48)
-            }
-            .buttonStyle(.plain)
-            .foregroundStyle(Color.arvectumPrimaryText)
-            .background(Color.arvectumMint, in: RoundedRectangle(cornerRadius: 16))
 
             if let sheet = result.printSheet {
                 Button(action: onSavePrintSheet) {

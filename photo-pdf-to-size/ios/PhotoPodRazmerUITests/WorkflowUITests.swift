@@ -17,6 +17,36 @@ final class WorkflowUITests: XCTestCase {
         return app
     }
 
+    private func assertPrimarySaveVisible(fixture: String, action: String) {
+        let app = launch(fixture)
+        let process = app.buttons[action]
+        XCTAssertTrue(process.waitForExistence(timeout: 8))
+        process.tap()
+        XCTAssertTrue(app.staticTexts["ГОТОВО"].waitForExistence(timeout: 25))
+
+        let save = app.buttons["result-save-primary"]
+        XCTAssertTrue(save.waitForExistence(timeout: 8))
+        XCTAssertTrue(save.isHittable, "Save should be visible without scrolling")
+        XCTAssertLessThanOrEqual(
+            save.frame.maxY, app.frame.maxY + 1,
+            "Save cannot fall below the visible viewport"
+        )
+    }
+
+    func testPhotoSaveIsVisibleWithoutScrolling() {
+        assertPrimarySaveVisible(
+            fixture: "--qa-photo-fixture",
+            action: "Уменьшить фото"
+        )
+    }
+
+    func testPDFSaveIsVisibleWithoutScrolling() {
+        assertPrimarySaveVisible(
+            fixture: "--qa-pdf-fixture",
+            action: "Уменьшить PDF"
+        )
+    }
+
     func testPhotoCompressionAndBackNavigation() {
         let app = launch("--qa-photo-fixture")
         let button = app.buttons["Уменьшить фото"]

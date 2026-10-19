@@ -55,7 +55,6 @@ struct ContentView: View {
                         VStack(spacing: 6) {
                             ResultCard(
                                 result: result,
-                                onSave: beginExport,
                                 onSavePrintSheet: beginPrintSheetExport,
                                 onShare: { shareURL = result.outputURL },
                                 onBack: model.backToSelection
@@ -68,7 +67,6 @@ struct ContentView: View {
                         VStack(spacing: 6) {
                             PDFResultCard(
                                 result: pdfResult,
-                                onSave: beginPDFExport,
                                 onShare: { shareURL = pdfResult.outputURL },
                                 onBack: model.backToSelection
                             )
@@ -94,6 +92,33 @@ struct ContentView: View {
                         .frame(maxWidth: 1120)
                         .frame(maxWidth: .infinity)
                     }
+                }
+
+                // The save action must remain visible even when the result
+                // preview is taller than the screen or an ad is displayed.
+                // It is outside the scroll view and above the footer.
+                if model.result != nil || model.pdfResult != nil {
+                    Button {
+                        if model.pdfResult != nil {
+                            beginPDFExport()
+                        } else {
+                            beginExport()
+                        }
+                    } label: {
+                        Label(tr("Сохранить файл"), systemImage: "square.and.arrow.down")
+                            .font(.headline)
+                            .frame(maxWidth: .infinity)
+                            .frame(minHeight: 48)
+                            .contentShape(Rectangle())
+                    }
+                    .buttonStyle(.plain)
+                    .foregroundStyle(Color.arvectumPrimaryText)
+                    .background(
+                        Color.arvectumMint,
+                        in: RoundedRectangle(cornerRadius: 16, style: .continuous)
+                    )
+                    .accessibilityIdentifier("result-save-primary")
+                    .padding(.vertical, 8)
                 }
 
                 HStack(spacing: 6) {
