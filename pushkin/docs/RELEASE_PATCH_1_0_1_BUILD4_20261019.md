@@ -15,7 +15,7 @@
 - На исходнике 1.0.1(4) Xcode 27.1, `build-for-testing` **PASS**, unit suite **17/17 PASS** на свежем выделенном симуляторе. Полные UI-прогоны на этом новом симуляторе **BUILD INTERRUPTED** без проваленных тестовых assert; результат **не засчитывать за PASS**. Артефакты: `/Volumes/ArvectumSSD/Arvectum/tmp/pushkin-patch-20261019`. Достоверная локальная UI база остаётся физический изолированный QA 18.10.
 - [ ] Только с разрешения владельца: реальный импорт Shortcuts и enable в отдельной тестовой автоматизации, захват тестового уведомления, refresh micro и проверка покрытия. Не нарушать действующие автоматизации; 1000 пакетов != доказанная доставка 1000 источников.
 - [ ] Прогон сохранности истории при **upgrade** с публичной сборки на отдельной тестовой базе; никакой reinstall с удалением пользовательского приложения.
-- [ ] Distribution-signed archive и IPA 1.0.1(4): проверить bundle/version/family/profile/codesign и SHA256; привязать к Git SHA. Не загружать до финальной приёмки.
+- [x] Distribution-signed archive и IPA **1.0.1(4)** подготовлены 19.10 на Mac mini, `xcodebuild archive`/export **SUCCEEDED**; `codesign --verify --deep --strict` PASS; Apple Distribution: LLC ARVECTUM (VML75VY94V). Подтверждены `ru.arvectum.tools.notify`, версия `1.0.1`, build `4`, device family `[1]`, **1001** `.shortcut`. Source SHA `58767113fae8d14637b74246fe90dcf24cbc0c8a`; IPA SHA-256 `6f3bfdfc039b857b49d961c7e8c060c6c1f1921caa0e49c8404052d983bc5309`. Артефакты на ArvectumSSD: `releases/pushkin/patch-1.0.1-build4-20261019`. **НЕ загружено в ASC.**
 
 ## Подготовленные тексты What's New (не отправлены)
 
