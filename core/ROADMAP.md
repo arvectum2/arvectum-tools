@@ -7,7 +7,8 @@
 - [x] D0: исследование Apple HIG и релевантных приложений; проверка реальных экранов/исходников четырёх продуктов, фиксация ограничений бенчмарка.
 - [x] D0: общие semantic tokens и метрики в SwiftPM Core, unit-тесты; без изменения существующего UI. **SwiftPM Core: 21/21 PASS на macOS 19.10.2026; продуктовые UI/build тесты остаются отдельной задачей.**
 - [x] D1/P0 Pushkin: корректное описание охвата, RU/EN главных экранов; Debug iOS Simulator BUILD, 5 unit + 5 UI PASS. Не опубликовано.
-- [x] D1/P0 Фото/PDF: CTA вне ScrollView, исправлена адаптивная вёрстка результата; iPhone 17 Pro 2/2 UI PASS, iPhone SE normal 2/2, SE AXXXL 2/2 UI PASS; скриншоты проверены. РСЯ/Files/VoiceOver/physical QA открыты.
+- [x] D1/P0 Фото/PDF: CTA вне ScrollView, iPhone 17 Pro normal 2/2 PASS, iPhone SE normal 2/2 PASS и AXXXL 2/2 PASS; скриншоты проверены.
+- [x] D1/P1 Фото/PDF: Files exporter фото/PDF 2/2 E2E PASS, сообщение после успешной записи, unit распознавания Cancel PASS; рекламная геометрия loaded/no-fill 2/2 UI PASS, доступность consent при AXXXL PASS. Live РСЯ и физические QA gates открыты.
 - [x] D1/P1 Pushkin: компактный хедер, mint+navy CTA, читаемые акценты, контрастный placeholder; 1 unit + 2 UI PASS, Dark + Increase Contrast screenshot PASS, Simulator BUILD PASS. Secondary views / VoiceOver / Dynamic Type открыты.
 - [x] D2/P1 Ухват: видимые Видео/Текст, один hint, склонение счётчика, library identifier, обновлённые UI-тесты; build, два UI и AXXXL UI PASS. Физический VoiceOver/iPad открыты.
 - [x] D2/P1 ChickMark: семантически точный «Отмечено: N из M» для RU/EN/ES, Simulator BUILD и 2/2 localization unit PASS.
