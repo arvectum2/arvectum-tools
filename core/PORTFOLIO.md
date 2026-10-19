@@ -1,5 +1,17 @@
 # Arvectum Tools — Roadmap Registry
 
+## Актуальный публичный срез · 19.10.2026
+
+[Сверка Apple RU storefront и следующая исполняемая очередь](docs/PUBLIC_RELEASE_RECONCILIATION_2026-10-19.md): **Pushkin 1.0, Ухват 1.1.0 и ChickMark 1.5.0 опубликованы**, прямой публичный Apple Lookup API. **Фото/PDF 1.0.1** без новой версии; **Where? на паузе**.
+
+- [x] Снят прежний Apple-review gate для трёх опубликованных версий; **не считать физические тесты или новые изменения в `main` выпущенными**.
+- [ ] Pushkin: безопасное удаление и Shortcuts/onboarding из `main` отсутствуют в публичной 1.0; безопасный patch — ближайший P0.
+- [ ] Ухват: public 1.1.0(8) ≠ новые main-фиксы видеозаписи/Watch; физическая длительная запись и signed upgrade открыты.
+- [ ] ChickMark: public 1.5.0, но CloudKit/HealthKit/native РСЯ физические gate открыты, экспорт воды в Health остаётся draft PR #94.
+- [ ] Core iPad/Duo и Growth/ASO выполняются отдельно от статуса публичных iPhone-релизов; не выдавать код в `main` за одобрение устройств Apple.
+
+
+
 ## PR #90 объединён в main · 18.10.2026
 
 - [x] Общий адаптивный Core, Ухват 1.1.0, ChickMark 1.5.0, Pushkin и Фото/PDF включены в стабильную main: c86bc54, 38/38 CI PASS. [Технический акт](docs/ADAPTIVE_MAIN_INTEGRATION_2026-10-18.md).

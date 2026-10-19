@@ -1,5 +1,12 @@
 # Arvectum Tools Core — дорожная карта
 
+## Публичный checkpoint · 19.10.2026
+
+- [x] [Apple RU подтверждение](docs/PUBLIC_RELEASE_RECONCILIATION_2026-10-19.md): Pushkin 1.0, Ухват 1.1.0, ChickMark 1.5.0 опубликованы.
+- [ ] Общий Core и iPad/Duo код в `main` не является доказательством включения этих устройств в публичные версии. Подписанный patch/source mapping и app-specific gate выполнять по [плану](EXECUTION_PLAN.md).
+
+
+
 ## PR #90 объединён в main · 18.10.2026
 
 - [x] Исходники адаптивного ArvectumCore и четырёх активных приложений объединены в стабильную main через [PR #90](https://github.com/arvectum2/arvectum-tools/pull/90), squash c86bc54, **38/38 CI PASS**.
