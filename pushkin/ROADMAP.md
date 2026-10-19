@@ -1,5 +1,13 @@
 # PUSHKIN — Product Roadmap
 
+## Физическая приёмка iPhone 13 · обновлено 19.10.2026, 13:05 MSK
+
+- [x] Источник патча `1.0.1(4)` в независимом Apple Development QA bundle `ru.arvectum.tools.notify.physicalqa`: **17/17 unit + 3/3 UI = 20/20 PASS**, 0 errors. Поиск, удаление одной синтетической записи, очистка только тестовой истории, доступность подписанных пакетов.
+- [x] Дополнительный [native Shortcuts preview](docs/PHYSICAL_SHORTCUT_PREVIEW_ACCEPTANCE_2026-10-19.md): **1/1 physical iPhone UI PASS** — открытие базового signed 1,000-app Shortcut в приложении Apple Shortcuts, наличие native **Add Shortcut**; принципиально **не нажимали Add**, не меняли личные автоматизации. [Draft PR #126](https://github.com/arvectum2/arvectum-tools/pull/126).
+- [ ] Доказать именно **реальную доставку уведомления от новой временной Shortcuts-автоматизации** с контролируемой установкой/удалением; нет полномочия считать просмотр Shortcut активацией.
+- [ ] Проверить безопасное обновление реальной установленной публичной версии с сохранением истории. QA-бандл отличается от Store; подписанный для App Store 1.0.1(4) **не загружен**.
+
+
 ## P0 · CI подписанного 1.0.1(4) завершён (19.10.2026)
 
 - [x] [Draft PR #126](https://github.com/arvectum2/arvectum-tools/pull/126): **build-for-testing SUCCESS, delete-regression SUCCESS**, architecture/catalog/GitVerse SUCCESS на последнем коммите. Подписанный iPhone-only архив и IPA ранее проверены на исходном SHA 5876711, включая 1001 shortcut; App Store 1.0 пока не менялся.

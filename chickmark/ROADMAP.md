@@ -1,5 +1,13 @@
 # ChickMark — актуальная дорожная карта
 
+## CM18-3 · физический iPhone 13, 19.10.2026
+
+- [x] `ChickMark Water QA` `1.5.0(202)` на iPhone, **13/13 fake HealthKit sync + 2/2 UI = 15/15 PASS**, без ошибок/пропусков. Unit включают multi-checkin 250→500→750 мл, undo/reentry, revoke→regrant mock и раздельные дни; UI проверяет включение только по явному согласию и безопасный отказ. [Протокол](docs/PHYSICAL_WATER_QA_2026-10-19.md), [draft PR #94](https://github.com/arvectum2/arvectum-tools/pull/94).
+- [x] Журнал предыдущего тестового HealthKit write+delete (18.10) после текущих UI тестов **не изменился**: `completedClean`, `ownDeletionCompleted=true`, **0 residual**. Новых реальных sample не создавали, приложение пользователя/Watch/CloudKit не меняли.
+- [ ] Настоящие изменения отметок через UI с живым HealthKit, revoke в iOS Settings и безопасный production upgrade остаются выпускным блокером. Не считать mock revoke физическим доказательством изменения разрешения.
+- [ ] Категория Productivity будет доступна лишь при следующей редактируемой версии в ASC (текущая `READY_FOR_SALE` дала 409).
+
+
 ## CM18-3 · Дополнительные safe-unit тесты воды (19.10.2026)
 
 - [x] В [draft PR #94](https://github.com/arvectum2/arvectum-tools/pull/94), source `b673339`, добавлены **3 fake-HealthKit** регрессии: реальные изменения количества/undo/re-entry одного дня, revoke→regrant WRITE и независимые дни с удалением только нужного дня. `swiftc -frontend -parse` PASS; **новый GitHub CI ещё выполнялся** на момент фиксации, результаты не заявлять успешными заранее.

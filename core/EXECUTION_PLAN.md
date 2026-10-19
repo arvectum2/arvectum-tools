@@ -1,5 +1,13 @@
 # Arvectum Tools — план исполнения без Where?
 
+## Практическая приёмка на подключённом iPhone · 19.10.2026, 13:05 MSK
+
+- [x] **Pushkin**: signed RC 1.0.1(4) на Mac mini, 20/20 physical synthetic QA PASS + 1/1 native signed Shortcut pre-import preview PASS; пользовательские Shortcuts НЕ изменены. [PR #126](https://github.com/arvectum2/arvectum-tools/pull/126). *Gate:* настоящий Shortcut notification capture, миграция Store-данных.
+- [x] **Ухват**: physical foreground 420 s с continuous file growth за отметкой 340 s, ровно одно сохранённое playable MOV с аудио/видео (434.885 s). QA in-place build 8→9 сохранил 18/18 предшествующих заметок; [PR #128](https://github.com/arvectum2/arvectum-tools/pull/128). *Gate:* звонок/background/Watch offline/reboot/public upgrade.
+- [x] **ChickMark**: 13 focused mock HealthKit + 2 isolated UI на iPhone = **15/15 PASS**; предыдущий настоящий одноразовый тестовый sample удалён до 0 residual, journal unchanged; [draft PR #94](https://github.com/arvectum2/arvectum-tools/pull/94). *Gate:* реальное пользовательское checkin→edit→undo, permission revoke в Settings, production upgrade.
+- [ ] Ничего из этого **не подменяет** опубликованную App Store версию и не даёт оснований стирать личные данные или слать update без решения о релизе.
+
+
 ## Исполняемый чекпоинт · 19.10.2026
 
 - [x] **Pushkin**: подписанный iPhone patch 1.0.1(4), [PR #126](https://github.com/arvectum2/arvectum-tools/pull/126) full CI SUCCESS. До отправки Apple обязателен реальный Shortcuts notification capture + недеструктивный upgrade.

@@ -1,5 +1,13 @@
 # What? — Product Roadmap
 
+## Длинное видео · физический iPhone 13, 19.10.2026
+
+- [x] **Реальная 420-секундная foreground AVFoundation запись SUCCESS** после прошлого ~340-секундного обрыва: на 420 с `sessionRunning=true, writerRecording=true`, MOV вырос до **118,678,546 байт**. Нативный callback сохранил одно новое видео, фактическая длительность индекса **434.885 с**.
+- [x] Отдельная QA-проверка `AVURLAsset`: оба последних MOV (434.88 с и ранее восстановленный 339.82 с) **playable, есть видео и аудио**.
+- [x] in-place обновление `ru.arvectum.tools.what.multimodalqa` с QA build 8 на **build 9**: 18 прежних заметок сохранились **побайтово идентично**; после записи 19 заметок, без потерь и дублей. [Детальный протокол](docs/PHYSICAL_LONG_VIDEO_420S_ACCEPTANCE_2026-10-19.md), [PR #128](https://github.com/arvectum2/arvectum-tools/pull/128).
+- [ ] Всё ещё открыто: interruption при реальном звонке/уходе в фон, 30–120 мин видео, аппаратный Watch offline/reboot, upgrade **публичной** версии без изменения личных данных. Этот QA не означает новый релиз App Store.
+
+
 ## P0 · QA диагностика долгого видео уже в main (19.10.2026)
 
 - [x] [PR #127](https://github.com/arvectum2/arvectum-tools/pull/127) **MERGED** (5768ba0): только под `REVIEW_HANDOFF_QA` каждые 30 секунд журналируются реальные `AVCaptureSession.isRunning`, `AVCaptureMovieFileOutput.isRecording`, размер текущего MOV/сегмент и SwiftUI status. Локальный Xcode 27.1 **BUILD SUCCEEDED**, GitHub capture-reliability/watch-build CI **SUCCESS**. Аудио/видео не читается в лог; производственная логика не менялась.

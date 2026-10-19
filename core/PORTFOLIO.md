@@ -1,5 +1,10 @@
 # Arvectum Tools — Roadmap Registry
 
+## Physical gate checkpoint · 19.10.2026
+
+Подключённый iPhone 13: **Pushkin 20/20 physical unit/UI + 1/1 native signed Shortcut preview**; Ухват **420 s continuous capture + playable MOV with audio**, 18 QA notes preserved on update; ChickMark **15/15 physical QA** (13 fake HealthKit sync + 2 UI), реальный HealthKit одноразовый QA журнал неизменён и clean. Все доказательства в локальных app roadmaps. **Ни одна App Store версия не обновлялась.**
+
+
 ## Контроль исполнения · 19.10.2026
 
 Пушкин [подписанный 1.0.1(4) / PR #126](https://github.com/arvectum2/arvectum-tools/pull/126), CI PASS, **не App Store**. Ухват [QA диагностика PR #127 MERGED](https://github.com/arvectum2/arvectum-tools/pull/127), непрерывный physical long-video gate открыт. ChickMark [draft вода PR #94](https://github.com/arvectum2/arvectum-tools/pull/94) только локальная интеграция. Growth [site PR #15](https://github.com/arvectum2/arvectum-site/pull/15), не развернут; ASC категория пока Health & Fitness. Источник конкретного выполнения — дорожные карты владельцев.
