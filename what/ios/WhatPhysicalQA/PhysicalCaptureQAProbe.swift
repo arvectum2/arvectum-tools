@@ -7,7 +7,8 @@ import SwiftUI
 /// Opt-in physical recording probe used when XCTest UI
 /// automation is unavailable. Exists exclusively in the distinct QA bundle.
 /// Launch explicitly with QA-only `flips`, `180s`, `early-crash`, `verify`,
-/// `background-sheet`, `background-after-flips`, `stress12` or `480s`.
+/// `background-sheet`, `background-after-flips`, `stress12`, `480s` or
+/// `long` together with `what-physical-qa-seconds=N` (60...900).
 @MainActor
 final class PhysicalCaptureQAProbe {
     static let shared = PhysicalCaptureQAProbe()
@@ -72,11 +73,29 @@ final class PhysicalCaptureQAProbe {
               }) else { return }
         hasStarted = true
         let mode = String(argument.dropFirst("what-physical-qa=".count))
-        guard ["flips", "180s", "early-crash", "verify", "background-sheet", "background-after-flips", "stress12", "480s"].contains(mode) else { return }
+        guard ["flips", "180s", "early-crash", "verify", "background-sheet", "background-after-flips", "stress12", "480s", "long"].contains(mode) else { return }
+        // Adjustable long-capture QA: duration is supplied explicitly rather
+        // than suggesting that 480 seconds is a platform limit or requirement.
+        let requestedSeconds: UInt64
+        if mode == "long" {
+            let secondsArg = ProcessInfo.processInfo.arguments.first(where: {
+                $0.hasPrefix("what-physical-qa-seconds=")
+            })
+            let raw = secondsArg.map { String($0.dropFirst("what-physical-qa-seconds=".count)) }
+            guard let raw, let seconds = UInt64(raw), (60...900).contains(seconds) else {
+                activeMode = mode
+                write("failed", mode: mode,
+                      details: "Specify what-physical-qa-seconds=N (60...900) for long QA recording")
+                return
+            }
+            requestedSeconds = seconds
+        } else {
+            requestedSeconds = mode == "480s" ? 480 : 180
+        }
         activeMode = mode
         lifecycleEvents = []
         trace("qa-run-start", details: mode)
-        if mode == "480s" || mode == "stress12" {
+        if mode == "480s" || mode == "long" || mode == "stress12" {
             let support = FileManager.default.urls(
                 for: .applicationSupportDirectory, in: .userDomainMask
             ).first
@@ -191,10 +210,9 @@ final class PhysicalCaptureQAProbe {
                 }
                 try? await Task.sleep(nanoseconds: 3_000_000_000)
             } else {
-                let seconds: UInt64 = mode == "480s" ? 480 : 180
-                // Explicitly opt-in test on isolated QA app; do not change
-                // production max lengths, force background, or fill storage.
-                for elapsed in 1...seconds {
+                // Explicit QA-only requested duration. Do not change
+                // production limits, force background or fill storage.
+                for elapsed in 1...requestedSeconds {
                     try? await Task.sleep(nanoseconds: 1_000_000_000)
                     if elapsed.isMultiple(of: 30) {
                         trace("long-recording-heartbeat", details:
