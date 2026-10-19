@@ -241,6 +241,7 @@ struct HabitsByArvectumApp: App {
                 identifier: ChickMarkLanguage.effectiveIdentifier(for: preferredLanguage)
             ))
             .id(preferredLanguage)
+            .appStoreUpdatePrompt(locale: Locale(identifier: ChickMarkLanguage.effectiveIdentifier(for: preferredLanguage)))
         }
         .modelContainer(modelContainer)
     }

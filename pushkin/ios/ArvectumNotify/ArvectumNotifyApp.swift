@@ -6,6 +6,7 @@ struct ArvectumNotifyApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .appStoreUpdatePrompt()
                 #if DEBUG && PUSHKIN_PHYSICAL_QA
                 .onAppear {
                     PersistentUpgradeQAProbe.runIfRequested()
