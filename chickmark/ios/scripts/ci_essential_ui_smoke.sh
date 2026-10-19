@@ -22,6 +22,7 @@ xcodebuild \
   -jobs 2 -parallel-testing-enabled NO \
   -only-testing:HabitsByArvectumUITests/HabitFlowUITests/testAccessibilityAuditCoreScreens \
   -only-testing:HabitsByArvectumUITests/HabitFlowUITests/testMultiCheckHistoryIndividualSlotsPersist \
+  -only-testing:HabitsByArvectumUITests/HabitFlowUITests/testReminderIsVisibleByScheduleWithoutOpeningMoreOptions \
   CODE_SIGNING_ALLOWED=NO COMPILER_INDEX_STORE_ENABLE=NO test \
   > "$log" 2>&1 &
 pid=$!
@@ -31,12 +32,13 @@ pid=$!
 selected_suite_passed() {
   grep -Fq "testAccessibilityAuditCoreScreens]' passed" "$log" &&
   grep -Fq "testMultiCheckHistoryIndividualSlotsPersist]' passed" "$log" &&
+  grep -Fq "testReminderIsVisibleByScheduleWithoutOpeningMoreOptions]' passed" "$log" &&
   grep -Fq "Test Suite 'Selected tests' passed" "$log" &&
-  grep -Eq 'Executed 2 tests, with 0 failures \(0 unexpected\)' "$log" &&
+  grep -Eq 'Executed 3 tests, with 0 failures \(0 unexpected\)' "$log" &&
   ! grep -Eq "Test Case '.*' failed|Test Suite '.*' failed|with [1-9][0-9]* failures|TEST FAILED|Failing tests:" "$log"
 }
 
-# Slow Xcode Cloud UI automation startup can exceed 270 seconds before two
+# Slow Xcode Cloud UI automation startup can exceed 270 seconds before three
 # selected assertions finish; allow 900 seconds while keeping an explicit
 # termination bound and the workflow's 35-minute outer timeout.
 # Strict result matching is unchanged: no synthetic success.
@@ -71,7 +73,7 @@ for (( tick=0; tick<300; tick++ )); do
       fi
       exit "$result"
     fi
-    echo 'Xcode 27 UI tests passed 2/2 with zero failures; terminating stalled runner teardown.'
+    echo 'Xcode 27 UI tests passed 3/3 with zero failures; terminating stalled runner teardown.'
     tail -n 35 "$log"
     exit 0
   fi
