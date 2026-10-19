@@ -1,5 +1,10 @@
 # Arvectum Tools — Roadmap Registry
 
+## Коррекция статуса Пушкина · 19.10.2026
+
+Неавторизованная App Review отправка **1.0.1(4)** полностью отозвана: `reviewSubmission COMPLETE`, `version DEVELOPER_REJECTED`. Предпочтение владельца: после отдельного согласия на отправку — **automatic release** `AFTER_APPROVAL`, не ручной. Публично **1.0**. Новые QA-результаты: физический in-place upgrade **6/6 сохранены**, QA AppIntent 2 вызова → 1 SwiftData запись. Реальное Shortcuts Notification Automation ещё блокировано Apple `shortcuts sign` 500. Ни доработка кода, ни готовый IPA не разрешают отправку в Apple без отдельной команды; `AGENTS.md`.
+
+
 ## Актуальный статус публикаций · 19.10.2026
 
 - **Пушкин:** публично App Store **1.0**; **1.0.1(4) VALID + WAITING_FOR_REVIEW**, ручная публикация после одобрения, PR #126 merged. Содержимое уведомлений пользователя не копировалось.

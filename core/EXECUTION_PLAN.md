@@ -1,5 +1,15 @@
 # Arvectum Tools — план исполнения без Where?
 
+## Исправленное решение по Apple · 19 октября 2026
+
+- [x] **Отозвана** несогласованная App Review отправка Пушкина **1.0.1(4)**: submission `COMPLETE`, version `DEVELOPER_REJECTED`; App Store публично **1.0**.
+- [x] **Автоматическая публикация после одобрения** — `releaseType=AFTER_APPROVAL` сохранена для будущего согласованного выпуска. **Никакой активной review-процедуры нет.**
+- [x] Документирована и закреплена в [AGENTS.md](../AGENTS.md) обязательная отдельная авторизация **до upload, review submission и публикации** для каждого релиза; общее «доделай» ≠ разрешение отправлять Apple.
+- [x] Физический QA Пушкина: без удаления QA-приложения обновление build 1→2→3 сохранило 5 старых + 1 новый sentinel, UUID совпал; прямой AppIntent twice → 1 SwiftData record, 7/7 persisted. Никакие пользовательские Shortcuts или уведомления не изменены.
+- [ ] Реальная доставка из **новой временной** iOS Notification Automation → QA AppIntent не пройдена из-за внешней подписи Shortcuts `NSURLErrorDomain 500` даже на контрольном шаблоне. Вкладка Automation доступна через правильную back-навигацию, read-only UI PASS. Не подменять прямой AppIntent реальным notification trigger.
+- [ ] После восстановления подписи и завершения E2E проверки сформировать финальную версию/номер билда, показать checklist владельцу, **ждать явного согласия на отправку**. Потом настроенный `AFTER_APPROVAL` обеспечит автоматическую публикацию без ручной кнопки.
+
+
 ## Текущий светофор · 19 октября 2026, после App Review submission
 
 - [x] **Пушкин (публично 1.0)** — crashfix+Shortcuts **1.0.1(4)**: App Store validation+upload PASS, build 4 `VALID`, RU/EN What's New, iPhone screenshots и App Review contact сверены; **review submission в `WAITING_FOR_REVIEW`**, manual release. [PR #126 MERGED](https://github.com/arvectum2/arvectum-tools/pull/126). В App Store **1.0.1 ещё НЕ опубликована**.
