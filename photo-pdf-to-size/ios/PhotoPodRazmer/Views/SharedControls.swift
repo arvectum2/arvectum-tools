@@ -14,6 +14,7 @@ struct BrandHeader: View {
                 .resizable()
                 .scaledToFit()
                 .frame(width: 102, height: 30)
+                .accessibilityHidden(true) // Decorative logo, not an unnamed action.
 
             Spacer()
 

@@ -87,6 +87,9 @@ struct BeforeAfterPreview: View {
                 .clipped()
                 .background(Color.arvectumBackground)
                 .clipShape(RoundedRectangle(cornerRadius: 12))
+                // Visual thumbnail is accompanied by spoken "Before/After",
+                // dimensions and file size. Do not announce an unnamed Image.
+                .accessibilityHidden(true)
 
             Text("\(dimensions) · \(formatBytes(bytes))")
                 .font(.caption2)
@@ -122,12 +125,14 @@ struct PDFResultCard: View {
                         .frame(width: 92, height: 122)
                         .background(Color.arvectumBackground)
                         .clipShape(RoundedRectangle(cornerRadius: 12))
+                        .accessibilityHidden(true)
                 } else {
                     Image(systemName: "doc.richtext")
                         .font(.system(size: 44))
                         .frame(width: 92, height: 122)
                         .background(Color.arvectumBackground)
                         .clipShape(RoundedRectangle(cornerRadius: 12))
+                        .accessibilityHidden(true)
                 }
 
                 VStack(spacing: 8) {

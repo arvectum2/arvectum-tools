@@ -48,6 +48,73 @@ final class WorkflowUITests: XCTestCase {
         add(evidence)
     }
 
+#if compiler(>=6.4)
+    @MainActor
+    func testActualVoiceOverPhotoResultSpeech() throws {
+        guard #available(iOS 27.0, *) else {
+            throw XCTSkip("Actual VoiceOver requires iOS 27")
+        }
+        let app = launch("--qa-photo-fixture")
+        let process = app.buttons["Уменьшить фото"]
+        XCTAssertTrue(process.waitForExistence(timeout: 10))
+        process.tap()
+        XCTAssertTrue(app.staticTexts["ГОТОВО"].waitForExistence(timeout: 25))
+        let save = app.buttons["result-save-primary"]
+        XCTAssertTrue(save.isHittable)
+        XCTAssertEqual(save.label, "Сохранить файл")
+
+        let service = XCUIDevice.shared.voiceOverService
+        defer { _ = try? service.disable() }
+        _ = try? service.disable()
+        _ = try service.enable()
+        var spoken = [try service.currentSpeech().utterance]
+        for _ in 1..<7 { spoken.append(try service.moveForward().utterance) }
+        print("PHOTO_VOICEOVER_RESULT=\(spoken)")
+        XCTAssertFalse(spoken.contains {
+            $0.contains("ArvectumWordmark") ||
+            $0.trimmingCharacters(in: .whitespacesAndNewlines) == "Image"
+        }, "Decorative logo and image thumbnail must not create speech stops")
+        XCTAssertTrue(spoken.contains {
+            $0.localizedCaseInsensitiveContains("ГОТОВО") ||
+            $0.localizedCaseInsensitiveContains("Изменить настройки")
+        }, "Result heading or settings must be spoken")
+    }
+#endif
+
+#if compiler(>=6.4)
+    @MainActor
+    func testActualVoiceOverPDFResultSpeech() throws {
+        // Long-running system VoiceOver QA: isolated simulator only.
+        // Two PDF attempts yielded actual speech but the runner was interrupted.
+        guard ProcessInfo.processInfo.environment["ARVECTUM_VOICEOVER_QA"] == "1" else {
+            throw XCTSkip("PDF VoiceOver E2E is opt-in until runner is stable")
+        }
+        guard #available(iOS 27.0, *) else {
+            throw XCTSkip("Actual VoiceOver requires iOS 27")
+        }
+        let app = launch("--qa-pdf-fixture")
+        let process = app.buttons["Уменьшить PDF"]
+        XCTAssertTrue(process.waitForExistence(timeout: 10))
+        process.tap()
+        XCTAssertTrue(app.staticTexts["ГОТОВО"].waitForExistence(timeout: 25))
+        XCTAssertEqual(app.buttons["result-save-primary"].label, "Сохранить файл")
+
+        let service = XCUIDevice.shared.voiceOverService
+        defer { _ = try? service.disable() }
+        _ = try? service.disable()
+        _ = try service.enable()
+        var spoken = [try service.currentSpeech().utterance]
+        for _ in 1..<5 { spoken.append(try service.moveForward().utterance) }
+        print("PDF_VOICEOVER_RESULT=\(spoken)")
+        XCTAssertTrue(spoken.contains { $0.localizedCaseInsensitiveContains("PDF подготовлен") ||
+                                         $0.localizedCaseInsensitiveContains("PDF уже подходит") },
+                      "PDF result status must be announced")
+        XCTAssertFalse(spoken.contains { $0.contains("ArvectumWordmark") ||
+                                         $0.trimmingCharacters(in: .whitespacesAndNewlines) == "Image" },
+                       "PDF preview and brand are decorative")
+    }
+#endif
+
     func testPhotoSaveIsVisibleWithoutScrolling() {
         assertPrimarySaveVisible(
             fixture: "--qa-photo-fixture",
