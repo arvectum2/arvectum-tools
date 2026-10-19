@@ -2,7 +2,7 @@
 
 ## Pushkin · сверено 19.10.2026 после PR #130
 
-Публично **1.0**. Submitted 1.0.1(4) **отозвана**, \`DEVELOPER_REJECTED\`; будущая версия настроена на **AFTER_APPROVAL**, но новой подачи без разрешения владельца не будет. [PR #130 merged](https://github.com/arvectum2/arvectum-tools/pull/130), CI зелёный, физическая изолированная QA история и прямой App Intent прошли. Native trigger E2E всё ещё открыт из-за \`shortcuts sign\` 500/504. Пустой тестовый Shortcut точно удалён, прочие команды остались.
+Публично **1.0**. Submitted 1.0.1(4) **отозвана**, `DEVELOPER_REJECTED`; будущая версия настроена на **AFTER_APPROVAL**, но новой подачи без разрешения владельца не будет. [PR #130 merged](https://github.com/arvectum2/arvectum-tools/pull/130), CI зелёный, физическая изолированная QA история и прямой App Intent прошли. Native trigger E2E всё ещё открыт из-за `shortcuts sign` 500/504. Пустой тестовый Shortcut точно удалён, прочие команды остались.
 
 
 ## Коррекция статуса Пушкина · 19.10.2026
