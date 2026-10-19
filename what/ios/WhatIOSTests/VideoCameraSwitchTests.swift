@@ -176,6 +176,63 @@ final class VideoCameraSwitchTests: XCTestCase {
         }
     }
 
+    func testThirteenAlternatingMOVSegmentsComposeWithoutLosingFinalClip() async throws {
+        // Twelve camera swaps produce thirteen independently finalized clips.
+        // This is separate from the 12-swap physical QA acceptance: it checks
+        // all thirteen actual decoded media segments, not metadata counts.
+        let clips = try (0..<13).map { try fixture($0.isMultiple(of: 2) ? "back" : "front") }
+        let expected = try await withThrowingTaskGroup(of: (Int, Double).self) { group in
+            for (i, clip) in clips.enumerated() {
+                group.addTask { (i, try await AVURLAsset(url: clip).load(.duration).seconds) }
+            }
+            var durations = Array(repeating: 0.0, count: clips.count)
+            for try await (index, duration) in group { durations[index] = duration }
+            return durations
+        }
+        XCTAssertFalse(VideoCaptureFinalizationGate.canCompose(
+            startedSegments: 13, finalizedSegments: 12, writerIsRecording: false
+        ), "Never save a playable twelve-clip prefix while the 13th is open")
+        XCTAssertTrue(VideoCaptureFinalizationGate.canCompose(
+            startedSegments: 13, finalizedSegments: 13, writerIsRecording: false
+        ))
+        let destination = FileManager.default.temporaryDirectory
+            .appendingPathComponent("what-thirteen-camera-clips-\(UUID().uuidString).mov")
+        defer { try? FileManager.default.removeItem(at: destination) }
+        let output = try await VideoSegmentComposer.compose(clips, destination: destination)
+        XCTAssertTrue(output.isTemporaryExport)
+        let asset = AVURLAsset(url: destination)
+        let playable = try await asset.load(.isPlayable)
+        let videoTracks = try await asset.loadTracks(withMediaType: .video)
+        let audioTracks = try await asset.loadTracks(withMediaType: .audio)
+        let actualDuration = try await asset.load(.duration).seconds
+        XCTAssertTrue(playable)
+        XCTAssertFalse(videoTracks.isEmpty)
+        XCTAssertFalse(audioTracks.isEmpty)
+        XCTAssertEqual(actualDuration, expected.reduce(0, +), accuracy: 0.25)
+        let frames = AVAssetImageGenerator(asset: asset)
+        frames.appliesPreferredTrackTransform = true
+        frames.requestedTimeToleranceBefore = CMTime(seconds: 0.03, preferredTimescale: 600)
+        frames.requestedTimeToleranceAfter = CMTime(seconds: 0.03, preferredTimescale: 600)
+        var start = 0.0
+        for index in clips.indices {
+            let at = CMTime(seconds: start + expected[index] / 2,
+                            preferredTimescale: 600)
+            let frame = try frames.copyCGImage(at: at, actualTime: nil)
+            let rgb = try averagePixel(frame)
+            if index.isMultiple(of: 2) {
+                XCTAssertGreaterThan(rgb.0, rgb.2 + 65, "Back segment \(index) lost")
+            } else {
+                XCTAssertGreaterThan(rgb.2, rgb.0 + 65, "Front segment \(index) lost")
+            }
+            start += expected[index]
+        }
+        XCTAssertEqual(clips.count, 13)
+        for clip in clips {
+            XCTAssertTrue(FileManager.default.fileExists(atPath: clip.path),
+                          "Video composition may never delete a source MOV")
+        }
+    }
+
     func testConservativeStorageBudgetHandlesSingleMultiAndOverflow() {
         let mib: Int64 = 1024 * 1024
         XCTAssertEqual(VideoStorageBudget.requiredFreeBytes(sourceBytes: mib,

@@ -133,6 +133,77 @@ final class WatchA2ReliabilityTests: XCTestCase {
         ))
     }
 
+    func testTwentyFourOfflineWatchQueueItemsSurviveRelaunchAndOutOfOrderACK() throws {
+        // Bounded deterministic storage stress: 24 durable UUIDs, two
+        // independent reloads, replayed ACKs, original audio retained until
+        // each unique persisted ACK. No physical radio toggles.
+        let dir = try temporaryDirectory()
+        defer { try? FileManager.default.removeItem(at: dir) }
+        let index = dir.appendingPathComponent("queue.json")
+        let originals = (0..<24).map { _ in envelope() }
+        var pending: [RecordingEnvelope] = []
+        for (sequence, item) in originals.enumerated() {
+            try Data(repeating: UInt8(sequence + 1), count: 4_096)
+                .write(to: dir.appendingPathComponent(item.fileName))
+            try WatchDurableQueue.enqueue(item, into: &pending, at: index)
+        }
+        XCTAssertEqual(pending.count, 24)
+        // A second process reads the exact persisted order, and a duplicate
+        // live callback cannot create another queue row for the same UUID.
+        var reopened = try JSONDecoder().decode(
+            [RecordingEnvelope].self, from: Data(contentsOf: index)
+        )
+        reopened = WatchDurableQueue.mergeRestored(
+            disk: reopened, memory: [originals[2], originals[9]]
+        )
+        XCTAssertEqual(reopened.map(\.id), originals.map(\.id))
+        // Simulate delayed ACKs for every other note arriving in reverse
+        // order while all unacknowledged original files stay on disk.
+        for i in stride(from: 22, through: 0, by: -2) {
+            let entry = originals[i]
+            XCTAssertTrue(try WatchAcknowledgementJournal.acknowledge(
+                entry.id, in: &reopened, at: index, outbound: dir
+            ))
+            XCTAssertFalse(try WatchAcknowledgementJournal.acknowledge(
+                entry.id, in: &reopened, at: index, outbound: dir
+            ))
+            XCTAssertFalse(FileManager.default.fileExists(
+                atPath: dir.appendingPathComponent(entry.fileName).path
+            ))
+        }
+        let rest = try JSONDecoder().decode(
+            [RecordingEnvelope].self, from: Data(contentsOf: index)
+        )
+        XCTAssertEqual(rest.count, 12)
+        XCTAssertEqual(Set(rest.map(\.id)),
+                       Set(stride(from: 1, through: 23, by: 2).map { originals[$0].id }))
+        for item in rest {
+            XCTAssertTrue(FileManager.default.fileExists(
+                atPath: dir.appendingPathComponent(item.fileName).path
+            ))
+        }
+        // Simulated relaunch reconciles journal before orphan detection.
+        var rebooted = rest
+        try WatchAcknowledgementJournal.reconcile(
+            queue: &rebooted, at: index, outbound: dir
+        )
+        XCTAssertEqual(rebooted.count, 12)
+        for item in rebooted.reversed() {
+            XCTAssertTrue(try WatchAcknowledgementJournal.acknowledge(
+                item.id, in: &rebooted, at: index, outbound: dir
+            ))
+        }
+        XCTAssertTrue(rebooted.isEmpty)
+        XCTAssertTrue(try JSONDecoder().decode([RecordingEnvelope].self,
+            from: Data(contentsOf: index)).isEmpty)
+        XCTAssertTrue(WatchAcknowledgementJournal.pendingIDs(in: dir).isEmpty)
+        for item in originals {
+            XCTAssertFalse(FileManager.default.fileExists(
+                atPath: dir.appendingPathComponent(item.fileName).path
+            ))
+        }
+    }
+
     func testImmediateAndBackgroundACKOrderLeavesExactlyOnePendingNote() throws {
         let dir = try temporaryDirectory()
         defer { try? FileManager.default.removeItem(at: dir) }

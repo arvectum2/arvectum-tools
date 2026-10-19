@@ -7,7 +7,7 @@ import SwiftUI
 /// Opt-in physical recording probe used when XCTest UI
 /// automation is unavailable. Exists exclusively in the distinct QA bundle.
 /// Launch explicitly with QA-only `flips`, `180s`, `early-crash`, `verify`,
-/// `background-sheet` or `background-after-flips`.
+/// `background-sheet`, `background-after-flips`, `stress12` or `480s`.
 @MainActor
 final class PhysicalCaptureQAProbe {
     static let shared = PhysicalCaptureQAProbe()
@@ -18,6 +18,29 @@ final class PhysicalCaptureQAProbe {
     private var hasBackgroundedSheet = false
     private var activeMode: String?
     private var flipSequenceStarted = false
+    // QA-only lifecycle breadcrumbs for long recordings. No video frames,
+    // microphone data, or user note content is ever included in this trace.
+    private struct LifecycleEvent: Codable {
+        let at: Date
+        let event: String
+        let details: String
+    }
+    private var lifecycleEvents: [LifecycleEvent] = []
+
+    private func trace(_ event: String, details: String = "") {
+        lifecycleEvents.append(LifecycleEvent(at: Date(), event: event,
+                                              details: details))
+        if lifecycleEvents.count > 100 { lifecycleEvents.removeFirst() }
+        guard let root = FileManager.default.urls(
+            for: .applicationSupportDirectory, in: .userDomainMask
+        ).first else { return }
+        let folder = root.appendingPathComponent("What/PhysicalProbe", isDirectory: true)
+        try? FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
+        if let encoded = try? JSONEncoder().encode(lifecycleEvents) {
+            try? encoded.write(to: folder.appendingPathComponent("timeline.json"),
+                               options: .atomic)
+        }
+    }
 
 
     private struct Status: Codable {
@@ -36,6 +59,7 @@ final class PhysicalCaptureQAProbe {
         try? FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
         let status = Status(stage: stage, mode: mode, recordedFlips: flips,
                             details: details, timestamp: Date())
+        trace("status-" + stage, details: "mode=\(mode), flips=\(flips): " + details)
         if let encoded = try? JSONEncoder().encode(status) {
             try? encoded.write(to: folder.appendingPathComponent("status.json"), options: .atomic)
         }
@@ -48,8 +72,28 @@ final class PhysicalCaptureQAProbe {
               }) else { return }
         hasStarted = true
         let mode = String(argument.dropFirst("what-physical-qa=".count))
-        guard ["flips", "180s", "early-crash", "verify", "background-sheet", "background-after-flips"].contains(mode) else { return }
+        guard ["flips", "180s", "early-crash", "verify", "background-sheet", "background-after-flips", "stress12", "480s"].contains(mode) else { return }
         activeMode = mode
+        lifecycleEvents = []
+        trace("qa-run-start", details: mode)
+        if mode == "480s" || mode == "stress12" {
+            let support = FileManager.default.urls(
+                for: .applicationSupportDirectory, in: .userDomainMask
+            ).first
+            let available = support.flatMap { url in
+                try? url.resourceValues(forKeys: [.volumeAvailableCapacityForImportantUsageKey])
+                    .volumeAvailableCapacityForImportantUsage
+            } ?? 0
+            // This is a long physical camera stress test. Never consume the
+            // owner's last GB to manufacture a low-storage condition.
+            guard available >= 1_000_000_000 else {
+                write("failed", mode: mode, details:
+                      "Safety preflight: less than 1 GB safely available (\(available) bytes)")
+                return
+            }
+            write("preflight", mode: mode, details:
+                  "Storage safe: \(available) bytes available; no artificial ENOSPC")
+        }
         originalIdleTimerDisabled = UIApplication.shared.isIdleTimerDisabled
         UIApplication.shared.isIdleTimerDisabled = true
         write("starting", mode: mode)
@@ -119,9 +163,11 @@ final class PhysicalCaptureQAProbe {
                 // first segment is still open. Never auto-save or auto-delete.
                 return
             }
-            if mode == "flips" {
-                for i in 0..<6 {
-                    try? await Task.sleep(nanoseconds: 3_000_000_000)
+            if mode == "flips" || mode == "stress12" {
+                let plannedFlips = mode == "stress12" ? 12 : 6
+                for i in 0..<plannedFlips {
+                    try? await Task.sleep(nanoseconds: mode == "stress12"
+                        ? 2_500_000_000 : 3_000_000_000)
                     guard capture.isRecording else {
                         write("failed", mode: mode, flips: i,
                               details: capture.errorMessage ?? "Capture stopped")
@@ -145,20 +191,24 @@ final class PhysicalCaptureQAProbe {
                 }
                 try? await Task.sleep(nanoseconds: 3_000_000_000)
             } else {
-                try? await Task.sleep(nanoseconds: 180_000_000_000)
+                let seconds: UInt64 = mode == "480s" ? 480 : 180
+                // Explicitly opt-in test on isolated QA app; do not change
+                // production max lengths, force background, or fill storage.
+                try? await Task.sleep(nanoseconds: seconds * 1_000_000_000)
             }
             guard capture.isRecording else {
                 write("failed", mode: mode, details: capture.errorMessage ?? "Capture interrupted")
                 finishIdleTimer()
                 return
             }
-            write("saving", mode: mode, flips: mode == "flips" ? 6 : 0)
+            let completedFlips = mode == "stress12" ? 12 : (mode == "flips" ? 6 : 0)
+            write("saving", mode: mode, flips: completedFlips)
             capture.finish()
             for _ in 0..<900 where !capture.didSave && capture.errorMessage == nil {
                 try? await Task.sleep(nanoseconds: 200_000_000)
             }
             if capture.didSave {
-                write("saved", mode: mode, flips: mode == "flips" ? 6 : 0,
+                write("saved", mode: mode, flips: completedFlips,
                       details: "Video callback durably indexed the MOV")
             } else {
                 write("failed", mode: mode,
@@ -212,8 +262,10 @@ final class PhysicalCaptureQAProbe {
     /// Observe real ScenePhase transitions without synthesizing a background
     /// notification. Only the independent QA executable has this hook.
     func observeScenePhase(_ phase: ScenePhase, store: PhoneStore) {
-        guard let activeMode,
-              ["background-sheet", "background-after-flips"].contains(activeMode) else { return }
+        guard let activeMode else { return }
+        trace("scene-phase", details: String(describing: phase))
+        guard ["background-sheet", "background-after-flips"].contains(activeMode)
+            else { return }
         switch phase {
         case .background:
             hasBackgroundedSheet = true
