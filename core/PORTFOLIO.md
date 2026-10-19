@@ -1,5 +1,10 @@
 # Arvectum Tools — Roadmap Registry
 
+## 19.10.2026 — Pushkin App Review
+
+Production Pushkin 1.0.1 build 5 uploaded to Apple and validated. New review submission confirmed WAITING_FOR_REVIEW, automatic release AFTER_APPROVAL. Eight GitHub checks passed. Public storefront remains 1.0 until Apple approves. Details: pushkin/docs/APPLE_REVIEW_SUBMISSION_1_0_1_BUILD5_2026-10-19.md.
+
+
 ## Pushkin: Physical notification-trigger QA completed, 19.10.2026
 
 Physical iPhone incoming notification → new iOS 27 Shortcuts trigger → QA-only AppIntent → production capture/persistence code: PASS (one record, no duplicates). Both temporary commands deleted, zero on both Macs, five previous automations intact. Physical acceptance: ../pushkin/docs/PHYSICAL_NOTIFICATION_SHORTCUTS_E2E_ACCEPTED_2026-10-19.md. Public Pushkin remains 1.0, 1.0.1(4) is withdrawn. Production live-history upgrade remains untested; no Apple submission before owner approval, with AFTER_APPROVAL for future authorized release.

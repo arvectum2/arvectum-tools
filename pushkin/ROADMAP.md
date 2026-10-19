@@ -1,5 +1,15 @@
 # PUSHKIN — Product Roadmap
 
+## 19.10.2026 — Apple Review submitted, Pushkin 1.0.1 (5)
+
+- [x] All 8 GitHub PR checks SUCCESS; signed IPA hash and physical QA verified.
+- [x] Apple uploaded build5, marked VALID, attached it to version 1.0.1 and accepted new App Review submission. Version and submission now WAITING_FOR_REVIEW.
+- [x] Release policy AFTER_APPROVAL confirmed: automatic publication after Apple approval, not manual.
+- [ ] Await Apple's decision: public version still 1.0 until approval. Actual personal production app upgrade not tested, isolated QA data-preserving upgrade PASS.
+- [ ] Further new uploads or submissions require new explicit owner permission.
+- [x] Detailed audit: docs/APPLE_REVIEW_SUBMISSION_1_0_1_BUILD5_2026-10-19.md.
+
+
 ## 19.10.2026 — Release Candidate Pushkin 1.0.1 (5)
 
 - [x] Production Release archive, locally exported Distribution-signed App Store IPA and SHA-256 ready. NO upload to Apple.

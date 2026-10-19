@@ -1,5 +1,13 @@
 # Arvectum Tools — план исполнения без Where?
 
+## 19.10.2026 — Pushkin 1.0.1 (5) submitted to Apple
+
+- [x] Eight GitHub checks PASS; Apple processed build5 VALID and new App Review submission WAITING_FOR_REVIEW.
+- [x] Automatic release AFTER_APPROVAL confirmed; NO manual release.
+- [ ] Await Apple's decision. A submitted update is not yet public.
+- [x] Audit: pushkin/docs/APPLE_REVIEW_SUBMISSION_1_0_1_BUILD5_2026-10-19.md.
+
+
 ## Pushkin P0 — physical Notification E2E accepted, 19.10.2026
 
 - [x] Real iPhone 13 incoming notification -> iOS 27 Shortcuts -> QA-only AppIntent -> production capture/persistence code in QA SwiftData: 0 to 1 unique marker, total records 7 to 8; later independent audit stable.
