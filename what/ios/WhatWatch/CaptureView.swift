@@ -104,8 +104,15 @@ struct CaptureView: View {
     }
 
     private func startCaptureOnForeground() {
+#if WATCH_PHYSICAL_QA
+        // The diagnostic executable never silently opens the microphone when
+        // an automation merely relaunches it to inspect a completed ACK.
+        // The explicit QA probe owns startCapture for its opt-in test modes.
+        return
+#else
         guard WatchCaptureLaunchPolicy.shouldAutoStart(controller.state) else { return }
         controller.startCapture()
+#endif
     }
 
     private func elapsed(from start: Date, to end: Date) -> String {

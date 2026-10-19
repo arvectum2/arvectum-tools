@@ -38,6 +38,26 @@ final class WatchCaptureController: NSObject, ObservableObject, AVAudioRecorderD
     private var activeCreatedAt: Date?
     private var activated = false
 
+#if WATCH_PHYSICAL_QA
+    // An app-local transport pause for physical durability tests. It does NOT
+    // change the radio, Watch pairing, WCSession or any non-QA build.
+    private let qaTransportLock = NSLock()
+    private var qaTransportHeld = false
+
+    func qaSetTransportHeld(_ held: Bool) {
+        qaTransportLock.lock()
+        qaTransportHeld = held
+        qaTransportLock.unlock()
+        if !held { pumpTransfers() }
+    }
+
+    private var qaIsTransportHeld: Bool {
+        qaTransportLock.lock()
+        defer { qaTransportLock.unlock() }
+        return qaTransportHeld
+    }
+#endif
+
     override init() {
         let documents = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         outboundDirectory = documents.appendingPathComponent("WhatOutbound", isDirectory: true)
@@ -408,6 +428,9 @@ final class WatchCaptureController: NSObject, ObservableObject, AVAudioRecorderD
     }
 
     private func pumpTransfers() {
+#if WATCH_PHYSICAL_QA
+        guard !qaIsTransportHeld else { return }
+#endif
         guard WCSession.isSupported() else { return }
 
         let session = WCSession.default
