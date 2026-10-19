@@ -6,7 +6,8 @@
 
 - [x] Проверка опубликованной версии по Apple Lookup API при запуске, сравнение с установленной; диалог «Обновить» / «Позже», без принуждения и без блокировки офлайн. SwiftPM Core: 19/19 PASS.
 - [x] Подключено к iOS ChickMark, Pushkin, Фото/PDF и Ухват; Xcode 27.1 iOS Simulator build всех четырёх: 4/4 PASS и watchOS 2/2 PASS (19.10.2026).
-- [ ] Физический UI E2E предложения на реальном устройстве и отдельные согласованные релизы четырёх приложений; Where? после возобновления, Android — отдельный Google Play flow.
+- [x] Изолированный iPhone 17 Pro Simulator: четыре app-specific UI-теста «Позже»/следующий запуск **4/4 PASS**, плюс positive «Обновить» на Pushkin **1/1 PASS**; Debug fixture исключён из Release, Core Release SwiftPM build PASS.
+- [ ] Проверка перехода на реальную новую опубликованную версию с физического iPhone и отдельные авторизованные релизы; Where? после возобновления, Android — отдельный Google Play flow.
 
 
 ## 19.10.2026, вечер — Core: release provenance и адаптация
