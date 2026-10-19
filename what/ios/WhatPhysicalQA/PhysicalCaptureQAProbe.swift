@@ -194,7 +194,22 @@ final class PhysicalCaptureQAProbe {
                 let seconds: UInt64 = mode == "480s" ? 480 : 180
                 // Explicitly opt-in test on isolated QA app; do not change
                 // production max lengths, force background, or fill storage.
-                try? await Task.sleep(nanoseconds: seconds * 1_000_000_000)
+                for elapsed in 1...seconds {
+                    try? await Task.sleep(nanoseconds: 1_000_000_000)
+                    if elapsed.isMultiple(of: 30) {
+                        trace("long-recording-heartbeat", details:
+                              "elapsed=\(elapsed)s recording=\(capture.isRecording) preparing=\(capture.isPreparing) saving=\(capture.isSaving) error=\(capture.errorMessage ?? "none")")
+                    }
+                    guard capture.isRecording else {
+                        trace("unexpected-capture-stop", details:
+                              "elapsed=\(elapsed)s error=\(capture.errorMessage ?? "none")")
+                        write("failed", mode: mode,
+                              details: "Camera interrupted at +\(elapsed)s: "
+                                  + (capture.errorMessage ?? "No AVFoundation error reported"))
+                        finishIdleTimer()
+                        return
+                    }
+                }
             }
             guard capture.isRecording else {
                 write("failed", mode: mode, details: capture.errorMessage ?? "Capture interrupted")
