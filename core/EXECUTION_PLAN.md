@@ -1,5 +1,14 @@
 # Arvectum Tools — план исполнения без Where?
 
+## Пушкин P0 · итог проверки iPhone/CI, 19.10.2026
+
+- [x] PR [#130](https://github.com/arvectum2/arvectum-tools/pull/130) **MERGED**, commit \`65d69d1\`, все необходимые GitHub CI **PASS**; одна инфраструктурная simulator UI flake при первом прогоне прошла после однократного повторения.
+- [x] Без удаления независимого QA-приложения 6/6 persistent synthetic notifications сохраняются на build 1→2→3; production App Intent дважды обработал QA-payload → 1 новое событие, старые 6 сохранены. Не путать с настоящим iOS notification trigger.
+- [x] Случайно созданный пустой Shortcut при безопасном UI-эксперименте **полностью удалён** по точному имени и признаку «Нет действий». Физический scoped cleanup **1/1 PASS**, ранее существовавшие команды не затронуты. Код мутирующих тестов не находится ни в \`main\`, ни в PR.
+- [ ] Реальная новая \`Shortcuts.NotificationTrigger → AppIntent\` цепочка **не проверена**: Apple shortcut-signing endpoint вернул 500 на Mac mini, 504 на MacBook Air. Дальнейшая работа не должна включать несогласованные изменения пользовательских Shortcuts.
+- [ ] Публичная Pushkin **1.0**; App Review версии **1.0.1(4) отозван**. До явного разрешения владельца не загружать IPA и не отправлять review. Когда разрешит, выпуск **автоматически после одобрения**, без ручного шага.
+
+
 ## Исправленное решение по Apple · 19 октября 2026
 
 - [x] **Отозвана** несогласованная App Review отправка Пушкина **1.0.1(4)**: submission `COMPLETE`, version `DEVELOPER_REJECTED`; App Store публично **1.0**.

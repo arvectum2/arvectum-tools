@@ -1,5 +1,10 @@
 # Arvectum Tools — Roadmap Registry
 
+## Pushkin · сверено 19.10.2026 после PR #130
+
+Публично **1.0**. Submitted 1.0.1(4) **отозвана**, \`DEVELOPER_REJECTED\`; будущая версия настроена на **AFTER_APPROVAL**, но новой подачи без разрешения владельца не будет. [PR #130 merged](https://github.com/arvectum2/arvectum-tools/pull/130), CI зелёный, физическая изолированная QA история и прямой App Intent прошли. Native trigger E2E всё ещё открыт из-за \`shortcuts sign\` 500/504. Пустой тестовый Shortcut точно удалён, прочие команды остались.
+
+
 ## Коррекция статуса Пушкина · 19.10.2026
 
 Неавторизованная App Review отправка **1.0.1(4)** полностью отозвана: `reviewSubmission COMPLETE`, `version DEVELOPER_REJECTED`. Предпочтение владельца: после отдельного согласия на отправку — **automatic release** `AFTER_APPROVAL`, не ручной. Публично **1.0**. Новые QA-результаты: физический in-place upgrade **6/6 сохранены**, QA AppIntent 2 вызова → 1 SwiftData запись. Реальное Shortcuts Notification Automation ещё блокировано Apple `shortcuts sign` 500. Ни доработка кода, ни готовый IPA не разрешают отправку в Apple без отдельной команды; `AGENTS.md`.
