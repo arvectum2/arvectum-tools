@@ -6,6 +6,20 @@ final class AdaptiveLayoutUITests: XCTestCase {
     /// content_size accessibility-extra-extra-extra-large. It checks that
     /// the capture-first UX and empty-note editor remain usable without
     /// modifying camera/microphone permissions or writing new user notes.
+    func testCaptureAlternativesAreDiscoverable() {
+        let app = XCUIApplication()
+        app.launch()
+
+        let primary = app.buttons["what.record.primary"]
+        let video = app.buttons["what.new.video"]
+        let text = app.buttons["what.new.text"]
+        XCTAssertTrue(primary.waitForExistence(timeout: 8))
+        XCTAssertTrue(video.exists)
+        XCTAssertTrue(text.exists)
+        XCTAssertTrue(video.isHittable)
+        XCTAssertTrue(text.isHittable)
+    }
+
     func testAccessibilityTextSizePreservesCaptureAndEmptyTextEditor() throws {
         let app = XCUIApplication()
         app.launch()

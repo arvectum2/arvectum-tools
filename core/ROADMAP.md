@@ -9,7 +9,8 @@
 - [x] D1/P0 Pushkin: корректное описание охвата, RU/EN главных экранов; Debug iOS Simulator BUILD, 5 unit + 5 UI PASS. Не опубликовано.
 - [ ] D1/P0 Фото/PDF: CTA закреплён вне ScrollView, iOS Simulator BUILD PASS; UI тесты фото+PDF добавлены, выполнение полного UI прогона прервано средой — до merge/релиза подтвердить.
 - [ ] D1/P1 Pushkin: оставшиеся secondary views, компактный бренд-хедер, Dynamic Type.
-- [ ] D2/P1: Ухват — discoverability аудио/видео/текста; ChickMark — прогресс и путь добавления.
+- [x] D2/P1 Ухват: видимые Видео/Текст, один hint и склонение счётчика. iOS Simulator build PASS, 2 UI PASS; полная Dynamic Type/physical QA открыта.
+- [ ] D2/P1 ChickMark: уточнить прогресс и проверить путь добавления.
 - [ ] D3/P1: product UX QA (VoiceOver, Dynamic Type, тёмная тема, reduce motion) и отдельные UI PR для каждого приложения.
 - [ ] D4: интеграция Core после review и независимые продуктовые релизы только по явному разрешению владельца.
 - [ ] D5: Where? остается на паузе: только принципы в документе, не реализация.

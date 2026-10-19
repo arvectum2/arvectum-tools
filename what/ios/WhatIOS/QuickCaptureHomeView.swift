@@ -20,6 +20,25 @@ struct QuickCaptureHomeView: View {
 
     private var isRussian: Bool { CaptureBrand.isRussian }
 
+    private var notesCountLabel: String {
+        guard isRussian else {
+            return "\(recordingsCount) " + (recordingsCount == 1 ? "note" : "notes")
+        }
+        let lastTwo = recordingsCount % 100
+        let lastOne = recordingsCount % 10
+        let noun: String
+        if (11...14).contains(lastTwo) {
+            noun = "заметок"
+        } else if lastOne == 1 {
+            noun = "заметка"
+        } else if (2...4).contains(lastOne) {
+            noun = "заметки"
+        } else {
+            noun = "заметок"
+        }
+        return "\(recordingsCount) \(noun)"
+    }
+
     var body: some View {
         GeometryReader { geometry in
             ZStack {
@@ -46,17 +65,6 @@ struct QuickCaptureHomeView: View {
                             .minimumScaleFactor(0.75)
                             .lineLimit(compactLayout ? 2 : 1)
 
-                        if !compactLayout {
-                            Text(isRussian
-                                ? "Нажми — звук. Удерживай — видео."
-                                : "Tap for audio. Hold for video.")
-                                .font(.subheadline)
-                                .lineLimit(2)
-                                .multilineTextAlignment(.center)
-                                .minimumScaleFactor(0.85)
-                                .foregroundStyle(.white.opacity(0.7))
-                        }
-
                         recordButton(
                             diameter: min(
                                 232,
@@ -66,13 +74,26 @@ struct QuickCaptureHomeView: View {
                         )
                         .padding(.top, compactLayout ? 8 : 25)
 
-                        Text(isRussian ? "Нажми: звук · Удерживай: видео" : "Tap: audio · Hold: video")
-                            .font(.system(size: compactLayout ? 17 : 21, weight: .semibold))
-                            .foregroundStyle(.white)
-                            .lineLimit(2)
-                            .multilineTextAlignment(.center)
-                            .minimumScaleFactor(0.85)
-                            .padding(.top, compactLayout ? 7 : 12)
+                        (compactLayout
+                            ? AnyLayout(VStackLayout(spacing: 8))
+                            : AnyLayout(HStackLayout(spacing: 12))) {
+                            Text(isRussian ? "Нажмите для аудио" : "Tap for audio")
+                                .font(.system(size: compactLayout ? 17 : 19, weight: .semibold))
+                                .foregroundStyle(.white)
+                            Button(action: startVideo) {
+                                Label(isRussian ? "Видео" : "Video", systemImage: "video.fill")
+                                    .font(.subheadline.weight(.semibold))
+                                    .foregroundStyle(accent)
+                                    .padding(.horizontal, 14)
+                                    .frame(minHeight: 44)
+                                    .background(.white.opacity(0.08), in: Capsule())
+                            }
+                            .accessibilityIdentifier("what.new.video")
+                            .accessibilityHint(isRussian
+                                ? "Открыть видеозапись. Также можно удержать большую кнопку"
+                                : "Open video recording. You can also hold the main button")
+                        }
+                        .padding(.top, compactLayout ? 7 : 12)
 
                         Label(
                             isRussian ? "Сохраняется на устройстве" : "Saved on this device",
@@ -113,16 +134,18 @@ struct QuickCaptureHomeView: View {
                 Text(CaptureBrand.name)
                     .font(.system(size: 23, weight: .heavy, design: .rounded))
                     .foregroundStyle(.white)
+                    .accessibilityAddTraits(.isHeader)
             }
 
             Spacer()
 
             Button(action: newText) {
-                Image(systemName: "plus")
-                    .font(.title2.weight(.bold))
+                Label(isRussian ? "Текст" : "Text", systemImage: "square.and.pencil")
+                    .font(.subheadline.weight(.semibold))
                     .foregroundStyle(accent)
-                    .frame(width: 48, height: 48)
-                    .background(.white.opacity(0.08), in: Circle())
+                    .padding(.horizontal, 13)
+                    .frame(minHeight: 48)
+                    .background(.white.opacity(0.08), in: Capsule())
             }
             .accessibilityLabel(isRussian ? "Создать текстовую заметку" : "New text note")
             .accessibilityIdentifier("what.new.text")
@@ -135,7 +158,6 @@ struct QuickCaptureHomeView: View {
             }
         }
         .padding(.top, 18)
-        .accessibilityAddTraits(.isHeader)
     }
 
     private func recordButton(diameter: CGFloat) -> some View {
@@ -225,15 +247,13 @@ struct QuickCaptureHomeView: View {
                     .background(.white.opacity(0.08), in: RoundedRectangle(cornerRadius: 13))
 
                 VStack(alignment: .leading, spacing: 4) {
-                    Text(isRussian ? "Мои записи" : "My recordings")
+                    Text(isRussian ? "Все заметки" : "All notes")
                         .font(.system(size: 19, weight: .semibold))
                         .lineLimit(1)
                         .minimumScaleFactor(0.7)
                         .foregroundStyle(.white)
 
-                    Text(isRussian
-                        ? "\(recordingsCount) сохранено"
-                        : "\(recordingsCount) saved")
+                    Text(notesCountLabel)
                         .font(.system(size: 13))
                         .lineLimit(1)
                         .foregroundStyle(.white.opacity(0.56))
@@ -258,9 +278,9 @@ struct QuickCaptureHomeView: View {
             }
         }
         .buttonStyle(.plain)
-        .accessibilityLabel(isRussian
-            ? "Мои записи, \(recordingsCount)"
-            : "My recordings, \(recordingsCount)")
+        .accessibilityLabel(
+            (isRussian ? "Все заметки, " : "All notes, ") + notesCountLabel
+        )
         .accessibilityHint(isRussian
             ? "Открыть сохранённые заметки"
             : "Open saved voice notes")
