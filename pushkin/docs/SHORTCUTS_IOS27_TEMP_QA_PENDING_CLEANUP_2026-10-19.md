@@ -28,3 +28,10 @@ Evidence, iOS screenshots and log output: /Volumes/ArvectumSSD/Arvectum/tmp/push
 - iPhone now launches the signed XCTest runner, but security UI prompts for the iPhone passcode to Enable UI Automation. XCTest timed out without obtaining this permission, and did not reach the deletion action.
 - A deletion-specific QA XCTest is prepared in the isolated nonproduction worktree. Once owner authorizes automation using their passcode on the iPhone itself, retry the exact cleanup, verify the iCloud item disappears on both Macs and confirm old automations remain unchanged.
 - No active QA automation was created, no user automations edited, no App Store submission/upload took place.
+
+
+## Final resolution — 19 October 2026, 16:32 Moscow time
+
+The exact cleanup is **COMPLETE** (supersedes the earlier historical pending status in this document). After re-running the isolated scoped XCTest and clearing the on-device iOS security prompt, Xcode reported \`QA_ONLY_EXACT_ZERO_ACTION_SHORTCUT_FOUND\`, \`QA_ONLY_SHORTCUT_DELETED\`, \`QA_PREEXISTING_ITEMS_RETAINED\`, \`** TEST SUCCEEDED **\`. After iCloud sync, native Shortcuts CLI returned **zero** instances of \`Новая команда 4\` on both Mac mini and MacBook Air. The original library entries were retained. No new automation or notification trigger was active or tested; E2E is still OPEN. No App Store Connect actions were taken.
+
+Evidence: \`/Volumes/ArvectumSSD/Arvectum/tmp/pushkin-temporary-automation-20261019/cleanup-exact-one-retry.log\` and physical screenshot captured after deletion.
