@@ -1,5 +1,13 @@
 # Arvectum Tools — план исполнения без Where?
 
+## Pushkin P0 — physical Notification E2E accepted, 19.10.2026
+
+- [x] Real iPhone 13 incoming notification -> iOS 27 Shortcuts -> QA-only AppIntent -> production capture/persistence code in QA SwiftData: 0 to 1 unique marker, total records 7 to 8; later independent audit stable.
+- [x] Both temporary QA Shortcuts deleted and iCloud absence verified on TWO Macs; all FIVE original automations remain (native read-only XCTest PASS). One-shot QA notification pending request canceled.
+- [ ] Physical in-place upgrade of the signed public production Pushkin app with real personal history remains a distinct untested release gate.
+- [ ] No Apple upload, TestFlight, App Review or publication without explicit per-build owner approval; withdrawn Pushkin 1.0.1(4), public 1.0. On authorized release use automatic AFTER_APPROVAL.
+
+
 ## Пушкин P0 · итог проверки iPhone/CI, 19.10.2026
 
 - [x] PR [#130](https://github.com/arvectum2/arvectum-tools/pull/130) **MERGED**, commit `65d69d1`, все необходимые GitHub CI **PASS**; одна инфраструктурная simulator UI flake при первом прогоне прошла после однократного повторения.

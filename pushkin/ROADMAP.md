@@ -1,5 +1,14 @@
 # PUSHKIN — Product Roadmap
 
+## P0 — 19.10.2026, итог: реальный триггер Shortcuts ПРОЙДЕН
+
+- [x] Настоящая локальная нотификация iPhone → iOS 27 Shortcuts Notification trigger → QA AppIntent → штатная логика CaptureNotificationIntent → SwiftData. Маркер 0 → 1, всего 7 → 8 записей, повторный аудит после очистки подтверждает тот же UUID без дублей. Документ: docs/PHYSICAL_NOTIFICATION_SHORTCUTS_E2E_ACCEPTED_2026-10-19.md.
+- [x] ОБЕ временные QA-команды удалены через iOS после подтверждения iCloud. Physical XCTest 2/2 PASS; Mac mini + MacBook Air подтвердили 0 совпадений.
+- [x] Пять исходных автоматизаций сохранены (отдельный read-only iPhone XCTest PASS), тестовое отложенное уведомление отменено по собственному ID.
+- [ ] Перед релизом всё ещё не проверено обновление публичного production приложения с реальной личной историей; не подвергать данные риску.
+- [ ] В Apple ничего не подавать без отдельного согласования владельца. Публично 1.0, 1.0.1(4) отозвана, при согласованной будущей подаче публикация AFTER_APPROVAL.
+
+
 ## P0 — 19.10.2026 16:32 МСК: точечная очистка Shortcuts завершена
 
 - [x] Повторный запуск XCUI после ввода владельцем пароля непосредственно на iPhone: scoped `CleanupOneAuthorizedQAShortcutUITests` нашёл **одну** пустую `Новая команда 4`, удалил её после системного подтверждения iCloud. `QA_ONLY_SHORTCUT_DELETED`, `QA_PREEXISTING_ITEMS_RETAINED`, `TEST SUCCEEDED`.

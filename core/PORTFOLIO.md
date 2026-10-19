@@ -1,5 +1,10 @@
 # Arvectum Tools — Roadmap Registry
 
+## Pushkin: Physical notification-trigger QA completed, 19.10.2026
+
+Physical iPhone incoming notification → new iOS 27 Shortcuts trigger → QA-only AppIntent → production capture/persistence code: PASS (one record, no duplicates). Both temporary commands deleted, zero on both Macs, five previous automations intact. Physical acceptance: ../pushkin/docs/PHYSICAL_NOTIFICATION_SHORTCUTS_E2E_ACCEPTED_2026-10-19.md. Public Pushkin remains 1.0, 1.0.1(4) is withdrawn. Production live-history upgrade remains untested; no Apple submission before owner approval, with AFTER_APPROVAL for future authorized release.
+
+
 ## Pushkin · сверено 19.10.2026 после PR #130
 
 Публично **1.0**. Submitted 1.0.1(4) **отозвана**, `DEVELOPER_REJECTED`; будущая версия настроена на **AFTER_APPROVAL**, но новой подачи без разрешения владельца не будет. [PR #130 merged](https://github.com/arvectum2/arvectum-tools/pull/130), CI зелёный, физическая изолированная QA история и прямой App Intent прошли. Native trigger E2E всё ещё открыт из-за `shortcuts sign` 500/504. Пустой тестовый Shortcut точно удалён, прочие команды остались.
