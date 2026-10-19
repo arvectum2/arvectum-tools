@@ -1,3 +1,3 @@
 
 "NSHealthShareUsageDescription" = "Read daily activity to complete only the habits you link.";
-"NSHealthUpdateUsageDescription" = "ChickMark uses Apple Health to track the activity goals you choose. It does not add or change health data.";
+"NSHealthUpdateUsageDescription" = "ChickMark adds water intake to Apple Health only when you enable export for a quantity habit. You can turn off this access in Health settings.";

@@ -1,3 +1,3 @@
 
 "NSHealthShareUsageDescription" = "Leer actividad diaria solo para los hábitos conectados.";
-"NSHealthUpdateUsageDescription" = "ChickMark usa Apple Health para seguir tus objetivos de actividad. No añade ni modifica los datos de salud.";
+"NSHealthUpdateUsageDescription" = "ChickMark añade agua a Salud solo si activas la exportación para un hábito cuantitativo. Puedes desactivar este permiso en los ajustes de Salud.";

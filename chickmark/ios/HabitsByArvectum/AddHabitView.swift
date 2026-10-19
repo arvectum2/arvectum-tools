@@ -760,6 +760,15 @@ struct AddHabitView: View {
             return
         }
 
+        // When a user changes a previously water-linked quantity habit
+        // into a non-quantity habit, revoke the per-habit opt-in. Preserve
+        // prior own-sample receipts until cleanup has actually succeeded.
+        if !savedHabit.usesQuantitativeGoal,
+           WaterExportCoordinator.shared.rule(for: savedHabit.id) != nil {
+            WaterExportCoordinator.shared.setRule(nil, for: savedHabit.id)
+            WaterExportCoordinator.shared.requestSync()
+        }
+
         if healthEnabled, let rule {
             if existing != rule {
                 HealthHabitRuleStore.shared.save(rule, for: savedHabit.id)

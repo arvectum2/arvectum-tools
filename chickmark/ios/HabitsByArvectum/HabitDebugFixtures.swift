@@ -3,6 +3,23 @@ import SwiftData
 
 extension HabitsByArvectumApp {
 #if DEBUG
+    /// Only inside an isolated in-memory UI-test launch. It does not request
+    /// HealthKit authorization or instantiate any real Apple Health sample.
+    func seedWaterSettingsDemoIfRequested(container: ModelContainer) {
+        let args = ProcessInfo.processInfo.arguments
+        guard args.contains("--ui-testing"),
+              args.contains("--seed-water-settings-demo") else { return }
+        let context = ModelContext(container)
+        let habit = Habit(
+            name: "Water QA",
+            symbolName: "drop.fill",
+            colorHex: "43E5C5"
+        )
+        habit.goalMode = .quantity(count: 8)
+        context.insert(habit)
+        try? context.save()
+    }
+
     func skipFirstIncompleteHabitIfRequested(
         container: ModelContainer
     ) {

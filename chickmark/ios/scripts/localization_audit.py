@@ -67,6 +67,29 @@ for target in ("HabitsByArvectum", "HabitsByArvectumWatch"):
             if not localized.get(key, "").strip():
                 errors.append(f"{target} {lang} missing {key}")
 
+# A permission prompt must describe the ACTUAL write behavior. These values
+# override the base Info.plist and are visible to users when granting HealthKit.
+# Watch remains read-only; this check applies only to the phone bundle.
+water_consent = {
+    "en": ("water", "add"),
+    "ru": ("вод", "запис"),
+    "es": ("agua", "añad"),
+}
+for lang, keywords in water_consent.items():
+    text = load(ROOT / "HabitsByArvectum" / f"{lang}.lproj" / "InfoPlist.strings").get(
+        "NSHealthUpdateUsageDescription", ""
+    ).lower()
+    if not all(part in text for part in keywords):
+        errors.append(
+            f"HabitsByArvectum/{lang}: NSHealthUpdateUsageDescription must disclose "
+            "adding water to Apple Health"
+        )
+    if any(phrase in text for phrase in (
+        "does not add", "does not change", "не добавляет", "не изменяет",
+        "no añade", "no modifica",
+    )):
+        errors.append(f"HabitsByArvectum/{lang}: false write-permission assurance")
+
 if errors:
     print("\n".join(errors))
     sys.exit(1)
