@@ -14,7 +14,20 @@
 
 - На Mac mini/Xcode 27.1 Watch QA target собран через `generic/platform=watchOS` (**BUILD SUCCEEDED**), поскольку физический Watch destination временно не доступен.
 - Unit test `testLostACKRealisticAACResendPreservesSameUUIDAndDeletesOnlyAfterACK`: создаёт настоящий воспроизводимый AAC через `MicrophoneCapturePipeline`, проверяет `WatchDeliveredAudioValidation`, индекс `WatchDurableQueue`, два подряд импорта одного UUID в iPhone `RecordingRepository`, одинаковые файлы/одну заметку, удаление исходника **только после** `WatchAcknowledgementJournal.acknowledge`. Детерминированная проверка логики, а не физическая передача через WCSession.
-- **Физическая проверка не проведена**: первоначально `devicectl list devices` показывал `iPhone Nikita unavailable`, а watchOS destination не находился. Оба устройства затем восстановили связь и физическая Watch QA сборка заново успешно собрана. В 09:09 МСК на Watch получено `queue.json=[]`; исходный проблемный 0,124-секундный AAC сохранён. Запуск iPhone QA-приёмника затем был отклонён системой с `FBSOpenApplicationServiceErrorDomain: Locked (Unable to launch ... because the device was not, or could not be, unlocked)`. Не утверждать PASS реальной повторной доставки и **не начинать новый capture до разблокировки телефона**. Ни один новый AAC не создавался.
+- На раннем этапе в 09:09 МСК iPhone QA не удалось запустить из-за `FBSOpenApplicationServiceErrorDomain: Locked`, поэтому тогда физическая проверка **не проводилась**. В 09:49 МСК iPhone был разблокирован, оба CoreDevice-туннеля восстановились, штатный iPhone QA-приёмник открыт и тест **проведён**. См. подтверждённый результат ниже.
+
+## Физический итог — PASS, 19.10.2026 09:49–09:51 МСК
+
+**Оборудование:** физические Apple Watch SE watchOS 26.6 и iPhone 13 iOS 27.0.1, отдельные установленные QA-бандлы `ru.arvectum.tools.what.watchphysqa.watch` и `ru.arvectum.tools.what.watchphysqa`. Пользователь разрешил применить iPhone для физического теста. Транспорт использовал настоящий WatchConnectivity; никаких вмешательств в сопряжение или системные радиомодули.
+
+1. Базовая проверка: Watch `Documents/WhatOutbound/queue.json` содержит **0 ожидающих элементов**; iPhone `recordings.json` содержит **4 уникальных UUID**, QA-приёмник запущен. Предыдущий короткий файл `E048D504-A943-49B8-AAA4-BBDEA76A0048.m4a` остался в отдельном Watch QA контейнере и **не удалён**.
+2. На физическом Watch запущено **одно** QA-задание `what-watch-qa-drop-ack`, реальная новая аудиозапись UUID `63BEBAD8-68A7-4DC7-9005-07941EE3E8EE`. Watch `timeline.json`: `qa-start` +0, `recording-observed` +0.68 с, `ack-filter-armed` +0.69 с (тот же UUID), `stop-timer-fired` +8.03 с (7.35 с с момента наблюдения записи), `watch-saved` +8.12 с.
+3. Watch timeline: **`ack-suppressed` +9.67 с, `count=1, sourceKept=true`** — на Watch оригинал сохранён после первого настоящего подтверждения от приёмника. Затем **`same-uuid-retransmission` +9.69 с** — тот же UUID и AAC передан повторно штатным `WCSession.transferFile` после снятия QA-фильтра.
+4. После второго настоящего подтверждения Watch `status.json`: `ack-observed`, `pending=0`, оригинал отсутствует; `WhatOutbound/queue.json = []` и каталог содержит лишь старый исходник и служебный журнал.
+5. Phone QA `recordings.json` после двух фактических доставок содержит **5 записей — по одному экземпляру каждого UUID**. Новый UUID встречается ровно один раз, длительность **7.612 с**, имя `Audio/63BEBAD8-68A7-4DC7-9005-07941EE3E8EE.m4a`.
+6. Дополнительная проверка после `--terminate-existing` **только QA приложений**, без аргументов начала записи: iPhone по-прежнему имеет ровно **один** новый UUID, суммарно 5 уникальных записей; Watch по-прежнему `pending=0`. Никого из production bundle не запускали/переустанавливали и пользовательские записи не удаляли.
+
+**Вывод:** реальный Watch capture, реальная доставка, искусственная потеря **первого подтверждения**, повтор того же UUID и дедупликация на iPhone физически проверены. Это **не** доказательство работы при выключенном Bluetooth/Wi-Fi или после аппаратной перезагрузки часов; эти сценарии остаются открытыми. Материалы диагностики — только JSON с UUID/метками, никакого аудио на Mac.
 
 ## Как провести физическую проверку после возврата пары
 
