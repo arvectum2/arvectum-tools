@@ -31,6 +31,11 @@ final class MinimalUXUITests: XCTestCase {
         app.launch()
 
         XCTAssertTrue(app.staticTexts["PUSHKIN"].firstMatch.waitForExistence(timeout: 6))
+        let brand = app.descendants(matching: .any)["pushkin-brand-compact"].firstMatch
+        XCTAssertTrue(brand.exists)
+        XCTAssertLessThan(brand.frame.width, 240, "Brand should not crowd the screen")
+        XCTAssertLessThanOrEqual(brand.frame.height, 40)
+
         XCTAssertTrue(app.tabBars.buttons["History"].firstMatch.exists)
         XCTAssertTrue(app.tabBars.buttons["Apps"].firstMatch.exists)
         XCTAssertTrue(app.tabBars.buttons["Settings"].firstMatch.exists)

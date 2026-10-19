@@ -8,7 +8,7 @@
 - [x] D0: общие semantic tokens и метрики в SwiftPM Core, unit-тесты; без изменения существующего UI. **SwiftPM Core: 21/21 PASS на macOS 19.10.2026; продуктовые UI/build тесты остаются отдельной задачей.**
 - [x] D1/P0 Pushkin: корректное описание охвата, RU/EN главных экранов; Debug iOS Simulator BUILD, 5 unit + 5 UI PASS. Не опубликовано.
 - [ ] D1/P0 Фото/PDF: CTA закреплён вне ScrollView, iOS Simulator BUILD PASS; UI тесты фото+PDF добавлены, выполнение полного UI прогона прервано средой — до merge/релиза подтвердить.
-- [ ] D1/P1 Pushkin: оставшиеся secondary views, компактный бренд-хедер, Dynamic Type.
+- [ ] D1/P1 Pushkin: компактный бренд-хедер выполнен, BUILD PASS, UI-тест геометрии добавлен (среда прервала тест); secondary views и Dynamic Type ещё открыты.
 - [x] D2/P1 Ухват: видимые Видео/Текст, один hint и склонение счётчика. iOS Simulator build PASS, 2 UI PASS; полная Dynamic Type/physical QA открыта.
 - [x] D2/P1 ChickMark: семантически точный «Отмечено: N из M» для RU/EN/ES, Simulator BUILD и 2/2 localization unit PASS.
 - [ ] D2/P1 ChickMark: отдельная проверка пути добавления, VoiceOver и AXXXL UI на симуляторе.

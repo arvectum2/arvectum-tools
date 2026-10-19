@@ -41,30 +41,32 @@ extension Color {
         }
     )
 }
+/// Small secondary brand signature. The navigation title remains the
+/// primary screen heading; never consume a full-width row for a logo.
 struct ArvectumBrandHeader: View {
     let productName: String
 
     var body: some View {
-        HStack(spacing: 12) {
+        HStack(spacing: 8) {
             Image("ArvectumWordmark")
                 .resizable()
                 .scaledToFit()
-                .frame(width: 104, height: 28)
-
-            Spacer(minLength: 8)
+                .frame(width: 88, height: 22)
 
             Text(productName)
-                .font(.headline.weight(.semibold))
+                .font(.caption2.weight(.semibold))
                 .foregroundStyle(.white)
                 .lineLimit(1)
         }
-        .padding(.horizontal, 14)
-        .frame(height: 48)
+        .padding(.horizontal, 12)
+        .frame(height: 34)
         .background(
             Color.arvectumNavy,
-            in: RoundedRectangle(cornerRadius: 20, style: .continuous)
+            in: RoundedRectangle(cornerRadius: 12, style: .continuous)
         )
+        .frame(maxWidth: .infinity, alignment: .leading)
         .accessibilityElement(children: .combine)
+        .accessibilityIdentifier("pushkin-brand-compact")
     }
 }
 
