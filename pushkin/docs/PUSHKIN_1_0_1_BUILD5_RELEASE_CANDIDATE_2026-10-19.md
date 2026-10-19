@@ -45,3 +45,12 @@
 - production-archive.log, export-local-ipa.log, AppStoreExportLocalOnly/ArvectumNotify.ipa
 - targeted-ci.log and RC5TargetedCITests.xcresult
 - simulator-regression.log (incomplete exploratory all-UI test suite; known non-hermetic failures)
+
+
+## Final source integration verification, 19 October 2026
+
+- PR #131 was merged into GitHub main as commit 32dc3d1 (release/build-number/configuration/docs ONLY).
+- Mac mini ArvectumSSD main was fast-forwarded to this exact commit; clean worktree verified.
+- GitHub Actions checks remained QUEUED at the last check, not passed, failed, or completed. Local designated Xcode simulator CI suite and architecture/dependency checks passed; do NOT conflate remote queue status with green remote CI.
+- Read-only Apple public iTunes lookup for app ID 6817847111, RU storefront, still reported public version 1.0.
+- The externally signed IPA is local on ArvectumSSD. No upload or App Review submission occurred. Automatic after-approval release is a preference to use upon a future explicitly approved submission, not a publication already scheduled.
