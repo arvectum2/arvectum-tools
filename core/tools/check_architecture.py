@@ -8,7 +8,7 @@ import sys
 ROOT = Path(__file__).resolve().parents[2]
 PRODUCTS = ("chickmark", "pushkin", "photo-pdf-to-size", "what", "where")
 DOMAINS = (*PRODUCTS, "core", "growth")
-ALLOWED_ROOT_FILES = {".gitattributes", ".gitignore", "LICENSE", "README.md"}
+ALLOWED_ROOT_FILES = {".gitattributes", ".gitignore", "LICENSE", "README.md", "AGENTS.md"}
 ALLOWED_ROOT_DIRS = {".git", ".github", *DOMAINS}
 SOURCE_EXT = {".swift", ".kt", ".kts", ".java", ".py", ".sh", ".bash", ".gradle"}
 # Explicit names only: avoid false-positive 'import Foundation' or normal library symbols.
