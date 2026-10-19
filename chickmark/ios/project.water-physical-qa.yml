@@ -291,7 +291,7 @@ targets:
         PRODUCT_NAME: HabitsByArvectum
         PRODUCT_MODULE_NAME: HabitsByArvectum
         MARKETING_VERSION: 1.5.0
-        CURRENT_PROJECT_VERSION: '201'
+        CURRENT_PROJECT_VERSION: '202'
         TARGETED_DEVICE_FAMILY: '1'
         GENERATE_INFOPLIST_FILE: false
         CODE_SIGN_ENTITLEMENTS: WaterPhysicalQA/WaterQA.entitlements
