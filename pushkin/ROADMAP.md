@@ -6,7 +6,8 @@
 - [x] P0: 122 RU-строки для основных экранов History/Apps/Settings/Add app/обучения; EN оставлен. Build PASS, 5 unit + RU UI 1 + EN UI 4 PASS. Не полный перевод Developer/Group Planner.
 - [x] P1: 34pt чип ArvectumWordmark вместо массивной плашки; iOS Simulator BUILD и UI геометрии PASS, отдельная русская UI проверка PASS, скриншот просмотрен.
 - [x] P1: на светлой теме интерактивный tint тёмно-бирюзовый, главная мятная кнопка с тёмно-синим текстом (исправлен белый на mint); заголовок подключения краткий, при этом исходный идентификатор источника не меняется. Unit + 2 отдельных UI PASS.
-- [ ] P1: ясный пошаговый статус подключения источников и автоматики; UI/physical verification, без риска для системных Shortcuts.
+- [x] P1: контраст подсказки поля поиска исправлен в dark/light без замены системного TextField; Simulator BUILD PASS, тёмный screenshot при Increase Contrast проверен.
+- [ ] P1: проверка secondary views, VoiceOver, Dynamic Type, реальных Shortcuts-сценариев без изменения существующих автоматизаций.
 
 Полный аудит: [единый дизайн-код](../core/docs/UNIFIED_DESIGN_CODE_2026-10-19.md).
 
