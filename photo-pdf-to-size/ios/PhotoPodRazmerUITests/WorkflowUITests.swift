@@ -27,10 +27,25 @@ final class WorkflowUITests: XCTestCase {
         let save = app.buttons["result-save-primary"]
         XCTAssertTrue(save.waitForExistence(timeout: 8))
         XCTAssertTrue(save.isHittable, "Save should be visible without scrolling")
+        XCTAssertTrue(
+            app.buttons["edit-settings-button"].isHittable,
+            "Settings must remain reachable without scrolling"
+        )
+        XCTAssertTrue(
+            app.buttons["Реклама и конфиденциальность"].isHittable,
+            "Privacy controls must remain reachable"
+        )
+        XCTAssertLessThanOrEqual(save.frame.height, 96,
+                                 "Sticky save must not consume the viewport")
         XCTAssertLessThanOrEqual(
             save.frame.maxY, app.frame.maxY + 1,
             "Save cannot fall below the visible viewport"
         )
+        let evidence = XCTAttachment(screenshot: XCUIScreen.main.screenshot())
+        evidence.name = fixture == "--qa-pdf-fixture"
+            ? "design-code-PDF-result" : "design-code-photo-result"
+        evidence.lifetime = .keepAlways
+        add(evidence)
     }
 
     func testPhotoSaveIsVisibleWithoutScrolling() {

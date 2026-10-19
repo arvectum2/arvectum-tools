@@ -6,6 +6,7 @@ import UniformTypeIdentifiers
 struct BrandHeader: View {
     let showHome: Bool
     let onHome: () -> Void
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     var body: some View {
         HStack {
@@ -18,11 +19,21 @@ struct BrandHeader: View {
 
             if showHome {
                 Button(action: onHome) {
-                    Label(tr("Фото и PDF под размер"), systemImage: "house.fill")
-                        .font(.headline.weight(.semibold))
-                        .foregroundStyle(.white)
-                        .lineLimit(1)
-                        .minimumScaleFactor(0.84)
+                    Group {
+                        if dynamicTypeSize.isAccessibilitySize {
+                            // In the 46pt header, icon-only avoids clipping
+                            // while the full action remains spoken by VoiceOver.
+                            Image(systemName: "house.fill")
+                                .font(.system(size: 22, weight: .semibold))
+                                .frame(width: 44, height: 44)
+                        } else {
+                            Label(tr("Фото и PDF под размер"), systemImage: "house.fill")
+                                .font(.headline.weight(.semibold))
+                                .lineLimit(1)
+                                .minimumScaleFactor(0.84)
+                        }
+                    }
+                    .foregroundStyle(.white)
                 }
                 .buttonStyle(.plain)
                 .accessibilityLabel(Text(tr("На главный экран")))
@@ -32,10 +43,12 @@ struct BrandHeader: View {
                     .font(.headline.weight(.semibold))
                     .foregroundStyle(.white)
                     .lineLimit(1)
+                    .minimumScaleFactor(0.72)
             }
         }
         .padding(.horizontal, 12)
         .frame(height: 46)
+        .dynamicTypeSize(dynamicTypeSize.isAccessibilitySize ? .xxxLarge : dynamicTypeSize)
         .background(Color.arvectumNavy, in: RoundedRectangle(cornerRadius: 20))
     }
 }

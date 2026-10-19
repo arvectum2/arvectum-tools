@@ -18,6 +18,7 @@ let pixelPresets: [(Int, String)] = [
 ]
 
 struct ContentView: View {
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @EnvironmentObject private var model: AppModel
     @State private var pickerItem: PhotosPickerItem?
     @State private var exporting = false
@@ -107,6 +108,11 @@ struct ContentView: View {
                     } label: {
                         Label(tr("Сохранить файл"), systemImage: "square.and.arrow.down")
                             .font(.headline)
+                            // Keep the sticky CTA readable and within the
+                            // viewport at AXXXL; don't constrain result body.
+                            .dynamicTypeSize(dynamicTypeSize.isAccessibilitySize ? .accessibility1 : dynamicTypeSize)
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.75)
                             .frame(maxWidth: .infinity)
                             .frame(minHeight: 48)
                             .contentShape(Rectangle())
@@ -122,17 +128,24 @@ struct ContentView: View {
                 }
 
                 HStack(spacing: 6) {
-                    Text("Arvectum.com")
-                    Text("·")
+                    if !dynamicTypeSize.isAccessibilitySize {
+                        Text("Arvectum.com")
+                        Text("·")
+                    }
                     Button(tr("Реклама и конфиденциальность")) {
                         showingAdPrivacySettings = true
                     }
                     .buttonStyle(.plain)
                 }
+                // Preserve the full privacy/advertising label rather than
+                // sacrificing it to a decorative website prefix at AXXXL.
                 .font(.caption.weight(.semibold))
+                .dynamicTypeSize(dynamicTypeSize.isAccessibilitySize ? .xxxLarge : dynamicTypeSize)
                 .foregroundStyle(.secondary)
+                .lineLimit(1)
+                .minimumScaleFactor(0.7)
                 .tracking(0.3)
-                .frame(height: (model.result == nil && model.pdfResult == nil) ? 24 : 16)
+                .frame(minHeight: (model.result == nil && model.pdfResult == nil) ? 24 : 20)
                 .accessibilityElement(children: .contain)
                 .accessibilityIdentifier("app-footer")
             }
