@@ -6,6 +6,6 @@ let package = Package(
  products: [.library(name: "ArvectumCore", targets: ["ArvectumCore"])],
  targets: [
  .target(name: "ArvectumCore", path: "packages", exclude: ["README.md","ArvectumDesignTokens/README.md","ArvectumDiagnostics/README.md","ArvectumPersistence/README.md","ArvectumAdaptiveLayout/README.md","ArvectumInterapp","ArvectumStore/README.md"],
- sources: ["ArvectumDesignTokens/ArvectumPalette.swift","ArvectumDiagnostics/ArvectumDiagnostics.swift","ArvectumPersistence/ArvectumJSONCodec.swift","ArvectumAdaptiveLayout/ArvectumAdaptiveLayout.swift","ArvectumStore/AppStoreUpdatePrompt.swift"]),
+ sources: ["ArvectumDesignTokens/ArvectumPalette.swift","ArvectumDesignTokens/ArvectumDesignSystem.swift","ArvectumDiagnostics/ArvectumDiagnostics.swift","ArvectumPersistence/ArvectumJSONCodec.swift","ArvectumAdaptiveLayout/ArvectumAdaptiveLayout.swift","ArvectumStore/AppStoreUpdatePrompt.swift"]),
  .testTarget(name: "ArvectumCoreTests", dependencies: ["ArvectumCore"], path: "tests")
  ])
