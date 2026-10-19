@@ -278,6 +278,7 @@ struct QuickCaptureHomeView: View {
             }
         }
         .buttonStyle(.plain)
+        .accessibilityIdentifier("what.open.library")
         .accessibilityLabel(
             (isRussian ? "Все заметки, " : "All notes, ") + notesCountLabel
         )

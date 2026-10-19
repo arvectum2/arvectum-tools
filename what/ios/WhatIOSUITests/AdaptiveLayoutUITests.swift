@@ -41,7 +41,7 @@ final class AdaptiveLayoutUITests: XCTestCase {
         XCTAssertTrue(capture.waitForExistence(timeout: 10))
         let library = app.buttons.matching(NSPredicate(
             format: "label BEGINSWITH %@ OR label BEGINSWITH %@",
-                    "Мои записи", "My recordings"
+                    "Все заметки", "All notes"
         )).firstMatch
         XCTAssertTrue(library.waitForExistence(timeout: 10))
         XCTAssertTrue(library.isHittable)
@@ -69,7 +69,7 @@ final class AdaptiveLayoutUITests: XCTestCase {
         XCTAssertTrue(record.waitForExistence(timeout: 15))
         let saved = app.buttons.matching(
             NSPredicate(format: "label BEGINSWITH %@ OR label BEGINSWITH %@",
-                        "Мои записи", "My recordings")
+                        "Все заметки", "All notes")
         ).firstMatch
         XCTAssertTrue(saved.exists)
         saved.tap()

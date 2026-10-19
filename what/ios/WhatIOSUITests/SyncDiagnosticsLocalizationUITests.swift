@@ -5,7 +5,7 @@ final class SyncDiagnosticsLocalizationUITests: XCTestCase {
     func testRussianDiagnosticsAndSettingsMenu() {
         checkDiagnostics(
             language: "ru", locale: "ru_RU",
-            libraryButton: "Мои записи", settings: "Настройки и диагностика",
+            libraryButton: "Все заметки", settings: "Настройки и диагностика",
             menuItem: "Диагностика синхронизации",
             title: "Диагностика синхронизации",
             recordings: "Записей", pending: "В очереди на часах",
@@ -16,7 +16,7 @@ final class SyncDiagnosticsLocalizationUITests: XCTestCase {
     func testEnglishDiagnosticsAndSettingsMenu() {
         checkDiagnostics(
             language: "en", locale: "en_US",
-            libraryButton: "My recordings", settings: "App settings and diagnostics",
+            libraryButton: "All notes", settings: "App settings and diagnostics",
             menuItem: "Sync diagnostics", title: "Sync diagnostics",
             recordings: "Recordings", pending: "Pending on Watch",
             noQueueReport: "No Watch queue report received yet."
@@ -36,7 +36,7 @@ final class SyncDiagnosticsLocalizationUITests: XCTestCase {
         // locale through the actual UI rather than assuming a clean install.
         let library = app.buttons.matching(
             NSPredicate(format: "label BEGINSWITH %@ OR label BEGINSWITH %@",
-                        "Мои записи", "My recordings")
+                        "Все заметки", "All notes")
         ).firstMatch
         XCTAssertTrue(library.waitForExistence(timeout: 15))
         library.tap()
@@ -65,7 +65,7 @@ final class SyncDiagnosticsLocalizationUITests: XCTestCase {
         app.launch()
         let library = app.buttons.matching(
             NSPredicate(format: "label BEGINSWITH %@ OR label BEGINSWITH %@",
-                        "Мои записи", "My recordings")
+                        "Все заметки", "All notes")
         ).firstMatch
         XCTAssertTrue(library.waitForExistence(timeout: 15))
         library.tap()
@@ -80,7 +80,7 @@ final class SyncDiagnosticsLocalizationUITests: XCTestCase {
         app.terminate()
         app.launch()
         let englishLibrary = app.buttons.matching(
-            NSPredicate(format: "label BEGINSWITH %@", "My recordings")
+            NSPredicate(format: "label BEGINSWITH %@", "All notes")
         ).firstMatch
         XCTAssertTrue(englishLibrary.waitForExistence(timeout: 15))
         englishLibrary.tap()

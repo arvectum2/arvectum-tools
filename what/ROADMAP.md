@@ -3,8 +3,8 @@
 ### UX/дизайн-код: очередь D2 (19.10.2026, план)
 
 - [x] Кнопки «Видео» и «Текст» видны на Home; мгновенное аудио и long-press сохранены (BUILD + UI discoverability + long-press PASS).
-- [x] Дублированную инструкцию убрали; в компактной раскладке HStack → VStack. Полный Large Dynamic Type/iPad QA пока отдельная задача.
-- [x] «Все заметки», склонение количества RU/EN и VoiceOver label реализованы; итоговая сборка прошла.
+- [x] Дублированную инструкцию убрали; в компактной раскладке HStack → VStack. iPhone 17 Pro AXXXL UI PASS: аудио, текст, пустой редактор, библиотека. iPad/Duo/физический VoiceOver ещё открыты.
+- [x] «Все заметки», склонение RU/EN и VoiceOver label; добавлен стабильный identifier what.open.library, исправлены ожидания в пяти файлах UI-тестов. AXXXL UI PASS.
 - [ ] VoiceOver, Reduce Motion и запись/сохранение/Watch ACK regression QA перед выпуском.
 
 Полный аудит: [единый дизайн-код](../core/docs/UNIFIED_DESIGN_CODE_2026-10-19.md).
