@@ -111,6 +111,7 @@ private struct InboxView: View {
                     HStack(spacing: 10) {
                         Image(systemName: "magnifyingglass")
                             .foregroundStyle(.secondary)
+                            .accessibilityHidden(true) // Decorative: search field has its own label.
 
                         TextField(
                             "",

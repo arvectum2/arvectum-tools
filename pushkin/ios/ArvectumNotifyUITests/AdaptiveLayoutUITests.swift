@@ -4,6 +4,87 @@ import XCTest
 final class AdaptiveLayoutUITests: XCTestCase {
     /// No external Shortcuts changes. Verify secondary routes and user-critical
     /// actions stay readable/reachable under Accessibility XXXL.
+#if compiler(>=6.4)
+    @MainActor
+    func testVoiceOverHistorySpeechWithoutDecorativeSearchIcon() throws {
+        guard ProcessInfo.processInfo.environment["ARVECTUM_VOICEOVER_QA"] == "1" else {
+            throw XCTSkip("Opt-in VoiceOver service QA; isolated simulator only")
+        }
+        guard #available(iOS 27.0, *) else {
+            throw XCTSkip("VoiceOver service requires iOS 27")
+        }
+        let app = XCUIApplication(bundleIdentifier: "ru.arvectum.tools.notify")
+        app.launchArguments = [
+            "-AppleLanguages", "(ru)", "-AppleLocale", "ru_RU", "--store-tab", "0"
+        ]
+        app.launch()
+
+        let service = XCUIDevice.shared.voiceOverService
+        _ = try? service.disable()
+        _ = try service.enable()
+        defer { _ = try? service.disable() }
+
+        var utterances = [try service.currentSpeech().utterance]
+        for _ in 1..<5 { utterances.append(try service.moveForward().utterance) }
+        print("PUSHKIN_VO_HISTORY=\(utterances)")
+        XCTAssertTrue(utterances.contains { $0.localizedCaseInsensitiveContains("История") })
+        XCTAssertTrue(utterances.contains {
+            $0.localizedCaseInsensitiveContains("Поиск уведомлений")
+        })
+        XCTAssertFalse(utterances.contains { $0.contains("Search") && $0.contains("Image") },
+                       "Decorative magnifying glass must not be separately spoken")
+    }
+
+    @MainActor
+    func testVoiceOverSettingsLabels() throws {
+        guard ProcessInfo.processInfo.environment["ARVECTUM_VOICEOVER_QA"] == "1" else {
+            throw XCTSkip("Opt-in VoiceOver service QA; isolated simulator only")
+        }
+        guard #available(iOS 27.0, *) else {
+            throw XCTSkip("VoiceOver service requires iOS 27")
+        }
+        let app = XCUIApplication(bundleIdentifier: "ru.arvectum.tools.notify")
+        app.launchArguments = [
+            "-AppleLanguages", "(ru)", "-AppleLocale", "ru_RU", "--store-tab", "2"
+        ]
+        app.launch()
+
+        let service = XCUIDevice.shared.voiceOverService
+        _ = try? service.disable()
+        _ = try service.enable()
+        defer { _ = try? service.disable() }
+        var utterances = [try service.currentSpeech().utterance]
+        for _ in 1..<11 { utterances.append(try service.moveForward().utterance) }
+        print("PUSHKIN_VO_SETTINGS=\(utterances)")
+        XCTAssertTrue(utterances.contains { $0.localizedCaseInsensitiveContains("Настройки") })
+        XCTAssertTrue(utterances.contains { $0.localizedCaseInsensitiveContains("Уведомлений") })
+    }
+#endif
+
+    func testHistoryAccessibilityAuditOfLabelsAndTargets() throws {
+        guard ProcessInfo.processInfo.environment["ARVECTUM_ACCESSIBILITY_AUDIT_QA"] == "1" else {
+            throw XCTSkip("Opt-in accessibility audit; isolated simulator only")
+        }
+        let app = XCUIApplication(bundleIdentifier: "ru.arvectum.tools.notify")
+        app.launchArguments = [
+            "-AppleLanguages", "(ru)", "-AppleLocale", "ru_RU",
+            "--store-screenshot-fixture"
+        ]
+        app.launch()
+        XCTAssertTrue(app.tabBars.buttons["История"].firstMatch
+            .waitForExistence(timeout: 8))
+
+        let auditTypes: XCUIAccessibilityAuditType = [
+            .sufficientElementDescription, .hitRegion, .trait, .textClipped
+        ]
+        try app.performAccessibilityAudit(for: auditTypes) { issue in
+            print("PUSHKIN_AX_AUDIT issue=\(issue.compactDescription) " +
+                  "detail=\(issue.detailedDescription) " +
+                  "element=\(issue.element?.description ?? "nil")")
+            return false
+        }
+    }
+
     func testAccessibilityXXXLSetupAndCoverageNavigation() throws {
         let app = XCUIApplication(bundleIdentifier: "ru.arvectum.tools.notify")
         app.launchArguments = [
