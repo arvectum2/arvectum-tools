@@ -1516,6 +1516,18 @@ final class RecordingRepositoryTests: XCTestCase {
         ))
     }
 
+    func testPhysicalWatch124msTruncationIsRejectedEvenWhenFileIsLarge() {
+        // Physical Watch SE QA 19.10.2026: AAC 25_247 bytes decodes to
+        // 0.124s despite an intended ~7s capture. Size alone is insufficient.
+        XCTAssertFalse(WatchCaptureValidation.isPlausibleAudio(
+            bytes: 25_247, decodedDuration: 0.124, expectedDuration: 7.0
+        ))
+        // Do not regress valid AAC in the same physical environment.
+        XCTAssertTrue(WatchCaptureValidation.isPlausibleAudio(
+            bytes: 46_000, decodedDuration: 7.612, expectedDuration: 7.35
+        ))
+    }
+
     func testWatchCrashRecoveryRetainsOnlyDurableUnqueuedAudio() throws {
         let directory = FileManager.default.temporaryDirectory
             .appendingPathComponent("what-watch-recovery-\(UUID().uuidString)")
