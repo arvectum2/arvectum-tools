@@ -1,6 +1,6 @@
 # Pushkin — physical native Notification → Shortcuts → AppIntent → SwiftData E2E
 
-**PASS, 19 October 2026, physical iPhone 13, iOS 27.1, Xcode 27.1.**
+**PASS, 19 October 2026, physical iPhone 13, iOS 27.0.1, Xcode 27.1.**
 
 ## Exact acceptance
 
