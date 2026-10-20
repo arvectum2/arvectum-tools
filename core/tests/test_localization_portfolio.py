@@ -15,7 +15,7 @@ class LocalizationPortfolioTests(unittest.TestCase):
         self.assertEqual(reg["targets"][0]["code"], "en")
         self.assertEqual(reg["fallback"], "en")
         self.assertEqual(set(reg["apps"]), {"chickmark", "pushkin", "what", "photo-pdf-to-size", "where"})
-        self.assertEqual(reg["apps"]["photo-pdf-to-size"]["android"]["sourceLocale"], "ru")
+        self.assertEqual(reg["apps"]["photo-pdf-to-size"]["android"]["sourceLocale"], "en")
         self.assertEqual([sum(x["tier"] == t for x in reg["targets"]) for t in (1, 2, 3)], [20, 20, 10])
 
     def test_placeholders(self):

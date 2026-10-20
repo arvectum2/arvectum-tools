@@ -22,6 +22,7 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -42,7 +43,7 @@ import ru.arvectum.tools.tosize.ToolMode
 @Composable
 fun BrandHeader(
     modifier: Modifier = Modifier,
-    title: String = "Фото под размер",
+    title: String? = null,
 ) {
     Surface(
         modifier = modifier.fillMaxWidth(),
@@ -58,7 +59,7 @@ fun BrandHeader(
         ) {
             Image(
                 painter = painterResource(R.drawable.arvectum_wordmark),
-                contentDescription = "Логотип Arvectum",
+                contentDescription = stringResource(R.string.arvectum_logo),
                 modifier = Modifier
                     .width(102.dp)
                     .height(30.dp),
@@ -66,7 +67,7 @@ fun BrandHeader(
             )
             Spacer(Modifier.weight(1f))
             Text(
-                text = title,
+                text = title ?: stringResource(R.string.photo_resizer),
                 color = ArvectumWhite,
                 fontSize = 17.sp,
                 fontWeight = FontWeight.SemiBold,
@@ -106,21 +107,21 @@ fun ModeSelector(
         horizontalArrangement = Arrangement.spacedBy(6.dp),
     ) {
         ModeButton(
-            label = "По весу",
+            label = stringResource(R.string.file_size),
             selected = mode == ToolMode.FILE_SIZE,
             enabled = enabled,
             onClick = { onModeChange(ToolMode.FILE_SIZE) },
             modifier = Modifier.weight(1f),
         )
         ModeButton(
-            label = "По размеру",
+            label = stringResource(R.string.dimensions),
             selected = mode == ToolMode.PIXELS,
             enabled = enabled,
             onClick = { onModeChange(ToolMode.PIXELS) },
             modifier = Modifier.weight(1f),
         )
         ModeButton(
-            label = "На паспорт",
+            label = stringResource(R.string.passport),
             selected = mode == ToolMode.PASSPORT,
             enabled = enabled,
             onClick = { onModeChange(ToolMode.PASSPORT) },

@@ -281,10 +281,10 @@
         "photo-pdf-to-size/ios/PhotoPodRazmer/Resources"
       ],
       "android": {
-        "status": "requires-russian-inline-string-migration",
-        "sourceLocale": "ru",
+        "status": "en-ru-resources-in-feature-branch",
+        "sourceLocale": "en",
         "resources": "photo-pdf-to-size/android/app/src/main/res",
-        "note": "Android is included in 50-language scope. First migrate hardcoded Russian Compose/UI text into Android resources and make English the default."
+        "note": "English default + Russian catalog for Android Compose UI and typed backend errors. QA/48 additional languages pending; not shipped."
       }
     },
     "where": {

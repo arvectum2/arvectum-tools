@@ -1,5 +1,6 @@
 package ru.arvectum.tools.tosize.storage
 
+import ru.arvectum.tools.tosize.R
 import android.content.ClipData
 import android.content.Context
 import android.content.Intent
@@ -31,10 +32,10 @@ class ImageStorage(private val context: Context) {
 
         val mime = (resolver.getType(uri) ?: mimeFromName(name)).lowercase()
         if (mime !in SUPPORTED_MIME_TYPES) {
-            throw UserVisibleException("Этот формат пока не поддерживается.")
+            throw UserVisibleException(R.string.unsupported_format)
         }
         if (mime == "image/webp" && isAnimatedWebP(uri)) {
-            throw UserVisibleException("Анимированный WebP пока не поддерживается.")
+            throw UserVisibleException(R.string.unsupported_animated_webp)
         }
 
         if (size <= 0L) {
@@ -45,7 +46,7 @@ class ImageStorage(private val context: Context) {
         val options = BitmapFactory.Options().apply { inJustDecodeBounds = true }
         resolver.openInputStream(uri)?.use { BitmapFactory.decodeStream(it, null, options) }
         if (options.outWidth <= 0 || options.outHeight <= 0) {
-            throw UserVisibleException("Не получилось открыть это изображение.")
+            throw UserVisibleException(R.string.cannot_open_image)
         }
 
         val orientation = readOrientation(uri)
@@ -66,13 +67,13 @@ class ImageStorage(private val context: Context) {
 
     fun save(result: ResultImage, destination: Uri) {
         val output = resolver.openOutputStream(destination, "w")
-            ?: throw UserVisibleException("Не получилось сохранить файл.")
+            ?: throw UserVisibleException(R.string.cannot_save_file)
         output.use { out ->
             if (result.outputFile != null) {
                 FileInputStream(result.outputFile).use { it.copyTo(out) }
             } else {
                 resolver.openInputStream(result.source.uri)?.use { it.copyTo(out) }
-                    ?: throw UserVisibleException("Не получилось прочитать исходный файл.")
+                    ?: throw UserVisibleException(R.string.cannot_read_original)
             }
         }
     }
@@ -116,7 +117,7 @@ class ImageStorage(private val context: Context) {
                 if (count < 0) break
                 total += count
             }
-        } ?: throw UserVisibleException("Не получилось прочитать этот файл.")
+        } ?: throw UserVisibleException(R.string.cannot_read_file)
         return total
     }
 

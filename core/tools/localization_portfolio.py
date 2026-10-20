@@ -17,6 +17,7 @@ import json
 from pathlib import Path
 import re
 import sys
+import xml.etree.ElementTree as ET
 
 ROOT = Path(__file__).resolve().parents[2]
 MANIFEST = ROOT / "core/localization/portfolio-locales.json"
@@ -108,6 +109,54 @@ def placeholders(value: str) -> Counter[str]:
     return Counter(PRINTF.findall(value.replace("%%", "")))
 
 
+
+def android_catalog_audit(doc: dict, errors: list[str], *, report: bool = False) -> None:
+    """Verify Android's real English fallback and all provided resource packs."""
+    app = doc["apps"]["photo-pdf-to-size"]["android"]
+    resources = ROOT / app["resources"]
+    base = resources / "values/strings.xml"
+    expected = None
+    for directory in (resources / "values", resources / "values-ru"):
+        path = directory / "strings.xml"
+        try:
+            children = ET.parse(path).getroot()
+            keys = [element.attrib["name"] for element in children if element.tag == "string"]
+            values = {element.attrib["name"]: element.text or "" for element in children if element.tag == "string"}
+        except (OSError, ET.ParseError, KeyError) as exc:
+            errors.append(f"Android locale {path}: {exc}")
+            continue
+        if len(keys) != len(values):
+            errors.append(f"Android duplicate resource keys in {path.relative_to(ROOT)}")
+        if expected is None:
+            expected = values
+            if values.get("app_name") != "Photo Resizer":
+                errors.append("Android default values/strings.xml must be English")
+            if any(re.search(r"[А-Яа-яЁё]", val) for val in values.values()):
+                errors.append("Android English fallback contains Cyrillic text")
+        else:
+            if set(expected) != set(values):
+                errors.append(f"Android {directory.name}: missing/extra resource keys")
+            for key in set(expected) & set(values):
+                if placeholders(expected[key]) != placeholders(values[key]):
+                    errors.append(f"Android {directory.name}/{key}: format arguments differ")
+            if values.get("app_name") != "Фото под размер":
+                errors.append("Android Russian app label unexpectedly changed")
+    if expected is not None:
+        kotlin_root = ROOT / "photo-pdf-to-size/android/app/src/main/java"
+        references: set[str] = set()
+        for path in kotlin_root.rglob("*.kt"):
+            body = path.read_text(encoding="utf-8")
+            references.update(re.findall(r"R\.string\.([a-z][a-z0-9_]*)", body))
+            if path.name in {"MainScreen.kt", "BrandComponents.kt", "PassportCropScreen.kt"}:
+                if re.search(r'\"[^\"\\n]*[А-Яа-яЁё][^\"\\n]*\"', body):
+                    errors.append(f"Android hardcoded UI Russian in {path.relative_to(ROOT)}")
+        if references - set(expected):
+            errors.append(f"Android unknown string resource IDs: {sorted(references - set(expected))}")
+        if report:
+            print(f"photo-pdf-to-size Android {len(expected)} EN/RU keys; 48 target translations pending")
+
+
+
 def audit(doc: dict, *, report: bool = False) -> int:
     errors: list[str] = []
     locales = {item["code"] for item in doc["targets"]}
@@ -172,6 +221,7 @@ def audit(doc: dict, *, report: bool = False) -> int:
                 for key in base.keys() & entries.keys():
                     if placeholders(base[key]) != placeholders(entries[key]):
                         errors.append(f"{raw}/{lang}/{key}: permission format mismatch")
+    android_catalog_audit(doc, errors, report=report)
     if errors:
         print("\n".join(f"ERROR {e}" for e in errors))
         return 1

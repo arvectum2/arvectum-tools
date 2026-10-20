@@ -42,7 +42,13 @@ The English extraction covers **only unambiguous static SwiftUI literals** and n
 | Фото/PDF | en/ru, corrected English fallback | 48 languages, visual QA |
 | Pushkin | extracted English static UI catalog | Dynamic keys, 49 translated catalogs |
 | Ухват | extracted English baseline; fixed unsupported-language fallback | Dynamic keys, 49 translations, separate interface and speech choices |
-| Фото/PDF Android | Russian inline Kotlin UI strings; only Russian app-name resource | Migrate Kotlin literals to Android string resources and set English as default before enabling the other locales |
+| Фото/PDF Android | English default Android resources, Russian translation of UI and typed errors (92 resource keys) | Android device/visual QA, 48 real translations, RTL/plurals and permission check |
 | Where? | no active app binary | adopt shared registry when resumed |
+
+### Android baseline — 20 October 2026
+
+In integration branch feature/portfolio-design-i18n-20261020, Android Photo Resizer now has an English default resources catalog and a Russian catalog (93 keys). Compose UI, file sizes and typed processing errors use resources. The decimal unit calculation stays JVM-testable.
+
+Verified locally on Mac mini with JDK 17 and SDK 37: assembleDebug and testDebugUnitTest BUILD SUCCESSFUL, plus catalog audit. No physical Android UI QA, other 48 translations or store release has happened.
 
 Next stages for **each app**: finish dynamic string extraction → translate each target locale → review sensitive wording and plural/RTL rules → check permissions, watch/widgets and screenshots → approve individual release. No new locales are claimed as shipped by this change.

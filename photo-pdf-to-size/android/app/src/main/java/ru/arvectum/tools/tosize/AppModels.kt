@@ -1,6 +1,7 @@
 package ru.arvectum.tools.tosize
 
 import android.net.Uri
+import androidx.annotation.StringRes
 import java.io.File
 import kotlin.math.roundToInt
 
@@ -43,9 +44,9 @@ data class ResultImage(
     val alreadyFit: Boolean = false,
 )
 
-enum class SizeUnit(val multiplier: Long, val label: String) {
-    KB(1_000L, "КБ"),
-    MB(1_000_000L, "МБ"),
+enum class SizeUnit(val multiplier: Long) {
+    KB(1_000L),
+    MB(1_000_000L),
 }
 
 data class AppUiState(
@@ -84,4 +85,4 @@ fun calculateLongSideDimensions(
     }
 }
 
-class UserVisibleException(message: String) : Exception(message)
+class UserVisibleException(@StringRes val messageRes: Int) : Exception()
