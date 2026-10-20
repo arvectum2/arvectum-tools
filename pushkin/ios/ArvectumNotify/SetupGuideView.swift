@@ -4,6 +4,7 @@ import SwiftUI
 /// Guided setup for the signed 1000-app base package and optional refreshes.
 /// Apple Shortcuts remains the source of truth for automation enablement.
 struct SetupGuideView: View {
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @Environment(\.openURL) private var openURL
 
     @Query(sort: \CapturedNotification.capturedAt, order: .reverse)
@@ -33,8 +34,9 @@ struct SetupGuideView: View {
                 } label: {
                     Label(pc("Add or manage apps"), systemImage: "plus.app")
                         .font(.subheadline.weight(.semibold))
-                        .lineLimit(1)
+                        .lineLimit(dynamicTypeSize.isAccessibilitySize ? 3 : 1)
                         .minimumScaleFactor(0.85)
+                        .fixedSize(horizontal: false, vertical: true)
                         .frame(maxWidth: .infinity)
                         .frame(minHeight: 48)
                 }

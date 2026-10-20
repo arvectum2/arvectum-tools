@@ -59,9 +59,6 @@ final class AdaptiveLayoutUITests: XCTestCase {
 #endif
 
     func testHistoryAccessibilityAuditOfLabelsAndTargets() throws {
-        guard ProcessInfo.processInfo.environment["ARVECTUM_ACCESSIBILITY_AUDIT_QA"] == "1" else {
-            throw XCTSkip("Opt-in accessibility audit; isolated simulator only")
-        }
         let app = XCUIApplication(bundleIdentifier: "ru.arvectum.tools.notify")
         app.launchArguments = [
             "-AppleLanguages", "(ru)", "-AppleLocale", "ru_RU",
@@ -76,6 +73,48 @@ final class AdaptiveLayoutUITests: XCTestCase {
         ]
         try app.performAccessibilityAudit(for: auditTypes) { issue in
             print("PUSHKIN_AX_AUDIT issue=\(issue.compactDescription) " +
+                  "detail=\(issue.detailedDescription) " +
+                  "element=\(issue.element?.description ?? "nil")")
+            return false
+        }
+    }
+
+    func testSettingsAccessibilityAuditOfLabelsAndTargets() throws {
+        let app = XCUIApplication(bundleIdentifier: "ru.arvectum.tools.notify")
+        app.launchArguments = [
+            "-AppleLanguages", "(ru)", "-AppleLocale", "ru_RU",
+            "--store-tab", "2"
+        ]
+        app.launch()
+        XCTAssertTrue(app.navigationBars["Настройки"].firstMatch
+            .waitForExistence(timeout: 8))
+
+        let auditTypes: XCUIAccessibilityAuditType = [
+            .sufficientElementDescription, .hitRegion, .trait, .textClipped
+        ]
+        try app.performAccessibilityAudit(for: auditTypes) { issue in
+            print("PUSHKIN_SETTINGS_AX issue=\(issue.compactDescription) " +
+                  "detail=\(issue.detailedDescription) " +
+                  "element=\(issue.element?.description ?? "nil")")
+            return false
+        }
+    }
+
+    func testSourcesAccessibilityAuditOfLabelsAndTargets() throws {
+        let app = XCUIApplication(bundleIdentifier: "ru.arvectum.tools.notify")
+        app.launchArguments = [
+            "-AppleLanguages", "(ru)", "-AppleLocale", "ru_RU",
+            "--store-tab", "1"
+        ]
+        app.launch()
+        XCTAssertTrue(app.navigationBars["Источники"].firstMatch
+            .waitForExistence(timeout: 8))
+
+        let auditTypes: XCUIAccessibilityAuditType = [
+            .sufficientElementDescription, .hitRegion, .trait, .textClipped
+        ]
+        try app.performAccessibilityAudit(for: auditTypes) { issue in
+            print("PUSHKIN_SOURCES_AX issue=\(issue.compactDescription) " +
                   "detail=\(issue.detailedDescription) " +
                   "element=\(issue.element?.description ?? "nil")")
             return false

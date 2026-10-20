@@ -55,6 +55,7 @@ struct ContentView: View {
 }
 
 private struct InboxView: View {
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @Environment(\.openURL) private var openURL
     @Environment(\.modelContext) private var modelContext
 
@@ -121,6 +122,10 @@ private struct InboxView: View {
                         )
                             .textInputAutocapitalization(.never)
                             .autocorrectionDisabled()
+                            .accessibilityLabel(pc("Search notifications"))
+                            // The single-line native field cannot wrap at AXXXL.
+                            // Limit its control typography while other text scales.
+                            .dynamicTypeSize(dynamicTypeSize.isAccessibilitySize ? .xxxLarge : dynamicTypeSize)
 
                         if !searchText.isEmpty {
                             Button {
@@ -134,7 +139,7 @@ private struct InboxView: View {
                         }
                     }
                     .padding(.horizontal, 14)
-                    .frame(height: 46)
+                    .frame(minHeight: 46)
                     .background(
                         Color.arvectumSurface,
                         in: RoundedRectangle(cornerRadius: 16, style: .continuous)
@@ -148,7 +153,17 @@ private struct InboxView: View {
                 }
 
                 if !pendingCoverageTitle.isEmpty {
-                    pendingCoverageCard
+                    if dynamicTypeSize.isAccessibilitySize {
+                        // The connection instructions must scroll at very
+                        // large text sizes instead of overflowing the viewport.
+                        ScrollView(.vertical) {
+                            pendingCoverageCard
+                        }
+                        .frame(maxHeight: 260)
+                        .accessibilityIdentifier("coverage-finish-scroll")
+                    } else {
+                        pendingCoverageCard
+                    }
                 }
 
                 Group {
@@ -308,6 +323,8 @@ private struct InboxView: View {
                     : "switch.2"
             )
             .font(.headline)
+            .fixedSize(horizontal: false, vertical: true)
+            .accessibilityIdentifier("coverage-finish-card")
 
             if pendingCoverageVerified {
                 Text(
@@ -335,6 +352,7 @@ private struct InboxView: View {
                     )
                 }
                 .buttonStyle(ArvectumPrimaryActionStyle())
+                .fixedSize(horizontal: false, vertical: true)
                 .accessibilityIdentifier("finish-coverage-automations")
             }
         }
@@ -347,7 +365,6 @@ private struct InboxView: View {
         .padding(.horizontal)
         .padding(.top, 8)
         .padding(.bottom, 6)
-        .accessibilityIdentifier("coverage-finish-card")
     }
 
     private func clearPendingCoverage() {
