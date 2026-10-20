@@ -1,6 +1,7 @@
 # What? — Product Roadmap
 
 ### UX/дизайн-код: очередь D2 (19.10.2026, план)
+- [x] D4.1 (20.10): доступная панель библиотеки 64pt, отступы и Mint из SwiftPM ArvectumCore; полный system accessibility audit заполненного списка **PASS**, Debug build PASS.
 
 - [x] VoiceOver: подсказка аудио объясняет двойное касание и действие Видеозапись вместо удержания; проверка audio/video/text accessibility labels на iPhone 17 Pro Simulator PASS.
 - [x] XCUIVoiceOverService на iPhone 17 Pro iOS 27: короткий VoiceOver аудио/видео/текста PASS, включая исправленную подсказку. [ ] Полная проверка редактора, Watch и физического VoiceOver открыта.

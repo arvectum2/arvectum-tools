@@ -7,6 +7,7 @@
 - [x] D0: исследование Apple HIG и релевантных приложений; проверка реальных экранов/исходников четырёх продуктов, фиксация ограничений бенчмарка.
 - [x] D0: общие semantic tokens и метрики в SwiftPM Core, unit-тесты; без изменения существующего UI. **SwiftPM Core: 21/21 PASS на macOS 19.10.2026; продуктовые UI/build тесты остаются отдельной задачей.**
 - [x] D3/P1 Итоговая сборка 20.10: Core swift test **21/21 PASS**; iOS Simulator Debug сборки Пушкин, Фото/PDF, ChickMark и Ухват **4/4 BUILD SUCCEEDED**. Подробная QA-матрица, выполненные и открытые ворота: [внутренняя приёмка](docs/UNIFIED_DESIGN_ACCEPTANCE_2026-10-20.md). Это не разрешение на релиз.
+- [x] D4.1/P1: первый реальный перенос общих токенов на контрольные экраны 4 продуктов, 44/48/64pt, радиусы и семантическая Mint/Navy CTA; ChickMark empty-state clipping исправлен. **Core 21/21, builds 4/4, UI 6/6 PASS**. [Отчёт D4.1](docs/UNIFIED_DESIGN_D4_TOKEN_INTEGRATION_2026-10-20.md).
 - [x] D1/P0 Pushkin: корректное описание охвата, RU/EN главных экранов; Debug iOS Simulator BUILD, 5 unit + 5 UI PASS. Не опубликовано.
 - [x] D1/P0 Фото/PDF: CTA вне ScrollView, iPhone 17 Pro normal 2/2 PASS, iPhone SE normal 2/2 PASS и AXXXL 2/2 PASS; скриншоты проверены.
 - [x] D1/P1 Фото/PDF: Files exporter фото/PDF 2/2 E2E PASS, сообщение после успешной записи, unit распознавания Cancel PASS; рекламная геометрия loaded/no-fill 2/2 UI PASS, доступность consent при AXXXL PASS. Live РСЯ и физические QA gates открыты.
@@ -28,6 +29,7 @@
 - [ ] D3/P1 Полный VoiceOver (gestures/rotor), detail/modal screens, реальные Shortcuts, physical/iPad матрица открыты. PDF VoiceOver для результата выполнен в коротком проверенном сценарии.
 - [ ] D3/P1: product UX QA (VoiceOver, Dynamic Type, тёмная тема, reduce motion) и отдельные UI PR для каждого приложения.
 - [ ] D4: интеграция Core после review и независимые продуктовые релизы только по явному разрешению владельца.
+- [ ] D4.2: продолжить миграцию токенов других экранов и самостоятельный UX/код-review; полная миграция и release gate пока не закрыты.
 - [ ] D5: Where? остается на паузе: только принципы в документе, не реализация.
 
 ## 19.10.2026 — необязательное обновление App Store (Core, единая задача)

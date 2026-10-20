@@ -1,6 +1,7 @@
 # Фото и PDF под размер — Product Roadmap
 
 ### UX/дизайн-код: очередь D1–D3 (19.10.2026, план)
+- [x] D4.1 (20.10): Save CTA использует Core 48pt и семантические Mint/Navy; фото/PDF Save UI **2/2 PASS**, Debug build PASS.
 - [x] Системный Xcode Accessibility Audit результата фото/PDF **2/2 PASS** на отдельном iPhone 17 Pro simulator (AXXXL): text clipping, hit region, labels, traits. Файлы photo-result-accessibility-audit-retry-20261020.log и pdf-result-accessibility-audit-over-ssh.log.
 - [x] Реальное VoiceOver результата фото и PDF: оба отдельных теста TEST SUCCEEDED на iPhone 17 Pro / iOS 27 после скрытия декоративных wordmark/preview. PDF VoiceOver PASS через SSH с MacBook, log pdf-voiceover-over-ssh-20261020.log; фото PASS в photo-voiceover-speech-rebooted-20261020.log. Полные жесты/rotor и physical QA остаются открыты.
 
