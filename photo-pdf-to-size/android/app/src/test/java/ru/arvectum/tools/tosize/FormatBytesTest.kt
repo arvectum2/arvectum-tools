@@ -4,22 +4,23 @@ import androidx.compose.ui.geometry.Offset
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import ru.arvectum.tools.tosize.ui.calculateNormalizedCrop
-import ru.arvectum.tools.tosize.ui.formatBytes
+import ru.arvectum.tools.tosize.ui.DecimalFileSize
+import ru.arvectum.tools.tosize.ui.decimalFileSize
 
 class FormatBytesTest {
     @Test
-    fun formatsKilobytesUsingDecimalUnits() {
-        assertEquals("500 КБ", formatBytes(500_000L))
+    fun calculatesKilobytesUsingDecimalUnits() {
+        assertEquals(DecimalFileSize(true, 500.0), decimalFileSize(500_000L))
     }
 
     @Test
-    fun formatsWholeMegabytesWithoutDecimals() {
-        assertEquals("5 МБ", formatBytes(5_000_000L))
+    fun calculatesWholeMegabytesWithoutDecimals() {
+        assertEquals(DecimalFileSize(false, 5.0), decimalFileSize(5_000_000L))
     }
 
     @Test
-    fun formatsFractionalMegabytesWithTwoDecimals() {
-        assertEquals("4,73 МБ", formatBytes(4_730_000L))
+    fun calculatesFractionalMegabytesWithoutPrematureRounding() {
+        assertEquals(DecimalFileSize(false, 4.73), decimalFileSize(4_730_000L))
     }
 
     @Test
