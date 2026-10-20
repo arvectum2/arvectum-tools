@@ -42,6 +42,18 @@ class LocalizationPortfolioTests(unittest.TestCase):
         i18n.bilingual_format_audit(errors)
         self.assertEqual(errors, [])
 
+    def test_android_french_catalog_has_complete_native_copy(self):
+        from xml.etree import ElementTree
+        root = ROOT / "photo-pdf-to-size/android/app/src/main/res"
+        base = {el.attrib["name"]: el.text for el in ElementTree.parse(root / "values/strings.xml").getroot()}
+        fr = {el.attrib["name"]: el.text for el in ElementTree.parse(root / "values-fr/strings.xml").getroot()}
+        self.assertEqual(set(base), set(fr))
+        self.assertEqual(len(fr), 93)
+        self.assertEqual(fr["app_name"], "Redimensionner les photos")
+        self.assertIn("uniquement sur cet appareil", fr["your_photo_is_processed_only_on_this_device"])
+        self.assertIn("%1$s", fr["compress_to"])
+        self.assertNotEqual(fr["cannot_save_file"], base["cannot_save_file"])
+
     def test_android_brazilian_portuguese_draft(self):
         from xml.etree import ElementTree
         root = ROOT / "photo-pdf-to-size/android/app/src/main/res"

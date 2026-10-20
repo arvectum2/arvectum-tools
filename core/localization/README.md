@@ -75,7 +75,7 @@ All further languages require actual strings and language-specific QA.
 The Android values-es/strings.xml contains 93 translated UI and error texts,
 with positional placeholders. This is not a linguistic proofreading, device
 QA, or store release. Source catalogs now cover EN, RU and draft ES.
-Remaining Android languages: 47.
+Remaining Android languages: 45.
 
 
 ## Native RU source packs across all active iOS apps (20 October)
@@ -88,7 +88,7 @@ Remaining Android languages: 47.
   sentences and preserve placeholder types.
 - iOS Фото/PDF: EN/RU catalogs have 155 keys, with four full UI metadata
   format templates and correct Russian PDF page-count forms.
-- Android Фото: EN/RU/ES draft resources (93 keys each).
+- Android Фото: EN/RU/ES/pt-BR/fr development catalogs (93 keys each).
 - The integration branch now passes iOS Simulator builds for all 4 apps;
   targeted Photo and What unit tests passed as well.
 - These catalog counts and builds are NOT approval for a release or proof
@@ -97,7 +97,7 @@ Remaining Android languages: 47.
 When adding further iOS .lproj directories, regenerate the checked-in
 Xcode projects from their corresponding project.yml files. The Pushkin
 and What projects were regenerated and built with these localizations.
-Remaining 47 Android languages and other iOS target languages are pending.
+Remaining 45 Android languages and other iOS target languages are pending.
 
 ## Next Tier 1 translation slice — Spanish iOS + Brazilian Portuguese Android
 
@@ -110,11 +110,40 @@ Remaining 47 Android languages and other iOS target languages are pending.
   A real simulator screenshot of the initial ad-consent sheet confirmed
   the entire Spanish disclosure and two buttons fit on screen. Screenshot
   stored alongside QA logs on ArvectumSSD, not in the distributable app.
-- The Android photo app now has source packs for EN default, RU, ES and
-  pt-BR, 93 strings each. Locale qualifier values-pt-rBR is recognized
+- The Android photo app now has source packs for EN default, RU, ES,
+  pt-BR and fr, 93 strings each. Locale qualifier values-pt-rBR is recognized
   in the compiled APK. pt-BR placeholder type safety and registry
   membership are CI checked; Gradle build and JVM tests pass.
 - These are *development language-pack candidates*, not approved store
-  releases or proof of native editorial review. 46 Android target
+  releases or proof of native editorial review. 45 Android target
   languages remain not translated. iOS Spanish coverage is currently
   Photo/PDF and the existing ChickMark catalog only; other apps pending.
+
+
+## Accessibility-size Spanish iOS regression + French Android (21 October)
+
+At the system's maximum AXXXL Dynamic Type, mode titles and six size
+presets were cut off as ellipses. The Photo/PDF iOS controls now use:
+
+- a stable two-column/four-item mode grid for accessibility text sizes
+  (with full localized VoiceOver labels and equal-height button frames);
+- an adaptive two-column size-preset and file-format chip grid, including
+  a multiline accessibility-size label path;
+- vertically stacked photo/library Files import choices at AXXXL instead
+  of two fixed-height half-width controls; the PDF import can grow.
+- The compact layout at normal type sizes remains a single row.
+
+The proof is a real es_ES iOS simulator running
+accessibility-extra-extra-extra-large; screenshot comparison is stored on
+the external SSD. The resulting XCUITest suite now verifies three cases
+with a full xcresult **3/3 PASS**: Spanish photo workflow, PDF workflow
+and AXXXL mode-grid buttons. The test simulator was reset to its previous
+large content size. These are simulator-only checks; physical VoiceOver
+and full oversized-type navigation remain open.
+
+Android Photo/PDF has a fifth development catalog, French values-fr
+(93 keys), including actual translated error messages and all numeric
+format strings. Android assembleDebug and testDebugUnitTest pass;
+AAPT2 resource dump confirms French resources in the resulting APK.
+Python catalog and fallback suite: 11/11 PASS. A human native-language
+review and Android device layout assessment are still needed.

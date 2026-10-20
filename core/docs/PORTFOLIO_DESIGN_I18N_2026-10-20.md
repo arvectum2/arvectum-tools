@@ -150,3 +150,33 @@ Final Android repeat (after removing Russian-only unused SizeUnit labels): `andr
   FAIL. This case is left out of the committed passing test suite until
   stable execution is possible. Spanish normal-size workflows 2/2 PASS
   are independently confirmed from xcresult.
+
+
+## L3.4 / L4.1 executed on 21 October: French Android and Spanish AXXXL
+
+The earlier unconfirmed AXXXL attempt above is now resolved as an
+engineering/regression gate, not blanket accessibility acceptance.
+
+- Root problem: at the system's AXXXL content size, Spanish mode
+  captions and six size presets were truncated in the fixed single-row
+  layout. Photo and Files import labels were squeezed into a 62pt row.
+  Actual screenshot evidence is kept on ArvectumSSD.
+- Fixed: adaptive two-column mode navigation and chip grids at Dynamic
+  Type accessibility sizes; mode captions bounded at accessibility1
+  only for navigation so that four controls stay discoverable, each
+  retains the full VoiceOver label; import buttons now stack on iPhone
+  at accessibility type, PDF picker height adapts.
+- iOS Photo/PDF build PASS. Re-ran SpanishLocalizationUITests, including
+  both photo/PDF workflows and the new AXXXL navigation case: Xcode
+  result Test-PhotoPodRazmer-2026.10.21_00-32-05-+0300.xcresult
+  **3 passed, 0 failed, 0 skipped**. The targeted AXXXL run before
+  the full rerun also passed 1/1. Reset QA Simulator content size to
+  original large; no global test state left altered.
+- Added French Android locale: 93 authored translations.
+  JDK17 Android assembleDebug and testDebugUnitTest PASS (6 JVM tests
+  with 0 failures). AAPT2 dump confirmed French strings inside the
+  generated APK. Python audit/catalog regression 11/11 PASS.
+- French becomes Android's fifth development language after English,
+  Russian, Spanish, and Brazilian Portuguese. Other 45 target languages
+  are not yet translated. Copy review and physical device tests are
+  still pending. No main merge, pushes, TestFlight or store actions.

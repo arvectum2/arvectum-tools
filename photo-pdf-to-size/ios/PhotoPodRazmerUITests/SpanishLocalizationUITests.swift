@@ -50,6 +50,43 @@ final class SpanishLocalizationUITests: XCTestCase {
     }
 
     @MainActor
+    func testSpanishAccessibilityModeGrid() {
+        let app = XCUIApplication()
+        app.launchArguments = [
+            "-AppleLanguages", "(es)", "-AppleLocale", "es_ES",
+            "-UIPreferredContentSizeCategoryName",
+            "UICTContentSizeCategoryAccessibilityXXXL",
+            "--qa-photo-fixture"
+        ]
+        app.launchEnvironment["ARVECTUM_NATIVE_QA_FIXTURE"] = "no-fill"
+        app.launch()
+        let decline = app.buttons["ad-consent-decline"]
+        if decline.waitForExistence(timeout: 3) { decline.tap() }
+
+        let first = app.buttons["mode-fileSize"]
+        let second = app.buttons["mode-pixels"]
+        let third = app.buttons["mode-passport"]
+        let fourth = app.buttons["mode-pdf"]
+        for button in [first, second, third, fourth] {
+            XCTAssertTrue(button.waitForExistence(timeout: 8))
+            XCTAssertTrue(button.isHittable)
+            XCTAssertGreaterThanOrEqual(button.frame.height, 44)
+        }
+        XCTAssertEqual(first.label, "Comprimir archivo")
+        XCTAssertEqual(second.label, "Cambiar tamaño de la foto")
+        XCTAssertEqual(third.label, "Foto para documento")
+        XCTAssertEqual(fourth.label, "Trabajar con PDF")
+        XCTAssertLessThan(abs(first.frame.minY - second.frame.minY), 12)
+        XCTAssertGreaterThan(third.frame.minY, first.frame.minY + 44)
+        XCTAssertLessThan(abs(third.frame.minY - fourth.frame.minY), 12)
+
+        let evidence = XCTAttachment(screenshot: XCUIScreen.main.screenshot())
+        evidence.name = "spanish-axxxl-mode-grid"
+        evidence.lifetime = .keepAlways
+        add(evidence)
+    }
+
+    @MainActor
     func testSpanishPhotoWorkflow() {
         checkFlow("--qa-photo-fixture", buttonLabel: "Comprimir foto")
     }
