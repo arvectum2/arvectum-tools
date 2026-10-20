@@ -325,3 +325,5 @@ ChickMark:
 **D4.4 (20.10.2026):** [Полный accessibility audit настройки ChickMark «Мягкое возвращение» в состояниях off/on](UNIFIED_DESIGN_D44_GENTLE_RESTART_ACCESSIBILITY_2026-10-20.md).
 
 **D4.5 (20.10.2026):** [доступная диагностика Ухвата и симуляторная проверка RU/EN](UNIFIED_DESIGN_D45_WHAT_DIAGNOSTICS_2026-10-20.md).
+
+**D4.6 (20.10):** [итоговая внутренняя QA-приёмка и незакрытые физические/release ворота](UNIFIED_DESIGN_D46_FINAL_ACCEPTANCE_2026-10-20.md).
