@@ -1,7 +1,8 @@
 # Фото и PDF под размер — Product Roadmap
 
 ### UX/дизайн-код: очередь D1–D3 (19.10.2026, план)
-- [x] VoiceOver результат фото PASS после скрытия декоративных wordmark и previews: ГОТОВО, Изменить настройки, До/После и размер озвучиваются без безымянных Image. PDF фактически прочитан, но runner INTERRUPTED — формальный PASS открыт.
+- [x] Системный Xcode Accessibility Audit результата фото/PDF **2/2 PASS** на отдельном iPhone 17 Pro simulator (AXXXL): text clipping, hit region, labels, traits. Файлы photo-result-accessibility-audit-retry-20261020.log и pdf-result-accessibility-audit-over-ssh.log.
+- [x] Реальное VoiceOver результата фото и PDF: оба отдельных теста TEST SUCCEEDED на iPhone 17 Pro / iOS 27 после скрытия декоративных wordmark/preview. PDF VoiceOver PASS через SSH с MacBook, log pdf-voiceover-over-ssh-20261020.log; фото PASS в photo-voiceover-speech-rebooted-20261020.log. Полные жесты/rotor и physical QA остаются открыты.
 
 - [x] P0: CTA «Сохранить файл» вынесен из ScrollView. **Фото 1/1 PASS, PDF 1/1 PASS** на iPhone 17 Pro / iOS 27.0; тесты проверили isHittable и расположение внутри экрана. Simulator BUILD PASS.
 - [x] P1: iPhone SE 3-го поколения: фото/PDF 2/2 UI PASS при обычном шрифте и 2/2 UI PASS при AXXXL после исправления адаптивной вёрстки. Скриншоты до/после проверены; видимы и нажимаемы Сохранить, Изменить настройки, Реклама и конфиденциальность.

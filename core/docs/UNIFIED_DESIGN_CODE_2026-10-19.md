@@ -235,3 +235,15 @@
 - testAccessibilityXXXLSetupAndCoverageNavigation после правки PASS (pushkin-setup-axxxl-after-audit-20261020.log): quick-add → каталог → действие подключения.
 - Итого три основных экрана Пушкина прошли системный аудит 3/3. НЕ тестировались все модальные окна, detail screens, реальные Shortcuts, rotor и физический iPhone.
 - PDF VoiceOver после нового прогона xcodebuild BUILD INTERRUPTED в момент включения службы; ранее фактические фразы PDF получены, но тестовое завершение не PASS. PDF-тест остаётся opt-in.
+
+
+## 16. PHOTO/PDF accessibility audits & PDF VoiceOver · 20.10.2026
+
+Среда: выделенный iPhone 17 Pro iOS 27.0 Simulator, Xcode 27.1, системный AXXXL, только DEBUG synthetic photo/PDF fixtures. Проверены четыре категории системного XCUIAccessibilityAudit: sufficientElementDescription, hitRegion, trait, textClipped.
+
+- Результат фотографии: testPhotoResultSystemAccessibilityAudit PASS, без найденных проблем в указанных категориях. Первый запуск BUILD INTERRUPTED из-за нестабильного RDC, повторный TEST SUCCEEDED. Log: photo-result-accessibility-audit-retry-20261020.log.
+- Результат PDF: testPDFResultSystemAccessibilityAudit PASS. Запуск через SSH с MacBook к Mac mini, чтобы прерывание RDC не завершало процесс Xcode. Log: pdf-result-accessibility-audit-over-ssh.log. В тестовом UI пользовательский PDF не использовался.
+- Результат PDF, реальное произнесение VoiceOver: testActualVoiceOverPDFResultSpeech PASS; Xcode voiceOverService с включением/перемещением/отключением. Произнесено: VoiceOver on, ГОТОВО, Изменить настройки Button, PDF уже подходит, До. Log: pdf-voiceover-over-ssh-20261020.log. После завершения VoiceOverTouchEnabled=0, громкость Mac mini=0.
+- Итого системные аудиты основных экранов Пушкина и результата Фото/PDF: **5/5 PASS**; короткие реальные VoiceOver тесты 4/4 приложений, отдельный Фото/PDF VoiceOver 2/2. Это не покрывает весь функционал и не заменяет физический VoiceOver, rotor/gestures и пользовательские сценарии.
+- Ранее в разделе 14 PDF VO был честно открыт из-за прерывания раннера. Данный более поздний успешный прогон закрывает именно короткий PDF VoiceOver-тест. Полные сценарии и ручная физическая приёмка остаются открытыми.
+- Исходники и файлы результатов на ArvectumSSD в Arvectum/tmp/arvectum-tools-design-qa-20261019, без изменений main, системных автоматизаций, пользовательских данных и App Store.
