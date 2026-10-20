@@ -57,6 +57,7 @@ final class LocalizationTests: XCTestCase {
         "oneoff.notification.denied.message",
         "oneoff.complete",
         "oneoff.edit",
+        "oneoff.actions",
         "oneoff.delete",
         "oneoff.today.format",
         "oneoff.tomorrow.format",

@@ -2,6 +2,7 @@ import SwiftUI
 
 // Presentation-only components extracted from TodayView.
 struct OneOffReminderRow: View {
+    @Environment(\.colorScheme) private var colorScheme
     let reminder: OneOffReminder
     let onComplete: () -> Void
     let onEdit: () -> Void
@@ -50,10 +51,15 @@ struct OneOffReminderRow: View {
                 if let onOpenNote {
                     Button(action: onOpenNote) {
                         Label(L10n.string("review.oneoff.open"), systemImage: "doc.text")
-                            .font(.caption2)
+                            .font(.footnote.weight(.semibold))
+                            .fixedSize(horizontal: false, vertical: true)
+                            .frame(minHeight: ArvectumDesignMetrics.minimumTouchTarget,
+                                   alignment: .leading)
+                            .contentShape(Rectangle())
                     }
                     .buttonStyle(.plain)
-                    .foregroundStyle(Color.arvectumMint)
+                    // Mint text on white has only 1.58:1 contrast.
+                    .foregroundStyle(ArvectumSemanticColors.accentText(for: colorScheme))
                     .accessibilityIdentifier("chickmark.noteReview.open.\(reminder.id.uuidString)")
                     .accessibilityValue(reminder.title)
                 }
@@ -84,7 +90,7 @@ struct OneOffReminderRow: View {
                     .frame(width: 44, height: 44)
                     .contentShape(Rectangle())
             }
-            .accessibilityLabel(L10n.string("oneoff.edit"))
+            .accessibilityLabel(L10n.string("oneoff.actions"))
 
             Button(action: onComplete) {
                 Image(systemName: "circle")

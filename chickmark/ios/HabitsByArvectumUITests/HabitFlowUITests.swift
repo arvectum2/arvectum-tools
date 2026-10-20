@@ -581,6 +581,10 @@ final class HabitFlowUITests: XCTestCase {
         let reminderTitle = app.staticTexts["Buy marathon slot"]
         XCTAssertTrue(reminderTitle.waitForExistence(timeout: 3))
         XCTAssertTrue(app.staticTexts["Reminders"].exists)
+        let actions = app.buttons["Reminder actions"]
+        XCTAssertTrue(actions.waitForExistence(timeout: 5),
+                      "Menu must describe all reminder actions, not only Edit")
+        XCTAssertGreaterThanOrEqual(actions.frame.height, 44)
 
         let completeButtons = app.buttons.matching(
             NSPredicate(format: "label == %@", "Mark complete")

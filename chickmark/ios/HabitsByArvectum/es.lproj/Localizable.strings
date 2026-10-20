@@ -130,6 +130,7 @@
 "oneoff.notification.denied.message" = "Permite las notificaciones de ChickMark en Ajustes del iPhone para recibir recordatorios únicos.";
 "oneoff.complete" = "Marcar como completado";
 "oneoff.edit" = "Editar";
+"oneoff.actions" = "Acciones del recordatorio";
 "oneoff.delete" = "Eliminar recordatorio";
 "oneoff.demo.marathon" = "Comprar inscripción a la carrera";
 "oneoff.today.format" = "Hoy, %@";

@@ -145,6 +145,7 @@
 "oneoff.notification.denied.message" = "Разрешите уведомления для ChickMark в настройках iPhone, чтобы получать разовые напоминания.";
 "oneoff.complete" = "Отметить выполненным";
 "oneoff.edit" = "Изменить";
+"oneoff.actions" = "Действия с напоминанием";
 "oneoff.delete" = "Удалить напоминание";
 "oneoff.demo.marathon" = "Купить слот на марафон";
 "oneoff.today.format" = "Сегодня, %@";

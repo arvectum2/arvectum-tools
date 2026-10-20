@@ -145,6 +145,7 @@
 "oneoff.notification.denied.message" = "Allow notifications for ChickMark in iPhone Settings to receive one-time reminders.";
 "oneoff.complete" = "Mark complete";
 "oneoff.edit" = "Edit";
+"oneoff.actions" = "Reminder actions";
 "oneoff.delete" = "Delete reminder";
 "oneoff.demo.marathon" = "Buy marathon slot";
 "oneoff.today.format" = "Today, %@";
