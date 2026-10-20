@@ -338,7 +338,7 @@
 				};
 			};
 			buildConfigurationList = 8F239D355DB48F209169FBDA /* Build configuration list for PBXProject "PhotoPodRazmerIOS" */;
-			developmentRegion = ru;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				Base,
