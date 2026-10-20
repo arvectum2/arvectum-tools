@@ -98,3 +98,23 @@ When adding further iOS .lproj directories, regenerate the checked-in
 Xcode projects from their corresponding project.yml files. The Pushkin
 and What projects were regenerated and built with these localizations.
 Remaining 47 Android languages and other iOS target languages are pending.
+
+## Next Tier 1 translation slice — Spanish iOS + Brazilian Portuguese Android
+
+- Spanish iOS Photo/PDF has 155 translated Localizable.strings entries,
+  plus two Spanish InfoPlist entries including the advertising-tracking
+  permission message. The localized catalogs appear in the compiled app
+  bundle; the iOS Simulator build succeeds.
+- Spanish simulator photo and PDF workflows pass two XCUITest cases,
+  including localized processing actions, result and reachable export CTA.
+  A real simulator screenshot of the initial ad-consent sheet confirmed
+  the entire Spanish disclosure and two buttons fit on screen. Screenshot
+  stored alongside QA logs on ArvectumSSD, not in the distributable app.
+- The Android photo app now has source packs for EN default, RU, ES and
+  pt-BR, 93 strings each. Locale qualifier values-pt-rBR is recognized
+  in the compiled APK. pt-BR placeholder type safety and registry
+  membership are CI checked; Gradle build and JVM tests pass.
+- These are *development language-pack candidates*, not approved store
+  releases or proof of native editorial review. 46 Android target
+  languages remain not translated. iOS Spanish coverage is currently
+  Photo/PDF and the existing ChickMark catalog only; other apps pending.

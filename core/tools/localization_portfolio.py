@@ -172,7 +172,16 @@ def android_catalog_audit(doc: dict, errors: list[str], *, report: bool = False)
         directory for directory in resources.glob("values-*")
         if (directory / "strings.xml").exists()
     )
+    registry_locales = {target["code"] for target in doc["targets"]}
     for directory in directories:
+        if directory.name != "values":
+            raw = directory.name.removeprefix("values-")
+            # Android uses values-pt-rBR for the BCP47 pt-BR language tag.
+            language = re.sub(r"-r([A-Z]{2})$", r"-\1", raw)
+            if language not in registry_locales:
+                errors.append(
+                    f"Android resource locale {directory.name} missing from 50-language registry"
+                )
         path = directory / "strings.xml"
         try:
             children = ET.parse(path).getroot()
@@ -199,6 +208,8 @@ def android_catalog_audit(doc: dict, errors: list[str], *, report: bool = False)
                 errors.append("Android Russian app label unexpectedly changed")
             if directory.name == "values-es" and values.get("app_name") != "Redimensionar fotos":
                 errors.append("Android Spanish app label unexpectedly changed")
+            if directory.name == "values-pt-rBR" and values.get("app_name") != "Redimensionar fotos":
+                errors.append("Android Brazilian Portuguese app label unexpectedly changed")
     if expected is not None:
         kotlin_root = ROOT / "photo-pdf-to-size/android/app/src/main/java"
         references: set[str] = set()

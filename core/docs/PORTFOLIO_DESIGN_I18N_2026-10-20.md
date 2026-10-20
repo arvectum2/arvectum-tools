@@ -115,3 +115,38 @@ Final Android repeat (after removing Russian-only unused SizeUnit labels): `andr
 - Language QA, visual tests, physical Watch, real Shortcuts/Files and
   separate independent release approval remain open. Nothing is
   merged into main or submitted to App Store.
+
+## L3.2–L3.3 follow-on: es_ES iOS Photo, pt_BR Android Photo
+
+- iOS Photo/PDF: authored a real Spanish copy pack of 155 Localizable
+  keys; translated CFBundleDisplayName and NSUserTrackingUsageDescription
+  in es.lproj/InfoPlist.strings. XcodeGen project updated, both resources
+  present inside the built PhotoPodRazmer.app; Debug Simulator build PASS.
+- Run app with -AppleLanguages (es), -AppleLocale es_ES:
+  simulator consent sheet displays the full Spanish privacy disclosure
+  and both reachable choices. Screenshot photo-es-consent-simulator.png
+  saved in temporary external SSD QA directory after taking it in /tmp.
+- SpanishLocalizationUITests covers synthetic photo and PDF workflows
+  end-to-end with locale override and screenshot attachments. Both
+  targeted UI test cases passed in Test-PhotoPodRazmer result at 22:28.
+- Android pt-BR 93 natural-language source translations in
+  app/src/main/res/values-pt-rBR/strings.xml, including processing errors,
+  dimensions and localized format placeholders; aapt2 dump confirms
+  pt-rBR content inside app-debug.apk.
+- Android assembleDebug and testDebugUnitTest PASS offline with JDK 17,
+  locale structural audit and Python regression tests PASS. Android now
+  has EN/RU/ES/pt-BR development catalogs; 46 further target languages
+  await real translations and QA.
+- Native speaker copy review, RTL, physical devices, real ads, system
+  permissions, and release approvals are still open. No merge/main
+  changes, store update, or app submission.
+
+
+### Unconfirmed stress gate (not a failed assertion)
+
+- A third es_ES/AXXXL simulator run was attempted twice, but both
+  xcodebuild invocations were interrupted before writing a complete
+  xcresult or an assertion result. They are **unverified**, not PASS or
+  FAIL. This case is left out of the committed passing test suite until
+  stable execution is possible. Spanish normal-size workflows 2/2 PASS
+  are independently confirmed from xcresult.
