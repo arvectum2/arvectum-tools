@@ -14,6 +14,35 @@ final class HabitFlowUITests: XCTestCase {
         app.launch()
     }
 
+    func testTodaySystemAccessibilityAudit() throws {
+        XCTAssertTrue(app.buttons["Manage habits"].waitForExistence(timeout: 8))
+        let categories: XCUIAccessibilityAuditType = [
+            .sufficientElementDescription, .hitRegion, .trait, .textClipped
+        ]
+        try app.performAccessibilityAudit(for: categories) { issue in
+            print("CHICKMARK_AX_AUDIT issue=\(issue.compactDescription) " +
+                  "detail=\(issue.detailedDescription) " +
+                  "element=\(issue.element?.description ?? "nil")")
+            return false
+        }
+    }
+
+    func testManageHabitsSystemAccessibilityAudit() throws {
+        let manage = app.buttons["Manage habits"]
+        XCTAssertTrue(manage.waitForExistence(timeout: 8))
+        manage.tap()
+        XCTAssertTrue(app.buttons["manage.language"].waitForExistence(timeout: 10))
+        let categories: XCUIAccessibilityAuditType = [
+            .sufficientElementDescription, .hitRegion, .trait, .textClipped
+        ]
+        try app.performAccessibilityAudit(for: categories) { issue in
+            print("CHICKMARK_MANAGE_AX_AUDIT issue=\(issue.compactDescription) " +
+                  "detail=\(issue.detailedDescription) " +
+                  "element=\(issue.element?.description ?? "nil")")
+            return false
+        }
+    }
+
     func testBrandAndVersionInAboutScreen() throws {
         XCTAssertTrue(
             app.links["chickmark.website"].waitForExistence(timeout: 3)

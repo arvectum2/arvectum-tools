@@ -47,13 +47,31 @@ struct ManageHabitsView: View {
     var body: some View {
         Group {
             if habits.isEmpty {
-                ContentUnavailableView(
-                    L10n.string("manage.empty.title"),
-                    systemImage: "tray",
-                    description: Text(
-                        L10n.string("manage.empty.description")
+                if dynamicTypeSize.isAccessibilitySize {
+                    // Pinning four preferences rows to the bottom consumes
+                    // the entire viewport at AXXXL and clips their text.
+                    ScrollView {
+                        VStack(spacing: 12) {
+                            ContentUnavailableView(
+                                L10n.string("manage.empty.title"),
+                                systemImage: "tray",
+                                description: Text(
+                                    L10n.string("manage.empty.description")
+                                )
+                            )
+                            preferencesPanel
+                        }
+                        .frame(maxWidth: .infinity)
+                    }
+                } else {
+                    ContentUnavailableView(
+                        L10n.string("manage.empty.title"),
+                        systemImage: "tray",
+                        description: Text(
+                            L10n.string("manage.empty.description")
+                        )
                     )
-                )
+                }
             } else {
                 List {
                     ForEach(groups) { group in
@@ -122,6 +140,13 @@ struct ManageHabitsView: View {
                             }
                         }
                     }
+
+                    if dynamicTypeSize.isAccessibilitySize {
+                        Section {
+                            preferencesPanel
+                                .listRowInsets(EdgeInsets())
+                        }
+                    }
                 }
                 .listStyle(.insetGrouped)
             }
@@ -129,7 +154,9 @@ struct ManageHabitsView: View {
         .navigationTitle(L10n.string("manage.title"))
         .navigationBarTitleDisplayMode(.inline)
         .safeAreaInset(edge: .bottom, spacing: 0) {
-            preferencesPanel
+            if !dynamicTypeSize.isAccessibilitySize {
+                preferencesPanel
+            }
         }
         .toolbar {
             ToolbarItemGroup(placement: .topBarTrailing) {
@@ -283,6 +310,7 @@ struct ManageHabitsView: View {
                     Text(L10n.string("manage.about"))
                         .font(.subheadline.weight(.medium))
                         .foregroundStyle(.primary)
+                        .fixedSize(horizontal: false, vertical: true)
                     Spacer()
                     Image(systemName: "chevron.right")
                         .font(.caption2.weight(.semibold))
@@ -319,13 +347,26 @@ struct ManageHabitsView: View {
                     .font(.system(size: 18))
                     .foregroundStyle(Color.habitsSecondaryText)
                     .frame(width: 22)
-                Text(L10n.string("language.title"))
-                    .font(.subheadline.weight(.medium))
-                    .foregroundStyle(.primary)
-                Spacer(minLength: 8)
-                Text(ChickMarkLanguage.displayName(for: preferredLanguage))
-                    .font(.subheadline)
-                    .foregroundStyle(Color.habitsSecondaryText)
+                if dynamicTypeSize.isAccessibilitySize {
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text(L10n.string("language.title"))
+                            .font(.subheadline.weight(.medium))
+                            .foregroundStyle(.primary)
+                        Text(ChickMarkLanguage.displayName(for: preferredLanguage))
+                            .font(.subheadline)
+                            .foregroundStyle(Color.habitsSecondaryText)
+                    }
+                    .fixedSize(horizontal: false, vertical: true)
+                    Spacer(minLength: 0)
+                } else {
+                    Text(L10n.string("language.title"))
+                        .font(.subheadline.weight(.medium))
+                        .foregroundStyle(.primary)
+                    Spacer(minLength: 8)
+                    Text(ChickMarkLanguage.displayName(for: preferredLanguage))
+                        .font(.subheadline)
+                        .foregroundStyle(Color.habitsSecondaryText)
+                }
                 Image(systemName: "chevron.up.chevron.down")
                     .font(.caption2.weight(.semibold))
                     .foregroundStyle(Color.habitsSecondaryText)
