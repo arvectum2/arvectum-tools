@@ -2,6 +2,7 @@
 
 ### UX/дизайн-код: очередь D2 (19.10.2026, план)
 - [x] D4.3 (20.10): TextEditor имеет локализованную VoiceOver-подпись и подсказку автосохранения; декоративный placeholder скрыт из AX дерева. Тест текстовой заметки, возврата и фильтра библиотеки PASS. Реальные ввод/Watch/rotor отдельно.
+- [x] D4.5 (20.10): диагностика AXXXL — прокручиваемые три секции с полными подписями, кнопка закрытия 64pt; обычный размер сохраняет системный List. Полный Xcode accessibility audit вверху и на блоке Watch PASS; RU/EN обычный UI 2/2 PASS. [Отчёт](../core/docs/UNIFIED_DESIGN_D45_WHAT_DIAGNOSTICS_2026-10-20.md). Физический Watch/VoiceOver остаётся открытым.
 - [x] D4.1 (20.10): доступная панель библиотеки 64pt, отступы и Mint из SwiftPM ArvectumCore; полный system accessibility audit заполненного списка **PASS**, Debug build PASS.
 
 - [x] VoiceOver: подсказка аудио объясняет двойное касание и действие Видеозапись вместо удержания; проверка audio/video/text accessibility labels на iPhone 17 Pro Simulator PASS.

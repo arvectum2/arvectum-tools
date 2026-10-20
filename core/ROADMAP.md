@@ -33,6 +33,7 @@
 - [x] D4.2/P1 Фото/PDF: внедрён понятный язык режимов и RU/EN VoiceOver-имена при компактных вкладках. Проверены RU/EN × светлая/тёмная тема, 3 mode/render сценария и локализованные action labels, build/UI PASS. [Отчёт](docs/UNIFIED_DESIGN_D4_PHOTO_MICROCOPY_2026-10-20.md).
 - [x] D4.3/P1: Пушкин — локализованы группы и устойчивый список выбора (RU AXXXL full AX audit PASS, EN + старый workflow PASS, unit PASS); ChickMark — контраст ссылки заметки, меню напоминания RU/EN/ES (2 unit + 1 UI PASS); Ухват — доступная подпись текстового редактора, placeholder скрыт от VoiceOver (UI PASS). [Отчёт](docs/UNIFIED_DESIGN_D43_SECONDARY_SCREENS_2026-10-20.md).
 - [x] D4.4/P1 ChickMark: Мягкое возвращение AXXXL — адаптивная навигация, 64pt Toggle/Picker, неактивный период как информация. Полный Xcode accessibility audit off/on, UI-переключение и RU/EN/ES localization tests: **5/5 PASS** плюс обычный Dynamic Type UI 1/1 PASS. [Подробный QA](docs/UNIFIED_DESIGN_D44_GENTLE_RESTART_ACCESSIBILITY_2026-10-20.md). Физический VoiceOver открыт.
+- [x] D4.5/P1 Ухват: доступная диагностика синхронизации — 3 секции AX ScrollView, полноразмерные подписи и 64pt закрытие; полный аудит AXXXL PASS (верх/Watch), RU/EN UI 2/2 PASS. [Подробный QA](docs/UNIFIED_DESIGN_D45_WHAT_DIAGNOSTICS_2026-10-20.md). Реальный Watch end-to-end открыт.
 - [ ] D5: Where? остается на паузе: только принципы в документе, не реализация.
 
 ## 19.10.2026 — необязательное обновление App Store (Core, единая задача)
