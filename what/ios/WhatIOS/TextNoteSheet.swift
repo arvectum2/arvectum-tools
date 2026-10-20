@@ -20,6 +20,11 @@ struct TextNoteSheet: View {
                 TextEditor(text: $bodyText)
                     .font(.body)
                     .scrollContentBackground(.hidden)
+                    .accessibilityLabel(CaptureBrand.text("Текст заметки", "Note text"))
+                    .accessibilityHint(CaptureBrand.text(
+                        "Сохраняется автоматически по мере ввода",
+                        "Saved automatically as you type"
+                    ))
                     .padding(.horizontal, 12)
             }
                 .accessibilityIdentifier("what.text.editor")
@@ -55,6 +60,7 @@ struct TextNoteSheet: View {
                             .padding(.leading, 20)
                             .padding(.top, 10)
                             .allowsHitTesting(false)
+                            .accessibilityHidden(true)
                     }
                 }
         }

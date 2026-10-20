@@ -239,6 +239,10 @@ final class AdaptiveLayoutUITests: XCTestCase {
         let editor = app.textViews.firstMatch
         XCTAssertTrue(editor.waitForExistence(timeout: 15),
                       "Text editor must be available in accessibility sizes")
+        XCTAssertTrue(["Текст заметки", "Note text"].contains(editor.label),
+                      "VoiceOver editor should have a meaningful localized field name")
+        XCTAssertFalse(app.staticTexts["Запишите мысль…"].exists,
+                       "Decorative placeholder should not be a separate VoiceOver stop")
         let done = app.buttons.matching(NSPredicate(
             format: "label == %@ OR label == %@", "Готово", "Done"
         )).firstMatch
