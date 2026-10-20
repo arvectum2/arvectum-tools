@@ -22,7 +22,7 @@
 - [x] D3/P1 Ухват: 13-дюймовый iPad Simulator AXXXL: Capture → пустой текстовый редактор → Library → обратно PASS, поворот Library/Capture Portrait ↔ Landscape PASS (2/2).
 - [x] D3/P1 ChickMark: действительно форсированный AXXXL, заполненные группы+привычки — системный audit 4/4 категорий PASS, меню группы 48pt, настройки доступны после прокрутки. 2/2 localization unit и 2/2 обычные UI регрессии PASS.
 - [x] D3/P1 Ухват: синтетически заполненная библиотека, принудительный AXXXL — подписи/traits/обрезание PASS. Пустая библиотека и Home actions — обычная UI регрессия 2/2 PASS, прокручиваемый empty state.
-- [ ] D3/P1 Ухват **hit region blocker**: две остающиеся анонимные системные проблемы областей нажатия на заполненном экране AXXXL. UIKit toolbar ~36–40pt; opt-in тест сохранён без ложного PASS.
+- [x] D3/P1 Ухват: **закрыт hit region blocker** на заполненной библиотеке AXXXL. 64pt панель действий заменяет UIKit toolbar только при Accessibility Dynamic Type; полный 4-категорийный XCUIAccessibilityAudit iPhone/iPad PASS, функциональные действия и обычная навигация 4/4 UI PASS. Физические/Watch/VoiceOver-ротор проверки открыты.
 - [ ] D3/P1 Реальные медиа, много групп, полноценный VoiceOver редакторов, iPad multitasking и физические устройства требуют отдельной регрессии.
 - [ ] D3/P1 Полный VoiceOver (gestures/rotor), detail/modal screens, реальные Shortcuts, physical/iPad матрица открыты. PDF VoiceOver для результата выполнен в коротком проверенном сценарии.
 - [ ] D3/P1: product UX QA (VoiceOver, Dynamic Type, тёмная тема, reduce motion) и отдельные UI PR для каждого приложения.

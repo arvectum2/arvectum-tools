@@ -291,6 +291,24 @@ ChickMark:
 
 **Пустая библиотека Ухвата:** стандартный ContentUnavailableView обрезал подсказку даже после её сокращения. Заменён на ScrollView + VStack с динамическими шрифтами и переносом строк, текст уточнён RU/EN: «Нажмите „+“ для текста или вернитесь к записи». Обычная UI регрессия Home 1/1 PASS и системный audit пустой библиотеки 1/1 PASS, log what-empty-custom-state-20261020.log.
 
-**Незакрытый блокер:** у системного hitRegion Xcode audit заполненной библиотеки Ухвата остаются 2 проблемы Hit area is too small, element=nil, несмотря на собственные hit targets 48–64pt. Анализ AX дерева показывает внутренние UIKit UINavigationBar buttons 36–40pt, а SwiftUI toolbar frame не увеличивает их hit region. Отдельный opt-in testPopulatedMixedLibraryHitRegionAudit оставлен (по умолчанию SKIP) без утверждений о PASS. Фактическая проверка labels/traits/textClipped обязательная и успешная. Следующая задача — отдельный доступный toolbar/хедер при AX либо физическое воспроизведение и документированное исключение, затем повтор системного полного audit.
+**История проблемы (до исправления из раздела 20):** системный hitRegion audit заполненной библиотеки Ухвата первоначально показывал 2 проблемы Hit area is too small с element=nil. Внутренние UIKit UINavigationBar buttons оставались 36–40pt несмотря на SwiftUI frame 48pt, поэтому частичный тест labels/traits/textClipped не заменял полный audit. Блокер впоследствии **исправлен и закрыт** в разделе 20 с полными iPhone/iPad XCUIAccessibilityAudit PASS.
 
 **Границы:** не изменялись пользовательские привычки, заметки, аудио/видео файлы, HealthKit и Watch; main/App Store не изменялись. Открыты физический VoiceOver, iPad Split View, реальный медиаконтент и end-to-end Watch ACK.
+
+
+## 20. What navigation hit-region closure · 20.10.2026
+
+**Причина:** системный XCUIAccessibilityAudit заполненной библиотеки Ухвата показывал два hitRegion issue с element=nil. SwiftUI frame 48pt внутри нативной toolbar не расширял фактические кнопки UINavigationBar, оставшиеся около 36–40pt.
+
+**Решение:** только при dynamicTypeSize.isAccessibilitySize скрываем системную navigationBar внутри RecordingLibraryView и показываем в контенте accessibleLibraryActions: назад к записи, новая текстовая заметка, настройки. Кнопки 64pt; иконка микрофона без видимого слова «Записать» при AXXXL имеет полный accessibilityLabel. Текст «Записать» обрезался в узком горизонтальном заголовке. Сохранили старые callbacks/меню/URL/state, обычные размеры продолжают использовать нативную toolbar.
+
+**Приёмка:**
+- testPopulatedMixedLibrarySystemAccessibilityAudit — полный системный аудит 4 категорий PASS на iPhone 17 Pro iOS 27, включая явные проверки трёх кнопок не меньше 44pt. Лог what-filled-four-category-icon-record-20261020.log.
+- На 13-дюймовом iPad Simulator iOS 27 тот же полный тест PASS. Лог what-ipad13-full-ax-custom-bar-20261020.log.
+- testPopulatedLibraryAccessibleActionsNavigateSafely PASS: пустой текстовый редактор открывается, Done не создаёт заметку, возврат на экран записи.
+- testPopulatedLibraryAccessibleSettingsMenuOpens PASS: оригинальное меню открывается, выбор опций не совершался.
+- Стандартная регрессия testCaptureAlternativesAreDiscoverable и testNotesLibrarySystemAccessibilityAudit PASS. Общий тестовый прогон 4/4 PASS, лог what-library-combined-regression-final-20261020.log.
+
+**Ограничение QA:** ранее тест Home иногда не находил tappable Text, когда CoreSimulator показывал окно 134×291pt вместо настоящего размера iPhone. Добавлены проверка геометрии, один перезапуск при миниатюрном окне и ограниченное ожидание, но обязательная проверка isHittable не отключена. Одиночный и комбинированный прогон после этого PASS; длительная CI-стабильность пока не измерена.
+
+**Границы:** данные пользователя, видео/аудио, Apple Watch, main и App Store не затрагивались. Далее физический VoiceOver rotor/gestures, iPad Split View/Stage Manager, независимая приемка Core tokens.
