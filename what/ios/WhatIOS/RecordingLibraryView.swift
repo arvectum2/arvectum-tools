@@ -3,6 +3,7 @@ import SwiftUI
 struct RecordingLibraryView: View {
     let openCaptureHome: () -> Void
     @EnvironmentObject private var store: PhoneStore
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @State private var recordingToDelete: RecordingEnvelope?
     @State private var localNoteToDelete: LocalNote?
     @State private var localNoteToEdit: LocalNote?
@@ -117,12 +118,27 @@ struct RecordingLibraryView: View {
                 .padding(.horizontal)
                 .padding(.top, 8)
 
-                HStack(spacing: 5) {
-                    Image(systemName: "internaldrive")
-                    Text(CaptureBrand.text("Сохранено на устройстве", "Saved on this device"))
-                    Spacer()
-                    Text(CaptureBrand.text("Заметок: \(visibleNotes.count)", "\(visibleNotes.count) notes"))
-                        .monospacedDigit()
+                Group {
+                    if dynamicTypeSize.isAccessibilitySize {
+                        VStack(alignment: .leading, spacing: 4) {
+                            Label(
+                                CaptureBrand.text("Сохранено на устройстве", "Saved on this device"),
+                                systemImage: "internaldrive"
+                            )
+                            .fixedSize(horizontal: false, vertical: true)
+                            Text(CaptureBrand.text("Заметок: \(visibleNotes.count)", "\(visibleNotes.count) notes"))
+                                .monospacedDigit()
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    } else {
+                        HStack(spacing: 5) {
+                            Image(systemName: "internaldrive")
+                            Text(CaptureBrand.text("Сохранено на устройстве", "Saved on this device"))
+                            Spacer()
+                            Text(CaptureBrand.text("Заметок: \(visibleNotes.count)", "\(visibleNotes.count) notes"))
+                                .monospacedDigit()
+                        }
+                    }
                 }
                 .font(.caption)
                 .foregroundStyle(.secondary)

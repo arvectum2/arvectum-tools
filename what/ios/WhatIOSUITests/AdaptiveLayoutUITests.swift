@@ -6,6 +6,45 @@ final class AdaptiveLayoutUITests: XCTestCase {
     /// content_size accessibility-extra-extra-extra-large. It checks that
     /// the capture-first UX and empty-note editor remain usable without
     /// modifying camera/microphone permissions or writing new user notes.
+    func testCaptureHomeSystemAccessibilityAudit() throws {
+        let app = XCUIApplication()
+        app.launchArguments = ["-AppleLanguages", "(ru)", "-AppleLocale", "ru_RU"]
+        app.launch()
+        XCTAssertTrue(app.buttons["what.record.primary"].waitForExistence(timeout: 12))
+
+        let categories: XCUIAccessibilityAuditType = [
+            .sufficientElementDescription, .hitRegion, .trait, .textClipped
+        ]
+        try app.performAccessibilityAudit(for: categories) { issue in
+            print("WHAT_AX_AUDIT issue=\(issue.compactDescription) " +
+                  "detail=\(issue.detailedDescription) " +
+                  "element=\(issue.element?.description ?? "nil")")
+            return false
+        }
+    }
+
+    func testNotesLibrarySystemAccessibilityAudit() throws {
+        let app = XCUIApplication()
+        app.launchArguments = ["-AppleLanguages", "(ru)", "-AppleLocale", "ru_RU"]
+        app.launch()
+        let library = app.buttons.matching(NSPredicate(
+            format: "label BEGINSWITH %@ OR label BEGINSWITH %@",
+                    "Все заметки", "All notes"
+        )).firstMatch
+        XCTAssertTrue(library.waitForExistence(timeout: 12))
+        library.tap()
+        XCTAssertTrue(app.buttons["what.filter.all"].waitForExistence(timeout: 10))
+
+        let categories: XCUIAccessibilityAuditType = [
+            .sufficientElementDescription, .hitRegion, .trait, .textClipped
+        ]
+        try app.performAccessibilityAudit(for: categories) { issue in
+            print("WHAT_LIBRARY_AX_AUDIT issue=\(issue.compactDescription) " +
+                  "element=\(issue.element?.description ?? "nil")")
+            return false
+        }
+    }
+
     func testCaptureAccessibilityLabelsAndActions() {
         let app = XCUIApplication()
         app.launch()
