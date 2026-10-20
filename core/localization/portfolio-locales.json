@@ -1,0 +1,295 @@
+{
+  "schemaVersion": 1,
+  "fallback": "en",
+  "policy": "Only ship localization folders with complete, proofread UI/permission strings and passing checks; no empty/English placeholder translations.",
+  "targets": [
+    {
+      "code": "en",
+      "name": "English",
+      "tier": 1
+    },
+    {
+      "code": "ru",
+      "name": "Русский",
+      "tier": 1
+    },
+    {
+      "code": "es",
+      "name": "Español",
+      "tier": 1
+    },
+    {
+      "code": "zh-Hans",
+      "name": "简体中文",
+      "tier": 1
+    },
+    {
+      "code": "zh-Hant",
+      "name": "繁體中文",
+      "tier": 1
+    },
+    {
+      "code": "hi",
+      "name": "हिन्दी",
+      "tier": 1
+    },
+    {
+      "code": "ar",
+      "name": "العربية",
+      "tier": 1
+    },
+    {
+      "code": "pt-BR",
+      "name": "Português (Brasil)",
+      "tier": 1
+    },
+    {
+      "code": "pt-PT",
+      "name": "Português (Portugal)",
+      "tier": 1
+    },
+    {
+      "code": "fr",
+      "name": "Français",
+      "tier": 1
+    },
+    {
+      "code": "de",
+      "name": "Deutsch",
+      "tier": 1
+    },
+    {
+      "code": "ja",
+      "name": "日本語",
+      "tier": 1
+    },
+    {
+      "code": "ko",
+      "name": "한국어",
+      "tier": 1
+    },
+    {
+      "code": "id",
+      "name": "Bahasa Indonesia",
+      "tier": 1
+    },
+    {
+      "code": "tr",
+      "name": "Türkçe",
+      "tier": 1
+    },
+    {
+      "code": "vi",
+      "name": "Tiếng Việt",
+      "tier": 1
+    },
+    {
+      "code": "it",
+      "name": "Italiano",
+      "tier": 1
+    },
+    {
+      "code": "nl",
+      "name": "Nederlands",
+      "tier": 1
+    },
+    {
+      "code": "pl",
+      "name": "Polski",
+      "tier": 1
+    },
+    {
+      "code": "uk",
+      "name": "Українська",
+      "tier": 1
+    },
+    {
+      "code": "fa",
+      "name": "فارسی",
+      "tier": 2
+    },
+    {
+      "code": "ur",
+      "name": "اردو",
+      "tier": 2
+    },
+    {
+      "code": "bn",
+      "name": "বাংলা",
+      "tier": 2
+    },
+    {
+      "code": "pa",
+      "name": "ਪੰਜਾਬੀ",
+      "tier": 2
+    },
+    {
+      "code": "ta",
+      "name": "தமிழ்",
+      "tier": 2
+    },
+    {
+      "code": "te",
+      "name": "తెలుగు",
+      "tier": 2
+    },
+    {
+      "code": "mr",
+      "name": "मराठी",
+      "tier": 2
+    },
+    {
+      "code": "gu",
+      "name": "ગુજરાતી",
+      "tier": 2
+    },
+    {
+      "code": "kn",
+      "name": "ಕನ್ನಡ",
+      "tier": 2
+    },
+    {
+      "code": "ml",
+      "name": "മലയാളം",
+      "tier": 2
+    },
+    {
+      "code": "th",
+      "name": "ไทย",
+      "tier": 2
+    },
+    {
+      "code": "ms",
+      "name": "Bahasa Melayu",
+      "tier": 2
+    },
+    {
+      "code": "fil",
+      "name": "Filipino",
+      "tier": 2
+    },
+    {
+      "code": "sw",
+      "name": "Kiswahili",
+      "tier": 2
+    },
+    {
+      "code": "ro",
+      "name": "Română",
+      "tier": 2
+    },
+    {
+      "code": "hu",
+      "name": "Magyar",
+      "tier": 2
+    },
+    {
+      "code": "cs",
+      "name": "Čeština",
+      "tier": 2
+    },
+    {
+      "code": "sk",
+      "name": "Slovenčina",
+      "tier": 2
+    },
+    {
+      "code": "el",
+      "name": "Ελληνικά",
+      "tier": 2
+    },
+    {
+      "code": "he",
+      "name": "עברית",
+      "tier": 2
+    },
+    {
+      "code": "ha",
+      "name": "Hausa",
+      "tier": 3
+    },
+    {
+      "code": "am",
+      "name": "አማርኛ",
+      "tier": 3
+    },
+    {
+      "code": "sv",
+      "name": "Svenska",
+      "tier": 3
+    },
+    {
+      "code": "da",
+      "name": "Dansk",
+      "tier": 3
+    },
+    {
+      "code": "fi",
+      "name": "Suomi",
+      "tier": 3
+    },
+    {
+      "code": "nb",
+      "name": "Norsk bokmål",
+      "tier": 3
+    },
+    {
+      "code": "bg",
+      "name": "Български",
+      "tier": 3
+    },
+    {
+      "code": "sr",
+      "name": "Српски",
+      "tier": 3
+    },
+    {
+      "code": "hr",
+      "name": "Hrvatski",
+      "tier": 3
+    },
+    {
+      "code": "ca",
+      "name": "Català",
+      "tier": 3
+    }
+  ],
+  "apps": {
+    "chickmark": {
+      "bundles": [
+        "chickmark/ios/HabitsByArvectum",
+        "chickmark/ios/HabitsByArvectumWatch",
+        "chickmark/ios/HabitsByArvectumWidget",
+        "chickmark/ios/HabitsByArvectumWatchWidget"
+      ]
+    },
+    "pushkin": {
+      "bundles": [
+        "pushkin/ios/ArvectumNotify/Resources"
+      ]
+    },
+    "what": {
+      "bundles": [
+        "what/ios/WhatIOS",
+        "what/ios/WhatWatch",
+        "what/ios/WhatPhoneWidget",
+        "what/ios/WhatWatchComplication"
+      ]
+    },
+    "photo-pdf-to-size": {
+      "bundles": [
+        "photo-pdf-to-size/ios/PhotoPodRazmer/Resources"
+      ],
+      "android": {
+        "status": "requires-russian-inline-string-migration",
+        "sourceLocale": "ru",
+        "resources": "photo-pdf-to-size/android/app/src/main/res",
+        "note": "Android is included in 50-language scope. First migrate hardcoded Russian Compose/UI text into Android resources and make English the default."
+      }
+    },
+    "where": {
+      "bundles": [],
+      "status": "paused"
+    }
+  }
+}

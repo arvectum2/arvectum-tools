@@ -104,7 +104,7 @@
 "Дополнительно" = "Advanced";
 
 "Реклама и конфиденциальность" = "Ads & Privacy";
-"Фото обрабатываются только на устройстве. Для показа рекламы используется Yandex Mobile Ads. Вы можете разрешить рекламному SDK обработку технических данных или отказаться. Геолокация отключена, разрешение App Tracking Transparency приложение не запрашивает." = "Photos and PDFs are processed only on your device. Yandex Mobile Ads is used to display ads. You can allow the advertising SDK to process technical data or decline. Location is disabled and the app does not request App Tracking Transparency permission.";
+"Фото и PDF обрабатываются только на устройстве. Для показа рекламы используется Yandex Mobile Ads. Вы можете разрешить рекламному SDK обработку технических данных или отказаться. Геолокация отключена, разрешение App Tracking Transparency приложение не запрашивает." = "Photos and PDFs are processed only on your device. Yandex Mobile Ads is used to display ads. You can allow the advertising SDK to process technical data or decline. Location is disabled and the app does not request App Tracking Transparency permission.";
 "Политика конфиденциальности" = "Privacy Policy";
 "Разрешить для рекламы" = "Allow for ads";
 "Отказаться" = "Decline";

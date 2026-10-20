@@ -14,10 +14,18 @@ enum CaptureBrand {
            ["ru-RU", "en-US", "es-ES"].contains(stored) {
             return stored
         }
-        switch Locale.current.language.languageCode?.identifier {
-        case "en": return "en-US"
+        return defaultTranscriptionLocale(
+            for: Locale.current.language.languageCode?.identifier
+        )
+    }
+
+    /// Never default to Russian when the system language is unsupported.
+    /// A transcription language picker is separate from future UI translations.
+    static func defaultTranscriptionLocale(for language: String?) -> String {
+        switch language {
+        case "ru": return "ru-RU"
         case "es": return "es-ES"
-        default: return "ru-RU"
+        default: return "en-US"
         }
     }
 
