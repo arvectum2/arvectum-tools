@@ -321,3 +321,5 @@ ChickMark:
 **Выполнено D4.2 Фото/PDF (20.10.2026):** [видимые короткие режимы, полные VoiceOver-имена и проверка RU/EN](UNIFIED_DESIGN_D4_PHOTO_MICROCOPY_2026-10-20.md).
 
 **D4.3 (20.10.2026):** [локализация и доступность второстепенных экранов: Пушкин, ChickMark, Ухват](UNIFIED_DESIGN_D43_SECONDARY_SCREENS_2026-10-20.md). Только указанные сценарии приняты, не весь UI.
+
+**D4.4 (20.10.2026):** [Полный accessibility audit настройки ChickMark «Мягкое возвращение» в состояниях off/on](UNIFIED_DESIGN_D44_GENTLE_RESTART_ACCESSIBILITY_2026-10-20.md).
