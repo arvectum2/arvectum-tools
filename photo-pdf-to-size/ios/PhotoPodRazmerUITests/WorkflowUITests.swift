@@ -84,11 +84,6 @@ final class WorkflowUITests: XCTestCase {
 #if compiler(>=6.4)
     @MainActor
     func testActualVoiceOverPDFResultSpeech() throws {
-        // Long-running system VoiceOver QA: isolated simulator only.
-        // Two PDF attempts yielded actual speech but the runner was interrupted.
-        guard ProcessInfo.processInfo.environment["ARVECTUM_VOICEOVER_QA"] == "1" else {
-            throw XCTSkip("PDF VoiceOver E2E is opt-in until runner is stable")
-        }
         guard #available(iOS 27.0, *) else {
             throw XCTSkip("Actual VoiceOver requires iOS 27")
         }
@@ -114,6 +109,34 @@ final class WorkflowUITests: XCTestCase {
                        "PDF preview and brand are decorative")
     }
 #endif
+
+    private func auditResultAccessibility(fixture: String, processAction: String) throws {
+        let app = launch(fixture)
+        let process = app.buttons[processAction]
+        XCTAssertTrue(process.waitForExistence(timeout: 8))
+        process.tap()
+        XCTAssertTrue(app.staticTexts["ГОТОВО"].waitForExistence(timeout: 25))
+        XCTAssertTrue(app.buttons["result-save-primary"].isHittable)
+
+        let auditTypes: XCUIAccessibilityAuditType = [
+            .sufficientElementDescription, .hitRegion, .trait, .textClipped
+        ]
+        try app.performAccessibilityAudit(for: auditTypes) { issue in
+            print("PHOTO_PDF_AX_AUDIT fixture=\(fixture) issue=\(issue.compactDescription) " +
+                  "element=\(issue.element?.description ?? "nil")")
+            return false
+        }
+    }
+
+    func testPhotoResultSystemAccessibilityAudit() throws {
+        try auditResultAccessibility(fixture: "--qa-photo-fixture",
+                                     processAction: "Уменьшить фото")
+    }
+
+    func testPDFResultSystemAccessibilityAudit() throws {
+        try auditResultAccessibility(fixture: "--qa-pdf-fixture",
+                                     processAction: "Уменьшить PDF")
+    }
 
     func testPhotoSaveIsVisibleWithoutScrolling() {
         assertPrimarySaveVisible(
