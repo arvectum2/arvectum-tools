@@ -1,0 +1,8 @@
+// Initial Russian portfolio catalog assembled from reviewed in-app RU microcopy.
+// Requires additional runtime and language QA before publication.
+"Preparing microphone…" = "Включаем микрофон…";
+"Record" = "Записать";
+"Saved" = "Сохранено";
+"Stop" = "Стоп";
+"Try again" = "Повторить";
+"%d waiting for iPhone" = "Ожидают iPhone: %d";

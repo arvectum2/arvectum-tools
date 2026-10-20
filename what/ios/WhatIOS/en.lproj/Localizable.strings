@@ -194,3 +194,12 @@
 "Note text" = "Note text";
 "Saved automatically as you type" = "Saved automatically as you type";
 "Use + for text, or go back to record." = "Use + for text, or go back to record.";
+"%d indexed" = "%d indexed";
+"Elapsed %d sec" = "Elapsed %d sec";
+"Filter %@, %@" = "Filter %@, %@";
+"Input: %@" = "Input: %@";
+"Russian model not ready: %@" = "Russian model not ready: %@";
+"Recovered video notes: %d." = "Recovered video notes: %d.";
+"Recovered videos: %d. Some interrupted recordings could not be restored. Available originals were kept for retry." = "Recovered videos: %d. Some interrupted recordings could not be restored. Available originals were kept for retry.";
+"Transcription failed: %@. Original audio was preserved." = "Transcription failed: %@. Original audio was preserved.";
+"Video recovery failed. Original files remain on device. %@" = "Video recovery failed. Original files remain on device. %@";

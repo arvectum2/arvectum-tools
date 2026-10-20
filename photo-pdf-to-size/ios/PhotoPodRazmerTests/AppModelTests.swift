@@ -3,6 +3,21 @@ import XCTest
 
 @MainActor
 final class AppModelTests: XCTestCase {
+    func testLocalizedPDFPagePluralKeys() {
+        for (count, expected) in [
+            (0, "страниц"), (1, "страница"), (2, "страницы"),
+            (3, "страницы"), (4, "страницы"), (5, "страниц"),
+            (11, "страниц"), (12, "страниц"), (14, "страниц"),
+            (21, "страница"), (22, "страницы"), (24, "страницы"),
+            (25, "страниц"), (101, "страница"), (111, "страниц")
+        ] {
+            XCTAssertEqual(pdfPageWordKey(count, language: "ru"), expected)
+        }
+        XCTAssertEqual(pdfPageWordKey(1, language: "en"), "страница")
+        XCTAssertEqual(pdfPageWordKey(2, language: "en"), "страниц")
+        XCTAssertEqual(pdfPageWordKey(2, language: "es"), "страниц")
+    }
+
     func testInputConstraintsAcceptBothDecimalSeparators() {
         XCTAssertEqual(InputConstraints.parseBytes("1.5", unit: .mb), 1_500_000)
         XCTAssertEqual(InputConstraints.parseBytes("1,5", unit: .mb), 1_500_000)

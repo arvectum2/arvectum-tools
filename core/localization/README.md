@@ -76,3 +76,25 @@ The Android values-es/strings.xml contains 93 translated UI and error texts,
 with positional placeholders. This is not a linguistic proofreading, device
 QA, or store release. Source catalogs now cover EN, RU and draft ES.
 Remaining Android languages: 47.
+
+
+## Native RU source packs across all active iOS apps (20 October)
+
+- ChickMark: existing EN, RU, ES source catalogs across four targets.
+- Pushkin: new Russian source catalog with 151 keys (143 reused from
+  existing bilingual copy). The runtime copy helper is still retained.
+- Ухват: EN/RU catalogs for iPhone (204), Watch (6), Phone Widget (6)
+  and Watch Complication (5). New dynamic messages format whole bilingual
+  sentences and preserve placeholder types.
+- iOS Фото/PDF: EN/RU catalogs have 155 keys, with four full UI metadata
+  format templates and correct Russian PDF page-count forms.
+- Android Фото: EN/RU/ES draft resources (93 keys each).
+- The integration branch now passes iOS Simulator builds for all 4 apps;
+  targeted Photo and What unit tests passed as well.
+- These catalog counts and builds are NOT approval for a release or proof
+  of native-speaker review, VoiceOver, RTL, Dynamic Type or live services.
+
+When adding further iOS .lproj directories, regenerate the checked-in
+Xcode projects from their corresponding project.yml files. The Pushkin
+and What projects were regenerated and built with these localizations.
+Remaining 47 Android languages and other iOS target languages are pending.

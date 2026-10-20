@@ -14,6 +14,25 @@ final class LanguageFallbackTests: XCTestCase {
         XCTAssertEqual(CaptureBrand.defaultTranscriptionLocale(for: "es"), "es-ES")
         XCTAssertEqual(CaptureBrand.defaultTranscriptionLocale(for: "en"), "en-US")
     }
+    func testCompleteDynamicSentencePreservesValues() {
+        XCTAssertEqual(
+            CaptureBrand.formatted("Вход: %@", "Input: %@", language: "ru", "Microphone"),
+            "Вход: Microphone"
+        )
+        XCTAssertEqual(
+            CaptureBrand.formatted("Вход: %@", "Input: %@", language: "en", "Microphone"),
+            "Input: Microphone"
+        )
+        XCTAssertEqual(
+            CaptureBrand.formatted("Ожидают iPhone: %d", "%d waiting for iPhone", language: "ru", 4),
+            "Ожидают iPhone: 4"
+        )
+        XCTAssertEqual(
+            CaptureBrand.formatted("Ожидают iPhone: %d", "%d waiting for iPhone", language: "en", 4),
+            "4 waiting for iPhone"
+        )
+    }
+
     func testNoteCountPluralFormsAreReadable() {
         XCTAssertEqual(CaptureBrand.noteCount(0, language: "ru"), "0 заметок")
         XCTAssertEqual(CaptureBrand.noteCount(1, language: "ru"), "1 заметка")

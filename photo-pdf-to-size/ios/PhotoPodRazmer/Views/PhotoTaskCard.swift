@@ -104,7 +104,7 @@ struct MainTaskCard: View {
                             .foregroundStyle(Color.arvectumPrimaryText)
                             .lineLimit(1)
                         if let source = selectedSource {
-                            Text("\(source.width)×\(source.height) px · \(formatBytes(source.sizeBytes))")
+                            Text(String(format: tr("%1$d×%2$d px · %3$@"), source.width, source.height, formatBytes(source.sizeBytes)))
                                 .font(.caption)
                                 .foregroundStyle(.secondary)
                                 .lineLimit(1)

@@ -2030,6 +2030,7 @@
 		E7ECAFC004F8604F1514B155 /* PUSHKIN - النهدي - Nahdi.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - النهدي - Nahdi.shortcut"; sourceTree = "<group>"; };
 		E7FF4B8D0F9266FF4B80DB92 /* PUSHKIN - M3デジカルスマート診察券.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - M3デジカルスマート診察券.shortcut"; sourceTree = "<group>"; };
 		E874023C80356BE5FEE887D9 /* PUSHKIN - Gojek.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - Gojek.shortcut"; sourceTree = "<group>"; };
+		E88D3D65B6E0FF8B87FA0DE3 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E8A8A5337FBBE3215E4BEDBC /* PUSHKIN - DeepSeek - AI Assistant.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - DeepSeek - AI Assistant.shortcut"; sourceTree = "<group>"; };
 		E8FAE917EBD7994223C02D53 /* PUSHKIN - T-Life.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - T-Life.shortcut"; sourceTree = "<group>"; };
 		E93B0FC7B14055EE1CBA39EA /* PUSHKIN - ChefGenie- Hot, Fresh & Tasty.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - ChefGenie- Hot, Fresh & Tasty.shortcut"; sourceTree = "<group>"; };
@@ -3366,6 +3367,7 @@
 			knownRegions = (
 				Base,
 				en,
+				ru,
 			);
 			mainGroup = 5E24A853970EE4E87421C056;
 			minimizedProjectReferenceProxies = 1;
@@ -4483,6 +4485,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				681E372D285F9C73EAEF2C12 /* en */,
+				E88D3D65B6E0FF8B87FA0DE3 /* ru */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";

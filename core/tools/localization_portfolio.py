@@ -30,7 +30,7 @@ SWIFT_UI = re.compile(
 )
 # Compare argument types/count; numbered arguments may legitimately change order.
 PRINTF = re.compile(r'(?<!%)%(?:[1-9]\d*\$)?(?:[-+0#]*\d*(?:\.\d+)?)?(lld|ld|@|d|i|u|f|g|s|c)')
-CAPTURE_BRAND = re.compile(r'CaptureBrand\.text\(\s*"((?:\\.|[^"\\])*)"\s*,\s*"((?:\\.|[^"\\])*)"')
+CAPTURE_BRAND = re.compile(r'CaptureBrand\.(?:text|formatted)\(\s*"((?:\\.|[^"\\])*)"\s*,\s*"((?:\\.|[^"\\])*)"')
 # Pushkin currently renders these keys through its RU/EN copy catalog.
 PUSHKIN_COPY_CALL = re.compile(r'(?<![\w])pc\(\s*"((?:\\.|[^"\\])*)"')
 
@@ -216,8 +216,68 @@ def android_catalog_audit(doc: dict, errors: list[str], *, report: bool = False)
 
 
 
+def bilingual_catalog_sync_audit(errors: list[str]) -> None:
+    """Fail if native Russian resources diverge from live RU/EN code copy.
+
+    A few CaptureBrand English identifiers have intentionally different
+    Russian action vs noun labels (Archive, Discard), so these contextual
+    collisions are verified by human review rather than merging code paths.
+    """
+    pushkin = ROOT / "pushkin/ios/ArvectumNotify"
+    canonical = read_strings(pushkin / "Resources/ru.lproj/Localizable.strings", errors)
+    swift = (pushkin / "BrandStyle.swift").read_text(encoding="utf-8")
+    pairs = dict(re.findall(
+        r'^\s*"((?:\\.|[^"\\])*)":\s*"((?:\\.|[^"\\])*)",\s*$',
+        swift, re.M
+    ))
+    overlap = set(canonical) & set(pairs)
+    if len(overlap) < 140:
+        errors.append(f"Pushkin Russian translation source mapping shrank: {len(overlap)}")
+    for key in overlap:
+        if canonical[key] != pairs[key]:
+            errors.append(f"Pushkin Russian catalog drift: {key}")
+
+    for bundle in (
+        "what/ios/WhatIOS", "what/ios/WhatWatch",
+        "what/ios/WhatPhoneWidget", "what/ios/WhatWatchComplication"
+    ):
+        root = ROOT / bundle
+        canonical = read_strings(root / "ru.lproj/Localizable.strings", errors)
+        matches: dict[str, set[str]] = {}
+        for swift in root.rglob("*.swift"):
+            if any(marker in name for name in swift.parts for marker in QA_DIRS):
+                continue
+            for match in CAPTURE_BRAND.finditer(swift.read_text(encoding="utf-8")):
+                matches.setdefault(match.group(2), set()).add(match.group(1))
+        for key, options in matches.items():
+            if len(options) != 1 or key not in canonical:
+                continue
+            if canonical[key] != next(iter(options)):
+                errors.append(f"What Russian catalog drift: {bundle}/{key}")
+
+
+def bilingual_format_audit(errors: list[str]) -> None:
+    """Ensure in-code RU/EN dynamic message placeholders never diverge."""
+    found = 0
+    for root in (ROOT / "what/ios/WhatIOS", ROOT / "what/ios/WhatWatch"):
+        for swift in root.rglob("*.swift"):
+            if any(marker in component for component in swift.parts for marker in QA_DIRS):
+                continue
+            for match in CAPTURE_BRAND.finditer(swift.read_text(encoding="utf-8")):
+                if ".formatted(" not in match.group(0):
+                    continue
+                found += 1
+                ru, en = match.group(1), match.group(2)
+                if placeholders(ru) != placeholders(en):
+                    errors.append(f"{swift.relative_to(ROOT)}: RU/EN dynamic format mismatch")
+    if found < 5:
+        errors.append(f"Expected at least 5 RU/EN formatted messages; found {found}")
+
+
 def audit(doc: dict, *, report: bool = False) -> int:
     errors: list[str] = []
+    bilingual_format_audit(errors)
+    bilingual_catalog_sync_audit(errors)
     locales = {item["code"] for item in doc["targets"]}
     for app_name, app in doc["apps"].items():
         if not app["bundles"]:

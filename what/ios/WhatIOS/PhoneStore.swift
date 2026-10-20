@@ -224,21 +224,24 @@ final class PhoneStore: NSObject, ObservableObject, AVAudioPlayerDelegate,
                 }
             }
             if result.unresolved > 0 {
-                videoRecoveryNotice = CaptureBrand.text(
-                    "Восстановлено: \(result.recovered). Не все прерванные записи удалось восстановить. Доступные исходные данные сохранены для повторной попытки.",
-                    "Recovered: \(result.recovered). Some interrupted recordings could not be restored. Available originals were kept for retry."
+                videoRecoveryNotice = CaptureBrand.formatted(
+                    "Восстановлено видео: %d. Не все прерванные записи удалось восстановить. Доступные исходные данные сохранены для повторной попытки.",
+                    "Recovered videos: %d. Some interrupted recordings could not be restored. Available originals were kept for retry.",
+                    result.recovered
                 )
             } else if result.recovered > 0 {
-                videoRecoveryNotice = CaptureBrand.text(
-                    "Восстановлены видеозаметки: \(result.recovered).",
-                    "Recovered video notes: \(result.recovered)."
+                videoRecoveryNotice = CaptureBrand.formatted(
+                    "Восстановлено видео: %d.",
+                    "Recovered video notes: %d.",
+                    result.recovered
                 )
             }
         } catch {
-            videoRecoveryNotice = CaptureBrand.text(
-                "Не удалось восстановить видео. Исходные файлы не удалены. ",
-                "Video recovery failed. Original files remain on device. "
-            ) + error.localizedDescription
+            videoRecoveryNotice = CaptureBrand.formatted(
+                "Не удалось восстановить видео. Исходные файлы не удалены. %@",
+                "Video recovery failed. Original files remain on device. %@",
+                error.localizedDescription
+            )
         }
     }
 
@@ -563,9 +566,10 @@ final class PhoneStore: NSObject, ObservableObject, AVAudioPlayerDelegate,
                     self.finishTranscription()
                 } else if let error {
                     self.finishTranscription()
-                    self.errorMessage = CaptureBrand.text(
-                        "Ошибка распознавания: \(error.localizedDescription). Исходное аудио сохранено.",
-                        "Transcription failed: \(error.localizedDescription). Original audio was preserved."
+                    self.errorMessage = CaptureBrand.formatted(
+                        "Ошибка распознавания: %@. Исходное аудио сохранено.",
+                        "Transcription failed: %@. Original audio was preserved.",
+                        error.localizedDescription
                     )
                 }
             }

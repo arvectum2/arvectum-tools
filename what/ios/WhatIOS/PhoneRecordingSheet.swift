@@ -36,7 +36,7 @@ struct PhoneRecordingSheet: View {
                             .font(.caption)
                             .foregroundStyle(recorder.microphoneConnected
                                 ? Color.secondary : Color.orange)
-                            Text(CaptureBrand.text("Вход: \(recorder.microphoneRoute)", "Input: \(recorder.microphoneRoute)"))
+                            Text(CaptureBrand.formatted("Вход: %@", "Input: %@", recorder.microphoneRoute))
                                 .font(.caption2)
                                 .foregroundStyle(.secondary)
                         }

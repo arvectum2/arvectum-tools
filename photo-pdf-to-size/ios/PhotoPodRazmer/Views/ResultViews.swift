@@ -91,7 +91,7 @@ struct BeforeAfterPreview: View {
                 // dimensions and file size. Do not announce an unnamed Image.
                 .accessibilityHidden(true)
 
-            Text("\(dimensions) · \(formatBytes(bytes))")
+            Text(String(format: tr("%1$@ · %2$@"), dimensions, formatBytes(bytes)))
                 .font(.caption2)
                 .foregroundStyle(.secondary)
                 .lineLimit(1)

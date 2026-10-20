@@ -49,6 +49,23 @@ enum CaptureBrand {
     /// The older fixed "N notes" label fails for singular and Russian plurals.
     /// Add locale-specific plurals as .stringsdict resources with the next
     /// language-pack implementation; do not claim any new locale here.
+    /// Keep each complete dynamic sentence together, including punctuation
+    /// and format argument order; never concatenate translated fragments.
+    /// This is the current RU/EN compatibility layer before bundled catalogs
+    /// are migrated to ICU plurals for additional languages.
+    static func formatted(
+        _ russian: String, _ english: String,
+        language: String? = nil, _ values: CVarArg...
+    ) -> String {
+        let code = language ?? (isRussian ? "ru" : "en")
+        let locale = Locale(identifier: code == "ru" ? "ru_RU" : "en_US")
+        return String(
+            format: code == "ru" ? russian : english,
+            locale: locale,
+            arguments: values
+        )
+    }
+
     static func noteCount(_ count: Int, language: String) -> String {
         if language == "ru" {
             let lastTwo = count % 100

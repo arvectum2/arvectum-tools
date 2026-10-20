@@ -26,9 +26,21 @@ class LocalizationPortfolioTests(unittest.TestCase):
     def test_dynamic_source_inventory_reports_untranslated_interpolation(self):
         findings = i18n.dynamic_inventory()
         self.assertTrue(findings)
-        self.assertTrue(any(item["app"] == "what" for item in findings))
-        self.assertTrue(any(item["app"] == "photo-pdf-to-size" for item in findings))
+        # What and Photo now use argument-aware complete format strings;
+        # the remaining simple numeric SwiftUI values in ChickMark stay tracked.
+        self.assertFalse(any(item["app"] in {"what", "photo-pdf-to-size"} for item in findings))
+        self.assertTrue(any(item["app"] == "chickmark" for item in findings))
         self.assertTrue(all(item["status"] == "requires-review" for item in findings))
+
+    def test_bilingual_copy_and_native_ru_resources_do_not_drift(self):
+        errors = []
+        i18n.bilingual_catalog_sync_audit(errors)
+        self.assertEqual(errors, [])
+
+    def test_bilingual_dynamic_placeholders(self):
+        errors = []
+        i18n.bilingual_format_audit(errors)
+        self.assertEqual(errors, [])
 
     def test_android_spanish_draft_has_real_ui_copy(self):
         from xml.etree import ElementTree

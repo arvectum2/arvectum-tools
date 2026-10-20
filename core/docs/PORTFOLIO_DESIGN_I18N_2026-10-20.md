@@ -86,3 +86,32 @@ Final Android repeat (after removing Russian-only unused SizeUnit labels): `andr
   green in android-spanish-layout-final.log.
 - English default Android locale remains unchanged for unsupported system
   languages. Neither Spanish screen QA nor native translator review is done.
+
+
+## L2.4–L2.5: Russian UI catalogs and dynamic text
+
+- Current merged feature branch iOS builds: ChickMark
+  chickmark-v4.exit=0, Pushkin pushkin-ru-retry.exit=0,
+  What what-l2-final-catalog.exit=0 and Photo/PDF
+  photo-l2-final-catalog.exit=0. Build artifacts remain on ArvectumSSD
+  in Arvectum/tmp/portfolio-design-i18n-qa-20261020.
+- Pushkin now has 151 Russian keys: 143 from existing bilingual microcopy
+  and 8 new source-complete translations. Compiled app has EN/RU resources.
+- What now has RU catalogs in iPhone (204 keys), Watch (6), Phone Widget
+  (6) and Watch Complication (5), confirmed in compiled app bundles.
+  Ambiguous shared words such as Archive and Discard need contextual QA.
+- Dynamic bilingual strings now use whole formatted sentences for Watch
+  transfer state, local recorder route, screen reader filters, search
+  counters, interrupted video recovery and speech transcription errors.
+- Photo/PDF has four positional-format UI metadata templates and properly
+  inflected Russian PDF page counts including 2, 11 and 21. Source-level
+  unresolved interpolation candidates dropped from 17 to 5 (the remaining
+  simple numeric SwiftUI expressions are in ChickMark). Computed strings
+  beyond these source patterns still require review.
+- Source structure/placeholder and native bilingual-copy consistency
+  checks pass, Python 8/8. Xcode xcresult test summaries verified:
+  Photo PDF morphology 1/1 PASS and What language fallback/dynamic format
+  4/4 PASS, no failures.
+- Language QA, visual tests, physical Watch, real Shortcuts/Files and
+  separate independent release approval remain open. Nothing is
+  merged into main or submitted to App Store.

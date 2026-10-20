@@ -82,7 +82,7 @@ struct RecordingLibraryView: View {
                     }
                     .buttonStyle(.plain)
                     .accessibilityIdentifier("what.filter.\(filter.rawValue)")
-                    .accessibilityLabel("\(filterTitle(filter)), \(total)")
+                    .accessibilityLabel(CaptureBrand.formatted("Фильтр %@, %@", "Filter %@, %@", filterTitle(filter), CaptureBrand.noteCount(total)))
                     .accessibilityAddTraits(selected ? [.isSelected] : [])
                 }
             }

@@ -29,7 +29,7 @@ struct PDFTaskCard: View {
                         Text(tr(model.pdfSource == nil ? "Выбрать PDF" : "PDF выбран"))
                             .font(.subheadline.weight(.semibold))
                         if let source = model.pdfSource {
-                            Text("\(source.pageCount) \(pageWord(source.pageCount)) · \(formatBytes(source.sizeBytes))")
+                            Text(String(format: tr("%1$d %2$@ · %3$@"), source.pageCount, pdfPageWord(source.pageCount), formatBytes(source.sizeBytes)))
                                 .font(.caption)
                                 .foregroundStyle(.secondary)
                         } else {
@@ -130,7 +130,4 @@ struct PDFTaskCard: View {
         )
     }
 
-    private func pageWord(_ count: Int) -> String {
-        tr(count == 1 ? "страница" : "страниц")
-    }
 }

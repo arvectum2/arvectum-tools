@@ -6,6 +6,24 @@ func tr(_ key: String) -> String {
     Bundle.main.localizedString(forKey: key, value: key, table: nil)
 }
 
+/// Human-readable page noun for the currently selected app bundle language.
+/// Russian has one/few/many forms; English has singular/plural.
+func pdfPageWordKey(_ count: Int, language: String) -> String {
+    if language.hasPrefix("ru") {
+        let hundred = count % 100
+        let ten = count % 10
+        if (11...14).contains(hundred) { return "страниц" }
+        if ten == 1 { return "страница" }
+        if (2...4).contains(ten) { return "страницы" }
+        return "страниц"
+    }
+    return count == 1 ? "страница" : "страниц"
+}
+
+func pdfPageWord(_ count: Int) -> String {
+    tr(pdfPageWordKey(count, language: Bundle.main.preferredLocalizations.first ?? "en"))
+}
+
 enum InputKind: String, CaseIterable, Identifiable {
     case photo
     case pdf
