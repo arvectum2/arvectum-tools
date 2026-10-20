@@ -48,6 +48,9 @@ final class PhoneStore: NSObject, ObservableObject, AVAudioPlayerDelegate,
         super.init()
         UNUserNotificationCenter.current().delegate = self
         reload()
+#if DEBUG
+        seedDesignLibraryForUITestsIfRequested()
+#endif
         reloadWatchQueueStatus()
         Task { [weak self] in await self?.reminderManager.reconcile() }
         Task { [weak self] in
@@ -68,6 +71,52 @@ final class PhoneStore: NSObject, ObservableObject, AVAudioPlayerDelegate,
             self.transcribeIfAuthorized(recording)
         }
     }
+
+#if DEBUG
+    /// Synthetic metadata visible only to disposable simulator UI tests.
+    /// Never writes notes, files, archive states, or Watch recordings.
+    private func seedDesignLibraryForUITestsIfRequested() {
+        let args = ProcessInfo.processInfo.arguments
+        guard args.contains("--qa-design-filled-library") else { return }
+
+        func qaID(_ last: Int) -> UUID {
+            UUID(uuidString: String(format:
+                "AAAA0000-0000-0000-0000-%012d", last))!
+        }
+        let now = Date()
+        localNotes = [
+            LocalNote(
+                id: qaID(1), kind: .text, createdAt: now,
+                updatedAt: now, body: "Нужно сверить план на неделю и список важных задач",
+                fileName: nil, duration: nil, archived: false,
+                sourceDevice: "QA Simulator"
+            ),
+            LocalNote(
+                id: qaID(2), kind: .text,
+                createdAt: now.addingTimeInterval(-3600), updatedAt: now,
+                body: "Напомнить о встрече и подготовить вопросы для обсуждения",
+                fileName: nil, duration: nil, archived: false,
+                sourceDevice: "QA Simulator"
+            ),
+            LocalNote(
+                id: qaID(3), kind: .video,
+                createdAt: now.addingTimeInterval(-7200), updatedAt: now,
+                body: "", fileName: nil, duration: 13, archived: false,
+                sourceDevice: "QA Simulator"
+            ),
+            LocalNote(
+                id: qaID(4), kind: .text,
+                createdAt: now.addingTimeInterval(-86400), updatedAt: now,
+                body: "Архивная тестовая заметка", fileName: nil, duration: nil,
+                archived: true, sourceDevice: "QA Simulator"
+            )
+        ]
+        // There is no fake audio file: absent media should be tested
+        // separately as a recovery/error state, not mixed with healthy notes.
+        // No playback/export/delete actions are exercised by this fixture.
+        // The missing media state on the synthetic video is intentional.
+    }
+#endif
 
     func revealReminder(_ noteID: UUID) {
         reload()

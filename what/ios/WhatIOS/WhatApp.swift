@@ -16,7 +16,19 @@ struct WhatApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            Group {
+#if DEBUG
+                if ProcessInfo.processInfo.arguments.contains("--qa-design-filled-library") {
+                    // Only the synthetic, Debug-only filled inbox fixture.
+                    // Force the actual AXXXL SwiftUI layout branch under test.
+                    ContentView().environment(\.dynamicTypeSize, .accessibility5)
+                } else {
+                    ContentView()
+                }
+#else
+                ContentView()
+#endif
+            }
 #if REVIEW_HANDOFF_QA
                 .onAppear { PhysicalCaptureQAProbe.shared.startIfRequested(store: store) }
 #endif

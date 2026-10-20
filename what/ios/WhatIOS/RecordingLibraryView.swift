@@ -68,7 +68,8 @@ struct RecordingLibraryView: View {
                         }
                         .font(.subheadline.weight(selected ? .semibold : .regular))
                         .padding(.horizontal, 11)
-                        .padding(.vertical, 9)
+                        .frame(minHeight: 48)
+                        .contentShape(Rectangle())
                         .background(
                             selected ? Color.accentColor.opacity(0.18) : Color.secondary.opacity(0.08),
                             in: Capsule()
@@ -115,6 +116,8 @@ struct RecordingLibraryView: View {
                     }
                 }
                 .pickerStyle(.segmented)
+                .controlSize(.large)
+                .frame(minHeight: 48)
                 .padding(.horizontal)
                 .padding(.top, 8)
 
@@ -155,11 +158,35 @@ struct RecordingLibraryView: View {
                 }
 
                 if store.recordings.isEmpty && store.localNotes.isEmpty {
-                    ContentUnavailableView(
-                        CaptureBrand.text("Пока нет записей", "Nothing yet"),
-                        systemImage: "waveform",
-                        description: Text(CaptureBrand.text("Нажмите большую кнопку записи или создайте текстовую заметку через «+». Записи с Apple Watch тоже появятся здесь.", "Tap the large recording button or use + for text. Apple Watch audio appears here too."))
-                    )
+                    // ContentUnavailableView truncates its description under
+                    // large accessibility fonts, even with short localized
+                    // copy. Keep the message fully readable and scrollable.
+                    ScrollView {
+                        VStack(spacing: 14) {
+                            Image(systemName: "waveform")
+                                .font(.system(size: 44))
+                                .foregroundStyle(.secondary)
+                                .accessibilityHidden(true)
+                            Text(CaptureBrand.text("Пока нет записей", "Nothing yet"))
+                                .font(.title2.weight(.semibold))
+                                .multilineTextAlignment(.center)
+                                .fixedSize(horizontal: false, vertical: true)
+                            Text(CaptureBrand.text(
+                                "Нажмите «+» для текста или вернитесь к записи.",
+                                "Use + for text, or go back to record."
+                            ))
+                            .font(.body)
+                            .foregroundStyle(.secondary)
+                            .multilineTextAlignment(.center)
+                            .fixedSize(horizontal: false, vertical: true)
+                        }
+                        .frame(maxWidth: .infinity)
+                        .padding(.horizontal, 24)
+                        .padding(.vertical, 24)
+                        .frame(minHeight: 260)
+                    }
+                    .scrollIndicators(.hidden)
+                    .accessibilityIdentifier("what.library.empty")
                 } else if dayGroups.isEmpty {
                     ContentUnavailableView(
                         searchText.isEmpty
@@ -283,6 +310,8 @@ struct RecordingLibraryView: View {
                 ToolbarItem(placement: .topBarLeading) {
                     Button(action: openCaptureHome) {
                         Label(CaptureBrand.text("Записать", "Record"), systemImage: "mic.fill")
+                            .frame(minWidth: 48, minHeight: 48)
+                            .contentShape(Rectangle())
                     }
                     .accessibilityLabel(CaptureBrand.text("Вернуться к быстрой записи", "Back to quick recording"))
                 }
@@ -291,6 +320,8 @@ struct RecordingLibraryView: View {
                         store.showTextCapture = true
                     } label: {
                         Image(systemName: "plus")
+                            .frame(minWidth: 48, minHeight: 48)
+                            .contentShape(Rectangle())
                     }
                     .accessibilityLabel(CaptureBrand.text("Создать текстовую заметку", "New text note"))
                     Menu {
@@ -311,6 +342,8 @@ struct RecordingLibraryView: View {
                         )
                     } label: {
                         Image(systemName: "ellipsis.circle")
+                            .frame(minWidth: 48, minHeight: 48)
+                            .contentShape(Rectangle())
                     }
                     .accessibilityLabel(CaptureBrand.text("Настройки и диагностика", "App settings and diagnostics"))
                 }
@@ -392,6 +425,8 @@ struct RecordingLibraryView: View {
                     localNoteToEdit = note
                 }
                 .font(.subheadline.bold())
+                .frame(minHeight: dynamicTypeSize.isAccessibilitySize ? 64 : 48, alignment: .leading)
+                .contentShape(Rectangle())
             } else {
                 if let url = store.videoURL(for: note),
                    FileManager.default.fileExists(atPath: url.path) {
@@ -422,8 +457,12 @@ struct RecordingLibraryView: View {
                         .foregroundStyle(.orange)
                 }
             }
-            HStack {
+            (dynamicTypeSize.isAccessibilitySize
+                ? AnyLayout(VStackLayout(alignment: .leading, spacing: 4))
+                : AnyLayout(HStackLayout(spacing: 8))) {
                 reminderMenu(note.id)
+                    .frame(minHeight: dynamicTypeSize.isAccessibilitySize ? 64 : 52)
+                    .contentShape(Rectangle())
                 Button {
                     reviewNoteToSend = ReviewNoteHandoffDraft(
                         id: note.id,
@@ -435,6 +474,8 @@ struct RecordingLibraryView: View {
                     Label(CaptureBrand.text("В ChickMark", "To ChickMark"),
                           systemImage: "arrowshape.turn.up.right")
                 }
+                .frame(minHeight: dynamicTypeSize.isAccessibilitySize ? 64 : 48)
+                .contentShape(Rectangle())
                 .accessibilityIdentifier("what.note.sendToChickMark")
                 Button {
                     store.setArchived(note, archived: !note.archived)
@@ -443,15 +484,24 @@ struct RecordingLibraryView: View {
                           CaptureBrand.text("В архив", "Archive"),
                           systemImage: note.archived ? "tray.and.arrow.up" : "archivebox")
                 }
-                Spacer()
+                .frame(minHeight: dynamicTypeSize.isAccessibilitySize ? 64 : 48)
+                .contentShape(Rectangle())
+                if !dynamicTypeSize.isAccessibilitySize {
+                    Spacer(minLength: 0)
+                }
                 Button(role: .destructive) {
                     localNoteToDelete = note
                 } label: {
                     Image(systemName: "trash")
+                        .frame(minWidth: 48, minHeight: dynamicTypeSize.isAccessibilitySize ? 64 : 48)
+                        .contentShape(Rectangle())
                 }
+                .accessibilityLabel(CaptureBrand.text("Удалить заметку", "Delete note"))
+                .accessibilityIdentifier("what.note.delete")
             }
             .font(.caption)
             .buttonStyle(.borderless)
+            .frame(maxWidth: .infinity, alignment: .leading)
         }
         .padding(.vertical, 5)
     }
@@ -548,6 +598,8 @@ struct RecordingLibraryView: View {
             }
         } label: {
             Label(CaptureBrand.text("Напомнить", "Remind"), systemImage: "bell")
+                .frame(minHeight: dynamicTypeSize.isAccessibilitySize ? 64 : 52, alignment: .leading)
+                .contentShape(Rectangle())
         }
         .accessibilityIdentifier("what.reminder.menu")
     }
