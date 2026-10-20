@@ -87,6 +87,48 @@ final class AdaptiveLayoutUITests: XCTestCase {
         }
     }
 
+    func testPopulatedLibraryDiagnosticsAXXXLSystemAccessibilityAudit() throws {
+        let app = openedPopulatedLibrary()
+        let settings = app.buttons["what.library.settings"]
+        XCTAssertTrue(settings.waitForExistence(timeout: 8))
+        XCTAssertTrue(settings.isHittable)
+        settings.tap()
+        let diagnostics = app.buttons["Диагностика синхронизации"]
+        XCTAssertTrue(diagnostics.waitForExistence(timeout: 8))
+        diagnostics.tap()
+        let close = app.buttons["syncDiagnosticsClose"]
+        XCTAssertTrue(close.waitForExistence(timeout: 10))
+        // The last Watch state can be present from a previous simulator run;
+        // neither case should be mistaken for live connection status.
+        let categories: XCUIAccessibilityAuditType = [
+            .sufficientElementDescription, .hitRegion, .trait, .textClipped
+        ]
+        try app.performAccessibilityAudit(for: categories) { issue in
+            print("WHAT_DIAGNOSTICS_AX issue=\(issue.compactDescription) " +
+                  "element=\(issue.element?.description ?? "nil") " +
+                  "detail=\(issue.detailedDescription)")
+            return false
+        }
+        let staleReportCaveat = app.staticTexts.matching(NSPredicate(
+            format: "label CONTAINS[c] %@ OR label CONTAINS[c] %@",
+            "не проверка соединения", "not a real-time connection"
+        )).firstMatch
+        for _ in 0..<12 where !staleReportCaveat.exists {
+            app.swipeUp()
+        }
+        XCTAssertTrue(staleReportCaveat.waitForExistence(timeout: 6),
+                      "Diagnostics must explain that Watch data is not live")
+        // Also audit the scrolled Watch report, not only the visible counts.
+        try app.performAccessibilityAudit(for: categories) { issue in
+            print("WHAT_DIAGNOSTICS_WATCH_AX issue=\(issue.compactDescription) " +
+                  "element=\(issue.element?.description ?? "nil") " +
+                  "detail=\(issue.detailedDescription)")
+            return false
+        }
+        close.tap()
+        XCTAssertTrue(settings.waitForExistence(timeout: 10))
+    }
+
     func testPopulatedLibraryAccessibleActionsNavigateSafely() throws {
         let app = openedPopulatedLibrary()
         let add = app.buttons["what.library.newText"]
