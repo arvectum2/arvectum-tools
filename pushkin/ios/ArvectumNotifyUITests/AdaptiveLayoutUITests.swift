@@ -58,6 +58,81 @@ final class AdaptiveLayoutUITests: XCTestCase {
     }
 #endif
 
+    func testRussianOptionalGroupPlannerActionsAtAXXXL() throws {
+        let app = XCUIApplication(bundleIdentifier: "ru.arvectum.tools.notify")
+        app.launchArguments = [
+            "-AppleLanguages", "(ru)", "-AppleLocale", "ru_RU",
+            "--store-tab", "1"
+        ]
+        app.launch()
+        let sources = app.tabBars.buttons["Источники"]
+        XCTAssertTrue(sources.waitForExistence(timeout: 10))
+        sources.tap()
+        let route = app.buttons["setup-optional-groups"]
+        for _ in 0..<12 where !route.isHittable { app.swipeUp() }
+        XCTAssertTrue(route.isHittable)
+        route.tap()
+        XCTAssertTrue(app.navigationBars["Дополнительные группы"]
+            .waitForExistence(timeout: 10))
+        // A LabeledContent row is a single accessibility element,
+        // not necessarily a StaticText child at XXL.
+        let search = app.textFields["group-app-search"]
+        for _ in 0..<9 where !search.isHittable { app.swipeUp() }
+        XCTAssertTrue(search.isHittable)
+        search.tap()
+        search.typeText("Telegram\n")
+        let telegram = app.buttons["group-select-ph.telegra.Telegraph"]
+        XCTAssertTrue(telegram.waitForExistence(timeout: 10))
+        let oldValue = telegram.value as? String
+        XCTAssertTrue(["Выбрано", "Не выбрано"].contains(oldValue ?? ""), "\(oldValue ?? "nil")")
+        telegram.tap()
+        let newValue = telegram.value as? String
+        XCTAssertNotEqual(newValue, oldValue)
+        XCTAssertTrue(["Выбрано", "Не выбрано"].contains(newValue ?? ""), "\(newValue ?? "nil")")
+        telegram.tap() // Restore exactly the original plan, no deletion.
+        XCTAssertEqual(telegram.value as? String, oldValue)
+
+        let categories: XCUIAccessibilityAuditType = [
+            .sufficientElementDescription, .hitRegion, .trait, .textClipped
+        ]
+        try app.performAccessibilityAudit(for: categories) { issue in
+            print("PUSHKIN_GROUPS_AX issue=\(issue.compactDescription) " +
+                  "element=\(issue.element?.description ?? "nil") " +
+                  "detail=\(issue.detailedDescription)")
+            return false
+        }
+    }
+
+    func testEnglishOptionalGroupPlannerLabels() throws {
+        let app = XCUIApplication(bundleIdentifier: "ru.arvectum.tools.notify")
+        app.launchArguments = [
+            "-AppleLanguages", "(en)", "-AppleLocale", "en_US",
+            "--store-tab", "1"
+        ]
+        app.launch()
+        let sources = app.tabBars.buttons["Apps"]
+        XCTAssertTrue(sources.waitForExistence(timeout: 10))
+        sources.tap()
+        let route = app.buttons["setup-optional-groups"]
+        for _ in 0..<12 where !route.isHittable { app.swipeUp() }
+        XCTAssertTrue(route.isHittable)
+        route.tap()
+        XCTAssertTrue(app.navigationBars["Optional Groups"]
+            .waitForExistence(timeout: 10))
+        // A LabeledContent row is a single accessibility element,
+        // not necessarily a StaticText child at XXL.
+        let search = app.textFields["group-app-search"]
+        for _ in 0..<9 where !search.isHittable { app.swipeUp() }
+        XCTAssertTrue(search.isHittable)
+        search.tap()
+        search.typeText("Telegram\n")
+        let telegram = app.buttons["group-select-ph.telegra.Telegraph"]
+        XCTAssertTrue(telegram.waitForExistence(timeout: 10))
+        XCTAssertTrue(["Selected", "Not selected"].contains(
+            telegram.value as? String ?? ""
+        ))
+    }
+
     func testHistoryAccessibilityAuditOfLabelsAndTargets() throws {
         let app = XCUIApplication(bundleIdentifier: "ru.arvectum.tools.notify")
         app.launchArguments = [

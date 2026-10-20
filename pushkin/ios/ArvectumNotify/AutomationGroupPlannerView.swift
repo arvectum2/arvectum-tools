@@ -9,6 +9,7 @@ struct AutomationGroupPlannerView: View {
     private var savedSelectionJSON = "[]"
 
     @State private var search = ""
+    @FocusState private var searchIsFocused: Bool
 
     private let automationsURL = URL(string: "shortcuts://automations")!
 
@@ -40,60 +41,24 @@ struct AutomationGroupPlannerView: View {
 
     var body: some View {
         List {
-            Section("How it works") {
-                Label("Optional: plan smaller groups", systemImage: "square.stack.3d.up")
-                    .font(.headline)
-
-                Text(
-                    "PUSHKIN's signed base shortcut already contains 1,000 app entries. An iOS 27 test retained all of them in one trigger. 25 is a convenient group size, not a confirmed iOS limit."
-                )
-                .foregroundStyle(.secondary)
-
-                Text(
-                    "Choose only apps you have installed. This page plans groups locally; it cannot add or activate Shortcuts automations for you."
-                )
-                .foregroundStyle(.secondary)
-            }
-
             Section {
-                LabeledContent("Selected apps", value: "\(selectedEntries.count)")
-                LabeledContent("Suggested groups", value: "\(selectedGroups.count)")
+                LabeledContent(pc("Selected apps"), value: "\(selectedEntries.count)")
+                LabeledContent(pc("Suggested groups"), value: "\(selectedGroups.count)")
+                Text(pc("Your group plan is stored locally in PUSHKIN. Copying app names uses the system clipboard."))
+                    .font(.footnote)
+                    .foregroundStyle(.secondary)
+                    .fixedSize(horizontal: false, vertical: true)
             } header: {
-                Text("Your plan")
-            } footer: {
-                Text("No notifications or selected app lists leave your iPhone.")
+                Text(pc("Your plan"))
             }
 
-            if !selectedGroups.isEmpty {
-                Section("Groups to configure") {
-                    ForEach(selectedGroups.indices, id: \.self) { index in
-                        AutomationGroupRow(
-                            index: index,
-                            entries: selectedGroups[index]
-                        )
-                    }
-
-                    Link(destination: automationsURL) {
-                        Label("Configure manually in Shortcuts", systemImage: "arrow.up.forward.app")
-                    }
-                    .accessibilityIdentifier("open-group-automations")
-
-                    Text(
-                        "Create a Notification automation for each group. Select its apps, add PUSHKIN → Archive Notification, map App / Title / Subtitle / Text, then enable it. Copying names is only a checklist; Shortcuts still requires manual app selection."
-                    )
-                    .foregroundStyle(.secondary)
-
-                    Text(
-                        "Send a real notification from one app in each group and check that it appears in History. One captured app does not verify every app in its group."
-                    )
-                    .foregroundStyle(.secondary)
-                }
-            }
-
-            Section("Choose apps for groups") {
-                TextField("Search catalog", text: $search)
+            Section(pc("Choose apps for groups")) {
+                TextField(pc("Search catalog"), text: $search)
                     .textInputAutocapitalization(.never)
                     .autocorrectionDisabled()
+                    .focused($searchIsFocused)
+                    .submitLabel(.done)
+                    .onSubmit { searchIsFocused = false }
                     .accessibilityIdentifier("group-app-search")
 
                 ForEach(results) { entry in
@@ -108,34 +73,86 @@ struct AutomationGroupPlannerView: View {
                         HStack {
                             Text(entry.title)
                                 .foregroundStyle(.primary)
+                                .fixedSize(horizontal: false, vertical: true)
                             Spacer()
                             Image(
                                 systemName: selectedIDs.contains(entry.bundleIdentifier)
                                     ? "checkmark.circle.fill" : "circle"
                             )
-                            .foregroundStyle(Color.arvectumMint)
+                            .foregroundStyle(Color.arvectumInteractiveTint)
                         }
                     }
                     .accessibilityIdentifier("group-select-\(entry.bundleIdentifier)")
+                    .accessibilityValue(selectedIDs.contains(entry.bundleIdentifier)
+                        ? pc("Selected") : pc("Not selected"))
+                    .accessibilityAddTraits(selectedIDs.contains(entry.bundleIdentifier)
+                        ? [.isSelected] : [])
                 }
+            }
+
+            if !selectedGroups.isEmpty {
+                Section(pc("Groups to configure")) {
+                    ForEach(selectedGroups.indices, id: \.self) { index in
+                        AutomationGroupRow(
+                            index: index,
+                            entries: selectedGroups[index]
+                        )
+                    }
+
+                    Link(destination: automationsURL) {
+                        Label(pc("Configure manually in Shortcuts"), systemImage: "arrow.up.forward.app")
+                    }
+                    .accessibilityIdentifier("open-group-automations")
+
+                    Text(
+                        pc("Create a Notification automation for each group. Select its apps, add PUSHKIN → Archive Notification, map App / Title / Subtitle / Text, then enable it. Copying names is only a checklist; Shortcuts still requires manual app selection.")
+                    )
+                    .foregroundStyle(.secondary)
+                    .fixedSize(horizontal: false, vertical: true)
+
+                    Text(
+                        pc("Send a real notification from one app in each group and check that it appears in History. One captured app does not verify every app in its group.")
+                    )
+                    .foregroundStyle(.secondary)
+                    .fixedSize(horizontal: false, vertical: true)
+                }
+            }
+
+            Section(pc("How it works")) {
+                Label(pc("Optional: plan smaller groups"), systemImage: "square.stack.3d.up")
+                    .font(.headline)
+
+                Text(
+                    pc("PUSHKIN's signed base shortcut already contains 1,000 app entries. An iOS 27 test retained all of them in one trigger. 25 is a convenient group size, not a confirmed iOS limit.")
+                )
+                .foregroundStyle(.secondary)
+                .fixedSize(horizontal: false, vertical: true)
+
+                Text(
+                    pc("Choose only apps you have installed. This page plans groups locally; it cannot add or activate Shortcuts automations for you.")
+                )
+                .foregroundStyle(.secondary)
+                .fixedSize(horizontal: false, vertical: true)
             }
 
             if !selectedIDs.isEmpty {
                 Section {
-                    Button("Clear group plan", role: .destructive) {
+                    Button(pc("Clear group plan"), role: .destructive) {
                         savedSelectionJSON = "[]"
                     }
                     .accessibilityIdentifier("clear-group-plan")
-                } footer: {
-                    Text("Clearing this local checklist does not remove any automation or notification history.")
+                    Text(pc("Clearing this local checklist does not remove any automation or notification history."))
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
+                        .fixedSize(horizontal: false, vertical: true)
                 }
             }
         }
         .scrollContentBackground(.hidden)
         .background(Color.arvectumBackground)
-        .navigationTitle("Optional Groups")
+        .navigationTitle(pc("Optional Groups"))
         .navigationBarTitleDisplayMode(.inline)
-        .tint(.arvectumMint)
+        .tint(.arvectumInteractiveTint)
         .accessibilityIdentifier("automation-group-planner")
     }
 }
@@ -155,14 +172,14 @@ private struct AutomationGroupRow: View {
                     .map(\.title)
                     .joined(separator: "\n")
             } label: {
-                Label("Copy app names", systemImage: "doc.on.doc")
+                Label(pc("Copy app names"), systemImage: "doc.on.doc")
             }
             .accessibilityIdentifier("copy-group-\(index + 1)")
         } label: {
             HStack {
-                Text("Group \(index + 1)")
+                Text("\(pc("Group")) \(index + 1)")
                 Spacer()
-                Text("\(entries.count) apps")
+                Text(PushkinCopy.appCount(entries.count))
                     .foregroundStyle(.secondary)
             }
         }

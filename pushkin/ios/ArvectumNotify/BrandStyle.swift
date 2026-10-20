@@ -154,6 +154,19 @@ enum PushkinCopy {
         return russian[english] ?? english
     }
 
+    static func appCount(
+        _ count: Int,
+        language: String = Locale.preferredLanguages.first ?? "en"
+    ) -> String {
+        guard language.lowercased().hasPrefix("ru") else { return "\(count) apps" }
+        let n = count % 100
+        let last = count % 10
+        let form = (11...14).contains(n) ? "приложений"
+            : last == 1 ? "приложение"
+            : (2...4).contains(last) ? "приложения" : "приложений"
+        return "\(count) \(form)"
+    }
+
     private static let russian: [String: String] = [
         "History": "История",
         "Apps": "Источники",
@@ -277,6 +290,27 @@ enum PushkinCopy {
         "Help us improve the catalog": "Помогите улучшить каталог",
         "Want this app to become a one-tap option? Mention its exact name in an App Store review or send it to Arvectum support. Requested apps can be added in regular catalog updates.": "Хотите добавить приложение в каталог? Отправьте его точное название в поддержку Arvectum.",
         "Add Manually": "Добавить вручную",
+        "How it works": "Как это работает",
+        "Optional: plan smaller groups": "Необязательно: небольшие группы",
+        "PUSHKIN's signed base shortcut already contains 1,000 app entries. An iOS 27 test retained all of them in one trigger. 25 is a convenient group size, not a confirmed iOS limit.": "В базовой команде есть 1 000 приложений. Группы по 25 — только удобный способ организации, а не подтверждённый лимит iOS.",
+        "Choose only apps you have installed. This page plans groups locally; it cannot add or activate Shortcuts automations for you.": "Выберите установленные приложения. Этот экран лишь составляет список групп и не создаёт или включает автоматизации.",
+        "Selected apps": "Выбрано приложений",
+        "Suggested groups": "Групп для настройки",
+        "Your plan": "Ваш план",
+        "Your group plan is stored locally in PUSHKIN. Copying app names uses the system clipboard.": "План хранится в Пушкине на этом iPhone. При копировании имена попадают в системный буфер обмена.",
+        "Groups to configure": "Группы для настройки",
+        "Configure manually in Shortcuts": "Настроить вручную в «Командах»",
+        "Create a Notification automation for each group. Select its apps, add PUSHKIN → Archive Notification, map App / Title / Subtitle / Text, then enable it. Copying names is only a checklist; Shortcuts still requires manual app selection.": "Для каждой группы создайте автоматизацию уведомлений в «Командах». Выберите приложения, добавьте действие PUSHKIN → Archive Notification, настройте поля App / Title / Subtitle / Text и включите её. Имена из списка не подключают источники автоматически.",
+        "Send a real notification from one app in each group and check that it appears in History. One captured app does not verify every app in its group.": "Получите настоящее уведомление хотя бы из одного приложения каждой группы и проверьте «Историю». Это не подтверждает работу остальных приложений группы.",
+        "Choose apps for groups": "Выберите приложения",
+        "Search catalog": "Поиск по каталогу",
+        "Clear group plan": "Очистить план",
+        "Clearing this local checklist does not remove any automation or notification history.": "Очистка удалит только список групп в Пушкине. Автоматизации и история уведомлений сохранятся.",
+        "Optional Groups": "Дополнительные группы",
+        "Copy app names": "Копировать названия",
+        "Selected": "Выбрано",
+        "Not selected": "Не выбрано",
+        "Group": "Группа",
     ]
 }
 

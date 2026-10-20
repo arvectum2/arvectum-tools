@@ -2,6 +2,20 @@ import XCTest
 @testable import ArvectumNotify
 
 final class CoverageCatalogTests: XCTestCase {
+    func testLocalizedOptionalGroupCopyAndCounts() {
+        XCTAssertEqual(PushkinCopy.text("Optional Groups", language: "ru-RU"),
+                       "Дополнительные группы")
+        XCTAssertEqual(PushkinCopy.text("Clear group plan", language: "ru"),
+                       "Очистить план")
+        XCTAssertEqual(PushkinCopy.appCount(1, language: "ru"), "1 приложение")
+        XCTAssertEqual(PushkinCopy.appCount(2, language: "ru"), "2 приложения")
+        XCTAssertEqual(PushkinCopy.appCount(5, language: "ru"), "5 приложений")
+        XCTAssertEqual(PushkinCopy.appCount(11, language: "ru"), "11 приложений")
+        XCTAssertEqual(PushkinCopy.appCount(21, language: "ru"), "21 приложение")
+        XCTAssertEqual(PushkinCopy.appCount(25, language: "ru"), "25 приложений")
+        XCTAssertEqual(PushkinCopy.appCount(25, language: "en"), "25 apps")
+    }
+
     func testRussianCopyAndEnglishFallback() {
         XCTAssertEqual(
             PushkinCopy.text("History", language: "ru-RU"),
