@@ -5,6 +5,7 @@
 - [x] VoiceOver: подсказка аудио объясняет двойное касание и действие Видеозапись вместо удержания; проверка audio/video/text accessibility labels на iPhone 17 Pro Simulator PASS.
 - [x] XCUIVoiceOverService на iPhone 17 Pro iOS 27: короткий VoiceOver аудио/видео/текста PASS, включая исправленную подсказку. [ ] Полная проверка редактора, Watch и физического VoiceOver открыта.
 - [x] 20.10: XCUIAccessibilityAudit экранов Capture и Library при AXXXL **2/2 PASS**. После исходного FAIL подпись «Сохранено на устройстве» и число заметок перенесены в две строки. Обычный Capture UI smoke PASS.
+- [x] 20.10: выделенный 13-дюймовый iPad Simulator iOS 27, AXXXL, регрессия редактора и библиотеки 1/1 PASS; переход Capture ↔ Library при поворотах Portrait/Landscape 1/1 PASS. Не является тестом реального Fold/Duo/камеры или Split View.
 - [ ] Дополнительная QA заполненной библиотеки, редактора, iPad Split View, VoiceOver ротора и Watch ACK.
 
 - [x] Кнопки «Видео» и «Текст» видны на Home; мгновенное аудио и long-press сохранены (BUILD + UI discoverability + long-press PASS).

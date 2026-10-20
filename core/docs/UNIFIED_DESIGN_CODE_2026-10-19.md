@@ -270,3 +270,12 @@ ChickMark:
 Итог: 4/4 системных accessibility audits ChickMark/What PASS, 2/2 проверки стандартной навигации PASS. Вместе с ранними тестами Пушкина/Фото-PDF имеем 9 проверенных экранных состояний с системным аудитом. Это не полный аудит приложения; остаются заполненные списки, другие формы, gestures/rotor и физическая приёмка.
 
 Исходники и журналы на ArvectumSSD; main/App Store не изменялись.
+
+
+## 18. What iPad 13-inch AXXXL regression · 20.10.2026
+
+Выделенный QA iPad Simulator UhWhat-13-inch-Release-20261018 (iOS 27.0); контентный размер Accessibility XXXL, без физических камер, микрофона и Watch.
+
+- testAccessibilityTextSizePreservesCaptureAndEmptyTextEditor PASS: стартовый Capture, видимость действия текстовой заметки, пустой редактор, Done без создания пустой заметки, Library и фильтр All, возврат к записи. Log: what-ipad13-axxxl-editor-20261020.log.
+- testCaptureAndUnifiedLibraryKeepStateAcrossRotation PASS: открытие библиотеки, смена портретной/альбомной ориентации, возврат, видимость действий. Log: what-ipad13-rotation-after-design-20261020.log.
+- Итого 2/2 PASS. Не подтверждает реальный Duo hinge, stage manager/side-by-side Split View, системное разрешение камеры, работу Watch ACK и полноту VoiceOver.

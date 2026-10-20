@@ -19,6 +19,7 @@
 - [x] D3/P1 Фото/PDF: системный accessibility audit двух экранов результата **2/2 PASS** (sufficientElementDescription, hitRegion, trait, textClipped) на AXXXL simulator; отдельный PDF VoiceOver PASS. Исправлений по результатам этих двух аудитов не потребовалось.
 - [x] D3/P1 ChickMark: системный audit Сегодня и Управление привычками **2/2 PASS**. При AXXXL панель настроек прокручивается вместо закрепления на весь экран; Language/System выводятся по строкам. Обычная About/Privacy/Support навигация PASS.
 - [x] D3/P1 Ухват: системный audit Capture и Library **2/2 PASS**. При AXXXL статус хранения и счётчик заметок выводятся по строкам. Обычная Capture UI smoke PASS.
+- [x] D3/P1 Ухват: 13-дюймовый iPad Simulator AXXXL: Capture → пустой текстовый редактор → Library → обратно PASS, поворот Library/Capture Portrait ↔ Landscape PASS (2/2).
 - [ ] D3/P1 Заполненная библиотека заметок, множество привычек/групп, VoiceOver редакторов, iPad multitasking и физические устройства требуют отдельной регрессии.
 - [ ] D3/P1 Полный VoiceOver (gestures/rotor), detail/modal screens, реальные Shortcuts, physical/iPad матрица открыты. PDF VoiceOver для результата выполнен в коротком проверенном сценарии.
 - [ ] D3/P1: product UX QA (VoiceOver, Dynamic Type, тёмная тема, reduce motion) и отдельные UI PR для каждого приложения.
