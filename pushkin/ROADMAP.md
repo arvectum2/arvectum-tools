@@ -1,6 +1,7 @@
 # PUSHKIN — Product Roadmap
 
 ### UX/дизайн-код: очередь D1 (19.10.2026, план)
+- [x] D4.3 (20.10): Optional Groups полностью RU/EN, цвет/состояние выбора доступны VoiceOver, поиск выше динамически появляющихся групп и закрывает клавиатуру по Done. AXXXL RU полный Xcode AX audit PASS; EN UI PASS; прежний select/clear UI PASS; unit PASS. Данные/автоматизации не затронуты.
 - [x] D4.1 (20.10): Setup quick-add использует Core 48pt; общий DesignSystem подключён через XcodeGen. AXXXL Setup → Coverage UI PASS, iOS Debug build PASS.
 
 - [x] VoiceOver iOS 27: короткий тест реального озвучивания истории через XCUIVoiceOverService PASS, исправлен Search Image. Названия истории, поиска, добавления и подключения CapCut произносятся корректно.

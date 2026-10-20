@@ -1,6 +1,7 @@
 # ChickMark — актуальная дорожная карта
 
 ### UX/дизайн-код: очередь D2 (19.10.2026, план)
+- [x] D4.3 (20.10): ссылка на прикреплённую заметку использует контрастный semantic accent и ≥44pt; меню «…» получило корректную подпись действия на RU/EN/ES. 2/2 unit локализации и UI разового напоминания с проверкой меню PASS. Физическая заметка/VoiceOver отдельно.
 - [x] D4.1 (20.10): Today header 44pt, общий радиус карточек, первый запуск — прокручиваемое empty state без обрезания One-time reminder. Today/Manage accessibility audits **2/2 PASS**, Debug build PASS.
 - [x] iPhone 17 Pro iOS 27: реальный VoiceOver Today PASS. Произносит ChickMark, Manage habits, Add, Today Marked: 0 of 2, 0%, Reading, Mark complete. Полный rotor/physical QA открыт.
 - [x] 20.10: XCUIAccessibilityAudit Сегодня и Управление привычками на iPhone 17 Pro iOS 27 / AXXXL **2/2 PASS**. После исходного FAIL нижняя панель настроек вынесена в прокручиваемую область при Accessibility Type; язык и выбранное системное значение расположены двумя строками. Обычная About/Privacy/Support регрессия PASS.
