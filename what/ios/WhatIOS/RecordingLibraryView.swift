@@ -108,6 +108,13 @@ struct RecordingLibraryView: View {
     var body: some View {
         NavigationStack {
             VStack(spacing: 0) {
+                if dynamicTypeSize.isAccessibilitySize {
+                    // UIKit navigation-bar items stay 36–40pt even when their
+                    // SwiftUI labels request 48pt. Render accessible actions
+                    // in content, hiding the native bar only at AX sizes.
+                    accessibleLibraryActions
+                }
+
                 Picker(CaptureBrand.text("Папка", "Folder"), selection: $selectedFolder) {
                     ForEach(InboxFolder.allCases) { folder in
                         Text(folder == .inbox
@@ -306,46 +313,17 @@ struct RecordingLibraryView: View {
             }
             .searchable(text: $searchText, prompt: CaptureBrand.text("Поиск по записям", "Search transcripts and dates"))
             .navigationTitle(CaptureBrand.name)
+            .toolbar(dynamicTypeSize.isAccessibilitySize ? .hidden : .visible,
+                     for: .navigationBar)
             .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    Button(action: openCaptureHome) {
-                        Label(CaptureBrand.text("Записать", "Record"), systemImage: "mic.fill")
-                            .frame(minWidth: 48, minHeight: 48)
-                            .contentShape(Rectangle())
+                if !dynamicTypeSize.isAccessibilitySize {
+                    ToolbarItem(placement: .topBarLeading) {
+                        libraryRecordAction
                     }
-                    .accessibilityLabel(CaptureBrand.text("Вернуться к быстрой записи", "Back to quick recording"))
-                }
-                ToolbarItemGroup(placement: .topBarTrailing) {
-                    Button {
-                        store.showTextCapture = true
-                    } label: {
-                        Image(systemName: "plus")
-                            .frame(minWidth: 48, minHeight: 48)
-                            .contentShape(Rectangle())
+                    ToolbarItemGroup(placement: .topBarTrailing) {
+                        libraryTextAction
+                        librarySettingsAction
                     }
-                    .accessibilityLabel(CaptureBrand.text("Создать текстовую заметку", "New text note"))
-                    Menu {
-                        AutoFollowUpSettingsMenu(manager: store.reminderManager)
-                        Picker(CaptureBrand.text("Язык интерфейса и распознавания", "Interface and speech language"), selection: $store.transcriptionLocale) {
-                            Text("Русский").tag("ru-RU")
-                            Text("English").tag("en-US")
-                            Text(CaptureBrand.text("Español (интерфейс EN)", "Español (English interface)")).tag("es-ES")
-                        }
-                        Button {
-                            showDiagnostics = true
-                        } label: {
-                            Label(CaptureBrand.text("Диагностика синхронизации", "Sync diagnostics"), systemImage: "applewatch")
-                        }
-                        Link(
-                            CaptureBrand.text("Конфиденциальность", "Privacy policy"),
-                            destination: URL(string: "https://arvectum.com/privacy")!
-                        )
-                    } label: {
-                        Image(systemName: "ellipsis.circle")
-                            .frame(minWidth: 48, minHeight: 48)
-                            .contentShape(Rectangle())
-                    }
-                    .accessibilityLabel(CaptureBrand.text("Настройки и диагностика", "App settings and diagnostics"))
                 }
             }
             .frame(maxWidth: 960)
@@ -402,6 +380,88 @@ struct RecordingLibraryView: View {
                 )
             }
         }
+    }
+
+    /// At Accessibility Dynamic Type, toolbar actions must occupy native
+    /// content rather than UIKit's compact, inaccessible navigation items.
+    private var accessibleLibraryActions: some View {
+        HStack(spacing: 12) {
+            libraryRecordAction
+            Spacer(minLength: 8)
+            libraryTextAction
+            librarySettingsAction
+        }
+        .padding(.horizontal, 16)
+        .padding(.vertical, 8)
+        .frame(maxWidth: .infinity)
+        .background(Color(uiColor: .secondarySystemGroupedBackground))
+    }
+
+    private var libraryRecordAction: some View {
+        Button(action: openCaptureHome) {
+            Group {
+                if dynamicTypeSize.isAccessibilitySize {
+                    // Icon-only at AXXXL; the full action remains in the
+                    // accessibility label and is spoken by VoiceOver.
+                    Image(systemName: "mic.fill")
+                        .font(.title2)
+                        .frame(minWidth: 64, minHeight: 64)
+                } else {
+                    Label(CaptureBrand.text("Записать", "Record"), systemImage: "mic.fill")
+                        .font(.subheadline.weight(.semibold))
+                        .frame(minHeight: 64)
+                        .padding(.horizontal, 8)
+                }
+            }
+            .contentShape(Rectangle())
+        }
+        .accessibilityLabel(CaptureBrand.text("Вернуться к быстрой записи",
+                                              "Back to quick recording"))
+        .accessibilityIdentifier("what.library.backToRecord")
+    }
+
+    private var libraryTextAction: some View {
+        Button {
+            store.showTextCapture = true
+        } label: {
+            Image(systemName: "plus")
+                .font(.title2.weight(.medium))
+                .frame(minWidth: 64, minHeight: 64)
+                .contentShape(Rectangle())
+        }
+        .accessibilityLabel(CaptureBrand.text("Создать текстовую заметку",
+                                              "New text note"))
+        .accessibilityIdentifier("what.library.newText")
+    }
+
+    private var librarySettingsAction: some View {
+        Menu {
+            AutoFollowUpSettingsMenu(manager: store.reminderManager)
+            Picker(CaptureBrand.text("Язык интерфейса и распознавания",
+                                     "Interface and speech language"),
+                   selection: $store.transcriptionLocale) {
+                Text("Русский").tag("ru-RU")
+                Text("English").tag("en-US")
+                Text(CaptureBrand.text("Español (интерфейс EN)",
+                                       "Español (English interface)")).tag("es-ES")
+            }
+            Button {
+                showDiagnostics = true
+            } label: {
+                Label(CaptureBrand.text("Диагностика синхронизации", "Sync diagnostics"),
+                      systemImage: "applewatch")
+            }
+            Link(CaptureBrand.text("Конфиденциальность", "Privacy policy"),
+                 destination: URL(string: "https://arvectum.com/privacy")!)
+        } label: {
+            Image(systemName: "ellipsis.circle")
+                .font(.title2)
+                .frame(minWidth: 64, minHeight: 64)
+                .contentShape(Rectangle())
+        }
+        .accessibilityLabel(CaptureBrand.text("Настройки и диагностика",
+                                              "App settings and diagnostics"))
+        .accessibilityIdentifier("what.library.settings")
     }
 
     private func localNoteRow(_ note: LocalNote) -> some View {

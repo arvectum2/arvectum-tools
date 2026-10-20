@@ -64,22 +64,62 @@ final class AdaptiveLayoutUITests: XCTestCase {
         }
     }
 
-    /// Keep the unresolved iOS 27 toolbar hit-area warnings visible.
-    /// Native UINavigationBar controls remain 36-40pt in accessibility
-    /// snapshots even when SwiftUI label requests a 48pt frame;
-    /// Xcode reports two hitRegion issues with element=nil.
-    func testPopulatedMixedLibraryHitRegionAudit() throws {
-        guard ProcessInfo.processInfo.environment["ARVECTUM_HIT_REGION_QA"] == "1" else {
-            throw XCTSkip("Opt-in: 2 unresolved iOS 27 toolbar hit-region issues")
-        }
+    /// The AX-size custom action bar replaces UIKit's constrained toolbar.
+    /// This full four-category system audit must run, never skip or mask
+    /// anonymous failures.
+    func testPopulatedMixedLibrarySystemAccessibilityAudit() throws {
         let app = openedPopulatedLibrary()
-        let categories: XCUIAccessibilityAuditType = [.hitRegion]
+        for identifier in ["what.library.backToRecord", "what.library.newText",
+                           "what.library.settings"] {
+            let control = app.buttons[identifier]
+            XCTAssertTrue(control.waitForExistence(timeout: 5), identifier)
+            XCTAssertGreaterThanOrEqual(control.frame.width, 44, identifier)
+            XCTAssertGreaterThanOrEqual(control.frame.height, 44, identifier)
+        }
+        let categories: XCUIAccessibilityAuditType = [
+            .sufficientElementDescription, .hitRegion, .trait, .textClipped
+        ]
         try app.performAccessibilityAudit(for: categories) { issue in
-            print("WHAT_FILLED_HIT_REGION issue=\(issue.compactDescription) " +
+            print("WHAT_FILLED_FULL_AX issue=\(issue.compactDescription) " +
                   "detail=\(issue.detailedDescription) " +
                   "element=\(issue.element?.description ?? "nil")")
             return false
         }
+    }
+
+    func testPopulatedLibraryAccessibleActionsNavigateSafely() throws {
+        let app = openedPopulatedLibrary()
+        let add = app.buttons["what.library.newText"]
+        XCTAssertTrue(add.isHittable)
+        add.tap()
+        let editor = app.textViews["what.text.editor"]
+        XCTAssertTrue(editor.waitForExistence(timeout: 10),
+                      "AX-sized New Text action must open the editor")
+        let done = app.buttons.matching(NSPredicate(
+            format: "label == %@ OR label == %@", "Готово", "Done"
+        )).firstMatch
+        XCTAssertTrue(done.waitForExistence(timeout: 10))
+        done.tap() // Empty draft, no note/file created.
+        let back = app.buttons["what.library.backToRecord"]
+        XCTAssertTrue(back.waitForExistence(timeout: 10))
+        XCTAssertTrue(back.isHittable)
+        back.tap()
+        XCTAssertTrue(app.buttons["what.record.primary"]
+            .waitForExistence(timeout: 10), "Back returns to quick capture")
+    }
+
+    func testPopulatedLibraryAccessibleSettingsMenuOpens() throws {
+        let app = openedPopulatedLibrary()
+        let settings = app.buttons["what.library.settings"]
+        XCTAssertTrue(settings.isHittable)
+        settings.tap()
+        let diagnostics = app.buttons.matching(NSPredicate(
+            format: "label CONTAINS[c] %@ OR label CONTAINS[c] %@",
+            "Диагностика", "diagnostics"
+        )).firstMatch
+        XCTAssertTrue(diagnostics.waitForExistence(timeout: 10),
+                      "AX-sized settings action must open original settings menu")
+        // Do not choose any menu command, changing no real preferences.
     }
 
     func testNotesLibrarySystemAccessibilityAudit() throws {
@@ -153,6 +193,18 @@ final class AdaptiveLayoutUITests: XCTestCase {
     func testCaptureAlternativesAreDiscoverable() {
         let app = XCUIApplication()
         app.launch()
+        // Rare CoreSimulator launch races present a 134×291pt window (exactly
+        // one-third of the expected iPhone viewport), putting the Text action
+        // beneath the OS status area. Relaunch once, but never waive the
+        // hittable/action assertions for a valid >=320pt phone viewport.
+        if app.frame.width < 320 {
+            print("WHAT_QA_ABNORMAL_WINDOW=\(app.frame); relaunching")
+            app.terminate()
+            XCUIDevice.shared.orientation = .portrait
+            app.launch()
+        }
+        XCTAssertGreaterThanOrEqual(app.frame.width, 320,
+             "Simulator window must use iPhone geometry, not 134pt miniature")
 
         let primary = app.buttons["what.record.primary"]
         let video = app.buttons["what.new.video"]
@@ -161,9 +213,16 @@ final class AdaptiveLayoutUITests: XCTestCase {
         XCTAssertTrue(video.exists)
         XCTAssertTrue(text.exists)
         XCTAssertTrue(video.isHittable)
-        if !text.isHittable {
-            print("WHAT_TEXT_HIT_DEBUG=\(text.frame) \(app.debugDescription.prefix(10000))")
+        let hittable = XCTNSPredicateExpectation(
+            predicate: NSPredicate(format: "hittable == true"), object: text
+        )
+        let result = XCTWaiter.wait(for: [hittable], timeout: 6)
+        if result != .completed {
+            print("WHAT_TEXT_NOT_HITTABLE app=\(app.frame) button=\(text.frame)")
+            print("WHAT_CAPTURE_HIT_TREE=\(app.debugDescription.prefix(12000))")
         }
+        XCTAssertEqual(result, .completed,
+                       "Text action must become tappable after layout settles")
         XCTAssertTrue(text.isHittable)
     }
 
