@@ -247,3 +247,26 @@
 - Итого системные аудиты основных экранов Пушкина и результата Фото/PDF: **5/5 PASS**; короткие реальные VoiceOver тесты 4/4 приложений, отдельный Фото/PDF VoiceOver 2/2. Это не покрывает весь функционал и не заменяет физический VoiceOver, rotor/gestures и пользовательские сценарии.
 - Ранее в разделе 14 PDF VO был честно открыт из-за прерывания раннера. Данный более поздний успешный прогон закрывает именно короткий PDF VoiceOver-тест. Полные сценарии и ручная физическая приёмка остаются открытыми.
 - Исходники и файлы результатов на ArvectumSSD в Arvectum/tmp/arvectum-tools-design-qa-20261019, без изменений main, системных автоматизаций, пользовательских данных и App Store.
+
+
+## 17. ChickMark and What accessibility audits · 20.10.2026
+
+Среда: iPhone 17 Pro iOS 27 Simulator, Xcode 27.1, отдельный QA профиль на ArvectumSSD. Не совершались записи видео/аудио и не менялись реальные HealthKit, Watch, Shortcuts или пользовательские заметки. Xcode audit: sufficientElementDescription, hitRegion, trait, textClipped на AXXXL; обычная регрессия при стандартном Large.
+
+ChickMark:
+- Today: testTodaySystemAccessibilityAudit PASS. Проверено пустое тестовое состояние.
+- Manage habits: исходный audit FAIL — Text clipped element=nil. Диагностический Accessibility Tree обнаружил фиксированную нижнюю safeAreaInset панель, высота строки выбора языка 233 pt, и перекрытие основного экрана на AXXXL.
+- Исправлено: при Accessibility Type настройки переносятся в ScrollView (пустое состояние) либо List Section (заполненное), вместо фиксированной нижней панели. Подпись языка и значение выводятся вертикально. При стандартных размерах интерфейс не меняется.
+- Повторный testManageHabitsSystemAccessibilityAudit PASS: chickmark-manage-audit-after-fix-20261020.log. На нескольких группах/привычках пока не проверено.
+- Стандартная регрессия testBrandAndVersionInAboutScreen PASS: chickmark-manage-normal-regression-20261020.log.
+
+Ухват / What:
+- Capture: testCaptureHomeSystemAccessibilityAudit PASS: what-capture-ax-audit-20261020.log.
+- Library: исходный audit FAIL, элемент «Сохранено на устройстве» — text clipped: в HStack теснились статус и число заметок.
+- Исправлено: при Accessibility Type статус и счётчик размещаются вертикально в VStack. При стандартном размере остаётся HStack.
+- Повторный testNotesLibrarySystemAccessibilityAudit PASS: what-library-ax-after-fix-20261020.log. Проверена пустая тестовая библиотека, не реальный набор заметок.
+- Стандартная регрессия testCaptureAlternativesAreDiscoverable PASS: what-capture-normal-regression-20261020.log.
+
+Итог: 4/4 системных accessibility audits ChickMark/What PASS, 2/2 проверки стандартной навигации PASS. Вместе с ранними тестами Пушкина/Фото-PDF имеем 9 проверенных экранных состояний с системным аудитом. Это не полный аудит приложения; остаются заполненные списки, другие формы, gestures/rotor и физическая приёмка.
+
+Исходники и журналы на ArvectumSSD; main/App Store не изменялись.
