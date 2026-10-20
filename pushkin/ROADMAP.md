@@ -3,7 +3,9 @@
 ### UX/дизайн-код: очередь D1 (19.10.2026, план)
 
 - [x] VoiceOver iOS 27: короткий тест реального озвучивания истории через XCUIVoiceOverService PASS, исправлен Search Image. Названия истории, поиска, добавления и подключения CapCut произносятся корректно.
-- [ ] Проверить полный VoiceOver setup/settings/Shortcuts и системный Accessibility Audit. История коротко PASS; Settings/audit остаются opt-in.
+- [x] Системный XCUIAccessibilityAudit основных экранов История/Источники/Настройки на отдельном iPhone 17 Pro iOS 27: **3/3 PASS** после исправления AXXXL. Проверены sufficientElementDescription, hitRegion, trait, textClipped. До исправления найдены реальные обрезания pending coverage/search и кнопки Источников.
+- [x] AXXXL Setup → офлайн-каталог: повторный UI-тест после разрешения переноса quick-add **PASS**.
+- [ ] Полный VoiceOver setup/settings/Shortcuts, детальные экраны истории, физический VoiceOver и аудит ещё неохваченных сценариев. Не объявлять полный аудит всей программы завершённым.
 
 - [x] P1: AXXXL-навигaция и настройки: Setup → каталог через всегда видимую 48pt кнопку, настройки → политика конфиденциальности; два независимых UI-теста PASS на iPhone 17 Pro Simulator. Реальный VoiceOver и физические устройства отдельно.
 

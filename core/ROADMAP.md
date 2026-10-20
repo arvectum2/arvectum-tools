@@ -15,7 +15,8 @@
 - [ ] D2/P1 ChickMark: AXXXL core navigation и короткий VoiceOver Today PASS; остаются создание, rotor/gestures, физический QA.
 - [x] D3/P1 Pushkin: AXXXL onboarding/coverage и settings/privacy — 2 UI PASS, исправлена маленькая область нажатия в верхнем toolbar переносом явной кнопки 48pt вне скролла. Остальные VoiceOver и физические QA открыты.
 - [x] D3/P1 VoiceOver: реальные короткие тесты XCUIVoiceOverService iOS 27 **4/4 приложений PASS** (Пушкин/История, Ухват/Capture, ChickMark/Today, Фото-PDF/фото). Исправлены Search Image Пушкина и безымянные изображения Фото/PDF. PDF-результат произнесён, но тестовый раннер INTERRUPTED; не PASS.
-- [ ] D3/P1 Полные opt-in VoiceOver/a11y audits, второстепенные экраны и физическая проверка открыты.
+- [x] D3/P1 Pushkin: системный accessibility audit **3/3 PASS** на основных История/Источники/Настройки, категории labels/hit regions/traits/text clipping. Исправлены обрезания pending-card, ссылки автоматизаций, поиска и quick-add. AXXXL Setup → каталог повторный UI PASS.
+- [ ] D3/P1 Полный VoiceOver (gestures/rotor), detail/modal screens, тесты реальных Shortcuts, physical/iPad матрица и PDF VoiceOver открыты.
 - [ ] D3/P1: product UX QA (VoiceOver, Dynamic Type, тёмная тема, reduce motion) и отдельные UI PR для каждого приложения.
 - [ ] D4: интеграция Core после review и независимые продуктовые релизы только по явному разрешению владельца.
 - [ ] D5: Where? остается на паузе: только принципы в документе, не реализация.

@@ -222,3 +222,16 @@
 - При BUILD INTERRUPTED симулятор может сохранить VoiceOverTouchEnabled=1; перезапускать и выключать только выделенный QA-симулятор, проверять VoiceOverTouchEnabled=0. Не менять реальные пользовательские accessibility settings.
 
 Исходники и результаты только на ArvectumSSD, main и App Store не затронуты.
+
+
+## 15. PUSHKIN accessibility audit · 20.10.2026, утренний прогон
+
+Среда: выделенный iPhone 17 Pro iOS 27.0 Simulator, системный Accessibility XXXL, Xcode 27.1, отладочная фикстура истории. Проверялся интерфейс, без создания системных Shortcuts, пользовательских данных и публикаций.
+
+- Xcode performAccessibilityAudit: sufficientElementDescription, hitRegion, trait, textClipped.
+- Первый аудит истории FAIL: coverage-finish-card, кнопка Открыть автоматизации, поиск уведомлений — text clipped. Исправлены: независимая прокрутка pending-card в Accessibility sizes, перенос длинного CTA и заголовка, гибкая высота и явная accessibilityLabel поиска, ограничение размера однострочного поля.
+- После исправлений История PASS (pushkin-ax-audit-after-layout-20261020.log), Настройки PASS (pushkin-settings-audit-20261020.log).
+- Первый аудит Источников FAIL: текст Добавить или настроить источники обрезался в однострочной quick-add. Разрешён перенос до трёх строк при большом шрифте; рост по высоте, minHeight 48. После правки Источники PASS (pushkin-sources-audit-final-20261020.log); промежуточный прерванный тест не учитывается.
+- testAccessibilityXXXLSetupAndCoverageNavigation после правки PASS (pushkin-setup-axxxl-after-audit-20261020.log): quick-add → каталог → действие подключения.
+- Итого три основных экрана Пушкина прошли системный аудит 3/3. НЕ тестировались все модальные окна, detail screens, реальные Shortcuts, rotor и физический iPhone.
+- PDF VoiceOver после нового прогона xcodebuild BUILD INTERRUPTED в момент включения службы; ранее фактические фразы PDF получены, но тестовое завершение не PASS. PDF-тест остаётся opt-in.
