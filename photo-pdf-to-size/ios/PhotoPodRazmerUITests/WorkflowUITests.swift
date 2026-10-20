@@ -316,11 +316,11 @@ final class WorkflowUITests: XCTestCase {
 
     func testPixelAndDocumentModesWithPhotoFixture() {
         let app = launch("--qa-photo-fixture")
-        let pixels = app.buttons["По размеру"]
+        let pixels = app.buttons["mode-pixels"]
         XCTAssertTrue(pixels.waitForExistence(timeout: 8))
         pixels.tap()
         XCTAssertTrue(app.buttons["Изменить размер"].waitForExistence(timeout: 8))
-        app.buttons["На документы"].tap()
+        app.buttons["mode-passport"].tap()
         XCTAssertTrue(app.buttons["Подготовить фото"].waitForExistence(timeout: 8))
     }
 

@@ -14,13 +14,13 @@ struct MainTaskCard: View {
         VStack(alignment: .leading, spacing: 10) {
             switch model.mode {
             case .fileSize:
-                taskHeader(tr("ПО ВЕСУ"), tr("Уменьшить фото до нужного веса"))
+                taskHeader(tr("СЖАТЬ ФОТО"), tr("Уменьшить размер файла до нужного значения"))
                 sourceRow
                 presetRow
                 if model.isCustomTarget { customSizeRow }
                 advancedOptionsRow
             case .pixels:
-                taskHeader(tr("ПО РАЗМЕРУ"), tr("Изменить размер в пикселях"))
+                taskHeader(tr("ИЗМЕНИТЬ РАЗМЕР"), tr("Изменить размер в пикселях"))
                 sourceRow
                 pixelResizeModeRow
                 if model.pixelResizeMode == .longSide {
@@ -31,7 +31,7 @@ struct MainTaskCard: View {
                 }
                 advancedOptionsRow
             case .passport:
-                taskHeader(tr("НА ДОКУМЕНТЫ"), tr("Подготовить фото по требованиям документа"))
+                taskHeader(tr("ФОТО НА ДОКУМЕНТЫ"), tr("Подготовить фото по требованиям документа"))
                 documentPresetRow
                 sourceRow
                 infoBox(model.documentPreset.outputSummary + "\n" + model.documentPreset.guidance)
@@ -169,7 +169,7 @@ struct MainTaskCard: View {
 
     private var presetRow: some View {
         VStack(alignment: .leading, spacing: 7) {
-            Text("Максимальный вес")
+            Text(tr("Размер файла до"))
                 .font(.caption.weight(.semibold))
                 .foregroundStyle(.secondary)
             HStack(spacing: 5) {

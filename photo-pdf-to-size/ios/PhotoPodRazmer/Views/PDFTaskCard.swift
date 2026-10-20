@@ -11,10 +11,10 @@ struct PDFTaskCard: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             VStack(alignment: .leading, spacing: 3) {
-                Text(tr("PDF ПО ВЕСУ"))
+                Text(tr("СЖАТЬ PDF"))
                     .font(.caption.weight(.bold))
                     .foregroundStyle(Color.arvectumAccentText)
-                Text(tr("Уменьшить PDF до нужного веса"))
+                Text(tr("Сжать PDF до выбранного размера"))
                     .font(.title3.weight(.semibold))
                     .foregroundStyle(Color.arvectumPrimaryText)
             }
@@ -61,7 +61,7 @@ struct PDFTaskCard: View {
             }
 
             VStack(alignment: .leading, spacing: 7) {
-                Text(tr("Максимальный вес"))
+                Text(tr("Размер файла до"))
                     .font(.caption.weight(.semibold))
                     .foregroundStyle(.secondary)
                 HStack(spacing: 5) {

@@ -141,3 +141,18 @@
 "страница" = "page";
 "страниц" = "pages";
 "PDF обработан локально на устройстве и никуда не загружался." = "The PDF was processed locally on your device and was not uploaded anywhere.";
+
+"Сжать" = "Compress";
+"Размер фото" = "Resize";
+"Документы" = "ID photo";
+"Сжать файл" = "Compress file";
+"Фото на документы" = "ID photo";
+"Обработать PDF" = "Work with PDF";
+"СЖАТЬ ФОТО" = "COMPRESS PHOTO";
+"ИЗМЕНИТЬ РАЗМЕР" = "RESIZE PHOTO";
+"ФОТО НА ДОКУМЕНТЫ" = "ID PHOTO";
+"Уменьшить размер файла до нужного значения" = "Reduce the file to your size limit";
+"Размер файла до" = "File size limit";
+
+"СЖАТЬ PDF" = "COMPRESS PDF";
+"Сжать PDF до выбранного размера" = "Compress PDF to a selected file size";

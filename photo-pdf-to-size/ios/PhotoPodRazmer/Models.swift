@@ -29,9 +29,19 @@ enum ToolMode: String, CaseIterable, Identifiable {
 
     var title: String {
         switch self {
-        case .fileSize: return tr("По весу")
-        case .pixels: return tr("По размеру")
-        case .passport: return tr("На документы")
+        case .fileSize: return tr("Сжать")
+        case .pixels: return tr("Размер фото")
+        case .passport: return tr("Документы")
+        }
+    }
+
+    // Full action names for VoiceOver; compact chip text is intentionally
+    // short so four modes fit on narrow phones without 0.72x text scaling.
+    var accessibilityTitle: String {
+        switch self {
+        case .fileSize: return tr("Сжать файл")
+        case .pixels: return tr("Изменить размер")
+        case .passport: return tr("Фото на документы")
         }
     }
 }

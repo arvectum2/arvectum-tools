@@ -74,6 +74,9 @@ struct ModeSelector: View {
                         .frame(height: 46)
                 }
                 .buttonStyle(.plain)
+                .accessibilityIdentifier("mode-\(item.rawValue)")
+                .accessibilityLabel(Text(item.accessibilityTitle))
+                .accessibilityAddTraits(kind == .photo && mode == item ? [.isSelected] : [])
                 .foregroundStyle(Color.arvectumPrimaryText)
                 .background(
                     kind == .photo && mode == item ? Color.arvectumMint : Color.arvectumSurface,
@@ -95,6 +98,9 @@ struct ModeSelector: View {
                     .frame(height: 46)
             }
             .buttonStyle(.plain)
+            .accessibilityIdentifier("mode-pdf")
+            .accessibilityLabel(Text(tr("Обработать PDF")))
+            .accessibilityAddTraits(kind == .pdf ? [.isSelected] : [])
             .foregroundStyle(Color.arvectumPrimaryText)
             .background(
                 kind == .pdf ? Color.arvectumMint : Color.arvectumSurface,
