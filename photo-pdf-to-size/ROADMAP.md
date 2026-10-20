@@ -11,7 +11,7 @@
 - [x] P1: DEBUG рекламные состояния loaded 180pt и no-fill 1pt: 2/2 UI PASS. Область рекламы не перекрывает экспорт и приватность. Согласие/отказ при AXXXL: 1/1 UI PASS.
 - [x] P1: отмена CocoaError.userCancelled не вызывает ложную ошибку записи; unit PASS, настоящие ошибки записи сохранены.
 - [ ] P1: физический Files cancel и независимая проверка байтов/провайдеров, реальные Yandex Ads / consent / no-fill, VoiceOver, iPad. На iOS 27 UI-автоматизация отмены не подтвердилась (нет Cancel в папке «На iPhone», нестабильное закрытие модального окна).
-- [ ] P1: проверить более понятные режимы «Сжать файл / Изменить размер / Фото на документы» и все локали.
+- [x] D4.2 (20.10): короткие режимы «Сжать / Размер / Документы / PDF» (EN Compress / Resize / ID photo / PDF), полные VoiceOver-формулировки и стабильные mode-ID. «Максимальный вес» → «Размер файла до» для фото/PDF. **RU/EN копирайт UI PASS, RU/EN × Light/Dark layout PASS, режимы и PDF Save PASS**; лог design-d4-photo-mode-copy-ui-20261020.log и design-d4-photo-copy-locales-20261020.log. Физические/все accessibility-комбинации отдельно.
 - [ ] P1: явно показывать результат до/после и «Изменить параметры», не ломая экспорт.
 - [ ] P1: VoiceOver, Dynamic Type, портрет/ландшафт; сравнить before/after screenshot.
 
