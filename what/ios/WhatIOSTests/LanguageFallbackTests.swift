@@ -14,4 +14,16 @@ final class LanguageFallbackTests: XCTestCase {
         XCTAssertEqual(CaptureBrand.defaultTranscriptionLocale(for: "es"), "es-ES")
         XCTAssertEqual(CaptureBrand.defaultTranscriptionLocale(for: "en"), "en-US")
     }
+    func testNoteCountPluralFormsAreReadable() {
+        XCTAssertEqual(CaptureBrand.noteCount(0, language: "ru"), "0 заметок")
+        XCTAssertEqual(CaptureBrand.noteCount(1, language: "ru"), "1 заметка")
+        XCTAssertEqual(CaptureBrand.noteCount(2, language: "ru"), "2 заметки")
+        XCTAssertEqual(CaptureBrand.noteCount(5, language: "ru"), "5 заметок")
+        XCTAssertEqual(CaptureBrand.noteCount(11, language: "ru"), "11 заметок")
+        XCTAssertEqual(CaptureBrand.noteCount(21, language: "ru"), "21 заметка")
+        XCTAssertEqual(CaptureBrand.noteCount(114, language: "ru"), "114 заметок")
+        XCTAssertEqual(CaptureBrand.noteCount(1, language: "en"), "1 note")
+        XCTAssertEqual(CaptureBrand.noteCount(25, language: "en"), "25 notes")
+        XCTAssertEqual(CaptureBrand.noteCount(1, language: "de"), "1 note")
+    }
 }

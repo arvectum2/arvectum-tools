@@ -45,6 +45,32 @@ enum CaptureBrand {
     static func text(_ russian: String, _ english: String) -> String {
         isRussian ? russian : english
     }
+
+    /// The older fixed "N notes" label fails for singular and Russian plurals.
+    /// Add locale-specific plurals as .stringsdict resources with the next
+    /// language-pack implementation; do not claim any new locale here.
+    static func noteCount(_ count: Int, language: String) -> String {
+        if language == "ru" {
+            let lastTwo = count % 100
+            let lastDigit = count % 10
+            let form: String
+            if (11...14).contains(lastTwo) {
+                form = "заметок"
+            } else if lastDigit == 1 {
+                form = "заметка"
+            } else if (2...4).contains(lastDigit) {
+                form = "заметки"
+            } else {
+                form = "заметок"
+            }
+            return "\(count) \(form)"
+        }
+        return "\(count) \(count == 1 ? "note" : "notes")"
+    }
+
+    static func noteCount(_ count: Int) -> String {
+        noteCount(count, language: isRussian ? "ru" : "en")
+    }
 }
 
 /// Use one stable URL for the production Watch app and its complication.

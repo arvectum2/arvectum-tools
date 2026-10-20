@@ -177,7 +177,7 @@ private struct AutomationGroupRow: View {
             .accessibilityIdentifier("copy-group-\(index + 1)")
         } label: {
             HStack {
-                Text("\(pc("Group")) \(index + 1)")
+                Text(String(format: pc("Group %d"), index + 1))
                 Spacer()
                 Text(PushkinCopy.appCount(entries.count))
                     .foregroundStyle(.secondary)

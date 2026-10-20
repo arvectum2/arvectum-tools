@@ -35,3 +35,54 @@ Date: 20.10.2026. Repository: arvectum-tools. Branch: feature/portfolio-design-i
 After merge, building the ArvectumNotify iOS target succeeded. Other attempted merged-tree iOS builds are **not accepted**: ChickMark and Photo encountered a KSCrash Swift Package header-search failure (`KSCrashNamespace.h`) in target-only builds using shared DerivedData; a generic simulator scheme invocation also could not compile the watchOS app icon as an iOS asset, and the What build was interrupted. These attempts do not prove an i18n source regression, but must not be counted as green merged-tree builds. A clean app-scheme iOS simulator matrix remains an explicit pre-integration gate. Earlier D4.6 4/4 PASS describes the unmerged design source only.
 
 Final Android repeat (after removing Russian-only unused SizeUnit labels): `android-final5.log`, `assembleDebug` and `testDebugUnitTest` BUILD SUCCESSFUL, 6 JVM tests; app source was not published.
+
+
+## L2 follow-on — same day
+
+- Reviewed remaining interpolation in active SwiftUI screens. Added
+  core/tools/localization_portfolio.py --inventory-dynamic and a JSON source
+  risk register (17 candidate expressions at this checkpoint); it is not a
+  complete translation catalog.
+- Added Pushkin pc() literal extraction (+70 previously omitted English keys,
+  now 151 in its main bundle) and made its group label a position-independent
+  format string: Group %d / Группа %d.
+- What displayed note counts now inflect 1/2/5/11/21 correctly in Russian and
+  1 vs several in English; language-specific unit checks added. Remaining
+  locales and native .stringsdict plurals are unimplemented.
+- Xcode iOS build on clean, isolated derived data after merge: Pushkin,
+  Photo/PDF, and What simulator app schemes succeeded. Prior tests from
+  unmerged design branch do not count towards these.
+- ChickMark's clean merged branch app-scheme build still requires retry;
+  the previous build was interrupted, and target-only retries had a KSCrash
+  header error. Do not mark four of four green yet.
+- Device, live integration and release gates remain unchanged.
+
+
+## L3.1 Spanish Android source pack
+
+- Added complete Spanish values-es/strings.xml with 93 genuinely translated
+  UI, status, sizes and processing-error phrases, not English copies.
+- English/Russian/Spanish resource keys and format arguments pass the shared
+  localization audit; six Python localization tests pass.
+- Android Gradle assembleDebug and testDebugUnitTest are green with Spanish
+  resources; log android-spanish.log.
+- Draft needs human editorial/physical-device review. No store submission.
+- ChickMark's merged simulator build remains unconfirmed because the last
+  attempt was interrupted without a successful exit status.
+
+
+## Final checks and design follow-up
+
+- Pushkin with the new Group format compiled successfully on an isolated
+  iOS Simulator build (pushkin-l2.log).
+- What with corrected note counts compiled successfully in an isolated iOS
+  Simulator build (isolated-what-v2.log). Direct Foundation/Swift binary QA
+  validated 12 Russian and English count cases. The targeted XCTest attempt
+  was interrupted, so it is not reported as a passing XCTest suite.
+- Android file-size UI was made more localization-friendly: three mode
+  controls grow vertically, allow up to three lines, primary/secondary
+  buttons use minimum heights instead of fixed heights, and the header can
+  wrap its translated title. Final offline Gradle build and 6 JVM tests are
+  green in android-spanish-layout-final.log.
+- English default Android locale remains unchanged for unsupported system
+  languages. Neither Spanish screen QA nor native translator review is done.

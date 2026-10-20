@@ -31,6 +31,9 @@ SWIFT_UI = re.compile(
 # Compare argument types/count; numbered arguments may legitimately change order.
 PRINTF = re.compile(r'(?<!%)%(?:[1-9]\d*\$)?(?:[-+0#]*\d*(?:\.\d+)?)?(lld|ld|@|d|i|u|f|g|s|c)')
 CAPTURE_BRAND = re.compile(r'CaptureBrand\.text\(\s*"((?:\\.|[^"\\])*)"\s*,\s*"((?:\\.|[^"\\])*)"')
+# Pushkin currently renders these keys through its RU/EN copy catalog.
+PUSHKIN_COPY_CALL = re.compile(r'(?<![\w])pc\(\s*"((?:\\.|[^"\\])*)"')
+
 QA_DIRS = ("Tests", "UITests", "QA", "Fixtures", "Preview")
 APP_SOURCE_DIRS = {
     "pushkin/ios/ArvectumNotify/Resources": ROOT / "pushkin/ios/ArvectumNotify",
@@ -66,7 +69,7 @@ def read_strings(path: Path, errors: list[str]) -> dict[str, str]:
 def discover_english_keys(bundle: str, src: Path) -> set[str]:
     keys: set[str] = set()
     for swift in sorted(src.rglob("*.swift")):
-        if any(part in swift.name for part in QA_DIRS):
+        if any(marker in component for component in swift.parts for marker in QA_DIRS):
             continue
         raw = swift.read_text(encoding="utf-8")
         for match in SWIFT_UI.finditer(raw):
@@ -76,6 +79,11 @@ def discover_english_keys(bundle: str, src: Path) -> set[str]:
             if "\n" in value or value.startswith("system.") or len(value) > 600:
                 continue
             keys.add(value)
+        if bundle.startswith("pushkin/"):
+            for match in PUSHKIN_COPY_CALL.finditer(raw):
+                english = match.group(1)
+                if english and r"\(" not in english:
+                    keys.add(english)
         # CaptureBrand currently manages RU/EN strings manually.
         if bundle.startswith("what/"):
             for match in CAPTURE_BRAND.finditer(raw):
@@ -83,6 +91,50 @@ def discover_english_keys(bundle: str, src: Path) -> set[str]:
                 if english and r"\(" not in english:
                     keys.add(english)
     return keys
+
+
+# Review-only inventory: interpolation is not a completed localization.
+DYNAMIC_APP_DIRS = {
+    "chickmark": ROOT / "chickmark/ios",
+    "pushkin": ROOT / "pushkin/ios/ArvectumNotify",
+    "what": ROOT / "what/ios",
+    "photo-pdf-to-size": ROOT / "photo-pdf-to-size/ios/PhotoPodRazmer",
+}
+DYNAMIC_CAPTURE = re.compile(
+    r'CaptureBrand\.text\(\s*"((?:\\.|[^"\\])*)"\s*,\s*"((?:\\.|[^"\\])*)"'
+)
+
+
+def dynamic_inventory() -> list[dict[str, str | int]]:
+    findings: list[dict[str, str | int]] = []
+    seen: set[tuple[str, int, str]] = set()
+    for app, root in DYNAMIC_APP_DIRS.items():
+        for file in sorted(root.rglob("*.swift")):
+            if any(marker in component for component in file.parts for marker in QA_DIRS):
+                continue
+            body = file.read_text(encoding="utf-8")
+            candidates: list[tuple[str, re.Match[str]]] = [
+                ("swiftui-interpolation", match)
+                for match in SWIFT_UI.finditer(body) if r"\(" in match.group(1)
+            ]
+            if app == "what":
+                candidates += [
+                    ("capturebrand-interpolation", match)
+                    for match in DYNAMIC_CAPTURE.finditer(body)
+                    if r"\(" in match.group(1) or r"\(" in match.group(2)
+                ]
+            for kind, match in candidates:
+                line = body.count("\n", 0, match.start()) + 1
+                signature = (str(file), line, kind)
+                if signature in seen:
+                    continue
+                seen.add(signature)
+                findings.append({
+                    "app": app, "file": str(file.relative_to(ROOT)),
+                    "line": line, "kind": kind, "source": match.group(0),
+                    "status": "requires-review",
+                })
+    return sorted(findings, key=lambda x: (str(x["app"]), str(x["file"]), int(x["line"])))
 
 
 def extract_english() -> None:
@@ -116,7 +168,11 @@ def android_catalog_audit(doc: dict, errors: list[str], *, report: bool = False)
     resources = ROOT / app["resources"]
     base = resources / "values/strings.xml"
     expected = None
-    for directory in (resources / "values", resources / "values-ru"):
+    directories = [resources / "values"] + sorted(
+        directory for directory in resources.glob("values-*")
+        if (directory / "strings.xml").exists()
+    )
+    for directory in directories:
         path = directory / "strings.xml"
         try:
             children = ET.parse(path).getroot()
@@ -139,8 +195,10 @@ def android_catalog_audit(doc: dict, errors: list[str], *, report: bool = False)
             for key in set(expected) & set(values):
                 if placeholders(expected[key]) != placeholders(values[key]):
                     errors.append(f"Android {directory.name}/{key}: format arguments differ")
-            if values.get("app_name") != "Фото под размер":
+            if directory.name == "values-ru" and values.get("app_name") != "Фото под размер":
                 errors.append("Android Russian app label unexpectedly changed")
+            if directory.name == "values-es" and values.get("app_name") != "Redimensionar fotos":
+                errors.append("Android Spanish app label unexpectedly changed")
     if expected is not None:
         kotlin_root = ROOT / "photo-pdf-to-size/android/app/src/main/java"
         references: set[str] = set()
@@ -153,7 +211,8 @@ def android_catalog_audit(doc: dict, errors: list[str], *, report: bool = False)
         if references - set(expected):
             errors.append(f"Android unknown string resource IDs: {sorted(references - set(expected))}")
         if report:
-            print(f"photo-pdf-to-size Android {len(expected)} EN/RU keys; 48 target translations pending")
+            languages = [d.name.removeprefix("values-") for d in directories[1:]]
+            print(f"photo-pdf-to-size Android {len(expected)} keys; English source, draft locales: {', '.join(languages)}")
 
 
 
@@ -263,13 +322,21 @@ def export_sources(doc: dict, destination: Path) -> None:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--extract-english", action="store_true")
+    parser.add_argument("--inventory-dynamic", action="store_true")
     parser.add_argument("--audit", action="store_true")
     parser.add_argument("--report", action="store_true")
     parser.add_argument("--export-sources", metavar="DIRECTORY", type=Path)
     args = parser.parse_args()
-    if not any((args.extract_english, args.audit, args.report, args.export_sources)):
-        parser.error("Specify --extract-english, --audit or --report")
+    if not any((args.extract_english, args.audit, args.report, args.export_sources, args.inventory_dynamic)):
+        parser.error("Specify --extract-english, --audit, --inventory-dynamic or --report")
     doc = config()
+    if args.inventory_dynamic:
+        print(json.dumps({
+            "status": "source-risk-inventory-not-translations",
+            "findings": dynamic_inventory(),
+        }, ensure_ascii=False, indent=2))
+        if not any((args.audit, args.report, args.export_sources, args.extract_english)):
+            return 0
     if args.extract_english:
         extract_english()
     if args.export_sources:

@@ -137,7 +137,7 @@ struct RecordingLibraryView: View {
                                 systemImage: "internaldrive"
                             )
                             .fixedSize(horizontal: false, vertical: true)
-                            Text(CaptureBrand.text("Заметок: \(visibleNotes.count)", "\(visibleNotes.count) notes"))
+                            Text(CaptureBrand.noteCount(visibleNotes.count))
                                 .monospacedDigit()
                         }
                         .frame(maxWidth: .infinity, alignment: .leading)
@@ -146,7 +146,7 @@ struct RecordingLibraryView: View {
                             Image(systemName: "internaldrive")
                             Text(CaptureBrand.text("Сохранено на устройстве", "Saved on this device"))
                             Spacer()
-                            Text(CaptureBrand.text("Заметок: \(visibleNotes.count)", "\(visibleNotes.count) notes"))
+                            Text(CaptureBrand.noteCount(visibleNotes.count))
                                 .monospacedDigit()
                         }
                     }

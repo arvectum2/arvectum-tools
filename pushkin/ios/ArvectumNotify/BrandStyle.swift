@@ -311,6 +311,7 @@ enum PushkinCopy {
         "Selected": "Выбрано",
         "Not selected": "Не выбрано",
         "Group": "Группа",
+        "Group %d": "Группа %d",
     ]
 }
 

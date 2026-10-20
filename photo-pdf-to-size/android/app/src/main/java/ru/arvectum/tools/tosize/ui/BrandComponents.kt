@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -71,8 +72,9 @@ fun BrandHeader(
                 color = ArvectumWhite,
                 fontSize = 17.sp,
                 fontWeight = FontWeight.SemiBold,
-                maxLines = 1,
+                maxLines = 2,
                 overflow = TextOverflow.Ellipsis,
+                textAlign = TextAlign.End,
             )
         }
     }
@@ -158,7 +160,7 @@ private fun ModeButton(
         onClick = onClick,
         enabled = enabled,
         modifier = modifier
-            .height(48.dp)
+            .heightIn(min = 56.dp)
             .semantics {
                 this.selected = selected
                 role = Role.Tab
@@ -171,12 +173,12 @@ private fun ModeButton(
         Box(contentAlignment = Alignment.Center) {
             Text(
                 text = label,
-                modifier = Modifier.padding(horizontal = 4.dp),
+                modifier = Modifier.padding(horizontal = 6.dp, vertical = 8.dp),
                 fontSize = 12.sp,
                 fontWeight = FontWeight.SemiBold,
                 textAlign = TextAlign.Center,
-                maxLines = 1,
-                overflow = TextOverflow.Clip,
+                maxLines = 3,
+                overflow = TextOverflow.Ellipsis,
             )
         }
     }
@@ -219,7 +221,7 @@ fun BrandPrimaryButton(
         enabled = enabled,
         modifier = modifier
             .fillMaxWidth()
-            .height(52.dp),
+            .heightIn(min = 52.dp),
         shape = RoundedCornerShape(16.dp),
         colors = ButtonDefaults.buttonColors(
             containerColor = MaterialTheme.colorScheme.primary,
@@ -255,7 +257,7 @@ fun BrandSecondaryButton(
         enabled = enabled,
         modifier = modifier
             .fillMaxWidth()
-            .height(52.dp),
+            .heightIn(min = 52.dp),
         shape = RoundedCornerShape(16.dp),
         border = BorderStroke(
             1.dp,

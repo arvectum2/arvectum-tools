@@ -281,10 +281,10 @@
         "photo-pdf-to-size/ios/PhotoPodRazmer/Resources"
       ],
       "android": {
-        "status": "en-ru-resources-in-feature-branch",
+        "status": "en-ru-es-source-catalogs-in-feature-branch",
         "sourceLocale": "en",
         "resources": "photo-pdf-to-size/android/app/src/main/res",
-        "note": "English default + Russian catalog for Android Compose UI and typed backend errors. QA/48 additional languages pending; not shipped."
+        "note": "English default, Russian and draft Spanish localized resources (93 keys each). Additional 47 translations, physical QA and editorial review pending; not shipped."
       }
     },
     "where": {

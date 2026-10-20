@@ -26,6 +26,7 @@ The machine-readable source of truth is `portfolio-locales.json`. Script and reg
 
 ```bash
 python3 core/tools/localization_portfolio.py --extract-english
+python3 core/tools/localization_portfolio.py --inventory-dynamic > core/localization/dynamic-source-inventory.json
 python3 core/tools/localization_portfolio.py --audit
 python3 core/tools/localization_portfolio.py --report
 python3 core/tools/localization_portfolio.py --export-sources /Volumes/ArvectumSSD/Arvectum/tmp/i18n-sources
@@ -42,13 +43,36 @@ The English extraction covers **only unambiguous static SwiftUI literals** and n
 | Фото/PDF | en/ru, corrected English fallback | 48 languages, visual QA |
 | Pushkin | extracted English static UI catalog | Dynamic keys, 49 translated catalogs |
 | Ухват | extracted English baseline; fixed unsupported-language fallback | Dynamic keys, 49 translations, separate interface and speech choices |
-| Фото/PDF Android | English default Android resources, Russian translation of UI and typed errors (92 resource keys) | Android device/visual QA, 48 real translations, RTL/plurals and permission check |
+| Фото/PDF Android | EN default + RU and ES draft resources (93 keys per catalog) | Android device/visual QA, 47 more translations, RTL/plurals and permission check |
 | Where? | no active app binary | adopt shared registry when resumed |
 
 ### Android baseline — 20 October 2026
 
-In integration branch feature/portfolio-design-i18n-20261020, Android Photo Resizer now has an English default resources catalog and a Russian catalog (93 keys). Compose UI, file sizes and typed processing errors use resources. The decimal unit calculation stays JVM-testable.
+In integration branch feature/portfolio-design-i18n-20261020, Android Photo Resizer now has an English default resources catalog, a Russian catalog and a Spanish draft (93 keys each). Compose UI, file sizes and typed processing errors use resources. The decimal unit calculation stays JVM-testable.
 
-Verified locally on Mac mini with JDK 17 and SDK 37: assembleDebug and testDebugUnitTest BUILD SUCCESSFUL, plus catalog audit. No physical Android UI QA, other 48 translations or store release has happened.
+Verified locally on Mac mini with JDK 17 and SDK 37: assembleDebug and testDebugUnitTest BUILD SUCCESSFUL, plus catalog audit. Spanish is in a machine-linted draft pack, unreviewed on a physical Android device. No other 47 translations or store release has happened.
 
 Next stages for **each app**: finish dynamic string extraction → translate each target locale → review sensitive wording and plural/RTL rules → check permissions, watch/widgets and screenshots → approve individual release. No new locales are claimed as shipped by this change.
+
+
+## Dynamic interpolation audit (source-only)
+
+The inventory file tracks interpolated SwiftUI and bilingual CaptureBrand
+phrases still requiring deliberate formatting/plural/RTL review. It includes
+app/file/line and does **not** mark a language pack complete. Generated rows
+are not translation entries or proof of complete coverage of computed text,
+notifications, Shortcuts, consent, or watchOS. New strings called with
+Pushkin's pc() helper are now automatically included in the canonical
+English source keys; Russian remains the existing code-based mapping.
+
+Completed runtime microcopy fixes: plural-sensitive note count in Ухват
+(RU/EN), and a single format template for Pushkin's numbered group title.
+All further languages require actual strings and language-specific QA.
+
+
+### Spanish Android source pack
+
+The Android values-es/strings.xml contains 93 translated UI and error texts,
+with positional placeholders. This is not a linguistic proofreading, device
+QA, or store release. Source catalogs now cover EN, RU and draft ES.
+Remaining Android languages: 47.

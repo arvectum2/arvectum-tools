@@ -23,6 +23,21 @@ class LocalizationPortfolioTests(unittest.TestCase):
         self.assertNotEqual(i18n.placeholders("%d of %@"), i18n.placeholders("%@"))
         self.assertEqual(i18n.placeholders("Print at 100% scale"), {})
 
+    def test_dynamic_source_inventory_reports_untranslated_interpolation(self):
+        findings = i18n.dynamic_inventory()
+        self.assertTrue(findings)
+        self.assertTrue(any(item["app"] == "what" for item in findings))
+        self.assertTrue(any(item["app"] == "photo-pdf-to-size" for item in findings))
+        self.assertTrue(all(item["status"] == "requires-review" for item in findings))
+
+    def test_android_spanish_draft_has_real_ui_copy(self):
+        from xml.etree import ElementTree
+        spanish = ROOT / "photo-pdf-to-size/android/app/src/main/res/values-es/strings.xml"
+        strings = {child.attrib["name"]: child.text for child in ElementTree.parse(spanish).getroot()}
+        self.assertEqual(strings["app_name"], "Redimensionar fotos")
+        self.assertIn("dispositivo", strings["your_photo_is_processed_only_on_this_device"])
+        self.assertIn("%1$s", strings["compress_to"])
+
     def test_existing_catalogs(self):
         self.assertEqual(i18n.audit(i18n.config()), 0)
 
