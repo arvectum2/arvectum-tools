@@ -265,6 +265,8 @@
 "restart.settings.enable" = "Sugerir volver a un hábito";
 "restart.settings.threshold" = "Después de una pausa";
 "restart.settings.explanation" = "Desactivado por defecto. Ofrece una invitación discreta tras una pausa. No modifica registros, omisiones, rachas ni horarios. Ajuste local de este iPhone.";
+"restart.settings.shortTitle" = "Volver";
+"restart.settings.disabledHint" = "Activa Volver con calma para elegir el intervalo.";
 "restart.days" = "%d días";
 "restart.card.title" = "¿Te apetece retomar?";
 "restart.card.description" = "Tu progreso anterior sigue aquí. Puedes volver a un hábito cuando quieras.";

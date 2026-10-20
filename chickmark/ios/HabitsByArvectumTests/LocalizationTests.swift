@@ -58,6 +58,8 @@ final class LocalizationTests: XCTestCase {
         "oneoff.complete",
         "oneoff.edit",
         "oneoff.actions",
+        "restart.settings.shortTitle",
+        "restart.settings.disabledHint",
         "oneoff.delete",
         "oneoff.today.format",
         "oneoff.tomorrow.format",
