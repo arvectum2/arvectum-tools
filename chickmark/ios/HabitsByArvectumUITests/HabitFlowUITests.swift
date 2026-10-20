@@ -16,6 +16,11 @@ final class HabitFlowUITests: XCTestCase {
 
     func testTodaySystemAccessibilityAudit() throws {
         XCTAssertTrue(app.buttons["Manage habits"].waitForExistence(timeout: 8))
+        // First-run empty state must have a real, unclipped secondary CTA.
+        let oneOff = app.buttons["One-time reminder"]
+        XCTAssertTrue(oneOff.waitForExistence(timeout: 8))
+        XCTAssertTrue(oneOff.isHittable)
+        XCTAssertGreaterThanOrEqual(oneOff.frame.height, 44)
         let categories: XCUIAccessibilityAuditType = [
             .sufficientElementDescription, .hitRegion, .trait, .textClipped
         ]
@@ -72,7 +77,13 @@ final class HabitFlowUITests: XCTestCase {
         let manage = app.buttons["Manage habits"]
         XCTAssertTrue(manage.waitForExistence(timeout: 8))
         manage.tap()
-        XCTAssertTrue(app.buttons["manage.language"].waitForExistence(timeout: 10))
+        // The settings now follow the habit rows in a lazy List. An
+        // off-screen control need not exist in XCUI until scrolled into view.
+        let language = app.buttons["manage.language"]
+        for _ in 0..<8 where !language.exists {
+            app.swipeUp()
+        }
+        XCTAssertTrue(language.waitForExistence(timeout: 10))
         let categories: XCUIAccessibilityAuditType = [
             .sufficientElementDescription, .hitRegion, .trait, .textClipped
         ]

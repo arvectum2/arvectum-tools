@@ -38,7 +38,7 @@ struct SetupGuideView: View {
                         .minimumScaleFactor(0.85)
                         .fixedSize(horizontal: false, vertical: true)
                         .frame(maxWidth: .infinity)
-                        .frame(minHeight: 48)
+                        .frame(minHeight: ArvectumDesignMetrics.preferredControlHeight)
                 }
                 .accessibilityIdentifier("setup-quick-add")
                 .padding(.horizontal, 14)

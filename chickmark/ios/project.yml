@@ -26,6 +26,7 @@ targets:
       - path: ../../core/packages/ArvectumPersistence/ArvectumJSONCodec.swift
       - path: ../../core/packages/ArvectumInterapp/ReviewNoteHandoff.swift
       - path: ../../core/packages/ArvectumDesignTokens/ArvectumPalette.swift
+      - path: ../../core/packages/ArvectumDesignTokens/ArvectumDesignSystem.swift
       - path: ../../core/packages/ArvectumAdaptiveLayout/ArvectumAdaptiveLayout.swift
       - path: ../../core/packages/ArvectumStore/AppStoreUpdatePrompt.swift
       - path: HabitsByArvectum

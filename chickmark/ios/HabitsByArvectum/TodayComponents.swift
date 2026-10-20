@@ -126,7 +126,9 @@ struct TodaySummary: View {
                 .scaleEffect(x: 1, y: 1.5)
         }
         .padding(16)
-        .background(Color.habitsSurface, in: RoundedRectangle(cornerRadius: 20))
+        .background(Color.habitsSurface, in: RoundedRectangle(
+            cornerRadius: ArvectumDesignMetrics.cardCornerRadius
+        ))
         // A progress-only VoiceOver utterance ("0 of 2, 0%") does not
         // identify which period is being measured. State the localised
         // day context explicitly, then the count and percent as the value.

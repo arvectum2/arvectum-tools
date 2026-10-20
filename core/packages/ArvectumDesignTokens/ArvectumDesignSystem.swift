@@ -16,6 +16,9 @@ public enum ArvectumDesignMetrics {
     public static let compactHorizontalInset: CGFloat = 16
     public static let minimumTouchTarget: CGFloat = 44
     public static let preferredControlHeight: CGFloat = 48
+    /// Large Dynamic Type action rows with comfortably separated hit regions.
+    /// Opt in when a compact UIKit toolbar cannot expand its actual hit area.
+    public static let accessibilityActionSize: CGFloat = 64
     public static let controlCornerRadius: CGFloat = 14
     public static let cardCornerRadius: CGFloat = 20
 }

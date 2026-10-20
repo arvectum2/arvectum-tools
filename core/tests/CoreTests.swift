@@ -26,6 +26,9 @@ final class ArvectumCoreTests: XCTestCase {
         XCTAssertGreaterThanOrEqual(ArvectumDesignMetrics.preferredControlHeight,
                                     ArvectumDesignMetrics.minimumTouchTarget)
         XCTAssertEqual(ArvectumDesignMetrics.spaceL, 16)
+        XCTAssertEqual(ArvectumDesignMetrics.accessibilityActionSize, 64)
+        XCTAssertGreaterThanOrEqual(ArvectumDesignMetrics.accessibilityActionSize,
+                                    ArvectumDesignMetrics.minimumTouchTarget)
         XCTAssertGreaterThan(ArvectumDesignMetrics.cardCornerRadius,
                              ArvectumDesignMetrics.controlCornerRadius)
     }

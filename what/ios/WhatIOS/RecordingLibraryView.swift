@@ -1,4 +1,5 @@
 import SwiftUI
+import ArvectumCore
 
 struct RecordingLibraryView: View {
     let openCaptureHome: () -> Void
@@ -329,7 +330,7 @@ struct RecordingLibraryView: View {
             .frame(maxWidth: 960)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color(uiColor: .systemGroupedBackground))
-            .tint(Color(red: 67 / 255, green: 229 / 255, blue: 197 / 255))
+            .tint(ArvectumSemanticColors.actionBackground)
             .sheet(isPresented: $showDiagnostics) {
                 SyncDiagnosticsView()
                     .environmentObject(store)
@@ -391,8 +392,8 @@ struct RecordingLibraryView: View {
             libraryTextAction
             librarySettingsAction
         }
-        .padding(.horizontal, 16)
-        .padding(.vertical, 8)
+        .padding(.horizontal, ArvectumDesignMetrics.compactHorizontalInset)
+        .padding(.vertical, ArvectumDesignMetrics.spaceS)
         .frame(maxWidth: .infinity)
         .background(Color(uiColor: .secondarySystemGroupedBackground))
     }
@@ -405,7 +406,10 @@ struct RecordingLibraryView: View {
                     // accessibility label and is spoken by VoiceOver.
                     Image(systemName: "mic.fill")
                         .font(.title2)
-                        .frame(minWidth: 64, minHeight: 64)
+                        .frame(
+                            minWidth: ArvectumDesignMetrics.accessibilityActionSize,
+                            minHeight: ArvectumDesignMetrics.accessibilityActionSize
+                        )
                 } else {
                     Label(CaptureBrand.text("Записать", "Record"), systemImage: "mic.fill")
                         .font(.subheadline.weight(.semibold))
@@ -426,7 +430,10 @@ struct RecordingLibraryView: View {
         } label: {
             Image(systemName: "plus")
                 .font(.title2.weight(.medium))
-                .frame(minWidth: 64, minHeight: 64)
+                .frame(
+                    minWidth: ArvectumDesignMetrics.accessibilityActionSize,
+                    minHeight: ArvectumDesignMetrics.accessibilityActionSize
+                )
                 .contentShape(Rectangle())
         }
         .accessibilityLabel(CaptureBrand.text("Создать текстовую заметку",
@@ -456,7 +463,10 @@ struct RecordingLibraryView: View {
         } label: {
             Image(systemName: "ellipsis.circle")
                 .font(.title2)
-                .frame(minWidth: 64, minHeight: 64)
+                .frame(
+                    minWidth: ArvectumDesignMetrics.accessibilityActionSize,
+                    minHeight: ArvectumDesignMetrics.accessibilityActionSize
+                )
                 .contentShape(Rectangle())
         }
         .accessibilityLabel(CaptureBrand.text("Настройки и диагностика",

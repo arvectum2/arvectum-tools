@@ -114,13 +114,13 @@ struct ContentView: View {
                             .lineLimit(1)
                             .minimumScaleFactor(0.75)
                             .frame(maxWidth: .infinity)
-                            .frame(minHeight: 48)
+                            .frame(minHeight: ArvectumDesignMetrics.preferredControlHeight)
                             .contentShape(Rectangle())
                     }
                     .buttonStyle(.plain)
-                    .foregroundStyle(Color.arvectumPrimaryText)
+                    .foregroundStyle(ArvectumSemanticColors.actionForeground)
                     .background(
-                        Color.arvectumMint,
+                        ArvectumSemanticColors.actionBackground,
                         in: RoundedRectangle(cornerRadius: 16, style: .continuous)
                     )
                     .accessibilityIdentifier("result-save-primary")

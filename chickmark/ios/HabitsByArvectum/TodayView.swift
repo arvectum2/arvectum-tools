@@ -131,7 +131,10 @@ struct TodayView: View {
                         } label: {
                             Image(systemName: "line.3.horizontal")
                                 .font(.system(size: 20, weight: .medium))
-                                .frame(width: 43, height: 44)
+                                .frame(
+                                    width: ArvectumDesignMetrics.minimumTouchTarget,
+                                    height: ArvectumDesignMetrics.minimumTouchTarget
+                                )
                                 .contentShape(Rectangle())
                         }
                         .accessibilityLabel(L10n.string("manage.accessibility"))
@@ -150,14 +153,20 @@ struct TodayView: View {
                         } label: {
                             Image(systemName: "plus")
                                 .font(.system(size: 22, weight: .medium))
-                                .frame(width: 43, height: 44)
+                                .frame(
+                                    width: ArvectumDesignMetrics.minimumTouchTarget,
+                                    height: ArvectumDesignMetrics.minimumTouchTarget
+                                )
                                 .contentShape(Rectangle())
                         }
                         .accessibilityLabel(L10n.string("common.add"))
                     }
                     .tint(.primary)
                     .fixedSize(horizontal: true, vertical: false)
-                    .background(Color.habitsSurface, in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+                    .background(Color.habitsSurface, in: RoundedRectangle(
+                        cornerRadius: ArvectumDesignMetrics.controlCornerRadius,
+                        style: .continuous
+                    ))
                     .overlay(RoundedRectangle(cornerRadius: 14, style: .continuous)
                         .strokeBorder(Color.primary.opacity(0.10), lineWidth: 1))
                 }
@@ -421,26 +430,58 @@ struct TodayView: View {
     }
 
     private var firstHabitEmptyState: some View {
-        ContentUnavailableView {
-            Label(L10n.string("today.empty.title"), systemImage: "checkmark.circle")
-        } description: {
-            Text(L10n.string("today.empty.description"))
-        } actions: {
-            VStack(spacing: 10) {
-                Button(L10n.string("habit.create")) {
-                    showingAddHabit = true
-                }
-                .buttonStyle(.borderedProminent)
-                .tint(Color.arvectumMint)
-                .foregroundStyle(Color.arvectumNavy)
+        // ContentUnavailableView constrains the actions to a short row:
+        // "One-time reminder" was clipped in the system AX audit. The empty
+        // state must scroll and let both CTAs wrap at Accessibility XXXL.
+        ScrollView {
+            VStack(spacing: ArvectumDesignMetrics.spaceL) {
+                Image(systemName: "checkmark.circle")
+                    .font(.system(size: 44))
+                    .foregroundStyle(Color.habitsSecondaryText)
+                    .accessibilityHidden(true)
+                Text(L10n.string("today.empty.title"))
+                    .font(.title2.weight(.semibold))
+                    .multilineTextAlignment(.center)
+                    .fixedSize(horizontal: false, vertical: true)
+                Text(L10n.string("today.empty.description"))
+                    .font(.body)
+                    .foregroundStyle(Color.habitsSecondaryText)
+                    .multilineTextAlignment(.center)
+                    .fixedSize(horizontal: false, vertical: true)
 
-                Button(L10n.string("add.menu.oneoff")) {
-                    showingAddOneOffReminder = true
+                VStack(spacing: ArvectumDesignMetrics.spaceM) {
+                    Button {
+                        showingAddHabit = true
+                    } label: {
+                        Text(L10n.string("habit.create"))
+                            .multilineTextAlignment(.center)
+                            .fixedSize(horizontal: false, vertical: true)
+                            .frame(maxWidth: .infinity)
+                            .frame(minHeight: ArvectumDesignMetrics.preferredControlHeight)
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .tint(Color.arvectumMint)
+                    .foregroundStyle(Color.arvectumNavy)
+
+                    Button {
+                        showingAddOneOffReminder = true
+                    } label: {
+                        Text(L10n.string("add.menu.oneoff"))
+                            .multilineTextAlignment(.center)
+                            .fixedSize(horizontal: false, vertical: true)
+                            .frame(maxWidth: .infinity)
+                            .frame(minHeight: ArvectumDesignMetrics.preferredControlHeight)
+                    }
+                    .buttonStyle(.bordered)
                 }
-                .buttonStyle(.bordered)
             }
+            .frame(maxWidth: 420)
+            .frame(maxWidth: .infinity)
+            .padding(.horizontal, ArvectumDesignMetrics.spaceXL)
+            .padding(.vertical, ArvectumDesignMetrics.spaceXXL)
         }
-        .padding()
+        .scrollIndicators(.hidden)
+        .accessibilityIdentifier("today.empty.state")
     }
 
     private var oneOffReminderSection: some View {
