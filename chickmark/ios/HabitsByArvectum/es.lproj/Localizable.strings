@@ -170,6 +170,9 @@
 "groups.none" = "Sin grupo";
 "groups.add" = "Nuevo grupo";
 "groups.delete" = "Eliminar grupo (conservar hábitos)";
+"groups.delete.short" = "Eliminar grupo";
+"groups.actions" = "Acciones del grupo";
+"groups.delete.keepHint" = "Los hábitos se conservan.";
 "groups.placeholder" = "Nombre del grupo";
 
 "backup.error.version" = "Esta versión de la copia de seguridad de ChickMark no es compatible.";

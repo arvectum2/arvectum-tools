@@ -191,6 +191,9 @@
 "groups.none" = "No group";
 "groups.add" = "New group";
 "groups.delete" = "Delete group (keep habits)";
+"groups.delete.short" = "Delete group";
+"groups.actions" = "Group actions";
+"groups.delete.keepHint" = "Habits are kept.";
 "groups.placeholder" = "Group name";
 
 "backup.error.version" = "Unsupported ChickMark backup version.";

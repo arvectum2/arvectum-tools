@@ -82,17 +82,39 @@ struct ManageHabitsView: View {
                             ForEach(members) { habit in
                                 habitLink(habit)
                             }
-                            Button(role: .destructive) {
-                                ChickMarkGroups.delete(id: group.id)
-                            } label: {
-                                Label(
-                                    L10n.string("groups.delete"),
-                                    systemImage: "folder.badge.minus"
-                                )
+                            if !dynamicTypeSize.isAccessibilitySize {
+                                Button(role: .destructive) {
+                                    ChickMarkGroups.delete(id: group.id)
+                                } label: {
+                                    Label(L10n.string("groups.delete.short"),
+                                          systemImage: "folder.badge.minus")
+                                }
+                                .font(.footnote)
+                                .accessibilityHint(L10n.string("groups.delete.keepHint"))
                             }
-                            .font(.footnote)
+                            if dynamicTypeSize.isAccessibilitySize {
+                                HStack {
+                                    Spacer(minLength: 0)
+                                    Menu {
+                                        Button(role: .destructive) {
+                                            ChickMarkGroups.delete(id: group.id)
+                                        } label: {
+                                            Label(L10n.string("groups.delete"),
+                                                  systemImage: "folder.badge.minus")
+                                        }
+                                    } label: {
+                                        Image(systemName: "ellipsis.circle")
+                                            .frame(minWidth: 48, minHeight: 48)
+                                            .contentShape(Rectangle())
+                                    }
+                                    .accessibilityLabel(L10n.string("groups.actions"))
+                                    .accessibilityHint(L10n.string("groups.delete.keepHint"))
+                                    .accessibilityIdentifier("chickmark.group.actions")
+                                }
+                            }
                         } header: {
                             Text(group.name)
+                                .fixedSize(horizontal: false, vertical: true)
                         }
                     }
 

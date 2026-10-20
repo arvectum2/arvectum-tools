@@ -283,6 +283,28 @@ extension HabitsByArvectumApp {
         try? context.save()
     }
 
+    /// UI-test-only groups and populated habits; SwiftData is in-memory
+    /// under --ui-testing. Group preferences stay on the disposable simulator.
+    func seedDesignFilledHabitsIfRequested(container: ModelContainer) {
+        let args = ProcessInfo.processInfo.arguments
+        guard args.contains("--ui-testing"),
+              args.contains("--qa-design-filled-habits") else { return }
+        let context = ModelContext(container)
+        let habits = (try? context.fetch(FetchDescriptor<Habit>())) ?? []
+        guard habits.count >= 3 else { return }
+        let ordered = habits.sorted { $0.sortOrder < $1.sortOrder }
+        let group = ChickMarkGroup(
+            id: UUID(uuidString: "FAAA0000-0000-0000-0000-000000000001")!,
+            name: "Планы и занятия на неделю",
+            habitIDs: Array(ordered.prefix(2).map(\.id))
+        )
+        // No notification, HealthKit or iCloud modification.
+        // This flag is never part of an App Store Release build.
+        if let encoded = try? ArvectumJSONCodec.encode([group]) {
+            UserDefaults.standard.set(encoded, forKey: ChickMarkGroups.storageKey)
+        }
+    }
+
     func seedWatchSyncDemoIfRequested(
         container: ModelContainer
     ) {

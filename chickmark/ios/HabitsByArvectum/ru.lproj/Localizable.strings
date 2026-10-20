@@ -191,6 +191,9 @@
 "groups.none" = "Без группы";
 "groups.add" = "Новая группа";
 "groups.delete" = "Удалить группу (без удаления привычек)";
+"groups.delete.short" = "Удалить группу";
+"groups.actions" = "Действия с группой";
+"groups.delete.keepHint" = "Привычки останутся.";
 "groups.placeholder" = "Название группы";
 
 "backup.error.version" = "Неподдерживаемая версия резервной копии ChickMark.";

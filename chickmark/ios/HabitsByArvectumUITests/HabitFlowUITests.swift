@@ -27,6 +27,47 @@ final class HabitFlowUITests: XCTestCase {
         }
     }
 
+    func testPopulatedGroupedHabitsAccessibilityAudit() throws {
+        app.terminate()
+        app.launchArguments = [
+            "-AppleLanguages", "(en)", "-AppleLocale", "en_US",
+            "-UIPreferredContentSizeCategoryName",
+            "UICTContentSizeCategoryAccessibilityExtraExtraExtraLarge",
+            "--ui-testing", "--disable-cloud-sync",
+            "--seed-watch-sync-demo", "--seed-screenshot-demo",
+            "--qa-design-filled-habits"
+        ]
+        app.launch()
+        let manage = app.buttons["Manage habits"]
+        XCTAssertTrue(manage.waitForExistence(timeout: 12))
+        manage.tap()
+        XCTAssertTrue(app.staticTexts["Планы и занятия на неделю"]
+            .waitForExistence(timeout: 10))
+        let groupActions = app.descendants(matching: .any)
+            .matching(identifier: "chickmark.group.actions").firstMatch
+        XCTAssertTrue(groupActions.waitForExistence(timeout: 8))
+        XCTAssertGreaterThanOrEqual(groupActions.frame.width, 44)
+        XCTAssertGreaterThanOrEqual(groupActions.frame.height, 44)
+
+        let categories: XCUIAccessibilityAuditType = [
+            .sufficientElementDescription, .hitRegion, .trait, .textClipped
+        ]
+        try app.performAccessibilityAudit(for: categories) { issue in
+            print("CHICKMARK_FILLED_AX issue=\(issue.compactDescription) " +
+                  "detail=\(issue.detailedDescription) " +
+                  "element=\(issue.element?.description ?? "nil")")
+            return false
+        }
+
+        // Preferences now follow the habit rows inside a lazy scrolling List
+        // at accessibility sizes: confirm they are reachable by scrolling.
+        let language = app.buttons["manage.language"]
+        for _ in 0..<8 where !language.exists {
+            app.swipeUp()
+        }
+        XCTAssertTrue(language.waitForExistence(timeout: 8))
+    }
+
     func testManageHabitsSystemAccessibilityAudit() throws {
         let manage = app.buttons["Manage habits"]
         XCTAssertTrue(manage.waitForExistence(timeout: 8))
