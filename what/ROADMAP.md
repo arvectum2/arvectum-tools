@@ -6,7 +6,10 @@
 - [x] XCUIVoiceOverService на iPhone 17 Pro iOS 27: короткий VoiceOver аудио/видео/текста PASS, включая исправленную подсказку. [ ] Полная проверка редактора, Watch и физического VoiceOver открыта.
 - [x] 20.10: XCUIAccessibilityAudit экранов Capture и Library при AXXXL **2/2 PASS**. После исходного FAIL подпись «Сохранено на устройстве» и число заметок перенесены в две строки. Обычный Capture UI smoke PASS.
 - [x] 20.10: выделенный 13-дюймовый iPad Simulator iOS 27, AXXXL, регрессия редактора и библиотеки 1/1 PASS; переход Capture ↔ Library при поворотах Portrait/Landscape 1/1 PASS. Не является тестом реального Fold/Duo/камеры или Split View.
-- [ ] Дополнительная QA заполненной библиотеки, редактора, iPad Split View, VoiceOver ротора и Watch ACK.
+- [x] 20.10: заполненная тестовая библиотека (2 текста, 1 отсутствующее видео, 1 архивная заметка) — **реальный SwiftUI AXXXL: labels/traits/textClipped PASS** после увеличения высоты действий до 64pt. Синтетика только в Debug, реальных файлов/камеры нет. Логи: what-axxxl-increased-actions-20261020.log, what-filled-final-after-empty-state-20261020.log.
+- [x] Пустая библиотека: вместо обрезающего ContentUnavailableView прокручиваемый layout и лаконичная подсказка; системный audit PASS. Кнопки аудио/текст/видео на Home — UI PASS (what-empty-custom-state-20261020.log, 2/2).
+- [ ] **Открыт HitRegion:** в заполненной библиотеке Xcode отмечает два Hit area is too small без элемента (element=nil). Внутренние кнопки UIKit UINavigationBar возвращают 36–40pt, даже с SwiftUI frame 48; отдельный opt-in test сохранён без ложного PASS. Логи what-filled-large-segment-audit-20261020.log и what-filled-toolbar-hit-audit-20261020.log.
+- [ ] iPad Split View, реальная камера/микрофон, Watch ACK, редактор заполненной заметки и физический VoiceOver/rotor остаются в QA.
 
 - [x] Кнопки «Видео» и «Текст» видны на Home; мгновенное аудио и long-press сохранены (BUILD + UI discoverability + long-press PASS).
 - [x] Дублированную инструкцию убрали; в компактной раскладке HStack → VStack. iPhone 17 Pro AXXXL UI PASS: аудио, текст, пустой редактор, библиотека. iPad/Duo/физический VoiceOver ещё открыты.

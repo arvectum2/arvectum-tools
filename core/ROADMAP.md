@@ -20,7 +20,10 @@
 - [x] D3/P1 ChickMark: системный audit Сегодня и Управление привычками **2/2 PASS**. При AXXXL панель настроек прокручивается вместо закрепления на весь экран; Language/System выводятся по строкам. Обычная About/Privacy/Support навигация PASS.
 - [x] D3/P1 Ухват: системный audit Capture и Library **2/2 PASS**. При AXXXL статус хранения и счётчик заметок выводятся по строкам. Обычная Capture UI smoke PASS.
 - [x] D3/P1 Ухват: 13-дюймовый iPad Simulator AXXXL: Capture → пустой текстовый редактор → Library → обратно PASS, поворот Library/Capture Portrait ↔ Landscape PASS (2/2).
-- [ ] D3/P1 Заполненная библиотека заметок, множество привычек/групп, VoiceOver редакторов, iPad multitasking и физические устройства требуют отдельной регрессии.
+- [x] D3/P1 ChickMark: действительно форсированный AXXXL, заполненные группы+привычки — системный audit 4/4 категорий PASS, меню группы 48pt, настройки доступны после прокрутки. 2/2 localization unit и 2/2 обычные UI регрессии PASS.
+- [x] D3/P1 Ухват: синтетически заполненная библиотека, принудительный AXXXL — подписи/traits/обрезание PASS. Пустая библиотека и Home actions — обычная UI регрессия 2/2 PASS, прокручиваемый empty state.
+- [ ] D3/P1 Ухват **hit region blocker**: две остающиеся анонимные системные проблемы областей нажатия на заполненном экране AXXXL. UIKit toolbar ~36–40pt; opt-in тест сохранён без ложного PASS.
+- [ ] D3/P1 Реальные медиа, много групп, полноценный VoiceOver редакторов, iPad multitasking и физические устройства требуют отдельной регрессии.
 - [ ] D3/P1 Полный VoiceOver (gestures/rotor), detail/modal screens, реальные Shortcuts, physical/iPad матрица открыты. PDF VoiceOver для результата выполнен в коротком проверенном сценарии.
 - [ ] D3/P1: product UX QA (VoiceOver, Dynamic Type, тёмная тема, reduce motion) и отдельные UI PR для каждого приложения.
 - [ ] D4: интеграция Core после review и независимые продуктовые релизы только по явному разрешению владельца.
