@@ -91,9 +91,12 @@ clicktext(start,"Choose photo")
 time.sleep(3)
 tiles=dump("qa-picker-gallery")
 images=[(l,b) for l,b in tiles if l.startswith("Photo taken")]
-if len(images)!=1:
-    raise RuntimeError(f"Expected one QA gallery photo, got {len(images)}")
+if not images:
+    raise RuntimeError("No recent QA photo in Android system picker")
+# QA AVD may retain older generated images across runs.
+# Picker sorts newest first; validate exact dimensions after importing.
 l,b=images[0]
+print("GALLERY_CANDIDATES",len(images),"selecting most recent",flush=True)
 tap((b[0]+b[2])//2,(b[1]+b[3])//2)
 time.sleep(.5)
 clicktext(dump("qa-picker-selected"),"Done")
@@ -137,6 +140,9 @@ saved=o/"qa-picker-exported.jpg"
 saved.write_bytes(run("exec-out","cat",selected,timeout=30))
 data=saved.read_bytes()
 assert len(data)<=500_000 and data[:2]==b"\xff\xd8" and len(data)>10000,(len(data),data[:2])
+# Verify the English system export filename is not accidentally Russian:
+# this previously exposed a production UI-localization bug.
+assert Path(selected).name.endswith("-compressed.jpg"), selected
 stage("jpeg-verified-in-downloads")
 report.update({"status":"passed","exportedBytes":len(data),
                "exportedJpeg":saved.name,"systemUri":selected})

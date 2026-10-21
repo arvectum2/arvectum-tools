@@ -277,11 +277,14 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         val result = currentResultForAction() ?: return "image.jpg"
         if (result.outputFile == null) return result.source.displayName
         val base = result.source.displayName.substringBeforeLast('.').ifBlank { "image" }
-        val suffix = when (result.mode) {
-            ToolMode.FILE_SIZE -> "до-размера"
-            ToolMode.PIXELS -> "по-пикселям"
-            ToolMode.PASSPORT -> "на-паспорт"
-        }
+        // The Android system SaveDocument picker receives a filename in the
+        // current app locale, never a hardcoded Russian suffix for EN/FR/etc.
+        val context = getApplication<Application>()
+        val suffix = context.getString(when (result.mode) {
+            ToolMode.FILE_SIZE -> R.string.export_filename_file_size
+            ToolMode.PIXELS -> R.string.export_filename_pixels
+            ToolMode.PASSPORT -> R.string.export_filename_passport
+        })
         return "$base-$suffix.jpg"
     }
 

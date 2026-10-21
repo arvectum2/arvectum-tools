@@ -251,6 +251,34 @@ class LocalizationPortfolioTests(unittest.TestCase):
         self.assertEqual(set(info), {"CFBundleDisplayName", "NSUserTrackingUsageDescription"})
         self.assertIn("identificador publicitario", info["NSUserTrackingUsageDescription"])
 
+    def test_android_export_filenames_localized_for_all_shipping_languages(self):
+        from xml.etree import ElementTree
+        resources = ROOT / "photo-pdf-to-size/android/app/src/main/res"
+        expected = {
+            "values": ("compressed", "resized", "passport"),
+            "values-ru": ("до-размера", "по-пикселям", "на-паспорт"),
+            "values-es": ("comprimida", "redimensionada", "documento"),
+            "values-pt-rBR": ("compactada", "redimensionada", "documento"),
+            "values-fr": ("compressee", "redimensionnee", "identite"),
+            "values-de": ("komprimiert", "skaliert", "passfoto"),
+            "values-it": ("compressa", "ridimensionata", "fototessera"),
+            "values-nl": ("gecomprimeerd", "verkleind", "pasfoto"),
+            "values-pl": ("skompresowane", "zmienione-wymiary", "dokumenty"),
+        }
+        keys = ("export_filename_file_size", "export_filename_pixels",
+                "export_filename_passport")
+        for directory, translations in expected.items():
+            with self.subTest(locale=directory):
+                xml = resources / directory / "export_filenames.xml"
+                actual = {
+                    element.attrib["name"]: element.text
+                    for element in ElementTree.parse(xml).getroot()
+                }
+                self.assertEqual(set(actual), set(keys))
+                self.assertEqual(tuple(actual[k] for k in keys), translations)
+                self.assertTrue(all(value and "/" not in value and
+                                    "\\\\" not in value for value in actual.values()))
+
     def test_android_spanish_draft_has_real_ui_copy(self):
         from xml.etree import ElementTree
         spanish = ROOT / "photo-pdf-to-size/android/app/src/main/res/values-es/strings.xml"

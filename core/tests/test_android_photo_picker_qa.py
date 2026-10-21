@@ -23,6 +23,12 @@ class AndroidPickerQaRunnerTest(unittest.TestCase):
         self.assertNotIn("QA_IMAGE_PIPELINE",script)
         self.assertNotIn("ImagePipelineQaReceiver",script)
 
+    def test_repeated_emulator_runs_allow_previous_synthetic_gallery_items(self):
+        script=(TOOLS/"qa_photo_picker_e2e.py").read_text()
+        self.assertIn('if not images:',script)
+        self.assertIn('GALLERY_CANDIDATES',script)
+        self.assertIn('assert any("900×700 px" in l',script)
+
     def test_script_generates_synthetic_local_data_only(self):
         script=(TOOLS/"qa_photo_picker_e2e.py").read_text()
         self.assertIn("make_synthetic_png(source)",script)

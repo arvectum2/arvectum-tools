@@ -205,13 +205,21 @@ def android_catalog_audit(doc: dict, errors: list[str], *, report: bool = False)
                 errors.append(
                     f"Android resource locale {directory.name} missing from 50-language registry"
                 )
-        path = directory / "strings.xml"
+        # Android resources may be split into domain-specific XML catalogs.
+        # Merge them for parity and R.string reference validation, rather than
+        # assuming the entire string vocabulary is in strings.xml.
+        resources_files = (directory / "strings.xml",
+                           directory / "export_filenames.xml")
         try:
-            children = ET.parse(path).getroot()
-            keys = [element.attrib["name"] for element in children if element.tag == "string"]
-            values = {element.attrib["name"]: element.text or "" for element in children if element.tag == "string"}
+            items = []
+            for path in resources_files:
+                children = ET.parse(path).getroot()
+                items.extend((element.attrib["name"], element.text or "")
+                             for element in children if element.tag == "string")
+            keys = [key for key, _ in items]
+            values = dict(items)
         except (OSError, ET.ParseError, KeyError) as exc:
-            errors.append(f"Android locale {path}: {exc}")
+            errors.append(f"Android locale {directory}: {exc}")
             continue
         if len(keys) != len(values):
             errors.append(f"Android duplicate resource keys in {path.relative_to(ROOT)}")

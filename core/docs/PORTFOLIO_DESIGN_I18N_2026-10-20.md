@@ -435,3 +435,34 @@ exited with EX_CONFIG 78 and was removed. There is NO valid
 Photo Picker-to-export complete PASS yet, despite L4.6 independent
 production engine test passing. Retest until exported JPEG and a
 status=passed JSON report are captured.
+
+## Android L4.8 and L3.12 — closed and proven 21 Oct 17:00
+
+Using tmux detached execution, the Android 16 emulator completed the
+previously blocked REAL app Photo Picker-to-SaveDocument user flow.
+Proof is machine report:
+- ArvectumSSD/Arvectum/tmp/portfolio-design-i18n-qa-20261020/
+  tmux-photo-picker-qa/qa-photo-picker-report.json: status passed
+- Seven stages: synthetic image, real Android Photo Picker, compression
+  requested, actual Compose result, Documents SaveDocument, system
+  Save tapped, exported JPEG verified in Downloads
+- output 479169 bytes (<500000), valid 900x700 JPEG confirmed via sips;
+  SHA-256 available in the retained external QA files
+
+The run found a shipping UX defect: an English UI exported a file
+suffixed in Russian. MainViewModel no longer hardcodes three Russian
+suffixes. New Android resource file export_filenames.xml exists for
+EN/RU/ES/PT-BR/FR/DE/IT/NL/PL with 3 locale-appropriate filename
+suffixes each. Localized QA audit now validates all 96 strings
+(93 main UI + 3 filename), not just one monolithic resource XML.
+
+A SECOND actual system Photo Picker → compression → SaveDocument run
+passed 7/7 after rebuilding:
+- tmux-photo-picker-localized-qa2/qa-photo-picker-report.json
+- systemUri ends with /19-compressed.jpg, actually saved in Downloads
+- exported file 479169 bytes, below 500 KB target
+- Android Gradle Debug/JVM PASS 9/9, Python tests 29/29
+
+Remaining non-release gates: physical Android, TalkBack, large-font
+across every screen, other image/document modes and non-synthetic
+media. No Apple/Google store action, no main merge.

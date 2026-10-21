@@ -286,7 +286,7 @@
         "status": "en-ru-es-pt-br-fr-de-it-nl-pl-source-catalogs-in-feature-branch",
         "sourceLocale": "en",
         "resources": "photo-pdf-to-size/android/app/src/main/res",
-        "note": "English fallback plus real RU, ES, pt-BR, FR, DE, IT, NL, PL development catalogues (93 keys per locale). 41 of 50 targeted Android languages unimplemented; native editorial and device/RTL accessibility QA pending. No release."
+        "note": "English fallback plus RU, ES, pt-BR, FR, DE, IT, NL, PL development catalogs. Each includes 93 base UI keys and 3 export filename suffixes (96 strings). 41 of 50 Android language targets untranslated. Native editorial and physical accessibility QA pending. No release."
       }
     },
     "where": {

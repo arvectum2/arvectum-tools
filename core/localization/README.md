@@ -407,3 +407,33 @@ and SaveDocument controls and validates an exported JPEG <=500000 bytes
 before reporting status=passed. Structural tests pass; its actual
 complete E2E run does NOT yet pass due RDC interruptions. A launchctl
 attempt exited EX_CONFIG 78 and its stale job was removed.
+
+## Android end-to-end completed, export filename localized — 21 Oct 17:00
+
+Full production Android16 UI E2E PASSED after using a detached tmux
+terminal session instead of tying emulator lifetime to RDC. On a
+disposable emulator, generated 900x700 PNG → actual Google Photo Picker
+→ selected image → Compose 500 KB compression → actual result screen →
+Android SaveDocument in Downloads → exported JPEG read back on Mac.
+7 of 7 stages complete in machine report status=passed, output
+479169 bytes, valid 900x700 JPEG. Evidence/screenshots preserved on
+the external SSD under:
+portfolio-design-i18n-qa-20261020/tmux-photo-picker-qa.
+
+The successful first pass also discovered a real localization bug:
+the EN application exported a Russian-suffixed name. Replaced
+hardcoded Russian suffixes in MainViewModel with Android resources,
+adding values*/export_filenames.xml in all 9 shipping development
+language folders (3 extra strings per locale; now 96 keys each).
+Localized-source audit was updated to read both resource XMLs.
+The 500 KB test passed a SECOND time with the rebuilt package:
+7/7 completed, 479169-byte JPEG, correct file name
+19-compressed.jpg, from system SaveDocument and confirmed in Downloads.
+Second report/screenshots: tmux-photo-picker-localized-qa2.
+
+Android Gradle assembleDebug + testDebugUnitTest PASS, 9/9 JVM;
+29/29 Python localization and structural regressions PASS. The two
+Android GUI passes are real proof for this one synthetic PNG and mode,
+not for all real-world file formats, all three modes, TalkBack,
+physical Android devices, all screen sizes or linguist signoff.
+Nothing was published or merged to main.
