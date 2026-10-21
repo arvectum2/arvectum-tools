@@ -535,3 +535,33 @@ Python regression suite 32/32 PASS, localization audit PASS.
 Ordinary-size iPhone capture/text editor regression also PASSED 1/1,
 Test-WhatIOS-2026.10.21_18-33-04-+0300.xcresult. Physical
 VoiceOver and device matrix are still open; no release/main merge.
+
+
+## 21 October 19:03 — What/Uhvat video accessibility without camera
+
+At AXXXL, UIKit constrained the navigation Discard button to 36pt.
+VideoRecordingSheet now moves Discard to a bottom safe-area action
+(minimum 88x52pt) for accessibility Dynamic Type and reduces preview
+height to 38% of available space to prioritize controls. Normal
+type retains the original top-bar action. Camera-switch remains a
+labelled 52x52pt button and Stop now has a stable test identifier.
+
+Debug-only simulator QA flags disable real AVFoundation startup and
+capture journal initialization. The accessibility test fixture now
+also sets the large text environment for the whole ContentView;
+otherwise the modal video sheet would receive normal Dynamic Type.
+A second no-camera flag checks default text sizes without creating
+recordings or touching a user microphone/camera. No QA-only behavior
+exists in Release.
+
+Actual Xcode Simulator XCResults, all PASS:
+- iPhone ES AXXXL: Test-WhatIOS-2026.10.21_19-00-20-+0300.xcresult 1/1.
+- iPad ES AXXXL: Test-WhatIOS-2026.10.21_19-01-39-+0300.xcresult 1/1.
+- iPhone ES normal: Test-WhatIOS-2026.10.21_19-02-53-+0300.xcresult 1/1.
+Checks include localized title/labels, 44pt+ controls at large type,
+Stop disabled in QA-only no-recording mode, and safe cancellation.
+Initial pre-fix 36pt failure is retained in earlier XCResult.
+Core Python localization/structural checks: 33/33 PASS.
+
+No physical video capture, camera switching or VoiceOver signoff
+has been inferred from simulator UI tests. No merge or publication.

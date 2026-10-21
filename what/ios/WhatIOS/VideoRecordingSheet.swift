@@ -581,6 +581,26 @@ struct VideoRecordingSheet: View {
     @ObservedObject var recorder: VideoCaptureController
     @Environment(\.dismiss) private var dismiss
     @Environment(\.scenePhase) private var scenePhase
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+
+    /// Simulator UI acceptance only. Never requests camera/microphone and
+    /// never starts a capture journal. Compiled out of Release builds.
+    private var isLayoutQA: Bool {
+#if DEBUG
+        let arguments = ProcessInfo.processInfo.arguments
+        return arguments.contains("--qa-video-controls-no-camera")
+            || arguments.contains("--qa-video-controls-normal-no-camera")
+#else
+        false
+#endif
+    }
+
+    private func discardVideo() {
+        if !isLayoutQA {
+            recorder.finish(discard: true)
+        }
+        dismiss()
+    }
 
     var body: some View {
         NavigationStack {
@@ -627,7 +647,14 @@ struct VideoRecordingSheet: View {
                     )
                         }
                         .frame(
-                            height: min(660, max(180, geometry.size.height * 0.62))
+                            height: min(
+                                660,
+                                max(
+                                    dynamicTypeSize.isAccessibilitySize ? 150 : 180,
+                                    geometry.size.height *
+                                        (dynamicTypeSize.isAccessibilitySize ? 0.38 : 0.62)
+                                )
+                            )
                         )
                         .accessibilityElement(children: .contain)
                 if recorder.isSaving {
@@ -670,6 +697,8 @@ struct VideoRecordingSheet: View {
                 }
                 .buttonStyle(.borderedProminent)
                 .tint(.red)
+                .frame(minHeight: 52)
+                .accessibilityIdentifier("what.video.stop")
                 .disabled((!recorder.isRecording && !recorder.isSwitching)
                           || recorder.isSaving)
                     }
@@ -680,19 +709,44 @@ struct VideoRecordingSheet: View {
             }
             .navigationTitle(CaptureBrand.text("Видеозаметка", "Video note"))
             .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
-                    Button(CaptureBrand.text("Отменить", "Discard"), role: .destructive) {
-                        if !recorder.isSaving {
-                            recorder.finish(discard: true)
-                            dismiss()
+            // UIKit may constrain navigation-bar actions to 36 pt at AXXXL.
+            // Keep Discard reachable in a full-size bottom action at AX sizes.
+            .safeAreaInset(edge: .bottom, spacing: 0) {
+                if dynamicTypeSize.isAccessibilitySize {
+                    HStack {
+                        Button(CaptureBrand.text("Отменить", "Discard"),
+                               role: .destructive) {
+                            discardVideo()
                         }
+                        .buttonStyle(.bordered)
+                        .frame(minWidth: 88, minHeight: 52)
+                        .contentShape(Rectangle())
+                        .disabled(recorder.isSaving)
+                        .accessibilityIdentifier("what.video.discard")
+                        Spacer(minLength: 0)
+                    }
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 8)
+                    .background(.regularMaterial)
+                }
+            }
+            .toolbar {
+                if !dynamicTypeSize.isAccessibilitySize {
+                    ToolbarItem(placement: .cancellationAction) {
+                        Button(CaptureBrand.text("Отменить", "Discard"),
+                               role: .destructive) {
+                            discardVideo()
+                        }
+                        .disabled(recorder.isSaving)
+                        .accessibilityIdentifier("what.video.discard")
                     }
                 }
             }
             .interactiveDismissDisabled(recorder.isRecording
                                         || recorder.isSwitching || recorder.isSaving)
-            .onAppear { recorder.start() }
+            .onAppear {
+                if !isLayoutQA { recorder.start() }
+            }
             .onChange(of: recorder.didSave) { _, saved in
                 if saved { dismiss() }
             }

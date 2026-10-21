@@ -160,6 +160,82 @@ final class SpanishLocalizationUITests: XCTestCase {
                       .waitForExistence(timeout: 10))
     }
 
+    /// A dedicated Debug-only UI fixture does not start AVFoundation or ask
+    /// permission. The simulator can inspect real localized camera controls.
+    @MainActor
+    func testSpanishAXXXLVideoControlsWithoutCameraAccess() {
+        let app = XCUIApplication()
+        app.launchArguments = [
+            "-AppleLanguages", "(es)",
+            "-AppleLocale", "es_ES",
+            "-what.transcription.locale", "en-US",
+            "-UIPreferredContentSizeCategoryName",
+            "UICTContentSizeCategoryAccessibilityExtraExtraExtraLarge",
+            "--qa-video-controls-no-camera"
+        ]
+        app.launch()
+        let videoAction = app.buttons["what.new.video"]
+        XCTAssertTrue(videoAction.waitForExistence(timeout: 12))
+        XCTAssertTrue(videoAction.isHittable)
+        videoAction.tap()
+
+        XCTAssertTrue(app.navigationBars["Nota de vídeo"]
+                      .waitForExistence(timeout: 12))
+        let discard = app.buttons["what.video.discard"]
+        XCTAssertTrue(discard.waitForExistence(timeout: 10))
+        XCTAssertEqual(discard.label, "Descartar")
+        XCTAssertTrue(discard.isHittable)
+        XCTAssertGreaterThanOrEqual(discard.frame.height, 44)
+        let switchCamera = app.buttons["what.video.switchCamera"]
+        XCTAssertTrue(switchCamera.exists)
+        XCTAssertEqual(switchCamera.label, "Cambiar a cámara frontal")
+        XCTAssertGreaterThanOrEqual(switchCamera.frame.width, 44)
+        let stop = app.buttons["what.video.stop"]
+        XCTAssertTrue(stop.exists)
+        XCTAssertEqual(stop.label, "Detener y guardar")
+        XCTAssertFalse(stop.isEnabled,
+                       "The fixture must never begin camera capture")
+        XCTAssertGreaterThanOrEqual(stop.frame.height, 44)
+
+        discard.tap()
+        XCTAssertTrue(app.buttons["what.record.primary"]
+                      .waitForExistence(timeout: 12))
+        XCTAssertFalse(app.alerts.firstMatch.exists,
+                       "No camera permission should be requested")
+    }
+
+    /// Companion regression: the default font keeps the compact top-bar
+    /// Discard and never triggers AVFoundation in its QA-only mode.
+    @MainActor
+    func testSpanishNormalSizeVideoKeepsNavigationDiscard() {
+        let app = XCUIApplication()
+        app.launchArguments = [
+            "-AppleLanguages", "(es)",
+            "-AppleLocale", "es_ES",
+            "-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryM",
+            "--qa-video-controls-normal-no-camera"
+        ]
+        app.launch()
+        let video = app.buttons["what.new.video"]
+        XCTAssertTrue(video.waitForExistence(timeout: 12))
+        video.tap()
+        XCTAssertTrue(app.navigationBars["Nota de vídeo"]
+                      .waitForExistence(timeout: 12))
+        let discard = app.buttons["what.video.discard"]
+        XCTAssertTrue(discard.waitForExistence(timeout: 10))
+        XCTAssertTrue(discard.isHittable)
+        XCTAssertEqual(discard.label, "Descartar")
+        XCTAssertLessThan(discard.frame.minY, 160,
+                          "Regular font should keep Discard in the navigation bar")
+        let stop = app.buttons["what.video.stop"]
+        XCTAssertTrue(stop.exists)
+        XCTAssertFalse(stop.isEnabled, "No camera may start in layout QA")
+        discard.tap()
+        XCTAssertTrue(app.buttons["what.record.primary"]
+                      .waitForExistence(timeout: 10))
+        XCTAssertFalse(app.alerts.firstMatch.exists)
+    }
+
     /// The settings menu must remain reachable with a huge font and a
     /// separately chosen dictation language. No settings are changed.
     @MainActor

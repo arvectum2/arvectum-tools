@@ -19,7 +19,8 @@ struct WhatApp: App {
             Group {
 #if DEBUG
                 if ProcessInfo.processInfo.arguments.contains("--qa-design-filled-library") ||
-                   ProcessInfo.processInfo.arguments.contains("--qa-spanish-axxxl-home") {
+                   ProcessInfo.processInfo.arguments.contains("--qa-spanish-axxxl-home") ||
+                   ProcessInfo.processInfo.arguments.contains("--qa-video-controls-no-camera") {
                     // Debug-only visual fixtures. The Spanish home fixture
                     // forces the real AXXXL SwiftUI layout without recording.
                     ContentView().environment(\.dynamicTypeSize, .accessibility5)

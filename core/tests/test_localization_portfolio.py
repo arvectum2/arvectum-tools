@@ -180,6 +180,19 @@ class LocalizationPortfolioTests(unittest.TestCase):
                          "Idioma de la interfaz: ajustes de iOS")
         self.assertNotIn("Español (English interface)", home)
 
+    def test_what_video_ui_accessibility_fixture_is_debug_only(self):
+        video = (ROOT / "what/ios/WhatIOS/VideoRecordingSheet.swift").read_text()
+        ui = (ROOT /
+              "what/ios/WhatIOSUITests/SpanishLocalizationUITests.swift").read_text()
+        self.assertIn('#if DEBUG', video)
+        self.assertIn('--qa-video-controls-no-camera', video)
+        self.assertIn('if !isLayoutQA { recorder.start() }', video)
+        self.assertIn('.frame(minWidth: 88, minHeight: 52)', video)
+        self.assertIn('.accessibilityIdentifier("what.video.discard")', video)
+        self.assertIn('.accessibilityIdentifier("what.video.stop")', video)
+        self.assertIn('testSpanishAXXXLVideoControlsWithoutCameraAccess', ui)
+        self.assertIn('XCTAssertFalse(stop.isEnabled', ui)
+
     def test_what_large_text_note_editor_has_accessible_done_target(self):
         source = (ROOT / "what/ios/WhatIOS/TextNoteSheet.swift").read_text()
         spanish_qa = (ROOT /

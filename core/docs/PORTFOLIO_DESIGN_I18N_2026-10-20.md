@@ -551,3 +551,23 @@ Additionally, the original ordinary-size iPhone capture and empty
 text editor flow was rerun after the production change:
 Test-WhatIOS-2026.10.21_18-33-04-+0300.xcresult, 1/1 PASS.
 Physical VoiceOver/iPhone/iPad and editorial QA remain open.
+
+
+## L4.12 — Video controls, Spanish large type, safe QA
+
+Initial iPhone AXXXL XCUITest failed with 36pt Discard navigation
+action. Production VideoRecordingSheet now uses an accessibility
+Dynamic Type bottom safeAreaInset with an 88x52pt button and a shorter
+camera-preview region; it keeps the normal toolbar action at regular
+size. Added accessibility IDs for Discard and Stop. A DEBUG-only flag
+prevents AVFoundation camera/microphone and durable capture-journal
+activity for the UI-only test. Separate fixture verifies normal size.
+The system-wide type preference and the fixture's view environment
+reach the actual modal sheet. User media is not accessed.
+
+Verified three XCResults in isolated-what-v2/Logs/Test:
+19:00:20 iPhone ES large type 1 passed 0 failed;
+19:01:39 iPad ES large type 1 passed 0 failed;
+19:02:53 iPhone ES normal type 1 passed 0 failed.
+Python regression tests 33/33. Real physical recording, transitions,
+Watch hardware and physical VoiceOver still require separate QA.
