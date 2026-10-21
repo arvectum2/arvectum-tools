@@ -269,3 +269,35 @@ did not remain available. Therefore FR/NL/PL Android visual QA
 is still open. No screenshot, in-app language switch, on-device
 accessibility or real Android text-size fitting is claimed.
 All work stays in the feature branch, without store actions.
+
+
+## Android visual QA and responsive-mode fix (21 October)
+
+Android 16 small_phone emulator finally provided real screenshot evidence
+at 720x1280 for FR, NL and PL. French and Polish first-run photo-selection
+screens have complete visible labels. Dutch revealed a real defect:
+the word Bestandsgrootte broke across lines in three equal-width tabs.
+
+Android Photo/PDF now uses actual Compose TextMeasurer metrics to choose
+a three-, two-, or one-column mode layout. Each mode keeps its full
+translated label and tab selection semantics for enlarged fonts.
+Selection and result views scroll within the available viewport;
+the purely decorative footer is hidden when system fontScale >= 1.3.
+At 160% the original screen clipped the bottom of the file-picker
+action. Afterwards the whole Foto kiezen CTA is visible, and a
+swipe exposes the on-device privacy notice.
+
+QA screenshots on external SSD:
+- android-fr-visual-20261021.png: French normal initial screen
+- android-nl-normal-20261021.png: Dutch before word-split bug
+- android-nl-adaptive-20261021.png: Dutch after 2-column fix
+- android-pl-adaptive-20261021.png: Polish after layout fix
+- android-nl-adaptive-font160-20261021.png: original 160% clipping
+- android-nl-font160-scroll-top-20261021.png: repaired 160% CTA
+- android-nl-font160-scroll-bottom-20261021.png: privacy after scroll
+
+Android assembleDebug and testDebugUnitTest PASS, 9/9 JVM after three
+new deterministic 3/2/1-column unit tests. Localization audit PASS.
+The representative initial-screen smoke is not full accessibility
+or end-to-end QA: document processing, RTL, TalkBack, all text sizes,
+and physical device test matrix still require review.

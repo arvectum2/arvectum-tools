@@ -1,6 +1,8 @@
 package ru.arvectum.tools.tosize.ui
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -21,6 +23,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -73,6 +76,7 @@ fun MainScreen(
     onDismissError: () -> Unit,
 ) {
     val source = state.source
+    val enlargedText = LocalDensity.current.fontScale >= 1.3f
     if (state.passportCropOpen && source != null) {
         PassportCropScreen(
             source = source,
@@ -144,9 +148,13 @@ fun MainScreen(
                 }
             }
 
-            BrandFooter(
-                modifier = Modifier.padding(horizontal = 18.dp),
-            )
+            // Decorative footer must not steal scarce vertical space from
+            // the editable form or hide its CTA with large system fonts.
+            if (!enlargedText) {
+                BrandFooter(
+                    modifier = Modifier.padding(horizontal = 18.dp),
+                )
+            }
         }
 
         if (state.error != null) {
@@ -186,8 +194,9 @@ private fun SelectionContent(
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .verticalScroll(rememberScrollState())
             .padding(horizontal = 14.dp)
-            .padding(bottom = 4.dp),
+            .padding(bottom = 12.dp),
     ) {
         if (source == null) {
             EmptyState(
@@ -579,8 +588,9 @@ private fun ResultContent(
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .verticalScroll(rememberScrollState())
             .padding(horizontal = 14.dp)
-            .padding(bottom = 4.dp),
+            .padding(bottom = 12.dp),
     ) {
         BrandCard {
             BrandAccentText(

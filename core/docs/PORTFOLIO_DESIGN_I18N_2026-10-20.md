@@ -314,3 +314,24 @@ All changes stay on the feature branch and no release is authorized.
 - The system disk was not used for repository builds;
   build/test logs and generated release-independent APKs
   remain on external ArvectumSSD. No App Store actions.
+
+
+## Android visual regression L4.4–L4.5 (21 October afternoon)
+
+Confirmed debug APK running in Android 16 small_phone emulator,
+app-specific locales set to FR, NL, PL and screenshots captured.
+French and Polish initial screens fit; Dutch originally split
+Bestandsgrootte inside one word. Adaptive ModeSelector now measures
+localized text with Compose rememberTextMeasurer and chooses 3/2/1
+columns, avoiding broken navigation captions.
+
+At fontScale 1.6 the original NL screenshot clipped the primary
+Foto kiezen button and hid the privacy notice. Scrollable
+SelectionContent and ResultContent, plus hiding decorative footer
+at enlarged sizes, make both reachable. Confirmed by top/bottom
+screenshots on disposable emulator with the 160% system font.
+
+Android full APK build and 9/9 JVM PASS (6 existing, 3 new layout
+logic cases), no test failures. Screenshots/logs retained in the
+external SSD QA folder. This proves selected initial-screen layouts,
+not TalkBack or full file picker/processing on physical Android.

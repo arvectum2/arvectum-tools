@@ -6,6 +6,7 @@ import org.junit.Test
 import ru.arvectum.tools.tosize.ui.calculateNormalizedCrop
 import ru.arvectum.tools.tosize.ui.DecimalFileSize
 import ru.arvectum.tools.tosize.ui.decimalFileSize
+import ru.arvectum.tools.tosize.ui.modeSelectorColumns
 
 class FormatBytesTest {
     @Test
@@ -45,6 +46,21 @@ class FormatBytesTest {
                 targetLongSide = 600,
             ),
         )
+    }
+
+    @Test
+    fun shortNavigationCaptionsRemainOnOneRow() {
+        assertEquals(3, modeSelectorColumns(360f, 80f))
+    }
+
+    @Test
+    fun longDutchCaptionUsesTwoColumnsWithoutWordSplitting() {
+        assertEquals(2, modeSelectorColumns(328f, 125f))
+    }
+
+    @Test
+    fun accessibilityScaleCaptionsStackWhenNecessary() {
+        assertEquals(1, modeSelectorColumns(328f, 245f))
     }
 
     @Test

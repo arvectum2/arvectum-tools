@@ -4,6 +4,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -23,6 +24,7 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -34,6 +36,9 @@ import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -97,6 +102,18 @@ fun BrandFooter(modifier: Modifier = Modifier) {
     }
 }
 
+/// Preserve the real localized tab label on narrow screens and large fonts:
+/// three tabs when each label fits, two then one, or three stacked tabs.
+/// The text itself remains accessible and is not truncated or split mid-word.
+internal fun modeSelectorColumns(availableWidthDp: Float, maxLabelWidthDp: Float): Int {
+    val paddedLabel = maxLabelWidthDp + 20f // 12dp text inset + safety
+    return when {
+        (availableWidthDp - 12f) / 3f >= paddedLabel -> 3
+        (availableWidthDp - 6f) / 2f >= paddedLabel -> 2
+        else -> 1
+    }
+}
+
 @Composable
 fun ModeSelector(
     mode: ToolMode,
@@ -104,31 +121,60 @@ fun ModeSelector(
     onModeChange: (ToolMode) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    Row(
-        modifier = modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy(6.dp),
-    ) {
-        ModeButton(
-            label = stringResource(R.string.file_size),
-            selected = mode == ToolMode.FILE_SIZE,
-            enabled = enabled,
-            onClick = { onModeChange(ToolMode.FILE_SIZE) },
-            modifier = Modifier.weight(1f),
-        )
-        ModeButton(
-            label = stringResource(R.string.dimensions),
-            selected = mode == ToolMode.PIXELS,
-            enabled = enabled,
-            onClick = { onModeChange(ToolMode.PIXELS) },
-            modifier = Modifier.weight(1f),
-        )
-        ModeButton(
-            label = stringResource(R.string.passport),
-            selected = mode == ToolMode.PASSPORT,
-            enabled = enabled,
-            onClick = { onModeChange(ToolMode.PASSPORT) },
-            modifier = Modifier.weight(1f),
-        )
+    val sizeLabel = stringResource(R.string.file_size)
+    val pixelsLabel = stringResource(R.string.dimensions)
+    val passportLabel = stringResource(R.string.passport)
+    val textMeasurer = rememberTextMeasurer()
+    val density = LocalDensity.current
+    val captions = listOf(sizeLabel, pixelsLabel, passportLabel)
+    BoxWithConstraints(modifier = modifier.fillMaxWidth()) {
+        val requiredLabelWidth = with(density) {
+            captions.maxOf { caption ->
+                textMeasurer.measure(
+                    text = AnnotatedString(caption),
+                    style = TextStyle(fontSize = 12.sp, fontWeight = FontWeight.SemiBold),
+                    maxLines = 1,
+                ).size.width.toDp().value
+            }
+        }
+        val columnCount = modeSelectorColumns(maxWidth.value, requiredLabelWidth)
+
+        @Composable
+        fun tab(label: String, option: ToolMode, modifier: Modifier) {
+            ModeButton(
+                label = label,
+                selected = mode == option,
+                enabled = enabled,
+                onClick = { onModeChange(option) },
+                modifier = modifier,
+            )
+        }
+
+        when (columnCount) {
+            3 -> Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(6.dp),
+            ) {
+                tab(sizeLabel, ToolMode.FILE_SIZE, Modifier.weight(1f))
+                tab(pixelsLabel, ToolMode.PIXELS, Modifier.weight(1f))
+                tab(passportLabel, ToolMode.PASSPORT, Modifier.weight(1f))
+            }
+            2 -> Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(6.dp),
+                ) {
+                    tab(sizeLabel, ToolMode.FILE_SIZE, Modifier.weight(1f))
+                    tab(pixelsLabel, ToolMode.PIXELS, Modifier.weight(1f))
+                }
+                tab(passportLabel, ToolMode.PASSPORT, Modifier.fillMaxWidth())
+            }
+            else -> Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                tab(sizeLabel, ToolMode.FILE_SIZE, Modifier.fillMaxWidth())
+                tab(pixelsLabel, ToolMode.PIXELS, Modifier.fillMaxWidth())
+                tab(passportLabel, ToolMode.PASSPORT, Modifier.fillMaxWidth())
+            }
+        }
     }
 }
 
