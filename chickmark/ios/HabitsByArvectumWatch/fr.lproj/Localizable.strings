@@ -1,0 +1,23 @@
+// French ChickMark companion catalog. Editorial QA before release.
+"watch.today" = "Aujourd’hui";
+"watch.progress.format" = "%d sur %d";
+"watch.empty" = "Rien de prévu aujourd’hui";
+"watch.streak.format" = "Série : %d j";
+"watch.weekly.format" = "%d sur %d cette semaine";
+"watch.completed" = "Effectuée";
+"watch.notCompleted" = "Non effectuée";
+"watch.skipped" = "Ignorée";
+"watch.undoHint" = "Touchez deux fois pour annuler la validation";
+"watch.completeHint" = "Touchez deux fois pour marquer comme effectuée";
+"watch.duration.format" = "%d / %d min";
+"watch.step.add" = "Ajouter un pas";
+"watch.step.remove" = "Annuler un pas";
+"watch.preview.water" = "Eau";
+"watch.preview.reading" = "Lecture";
+"watch.checkins.progress.format" = "%d validations sur %d";
+"watch.health.unit.steps" = "pas";
+"watch.health.unit.kilometers" = "km";
+"watch.health.unit.minutes" = "min";
+"watch.health.unit.hours" = "h";
+"watch.health.unit.unknown" = "";
+"watch.health.unavailable" = "Données Santé d’Apple indisponibles";

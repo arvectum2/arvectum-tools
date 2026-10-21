@@ -355,3 +355,29 @@ Test-ArvectumNotify-2026.10.21_15-15-27-+0300.xcresult shows
 
 The French translations still require native editorial review and
 physical device accessibility and Shortcuts QA, prior to any release.
+
+## 21 October L3.11 — ChickMark French, all bundles
+
+- Full French source coverage of ChickMark main iPhone 302, Watch 22,
+  iPhone Widget 16 and Watch complication 5; 345 keys, no missing
+  placeholders. Two French privacy/Health authorization strings on
+  both iPhone and Watch.
+- Fixed French count-only templates to avoid plural agreement errors
+  when the system passes exactly 1 (use neutral abbreviated units
+  such as j and sem., or labels such as Semaines : 1/2).
+- Existing dynamic locale resolver discovers fr.lproj only when
+  complete. Swift tests updated for language selection and French
+  today/progress/habit strings, while untranslated device languages
+  retain the English fallback.
+- XcodeGen project regenerated. iOS Simulator debug scheme build PASS
+  with embedded FR localizations in all four targets. LocalizationTests
+  5/5 PASS. FrenchLocalizationUITests 1/1 PASS on in-memory test
+  storage with iCloud disabled. Python localization suite 21/21 PASS.
+- No native speaker review or physical iPhone/Watch/VoiceOver approval.
+  No TestFlight, App Store publishing or main merge.
+
+Android separate follow-up: a synthetic PNG was produced and placed in
+the Android 16 emulator photo library. Repeated desktop connection
+drops prevented a verified photo-picker selection and successful
+compression/save. Keep Android full E2E QA open; prior FR/NL/PL
+visual and enlarged-font tests remain proven separately.

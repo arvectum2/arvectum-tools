@@ -173,6 +173,44 @@ class LocalizationPortfolioTests(unittest.TestCase):
         self.assertEqual(home["Español"], "Español")
         self.assertNotIn("Español (English interface)", home)
 
+    def test_chickmark_french_catalog_across_phone_watch_and_widgets(self):
+        bundles = [
+            ("HabitsByArvectum", 302),
+            ("HabitsByArvectumWatch", 22),
+            ("HabitsByArvectumWidget", 16),
+            ("HabitsByArvectumWatchWidget", 5),
+        ]
+        for name, count in bundles:
+            root = ROOT / "chickmark/ios" / name
+            english = i18n.read_strings(root / "en.lproj/Localizable.strings", [])
+            french = i18n.read_strings(root / "fr.lproj/Localizable.strings", [])
+            self.assertEqual(set(english), set(french), name)
+            self.assertEqual(len(french), count, name)
+            for key in english:
+                self.assertEqual(
+                    i18n.placeholders(english[key]),
+                    i18n.placeholders(french[key]), f"{name}/{key}"
+                )
+        home = ROOT / "chickmark/ios/HabitsByArvectum"
+        french = i18n.read_strings(home / "fr.lproj/Localizable.strings", [])
+        self.assertEqual(french["today.title"], "Aujourd’hui")
+        self.assertEqual(french["habit.create"], "Créer une habitude")
+        self.assertEqual(french["language.system"], "Langue du système")
+        self.assertEqual(french["water.export.volume"], "Millilitres par validation : %d ml")
+        self.assertEqual(french["schedule.interval.description.format"],
+                         "Tous les %d j après validation")
+        self.assertEqual(french["insights.weekly.ratio"], "Semaines : %d/%d")
+        widget = i18n.read_strings(
+            ROOT / "chickmark/ios/HabitsByArvectumWidget/fr.lproj/Localizable.strings", []
+        )
+        self.assertEqual(widget["widget.remaining.format"], "Encore %d")
+        for name in ("HabitsByArvectum", "HabitsByArvectumWatch"):
+            root = ROOT / "chickmark/ios" / name
+            original = i18n.read_strings(root / "en.lproj/InfoPlist.strings", [])
+            translated = i18n.read_strings(root / "fr.lproj/InfoPlist.strings", [])
+            self.assertEqual(set(original), set(translated))
+            self.assertEqual(len(translated), 2)
+
     def test_pushkin_french_catalog_covers_all_real_english_copy(self):
         root = ROOT / "pushkin/ios/ArvectumNotify/Resources"
         en = i18n.read_strings(root / "en.lproj/Localizable.strings", [])

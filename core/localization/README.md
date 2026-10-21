@@ -323,3 +323,30 @@ Python localization tests now 20/20 PASS.
 This is a development draft, not a native-language editing signoff.
 Physical VoiceOver, larger Dynamic Type, live Shortcuts integrations
 and release approval remain pending. No release or main merge.
+
+## 21 October: complete French ChickMark across all four targets
+
+ChickMark's French development catalog is complete on all bundled
+targets: iPhone 302 keys, Apple Watch 22, iPhone Widget 16,
+Watch complication 5. The iPhone and Watch Health permission prompts
+also have real French InfoPlist.strings (2 keys in each).
+The existing automatic, completeness-gated language picker discovers
+French without hardcoding a new choice; system/app language fallback
+remains English when no catalog exists.
+
+The translation is a human-authored draft, with every key and format
+placeholder matching the English source. To avoid incorrect singular
+forms for count-only templates (for example 1 jours, 1 semaines),
+French uses neutral unit labels and templates where necessary.
+These are UX copy choices, not proof of native-language editing.
+
+The iOS simulator Debug scheme build succeeded including watch and both
+widget extensions; all four products' embedded fr.lproj files were
+verified in the generated app. ChickMark localization unit tests 5/5
+and French empty-state/new-habit UI XCUITest 1/1 pass; the UI test uses
+a synthetic store with Cloud sync disabled. The shared Python
+localization regression suite now passes 21/21.
+
+Physical VoiceOver, actual watch hardware, more screens, editorial
+review and each individual release approval remain open. No changes
+were merged or published.

@@ -123,10 +123,24 @@ final class LocalizationTests: XCTestCase {
     ]
 
     func testPickerOffersOnlyBundledLocales() {
-        XCTAssertEqual(ChickMarkLanguage.supported, ["ru", "en", "es"])
+        XCTAssertEqual(ChickMarkLanguage.supported, ["ru", "en", "es", "fr"])
         XCTAssertEqual(
             ChickMarkLanguage.orderedLanguages(["fr", "en", "Base", "ru", "es", "en"]),
             ["ru", "en", "es", "fr"]
+        )
+        XCTAssertEqual(
+            ChickMarkLanguage.resolvedIdentifier(
+                for: "system", preferred: ["fr-FR", "es-ES"],
+                available: ChickMarkLanguage.supported
+            ),
+            "fr"
+        )
+        XCTAssertEqual(
+            ChickMarkLanguage.resolvedIdentifier(
+                for: "fr", preferred: ["ja-JP"],
+                available: ChickMarkLanguage.supported
+            ),
+            "fr"
         )
         XCTAssertEqual(
             ChickMarkLanguage.orderedLanguages(["en", "ja", "de"]),
@@ -168,15 +182,38 @@ final class LocalizationTests: XCTestCase {
         for (language, expected) in [
             ("ru", "Отмечено: 1 из 3"),
             ("en", "Marked: 1 of 3"),
-            ("es", "Marcados: 1 de 3")
+            ("es", "Marcados: 1 de 3"),
+            ("fr", "Validées : 1 sur 3")
         ] {
             let template = L10n.string("today.progress.format", language: language)
             XCTAssertEqual(String(format: template, 1, 3), expected)
         }
     }
 
+    func testFrenchHabitCopyAndFormats() {
+        XCTAssertEqual(L10n.string("today.title", language: "fr"), "Aujourd’hui")
+        XCTAssertEqual(L10n.string("habit.create", language: "fr"), "Créer une habitude")
+        XCTAssertEqual(L10n.string("habit.name.placeholder", language: "fr"), "Nom de l’habitude")
+        XCTAssertEqual(L10n.string("language.title", language: "fr"), "Langue")
+        XCTAssertEqual(L10n.string("language.system", language: "fr"), "Langue du système")
+        let title = L10n.string("habit.streak.format", language: "fr")
+        XCTAssertEqual(String(format: title, 12), "12 jours de suite")
+        let days = L10n.string("today.progress.format", language: "fr")
+        XCTAssertEqual(String(format: days, 1, 3), "Validées : 1 sur 3")
+        XCTAssertEqual(
+            String(format: L10n.string("schedule.interval.description.format", language: "fr"), 1),
+            "Tous les 1 j après validation"
+        )
+        XCTAssertEqual(
+            String(format: L10n.string("insights.weekly.ratio", language: "fr"), 1, 2),
+            "Semaines : 1/2"
+        )
+        XCTAssertEqual(L10n.string("nonexistent.localized.key", language: "fr"),
+                       "nonexistent.localized.key")
+    }
+
     func testEnglishAndRussianContainAllRequiredKeys() throws {
-        for language in ["en", "ru", "es"] {
+        for language in ["en", "ru", "es", "fr"] {
             let path = try XCTUnwrap(
                 Bundle.main.path(
                     forResource: language,
