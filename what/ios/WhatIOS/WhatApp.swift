@@ -18,7 +18,9 @@ struct WhatApp: App {
         WindowGroup {
             Group {
 #if DEBUG
-                if ProcessInfo.processInfo.arguments.contains("--qa-transcript-editor-synthetic") ||
+                if ProcessInfo.processInfo.arguments.contains("--qa-transcript-recovery-synthetic") {
+                    TranscriptRecoveryQAFixtureView()
+                } else if ProcessInfo.processInfo.arguments.contains("--qa-transcript-editor-synthetic") ||
                    ProcessInfo.processInfo.arguments.contains("--qa-transcript-editor-synthetic-normal") ||
                    ProcessInfo.processInfo.arguments.contains("--qa-transcript-editor-synthetic-error") {
                     TranscriptEditorQAFixtureView()

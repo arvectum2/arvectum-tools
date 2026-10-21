@@ -217,3 +217,13 @@
 "Earlier" = "Earlier";
 "Interface language: iOS Settings" = "Interface language: iOS Settings";
 "Transcript storage could not be read. Your edits were not saved." = "Transcript storage could not be read. Your edits were not saved.";
+"Transcript recovery" = "Transcript recovery";
+"Restore transcripts only when their storage is damaged." = "Restore transcripts only when their storage is damaged.";
+"Transcript storage is healthy. No recovery is needed." = "Transcript storage is healthy. No recovery is needed.";
+"No usable backup was found. Your data was not changed." = "No usable backup was found. Your data was not changed.";
+"Transcripts available in the backup: %d" = "Transcripts available in the backup: %d";
+"Restore from backup" = "Restore from backup";
+"Restore transcripts from the backup?" = "Restore transcripts from the backup?";
+"Transcripts were restored from the backup." = "Transcripts were restored from the backup.";
+"Could not restore transcripts: %@" = "Could not restore transcripts: %@";
+"The last valid backup will be used. Recent text edits may be missing. Deleted notes will not be restored." = "The last valid backup will be used. Recent text edits may be missing. Deleted notes will not be restored.";

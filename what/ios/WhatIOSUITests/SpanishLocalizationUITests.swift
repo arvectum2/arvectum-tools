@@ -420,6 +420,26 @@ final class SpanishLocalizationUITests: XCTestCase {
         XCTAssertTrue(open.waitForExistence(timeout: 10))
     }
 
+    @MainActor
+    func testSpanishTranscriptRecoverySyntheticPreviewWithoutAnyWrite() {
+        let app = XCUIApplication()
+        app.launchArguments = [
+            "-AppleLanguages", "(es)", "-AppleLocale", "es_ES",
+            "--qa-transcript-recovery-synthetic"
+        ]
+        app.launch()
+        let available = app.staticTexts["what.recovery.ready"]
+        XCTAssertTrue(available.waitForExistence(timeout: 12))
+        XCTAssertTrue(available.label.contains("2"), available.label)
+        let restore = app.buttons["what.recovery.restore"]
+        XCTAssertTrue(restore.exists)
+        XCTAssertTrue(restore.isHittable)
+        XCTAssertGreaterThanOrEqual(restore.frame.height, 44)
+        XCTAssertTrue(app.buttons["what.recovery.done"].exists)
+        // Deliberately no restoration from this smoke test: the native iOS
+        // destructive confirmation UI needs a separate device acceptance.
+    }
+
     /// The settings menu must remain reachable with a huge font and a
     /// separately chosen dictation language. No settings are changed.
     @MainActor

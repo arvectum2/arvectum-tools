@@ -217,3 +217,13 @@
 "Earlier" = "Anteriores";
 "Interface language: iOS Settings" = "Idioma de la interfaz: ajustes de iOS";
 "Transcript storage could not be read. Your edits were not saved." = "No se pudo leer el archivo de transcripciones. Los cambios no se guardaron.";
+"Transcript recovery" = "Recuperación de transcripciones";
+"Restore transcripts only when their storage is damaged." = "Restaura las transcripciones solo si su almacenamiento está dañado.";
+"Transcript storage is healthy. No recovery is needed." = "El almacenamiento está en buen estado. No hace falta recuperarlo.";
+"No usable backup was found. Your data was not changed." = "No se encontró una copia de seguridad válida. Tus datos no se han modificado.";
+"Transcripts available in the backup: %d" = "Transcripciones disponibles en la copia: %d";
+"Restore from backup" = "Restaurar desde la copia";
+"Restore transcripts from the backup?" = "¿Restaurar las transcripciones desde la copia?";
+"Transcripts were restored from the backup." = "Se han restaurado las transcripciones desde la copia.";
+"Could not restore transcripts: %@" = "No se pudieron restaurar las transcripciones: %@";
+"The last valid backup will be used. Recent text edits may be missing. Deleted notes will not be restored." = "Se usará la última copia válida. Es posible que falten cambios recientes. No se restaurarán las notas eliminadas.";

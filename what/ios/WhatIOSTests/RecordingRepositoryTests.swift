@@ -231,6 +231,49 @@ final class RecordingRepositoryTests: XCTestCase {
         XCTAssertEqual(try Data(contentsOf: repo.audioURL(for: recording)), audio)
     }
 
+    func testRecoveryStatusIsReadOnlyAndRequiresCorruptPrimary() throws {
+        let root = FileManager.default.temporaryDirectory
+            .appendingPathComponent("what-restore-status-\(UUID().uuidString)")
+        defer { try? FileManager.default.removeItem(at: root) }
+        let repo = RecordingRepository(rootURL: root)
+        XCTAssertEqual(repo.transcriptRecoveryStatus(), .notNeeded)
+        let id = UUID()
+        try repo.saveTranscript("safe backup", for: id)
+        XCTAssertEqual(repo.transcriptRecoveryStatus(), .notNeeded)
+        let main = root.appendingPathComponent("transcripts.json")
+        let broken = Data("{bad-primary".utf8)
+        try broken.write(to: main)
+        XCTAssertEqual(repo.transcriptRecoveryStatus(), .ready(count: 1))
+        XCTAssertEqual(try Data(contentsOf: main), broken,
+                       "Previewing status must not write or repair the file")
+        try repo.restoreTranscriptCatalogFromBackup()
+        XCTAssertEqual(repo.transcriptRecoveryStatus(), .notNeeded)
+        XCTAssertEqual(repo.transcripts()[id], "safe backup")
+    }
+
+    func testRecoveryStatusRefusesEmptyOrMissingBackup() throws {
+        let root = FileManager.default.temporaryDirectory
+            .appendingPathComponent("what-recovery-unavailable-\(UUID().uuidString)")
+        defer { try? FileManager.default.removeItem(at: root) }
+        let repo = RecordingRepository(rootURL: root)
+        try repo.saveTranscript("safe", for: UUID())
+        let primary = root.appendingPathComponent("transcripts.json")
+        let backup = root.appendingPathComponent("transcripts.backup.json")
+        let broken = Data("{broken-main".utf8)
+        try broken.write(to: primary)
+        try FileManager.default.removeItem(at: backup)
+        XCTAssertEqual(repo.transcriptRecoveryStatus(), .unavailable)
+        try ArvectumJSONCodec.encode([String: String]()).write(
+            to: backup, options: .atomic
+        )
+        XCTAssertEqual(repo.transcriptRecoveryStatus(), .unavailable)
+        XCTAssertThrowsError(try repo.restoreTranscriptCatalogFromBackup()) {
+            XCTAssertEqual($0 as? RecordingRepository.RepositoryError,
+                           .transcriptBackupUnavailable)
+        }
+        XCTAssertEqual(try Data(contentsOf: primary), broken)
+    }
+
     func testMissingBackupCannotTriggerUnsafeRecovery() throws {
         let root = FileManager.default.temporaryDirectory
             .appendingPathComponent("what-missing-backup-\(UUID().uuidString)")

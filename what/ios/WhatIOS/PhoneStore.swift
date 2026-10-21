@@ -386,6 +386,15 @@ final class PhoneStore: NSObject, ObservableObject, AVAudioPlayerDelegate,
         recognizer = nil
     }
 
+    func transcriptRecoveryStatus() -> RecordingRepository.TranscriptRecoveryStatus {
+        repository.transcriptRecoveryStatus()
+    }
+
+    func restoreTranscriptCatalogFromBackup() throws {
+        try repository.restoreTranscriptCatalogFromBackup()
+        reload()
+    }
+
     func updateTranscript(_ text: String, for recording: RecordingEnvelope) throws {
         if transcribingID == recording.id {
             cancelTranscription()

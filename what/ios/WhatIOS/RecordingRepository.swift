@@ -13,6 +13,12 @@ enum IncomingRecordingResult {
 }
 
 final class RecordingRepository {
+    enum TranscriptRecoveryStatus: Equatable {
+        case notNeeded
+        case ready(count: Int)
+        case unavailable
+    }
+
     enum RepositoryError: LocalizedError, Equatable {
         case invalidMetadata, recordingUnavailable, emptyTranscript, transcriptStoreUnreadable,
              transcriptBackupUnavailable, transcriptRestoreNotNeeded
@@ -286,6 +292,31 @@ final class RecordingRepository {
         try data.write(to: transcriptURL, options: .atomic)
     }
 
+    /// Read-only status used by the recovery screen. Never expose backup
+    /// content, and never offer to replace a healthy/missing primary.
+    func transcriptRecoveryStatus() -> TranscriptRecoveryStatus {
+        lock.lock()
+        defer { lock.unlock() }
+
+        guard fileManager.fileExists(atPath: transcriptURL.path),
+              (try? loadTranscriptsForMutation()) == nil else {
+            return .notNeeded
+        }
+        guard let deleted = try? loadDeletedIDs(),
+              let data = try? Data(contentsOf: transcriptBackupURL),
+              let backup = try? ArvectumJSONCodec.decode(
+                [String: String].self, from: data
+              ) else {
+            return .unavailable
+        }
+        let surviving = backup.keys.filter {
+            guard let id = UUID(uuidString: $0) else { return true }
+            return !deleted.contains(id)
+        }
+        // Never offer an empty catalog as a recovery option.
+        return surviving.isEmpty ? .unavailable : .ready(count: surviving.count)
+    }
+
     /// Opt-in recovery primitive; never silently roll back readable catalog
     /// content. Deleted IDs are filtered from the backup before restoration,
     /// and durable tombstones still block late Watch transfers.
@@ -310,6 +341,10 @@ final class RecordingRepository {
         let safe = backup.filter { entry in
             guard let id = UUID(uuidString: entry.key) else { return true }
             return !deleted.contains(id)
+        }
+        // An empty backup cannot safely reconstruct a damaged catalog.
+        guard !safe.isEmpty else {
+            throw RepositoryError.transcriptBackupUnavailable
         }
         try persistTranscripts(safe)
         // Finish any interrupted audio/index deletion after the text is safe.

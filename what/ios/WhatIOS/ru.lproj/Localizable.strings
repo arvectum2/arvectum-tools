@@ -218,3 +218,13 @@
 "Earlier" = "Ранее";
 "Interface language: iOS Settings" = "Язык интерфейса — в настройках iOS";
 "Transcript storage could not be read. Your edits were not saved." = "Не удалось прочитать хранилище расшифровок. Изменения не сохранены.";
+"Transcript recovery" = "Восстановление расшифровок";
+"Restore transcripts only when their storage is damaged." = "Восстанавливайте расшифровки только если их файл повреждён.";
+"Transcript storage is healthy. No recovery is needed." = "Хранилище исправно. Восстановление не требуется.";
+"No usable backup was found. Your data was not changed." = "Исправная резервная копия недоступна. Данные не изменены.";
+"Transcripts available in the backup: %d" = "В резервной копии расшифровок: %d";
+"Restore from backup" = "Восстановить из копии";
+"Restore transcripts from the backup?" = "Восстановить расшифровки из копии?";
+"Transcripts were restored from the backup." = "Расшифровки восстановлены из резервной копии.";
+"Could not restore transcripts: %@" = "Не удалось восстановить расшифровки: %@";
+"The last valid backup will be used. Recent text edits may be missing. Deleted notes will not be restored." = "Будет использована последняя исправная копия. Недавние изменения текста могут отсутствовать. Удалённые заметки не восстанавливаются.";

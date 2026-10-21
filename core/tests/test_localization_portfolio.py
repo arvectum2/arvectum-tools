@@ -151,7 +151,7 @@ class LocalizationPortfolioTests(unittest.TestCase):
 
     def test_what_spanish_covers_phone_watch_widget_and_complication(self):
         roots = ["WhatIOS", "WhatWatch", "WhatPhoneWidget", "WhatWatchComplication"]
-        keys = [218, 6, 6, 5]
+        keys = [228, 6, 6, 5]
         for bundle, expected in zip(roots, keys):
             root = ROOT / "what/ios" / bundle
             english = i18n.read_strings(root / "en.lproj/Localizable.strings", [])
@@ -179,6 +179,21 @@ class LocalizationPortfolioTests(unittest.TestCase):
         self.assertEqual(home["Interface language: iOS Settings"],
                          "Idioma de la interfaz: ajustes de iOS")
         self.assertNotIn("Español (English interface)", home)
+
+    def test_what_recovery_ui_requires_confirmation_and_synthetic_qa(self):
+        repo = (ROOT / "what/ios/WhatIOS/RecordingRepository.swift").read_text()
+        view = (ROOT / "what/ios/WhatIOS/RecordingLibraryView.swift").read_text()
+        app = (ROOT / "what/ios/WhatIOS/WhatApp.swift").read_text()
+        tests = (ROOT /
+                 "what/ios/WhatIOSUITests/SpanishLocalizationUITests.swift").read_text()
+        self.assertIn("func transcriptRecoveryStatus()", repo)
+        self.assertIn("guard !safe.isEmpty else", repo)
+        self.assertIn(".confirmationDialog(", view)
+        self.assertIn("what.recovery.restore", view)
+        self.assertIn("what.recovery.confirm", view)
+        self.assertIn("--qa-transcript-recovery-synthetic", app)
+        self.assertIn("testSpanishTranscriptRecoverySyntheticPreviewWithoutAnyWrite", tests)
+        self.assertIn("TranscriptRecoveryQAFixtureView", view)
 
     def test_what_transcript_backup_and_delete_use_strict_storage_guards(self):
         repository = (ROOT / "what/ios/WhatIOS/RecordingRepository.swift").read_text()

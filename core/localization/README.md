@@ -700,3 +700,40 @@ contains sensitive transcripts in the app sandbox and its file
 protection needs release review. Physical storage fault-injection,
 VoiceOver, and Watch/phone integration remain release gates.
 No main merge, push, TestFlight or App Store upload.
+
+
+## 21 October 23:02 — What/Uhvat recovery UI, localization and outstanding gates
+
+Added a user-visible Transcript Recovery screen accessible from the
+library settings menu, with EN/RU/ES copy (228 iPhone keys each).
+The screen reads only a status/number; it does not display recovered
+transcript text or begin recovery on appear. It distinguishes healthy
+or absent main catalog (no recovery needed), corrupt main with
+missing/invalid/empty backup (unavailable), and corrupt main with a
+nonempty valid backup (number of recoverable entries). Durable
+deletion tombstones are filtered from counts and restored data.
+The Restore button appears only for the last case and requires
+an additional destructive confirmation with warning about possible
+lost recent edits. SwiftUI uses a full-size 52pt bottom Done target.
+
+PhoneStore delegates the explicit operation to RecordingRepository
+and refreshes published transcript data after a successful restore.
+No automatic startup restore was added. DEBUG-only UI fixture creates
+two entirely synthetic transcripts in an isolated temporary root
+then corrupts only its disposable main JSON. Real personal notes,
+audio, and Watch sync data are never touched by QA fixture.
+
+Unit tests verify safe read-only status, healthy/missing primary,
+empty/absent backup, and successful explicit recovery. The Spanish
+XCUITest confirms the AXXXL preview and full-size action without
+invoking destructive restoration. Xcode Simulator:
+Test-WhatIOS-2026.10.21_23-01-45-+0300.xcresult:
+67 passed, 3 skipped, 0 failed. Python 38/38 PASS, i18n audit PASS.
+
+Known blocker: the separate attempt to automate the native iOS
+destructive confirmation dialog timed out, after an earlier test
+failed to locate the system-rendered action by custom identifier.
+Do NOT claim the full confirmation-to-restored-library UI is tested.
+It requires targeted real-device/iPad VoiceOver/normal UX acceptance
+and recovery failure injection. File protection and power-loss
+atomicity are also open. No merge, push, TestFlight or publication.

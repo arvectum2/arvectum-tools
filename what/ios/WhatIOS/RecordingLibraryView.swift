@@ -17,6 +17,7 @@ struct RecordingLibraryView: View {
     @State private var searchText = ""
     @State private var preparedExport: PreparedRecordingExport?
     @State private var showDiagnostics = false
+    @State private var showTranscriptRecovery = false
     @State private var reviewNoteToSend: ReviewNoteHandoffDraft?
 
     private var notesMatchingFolderAndSearch: [UnifiedNote] {
@@ -329,9 +330,10 @@ struct RecordingLibraryView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color(uiColor: .systemGroupedBackground))
             .tint(ArvectumSemanticColors.actionBackground)
-            .sheet(isPresented: $showDiagnostics) {
-                SyncDiagnosticsView()
-                    .environmentObject(store)
+            .sheet(isPresented: $showDiagnostics, onDismiss: {
+                showTranscriptRecovery = false
+            }) {
+                settingsSheet
             }
             .sheet(item: $preparedExport, onDismiss: {
                 preparedExport?.cleanUp()
@@ -439,6 +441,18 @@ struct RecordingLibraryView: View {
         .accessibilityIdentifier("what.library.newText")
     }
 
+    @ViewBuilder
+    private var settingsSheet: some View {
+        if showTranscriptRecovery {
+            TranscriptRecoveryView(
+                statusProvider: { store.transcriptRecoveryStatus() },
+                restore: { try store.restoreTranscriptCatalogFromBackup() }
+            )
+        } else {
+            SyncDiagnosticsView().environmentObject(store)
+        }
+    }
+
     private func localizedDayTitle(_ value: String) -> String {
         switch value {
         case "Today": return CaptureBrand.text("Сегодня", "Today")
@@ -473,6 +487,14 @@ struct RecordingLibraryView: View {
                 Label(CaptureBrand.text("Диагностика синхронизации", "Sync diagnostics"),
                       systemImage: "applewatch")
             }
+            Button {
+                showTranscriptRecovery = true
+                showDiagnostics = true
+            } label: {
+                Label(CaptureBrand.text("Восстановление расшифровок", "Transcript recovery"),
+                      systemImage: "externaldrive.badge.timemachine")
+            }
+            .accessibilityIdentifier("what.library.recovery")
             Link(CaptureBrand.text("Конфиденциальность", "Privacy policy"),
                  destination: URL(string: "https://arvectum.com/privacy")!)
         } label: {
@@ -972,3 +994,165 @@ private struct AutoFollowUpSettingsMenu: View {
         .accessibilityIdentifier("what.settings.autoFollowUp")
     }
 }
+
+
+// MARK: - Explicit, fail-closed transcript recovery
+
+/// Only user-confirmed restoration is permitted. The screen does not read
+/// personal transcript text into SwiftUI and never invokes restore on appear.
+struct TranscriptRecoveryView: View {
+    let statusProvider: () -> RecordingRepository.TranscriptRecoveryStatus
+    let restore: () throws -> Void
+
+    @Environment(\.dismiss) private var dismiss
+    @State private var status: RecordingRepository.TranscriptRecoveryStatus = .notNeeded
+    @State private var showConfirmation = false
+    @State private var showResult = false
+    @State private var resultMessage = ""
+
+    var body: some View {
+        NavigationStack {
+            ScrollView {
+                VStack(alignment: .leading, spacing: 20) {
+                    Image(systemName: "externaldrive.badge.timemachine")
+                        .font(.largeTitle)
+                        .foregroundStyle(.tint)
+                        .accessibilityHidden(true)
+                    Text(CaptureBrand.text(
+                        "Восстанавливайте расшифровки только если их файл повреждён.",
+                        "Restore transcripts only when their storage is damaged."
+                    ))
+                    .fixedSize(horizontal: false, vertical: true)
+
+                    Group {
+                        switch status {
+                        case .notNeeded:
+                            Text(CaptureBrand.text(
+                                "Хранилище исправно. Восстановление не требуется.",
+                                "Transcript storage is healthy. No recovery is needed."
+                            ))
+                            .accessibilityIdentifier("what.recovery.healthy")
+                        case .unavailable:
+                            Text(CaptureBrand.text(
+                                "Исправная резервная копия недоступна. Данные не изменены.",
+                                "No usable backup was found. Your data was not changed."
+                            ))
+                            .accessibilityIdentifier("what.recovery.unavailable")
+                        case .ready(let count):
+                            Text(CaptureBrand.formatted(
+                                "В резервной копии расшифровок: %d",
+                                "Transcripts available in the backup: %d", count
+                            ))
+                            .accessibilityIdentifier("what.recovery.ready")
+                        }
+                    }
+                    .font(.body.weight(.medium))
+                    .fixedSize(horizontal: false, vertical: true)
+
+                    if case .ready = status {
+                        Button(role: .destructive) {
+                            showConfirmation = true
+                        } label: {
+                            Label(CaptureBrand.text(
+                                "Восстановить из копии",
+                                "Restore from backup"
+                            ), systemImage: "arrow.counterclockwise")
+                                .frame(maxWidth: .infinity, minHeight: 52)
+                        }
+                        .buttonStyle(.borderedProminent)
+                        .accessibilityIdentifier("what.recovery.restore")
+                    }
+                }
+                .frame(maxWidth: 680, alignment: .leading)
+                .padding(20)
+                .frame(maxWidth: .infinity)
+            }
+            .navigationTitle(CaptureBrand.text(
+                "Восстановление расшифровок", "Transcript recovery"
+            ))
+            .navigationBarTitleDisplayMode(.inline)
+            .safeAreaInset(edge: .bottom, spacing: 0) {
+                HStack {
+                    Spacer()
+                    Button(CaptureBrand.text("Готово", "Done")) { dismiss() }
+                        .buttonStyle(.bordered)
+                        .frame(minWidth: 88, minHeight: 52)
+                        .accessibilityIdentifier("what.recovery.done")
+                }
+                .padding(.horizontal, 16)
+                .padding(.vertical, 8)
+                .background(.regularMaterial)
+            }
+            .onAppear { status = statusProvider() }
+            .confirmationDialog(
+                CaptureBrand.text("Восстановить расшифровки из копии?",
+                                  "Restore transcripts from the backup?"),
+                isPresented: $showConfirmation,
+                titleVisibility: .visible
+            ) {
+                Button(CaptureBrand.text("Восстановить", "Restore"),
+                       role: .destructive) {
+                    do {
+                        try restore()
+                        status = statusProvider()
+                        resultMessage = CaptureBrand.text(
+                            "Расшифровки восстановлены из резервной копии.",
+                            "Transcripts were restored from the backup."
+                        )
+                    } catch {
+                        status = statusProvider()
+                        resultMessage = CaptureBrand.formatted(
+                            "Не удалось восстановить расшифровки: %@",
+                            "Could not restore transcripts: %@",
+                            error.localizedDescription
+                        )
+                    }
+                    showResult = true
+                }
+                .accessibilityIdentifier("what.recovery.confirm")
+                Button(CaptureBrand.text("Отмена", "Cancel"), role: .cancel) { }
+            } message: {
+                Text(CaptureBrand.text(
+                    "Будет использована последняя исправная копия. Недавние изменения текста могут отсутствовать. Удалённые заметки не восстанавливаются.",
+                    "The last valid backup will be used. Recent text edits may be missing. Deleted notes will not be restored."
+                ))
+            }
+            .alert(
+                CaptureBrand.text("Восстановление расшифровок", "Transcript recovery"),
+                isPresented: $showResult
+            ) {
+                Button("OK", role: .cancel) { }
+            } message: {
+                Text(resultMessage)
+            }
+        }
+    }
+}
+
+
+#if DEBUG
+/// Disposable recovery-only UI data. No personal recordings, microphone,
+/// Watch queue or app storage is read or changed by this fixture.
+struct TranscriptRecoveryQAFixtureView: View {
+    private let repository: RecordingRepository
+
+    init() {
+        let root = FileManager.default.temporaryDirectory
+            .appendingPathComponent("what-recovery-ui-\(UUID().uuidString)")
+        let repo = RecordingRepository(rootURL: root)
+        try? repo.saveTranscript("synthetic QA-only transcript", for: UUID())
+        try? repo.saveTranscript("second QA-only transcript", for: UUID())
+        try? Data("{corrupt-for-ui-qa".utf8)
+            .write(to: root.appendingPathComponent("transcripts.json"), options: .atomic)
+        repository = repo
+    }
+
+    var body: some View {
+        TranscriptRecoveryView(
+            statusProvider: { repository.transcriptRecoveryStatus() },
+            restore: { try repository.restoreTranscriptCatalogFromBackup() }
+        )
+        .environment(\.dynamicTypeSize, .accessibility5)
+    }
+}
+#endif

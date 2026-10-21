@@ -661,3 +661,29 @@ deleted-record non-resurrection. Python 37/37, i18n audit PASS.
 Outstanding: user recovery UX/authorization, filesystem protection
 and real power-loss fault injection, physical iOS/Watch VoiceOver,
 real capture and sync regression. No deployment or publication.
+
+
+## L4.17a — safe transcript recovery UI in library settings, 21 Oct
+
+A user-confirmed recovery screen now exposes the repository's
+transcriptRecoveryStatus without opening transcript content in UI.
+Healthy/missing primary → no restore; malformed primary and
+unavailable/missing/empty backup → no restore; malformed primary
+with valid nonempty backup → count and explicitly confirmed Restore.
+Deleted UUID tombstones are always honored. Success refreshes the
+PhoneStore, failure surfaces a local error without dismissing
+the screen; there is no automatic restore.
+
+All 10 additional source labels/messages were localized EN/RU/ES
+and audited (iPhone 228/228 in each). The UI screenshot smoke uses
+a DEBUG-only two-record temporary fixture, not actual user media.
+Final evidence:
+Test-WhatIOS-2026.10.21_23-01-45-+0300.xcresult
+67 passed, 3 skipped, 0 failed.
+Shared Python 38/38 and locale audit PASS.
+
+The destructive native confirmation modal test remained unreliable/
+hung on iOS Simulator. This is recorded as L4.17b OPEN and must be
+verified on hardware, including decline, success, missing backup,
+possible lost recent edits, accessibility, and no repeated rollback.
+No Store action, main merge, or release.
