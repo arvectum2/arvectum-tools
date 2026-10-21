@@ -612,3 +612,26 @@ iPhone ES changed draft enables Save and safe dismiss 19:37:35
 1/1 PASS. Python source/locale suite 35/35 PASS.
 Physical VoiceOver and real transcript durability/failure handling
 are explicitly not claimed and remain open QA requirements.
+
+## L4.15 — manual transcript durability, malformed-JSON guard
+
+Manual and automatic speech corrections share transcripts.json.
+Previous tolerant loading could return an empty dictionary for a
+damaged file, allowing the next atomic writer to erase unrelated
+text. Introduced strict loadTranscriptsForMutation() in both
+writers, with transcriptStoreUnreadable and localized RU/EN/ES
+failure copy. Source audio is never changed by transcript updates;
+all three iPhone catalogs now have 218 matching strings.
+
+Synthetic XCTest covers edit persistence through repository reopen,
+unrelated transcript and audio preservation, rejecting empty/missing/
+deleted edits, protecting malformed file and unreadable path bytes,
+and successful retry after restoring a trusted copy. An isolated
+DEBUG-only Spanish XCUITest verifies the on-screen failure message
+and preserved editable draft without touching user's recording data.
+
+XCResult Test-WhatIOS-2026.10.21_21-01-51-+0300.xcresult:
+58 PASS / 3 SKIP / 0 FAIL; core Python 36/36 PASS; audit PASS.
+Does not implement in-app automatic backup or repair and does not
+claim physical VoiceOver, real-world crash injection, or device
+synchronization QA.

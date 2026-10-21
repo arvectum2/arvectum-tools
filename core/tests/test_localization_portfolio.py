@@ -151,7 +151,7 @@ class LocalizationPortfolioTests(unittest.TestCase):
 
     def test_what_spanish_covers_phone_watch_widget_and_complication(self):
         roots = ["WhatIOS", "WhatWatch", "WhatPhoneWidget", "WhatWatchComplication"]
-        keys = [217, 6, 6, 5]
+        keys = [218, 6, 6, 5]
         for bundle, expected in zip(roots, keys):
             root = ROOT / "what/ios" / bundle
             english = i18n.read_strings(root / "en.lproj/Localizable.strings", [])
@@ -179,6 +179,19 @@ class LocalizationPortfolioTests(unittest.TestCase):
         self.assertEqual(home["Interface language: iOS Settings"],
                          "Idioma de la interfaz: ajustes de iOS")
         self.assertNotIn("Español (English interface)", home)
+
+    def test_what_corrupted_transcript_store_is_fail_closed_and_localized(self):
+        source = (ROOT / "what/ios/WhatIOS/RecordingRepository.swift").read_text()
+        qa = (ROOT / "what/ios/WhatIOSUITests/SpanishLocalizationUITests.swift").read_text()
+        self.assertIn("loadTranscriptsForMutation()", source)
+        self.assertIn("transcriptStoreUnreadable", source)
+        self.assertIn("testSpanishTranscriptSaveFailureKeepsDraftAndShowsExplanation", qa)
+        key = "Transcript storage could not be read. Your edits were not saved."
+        for code in ("en", "ru", "es"):
+            translations = i18n.read_strings(
+                ROOT / f"what/ios/WhatIOS/{code}.lproj/Localizable.strings", []
+            )
+            self.assertIn(key, translations)
 
     def test_what_transcript_editor_ax_controls_use_synthetic_fixture(self):
         editor = (ROOT / "what/ios/WhatIOS/TranscriptEditorSheet.swift").read_text()

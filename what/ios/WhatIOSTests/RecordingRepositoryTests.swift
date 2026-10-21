@@ -29,6 +29,141 @@ final class RecordingRepositoryTests: XCTestCase {
         XCTAssertEqual(RecordingRepository(rootURL: root).transcripts()[id], "Test transcript")
     }
 
+    /// Disposable directories and synthetic bytes only, never the real app's
+    /// Application Support or personal Watch transfers.
+    private func makeEditableRecording(
+        in root: URL, id: UUID = UUID()
+    ) throws -> (RecordingRepository, RecordingEnvelope, Data) {
+        let repo = RecordingRepository(rootURL: root)
+        let source = root.appendingPathComponent("qa-source.m4a")
+        let audio = Data("immutable-audio-\(id.uuidString)".utf8)
+        try audio.write(to: source)
+        let outcome = try repo.acceptTemporaryFile(source, metadata: [
+            TransferMetadataKey.id: id.uuidString,
+            TransferMetadataKey.createdAt: 1_700_000_000.0,
+            TransferMetadataKey.duration: 3.0
+        ])
+        guard case .stored(let recording) = outcome else {
+            throw RecordingRepository.RepositoryError.invalidMetadata
+        }
+        return (repo, recording, audio)
+    }
+
+    func testManualTranscriptEditPersistsAndKeepsOtherNotesAndAudioUnchanged() throws {
+        let root = FileManager.default.temporaryDirectory
+            .appendingPathComponent("what-manual-persist-\(UUID().uuidString)")
+        defer { try? FileManager.default.removeItem(at: root) }
+        let (repo, first, originalAudio) = try makeEditableRecording(in: root)
+        let (_, second, _) = try makeEditableRecording(in: root)
+        try repo.saveTranscript("first original", for: first.id)
+        try repo.saveTranscript("second must remain", for: second.id)
+
+        try repo.updateTranscript("first corrected", for: first.id)
+        let relaunched = RecordingRepository(rootURL: root)
+        XCTAssertEqual(relaunched.transcripts()[first.id], "first corrected")
+        XCTAssertEqual(relaunched.transcripts()[second.id], "second must remain")
+        XCTAssertEqual(try Data(contentsOf: relaunched.audioURL(for: first)),
+                       originalAudio)
+        XCTAssertEqual(Set(relaunched.allRecordings().map(\.id)),
+                       Set([first.id, second.id]))
+    }
+
+    func testManualTranscriptRejectsBlankMissingAndDeletedNotes() throws {
+        let root = FileManager.default.temporaryDirectory
+            .appendingPathComponent("what-manual-reject-\(UUID().uuidString)")
+        defer { try? FileManager.default.removeItem(at: root) }
+        let (repo, recording, audio) = try makeEditableRecording(in: root)
+        try repo.saveTranscript("keep me", for: recording.id)
+
+        XCTAssertThrowsError(try repo.updateTranscript("  \n ", for: recording.id)) {
+            XCTAssertEqual($0 as? RecordingRepository.RepositoryError,
+                           .emptyTranscript)
+        }
+        XCTAssertThrowsError(try repo.updateTranscript("missing", for: UUID())) {
+            XCTAssertEqual($0 as? RecordingRepository.RepositoryError,
+                           .recordingUnavailable)
+        }
+        XCTAssertEqual(repo.transcripts()[recording.id], "keep me")
+        XCTAssertEqual(try Data(contentsOf: repo.audioURL(for: recording)), audio)
+
+        try repo.deleteRecording(recording.id)
+        XCTAssertThrowsError(try repo.updateTranscript("resurrect", for: recording.id)) {
+            XCTAssertEqual($0 as? RecordingRepository.RepositoryError,
+                           .recordingUnavailable)
+        }
+        XCTAssertNil(RecordingRepository(rootURL: root).transcripts()[recording.id])
+    }
+
+    func testCorruptTranscriptCatalogFailsClosedAndPreservesOriginalBytes() throws {
+        let root = FileManager.default.temporaryDirectory
+            .appendingPathComponent("what-corrupt-catalog-\(UUID().uuidString)")
+        defer { try? FileManager.default.removeItem(at: root) }
+        let (repo, recording, audio) = try makeEditableRecording(in: root)
+        try repo.saveTranscript("previous", for: recording.id)
+        let catalog = root.appendingPathComponent("transcripts.json")
+        let corrupted = Data("{broken-json: private transcripts".utf8)
+        try corrupted.write(to: catalog)
+
+        XCTAssertThrowsError(try repo.updateTranscript("must not overwrite", for: recording.id)) {
+            XCTAssertEqual($0 as? RecordingRepository.RepositoryError,
+                           .transcriptStoreUnreadable)
+        }
+        // The automatic speech path must also refuse to replace corrupt JSON.
+        XCTAssertThrowsError(try repo.saveTranscript("late recognition", for: recording.id)) {
+            XCTAssertEqual($0 as? RecordingRepository.RepositoryError,
+                           .transcriptStoreUnreadable)
+        }
+        XCTAssertEqual(try Data(contentsOf: catalog), corrupted)
+        XCTAssertEqual(try Data(contentsOf: repo.audioURL(for: recording)), audio)
+        XCTAssertEqual(repo.allRecordings().map(\.id), [recording.id])
+    }
+
+    func testRepairingCorruptCatalogRestoresSafeEditingWithoutDataLoss() throws {
+        let root = FileManager.default.temporaryDirectory
+            .appendingPathComponent("what-catalog-repair-\(UUID().uuidString)")
+        defer { try? FileManager.default.removeItem(at: root) }
+        let (repo, first, originalAudio) = try makeEditableRecording(in: root)
+        let (_, second, _) = try makeEditableRecording(in: root)
+        try repo.saveTranscript("first original", for: first.id)
+        try repo.saveTranscript("second private transcript", for: second.id)
+        let catalog = root.appendingPathComponent("transcripts.json")
+        let originalCatalog = try Data(contentsOf: catalog)
+        let brokenCatalog = Data("{invalid".utf8)
+        try brokenCatalog.write(to: catalog)
+
+        XCTAssertThrowsError(try repo.updateTranscript("unsafe", for: first.id)) {
+            XCTAssertEqual($0 as? RecordingRepository.RepositoryError,
+                           .transcriptStoreUnreadable)
+        }
+        XCTAssertEqual(try Data(contentsOf: catalog), brokenCatalog)
+
+        // Simulate restoring a known-good local backup. No auto-repair may
+        // silently discard unknown records during a normal edit.
+        try originalCatalog.write(to: catalog, options: .atomic)
+        try repo.updateTranscript("first corrected after repair", for: first.id)
+        let reopened = RecordingRepository(rootURL: root)
+        XCTAssertEqual(reopened.transcripts()[first.id], "first corrected after repair")
+        XCTAssertEqual(reopened.transcripts()[second.id], "second private transcript")
+        XCTAssertEqual(try Data(contentsOf: reopened.audioURL(for: first)),
+                       originalAudio)
+    }
+
+    func testUnreadableTranscriptDirectoryIsNotReplacedWithEmptyJSON() throws {
+        let root = FileManager.default.temporaryDirectory
+            .appendingPathComponent("what-unreadable-catalog-\(UUID().uuidString)")
+        defer { try? FileManager.default.removeItem(at: root) }
+        let (repo, recording, audio) = try makeEditableRecording(in: root)
+        let catalog = root.appendingPathComponent("transcripts.json")
+        try FileManager.default.createDirectory(at: catalog,
+                                                withIntermediateDirectories: false)
+        XCTAssertThrowsError(try repo.updateTranscript("do not write", for: recording.id)) {
+            XCTAssertEqual($0 as? RecordingRepository.RepositoryError,
+                           .transcriptStoreUnreadable)
+        }
+        XCTAssertTrue(try catalog.resourceValues(forKeys: [.isDirectoryKey]).isDirectory == true)
+        XCTAssertEqual(try Data(contentsOf: repo.audioURL(for: recording)), audio)
+    }
+
     func testDuplicateDeliveryCreatesOneRecording() throws {
         let root = FileManager.default.temporaryDirectory
             .appendingPathComponent("what-tests-\(UUID().uuidString)", isDirectory: true)

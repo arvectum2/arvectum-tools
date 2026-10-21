@@ -144,7 +144,14 @@ struct TranscriptEditorQAFixtureView: View {
                         fileName: "synthetic-qa-not-a-file.m4a"
                     ),
                     initialText: "Texto de prueba",
-                    onSave: { _ in /* In-memory QA, never persist */ }
+                    onSave: { _ in
+                        // Error UI QA path is in memory only; never write.
+                        if ProcessInfo.processInfo.arguments.contains(
+                            "--qa-transcript-editor-synthetic-error"
+                        ) {
+                            throw RecordingRepository.RepositoryError.transcriptStoreUnreadable
+                        }
+                    }
                 )
                 .environment(\.dynamicTypeSize, fixtureTypeSize)
             }

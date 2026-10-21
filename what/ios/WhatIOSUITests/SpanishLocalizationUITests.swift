@@ -360,6 +360,40 @@ final class SpanishLocalizationUITests: XCTestCase {
         XCTAssertTrue(open.waitForExistence(timeout: 10))
     }
 
+    /// A simulated write failure must not dismiss the user's corrected draft.
+    /// The isolated QA callback throws before any repository I/O.
+    @MainActor
+    func testSpanishTranscriptSaveFailureKeepsDraftAndShowsExplanation() {
+        let app = XCUIApplication()
+        app.launchArguments = [
+            "-AppleLanguages", "(es)", "-AppleLocale", "es_ES",
+            "--qa-transcript-editor-synthetic-error"
+        ]
+        app.launch()
+        let open = app.buttons["what.qa.transcript.open"]
+        XCTAssertTrue(open.waitForExistence(timeout: 12))
+        open.tap()
+
+        let editor = app.textViews["what.transcript.editor"]
+        XCTAssertTrue(editor.waitForExistence(timeout: 12))
+        editor.tap()
+        editor.typeText(" actualizado")
+        let save = app.buttons["what.transcript.save"]
+        XCTAssertTrue(save.isEnabled)
+        save.tap()
+
+        let alert = app.alerts["No se pudieron guardar los cambios"]
+        XCTAssertTrue(alert.waitForExistence(timeout: 10))
+        XCTAssertTrue(app.staticTexts[
+            "No se pudo leer el archivo de transcripciones. Los cambios no se guardaron."
+        ].exists)
+        alert.buttons["Aceptar"].tap()
+        XCTAssertTrue(editor.waitForExistence(timeout: 8))
+        XCTAssertTrue((editor.value as? String)?.contains("actualizado") == true)
+        app.buttons["what.transcript.cancel"].tap()
+        XCTAssertTrue(open.waitForExistence(timeout: 10))
+    }
+
     @MainActor
     func testSpanishNormalTranscriptKeepsToolbarAndSafeCancel() {
         let app = XCUIApplication()

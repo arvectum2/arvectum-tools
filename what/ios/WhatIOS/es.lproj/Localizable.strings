@@ -216,3 +216,4 @@
 "Yesterday" = "Ayer";
 "Earlier" = "Anteriores";
 "Interface language: iOS Settings" = "Idioma de la interfaz: ajustes de iOS";
+"Transcript storage could not be read. Your edits were not saved." = "No se pudo leer el archivo de transcripciones. Los cambios no se guardaron.";

@@ -13,7 +13,21 @@ enum IncomingRecordingResult {
 }
 
 final class RecordingRepository {
-    enum RepositoryError: Error { case invalidMetadata, recordingUnavailable, emptyTranscript }
+    enum RepositoryError: LocalizedError, Equatable {
+        case invalidMetadata, recordingUnavailable, emptyTranscript, transcriptStoreUnreadable
+
+        var errorDescription: String? {
+            switch self {
+            case .transcriptStoreUnreadable:
+                return CaptureBrand.text(
+                    "Не удалось прочитать хранилище расшифровок. Изменения не сохранены.",
+                    "Transcript storage could not be read. Your edits were not saved."
+                )
+            default:
+                return nil
+            }
+        }
+    }
 
     private let fileManager: FileManager
     private let rootURL: URL
@@ -226,7 +240,10 @@ final class RecordingRepository {
         lock.lock()
         defer { lock.unlock() }
         guard !(try loadDeletedIDs()).contains(id) else { return }
-        var existing = loadTranscripts()
+        // Never replace an unreadable transcript catalog with a new one.
+        // Otherwise a single manual edit or late speech result could erase
+        // every other transcript when the JSON file is corrupt.
+        var existing = try loadTranscriptsForMutation()
         existing[id.uuidString] = text
         try ArvectumJSONCodec.encode(existing).write(to: transcriptURL, options: .atomic)
     }
@@ -244,9 +261,25 @@ final class RecordingRepository {
               loadIndex().contains(where: { $0.id == id }) else {
             throw RepositoryError.recordingUnavailable
         }
-        var existing = loadTranscripts()
+        // Never replace an unreadable transcript catalog with a new one.
+        // Otherwise a single manual edit or late speech result could erase
+        // every other transcript when the JSON file is corrupt.
+        var existing = try loadTranscriptsForMutation()
         existing[id.uuidString] = text
         try ArvectumJSONCodec.encode(existing).write(to: transcriptURL, options: .atomic)
+    }
+
+    /// Writes must fail closed when the catalog exists but is unreadable.
+    /// Reads intentionally retain their existing empty-on-failure display
+    /// behavior; only mutations are prohibited from clobbering the bytes.
+    private func loadTranscriptsForMutation() throws -> [String: String] {
+        guard fileManager.fileExists(atPath: transcriptURL.path) else { return [:] }
+        do {
+            let data = try Data(contentsOf: transcriptURL)
+            return try ArvectumJSONCodec.decode([String: String].self, from: data)
+        } catch {
+            throw RepositoryError.transcriptStoreUnreadable
+        }
     }
 
     private func loadTranscripts() -> [String: String] {

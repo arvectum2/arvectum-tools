@@ -19,7 +19,8 @@ struct WhatApp: App {
             Group {
 #if DEBUG
                 if ProcessInfo.processInfo.arguments.contains("--qa-transcript-editor-synthetic") ||
-                   ProcessInfo.processInfo.arguments.contains("--qa-transcript-editor-synthetic-normal") {
+                   ProcessInfo.processInfo.arguments.contains("--qa-transcript-editor-synthetic-normal") ||
+                   ProcessInfo.processInfo.arguments.contains("--qa-transcript-editor-synthetic-error") {
                     TranscriptEditorQAFixtureView()
                 } else if ProcessInfo.processInfo.arguments.contains("--qa-design-filled-library") ||
                    ProcessInfo.processInfo.arguments.contains("--qa-spanish-axxxl-home") ||

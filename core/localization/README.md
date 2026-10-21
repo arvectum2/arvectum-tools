@@ -625,3 +625,38 @@ Shared Python localization/security tests 35/35 PASS, format/catalog
 audit PASS. These do NOT substitute for physical VoiceOver or real
 error/recovery/persistence acceptance with user-provided transcripts.
 No TestFlight, App Store or main merge.
+
+## 21 October 21:03 — transcript catalog fail-closed writes and recovery
+
+Data-loss path identified in RecordingRepository: loadTranscripts()
+returns an empty dictionary on corrupt/unreadable transcripts.json
+for display. Previously saveTranscript and updateTranscript reused
+that empty dictionary for an atomic overwrite, potentially erasing
+unrelated transcripts. Both write methods now call strict
+loadTranscriptsForMutation(), which rejects a present but corrupt or
+unreadable JSON catalog, throwing transcriptStoreUnreadable. The
+existing file bytes and original audio remain intact. A missing
+catalog can correctly begin empty; no automatic repair is attempted.
+
+A localized EN/RU/ES error message is included; the What iPhone
+catalogs now have 218 key-complete strings each. The existing editor
+preserves its draft on callback failure and displays the error. An
+isolated DEBUG-only synthetic save-failure callback and Spanish
+XCUITest verified the correct localized alert, Aceptar action and
+retained draft without writing any personal notes.
+
+Five repository XCTest checks use disposable unique temporary roots:
+normal edit/reopen and unaffected other notes/audio; empty,
+unknown and deleted note guards; corrupt JSON preserved on both
+manual and speech writes; unreadable catalog path preserved; and
+correction after known-good backup restoration without losing other
+transcripts or original audio.
+
+Verified iOS 27 simulator:
+Test-WhatIOS-2026.10.21_21-01-51-+0300.xcresult,
+58 passed, 3 skipped, 0 failed (61 total).
+Python regression 36/36 PASS, localization/format audit PASS.
+Read-only display still falls back to empty if corrupt; writes are
+blocked until a trusted repair. No automatic backup/recovery is
+claimed. Physical iPhone/Watch, crash/power-loss fault injection and
+real device VoiceOver remain open; no release or main merge.
