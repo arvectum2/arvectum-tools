@@ -370,6 +370,18 @@ or export features.
 - [ ] **P1 · Integration feasibility spike:** validate app-to-app transfer for the two signed iOS apps (App Group/shared container versus App Intents/Shortcuts/openURL), actual background/notification limits, permissions and behavior when ChickMark is not installed. Never require cloud, network or an always-running companion app. If unavailable, use Ухват's own local notification fallback.
 - [ ] **Acceptance:** test Watch offline/delayed arrival, transcription still pending, edited transcription after handoff, app reinstall/upgrade, duplicate Watch deliveries, deleted/archived notes, ChickMark unavailable, denied notification permission, timezone/quiet hours, and tap-through to the correct audio. Do not silently copy private transcripts to shared or external destinations without opt-in.
 
+## P7 — Запись телефонных разговоров и импорт записей (backlog, 21.10.2026)
+
+**Цель:** хранить телефонные разговоры в едином локальном Inbox Ухвата рядом с аудио-, видео- и текстовыми заметками, с воспроизведением, транскрипцией и поиском. **Статус: не реализовано.** Не путать входящий телефонный звонок как тест прерывания текущей записи с записью содержимого разговора.
+
+- [ ] **CALL-1 · Technical feasibility (до реализации):** проверить актуальные возможности iOS, CallKit/LiveCommunicationKit и правила App Review. Сторонние приложения сейчас не получают аудиопоток обычного сотового звонка из системного приложения «Телефон»; нельзя обещать фоновую/автоматическую/скрытую запись GSM/VoLTE через Ухват. Не использовать private API, jailbreak или обход системных ограничений.
+- [ ] **CALL-2 · MVP — импорт готовой записи:** принимать записанный штатными средствами iPhone разговор через «Поделиться»/файл из Apple Notes/Files, когда системная запись доступна в регионе; предусмотреть импорт аудиофайла и ручное добавление. Создавать локальную заметку `phoneCall` с исходным неизменённым аудио, UUID, датой, названием/контактом *только по явному выбору пользователя*, воспроизведением, транскрипцией, поиском и экспортом. Переиспользовать существующие безопасные локальные модели хранения; отсутствие системной записи в регионе не должно ломать импорт других аудиофайлов.
+- [ ] **CALL-3 · UX:** понятный пункт «Запись звонка» с объяснением, какие способы поддерживаются на устройстве, и кнопкой «Импортировать запись». Не показывать кнопку, якобы записывающую сотовый вызов напрямую, пока такая возможность не подтверждена официальными API. Не нарушать сценарий одной большой кнопки быстрой записи обычных заметок.
+- [ ] **CALL-4 · Возможность прямой записи — отдельное исследование:** изучить только законные поддерживаемые варианты (например, вызов в собственном VoIP-клиенте с явным согласием сторон, если такой продукт будет нужен). Не добавлять VoIP-платформу или платную конференц-связь автоматически в scope Ухвата; архитектурное и коммерческое решение — отдельно.
+- [ ] **CALL-5 · Privacy и приёмка:** соблюдать местные правила и согласие участников разговора; не обходить системные уведомления о записи. Все файлы локальные по умолчанию, разрешения минимальные, никакой скрытой отправки в облако. Проверить Share Sheet/Files, формат и длительность файла, транскрипцию, дубли, отмену, low storage, работу offline, миграцию старых заметок и недоступность системной записи в отдельных регионах.
+
+**Порядок:** сначала CALL-1 → CALL-2/3 → CALL-5; CALL-4 только после отдельного решения о продуктовой необходимости.
+
 ## Later
 - [ ] Optional clustering and additional platforms only after MVP validation.
 
