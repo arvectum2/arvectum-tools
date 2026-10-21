@@ -180,6 +180,22 @@ class LocalizationPortfolioTests(unittest.TestCase):
                          "Idioma de la interfaz: ajustes de iOS")
         self.assertNotIn("Español (English interface)", home)
 
+    def test_what_large_text_note_editor_has_accessible_done_target(self):
+        source = (ROOT / "what/ios/WhatIOS/TextNoteSheet.swift").read_text()
+        spanish_qa = (ROOT /
+                      "what/ios/WhatIOSUITests/SpanishLocalizationUITests.swift"
+                      ).read_text()
+        self.assertIn(".safeAreaInset(edge: .bottom, spacing: 0)", source)
+        self.assertIn(".frame(minWidth: 88, minHeight: 52)", source)
+        self.assertIn("if !dynamicTypeSize.isAccessibilitySize", source)
+        self.assertIn('.accessibilityIdentifier("what.text.done")', source)
+        self.assertIn("testSpanishAXXXLTextEditorReadableAndDismissible",
+                      spanish_qa)
+        self.assertIn("testSpanishAXXXLSettingsLanguageIsDiscoverable",
+                      spanish_qa)
+        self.assertIn('XCTAssertGreaterThanOrEqual(done.frame.height, 44)',
+                      spanish_qa)
+
     def test_what_diagnostics_qa_no_longer_uses_legacy_shared_language(self):
         tests = (ROOT /
                  "what/ios/WhatIOSUITests/SyncDiagnosticsLocalizationUITests.swift"

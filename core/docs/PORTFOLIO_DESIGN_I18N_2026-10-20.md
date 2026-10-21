@@ -522,3 +522,32 @@ no claim of complete Smart Search localization is made. Enabling
 it requires separate full RU/ES copy, model/download and VoiceOver
 review. Physical VoiceOver/iPad/Watch and human linguist signoff
 still block releases.
+
+
+## L4.11 — What Spanish large-font Done action (21 Oct)
+
+iPhone/iPad QA uncovered the actual 36 pt nav-toolbar Done button.
+Applying frame to the toolbar label did not enlarge the XCUIElement
+frame. Also learned that ContentView-only accessibility5 injection
+does not propagate into TextNoteSheet, so true system accessibility
+font settings are required for a valid modal-editor test.
+
+In production TextNoteSheet, an accessibility-size condition moves
+the translated Done action into a bottom safeAreaInset (minWidth 88,
+minHeight 52) above the keyboard; normal font preserves the standard
+navigation button. The same what.text.done identifier is used in
+both branches. The QA launch now sets the global accessibility font
+category. No personal notes were modified.
+
+Actual Xcode results:
+ iPhone Test-WhatIOS-2026.10.21_18-30-44-+0300.xcresult
+ 1 passed 0 failed;
+ iPad Test-WhatIOS-2026.10.21_18-31-37-+0300.xcresult
+ 2 passed 0 failed.
+These cover Spanish editor accessible label and 44+pt button, safe
+dismissal, and Spanish settings under independently selected English
+speech. Python 32/32 tests and Debug compilation passed.
+Additionally, the original ordinary-size iPhone capture and empty
+text editor flow was rerun after the production change:
+Test-WhatIOS-2026.10.21_18-33-04-+0300.xcresult, 1/1 PASS.
+Physical VoiceOver/iPhone/iPad and editorial QA remain open.

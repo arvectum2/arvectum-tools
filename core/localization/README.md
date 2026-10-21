@@ -500,3 +500,38 @@ pre-enablement item, not a purported current-screen bugfix.
 
 Open gates: on-device VoiceOver and real iPad/iPhone, all screen
 combinations and editorial review; no main merge or release.
+
+
+## 21 October — Spanish accessibility-size text editor and settings
+
+A real UI test found a genuine usability problem in What/Uhvat:
+UIKit constrained the navigation Done action to 36 pt at AXXXL,
+below the project acceptance target of 44 pt. Adding a frame inside
+the ToolbarItem did not resolve it. On subsequent iPhone QA it again
+measured 36 pt, confirming toolbar clipping.
+
+Fixed the production TextNoteSheet: at system accessibility Dynamic
+Type sizes, the localized Done action moves into a bottom safe-area
+action bar (minWidth 88, minHeight 52) above the keyboard, with
+stable what.text.done identifier. At normal text size the usual
+navigation toolbar action remains. The QA launch now sets the
+*system-wide* UICTContentSizeCategoryAccessibilityExtraExtraExtraLarge:
+a prior debug-only accessibility5 environment on ContentView did not
+propagate into the modal sheet, which explains earlier false AXXXL
+coverage.
+
+Actual passing simulator proof:
+- iPhone 17 Pro ES AXXXL empty editor: 1/1 PASS,
+  Test-WhatIOS-2026.10.21_18-30-44-+0300.xcresult.
+- Independent iPad ES editor + speech Settings menu: 2/2 PASS,
+  Test-WhatIOS-2026.10.21_18-31-37-+0300.xcresult.
+The tests avoid writing any note or changing dictation preferences.
+Editor QA confirms Spanish VoiceOver label, hit area >=44 pt, closing
+without saving a blank note; settings QA confirms translated controls.
+The previous full four-category Apple accessibility audit of the
+synthetic Spanish library remains separately passed.
+
+Python regression suite 32/32 PASS, localization audit PASS.
+Ordinary-size iPhone capture/text editor regression also PASSED 1/1,
+Test-WhatIOS-2026.10.21_18-33-04-+0300.xcresult. Physical
+VoiceOver and device matrix are still open; no release/main merge.

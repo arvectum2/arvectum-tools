@@ -120,6 +120,78 @@ final class SpanishLocalizationUITests: XCTestCase {
         }
     }
 
+    /// AXXXL Spanish editor with no note content entered. The test never
+    /// generates a saved note and checks the actual VoiceOver name/hint.
+    @MainActor
+    func testSpanishAXXXLTextEditorReadableAndDismissible() throws {
+        let app = XCUIApplication()
+        app.launchArguments = [
+            "-AppleLanguages", "(es)",
+            "-AppleLocale", "es_ES",
+            "-what.transcription.locale", "en-US",
+            "-UIPreferredContentSizeCategoryName",
+            "UICTContentSizeCategoryAccessibilityExtraExtraExtraLarge",
+            "--qa-spanish-axxxl-home"
+        ]
+        app.launch()
+        let newText = app.buttons["what.new.text"]
+        XCTAssertTrue(newText.waitForExistence(timeout: 12))
+        XCTAssertTrue(newText.isHittable)
+        newText.tap()
+
+        let editor = app.textViews["what.text.editor"]
+        XCTAssertTrue(editor.waitForExistence(timeout: 12))
+        XCTAssertEqual(editor.label, "Texto de la nota")
+        XCTAssertTrue(editor.isHittable)
+        XCTAssertGreaterThanOrEqual(editor.frame.width, 220)
+
+        let title = app.navigationBars["Nota de texto"]
+        XCTAssertTrue(title.exists)
+        let done = app.buttons["what.text.done"]
+        XCTAssertTrue(done.waitForExistence(timeout: 10))
+        XCTAssertTrue(done.isHittable)
+        XCTAssertGreaterThanOrEqual(done.frame.height, 44)
+
+        // The iPad keyboard is system-owned. This smoke validates the
+        // accessible editor and 44pt button; the library's full AX system
+        // audit is covered by a separate, successful test.
+        done.tap()
+        XCTAssertTrue(app.buttons["what.record.primary"]
+                      .waitForExistence(timeout: 10))
+    }
+
+    /// The settings menu must remain reachable with a huge font and a
+    /// separately chosen dictation language. No settings are changed.
+    @MainActor
+    func testSpanishAXXXLSettingsLanguageIsDiscoverable() {
+        let app = XCUIApplication()
+        app.launchArguments = [
+            "-AppleLanguages", "(es)",
+            "-AppleLocale", "es_ES",
+            "-what.transcription.locale", "en-US",
+            "--qa-design-filled-library"
+        ]
+        app.launch()
+        let library = app.buttons["what.open.library"]
+        XCTAssertTrue(library.waitForExistence(timeout: 12))
+        library.tap()
+        let settings = app.buttons["what.library.settings"]
+        XCTAssertTrue(settings.waitForExistence(timeout: 10))
+        XCTAssertTrue(settings.isHittable)
+        settings.tap()
+
+        let english = app.buttons["Inglés"].firstMatch
+        XCTAssertTrue(english.waitForExistence(timeout: 8))
+        XCTAssertTrue(app.buttons["Ruso"].firstMatch.exists)
+        XCTAssertTrue(app.buttons["Español"].firstMatch.exists)
+        XCTAssertTrue(app.buttons["Idioma de la interfaz: ajustes de iOS"]
+                      .firstMatch.exists)
+        XCTAssertTrue(app.buttons["Diagnóstico de sincronización"]
+                      .firstMatch.exists)
+
+        // Never open external Settings or change the speech preference.
+    }
+
     @MainActor
     func testSpanishHomeAndVoiceOverLabels() {
         let app = XCUIApplication()

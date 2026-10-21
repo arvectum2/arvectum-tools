@@ -6,6 +6,7 @@ import ArvectumCore
 struct TextNoteSheet: View {
     @EnvironmentObject private var store: PhoneStore
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     let note: LocalNote?
     @State private var id = UUID()
     @State private var bodyText = ""
@@ -31,9 +32,34 @@ struct TextNoteSheet: View {
                 .focused($editorFocused)
                 .navigationTitle(CaptureBrand.text("Текстовая заметка", "Text note"))
                 .navigationBarTitleDisplayMode(.inline)
+                // UIKit's navigation toolbar clips its button to 36 pt even
+                // if the label requests 44 pt. Give large-text users a
+                // separate reachable action above the software keyboard.
+                .safeAreaInset(edge: .bottom, spacing: 0) {
+                    if dynamicTypeSize.isAccessibilitySize {
+                        HStack {
+                            Spacer()
+                            Button(CaptureBrand.text("Готово", "Done")) {
+                                dismiss()
+                            }
+                            .buttonStyle(.borderedProminent)
+                            .frame(minWidth: 88, minHeight: 52)
+                            .contentShape(Rectangle())
+                            .accessibilityIdentifier("what.text.done")
+                        }
+                        .padding(.horizontal, 16)
+                        .padding(.vertical, 8)
+                        .background(.regularMaterial)
+                    }
+                }
                 .toolbar {
-                    ToolbarItem(placement: .confirmationAction) {
-                        Button(CaptureBrand.text("Готово", "Done")) { dismiss() }
+                    if !dynamicTypeSize.isAccessibilitySize {
+                        ToolbarItem(placement: .confirmationAction) {
+                            Button(CaptureBrand.text("Готово", "Done")) {
+                                dismiss()
+                            }
+                            .accessibilityIdentifier("what.text.done")
+                        }
                     }
                 }
                 .onAppear {
