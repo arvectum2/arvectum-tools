@@ -65,6 +65,37 @@ class LocalizationPortfolioTests(unittest.TestCase):
         self.assertIn("somente neste dispositivo", pt["your_photo_is_processed_only_on_this_device"])
         self.assertIn("%1$s", pt["compress_to"])
 
+    def test_what_home_cannot_reintroduce_english_only_ternaries(self):
+        home = (ROOT / "what/ios/WhatIOS/QuickCaptureHomeView.swift").read_text()
+        self.assertNotRegex(home, r'\bisRussian\s*\?\s*"')
+        errors = []
+        i18n.bilingual_catalog_sync_audit(errors)
+        self.assertEqual(errors, [])
+
+    def test_what_spanish_covers_phone_watch_widget_and_complication(self):
+        roots = ["WhatIOS", "WhatWatch", "WhatPhoneWidget", "WhatWatchComplication"]
+        keys = [213, 6, 6, 5]
+        for bundle, expected in zip(roots, keys):
+            root = ROOT / "what/ios" / bundle
+            english = i18n.read_strings(root / "en.lproj/Localizable.strings", [])
+            spanish = i18n.read_strings(root / "es.lproj/Localizable.strings", [])
+            russian = i18n.read_strings(root / "ru.lproj/Localizable.strings", [])
+            self.assertEqual(set(english), set(spanish), bundle)
+            self.assertEqual(set(english), set(russian), bundle)
+            self.assertEqual(len(spanish), expected, bundle)
+            for key in english:
+                self.assertEqual(
+                    i18n.placeholders(english[key]),
+                    i18n.placeholders(spanish[key]), f"{bundle}/{key}"
+                )
+        root = ROOT / "what/ios/WhatIOS/es.lproj/Localizable.strings"
+        home = i18n.read_strings(root, [])
+        self.assertEqual(home["Catch that thought"], "Captura esa idea")
+        self.assertEqual(home["All notes"], "Todas las notas")
+        self.assertEqual(home["All notes, %@"], "Todas las notas, %@")
+        self.assertEqual(home["Español"], "Español")
+        self.assertNotIn("Español (English interface)", home)
+
     def test_pushkin_spanish_catalog_covers_all_real_english_copy(self):
         root = ROOT / "pushkin/ios/ArvectumNotify/Resources"
         en = i18n.read_strings(root / "en.lproj/Localizable.strings", [])

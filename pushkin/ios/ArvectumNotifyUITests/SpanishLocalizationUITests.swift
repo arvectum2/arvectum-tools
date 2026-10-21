@@ -21,7 +21,11 @@ final class SpanishLocalizationUITests: XCTestCase {
         XCTAssertTrue(apps.exists)
         XCTAssertTrue(settings.exists)
         XCTAssertTrue(app.navigationBars["Historial"].firstMatch.exists)
-        XCTAssertTrue(history.isHittable)
+        // The already-selected tab is a visible accessibility item but
+        // iOS can report it as not hittable while its content is active.
+        // Validate the navigation actions that users actually tap.
+        XCTAssertTrue(apps.isHittable)
+        XCTAssertTrue(settings.isHittable)
 
         apps.tap()
         XCTAssertTrue(app.navigationBars["Aplicaciones"].firstMatch.waitForExistence(timeout: 8))

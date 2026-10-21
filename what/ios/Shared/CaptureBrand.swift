@@ -3,8 +3,8 @@ import Foundation
 /// Public voice-inbox identity stays unchanged across app upgrades; the
 /// same Watch/phone URL scheme also routes new text and video notes.
 enum CaptureBrand {
-    /// The phone's app language follows its speech-recognition language so
-    /// changing RU ↔ EN never leaves the menu and navigation in another locale.
+    /// The phone currently follows its RU/EN/ES transcription choice for
+    /// the user-facing interface; other system languages fall back to EN.
     /// Watch and widget processes have separate UserDefaults stores; if there
     /// is no local choice, continue using their device locale.
     static let languagePreferenceKey = "what.transcription.locale"
@@ -29,38 +29,58 @@ enum CaptureBrand {
         }
     }
 
-    /// Spanish is supported by on-device Speech but the application does not
-    /// yet have Spanish UI strings. Display English UI for that legacy choice
-    /// and state that limitation explicitly in the picker.
     static var interfaceLocale: Locale {
-        Locale(identifier: selectedTranscriptionLocale == "ru-RU" ? "ru-RU" : "en-US")
+        Locale(identifier: selectedTranscriptionLocale)
     }
 
     static var isRussian: Bool {
         selectedTranscriptionLocale == "ru-RU"
     }
 
+    private static var selectedInterfaceLanguage: String {
+        switch selectedTranscriptionLocale {
+        case "ru-RU": return "ru"
+        case "es-ES": return "es"
+        default: return "en"
+        }
+    }
+
+    private static let spanishBundle: Bundle? = {
+        guard let path = Bundle.main.path(forResource: "es", ofType: "lproj")
+        else { return nil }
+        return Bundle(path: path)
+    }()
+
     static var name: String { isRussian ? "Ухват" : "UhWhat?" }
 
-    static func text(_ russian: String, _ english: String) -> String {
-        isRussian ? russian : english
+    static func text(
+        _ russian: String, _ english: String, language: String? = nil
+    ) -> String {
+        let code = (language ?? selectedInterfaceLanguage).lowercased()
+        if code.hasPrefix("ru") { return russian }
+        if code.hasPrefix("es") {
+            return spanishBundle?.localizedString(
+                forKey: english, value: english, table: nil
+            ) ?? english
+        }
+        return english
     }
 
     /// The older fixed "N notes" label fails for singular and Russian plurals.
-    /// Add locale-specific plurals as .stringsdict resources with the next
-    /// language-pack implementation; do not claim any new locale here.
-    /// Keep each complete dynamic sentence together, including punctuation
-    /// and format argument order; never concatenate translated fragments.
-    /// This is the current RU/EN compatibility layer before bundled catalogs
-    /// are migrated to ICU plurals for additional languages.
+    /// Count nouns follow the spoken/UI locale; full ICU plural templates
+    /// can replace this compatibility method in a later language tier.
+    /// Format complete sentences, not concatenated translated fragments.
     static func formatted(
         _ russian: String, _ english: String,
         language: String? = nil, _ values: CVarArg...
     ) -> String {
-        let code = language ?? (isRussian ? "ru" : "en")
-        let locale = Locale(identifier: code == "ru" ? "ru_RU" : "en_US")
+        let code = language ?? selectedInterfaceLanguage
+        let locale = Locale(identifier:
+            code.hasPrefix("ru") ? "ru_RU" :
+            code.hasPrefix("es") ? "es_ES" : "en_US"
+        )
         return String(
-            format: code == "ru" ? russian : english,
+            format: text(russian, english, language: code),
             locale: locale,
             arguments: values
         )
@@ -82,11 +102,14 @@ enum CaptureBrand {
             }
             return "\(count) \(form)"
         }
+        if language.hasPrefix("es") {
+            return "\(count) \(count == 1 ? "nota" : "notas")"
+        }
         return "\(count) \(count == 1 ? "note" : "notes")"
     }
 
     static func noteCount(_ count: Int) -> String {
-        noteCount(count, language: isRussian ? "ru" : "en")
+        noteCount(count, language: selectedInterfaceLanguage)
     }
 }
 

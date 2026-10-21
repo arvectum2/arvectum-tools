@@ -94,7 +94,7 @@
 "Enable camera access in Settings." = "Разрешите доступ к камере в настройках.";
 "Enable microphone access in Settings." = "Разрешите доступ к микрофону в настройках.";
 "Enable microphone access to UhWhat? in iPhone Settings." = "Разрешите Ухвату доступ к микрофону в настройках iPhone.";
-"Español (English interface)" = "Español (интерфейс EN)";
+"Español" = "Español";
 "Export" = "Экспорт";
 "Folder" = "Папка";
 "Front" = "Фронтальная";
@@ -204,3 +204,12 @@
 "Recovered videos: %d. Some interrupted recordings could not be restored. Available originals were kept for retry." = "Восстановлено видео: %d. Не все прерванные записи удалось восстановить. Доступные исходные данные сохранены для повторной попытки.";
 "Transcription failed: %@. Original audio was preserved." = "Ошибка распознавания: %@. Исходное аудио сохранено.";
 "Video recovery failed. Original files remain on device. %@" = "Не удалось восстановить видео. Исходные файлы не удалены. %@";
+"All notes" = "Все заметки";
+"All notes, %@" = "Все заметки, %@";
+"Catch that thought" = "Ухвати мысль";
+"Double-tap to record audio. Choose the Record video action for video." = "Двойное касание — аудиозапись. Для видео выберите действие «Видеозапись».";
+"Open saved voice notes" = "Открыть сохранённые заметки";
+"Open video recording. You can also hold the main button" = "Открыть видеозапись. Также можно удержать большую кнопку";
+"QUICK CAPTURE" = "БЫСТРАЯ ЗАПИСЬ";
+"Record video" = "Видеозапись";
+"Tap for audio" = "Нажмите для аудио";

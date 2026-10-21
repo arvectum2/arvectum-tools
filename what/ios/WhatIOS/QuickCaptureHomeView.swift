@@ -18,25 +18,8 @@ struct QuickCaptureHomeView: View {
         dynamicTypeSize.isAccessibilitySize
     }
 
-    private var isRussian: Bool { CaptureBrand.isRussian }
-
     private var notesCountLabel: String {
-        guard isRussian else {
-            return "\(recordingsCount) " + (recordingsCount == 1 ? "note" : "notes")
-        }
-        let lastTwo = recordingsCount % 100
-        let lastOne = recordingsCount % 10
-        let noun: String
-        if (11...14).contains(lastTwo) {
-            noun = "заметок"
-        } else if lastOne == 1 {
-            noun = "заметка"
-        } else if (2...4).contains(lastOne) {
-            noun = "заметки"
-        } else {
-            noun = "заметок"
-        }
-        return "\(recordingsCount) \(noun)"
+        CaptureBrand.noteCount(recordingsCount)
     }
 
     var body: some View {
@@ -59,7 +42,7 @@ struct QuickCaptureHomeView: View {
                         Spacer(minLength: compactLayout ? 10 : 22)
 
                     VStack(spacing: compactLayout ? 8 : 16) {
-                        Text(isRussian ? "Ухвати мысль" : "Catch that thought")
+                        Text(CaptureBrand.text("Ухвати мысль", "Catch that thought"))
                             .font(.system(.largeTitle, design: .rounded, weight: .bold))
                             .foregroundStyle(.white)
                             .minimumScaleFactor(0.75)
@@ -77,26 +60,32 @@ struct QuickCaptureHomeView: View {
                         (compactLayout
                             ? AnyLayout(VStackLayout(spacing: 8))
                             : AnyLayout(HStackLayout(spacing: 12))) {
-                            Text(isRussian ? "Нажмите для аудио" : "Tap for audio")
+                            Text(CaptureBrand.text("Нажмите для аудио", "Tap for audio"))
                                 .font(.system(size: compactLayout ? 17 : 19, weight: .semibold))
                                 .foregroundStyle(.white)
                             Button(action: startVideo) {
-                                Label(isRussian ? "Видео" : "Video", systemImage: "video.fill")
+                                Label(CaptureBrand.text("Видео", "Video"), systemImage: "video.fill")
                                     .font(.subheadline.weight(.semibold))
+                                    // Bound only compact control labels at AXXXL.
+                                    // Main text/content continues to scale naturally.
+                                    .dynamicTypeSize(compactLayout ? .accessibility1 : dynamicTypeSize)
+                                    .lineLimit(1)
+                                    .minimumScaleFactor(0.8)
                                     .foregroundStyle(accent)
                                     .padding(.horizontal, 14)
                                     .frame(minHeight: 44)
                                     .background(.white.opacity(0.08), in: Capsule())
                             }
                             .accessibilityIdentifier("what.new.video")
-                            .accessibilityHint(isRussian
-                                ? "Открыть видеозапись. Также можно удержать большую кнопку"
-                                : "Open video recording. You can also hold the main button")
+                            .accessibilityHint(CaptureBrand.text(
+                                "Открыть видеозапись. Также можно удержать большую кнопку",
+                                "Open video recording. You can also hold the main button"
+                            ))
                         }
                         .padding(.top, compactLayout ? 7 : 12)
 
                         Label(
-                            isRussian ? "Сохраняется на устройстве" : "Saved on this device",
+                            CaptureBrand.text("Сохраняется на устройстве", "Saved on this device"),
                             systemImage: "lock.shield"
                         )
                         .font(.system(size: 13))
@@ -140,18 +129,21 @@ struct QuickCaptureHomeView: View {
             Spacer()
 
             Button(action: newText) {
-                Label(isRussian ? "Текст" : "Text", systemImage: "square.and.pencil")
+                Label(CaptureBrand.text("Текст", "Text"), systemImage: "square.and.pencil")
                     .font(.subheadline.weight(.semibold))
+                    .dynamicTypeSize(compactLayout ? .accessibility1 : dynamicTypeSize)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.8)
                     .foregroundStyle(accent)
                     .padding(.horizontal, 13)
                     .frame(minHeight: 48)
                     .background(.white.opacity(0.08), in: Capsule())
             }
-            .accessibilityLabel(isRussian ? "Создать текстовую заметку" : "New text note")
+            .accessibilityLabel(CaptureBrand.text("Создать текстовую заметку", "New text note"))
             .accessibilityIdentifier("what.new.text")
 
             if showCaption {
-                Text(isRussian ? "БЫСТРАЯ ЗАПИСЬ" : "QUICK CAPTURE")
+                Text(CaptureBrand.text("БЫСТРАЯ ЗАПИСЬ", "QUICK CAPTURE"))
                     .font(.system(size: 9, weight: .semibold, design: .rounded))
                     .tracking(1.7)
                     .foregroundStyle(.white.opacity(0.53))
@@ -227,16 +219,17 @@ struct QuickCaptureHomeView: View {
         .accessibilityElement(children: .ignore)
         .accessibilityAddTraits(.isButton)
         .accessibilityAction { startRecording() }
-        .accessibilityAction(named: Text(isRussian ? "Видеозапись" : "Record video")) {
+        .accessibilityAction(named: Text(CaptureBrand.text("Видеозапись", "Record video"))) {
             startVideo()
         }
         .accessibilityIdentifier("what.record.primary")
-        .accessibilityLabel(isRussian ? "Начать запись" : "Start recording")
+        .accessibilityLabel(CaptureBrand.text("Начать запись", "Start recording"))
         // VoiceOver activation is a double-tap. The video action is
         // available in the accessibility actions menu, not via long-press.
-        .accessibilityHint(isRussian
-            ? "Двойное касание — аудиозапись. Для видео выберите действие «Видеозапись»."
-            : "Double-tap to record audio. Choose the Record video action for video.")
+        .accessibilityHint(CaptureBrand.text(
+            "Двойное касание — аудиозапись. Для видео выберите действие «Видеозапись».",
+            "Double-tap to record audio. Choose the Record video action for video."
+        ))
     }
 
     private var libraryButton: some View {
@@ -249,7 +242,7 @@ struct QuickCaptureHomeView: View {
                     .background(.white.opacity(0.08), in: RoundedRectangle(cornerRadius: 13))
 
                 VStack(alignment: .leading, spacing: 4) {
-                    Text(isRussian ? "Все заметки" : "All notes")
+                    Text(CaptureBrand.text("Все заметки", "All notes"))
                         .font(.system(size: 19, weight: .semibold))
                         .lineLimit(1)
                         .minimumScaleFactor(0.7)
@@ -282,11 +275,14 @@ struct QuickCaptureHomeView: View {
         .buttonStyle(.plain)
         .accessibilityIdentifier("what.open.library")
         .accessibilityLabel(
-            (isRussian ? "Все заметки, " : "All notes, ") + notesCountLabel
+            CaptureBrand.formatted(
+                "Все заметки, %@", "All notes, %@", notesCountLabel
+            )
         )
-        .accessibilityHint(isRussian
-            ? "Открыть сохранённые заметки"
-            : "Open saved voice notes")
+        .accessibilityHint(CaptureBrand.text(
+            "Открыть сохранённые заметки",
+            "Open saved voice notes"
+        ))
     }
 }
 

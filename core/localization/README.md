@@ -176,3 +176,31 @@ agent EX_CONFIG. The launch agent was removed.
 
 Native Spanish proofreading, physical VoiceOver, all remaining
 translations and per-app release approval are still pending.
+
+
+## 21 October: UhWhat? Spanish runtime + accessibility UI QA
+
+The third supported language now has actual translations in every
+What target: iPhone 213 strings, Watch 6, iPhone Widget 6, and Watch
+Complication 5 (230 Spanish keys total). Speech selection es-ES drives
+Spanish user-facing UI and formatted text (0 notas, 1 nota, 2 notas).
+Unsupported system languages still fall back to English.
+
+Real Spanish simulator screenshots revealed four English phrases and
+VoiceOver labels remaining in the home screen from a legacy direct
+RU/EN conditional. Nine uncataloged English phrases were added and
+translated in all RU/EN/ES iPhone resources. The home now says
+Captura esa idea, Toca para grabar audio, Todas las notas and 0 notas.
+This highlights source-scanner limitations beyond direct calls.
+
+At accessibility5, the Texto action split a word and the Video button
+grew excessively. The compact action typography now has a bounded
+accessibility size, without shrinking the main content. Simulator
+screenshots show the issue and its correction, and system font size
+was restored to large. A debug-only fixture tests the actual AXXXL
+layout without touching recordings or permissions.
+
+Xcode build with all ES/watchOS bundles PASS, LanguageFallbackTests
+5/5 PASS, UI home and forced accessibility5 tests 2/2 PASS, Python
+localization suite 13/13 PASS. Spanish proofreading, full physical
+VoiceOver, microphone/Watch synchronization and releases remain open.

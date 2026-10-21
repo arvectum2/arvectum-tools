@@ -449,8 +449,7 @@ struct RecordingLibraryView: View {
                    selection: $store.transcriptionLocale) {
                 Text("Русский").tag("ru-RU")
                 Text("English").tag("en-US")
-                Text(CaptureBrand.text("Español (интерфейс EN)",
-                                       "Español (English interface)")).tag("es-ES")
+                Text("Español").tag("es-ES")
             }
             Button {
                 showDiagnostics = true

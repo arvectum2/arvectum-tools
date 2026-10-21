@@ -86,6 +86,7 @@
 		C159F33D656AA111B1E04BAB /* ArvectumJSONCodec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26EAE71E9EAA6691FEB28D4D /* ArvectumJSONCodec.swift */; };
 		C1FF49CC6828A3F62C630D7B /* WatchQueueSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAAB014EC25B8F1BE07A8003 /* WatchQueueSnapshot.swift */; };
 		C3329C5E459DA529221AD8D9 /* front.mov in Resources */ = {isa = PBXBuildFile; fileRef = 226693D55A1B1351AC59CBE4 /* front.mov */; };
+		C3E7359E6447841179AA5181 /* SpanishLocalizationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE07C75A266F4FC33389F35D /* SpanishLocalizationUITests.swift */; };
 		C611ECB87B428D831936DD84 /* CaptureBrand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A64C8E1ED1DD3595D966992 /* CaptureBrand.swift */; };
 		C683241A12A100738A2FC159 /* AppStoreUpdatePromptUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B46C6D45A3D916911E2EE9 /* AppStoreUpdatePromptUITests.swift */; };
 		CA3B9CAADFD199EF8DCFCB82 /* QuickCaptureHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18C5018F3923EB2CC41A40A /* QuickCaptureHomeView.swift */; };
@@ -255,6 +256,7 @@
 		83A068B9DBC53AC7711E8BD8 /* WatchPackagingIsolationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchPackagingIsolationTests.swift; sourceTree = "<group>"; };
 		83D00620D490A75534A797BB /* back.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = back.mov; sourceTree = "<group>"; };
 		852857F99A0D16F4243FF996 /* VideoCaptureFinalizationGate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCaptureFinalizationGate.swift; sourceTree = "<group>"; };
+		85D3D5590BB58299630E564B /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8632BE1ABDF63CB6AD9F3FD6 /* WatchDurableQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchDurableQueue.swift; sourceTree = "<group>"; };
 		89A4FCD3C72E787C27B7E3EE /* WatchTransferRetryPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchTransferRetryPolicy.swift; sourceTree = "<group>"; };
 		8BFFB46088A8945C66DFE7F4 /* RecordingRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingRepositoryTests.swift; sourceTree = "<group>"; };
@@ -262,6 +264,7 @@
 		94ABD3BF183D4D22AF1CD0B0 /* WhatApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatApp.swift; sourceTree = "<group>"; };
 		96FD19BD89F6F02DB1E7C6ED /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		9819634215CFE7B5CB7C96E2 /* WhatWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WhatWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9851B1A64006E368DF20933C /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		9B725373957768FF76C3C4FE /* ReviewNoteHandoff.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewNoteHandoff.swift; sourceTree = "<group>"; };
 		A18C5018F3923EB2CC41A40A /* QuickCaptureHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickCaptureHomeView.swift; sourceTree = "<group>"; };
 		A4ED5C55003D60E489465C5D /* WhatWatchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatWatchApp.swift; sourceTree = "<group>"; };
@@ -283,15 +286,18 @@
 		D6D1A5C9E79CC4A544374E3E /* WhatComplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatComplication.swift; sourceTree = "<group>"; };
 		D77CB821F9683C6381DD792C /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DAAB014EC25B8F1BE07A8003 /* WatchQueueSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchQueueSnapshot.swift; sourceTree = "<group>"; };
+		E26092B5A3C7E2E0F327746D /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E2EC835E1A980C511E5E6EDD /* WatchDeliveredAudioValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchDeliveredAudioValidation.swift; sourceTree = "<group>"; };
 		E3997C787CF6EC5F61396098 /* PhoneRecordingSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneRecordingSheet.swift; sourceTree = "<group>"; };
 		E401399D9CC19485D6B0BBA7 /* PhoneStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneStore.swift; sourceTree = "<group>"; };
+		E5FE8F5E7855A20A137D581A /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E636A02A7F2781E5CBE6E6FA /* core */ = {isa = PBXFileReference; lastKnownFileType = folder; name = core; path = ../../core; sourceTree = SOURCE_ROOT; };
 		E6ACA38EC5E339EF4FE47646 /* CaptureFirstUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureFirstUITests.swift; sourceTree = "<group>"; };
 		E8F96BFC4E2D4DD08402B798 /* PhoneRecordingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneRecordingController.swift; sourceTree = "<group>"; };
 		EBF159B5D81F63DE0DAE6484 /* WhatPhoneWidget.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = WhatPhoneWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE271F8D7887D904A165862E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F2BFC9C4506A03AAA4B5CCC7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		FE07C75A266F4FC33389F35D /* SpanishLocalizationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpanishLocalizationUITests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -399,6 +405,7 @@
 				E6ACA38EC5E339EF4FE47646 /* CaptureFirstUITests.swift */,
 				554A6308CE6E00D0214C452B /* PhysicalVideoCaptureUITests.swift */,
 				3EEC5029D31A75E43264EDFD /* ReviewDemoUITests.swift */,
+				FE07C75A266F4FC33389F35D /* SpanishLocalizationUITests.swift */,
 				A7594885189CFE2057AA3037 /* SyncDiagnosticsLocalizationUITests.swift */,
 			);
 			path = WhatIOSUITests;
@@ -700,6 +707,7 @@
 			knownRegions = (
 				Base,
 				en,
+				es,
 				ru,
 			);
 			mainGroup = 4BBCCB53865CEEB047835542;
@@ -809,6 +817,7 @@
 				4B245C0DC2EC18A8311E7D0C /* CaptureFirstUITests.swift in Sources */,
 				3C065E85B30A37BB3D5F3833 /* PhysicalVideoCaptureUITests.swift in Sources */,
 				0633B2238EF1A5BD5B32969F /* ReviewDemoUITests.swift in Sources */,
+				C3E7359E6447841179AA5181 /* SpanishLocalizationUITests.swift in Sources */,
 				F5368DAB2C52D06EE5A584CD /* SyncDiagnosticsLocalizationUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -937,6 +946,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				B1E49164E4A1CFB3AACF5601 /* en */,
+				E5FE8F5E7855A20A137D581A /* es */,
 				75FC8C5D4AC63C7FB4687328 /* ru */,
 			);
 			name = Localizable.strings;
@@ -946,6 +956,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				56C77D1ACC0672BA94F31EC5 /* en */,
+				85D3D5590BB58299630E564B /* es */,
 				4830C8A2C90521D5AB373CAB /* ru */,
 			);
 			name = Localizable.strings;
@@ -955,6 +966,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				96FD19BD89F6F02DB1E7C6ED /* en */,
+				E26092B5A3C7E2E0F327746D /* es */,
 				2AC3CDB54C38567DA4A0FC87 /* ru */,
 			);
 			name = Localizable.strings;
@@ -1000,6 +1012,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				EE271F8D7887D904A165862E /* en */,
+				9851B1A64006E368DF20933C /* es */,
 				C9FFDE0F6D9564159A5742C2 /* ru */,
 			);
 			name = Localizable.strings;

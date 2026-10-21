@@ -33,6 +33,40 @@ final class LanguageFallbackTests: XCTestCase {
         )
     }
 
+    func testSpanishCatalogAndFormatting() {
+        XCTAssertEqual(
+            CaptureBrand.text("Входящие", "Inbox", language: "es"),
+            "Bandeja de entrada"
+        )
+        XCTAssertEqual(
+            CaptureBrand.text("Записать", "Record", language: "es-ES"),
+            "Grabar"
+        )
+        XCTAssertEqual(
+            CaptureBrand.text("Входящие", "Inbox", language: "de-DE"),
+            "Inbox"
+        )
+        XCTAssertEqual(
+            CaptureBrand.text("Ухвати мысль", "Catch that thought", language: "es"),
+            "Captura esa idea"
+        )
+        XCTAssertEqual(
+            CaptureBrand.formatted("Все заметки, %@", "All notes, %@", language: "es", "0 notas"),
+            "Todas las notas, 0 notas"
+        )
+        XCTAssertEqual(
+            CaptureBrand.formatted("Вход: %@", "Input: %@", language: "es", "Micrófono"),
+            "Entrada: Micrófono"
+        )
+        XCTAssertEqual(
+            CaptureBrand.formatted("Восстановлено видео: %d.", "Recovered video notes: %d.", language: "es", 2),
+            "Notas de vídeo recuperadas: 2."
+        )
+        XCTAssertEqual(CaptureBrand.noteCount(1, language: "es"), "1 nota")
+        XCTAssertEqual(CaptureBrand.noteCount(2, language: "es"), "2 notas")
+        XCTAssertEqual(CaptureBrand.noteCount(0, language: "es"), "0 notas")
+    }
+
     func testNoteCountPluralFormsAreReadable() {
         XCTAssertEqual(CaptureBrand.noteCount(0, language: "ru"), "0 заметок")
         XCTAssertEqual(CaptureBrand.noteCount(1, language: "ru"), "1 заметка")

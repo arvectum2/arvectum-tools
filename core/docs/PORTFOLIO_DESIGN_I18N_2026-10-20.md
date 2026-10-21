@@ -205,3 +205,50 @@ engineering/regression gate, not blanket accessibility acceptance.
   any French screenshot; LaunchAgent EX_CONFIG, agent unregistered.
   French Android visual QA remains open.
 - Changes remain in feature branch, no store/release actions.
+
+
+## L3.6 and L4.2 — UhWhat? Spanish iPhone, Watch, widgets
+
+- Added true ES catalogs to WhatIOS: 204 original + nine newly
+  discovered RU/EN home/VoiceOver phrases = 213, Watch 6, PhoneWidget
+  6, WatchComplication 5. All four ES bundles are compiled and verified.
+- The previously supported Spanish speech selection now uses an actual
+  Spanish UI runtime. CaptureBrand handles complete dynamic messages
+  and Spanish note counts. Unsupported languages use English.
+- First real simulator screenshot showed Catch that thought, Tap for
+  audio, All notes and 0 notes unexpectedly in English. They came
+  from an old isRussian UI ternary, not indexed by earlier extraction.
+  Replaced the home screen's old RU/EN branching, including accessible
+  labels and hints, with consistent localizer calls. Next screenshot
+  confirms full Spanish copy on the home screen.
+- On AXXXL, Texto was broken into two lines and the Video CTA became
+  disproportionately large. Bounded typography only on these compact
+  actions. Final screenshot shows both labels intact, with the main
+  large Spanish heading preserved. Simulator reverted to large text.
+- Source/build tests PASS; What localization XCTest 5/5, UI smoke and
+  forced accessibility5 XCUITest 2/2, Python catalog tests 14/14.
+- Native language review, other screens and real watchOS/device
+  accessibility are not approved or claimed. No store publishing.
+
+
+### Earlier QA blockers investigated, not falsely closed (21 Oct)
+
+- Pushkin Spanish UI runner: a complete alternate simulator test revealed
+  a false-positive test at the line requiring the already-selected History
+  tab to be hittable. Existing production navigation and Spanish
+  screenshot were intact; the test now checks the Apps/Settings actions
+  actually used for navigation. Later runs were interrupted or hung
+  during Xcode UI automation, so there is still no completed PASS for
+  that corrected test. Preserve the gate until a stable rerun.
+- French Android small_phone: existing development APK includes FR
+  sources. Background emulator processes closed with their remote
+  session; a temporary launch agent with explicit HOME/AVD environment
+  remained stuck in dynamic-loader file opening without registering an
+  ADB device. It was stopped and unregistered, leaving no persistent
+  test daemon. No French Android screenshots or device QA were claimed.
+- What regression audit now tests that every CaptureBrand literal source
+  used on iOS, Watch and widgets has both native RU and ES keys, and
+  catches a future direct isRussian string ternary on the capture screen.
+  Python source checks 14/14 PASS.
+
+- The corrected Pushkin Spanish UI smoke passed build-for-testing compilation on 21 Oct. XCUITest execution is still an open gate after runner hangs/interruptions.

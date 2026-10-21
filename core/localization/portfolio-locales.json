@@ -274,7 +274,9 @@
         "what/ios/WhatWatch",
         "what/ios/WhatPhoneWidget",
         "what/ios/WhatWatchComplication"
-      ]
+      ],
+      "status": "en-ru-es-source-catalogs-and-es-runtime-in-feature-branch",
+      "note": "What iPhone 213 and Watch, PhoneWidget, WatchComplication 6/6/5 source keys translated to RU/EN/ES. ES runtime and declensions plus iPhone Simulator E2E 2/2; human, watch/device, physical VoiceOver QA remain. Not released."
     },
     "photo-pdf-to-size": {
       "bundles": [

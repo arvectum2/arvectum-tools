@@ -256,6 +256,7 @@ def bilingual_catalog_sync_audit(errors: list[str]) -> None:
     ):
         root = ROOT / bundle
         canonical = read_strings(root / "ru.lproj/Localizable.strings", errors)
+        spanish = read_strings(root / "es.lproj/Localizable.strings", errors)
         matches: dict[str, set[str]] = {}
         for swift in root.rglob("*.swift"):
             if any(marker in name for name in swift.parts for marker in QA_DIRS):
@@ -263,10 +264,23 @@ def bilingual_catalog_sync_audit(errors: list[str]) -> None:
             for match in CAPTURE_BRAND.finditer(swift.read_text(encoding="utf-8")):
                 matches.setdefault(match.group(2), set()).add(match.group(1))
         for key, options in matches.items():
+            if key not in canonical:
+                errors.append(f"What missing RU runtime key: {bundle}/{key}")
+            if key not in spanish:
+                errors.append(f"What missing ES runtime key: {bundle}/{key}")
             if len(options) != 1 or key not in canonical:
                 continue
             if canonical[key] != next(iter(options)):
                 errors.append(f"What Russian catalog drift: {bundle}/{key}")
+
+    # This legacy bypass left the Spanish home screen partially in English
+    # even when the .strings catalogs were 100% key-complete. Keep the same
+    # class of untranslated Russian/English ternary out of the capture UI.
+    home = (ROOT / "what/ios/WhatIOS/QuickCaptureHomeView.swift").read_text(
+        encoding="utf-8"
+    )
+    if re.search(r'\bisRussian\s*\?\s*"', home):
+        errors.append("What home bypasses language runtime with direct RU/EN ternary")
 
 
 def bilingual_format_audit(errors: list[str]) -> None:

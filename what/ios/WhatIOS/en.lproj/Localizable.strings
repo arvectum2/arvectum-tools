@@ -93,7 +93,7 @@
 "Enable camera access in Settings." = "Enable camera access in Settings.";
 "Enable microphone access in Settings." = "Enable microphone access in Settings.";
 "Enable microphone access to UhWhat? in iPhone Settings." = "Enable microphone access to UhWhat? in iPhone Settings.";
-"Español (English interface)" = "Español (English interface)";
+"Español" = "Español";
 "Export" = "Export";
 "Folder" = "Folder";
 "Front" = "Front";
@@ -203,3 +203,12 @@
 "Recovered videos: %d. Some interrupted recordings could not be restored. Available originals were kept for retry." = "Recovered videos: %d. Some interrupted recordings could not be restored. Available originals were kept for retry.";
 "Transcription failed: %@. Original audio was preserved." = "Transcription failed: %@. Original audio was preserved.";
 "Video recovery failed. Original files remain on device. %@" = "Video recovery failed. Original files remain on device. %@";
+"All notes" = "All notes";
+"All notes, %@" = "All notes, %@";
+"Catch that thought" = "Catch that thought";
+"Double-tap to record audio. Choose the Record video action for video." = "Double-tap to record audio. Choose the Record video action for video.";
+"Open saved voice notes" = "Open saved voice notes";
+"Open video recording. You can also hold the main button" = "Open video recording. You can also hold the main button";
+"QUICK CAPTURE" = "QUICK CAPTURE";
+"Record video" = "Record video";
+"Tap for audio" = "Tap for audio";
