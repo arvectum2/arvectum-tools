@@ -252,3 +252,23 @@ engineering/regression gate, not blanket accessibility acceptance.
   Python source checks 14/14 PASS.
 
 - The corrected Pushkin Spanish UI smoke passed build-for-testing compilation on 21 Oct. XCUITest execution is still an open gate after runner hangs/interruptions.
+
+
+## L2.7 + L3.7, 21 October — German Android and source bypass inventory
+
+- Added 93 real German strings to Android Photo/PDF, including all
+  processing errors, parameters and numbered positional placeholders.
+  English remains default for every unimplemented system language.
+- Android Gradle assembleDebug and testDebugUnitTest succeeded offline;
+  JVM 6/6 with no failures (task reused cache). AAPT2 dump confirmed
+  DE language resources inside the generated APK. No emulator/device
+  screenshot was claimed.
+- Six actual Android resource packs now exist: EN, RU, ES, pt-BR,
+  FR and DE; 44 of the 50 planned languages are not yet translated.
+- The localized-source risk inventory now detects direct Russian/
+  English conditional ternaries which previously bypassed actual
+  Spanish localizations. The deliberate bilingual What brand name
+  is the only reviewed exception. Python catalog suite 16/16 PASS.
+- Pushkin Spanish standalone UI test-without-building hung without a
+  valid assertion outcome. Its QA process was terminated, and the
+  gate is still open. No main merge, remote push or store release.

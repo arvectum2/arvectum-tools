@@ -103,6 +103,17 @@ DYNAMIC_APP_DIRS = {
 DYNAMIC_CAPTURE = re.compile(
     r'CaptureBrand\.text\(\s*"((?:\\.|[^"\\])*)"\s*,\s*"((?:\\.|[^"\\])*)"'
 )
+# A legacy Russian/English direct ternary silently bypassed UhWhat's new
+# Spanish catalogs even though every known key passed source parity audits.
+# Inventory such branches in all products before enabling new languages.
+DIRECT_LOCALE_TERNARY = re.compile(
+    r'\b(?:isRussian|isEnglish|isSpanish)\s*\?\s*"((?:\\.|[^"\\])*)"'
+    r'\s*:\s*"((?:\\.|[^"\\])*)"'
+)
+EXPLICIT_LOCALE_TERNARY = re.compile(
+    r'\b(?:language|locale|languageCode)\s*==\s*"(?:ru|en|es|ru-RU|en-US|es-ES)"'
+    r'\s*\?\s*"((?:\\.|[^"\\])*)"\s*:\s*"((?:\\.|[^"\\])*)"'
+)
 
 
 def dynamic_inventory() -> list[dict[str, str | int]]:
@@ -122,6 +133,18 @@ def dynamic_inventory() -> list[dict[str, str | int]]:
                     ("capturebrand-interpolation", match)
                     for match in DYNAMIC_CAPTURE.finditer(body)
                     if r"\(" in match.group(1) or r"\(" in match.group(2)
+                ]
+            # CaptureBrand's stable UhWhat?/Ухват product identity is an
+            # explicit reviewed brand exception, not an untranslated screen.
+            is_brand_identity = file == ROOT / "what/ios/Shared/CaptureBrand.swift"
+            if not is_brand_identity:
+                candidates += [
+                    ("direct-locale-ternary", match)
+                    for match in DIRECT_LOCALE_TERNARY.finditer(body)
+                ]
+                candidates += [
+                    ("explicit-locale-ternary", match)
+                    for match in EXPLICIT_LOCALE_TERNARY.finditer(body)
                 ]
             for kind, match in candidates:
                 line = body.count("\n", 0, match.start()) + 1
@@ -212,6 +235,8 @@ def android_catalog_audit(doc: dict, errors: list[str], *, report: bool = False)
                 errors.append("Android Brazilian Portuguese app label unexpectedly changed")
             if directory.name == "values-fr" and values.get("app_name") != "Redimensionner les photos":
                 errors.append("Android French app label unexpectedly changed")
+            if directory.name == "values-de" and values.get("app_name") != "Fotos verkleinern":
+                errors.append("Android German app label unexpectedly changed")
     if expected is not None:
         kotlin_root = ROOT / "photo-pdf-to-size/android/app/src/main/java"
         references: set[str] = set()

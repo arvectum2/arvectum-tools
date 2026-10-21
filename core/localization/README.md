@@ -43,7 +43,7 @@ The English extraction covers **only unambiguous static SwiftUI literals** and n
 | Фото/PDF | en/ru, corrected English fallback | 48 languages, visual QA |
 | Pushkin | extracted English static UI catalog | Dynamic keys, 49 translated catalogs |
 | Ухват | extracted English baseline; fixed unsupported-language fallback | Dynamic keys, 49 translations, separate interface and speech choices |
-| Фото/PDF Android | EN default + RU and ES draft resources (93 keys per catalog) | Android device/visual QA, 47 more translations, RTL/plurals and permission check |
+| Фото/PDF Android | EN + RU/ES/pt-BR/FR/DE development catalogs (93 keys each) | Android device/visual QA, 44 more translations, RTL/plurals and permission check |
 | Where? | no active app binary | adopt shared registry when resumed |
 
 ### Android baseline — 20 October 2026
@@ -75,7 +75,7 @@ All further languages require actual strings and language-specific QA.
 The Android values-es/strings.xml contains 93 translated UI and error texts,
 with positional placeholders. This is not a linguistic proofreading, device
 QA, or store release. Source catalogs now cover EN, RU and draft ES.
-Remaining Android languages: 45.
+Remaining Android languages: 44.
 
 
 ## Native RU source packs across all active iOS apps (20 October)
@@ -88,7 +88,7 @@ Remaining Android languages: 45.
   sentences and preserve placeholder types.
 - iOS Фото/PDF: EN/RU catalogs have 155 keys, with four full UI metadata
   format templates and correct Russian PDF page-count forms.
-- Android Фото: EN/RU/ES/pt-BR/fr development catalogs (93 keys each).
+- Android Фото: EN/RU/ES/pt-BR/fr/de development catalogs (93 keys each).
 - The integration branch now passes iOS Simulator builds for all 4 apps;
   targeted Photo and What unit tests passed as well.
 - These catalog counts and builds are NOT approval for a release or proof
@@ -97,7 +97,7 @@ Remaining Android languages: 45.
 When adding further iOS .lproj directories, regenerate the checked-in
 Xcode projects from their corresponding project.yml files. The Pushkin
 and What projects were regenerated and built with these localizations.
-Remaining 45 Android languages and other iOS target languages are pending.
+Remaining 44 Android languages and other iOS target languages are pending.
 
 ## Next Tier 1 translation slice — Spanish iOS + Brazilian Portuguese Android
 
@@ -115,7 +115,7 @@ Remaining 45 Android languages and other iOS target languages are pending.
   in the compiled APK. pt-BR placeholder type safety and registry
   membership are CI checked; Gradle build and JVM tests pass.
 - These are *development language-pack candidates*, not approved store
-  releases or proof of native editorial review. 45 Android target
+  releases or proof of native editorial review. 44 Android target
   languages remain not translated. iOS Spanish coverage is currently
   Photo/PDF and the existing ChickMark catalog only; other apps pending.
 
@@ -204,3 +204,28 @@ Xcode build with all ES/watchOS bundles PASS, LanguageFallbackTests
 5/5 PASS, UI home and forced accessibility5 tests 2/2 PASS, Python
 localization suite 13/13 PASS. Spanish proofreading, full physical
 VoiceOver, microphone/Watch synchronization and releases remain open.
+
+
+## Current addendum, 21 October — German Android and direct-language source audit
+
+Android photo-resizer now has six complete development locale packs:
+EN (default), RU, ES, pt-BR, FR and DE, each with 93 resource keys.
+German values-de includes translated controls, errors, image/file units,
+numbered format placeholders and Gosuslugi context. An AAPT2 dump
+verifies German resources are in the compiled APK. Offline Gradle
+assembleDebug and testDebugUnitTest BUILD SUCCESSFUL (6/6 existing
+JVM tests, 0 failures, up-to-date target). 44 of 50 Android target
+languages remain untranslated. Human proofreading and live device
+French/German accessibility/layout QA are not yet done.
+
+The source-risk inventory now catches plain Russian/English Boolean
+ternaries and explicit locale comparisons: the kind of shortcut that
+left the original Spanish What capture screen partially in English.
+It excludes only the consciously bilingual UhWhat?/Ухват brand identity.
+The regression suite is now Python 16/16 PASS. This is a best-effort
+static heuristic, not complete source/translation coverage.
+
+Standalone Pushkin Spanish UI test-without-building hung during Xcode
+runner orchestration on a separate simulator. The test process was
+terminated without valid result, so its XCUITest PASS remains open.
+No Android emulator visual test completed during this iteration.

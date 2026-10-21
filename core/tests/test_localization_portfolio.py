@@ -23,6 +23,19 @@ class LocalizationPortfolioTests(unittest.TestCase):
         self.assertNotEqual(i18n.placeholders("%d of %@"), i18n.placeholders("%@"))
         self.assertEqual(i18n.placeholders("Print at 100% scale"), {})
 
+    def test_direct_language_branch_scanner_catches_bypass(self):
+        # A historical What home-screen regression used this Swift ternary
+        # without consulting CaptureBrand. Catalog-key equality missed it.
+        source = 'Text(isRussian ? "Ухвати мысль" : "Catch that thought")'
+        self.assertIsNotNone(i18n.DIRECT_LOCALE_TERNARY.search(source))
+        source = 'Text(language == "ru" ? "Готово" : "Done")'
+        self.assertIsNotNone(i18n.EXPLICIT_LOCALE_TERNARY.search(source))
+        current = i18n.dynamic_inventory()
+        self.assertFalse(any(
+            f["kind"] in ("direct-locale-ternary", "explicit-locale-ternary")
+            for f in current
+        ))
+
     def test_dynamic_source_inventory_reports_untranslated_interpolation(self):
         findings = i18n.dynamic_inventory()
         self.assertTrue(findings)
@@ -41,6 +54,23 @@ class LocalizationPortfolioTests(unittest.TestCase):
         errors = []
         i18n.bilingual_format_audit(errors)
         self.assertEqual(errors, [])
+
+    def test_android_german_catalog_covers_all_errors_and_formats(self):
+        from xml.etree import ElementTree
+        root = ROOT / "photo-pdf-to-size/android/app/src/main/res"
+        base = {el.attrib["name"]: el.text for el in ElementTree.parse(root / "values/strings.xml").getroot()}
+        german = {el.attrib["name"]: el.text for el in ElementTree.parse(root / "values-de/strings.xml").getroot()}
+        self.assertEqual(set(base), set(german))
+        self.assertEqual(len(german), 93)
+        self.assertEqual(german["app_name"], "Fotos verkleinern")
+        self.assertIn("nur auf diesem Gerät", german["your_photo_is_processed_only_on_this_device"])
+        self.assertIn("%2$d%%", german["reduction_summary"])
+        self.assertEqual(german["size_in_mb_decimal"], "%1$.2f MB")
+        self.assertNotEqual(german["cannot_prepare_passport"], base["cannot_prepare_passport"])
+        self.assertTrue(all(
+            i18n.placeholders(base[key]) == i18n.placeholders(german[key])
+            for key in base
+        ))
 
     def test_android_french_catalog_has_complete_native_copy(self):
         from xml.etree import ElementTree
