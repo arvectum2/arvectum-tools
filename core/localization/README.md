@@ -350,3 +350,34 @@ localization regression suite now passes 21/21.
 Physical VoiceOver, actual watch hardware, more screens, editorial
 review and each individual release approval remain open. No changes
 were merged or published.
+
+
+## 21 October Android production image-engine proof (separate from picker UX)
+
+A debug-only, DUMP-permission guarded BroadcastReceiver now runs real
+production ImageStorage and CompressionEngine methods on a deterministic
+synthetic 900x700 RGB PNG. No gallery/real user data are read. Three
+image operations and saves to app-local JPEGs completed successfully on
+Android 16 Emulator: 2,199,482-byte PNG compressed to 479,009-byte
+JPEG under a 500,000-byte cap; image resized to 400x311 pixels; and
+passport image produced at 620x797 with verified 450 DPI EXIF. Three
+saved JPEGs were re-opened and checked for expected pixel dimensions
+and sizes. Machine-readable run result is in the external QA directory:
+android-pipeline-qa-result-final.json, status passed, savedOutputs=3.
+
+The special receiver is in app/src/debug ONLY, restricted with Android
+permission DUMP, and absent from the merged Release AndroidManifest.xml
+(processReleaseMainManifest PASS). Debug APK and existing 9 JVM tests
+build/pass offline. New Python structural tests guard debug/release
+isolation and the actual QA method usage; combined Python suite 24/24
+PASS. A standalone script in photo-pdf-to-size/android/tools/
+qa_image_pipeline_emulator.sh was added to rerun the same test on a
+stable host: its syntax is verified but its first invoked run lost the
+RDC connection before producing a new result. That interrupted run
+is not marked successful. The earlier direct command with the same
+Debug receiver produced the valid PASS report.
+
+Scope limit: this is production image-processing AND local file-save
+engine coverage, not a successful tap through Android's Photo Picker or
+system SaveDocument UI. Full media picker to result to export UX,
+TalkBack and physical device matrix still need QA.

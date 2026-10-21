@@ -381,3 +381,38 @@ the Android 16 emulator photo library. Repeated desktop connection
 drops prevented a verified photo-picker selection and successful
 compression/save. Keep Android full E2E QA open; prior FR/NL/PL
 visual and enlarged-font tests remain proven separately.
+
+
+## 21 October Android L4.6 — real image processing on emulator
+
+An Android-specific Debug-only QA route was added without changing the
+Release source set: ImagePipelineQaReceiver is exported only in the
+Debug manifest and requires android.permission.DUMP. Both Debug APK
+manifest inspection and the Release merged manifest verified its
+absence from Release. The verifier builds deterministic 900x700
+synthetic PNG pixels, feeds a FileProvider URI to the real ImageStorage
+and CompressionEngine, and saves each output through ImageStorage.save
+to an app-private local JPEG.
+
+The confirmed machine report from an Android 16 Emulator is:
+  status=passed, sourceBytes=2199482, compressedBytes=479009,
+  maximumBytes=500000, resizedWidth=400, resizedHeight=311,
+  passportWidth=620, passportHeight=797, passportDpi=450,
+  savedOutputs=3.
+All output files were decoded and checked for expected dimensions;
+the passport EXIF DPI was read via ExifInterface. No user photos,
+real media provider authorization, cloud accounts or production data
+were accessed. Report: ArvectumSSD/Arvectum/tmp/
+portfolio-design-i18n-qa-20261020/android-pipeline-qa-result-final.json.
+
+Offline assembleDebug and testDebugUnitTest PASS (9 JVM tests).
+Release manifest generation PASS and debug QA receiver absent from
+the Release manifest. A repeatable shell runner exists with an
+external SSD-only QA output guard; the trial runner invocation was
+interrupted by RDC and does not count as another successful test.
+3 new Python source-isolation checks brought the combined core suite
+to 24/24 PASS.
+
+Keep separate open gate: actual Android Photo Picker GUI selection,
+Compose result screen, and system Documents SaveDocument/export.
+The engine path is verified, the complete customer journey is not.
