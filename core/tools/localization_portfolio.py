@@ -239,6 +239,10 @@ def android_catalog_audit(doc: dict, errors: list[str], *, report: bool = False)
                 errors.append("Android German app label unexpectedly changed")
             if directory.name == "values-it" and values.get("app_name") != "Ridimensiona foto":
                 errors.append("Android Italian app label unexpectedly changed")
+            if directory.name == "values-nl" and values.get("app_name") != "Foto verkleinen":
+                errors.append("Android Dutch app label unexpectedly changed")
+            if directory.name == "values-pl" and values.get("app_name") != "Zmiana rozmiaru zdjęć":
+                errors.append("Android Polish app label unexpectedly changed")
     if expected is not None:
         kotlin_root = ROOT / "photo-pdf-to-size/android/app/src/main/java"
         references: set[str] = set()

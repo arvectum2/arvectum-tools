@@ -291,3 +291,26 @@ Earlier failed or interrupted attempts do not count as successes.
 Full device and VoiceOver QA are still required.
 
 All changes stay on the feature branch and no release is authorized.
+
+## 21 October L3.9: NL + PL and partial Android emulator recovery
+
+- Dutch values-nl/strings.xml: 93 translations. Polish
+  values-pl/strings.xml: 93 translations. Source IDs exactly
+  match English, positional format placeholders preserved.
+- Gradle :app:assembleDebug + :app:testDebugUnitTest PASS
+  with JDK17 and offline Android SDK. 6 JVM test cases pass,
+  zero failures/errors. AAPT2 dump of the built debug APK
+  confirms both localized app names and on-device-processing
+  privacy messages inside NL and PL resource configurations.
+- Python localization audit and regression tests pass 19/19.
+  The locale registry correctly states 9/50 Android development
+  language packs, 41 target locales untranslated.
+- Android SDK small_phone AVD (Android 16) booted fully
+  and adb installation of the debug package succeeded, but
+  the remote connection dropped before changing the app
+  language or capturing a screen. Emulation remains a
+  **partial infrastructure success**, NOT Android locale
+  visual QA. FR/NL/PL RTL/device/layout verification open.
+- The system disk was not used for repository builds;
+  build/test logs and generated release-independent APKs
+  remain on external ArvectumSSD. No App Store actions.

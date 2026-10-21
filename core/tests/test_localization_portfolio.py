@@ -55,6 +55,36 @@ class LocalizationPortfolioTests(unittest.TestCase):
         i18n.bilingual_format_audit(errors)
         self.assertEqual(errors, [])
 
+    def test_android_dutch_catalog_complete_and_placeholder_safe(self):
+        from xml.etree import ElementTree
+        root = ROOT / "photo-pdf-to-size/android/app/src/main/res"
+        base = {el.attrib["name"]: el.text for el in ElementTree.parse(root / "values/strings.xml").getroot()}
+        dutch = {el.attrib["name"]: el.text for el in ElementTree.parse(root / "values-nl/strings.xml").getroot()}
+        self.assertEqual(set(base), set(dutch))
+        self.assertEqual(len(dutch), 93)
+        self.assertEqual(dutch["app_name"], "Foto verkleinen")
+        self.assertIn("alleen op dit apparaat", dutch["your_photo_is_processed_only_on_this_device"])
+        self.assertEqual(dutch["compress_to"], "Comprimeren tot %1$s")
+        self.assertEqual(dutch["size_in_mb_decimal"], "%1$.2f MB")
+        self.assertTrue(all(
+            i18n.placeholders(base[k]) == i18n.placeholders(dutch[k]) for k in base
+        ))
+
+    def test_android_polish_catalog_complete_and_placeholder_safe(self):
+        from xml.etree import ElementTree
+        root = ROOT / "photo-pdf-to-size/android/app/src/main/res"
+        base = {el.attrib["name"]: el.text for el in ElementTree.parse(root / "values/strings.xml").getroot()}
+        polish = {el.attrib["name"]: el.text for el in ElementTree.parse(root / "values-pl/strings.xml").getroot()}
+        self.assertEqual(set(base), set(polish))
+        self.assertEqual(len(polish), 93)
+        self.assertEqual(polish["app_name"], "Zmiana rozmiaru zdjęć")
+        self.assertIn("tylko na tym urządzeniu", polish["your_photo_is_processed_only_on_this_device"])
+        self.assertEqual(polish["compress_to"], "Skompresuj do %1$s")
+        self.assertIn("%2$d%%", polish["reduction_summary"])
+        self.assertTrue(all(
+            i18n.placeholders(base[k]) == i18n.placeholders(polish[k]) for k in base
+        ))
+
     def test_android_italian_catalog_complete_and_placeholder_safe(self):
         from xml.etree import ElementTree
         root = ROOT / "photo-pdf-to-size/android/app/src/main/res"

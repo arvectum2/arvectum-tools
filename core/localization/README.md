@@ -247,3 +247,25 @@ No Android emulator visual test completed during this iteration.
   The test now exercises both navigation transitions and the actual
   translated titles. Simulator success is not physical VoiceOver QA.
 - No remote pushes, main merge, App Store changes or releases.
+
+## 21 October follow-up — Dutch and Polish Android
+
+The Android Photo/PDF app now has 9 authentic development catalogs:
+EN fallback, RU, ES, pt-BR, FR, DE, IT, NL and PL. Both new packs
+include 93 natural-language translations, all numeric format
+arguments, errors, privacy and document-photo disclosures.
+Android Gradle assembleDebug and testDebugUnitTest succeeded,
+6/6 existing JVM tests; AAPT2 confirms NL/PL values in the
+assembled APK. The Python structure and placeholder parity
+suite now passes 19/19. There are 41 still-untranslated
+Android targets. Native-language review and device QA are
+required before any production release.
+
+An Android 16 small_phone emulator did boot with
+sys.boot_completed=1 and adb install -r of the debug APK
+returned Success. The remote control link dropped *before*
+the intended app locale change or screenshot, and the emulator
+did not remain available. Therefore FR/NL/PL Android visual QA
+is still open. No screenshot, in-app language switch, on-device
+accessibility or real Android text-size fitting is claimed.
+All work stays in the feature branch, without store actions.
