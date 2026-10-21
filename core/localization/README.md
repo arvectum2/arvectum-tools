@@ -229,3 +229,21 @@ Standalone Pushkin Spanish UI test-without-building hung during Xcode
 runner orchestration on a separate simulator. The test process was
 terminated without valid result, so its XCUITest PASS remains open.
 No Android emulator visual test completed during this iteration.
+
+## QA addendum — 21 October, 09:45 (Italian Android and Pushkin Spanish)
+
+- Android Photo/PDF now contains seven real development resource packs:
+  EN fallback, RU, ES, pt-BR, FR, DE and IT. The Italian package has
+  93 translated strings with positional parameters preserved. Android
+  assembleDebug and testDebugUnitTest succeeded (6 JVM tests), and
+  AAPT2 confirmed Italian values in the APK. Python localization tests
+  pass 17/17. A native-language review and device visual QA are open.
+  43 planned Android locales remain unimplemented.
+- Pushkin Spanish navigation XCUITest is now PASS 1/1, confirmed by
+  the 09:45 Xcode xcresult. The two previous failed tests checked
+  incorrect UI expectations: the selected History tab was treated as
+  hittable, and the tab label 'Aplicaciones' was mistaken for the
+  distinct destination title 'Aplicaciones y configuración'.
+  The test now exercises both navigation transitions and the actual
+  translated titles. Simulator success is not physical VoiceOver QA.
+- No remote pushes, main merge, App Store changes or releases.

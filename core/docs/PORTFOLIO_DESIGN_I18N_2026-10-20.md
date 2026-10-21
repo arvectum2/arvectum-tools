@@ -272,3 +272,22 @@ engineering/regression gate, not blanket accessibility acceptance.
 - Pushkin Spanish standalone UI test-without-building hung without a
   valid assertion outcome. Its QA process was terminated, and the
   gate is still open. No main merge, remote push or store release.
+
+## 21 October L3.8 + L4.3: verified results
+
+Italian Android Photo/PDF: 93 real strings in values-it, 7/50 target
+language packs including English source, 43 not yet translated.
+Gradle assembleDebug + testDebugUnitTest succeeded offline (6/6 JVM).
+AAPT2 confirmed Italian resources in the debug APK. Locale safety tests
+17/17 pass. Android FR/DE/IT visual QA remains open.
+
+Pushkin ES: the first completed UI test showed a selected-tab
+hittability assumption was false. A second completed test showed that
+the tab is titled 'Aplicaciones' but its screen is titled 'Aplicaciones
+y configuración'. Both assertions were corrected; actual tap/navigation
+flow is unchanged. Xcode result
+Test-ArvectumNotify-2026.10.21_09-45-34-+0300.xcresult is PASS 1/1.
+Earlier failed or interrupted attempts do not count as successes.
+Full device and VoiceOver QA are still required.
+
+All changes stay on the feature branch and no release is authorized.
