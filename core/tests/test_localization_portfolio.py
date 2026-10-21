@@ -195,6 +195,16 @@ class LocalizationPortfolioTests(unittest.TestCase):
         self.assertIn("testSpanishTranscriptRecoverySyntheticPreviewWithoutAnyWrite", tests)
         self.assertIn("TranscriptRecoveryQAFixtureView", view)
 
+    def test_what_transcript_and_tombstone_writes_request_device_protection(self):
+        repository = (ROOT / "what/ios/WhatIOS/RecordingRepository.swift").read_text()
+        tests = (ROOT /
+                 "what/ios/WhatIOSTests/RecordingRepositoryTests.swift").read_text()
+        self.assertIn(".completeFileProtectionUntilFirstUserAuthentication",
+                      repository)
+        self.assertIn("options: protectedJSONOptions", repository)
+        self.assertIn("testTranscriptAndBackupUseDeviceFileProtection", tests)
+        self.assertIn("testDeletionMarkerUsesSameDeviceProtection", tests)
+
     def test_what_transcript_backup_and_delete_use_strict_storage_guards(self):
         repository = (ROOT / "what/ios/WhatIOS/RecordingRepository.swift").read_text()
         tests = (ROOT /

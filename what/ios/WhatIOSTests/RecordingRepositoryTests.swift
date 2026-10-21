@@ -164,6 +164,69 @@ final class RecordingRepositoryTests: XCTestCase {
         XCTAssertEqual(try Data(contentsOf: repo.audioURL(for: recording)), audio)
     }
 
+    private func assertPhysicalFileProtection(_ url: URL) throws {
+        let attributes = try FileManager.default.attributesOfItem(atPath: url.path)
+#if targetEnvironment(simulator)
+        // iOS Simulator does not expose NSFileProtectionKey. Do NOT infer
+        // successful encryption at rest from an ordinary Simulator read.
+        guard attributes[.protectionKey] != nil else {
+            throw XCTSkip("NSFileProtectionKey requires a physical iPhone; Simulator omits it")
+        }
+#endif
+        XCTAssertEqual(attributes[.protectionKey] as? FileProtectionType,
+                       .completeUntilFirstUserAuthentication,
+                       "The real device must report protected file metadata")
+    }
+
+    func testLegacyTranscriptAndDeletionFilesAreProtectedOnRepositoryOpen() throws {
+        let root = FileManager.default.temporaryDirectory
+            .appendingPathComponent("what-protect-legacy-\(UUID().uuidString)")
+        defer { try? FileManager.default.removeItem(at: root) }
+        try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)
+        let legacy: [String: Data] = [
+            "transcripts.json": Data(#"{"old-id":"legacy text"}"#.utf8),
+            "transcripts.backup.json": Data(#"{"old-id":"legacy text"}"#.utf8),
+            "deleted-recordings.json": Data("[]".utf8)
+        ]
+        for (name, bytes) in legacy {
+            try bytes.write(to: root.appendingPathComponent(name), options: .atomic)
+        }
+        let repo = RecordingRepository(rootURL: root)
+        for (name, bytes) in legacy {
+            let url = root.appendingPathComponent(name)
+            XCTAssertEqual(try Data(contentsOf: url), bytes,
+                           "File protection migration must not rewrite private data")
+            try assertPhysicalFileProtection(url)
+        }
+        XCTAssertEqual(repo.transcripts().count, 0,
+                       "Invalid synthetic UUID keys should not be displayed")
+    }
+
+    func testTranscriptAndBackupUseDeviceFileProtection() throws {
+        let root = FileManager.default.temporaryDirectory
+            .appendingPathComponent("what-file-protection-\(UUID().uuidString)")
+        defer { try? FileManager.default.removeItem(at: root) }
+        let (repo, recording, audio) = try makeEditableRecording(in: root)
+        try repo.saveTranscript("private first", for: recording.id)
+        try repo.updateTranscript("private edited", for: recording.id)
+        for name in ["transcripts.json", "transcripts.backup.json"] {
+            let url = root.appendingPathComponent(name)
+            try assertPhysicalFileProtection(url)
+        }
+        XCTAssertEqual(try Data(contentsOf: repo.audioURL(for: recording)), audio)
+    }
+
+    func testDeletionMarkerUsesSameDeviceProtection() throws {
+        let root = FileManager.default.temporaryDirectory
+            .appendingPathComponent("what-protected-deletion-\(UUID().uuidString)")
+        defer { try? FileManager.default.removeItem(at: root) }
+        let (repo, recording, _) = try makeEditableRecording(in: root)
+        try repo.saveTranscript("private to delete", for: recording.id)
+        try repo.deleteRecording(recording.id)
+        let marker = root.appendingPathComponent("deleted-recordings.json")
+        try assertPhysicalFileProtection(marker)
+    }
+
     func testTranscriptRecoveryCopyMatchesLatestSavedCatalog() throws {
         let root = FileManager.default.temporaryDirectory
             .appendingPathComponent("what-shadow-recovery-\(UUID().uuidString)")

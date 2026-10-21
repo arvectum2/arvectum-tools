@@ -36,12 +36,22 @@ final class RecordingRepository {
         }
     }
 
+    // Init is nonthrowing because existing callers create the repository
+    // synchronously. A failed legacy file upgrade must block later writes,
+    // not silently store unprotected new transcript data.
+    private var protectionMigrationError: Error?
     private let fileManager: FileManager
     private let rootURL: URL
     private let audioDirectory: URL
     private let indexURL: URL
     private let transcriptURL: URL
     private let transcriptBackupURL: URL
+    // The user must be able to receive a Watch transfer in the background
+    // AFTER the first unlock, without exposing transcripts before first unlock.
+    // Set protection on the staging inode as part of atomic writing.
+    private let protectedJSONOptions: Data.WritingOptions = [
+        .atomic, .completeFileProtectionUntilFirstUserAuthentication
+    ]
     private let deletedIDsURL: URL
     private let archivedIDsURL: URL
     private let semanticIndexURL: URL
@@ -66,6 +76,11 @@ final class RecordingRepository {
         archivedIDsURL = self.rootURL.appendingPathComponent("archived-recordings.json")
         semanticIndexURL = self.rootURL.appendingPathComponent("semantic-search-index.json")
         try? fileManager.createDirectory(at: audioDirectory, withIntermediateDirectories: true)
+        do {
+            try protectExistingTranscriptFiles()
+        } catch {
+            protectionMigrationError = error
+        }
         // Finish cleanup interrupted after writing the durable deletion marker.
         try? resumePendingDeletions()
     }
@@ -281,15 +296,32 @@ final class RecordingRepository {
         try persistTranscripts(existing)
     }
 
+    /// Update earlier versions' unprotected catalogs in place without
+    /// decoding or rewriting personal text. On a protected iOS device this
+    /// applies even before the next transcript edit. Do not touch audio.
+    private func protectExistingTranscriptFiles() throws {
+        for url in [transcriptURL, transcriptBackupURL, deletedIDsURL] {
+            guard fileManager.fileExists(atPath: url.path) else { continue }
+            let current = try fileManager.attributesOfItem(atPath: url.path)
+            guard (current[.protectionKey] as? FileProtectionType)
+                    != .completeUntilFirstUserAuthentication else { continue }
+            try fileManager.setAttributes(
+                [.protectionKey: FileProtectionType.completeUntilFirstUserAuthentication],
+                ofItemAtPath: url.path
+            )
+        }
+    }
+
     /// Shadow copy is written first and both replacements are atomic. If
     /// the second write fails, the readable main catalog is still intact;
     /// a trusted copy is retained in the sidecar for explicit restoration.
     /// Deletion uses this path too, so successful purges remove the text from
     /// BOTH the main catalog and the recovery copy.
     private func persistTranscripts(_ catalog: [String: String]) throws {
+        if let protectionMigrationError { throw protectionMigrationError }
         let data = try ArvectumJSONCodec.encode(catalog)
-        try data.write(to: transcriptBackupURL, options: .atomic)
-        try data.write(to: transcriptURL, options: .atomic)
+        try data.write(to: transcriptBackupURL, options: protectedJSONOptions)
+        try data.write(to: transcriptURL, options: protectedJSONOptions)
     }
 
     /// Read-only status used by the recovery screen. Never expose backup
@@ -380,8 +412,11 @@ final class RecordingRepository {
     }
 
     private func persistDeletedIDs(_ ids: Set<UUID>) throws {
+        if let protectionMigrationError { throw protectionMigrationError }
         let data = try ArvectumJSONCodec.encode(ids.map(\.uuidString).sorted())
-        try data.write(to: deletedIDsURL, options: .atomic)
+        // These tombstones prevent deleted notes from being resurrected.
+        // Protect them with the same pre-first-unlock guarantee as transcripts.
+        try data.write(to: deletedIDsURL, options: protectedJSONOptions)
     }
 
     private func persistIncomingFile(from sourceURL: URL, to destination: URL) throws {

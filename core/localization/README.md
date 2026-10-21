@@ -737,3 +737,24 @@ Do NOT claim the full confirmation-to-restored-library UI is tested.
 It requires targeted real-device/iPad VoiceOver/normal UX acceptance
 and recovery failure injection. File protection and power-loss
 atomicity are also open. No merge, push, TestFlight or publication.
+
+## 21 October 23:26 — Uhvat transcript file protection, L4.18a
+
+New transcript main, shadow backup and durable deletion-ledger JSON
+files are written as protected atomic replacements, using
+completeFileProtectionUntilFirstUserAuthentication.
+Legacy files are upgraded without rewriting their contents; if
+migration fails, later transcript writes are blocked.
+This class preserves background Watch processing after first unlock.
+
+Test-WhatIOS-2026.10.21_23-24-48-+0300.xcresult:
+67 PASS, 6 SKIP, 0 FAIL. Three new skips concern NSFileProtectionKey:
+iOS Simulator omits that hardware attribute. Three other skips
+were preexisting. Debug iOS build and Python 39/39 PASS; locale audit
+PASS. macOS Foundation smoke returned the desired protection type,
+but only a physical iPhone can validate device encryption.
+
+Outstanding: real iPhone attributes and legacy migration, behavior
+before first unlock, Watch background delivery, media/index
+protection, backup policy and power-loss fault injection.
+No release, main merge or TestFlight.
