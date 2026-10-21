@@ -593,3 +593,22 @@ iPad Test-WhatIOS-2026.10.21_19-08-15-+0300.xcresult 1 PASS 0 FAIL.
 Spanish strings and visible accessible controls verified; no
 microphone opened or saved. Python + source regressions 34/34 PASS.
 Physical audio recording and VoiceOver remain unverified.
+
+
+## L4.14 — Spanish transcript editor accessible controls
+
+Extended the actual app transcription-correction sheet: at AXXXL
+Cancel/Save move to a bottom 88x52pt minimum target, and the original
+navigation buttons remain for ordinary type. Editor and actions have
+stable accessibility identifiers. This preserves save validation,
+including disabled Save for unchanged/blank drafts.
+
+Added a DEBUG-only synthetic RecordingEnvelope host in WhatApp.
+Its onSave closure is a no-op and does not touch recording data,
+disk audio or Cloud/Watch sync. Xcode Simulator results:
+iPhone ES AXXXL+regular 19:33:51 2/2 PASS;
+iPad ES AXXXL 19:35:55 1/1 PASS;
+iPhone ES changed draft enables Save and safe dismiss 19:37:35
+1/1 PASS. Python source/locale suite 35/35 PASS.
+Physical VoiceOver and real transcript durability/failure handling
+are explicitly not claimed and remain open QA requirements.

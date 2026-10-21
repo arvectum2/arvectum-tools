@@ -598,3 +598,30 @@ structure/placeholder audit PASS.
 Simulator visual checks are not proof of physical microphone
 recording, real permissions, saved audio or VoiceOver on devices;
 these remain separate release QA. No merge or store publishing.
+
+
+## 21 October 19:38 — What/Uhvat transcript editor Dynamic Type
+
+The live transcript editor's native Cancel and Save toolbar buttons
+were constrained by UIKit at accessibility text sizes. Production
+TranscriptEditorSheet now renders fully tappable bottom safe-area
+controls (minimum 88x52 pt each) when Dynamic Type is an
+accessibility category; regular-size navigation actions are retained.
+Both actions and TextEditor gained stable accessibility identifiers.
+
+To QA without touching personal notes, a #if DEBUG-only screen uses
+a synthetic RecordingEnvelope and test string with a no-op save
+closure. It bypasses the real recording repository and media, and
+is inaccessible from the production Release app. Separate fixtures
+render AXXXL and medium text sizes.
+
+Real iOS Simulator Xcode test evidence:
+- iPhone ES AXXXL + medium: Test-WhatIOS-2026.10.21_19-33-51-+0300.xcresult,
+  2/2 PASS (editor/transcript labels, 44+ pt actions, Cancel, disabled Save).
+- iPad ES AXXXL: Test-WhatIOS-2026.10.21_19-35-55-+0300.xcresult, 1/1 PASS.
+- iPhone ES edited synthetic draft: Test-WhatIOS-2026.10.21_19-37-35-+0300.xcresult,
+  1/1 PASS (Save enables on edit and dismisses; no actual persistence).
+Shared Python localization/security tests 35/35 PASS, format/catalog
+audit PASS. These do NOT substitute for physical VoiceOver or real
+error/recovery/persistence acceptance with user-provided transcripts.
+No TestFlight, App Store or main merge.

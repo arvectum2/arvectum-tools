@@ -180,6 +180,24 @@ class LocalizationPortfolioTests(unittest.TestCase):
                          "Idioma de la interfaz: ajustes de iOS")
         self.assertNotIn("Español (English interface)", home)
 
+    def test_what_transcript_editor_ax_controls_use_synthetic_fixture(self):
+        editor = (ROOT / "what/ios/WhatIOS/TranscriptEditorSheet.swift").read_text()
+        app = (ROOT / "what/ios/WhatIOS/WhatApp.swift").read_text()
+        ui = (ROOT /
+              "what/ios/WhatIOSUITests/SpanishLocalizationUITests.swift"
+              ).read_text()
+        self.assertIn(".safeAreaInset(edge: .bottom, spacing: 0)", editor)
+        self.assertIn(".frame(minWidth: 88, minHeight: 52)", editor)
+        self.assertIn('.accessibilityIdentifier("what.transcript.cancel")', editor)
+        self.assertIn('.accessibilityIdentifier("what.transcript.save")', editor)
+        self.assertIn('.accessibilityIdentifier("what.transcript.editor")', editor)
+        self.assertIn("#if DEBUG", editor)
+        self.assertIn("--qa-transcript-editor-synthetic", app)
+        self.assertIn("--qa-transcript-editor-synthetic-normal", app)
+        self.assertIn("Standalone synthetic transcript QA host", editor)
+        self.assertIn("testSpanishAXXXLTranscriptActionsReachableWithoutSaving", ui)
+        self.assertIn("testSpanishNormalTranscriptKeepsToolbarAndSafeCancel", ui)
+
     def test_what_audio_ui_accessibility_fixture_is_debug_only(self):
         audio = (ROOT / "what/ios/WhatIOS/PhoneRecordingSheet.swift").read_text()
         app = (ROOT / "what/ios/WhatIOS/WhatApp.swift").read_text()

@@ -18,7 +18,10 @@ struct WhatApp: App {
         WindowGroup {
             Group {
 #if DEBUG
-                if ProcessInfo.processInfo.arguments.contains("--qa-design-filled-library") ||
+                if ProcessInfo.processInfo.arguments.contains("--qa-transcript-editor-synthetic") ||
+                   ProcessInfo.processInfo.arguments.contains("--qa-transcript-editor-synthetic-normal") {
+                    TranscriptEditorQAFixtureView()
+                } else if ProcessInfo.processInfo.arguments.contains("--qa-design-filled-library") ||
                    ProcessInfo.processInfo.arguments.contains("--qa-spanish-axxxl-home") ||
                    ProcessInfo.processInfo.arguments.contains("--qa-video-controls-no-camera") ||
                    ProcessInfo.processInfo.arguments.contains("--qa-audio-controls-no-microphone") {

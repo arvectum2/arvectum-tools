@@ -297,6 +297,95 @@ final class SpanishLocalizationUITests: XCTestCase {
         XCTAssertFalse(app.alerts.firstMatch.exists)
     }
 
+    /// Isolated in-memory transcript fixture; no recording, repo access,
+    /// microphone permission or saved transcription can be modified.
+    @MainActor
+    func testSpanishAXXXLTranscriptActionsReachableWithoutSaving() {
+        let app = XCUIApplication()
+        app.launchArguments = [
+            "-AppleLanguages", "(es)", "-AppleLocale", "es_ES",
+            "-UIPreferredContentSizeCategoryName",
+            "UICTContentSizeCategoryAccessibilityExtraExtraExtraLarge",
+            "--qa-transcript-editor-synthetic"
+        ]
+        app.launch()
+        let open = app.buttons["what.qa.transcript.open"]
+        XCTAssertTrue(open.waitForExistence(timeout: 12))
+        open.tap()
+
+        XCTAssertTrue(app.navigationBars["Editar transcripción"]
+                      .waitForExistence(timeout: 12))
+        let text = app.textViews["what.transcript.editor"]
+        XCTAssertTrue(text.waitForExistence(timeout: 12))
+        XCTAssertEqual(text.label, "Transcripción de la grabación")
+        XCTAssertTrue(text.isHittable)
+
+        let cancel = app.buttons["what.transcript.cancel"]
+        let save = app.buttons["what.transcript.save"]
+        XCTAssertTrue(cancel.waitForExistence(timeout: 10))
+        XCTAssertTrue(save.exists)
+        XCTAssertEqual(cancel.label, "Cancelar")
+        XCTAssertEqual(save.label, "Guardar")
+        XCTAssertTrue(cancel.isHittable)
+        XCTAssertGreaterThanOrEqual(cancel.frame.height, 44)
+        XCTAssertGreaterThanOrEqual(save.frame.height, 44)
+        XCTAssertFalse(save.isEnabled, "Synthetic draft has no changes")
+        cancel.tap()
+        XCTAssertTrue(open.waitForExistence(timeout: 10))
+    }
+
+    @MainActor
+    func testSpanishAXXXLSyntheticTranscriptEditEnablesSaveWithoutDiskWrite() {
+        let app = XCUIApplication()
+        app.launchArguments = [
+            "-AppleLanguages", "(es)", "-AppleLocale", "es_ES",
+            "--qa-transcript-editor-synthetic"
+        ]
+        app.launch()
+        let open = app.buttons["what.qa.transcript.open"]
+        XCTAssertTrue(open.waitForExistence(timeout: 12))
+        open.tap()
+        let save = app.buttons["what.transcript.save"]
+        XCTAssertTrue(save.waitForExistence(timeout: 10))
+        XCTAssertFalse(save.isEnabled)
+        let editor = app.textViews["what.transcript.editor"]
+        XCTAssertTrue(editor.exists)
+        editor.tap()
+        editor.typeText(" actualizado")
+        XCTAssertTrue(save.isEnabled,
+                      "Changed local draft should enable Save")
+        XCTAssertGreaterThanOrEqual(save.frame.height, 44)
+        // QA-only onSave closure is a no-op, so no recording is stored.
+        save.tap()
+        XCTAssertTrue(open.waitForExistence(timeout: 10))
+    }
+
+    @MainActor
+    func testSpanishNormalTranscriptKeepsToolbarAndSafeCancel() {
+        let app = XCUIApplication()
+        app.launchArguments = [
+            "-AppleLanguages", "(es)", "-AppleLocale", "es_ES",
+            "--qa-transcript-editor-synthetic-normal"
+        ]
+        app.launch()
+        let open = app.buttons["what.qa.transcript.open"]
+        XCTAssertTrue(open.waitForExistence(timeout: 12))
+        open.tap()
+        XCTAssertTrue(app.navigationBars["Editar transcripción"]
+                      .waitForExistence(timeout: 12))
+        let cancel = app.buttons["what.transcript.cancel"]
+        let save = app.buttons["what.transcript.save"]
+        XCTAssertTrue(cancel.waitForExistence(timeout: 10))
+        XCTAssertEqual(cancel.label, "Cancelar")
+        XCTAssertTrue(cancel.isHittable)
+        XCTAssertLessThan(cancel.frame.minY, 160,
+                          "Regular font preserves the navigation Cancel")
+        XCTAssertTrue(save.exists)
+        XCTAssertFalse(save.isEnabled)
+        cancel.tap()
+        XCTAssertTrue(open.waitForExistence(timeout: 10))
+    }
+
     /// The settings menu must remain reachable with a huge font and a
     /// separately chosen dictation language. No settings are changed.
     @MainActor

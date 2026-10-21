@@ -9,6 +9,7 @@ struct TranscriptEditorSheet: View {
     let onSave: (String) throws -> Void
 
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @State private var draft: String
     @State private var saveError: String?
     @FocusState private var isEditing: Bool
@@ -42,6 +43,7 @@ struct TranscriptEditorSheet: View {
                     .focused($isEditing)
                     .scrollContentBackground(.hidden)
                     .accessibilityLabel(CaptureBrand.text("Текст записи", "Recording transcription"))
+                    .accessibilityIdentifier("what.transcript.editor")
                     .padding(8)
                     .background(.quaternary.opacity(0.5), in: RoundedRectangle(cornerRadius: 12))
 
@@ -55,14 +57,41 @@ struct TranscriptEditorSheet: View {
                 ? CaptureBrand.text("Добавить текст", "Add text")
                 : CaptureBrand.text("Править расшифровку", "Edit transcription"))
             .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
-                    Button(CaptureBrand.text("Отмена", "Cancel")) { dismiss() }
+            // UIKit limits nav-bar buttons to about 36 pt, even with
+            // large Dynamic Type. Provide full-size controls at AX sizes.
+            .safeAreaInset(edge: .bottom, spacing: 0) {
+                if dynamicTypeSize.isAccessibilitySize {
+                    HStack(spacing: 12) {
+                        Button(CaptureBrand.text("Отмена", "Cancel")) { dismiss() }
+                            .buttonStyle(.bordered)
+                            .frame(minWidth: 88, minHeight: 52)
+                            .contentShape(Rectangle())
+                            .accessibilityIdentifier("what.transcript.cancel")
+                        Spacer(minLength: 0)
+                        Button(CaptureBrand.text("Сохранить", "Save")) { save() }
+                            .buttonStyle(.borderedProminent)
+                            .frame(minWidth: 88, minHeight: 52)
+                            .contentShape(Rectangle())
+                            .disabled(!canSave)
+                            .accessibilityIdentifier("what.transcript.save")
+                    }
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 8)
+                    .background(.regularMaterial)
                 }
-                ToolbarItem(placement: .confirmationAction) {
-                    Button(CaptureBrand.text("Сохранить", "Save")) { save() }
-                        .disabled(!canSave)
-                        .fontWeight(.semibold)
+            }
+            .toolbar {
+                if !dynamicTypeSize.isAccessibilitySize {
+                    ToolbarItem(placement: .cancellationAction) {
+                        Button(CaptureBrand.text("Отмена", "Cancel")) { dismiss() }
+                            .accessibilityIdentifier("what.transcript.cancel")
+                    }
+                    ToolbarItem(placement: .confirmationAction) {
+                        Button(CaptureBrand.text("Сохранить", "Save")) { save() }
+                            .disabled(!canSave)
+                            .fontWeight(.semibold)
+                            .accessibilityIdentifier("what.transcript.save")
+                    }
                 }
             }
             .alert(CaptureBrand.text("Не удалось сохранить", "Could not save changes"), isPresented: Binding(
@@ -86,3 +115,39 @@ struct TranscriptEditorSheet: View {
         }
     }
 }
+
+
+#if DEBUG
+/// Standalone synthetic transcript QA host. Its save closure does not
+/// write to the recording repository, iCloud or original audio.
+struct TranscriptEditorQAFixtureView: View {
+    @State private var showEditor = false
+
+    private var fixtureTypeSize: DynamicTypeSize {
+        ProcessInfo.processInfo.arguments.contains("--qa-transcript-editor-synthetic-normal")
+            ? .medium : .accessibility5
+    }
+
+    var body: some View {
+        Button { showEditor = true } label: {
+            Image(systemName: "square.and.pencil")
+                .frame(minWidth: 88, minHeight: 52)
+        }
+            .accessibilityLabel(CaptureBrand.text("Править расшифровку", "Edit transcription"))
+            .accessibilityIdentifier("what.qa.transcript.open")
+            .sheet(isPresented: $showEditor) {
+                TranscriptEditorSheet(
+                    recording: RecordingEnvelope(
+                        id: UUID(uuidString: "AAAA0000-0000-0000-0000-000000009301")!,
+                        createdAt: Date(timeIntervalSince1970: 0),
+                        duration: 1,
+                        fileName: "synthetic-qa-not-a-file.m4a"
+                    ),
+                    initialText: "Texto de prueba",
+                    onSave: { _ in /* In-memory QA, never persist */ }
+                )
+                .environment(\.dynamicTypeSize, fixtureTypeSize)
+            }
+    }
+}
+#endif
