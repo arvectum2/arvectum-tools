@@ -141,15 +141,18 @@ struct ArvectumCard<Content: View>: View {
 }
 
 
-// MARK: - UX writing and RU/EN/ES interface copy
-// Each display string uses a canonical English key. RU retains its existing
-// in-code copy; ES loads the actual app-bundled localization. Other device
-// languages use English. Do not use for Shortcuts identifiers or stored data.
+// MARK: - UX writing with EN, RU, ES, and FR interface copy
+// English is the canonical source. Russian retains the historical in-code
+// dictionary, and Spanish/French use the actual shipped .lproj bundles.
+// Never translate Shortcuts identifiers or the user's notification content.
 enum PushkinCopy {
-    private static let spanishBundle: Bundle? = {
-        guard let path = Bundle.main.path(forResource: "es", ofType: "lproj")
-        else { return nil }
-        return Bundle(path: path)
+    private static let translatedBundles: [String: Bundle] = {
+        Dictionary(uniqueKeysWithValues: ["es", "fr"].compactMap { language in
+            guard let path = Bundle.main.path(forResource: language, ofType: "lproj"),
+                  let bundle = Bundle(path: path)
+            else { return nil }
+            return (language, bundle)
+        })
     }()
 
     static func text(
@@ -163,8 +166,8 @@ enum PushkinCopy {
         switch code {
         case "ru":
             return russian[english] ?? english
-        case "es":
-            return spanishBundle?.localizedString(
+        case "es", "fr":
+            return translatedBundles[code]?.localizedString(
                 forKey: english, value: english, table: nil
             ) ?? english
         default:
@@ -179,6 +182,9 @@ enum PushkinCopy {
     ) -> String {
         if language.lowercased().hasPrefix("es") {
             return count == 1 ? "1 aplicación" : "\(count) aplicaciones"
+        }
+        if language.lowercased().hasPrefix("fr") {
+            return count == 1 ? "1 application" : "\(count) applications"
         }
         guard language.lowercased().hasPrefix("ru") else { return "\(count) apps" }
         let n = count % 100

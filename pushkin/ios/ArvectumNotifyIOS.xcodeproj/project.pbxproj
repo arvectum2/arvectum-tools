@@ -96,6 +96,7 @@
 		1218639A739F02867F747D7E /* PUSHKIN - Telegram Messenger.shortcut in Resources */ = {isa = PBXBuildFile; fileRef = 60E1C9C648E3E417C98B8A18 /* PUSHKIN - Telegram Messenger.shortcut */; };
 		121AD4A1740FBA1F3E508567 /* PUSHKIN - ÖBB Tickets.shortcut in Resources */ = {isa = PBXBuildFile; fileRef = 224F152BF88D309EB874DB6B /* PUSHKIN - ÖBB Tickets.shortcut */; };
 		122BAFD97B7F3BD15BA1EA07 /* PUSHKIN - S-mobiili.shortcut in Resources */ = {isa = PBXBuildFile; fileRef = E1C71711618505577061652A /* PUSHKIN - S-mobiili.shortcut */; };
+		123476D28AD9DDDEE32AB9FC /* FrenchLocalizationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B850BF285E0647A19365C7C /* FrenchLocalizationUITests.swift */; };
 		1278F621473D9064440ECF28 /* PUSHKIN - Yandex Go- Taxi Food Delivery.shortcut in Resources */ = {isa = PBXBuildFile; fileRef = 9C03C5443E2AB25E61D9B7C4 /* PUSHKIN - Yandex Go- Taxi Food Delivery.shortcut */; };
 		12A59F44B88976B31BB34F3D /* PUSHKIN - Edenred+.shortcut in Resources */ = {isa = PBXBuildFile; fileRef = 47FFFDC797092AFF137674A4 /* PUSHKIN - Edenred+.shortcut */; };
 		12A91378F69CD9A2AFE75D35 /* PUSHKIN - Netflix Game Controller.shortcut in Resources */ = {isa = PBXBuildFile; fileRef = AEB7887466E2DBC39A5192C0 /* PUSHKIN - Netflix Game Controller.shortcut */; };
@@ -1392,6 +1393,7 @@
 		509323EA37E2F2667C5D0158 /* PUSHKIN - Meesho- Online Shopping.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - Meesho- Online Shopping.shortcut"; sourceTree = "<group>"; };
 		50CB2890B88742EF82C7C311 /* PUSHKIN - MOHRE UAE.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - MOHRE UAE.shortcut"; sourceTree = "<group>"; };
 		510720659532C89B4112F07E /* PUSHKIN - PicPay- Conta, Cartão e Pix.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - PicPay- Conta, Cartão e Pix.shortcut"; sourceTree = "<group>"; };
+		514CC7801B7D71CE15D6104E /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		51D6757BB681C7C01192D3E2 /* PUSHKIN - Tabelog－日本餐廳探索、訂位與評價全方位平台.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - Tabelog－日本餐廳探索、訂位與評價全方位平台.shortcut"; sourceTree = "<group>"; };
 		5219D4AEBD6212886F093011 /* PUSHKIN - gov.br.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - gov.br.shortcut"; sourceTree = "<group>"; };
 		524A4A07AB91D43E70ADE1E4 /* PUSHKIN - Tikkie.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - Tikkie.shortcut"; sourceTree = "<group>"; };
@@ -1429,6 +1431,7 @@
 		5B2DAE87A7FAB4EF48FB16D9 /* PUSHKIN - Timemark- Photo Proof for Work.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - Timemark- Photo Proof for Work.shortcut"; sourceTree = "<group>"; };
 		5B77C8CC3219188E816D0FEE /* catalog-source-dev.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "catalog-source-dev.json"; sourceTree = "<group>"; };
 		5B7A7369B66704875C00D603 /* PUSHKIN - Atome PH - Buy Now Pay Later.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - Atome PH - Buy Now Pay Later.shortcut"; sourceTree = "<group>"; };
+		5B850BF285E0647A19365C7C /* FrenchLocalizationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrenchLocalizationUITests.swift; sourceTree = "<group>"; };
 		5BAF5763815ABCCDAF31A3D9 /* PUSHKIN - Microsoft Copilot.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - Microsoft Copilot.shortcut"; sourceTree = "<group>"; };
 		5BBA65ABF4A311DF0AC25DA4 /* PUSHKIN - Alipay - Simplify Your Life.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - Alipay - Simplify Your Life.shortcut"; sourceTree = "<group>"; };
 		5C564B8ACD162167B87FDFD7 /* PUSHKIN - BBVA México.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - BBVA México.shortcut"; sourceTree = "<group>"; };
@@ -3270,6 +3273,7 @@
 			children = (
 				BB897591933CD56B6B623B63 /* AdaptiveLayoutUITests.swift */,
 				69843C842E153341D5E3508E /* AppStoreUpdatePromptUITests.swift */,
+				5B850BF285E0647A19365C7C /* FrenchLocalizationUITests.swift */,
 				3FD0B05A3BA2A3C49263F3F9 /* MinimalUXUITests.swift */,
 				D601C4FCEB9D5152F6A69925 /* NotificationDeletionUITests.swift */,
 				9F07DF0E41880D8EE87B1466 /* PushkinA6OnboardingUITests.swift */,
@@ -3372,6 +3376,7 @@
 				Base,
 				en,
 				es,
+				fr,
 				ru,
 			);
 			mainGroup = 5E24A853970EE4E87421C056;
@@ -4460,6 +4465,7 @@
 			files = (
 				552DA9E46BD1BD0F12D674DD /* AdaptiveLayoutUITests.swift in Sources */,
 				83E193DE6BFA082826D166EA /* AppStoreUpdatePromptUITests.swift in Sources */,
+				123476D28AD9DDDEE32AB9FC /* FrenchLocalizationUITests.swift in Sources */,
 				612C2D0E30CFB6699C65658F /* MinimalUXUITests.swift in Sources */,
 				B7C2A900D378C7CA9AEFD311 /* NotificationDeletionUITests.swift in Sources */,
 				A46B68266B9679CE0457E857 /* PUSHKINImportUITests.swift in Sources */,
@@ -4492,6 +4498,7 @@
 			children = (
 				681E372D285F9C73EAEF2C12 /* en */,
 				A228AED0745DBFFE3AF7AEDE /* es */,
+				514CC7801B7D71CE15D6104E /* fr */,
 				E88D3D65B6E0FF8B87FA0DE3 /* ru */,
 			);
 			name = Localizable.strings;

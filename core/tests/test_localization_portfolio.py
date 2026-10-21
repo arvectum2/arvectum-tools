@@ -173,6 +173,21 @@ class LocalizationPortfolioTests(unittest.TestCase):
         self.assertEqual(home["Español"], "Español")
         self.assertNotIn("Español (English interface)", home)
 
+    def test_pushkin_french_catalog_covers_all_real_english_copy(self):
+        root = ROOT / "pushkin/ios/ArvectumNotify/Resources"
+        en = i18n.read_strings(root / "en.lproj/Localizable.strings", [])
+        fr = i18n.read_strings(root / "fr.lproj/Localizable.strings", [])
+        self.assertEqual(set(en), set(fr))
+        self.assertEqual(len(fr), 151)
+        self.assertEqual(fr["History"], "Historique")
+        self.assertEqual(fr["Apps & Setup"], "Apps et configuration")
+        self.assertEqual(fr["Settings"], "Réglages")
+        self.assertEqual(fr["Group %d"], "Groupe %d")
+        self.assertIn("Raccourcis", fr["PUSHKIN works through Apple Shortcuts"])
+        self.assertTrue(all(
+            i18n.placeholders(en[k]) == i18n.placeholders(fr[k]) for k in en
+        ))
+
     def test_pushkin_spanish_catalog_covers_all_real_english_copy(self):
         root = ROOT / "pushkin/ios/ArvectumNotify/Resources"
         en = i18n.read_strings(root / "en.lproj/Localizable.strings", [])

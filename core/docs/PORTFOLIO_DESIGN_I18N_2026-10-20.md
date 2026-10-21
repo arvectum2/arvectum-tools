@@ -335,3 +335,23 @@ Android full APK build and 9/9 JVM PASS (6 existing, 3 new layout
 logic cases), no test failures. Screenshots/logs retained in the
 external SSD QA folder. This proves selected initial-screen layouts,
 not TalkBack or full file picker/processing on physical Android.
+
+
+## L3.10 on 21 Oct: French iOS Pushkin
+
+The Pushkin iPhone app now contains French as a fourth development
+language (EN/RU/ES/FR), 151 complete localized source keys. The
+historical PushkinCopy Russian dictionary was preserved, and Spanish
+and French now share a bundle-based source resolver, with English
+fallback for other unsupported locales. French one and plural counts
+are handled explicitly.
+
+Actual generated Xcode bundle contains fr.lproj/Localizable.strings.
+iOS Simulator debug build passed; French unit tests passed. New
+FrenchLocalizationUITests uses French system language and exercises
+History, Apps & Setup and Settings; xcresult
+Test-ArvectumNotify-2026.10.21_15-15-27-+0300.xcresult shows
+1 passed, 0 failed. Python i18n audit/tests pass 20/20.
+
+The French translations still require native editorial review and
+physical device accessibility and Shortcuts QA, prior to any release.

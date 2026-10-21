@@ -301,3 +301,25 @@ new deterministic 3/2/1-column unit tests. Localization audit PASS.
 The representative initial-screen smoke is not full accessibility
 or end-to-end QA: document processing, RTL, TalkBack, all text sizes,
 and physical device test matrix still require review.
+
+
+## French Pushkin — development bundle and UX smoke (21 October)
+
+Pushkin now ships EN, RU, ES and FR source localizations in the
+feature branch (151 string keys each). Added authored French UI copy
+for all extracted source keys, including Shortcuts-based setup
+disclosures, privacy and troubleshooting; printf format specifiers
+remain in parity with the English source. The runtime PushkinCopy
+loader reads its built fr.lproj bundle and leaves the old Russian
+dictionary and Spanish behavior unchanged. Single/plural French
+counts read as 1 application and 2 applications.
+
+After XcodeGen regeneration, iOS simulator Debug build PASS.
+Focused French native Xcode test PASS. The French UI smoke navigates
+Historique -> Apps et configuration -> Réglages and confirms translated
+tabs in a simulator. Xcode result at 15:15, 1/1 PASS with zero failures.
+Python localization tests now 20/20 PASS.
+
+This is a development draft, not a native-language editing signoff.
+Physical VoiceOver, larger Dynamic Type, live Shortcuts integrations
+and release approval remain pending. No release or main merge.

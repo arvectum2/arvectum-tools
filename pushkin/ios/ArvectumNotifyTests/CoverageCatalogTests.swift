@@ -35,7 +35,7 @@ final class CoverageCatalogTests: XCTestCase {
         XCTAssertEqual(PushkinCopy.text("History", language: "es-ES"), "Historial")
         XCTAssertEqual(PushkinCopy.text("Apps", language: "es"), "Aplicaciones")
         XCTAssertEqual(PushkinCopy.text("Group %d", language: "es"), "Grupo %d")
-        XCTAssertEqual(PushkinCopy.text("History", language: "fr-FR"), "History")
+        XCTAssertEqual(PushkinCopy.text("History", language: "fr-FR"), "Historique")
         XCTAssertEqual(
             PushkinCopy.text("Unknown label", language: "ru"),
             "Unknown label"
@@ -54,12 +54,24 @@ final class CoverageCatalogTests: XCTestCase {
             PushkinCopy.text("Notification content stays on this device", language: "es-MX"),
             "El contenido de las notificaciones permanece en este dispositivo"
         )
-        XCTAssertEqual(PushkinCopy.text("History", language: "fr-FR"), "History")
+        XCTAssertEqual(PushkinCopy.text("History", language: "fr-FR"), "Historique")
         XCTAssertEqual(PushkinCopy.text("Unknown label", language: "es"), "Unknown label")
         XCTAssertEqual(
             String(format: PushkinCopy.text("Group %d", language: "es"), 5),
             "Grupo 5"
         )
+    }
+
+    func testFrenchCatalogAndCount() {
+        XCTAssertEqual(PushkinCopy.text("History", language: "fr-FR"), "Historique")
+        XCTAssertEqual(PushkinCopy.text("Settings", language: "fr-CA"), "Réglages")
+        XCTAssertEqual(PushkinCopy.text("Apps & Setup", language: "fr"), "Apps et configuration")
+        XCTAssertEqual(PushkinCopy.text("Group %d", language: "fr"), "Groupe %d")
+        XCTAssertEqual(PushkinCopy.appCount(1, language: "fr-FR"), "1 application")
+        XCTAssertEqual(PushkinCopy.appCount(2, language: "fr-FR"), "2 applications")
+        XCTAssertEqual(PushkinCopy.appCount(0, language: "fr-FR"), "0 applications")
+        XCTAssertEqual(PushkinCopy.text("This text is not in source", language: "fr"),
+                       "This text is not in source")
     }
 
     func testPendingSourceNameIsBriefWithoutChangingSourceIdentity() {
