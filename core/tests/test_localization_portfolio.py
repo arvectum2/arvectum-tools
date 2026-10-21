@@ -180,6 +180,22 @@ class LocalizationPortfolioTests(unittest.TestCase):
                          "Idioma de la interfaz: ajustes de iOS")
         self.assertNotIn("Español (English interface)", home)
 
+    def test_what_diagnostics_qa_no_longer_uses_legacy_shared_language(self):
+        tests = (ROOT /
+                 "what/ios/WhatIOSUITests/SyncDiagnosticsLocalizationUITests.swift"
+                 ).read_text()
+        self.assertNotIn("testSpeechLanguageAlsoSwitchesTheLiveInterface", tests)
+        self.assertIn("testSpeechLanguageDoesNotSwitchInterfaceAndPersists", tests)
+        self.assertIn("testSpanishDiagnosticsAndSettingsMenu", tests)
+        self.assertIn('selectLocale("Английский", app: app)', tests)
+        self.assertIn("Язык интерфейса — в настройках iOS", tests)
+        ipad = (ROOT /
+                "what/ios/WhatIOSUITests/SpanishLocalizationUITests.swift"
+                ).read_text()
+        self.assertIn("testSpanishMixedNotesLibraryAXXXLAccessibleNavigation",
+                      ipad)
+        self.assertIn(".performAccessibilityAudit(", ipad)
+
     def test_what_speech_and_interface_languages_are_independent(self):
         brand = (ROOT / "what/ios/Shared/CaptureBrand.swift").read_text()
         settings = (ROOT / "what/ios/WhatIOS/RecordingLibraryView.swift").read_text()

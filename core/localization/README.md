@@ -468,3 +468,35 @@ language primarily to change the interface will now see their iOS app
 language instead. This should be reviewed and explained before a
 per-release owner approval, and physically validated on iPhone/Watch.
 No recording repository or audio data migrated or deleted; no release.
+
+
+## 21 October 17:49 — live What/Uhvat screens: diagnostics and iPad AX
+
+Follow-up QA to separate iOS interface language from SpeechRecognizer:
+previous SyncDiagnosticsLocalizationUITests still asserted the legacy
+combined-language behavior. Updated it to use iOS per-app language
+for diagnostics, Russian speech-language menu labels for in-UI
+selection, and to assert the visible Russian interface survives
+choosing English transcription and relaunch. Expanded the actual
+diagnostics view checks from RU/EN to RU/EN/ES. XCResult
+Test-WhatIOS-2026.10.21_17-46-28-+0300.xcresult: 10/10 passed.
+
+A second isolated iPad simulator (device 3484211E-7501-4BF0-9F19-
+BC933521F024) exercised the Spanish populated notes library with
+accessibility5 (AXXXL) typography and English dictation. It checked
+translated Spanish filters, the Hoy day group, 44pt+ settings target,
+and Apple system accessibility audit covering descriptions, hit
+regions, traits and text clipping. Uses debug-only metadata fixture:
+no existing notes, microphones or iCloud modified. XCResult
+Test-WhatIOS-2026.10.21_17-49-08-+0300.xcresult: 1/1 passed with
+retained screenshot attachment.
+Combined core Python tests: 31/31 pass.
+
+A separate SmartSearchView source scan revealed some dynamic
+English-only strings, but it has no call site outside its own
+declaration: that experimental view is not currently reachable from
+shipping navigation. Localization/UX QA for it remains a distinct
+pre-enablement item, not a purported current-screen bugfix.
+
+Open gates: on-device VoiceOver and real iPad/iPhone, all screen
+combinations and editorial review; no main merge or release.

@@ -72,6 +72,54 @@ final class SpanishLocalizationUITests: XCTestCase {
         XCTAssertTrue(library.label.hasPrefix("Все заметки, "))
     }
 
+    /// Run on the isolated iPad simulator with AXXXL layout. The populated
+    /// notes are debug-only synthetic metadata and do not touch user files.
+    @MainActor
+    func testSpanishMixedNotesLibraryAXXXLAccessibleNavigation() throws {
+        let app = XCUIApplication()
+        app.launchArguments = [
+            "-AppleLanguages", "(es)",
+            "-AppleLocale", "es_ES",
+            "-what.transcription.locale", "en-US",
+            "--qa-design-filled-library"
+        ]
+        app.launch()
+        let library = app.buttons["what.open.library"]
+        XCTAssertTrue(library.waitForExistence(timeout: 12))
+        library.tap()
+
+        let all = app.buttons["what.filter.all"]
+        let textFilter = app.buttons["what.filter.text"]
+        let videoFilter = app.buttons["what.filter.video"]
+        XCTAssertTrue(all.waitForExistence(timeout: 12))
+        XCTAssertTrue(all.label.contains("Todas"), all.label)
+        XCTAssertTrue(textFilter.exists)
+        XCTAssertTrue(textFilter.label.contains("Texto"), textFilter.label)
+        XCTAssertTrue(videoFilter.exists)
+        XCTAssertTrue(videoFilter.label.contains("Vídeo"), videoFilter.label)
+        XCTAssertTrue(app.staticTexts["Hoy"].exists,
+                      "Day sections must use Spanish even with English dictation")
+
+        let settings = app.buttons["what.library.settings"]
+        XCTAssertTrue(settings.exists)
+        XCTAssertTrue(settings.isHittable)
+        XCTAssertGreaterThanOrEqual(settings.frame.width, 44)
+        XCTAssertGreaterThanOrEqual(settings.frame.height, 44)
+
+        let attachment = XCTAttachment(screenshot: XCUIScreen.main.screenshot())
+        attachment.name = "uhvat-es-ipad-axxxl-library"
+        attachment.lifetime = .keepAlways
+        add(attachment)
+
+        try app.performAccessibilityAudit(for: [
+            .sufficientElementDescription, .hitRegion, .trait, .textClipped
+        ]) { issue in
+            print("UHWHAT_ES_IPAD_AX issue=\(issue.compactDescription) " +
+                  "detail=\(issue.detailedDescription)")
+            return false
+        }
+    }
+
     @MainActor
     func testSpanishHomeAndVoiceOverLabels() {
         let app = XCUIApplication()

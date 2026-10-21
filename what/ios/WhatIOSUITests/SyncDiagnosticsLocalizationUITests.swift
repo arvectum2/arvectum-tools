@@ -23,6 +23,17 @@ final class SyncDiagnosticsLocalizationUITests: XCTestCase {
         )
     }
 
+    func testSpanishDiagnosticsAndSettingsMenu() {
+        checkDiagnostics(
+            language: "es", locale: "es_ES",
+            libraryButton: "Todas las notas", settings: "Ajustes y diagnóstico de la app",
+            menuItem: "Diagnóstico de sincronización",
+            title: "Diagnóstico de sincronización",
+            recordings: "Grabaciones", pending: "Pendiente en el Watch",
+            noQueueReport: "Aún no se ha recibido un informe de la cola del Watch."
+        )
+    }
+
     private func checkDiagnostics(
         language: String, locale: String, libraryButton: String,
         settings: String, menuItem: String, title: String,
@@ -31,16 +42,13 @@ final class SyncDiagnosticsLocalizationUITests: XCTestCase {
         let app = XCUIApplication()
         app.launchArguments += ["-AppleLanguages", "(\(language))", "-AppleLocale", locale]
         app.launch()
-        // A previously saved speech/UI locale has priority over system
-        // -AppleLanguages, so this test must first select the requested
-        // locale through the actual UI rather than assuming a clean install.
+        // iOS per-app language sets the interface. The persisted speech
+        // recognition locale must not override diagnostics or the menu.
         let library = app.buttons.matching(
-            NSPredicate(format: "label BEGINSWITH %@ OR label BEGINSWITH %@",
-                        "Все заметки", "All notes")
+            NSPredicate(format: "label BEGINSWITH %@", libraryButton)
         ).firstMatch
         XCTAssertTrue(library.waitForExistence(timeout: 15))
         library.tap()
-        selectLocale(language == "ru" ? "Русский" : "English", app: app)
         let options = app.buttons[settings]
         XCTAssertTrue(options.waitForExistence(timeout: 10))
         options.tap()
@@ -59,35 +67,37 @@ final class SyncDiagnosticsLocalizationUITests: XCTestCase {
         XCTAssertTrue(app.buttons[settings].waitForExistence(timeout: 7))
     }
 
-    func testSpeechLanguageAlsoSwitchesTheLiveInterfaceAndPersists() {
+    func testSpeechLanguageDoesNotSwitchInterfaceAndPersists() {
         let app = XCUIApplication()
-        app.launchArguments += ["-AppleLanguages", "(ru)", "-AppleLocale", "ru_RU"]
+        app.launchArguments = ["-AppleLanguages", "(ru)", "-AppleLocale", "ru_RU"]
         app.launch()
         let library = app.buttons.matching(
-            NSPredicate(format: "label BEGINSWITH %@ OR label BEGINSWITH %@",
-                        "Все заметки", "All notes")
+            NSPredicate(format: "label BEGINSWITH %@", "Все заметки")
         ).firstMatch
         XCTAssertTrue(library.waitForExistence(timeout: 15))
         library.tap()
 
-        selectLocale("English", app: app)
-        XCTAssertTrue(app.buttons["App settings and diagnostics"]
+        // Change on-device transcription to English through the actual menu,
+        // without affecting the Russian locale chosen in iOS.
+        selectLocale("Английский", app: app)
+        XCTAssertTrue(app.buttons["Настройки и диагностика"]
                       .waitForExistence(timeout: 10))
-        XCTAssertTrue(app.navigationBars["UhWhat?"].exists)
+        XCTAssertTrue(app.navigationBars["Ухват"].exists)
 
-        // This is not only a transient SwiftUI state; the locale must survive
-        // a normal app relaunch and still drive UI and Speech together.
+        let settings = app.buttons["Настройки и диагностика"]
+        settings.tap()
+        XCTAssertTrue(app.buttons["Язык интерфейса — в настройках iOS"]
+                      .waitForExistence(timeout: 8))
+        // Do not activate the system Settings link during UI tests.
+        app.swipeDown()
+
         app.terminate()
         app.launch()
-        let englishLibrary = app.buttons.matching(
-            NSPredicate(format: "label BEGINSWITH %@", "All notes")
+        let russianLibrary = app.buttons.matching(
+            NSPredicate(format: "label BEGINSWITH %@", "Все заметки")
         ).firstMatch
-        XCTAssertTrue(englishLibrary.waitForExistence(timeout: 15))
-        englishLibrary.tap()
-        XCTAssertTrue(app.buttons["App settings and diagnostics"]
-                      .waitForExistence(timeout: 10))
-
-        selectLocale("Русский", app: app)
+        XCTAssertTrue(russianLibrary.waitForExistence(timeout: 15))
+        russianLibrary.tap()
         XCTAssertTrue(app.buttons["Настройки и диагностика"]
                       .waitForExistence(timeout: 10))
         XCTAssertTrue(app.navigationBars["Ухват"].exists)

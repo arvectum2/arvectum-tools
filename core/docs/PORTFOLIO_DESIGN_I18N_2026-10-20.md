@@ -493,3 +493,32 @@ isolated-what-v2/Logs/Test/Test-WhatIOS-2026.10.21_17-15-03-+0300.xcresult.
 Product migration caveat: previously users could change UI from the
 combined dictation menu; this changes to iOS app Settings by design,
 so review discoverability with users before any release.
+
+
+## L4.9/L4.10, 21 October — real diagnostics and iPad Spanish AXXXL
+
+Legacy SyncDiagnosticsLocalizationUITests incorrectly required a
+selected dictation language to change the live interface. After
+L3.13, this contradicted the actual iOS settings contract. Tests
+now exercise RU/EN/ES diagnostics under their actual iOS app locale
+and verify that Russian UI remains Russian when selecting English
+speech recognition and after relaunch. The English picker choice
+is correctly displayed as Английский in Russian UI, which the
+revised test uses. Actual iPhone 17 Pro simulator xcresult at
+17:46:28: 10/10 PASS.
+
+Added SpanishLocalizationUITests focused test on isolated iPad:
+testSpanishMixedNotesLibraryAXXXLAccessibleNavigation uses the
+existing debug-only synthetic local note store and accessibility5.
+Checks Spanish filters, Hoy header, English speech setting not
+affecting interface, Settings button at least 44pt and hittable,
+then executes Apple full system accessibility audit (description,
+hit region, trait, text clipping). iPad xcresult at 17:49:08:
+PASS 1/1, screenshot kept in test result. Core Python 31/31 PASS.
+
+SmartSearchView is experimental and defined but not invoked by a
+live screen. It contains additional dynamic English strings;
+no claim of complete Smart Search localization is made. Enabling
+it requires separate full RU/ES copy, model/download and VoiceOver
+review. Physical VoiceOver/iPad/Watch and human linguist signoff
+still block releases.
