@@ -416,3 +416,22 @@ to 24/24 PASS.
 Keep separate open gate: actual Android Photo Picker GUI selection,
 Compose result screen, and system Documents SaveDocument/export.
 The engine path is verified, the complete customer journey is not.
+
+
+## Android L4.7 real picker partial E2E (21 October)
+
+The system Photo Picker had previously been queried too early: after
+allowing time, it was visibly opened in Android 16. Its synthetic
+image was selected and confirmed with Done. The real Compose app
+displayed the 900x700, 1.84 MB source; a 500 KB preset, PNG/JPG
+warning, and Compress to 500 KB were displayed. The action was tapped,
+but the remote connection was lost before a result screen.
+
+New real GUI host runner qa_photo_picker_emulator.sh and Python driver
+qa_photo_picker_e2e.py with synthetic-only media and independent
+system SaveDocument verification. Source-isolation and syntax tests
+passed, 27 Python tests in total. A background launchctl attempt
+exited with EX_CONFIG 78 and was removed. There is NO valid
+Photo Picker-to-export complete PASS yet, despite L4.6 independent
+production engine test passing. Retest until exported JPEG and a
+status=passed JSON report are captured.

@@ -381,3 +381,29 @@ Scope limit: this is production image-processing AND local file-save
 engine coverage, not a successful tap through Android's Photo Picker or
 system SaveDocument UI. Full media picker to result to export UX,
 TalkBack and physical device matrix still need QA.
+
+
+## Android actual Photo Picker partial GUI QA (21 October)
+
+The Android system Photo Picker really opened; topResumedActivity
+identified com.google.android.photopicker. A screenshot showed the
+generated synthetic PNG tile. Tapping it then Done returned to
+the production Compose interface, which displayed 900x700 pixels,
+1.84 MB. Switching to 500 KB displayed the PNG-to-JPG notice and
+Compress to 500 KB action, which was tapped. RDC disconnected before
+the result or SaveDocument UI could be confirmed.
+
+Evidence on ArvectumSSD in portfolio-design-i18n-qa-20261020:
+android-picker-20261021-diagnostic.png, android-e2e-imported-preview.png,
+android-photo-e2e-preset.png, android-photo-e2e-selected.xml,
+android-photo-e2e-preset.xml, android-picker-selection-to-save-20261021.log.
+
+The independently repeatable full GUI runner now lives at
+photo-pdf-to-size/android/tools/qa_photo_picker_emulator.sh and
+qa_photo_picker_e2e.py. It only generates a synthetic image, never reads
+private photos, refuses to replace a running emulator, and refuses
+test outputs outside ArvectumSSD. It drives actual system Photo Picker
+and SaveDocument controls and validates an exported JPEG <=500000 bytes
+before reporting status=passed. Structural tests pass; its actual
+complete E2E run does NOT yet pass due RDC interruptions. A launchctl
+attempt exited EX_CONFIG 78 and its stale job was removed.
