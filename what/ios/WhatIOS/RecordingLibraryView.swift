@@ -1,4 +1,5 @@
 import SwiftUI
+import UIKit
 import ArvectumCore
 
 struct RecordingLibraryView: View {
@@ -215,10 +216,7 @@ struct RecordingLibraryView: View {
                 } else {
                     List {
                         ForEach(dayGroups) { group in
-                            Section(CaptureBrand.isRussian
-                                ? (group.day.rawValue == "Today" ? "Сегодня"
-                                   : group.day.rawValue == "Yesterday" ? "Вчера" : "Ранее")
-                                : group.day.rawValue) {
+                            Section(localizedDayTitle(group.day.rawValue)) {
                                 ForEach(group.notes) { item in
                                     switch item {
                                     case .audio(let recording):
@@ -441,15 +439,33 @@ struct RecordingLibraryView: View {
         .accessibilityIdentifier("what.library.newText")
     }
 
+    private func localizedDayTitle(_ value: String) -> String {
+        switch value {
+        case "Today": return CaptureBrand.text("Сегодня", "Today")
+        case "Yesterday": return CaptureBrand.text("Вчера", "Yesterday")
+        case "Earlier": return CaptureBrand.text("Ранее", "Earlier")
+        default: return value
+        }
+    }
+
     private var librarySettingsAction: some View {
         Menu {
             AutoFollowUpSettingsMenu(manager: store.reminderManager)
-            Picker(CaptureBrand.text("Язык интерфейса и распознавания",
-                                     "Interface and speech language"),
+            Picker(CaptureBrand.text("Язык распознавания речи",
+                                     "Speech recognition language"),
                    selection: $store.transcriptionLocale) {
                 Text("Русский").tag("ru-RU")
                 Text("English").tag("en-US")
                 Text("Español").tag("es-ES")
+            }
+            Link(destination: URL(string: UIApplication.openSettingsURLString)!) {
+                Label(
+                    CaptureBrand.text(
+                        "Язык интерфейса — в настройках iOS",
+                        "Interface language: iOS Settings"
+                    ),
+                    systemImage: "globe"
+                )
             }
             Button {
                 showDiagnostics = true

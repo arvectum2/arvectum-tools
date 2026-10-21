@@ -466,3 +466,30 @@ passed 7/7 after rebuilding:
 Remaining non-release gates: physical Android, TalkBack, large-font
 across every screen, other image/document modes and non-synthetic
 media. No Apple/Google store action, no main merge.
+
+## What/Uhvat L3.13 — interface and speech independent (21 October)
+
+Source code confirmed the previous shared speech/UI preference:
+CaptureBrand.interfaceLocale returned selectedTranscriptionLocale, and
+RecordingLibrary's picker was labelled Interface and speech language.
+The same choice unexpectedly switched both transcription and visual UI.
+
+Changed the visible RU/EN/ES locale resolver to choose the supported
+iOS per-app/device language, with English fallback. The original
+persisted dictation locale still controls SFSpeechRecognizer and its
+on-device-only eligibility; audio/notes and user selection data were
+untouched. Removed unnecessary view remounting on speech changes,
+renamed the menu to Speech recognition language, and added a
+translated system Settings link for the independent interface language.
+Fixed a separate translated-UI bug in Today/Yesterday/Earlier day
+sections that had bypassed Spanish.
+
+WhatIOS iPhone resources now contain 217 key-complete EN/RU/ES entries,
+same printf argument compatibility; Watch/complication/widget counts
+unchanged. Focused Xcode iOS Simulator tests pass 10/10, including
+crossed device/speech languages RU+EN and ES+EN. Combined Python tests
+30/30 pass, plus localization audit. Evidence:
+isolated-what-v2/Logs/Test/Test-WhatIOS-2026.10.21_17-15-03-+0300.xcresult.
+Product migration caveat: previously users could change UI from the
+combined dictation menu; this changes to iOS app Settings by design,
+so review discoverability with users before any release.

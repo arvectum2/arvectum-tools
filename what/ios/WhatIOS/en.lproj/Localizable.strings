@@ -103,7 +103,7 @@
 "In 3 hours" = "In 3 hours";
 "Inbox" = "Inbox";
 "Inbox is empty" = "Inbox is empty";
-"Interface and speech language" = "Interface and speech language";
+"Speech recognition language" = "Speech recognition language";
 "Mark reviewed" = "Mark reviewed";
 "Measured after pressing Record and entering the app's recorder; excludes system launch time. Stored only on this iPhone." = "Measured after pressing Record and entering the app's recorder; excludes system launch time. Stored only on this iPhone.";
 "Microphone connected — speak now" = "Microphone connected — speak now";
@@ -212,3 +212,7 @@
 "QUICK CAPTURE" = "QUICK CAPTURE";
 "Record video" = "Record video";
 "Tap for audio" = "Tap for audio";
+"Today" = "Today";
+"Yesterday" = "Yesterday";
+"Earlier" = "Earlier";
+"Interface language: iOS Settings" = "Interface language: iOS Settings";

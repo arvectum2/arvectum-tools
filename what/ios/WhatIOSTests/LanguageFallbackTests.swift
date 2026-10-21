@@ -14,6 +14,29 @@ final class LanguageFallbackTests: XCTestCase {
         XCTAssertEqual(CaptureBrand.defaultTranscriptionLocale(for: "es"), "es-ES")
         XCTAssertEqual(CaptureBrand.defaultTranscriptionLocale(for: "en"), "en-US")
     }
+    func testInterfaceFollowsIOSLanguageNotDictationSetting() {
+        XCTAssertEqual(
+            CaptureBrand.resolvedInterfaceLanguage(for: ["ru-RU", "en-US"]),
+            "ru"
+        )
+        XCTAssertEqual(
+            CaptureBrand.resolvedInterfaceLanguage(for: ["es-ES", "ru-RU"]),
+            "es"
+        )
+        XCTAssertEqual(
+            CaptureBrand.resolvedInterfaceLanguage(for: ["en-GB", "es-ES"]),
+            "en"
+        )
+        XCTAssertEqual(
+            CaptureBrand.resolvedInterfaceLanguage(for: ["fr-FR", "en-GB"]),
+            "en"
+        )
+        XCTAssertEqual(
+            CaptureBrand.resolvedInterfaceLanguage(for: ["zh-Hans"]),
+            "en"
+        )
+    }
+
     func testCompleteDynamicSentencePreservesValues() {
         XCTAssertEqual(
             CaptureBrand.formatted("Вход: %@", "Input: %@", language: "ru", "Microphone"),

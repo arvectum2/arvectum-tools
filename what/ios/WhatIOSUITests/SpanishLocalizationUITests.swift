@@ -41,6 +41,38 @@ final class SpanishLocalizationUITests: XCTestCase {
     }
 
     @MainActor
+    func testSpanishInterfaceIndependentOfEnglishDictation() {
+        let app = XCUIApplication()
+        app.launchArguments = [
+            "-AppleLanguages", "(es)",
+            "-AppleLocale", "es_ES",
+            "-what.transcription.locale", "en-US"
+        ]
+        app.launch()
+        XCTAssertTrue(app.staticTexts["Captura esa idea"].waitForExistence(timeout: 12))
+        XCTAssertTrue(app.staticTexts["Toca para grabar audio"].exists)
+        let library = app.buttons["what.open.library"]
+        XCTAssertTrue(library.exists)
+        XCTAssertEqual(library.label.hasPrefix("Todas las notas, "), true)
+    }
+
+    @MainActor
+    func testRussianInterfaceIndependentOfEnglishDictation() {
+        let app = XCUIApplication()
+        app.launchArguments = [
+            "-AppleLanguages", "(ru)",
+            "-AppleLocale", "ru_RU",
+            "-what.transcription.locale", "en-US"
+        ]
+        app.launch()
+        XCTAssertTrue(app.staticTexts["Ухвати мысль"].waitForExistence(timeout: 12))
+        XCTAssertTrue(app.staticTexts["Нажмите для аудио"].exists)
+        let library = app.buttons["what.open.library"]
+        XCTAssertTrue(library.exists)
+        XCTAssertTrue(library.label.hasPrefix("Все заметки, "))
+    }
+
+    @MainActor
     func testSpanishHomeAndVoiceOverLabels() {
         let app = XCUIApplication()
         app.launchArguments = [

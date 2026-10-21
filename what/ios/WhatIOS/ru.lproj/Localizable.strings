@@ -104,7 +104,7 @@
 "In 3 hours" = "Через 3 часа";
 "Inbox" = "Входящие";
 "Inbox is empty" = "Входящие пусты";
-"Interface and speech language" = "Язык интерфейса и распознавания";
+"Speech recognition language" = "Язык распознавания речи";
 "Mark reviewed" = "Отметить просмотренной";
 "Measured after pressing Record and entering the app's recorder; excludes system launch time. Stored only on this iPhone." = "Задержка от начала записи до первого звукового фрагмента. Не включает время запуска приложения. Данные хранятся только на этом iPhone.";
 "Microphone connected — speak now" = "Микрофон готов — говорите";
@@ -213,3 +213,7 @@
 "QUICK CAPTURE" = "БЫСТРАЯ ЗАПИСЬ";
 "Record video" = "Видеозапись";
 "Tap for audio" = "Нажмите для аудио";
+"Today" = "Сегодня";
+"Yesterday" = "Вчера";
+"Earlier" = "Ранее";
+"Interface language: iOS Settings" = "Язык интерфейса — в настройках iOS";

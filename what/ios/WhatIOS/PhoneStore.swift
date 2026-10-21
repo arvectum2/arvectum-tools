@@ -23,8 +23,8 @@ final class PhoneStore: NSObject, ObservableObject, AVAudioPlayerDelegate,
     @Published var showTextCapture = false
     @Published var showVideoCapture = false
     @Published var errorMessage: String?
-    /// Single persisted RU/EN app-and-Speech preference, also used by
-    /// CaptureBrand. Existing persisted choices survive a QA/production update.
+    /// Persisted speech recognition locale only. iOS app language controls
+    /// the interface separately; existing speech choices are preserved.
     @Published var transcriptionLocale = CaptureBrand.selectedTranscriptionLocale {
         didSet {
             UserDefaults.standard.set(transcriptionLocale, forKey: CaptureBrand.languagePreferenceKey)

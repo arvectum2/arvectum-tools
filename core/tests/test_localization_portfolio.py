@@ -151,7 +151,7 @@ class LocalizationPortfolioTests(unittest.TestCase):
 
     def test_what_spanish_covers_phone_watch_widget_and_complication(self):
         roots = ["WhatIOS", "WhatWatch", "WhatPhoneWidget", "WhatWatchComplication"]
-        keys = [213, 6, 6, 5]
+        keys = [217, 6, 6, 5]
         for bundle, expected in zip(roots, keys):
             root = ROOT / "what/ios" / bundle
             english = i18n.read_strings(root / "en.lproj/Localizable.strings", [])
@@ -171,7 +171,27 @@ class LocalizationPortfolioTests(unittest.TestCase):
         self.assertEqual(home["All notes"], "Todas las notas")
         self.assertEqual(home["All notes, %@"], "Todas las notas, %@")
         self.assertEqual(home["Español"], "Español")
+        self.assertEqual(home["Speech recognition language"],
+                         "Idioma de reconocimiento de voz")
+        self.assertEqual(home["Today"], "Hoy")
+        self.assertEqual(home["Yesterday"], "Ayer")
+        self.assertEqual(home["Earlier"], "Anteriores")
+        self.assertEqual(home["Interface language: iOS Settings"],
+                         "Idioma de la interfaz: ajustes de iOS")
         self.assertNotIn("Español (English interface)", home)
+
+    def test_what_speech_and_interface_languages_are_independent(self):
+        brand = (ROOT / "what/ios/Shared/CaptureBrand.swift").read_text()
+        settings = (ROOT / "what/ios/WhatIOS/RecordingLibraryView.swift").read_text()
+        self.assertIn("resolvedInterfaceLanguage(for: Locale.preferredLanguages)",
+                      brand)
+        self.assertIn("Locale(identifier: selectedInterfaceLanguage)", brand)
+        self.assertNotIn("Locale(identifier: selectedTranscriptionLocale)", brand)
+        self.assertIn('"Speech recognition language"', settings)
+        self.assertIn("UIApplication.openSettingsURLString", settings)
+        self.assertIn('CaptureBrand.text("Сегодня", "Today")', settings)
+        self.assertIn('CaptureBrand.text("Вчера", "Yesterday")', settings)
+        self.assertIn('CaptureBrand.text("Ранее", "Earlier")', settings)
 
     def test_chickmark_french_catalog_across_phone_watch_and_widgets(self):
         bundles = [

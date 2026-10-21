@@ -437,3 +437,34 @@ Android GUI passes are real proof for this one synthetic PNG and mode,
 not for all real-world file formats, all three modes, TalkBack,
 physical Android devices, all screen sizes or linguist signoff.
 Nothing was published or merged to main.
+
+## What/Uhvat UI locale decoupled from speech locale — 21 Oct 17:15
+
+The iPhone/Watch voice inbox previously used its selected dictation
+language RU/EN/ES to switch the entire UI. A user with Spanish system
+language who wanted English speech was unexpectedly switched to English
+interface labels. CaptureBrand now resolves the visual language from
+iOS preferred app/system languages, independently of the persisted
+what.transcription.locale SpeechRecognizer setting. EN fallback applies
+for unsupported visual locales, preserving the three existing
+transcription locales and the original recordings.
+
+The library settings language picker now says "Speech recognition
+language" and separately links to the iOS app Settings for interface
+language. Today/Yesterday/Earlier inbox group headings are translated
+in RU/EN/ES (Hoy/Ayer/Anteriores in Spanish); the prior isRussian
+special case that left ES day headings in English is removed. iPhone
+localization catalogs now contain 217 keys each; the Watch/PhoneWidget
+and Watch complication source bundles are unchanged.
+
+After this change, iOS Xcode simulated build/test succeeded:
+10/10 focused Swift unit + XCUITest checks, including Spanish UI with
+English dictation and Russian UI with English dictation. The actual
+xcresult and screenshots are in isolated-what-v2/Logs/Test on
+ArvectumSSD. Shared Python localization/QA suite passes 30/30.
+
+Migration/UX risk: existing users who previously selected a speech
+language primarily to change the interface will now see their iOS app
+language instead. This should be reviewed and explained before a
+per-release owner approval, and physically validated on iPhone/Watch.
+No recording repository or audio data migrated or deleted; no release.

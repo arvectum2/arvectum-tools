@@ -3,10 +3,11 @@ import Foundation
 /// Public voice-inbox identity stays unchanged across app upgrades; the
 /// same Watch/phone URL scheme also routes new text and video notes.
 enum CaptureBrand {
-    /// The phone currently follows its RU/EN/ES transcription choice for
-    /// the user-facing interface; other system languages fall back to EN.
-    /// Watch and widget processes have separate UserDefaults stores; if there
-    /// is no local choice, continue using their device locale.
+    /// Speech recognition is a separate setting from the visual interface.
+    /// Interface follows iOS per-app/device language in RU/EN/ES; unsupported
+    /// interface languages have an English fallback. Watch and widget process
+    /// locales are resolved independently. Existing recording language
+    /// preferences and original audio remain untouched.
     static let languagePreferenceKey = "what.transcription.locale"
 
     static var selectedTranscriptionLocale: String {
@@ -29,20 +30,29 @@ enum CaptureBrand {
         }
     }
 
+    /// iOS per-app language choice takes precedence over the system language.
+    /// Do not couple the visible language to SFSpeechRecognizer locale.
+    static func resolvedInterfaceLanguage(for preferredLanguages: [String]) -> String {
+        for identifier in preferredLanguages {
+            let language = Locale(identifier: identifier)
+                .language.languageCode?.identifier.lowercased()
+            if let language, ["ru", "en", "es"].contains(language) {
+                return language
+            }
+        }
+        return "en"
+    }
+
     static var interfaceLocale: Locale {
-        Locale(identifier: selectedTranscriptionLocale)
+        Locale(identifier: selectedInterfaceLanguage)
     }
 
     static var isRussian: Bool {
-        selectedTranscriptionLocale == "ru-RU"
+        selectedInterfaceLanguage == "ru"
     }
 
     private static var selectedInterfaceLanguage: String {
-        switch selectedTranscriptionLocale {
-        case "ru-RU": return "ru"
-        case "es-ES": return "es"
-        default: return "en"
-        }
+        resolvedInterfaceLanguage(for: Locale.preferredLanguages)
     }
 
     private static let spanishBundle: Bundle? = {

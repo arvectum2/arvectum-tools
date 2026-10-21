@@ -103,7 +103,7 @@
 "In 3 hours" = "En 3 horas";
 "Inbox" = "Bandeja de entrada";
 "Inbox is empty" = "La bandeja de entrada está vacía";
-"Interface and speech language" = "Idioma de la interfaz y de la voz";
+"Speech recognition language" = "Idioma de reconocimiento de voz";
 "Mark reviewed" = "Marcar como revisada";
 "Measured after pressing Record and entering the app's recorder; excludes system launch time. Stored only on this iPhone." = "Se mide desde que se pulsa Grabar hasta que se abre la grabadora; excluye el tiempo de inicio del sistema. Solo se guarda en este iPhone.";
 "Microphone connected — speak now" = "Micrófono conectado: empieza a hablar";
@@ -212,3 +212,7 @@
 "QUICK CAPTURE" = "GRABACIÓN RÁPIDA";
 "Record video" = "Grabar vídeo";
 "Tap for audio" = "Toca para grabar audio";
+"Today" = "Hoy";
+"Yesterday" = "Ayer";
+"Earlier" = "Anteriores";
+"Interface language: iOS Settings" = "Idioma de la interfaz: ajustes de iOS";

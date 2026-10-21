@@ -275,8 +275,8 @@
         "what/ios/WhatPhoneWidget",
         "what/ios/WhatWatchComplication"
       ],
-      "status": "en-ru-es-source-catalogs-and-es-runtime-in-feature-branch",
-      "note": "What iPhone 213 and Watch, PhoneWidget, WatchComplication 6/6/5 source keys translated to RU/EN/ES. ES runtime and declensions plus iPhone Simulator E2E 2/2; human, watch/device, physical VoiceOver QA remain. Not released."
+      "status": "en-ru-es-development-catalogs-with-independent-visual-and-speech-locales",
+      "note": "What iPhone has 217 complete EN/RU/ES source strings, including 3 day headings and separate speech-vs-UI language settings label; Watch/PhoneWidget/WatchComplication retain 6/6/5 source strings. Interface follows iOS per-app/system RU/EN/ES preference, transcription stays independently selected. iOS Simulator focused tests 10/10 PASS; human/editorial, compatibility review, physical Watch/VoiceOver QA still open. No release."
     },
     "photo-pdf-to-size": {
       "bundles": [
