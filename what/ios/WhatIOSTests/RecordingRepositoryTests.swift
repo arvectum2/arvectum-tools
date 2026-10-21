@@ -164,6 +164,165 @@ final class RecordingRepositoryTests: XCTestCase {
         XCTAssertEqual(try Data(contentsOf: repo.audioURL(for: recording)), audio)
     }
 
+    func testTranscriptRecoveryCopyMatchesLatestSavedCatalog() throws {
+        let root = FileManager.default.temporaryDirectory
+            .appendingPathComponent("what-shadow-recovery-\(UUID().uuidString)")
+        defer { try? FileManager.default.removeItem(at: root) }
+        let (repo, first, audio) = try makeEditableRecording(in: root)
+        let (_, second, _) = try makeEditableRecording(in: root)
+        try repo.saveTranscript("original", for: first.id)
+        try repo.saveTranscript("preserve", for: second.id)
+        try repo.updateTranscript("corrected", for: first.id)
+
+        let main = try Data(contentsOf: root.appendingPathComponent("transcripts.json"))
+        let backup = try Data(contentsOf: root.appendingPathComponent("transcripts.backup.json"))
+        XCTAssertEqual(main, backup)
+        let decoded = try ArvectumJSONCodec.decode([String: String].self, from: backup)
+        XCTAssertEqual(decoded[first.id.uuidString], "corrected")
+        XCTAssertEqual(decoded[second.id.uuidString], "preserve")
+        XCTAssertEqual(try Data(contentsOf: repo.audioURL(for: first)), audio)
+    }
+
+    func testExplicitRestoreRecoversValidShadowCopyOnlyWhenPrimaryCorrupt() throws {
+        let root = FileManager.default.temporaryDirectory
+            .appendingPathComponent("what-restore-copy-\(UUID().uuidString)")
+        defer { try? FileManager.default.removeItem(at: root) }
+        let (repo, first, audio) = try makeEditableRecording(in: root)
+        let (_, second, _) = try makeEditableRecording(in: root)
+        try repo.saveTranscript("one", for: first.id)
+        try repo.saveTranscript("two", for: second.id)
+        try repo.updateTranscript("one corrected", for: first.id)
+
+        XCTAssertThrowsError(try repo.restoreTranscriptCatalogFromBackup()) {
+            XCTAssertEqual($0 as? RecordingRepository.RepositoryError,
+                           .transcriptRestoreNotNeeded)
+        }
+        let mainURL = root.appendingPathComponent("transcripts.json")
+        try Data("broken syntax".utf8).write(to: mainURL)
+        XCTAssertThrowsError(try repo.updateTranscript("unsafe", for: first.id))
+        try repo.restoreTranscriptCatalogFromBackup()
+        let reopened = RecordingRepository(rootURL: root)
+        XCTAssertEqual(reopened.transcripts()[first.id], "one corrected")
+        XCTAssertEqual(reopened.transcripts()[second.id], "two")
+        XCTAssertEqual(try Data(contentsOf: reopened.audioURL(for: first)), audio)
+        XCTAssertEqual(try Data(contentsOf: mainURL),
+                       try Data(contentsOf: root.appendingPathComponent("transcripts.backup.json")))
+    }
+
+    func testRestoreRefusesCorruptBackupAndPreservesMainBytes() throws {
+        let root = FileManager.default.temporaryDirectory
+            .appendingPathComponent("what-backup-unreadable-\(UUID().uuidString)")
+        defer { try? FileManager.default.removeItem(at: root) }
+        let (repo, recording, audio) = try makeEditableRecording(in: root)
+        try repo.saveTranscript("original", for: recording.id)
+        let main = root.appendingPathComponent("transcripts.json")
+        let backup = root.appendingPathComponent("transcripts.backup.json")
+        let primaryBroken = Data("invalid primary".utf8)
+        let backupBroken = Data("invalid backup".utf8)
+        try primaryBroken.write(to: main)
+        try backupBroken.write(to: backup)
+
+        XCTAssertThrowsError(try repo.restoreTranscriptCatalogFromBackup()) {
+            XCTAssertEqual($0 as? RecordingRepository.RepositoryError,
+                           .transcriptBackupUnavailable)
+        }
+        XCTAssertEqual(try Data(contentsOf: main), primaryBroken)
+        XCTAssertEqual(try Data(contentsOf: backup), backupBroken)
+        XCTAssertEqual(try Data(contentsOf: repo.audioURL(for: recording)), audio)
+    }
+
+    func testMissingBackupCannotTriggerUnsafeRecovery() throws {
+        let root = FileManager.default.temporaryDirectory
+            .appendingPathComponent("what-missing-backup-\(UUID().uuidString)")
+        defer { try? FileManager.default.removeItem(at: root) }
+        let (repo, recording, audio) = try makeEditableRecording(in: root)
+        try repo.saveTranscript("saved text", for: recording.id)
+        let mainURL = root.appendingPathComponent("transcripts.json")
+        try FileManager.default.removeItem(
+            at: root.appendingPathComponent("transcripts.backup.json")
+        )
+        let corrupted = Data("{invalid".utf8)
+        try corrupted.write(to: mainURL)
+        XCTAssertThrowsError(try repo.restoreTranscriptCatalogFromBackup()) {
+            XCTAssertEqual($0 as? RecordingRepository.RepositoryError,
+                           .transcriptBackupUnavailable)
+        }
+        XCTAssertEqual(try Data(contentsOf: mainURL), corrupted)
+        XCTAssertEqual(try Data(contentsOf: repo.audioURL(for: recording)), audio)
+    }
+
+    func testBackupWriteFailurePreservesValidPrimaryAndRecording() throws {
+        let root = FileManager.default.temporaryDirectory
+            .appendingPathComponent("what-backup-write-fail-\(UUID().uuidString)")
+        defer { try? FileManager.default.removeItem(at: root) }
+        let (repo, recording, audio) = try makeEditableRecording(in: root)
+        try repo.saveTranscript("previous", for: recording.id)
+        let main = root.appendingPathComponent("transcripts.json")
+        let previousBytes = try Data(contentsOf: main)
+        let backup = root.appendingPathComponent("transcripts.backup.json")
+        try FileManager.default.removeItem(at: backup)
+        try FileManager.default.createDirectory(at: backup,
+                                                withIntermediateDirectories: false)
+        XCTAssertThrowsError(try repo.updateTranscript("should fail", for: recording.id))
+        XCTAssertEqual(try Data(contentsOf: main), previousBytes)
+        XCTAssertEqual(try Data(contentsOf: repo.audioURL(for: recording)), audio)
+    }
+
+    func testDeletingTranscriptAlsoPurgesShadowCopyWithoutResurrection() throws {
+        let root = FileManager.default.temporaryDirectory
+            .appendingPathComponent("what-backup-deletion-\(UUID().uuidString)")
+        defer { try? FileManager.default.removeItem(at: root) }
+        let (repo, first, _) = try makeEditableRecording(in: root)
+        let (_, second, audio) = try makeEditableRecording(in: root)
+        try repo.saveTranscript("secret to erase", for: first.id)
+        try repo.saveTranscript("keep", for: second.id)
+        try repo.deleteRecording(first.id)
+        let backup = try ArvectumJSONCodec.decode(
+            [String: String].self,
+            from: Data(contentsOf: root.appendingPathComponent("transcripts.backup.json"))
+        )
+        XCTAssertNil(backup[first.id.uuidString])
+        XCTAssertEqual(backup[second.id.uuidString], "keep")
+        XCTAssertFalse(repo.audioExists(for: first))
+        XCTAssertEqual(try Data(contentsOf: repo.audioURL(for: second)), audio)
+    }
+
+    func testCorruptPrimaryInterruptedDeleteIsRecoveredWithoutResurrection() throws {
+        let root = FileManager.default.temporaryDirectory
+            .appendingPathComponent("what-backup-deletion-recovery-\(UUID().uuidString)")
+        defer { try? FileManager.default.removeItem(at: root) }
+        let (repo, removed, _) = try makeEditableRecording(in: root)
+        let (_, kept, originalAudio) = try makeEditableRecording(in: root)
+        try repo.saveTranscript("deleted secret", for: removed.id)
+        try repo.saveTranscript("survivor", for: kept.id)
+        let primaryURL = root.appendingPathComponent("transcripts.json")
+        let broken = Data("{broken".utf8)
+        try broken.write(to: primaryURL)
+        // Marker is durable even though incomplete cleanup fails closed.
+        XCTAssertThrowsError(try repo.deleteRecording(removed.id)) {
+            XCTAssertEqual($0 as? RecordingRepository.RepositoryError,
+                           .transcriptStoreUnreadable)
+        }
+        XCTAssertEqual(try Data(contentsOf: primaryURL), broken)
+        XCTAssertNil(repo.transcripts()[removed.id])
+        XCTAssertEqual(repo.allRecordings().map(\.id), [kept.id])
+
+        // Explicit repair discards tombstoned text even if the shadow copy
+        // predates deletion. It also completes deferred audio cleanup.
+        let reopened = RecordingRepository(rootURL: root)
+        try reopened.restoreTranscriptCatalogFromBackup()
+        XCTAssertNil(reopened.transcripts()[removed.id])
+        XCTAssertEqual(reopened.transcripts()[kept.id], "survivor")
+        XCTAssertFalse(reopened.audioExists(for: removed))
+        XCTAssertEqual(try Data(contentsOf: reopened.audioURL(for: kept)),
+                       originalAudio)
+        let shadow = try ArvectumJSONCodec.decode(
+            [String: String].self,
+            from: Data(contentsOf: root.appendingPathComponent("transcripts.backup.json"))
+        )
+        XCTAssertNil(shadow[removed.id.uuidString])
+    }
+
     func testDuplicateDeliveryCreatesOneRecording() throws {
         let root = FileManager.default.temporaryDirectory
             .appendingPathComponent("what-tests-\(UUID().uuidString)", isDirectory: true)

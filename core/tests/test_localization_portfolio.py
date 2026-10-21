@@ -180,6 +180,22 @@ class LocalizationPortfolioTests(unittest.TestCase):
                          "Idioma de la interfaz: ajustes de iOS")
         self.assertNotIn("Español (English interface)", home)
 
+    def test_what_transcript_backup_and_delete_use_strict_storage_guards(self):
+        repository = (ROOT / "what/ios/WhatIOS/RecordingRepository.swift").read_text()
+        tests = (ROOT /
+                 "what/ios/WhatIOSTests/RecordingRepositoryTests.swift").read_text()
+        self.assertIn('transcripts.backup.json', repository)
+        self.assertIn('private func persistTranscripts(', repository)
+        self.assertIn('func restoreTranscriptCatalogFromBackup()', repository)
+        self.assertIn('let existing = try loadTranscriptsForMutation()', repository)
+        self.assertIn('try persistTranscripts(cleaned)', repository)
+        self.assertIn('throw RepositoryError.transcriptRestoreNotNeeded', repository)
+        self.assertIn('throw RepositoryError.transcriptBackupUnavailable', repository)
+        self.assertIn('try cleanupDeletedArtifacts(deleted)', repository)
+        self.assertIn('testCorruptPrimaryInterruptedDeleteIsRecoveredWithoutResurrection',
+                      tests)
+        self.assertIn('testBackupWriteFailurePreservesValidPrimaryAndRecording', tests)
+
     def test_what_corrupted_transcript_store_is_fail_closed_and_localized(self):
         source = (ROOT / "what/ios/WhatIOS/RecordingRepository.swift").read_text()
         qa = (ROOT / "what/ios/WhatIOSUITests/SpanishLocalizationUITests.swift").read_text()

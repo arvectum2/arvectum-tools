@@ -660,3 +660,43 @@ Read-only display still falls back to empty if corrupt; writes are
 blocked until a trusted repair. No automatic backup/recovery is
 claimed. Physical iPhone/Watch, crash/power-loss fault injection and
 real device VoiceOver remain open; no release or main merge.
+
+## 21 October 21:36 — transcript shadow copy and explicit safe recovery
+
+RecordingRepository now persists a shadow catalog alongside main
+transcripts.json under transcripts.backup.json. Each save, edit and
+deleted-transcript cleanup writes a complete encoded catalog to
+the backup using an atomic replacement BEFORE atomically replacing
+the primary. Both files use the existing repository storage lock.
+Backup-write failure preserves the valid original primary.
+If the primary update is interrupted, an explicit recovery path
+can use the shadow.
+
+Deletion cleanup now calls strict loadTranscriptsForMutation instead
+of forgiving loadTranscripts. No automatic empty-dictionary overwrite
+of a corrupt main catalog is allowed. Durable deletion tombstones
+remain authoritative, even when cleanup is interrupted. The internal
+restoreTranscriptCatalogFromBackup method refuses to replace a
+readable or missing primary, validates the complete shadow catalog,
+filters tombstoned IDs before restoration, and completes any pending
+index/audio deletion cleanup. It is an explicit internal operation,
+NOT a startup automatic recovery or shipping user interface.
+
+Seven new XCTest checks use disposable synthetic temporary roots:
+backup matches the latest saved/edited catalog with audio intact;
+corrupt main explicitly restores all surviving texts; corrupted or
+missing backup cannot overwrite main bytes; failed backup writes
+preserve the primary; deletion cleans BOTH catalogs; interrupted
+deletion of a damaged main does not resurrect a tombstoned ID and
+finishes deferred audio cleanup on explicit restore.
+
+Xcode evidence: Test-WhatIOS-2026.10.21_21-35-29-+0300.xcresult
+65 passed / 3 skipped / 0 failed (68 total), iOS 27 iPhone simulator.
+Core Python regression 37/37 PASS; localization audit PASS.
+
+Atomic replacement is not proof of physical power-loss durability.
+There is no recovery UI or automatic backup repair. The shadow
+contains sensitive transcripts in the app sandbox and its file
+protection needs release review. Physical storage fault-injection,
+VoiceOver, and Watch/phone integration remain release gates.
+No main merge, push, TestFlight or App Store upload.

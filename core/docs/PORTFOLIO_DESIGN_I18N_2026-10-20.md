@@ -635,3 +635,29 @@ XCResult Test-WhatIOS-2026.10.21_21-01-51-+0300.xcresult:
 Does not implement in-app automatic backup or repair and does not
 claim physical VoiceOver, real-world crash injection, or device
 synchronization QA.
+
+## L4.16 — transcript shadow, deleted-ID-aware explicit recovery
+
+All transcript mutations now call persistTranscripts, which
+atomically writes a valid mirror transcripts.backup.json before
+atomically updating transcripts.json under the existing shared
+lock. Save, manual correction, and deleted-transcript cleanup share
+this path. Deletion is fail-closed against corrupt primary JSON.
+
+The internal explicit restoreTranscriptCatalogFromBackup checks
+that the main file exists and is unreadable; rejects missing or
+invalid backup; loads durable deletion tombstones, removes deleted
+UUIDs from the candidate, writes both catalogs atomically and
+finishes pending deletion cleanup. Readable main files cannot be
+replaced with stale backups. It is NOT a shipped recovery button
+and does not execute at app startup.
+
+Xcode Simulator:
+Test-WhatIOS-2026.10.21_21-35-29-+0300.xcresult
+65 PASS / 3 SKIP / 0 FAIL (68 tests total);
+seven new synthetic XCTest for shadow sync, recovery, errors and
+deleted-record non-resurrection. Python 37/37, i18n audit PASS.
+
+Outstanding: user recovery UX/authorization, filesystem protection
+and real power-loss fault injection, physical iOS/Watch VoiceOver,
+real capture and sync regression. No deployment or publication.
