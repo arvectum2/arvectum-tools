@@ -227,6 +227,181 @@ final class RecordingRepositoryTests: XCTestCase {
         try assertPhysicalFileProtection(marker)
     }
 
+    /// These tests simulate a process interruption by throwing exactly at
+    /// a storage checkpoint. They do not claim physical power-loss testing.
+    private enum SyntheticWriteStop: Error {
+        case interrupted
+    }
+
+    func testInterruptedBeforeShadowCommitKeepsOldCatalogAndAudio() throws {
+        let root = FileManager.default.temporaryDirectory
+            .appendingPathComponent("what-stop-before-backup-\(UUID().uuidString)")
+        defer { try? FileManager.default.removeItem(at: root) }
+        let (repo, first, audio) = try makeEditableRecording(in: root)
+        let (_, second, _) = try makeEditableRecording(in: root)
+        try repo.saveTranscript("first committed", for: first.id)
+        try repo.saveTranscript("second committed", for: second.id)
+        let primary = root.appendingPathComponent("transcripts.json")
+        let shadow = root.appendingPathComponent("transcripts.backup.json")
+        let originalPrimary = try Data(contentsOf: primary)
+        let originalShadow = try Data(contentsOf: shadow)
+
+        repo.testTranscriptWriteCheckpoint = { checkpoint in
+            if case .beforeBackup = checkpoint {
+                throw SyntheticWriteStop.interrupted
+            }
+        }
+        XCTAssertThrowsError(try repo.updateTranscript("failed change", for: first.id))
+        XCTAssertEqual(try Data(contentsOf: primary), originalPrimary)
+        XCTAssertEqual(try Data(contentsOf: shadow), originalShadow)
+        let reopened = RecordingRepository(rootURL: root)
+        XCTAssertEqual(reopened.transcripts()[first.id], "first committed")
+        XCTAssertEqual(reopened.transcripts()[second.id], "second committed")
+        XCTAssertEqual(try Data(contentsOf: reopened.audioURL(for: first)), audio)
+    }
+
+    func testInterruptedAfterShadowCommitKeepsPrimaryReadableAndReconcilesNextWrite() throws {
+        let root = FileManager.default.temporaryDirectory
+            .appendingPathComponent("what-stop-after-backup-\(UUID().uuidString)")
+        defer { try? FileManager.default.removeItem(at: root) }
+        let (repo, first, audio) = try makeEditableRecording(in: root)
+        let (_, second, _) = try makeEditableRecording(in: root)
+        try repo.saveTranscript("first committed", for: first.id)
+        try repo.saveTranscript("second committed", for: second.id)
+        let primary = root.appendingPathComponent("transcripts.json")
+        let shadow = root.appendingPathComponent("transcripts.backup.json")
+        let committedBytes = try Data(contentsOf: primary)
+
+        repo.testTranscriptWriteCheckpoint = { checkpoint in
+            if case .afterBackup = checkpoint {
+                throw SyntheticWriteStop.interrupted
+            }
+        }
+        XCTAssertThrowsError(try repo.updateTranscript("pending uncommitted edit", for: first.id))
+        XCTAssertEqual(try Data(contentsOf: primary), committedBytes)
+        let shadowAfterStop = try ArvectumJSONCodec.decode(
+            [String: String].self, from: Data(contentsOf: shadow)
+        )
+        XCTAssertEqual(shadowAfterStop[first.id.uuidString], "pending uncommitted edit")
+        XCTAssertEqual(shadowAfterStop[second.id.uuidString], "second committed")
+
+        let relaunched = RecordingRepository(rootURL: root)
+        XCTAssertEqual(relaunched.transcripts()[first.id], "first committed")
+        XCTAssertEqual(relaunched.transcripts()[second.id], "second committed")
+        XCTAssertEqual(relaunched.transcriptRecoveryStatus(), .notNeeded,
+                       "Never replace a readable primary with a newer shadow automatically")
+        try relaunched.updateTranscript("next successfully committed", for: first.id)
+        XCTAssertEqual(try Data(contentsOf: primary), try Data(contentsOf: shadow))
+        XCTAssertEqual(relaunched.transcripts()[first.id], "next successfully committed")
+        XCTAssertEqual(relaunched.transcripts()[second.id], "second committed")
+        XCTAssertEqual(try Data(contentsOf: relaunched.audioURL(for: first)), audio)
+    }
+
+    func testAutoRecognitionInterruptedAfterBackupPreservesOtherTranscripts() throws {
+        let root = FileManager.default.temporaryDirectory
+            .appendingPathComponent("what-speech-stop-after-backup-\(UUID().uuidString)")
+        defer { try? FileManager.default.removeItem(at: root) }
+        let (repo, first, audio) = try makeEditableRecording(in: root)
+        let (_, second, _) = try makeEditableRecording(in: root)
+        try repo.saveTranscript("human reviewed", for: first.id)
+        let primary = root.appendingPathComponent("transcripts.json")
+        let committed = try Data(contentsOf: primary)
+        repo.testTranscriptWriteCheckpoint = { checkpoint in
+            if case .afterBackup = checkpoint {
+                throw SyntheticWriteStop.interrupted
+            }
+        }
+        XCTAssertThrowsError(try repo.saveTranscript("speech arrived", for: second.id))
+        XCTAssertEqual(try Data(contentsOf: primary), committed)
+        let relaunched = RecordingRepository(rootURL: root)
+        XCTAssertEqual(relaunched.transcripts()[first.id], "human reviewed")
+        XCTAssertNil(relaunched.transcripts()[second.id])
+        XCTAssertEqual(try Data(contentsOf: relaunched.audioURL(for: first)), audio)
+        // Speech can safely retry using the same UUID, without replacing the
+        // other person's previous human-reviewed transcript.
+        try relaunched.saveTranscript("speech arrived", for: second.id)
+        XCTAssertEqual(relaunched.transcripts()[second.id], "speech arrived")
+        XCTAssertEqual(relaunched.transcripts()[first.id], "human reviewed")
+        XCTAssertEqual(
+            try Data(contentsOf: root.appendingPathComponent("transcripts.json")),
+            try Data(contentsOf: root.appendingPathComponent("transcripts.backup.json"))
+        )
+    }
+
+    func testStopAfterMainCommitIsIdempotentlyVisibleOnReopen() throws {
+        let root = FileManager.default.temporaryDirectory
+            .appendingPathComponent("what-stop-after-main-\(UUID().uuidString)")
+        defer { try? FileManager.default.removeItem(at: root) }
+        let (repo, recording, audio) = try makeEditableRecording(in: root)
+        try repo.saveTranscript("before", for: recording.id)
+        repo.testTranscriptWriteCheckpoint = { checkpoint in
+            if case .afterPrimary = checkpoint {
+                throw SyntheticWriteStop.interrupted
+            }
+        }
+        XCTAssertThrowsError(try repo.updateTranscript("already committed", for: recording.id))
+        let relaunched = RecordingRepository(rootURL: root)
+        XCTAssertEqual(relaunched.transcripts()[recording.id], "already committed")
+        let primary = root.appendingPathComponent("transcripts.json")
+        let shadow = root.appendingPathComponent("transcripts.backup.json")
+        XCTAssertEqual(try Data(contentsOf: primary), try Data(contentsOf: shadow))
+        try relaunched.updateTranscript("already committed", for: recording.id)
+        XCTAssertEqual(relaunched.transcripts()[recording.id], "already committed")
+        XCTAssertEqual(try Data(contentsOf: relaunched.audioURL(for: recording)), audio)
+    }
+
+    func testDeleteInterruptedAtEitherCheckpointCompletesWithoutResurrecting() throws {
+        for stopBeforeBackup in [true, false] {
+            let root = FileManager.default.temporaryDirectory
+                .appendingPathComponent("what-delete-stopped-\(UUID().uuidString)")
+            defer { try? FileManager.default.removeItem(at: root) }
+            let (repo, removed, _) = try makeEditableRecording(in: root)
+            let (_, kept, keeperAudio) = try makeEditableRecording(in: root)
+            try repo.saveTranscript("must remain deleted", for: removed.id)
+            try repo.saveTranscript("other owner's text", for: kept.id)
+
+            repo.testTranscriptWriteCheckpoint = { checkpoint in
+                if stopBeforeBackup {
+                    if case .beforeBackup = checkpoint {
+                        throw SyntheticWriteStop.interrupted
+                    }
+                } else {
+                    if case .afterBackup = checkpoint {
+                        throw SyntheticWriteStop.interrupted
+                    }
+                }
+            }
+            XCTAssertThrowsError(try repo.deleteRecording(removed.id))
+            XCTAssertNil(repo.transcripts()[removed.id],
+                         "Durable tombstone takes effect before cleanup")
+            XCTAssertFalse(repo.allRecordings().contains(where: { $0.id == removed.id }))
+            // Restarting with no fault injector completes pending cleanup.
+            let reopened = RecordingRepository(rootURL: root)
+            XCTAssertNil(reopened.transcripts()[removed.id])
+            XCTAssertEqual(reopened.transcripts()[kept.id], "other owner's text")
+            XCTAssertFalse(reopened.audioExists(for: removed))
+            XCTAssertEqual(try Data(contentsOf: reopened.audioURL(for: kept)),
+                           keeperAudio)
+            let shadow = try ArvectumJSONCodec.decode(
+                [String: String].self,
+                from: Data(contentsOf: root.appendingPathComponent("transcripts.backup.json"))
+            )
+            XCTAssertNil(shadow[removed.id.uuidString])
+            XCTAssertEqual(shadow[kept.id.uuidString], "other owner's text")
+            let source = root.appendingPathComponent("late-watch-duplicate.m4a")
+            try Data("late-watch-payload".utf8).write(to: source)
+            let result = try reopened.acceptTemporaryFile(source, metadata: [
+                TransferMetadataKey.id: removed.id.uuidString,
+                TransferMetadataKey.createdAt: 1_700_000_000.0,
+                TransferMetadataKey.duration: 3.0
+            ])
+            guard case .previouslyDeleted(let id) = result else {
+                return XCTFail("Interrupted delete must reject late Watch delivery")
+            }
+            XCTAssertEqual(id, removed.id)
+        }
+    }
+
     func testTranscriptRecoveryCopyMatchesLatestSavedCatalog() throws {
         let root = FileManager.default.temporaryDirectory
             .appendingPathComponent("what-shadow-recovery-\(UUID().uuidString)")

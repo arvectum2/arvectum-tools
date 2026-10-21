@@ -40,6 +40,15 @@ final class RecordingRepository {
     // synchronously. A failed legacy file upgrade must block later writes,
     // not silently store unprotected new transcript data.
     private var protectionMigrationError: Error?
+
+#if DEBUG
+    // Synchronous fault injection for disposable XCTest repositories only.
+    // Release builds cannot inject faults or interrupt live user writes.
+    enum TranscriptWriteCheckpoint {
+        case beforeBackup, afterBackup, afterPrimary
+    }
+    var testTranscriptWriteCheckpoint: ((TranscriptWriteCheckpoint) throws -> Void)?
+#endif
     private let fileManager: FileManager
     private let rootURL: URL
     private let audioDirectory: URL
@@ -320,8 +329,17 @@ final class RecordingRepository {
     private func persistTranscripts(_ catalog: [String: String]) throws {
         if let protectionMigrationError { throw protectionMigrationError }
         let data = try ArvectumJSONCodec.encode(catalog)
+#if DEBUG
+        try testTranscriptWriteCheckpoint?(.beforeBackup)
+#endif
         try data.write(to: transcriptBackupURL, options: protectedJSONOptions)
+#if DEBUG
+        try testTranscriptWriteCheckpoint?(.afterBackup)
+#endif
         try data.write(to: transcriptURL, options: protectedJSONOptions)
+#if DEBUG
+        try testTranscriptWriteCheckpoint?(.afterPrimary)
+#endif
     }
 
     /// Read-only status used by the recovery screen. Never expose backup

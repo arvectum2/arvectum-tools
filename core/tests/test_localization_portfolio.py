@@ -205,6 +205,25 @@ class LocalizationPortfolioTests(unittest.TestCase):
         self.assertIn("testTranscriptAndBackupUseDeviceFileProtection", tests)
         self.assertIn("testDeletionMarkerUsesSameDeviceProtection", tests)
 
+    def test_what_write_failure_checkpoints_are_debug_only(self):
+        repo = (ROOT / "what/ios/WhatIOS/RecordingRepository.swift").read_text()
+        tests = (ROOT /
+                 "what/ios/WhatIOSTests/RecordingRepositoryTests.swift").read_text()
+        self.assertIn("enum TranscriptWriteCheckpoint", repo)
+        self.assertIn("case beforeBackup, afterBackup, afterPrimary", repo)
+        self.assertIn("#if DEBUG", repo)
+        self.assertIn("testTranscriptWriteCheckpoint?(.beforeBackup)", repo)
+        self.assertIn("testTranscriptWriteCheckpoint?(.afterBackup)", repo)
+        self.assertIn("testTranscriptWriteCheckpoint?(.afterPrimary)", repo)
+        for test in (
+            "testInterruptedBeforeShadowCommitKeepsOldCatalogAndAudio",
+            "testInterruptedAfterShadowCommitKeepsPrimaryReadableAndReconcilesNextWrite",
+            "testAutoRecognitionInterruptedAfterBackupPreservesOtherTranscripts",
+            "testStopAfterMainCommitIsIdempotentlyVisibleOnReopen",
+            "testDeleteInterruptedAtEitherCheckpointCompletesWithoutResurrecting",
+        ):
+            self.assertIn(test, tests)
+
     def test_what_transcript_backup_and_delete_use_strict_storage_guards(self):
         repository = (ROOT / "what/ios/WhatIOS/RecordingRepository.swift").read_text()
         tests = (ROOT /

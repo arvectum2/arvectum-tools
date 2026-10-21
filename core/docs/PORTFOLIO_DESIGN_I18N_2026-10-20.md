@@ -708,3 +708,35 @@ Outstanding: real iPhone attributes and legacy migration, behavior
 before first unlock, Watch background delivery, media/index
 protection, backup policy and power-loss fault injection.
 No release, main merge or TestFlight.
+
+## 21 October 23:57 — L4.19a simulated interrupted transcript commits
+
+Three synchronous, nil-by-default DEBUG-only checkpoints were added
+to persistTranscripts: before backup, after backup, after primary.
+Release builds do not contain these hooks; only synthetic temporary
+repositories are affected by the test faults. Original audio is
+never rewritten by transcript corrections.
+
+Five added XCTest scenarios verify:
+- Interruption before shadow write preserves BOTH committed files.
+- Interruption after shadow write leaves primary authoritative and
+  readable even if backup contains an uncommitted edit; the next
+  successful write reconciles the two files without erasing another
+  transcript. No automatic rollback of healthy primary is permitted.
+- Interruption after primary write means the edit may already be
+  committed even if an error was returned; retrying is idempotent.
+- Interrupted automatic speech save can be safely retried and does
+  not overwrite another human-edited transcript.
+- Interrupted deletion at either pre/post shadow checkpoint is
+  completed after repository restart, with tombstones preventing
+  late Watch transfers from resurrecting deleted recordings.
+
+Verified Xcode Simulator:
+Test-WhatIOS-2026.10.21_23-56-45-+0300.xcresult:
+72 PASS, 6 SKIP, 0 FAIL, 78 total (existing hardware-related
+simulator skips retained). Python 40/40 PASS, locale audit PASS.
+The focused Spanish save-failure UI test was included.
+
+This is deterministic error injection, NOT SIGKILL between write
+syscalls and NOT actual power-loss or storage-full testing.
+Those remain L4.19b release blockers. No main merge, release, or push.
