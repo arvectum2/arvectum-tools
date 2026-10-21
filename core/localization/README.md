@@ -565,3 +565,36 @@ Core Python localization/structural checks: 33/33 PASS.
 
 No physical video capture, camera switching or VoiceOver signoff
 has been inferred from simulator UI tests. No merge or publication.
+
+
+## 21 October 19:09 — audio-capture accessibility-size controls (no mic)
+
+What/Uhvat PhoneRecordingSheet's top-bar Close/Discard used the same
+UIKit-constrained navigation toolbar as the text and video sheets.
+It now shows a bottom safeAreaInset action, minimum 88x52pt, in
+accessibility Dynamic Type. At regular type size it retains the
+normal toolbar. Both Start and Stop are accessible through stable
+IDs what.audio.start/stop and a 52pt minimum height.
+
+DEBUG-only command-line flags allow viewing the real SwiftUI audio
+sheet without ever starting the PhoneRecordingController microphone,
+requesting permission, saving audio, or creating a capture journal.
+The Start control is disabled in this QA-only condition so a test
+cannot accidentally turn on the microphone. A separate normal-size
+fixture tests preserved toolbar behavior. The AXXXL fixture is
+scoped to the DEBUG application entry point; Release has no QA mode.
+
+Confirmed genuine XCUITest results:
+- iPhone Spanish AXXXL plus normal type:
+  Test-WhatIOS-2026.10.21_19-07-18-+0300.xcresult, 2/2 PASS.
+- iPad Spanish AXXXL:
+  Test-WhatIOS-2026.10.21_19-08-15-+0300.xcresult, 1/1 PASS.
+Checks: localized Voice note, New recording, Start recording,
+Close labels; hit targets at AXXXL, microphone action disabled,
+no permission alert, safe close to capture home. Combined Python
+locale/security regression suite 34/34 PASS and localization
+structure/placeholder audit PASS.
+
+Simulator visual checks are not proof of physical microphone
+recording, real permissions, saved audio or VoiceOver on devices;
+these remain separate release QA. No merge or store publishing.

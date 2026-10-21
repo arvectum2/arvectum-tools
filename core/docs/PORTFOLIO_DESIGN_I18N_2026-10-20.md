@@ -571,3 +571,25 @@ Verified three XCResults in isolated-what-v2/Logs/Test:
 19:02:53 iPhone ES normal type 1 passed 0 failed.
 Python regression tests 33/33. Real physical recording, transitions,
 Watch hardware and physical VoiceOver still require separate QA.
+
+
+## L4.13 — What/Uhvat audio recorder Spanish Accessibility Type
+
+After video controls, the PhoneRecordingSheet also received an
+accessibility-size safe-area Close/Discard action (>=88x52pt). It
+remains in normal UIKit toolbar with regular Dynamic Type, preserving
+the original recording workflow. Start/Stop use stable IDs and 52pt
+button heights. The change is in app UI only; audio storage and
+recorder lifecycle are unchanged in production.
+
+A Debug-only layout fixture bypasses microphone permissions and
+recorder.start, disabling the actual Start action during QA. It never
+writes any real recording or asks for audio permissions. The AXXXL
+mode is applied at the app scene entry point, not just a home view.
+
+Proven Xcode results on two isolated simulators:
+iPhone Test-WhatIOS-2026.10.21_19-07-18-+0300.xcresult 2 PASS 0 FAIL,
+iPad Test-WhatIOS-2026.10.21_19-08-15-+0300.xcresult 1 PASS 0 FAIL.
+Spanish strings and visible accessible controls verified; no
+microphone opened or saved. Python + source regressions 34/34 PASS.
+Physical audio recording and VoiceOver remain unverified.

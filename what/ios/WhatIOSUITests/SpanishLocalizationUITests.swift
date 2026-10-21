@@ -236,6 +236,67 @@ final class SpanishLocalizationUITests: XCTestCase {
         XCTAssertFalse(app.alerts.firstMatch.exists)
     }
 
+    @MainActor
+    func testSpanishAXXXLAudioControlsWithoutMicrophoneAccess() {
+        let app = XCUIApplication()
+        app.launchArguments = [
+            "-AppleLanguages", "(es)", "-AppleLocale", "es_ES",
+            "-what.transcription.locale", "en-US",
+            "-UIPreferredContentSizeCategoryName",
+            "UICTContentSizeCategoryAccessibilityExtraExtraExtraLarge",
+            "--qa-audio-controls-no-microphone"
+        ]
+        app.launch()
+        let home = app.buttons["what.record.primary"]
+        XCTAssertTrue(home.waitForExistence(timeout: 12))
+        home.tap()
+
+        XCTAssertTrue(app.navigationBars["Nueva grabación"]
+                      .waitForExistence(timeout: 12))
+        XCTAssertTrue(app.staticTexts["Nota de voz"].exists)
+        let close = app.buttons["what.audio.close"]
+        XCTAssertTrue(close.waitForExistence(timeout: 10))
+        XCTAssertEqual(close.label, "Cerrar")
+        XCTAssertTrue(close.isHittable)
+        XCTAssertGreaterThanOrEqual(close.frame.height, 44)
+        let start = app.buttons["what.audio.start"]
+        XCTAssertTrue(start.exists)
+        XCTAssertEqual(start.label, "Iniciar grabación")
+        XCTAssertFalse(start.isEnabled,
+                       "Debug fixture must never activate microphone")
+        XCTAssertGreaterThanOrEqual(start.frame.height, 44)
+        close.tap()
+        XCTAssertTrue(home.waitForExistence(timeout: 12))
+        XCTAssertFalse(app.alerts.firstMatch.exists,
+                       "Debug layout QA must not request mic permissions")
+    }
+
+    @MainActor
+    func testSpanishNormalSizeAudioPreservesNavigationClose() {
+        let app = XCUIApplication()
+        app.launchArguments = [
+            "-AppleLanguages", "(es)", "-AppleLocale", "es_ES",
+            "-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryM",
+            "--qa-audio-controls-normal-no-microphone"
+        ]
+        app.launch()
+        let home = app.buttons["what.record.primary"]
+        XCTAssertTrue(home.waitForExistence(timeout: 12))
+        home.tap()
+        XCTAssertTrue(app.navigationBars["Nueva grabación"]
+                      .waitForExistence(timeout: 10))
+        let close = app.buttons["what.audio.close"]
+        XCTAssertTrue(close.waitForExistence(timeout: 10))
+        XCTAssertEqual(close.label, "Cerrar")
+        XCTAssertTrue(close.isHittable)
+        XCTAssertLessThan(close.frame.minY, 160,
+                          "Normal font must retain navigation toolbar")
+        XCTAssertFalse(app.buttons["what.audio.start"].isEnabled)
+        close.tap()
+        XCTAssertTrue(home.waitForExistence(timeout: 10))
+        XCTAssertFalse(app.alerts.firstMatch.exists)
+    }
+
     /// The settings menu must remain reachable with a huge font and a
     /// separately chosen dictation language. No settings are changed.
     @MainActor

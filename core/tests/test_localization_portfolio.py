@@ -180,6 +180,24 @@ class LocalizationPortfolioTests(unittest.TestCase):
                          "Idioma de la interfaz: ajustes de iOS")
         self.assertNotIn("Español (English interface)", home)
 
+    def test_what_audio_ui_accessibility_fixture_is_debug_only(self):
+        audio = (ROOT / "what/ios/WhatIOS/PhoneRecordingSheet.swift").read_text()
+        app = (ROOT / "what/ios/WhatIOS/WhatApp.swift").read_text()
+        tests = (ROOT /
+                 "what/ios/WhatIOSUITests/SpanishLocalizationUITests.swift"
+                ).read_text()
+        self.assertIn("#if DEBUG", audio)
+        self.assertIn("--qa-audio-controls-no-microphone", app)
+        self.assertIn("if !recorder.isRecording && !isLayoutQA", audio)
+        self.assertIn(".frame(minWidth: 88, minHeight: 52)", audio)
+        self.assertIn('.accessibilityIdentifier("what.audio.close")', audio)
+        self.assertIn('.accessibilityIdentifier("what.audio.start")', audio)
+        self.assertIn(".disabled(recorder.requestingPermission || isLayoutQA)",
+                      audio)
+        self.assertIn("testSpanishAXXXLAudioControlsWithoutMicrophoneAccess",
+                      tests)
+        self.assertIn("testSpanishNormalSizeAudioPreservesNavigationClose", tests)
+
     def test_what_video_ui_accessibility_fixture_is_debug_only(self):
         video = (ROOT / "what/ios/WhatIOS/VideoRecordingSheet.swift").read_text()
         ui = (ROOT /
