@@ -359,9 +359,10 @@ struct ManageHabitsView: View {
             Picker(L10n.string("language.title"), selection: $preferredLanguage) {
                 Text(L10n.string("language.system"))
                     .tag(ChickMarkLanguage.system)
-                Text("Русский").tag("ru")
-                Text("English").tag("en")
-                Text("Español").tag("es")
+                ForEach(ChickMarkLanguage.supported, id: \.self) { identifier in
+                    Text(ChickMarkLanguage.displayName(for: identifier))
+                        .tag(identifier)
+                }
             }
         } label: {
             HStack(spacing: 12) {

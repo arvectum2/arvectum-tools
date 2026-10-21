@@ -5,17 +5,74 @@ import Foundation
 enum ChickMarkLanguage {
     static let storageKey = "chickmark.language.preference"
     static let system = "system"
-    static let supported = ["ru", "en", "es"]
+
+    /// Only localizations actually packaged in the current app bundle are
+    /// selectable. A 50-locale product registry does not mean 50 translated
+    /// catalogues; never show a language with no usable local strings.
+    static let supported: [String] = {
+        func bundledKeys(for code: String) -> Set<String>? {
+            guard let path = Bundle.main.path(forResource: code, ofType: "lproj"),
+                  let bundle = Bundle(path: path),
+                  let file = bundle.url(forResource: "Localizable", withExtension: "strings"),
+                  let data = try? Data(contentsOf: file),
+                  let catalog = try? PropertyListSerialization.propertyList(
+                    from: data, options: [], format: nil
+                  ) as? [String: String],
+                  !catalog.isEmpty
+            else { return nil }
+            return Set(catalog.keys)
+        }
+
+        // A partial .lproj is not a selectable translation. It must include
+        // every key in the English source (not just one menu label). The repo
+        // QA gate validates the same key and placeholder parity at build time.
+        guard let sourceKeys = bundledKeys(for: "en") else {
+            return ["en"]
+        }
+        return orderedLanguages(Bundle.main.localizations.filter {
+            $0 != "Base" && bundledKeys(for: $0) == sourceKeys
+        })
+    }()
+
+    /// Keep the existing user-facing order for RU/EN/ES; future fully
+    /// bundled locales appear automatically after them, alphabetically.
+    static func orderedLanguages(_ available: [String]) -> [String] {
+        let discovered = Set(available.filter { !$0.isEmpty && $0 != "Base" })
+        let pinned = ["ru", "en", "es"].filter { discovered.contains($0) }
+        return pinned + discovered.subtracting(pinned).sorted()
+    }
 
     static var selected: String {
-        UserDefaults.standard.string(forKey: storageKey) ?? system
+        let preference = UserDefaults.standard.string(forKey: storageKey) ?? system
+        return preference == system || supported.contains(preference)
+            ? preference : system
+    }
+
+    /// Separate pure resolver enables tests for devices whose first language
+    /// is not shipped (e.g. Japanese, French or Hindi). This must select the
+    /// bundled English fallback rather than an untranslated system locale.
+    static func resolvedIdentifier(
+        for selection: String,
+        preferred: [String],
+        available: [String]
+    ) -> String {
+        if available.contains(selection) { return selection }
+        for preference in preferred {
+            let code = preference
+                .split(whereSeparator: { $0 == "-" || $0 == "_" })
+                .first.map(String.init)?.lowercased() ?? ""
+            if available.contains(code) { return code }
+        }
+        if available.contains("en") { return "en" }
+        return available.first ?? "en"
     }
 
     static func effectiveIdentifier(for selection: String) -> String {
-        if supported.contains(selection) { return selection }
-        return Bundle.main.preferredLocalizations.first
-            ?? Locale.preferredLanguages.first
-            ?? "en"
+        resolvedIdentifier(
+            for: selection,
+            preferred: Bundle.main.preferredLocalizations + Locale.preferredLanguages,
+            available: supported
+        )
     }
 
     static func displayName(for selection: String) -> String {
@@ -23,7 +80,13 @@ enum ChickMarkLanguage {
         case "ru": return "Русский"
         case "en": return "English"
         case "es": return "Español"
-        default: return L10n.string("language.system")
+        case system: return L10n.string("language.system")
+        default:
+            // Autonym, rather than displaying the language name in the
+            // device's current language, as the catalog list grows.
+            return Locale(identifier: selection)
+                .localizedString(forLanguageCode: selection)
+                ?? selection
         }
     }
 }

@@ -14,6 +14,9 @@ final class CoverageCatalogTests: XCTestCase {
         XCTAssertEqual(PushkinCopy.appCount(21, language: "ru"), "21 приложение")
         XCTAssertEqual(PushkinCopy.appCount(25, language: "ru"), "25 приложений")
         XCTAssertEqual(PushkinCopy.appCount(25, language: "en"), "25 apps")
+        XCTAssertEqual(PushkinCopy.appCount(1, language: "es-ES"), "1 aplicación")
+        XCTAssertEqual(PushkinCopy.appCount(2, language: "es"), "2 aplicaciones")
+        XCTAssertEqual(PushkinCopy.appCount(11, language: "es"), "11 aplicaciones")
     }
 
     func testRussianCopyAndEnglishFallback() {
@@ -29,6 +32,10 @@ final class CoverageCatalogTests: XCTestCase {
             PushkinCopy.text("History", language: "en-GB"),
             "History"
         )
+        XCTAssertEqual(PushkinCopy.text("History", language: "es-ES"), "Historial")
+        XCTAssertEqual(PushkinCopy.text("Apps", language: "es"), "Aplicaciones")
+        XCTAssertEqual(PushkinCopy.text("Group %d", language: "es"), "Grupo %d")
+        XCTAssertEqual(PushkinCopy.text("History", language: "fr-FR"), "History")
         XCTAssertEqual(
             PushkinCopy.text("Unknown label", language: "ru"),
             "Unknown label"
@@ -36,6 +43,22 @@ final class CoverageCatalogTests: XCTestCase {
         XCTAssertEqual(
             PushkinCopy.text("History is empty", language: "ru-RU"),
             "История пока пуста"
+        )
+    }
+
+    func testSpanishCatalogAndUnknownLanguageFallback() {
+        XCTAssertEqual(PushkinCopy.text("History", language: "es-ES"), "Historial")
+        XCTAssertEqual(PushkinCopy.text("Apps", language: "es"), "Aplicaciones")
+        XCTAssertEqual(PushkinCopy.text("Group %d", language: "es"), "Grupo %d")
+        XCTAssertEqual(
+            PushkinCopy.text("Notification content stays on this device", language: "es-MX"),
+            "El contenido de las notificaciones permanece en este dispositivo"
+        )
+        XCTAssertEqual(PushkinCopy.text("History", language: "fr-FR"), "History")
+        XCTAssertEqual(PushkinCopy.text("Unknown label", language: "es"), "Unknown label")
+        XCTAssertEqual(
+            String(format: PushkinCopy.text("Group %d", language: "es"), 5),
+            "Grupo 5"
         )
     }
 

@@ -943,6 +943,7 @@
 		E7278FBF6D0F3280123A7FCF /* PUSHKIN - Resurs Bank.shortcut in Resources */ = {isa = PBXBuildFile; fileRef = A81DC0C7B8E6B221422E6518 /* PUSHKIN - Resurs Bank.shortcut */; };
 		E737B23401B747B6BC78DF05 /* PUSHKIN - Glovo- Food & Grocery Delivery.shortcut in Resources */ = {isa = PBXBuildFile; fileRef = 643CB87F70DCA768C8FB8A06 /* PUSHKIN - Glovo- Food & Grocery Delivery.shortcut */; };
 		E78923F321154EA41C5C4552 /* PUSHKIN - Nect Wallet.shortcut in Resources */ = {isa = PBXBuildFile; fileRef = 0939EBEC90ABD7380C5EB055 /* PUSHKIN - Nect Wallet.shortcut */; };
+		E799782A5F83A7CDECA520DB /* SpanishLocalizationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB523F075DBF5937FDB5B343 /* SpanishLocalizationUITests.swift */; };
 		E7D62BAE4C62E035EB90A6D4 /* PUSHKIN - PASS by KT.shortcut in Resources */ = {isa = PBXBuildFile; fileRef = 1BD3B31F4C73C4B257424A44 /* PUSHKIN - PASS by KT.shortcut */; };
 		E8198F5640235222DC6208F3 /* PUSHKIN - ไทยแนนซ์.shortcut in Resources */ = {isa = PBXBuildFile; fileRef = BBE1CF1E208DBFEF5A299F56 /* PUSHKIN - ไทยแนนซ์.shortcut */; };
 		E9137113907968D38AF05568 /* PUSHKIN - Rossmann.shortcut in Resources */ = {isa = PBXBuildFile; fileRef = 3524F6D079D2D76D8579F7B0 /* PUSHKIN - Rossmann.shortcut */; };
@@ -1732,6 +1733,7 @@
 		A14BEAAC03B59C104B91C862 /* PUSHKIN - Дія.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - Дія.shortcut"; sourceTree = "<group>"; };
 		A158008C75BDF3C445206B1A /* PUSHKIN - CallApp- Caller ID & Block.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - CallApp- Caller ID & Block.shortcut"; sourceTree = "<group>"; };
 		A19542DD90BA013F253B8353 /* PUSHKIN - Claude by Anthropic.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - Claude by Anthropic.shortcut"; sourceTree = "<group>"; };
+		A228AED0745DBFFE3AF7AEDE /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A23014850AF399E675878556 /* PUSHKIN - Educamos Familias.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - Educamos Familias.shortcut"; sourceTree = "<group>"; };
 		A2571AE0D056547F55C1E19A /* PUSHKIN - HA Go.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - HA Go.shortcut"; sourceTree = "<group>"; };
 		A288AB69AD2CA9CCC2257977 /* PUSHKIN - Threads.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - Threads.shortcut"; sourceTree = "<group>"; };
@@ -1980,6 +1982,7 @@
 		DABDBDE5EA75BB5AEFDAB81B /* PUSHKIN - Yemeksepeti- Food & Grocery.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - Yemeksepeti- Food & Grocery.shortcut"; sourceTree = "<group>"; };
 		DB0EFBF6202E9E089D7C0CAF /* PUSHKIN - iBoxen.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - iBoxen.shortcut"; sourceTree = "<group>"; };
 		DB4345670EB450E7AE8231B7 /* PUSHKIN - EatClub - Restaurant Deals.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - EatClub - Restaurant Deals.shortcut"; sourceTree = "<group>"; };
+		DB523F075DBF5937FDB5B343 /* SpanishLocalizationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpanishLocalizationUITests.swift; sourceTree = "<group>"; };
 		DB630B1933BDE9E717B968CA /* PUSHKIN - Microsoft Authenticator.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - Microsoft Authenticator.shortcut"; sourceTree = "<group>"; };
 		DC03D25C2FDC1014A0CFE90E /* PUSHKIN - BESTSECRET.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - BESTSECRET.shortcut"; sourceTree = "<group>"; };
 		DC1F7A5F8C29E0AADCD4F30E /* PUSHKIN - Turbo VPN Private Browser.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - Turbo VPN Private Browser.shortcut"; sourceTree = "<group>"; };
@@ -3275,6 +3278,7 @@
 				C48FD2E3DC5C158E48B709D1 /* SimulatorRebindUITests.swift */,
 				CA59FDA83533FF0A6BA5E9DF /* SimulatorShortcutUITests.swift */,
 				B93835056FA6DA990667586A /* SimulatorShortcutUITests.swift.tmp */,
+				DB523F075DBF5937FDB5B343 /* SpanishLocalizationUITests.swift */,
 			);
 			path = ArvectumNotifyUITests;
 			sourceTree = "<group>";
@@ -3367,6 +3371,7 @@
 			knownRegions = (
 				Base,
 				en,
+				es,
 				ru,
 			);
 			mainGroup = 5E24A853970EE4E87421C056;
@@ -4462,6 +4467,7 @@
 				3EA5E2D8FED9353416FEC683 /* ShortcutImportUITests.swift in Sources */,
 				179C5545DEACC95BE0D04203 /* SimulatorRebindUITests.swift in Sources */,
 				556A90005EA203276F345B2E /* SimulatorShortcutUITests.swift in Sources */,
+				E799782A5F83A7CDECA520DB /* SpanishLocalizationUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4485,6 +4491,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				681E372D285F9C73EAEF2C12 /* en */,
+				A228AED0745DBFFE3AF7AEDE /* es */,
 				E88D3D65B6E0FF8B87FA0DE3 /* ru */,
 			);
 			name = Localizable.strings;

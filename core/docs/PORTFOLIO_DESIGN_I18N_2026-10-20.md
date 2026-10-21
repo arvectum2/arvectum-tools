@@ -180,3 +180,28 @@ engineering/regression gate, not blanket accessibility acceptance.
   Russian, Spanish, and Brazilian Portuguese. Other 45 target languages
   are not yet translated. Copy review and physical device tests are
   still pending. No main merge, pushes, TestFlight or store actions.
+
+
+## L2.6 + L3.5 follow-up on 21 October
+
+- ChickMark dynamically lists languages that are actually packaged and
+  complete relative to the English Localizable.strings keys. Unsupported
+  system languages FR, JA, HI, ZH default to EN; an available Spanish
+  system locale chooses ES. Existing Russian and explicit overrides
+  still work. iOS Simulator build and 4/4 targeted unit tests PASS.
+- Pushkin 151 authored ES strings; XcodeGen project regenerated and
+  compiled en/es/ru localizations confirmed inside the app. Runtime
+  reads the Spanish source bundle for PC labels and uses the same
+  English keys; Russian copy remains stable. 1 aplicación and
+  2 aplicaciones format correctly.
+- Simulator screenshot shows Spanish Historial, Buscar notificaciones,
+  Aplicaciones and Ajustes. Stored example notification bodies stay in
+  their source language, as user/data content should.
+- Pushkin two focused unit tests PASS, Python localization 12/12 PASS.
+  Spanish UI test exists but its Xcode runner was interrupted twice
+  before saving a valid result; the UI test is not marked PASS.
+- Android French locale APK/Gradle verified in the previous iteration.
+  Remote Android emulator lifetime caused loss of test session before
+  any French screenshot; LaunchAgent EX_CONFIG, agent unregistered.
+  French Android visual QA remains open.
+- Changes remain in feature branch, no store/release actions.

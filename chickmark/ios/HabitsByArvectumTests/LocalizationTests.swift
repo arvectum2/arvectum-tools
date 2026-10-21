@@ -122,6 +122,48 @@ final class LocalizationTests: XCTestCase {
         "habit.history.edit", "habit.history.progress", "habit.history.error"
     ]
 
+    func testPickerOffersOnlyBundledLocales() {
+        XCTAssertEqual(ChickMarkLanguage.supported, ["ru", "en", "es"])
+        XCTAssertEqual(
+            ChickMarkLanguage.orderedLanguages(["fr", "en", "Base", "ru", "es", "en"]),
+            ["ru", "en", "es", "fr"]
+        )
+        XCTAssertEqual(
+            ChickMarkLanguage.orderedLanguages(["en", "ja", "de"]),
+            ["en", "de", "ja"]
+        )
+    }
+
+    func testUnsupportedSystemLanguageFallsBackToEnglish() {
+        let available = ["ru", "en", "es"]
+        for systemLanguages in [["fr"], ["ja-JP"], ["hi-IN", "zh-Hans"]] {
+            XCTAssertEqual(
+                ChickMarkLanguage.resolvedIdentifier(
+                    for: "system", preferred: systemLanguages, available: available
+                ),
+                "en"
+            )
+        }
+        XCTAssertEqual(
+            ChickMarkLanguage.resolvedIdentifier(
+                for: "system", preferred: ["fr-FR", "es-ES"], available: available
+            ),
+            "es"
+        )
+        XCTAssertEqual(
+            ChickMarkLanguage.resolvedIdentifier(
+                for: "ru", preferred: ["ja-JP"], available: available
+            ),
+            "ru"
+        )
+        XCTAssertEqual(
+            ChickMarkLanguage.resolvedIdentifier(
+                for: "fr", preferred: ["ja-JP"], available: available
+            ),
+            "en"
+        )
+    }
+
     func testTodayProgressNamesResolvedNotJustCompletedHabits() {
         for (language, expected) in [
             ("ru", "Отмечено: 1 из 3"),

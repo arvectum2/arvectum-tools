@@ -65,6 +65,19 @@ class LocalizationPortfolioTests(unittest.TestCase):
         self.assertIn("somente neste dispositivo", pt["your_photo_is_processed_only_on_this_device"])
         self.assertIn("%1$s", pt["compress_to"])
 
+    def test_pushkin_spanish_catalog_covers_all_real_english_copy(self):
+        root = ROOT / "pushkin/ios/ArvectumNotify/Resources"
+        en = i18n.read_strings(root / "en.lproj/Localizable.strings", [])
+        es = i18n.read_strings(root / "es.lproj/Localizable.strings", [])
+        self.assertEqual(set(en), set(es))
+        self.assertEqual(len(es), 151)
+        self.assertEqual(es["History"], "Historial")
+        self.assertEqual(es["Group %d"], "Grupo %d")
+        self.assertEqual(es["Apps"], "Aplicaciones")
+        self.assertIn("Atajos", es["PUSHKIN works through Apple Shortcuts"])
+        self.assertIn("1.000", es["One base shortcut can contain 1,000 app entries. Optional groups of 25 are just a planning convenience, not an iOS limit."])
+        self.assertTrue(all(i18n.placeholders(en[k]) == i18n.placeholders(es[k]) for k in en))
+
     def test_photo_ios_spanish_catalog_and_tracking_disclosure(self):
         path = ROOT / "photo-pdf-to-size/ios/PhotoPodRazmer/Resources"
         en = i18n.read_strings(path / "en.lproj/Localizable.strings", [])

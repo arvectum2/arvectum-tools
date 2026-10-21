@@ -141,23 +141,45 @@ struct ArvectumCard<Content: View>: View {
 }
 
 
-// MARK: - UX writing and RU/EN interface copy
-// Each display string has one canonical English key. Non-Russian locales keep
-// the original English text; the explicit locale parameter makes testing safe.
-// Do not use this for Shortcuts action identifiers or data stored on disk.
+// MARK: - UX writing and RU/EN/ES interface copy
+// Each display string uses a canonical English key. RU retains its existing
+// in-code copy; ES loads the actual app-bundled localization. Other device
+// languages use English. Do not use for Shortcuts identifiers or stored data.
 enum PushkinCopy {
+    private static let spanishBundle: Bundle? = {
+        guard let path = Bundle.main.path(forResource: "es", ofType: "lproj")
+        else { return nil }
+        return Bundle(path: path)
+    }()
+
     static func text(
         _ english: String,
-        language: String = Locale.preferredLanguages.first ?? "en"
+        language: String = Bundle.main.preferredLocalizations.first
+            ?? Locale.preferredLanguages.first ?? "en"
     ) -> String {
-        guard language.lowercased().hasPrefix("ru") else { return english }
-        return russian[english] ?? english
+        let code = language
+            .split(whereSeparator: { $0 == "-" || $0 == "_" })
+            .first.map(String.init)?.lowercased() ?? "en"
+        switch code {
+        case "ru":
+            return russian[english] ?? english
+        case "es":
+            return spanishBundle?.localizedString(
+                forKey: english, value: english, table: nil
+            ) ?? english
+        default:
+            return english
+        }
     }
 
     static func appCount(
         _ count: Int,
-        language: String = Locale.preferredLanguages.first ?? "en"
+        language: String = Bundle.main.preferredLocalizations.first
+            ?? Locale.preferredLanguages.first ?? "en"
     ) -> String {
+        if language.lowercased().hasPrefix("es") {
+            return count == 1 ? "1 aplicación" : "\(count) aplicaciones"
+        }
         guard language.lowercased().hasPrefix("ru") else { return "\(count) apps" }
         let n = count % 100
         let last = count % 10

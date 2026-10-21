@@ -147,3 +147,32 @@ format strings. Android assembleDebug and testDebugUnitTest pass;
 AAPT2 resource dump confirms French resources in the resulting APK.
 Python catalog and fallback suite: 11/11 PASS. A human native-language
 review and Android device layout assessment are still needed.
+
+
+## 21 October: ChickMark locale discovery and Spanish Pushkin
+
+ChickMark iOS discovers only languages with complete Localizable.strings
+bundled catalogs (key parity to its EN source). Unsupported/stale
+preferences resolve to a bundled system language or EN, and a future
+complete language pack no longer needs a Swift picker edit. ChickMark
+build and 4/4 targeted localization tests PASS. This does not add
+translations beyond the existing EN/RU/ES catalogs.
+
+Pushkin now has a 151-key Spanish catalog in addition to EN/RU. The
+pc() runtime uses the Spanish compiled bundle for es and still supports
+the Russian dictionary and English fallback. The Spanish count
+formats 1 aplicación / 2 aplicaciones. Build and embedded es.lproj
+checks PASS, 2 Swift unit tests PASS, and Python 12/12 PASS. A real
+Spanish simulator screenshot confirms the History/search/tab labels.
+Notification text itself is user data and is never translated by this
+UI localization.
+
+The Pushkin Spanish navigation UI XCTest was added but its two test
+invocations were interrupted before valid results were written.
+These attempts are neither PASS nor assertion failures; retest on
+a stable runner. Android French emulator visual review also remains
+blocked after remote session shutdowns and a temporary launchd
+agent EX_CONFIG. The launch agent was removed.
+
+Native Spanish proofreading, physical VoiceOver, all remaining
+translations and per-app release approval are still pending.
