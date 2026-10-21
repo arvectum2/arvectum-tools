@@ -55,6 +55,23 @@ class LocalizationPortfolioTests(unittest.TestCase):
         i18n.bilingual_format_audit(errors)
         self.assertEqual(errors, [])
 
+    def test_android_italian_catalog_complete_and_placeholder_safe(self):
+        from xml.etree import ElementTree
+        root = ROOT / "photo-pdf-to-size/android/app/src/main/res"
+        base = {el.attrib["name"]: el.text for el in ElementTree.parse(root / "values/strings.xml").getroot()}
+        italian = {el.attrib["name"]: el.text for el in ElementTree.parse(root / "values-it/strings.xml").getroot()}
+        self.assertEqual(set(base), set(italian))
+        self.assertEqual(len(italian), 93)
+        self.assertEqual(italian["app_name"], "Ridimensiona foto")
+        self.assertIn("solo su questo dispositivo", italian["your_photo_is_processed_only_on_this_device"])
+        self.assertEqual(italian["compress_to"], "Comprimi a %1$s")
+        self.assertIn("%2$d%%", italian["reduction_summary"])
+        self.assertEqual(italian["size_in_mb_decimal"], "%1$.2f MB")
+        self.assertTrue(all(
+            i18n.placeholders(base[k]) == i18n.placeholders(italian[k])
+            for k in base
+        ))
+
     def test_android_german_catalog_covers_all_errors_and_formats(self):
         from xml.etree import ElementTree
         root = ROOT / "photo-pdf-to-size/android/app/src/main/res"

@@ -283,10 +283,10 @@
         "photo-pdf-to-size/ios/PhotoPodRazmer/Resources"
       ],
       "android": {
-        "status": "en-ru-es-pt-br-fr-de-source-catalogs-in-feature-branch",
+        "status": "en-ru-es-pt-br-fr-de-it-source-catalogs-in-feature-branch",
         "sourceLocale": "en",
         "resources": "photo-pdf-to-size/android/app/src/main/res",
-        "note": "English fallback plus genuine RU, ES, pt-BR, FR and DE development catalogs (93 keys per locale). 44 of 50 target languages pending Android; native editorial and device/VoiceOver-equivalent accessibility QA required. No release."
+        "note": "English fallback plus genuine RU, ES, pt-BR, FR, DE and IT development catalogs (93 keys each). 43 of 50 target languages pending Android; native editorial and device accessibility/layout QA required. No release."
       }
     },
     "where": {

@@ -28,7 +28,10 @@ final class SpanishLocalizationUITests: XCTestCase {
         XCTAssertTrue(settings.isHittable)
 
         apps.tap()
-        XCTAssertTrue(app.navigationBars["Aplicaciones"].firstMatch.waitForExistence(timeout: 8))
+        // Tab label is "Aplicaciones"; its destination screen is
+        // "Apps & Setup" -> "Aplicaciones y configuración".
+        XCTAssertTrue(app.navigationBars["Aplicaciones y configuración"]
+            .firstMatch.waitForExistence(timeout: 8))
         settings.tap()
         XCTAssertTrue(app.navigationBars["Ajustes"].firstMatch.waitForExistence(timeout: 8))
 
