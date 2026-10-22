@@ -1,5 +1,11 @@
 # What? — Product Roadmap
 
+## 22.10.2026 · Сверка Watch QA без повторов
+
+- [x] [Единая матрица физических PASS / PARTIAL / OPEN](docs/PHYSICAL_WATCH_ACCEPTANCE_DEDUP_2026-10-22.md) сверяет 13/19/22 октября. Уже проверены 3 записи при реальном offline, частичный reboot, две записи без открытия iPhone, реальный lost ACK и 1 cold-background доставка. Исторические TODO ниже не отражают более поздние результаты.
+- [x] Новый тест: обычный iPhone background через Settings, **PID 45941 сохранился**; Watch UUID 2BFE4FBF оставался в очереди до foreground; при возврате в тот же процесс iPhone index **2 → 3**, затем штатный Watch journal reconcile удалил отложенные AAC/.ack. Background latency OPEN.
+- [ ] Не повторять закрытые basic offline/ACK/10-sec hold тесты без регрессии. Следующее новое измерение — instrumented WCSession route/timing.
+
 ## 22.10.2026 · Реальный Watch → iPhone background WCSession
 
 - [x] **Физический cold-background PASS (1 прогон):** QA iPhone остановлен до старта Watch, iOS автоматически запустила приёмник, настоящий синтетический AAC 3.84 с доставлен по WCSession ровно один раз. На Watch status ack-observed, pending=0, очередь пустая. [Протокол](docs/PHYSICAL_WATCH_BACKGROUND_WCSESSION_2026-10-22.md).

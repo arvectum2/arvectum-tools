@@ -4,11 +4,13 @@
 **Rule:** use new disposable recordings only; never delete preexisting private voice notes.
 **Pass criteria:** each successful recording appears exactly once on iPhone, its original audio plays, and no pending Watch audio is deleted before phone storage is acknowledged.
 
+**Current verified physical status:** see [Watch/iPhone deduplicated acceptance matrix](PHYSICAL_WATCH_ACCEPTANCE_DEDUP_2026-10-22.md). Historical unchecked rows below predate later physical passes and are not an instruction to rerun them.
+
 ## Checks to run
 
 - [x] **Offline batch (partial physical pass on 2026-10-13):** turn off the actual Watch-to-iPhone link (verify Watch is disconnected, not merely airplane mode with Bluetooth still active). On Watch, record and save three *distinct*, numbered short voice notes. Verified 3 waiting for iPhone, reconnected, all three appeared after opening iPhone app. **Still verify automatic background delivery without opening iPhone and audio distinctness. User confirmed Watch pending count cleared to zero after 3/3 arrived.**
-- [ ] **Reboot with pending queue:** disconnect again, record a new disposable note, and reboot Watch *before* reconnecting. Confirm pending count and queued audio still exist after restart. Reconnect and verify the note transfers and plays on iPhone.
-- [ ] **Duplicate and ACK safety:** keep the link connected across a retry/relaunch. Ensure the three notes each appear only once on iPhone even if transfers repeat. Confirm the watch removes a local recording only after phone acknowledgement.
+- [ ] **Reboot with pending queue (partial already 13.10):** Watch retained one queued audio after reboot of build 5; it arrived later after installing build 6 and opening Watch. Full current-build reboot + first unlock + automatic background delivery remains unverified. Avoid repeating on personal devices without a safe approved procedure.
+- [x] **Lost ACK / same-UUID physical replay (19.10):** Watch suppressed one real ACK, resent the original, and received a second real ACK. iPhone indexed the UUID only once; Watch queue cleared. [Physical report](PHYSICAL_WATCH_LOST_ACK_REDELIVERY_2026-10-19.md). Distinct offline batch replay stress is a separate open gate.
 - [ ] **Deletion versus late transfer:** delete one disposable note on iPhone, then allow a previously queued duplicate delivery of the same UUID; verify it stays deleted. This needs instrumented replay for determinism, not a manual new recording with another UUID.
 - [ ] **Visible cancellation:** swipe one existing disposable recording, confirm that the system alert visibly shows Cancel and Delete permanently; press Cancel, verify recording and audio remain intact.
 
