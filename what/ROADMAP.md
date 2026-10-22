@@ -1,5 +1,11 @@
 # What? — Product Roadmap
 
+## 22.10.2026 · Реальный Watch → iPhone background WCSession
+
+- [x] **Физический cold-background PASS (1 прогон):** QA iPhone остановлен до старта Watch, iOS автоматически запустила приёмник, настоящий синтетический AAC 3.84 с доставлен по WCSession ровно один раз. На Watch status ack-observed, pending=0, очередь пустая. [Протокол](docs/PHYSICAL_WATCH_BACKGROUND_WCSESSION_2026-10-22.md).
+- [x] Физически подтверждена durable очередь Watch во втором прогоне, когда передача задержалась: UUID и AAC сохранились после остановки QA транспорта и перезапуска Watch.
+- [ ] **Повторяемость/своевременность background OPEN:** второй прогон передал UUID лишь после foreground iPhone; Watch ACK после него не удалось проверить через CoreDevice. Radio offline и reboot остаются OPEN.
+
 ## 22.10.2026 · PhoneCaptures защищены на физическом iPhone 13
 
 - [x] Временные iPhone AAC, manifest JSON и аварийные файлы получают CompleteUntilFirstUserAuthentication до записи; старые мигрируют только атрибутами, отказ защиты блокирует запись/импорт.
