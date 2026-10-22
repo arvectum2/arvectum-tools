@@ -305,11 +305,11 @@ final class RecordingRepository {
         try persistTranscripts(existing)
     }
 
-    /// Update earlier versions' unprotected catalogs in place without
-    /// decoding or rewriting personal text. On a protected iOS device this
-    /// applies even before the next transcript edit. Do not touch audio.
+    /// Update earlier versions' unprotected indexes and transcript catalogs
+    /// via file attributes only: no decoding, rewriting or loss of user data.
+    /// Existing AAC protection is separately accepted; do not touch audio.
     private func protectExistingTranscriptFiles() throws {
-        for url in [transcriptURL, transcriptBackupURL, deletedIDsURL] {
+        for url in [indexURL, transcriptURL, transcriptBackupURL, deletedIDsURL] {
             guard fileManager.fileExists(atPath: url.path) else { continue }
             let current = try fileManager.attributesOfItem(atPath: url.path)
             guard (current[.protectionKey] as? FileProtectionType)
@@ -443,6 +443,17 @@ final class RecordingRepository {
             try fileManager.removeItem(at: staging)
         }
         try fileManager.copyItem(at: sourceURL, to: staging)
+        // On any subsequent failure the staging inode may still hold
+        // sensitive audio. Remove only this private QA/production staging
+        // path and never touch the Watch's original source.
+        defer { try? fileManager.removeItem(at: staging) }
+        // WCSession can supply an unprotected temporary inode. Never inherit
+        // its NSFileProtectionNone into our durable recording library. Apply
+        // protection while still staged; if that fails, do NOT commit/ACK.
+        try fileManager.setAttributes(
+            [.protectionKey: FileProtectionType.completeUntilFirstUserAuthentication],
+            ofItemAtPath: staging.path
+        )
         if fileManager.fileExists(atPath: destination.path) {
             try fileManager.removeItem(at: staging)
         } else {
@@ -460,6 +471,6 @@ final class RecordingRepository {
 
     private func persistIndex(_ recordings: [RecordingEnvelope]) throws {
         let data = try ArvectumJSONCodec.encode(recordings)
-        try data.write(to: indexURL, options: .atomic)
+        try data.write(to: indexURL, options: protectedJSONOptions)
     }
 }

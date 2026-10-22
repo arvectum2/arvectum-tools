@@ -1,5 +1,10 @@
 # What? — Product Roadmap
 
+## 22.10.2026 · Watch AAC / index FileProtection: аппаратный фикс
+
+- [x] Физически воспроизведено наследование NSFileProtectionNone для AAC из Watch временного файла; после фикса staging защищён до commit, аудио+index имеют CompleteUntilFirstUserAuthentication, legacy index меняет только атрибуты. **95 XCTest executed, 0 FAIL, 3 expected SKIP**. [Протокол](docs/PHYSICAL_WATCH_AUDIO_FILE_PROTECTION_2026-10-22.md).
+- [ ] Legacy пользовательские AAC/MOV, reboot до первого unlock, реальная фоновая передача Watch и backup-policy OPEN; исходные данные не трогали.
+
 ## 22.10.2026 · Watch receive gate на физическом iPhone
 
 - [x] WCSession file receiver выделен в тестируемый gate: реальные iPhone AAC файловые операции, late replay/deletion, 24 queued UUID, полный Watch A2 reliability **15/15 PASS** (адресный 3/3). [Протокол](docs/PHYSICAL_WATCH_INBOUND_GATE_2026-10-22.md).
