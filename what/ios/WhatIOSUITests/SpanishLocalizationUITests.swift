@@ -437,7 +437,50 @@ final class SpanishLocalizationUITests: XCTestCase {
         XCTAssertGreaterThanOrEqual(restore.frame.height, 44)
         XCTAssertTrue(app.buttons["what.recovery.done"].exists)
         // Deliberately no restoration from this smoke test: the native iOS
-        // destructive confirmation UI needs a separate device acceptance.
+        // destructive confirmation UI is exercised separately.
+    }
+
+    /// Uses the app's disposable two-transcript repository only. Cancel must
+    /// leave recovery available; explicit confirmation must restore the
+    /// synthetic backup without accessing the user's library or recordings.
+    @MainActor
+    func testSpanishTranscriptRecoverySyntheticCancelAndConfirm() {
+        let app = XCUIApplication()
+        app.launchArguments = [
+            "-AppleLanguages", "(es)", "-AppleLocale", "es_ES",
+            "--qa-transcript-recovery-synthetic"
+        ]
+        app.launch()
+
+        let restore = app.buttons["what.recovery.restore"]
+        XCTAssertTrue(restore.waitForExistence(timeout: 12))
+        app.swipeUp()
+        XCTAssertTrue(restore.isHittable)
+        restore.tap()
+        let cancel = app.buttons["Cancelar"].firstMatch
+        XCTAssertTrue(cancel.waitForExistence(timeout: 8))
+        cancel.tap()
+        XCTAssertTrue(app.staticTexts["what.recovery.ready"].waitForExistence(timeout: 8))
+        XCTAssertTrue(restore.isHittable)
+
+        app.swipeUp()
+        restore.tap()
+        let confirm = app.buttons.matching(
+            NSPredicate(format: "identifier == %@ OR label == %@",
+                        "what.recovery.confirm", "Restaurar")
+        ).firstMatch
+        XCTAssertTrue(confirm.waitForExistence(timeout: 8))
+        confirm.tap()
+
+        let healthy = app.staticTexts["what.recovery.healthy"]
+        XCTAssertTrue(healthy.waitForExistence(timeout: 12),
+                      "The confirmed synthetic restore must make the catalog healthy")
+        XCTAssertFalse(app.buttons["what.recovery.restore"].exists,
+                       "Do not offer another restore after recovery succeeds")
+        let result = app.alerts.firstMatch
+        XCTAssertTrue(result.waitForExistence(timeout: 8))
+        result.buttons["Aceptar"].tap()
+        XCTAssertTrue(healthy.exists)
     }
 
     /// The settings menu must remain reachable with a huge font and a
