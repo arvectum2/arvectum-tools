@@ -1,5 +1,10 @@
 # What? — Product Roadmap
 
+## 22.10.2026 · Физический AXXXL библиотеки: RU/ES PASS
+
+- [x] На iPhone 13 найден и исправлен регресс: горизонтальный фильтр/подпись скрывали записи, а 4-строчный предпросмотр обрезал AXXXL текст. Компактные меню/счётчик и полный body на accessibility size, реальные системные аудиты RU+ES **2/2 PASS**; обычный UI **4/4 PASS**, последовательный editor+RU+ES **3/3 PASS**. [Протокол](docs/PHYSICAL_AXXXL_IPHONE_LIBRARY_2026-10-22.md).
+- [ ] Физический VoiceOver rotor/gestures и iPad Split View всё ещё OPEN.
+
 ## 22.10.2026 · Физический iPhone 13: FileProtection / Recovery
 
 - [x] Изолированная QA-сборка ru.arvectum.tools.what.fileprotectqa (без Watch) прошла **18/18 тестов**: FileProtection 3, Recovery UI 5, Debug interruption 5, AXXXL UI 5, 0 FAIL. [Протокол](docs/PHYSICAL_FILE_PROTECTION_RECOVERY_2026-10-22.md).

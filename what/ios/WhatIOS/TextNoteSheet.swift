@@ -80,7 +80,10 @@ struct TextNoteSheet: View {
                     if note == nil { store.finishedNewTextNote(id: id) }
                 }
                 .overlay(alignment: .topLeading) {
-                    if bodyText.isEmpty {
+                    // At AX sizes the editor already has an accessible title
+                    // and hint; omit the decorative overlay entirely so it
+                    // cannot become a duplicate focus target in XCTest/VO.
+                    if bodyText.isEmpty && !dynamicTypeSize.isAccessibilitySize {
                         Text(CaptureBrand.text("Запишите мысль…", "Catch a thought…"))
                             .foregroundStyle(.tertiary)
                             .padding(.leading, 20)

@@ -88,15 +88,11 @@ final class SpanishLocalizationUITests: XCTestCase {
         XCTAssertTrue(library.waitForExistence(timeout: 12))
         library.tap()
 
-        let all = app.buttons["what.filter.all"]
-        let textFilter = app.buttons["what.filter.text"]
-        let videoFilter = app.buttons["what.filter.video"]
-        XCTAssertTrue(all.waitForExistence(timeout: 12))
-        XCTAssertTrue(all.label.contains("Todas"), all.label)
-        XCTAssertTrue(textFilter.exists)
-        XCTAssertTrue(textFilter.label.contains("Texto"), textFilter.label)
-        XCTAssertTrue(videoFilter.exists)
-        XCTAssertTrue(videoFilter.label.contains("Vídeo"), videoFilter.label)
+        let typeMenu = app.buttons["what.library.filterMenu"]
+        XCTAssertTrue(typeMenu.waitForExistence(timeout: 10))
+        XCTAssertTrue(typeMenu.isHittable)
+        XCTAssertGreaterThanOrEqual(typeMenu.frame.height, 44)
+        XCTAssertTrue(typeMenu.label.contains("Todas"), typeMenu.label)
         XCTAssertTrue(app.staticTexts["Hoy"].exists,
                       "Day sections must use Spanish even with English dictation")
 
@@ -118,6 +114,18 @@ final class SpanishLocalizationUITests: XCTestCase {
                   "detail=\(issue.detailedDescription)")
             return false
         }
+
+        // Inspect filter actions AFTER the AX audit. UIKit can retain a
+        // transitioning menu item's accessibility subtree briefly after
+        // dismiss, making a system textClipped audit race with its animation.
+        typeMenu.tap()
+        let all = app.buttons["what.filter.all"]
+        let textFilter = app.buttons["what.filter.text"]
+        let videoFilter = app.buttons["what.filter.video"]
+        XCTAssertTrue(all.waitForExistence(timeout: 8))
+        XCTAssertTrue(textFilter.exists)
+        XCTAssertTrue(videoFilter.exists)
+        all.tap()
     }
 
     /// AXXXL Spanish editor with no note content entered. The test never

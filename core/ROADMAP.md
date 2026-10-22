@@ -10,6 +10,8 @@
 
 - [x] **22.10 · Физический QA:** отдельный iPhone 13 QA app, 18/18 PASS (3 FileProtection, 5 recovery UI, 5 fault checkpoints, 5 AXXXL UI), 0 FAIL. Аппаратные reboot/ENOSPC/Watch offline/VoiceOver открыты. [Акт](../what/docs/PHYSICAL_FILE_PROTECTION_RECOVERY_2026-10-22.md).
 
+- [x] **22.10 · Физический AXXXL:** iPhone 13, заполненная синтетическая библиотека; исходный аудит 3/4 PASS с 5 clipping, после правки RU/ES audit **2/2 PASS**, обычный UI 4/4 PASS, последовательный AX editor+RU+ES 3/3 PASS. [Акт](../what/docs/PHYSICAL_AXXXL_IPHONE_LIBRARY_2026-10-22.md).
+
 ### P0 · Ухват — доведение до физической приёмки
 - [x] **L4.17a · Пользовательский экран восстановления:** в настройках библиотеки появился отдельный экран с предпросмотром состояния хранилища и числа расшифровок в последней пригодной резервной копии. Восстановление только по отдельному подтверждению; здоровый/отсутствующий основной каталог не заменяется, пустая или повреждённая копия недоступна, удалённые UUID не возвращаются. RU/EN/ES iPhone 228 ключей, тестовая синтетическая фикстура не касается реальных файлов. Xcode iPhone Simulator 67 PASS, 3 SKIP, 0 FAIL (23:01), Python 38/38 PASS.
 - [x] **L4.17b, simulator subset:** отдельный Debug synthetic XCUITest прошёл Cancel → explicit Restore → healthy status → success alert на iPhone 17 Pro; AXXXL-кнопка и системное предупреждение исправлены. [Акт владельца](../what/ROADMAP.md). Дополнительно 22.10: пять XCUITest на синтетических данных **5/5 PASS** — Cancel/confirm, missing/corrupt/empty backup и исправный основной каталог; в небезопасных состояниях CTA восстановления не показывается. **Физический iPhone/iPad/VoiceOver и реальная пользовательская файловая система остаются OPEN**; не считать L4.17b полностью закрытым.
