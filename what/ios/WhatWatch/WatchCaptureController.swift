@@ -408,10 +408,16 @@ final class WatchCaptureController: NSObject, ObservableObject, AVAudioRecorderD
         try WatchDurableQueue.enqueue(
             recording, into: &queue, at: queueIndexURL
         )
+#if WATCH_ROUTE_QA
+        WatchRouteQATrace.add("watch-queue-committed", id: recording.id)
+#endif
         publishPendingCount(queue.count)
     }
 
     private func acknowledge(_ id: UUID) {
+#if WATCH_ROUTE_QA
+        WatchRouteQATrace.add("watch-ack-callback", id: id)
+#endif
 #if WATCH_PHYSICAL_QA
         guard !qaShouldDropAcknowledgement(for: id) else { return }
 #endif
@@ -425,6 +431,9 @@ final class WatchCaptureController: NSObject, ObservableObject, AVAudioRecorderD
             ) {
                 retryPolicy.didAcknowledge(id)
                 immediateAttempts.removeValue(forKey: id)
+#if WATCH_ROUTE_QA
+                WatchRouteQATrace.add("watch-ack-index-committed", id: id)
+#endif
             }
         } catch {
             ArvectumDiagnostics.failure(
@@ -568,12 +577,22 @@ final class WatchCaptureController: NSObject, ObservableObject, AVAudioRecorderD
 
     private func pumpTransfers() {
 #if WATCH_PHYSICAL_QA
-        guard !qaIsTransportHeld else { return }
+        guard !qaIsTransportHeld else {
+#if WATCH_ROUTE_QA
+            WatchRouteQATrace.add("watch-pump-held-qa")
+#endif
+            return
+        }
 #endif
         guard WCSession.isSupported() else { return }
 
         let session = WCSession.default
-        guard session.activationState == .activated else { return }
+        guard session.activationState == .activated else {
+#if WATCH_ROUTE_QA
+            WatchRouteQATrace.add("watch-pump-no-activation")
+#endif
+            return
+        }
 
         let outstanding = Set(session.outstandingFileTransfers.compactMap {
             ($0.file.metadata?[TransferMetadataKey.id] as? String).flatMap(UUID.init(uuidString:))
@@ -599,11 +618,21 @@ final class WatchCaptureController: NSObject, ObservableObject, AVAudioRecorderD
                     recording: recording, audio: audio
                ).encode() {
                 immediateAttempts[recording.id] = now
+#if WATCH_ROUTE_QA
+                WatchRouteQATrace.add("watch-live-send-attempt", id: recording.id,
+                                      note: "reachable=true")
+#endif
                 session.sendMessageData(encoded, replyHandler: { [weak self] response in
+#if WATCH_ROUTE_QA
+                    WatchRouteQATrace.add("watch-live-reply", id: recording.id)
+#endif
                     guard let reply = try? ImmediateRecordingReply.decode(response),
                           reply.acknowledgedID == recording.id else { return }
                     self?.acknowledge(recording.id)
                 }, errorHandler: { _ in
+#if WATCH_ROUTE_QA
+                    WatchRouteQATrace.add("watch-live-error", id: recording.id)
+#endif
                     // Keep the queue and allow a live retry on the next pump.
                     // Already-queued file transfer is not cancelled.
                 })
@@ -623,6 +652,10 @@ final class WatchCaptureController: NSObject, ObservableObject, AVAudioRecorderD
             ) else { continue }
 
             // The queue remains on disk until the iPhone confirms durable storage.
+#if WATCH_ROUTE_QA
+            WatchRouteQATrace.add("watch-file-scheduled", id: recording.id,
+                note: "reachable=\(session.isReachable),outstanding=\(outstanding.contains(recording.id))")
+#endif
             session.transferFile(url, metadata: [
                 TransferMetadataKey.type: TransferMetadataKey.recording,
                 TransferMetadataKey.id: recording.id.uuidString,
@@ -638,12 +671,19 @@ final class WatchCaptureController: NSObject, ObservableObject, AVAudioRecorderD
         activationDidCompleteWith activationState: WCSessionActivationState,
         error: Error?
     ) {
+#if WATCH_ROUTE_QA
+        WatchRouteQATrace.add("watch-session-activation",
+            note: "state=\(activationState.rawValue),hasError=\(error != nil)")
+#endif
         if activationState == .activated {
             refreshPendingAudioAfterUnlock()
         }
     }
 
     func sessionReachabilityDidChange(_ session: WCSession) {
+#if WATCH_ROUTE_QA
+        WatchRouteQATrace.add("watch-reachability", note: "reachable=\(session.isReachable)")
+#endif
         // Helps pending transfers resume quickly when both apps are already active.
         if session.isReachable { pumpTransfers() }
     }
@@ -659,6 +699,9 @@ final class WatchCaptureController: NSObject, ObservableObject, AVAudioRecorderD
             guard let idString = userInfo[TransferMetadataKey.id] as? String,
                   let id = UUID(uuidString: idString)
             else { return }
+#if WATCH_ROUTE_QA
+            WatchRouteQATrace.add("watch-userinfo-ack-received", id: id)
+#endif
             acknowledge(id)
         default:
             break
@@ -677,6 +720,10 @@ final class WatchCaptureController: NSObject, ObservableObject, AVAudioRecorderD
             return
         }
 
+#if WATCH_ROUTE_QA
+        WatchRouteQATrace.add("watch-file-transfer-completion", id: id,
+            note: error == nil ? "success" : "error")
+#endif
         queueLock.lock()
         // A delayed file-transfer completion can race with a newer live ACK.
         // Once the durable queue no longer has this UUID, ignore stale retry

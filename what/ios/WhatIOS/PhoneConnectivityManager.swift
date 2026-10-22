@@ -46,6 +46,9 @@ final class PhoneConnectivityManager: NSObject, WCSessionDelegate {
         activated = true
         let session = WCSession.default
         session.delegate = self
+#if WATCH_ROUTE_QA
+        WatchRouteQATrace.add("phone-session-activate-request")
+#endif
         session.activate()
     }
 
@@ -54,6 +57,9 @@ final class PhoneConnectivityManager: NSObject, WCSessionDelegate {
         activationDidCompleteWith activationState: WCSessionActivationState,
         error: Error?
     ) {
+#if WATCH_ROUTE_QA
+        WatchRouteQATrace.add("phone-session-activation", note: "state=\(activationState.rawValue),hasError=\(error != nil)")
+#endif
         guard activationState == .activated else { return }
         receiveQueueSnapshot(session.receivedApplicationContext)
         DispatchQueue.main.async { [weak self] in
@@ -91,6 +97,9 @@ final class PhoneConnectivityManager: NSObject, WCSessionDelegate {
     ) {
         do {
             let payload = try ImmediateRecordingPayload.decode(messageData)
+#if WATCH_ROUTE_QA
+            WatchRouteQATrace.add("phone-live-received", id: payload.recording.id)
+#endif
             guard !payload.audio.isEmpty,
                   payload.audio.count <= ImmediateRecordingPayload.maximumAudioBytes,
                   payload.recording.duration.isFinite,
@@ -108,6 +117,9 @@ final class PhoneConnectivityManager: NSObject, WCSessionDelegate {
             let outcome = try repository.acceptTemporaryFile(
                 temp, metadata: payload.metadata
             )
+#if WATCH_ROUTE_QA
+            WatchRouteQATrace.add("phone-live-committed", id: outcome.id)
+#endif
 
             // Fast ACK clears the Watch queue. A background ACK protects against
             // a lost reply or Watch suspension just after the write.
@@ -118,6 +130,9 @@ final class PhoneConnectivityManager: NSObject, WCSessionDelegate {
             replyHandler(try ImmediateRecordingReply(
                 acknowledgedID: outcome.id
             ).encode())
+#if WATCH_ROUTE_QA
+            WatchRouteQATrace.add("phone-live-ack-replied", id: outcome.id)
+#endif
             if case .stored(let recording) = outcome {
                 DispatchQueue.main.async {
                     NotificationCenter.default.post(
@@ -127,27 +142,43 @@ final class PhoneConnectivityManager: NSObject, WCSessionDelegate {
                 }
             }
         } catch {
+#if WATCH_ROUTE_QA
+            WatchRouteQATrace.add("phone-live-error-no-ack")
+#endif
             // No reply means no durable ACK. The Watch retains its audio and
             // WatchConnectivity's background file transfer remains queued.
         }
     }
 
     func session(_ session: WCSession, didReceive file: WCSessionFile) {
+#if WATCH_ROUTE_QA
+        let receivedID = (file.metadata?[TransferMetadataKey.id] as? String).flatMap(UUID.init(uuidString:))
+        WatchRouteQATrace.add("phone-file-received", id: receivedID)
+#endif
         do {
             guard let outcome = try WatchInboundFileReceiver.accept(
                 file.fileURL, metadata: file.metadata, into: repository
             ) else { return }
+#if WATCH_ROUTE_QA
+            WatchRouteQATrace.add("phone-file-committed", id: outcome.id)
+#endif
             // Already-deleted UUIDs are acknowledged too, so Watch can clear its queue.
             session.transferUserInfo([
                 TransferMetadataKey.type: TransferMetadataKey.acknowledgement,
                 TransferMetadataKey.id: outcome.id.uuidString
             ])
+#if WATCH_ROUTE_QA
+            WatchRouteQATrace.add("phone-file-ack-queued", id: outcome.id)
+#endif
             if case .stored(let recording) = outcome {
                 DispatchQueue.main.async {
                     NotificationCenter.default.post(name: .whatRecordingReceived, object: recording.id)
                 }
             }
         } catch {
+#if WATCH_ROUTE_QA
+            WatchRouteQATrace.add("phone-file-error-no-ack")
+#endif
             // No ACK: the Watch keeps its durable local copy and can retry later.
         }
     }
