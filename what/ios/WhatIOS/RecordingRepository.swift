@@ -87,6 +87,9 @@ final class RecordingRepository {
         try? fileManager.createDirectory(at: audioDirectory, withIntermediateDirectories: true)
         do {
             try protectExistingTranscriptFiles()
+            try PrivateMediaProtection.migrateFiles(
+                in: audioDirectory, fileManager: fileManager
+            )
         } catch {
             protectionMigrationError = error
         }
@@ -118,6 +121,10 @@ final class RecordingRepository {
 
         lock.lock()
         defer { lock.unlock() }
+
+        // A failed metadata-only migration must not allow an ACK while an
+        // older unprotected AAC remains in the durable recording library.
+        if let protectionMigrationError { throw protectionMigrationError }
 
         // A late Watch transfer must still be ACKed, but never resurrect deleted data.
         if try loadDeletedIDs().contains(id) {
@@ -450,9 +457,8 @@ final class RecordingRepository {
         // WCSession can supply an unprotected temporary inode. Never inherit
         // its NSFileProtectionNone into our durable recording library. Apply
         // protection while still staged; if that fails, do NOT commit/ACK.
-        try fileManager.setAttributes(
-            [.protectionKey: FileProtectionType.completeUntilFirstUserAuthentication],
-            ofItemAtPath: staging.path
+        try PrivateMediaProtection.protect(
+            staging, fileManager: fileManager
         )
         if fileManager.fileExists(atPath: destination.path) {
             try fileManager.removeItem(at: staging)

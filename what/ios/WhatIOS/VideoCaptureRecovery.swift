@@ -59,6 +59,9 @@ final class VideoCaptureJournal {
     func begin(id: UUID = UUID()) throws -> UUID {
         let folder = sessionFolder(id)
         try files.createDirectory(at: folder, withIntermediateDirectories: true)
+        // AVFoundation creates its recovery MOV segments inside this folder.
+        // Set the directory protection before allocating any camera outputs.
+        try PrivateMediaProtection.protect(folder, fileManager: files)
         let manifest = Manifest(id: id, startedAt: Date(), state: .recording)
         try persist(manifest)
         return id
@@ -96,8 +99,12 @@ final class VideoCaptureJournal {
         ).compactMap { folder in
             guard (try? folder.resourceValues(forKeys: [.isDirectoryKey]).isDirectory) == true,
                   let id = UUID(uuidString: folder.lastPathComponent),
-                  !Self.isActive(id),
-                  let manifest = try readManifest(id),
+                  !Self.isActive(id) else { return nil }
+            // Only inactive crash-recovery sessions are touched; an in-flight
+            // AVFoundation writer must never have its media modified.
+            try PrivateMediaProtection.protect(folder, fileManager: files)
+            try PrivateMediaProtection.migrateFiles(in: folder, fileManager: files)
+            guard let manifest = try readManifest(id),
                   manifest.id == id,
                   manifest.state == .recording else { return nil }
             let children = try files.contentsOfDirectory(
@@ -135,7 +142,8 @@ final class VideoCaptureJournal {
             at: sessionFolder(manifest.id), withIntermediateDirectories: true
         )
         try JSONEncoder().encode(manifest).write(
-            to: manifestURL(manifest.id), options: .atomic
+            to: manifestURL(manifest.id),
+            options: [.atomic, .completeFileProtectionUntilFirstUserAuthentication]
         )
     }
 }

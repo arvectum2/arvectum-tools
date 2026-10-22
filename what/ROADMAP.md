@@ -1,5 +1,11 @@
 # What? — Product Roadmap
 
+## 22.10.2026 · Защита старых AAC/MOV + политика backup
+
+- [x] Физическая QA: старые AAC/MOV и временные recovery segments мигрируют метаданными без потери байтов; новые видео получают защиту до индекса. Регрессия 125 тестов без FAIL (3 skips), recovery 18/18 PASS. [Протокол](docs/PHYSICAL_LEGACY_MEDIA_BACKUP_2026-10-22.md).
+- [x] Канонические локальные медиа не исключаются из системной резервной копии устройства; приложение само в облако их не отправляет. Реальный backup/restore остаётся OPEN.
+- [ ] До релиза: физический reboot/first-unlock, PhoneCaptures, Watch background, полный VoiceOver, ENOSPC (на тестовом устройстве).
+
 ## 22.10.2026 · Watch AAC / index FileProtection: аппаратный фикс
 
 - [x] Физически воспроизведено наследование NSFileProtectionNone для AAC из Watch временного файла; после фикса staging защищён до commit, аудио+index имеют CompleteUntilFirstUserAuthentication, legacy index меняет только атрибуты. **95 XCTest executed, 0 FAIL, 3 expected SKIP**. [Протокол](docs/PHYSICAL_WATCH_AUDIO_FILE_PROTECTION_2026-10-22.md).

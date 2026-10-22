@@ -132,6 +132,9 @@ final class RecordingRepositoryTests: XCTestCase {
         let source = root.appendingPathComponent("watch-source.m4a")
         let original = Data("unacknowledged-watch-original".utf8)
         try original.write(to: source)
+        try FileManager.default.setAttributes(
+            [.protectionKey: FileProtectionType.none], ofItemAtPath: source.path
+        )
         let repo = RecordingRepository(rootURL: root,
                        fileManager: RejectIncomingProtectionFileManager())
         XCTAssertThrowsError(try repo.acceptTemporaryFile(source, metadata: [
@@ -148,6 +151,44 @@ final class RecordingRepositoryTests: XCTestCase {
                        "The Watch source survives a denied protection commit")
 #else
         throw XCTSkip("Only available on a physical iOS device")
+#endif
+    }
+
+    func testPhysicalLegacyAACMigrationProtectsWithoutChangingAnyBytes() throws {
+#if os(iOS)
+        let root = FileManager.default.temporaryDirectory
+            .appendingPathComponent("what-legacy-aac-\(UUID().uuidString)")
+        defer { try? FileManager.default.removeItem(at: root) }
+        let dir = root.appendingPathComponent("Audio", isDirectory: true)
+        try FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
+        let id = UUID()
+        let audio = dir.appendingPathComponent("\(id.uuidString).m4a")
+        let pending = dir.appendingPathComponent(".recoverable.incoming")
+        let original = Data("legacy-user-aac-untouched-\(id.uuidString)".utf8)
+        let other = Data("unfinalized-keep".utf8)
+        try original.write(to: audio)
+        try other.write(to: pending)
+        for file in [audio, pending] {
+            try FileManager.default.setAttributes(
+                [.protectionKey: FileProtectionType.none],
+                ofItemAtPath: file.path
+            )
+        }
+        _ = RecordingRepository(rootURL: root)
+        for (file, bytes) in [(audio, original), (pending, other)] {
+            XCTAssertEqual(try Data(contentsOf: file), bytes)
+            let attributes = try FileManager.default.attributesOfItem(atPath: file.path)
+            XCTAssertEqual(attributes[.protectionKey] as? FileProtectionType,
+                           .completeUntilFirstUserAuthentication)
+            XCTAssertNotEqual(try file.resourceValues(
+                forKeys: [.isExcludedFromBackupKey]).isExcludedFromBackup, true)
+        }
+        // Repeat migration and make sure it is non-destructive/idempotent.
+        _ = RecordingRepository(rootURL: root)
+        XCTAssertEqual(try Data(contentsOf: audio), original)
+        XCTAssertEqual(try Data(contentsOf: pending), other)
+#else
+        throw XCTSkip("Only real iOS Data Protection devices")
 #endif
     }
 
