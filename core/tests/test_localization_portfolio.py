@@ -188,11 +188,14 @@ class LocalizationPortfolioTests(unittest.TestCase):
                  "what/ios/WhatIOSUITests/SpanishLocalizationUITests.swift").read_text()
         self.assertIn("func transcriptRecoveryStatus()", repo)
         self.assertIn("guard !safe.isEmpty else", repo)
-        self.assertIn(".confirmationDialog(", view)
+        recovery = view.split("// MARK: - Explicit, fail-closed transcript recovery", 1)[1]
+        self.assertIn(".alert(", recovery)
+        self.assertIn("isPresented: $showConfirmation", recovery)
         self.assertIn("what.recovery.restore", view)
         self.assertIn("what.recovery.confirm", view)
         self.assertIn("--qa-transcript-recovery-synthetic", app)
         self.assertIn("testSpanishTranscriptRecoverySyntheticPreviewWithoutAnyWrite", tests)
+        self.assertIn("testSpanishTranscriptRecoverySyntheticCancelAndConfirm", tests)
         self.assertIn("TranscriptRecoveryQAFixtureView", view)
 
     def test_what_transcript_and_tombstone_writes_request_device_protection(self):
