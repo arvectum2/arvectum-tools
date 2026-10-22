@@ -69,9 +69,19 @@ for rel in tracked_files():
         forbidden = list(PRODUCTS)
     else:
         forbidden = []
-    # Repository orchestration tools may explicitly know consumer project manifests;
-    # they do not import product source code or create runtime coupling.
-    if rel.as_posix() in {"core/tools/sync_dependencies.py", "core/tools/update_dependencies.py", "core/tools/check_swift_lockfiles.py", "core/tools/check_ci_coverage.py"}:
+    # Explicit source inspection / orchestration allowlist only. These utilities
+    # read product source, manifests or test fixtures; they are not Core runtime
+    # dependencies. Keep production Core code subject to the cross-domain rule.
+    if rel.as_posix() in {
+        "core/tools/sync_dependencies.py",
+        "core/tools/update_dependencies.py",
+        "core/tools/check_swift_lockfiles.py",
+        "core/tools/check_ci_coverage.py",
+        "core/tools/localization_portfolio.py",
+        "core/tests/test_localization_portfolio.py",
+        "core/tests/test_android_photo_picker_qa.py",
+        "core/tests/test_android_photo_pipeline_qa.py",
+    }:
         forbidden = []
     for other in forbidden:
         # Only literal absolute/repo-root path references and relative filesystem traversals.

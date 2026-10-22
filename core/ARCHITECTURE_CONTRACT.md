@@ -19,7 +19,7 @@ Root may contain only repository metadata, `LICENSE` and `README.md`.
 ## Dependency direction
 - Product -> platform/system frameworks and explicitly supported `core/packages/`: **allowed**.
 - Product -> another product's source/module/private assets: **forbidden**, including relative imports, symlinks and build-time filesystem access.
-- Core -> any product or Growth code: **forbidden**.
+- Core -> any product or Growth code: **forbidden**. An explicit, reviewable allowlist for repository-wide source-inspection tools and QA fixtures may refer to product paths without importing product modules or introducing runtime dependencies.
 - Growth -> private app code as imports: **forbidden**. Reading *documented output/manifests* is allowed; modifying app metadata or public publishing requires explicit approval.
 - Never put app-specific design, monetization thresholds or release tasks in Core. A single app's enhancement cannot silently become a shared policy.
 - Do not extract shared code until two products actually need the same stable API. Shared brand tokens live in `core/packages/ArvectumDesignTokens/`; keep product-specific semantics inside product targets.
