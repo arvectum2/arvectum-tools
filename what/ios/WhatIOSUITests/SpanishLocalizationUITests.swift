@@ -483,6 +483,61 @@ final class SpanishLocalizationUITests: XCTestCase {
         XCTAssertTrue(healthy.exists)
     }
 
+    /// On disposable repositories, unavailable or unsafe recovery must be
+    /// explained without exposing a Restore button or touching user content.
+    @MainActor
+    private func assertRecoveryDisabled(
+        argument: String, expectedStatusIdentifier: String
+    ) {
+        let app = XCUIApplication()
+        app.launchArguments = [
+            "-AppleLanguages", "(es)", "-AppleLocale", "es_ES",
+            argument
+        ]
+        app.launch()
+        let status = app.staticTexts[expectedStatusIdentifier]
+        XCTAssertTrue(status.waitForExistence(timeout: 12))
+        XCTAssertFalse(app.buttons["what.recovery.restore"].exists,
+                       "Unsafe recovery must not be offered: \(argument)")
+        XCTAssertFalse(app.buttons["what.recovery.confirm"].exists)
+        XCTAssertFalse(app.alerts.firstMatch.exists)
+        let done = app.buttons["what.recovery.done"]
+        XCTAssertTrue(done.exists)
+        XCTAssertTrue(done.isHittable)
+    }
+
+    @MainActor
+    func testSpanishRecoveryWithoutBackupHasNoRestoreAction() {
+        assertRecoveryDisabled(
+            argument: "--qa-transcript-recovery-missing-backup",
+            expectedStatusIdentifier: "what.recovery.unavailable"
+        )
+    }
+
+    @MainActor
+    func testSpanishRecoveryWithCorruptBackupHasNoRestoreAction() {
+        assertRecoveryDisabled(
+            argument: "--qa-transcript-recovery-corrupt-backup",
+            expectedStatusIdentifier: "what.recovery.unavailable"
+        )
+    }
+
+    @MainActor
+    func testSpanishRecoveryWithEmptyBackupHasNoRestoreAction() {
+        assertRecoveryDisabled(
+            argument: "--qa-transcript-recovery-empty-backup",
+            expectedStatusIdentifier: "what.recovery.unavailable"
+        )
+    }
+
+    @MainActor
+    func testSpanishHealthyStorageHasNoRestoreAction() {
+        assertRecoveryDisabled(
+            argument: "--qa-transcript-recovery-healthy",
+            expectedStatusIdentifier: "what.recovery.healthy"
+        )
+    }
+
     /// The settings menu must remain reachable with a huge font and a
     /// separately chosen dictation language. No settings are changed.
     @MainActor
