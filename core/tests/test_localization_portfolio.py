@@ -196,6 +196,16 @@ class LocalizationPortfolioTests(unittest.TestCase):
         self.assertIn("--qa-transcript-recovery-synthetic", app)
         self.assertIn("testSpanishTranscriptRecoverySyntheticPreviewWithoutAnyWrite", tests)
         self.assertIn("testSpanishTranscriptRecoverySyntheticCancelAndConfirm", tests)
+        for scenario in ("missing-backup", "corrupt-backup", "empty-backup", "healthy"):
+            self.assertIn("--qa-transcript-recovery-" + scenario, app)
+            self.assertIn("--qa-transcript-recovery-" + scenario, view)
+        for case in (
+            "testSpanishRecoveryWithoutBackupHasNoRestoreAction",
+            "testSpanishRecoveryWithCorruptBackupHasNoRestoreAction",
+            "testSpanishRecoveryWithEmptyBackupHasNoRestoreAction",
+            "testSpanishHealthyStorageHasNoRestoreAction",
+        ):
+            self.assertIn(case, tests)
         self.assertIn("TranscriptRecoveryQAFixtureView", view)
 
     def test_what_transcript_and_tombstone_writes_request_device_protection(self):

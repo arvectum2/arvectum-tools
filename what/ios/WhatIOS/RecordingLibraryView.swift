@@ -1143,10 +1143,23 @@ struct TranscriptRecoveryQAFixtureView: View {
         let root = FileManager.default.temporaryDirectory
             .appendingPathComponent("what-recovery-ui-\(UUID().uuidString)")
         let repo = RecordingRepository(rootURL: root)
+        // A unique disposable root for every UI launch. Only this root is mutated.
+        // Scenarios must exercise the real recovery gate, not a mocked status.
         try? repo.saveTranscript("synthetic QA-only transcript", for: UUID())
         try? repo.saveTranscript("second QA-only transcript", for: UUID())
-        try? Data("{corrupt-for-ui-qa".utf8)
-            .write(to: root.appendingPathComponent("transcripts.json"), options: .atomic)
+        let args = ProcessInfo.processInfo.arguments
+        let backup = root.appendingPathComponent("transcripts.backup.json")
+        if args.contains("--qa-transcript-recovery-missing-backup") {
+            try? FileManager.default.removeItem(at: backup)
+        } else if args.contains("--qa-transcript-recovery-corrupt-backup") {
+            try? Data("{damaged-backup".utf8).write(to: backup, options: .atomic)
+        } else if args.contains("--qa-transcript-recovery-empty-backup") {
+            try? Data("{}".utf8).write(to: backup, options: .atomic)
+        }
+        if !args.contains("--qa-transcript-recovery-healthy") {
+            try? Data("{corrupt-for-ui-qa".utf8)
+                .write(to: root.appendingPathComponent("transcripts.json"), options: .atomic)
+        }
         repository = repo
     }
 
