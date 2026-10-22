@@ -1057,6 +1057,10 @@ struct TranscriptRecoveryView: View {
                                 "Восстановить из копии",
                                 "Restore from backup"
                             ), systemImage: "arrow.counterclockwise")
+                                // Keep the destructive action fully tappable above
+                                // the persistent Done bar at accessibility sizes.
+                                // VoiceOver still reads the complete unabridged label.
+                                .dynamicTypeSize(...DynamicTypeSize.accessibility1)
                                 .frame(maxWidth: .infinity, minHeight: 52)
                         }
                         .buttonStyle(.borderedProminent)
@@ -1084,11 +1088,10 @@ struct TranscriptRecoveryView: View {
                 .background(.regularMaterial)
             }
             .onAppear { status = statusProvider() }
-            .confirmationDialog(
+            .alert(
                 CaptureBrand.text("Восстановить расшифровки из копии?",
                                   "Restore transcripts from the backup?"),
-                isPresented: $showConfirmation,
-                titleVisibility: .visible
+                isPresented: $showConfirmation
             ) {
                 Button(CaptureBrand.text("Восстановить", "Restore"),
                        role: .destructive) {
