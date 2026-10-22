@@ -117,6 +117,69 @@ final class WatchCaptureController: NSObject, ObservableObject, AVAudioRecorderD
         return true
     }
 
+    /// Generate an audible AAC using deterministic PCM entirely on Watch.
+    /// Exercises the actual durable queue and WCSession background transport,
+    /// without requesting microphone access or touching any user recording.
+    /// This method exists only in the isolated WATCH_PHYSICAL_QA target.
+    func qaEnqueueSyntheticAAC() throws -> UUID {
+        let id = UUID()
+        let url = outboundDirectory.appendingPathComponent(id.uuidString + ".m4a")
+        let createdAt = Date()
+        do {
+            guard let format = AVAudioFormat(
+                standardFormatWithSampleRate: 16_000, channels: 1
+            ) else { throw CocoaError(.fileWriteUnknown) }
+            // Release encoder before probing AAC duration.
+            do {
+                let writer = try AVAudioFile(
+                    forWriting: url,
+                    settings: [
+                        AVFormatIDKey: kAudioFormatMPEG4AAC,
+                        AVSampleRateKey: 16_000,
+                        AVNumberOfChannelsKey: 1,
+                        AVEncoderBitRateKey: 48_000
+                    ],
+                    commonFormat: .pcmFormatFloat32,
+                    interleaved: false
+                )
+                for frame in 0..<60 {
+                    guard let buffer = AVAudioPCMBuffer(
+                        pcmFormat: format, frameCapacity: 1_024
+                    ), let samples = buffer.floatChannelData else {
+                        throw CocoaError(.fileWriteUnknown)
+                    }
+                    buffer.frameLength = 1_024
+                    for offset in 0..<1_024 {
+                        samples[0][offset] =
+                            0.05 * sin(Float((frame * 1_024 + offset) % 32)
+                                       * Float.pi / 16)
+                    }
+                    try writer.write(from: buffer)
+                }
+            }
+            guard let player = try? AVAudioPlayer(contentsOf: url),
+                  let bytes = try? url.resourceValues(
+                    forKeys: [.fileSizeKey]
+                  ).fileSize,
+                  WatchCaptureValidation.isPlausibleAudio(
+                    bytes: bytes, decodedDuration: player.duration,
+                    expectedDuration: 60.0 * 1024.0 / 16_000.0
+                  ) else { throw CocoaError(.fileWriteUnknown) }
+            let envelope = RecordingEnvelope(
+                id: id, createdAt: createdAt,
+                duration: player.duration, fileName: id.uuidString + ".m4a"
+            )
+            try enqueue(envelope)
+            publishQueueStatus()
+            pumpTransfers()
+            return id
+        } catch {
+            // Preserve even a partially created source for examination.
+            // No queue index was mutated if encoding itself failed.
+            throw error
+        }
+    }
+
     func qaSetTransportHeld(_ held: Bool) {
         qaTransportLock.lock()
         qaTransportHeld = held

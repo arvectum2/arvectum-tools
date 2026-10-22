@@ -110,6 +110,43 @@ final class WatchPhysicalQAProbe {
                   details: "Orphan or queued source metadata only: " + files.joined(separator: "; "))
             return
         }
+        if arguments.contains("what-watch-qa-synthetic-background") {
+            started = true
+            existingBeforeTest = Set(currentOutboundAudioIDs())
+            timeline = []
+            heldTransport = true
+            controller.qaSetTransportHeld(true)
+            record("synthetic-background-start", details: "microphone=unused")
+            do {
+                let id = try controller.qaEnqueueSyntheticAAC()
+                capturedID = id
+                record("synthetic-watch-queued", details: id.uuidString)
+                write("synthetic-watch-queued", pending: controller.pendingCount,
+                      details: "No microphone; transport held for 10 seconds")
+                DispatchQueue.main.asyncAfter(deadline: .now() + 10) { [weak self] in
+                    guard let self else { return }
+                    let present = self.currentOutboundAudioIDs().contains(id)
+                    guard present, controller.pendingCount > 0 else {
+                        self.write("failed", pending: controller.pendingCount,
+                                   details: "AAC/queue lost before transport release")
+                        controller.qaSetTransportHeld(false)
+                        return
+                    }
+                    self.record("synthetic-queue-preserved", details: id.uuidString)
+                    self.write("synthetic-queued-10s", pending: controller.pendingCount,
+                               details: "AAC durable during QA transport hold")
+                    self.heldTransport = false
+                    controller.qaSetTransportHeld(false)
+                    self.checkAcknowledgement(controller)
+                }
+            } catch {
+                record("synthetic-creation-error", details: String(describing: error))
+                write("failed", pending: controller.pendingCount,
+                      details: "Synthetic AAC could not be created: " + String(describing: error))
+                controller.qaSetTransportHeld(false)
+            }
+            return
+        }
         let hold = arguments.contains("what-watch-qa-hold-and-send")
         let droppedAck = arguments.contains("what-watch-qa-drop-ack")
         guard hold || droppedAck || arguments.contains("what-watch-qa-record-once") else { return }
