@@ -133,18 +133,10 @@ final class PhoneConnectivityManager: NSObject, WCSessionDelegate {
     }
 
     func session(_ session: WCSession, didReceive file: WCSessionFile) {
-        guard file.metadata?[TransferMetadataKey.type] as? String == TransferMetadataKey.recording,
-              let expectedDuration = file.metadata?[TransferMetadataKey.duration] as? Double else {
-            return
-        }
-
         do {
-            // WatchConnectivity marks transport delivery before checking
-            // whether its original AAC is actually playable on iPhone.
-            try WatchDeliveredAudioValidation.validate(
-                file.fileURL, expectedDuration: expectedDuration
-            )
-            let outcome = try repository.acceptTemporaryFile(file.fileURL, metadata: file.metadata ?? [:])
+            guard let outcome = try WatchInboundFileReceiver.accept(
+                file.fileURL, metadata: file.metadata, into: repository
+            ) else { return }
             // Already-deleted UUIDs are acknowledged too, so Watch can clear its queue.
             session.transferUserInfo([
                 TransferMetadataKey.type: TransferMetadataKey.acknowledgement,

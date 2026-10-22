@@ -30,6 +30,101 @@ final class WatchA2ReliabilityTests: XCTestCase {
         return dir
     }
 
+    /// The same file importer called by WCSession.didReceive(file:) must
+    /// commit playable AAC before acknowledging, survive a duplicate UUID,
+    /// and honor a durable deletion marker. Real device filesystem/AVAudio
+    /// APIs are exercised, but this does not simulate the Watch radio link.
+    func testBackgroundReceiverStorageGateOnPhysicalDevice() throws {
+        let root = try temporaryDirectory()
+        defer { try? FileManager.default.removeItem(at: root) }
+        let id = UUID()
+        let original = root.appendingPathComponent("watch-original.m4a")
+        let format = try XCTUnwrap(AVAudioFormat(
+            standardFormatWithSampleRate: 48_000, channels: 1
+        ))
+        let pipeline = try MicrophoneCapturePipeline(url: original, inputFormat: format)
+        for frame in 0..<110 {
+            let buffer = try XCTUnwrap(AVAudioPCMBuffer(
+                pcmFormat: format, frameCapacity: 1_024
+            ))
+            buffer.frameLength = 1_024
+            let data = try XCTUnwrap(buffer.floatChannelData)[0]
+            for i in 0..<1_024 {
+                data[i] = 0.04 * sin(Float((frame * 1_024 + i) % 32) * Float.pi / 16)
+            }
+            pipeline.append(buffer)
+        }
+        let result = pipeline.close()
+        XCTAssertNil(result.writeError)
+        let duration = try WatchDeliveredAudioValidation.validate(
+            original, expectedDuration: result.audioSeconds
+        )
+        let repository = RecordingRepository(
+            rootURL: root.appendingPathComponent("phone", isDirectory: true)
+        )
+        let metadata: [String: Any] = [
+            TransferMetadataKey.type: TransferMetadataKey.recording,
+            TransferMetadataKey.id: id.uuidString,
+            TransferMetadataKey.createdAt: Date().timeIntervalSince1970,
+            TransferMetadataKey.duration: duration
+        ]
+        // A non-recording userInfo or missing duration never yields an ACK.
+        XCTAssertNil(try WatchInboundFileReceiver.accept(
+            original, metadata: [:], into: repository
+        ))
+        var wrongType = metadata
+        wrongType[TransferMetadataKey.type] = TransferMetadataKey.syncRequest
+        XCTAssertNil(try WatchInboundFileReceiver.accept(
+            original, metadata: wrongType, into: repository
+        ))
+        var wrongDuration = metadata
+        wrongDuration[TransferMetadataKey.duration] = duration * 3
+        XCTAssertThrowsError(try WatchInboundFileReceiver.accept(
+            original, metadata: wrongDuration, into: repository
+        ))
+        let damaged = root.appendingPathComponent("bad-watch-original.m4a")
+        try Data(repeating: 0, count: 4_096).write(to: damaged)
+        XCTAssertThrowsError(try WatchInboundFileReceiver.accept(
+            damaged, metadata: metadata, into: repository
+        ))
+        XCTAssertTrue(repository.allRecordings().isEmpty)
+        XCTAssertTrue(FileManager.default.fileExists(atPath: original.path))
+
+        // A receiver ACK is now justified because the physical iPhone has
+        // a playable, durably indexed AAC. The Watch original remains intact.
+        let first = try XCTUnwrap(WatchInboundFileReceiver.accept(
+            original, metadata: metadata, into: repository
+        ))
+        XCTAssertEqual(first.id, id)
+        XCTAssertEqual(repository.allRecordings().map(\.id), [id])
+        XCTAssertTrue(FileManager.default.fileExists(atPath: original.path))
+        let second = try XCTUnwrap(WatchInboundFileReceiver.accept(
+            original, metadata: metadata, into: repository
+        ))
+        XCTAssertEqual(second.id, id)
+        XCTAssertEqual(repository.allRecordings().count, 1)
+        let stored = try XCTUnwrap(repository.allRecordings().first)
+        XCTAssertEqual(try Data(contentsOf: original),
+                       try Data(contentsOf: repository.audioURL(for: stored)))
+
+        // A queued retry after deletion receives an ACK but may never
+        // resurrect that recording, even across a new repository instance.
+        try repository.deleteRecording(id)
+        let reopened = RecordingRepository(
+            rootURL: root.appendingPathComponent("phone", isDirectory: true)
+        )
+        let late = try XCTUnwrap(WatchInboundFileReceiver.accept(
+            original, metadata: metadata, into: reopened
+        ))
+        if case .previouslyDeleted(let excludedID) = late {
+            XCTAssertEqual(excludedID, id)
+        } else {
+            XCTFail("Late Watch resend must not restore deleted data")
+        }
+        XCTAssertTrue(reopened.allRecordings().isEmpty)
+        XCTAssertTrue(FileManager.default.fileExists(atPath: original.path))
+    }
+
     func testLostACKRealisticAACResendPreservesSameUUIDAndDeletesOnlyAfterACK() throws {
         let dir = try temporaryDirectory()
         defer { try? FileManager.default.removeItem(at: dir) }

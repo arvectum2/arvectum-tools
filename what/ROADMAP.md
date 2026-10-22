@@ -1,5 +1,10 @@
 # What? — Product Roadmap
 
+## 22.10.2026 · Watch receive gate на физическом iPhone
+
+- [x] WCSession file receiver выделен в тестируемый gate: реальные iPhone AAC файловые операции, late replay/deletion, 24 queued UUID, полный Watch A2 reliability **15/15 PASS** (адресный 3/3). [Протокол](docs/PHYSICAL_WATCH_INBOUND_GATE_2026-10-22.md).
+- [ ] Реальная фоновая передача Watch и радиоканал остаются OPEN: CoreDevice Watch QA app launch timed out; системное сопряжение и настройки не меняли.
+
 ## 22.10.2026 · Физический AXXXL библиотеки: RU/ES PASS
 
 - [x] На iPhone 13 найден и исправлен регресс: горизонтальный фильтр/подпись скрывали записи, а 4-строчный предпросмотр обрезал AXXXL текст. Компактные меню/счётчик и полный body на accessibility size, реальные системные аудиты RU+ES **2/2 PASS**; обычный UI **4/4 PASS**, последовательный editor+RU+ES **3/3 PASS**. [Протокол](docs/PHYSICAL_AXXXL_IPHONE_LIBRARY_2026-10-22.md).
