@@ -2,6 +2,18 @@ import XCTest
 import AVFoundation
 @testable import WhatIOS
 
+private final class RejectIncomingProtectionFileManager: FileManager {
+    override func setAttributes(
+        _ attributes: [FileAttributeKey: Any], ofItemAtPath path: String
+    ) throws {
+        if path.hasSuffix(".incoming") {
+            throw NSError(domain: NSCocoaErrorDomain,
+                          code: NSFileWriteNoPermissionError)
+        }
+        try super.setAttributes(attributes, ofItemAtPath: path)
+    }
+}
+
 final class RecordingRepositoryTests: XCTestCase {
     func testSharedJSONCodecIsWireCompatibleWithFoundation() throws {
         let recording = RecordingEnvelope(
@@ -19,6 +31,124 @@ final class RecordingRepositoryTests: XCTestCase {
         let recovered = try ArvectumJSONCodec.decode([RecordingEnvelope].self, from: existing)
         XCTAssertEqual(recovered.count, 1)
         XCTAssertEqual(recovered[0].id, recording.id)
+    }
+
+    /// On a real iPhone, Watch audio must remain readable by WCSession's
+    /// background receiver after first unlock but protected before it.
+    /// Use an isolated temporary root with synthetic bytes, never user AAC.
+    func testPhysicalIncomingAudioAndIndexAreProtectedUntilFirstUnlock() throws {
+#if os(iOS)
+        let root = FileManager.default.temporaryDirectory
+            .appendingPathComponent("what-audio-protection-\(UUID().uuidString)")
+        defer { try? FileManager.default.removeItem(at: root) }
+        try FileManager.default.createDirectory(
+            at: root, withIntermediateDirectories: true
+        )
+        let repo = RecordingRepository(rootURL: root)
+        let id = UUID()
+        let source = root.appendingPathComponent("incoming-unprotected.m4a")
+        let original = Data("watch-temp-aac-test-\(id.uuidString)".utf8)
+        try original.write(to: source)
+        // WCSession's temporary file protection is not a trust boundary:
+        // enforce our own class even if the source inode is unprotected.
+        try FileManager.default.setAttributes(
+            [.protectionKey: FileProtectionType.none], ofItemAtPath: source.path
+        )
+        let sourceAttributes = try FileManager.default.attributesOfItem(
+            atPath: source.path
+        )
+        XCTAssertEqual(
+            sourceAttributes[.protectionKey] as? FileProtectionType,
+            FileProtectionType.none
+        )
+        let outcome = try repo.acceptTemporaryFile(source, metadata: [
+            TransferMetadataKey.id: id.uuidString,
+            TransferMetadataKey.createdAt: 1_700_000_000.0,
+            TransferMetadataKey.duration: 3.0
+        ])
+        guard case .stored(let recording) = outcome else {
+            XCTFail("Expected a synthetic watch recording")
+            return
+        }
+        for file in [
+            repo.audioURL(for: recording),
+            root.appendingPathComponent("recordings.json")
+        ] {
+            let attributes = try FileManager.default.attributesOfItem(
+                atPath: file.path
+            )
+            XCTAssertEqual(
+                attributes[.protectionKey] as? FileProtectionType,
+                .completeUntilFirstUserAuthentication,
+                "Expected background-compatible data protection: \(file.lastPathComponent)"
+            )
+        }
+        XCTAssertEqual(try Data(contentsOf: repo.audioURL(for: recording)),
+                       original)
+#else
+        throw XCTSkip("Physical iOS Data Protection only")
+#endif
+    }
+
+    func testPhysicalLegacyIndexProtectionMigrationKeepsBytes() throws {
+#if os(iOS)
+        let root = FileManager.default.temporaryDirectory
+            .appendingPathComponent("what-legacy-index-\(UUID().uuidString)")
+        defer { try? FileManager.default.removeItem(at: root) }
+        try FileManager.default.createDirectory(
+            at: root, withIntermediateDirectories: true
+        )
+        let index = root.appendingPathComponent("recordings.json")
+        let original = try ArvectumJSONCodec.encode([
+            RecordingEnvelope(id: UUID(),
+                              createdAt: Date(timeIntervalSince1970: 1_700_000_000),
+                              duration: 4, fileName: "legacy.m4a")
+        ])
+        try original.write(to: index)
+        try FileManager.default.setAttributes(
+            [.protectionKey: FileProtectionType.none], ofItemAtPath: index.path
+        )
+        let repo = RecordingRepository(rootURL: root)
+        XCTAssertEqual(repo.allRecordings().count, 1)
+        XCTAssertEqual(try Data(contentsOf: index), original,
+                       "Existing personal index must not be rewritten")
+        let attributes = try FileManager.default.attributesOfItem(
+            atPath: index.path
+        )
+        XCTAssertEqual(attributes[.protectionKey] as? FileProtectionType,
+                       FileProtectionType.completeUntilFirstUserAuthentication)
+#else
+        throw XCTSkip("Only available on a physical iOS Data Protection device")
+#endif
+    }
+
+    func testIncomingAudioProtectionFailureDoesNotIndexOrEraseSource() throws {
+#if os(iOS)
+        let root = FileManager.default.temporaryDirectory
+            .appendingPathComponent("what-inbound-failure-\(UUID().uuidString)")
+        defer { try? FileManager.default.removeItem(at: root) }
+        try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)
+        let id = UUID()
+        let source = root.appendingPathComponent("watch-source.m4a")
+        let original = Data("unacknowledged-watch-original".utf8)
+        try original.write(to: source)
+        let repo = RecordingRepository(rootURL: root,
+                       fileManager: RejectIncomingProtectionFileManager())
+        XCTAssertThrowsError(try repo.acceptTemporaryFile(source, metadata: [
+            TransferMetadataKey.id: id.uuidString,
+            TransferMetadataKey.createdAt: 1_700_000_000.0,
+            TransferMetadataKey.duration: 3.0
+        ]))
+        XCTAssertTrue(repo.allRecordings().isEmpty)
+        XCTAssertFalse(FileManager.default.fileExists(atPath:
+            root.appendingPathComponent("recordings.json").path))
+        XCTAssertFalse(FileManager.default.fileExists(atPath:
+            root.appendingPathComponent("Audio/.\(id.uuidString).m4a.incoming").path))
+        XCTAssertEqual(try Data(contentsOf: source), original,
+                       "The Watch source survives a denied protection commit")
+#else
+        throw XCTSkip("Only available on a physical iOS device")
+#endif
     }
 
     func testTranscriptPersisted() throws {
