@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="export_filename_file_size">komprimiert</string>
+    <string name="export_filename_pixels">skaliert</string>
+    <string name="export_filename_passport">passfoto</string>
+</resources>

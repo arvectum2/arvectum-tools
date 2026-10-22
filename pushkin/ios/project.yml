@@ -17,6 +17,7 @@ targets:
     deploymentTarget: "27.0"
     sources:
       - path: ../../core/packages/ArvectumDesignTokens/ArvectumPalette.swift
+      - path: ../../core/packages/ArvectumDesignTokens/ArvectumDesignSystem.swift
       - path: ../../core/packages/ArvectumAdaptiveLayout/ArvectumAdaptiveLayout.swift
       - path: ../../core/packages/ArvectumStore/AppStoreUpdatePrompt.swift
       - path: ArvectumNotify

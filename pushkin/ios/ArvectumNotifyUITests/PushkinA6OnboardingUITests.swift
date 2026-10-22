@@ -10,9 +10,13 @@ final class PushkinA6OnboardingUITests: XCTestCase {
     private func reveal(_ identifier: String, in app: XCUIApplication) -> XCUIElement {
         let element = app.descendants(matching: .any)
             .matching(identifier: identifier).firstMatch
-        for _ in 0..<9 {
+        for _ in 0..<12 {
             if element.exists && element.isHittable { return element }
             app.swipeUp()
+        }
+        for _ in 0..<12 {
+            if element.exists && element.isHittable { return element }
+            app.swipeDown()
         }
         return element
     }
@@ -32,6 +36,9 @@ final class PushkinA6OnboardingUITests: XCTestCase {
 
     func testOptionalGroupPlannerCanAddAndClearWithoutEditingHistory() {
         let app = XCUIApplication(bundleIdentifier: "ru.arvectum.tools.notify")
+        app.launchArguments = [
+            "-AppleLanguages", "(en)", "-AppleLocale", "en_US", "--store-tab", "1"
+        ]
         app.launch()
         app.tabBars.buttons["Apps"].tap()
         let plan = reveal("setup-optional-groups", in: app)
@@ -48,7 +55,9 @@ final class PushkinA6OnboardingUITests: XCTestCase {
         }
 
         search.tap()
-        search.typeText("Telegram")
+        // D4.3 search has an explicit Done action. Dismiss keyboard before
+        // locating the group generated below the chooser.
+        search.typeText("Telegram\n")
         let telegram = reveal("group-select-ph.telegra.Telegraph", in: app)
         XCTAssertTrue(telegram.exists && telegram.isHittable)
         telegram.tap()

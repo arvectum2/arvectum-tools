@@ -1,0 +1,17 @@
+// French ChickMark companion catalog. Editorial QA before release.
+"widget.title" = "Aujourd’hui";
+"widget.displayName" = "Habitudes du jour";
+"widget.description" = "Consultez vos progrès et validez vos habitudes sans ouvrir l’app.";
+"widget.empty" = "Rien de prévu aujourd’hui";
+"widget.allDone" = "Tout est fait pour aujourd’hui";
+"widget.remaining.format" = "Encore %d";
+"widget.inline.format" = "%d sur %d aujourd’hui";
+"widget.more.format" = "%d autres";
+"widget.complete" = "Marquer comme effectuée";
+"widget.undo" = "Annuler la validation";
+"widget.preview.water" = "Eau";
+"widget.preview.reading" = "Lecture";
+"widget.duration.format" = "%d / %d min";
+"widget.action.complete.format" = "Effectuer %@";
+"widget.action.undo.format" = "Annuler la validation de %@";
+"widget.empty.small" = "Rien aujourd’hui";

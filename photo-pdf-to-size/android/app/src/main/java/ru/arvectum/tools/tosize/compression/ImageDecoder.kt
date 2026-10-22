@@ -1,5 +1,6 @@
 package ru.arvectum.tools.tosize.compression
 
+import ru.arvectum.tools.tosize.R
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -17,10 +18,10 @@ object ImageDecoder {
         val resolver = context.contentResolver
         val bounds = BitmapFactory.Options().apply { inJustDecodeBounds = true }
         val boundsStream = resolver.openInputStream(source.uri)
-            ?: throw UserVisibleException("Не получилось прочитать исходный файл.")
+            ?: throw UserVisibleException(R.string.cannot_read_original)
         boundsStream.use { BitmapFactory.decodeStream(it, null, bounds) }
         if (bounds.outWidth <= 0 || bounds.outHeight <= 0) {
-            throw UserVisibleException("Не получилось определить размер изображения.")
+            throw UserVisibleException(R.string.cannot_determine_dimensions)
         }
 
         var sample = 1
@@ -37,7 +38,7 @@ object ImageDecoder {
         }
         val decoded = resolver.openInputStream(source.uri)?.use {
             BitmapFactory.decodeStream(it, null, options)
-        } ?: throw UserVisibleException("Не получилось открыть это изображение.")
+        } ?: throw UserVisibleException(R.string.cannot_open_image)
 
         val matrix = orientationMatrix(readOrientation(context, source))
         if (matrix.isIdentity) return decoded

@@ -5,11 +5,37 @@ final class MinimalUXUITests: XCTestCase {
         continueAfterFailure = false
     }
 
+    func testRussianNavigationAndEmptyState() throws {
+        let app = XCUIApplication(bundleIdentifier: "ru.arvectum.tools.notify")
+        app.launchArguments += ["-AppleLanguages", "(ru)", "-AppleLocale", "ru_RU"]
+        app.launch()
+
+        XCTAssertTrue(app.tabBars.buttons["История"].firstMatch
+            .waitForExistence(timeout: 8))
+        XCTAssertTrue(app.tabBars.buttons["Источники"].firstMatch.exists)
+        XCTAssertTrue(app.tabBars.buttons["Настройки"].firstMatch.exists)
+
+        let sources = app.tabBars.buttons["Источники"].firstMatch
+        sources.tap()
+        XCTAssertTrue(app.navigationBars["Источники"].firstMatch
+            .waitForExistence(timeout: 8))
+
+        let settings = app.tabBars.buttons["Настройки"].firstMatch
+        settings.tap()
+        XCTAssertTrue(app.staticTexts["На iPhone"].firstMatch
+            .waitForExistence(timeout: 8))
+    }
+
     func testReleaseShellIsConsumerFacing() throws {
         let app = XCUIApplication(bundleIdentifier: "ru.arvectum.tools.notify")
         app.launch()
 
         XCTAssertTrue(app.staticTexts["PUSHKIN"].firstMatch.waitForExistence(timeout: 6))
+        let brand = app.descendants(matching: .any)["pushkin-brand-compact"].firstMatch
+        XCTAssertTrue(brand.exists)
+        XCTAssertLessThan(brand.frame.width, 240, "Brand should not crowd the screen")
+        XCTAssertLessThanOrEqual(brand.frame.height, 40)
+
         XCTAssertTrue(app.tabBars.buttons["History"].firstMatch.exists)
         XCTAssertTrue(app.tabBars.buttons["Apps"].firstMatch.exists)
         XCTAssertTrue(app.tabBars.buttons["Settings"].firstMatch.exists)

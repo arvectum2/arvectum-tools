@@ -23,8 +23,8 @@ final class PhoneStore: NSObject, ObservableObject, AVAudioPlayerDelegate,
     @Published var showTextCapture = false
     @Published var showVideoCapture = false
     @Published var errorMessage: String?
-    /// Single persisted RU/EN app-and-Speech preference, also used by
-    /// CaptureBrand. Existing persisted choices survive a QA/production update.
+    /// Persisted speech recognition locale only. iOS app language controls
+    /// the interface separately; existing speech choices are preserved.
     @Published var transcriptionLocale = CaptureBrand.selectedTranscriptionLocale {
         didSet {
             UserDefaults.standard.set(transcriptionLocale, forKey: CaptureBrand.languagePreferenceKey)
@@ -48,6 +48,9 @@ final class PhoneStore: NSObject, ObservableObject, AVAudioPlayerDelegate,
         super.init()
         UNUserNotificationCenter.current().delegate = self
         reload()
+#if DEBUG
+        seedDesignLibraryForUITestsIfRequested()
+#endif
         reloadWatchQueueStatus()
         Task { [weak self] in await self?.reminderManager.reconcile() }
         Task { [weak self] in
@@ -68,6 +71,52 @@ final class PhoneStore: NSObject, ObservableObject, AVAudioPlayerDelegate,
             self.transcribeIfAuthorized(recording)
         }
     }
+
+#if DEBUG
+    /// Synthetic metadata visible only to disposable simulator UI tests.
+    /// Never writes notes, files, archive states, or Watch recordings.
+    private func seedDesignLibraryForUITestsIfRequested() {
+        let args = ProcessInfo.processInfo.arguments
+        guard args.contains("--qa-design-filled-library") else { return }
+
+        func qaID(_ last: Int) -> UUID {
+            UUID(uuidString: String(format:
+                "AAAA0000-0000-0000-0000-%012d", last))!
+        }
+        let now = Date()
+        localNotes = [
+            LocalNote(
+                id: qaID(1), kind: .text, createdAt: now,
+                updatedAt: now, body: "Нужно сверить план на неделю и список важных задач",
+                fileName: nil, duration: nil, archived: false,
+                sourceDevice: "QA Simulator"
+            ),
+            LocalNote(
+                id: qaID(2), kind: .text,
+                createdAt: now.addingTimeInterval(-3600), updatedAt: now,
+                body: "Напомнить о встрече и подготовить вопросы для обсуждения",
+                fileName: nil, duration: nil, archived: false,
+                sourceDevice: "QA Simulator"
+            ),
+            LocalNote(
+                id: qaID(3), kind: .video,
+                createdAt: now.addingTimeInterval(-7200), updatedAt: now,
+                body: "", fileName: nil, duration: 13, archived: false,
+                sourceDevice: "QA Simulator"
+            ),
+            LocalNote(
+                id: qaID(4), kind: .text,
+                createdAt: now.addingTimeInterval(-86400), updatedAt: now,
+                body: "Архивная тестовая заметка", fileName: nil, duration: nil,
+                archived: true, sourceDevice: "QA Simulator"
+            )
+        ]
+        // There is no fake audio file: absent media should be tested
+        // separately as a recovery/error state, not mixed with healthy notes.
+        // No playback/export/delete actions are exercised by this fixture.
+        // The missing media state on the synthetic video is intentional.
+    }
+#endif
 
     func revealReminder(_ noteID: UUID) {
         reload()
@@ -175,21 +224,24 @@ final class PhoneStore: NSObject, ObservableObject, AVAudioPlayerDelegate,
                 }
             }
             if result.unresolved > 0 {
-                videoRecoveryNotice = CaptureBrand.text(
-                    "Восстановлено: \(result.recovered). Не все прерванные записи удалось восстановить. Доступные исходные данные сохранены для повторной попытки.",
-                    "Recovered: \(result.recovered). Some interrupted recordings could not be restored. Available originals were kept for retry."
+                videoRecoveryNotice = CaptureBrand.formatted(
+                    "Восстановлено видео: %d. Не все прерванные записи удалось восстановить. Доступные исходные данные сохранены для повторной попытки.",
+                    "Recovered videos: %d. Some interrupted recordings could not be restored. Available originals were kept for retry.",
+                    result.recovered
                 )
             } else if result.recovered > 0 {
-                videoRecoveryNotice = CaptureBrand.text(
-                    "Восстановлены видеозаметки: \(result.recovered).",
-                    "Recovered video notes: \(result.recovered)."
+                videoRecoveryNotice = CaptureBrand.formatted(
+                    "Восстановлено видео: %d.",
+                    "Recovered video notes: %d.",
+                    result.recovered
                 )
             }
         } catch {
-            videoRecoveryNotice = CaptureBrand.text(
-                "Не удалось восстановить видео. Исходные файлы не удалены. ",
-                "Video recovery failed. Original files remain on device. "
-            ) + error.localizedDescription
+            videoRecoveryNotice = CaptureBrand.formatted(
+                "Не удалось восстановить видео. Исходные файлы не удалены. %@",
+                "Video recovery failed. Original files remain on device. %@",
+                error.localizedDescription
+            )
         }
     }
 
@@ -332,6 +384,15 @@ final class PhoneStore: NSObject, ObservableObject, AVAudioPlayerDelegate,
         recognitionTask?.cancel()
         recognitionTask = nil
         recognizer = nil
+    }
+
+    func transcriptRecoveryStatus() -> RecordingRepository.TranscriptRecoveryStatus {
+        repository.transcriptRecoveryStatus()
+    }
+
+    func restoreTranscriptCatalogFromBackup() throws {
+        try repository.restoreTranscriptCatalogFromBackup()
+        reload()
     }
 
     func updateTranscript(_ text: String, for recording: RecordingEnvelope) throws {
@@ -514,9 +575,10 @@ final class PhoneStore: NSObject, ObservableObject, AVAudioPlayerDelegate,
                     self.finishTranscription()
                 } else if let error {
                     self.finishTranscription()
-                    self.errorMessage = CaptureBrand.text(
-                        "Ошибка распознавания: \(error.localizedDescription). Исходное аудио сохранено.",
-                        "Transcription failed: \(error.localizedDescription). Original audio was preserved."
+                    self.errorMessage = CaptureBrand.formatted(
+                        "Ошибка распознавания: %@. Исходное аудио сохранено.",
+                        "Transcription failed: %@. Original audio was preserved.",
+                        error.localizedDescription
                     )
                 }
             }

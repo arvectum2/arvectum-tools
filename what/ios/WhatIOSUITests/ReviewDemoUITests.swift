@@ -11,7 +11,7 @@ final class ReviewDemoUITests: XCTestCase {
         capture(app, named: "01 Quick capture")
         Thread.sleep(forTimeInterval: 3)
         let library = app.buttons.matching(
-            NSPredicate(format: "label BEGINSWITH %@ OR label BEGINSWITH %@", "Мои записи", "My recordings")
+            NSPredicate(format: "label BEGINSWITH %@ OR label BEGINSWITH %@", "Все заметки", "All notes")
         ).firstMatch
         XCTAssertTrue(library.exists)
         library.tap()

@@ -1,5 +1,26 @@
 # PUSHKIN — Product Roadmap
 
+### UX/дизайн-код: очередь D1 (19.10.2026, план)
+- [x] D4.3 (20.10): Optional Groups полностью RU/EN, цвет/состояние выбора доступны VoiceOver, поиск выше динамически появляющихся групп и закрывает клавиатуру по Done. AXXXL RU полный Xcode AX audit PASS; EN UI PASS; прежний select/clear UI PASS; unit PASS. Данные/автоматизации не затронуты.
+- [x] D4.1 (20.10): Setup quick-add использует Core 48pt; общий DesignSystem подключён через XcodeGen. AXXXL Setup → Coverage UI PASS, iOS Debug build PASS.
+
+- [x] VoiceOver iOS 27: короткий тест реального озвучивания истории через XCUIVoiceOverService PASS, исправлен Search Image. Названия истории, поиска, добавления и подключения CapCut произносятся корректно.
+- [x] Системный XCUIAccessibilityAudit основных экранов История/Источники/Настройки на отдельном iPhone 17 Pro iOS 27: **3/3 PASS** после исправления AXXXL. Проверены sufficientElementDescription, hitRegion, trait, textClipped. До исправления найдены реальные обрезания pending coverage/search и кнопки Источников.
+- [x] AXXXL Setup → офлайн-каталог: повторный UI-тест после разрешения переноса quick-add **PASS**.
+- [ ] Полный VoiceOver setup/settings/Shortcuts, детальные экраны истории, физический VoiceOver и аудит ещё неохваченных сценариев. Не объявлять полный аудит всей программы завершённым.
+
+- [x] P1: AXXXL-навигaция и настройки: Setup → каталог через всегда видимую 48pt кнопку, настройки → политика конфиденциальности; два независимых UI-теста PASS на iPhone 17 Pro Simulator. Реальный VoiceOver и физические устройства отдельно.
+
+- [x] P0: не обещать архив всех уведомлений iOS; пустое состояние и подтверждение тестового источника уточнены (19.10.2026, локальная ветка, UI QA).
+- [x] P0: 122 RU-строки для основных экранов History/Apps/Settings/Add app/обучения; EN оставлен. Build PASS, 5 unit + RU UI 1 + EN UI 4 PASS. Не полный перевод Developer/Group Planner.
+- [x] P1: 34pt чип ArvectumWordmark вместо массивной плашки; iOS Simulator BUILD и UI геометрии PASS, отдельная русская UI проверка PASS, скриншот просмотрен.
+- [x] P1: на светлой теме интерактивный tint тёмно-бирюзовый, главная мятная кнопка с тёмно-синим текстом (исправлен белый на mint); заголовок подключения краткий, при этом исходный идентификатор источника не меняется. Unit + 2 отдельных UI PASS.
+- [x] P1: контраст подсказки поля поиска исправлен в dark/light без замены системного TextField; Simulator BUILD PASS, тёмный screenshot при Increase Contrast проверен.
+- [ ] P1: проверка secondary views, VoiceOver, Dynamic Type, реальных Shortcuts-сценариев без изменения существующих автоматизаций.
+
+Полный аудит: [единый дизайн-код](../core/docs/UNIFIED_DESIGN_CODE_2026-10-19.md).
+
+
 ## 19.10.2026 — App Store update prompt: E2E и релизная граница
 
 - [x] Исходники общей проверки версии App Store и кнопок «Обновить»/«Позже» интегрированы в `main` (PR #133, коммит `08107c3`).

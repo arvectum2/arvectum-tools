@@ -1,5 +1,6 @@
 package ru.arvectum.tools.tosize.compression
 
+import ru.arvectum.tools.tosize.R
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
@@ -39,7 +40,7 @@ class CompressionEngine(private val context: Context) {
         targetLongSide: Int,
     ): CompressionOutput = guarded {
         if (targetLongSide <= 0) {
-            throw UserVisibleException("Укажите размер длинной стороны.")
+            throw UserVisibleException(R.string.enter_long_edge)
         }
 
         var working = ImageDecoder.decodeOriented(context, source, MAX_DECODE_PIXELS)
@@ -124,7 +125,7 @@ class CompressionEngine(private val context: Context) {
             if (finalSize !in PASSPORT_MIN_BYTES.toLong()..PASSPORT_MAX_BYTES.toLong()) {
                 file.delete()
                 throw UserVisibleException(
-                    "Не получилось подготовить файл нужного размера для заявления.",
+                    R.string.cannot_prepare_application_size,
                 )
             }
 
@@ -157,7 +158,7 @@ class CompressionEngine(private val context: Context) {
                     if (file.length() > requestedMaximumBytes) {
                         file.delete()
                         throw UserVisibleException(
-                            "Не получилось уменьшить файл до выбранного размера.",
+                            R.string.cannot_compress_to_selected_size,
                         )
                     }
                     return CompressionOutput(
@@ -189,7 +190,7 @@ class CompressionEngine(private val context: Context) {
             }
 
             throw UserVisibleException(
-                "Не получилось уменьшить изображение до выбранного размера без заметной потери качества.",
+                R.string.cannot_compress_without_quality_loss,
             )
         } finally {
             if (!working.isRecycled) working.recycle()
@@ -235,7 +236,7 @@ class CompressionEngine(private val context: Context) {
 
         val lowest = encode(bitmap, minQuality)
         if (lowest.size > maximumBytes) {
-            throw UserVisibleException("Не получилось уменьшить файл до допустимого размера.")
+            throw UserVisibleException(R.string.cannot_compress_to_allowed_size)
         }
 
         var best = lowest
@@ -257,7 +258,7 @@ class CompressionEngine(private val context: Context) {
     private fun encode(bitmap: Bitmap, quality: Int): ByteArray {
         val stream = ByteArrayOutputStream()
         if (!bitmap.compress(Bitmap.CompressFormat.JPEG, quality, stream)) {
-            throw UserVisibleException("Не получилось создать JPG.")
+            throw UserVisibleException(R.string.cannot_create_jpg)
         }
         return stream.toByteArray()
     }
@@ -289,7 +290,7 @@ class CompressionEngine(private val context: Context) {
 
     private fun requireTargetBytes(bytes: Long) {
         if (bytes <= 0L) {
-            throw UserVisibleException("Укажите допустимый размер файла.")
+            throw UserVisibleException(R.string.enter_valid_file_size)
         }
     }
 
@@ -315,10 +316,10 @@ class CompressionEngine(private val context: Context) {
             throw error
         } catch (_: OutOfMemoryError) {
             throw UserVisibleException(
-                "Изображение слишком большое для обработки на этом устройстве.",
+                R.string.image_too_large,
             )
         } catch (_: Exception) {
-            throw UserVisibleException("Не получилось обработать это изображение.")
+            throw UserVisibleException(R.string.cannot_process_image)
         }
     }
 

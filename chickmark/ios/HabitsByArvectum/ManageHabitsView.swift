@@ -47,13 +47,31 @@ struct ManageHabitsView: View {
     var body: some View {
         Group {
             if habits.isEmpty {
-                ContentUnavailableView(
-                    L10n.string("manage.empty.title"),
-                    systemImage: "tray",
-                    description: Text(
-                        L10n.string("manage.empty.description")
+                if dynamicTypeSize.isAccessibilitySize {
+                    // Pinning four preferences rows to the bottom consumes
+                    // the entire viewport at AXXXL and clips their text.
+                    ScrollView {
+                        VStack(spacing: 12) {
+                            ContentUnavailableView(
+                                L10n.string("manage.empty.title"),
+                                systemImage: "tray",
+                                description: Text(
+                                    L10n.string("manage.empty.description")
+                                )
+                            )
+                            preferencesPanel
+                        }
+                        .frame(maxWidth: .infinity)
+                    }
+                } else {
+                    ContentUnavailableView(
+                        L10n.string("manage.empty.title"),
+                        systemImage: "tray",
+                        description: Text(
+                            L10n.string("manage.empty.description")
+                        )
                     )
-                )
+                }
             } else {
                 List {
                     ForEach(groups) { group in
@@ -64,17 +82,39 @@ struct ManageHabitsView: View {
                             ForEach(members) { habit in
                                 habitLink(habit)
                             }
-                            Button(role: .destructive) {
-                                ChickMarkGroups.delete(id: group.id)
-                            } label: {
-                                Label(
-                                    L10n.string("groups.delete"),
-                                    systemImage: "folder.badge.minus"
-                                )
+                            if !dynamicTypeSize.isAccessibilitySize {
+                                Button(role: .destructive) {
+                                    ChickMarkGroups.delete(id: group.id)
+                                } label: {
+                                    Label(L10n.string("groups.delete.short"),
+                                          systemImage: "folder.badge.minus")
+                                }
+                                .font(.footnote)
+                                .accessibilityHint(L10n.string("groups.delete.keepHint"))
                             }
-                            .font(.footnote)
+                            if dynamicTypeSize.isAccessibilitySize {
+                                HStack {
+                                    Spacer(minLength: 0)
+                                    Menu {
+                                        Button(role: .destructive) {
+                                            ChickMarkGroups.delete(id: group.id)
+                                        } label: {
+                                            Label(L10n.string("groups.delete"),
+                                                  systemImage: "folder.badge.minus")
+                                        }
+                                    } label: {
+                                        Image(systemName: "ellipsis.circle")
+                                            .frame(minWidth: 48, minHeight: 48)
+                                            .contentShape(Rectangle())
+                                    }
+                                    .accessibilityLabel(L10n.string("groups.actions"))
+                                    .accessibilityHint(L10n.string("groups.delete.keepHint"))
+                                    .accessibilityIdentifier("chickmark.group.actions")
+                                }
+                            }
                         } header: {
                             Text(group.name)
+                                .fixedSize(horizontal: false, vertical: true)
                         }
                     }
 
@@ -122,6 +162,13 @@ struct ManageHabitsView: View {
                             }
                         }
                     }
+
+                    if dynamicTypeSize.isAccessibilitySize {
+                        Section {
+                            preferencesPanel
+                                .listRowInsets(EdgeInsets())
+                        }
+                    }
                 }
                 .listStyle(.insetGrouped)
             }
@@ -129,7 +176,9 @@ struct ManageHabitsView: View {
         .navigationTitle(L10n.string("manage.title"))
         .navigationBarTitleDisplayMode(.inline)
         .safeAreaInset(edge: .bottom, spacing: 0) {
-            preferencesPanel
+            if !dynamicTypeSize.isAccessibilitySize {
+                preferencesPanel
+            }
         }
         .toolbar {
             ToolbarItemGroup(placement: .topBarTrailing) {
@@ -283,6 +332,7 @@ struct ManageHabitsView: View {
                     Text(L10n.string("manage.about"))
                         .font(.subheadline.weight(.medium))
                         .foregroundStyle(.primary)
+                        .fixedSize(horizontal: false, vertical: true)
                     Spacer()
                     Image(systemName: "chevron.right")
                         .font(.caption2.weight(.semibold))
@@ -309,9 +359,10 @@ struct ManageHabitsView: View {
             Picker(L10n.string("language.title"), selection: $preferredLanguage) {
                 Text(L10n.string("language.system"))
                     .tag(ChickMarkLanguage.system)
-                Text("Русский").tag("ru")
-                Text("English").tag("en")
-                Text("Español").tag("es")
+                ForEach(ChickMarkLanguage.supported, id: \.self) { identifier in
+                    Text(ChickMarkLanguage.displayName(for: identifier))
+                        .tag(identifier)
+                }
             }
         } label: {
             HStack(spacing: 12) {
@@ -319,13 +370,26 @@ struct ManageHabitsView: View {
                     .font(.system(size: 18))
                     .foregroundStyle(Color.habitsSecondaryText)
                     .frame(width: 22)
-                Text(L10n.string("language.title"))
-                    .font(.subheadline.weight(.medium))
-                    .foregroundStyle(.primary)
-                Spacer(minLength: 8)
-                Text(ChickMarkLanguage.displayName(for: preferredLanguage))
-                    .font(.subheadline)
-                    .foregroundStyle(Color.habitsSecondaryText)
+                if dynamicTypeSize.isAccessibilitySize {
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text(L10n.string("language.title"))
+                            .font(.subheadline.weight(.medium))
+                            .foregroundStyle(.primary)
+                        Text(ChickMarkLanguage.displayName(for: preferredLanguage))
+                            .font(.subheadline)
+                            .foregroundStyle(Color.habitsSecondaryText)
+                    }
+                    .fixedSize(horizontal: false, vertical: true)
+                    Spacer(minLength: 0)
+                } else {
+                    Text(L10n.string("language.title"))
+                        .font(.subheadline.weight(.medium))
+                        .foregroundStyle(.primary)
+                    Spacer(minLength: 8)
+                    Text(ChickMarkLanguage.displayName(for: preferredLanguage))
+                        .font(.subheadline)
+                        .foregroundStyle(Color.habitsSecondaryText)
+                }
                 Image(systemName: "chevron.up.chevron.down")
                     .font(.caption2.weight(.semibold))
                     .foregroundStyle(Color.habitsSecondaryText)

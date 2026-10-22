@@ -283,7 +283,7 @@ final class PhysicalVideoCaptureUITests: XCTestCase {
         let app = XCUIApplication()
         app.launch()
         let saved = app.buttons.matching(NSPredicate(format:
-            "label BEGINSWITH %@ OR label BEGINSWITH %@", "Мои записи", "My recordings"
+            "label BEGINSWITH %@ OR label BEGINSWITH %@", "Все заметки", "All notes"
         )).firstMatch
         XCTAssertTrue(saved.waitForExistence(timeout: 12))
         saved.tap()

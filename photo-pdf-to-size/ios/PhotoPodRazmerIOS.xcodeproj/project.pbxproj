@@ -10,6 +10,7 @@
 		0ADE606EF129A9C9FBF3ED16 /* QAFixtures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BC9368CF5B6238AB8AD7E58 /* QAFixtures.swift */; };
 		0BC787AC2F11BFF24FD111B9 /* AppModel+Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF2015E050FDBFD996630BF /* AppModel+Settings.swift */; };
 		0DAD5BFC77955D64DDDF62AB /* PassportCropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 859CD85E40C881410B84E65B /* PassportCropView.swift */; };
+		0FB37D5BE05CD84680ED52A3 /* SpanishLocalizationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83EF38BC2091092E3256431 /* SpanishLocalizationUITests.swift */; };
 		15735CC0D48C474DF95E86A5 /* AppModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1A80B3072CE5FACCF31E93 /* AppModelTests.swift */; };
 		2325751C72D9E2B7E65B54B3 /* PhotoTaskCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1704F4EFC78F45ED94849BE /* PhotoTaskCard.swift */; };
 		29C78D92E965C0229782689B /* PDFTaskCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A317268BAF55882F262F0D /* PDFTaskCard.swift */; };
@@ -75,6 +76,7 @@
 		0E31B1F67C1AF519FD858308 /* AdConsentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdConsentView.swift; sourceTree = "<group>"; };
 		101DE697CC76956CE3889DE5 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		220C1C7A48EED3DEC091307E /* ArvectumColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArvectumColors.swift; sourceTree = "<group>"; };
+		2D5EAD1878C26C6F6327B7B1 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		31BF5181B6888781E533A313 /* SharedControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedControls.swift; sourceTree = "<group>"; };
 		357DC3C94F468E01EBFED12A /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		3B1197D2C48FCE7500B11E87 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -107,10 +109,12 @@
 		BA6A19361B1CFE8FCAE5FEE1 /* AppModel+Internals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppModel+Internals.swift"; sourceTree = "<group>"; };
 		BF70A0A390BCD6BE5B7AA584 /* AdaptiveSourcePreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveSourcePreview.swift; sourceTree = "<group>"; };
 		BF81C2DB26B812C531A1B79E /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		C73CED7FA58809F3D8187E7B /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		CB73B138CC67081AF8838E65 /* PDFEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFEngineTests.swift; sourceTree = "<group>"; };
 		D193C4745F6EB7FC3712E160 /* PhotoPodRazmerUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = PhotoPodRazmerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCF2015E050FDBFD996630BF /* AppModel+Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppModel+Settings.swift"; sourceTree = "<group>"; };
 		E54EEFD9D84C1CAF06B85B34 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		E83EF38BC2091092E3256431 /* SpanishLocalizationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpanishLocalizationUITests.swift; sourceTree = "<group>"; };
 		EB338749A39B868A575119E0 /* core */ = {isa = PBXFileReference; lastKnownFileType = folder; name = core; path = ../../core; sourceTree = SOURCE_ROOT; };
 		F1B5593105023DBFA51B2853 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		F2399FF183418363CD69E64C /* InputConstraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputConstraints.swift; sourceTree = "<group>"; };
@@ -220,6 +224,7 @@
 				8C2BEE4260F53FA7FA646769 /* AppStoreUpdatePromptUITests.swift */,
 				FAA4A5EFD1913620F19DA676 /* FilesImportUITests.swift */,
 				51511B7AEB7D0B5421F72F64 /* LayoutRegressionUITests.swift */,
+				E83EF38BC2091092E3256431 /* SpanishLocalizationUITests.swift */,
 				8D2E6DAE150416D54E6F5148 /* WorkflowUITests.swift */,
 			);
 			path = PhotoPodRazmerUITests;
@@ -338,11 +343,12 @@
 				};
 			};
 			buildConfigurationList = 8F239D355DB48F209169FBDA /* Build configuration list for PBXProject "PhotoPodRazmerIOS" */;
-			developmentRegion = ru;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				Base,
 				en,
+				es,
 				ru,
 			);
 			mainGroup = A9C114D71BFDA3C453DFA7B7;
@@ -386,6 +392,7 @@
 				CAE9F723AB4378DF165700D1 /* AppStoreUpdatePromptUITests.swift in Sources */,
 				F17F62FE21A2AC89FA0CFB55 /* FilesImportUITests.swift in Sources */,
 				4F900A2725EFC0A15AE49B0F /* LayoutRegressionUITests.swift in Sources */,
+				0FB37D5BE05CD84680ED52A3 /* SpanishLocalizationUITests.swift in Sources */,
 				FCE6C79A3351D95AF2E4F003 /* WorkflowUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -455,6 +462,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				499263E4679EADCAE1EA5A65 /* en */,
+				C73CED7FA58809F3D8187E7B /* es */,
 				101DE697CC76956CE3889DE5 /* ru */,
 			);
 			name = InfoPlist.strings;
@@ -464,6 +472,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				3B1197D2C48FCE7500B11E87 /* en */,
+				2D5EAD1878C26C6F6327B7B1 /* es */,
 				357DC3C94F468E01EBFED12A /* ru */,
 			);
 			name = Localizable.strings;

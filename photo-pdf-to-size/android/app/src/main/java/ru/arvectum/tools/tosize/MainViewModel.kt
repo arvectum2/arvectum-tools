@@ -3,6 +3,7 @@ package ru.arvectum.tools.tosize
 import android.app.Application
 import android.content.Intent
 import android.net.Uri
+import androidx.annotation.StringRes
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
@@ -62,7 +63,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                     it.copy(
                         source = null,
                         isWorking = false,
-                        error = error.userMessage("Не получилось открыть этот файл."),
+                        error = error.userMessage(R.string.cannot_open_file),
                     )
                 }
             }
@@ -172,7 +173,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             return
         }
 
-        runProcessing("Не получилось уменьшить это изображение.") {
+        runProcessing(R.string.cannot_compress_image) {
             val output = compressor.compressByBytes(source, target)
             ResultImage(
                 source = source,
@@ -206,7 +207,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             return
         }
 
-        runProcessing("Не получилось изменить размер изображения.") {
+        runProcessing(R.string.cannot_resize_image) {
             val output = compressor.resizeLongSide(source, target)
             ResultImage(
                 source = source,
@@ -239,7 +240,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         val source = _state.value.source ?: return
         _state.update { it.copy(passportCropOpen = false) }
 
-        runProcessing("Не получилось подготовить фото на паспорт.") {
+        runProcessing(R.string.cannot_prepare_passport) {
             val output = compressor.preparePassport(source, crop)
             ResultImage(
                 source = source,
@@ -263,7 +264,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 _state.update {
                     it.copy(
                         isWorking = false,
-                        error = error.userMessage("Не получилось сохранить файл."),
+                        error = error.userMessage(R.string.cannot_save_file),
                     )
                 }
             }
@@ -276,11 +277,14 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         val result = currentResultForAction() ?: return "image.jpg"
         if (result.outputFile == null) return result.source.displayName
         val base = result.source.displayName.substringBeforeLast('.').ifBlank { "image" }
-        val suffix = when (result.mode) {
-            ToolMode.FILE_SIZE -> "до-размера"
-            ToolMode.PIXELS -> "по-пикселям"
-            ToolMode.PASSPORT -> "на-паспорт"
-        }
+        // The Android system SaveDocument picker receives a filename in the
+        // current app locale, never a hardcoded Russian suffix for EN/FR/etc.
+        val context = getApplication<Application>()
+        val suffix = context.getString(when (result.mode) {
+            ToolMode.FILE_SIZE -> R.string.export_filename_file_size
+            ToolMode.PIXELS -> R.string.export_filename_pixels
+            ToolMode.PASSPORT -> R.string.export_filename_passport
+        })
         return "$base-$suffix.jpg"
     }
 
@@ -358,7 +362,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     )
 
     private fun runProcessing(
-        fallbackError: String,
+        @StringRes fallbackError: Int,
         block: () -> ResultImage,
     ) {
         _state.update {
@@ -395,8 +399,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         return bytes.takeIf { it in MIN_CUSTOM_BYTES..MAX_CUSTOM_BYTES }
     }
 
-    private fun Exception.userMessage(fallback: String): String =
-        (this as? UserVisibleException)?.message ?: fallback
+    private fun Exception.userMessage(@StringRes fallback: Int): String =
+        getApplication<Application>().getString((this as? UserVisibleException)?.messageRes ?: fallback)
 
     companion object {
         private const val MIN_CUSTOM_BYTES = 10_000L

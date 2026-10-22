@@ -1,0 +1,6 @@
+// French ChickMark companion catalog. Editorial QA before release.
+"watch.widget.title" = "ChickMark";
+"watch.widget.description" = "Consultez les progrès de vos habitudes directement sur le cadran de la montre.";
+"watch.widget.empty" = "Rien de prévu";
+"watch.widget.inline.format" = "Habitudes : %d/%d";
+"watch.widget.next.format" = "Suivant : %@";

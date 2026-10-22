@@ -5,16 +5,17 @@ import UniformTypeIdentifiers
 
 @MainActor
 struct PDFTaskCard: View {
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @EnvironmentObject private var model: AppModel
     @State private var importingPDF = false
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             VStack(alignment: .leading, spacing: 3) {
-                Text(tr("PDF ПО ВЕСУ"))
+                Text(tr("СЖАТЬ PDF"))
                     .font(.caption.weight(.bold))
                     .foregroundStyle(Color.arvectumAccentText)
-                Text(tr("Уменьшить PDF до нужного веса"))
+                Text(tr("Сжать PDF до выбранного размера"))
                     .font(.title3.weight(.semibold))
                     .foregroundStyle(Color.arvectumPrimaryText)
             }
@@ -28,8 +29,9 @@ struct PDFTaskCard: View {
                     VStack(alignment: .leading, spacing: 2) {
                         Text(tr(model.pdfSource == nil ? "Выбрать PDF" : "PDF выбран"))
                             .font(.subheadline.weight(.semibold))
+                        .lineLimit(dynamicTypeSize.isAccessibilitySize ? 2 : 1)
                         if let source = model.pdfSource {
-                            Text("\(source.pageCount) \(pageWord(source.pageCount)) · \(formatBytes(source.sizeBytes))")
+                            Text(String(format: tr("%1$d %2$@ · %3$@"), source.pageCount, pdfPageWord(source.pageCount), formatBytes(source.sizeBytes)))
                                 .font(.caption)
                                 .foregroundStyle(.secondary)
                         } else {
@@ -46,7 +48,8 @@ struct PDFTaskCard: View {
                 .foregroundStyle(Color.arvectumPrimaryText)
                 .padding(.horizontal, 12)
                 .frame(maxWidth: .infinity)
-                .frame(height: 64)
+                .frame(minHeight: dynamicTypeSize.isAccessibilitySize ? 110 : 64)
+                .padding(.vertical, dynamicTypeSize.isAccessibilitySize ? 8 : 0)
                 .background(Color.arvectumBackground, in: RoundedRectangle(cornerRadius: 14))
             }
             .buttonStyle(.plain)
@@ -61,10 +64,10 @@ struct PDFTaskCard: View {
             }
 
             VStack(alignment: .leading, spacing: 7) {
-                Text(tr("Максимальный вес"))
+                Text(tr("Размер файла до"))
                     .font(.caption.weight(.semibold))
                     .foregroundStyle(.secondary)
-                HStack(spacing: 5) {
+                AdaptiveChipRow {
                     ForEach(fileSizePresets, id: \.0) { preset in
                         Chip(
                             text: tr(preset.1),
@@ -130,7 +133,4 @@ struct PDFTaskCard: View {
         )
     }
 
-    private func pageWord(_ count: Int) -> String {
-        tr(count == 1 ? "страница" : "страниц")
-    }
 }

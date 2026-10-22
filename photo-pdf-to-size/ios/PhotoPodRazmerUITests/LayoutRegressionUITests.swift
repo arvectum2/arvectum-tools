@@ -21,9 +21,9 @@ final class LayoutRegressionUITests: XCTestCase {
         var modeButtons: [String] {
             switch self {
             case .ru:
-                return ["", "По размеру", "На документы"]
+                return ["", "mode-pixels", "mode-passport"]
             case .en:
-                return ["", "By dimensions", "Documents"]
+                return ["", "mode-pixels", "mode-passport"]
             }
         }
     }
@@ -78,6 +78,35 @@ final class LayoutRegressionUITests: XCTestCase {
             line: line
         )
         XCTAssertGreaterThan(ad.frame.height, 200, "Native QA fixture is not fully laid out", file: file, line: line)
+    }
+
+    func testModeNamesExplainActionsInRussianAndEnglish() {
+        for locale in LocaleCase.allCases {
+            let app = launch(locale: locale, theme: .light)
+            let names: [(String, String)]
+            switch locale {
+            case .ru:
+                names = [
+                    ("mode-fileSize", "Сжать файл"),
+                    ("mode-pixels", "Изменить размер"),
+                    ("mode-passport", "Фото на документы"),
+                    ("mode-pdf", "Обработать PDF")
+                ]
+            case .en:
+                names = [
+                    ("mode-fileSize", "Compress file"),
+                    ("mode-pixels", "Resize photo"),
+                    ("mode-passport", "ID photo"),
+                    ("mode-pdf", "Work with PDF")
+                ]
+            }
+            for (identifier, label) in names {
+                let button = app.buttons[identifier]
+                XCTAssertTrue(button.waitForExistence(timeout: 6), identifier)
+                XCTAssertEqual(button.label, label, identifier)
+            }
+            app.terminate()
+        }
     }
 
     func testWorstCaseNativeNoScrollRUAndENLightDark() {

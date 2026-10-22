@@ -21,6 +21,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.stringResource
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
@@ -42,6 +43,7 @@ import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import ru.arvectum.tools.tosize.NormalizedCropRect
+import ru.arvectum.tools.tosize.R
 import ru.arvectum.tools.tosize.SourceImage
 import ru.arvectum.tools.tosize.compression.CompressionEngine
 import ru.arvectum.tools.tosize.compression.ImageDecoder
@@ -124,7 +126,7 @@ private fun LoadingCrop() {
         )
         Spacer(Modifier.height(14.dp))
         Text(
-            text = "Готовим фото…",
+            text = stringResource(R.string.preparing_photo),
             color = MaterialTheme.colorScheme.onBackground,
         )
     }
@@ -139,15 +141,15 @@ private fun CropLoadError(onCancel: () -> Unit) {
         verticalArrangement = Arrangement.Center,
     ) {
         BrandCard {
-            BrandAccentText("НА ПАСПОРТ")
+            BrandAccentText(stringResource(R.string.passport_photo_label))
             Spacer(Modifier.height(8.dp))
             Text(
-                text = "Не получилось открыть фото для кадрирования.",
+                text = stringResource(R.string.could_not_open_the_photo_for_cropping),
                 style = MaterialTheme.typography.titleMedium,
             )
             Spacer(Modifier.height(18.dp))
             BrandSecondaryButton(
-                text = "Назад",
+                text = stringResource(R.string.back),
                 enabled = true,
                 onClick = onCancel,
             )
@@ -179,15 +181,15 @@ private fun CropEditor(
             .padding(bottom = 4.dp),
     ) {
         BrandCard(modifier = Modifier.fillMaxSize()) {
-            BrandAccentText("НА ПАСПОРТ")
+            BrandAccentText(stringResource(R.string.passport_photo_label))
             Spacer(Modifier.height(4.dp))
             Text(
-                text = "Подогнать фото под 35×45",
+                text = stringResource(R.string.crop_photo_to_35_45),
                 style = MaterialTheme.typography.titleMedium,
             )
             Spacer(Modifier.height(4.dp))
             Text(
-                text = "Перемещайте фото и масштабируйте двумя пальцами.",
+                text = stringResource(R.string.move_the_photo_and_pinch_to_zoom),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
@@ -286,7 +288,7 @@ private fun CropEditor(
             Spacer(Modifier.height(10.dp))
 
             BrandPrimaryButton(
-                text = "Подготовить фото",
+                text = stringResource(R.string.prepare_photo),
                 enabled = viewport.width > 0 && viewport.height > 0,
                 onClick = {
                     onConfirm(
@@ -303,7 +305,7 @@ private fun CropEditor(
             )
             Spacer(Modifier.height(6.dp))
             BrandSecondaryButton(
-                text = "Отмена",
+                text = stringResource(R.string.cancel),
                 enabled = true,
                 onClick = onCancel,
             )

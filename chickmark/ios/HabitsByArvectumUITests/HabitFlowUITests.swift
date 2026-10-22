@@ -14,6 +14,87 @@ final class HabitFlowUITests: XCTestCase {
         app.launch()
     }
 
+    func testTodaySystemAccessibilityAudit() throws {
+        XCTAssertTrue(app.buttons["Manage habits"].waitForExistence(timeout: 8))
+        // First-run empty state must have a real, unclipped secondary CTA.
+        let oneOff = app.buttons["One-time reminder"]
+        XCTAssertTrue(oneOff.waitForExistence(timeout: 8))
+        XCTAssertTrue(oneOff.isHittable)
+        XCTAssertGreaterThanOrEqual(oneOff.frame.height, 44)
+        let categories: XCUIAccessibilityAuditType = [
+            .sufficientElementDescription, .hitRegion, .trait, .textClipped
+        ]
+        try app.performAccessibilityAudit(for: categories) { issue in
+            print("CHICKMARK_AX_AUDIT issue=\(issue.compactDescription) " +
+                  "detail=\(issue.detailedDescription) " +
+                  "element=\(issue.element?.description ?? "nil")")
+            return false
+        }
+    }
+
+    func testPopulatedGroupedHabitsAccessibilityAudit() throws {
+        app.terminate()
+        app.launchArguments = [
+            "-AppleLanguages", "(en)", "-AppleLocale", "en_US",
+            "-UIPreferredContentSizeCategoryName",
+            "UICTContentSizeCategoryAccessibilityExtraExtraExtraLarge",
+            "--ui-testing", "--disable-cloud-sync",
+            "--seed-watch-sync-demo", "--seed-screenshot-demo",
+            "--qa-design-filled-habits"
+        ]
+        app.launch()
+        let manage = app.buttons["Manage habits"]
+        XCTAssertTrue(manage.waitForExistence(timeout: 12))
+        manage.tap()
+        XCTAssertTrue(app.staticTexts["Планы и занятия на неделю"]
+            .waitForExistence(timeout: 10))
+        let groupActions = app.descendants(matching: .any)
+            .matching(identifier: "chickmark.group.actions").firstMatch
+        XCTAssertTrue(groupActions.waitForExistence(timeout: 8))
+        XCTAssertGreaterThanOrEqual(groupActions.frame.width, 44)
+        XCTAssertGreaterThanOrEqual(groupActions.frame.height, 44)
+
+        let categories: XCUIAccessibilityAuditType = [
+            .sufficientElementDescription, .hitRegion, .trait, .textClipped
+        ]
+        try app.performAccessibilityAudit(for: categories) { issue in
+            print("CHICKMARK_FILLED_AX issue=\(issue.compactDescription) " +
+                  "detail=\(issue.detailedDescription) " +
+                  "element=\(issue.element?.description ?? "nil")")
+            return false
+        }
+
+        // Preferences now follow the habit rows inside a lazy scrolling List
+        // at accessibility sizes: confirm they are reachable by scrolling.
+        let language = app.buttons["manage.language"]
+        for _ in 0..<8 where !language.exists {
+            app.swipeUp()
+        }
+        XCTAssertTrue(language.waitForExistence(timeout: 8))
+    }
+
+    func testManageHabitsSystemAccessibilityAudit() throws {
+        let manage = app.buttons["Manage habits"]
+        XCTAssertTrue(manage.waitForExistence(timeout: 8))
+        manage.tap()
+        // The settings now follow the habit rows in a lazy List. An
+        // off-screen control need not exist in XCUI until scrolled into view.
+        let language = app.buttons["manage.language"]
+        for _ in 0..<8 where !language.exists {
+            app.swipeUp()
+        }
+        XCTAssertTrue(language.waitForExistence(timeout: 10))
+        let categories: XCUIAccessibilityAuditType = [
+            .sufficientElementDescription, .hitRegion, .trait, .textClipped
+        ]
+        try app.performAccessibilityAudit(for: categories) { issue in
+            print("CHICKMARK_MANAGE_AX_AUDIT issue=\(issue.compactDescription) " +
+                  "detail=\(issue.detailedDescription) " +
+                  "element=\(issue.element?.description ?? "nil")")
+            return false
+        }
+    }
+
     func testBrandAndVersionInAboutScreen() throws {
         XCTAssertTrue(
             app.links["chickmark.website"].waitForExistence(timeout: 3)
@@ -500,6 +581,10 @@ final class HabitFlowUITests: XCTestCase {
         let reminderTitle = app.staticTexts["Buy marathon slot"]
         XCTAssertTrue(reminderTitle.waitForExistence(timeout: 3))
         XCTAssertTrue(app.staticTexts["Reminders"].exists)
+        let actions = app.buttons["Reminder actions"]
+        XCTAssertTrue(actions.waitForExistence(timeout: 5),
+                      "Menu must describe all reminder actions, not only Edit")
+        XCTAssertGreaterThanOrEqual(actions.frame.height, 44)
 
         let completeButtons = app.buttons.matching(
             NSPredicate(format: "label == %@", "Mark complete")
@@ -740,6 +825,25 @@ final class HabitFlowUITests: XCTestCase {
         XCTAssertTrue(app.buttons["Done"].isEnabled)
         try auditCurrentScreen("create")
     }
+
+#if compiler(>=6.4)
+    @MainActor
+    func testVoiceOverTodayShortSpeechSmoke() throws {
+        guard #available(iOS 27.0, *) else {
+            throw XCTSkip("VoiceOver speech service requires iOS 27")
+        }
+        launchSeededDemo()
+        let service = XCUIDevice.shared.voiceOverService
+        defer { _ = try? service.disable() }
+        _ = try? service.disable()
+        _ = try service.enable()
+        var spoken = [try service.currentSpeech().utterance]
+        for _ in 1..<6 { spoken.append(try service.moveForward().utterance) }
+        print("CHICKMARK_VOICEOVER_TODAY=\(spoken)")
+        XCTAssertTrue(spoken.contains { $0.localizedCaseInsensitiveContains("Today") })
+        XCTAssertTrue(spoken.contains { $0.localizedCaseInsensitiveContains("Manage habits") })
+    }
+#endif
 
 #if compiler(>=6.4)
     @MainActor
@@ -1037,7 +1141,7 @@ final class HabitFlowUITests: XCTestCase {
         let todaySummary = app.descendants(matching: .any)["today.summary"].firstMatch
         XCTAssertTrue(todaySummary.waitForExistence(timeout: 4))
         XCTAssertEqual(todaySummary.label, "Today")
-        XCTAssertTrue((todaySummary.value as? String)?.contains("0 of 2") == true)
+        XCTAssertTrue((todaySummary.value as? String)?.contains("Marked: 0 of 2") == true)
         captureStoreScreenshot("A7_AXXXL_Today")
 
         manage.tap()
@@ -1068,8 +1172,8 @@ final class HabitFlowUITests: XCTestCase {
     /// Tests user-facing text and the spoken accessibility value in RU/ES.
     func testA7LocalizedTodayProgressAccessibilityAtAXXXL() throws {
         for (language, locale, heading, count) in [
-            ("ru", "ru_RU", "Сегодня", "0 из 2"),
-            ("es", "es_ES", "Hoy", "0 de 2")
+            ("ru", "ru_RU", "Сегодня", "Отмечено: 0 из 2"),
+            ("es", "es_ES", "Hoy", "Marcados: 0 de 2")
         ] {
             app.terminate()
             app.launchArguments = [

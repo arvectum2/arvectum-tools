@@ -6,6 +6,24 @@ func tr(_ key: String) -> String {
     Bundle.main.localizedString(forKey: key, value: key, table: nil)
 }
 
+/// Human-readable page noun for the currently selected app bundle language.
+/// Russian has one/few/many forms; English has singular/plural.
+func pdfPageWordKey(_ count: Int, language: String) -> String {
+    if language.hasPrefix("ru") {
+        let hundred = count % 100
+        let ten = count % 10
+        if (11...14).contains(hundred) { return "страниц" }
+        if ten == 1 { return "страница" }
+        if (2...4).contains(ten) { return "страницы" }
+        return "страниц"
+    }
+    return count == 1 ? "страница" : "страниц"
+}
+
+func pdfPageWord(_ count: Int) -> String {
+    tr(pdfPageWordKey(count, language: Bundle.main.preferredLocalizations.first ?? "en"))
+}
+
 enum InputKind: String, CaseIterable, Identifiable {
     case photo
     case pdf
@@ -29,9 +47,19 @@ enum ToolMode: String, CaseIterable, Identifiable {
 
     var title: String {
         switch self {
-        case .fileSize: return tr("По весу")
-        case .pixels: return tr("По размеру")
-        case .passport: return tr("На документы")
+        case .fileSize: return tr("Сжать")
+        case .pixels: return tr("Размер фото")
+        case .passport: return tr("Документы")
+        }
+    }
+
+    // Full action names for VoiceOver; compact chip text is intentionally
+    // short so four modes fit on narrow phones without 0.72x text scaling.
+    var accessibilityTitle: String {
+        switch self {
+        case .fileSize: return tr("Сжать файл")
+        case .pixels: return tr("Изменить размер")
+        case .passport: return tr("Фото на документы")
         }
     }
 }

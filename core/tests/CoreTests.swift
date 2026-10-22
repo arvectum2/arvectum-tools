@@ -20,6 +20,32 @@ final class ArvectumCoreTests: XCTestCase {
         XCTAssertNotNil(Color.arvectumNavy)
         XCTAssertNotNil(Color.arvectumGraphite)
     }
+    func testUnifiedDesignMetrics() {
+        XCTAssertEqual(ArvectumDesignMetrics.unit, 4)
+        XCTAssertGreaterThanOrEqual(ArvectumDesignMetrics.minimumTouchTarget, 44)
+        XCTAssertGreaterThanOrEqual(ArvectumDesignMetrics.preferredControlHeight,
+                                    ArvectumDesignMetrics.minimumTouchTarget)
+        XCTAssertEqual(ArvectumDesignMetrics.spaceL, 16)
+        XCTAssertEqual(ArvectumDesignMetrics.accessibilityActionSize, 64)
+        XCTAssertGreaterThanOrEqual(ArvectumDesignMetrics.accessibilityActionSize,
+                                    ArvectumDesignMetrics.minimumTouchTarget)
+        XCTAssertGreaterThan(ArvectumDesignMetrics.cardCornerRadius,
+                             ArvectumDesignMetrics.controlCornerRadius)
+    }
+
+    func testSemanticColorRolesExistInBothAppearances() {
+        for scheme in [ColorScheme.light, ColorScheme.dark] {
+            XCTAssertNotNil(ArvectumSemanticColors.background(for: scheme))
+            XCTAssertNotNil(ArvectumSemanticColors.surface(for: scheme))
+            XCTAssertNotNil(ArvectumSemanticColors.primaryText(for: scheme))
+            XCTAssertNotNil(ArvectumSemanticColors.secondaryText(for: scheme))
+            XCTAssertNotNil(ArvectumSemanticColors.accentText(for: scheme))
+            XCTAssertNotNil(ArvectumSemanticColors.subtleBorder(for: scheme))
+        }
+        XCTAssertNotNil(ArvectumSemanticColors.actionBackground)
+        XCTAssertNotNil(ArvectumSemanticColors.actionForeground)
+    }
+
     func testPrivateDiagnostics() {
         ArvectumDiagnostics.failure(subsystem: "ru.arvectum.tools.tests", category: "core", operation: "test", code: "synthetic")
     }

@@ -102,7 +102,7 @@ final class FilesImportUITests: XCTestCase {
         app.launch()
         resolveAdConsentIfNeeded(app)
 
-        app.buttons["На документы"].tap()
+        app.buttons["mode-passport"].tap()
 
         let filesButton = app.buttons["import-files-button"]
         XCTAssertTrue(filesButton.waitForExistence(timeout: 8))
@@ -139,7 +139,7 @@ final class FilesImportUITests: XCTestCase {
         app.launch()
         resolveAdConsentIfNeeded(app)
 
-        app.buttons["По размеру"].tap()
+        app.buttons["mode-pixels"].tap()
         app.buttons["Точно W×H"].tap()
 
         let filesButton = app.buttons["import-files-button"]

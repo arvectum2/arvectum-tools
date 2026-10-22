@@ -1,6 +1,6 @@
 // ChickMark Spanish localization (neutral ES/LatAm)
 "today.title" = "Hoy";
-"today.progress.format" = "%d de %d";
+"today.progress.format" = "Marcados: %d de %d";
 "today.empty.title" = "Empieza con un hábito";
 "today.empty.description" = "Solo necesitas unos segundos. Sin cuenta ni configuraciones complicadas.";
 "today.none.title" = "Todo listo por hoy";
@@ -130,6 +130,7 @@
 "oneoff.notification.denied.message" = "Permite las notificaciones de ChickMark en Ajustes del iPhone para recibir recordatorios únicos.";
 "oneoff.complete" = "Marcar como completado";
 "oneoff.edit" = "Editar";
+"oneoff.actions" = "Acciones del recordatorio";
 "oneoff.delete" = "Eliminar recordatorio";
 "oneoff.demo.marathon" = "Comprar inscripción a la carrera";
 "oneoff.today.format" = "Hoy, %@";
@@ -170,6 +171,9 @@
 "groups.none" = "Sin grupo";
 "groups.add" = "Nuevo grupo";
 "groups.delete" = "Eliminar grupo (conservar hábitos)";
+"groups.delete.short" = "Eliminar grupo";
+"groups.actions" = "Acciones del grupo";
+"groups.delete.keepHint" = "Los hábitos se conservan.";
 "groups.placeholder" = "Nombre del grupo";
 
 "backup.error.version" = "Esta versión de la copia de seguridad de ChickMark no es compatible.";
@@ -261,6 +265,8 @@
 "restart.settings.enable" = "Sugerir volver a un hábito";
 "restart.settings.threshold" = "Después de una pausa";
 "restart.settings.explanation" = "Desactivado por defecto. Ofrece una invitación discreta tras una pausa. No modifica registros, omisiones, rachas ni horarios. Ajuste local de este iPhone.";
+"restart.settings.shortTitle" = "Volver";
+"restart.settings.disabledHint" = "Activa Volver con calma para elegir el intervalo.";
 "restart.days" = "%d días";
 "restart.card.title" = "¿Te apetece retomar?";
 "restart.card.description" = "Tu progreso anterior sigue aquí. Puedes volver a un hábito cuando quieras.";

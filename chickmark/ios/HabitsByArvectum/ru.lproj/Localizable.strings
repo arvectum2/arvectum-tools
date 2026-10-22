@@ -1,5 +1,5 @@
 "today.title" = "Сегодня";
-"today.progress.format" = "%d из %d";
+"today.progress.format" = "Отмечено: %d из %d";
 "today.empty.title" = "Начните с одной привычки";
 "today.empty.description" = "Создание занимает несколько секунд. Без регистрации и лишних настроек.";
 "today.none.title" = "На сегодня всё";
@@ -145,6 +145,7 @@
 "oneoff.notification.denied.message" = "Разрешите уведомления для ChickMark в настройках iPhone, чтобы получать разовые напоминания.";
 "oneoff.complete" = "Отметить выполненным";
 "oneoff.edit" = "Изменить";
+"oneoff.actions" = "Действия с напоминанием";
 "oneoff.delete" = "Удалить напоминание";
 "oneoff.demo.marathon" = "Купить слот на марафон";
 "oneoff.today.format" = "Сегодня, %@";
@@ -191,6 +192,9 @@
 "groups.none" = "Без группы";
 "groups.add" = "Новая группа";
 "groups.delete" = "Удалить группу (без удаления привычек)";
+"groups.delete.short" = "Удалить группу";
+"groups.actions" = "Действия с группой";
+"groups.delete.keepHint" = "Привычки останутся.";
 "groups.placeholder" = "Название группы";
 
 "backup.error.version" = "Неподдерживаемая версия резервной копии ChickMark.";
@@ -282,6 +286,8 @@
 "restart.settings.enable" = "Предлагать вернуться к привычке";
 "restart.settings.threshold" = "После перерыва";
 "restart.settings.explanation" = "По умолчанию выключено. После перерыва появится ненавязчивое предложение продолжить привычку. Старые отметки, пропуски, серии и расписание не изменяются. Настройка только на этом iPhone.";
+"restart.settings.shortTitle" = "Перерыв";
+"restart.settings.disabledHint" = "Включите мягкое возвращение, чтобы выбрать срок.";
 "restart.days" = "%d дн.";
 "restart.card.title" = "Продолжим, когда удобно?";
 "restart.card.description" = "Все прежние достижения на месте. Можно вернуться к привычке сегодня, без дополнительных обязательств.";

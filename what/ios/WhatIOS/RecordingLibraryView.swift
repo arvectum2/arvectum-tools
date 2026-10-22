@@ -1,8 +1,11 @@
 import SwiftUI
+import UIKit
+import ArvectumCore
 
 struct RecordingLibraryView: View {
     let openCaptureHome: () -> Void
     @EnvironmentObject private var store: PhoneStore
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @State private var recordingToDelete: RecordingEnvelope?
     @State private var localNoteToDelete: LocalNote?
     @State private var localNoteToEdit: LocalNote?
@@ -14,6 +17,7 @@ struct RecordingLibraryView: View {
     @State private var searchText = ""
     @State private var preparedExport: PreparedRecordingExport?
     @State private var showDiagnostics = false
+    @State private var showTranscriptRecovery = false
     @State private var reviewNoteToSend: ReviewNoteHandoffDraft?
 
     private var notesMatchingFolderAndSearch: [UnifiedNote] {
@@ -67,7 +71,8 @@ struct RecordingLibraryView: View {
                         }
                         .font(.subheadline.weight(selected ? .semibold : .regular))
                         .padding(.horizontal, 11)
-                        .padding(.vertical, 9)
+                        .frame(minHeight: 48)
+                        .contentShape(Rectangle())
                         .background(
                             selected ? Color.accentColor.opacity(0.18) : Color.secondary.opacity(0.08),
                             in: Capsule()
@@ -79,7 +84,7 @@ struct RecordingLibraryView: View {
                     }
                     .buttonStyle(.plain)
                     .accessibilityIdentifier("what.filter.\(filter.rawValue)")
-                    .accessibilityLabel("\(filterTitle(filter)), \(total)")
+                    .accessibilityLabel(CaptureBrand.formatted("Фильтр %@, %@", "Filter %@, %@", filterTitle(filter), CaptureBrand.noteCount(total)))
                     .accessibilityAddTraits(selected ? [.isSelected] : [])
                 }
             }
@@ -106,6 +111,13 @@ struct RecordingLibraryView: View {
     var body: some View {
         NavigationStack {
             VStack(spacing: 0) {
+                if dynamicTypeSize.isAccessibilitySize {
+                    // UIKit navigation-bar items stay 36–40pt even when their
+                    // SwiftUI labels request 48pt. Render accessible actions
+                    // in content, hiding the native bar only at AX sizes.
+                    accessibleLibraryActions
+                }
+
                 Picker(CaptureBrand.text("Папка", "Folder"), selection: $selectedFolder) {
                     ForEach(InboxFolder.allCases) { folder in
                         Text(folder == .inbox
@@ -114,15 +126,32 @@ struct RecordingLibraryView: View {
                     }
                 }
                 .pickerStyle(.segmented)
+                .controlSize(.large)
+                .frame(minHeight: 48)
                 .padding(.horizontal)
                 .padding(.top, 8)
 
-                HStack(spacing: 5) {
-                    Image(systemName: "internaldrive")
-                    Text(CaptureBrand.text("Сохранено на устройстве", "Saved on this device"))
-                    Spacer()
-                    Text(CaptureBrand.text("Заметок: \(visibleNotes.count)", "\(visibleNotes.count) notes"))
-                        .monospacedDigit()
+                Group {
+                    if dynamicTypeSize.isAccessibilitySize {
+                        VStack(alignment: .leading, spacing: 4) {
+                            Label(
+                                CaptureBrand.text("Сохранено на устройстве", "Saved on this device"),
+                                systemImage: "internaldrive"
+                            )
+                            .fixedSize(horizontal: false, vertical: true)
+                            Text(CaptureBrand.noteCount(visibleNotes.count))
+                                .monospacedDigit()
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    } else {
+                        HStack(spacing: 5) {
+                            Image(systemName: "internaldrive")
+                            Text(CaptureBrand.text("Сохранено на устройстве", "Saved on this device"))
+                            Spacer()
+                            Text(CaptureBrand.noteCount(visibleNotes.count))
+                                .monospacedDigit()
+                        }
+                    }
                 }
                 .font(.caption)
                 .foregroundStyle(.secondary)
@@ -139,11 +168,35 @@ struct RecordingLibraryView: View {
                 }
 
                 if store.recordings.isEmpty && store.localNotes.isEmpty {
-                    ContentUnavailableView(
-                        CaptureBrand.text("Пока нет записей", "Nothing yet"),
-                        systemImage: "waveform",
-                        description: Text(CaptureBrand.text("Нажмите большую кнопку записи или создайте текстовую заметку через «+». Записи с Apple Watch тоже появятся здесь.", "Tap the large recording button or use + for text. Apple Watch audio appears here too."))
-                    )
+                    // ContentUnavailableView truncates its description under
+                    // large accessibility fonts, even with short localized
+                    // copy. Keep the message fully readable and scrollable.
+                    ScrollView {
+                        VStack(spacing: 14) {
+                            Image(systemName: "waveform")
+                                .font(.system(size: 44))
+                                .foregroundStyle(.secondary)
+                                .accessibilityHidden(true)
+                            Text(CaptureBrand.text("Пока нет записей", "Nothing yet"))
+                                .font(.title2.weight(.semibold))
+                                .multilineTextAlignment(.center)
+                                .fixedSize(horizontal: false, vertical: true)
+                            Text(CaptureBrand.text(
+                                "Нажмите «+» для текста или вернитесь к записи.",
+                                "Use + for text, or go back to record."
+                            ))
+                            .font(.body)
+                            .foregroundStyle(.secondary)
+                            .multilineTextAlignment(.center)
+                            .fixedSize(horizontal: false, vertical: true)
+                        }
+                        .frame(maxWidth: .infinity)
+                        .padding(.horizontal, 24)
+                        .padding(.vertical, 24)
+                        .frame(minHeight: 260)
+                    }
+                    .scrollIndicators(.hidden)
+                    .accessibilityIdentifier("what.library.empty")
                 } else if dayGroups.isEmpty {
                     ContentUnavailableView(
                         searchText.isEmpty
@@ -164,10 +217,7 @@ struct RecordingLibraryView: View {
                 } else {
                     List {
                         ForEach(dayGroups) { group in
-                            Section(CaptureBrand.isRussian
-                                ? (group.day.rawValue == "Today" ? "Сегодня"
-                                   : group.day.rawValue == "Yesterday" ? "Вчера" : "Ранее")
-                                : group.day.rawValue) {
+                            Section(localizedDayTitle(group.day.rawValue)) {
                                 ForEach(group.notes) { item in
                                     switch item {
                                     case .audio(let recording):
@@ -263,49 +313,27 @@ struct RecordingLibraryView: View {
             }
             .searchable(text: $searchText, prompt: CaptureBrand.text("Поиск по записям", "Search transcripts and dates"))
             .navigationTitle(CaptureBrand.name)
+            .toolbar(dynamicTypeSize.isAccessibilitySize ? .hidden : .visible,
+                     for: .navigationBar)
             .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    Button(action: openCaptureHome) {
-                        Label(CaptureBrand.text("Записать", "Record"), systemImage: "mic.fill")
+                if !dynamicTypeSize.isAccessibilitySize {
+                    ToolbarItem(placement: .topBarLeading) {
+                        libraryRecordAction
                     }
-                    .accessibilityLabel(CaptureBrand.text("Вернуться к быстрой записи", "Back to quick recording"))
-                }
-                ToolbarItemGroup(placement: .topBarTrailing) {
-                    Button {
-                        store.showTextCapture = true
-                    } label: {
-                        Image(systemName: "plus")
+                    ToolbarItemGroup(placement: .topBarTrailing) {
+                        libraryTextAction
+                        librarySettingsAction
                     }
-                    .accessibilityLabel(CaptureBrand.text("Создать текстовую заметку", "New text note"))
-                    Menu {
-                        AutoFollowUpSettingsMenu(manager: store.reminderManager)
-                        Picker(CaptureBrand.text("Язык интерфейса и распознавания", "Interface and speech language"), selection: $store.transcriptionLocale) {
-                            Text("Русский").tag("ru-RU")
-                            Text("English").tag("en-US")
-                            Text(CaptureBrand.text("Español (интерфейс EN)", "Español (English interface)")).tag("es-ES")
-                        }
-                        Button {
-                            showDiagnostics = true
-                        } label: {
-                            Label(CaptureBrand.text("Диагностика синхронизации", "Sync diagnostics"), systemImage: "applewatch")
-                        }
-                        Link(
-                            CaptureBrand.text("Конфиденциальность", "Privacy policy"),
-                            destination: URL(string: "https://arvectum.com/privacy")!
-                        )
-                    } label: {
-                        Image(systemName: "ellipsis.circle")
-                    }
-                    .accessibilityLabel(CaptureBrand.text("Настройки и диагностика", "App settings and diagnostics"))
                 }
             }
             .frame(maxWidth: 960)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color(uiColor: .systemGroupedBackground))
-            .tint(Color(red: 67 / 255, green: 229 / 255, blue: 197 / 255))
-            .sheet(isPresented: $showDiagnostics) {
-                SyncDiagnosticsView()
-                    .environmentObject(store)
+            .tint(ArvectumSemanticColors.actionBackground)
+            .sheet(isPresented: $showDiagnostics, onDismiss: {
+                showTranscriptRecovery = false
+            }) {
+                settingsSheet
             }
             .sheet(item: $preparedExport, onDismiss: {
                 preparedExport?.cleanUp()
@@ -355,6 +383,134 @@ struct RecordingLibraryView: View {
         }
     }
 
+    /// At Accessibility Dynamic Type, toolbar actions must occupy native
+    /// content rather than UIKit's compact, inaccessible navigation items.
+    private var accessibleLibraryActions: some View {
+        HStack(spacing: 12) {
+            libraryRecordAction
+            Spacer(minLength: 8)
+            libraryTextAction
+            librarySettingsAction
+        }
+        .padding(.horizontal, ArvectumDesignMetrics.compactHorizontalInset)
+        .padding(.vertical, ArvectumDesignMetrics.spaceS)
+        .frame(maxWidth: .infinity)
+        .background(Color(uiColor: .secondarySystemGroupedBackground))
+    }
+
+    private var libraryRecordAction: some View {
+        Button(action: openCaptureHome) {
+            Group {
+                if dynamicTypeSize.isAccessibilitySize {
+                    // Icon-only at AXXXL; the full action remains in the
+                    // accessibility label and is spoken by VoiceOver.
+                    Image(systemName: "mic.fill")
+                        .font(.title2)
+                        .frame(
+                            minWidth: ArvectumDesignMetrics.accessibilityActionSize,
+                            minHeight: ArvectumDesignMetrics.accessibilityActionSize
+                        )
+                } else {
+                    Label(CaptureBrand.text("Записать", "Record"), systemImage: "mic.fill")
+                        .font(.subheadline.weight(.semibold))
+                        .frame(minHeight: 64)
+                        .padding(.horizontal, 8)
+                }
+            }
+            .contentShape(Rectangle())
+        }
+        .accessibilityLabel(CaptureBrand.text("Вернуться к быстрой записи",
+                                              "Back to quick recording"))
+        .accessibilityIdentifier("what.library.backToRecord")
+    }
+
+    private var libraryTextAction: some View {
+        Button {
+            store.showTextCapture = true
+        } label: {
+            Image(systemName: "plus")
+                .font(.title2.weight(.medium))
+                .frame(
+                    minWidth: ArvectumDesignMetrics.accessibilityActionSize,
+                    minHeight: ArvectumDesignMetrics.accessibilityActionSize
+                )
+                .contentShape(Rectangle())
+        }
+        .accessibilityLabel(CaptureBrand.text("Создать текстовую заметку",
+                                              "New text note"))
+        .accessibilityIdentifier("what.library.newText")
+    }
+
+    @ViewBuilder
+    private var settingsSheet: some View {
+        if showTranscriptRecovery {
+            TranscriptRecoveryView(
+                statusProvider: { store.transcriptRecoveryStatus() },
+                restore: { try store.restoreTranscriptCatalogFromBackup() }
+            )
+        } else {
+            SyncDiagnosticsView().environmentObject(store)
+        }
+    }
+
+    private func localizedDayTitle(_ value: String) -> String {
+        switch value {
+        case "Today": return CaptureBrand.text("Сегодня", "Today")
+        case "Yesterday": return CaptureBrand.text("Вчера", "Yesterday")
+        case "Earlier": return CaptureBrand.text("Ранее", "Earlier")
+        default: return value
+        }
+    }
+
+    private var librarySettingsAction: some View {
+        Menu {
+            AutoFollowUpSettingsMenu(manager: store.reminderManager)
+            Picker(CaptureBrand.text("Язык распознавания речи",
+                                     "Speech recognition language"),
+                   selection: $store.transcriptionLocale) {
+                Text("Русский").tag("ru-RU")
+                Text("English").tag("en-US")
+                Text("Español").tag("es-ES")
+            }
+            Link(destination: URL(string: UIApplication.openSettingsURLString)!) {
+                Label(
+                    CaptureBrand.text(
+                        "Язык интерфейса — в настройках iOS",
+                        "Interface language: iOS Settings"
+                    ),
+                    systemImage: "globe"
+                )
+            }
+            Button {
+                showDiagnostics = true
+            } label: {
+                Label(CaptureBrand.text("Диагностика синхронизации", "Sync diagnostics"),
+                      systemImage: "applewatch")
+            }
+            Button {
+                showTranscriptRecovery = true
+                showDiagnostics = true
+            } label: {
+                Label(CaptureBrand.text("Восстановление расшифровок", "Transcript recovery"),
+                      systemImage: "externaldrive.badge.timemachine")
+            }
+            .accessibilityIdentifier("what.library.recovery")
+            Link(CaptureBrand.text("Конфиденциальность", "Privacy policy"),
+                 destination: URL(string: "https://arvectum.com/privacy")!)
+        } label: {
+            Image(systemName: "ellipsis.circle")
+                .font(.title2)
+                .frame(
+                    minWidth: ArvectumDesignMetrics.accessibilityActionSize,
+                    minHeight: ArvectumDesignMetrics.accessibilityActionSize
+                )
+                .contentShape(Rectangle())
+        }
+        .accessibilityLabel(CaptureBrand.text("Настройки и диагностика",
+                                              "App settings and diagnostics"))
+        .accessibilityIdentifier("what.library.settings")
+    }
+
     private func localNoteRow(_ note: LocalNote) -> some View {
         VStack(alignment: .leading, spacing: 8) {
             HStack {
@@ -376,6 +532,8 @@ struct RecordingLibraryView: View {
                     localNoteToEdit = note
                 }
                 .font(.subheadline.bold())
+                .frame(minHeight: dynamicTypeSize.isAccessibilitySize ? 64 : 48, alignment: .leading)
+                .contentShape(Rectangle())
             } else {
                 if let url = store.videoURL(for: note),
                    FileManager.default.fileExists(atPath: url.path) {
@@ -406,8 +564,12 @@ struct RecordingLibraryView: View {
                         .foregroundStyle(.orange)
                 }
             }
-            HStack {
+            (dynamicTypeSize.isAccessibilitySize
+                ? AnyLayout(VStackLayout(alignment: .leading, spacing: 4))
+                : AnyLayout(HStackLayout(spacing: 8))) {
                 reminderMenu(note.id)
+                    .frame(minHeight: dynamicTypeSize.isAccessibilitySize ? 64 : 52)
+                    .contentShape(Rectangle())
                 Button {
                     reviewNoteToSend = ReviewNoteHandoffDraft(
                         id: note.id,
@@ -419,6 +581,8 @@ struct RecordingLibraryView: View {
                     Label(CaptureBrand.text("В ChickMark", "To ChickMark"),
                           systemImage: "arrowshape.turn.up.right")
                 }
+                .frame(minHeight: dynamicTypeSize.isAccessibilitySize ? 64 : 48)
+                .contentShape(Rectangle())
                 .accessibilityIdentifier("what.note.sendToChickMark")
                 Button {
                     store.setArchived(note, archived: !note.archived)
@@ -427,15 +591,24 @@ struct RecordingLibraryView: View {
                           CaptureBrand.text("В архив", "Archive"),
                           systemImage: note.archived ? "tray.and.arrow.up" : "archivebox")
                 }
-                Spacer()
+                .frame(minHeight: dynamicTypeSize.isAccessibilitySize ? 64 : 48)
+                .contentShape(Rectangle())
+                if !dynamicTypeSize.isAccessibilitySize {
+                    Spacer(minLength: 0)
+                }
                 Button(role: .destructive) {
                     localNoteToDelete = note
                 } label: {
                     Image(systemName: "trash")
+                        .frame(minWidth: 48, minHeight: dynamicTypeSize.isAccessibilitySize ? 64 : 48)
+                        .contentShape(Rectangle())
                 }
+                .accessibilityLabel(CaptureBrand.text("Удалить заметку", "Delete note"))
+                .accessibilityIdentifier("what.note.delete")
             }
             .font(.caption)
             .buttonStyle(.borderless)
+            .frame(maxWidth: .infinity, alignment: .leading)
         }
         .padding(.vertical, 5)
     }
@@ -532,6 +705,8 @@ struct RecordingLibraryView: View {
             }
         } label: {
             Label(CaptureBrand.text("Напомнить", "Remind"), systemImage: "bell")
+                .frame(minHeight: dynamicTypeSize.isAccessibilitySize ? 64 : 52, alignment: .leading)
+                .contentShape(Rectangle())
         }
         .accessibilityIdentifier("what.reminder.menu")
     }
@@ -819,3 +994,165 @@ private struct AutoFollowUpSettingsMenu: View {
         .accessibilityIdentifier("what.settings.autoFollowUp")
     }
 }
+
+
+// MARK: - Explicit, fail-closed transcript recovery
+
+/// Only user-confirmed restoration is permitted. The screen does not read
+/// personal transcript text into SwiftUI and never invokes restore on appear.
+struct TranscriptRecoveryView: View {
+    let statusProvider: () -> RecordingRepository.TranscriptRecoveryStatus
+    let restore: () throws -> Void
+
+    @Environment(\.dismiss) private var dismiss
+    @State private var status: RecordingRepository.TranscriptRecoveryStatus = .notNeeded
+    @State private var showConfirmation = false
+    @State private var showResult = false
+    @State private var resultMessage = ""
+
+    var body: some View {
+        NavigationStack {
+            ScrollView {
+                VStack(alignment: .leading, spacing: 20) {
+                    Image(systemName: "externaldrive.badge.timemachine")
+                        .font(.largeTitle)
+                        .foregroundStyle(.tint)
+                        .accessibilityHidden(true)
+                    Text(CaptureBrand.text(
+                        "Восстанавливайте расшифровки только если их файл повреждён.",
+                        "Restore transcripts only when their storage is damaged."
+                    ))
+                    .fixedSize(horizontal: false, vertical: true)
+
+                    Group {
+                        switch status {
+                        case .notNeeded:
+                            Text(CaptureBrand.text(
+                                "Хранилище исправно. Восстановление не требуется.",
+                                "Transcript storage is healthy. No recovery is needed."
+                            ))
+                            .accessibilityIdentifier("what.recovery.healthy")
+                        case .unavailable:
+                            Text(CaptureBrand.text(
+                                "Исправная резервная копия недоступна. Данные не изменены.",
+                                "No usable backup was found. Your data was not changed."
+                            ))
+                            .accessibilityIdentifier("what.recovery.unavailable")
+                        case .ready(let count):
+                            Text(CaptureBrand.formatted(
+                                "В резервной копии расшифровок: %d",
+                                "Transcripts available in the backup: %d", count
+                            ))
+                            .accessibilityIdentifier("what.recovery.ready")
+                        }
+                    }
+                    .font(.body.weight(.medium))
+                    .fixedSize(horizontal: false, vertical: true)
+
+                    if case .ready = status {
+                        Button(role: .destructive) {
+                            showConfirmation = true
+                        } label: {
+                            Label(CaptureBrand.text(
+                                "Восстановить из копии",
+                                "Restore from backup"
+                            ), systemImage: "arrow.counterclockwise")
+                                .frame(maxWidth: .infinity, minHeight: 52)
+                        }
+                        .buttonStyle(.borderedProminent)
+                        .accessibilityIdentifier("what.recovery.restore")
+                    }
+                }
+                .frame(maxWidth: 680, alignment: .leading)
+                .padding(20)
+                .frame(maxWidth: .infinity)
+            }
+            .navigationTitle(CaptureBrand.text(
+                "Восстановление расшифровок", "Transcript recovery"
+            ))
+            .navigationBarTitleDisplayMode(.inline)
+            .safeAreaInset(edge: .bottom, spacing: 0) {
+                HStack {
+                    Spacer()
+                    Button(CaptureBrand.text("Готово", "Done")) { dismiss() }
+                        .buttonStyle(.bordered)
+                        .frame(minWidth: 88, minHeight: 52)
+                        .accessibilityIdentifier("what.recovery.done")
+                }
+                .padding(.horizontal, 16)
+                .padding(.vertical, 8)
+                .background(.regularMaterial)
+            }
+            .onAppear { status = statusProvider() }
+            .confirmationDialog(
+                CaptureBrand.text("Восстановить расшифровки из копии?",
+                                  "Restore transcripts from the backup?"),
+                isPresented: $showConfirmation,
+                titleVisibility: .visible
+            ) {
+                Button(CaptureBrand.text("Восстановить", "Restore"),
+                       role: .destructive) {
+                    do {
+                        try restore()
+                        status = statusProvider()
+                        resultMessage = CaptureBrand.text(
+                            "Расшифровки восстановлены из резервной копии.",
+                            "Transcripts were restored from the backup."
+                        )
+                    } catch {
+                        status = statusProvider()
+                        resultMessage = CaptureBrand.formatted(
+                            "Не удалось восстановить расшифровки: %@",
+                            "Could not restore transcripts: %@",
+                            error.localizedDescription
+                        )
+                    }
+                    showResult = true
+                }
+                .accessibilityIdentifier("what.recovery.confirm")
+                Button(CaptureBrand.text("Отмена", "Cancel"), role: .cancel) { }
+            } message: {
+                Text(CaptureBrand.text(
+                    "Будет использована последняя исправная копия. Недавние изменения текста могут отсутствовать. Удалённые заметки не восстанавливаются.",
+                    "The last valid backup will be used. Recent text edits may be missing. Deleted notes will not be restored."
+                ))
+            }
+            .alert(
+                CaptureBrand.text("Восстановление расшифровок", "Transcript recovery"),
+                isPresented: $showResult
+            ) {
+                Button("OK", role: .cancel) { }
+            } message: {
+                Text(resultMessage)
+            }
+        }
+    }
+}
+
+
+#if DEBUG
+/// Disposable recovery-only UI data. No personal recordings, microphone,
+/// Watch queue or app storage is read or changed by this fixture.
+struct TranscriptRecoveryQAFixtureView: View {
+    private let repository: RecordingRepository
+
+    init() {
+        let root = FileManager.default.temporaryDirectory
+            .appendingPathComponent("what-recovery-ui-\(UUID().uuidString)")
+        let repo = RecordingRepository(rootURL: root)
+        try? repo.saveTranscript("synthetic QA-only transcript", for: UUID())
+        try? repo.saveTranscript("second QA-only transcript", for: UUID())
+        try? Data("{corrupt-for-ui-qa".utf8)
+            .write(to: root.appendingPathComponent("transcripts.json"), options: .atomic)
+        repository = repo
+    }
+
+    var body: some View {
+        TranscriptRecoveryView(
+            statusProvider: { repository.transcriptRecoveryStatus() },
+            restore: { try repository.restoreTranscriptCatalogFromBackup() }
+        )
+        .environment(\.dynamicTypeSize, .accessibility5)
+    }
+}
+#endif

@@ -1,0 +1,7 @@
+// Initial Russian portfolio catalog assembled from reviewed in-app RU microcopy.
+// Requires additional runtime and language QA before publication.
+"Record" = "Запись";
+"Record with UhWhat?" = "Запись в Ухват";
+"Start a new thought from the watch face." = "Запись новой мысли с циферблата часов.";
+"UhWhat? Record" = "Ухват: запись";
+"UhWhat?. Start recording" = "Ухват. Начать запись";

@@ -61,7 +61,7 @@ struct CaptureView: View {
             }
 
             if controller.pendingCount > 0 {
-                Label(CaptureBrand.text("Ожидают iPhone: \(controller.pendingCount)", "\(controller.pendingCount) waiting for iPhone"), systemImage: "iphone.and.arrow.forward")
+                Label(CaptureBrand.formatted("Ожидают iPhone: %d", "%d waiting for iPhone", controller.pendingCount), systemImage: "iphone.and.arrow.forward")
                     .font(.caption2)
                     .foregroundStyle(.secondary)
                     .multilineTextAlignment(.center)

@@ -13,13 +13,54 @@ enum IncomingRecordingResult {
 }
 
 final class RecordingRepository {
-    enum RepositoryError: Error { case invalidMetadata, recordingUnavailable, emptyTranscript }
+    enum TranscriptRecoveryStatus: Equatable {
+        case notNeeded
+        case ready(count: Int)
+        case unavailable
+    }
 
+    enum RepositoryError: LocalizedError, Equatable {
+        case invalidMetadata, recordingUnavailable, emptyTranscript, transcriptStoreUnreadable,
+             transcriptBackupUnavailable, transcriptRestoreNotNeeded
+
+        var errorDescription: String? {
+            switch self {
+            case .transcriptStoreUnreadable:
+                return CaptureBrand.text(
+                    "Не удалось прочитать хранилище расшифровок. Изменения не сохранены.",
+                    "Transcript storage could not be read. Your edits were not saved."
+                )
+            default:
+                return nil
+            }
+        }
+    }
+
+    // Init is nonthrowing because existing callers create the repository
+    // synchronously. A failed legacy file upgrade must block later writes,
+    // not silently store unprotected new transcript data.
+    private var protectionMigrationError: Error?
+
+#if DEBUG
+    // Synchronous fault injection for disposable XCTest repositories only.
+    // Release builds cannot inject faults or interrupt live user writes.
+    enum TranscriptWriteCheckpoint {
+        case beforeBackup, afterBackup, afterPrimary
+    }
+    var testTranscriptWriteCheckpoint: ((TranscriptWriteCheckpoint) throws -> Void)?
+#endif
     private let fileManager: FileManager
     private let rootURL: URL
     private let audioDirectory: URL
     private let indexURL: URL
     private let transcriptURL: URL
+    private let transcriptBackupURL: URL
+    // The user must be able to receive a Watch transfer in the background
+    // AFTER the first unlock, without exposing transcripts before first unlock.
+    // Set protection on the staging inode as part of atomic writing.
+    private let protectedJSONOptions: Data.WritingOptions = [
+        .atomic, .completeFileProtectionUntilFirstUserAuthentication
+    ]
     private let deletedIDsURL: URL
     private let archivedIDsURL: URL
     private let semanticIndexURL: URL
@@ -39,10 +80,16 @@ final class RecordingRepository {
         audioDirectory = self.rootURL.appendingPathComponent("Audio", isDirectory: true)
         indexURL = self.rootURL.appendingPathComponent("recordings.json")
         transcriptURL = self.rootURL.appendingPathComponent("transcripts.json")
+        transcriptBackupURL = self.rootURL.appendingPathComponent("transcripts.backup.json")
         deletedIDsURL = self.rootURL.appendingPathComponent("deleted-recordings.json")
         archivedIDsURL = self.rootURL.appendingPathComponent("archived-recordings.json")
         semanticIndexURL = self.rootURL.appendingPathComponent("semantic-search-index.json")
         try? fileManager.createDirectory(at: audioDirectory, withIntermediateDirectories: true)
+        do {
+            try protectExistingTranscriptFiles()
+        } catch {
+            protectionMigrationError = error
+        }
         // Finish cleanup interrupted after writing the durable deletion marker.
         try? resumePendingDeletions()
     }
@@ -129,13 +176,16 @@ final class RecordingRepository {
             try persistIndex(remaining)
         }
 
-        let existing = loadTranscripts()
+        // Tombstones are durable. If transcript JSON is damaged, do not
+        // overwrite other users' texts with a partial/empty catalog.
+        // Leave cleanup pending and retry after explicit trusted repair.
+        let existing = try loadTranscriptsForMutation()
         let cleaned = existing.filter {
             guard let id = UUID(uuidString: $0.key) else { return true }
             return !deleted.contains(id)
         }
         if cleaned.count != existing.count {
-            try ArvectumJSONCodec.encode(cleaned).write(to: transcriptURL, options: .atomic)
+            try persistTranscripts(cleaned)
         }
 
         let archived = try loadArchivedIDs()
@@ -226,9 +276,12 @@ final class RecordingRepository {
         lock.lock()
         defer { lock.unlock() }
         guard !(try loadDeletedIDs()).contains(id) else { return }
-        var existing = loadTranscripts()
+        // Never replace an unreadable transcript catalog with a new one.
+        // Otherwise a single manual edit or late speech result could erase
+        // every other transcript when the JSON file is corrupt.
+        var existing = try loadTranscriptsForMutation()
         existing[id.uuidString] = text
-        try ArvectumJSONCodec.encode(existing).write(to: transcriptURL, options: .atomic)
+        try persistTranscripts(existing)
     }
 
     /// User-edited text is stored independently from the immutable source audio.
@@ -244,9 +297,121 @@ final class RecordingRepository {
               loadIndex().contains(where: { $0.id == id }) else {
             throw RepositoryError.recordingUnavailable
         }
-        var existing = loadTranscripts()
+        // Never replace an unreadable transcript catalog with a new one.
+        // Otherwise a single manual edit or late speech result could erase
+        // every other transcript when the JSON file is corrupt.
+        var existing = try loadTranscriptsForMutation()
         existing[id.uuidString] = text
-        try ArvectumJSONCodec.encode(existing).write(to: transcriptURL, options: .atomic)
+        try persistTranscripts(existing)
+    }
+
+    /// Update earlier versions' unprotected catalogs in place without
+    /// decoding or rewriting personal text. On a protected iOS device this
+    /// applies even before the next transcript edit. Do not touch audio.
+    private func protectExistingTranscriptFiles() throws {
+        for url in [transcriptURL, transcriptBackupURL, deletedIDsURL] {
+            guard fileManager.fileExists(atPath: url.path) else { continue }
+            let current = try fileManager.attributesOfItem(atPath: url.path)
+            guard (current[.protectionKey] as? FileProtectionType)
+                    != .completeUntilFirstUserAuthentication else { continue }
+            try fileManager.setAttributes(
+                [.protectionKey: FileProtectionType.completeUntilFirstUserAuthentication],
+                ofItemAtPath: url.path
+            )
+        }
+    }
+
+    /// Shadow copy is written first and both replacements are atomic. If
+    /// the second write fails, the readable main catalog is still intact;
+    /// a trusted copy is retained in the sidecar for explicit restoration.
+    /// Deletion uses this path too, so successful purges remove the text from
+    /// BOTH the main catalog and the recovery copy.
+    private func persistTranscripts(_ catalog: [String: String]) throws {
+        if let protectionMigrationError { throw protectionMigrationError }
+        let data = try ArvectumJSONCodec.encode(catalog)
+#if DEBUG
+        try testTranscriptWriteCheckpoint?(.beforeBackup)
+#endif
+        try data.write(to: transcriptBackupURL, options: protectedJSONOptions)
+#if DEBUG
+        try testTranscriptWriteCheckpoint?(.afterBackup)
+#endif
+        try data.write(to: transcriptURL, options: protectedJSONOptions)
+#if DEBUG
+        try testTranscriptWriteCheckpoint?(.afterPrimary)
+#endif
+    }
+
+    /// Read-only status used by the recovery screen. Never expose backup
+    /// content, and never offer to replace a healthy/missing primary.
+    func transcriptRecoveryStatus() -> TranscriptRecoveryStatus {
+        lock.lock()
+        defer { lock.unlock() }
+
+        guard fileManager.fileExists(atPath: transcriptURL.path),
+              (try? loadTranscriptsForMutation()) == nil else {
+            return .notNeeded
+        }
+        guard let deleted = try? loadDeletedIDs(),
+              let data = try? Data(contentsOf: transcriptBackupURL),
+              let backup = try? ArvectumJSONCodec.decode(
+                [String: String].self, from: data
+              ) else {
+            return .unavailable
+        }
+        let surviving = backup.keys.filter {
+            guard let id = UUID(uuidString: $0) else { return true }
+            return !deleted.contains(id)
+        }
+        // Never offer an empty catalog as a recovery option.
+        return surviving.isEmpty ? .unavailable : .ready(count: surviving.count)
+    }
+
+    /// Opt-in recovery primitive; never silently roll back readable catalog
+    /// content. Deleted IDs are filtered from the backup before restoration,
+    /// and durable tombstones still block late Watch transfers.
+    func restoreTranscriptCatalogFromBackup() throws {
+        lock.lock()
+        defer { lock.unlock() }
+
+        // An absent or valid main catalog is NOT permission to replace it.
+        guard fileManager.fileExists(atPath: transcriptURL.path),
+              (try? loadTranscriptsForMutation()) == nil else {
+            throw RepositoryError.transcriptRestoreNotNeeded
+        }
+        let deleted = try loadDeletedIDs()
+        let backup: [String: String]
+        do {
+            backup = try ArvectumJSONCodec.decode(
+                [String: String].self, from: Data(contentsOf: transcriptBackupURL)
+            )
+        } catch {
+            throw RepositoryError.transcriptBackupUnavailable
+        }
+        let safe = backup.filter { entry in
+            guard let id = UUID(uuidString: entry.key) else { return true }
+            return !deleted.contains(id)
+        }
+        // An empty backup cannot safely reconstruct a damaged catalog.
+        guard !safe.isEmpty else {
+            throw RepositoryError.transcriptBackupUnavailable
+        }
+        try persistTranscripts(safe)
+        // Finish any interrupted audio/index deletion after the text is safe.
+        try cleanupDeletedArtifacts(deleted)
+    }
+
+    /// Writes must fail closed when the catalog exists but is unreadable.
+    /// Reads intentionally retain their existing empty-on-failure display
+    /// behavior; only mutations are prohibited from clobbering the bytes.
+    private func loadTranscriptsForMutation() throws -> [String: String] {
+        guard fileManager.fileExists(atPath: transcriptURL.path) else { return [:] }
+        do {
+            let data = try Data(contentsOf: transcriptURL)
+            return try ArvectumJSONCodec.decode([String: String].self, from: data)
+        } catch {
+            throw RepositoryError.transcriptStoreUnreadable
+        }
     }
 
     private func loadTranscripts() -> [String: String] {
@@ -265,8 +430,11 @@ final class RecordingRepository {
     }
 
     private func persistDeletedIDs(_ ids: Set<UUID>) throws {
+        if let protectionMigrationError { throw protectionMigrationError }
         let data = try ArvectumJSONCodec.encode(ids.map(\.uuidString).sorted())
-        try data.write(to: deletedIDsURL, options: .atomic)
+        // These tombstones prevent deleted notes from being resurrected.
+        // Protect them with the same pre-first-unlock guarantee as transcripts.
+        try data.write(to: deletedIDsURL, options: protectedJSONOptions)
     }
 
     private func persistIncomingFile(from sourceURL: URL, to destination: URL) throws {

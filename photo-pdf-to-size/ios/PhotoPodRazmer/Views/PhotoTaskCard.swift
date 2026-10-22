@@ -5,6 +5,7 @@ import UniformTypeIdentifiers
 
 @MainActor
 struct MainTaskCard: View {
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @EnvironmentObject private var model: AppModel
     @Binding var pickerItem: PhotosPickerItem?
     @State private var importingFile = false
@@ -14,13 +15,13 @@ struct MainTaskCard: View {
         VStack(alignment: .leading, spacing: 10) {
             switch model.mode {
             case .fileSize:
-                taskHeader(tr("ПО ВЕСУ"), tr("Уменьшить фото до нужного веса"))
+                taskHeader(tr("СЖАТЬ ФОТО"), tr("Уменьшить размер файла до нужного значения"))
                 sourceRow
                 presetRow
                 if model.isCustomTarget { customSizeRow }
                 advancedOptionsRow
             case .pixels:
-                taskHeader(tr("ПО РАЗМЕРУ"), tr("Изменить размер в пикселях"))
+                taskHeader(tr("ИЗМЕНИТЬ РАЗМЕР"), tr("Изменить размер в пикселях"))
                 sourceRow
                 pixelResizeModeRow
                 if model.pixelResizeMode == .longSide {
@@ -31,7 +32,7 @@ struct MainTaskCard: View {
                 }
                 advancedOptionsRow
             case .passport:
-                taskHeader(tr("НА ДОКУМЕНТЫ"), tr("Подготовить фото по требованиям документа"))
+                taskHeader(tr("ФОТО НА ДОКУМЕНТЫ"), tr("Подготовить фото по требованиям документа"))
                 documentPresetRow
                 sourceRow
                 infoBox(model.documentPreset.outputSummary + "\n" + model.documentPreset.guidance)
@@ -90,76 +91,25 @@ struct MainTaskCard: View {
         .accessibilityLabel(Text(tr("Страна / документ")))
     }
 
+    // In accessibility mode each import choice gets its own row and
+    // sufficient height for real localized labels. Side-by-side fixed
+    // 62pt controls hid both labels in Spanish at AXXXL.
     private var sourceRow: some View {
-        let selectedSource = model.source
-        return HStack(spacing: 0) {
-            PhotosPicker(selection: $pickerItem, matching: .images) {
-                HStack(spacing: 9) {
-                    Image(systemName: selectedSource == nil ? "photo.badge.plus" : "photo.fill")
-                        .font(.title3)
-                        .foregroundStyle(Color.arvectumPrimaryText)
-                    VStack(alignment: .leading, spacing: 2) {
-                        Text(tr(selectedSource == nil ? "Выбрать фото" : "Фото выбрано"))
-                            .font(.subheadline.weight(.semibold))
-                            .foregroundStyle(Color.arvectumPrimaryText)
-                            .lineLimit(1)
-                        if let source = selectedSource {
-                            Text("\(source.width)×\(source.height) px · \(formatBytes(source.sizeBytes))")
-                                .font(.caption)
-                                .foregroundStyle(.secondary)
-                                .lineLimit(1)
-                                .minimumScaleFactor(0.8)
-                        } else {
-                            Text("JPEG, PNG, HEIC и другие изображения")
-                                .font(.caption)
-                                .foregroundStyle(.secondary)
-                                .lineLimit(1)
-                                .minimumScaleFactor(0.8)
-                        }
-                    }
-                    Spacer(minLength: 4)
+        Group {
+            if dynamicTypeSize.isAccessibilitySize {
+                VStack(spacing: 8) {
+                    photoSourcePicker
+                    fileSourceImporter
                 }
-                .padding(.leading, 11)
-                .padding(.trailing, 8)
-                .frame(maxWidth: .infinity)
-                .frame(height: 62)
-                .contentShape(Rectangle())
-            }
-            .buttonStyle(.plain)
-
-            Divider()
-                .frame(height: 34)
-
-            Button {
-                importingFile = true
-            } label: {
-                Label(tr("Файлы"), systemImage: "folder")
-                    .font(.caption.weight(.semibold))
-                    .lineLimit(1)
-                    .padding(.horizontal, 9)
-                    .frame(height: 36)
-            }
-            .buttonStyle(.plain)
-            .accessibilityIdentifier("import-files-button")
-            .foregroundStyle(Color.arvectumPrimaryText)
-            .background(Color.arvectumSurface, in: Capsule())
-            .overlay(
-                Capsule()
-                    .stroke(Color.arvectumBorder, lineWidth: 1)
-            )
-            .padding(.horizontal, 8)
-            .fileImporter(
-                isPresented: $importingFile,
-                allowedContentTypes: [.image],
-                allowsMultipleSelection: false
-            ) { result in
-                if case .success(let urls) = result, let url = urls.first {
-                    model.selectFile(url)
+            } else {
+                HStack(spacing: 0) {
+                    photoSourcePicker
+                    Divider().frame(height: 34)
+                    fileSourceImporter
                 }
             }
         }
         .frame(maxWidth: .infinity)
-        .frame(height: 62)
         .background(Color.arvectumBackground, in: RoundedRectangle(cornerRadius: 14))
         .overlay(
             RoundedRectangle(cornerRadius: 14)
@@ -167,12 +117,86 @@ struct MainTaskCard: View {
         )
     }
 
+    private var photoSourcePicker: some View {
+        let selectedSource = model.source
+        let accessibility = dynamicTypeSize.isAccessibilitySize
+        return PhotosPicker(selection: $pickerItem, matching: .images) {
+            HStack(spacing: 9) {
+                Image(systemName: selectedSource == nil ? "photo.badge.plus" : "photo.fill")
+                    .font(.title3)
+                    .foregroundStyle(Color.arvectumPrimaryText)
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(tr(selectedSource == nil ? "Выбрать фото" : "Фото выбрано"))
+                        .font(.subheadline.weight(.semibold))
+                        .foregroundStyle(Color.arvectumPrimaryText)
+                        .lineLimit(accessibility ? 2 : 1)
+                    if let source = selectedSource {
+                        Text(String(
+                            format: tr("%1$d×%2$d px · %3$@"),
+                            source.width, source.height, formatBytes(source.sizeBytes)
+                        ))
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                            .lineLimit(accessibility ? 3 : 1)
+                            .minimumScaleFactor(0.8)
+                    } else {
+                        Text("JPEG, PNG, HEIC и другие изображения")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                            .lineLimit(accessibility ? 3 : 1)
+                            .minimumScaleFactor(0.8)
+                    }
+                }
+                Spacer(minLength: 4)
+            }
+            .padding(.horizontal, 11)
+            .padding(.vertical, accessibility ? 12 : 0)
+            .frame(maxWidth: .infinity, minHeight: accessibility ? 100 : 62)
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
+    }
+
+    private var fileSourceImporter: some View {
+        Button {
+            importingFile = true
+        } label: {
+            Label(tr("Файлы"), systemImage: "folder")
+                .font(.caption.weight(.semibold))
+                .multilineTextAlignment(.center)
+                .lineLimit(dynamicTypeSize.isAccessibilitySize ? 2 : 1)
+                .frame(
+                    maxWidth: dynamicTypeSize.isAccessibilitySize ? .infinity : nil,
+                    minHeight: dynamicTypeSize.isAccessibilitySize ? 60 : 36
+                )
+        }
+        .buttonStyle(.plain)
+        .accessibilityIdentifier("import-files-button")
+        .foregroundStyle(Color.arvectumPrimaryText)
+        .padding(.horizontal, 8)
+        .background(Color.arvectumSurface, in: Capsule())
+        .overlay(
+            Capsule()
+                .stroke(Color.arvectumBorder, lineWidth: 1)
+        )
+        .padding(dynamicTypeSize.isAccessibilitySize ? 6 : 8)
+        .fileImporter(
+            isPresented: $importingFile,
+            allowedContentTypes: [.image],
+            allowsMultipleSelection: false
+        ) { result in
+            if case .success(let urls) = result, let url = urls.first {
+                model.selectFile(url)
+            }
+        }
+    }
+
     private var presetRow: some View {
         VStack(alignment: .leading, spacing: 7) {
-            Text("Максимальный вес")
+            Text(tr("Размер файла до"))
                 .font(.caption.weight(.semibold))
                 .foregroundStyle(.secondary)
-            HStack(spacing: 5) {
+            AdaptiveChipRow {
                 ForEach(fileSizePresets, id: \.0) { preset in
                     Chip(
                         text: tr(preset.1),
@@ -230,7 +254,7 @@ struct MainTaskCard: View {
                 .font(.caption.weight(.semibold))
                 .foregroundStyle(.secondary)
 
-            HStack(spacing: 6) {
+            AdaptiveChipRow {
                 ForEach(ExportImageFormat.allCases) { format in
                     Chip(text: format.title, selected: model.exportFormat == format) {
                         model.setExportFormat(format)
@@ -241,7 +265,7 @@ struct MainTaskCard: View {
     }
 
     private var pixelResizeModeRow: some View {
-        HStack(spacing: 6) {
+        AdaptiveChipRow {
             ForEach(PixelResizeMode.allCases) { item in
                 Chip(text: item.title, selected: model.pixelResizeMode == item) {
                     model.setPixelResizeMode(item)
@@ -255,7 +279,7 @@ struct MainTaskCard: View {
             Text("Длинная сторона")
                 .font(.caption.weight(.semibold))
                 .foregroundStyle(.secondary)
-            HStack(spacing: 6) {
+            AdaptiveChipRow {
                 ForEach(pixelPresets, id: \.0) { preset in
                     Chip(
                         text: tr(preset.1),

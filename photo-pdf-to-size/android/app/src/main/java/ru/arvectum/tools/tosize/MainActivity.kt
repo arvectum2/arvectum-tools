@@ -64,7 +64,7 @@ class MainActivity : ComponentActivity() {
                     onShare = {
                         viewModel.shareIntent()?.let { share ->
                             startActivity(
-                                Intent.createChooser(share, "Поделиться"),
+                                Intent.createChooser(share, getString(R.string.share)),
                             )
                         }
                     },

@@ -16,7 +16,28 @@ struct WhatApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            Group {
+#if DEBUG
+                if ProcessInfo.processInfo.arguments.contains("--qa-transcript-recovery-synthetic") {
+                    TranscriptRecoveryQAFixtureView()
+                } else if ProcessInfo.processInfo.arguments.contains("--qa-transcript-editor-synthetic") ||
+                   ProcessInfo.processInfo.arguments.contains("--qa-transcript-editor-synthetic-normal") ||
+                   ProcessInfo.processInfo.arguments.contains("--qa-transcript-editor-synthetic-error") {
+                    TranscriptEditorQAFixtureView()
+                } else if ProcessInfo.processInfo.arguments.contains("--qa-design-filled-library") ||
+                   ProcessInfo.processInfo.arguments.contains("--qa-spanish-axxxl-home") ||
+                   ProcessInfo.processInfo.arguments.contains("--qa-video-controls-no-camera") ||
+                   ProcessInfo.processInfo.arguments.contains("--qa-audio-controls-no-microphone") {
+                    // Debug-only visual fixtures. The Spanish home fixture
+                    // forces the real AXXXL SwiftUI layout without recording.
+                    ContentView().environment(\.dynamicTypeSize, .accessibility5)
+                } else {
+                    ContentView()
+                }
+#else
+                ContentView()
+#endif
+            }
 #if REVIEW_HANDOFF_QA
                 .onAppear { PhysicalCaptureQAProbe.shared.startIfRequested(store: store) }
 #endif

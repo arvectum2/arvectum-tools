@@ -1,0 +1,36 @@
+name: Localization portfolio
+
+on:
+  push:
+    paths:
+      - "core/localization/**"
+      - "core/tools/localization_portfolio.py"
+      - "core/tests/test_localization_portfolio.py"
+      - "chickmark/ios/**"
+      - "photo-pdf-to-size/ios/**"
+      - "photo-pdf-to-size/android/app/src/main/**"
+      - "pushkin/ios/**"
+      - "what/ios/**"
+      - ".github/workflows/localization-portfolio.yml"
+  pull_request:
+    paths:
+      - "core/localization/**"
+      - "core/tools/localization_portfolio.py"
+      - "core/tests/test_localization_portfolio.py"
+      - "chickmark/ios/**"
+      - "photo-pdf-to-size/ios/**"
+      - "photo-pdf-to-size/android/app/src/main/**"
+      - "pushkin/ios/**"
+      - "what/ios/**"
+      - ".github/workflows/localization-portfolio.yml"
+  workflow_dispatch:
+
+jobs:
+  localization:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify locale catalog and format parity
+        run: python3 core/tools/localization_portfolio.py --audit
+      - name: Test shared locale registry and English fallback
+        run: python3 -m unittest discover -s core/tests -p test_localization_portfolio.py -v

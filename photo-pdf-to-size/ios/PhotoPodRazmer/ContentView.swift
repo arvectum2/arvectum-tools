@@ -18,6 +18,7 @@ let pixelPresets: [(Int, String)] = [
 ]
 
 struct ContentView: View {
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @EnvironmentObject private var model: AppModel
     @State private var pickerItem: PhotosPickerItem?
     @State private var exporting = false
@@ -55,7 +56,6 @@ struct ContentView: View {
                         VStack(spacing: 6) {
                             ResultCard(
                                 result: result,
-                                onSave: beginExport,
                                 onSavePrintSheet: beginPrintSheetExport,
                                 onShare: { shareURL = result.outputURL },
                                 onBack: model.backToSelection
@@ -68,7 +68,6 @@ struct ContentView: View {
                         VStack(spacing: 6) {
                             PDFResultCard(
                                 result: pdfResult,
-                                onSave: beginPDFExport,
                                 onShare: { shareURL = pdfResult.outputURL },
                                 onBack: model.backToSelection
                             )
@@ -96,18 +95,69 @@ struct ContentView: View {
                     }
                 }
 
+                // The save action must remain visible even when the result
+                // preview is taller than the screen or an ad is displayed.
+                // It is outside the scroll view and above the footer.
+                if model.result != nil || model.pdfResult != nil {
+                    Button {
+                        if model.pdfResult != nil {
+                            beginPDFExport()
+                        } else {
+                            beginExport()
+                        }
+                    } label: {
+                        Label(tr("Сохранить файл"), systemImage: "square.and.arrow.down")
+                            .font(.headline)
+                            // Keep the sticky CTA readable and within the
+                            // viewport at AXXXL; don't constrain result body.
+                            .dynamicTypeSize(dynamicTypeSize.isAccessibilitySize ? .accessibility1 : dynamicTypeSize)
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.75)
+                            .frame(maxWidth: .infinity)
+                            .frame(minHeight: ArvectumDesignMetrics.preferredControlHeight)
+                            .contentShape(Rectangle())
+                    }
+                    .buttonStyle(.plain)
+                    .foregroundStyle(ArvectumSemanticColors.actionForeground)
+                    .background(
+                        ArvectumSemanticColors.actionBackground,
+                        in: RoundedRectangle(cornerRadius: 16, style: .continuous)
+                    )
+                    .accessibilityIdentifier("result-save-primary")
+                    .padding(.vertical, 8)
+
+                    // State changes only after fileExporter reports success;
+                    // never claim a file was saved when the picker is canceled.
+                    if model.saved {
+                        Label(tr("Файл сохранён"), systemImage: "checkmark.circle.fill")
+                            .font(.footnote.weight(.semibold))
+                            .foregroundStyle(Color.arvectumAccentText)
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.85)
+                            .frame(maxWidth: .infinity)
+                            .accessibilityIdentifier("export-success")
+                    }
+                }
+
                 HStack(spacing: 6) {
-                    Text("Arvectum.com")
-                    Text("·")
+                    if !dynamicTypeSize.isAccessibilitySize {
+                        Text("Arvectum.com")
+                        Text("·")
+                    }
                     Button(tr("Реклама и конфиденциальность")) {
                         showingAdPrivacySettings = true
                     }
                     .buttonStyle(.plain)
                 }
+                // Preserve the full privacy/advertising label rather than
+                // sacrificing it to a decorative website prefix at AXXXL.
                 .font(.caption.weight(.semibold))
+                .dynamicTypeSize(dynamicTypeSize.isAccessibilitySize ? .xxxLarge : dynamicTypeSize)
                 .foregroundStyle(.secondary)
+                .lineLimit(1)
+                .minimumScaleFactor(0.7)
                 .tracking(0.3)
-                .frame(height: (model.result == nil && model.pdfResult == nil) ? 24 : 16)
+                .frame(minHeight: (model.result == nil && model.pdfResult == nil) ? 24 : 20)
                 .accessibilityElement(children: .contain)
                 .accessibilityIdentifier("app-footer")
             }
@@ -166,7 +216,9 @@ struct ContentView: View {
             case .success:
                 model.markSaved(true)
             case .failure(let error):
-                model.markSaveFailed(error)
+                if !isCanceledFileExport(error) {
+                    model.markSaveFailed(error)
+                }
             }
         }
         .sheet(isPresented: Binding(

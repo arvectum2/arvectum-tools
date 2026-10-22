@@ -1,5 +1,27 @@
 # What? — Product Roadmap
 
+### UX/дизайн-код: очередь D2 (19.10.2026, план)
+- [x] D4.3 (20.10): TextEditor имеет локализованную VoiceOver-подпись и подсказку автосохранения; декоративный placeholder скрыт из AX дерева. Тест текстовой заметки, возврата и фильтра библиотеки PASS. Реальные ввод/Watch/rotor отдельно.
+- [x] D4.5 (20.10): диагностика AXXXL — прокручиваемые три секции с полными подписями, кнопка закрытия 64pt; обычный размер сохраняет системный List. Полный Xcode accessibility audit вверху и на блоке Watch PASS; RU/EN обычный UI 2/2 PASS. [Отчёт](../core/docs/UNIFIED_DESIGN_D45_WHAT_DIAGNOSTICS_2026-10-20.md). Физический Watch/VoiceOver остаётся открытым.
+- [x] D4.1 (20.10): доступная панель библиотеки 64pt, отступы и Mint из SwiftPM ArvectumCore; полный system accessibility audit заполненного списка **PASS**, Debug build PASS.
+
+- [x] VoiceOver: подсказка аудио объясняет двойное касание и действие Видеозапись вместо удержания; проверка audio/video/text accessibility labels на iPhone 17 Pro Simulator PASS.
+- [x] XCUIVoiceOverService на iPhone 17 Pro iOS 27: короткий VoiceOver аудио/видео/текста PASS, включая исправленную подсказку. [ ] Полная проверка редактора, Watch и физического VoiceOver открыта.
+- [x] 20.10: XCUIAccessibilityAudit экранов Capture и Library при AXXXL **2/2 PASS**. После исходного FAIL подпись «Сохранено на устройстве» и число заметок перенесены в две строки. Обычный Capture UI smoke PASS.
+- [x] 20.10: выделенный 13-дюймовый iPad Simulator iOS 27, AXXXL, регрессия редактора и библиотеки 1/1 PASS; переход Capture ↔ Library при поворотах Portrait/Landscape 1/1 PASS. Не является тестом реального Fold/Duo/камеры или Split View.
+- [x] 20.10: заполненная тестовая библиотека (2 текста, 1 отсутствующее видео, 1 архивная заметка) — **реальный SwiftUI AXXXL: labels/traits/textClipped PASS** после увеличения высоты действий до 64pt. Синтетика только в Debug, реальных файлов/камеры нет. Логи: what-axxxl-increased-actions-20261020.log, what-filled-final-after-empty-state-20261020.log.
+- [x] Пустая библиотека: вместо обрезающего ContentUnavailableView прокручиваемый layout и лаконичная подсказка; системный audit PASS. Кнопки аудио/текст/видео на Home — UI PASS (what-empty-custom-state-20261020.log, 2/2).
+- [x] **HitRegion исправлен (20.10):** при SwiftUI Accessibility Dynamic Type нативная UINavigationBar заменяется отдельной 64pt панелью действий в контенте; стандартный размер сохраняет iOS toolbar. Полный системный audit заполненного списка (labels, hitRegion, trait, textClipped) **iPhone 17 Pro PASS + iPad 13″ PASS**. Действия назад/текст/настройки 2/2 UI PASS, Home/пустая библиотека 2/2 PASS. Логи: what-filled-four-category-icon-record-20261020.log, what-ipad13-full-ax-custom-bar-20261020.log, what-library-combined-regression-final-20261020.log.
+- [ ] iPad Split View, реальная камера/микрофон, Watch ACK, редактор заполненной заметки и физический VoiceOver/rotor остаются в QA.
+
+- [x] Кнопки «Видео» и «Текст» видны на Home; мгновенное аудио и long-press сохранены (BUILD + UI discoverability + long-press PASS).
+- [x] Дублированную инструкцию убрали; в компактной раскладке HStack → VStack. iPhone 17 Pro AXXXL UI PASS: аудио, текст, пустой редактор, библиотека. iPad/Duo/физический VoiceOver ещё открыты.
+- [x] «Все заметки», склонение RU/EN и VoiceOver label; добавлен стабильный identifier what.open.library, исправлены ожидания в пяти файлах UI-тестов. AXXXL UI PASS.
+- [ ] VoiceOver, Reduce Motion и запись/сохранение/Watch ACK regression QA перед выпуском.
+
+Полный аудит: [единый дизайн-код](../core/docs/UNIFIED_DESIGN_CODE_2026-10-19.md).
+
+
 ## 19.10.2026 — App Store update prompt: E2E и релизная граница
 
 - [x] Исходники общей проверки версии App Store и кнопок «Обновить»/«Позже» интегрированы в `main` (PR #133, коммит `08107c3`).

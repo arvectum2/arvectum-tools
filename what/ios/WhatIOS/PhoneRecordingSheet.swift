@@ -3,6 +3,30 @@ import SwiftUI
 struct PhoneRecordingSheet: View {
     @ObservedObject var recorder: PhoneRecordingController
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+
+    /// Layout acceptance only: never ask for microphone permission or start
+    /// recording. These flags are excluded from production behavior.
+    private var isLayoutQA: Bool {
+#if DEBUG
+        let args = ProcessInfo.processInfo.arguments
+        return args.contains("--qa-audio-controls-no-microphone")
+            || args.contains("--qa-audio-controls-normal-no-microphone")
+#else
+        false
+#endif
+    }
+
+    private func closeCapture() {
+        if !isLayoutQA { recorder.discard() }
+        dismiss()
+    }
+
+    private var closeLabel: String {
+        recorder.isRecording
+            ? CaptureBrand.text("Удалить", "Discard")
+            : CaptureBrand.text("Закрыть", "Close")
+    }
 
     var body: some View {
         NavigationStack {
@@ -36,7 +60,7 @@ struct PhoneRecordingSheet: View {
                             .font(.caption)
                             .foregroundStyle(recorder.microphoneConnected
                                 ? Color.secondary : Color.orange)
-                            Text(CaptureBrand.text("Вход: \(recorder.microphoneRoute)", "Input: \(recorder.microphoneRoute)"))
+                            Text(CaptureBrand.formatted("Вход: %@", "Input: %@", recorder.microphoneRoute))
                                 .font(.caption2)
                                 .foregroundStyle(.secondary)
                         }
@@ -63,6 +87,8 @@ struct PhoneRecordingSheet: View {
                             .padding(.vertical, 8)
                     }
                     .buttonStyle(.borderedProminent)
+                    .frame(minHeight: 52)
+                    .accessibilityIdentifier("what.audio.stop")
                 } else {
                     Button {
                         recorder.start()
@@ -78,20 +104,41 @@ struct PhoneRecordingSheet: View {
                             .padding(.vertical, 8)
                     }
                     .buttonStyle(.borderedProminent)
-                    .disabled(recorder.requestingPermission)
+                    .frame(minHeight: 52)
+                    .accessibilityIdentifier("what.audio.start")
+                    .disabled(recorder.requestingPermission || isLayoutQA)
                 }
                 Spacer()
             }
             .padding(24)
             .navigationTitle(CaptureBrand.text("Новая запись", "New recording"))
             .navigationBarTitleDisplayMode(.inline)
+            // The iOS nav bar constrains actions to 36 pt in AXXXL.
+            // Keep the discard/close action fully tappable above the keyboard.
+            .safeAreaInset(edge: .bottom, spacing: 0) {
+                if dynamicTypeSize.isAccessibilitySize {
+                    HStack {
+                        Button(closeLabel, role: recorder.isRecording ? .destructive : nil) {
+                            closeCapture()
+                        }
+                        .buttonStyle(.bordered)
+                        .frame(minWidth: 88, minHeight: 52)
+                        .contentShape(Rectangle())
+                        .accessibilityIdentifier("what.audio.close")
+                        Spacer(minLength: 0)
+                    }
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 8)
+                    .background(.regularMaterial)
+                }
+            }
             .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
-                    Button(recorder.isRecording
-                        ? CaptureBrand.text("Удалить", "Discard")
-                        : CaptureBrand.text("Закрыть", "Close"), role: recorder.isRecording ? .destructive : nil) {
-                        recorder.discard()
-                        dismiss()
+                if !dynamicTypeSize.isAccessibilitySize {
+                    ToolbarItem(placement: .cancellationAction) {
+                        Button(closeLabel, role: recorder.isRecording ? .destructive : nil) {
+                            closeCapture()
+                        }
+                        .accessibilityIdentifier("what.audio.close")
                     }
                 }
             }
@@ -105,7 +152,7 @@ struct PhoneRecordingSheet: View {
                 Text(recorder.errorMessage ?? "")
             }
             .onAppear {
-                if !recorder.isRecording {
+                if !recorder.isRecording && !isLayoutQA {
                     recorder.start()
                 }
             }

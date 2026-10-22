@@ -3,8 +3,53 @@ import SwiftUI
 import PhotosUI
 import UniformTypeIdentifiers
 
+/// A result's status and settings are navigation controls, not the content.
+/// At accessibility sizes they stack and cap their typography to avoid
+/// truncated fixed-height pills. The rest of the result stays scrollable.
+private struct ResultTopBar: View {
+    let onBack: () -> Void
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+
+    var body: some View {
+        Group {
+            if dynamicTypeSize.isAccessibilitySize {
+                VStack(alignment: .leading, spacing: 10) { controls }
+            } else {
+                HStack(spacing: 8) { controls }
+            }
+        }
+        .dynamicTypeSize(dynamicTypeSize.isAccessibilitySize ? .accessibility1 : dynamicTypeSize)
+    }
+
+    @ViewBuilder
+    private var controls: some View {
+        Text(tr("ГОТОВО"))
+            .font(.caption.weight(.bold))
+            .foregroundStyle(Color.arvectumAccentText)
+
+        if !dynamicTypeSize.isAccessibilitySize {
+            Spacer(minLength: 8)
+        }
+
+        Button(action: onBack) {
+            Label(tr("Изменить настройки"), systemImage: "slider.horizontal.3")
+                .font(.caption.weight(.semibold))
+                .lineLimit(1)
+                .minimumScaleFactor(0.72)
+                .padding(.horizontal, 10)
+                .frame(minHeight: 40)
+        }
+        .buttonStyle(.plain)
+        .foregroundStyle(Color.arvectumPrimaryText)
+        .background(Color.arvectumBackground, in: Capsule())
+        .overlay(Capsule().stroke(Color.arvectumStrongBorder, lineWidth: 1))
+        .accessibilityIdentifier("edit-settings-button")
+    }
+}
+
 struct BeforeAfterPreview: View {
     let result: ResultImage
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     private var outputImage: UIImage {
         UIImage(contentsOfFile: result.outputURL.path) ?? result.source.image
@@ -25,6 +70,7 @@ struct BeforeAfterPreview: View {
                 bytes: result.outputSizeBytes
             )
         }
+        .dynamicTypeSize(dynamicTypeSize.isAccessibilitySize ? .accessibility1 : dynamicTypeSize)
     }
 
     private func preview(title: String, image: UIImage, dimensions: String, bytes: Int64) -> some View {
@@ -41,8 +87,11 @@ struct BeforeAfterPreview: View {
                 .clipped()
                 .background(Color.arvectumBackground)
                 .clipShape(RoundedRectangle(cornerRadius: 12))
+                // Visual thumbnail is accompanied by spoken "Before/After",
+                // dimensions and file size. Do not announce an unnamed Image.
+                .accessibilityHidden(true)
 
-            Text("\(dimensions) · \(formatBytes(bytes))")
+            Text(String(format: tr("%1$@ · %2$@"), dimensions, formatBytes(bytes)))
                 .font(.caption2)
                 .foregroundStyle(.secondary)
                 .lineLimit(1)
@@ -54,30 +103,18 @@ struct BeforeAfterPreview: View {
 
 struct PDFResultCard: View {
     let result: ResultPDF
-    let onSave: () -> Void
     let onShare: () -> Void
     let onBack: () -> Void
 
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-            HStack(spacing: 8) {
-                Text(tr("ГОТОВО"))
-                    .font(.caption.weight(.bold))
-                    .foregroundStyle(Color.arvectumAccentText)
-                Spacer()
-                Button(action: onBack) {
-                    Label(tr("Изменить настройки"), systemImage: "slider.horizontal.3")
-                        .font(.caption.weight(.semibold))
-                        .padding(.horizontal, 10)
-                        .frame(height: 32)
-                }
-                .buttonStyle(.plain)
-                .foregroundStyle(Color.arvectumPrimaryText)
-                .background(Color.arvectumBackground, in: Capsule())
-            }
+            ResultTopBar(onBack: onBack)
 
             Text(tr(result.alreadyFit ? "PDF уже подходит" : "PDF подготовлен"))
                 .font(.title3.weight(.semibold))
+                .dynamicTypeSize(dynamicTypeSize.isAccessibilitySize ? .accessibility1 : dynamicTypeSize)
                 .foregroundStyle(Color.arvectumPrimaryText)
 
             HStack(spacing: 12) {
@@ -88,12 +125,14 @@ struct PDFResultCard: View {
                         .frame(width: 92, height: 122)
                         .background(Color.arvectumBackground)
                         .clipShape(RoundedRectangle(cornerRadius: 12))
+                        .accessibilityHidden(true)
                 } else {
                     Image(systemName: "doc.richtext")
                         .font(.system(size: 44))
                         .frame(width: 92, height: 122)
                         .background(Color.arvectumBackground)
                         .clipShape(RoundedRectangle(cornerRadius: 12))
+                        .accessibilityHidden(true)
                 }
 
                 VStack(spacing: 8) {
@@ -107,21 +146,14 @@ struct PDFResultCard: View {
                 .font(.caption)
                 .foregroundStyle(.secondary)
 
-            Button(action: onSave) {
-                Label(tr("Сохранить файл"), systemImage: "square.and.arrow.down")
-                    .font(.headline)
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 48)
-            }
-            .buttonStyle(.plain)
-            .foregroundStyle(Color.arvectumPrimaryText)
-            .background(Color.arvectumMint, in: RoundedRectangle(cornerRadius: 16))
-
             Button(action: onShare) {
                 Label(tr("Поделиться"), systemImage: "square.and.arrow.up")
                     .font(.headline)
+                    .dynamicTypeSize(dynamicTypeSize.isAccessibilitySize ? .accessibility1 : dynamicTypeSize)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.75)
                     .frame(maxWidth: .infinity)
-                    .frame(height: 46)
+                    .frame(minHeight: 46)
             }
             .buttonStyle(.plain)
             .foregroundStyle(Color.arvectumPrimaryText)
@@ -140,56 +172,49 @@ struct PDFResultCard: View {
     }
 
     private func stat(_ label: String, _ value: String) -> some View {
-        HStack {
+        let stacked = dynamicTypeSize.isAccessibilitySize
+        let layout = stacked
+            ? AnyLayout(VStackLayout(alignment: .leading, spacing: 4))
+            : AnyLayout(HStackLayout(spacing: 8))
+        return layout {
             Text(label)
                 .font(.caption)
                 .foregroundStyle(.secondary)
-            Spacer()
+                .lineLimit(1)
+                .minimumScaleFactor(0.8)
+            if !stacked {
+                Spacer(minLength: 4)
+            }
             Text(value)
                 .font(.subheadline.weight(.semibold))
                 .foregroundStyle(Color.arvectumPrimaryText)
+                .lineLimit(1)
+                .minimumScaleFactor(0.7)
         }
+        // Keep label and value individually legible instead of wrapping a
+        // short amount onto multiple lines beside the PDF preview.
+        .dynamicTypeSize(stacked ? .accessibility1 : dynamicTypeSize)
         .padding(10)
+        .frame(maxWidth: .infinity, alignment: .leading)
         .background(Color.arvectumBackground, in: RoundedRectangle(cornerRadius: 12))
     }
 }
 
 struct ResultCard: View {
     let result: ResultImage
-    let onSave: () -> Void
     let onSavePrintSheet: () -> Void
     let onShare: () -> Void
     let onBack: () -> Void
 
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+
     var body: some View {
         VStack(alignment: .leading, spacing: result.mode == .passport ? 7 : 12) {
-            HStack(spacing: 8) {
-                Text("ГОТОВО")
-                    .font(.caption.weight(.bold))
-                    .foregroundStyle(Color.arvectumAccentText)
-
-                Spacer(minLength: 8)
-
-                Button(action: onBack) {
-                    Label("Изменить настройки", systemImage: "slider.horizontal.3")
-                        .font(.caption.weight(.semibold))
-                        .lineLimit(1)
-                        .minimumScaleFactor(0.82)
-                        .padding(.horizontal, 10)
-                        .frame(height: 32)
-                }
-                .buttonStyle(.plain)
-                .foregroundStyle(Color.arvectumPrimaryText)
-                .background(Color.arvectumBackground, in: Capsule())
-                .overlay(
-                    Capsule()
-                        .stroke(Color.arvectumStrongBorder, lineWidth: 1)
-                )
-                .accessibilityIdentifier("edit-settings-button")
-            }
+            ResultTopBar(onBack: onBack)
 
             Text(tr(result.alreadyFit ? "Фото уже подходит" : "Фото подготовлено"))
                 .font(.title3.weight(.semibold))
+                .dynamicTypeSize(dynamicTypeSize.isAccessibilitySize ? .accessibility1 : dynamicTypeSize)
                 .foregroundStyle(Color.arvectumPrimaryText)
 
             BeforeAfterPreview(result: result)
@@ -198,6 +223,7 @@ struct ResultCard: View {
                 stat(tr("Размер"), formatBytes(result.outputSizeBytes))
                 stat(tr("Разрешение"), "\(result.outputWidth)×\(result.outputHeight)")
             }
+            .dynamicTypeSize(dynamicTypeSize.isAccessibilitySize ? .accessibility1 : dynamicTypeSize)
 
             if result.mode == .passport, let preset = result.documentPreset {
                 Text(preset.outputSummary)
@@ -205,24 +231,15 @@ struct ResultCard: View {
                     .foregroundStyle(.secondary)
             }
 
-            Spacer(minLength: 0)
-
-            Button(action: onSave) {
-                Label("Сохранить файл", systemImage: "square.and.arrow.down")
-                    .font(.headline)
-                    .frame(maxWidth: .infinity)
-                    .frame(height: result.mode == .passport ? 42 : 48)
-            }
-            .buttonStyle(.plain)
-            .foregroundStyle(Color.arvectumPrimaryText)
-            .background(Color.arvectumMint, in: RoundedRectangle(cornerRadius: 16))
-
             if let sheet = result.printSheet {
                 Button(action: onSavePrintSheet) {
                     Label("Лист для печати", systemImage: "square.grid.2x2")
                         .font(.headline)
+                        .dynamicTypeSize(dynamicTypeSize.isAccessibilitySize ? .accessibility1 : dynamicTypeSize)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.75)
                         .frame(maxWidth: .infinity)
-                        .frame(height: result.mode == .passport ? 40 : 46)
+                        .frame(minHeight: result.mode == .passport ? 40 : 46)
                 }
                 .buttonStyle(.plain)
                 .foregroundStyle(Color.arvectumPrimaryText)
@@ -240,8 +257,11 @@ struct ResultCard: View {
             Button(action: onShare) {
                 Label("Поделиться", systemImage: "square.and.arrow.up")
                     .font(.headline)
+                    .dynamicTypeSize(dynamicTypeSize.isAccessibilitySize ? .accessibility1 : dynamicTypeSize)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.75)
                     .frame(maxWidth: .infinity)
-                    .frame(height: result.mode == .passport ? 40 : 46)
+                    .frame(minHeight: result.mode == .passport ? 40 : 46)
             }
             .buttonStyle(.plain)
             .foregroundStyle(Color.arvectumPrimaryText)

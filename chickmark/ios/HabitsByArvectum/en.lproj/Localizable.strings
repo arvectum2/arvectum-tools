@@ -1,5 +1,5 @@
 "today.title" = "Today";
-"today.progress.format" = "%d of %d";
+"today.progress.format" = "Marked: %d of %d";
 "today.empty.title" = "Start with one habit";
 "today.empty.description" = "It only takes a few seconds. No account or extra setup.";
 "today.none.title" = "You're done for today";
@@ -145,6 +145,7 @@
 "oneoff.notification.denied.message" = "Allow notifications for ChickMark in iPhone Settings to receive one-time reminders.";
 "oneoff.complete" = "Mark complete";
 "oneoff.edit" = "Edit";
+"oneoff.actions" = "Reminder actions";
 "oneoff.delete" = "Delete reminder";
 "oneoff.demo.marathon" = "Buy marathon slot";
 "oneoff.today.format" = "Today, %@";
@@ -191,6 +192,9 @@
 "groups.none" = "No group";
 "groups.add" = "New group";
 "groups.delete" = "Delete group (keep habits)";
+"groups.delete.short" = "Delete group";
+"groups.actions" = "Group actions";
+"groups.delete.keepHint" = "Habits are kept.";
 "groups.placeholder" = "Group name";
 
 "backup.error.version" = "Unsupported ChickMark backup version.";
@@ -282,6 +286,8 @@
 "restart.settings.enable" = "Offer a gentle return";
 "restart.settings.threshold" = "After a quiet period";
 "restart.settings.explanation" = "Off by default. Offers a quiet invitation after a break. Previous check-ins, skips, streaks and schedules are never rewritten. This setting stays on this iPhone.";
+"restart.settings.shortTitle" = "Restart";
+"restart.settings.disabledHint" = "Enable Gentle Restart to choose the interval.";
 "restart.days" = "%d days";
 "restart.card.title" = "Ready to pick up again?";
 "restart.card.description" = "Your previous progress is still here. Choose a habit to continue when it suits you.";

@@ -45,6 +45,7 @@ struct HabitsByArvectumApp: App {
         seedWatchSyncDemoIfRequested(container: container)
         seedNativeAdLayoutDemoIfRequested(container: container)
         seedScreenshotDemoIfRequested(container: container)
+        seedDesignFilledHabitsIfRequested(container: container)
         seedOneOffReminderDemoIfRequested(container: container)
         seedFlexibleWeeklyDemoIfRequested(container: container)
         seedReminderSmokeIfRequested(container: container)
@@ -234,7 +235,18 @@ struct HabitsByArvectumApp: App {
                 if storageUnavailable {
                     StorageRecoveryView()
                 } else {
+#if DEBUG
+                    if ProcessInfo.processInfo.arguments.contains("--ui-testing") &&
+                        ProcessInfo.processInfo.arguments.contains("--qa-design-filled-habits") {
+                        // Only synthetic in-memory UI tests: force the branch
+                        // actually rendered by Accessibility XXXL users.
+                        TodayView().environment(\.dynamicTypeSize, .accessibility5)
+                    } else {
+                        TodayView()
+                    }
+#else
                     TodayView()
+#endif
                 }
             }
             .environment(\.locale, Locale(

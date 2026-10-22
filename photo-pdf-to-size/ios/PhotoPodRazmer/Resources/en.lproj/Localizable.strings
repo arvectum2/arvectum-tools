@@ -26,6 +26,7 @@
 "Размер" = "File size";
 "Разрешение" = "Resolution";
 "Сохранить файл" = "Save file";
+"Файл сохранён" = "File saved";
 "Поделиться" = "Share";
 "Вернуться к настройкам" = "Back to settings";
 "Отмена" = "Cancel";
@@ -103,7 +104,7 @@
 "Дополнительно" = "Advanced";
 
 "Реклама и конфиденциальность" = "Ads & Privacy";
-"Фото обрабатываются только на устройстве. Для показа рекламы используется Yandex Mobile Ads. Вы можете разрешить рекламному SDK обработку технических данных или отказаться. Геолокация отключена, разрешение App Tracking Transparency приложение не запрашивает." = "Photos and PDFs are processed only on your device. Yandex Mobile Ads is used to display ads. You can allow the advertising SDK to process technical data or decline. Location is disabled and the app does not request App Tracking Transparency permission.";
+"Фото и PDF обрабатываются только на устройстве. Для показа рекламы используется Yandex Mobile Ads. Вы можете разрешить рекламному SDK обработку технических данных или отказаться. Геолокация отключена, разрешение App Tracking Transparency приложение не запрашивает." = "Photos and PDFs are processed only on your device. Yandex Mobile Ads is used to display ads. You can allow the advertising SDK to process technical data or decline. Location is disabled and the app does not request App Tracking Transparency permission.";
 "Политика конфиденциальности" = "Privacy Policy";
 "Разрешить для рекламы" = "Allow for ads";
 "Отказаться" = "Decline";
@@ -140,3 +141,23 @@
 "страница" = "page";
 "страниц" = "pages";
 "PDF обработан локально на устройстве и никуда не загружался." = "The PDF was processed locally on your device and was not uploaded anywhere.";
+
+"Сжать" = "Compress";
+"Размер фото" = "Resize";
+"Документы" = "ID photo";
+"Сжать файл" = "Compress file";
+"Фото на документы" = "ID photo";
+"Обработать PDF" = "Work with PDF";
+"СЖАТЬ ФОТО" = "COMPRESS PHOTO";
+"ИЗМЕНИТЬ РАЗМЕР" = "RESIZE PHOTO";
+"ФОТО НА ДОКУМЕНТЫ" = "ID PHOTO";
+"Уменьшить размер файла до нужного значения" = "Reduce the file to your size limit";
+"Размер файла до" = "File size limit";
+
+"СЖАТЬ PDF" = "COMPRESS PDF";
+"Сжать PDF до выбранного размера" = "Compress PDF to a selected file size";
+"страницы" = "pages";
+"%1$d %2$@ · %3$@" = "%1$d %2$@ · %3$@";
+"%1$d %2$@" = "%1$d %2$@";
+"%1$d×%2$d px · %3$@" = "%1$d×%2$d px · %3$@";
+"%1$@ · %2$@" = "%1$@ · %2$@";

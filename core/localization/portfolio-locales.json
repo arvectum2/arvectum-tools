@@ -1,0 +1,297 @@
+{
+  "schemaVersion": 1,
+  "fallback": "en",
+  "policy": "Only ship localization folders with complete, proofread UI/permission strings and passing checks; no empty/English placeholder translations.",
+  "targets": [
+    {
+      "code": "en",
+      "name": "English",
+      "tier": 1
+    },
+    {
+      "code": "ru",
+      "name": "Русский",
+      "tier": 1
+    },
+    {
+      "code": "es",
+      "name": "Español",
+      "tier": 1
+    },
+    {
+      "code": "zh-Hans",
+      "name": "简体中文",
+      "tier": 1
+    },
+    {
+      "code": "zh-Hant",
+      "name": "繁體中文",
+      "tier": 1
+    },
+    {
+      "code": "hi",
+      "name": "हिन्दी",
+      "tier": 1
+    },
+    {
+      "code": "ar",
+      "name": "العربية",
+      "tier": 1
+    },
+    {
+      "code": "pt-BR",
+      "name": "Português (Brasil)",
+      "tier": 1
+    },
+    {
+      "code": "pt-PT",
+      "name": "Português (Portugal)",
+      "tier": 1
+    },
+    {
+      "code": "fr",
+      "name": "Français",
+      "tier": 1
+    },
+    {
+      "code": "de",
+      "name": "Deutsch",
+      "tier": 1
+    },
+    {
+      "code": "ja",
+      "name": "日本語",
+      "tier": 1
+    },
+    {
+      "code": "ko",
+      "name": "한국어",
+      "tier": 1
+    },
+    {
+      "code": "id",
+      "name": "Bahasa Indonesia",
+      "tier": 1
+    },
+    {
+      "code": "tr",
+      "name": "Türkçe",
+      "tier": 1
+    },
+    {
+      "code": "vi",
+      "name": "Tiếng Việt",
+      "tier": 1
+    },
+    {
+      "code": "it",
+      "name": "Italiano",
+      "tier": 1
+    },
+    {
+      "code": "nl",
+      "name": "Nederlands",
+      "tier": 1
+    },
+    {
+      "code": "pl",
+      "name": "Polski",
+      "tier": 1
+    },
+    {
+      "code": "uk",
+      "name": "Українська",
+      "tier": 1
+    },
+    {
+      "code": "fa",
+      "name": "فارسی",
+      "tier": 2
+    },
+    {
+      "code": "ur",
+      "name": "اردو",
+      "tier": 2
+    },
+    {
+      "code": "bn",
+      "name": "বাংলা",
+      "tier": 2
+    },
+    {
+      "code": "pa",
+      "name": "ਪੰਜਾਬੀ",
+      "tier": 2
+    },
+    {
+      "code": "ta",
+      "name": "தமிழ்",
+      "tier": 2
+    },
+    {
+      "code": "te",
+      "name": "తెలుగు",
+      "tier": 2
+    },
+    {
+      "code": "mr",
+      "name": "मराठी",
+      "tier": 2
+    },
+    {
+      "code": "gu",
+      "name": "ગુજરાતી",
+      "tier": 2
+    },
+    {
+      "code": "kn",
+      "name": "ಕನ್ನಡ",
+      "tier": 2
+    },
+    {
+      "code": "ml",
+      "name": "മലയാളം",
+      "tier": 2
+    },
+    {
+      "code": "th",
+      "name": "ไทย",
+      "tier": 2
+    },
+    {
+      "code": "ms",
+      "name": "Bahasa Melayu",
+      "tier": 2
+    },
+    {
+      "code": "fil",
+      "name": "Filipino",
+      "tier": 2
+    },
+    {
+      "code": "sw",
+      "name": "Kiswahili",
+      "tier": 2
+    },
+    {
+      "code": "ro",
+      "name": "Română",
+      "tier": 2
+    },
+    {
+      "code": "hu",
+      "name": "Magyar",
+      "tier": 2
+    },
+    {
+      "code": "cs",
+      "name": "Čeština",
+      "tier": 2
+    },
+    {
+      "code": "sk",
+      "name": "Slovenčina",
+      "tier": 2
+    },
+    {
+      "code": "el",
+      "name": "Ελληνικά",
+      "tier": 2
+    },
+    {
+      "code": "he",
+      "name": "עברית",
+      "tier": 2
+    },
+    {
+      "code": "ha",
+      "name": "Hausa",
+      "tier": 3
+    },
+    {
+      "code": "am",
+      "name": "አማርኛ",
+      "tier": 3
+    },
+    {
+      "code": "sv",
+      "name": "Svenska",
+      "tier": 3
+    },
+    {
+      "code": "da",
+      "name": "Dansk",
+      "tier": 3
+    },
+    {
+      "code": "fi",
+      "name": "Suomi",
+      "tier": 3
+    },
+    {
+      "code": "nb",
+      "name": "Norsk bokmål",
+      "tier": 3
+    },
+    {
+      "code": "bg",
+      "name": "Български",
+      "tier": 3
+    },
+    {
+      "code": "sr",
+      "name": "Српски",
+      "tier": 3
+    },
+    {
+      "code": "hr",
+      "name": "Hrvatski",
+      "tier": 3
+    },
+    {
+      "code": "ca",
+      "name": "Català",
+      "tier": 3
+    }
+  ],
+  "apps": {
+    "chickmark": {
+      "bundles": [
+        "chickmark/ios/HabitsByArvectum",
+        "chickmark/ios/HabitsByArvectumWatch",
+        "chickmark/ios/HabitsByArvectumWidget",
+        "chickmark/ios/HabitsByArvectumWatchWidget"
+      ]
+    },
+    "pushkin": {
+      "bundles": [
+        "pushkin/ios/ArvectumNotify/Resources"
+      ]
+    },
+    "what": {
+      "bundles": [
+        "what/ios/WhatIOS",
+        "what/ios/WhatWatch",
+        "what/ios/WhatPhoneWidget",
+        "what/ios/WhatWatchComplication"
+      ],
+      "status": "en-ru-es-development-catalogs-with-independent-visual-and-speech-locales",
+      "note": "What iPhone has 228 complete EN/RU/ES source strings, including 3 day headings and separate speech-vs-UI language settings label; Watch/PhoneWidget/WatchComplication retain 6/6/5 source strings. Interface follows iOS per-app/system RU/EN/ES preference, transcription stays independently selected. iOS Simulator focused tests 10/10 PASS; transcript write-failure and retained draft checked on iOS Simulator; human/editorial, compatibility review, physical Watch/VoiceOver QA still open. No release. Recovery UI now includes read-only status preview and opt-in confirmation, RU/EN/ES copy. Simulator UI preview passed; native confirmation/durable restore full UI still requires device signoff."
+    },
+    "photo-pdf-to-size": {
+      "bundles": [
+        "photo-pdf-to-size/ios/PhotoPodRazmer/Resources"
+      ],
+      "android": {
+        "status": "en-ru-es-pt-br-fr-de-it-nl-pl-source-catalogs-in-feature-branch",
+        "sourceLocale": "en",
+        "resources": "photo-pdf-to-size/android/app/src/main/res",
+        "note": "English fallback plus RU, ES, pt-BR, FR, DE, IT, NL, PL development catalogs. Each includes 93 base UI keys and 3 export filename suffixes (96 strings). 41 of 50 Android language targets untranslated. Native editorial and physical accessibility QA pending. No release."
+      }
+    },
+    "where": {
+      "bundles": [],
+      "status": "paused"
+    }
+  }
+}

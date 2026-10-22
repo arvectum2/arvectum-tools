@@ -1,6 +1,8 @@
 package ru.arvectum.tools.tosize.ui
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -21,6 +23,8 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
@@ -34,19 +38,13 @@ import ru.arvectum.tools.tosize.NormalizedCropRect
 import ru.arvectum.tools.tosize.ResultImage
 import ru.arvectum.tools.tosize.SizeUnit
 import ru.arvectum.tools.tosize.SourceImage
+import ru.arvectum.tools.tosize.R
 import ru.arvectum.tools.tosize.ToolMode
 import ru.arvectum.tools.tosize.calculateLongSideDimensions
-import java.util.Locale
 import kotlin.math.max
 import kotlin.math.roundToInt
 
-private val FileSizePresets = listOf(
-    100_000L to "100 КБ",
-    500_000L to "500 КБ",
-    1_000_000L to "1 МБ",
-    2_000_000L to "2 МБ",
-    5_000_000L to "5 МБ",
-)
+private val FileSizePresets = listOf(100_000L, 500_000L, 1_000_000L, 2_000_000L, 5_000_000L)
 
 private val PixelPresets = listOf(
     600 to "600 px",
@@ -78,6 +76,7 @@ fun MainScreen(
     onDismissError: () -> Unit,
 ) {
     val source = state.source
+    val enlargedText = LocalDensity.current.fontScale >= 1.3f
     if (state.passportCropOpen && source != null) {
         PassportCropScreen(
             source = source,
@@ -149,9 +148,13 @@ fun MainScreen(
                 }
             }
 
-            BrandFooter(
-                modifier = Modifier.padding(horizontal = 18.dp),
-            )
+            // Decorative footer must not steal scarce vertical space from
+            // the editable form or hide its CTA with large system fonts.
+            if (!enlargedText) {
+                BrandFooter(
+                    modifier = Modifier.padding(horizontal = 18.dp),
+                )
+            }
         }
 
         if (state.error != null) {
@@ -159,10 +162,10 @@ fun MainScreen(
                 onDismissRequest = onDismissError,
                 confirmButton = {
                     TextButton(onClick = onDismissError) {
-                        Text("Понятно")
+                        Text(stringResource(R.string.ok))
                     }
                 },
-                title = { Text("Не получилось") },
+                title = { Text(stringResource(R.string.something_went_wrong)) },
                 text = { Text(state.error) },
             )
         }
@@ -191,8 +194,9 @@ private fun SelectionContent(
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .verticalScroll(rememberScrollState())
             .padding(horizontal = 14.dp)
-            .padding(bottom = 4.dp),
+            .padding(bottom = 12.dp),
     ) {
         if (source == null) {
             EmptyState(
@@ -242,7 +246,7 @@ private fun SelectionContent(
             enabled = !state.isWorking,
             modifier = Modifier.align(Alignment.CenterHorizontally),
         ) {
-            Text("Выбрать другое фото")
+            Text(stringResource(R.string.choose_another_photo))
         }
     }
 }
@@ -254,14 +258,14 @@ private fun EmptyState(
     onPickImage: () -> Unit,
 ) {
     val title = when (mode) {
-        ToolMode.FILE_SIZE -> "Сжать фото до нужного веса"
-        ToolMode.PIXELS -> "Изменить размер фото"
-        ToolMode.PASSPORT -> "Фото на паспорт"
+        ToolMode.FILE_SIZE -> stringResource(R.string.compress_to_a_target_file_size)
+        ToolMode.PIXELS -> stringResource(R.string.resize_photo)
+        ToolMode.PASSPORT -> stringResource(R.string.passport_photo)
     }
     val body = when (mode) {
-        ToolMode.FILE_SIZE -> "Выберите максимальный размер файла — остальное сделаем автоматически."
-        ToolMode.PIXELS -> "Укажите размер длинной стороны. Пропорции сохранятся."
-        ToolMode.PASSPORT -> "Подготовим кадр и параметры файла для заявления на Госуслугах."
+        ToolMode.FILE_SIZE -> stringResource(R.string.choose_the_maximum_file_size_we_will_handle_the_rest)
+        ToolMode.PIXELS -> stringResource(R.string.set_the_longest_edge_the_aspect_ratio_will_be_preserved)
+        ToolMode.PASSPORT -> stringResource(R.string.crop_the_photo_and_set_file_parameters_for_a_gosuslugi_application)
     }
 
     BrandCard {
@@ -277,7 +281,7 @@ private fun EmptyState(
         )
         Spacer(Modifier.height(14.dp))
         BrandPrimaryButton(
-            text = "Выбрать фото",
+            text = stringResource(R.string.choose_photo),
             enabled = !isWorking,
             busy = isWorking,
             onClick = onPickImage,
@@ -286,7 +290,7 @@ private fun EmptyState(
 
     Spacer(Modifier.height(12.dp))
     Text(
-        text = "Файл обрабатывается только на этом устройстве.",
+        text = stringResource(R.string.your_photo_is_processed_only_on_this_device),
         modifier = Modifier.fillMaxWidth(),
         style = MaterialTheme.typography.bodyMedium,
         color = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -296,7 +300,7 @@ private fun EmptyState(
 @Composable
 private fun FileCard(source: SourceImage) {
     BrandCard {
-        BrandAccentText("ВЫБРАНО ФОТО")
+        BrandAccentText(stringResource(R.string.selected_photo))
         Spacer(Modifier.height(5.dp))
         Text(
             text = source.displayName,
@@ -306,7 +310,7 @@ private fun FileCard(source: SourceImage) {
         )
         Spacer(Modifier.height(5.dp))
         Text(
-            text = "${formatBytes(source.sizeBytes)}  ·  ${source.width}×${source.height} px",
+            text = stringResource(R.string.source_metadata, formatBytes(source.sizeBytes), source.width, source.height),
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
@@ -330,8 +334,8 @@ private fun FileSizeSection(
 
     BrandCard {
         SectionTitle(
-            eyebrow = "ПО ВЕСУ",
-            title = "Нужный размер файла",
+            eyebrow = stringResource(R.string.by_file_size),
+            title = stringResource(R.string.target_file_size),
         )
         Spacer(Modifier.height(10.dp))
 
@@ -340,16 +344,16 @@ private fun FileSizeSection(
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
-            FileSizePresets.forEach { (bytes, label) ->
+            FileSizePresets.forEach { bytes ->
                 ChoiceChip(
-                    label = label,
+                    label = formatBytes(bytes),
                     selected = !state.isCustomTarget && state.targetBytes == bytes,
                     enabled = !state.isWorking,
                     onClick = { onPreset(bytes) },
                 )
             }
             ChoiceChip(
-                label = "Свой",
+                label = stringResource(R.string.custom),
                 selected = state.isCustomTarget,
                 enabled = !state.isWorking,
                 onClick = onCustomMode,
@@ -367,11 +371,11 @@ private fun FileSizeSection(
                     onValueChange = onCustomValue,
                     modifier = Modifier.weight(1f),
                     singleLine = true,
-                    label = { Text("Размер") },
+                    label = { Text(stringResource(R.string.size)) },
                     placeholder = { Text("750") },
                     supportingText = {
                         if (state.customValue.isNotBlank() && state.targetBytes == null) {
-                            Text("От 10 КБ до 50 МБ")
+                            Text(stringResource(R.string.between_10_kb_and_50_mb))
                         }
                     },
                     isError = state.customValue.isNotBlank() && state.targetBytes == null,
@@ -383,13 +387,13 @@ private fun FileSizeSection(
                 )
                 Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
                     ChoiceChip(
-                        label = "КБ",
+                        label = stringResource(R.string.kb),
                         selected = state.customUnit == SizeUnit.KB,
                         enabled = !state.isWorking,
                         onClick = { onCustomUnit(SizeUnit.KB) },
                     )
                     ChoiceChip(
-                        label = "МБ",
+                        label = stringResource(R.string.mb),
                         selected = state.customUnit == SizeUnit.MB,
                         enabled = !state.isWorking,
                         onClick = { onCustomUnit(SizeUnit.MB) },
@@ -400,20 +404,20 @@ private fun FileSizeSection(
 
         if (source.mimeType == "image/png" && !alreadyFits) {
             Spacer(Modifier.height(14.dp))
-            InlineNotice("PNG будет сохранён как JPG. Прозрачность станет белой.")
+            InlineNotice(stringResource(R.string.png_will_be_saved_as_jpg_transparent_areas_will_become_white))
         }
 
         Spacer(Modifier.height(18.dp))
         if (alreadyFits) {
             StatusBlock(
                 value = "${formatBytes(source.sizeBytes)} ≤ ${formatBytes(requireNotNull(target))}",
-                detail = "Фото уже подходит. Сжимать его не нужно.",
+                detail = stringResource(R.string.the_photo_already_fits_no_compression_needed),
             )
             Spacer(Modifier.height(14.dp))
             SaveShareActions(state, onSave, onShare)
         } else {
             BrandPrimaryButton(
-                text = target?.let { "Сжать до ${formatBytes(it)}" } ?: "Укажите размер",
+                text = target?.let { stringResource(R.string.compress_to, formatBytes(it)) } ?: stringResource(R.string.enter_a_size),
                 enabled = target != null && !state.isWorking,
                 busy = state.isWorking,
                 onClick = onCompress,
@@ -446,12 +450,12 @@ private fun PixelSection(
 
     BrandCard {
         SectionTitle(
-            eyebrow = "ПО РАЗМЕРУ",
-            title = "Размер в пикселях",
+            eyebrow = stringResource(R.string.by_dimensions),
+            title = stringResource(R.string.dimensions_in_pixels),
         )
         Spacer(Modifier.height(6.dp))
         Text(
-            text = "Укажите размер длинной стороны. Пропорции сохранятся.",
+            text = stringResource(R.string.set_the_longest_edge_the_aspect_ratio_will_be_preserved),
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
@@ -471,7 +475,7 @@ private fun PixelSection(
                 )
             }
             ChoiceChip(
-                label = "Свой",
+                label = stringResource(R.string.custom),
                 selected = state.isCustomPixels,
                 enabled = !state.isWorking,
                 onClick = onCustomMode,
@@ -486,11 +490,11 @@ private fun PixelSection(
                 modifier = Modifier.fillMaxWidth(),
                 singleLine = true,
                 suffix = { Text("px") },
-                label = { Text("Длинная сторона") },
+                label = { Text(stringResource(R.string.longest_edge)) },
                 placeholder = { Text("800") },
                 supportingText = {
                     if (state.customPixelsValue.isNotBlank() && target == null) {
-                        Text("От 32 до 12 000 px")
+                        Text(stringResource(R.string.between_32_and_12_000_px))
                     }
                 },
                 isError = state.customPixelsValue.isNotBlank() && target == null,
@@ -507,16 +511,16 @@ private fun PixelSection(
             StatusBlock(
                 value = "${resultDimensions.width}×${resultDimensions.height} px",
                 detail = if (alreadyFits) {
-                    "Размер уже подходит. Увеличивать изображение не нужно."
+                    stringResource(R.string.the_image_already_fits_no_enlargement_needed)
                 } else {
-                    "Было: ${source.width}×${source.height} px"
+                    stringResource(R.string.original_dimensions, source.width, source.height)
                 },
             )
         }
 
         if (source.mimeType == "image/png" && !alreadyFits && target != null) {
             Spacer(Modifier.height(14.dp))
-            InlineNotice("После уменьшения PNG будет сохранён как JPG.")
+            InlineNotice(stringResource(R.string.after_resizing_png_will_be_saved_as_jpg))
         }
 
         Spacer(Modifier.height(18.dp))
@@ -525,8 +529,8 @@ private fun PixelSection(
         } else {
             BrandPrimaryButton(
                 text = resultDimensions?.let {
-                    "Изменить до ${it.width}×${it.height} px"
-                } ?: "Укажите размер",
+                    stringResource(R.string.resize_to, it.width, it.height)
+                } ?: stringResource(R.string.enter_a_size),
                 enabled = target != null && !state.isWorking,
                 busy = state.isWorking,
                 onClick = onResize,
@@ -542,21 +546,21 @@ private fun PassportSection(
 ) {
     BrandCard {
         SectionTitle(
-            eyebrow = "НА ПАСПОРТ",
-            title = "Для заявления на Госуслугах",
+            eyebrow = stringResource(R.string.passport_photo_label),
+            title = stringResource(R.string.for_a_gosuslugi_application),
         )
         Spacer(Modifier.height(14.dp))
-        SpecRow("Формат", "35×45 мм")
-        SpecRow("Размер", "620×797 px")
-        SpecRow("Плотность", "450 DPI")
-        SpecRow("Файл", "JPEG · 10 КБ–5 МБ")
+        SpecRow(stringResource(R.string.format), stringResource(R.string.passport_measurements))
+        SpecRow(stringResource(R.string.size), "620×797 px")
+        SpecRow(stringResource(R.string.resolution), "450 DPI")
+        SpecRow(stringResource(R.string.file), stringResource(R.string.passport_file_specs))
         Spacer(Modifier.height(14.dp))
         InlineNotice(
-            "Изменяем только кадр и параметры файла. Лицо, фон и позу не проверяем.",
+            stringResource(R.string.we_only_adjust_cropping_and_file_properties_we_do_not_verify_face_background_or_pose),
         )
         Spacer(Modifier.height(18.dp))
         BrandPrimaryButton(
-            text = "Подогнать фото под 35×45",
+            text = stringResource(R.string.crop_photo_to_35_45),
             enabled = !state.isWorking,
             busy = state.isWorking,
             onClick = onOpenCrop,
@@ -584,8 +588,9 @@ private fun ResultContent(
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .verticalScroll(rememberScrollState())
             .padding(horizontal = 14.dp)
-            .padding(bottom = 4.dp),
+            .padding(bottom = 12.dp),
     ) {
         BrandCard {
             BrandAccentText(
@@ -596,7 +601,7 @@ private fun ResultContent(
             )
             Spacer(Modifier.height(8.dp))
             Text(
-                text = if (result.alreadyFit) "Уже подходит" else "Готово",
+                text = if (result.alreadyFit) stringResource(R.string.already_fits) else stringResource(R.string.done),
                 style = MaterialTheme.typography.titleLarge,
             )
             Spacer(Modifier.height(12.dp))
@@ -606,7 +611,7 @@ private fun ResultContent(
                     ResultHero(formatBytes(result.outputSizeBytes))
                     result.targetBytes?.let {
                         Text(
-                            text = "Лимит: ${formatBytes(it)}",
+                            text = stringResource(R.string.size_limit, formatBytes(it)),
                             style = MaterialTheme.typography.bodyMedium,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                         )
@@ -614,9 +619,9 @@ private fun ResultContent(
                     Spacer(Modifier.height(12.dp))
                     Text(
                         text = if (result.alreadyFit) {
-                            "Файл не сжимался — качество не изменилось."
+                            stringResource(R.string.the_file_was_not_compressed_quality_is_unchanged)
                         } else {
-                            "Было: ${formatBytes(result.source.sizeBytes)} · меньше на ${reduction}%"
+                            stringResource(R.string.reduction_summary, formatBytes(result.source.sizeBytes), reduction)
                         },
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -626,16 +631,16 @@ private fun ResultContent(
                 ToolMode.PIXELS -> {
                     ResultHero("${result.outputWidth}×${result.outputHeight} px")
                     Text(
-                        text = "Размер файла: ${formatBytes(result.outputSizeBytes)}",
+                        text = stringResource(R.string.result_file_size, formatBytes(result.outputSizeBytes)),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
                     Spacer(Modifier.height(12.dp))
                     Text(
                         text = if (result.alreadyFit) {
-                            "Изображение не увеличивалось."
+                            stringResource(R.string.the_image_was_not_enlarged)
                         } else {
-                            "Было: ${result.source.width}×${result.source.height} px"
+                            stringResource(R.string.original_dimensions, result.source.width, result.source.height)
                         },
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -645,13 +650,13 @@ private fun ResultContent(
                 ToolMode.PASSPORT -> {
                     ResultHero("${result.outputWidth}×${result.outputHeight} px")
                     Text(
-                        text = "35×45 мм · 450 DPI · JPEG",
+                        text = stringResource(R.string.passport_ready_specs),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
                     Spacer(Modifier.height(12.dp))
                     Text(
-                        text = "Размер файла: ${formatBytes(result.outputSizeBytes)}",
+                        text = stringResource(R.string.result_file_size, formatBytes(result.outputSizeBytes)),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
@@ -665,7 +670,7 @@ private fun ResultContent(
         if (result.mode == ToolMode.PASSPORT) {
             Spacer(Modifier.height(12.dp))
             InlineNotice(
-                "Параметры файла готовы. Лицо, фон и позу приложение не проверяет.",
+                stringResource(R.string.file_parameters_are_ready_face_background_and_pose_have_not_been_checked),
             )
         }
 
@@ -675,7 +680,7 @@ private fun ResultContent(
             enabled = !state.isWorking,
             modifier = Modifier.align(Alignment.CenterHorizontally),
         ) {
-            Text("Ещё фото")
+            Text(stringResource(R.string.another_photo))
         }
         TextButton(
             onClick = onBack,
@@ -684,9 +689,9 @@ private fun ResultContent(
         ) {
             Text(
                 if (result.mode == ToolMode.PASSPORT) {
-                    "Настроить заново"
+                    stringResource(R.string.start_over)
                 } else {
-                    "Изменить размер"
+                    stringResource(R.string.change_size)
                 },
             )
         }
@@ -838,49 +843,54 @@ private fun SaveShareActions(
     onShare: () -> Unit,
 ) {
     BrandPrimaryButton(
-        text = "Сохранить",
+        text = stringResource(R.string.save),
         enabled = !state.isWorking,
         busy = state.isWorking,
         onClick = onSave,
     )
     Spacer(Modifier.height(8.dp))
     BrandSecondaryButton(
-        text = "Поделиться",
+        text = stringResource(R.string.share),
         enabled = !state.isWorking,
         onClick = onShare,
     )
     if (state.saved) {
         Spacer(Modifier.height(10.dp))
         Text(
-            text = "✓ Сохранено",
+            text = stringResource(R.string.saved),
             style = MaterialTheme.typography.labelMedium,
             color = MaterialTheme.colorScheme.primary,
         )
     }
 }
 
-private fun resultModeLabel(
-    mode: ToolMode,
-    alreadyFit: Boolean,
-): String {
+@Composable
+private fun resultModeLabel(mode: ToolMode, alreadyFit: Boolean): String {
     val modeLabel = when (mode) {
-        ToolMode.FILE_SIZE -> "ПО ВЕСУ"
-        ToolMode.PIXELS -> "ПО РАЗМЕРУ"
-        ToolMode.PASSPORT -> "НА ПАСПОРТ"
+        ToolMode.FILE_SIZE -> stringResource(R.string.by_file_size)
+        ToolMode.PIXELS -> stringResource(R.string.by_dimensions)
+        ToolMode.PASSPORT -> stringResource(R.string.passport_photo_label)
     }
-    val status = if (alreadyFit) "БЕЗ ИЗМЕНЕНИЙ" else "ГОТОВО"
+    val status = if (alreadyFit) stringResource(R.string.unchanged) else stringResource(R.string.done_label)
     return "$modeLabel · $status"
 }
 
-fun formatBytes(bytes: Long): String {
-    return if (bytes < 1_000_000L) {
-        "${(bytes / 1_000.0).roundToInt()} КБ"
+data class DecimalFileSize(val inKilobytes: Boolean, val value: Double)
+
+fun decimalFileSize(bytes: Long): DecimalFileSize =
+    if (bytes < 1_000_000L) {
+        DecimalFileSize(inKilobytes = true, value = (bytes / 1_000.0).roundToInt().toDouble())
     } else {
-        val value = bytes / 1_000_000.0
-        if (value == value.roundToInt().toDouble()) {
-            "${value.roundToInt()} МБ"
-        } else {
-            String.format(Locale.forLanguageTag("ru-RU"), "%.2f МБ", value)
-        }
+        DecimalFileSize(inKilobytes = false, value = bytes / 1_000_000.0)
+    }
+
+@Composable
+fun formatBytes(bytes: Long): String {
+    val size = decimalFileSize(bytes)
+    return when {
+        size.inKilobytes -> stringResource(R.string.size_in_kb, size.value.toInt())
+        size.value == size.value.roundToInt().toDouble() ->
+            stringResource(R.string.size_in_mb, size.value.toInt())
+        else -> stringResource(R.string.size_in_mb_decimal, size.value)
     }
 }

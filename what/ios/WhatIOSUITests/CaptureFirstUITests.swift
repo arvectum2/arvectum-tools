@@ -21,7 +21,7 @@ final class CaptureFirstUITests: XCTestCase {
 
         let saved = app.buttons.matching(
             NSPredicate(format: "label BEGINSWITH %@ OR label BEGINSWITH %@",
-                        "Мои записи", "My recordings")
+                        "Все заметки", "All notes")
         ).firstMatch
         XCTAssertTrue(saved.exists,
                       "The saved-notes library must always be reachable.")
@@ -57,7 +57,7 @@ final class CaptureFirstUITests: XCTestCase {
         )).firstMatch.tap()
         let library = app.buttons.matching(NSPredicate(format:
             "label BEGINSWITH %@ OR label BEGINSWITH %@",
-            "Мои записи", "My recordings"
+            "Все заметки", "All notes"
         )).firstMatch
         XCTAssertTrue(library.waitForExistence(timeout: 7))
         library.tap()
@@ -129,7 +129,7 @@ final class CaptureFirstUITests: XCTestCase {
         )).firstMatch.tap()
         let library = app.buttons.matching(NSPredicate(format:
             "label BEGINSWITH %@ OR label BEGINSWITH %@",
-            "Мои записи", "My recordings"
+            "Все заметки", "All notes"
         )).firstMatch
         XCTAssertTrue(library.waitForExistence(timeout: 8))
         library.tap()
@@ -268,7 +268,7 @@ final class CaptureFirstUITests: XCTestCase {
         )).firstMatch.tap()
         let library = source.buttons.matching(NSPredicate(format:
             "label BEGINSWITH %@ OR label BEGINSWITH %@",
-            "Мои записи", "My recordings"
+            "Все заметки", "All notes"
         )).firstMatch
         XCTAssertTrue(library.waitForExistence(timeout: 8))
         library.tap()
@@ -372,7 +372,7 @@ final class CaptureFirstUITests: XCTestCase {
         )).firstMatch.tap()
         let library = app.buttons.matching(NSPredicate(format:
             "label BEGINSWITH %@ OR label BEGINSWITH %@",
-            "Мои записи", "My recordings"
+            "Все заметки", "All notes"
         )).firstMatch
         XCTAssertTrue(library.waitForExistence(timeout: 8))
         library.tap()
@@ -408,7 +408,7 @@ final class CaptureFirstUITests: XCTestCase {
 
         let library = app.buttons.matching(NSPredicate(format:
             "label BEGINSWITH %@ OR label BEGINSWITH %@",
-            "Мои записи", "My recordings"
+            "Все заметки", "All notes"
         )).firstMatch
         XCTAssertTrue(library.waitForExistence(timeout: 10))
         library.tap()
@@ -459,7 +459,7 @@ final class CaptureFirstUITests: XCTestCase {
 
         let saved = app.buttons.matching(
             NSPredicate(format: "label BEGINSWITH %@ OR label BEGINSWITH %@",
-                        "Мои записи", "My recordings")
+                        "Все заметки", "All notes")
         ).firstMatch
         XCTAssertTrue(saved.waitForExistence(timeout: 5))
         saved.tap()
@@ -479,7 +479,7 @@ final class CaptureFirstUITests: XCTestCase {
         let plus = app.buttons["what.new.text"]
         let library = app.buttons.matching(NSPredicate(format:
             "label BEGINSWITH %@ OR label BEGINSWITH %@",
-            "Мои записи", "My recordings"
+            "Все заметки", "All notes"
         )).firstMatch
         for orientation: UIDeviceOrientation in [.portrait, .landscapeRight, .portrait] {
             XCUIDevice.shared.orientation = orientation
@@ -528,7 +528,7 @@ final class CaptureFirstUITests: XCTestCase {
 
         let library = app.buttons.matching(
             NSPredicate(format: "label BEGINSWITH %@ OR label BEGINSWITH %@",
-                        "Мои записи", "My recordings")
+                        "Все заметки", "All notes")
         ).firstMatch
         XCTAssertTrue(library.waitForExistence(timeout: 5))
         XCTAssertTrue(library.isHittable)
@@ -547,7 +547,7 @@ final class CaptureFirstUITests: XCTestCase {
         app.launch()
         let library = app.buttons.matching(NSPredicate(format:
             "label BEGINSWITH %@ OR label BEGINSWITH %@",
-            "Мои записи", "My recordings"
+            "Все заметки", "All notes"
         )).firstMatch
         XCTAssertTrue(library.waitForExistence(timeout: 10))
         library.tap()
@@ -590,7 +590,7 @@ final class CaptureFirstUITests: XCTestCase {
         done.tap()
         let library = app.buttons.matching(
             NSPredicate(format: "label BEGINSWITH %@ OR label BEGINSWITH %@",
-                        "Мои записи", "My recordings")
+                        "Все заметки", "All notes")
         ).firstMatch
         XCTAssertTrue(library.waitForExistence(timeout: 5))
         library.tap()

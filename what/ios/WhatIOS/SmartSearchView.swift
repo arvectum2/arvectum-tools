@@ -246,7 +246,7 @@ struct SmartSearchView: View {
                              ? "Meaning + text search"
                              : "Text search (semantic model not installed)"))
                     Spacer()
-                    Text("\(output.indexedCount) indexed")
+                    Text(CaptureBrand.formatted("Проиндексировано: %d", "%d indexed", output.indexedCount))
                         .monospacedDigit()
                 }
                 .font(.caption)
@@ -445,7 +445,7 @@ struct SmartSearchView: View {
             }
             .font(.subheadline)
         case .failed(let message):
-            Text("Russian model not ready: \(message)")
+            Text(CaptureBrand.formatted("Модель русского языка не готова: %@", "Russian model not ready: %@", message))
                 .font(.caption)
                 .foregroundStyle(.orange)
             Button("Retry installation") {
@@ -468,7 +468,7 @@ struct SmartSearchView: View {
                     .foregroundStyle(.secondary)
                 if let startedAt = modelManager.startedAt {
                     TimelineView(.periodic(from: .now, by: 1)) { context in
-                        Text("Elapsed \(Int(max(0, context.date.timeIntervalSince(startedAt)))) sec")
+                        Text(CaptureBrand.formatted("Прошло %d с", "Elapsed %d sec", Int(max(0, context.date.timeIntervalSince(startedAt)))))
                             .font(.caption.monospacedDigit())
                     }
                 }

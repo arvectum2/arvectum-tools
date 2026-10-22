@@ -6,6 +6,23 @@ import XCTest
 /// Disposable source files only. Exercises the export contract without
 /// accessing Files, Photos or App Store data on any physical device.
 final class ImportExportIntegrityTests: XCTestCase {
+    func testFilesPickerCancellationDoesNotMaskRealExportErrors() {
+        let canceled = NSError(
+            domain: NSCocoaErrorDomain,
+            code: NSUserCancelledError
+        )
+        XCTAssertTrue(isCanceledFileExport(canceled))
+
+        let diskFailure = NSError(
+            domain: NSCocoaErrorDomain,
+            code: CocoaError.fileWriteOutOfSpace.rawValue
+        )
+        XCTAssertFalse(isCanceledFileExport(diskFailure))
+
+        let other = NSError(domain: NSURLErrorDomain, code: NSURLErrorCannotWriteToFile)
+        XCTAssertFalse(isCanceledFileExport(other))
+    }
+
     func testResizedJPEGPNGHEICNeverRewriteTheImportedOriginal() throws {
         let directory = FileManager.default.temporaryDirectory
             .appendingPathComponent("photo-a4-\(UUID().uuidString)", isDirectory: true)

@@ -15,7 +15,7 @@ struct AdaptiveSourcePreview: View {
                       let source = model.pdfSource,
                       let image = source.previewImage {
                 sourceCard(image: image,
-                           description: "\(source.pageCount) " + tr("страниц"))
+                           description: String(format: tr("%1$d %2$@"), source.pageCount, pdfPageWord(source.pageCount)))
             } else {
                 VStack(spacing: 12) {
                     Image(systemName: model.inputKind == .photo ? "photo" : "doc.richtext")

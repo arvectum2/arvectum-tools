@@ -1,5 +1,23 @@
 # Фото и PDF под размер — Product Roadmap
 
+### UX/дизайн-код: очередь D1–D3 (19.10.2026, план)
+- [x] D4.1 (20.10): Save CTA использует Core 48pt и семантические Mint/Navy; фото/PDF Save UI **2/2 PASS**, Debug build PASS.
+- [x] Системный Xcode Accessibility Audit результата фото/PDF **2/2 PASS** на отдельном iPhone 17 Pro simulator (AXXXL): text clipping, hit region, labels, traits. Файлы photo-result-accessibility-audit-retry-20261020.log и pdf-result-accessibility-audit-over-ssh.log.
+- [x] Реальное VoiceOver результата фото и PDF: оба отдельных теста TEST SUCCEEDED на iPhone 17 Pro / iOS 27 после скрытия декоративных wordmark/preview. PDF VoiceOver PASS через SSH с MacBook, log pdf-voiceover-over-ssh-20261020.log; фото PASS в photo-voiceover-speech-rebooted-20261020.log. Полные жесты/rotor и physical QA остаются открыты.
+
+- [x] P0: CTA «Сохранить файл» вынесен из ScrollView. **Фото 1/1 PASS, PDF 1/1 PASS** на iPhone 17 Pro / iOS 27.0; тесты проверили isHittable и расположение внутри экрана. Simulator BUILD PASS.
+- [x] P1: iPhone SE 3-го поколения: фото/PDF 2/2 UI PASS при обычном шрифте и 2/2 UI PASS при AXXXL после исправления адаптивной вёрстки. Скриншоты до/после проверены; видимы и нажимаемы Сохранить, Изменить настройки, Реклама и конфиденциальность.
+- [x] P1: Files exporter фото и PDF на iPhone 17 Pro Simulator: 2/2 E2E PASS (системный Save, возврат и статус «Файл сохранён»). RU/EN локализация; до подтверждения OS статус не показывается.
+- [x] P1: DEBUG рекламные состояния loaded 180pt и no-fill 1pt: 2/2 UI PASS. Область рекламы не перекрывает экспорт и приватность. Согласие/отказ при AXXXL: 1/1 UI PASS.
+- [x] P1: отмена CocoaError.userCancelled не вызывает ложную ошибку записи; unit PASS, настоящие ошибки записи сохранены.
+- [ ] P1: физический Files cancel и независимая проверка байтов/провайдеров, реальные Yandex Ads / consent / no-fill, VoiceOver, iPad. На iOS 27 UI-автоматизация отмены не подтвердилась (нет Cancel в папке «На iPhone», нестабильное закрытие модального окна).
+- [x] D4.2 (20.10): короткие режимы «Сжать / Размер / Документы / PDF» (EN Compress / Resize / ID photo / PDF), полные VoiceOver-формулировки и стабильные mode-ID. «Максимальный вес» → «Размер файла до» для фото/PDF. **RU/EN копирайт UI PASS, RU/EN × Light/Dark layout PASS, режимы и PDF Save PASS**; лог design-d4-photo-mode-copy-ui-20261020.log и design-d4-photo-copy-locales-20261020.log. Физические/все accessibility-комбинации отдельно.
+- [ ] P1: явно показывать результат до/после и «Изменить параметры», не ломая экспорт.
+- [ ] P1: VoiceOver, Dynamic Type, портрет/ландшафт; сравнить before/after screenshot.
+
+Полный аудит: [единый дизайн-код](../core/docs/UNIFIED_DESIGN_CODE_2026-10-19.md).
+
+
 ## 19.10.2026 — App Store update prompt: E2E и релизная граница
 
 - [x] Исходники общей проверки версии App Store и кнопок «Обновить»/«Позже» интегрированы в `main` (PR #133, коммит `08107c3`).

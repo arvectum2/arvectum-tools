@@ -2,6 +2,7 @@ import SwiftUI
 
 // Presentation-only components extracted from TodayView.
 struct OneOffReminderRow: View {
+    @Environment(\.colorScheme) private var colorScheme
     let reminder: OneOffReminder
     let onComplete: () -> Void
     let onEdit: () -> Void
@@ -50,10 +51,15 @@ struct OneOffReminderRow: View {
                 if let onOpenNote {
                     Button(action: onOpenNote) {
                         Label(L10n.string("review.oneoff.open"), systemImage: "doc.text")
-                            .font(.caption2)
+                            .font(.footnote.weight(.semibold))
+                            .fixedSize(horizontal: false, vertical: true)
+                            .frame(minHeight: ArvectumDesignMetrics.minimumTouchTarget,
+                                   alignment: .leading)
+                            .contentShape(Rectangle())
                     }
                     .buttonStyle(.plain)
-                    .foregroundStyle(Color.arvectumMint)
+                    // Mint text on white has only 1.58:1 contrast.
+                    .foregroundStyle(ArvectumSemanticColors.accentText(for: colorScheme))
                     .accessibilityIdentifier("chickmark.noteReview.open.\(reminder.id.uuidString)")
                     .accessibilityValue(reminder.title)
                 }
@@ -84,7 +90,7 @@ struct OneOffReminderRow: View {
                     .frame(width: 44, height: 44)
                     .contentShape(Rectangle())
             }
-            .accessibilityLabel(L10n.string("oneoff.edit"))
+            .accessibilityLabel(L10n.string("oneoff.actions"))
 
             Button(action: onComplete) {
                 Image(systemName: "circle")
@@ -106,17 +112,18 @@ struct OneOffReminderRow: View {
 }
 
 struct TodaySummary: View {
-    let completed: Int
+    // Counts both completed and intentionally skipped habits.
+    let resolved: Int
     let total: Int
 
     private var progress: Double {
         guard total > 0 else { return 0 }
-        return Double(completed) / Double(total)
+        return Double(resolved) / Double(total)
     }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
-            Text(L10n.format("today.progress.format", completed, total))
+            Text(L10n.format("today.progress.format", resolved, total))
                 .font(.subheadline.weight(.semibold))
                 .foregroundStyle(Color.habitsSecondaryText)
 
@@ -125,14 +132,16 @@ struct TodaySummary: View {
                 .scaleEffect(x: 1, y: 1.5)
         }
         .padding(16)
-        .background(Color.habitsSurface, in: RoundedRectangle(cornerRadius: 20))
+        .background(Color.habitsSurface, in: RoundedRectangle(
+            cornerRadius: ArvectumDesignMetrics.cardCornerRadius
+        ))
         // A progress-only VoiceOver utterance ("0 of 2, 0%") does not
         // identify which period is being measured. State the localised
         // day context explicitly, then the count and percent as the value.
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(L10n.string("today.title"))
         .accessibilityValue(
-            "\(L10n.format("today.progress.format", completed, total)), " +
+            "\(L10n.format("today.progress.format", resolved, total)), " +
             "\(Int((progress * 100).rounded()))%"
         )
         .accessibilityIdentifier("today.summary")
