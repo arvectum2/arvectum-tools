@@ -1,5 +1,11 @@
 # What? — Product Roadmap
 
+## 22.10.2026 · Физический iPhone 13: FileProtection / Recovery
+
+- [x] Изолированная QA-сборка ru.arvectum.tools.what.fileprotectqa (без Watch) прошла **18/18 тестов**: FileProtection 3, Recovery UI 5, Debug interruption 5, AXXXL UI 5, 0 FAIL. [Протокол](docs/PHYSICAL_FILE_PROTECTION_RECOVERY_2026-10-22.md).
+- [ ] Ещё открыто: первая разблокировка после reboot, Watch background/offline, аварии/ENOSPC, AAC/MOV/индексы и backup-policy, полноценный VoiceOver. Production bundle не трогали.
+
+
 ## 22.10.2026 · L4.17b: подтверждение восстановления (симулятор)
 
 - [x] Исправлен реальный доступ к кнопке восстановления на AXXXL: уменьшен максимально допустимый размер текста только для CTA; подтверждение разрушительного действия переведено на системный `alert` с отдельными «Отмена» / «Восстановить» и предупреждением об устаревших текстах.
