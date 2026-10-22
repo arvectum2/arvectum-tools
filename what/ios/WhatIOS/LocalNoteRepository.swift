@@ -97,6 +97,10 @@ final class LocalNoteRepository {
     // Only explicit UUIDs from this journal are eligible for media cleanup.
     private let pendingDeletionURL: URL
     private let lock = RecordingRepository.sharedStorageLock
+    private let protectedJSONOptions: Data.WritingOptions = [
+        .atomic, .completeFileProtectionUntilFirstUserAuthentication
+    ]
+    private var mediaProtectionMigrationError: Error?
 
     init(rootURL: URL? = nil, fileManager: FileManager = .default) {
         self.fileManager = fileManager
@@ -111,6 +115,19 @@ final class LocalNoteRepository {
         videosURL = root.appendingPathComponent("Videos", isDirectory: true)
         pendingDeletionURL = root.appendingPathComponent("pending-local-video-deletions.json")
         try? fileManager.createDirectory(at: videosURL, withIntermediateDirectories: true)
+        do {
+            for index in [indexURL, pendingDeletionURL] {
+                guard fileManager.fileExists(atPath: index.path) else { continue }
+                try PrivateMediaProtection.protect(
+                    index, fileManager: fileManager
+                )
+            }
+            try PrivateMediaProtection.migrateFiles(
+                in: videosURL, fileManager: fileManager
+            )
+        } catch {
+            mediaProtectionMigrationError = error
+        }
         // Respect an unreadable or locked journal: do not guess which MOVs
         // are abandoned. The next clean launch or unlock retries instead.
         try? resumePendingVideoDeletions()
@@ -124,7 +141,10 @@ final class LocalNoteRepository {
     }
 
     private func writeIndex(_ notes: [LocalNote]) throws {
-        try ArvectumJSONCodec.encode(notes).write(to: indexURL, options: .atomic)
+        if let mediaProtectionMigrationError { throw mediaProtectionMigrationError }
+        try ArvectumJSONCodec.encode(notes).write(
+            to: indexURL, options: protectedJSONOptions
+        )
     }
 
     // The deletion ledger is UUID-based, not a directory sweep. Existing
@@ -141,8 +161,9 @@ final class LocalNoteRepository {
     }
 
     private func persistPendingVideoDeletions(_ ids: Set<UUID>) throws {
+        if let mediaProtectionMigrationError { throw mediaProtectionMigrationError }
         try ArvectumJSONCodec.encode(ids.map(\.uuidString).sorted())
-            .write(to: pendingDeletionURL, options: .atomic)
+            .write(to: pendingDeletionURL, options: protectedJSONOptions)
     }
 
     /// Runs at startup. The explicit deletion intent must survive until BOTH
@@ -242,6 +263,7 @@ final class LocalNoteRepository {
               size.int64Value > 0 else { throw NoteError.invalidMedia }
         lock.lock()
         defer { lock.unlock() }
+        if let mediaProtectionMigrationError { throw mediaProtectionMigrationError }
         guard !(try pendingVideoDeletionIDs()).contains(id) else {
             throw NoteError.deletionInProgress
         }
@@ -260,6 +282,7 @@ final class LocalNoteRepository {
             }
             do {
                 try fileManager.copyItem(at: source, to: staged)
+                try PrivateMediaProtection.protect(staged, fileManager: fileManager)
                 try fileManager.moveItem(at: staged, to: path)
             } catch {
                 try? fileManager.removeItem(at: staged)
@@ -277,6 +300,7 @@ final class LocalNoteRepository {
             // Some file systems leave a partially copied staging file when
             // copyItem throws ENOSPC. Catch must cover the copy as well.
             try fileManager.copyItem(at: source, to: staging)
+            try PrivateMediaProtection.protect(staging, fileManager: fileManager)
             try fileManager.moveItem(at: staging, to: destination)
             let now = Date()
             let note = LocalNote(id: id, kind: .video, createdAt: now,

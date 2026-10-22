@@ -20,6 +20,54 @@ private final class PartialCopyOutOfSpaceFileManager: FileManager {
 }
 
 final class VideoCaptureRecoveryTests: XCTestCase {
+    func testPhysicalRecoveryJournalProtectsLegacySegmentsAndKeepsBytes() throws {
+#if os(iOS)
+        let root = FileManager.default.temporaryDirectory
+            .appendingPathComponent("what-recover-protection-\(UUID().uuidString)")
+        defer { try? FileManager.default.removeItem(at: root) }
+        let journal = VideoCaptureJournal(rootURL: root)
+        let id = try journal.begin()
+        let folder = root.appendingPathComponent(id.uuidString)
+        let manifest = folder.appendingPathComponent("session.json")
+        let segment = journal.segmentURL(for: id, index: 0)
+        let incomplete = folder.appendingPathComponent("combined.mov")
+        let mov = Data(repeating: 0x2e, count: 8_192)
+        let partial = Data("recovery-keep".utf8)
+        try mov.write(to: segment)
+        try partial.write(to: incomplete)
+        // A protected folder should protect future segment files by default
+        // even before recovery has a chance to rescan them.
+        let newlyCreated = try FileManager.default.attributesOfItem(
+            atPath: segment.path
+        )
+        XCTAssertEqual(newlyCreated[.protectionKey] as? FileProtectionType,
+                       .completeUntilFirstUserAuthentication)
+        let manifestBytes = try Data(contentsOf: manifest)
+        for file in [manifest, segment, incomplete] {
+            try FileManager.default.setAttributes(
+                [.protectionKey: FileProtectionType.none],
+                ofItemAtPath: file.path
+            )
+        }
+        // Recovery can improve file metadata but must not rewrite/erase
+        // unfinalized source material or merge results.
+        let pending = try journal.pendingSessions()
+        XCTAssertEqual(pending.map(\.id), [id])
+        for (file, bytes) in [(manifest, manifestBytes), (segment, mov),
+                              (incomplete, partial)] {
+            XCTAssertEqual(try Data(contentsOf: file), bytes)
+            let attr = try FileManager.default.attributesOfItem(atPath: file.path)
+            XCTAssertEqual(attr[.protectionKey] as? FileProtectionType,
+                           .completeUntilFirstUserAuthentication)
+        }
+        let folderAttrs = try FileManager.default.attributesOfItem(atPath: folder.path)
+        XCTAssertEqual(folderAttrs[.protectionKey] as? FileProtectionType,
+                       .completeUntilFirstUserAuthentication)
+#else
+        throw XCTSkip("Only physical iOS Data Protection devices")
+#endif
+    }
+
     func testSimulatedDiskFullPreservesOriginalAndRetryRecoversExactlyOnce() async throws {
         let root = try temporaryRoot()
         defer { try? FileManager.default.removeItem(at: root) }

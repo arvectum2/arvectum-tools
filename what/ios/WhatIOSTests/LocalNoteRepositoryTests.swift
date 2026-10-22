@@ -16,6 +16,17 @@ private final class FailOnceVideoDeleteFileManager: FileManager {
     }
 }
 
+private final class RejectVideoStagingProtectionManager: FileManager {
+    override func setAttributes(
+        _ attributes: [FileAttributeKey: Any], ofItemAtPath path: String
+    ) throws {
+        if path.hasSuffix(".incoming") || path.hasSuffix(".repair") {
+            throw NSError(domain: NSCocoaErrorDomain, code: NSFileWriteNoPermissionError)
+        }
+        try super.setAttributes(attributes, ofItemAtPath: path)
+    }
+}
+
 final class LocalNoteRepositoryTests: XCTestCase {
     private func root() -> URL {
         FileManager.default.temporaryDirectory
@@ -41,6 +52,106 @@ final class LocalNoteRepositoryTests: XCTestCase {
         XCTAssertTrue(try repo.allNotes().first!.archived)
         try again.delete(id)
         XCTAssertTrue(try repo.allNotes().isEmpty)
+    }
+
+    func testPhysicalNewVideoAndLocalIndexUseFirstUnlockProtection() throws {
+#if os(iOS)
+        let root = root()
+        defer { try? FileManager.default.removeItem(at: root) }
+        try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)
+        let source = root.appendingPathComponent("unprotected-source.mov")
+        let original = Data(repeating: 0x53, count: 8192)
+        try original.write(to: source)
+        try FileManager.default.setAttributes(
+            [.protectionKey: FileProtectionType.none], ofItemAtPath: source.path
+        )
+        let repo = LocalNoteRepository(rootURL: root)
+        let note = try repo.importVideo(from: source, duration: 4.2)
+        let destination = try XCTUnwrap(repo.videoURL(for: note))
+        let index = root.appendingPathComponent("local-notes.json")
+        for file in [destination, index] {
+            let attributes = try FileManager.default.attributesOfItem(atPath: file.path)
+            XCTAssertEqual(attributes[.protectionKey] as? FileProtectionType,
+                           .completeUntilFirstUserAuthentication)
+            XCTAssertNotEqual(try file.resourceValues(
+                forKeys: [.isExcludedFromBackupKey]).isExcludedFromBackup, true)
+        }
+        XCTAssertEqual(try Data(contentsOf: destination), original)
+        XCTAssertEqual(try Data(contentsOf: source), original)
+#else
+        throw XCTSkip("Only physical iOS")
+#endif
+    }
+
+    func testPhysicalLegacyVideoMigrationDoesNotAlterTextMOVOrDeletionLedger() throws {
+#if os(iOS)
+        let root = root()
+        defer { try? FileManager.default.removeItem(at: root) }
+        let videos = root.appendingPathComponent("Videos", isDirectory: true)
+        try FileManager.default.createDirectory(at: videos, withIntermediateDirectories: true)
+        let index = root.appendingPathComponent("local-notes.json")
+        let deleted = root.appendingPathComponent("pending-local-video-deletions.json")
+        let id = UUID()
+        let source = videos.appendingPathComponent("\(id.uuidString).mov")
+        let orphan = videos.appendingPathComponent(".unresolved.partial")
+        let note = LocalNote(id: id, kind: .video, createdAt: Date(),
+                             updatedAt: Date(), body: "", fileName: "\(id.uuidString).mov",
+                             duration: 5, archived: false, sourceDevice: "iPhone")
+        let indexBytes = try ArvectumJSONCodec.encode([note])
+        let deletionBytes = try ArvectumJSONCodec.encode([String]())
+        let movie = Data(repeating: 0x5a, count: 16384)
+        let partial = Data("recoverable-source-segment".utf8)
+        try indexBytes.write(to: index)
+        try deletionBytes.write(to: deleted)
+        try movie.write(to: source)
+        try partial.write(to: orphan)
+        for file in [index, deleted, source, orphan] {
+            try FileManager.default.setAttributes(
+                [.protectionKey: FileProtectionType.none], ofItemAtPath: file.path
+            )
+        }
+        let repo = LocalNoteRepository(rootURL: root)
+        XCTAssertEqual(try repo.allNotes().map(\.id), [id])
+        for (file, bytes) in [(index, indexBytes), (deleted, deletionBytes),
+                              (source, movie), (orphan, partial)] {
+            XCTAssertEqual(try Data(contentsOf: file), bytes)
+            let attributes = try FileManager.default.attributesOfItem(atPath: file.path)
+            XCTAssertEqual(attributes[.protectionKey] as? FileProtectionType,
+                           .completeUntilFirstUserAuthentication)
+        }
+        XCTAssertTrue(FileManager.default.fileExists(atPath: orphan.path))
+        _ = LocalNoteRepository(rootURL: root)
+        XCTAssertEqual(try Data(contentsOf: source), movie)
+#else
+        throw XCTSkip("Only physical iOS")
+#endif
+    }
+
+    func testVideoProtectionFailureLeavesOriginalAndIndexUntouched() throws {
+#if os(iOS)
+        let root = root()
+        defer { try? FileManager.default.removeItem(at: root) }
+        try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)
+        let source = root.appendingPathComponent("source.mov")
+        let bytes = Data(repeating: 0xf3, count: 4096)
+        try bytes.write(to: source)
+        try FileManager.default.setAttributes(
+            [.protectionKey: FileProtectionType.none],
+            ofItemAtPath: source.path
+        )
+        let id = UUID()
+        let repo = LocalNoteRepository(rootURL: root,
+                                       fileManager: RejectVideoStagingProtectionManager())
+        XCTAssertThrowsError(try repo.importVideo(from: source, duration: 5, id: id))
+        XCTAssertEqual(try Data(contentsOf: source), bytes)
+        XCTAssertTrue(try repo.allNotes().isEmpty)
+        XCTAssertFalse(FileManager.default.fileExists(
+            atPath: root.appendingPathComponent("Videos/\(id.uuidString).mov").path))
+        XCTAssertFalse(FileManager.default.fileExists(
+            atPath: root.appendingPathComponent("Videos/.\(id.uuidString).mov.incoming").path))
+#else
+        throw XCTSkip("Only physical iOS")
+#endif
     }
 
     func testVideoCopyAndDeletionDoesNotDeleteSource() throws {
