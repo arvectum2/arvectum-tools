@@ -110,6 +110,24 @@ final class WatchPhysicalQAProbe {
                   details: "Orphan or queued source metadata only: " + files.joined(separator: "; "))
             return
         }
+        if arguments.contains("what-watch-qa-route-immediate") {
+            started = true
+            timeline = []
+            record("route-immediate-start", details: "microphone=unused,qaHold=false")
+            do {
+                let id = try controller.qaEnqueueSyntheticAAC()
+                capturedID = id
+                record("route-immediate-queued", details: id.uuidString)
+                write("route-immediate-queued", pending: controller.pendingCount,
+                      details: "Actual transport starts immediately without QA timer")
+                checkAcknowledgement(controller)
+            } catch {
+                record("route-immediate-error", details: String(describing: error))
+                write("failed", pending: controller.pendingCount,
+                      details: "Synthetic AAC encoding failed")
+            }
+            return
+        }
         if arguments.contains("what-watch-qa-synthetic-background") {
             started = true
             existingBeforeTest = Set(currentOutboundAudioIDs())

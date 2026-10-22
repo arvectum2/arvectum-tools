@@ -1,5 +1,11 @@
 # What? — Product Roadmap
 
+## 22.10.2026 · Измерен реальный маршрут WatchConnectivity
+
+- [x] QA-only журнал времени/UUID на обеих физических сторонах и режим синтетического AAC без 10-секундного удержания. [Физический протокол](docs/PHYSICAL_WATCH_WCSESSION_ROUTE_TIMING_2026-10-22.md).
+- [x] Watch isReachable=false: transferFile scheduled, watch-side completion за 0.328 с. iPhone didReceive(file:) только через 170.883 с при возврате из background; ACK/commit быстрые, 4 уникальных UUID, пустая очередь Watch.
+- [ ] Своевременная повторяемая фоновая доставка всё ещё OPEN; не приписывать задержку автоматически багу iOS без дополнительных системных данных. Следующая новая задача — исследовать условия пробуждения фонового iPhone, без повторов базовых ACK/offline тестов.
+
 ## 22.10.2026 · Сверка Watch QA без повторов
 
 - [x] [Единая матрица физических PASS / PARTIAL / OPEN](docs/PHYSICAL_WATCH_ACCEPTANCE_DEDUP_2026-10-22.md) сверяет 13/19/22 октября. Уже проверены 3 записи при реальном offline, частичный reboot, две записи без открытия iPhone, реальный lost ACK и 1 cold-background доставка. Исторические TODO ниже не отражают более поздние результаты.

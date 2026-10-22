@@ -7,6 +7,9 @@ struct WhatApp: App {
     @StateObject private var store = PhoneStore()
 
     init() {
+#if WATCH_ROUTE_QA
+        WatchRouteQATrace.add("phone-app-init")
+#endif
 #if !REVIEW_HANDOFF_QA
         // Standalone physical test build has NO paired Watch companion.
         // Leave the established Watch/phone test pairs untouched.
@@ -49,6 +52,9 @@ struct WhatApp: App {
                 .environment(\.locale, CaptureBrand.interfaceLocale)
                 .appStoreUpdatePrompt(locale: CaptureBrand.interfaceLocale)
                 .onChange(of: scenePhase) { _, phase in
+#if WATCH_ROUTE_QA
+                    WatchRouteQATrace.add("phone-phase", note: String(describing: phase))
+#endif
 #if REVIEW_HANDOFF_QA
                     PhysicalCaptureQAProbe.shared.observeScenePhase(phase, store: store)
 #endif
