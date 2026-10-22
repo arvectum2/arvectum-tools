@@ -53,7 +53,58 @@ struct RecordingLibraryView: View {
         }
     }
 
+    /// On physical iPhone 13 the horizontal strip clips at accessibility5.
+    /// A 2x2 grid pushed the entire note list out of the viewport. A single
+    /// full-width Menu leaves the real library scrollable without truncation.
     private var visibleTypeFilters: some View {
+        Group {
+            if dynamicTypeSize.isAccessibilitySize {
+                Menu {
+                    ForEach(UnifiedNoteKindFilter.allCases) { filter in
+                        let total = filter.count(in: notesMatchingFolderAndSearch)
+                        Button {
+                            typeFilter = filter
+                        } label: {
+                            Label(CaptureBrand.formatted(
+                                "Фильтр %@, %@", "Filter %@, %@",
+                                filterTitle(filter), CaptureBrand.noteCount(total)
+                            ), systemImage: filterSymbol(filter))
+                        }
+                        .accessibilityIdentifier("what.filter.\(filter.rawValue)")
+                    }
+                } label: {
+                    HStack(spacing: 10) {
+                        Image(systemName: "line.3.horizontal.decrease.circle")
+                            .accessibilityHidden(true)
+                        Text(filterTitle(typeFilter))
+                            .lineLimit(1)
+                        Text(typeFilter.count(in: notesMatchingFolderAndSearch).formatted())
+                            .monospacedDigit()
+                        Spacer(minLength: 0)
+                        Image(systemName: "chevron.down")
+                            .font(.caption)
+                            .accessibilityHidden(true)
+                    }
+                    // A full descriptive AX label remains available while
+                    // the visible control stays within one accessible row.
+                    .frame(maxWidth: .infinity, minHeight: 64, alignment: .leading)
+                }
+                .buttonStyle(.bordered)
+                .accessibilityLabel(CaptureBrand.formatted(
+                    "Фильтр %@, %@", "Filter %@, %@",
+                    filterTitle(typeFilter),
+                    CaptureBrand.noteCount(typeFilter.count(in: notesMatchingFolderAndSearch))
+                ))
+                .accessibilityIdentifier("what.library.filterMenu")
+                .padding(.horizontal)
+                .padding(.vertical, 5)
+            } else {
+                standardTypeFilters
+            }
+        }
+    }
+
+    private var standardTypeFilters: some View {
         ScrollView(.horizontal) {
             HStack(spacing: 8) {
                 ForEach(UnifiedNoteKindFilter.allCases) { filter in
@@ -133,16 +184,18 @@ struct RecordingLibraryView: View {
 
                 Group {
                     if dynamicTypeSize.isAccessibilitySize {
-                        VStack(alignment: .leading, spacing: 4) {
-                            Label(
-                                CaptureBrand.text("Сохранено на устройстве", "Saved on this device"),
-                                systemImage: "internaldrive"
-                            )
+                        // On iPhone 13 the original two-line storage caption
+                        // plus an additional count consumed over 150pt, leaving
+                        // too little room for any real note at accessibility5.
+                        Label(CaptureBrand.noteCount(visibleNotes.count),
+                              systemImage: "internaldrive")
+                            .monospacedDigit()
                             .fixedSize(horizontal: false, vertical: true)
-                            Text(CaptureBrand.noteCount(visibleNotes.count))
-                                .monospacedDigit()
-                        }
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .accessibilityLabel(
+                                CaptureBrand.text("Сохранено на устройстве", "Saved on this device")
+                                + ". " + CaptureBrand.noteCount(visibleNotes.count)
+                            )
                     } else {
                         HStack(spacing: 5) {
                             Image(systemName: "internaldrive")
@@ -511,22 +564,58 @@ struct RecordingLibraryView: View {
         .accessibilityIdentifier("what.library.settings")
     }
 
+    private func noteKindLabel(_ note: LocalNote) -> some View {
+        Label(note.kind == .text
+              ? CaptureBrand.text("Текст", "Text")
+              : CaptureBrand.text("Видео", "Video"),
+              systemImage: note.kind == .text ? "note.text" : "video.fill")
+            .font(.headline)
+    }
+
     private func localNoteRow(_ note: LocalNote) -> some View {
         VStack(alignment: .leading, spacing: 8) {
-            HStack {
-                Label(note.kind == .text
-                      ? CaptureBrand.text("Текст", "Text")
-                      : CaptureBrand.text("Видео", "Video"),
-                      systemImage: note.kind == .text ? "note.text" : "video.fill")
-                    .font(.headline)
-                Spacer()
-                Text(note.createdAt, style: .time)
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
+            Group {
+                if dynamicTypeSize.isAccessibilitySize {
+                    // Keep the type metadata readable on narrow physical
+                    // iPhones while preserving the full VoiceOver label.
+                    VStack(alignment: .leading, spacing: 4) {
+                        // Cap metadata only; body text continues to follow
+                        // the user's complete Dynamic Type selection.
+                        HStack(alignment: .top, spacing: 8) {
+                            Image(systemName: note.kind == .text
+                                  ? "note.text" : "video.fill")
+                                .accessibilityHidden(true)
+                            Text(note.kind == .text
+                                 ? CaptureBrand.text("Текст", "Text")
+                                 : CaptureBrand.text("Видео", "Video"))
+                                .fixedSize(horizontal: false, vertical: true)
+                                .layoutPriority(1)
+                        }
+                        .font(.headline)
+                        .dynamicTypeSize(...DynamicTypeSize.accessibility1)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .accessibilityElement(children: .combine)
+                        Text(note.createdAt, style: .time)
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                } else {
+                    HStack {
+                        noteKindLabel(note)
+                        Spacer()
+                        Text(note.createdAt, style: .time)
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
+                }
             }
             if note.kind == .text {
                 Text(note.body)
-                    .lineLimit(4)
+                    // AXXXL may need 10+ visual lines even for a short note.
+                    // Do not clip the body: the containing List scrolls.
+                    .lineLimit(dynamicTypeSize.isAccessibilitySize ? nil : 4)
+                    .fixedSize(horizontal: false, vertical: true)
                     .textSelection(.enabled)
                 Button(CaptureBrand.text("Редактировать", "Edit")) {
                     localNoteToEdit = note
