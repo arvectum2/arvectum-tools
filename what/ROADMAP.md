@@ -1,5 +1,11 @@
 # What? — Product Roadmap
 
+## 22.10.2026 · PhoneCaptures защищены на физическом iPhone 13
+
+- [x] Временные iPhone AAC, manifest JSON и аварийные файлы получают CompleteUntilFirstUserAuthentication до записи; старые мигрируют только атрибутами, отказ защиты блокирует запись/импорт.
+- [x] Физический iPhone: **132 XCTest, 0 FAIL, 3 expected SKIP**, включая 7 PhoneCaptureStorageTests и синтетический playable AAC. [Протокол](docs/PHYSICAL_PHONECAPTURES_PROTECTION_2026-10-22.md).
+- [ ] Реальное микрофонное прерывание, reboot/first unlock, Watch background, encrypted backup/restore OPEN.
+
 ## 22.10.2026 · Защита старых AAC/MOV + политика backup
 
 - [x] Физическая QA: старые AAC/MOV и временные recovery segments мигрируют метаданными без потери байтов; новые видео получают защиту до индекса. Регрессия 125 тестов без FAIL (3 skips), recovery 18/18 PASS. [Протокол](docs/PHYSICAL_LEGACY_MEDIA_BACKUP_2026-10-22.md).

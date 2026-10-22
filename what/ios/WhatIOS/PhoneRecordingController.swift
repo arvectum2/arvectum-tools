@@ -27,6 +27,7 @@ final class PhoneRecordingController: NSObject, ObservableObject {
     private let directory: URL
     private let repository: RecordingRepository
     private let files: FileManager
+    private let captureStorage: PhoneCaptureStorage
     private var engine: AVAudioEngine?
     private var pipeline: MicrophoneCapturePipeline?
     private var pending: Pending?
@@ -36,15 +37,17 @@ final class PhoneRecordingController: NSObject, ObservableObject {
     private var interruptionObserver: NSObjectProtocol?
 
     init(repository: RecordingRepository = RecordingRepository(),
-         fileManager: FileManager = .default) {
+         fileManager: FileManager = .default,
+         captureDirectory: URL? = nil) {
         self.repository = repository
         files = fileManager
         let base = fileManager.urls(
             for: .applicationSupportDirectory, in: .userDomainMask
         ).first!
-        directory = base.appendingPathComponent("What/PhoneCaptures", isDirectory: true)
+        directory = captureDirectory
+            ?? base.appendingPathComponent("What/PhoneCaptures", isDirectory: true)
+        captureStorage = PhoneCaptureStorage(directory: directory, files: fileManager)
         super.init()
-        try? files.createDirectory(at: directory, withIntermediateDirectories: true)
         recoverCompletedCaptures()
         interruptionObserver = NotificationCenter.default.addObserver(
             forName: AVAudioSession.interruptionNotification,
@@ -121,6 +124,9 @@ final class PhoneRecordingController: NSObject, ObservableObject {
         let item = Pending(id: UUID(), createdAt: Date(), expectedElapsed: nil)
         let url = audioURL(for: item.id)
         do {
+            // Never start the microphone if older recovery copies cannot
+            // be protected. Their contents must survive unchanged.
+            try captureStorage.prepare()
             let session = AVAudioSession.sharedInstance()
             try session.setCategory(.record, mode: .default)
             try session.setActive(true)
@@ -153,13 +159,16 @@ final class PhoneRecordingController: NSObject, ObservableObject {
                         "iOS microphone returned no active audio channels."]
                 )
             }
-            try files.createDirectory(at: directory, withIntermediateDirectories: true)
-            try JSONEncoder().encode(item).write(
-                to: metadataURL(for: item.id), options: .atomic
-            )
+            try captureStorage.writeManifest(item, to: metadataURL(for: item.id))
             let nextPipeline = try MicrophoneCapturePipeline(
                 url: url, inputFormat: format
             )
+            do {
+                try captureStorage.protectAudioBeforeRecording(url)
+            } catch {
+                _ = nextPipeline.close()
+                throw error
+            }
             input.installTap(onBus: 0, bufferSize: 1_024, format: format) {
                 [weak nextPipeline] buffer, _ in
                 nextPipeline?.append(buffer)
@@ -235,8 +244,8 @@ final class PhoneRecordingController: NSObject, ObservableObject {
                 id: item.id, createdAt: item.createdAt,
                 expectedElapsed: elapsed
             )
-            try JSONEncoder().encode(completed).write(
-                to: metadataURL(for: item.id), options: .atomic
+            try captureStorage.writeManifest(
+                completed, to: metadataURL(for: item.id)
             )
             if let error = status.writeError { throw error }
             try PhoneCaptureValidation.validate(
@@ -295,6 +304,14 @@ final class PhoneRecordingController: NSObject, ObservableObject {
     }
 
     private func recoverCompletedCaptures() {
+        // A failed upgrade blocks automated recovery; retry next launch.
+        // Never silently import or delete an unprotected legacy source.
+        do {
+            try captureStorage.prepare()
+        } catch {
+            errorMessage = "Cannot secure recovery recordings: \(error.localizedDescription)"
+            return
+        }
         let manifests = (try? files.contentsOfDirectory(
             at: directory, includingPropertiesForKeys: nil
         ))?.filter { $0.pathExtension == "json" } ?? []
