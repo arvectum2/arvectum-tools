@@ -88,3 +88,27 @@ project.pbxproj не включает несколько уже существу
 
 Физические фоновые значения iPhone остаются OPEN: iOS отказала в запуске
 QA приложения из-за блокировки телефона.
+
+
+## CI: семантическая проверка исходников (уточнение)
+
+Первый строгий CI-gate по полному байтовому сравнению project.pbxproj
+оказался слишком чувствительным: рабочая среда GitHub Actions использует
+XcodeGen, который может формировать отличающиеся служебные идентификаторы
+и форматирование. При этом Swift-source membership может совпадать.
+
+Вместо побайтового сравнения применяется
+what/ios/tools/check_project_source_membership.py:
+он сравнивает количество и имена Swift файлов в PBXBuildFile Sources
+закоммиченного проекта и нового проекта после XcodeGen.
+
+Локально подтвердили два контрольных исхода:
+- актуальный project.pbxproj против сгенерированного: 92 Swift target entries, PASS;
+- исторический 61bad90 против сгенерированного: ожидаемый FAIL с перечнем
+  PhoneCaptureStorage, PhoneCaptureStorageTests, PhoneWakeEnvironmentQA,
+  PrivateMediaProtection, WatchInboundFileReceiver и двух включений
+  WatchRouteQATrace.
+
+Этот gate предотвращает именно пропущенные исходники, но не утверждает,
+что любое изменение параметров сборки будет замечено. Стандартный
+production build и реальные XCTest остаются отдельными проверками.
