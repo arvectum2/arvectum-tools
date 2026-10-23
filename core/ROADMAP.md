@@ -26,6 +26,10 @@
 
 - [x] **22.10 · WatchConnectivity delivery latency измерена:** физический iPhone 13/Watch SE, маршрут transferFile (Watch reachable=false), watch-side completion 0.328 с; iPhone didReceive спустя 170.883 с при foreground, commit и ACK быстрые. [Протокол](../what/docs/PHYSICAL_WATCH_WCSESSION_ROUTE_TIMING_2026-10-22.md).
 
+- [ ] **24.10 · Условия фона iPhone:** QA-only лог Background Refresh/Low Power/protected data/scene phase/WCSession собран и установлен, но запуск отказал из-за блокировки iPhone (RequestDenied: Locked). После обычной разблокировки нужен один замер без записи аудио. [Протокол](../what/docs/WATCH_BACKGROUND_WAKE_POLICY_QA_2026-10-24.md).
+
+- [x] **24.10 · What.xcodeproj синхронизирован с XcodeGen:** после добавления пропущенных исходников обычная iPhone/watchOS сборка без подписи PASS; в CI добавлен контроль свежести project.pbxproj. [Протокол](../what/docs/WATCH_BACKGROUND_WAKE_POLICY_QA_2026-10-24.md).
+
 ### P0 · Ухват — доведение до физической приёмки
 - [x] **L4.17a · Пользовательский экран восстановления:** в настройках библиотеки появился отдельный экран с предпросмотром состояния хранилища и числа расшифровок в последней пригодной резервной копии. Восстановление только по отдельному подтверждению; здоровый/отсутствующий основной каталог не заменяется, пустая или повреждённая копия недоступна, удалённые UUID не возвращаются. RU/EN/ES iPhone 228 ключей, тестовая синтетическая фикстура не касается реальных файлов. Xcode iPhone Simulator 67 PASS, 3 SKIP, 0 FAIL (23:01), Python 38/38 PASS.
 - [x] **L4.17b, simulator subset:** отдельный Debug synthetic XCUITest прошёл Cancel → explicit Restore → healthy status → success alert на iPhone 17 Pro; AXXXL-кнопка и системное предупреждение исправлены. [Акт владельца](../what/ROADMAP.md). Дополнительно 22.10: пять XCUITest на синтетических данных **5/5 PASS** — Cancel/confirm, missing/corrupt/empty backup и исправный основной каталог; в небезопасных состояниях CTA восстановления не показывается. **Физический iPhone/iPad/VoiceOver и реальная пользовательская файловая система остаются OPEN**; не считать L4.17b полностью закрытым.

@@ -1,5 +1,14 @@
 # What? — Product Roadmap
 
+## 24.10.2026 · Фоновые условия iPhone: инструментация без новых аудиозаписей
+
+- [x] Только в QA добавлен снимок Background App Refresh, Low Power Mode, protected data, scene phase и WCSession на MainActor. Подписанная сборка установлена на физический iPhone 13. [Протокол](docs/WATCH_BACKGROUND_WAKE_POLICY_QA_2026-10-24.md).
+- [ ] Физические значения пока не получены: iOS отклонила запуск QA-приложения с RequestDenied: Locked (телефон заблокирован). Не разблокировали удалённо и не меняли настройки.
+- [ ] После обычной разблокировки пользователя — один замер active → Settings/background → active и чтение QA-событий. Новые Watch AAC создавать не нужно.
+- [x] Apple подтверждает opportunistic delivery без SLA; произвольные background capabilities в production не добавляли.
+- [x] Исправлен несинхронизированный штатный What.xcodeproj: ссылки на ранее добавленные Swift-исходники восстановлены; после XcodeGen штатная iOS/watchOS-сборка без подписи проходит, добавлен CI gate pbxproj/project.yml.
+
+
 ## 22.10.2026 · Измерен реальный маршрут WatchConnectivity
 
 - [x] QA-only журнал времени/UUID на обеих физических сторонах и режим синтетического AAC без 10-секундного удержания. [Физический протокол](docs/PHYSICAL_WATCH_WCSESSION_ROUTE_TIMING_2026-10-22.md).
