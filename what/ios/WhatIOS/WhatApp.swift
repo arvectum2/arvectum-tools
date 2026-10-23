@@ -48,12 +48,16 @@ struct WhatApp: App {
 #if REVIEW_HANDOFF_QA
                 .onAppear { PhysicalCaptureQAProbe.shared.startIfRequested(store: store) }
 #endif
+#if WATCH_ROUTE_QA
+                .onAppear { PhoneWakeEnvironmentQA.snapshot("content-appear") }
+#endif
                 .environmentObject(store)
                 .environment(\.locale, CaptureBrand.interfaceLocale)
                 .appStoreUpdatePrompt(locale: CaptureBrand.interfaceLocale)
                 .onChange(of: scenePhase) { _, phase in
 #if WATCH_ROUTE_QA
                     WatchRouteQATrace.add("phone-phase", note: String(describing: phase))
+                    PhoneWakeEnvironmentQA.snapshot("scene-\(phase)")
 #endif
 #if REVIEW_HANDOFF_QA
                     PhysicalCaptureQAProbe.shared.observeScenePhase(phase, store: store)

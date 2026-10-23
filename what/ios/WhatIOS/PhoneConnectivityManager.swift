@@ -59,6 +59,7 @@ final class PhoneConnectivityManager: NSObject, WCSessionDelegate {
     ) {
 #if WATCH_ROUTE_QA
         WatchRouteQATrace.add("phone-session-activation", note: "state=\(activationState.rawValue),hasError=\(error != nil)")
+        Task { @MainActor in PhoneWakeEnvironmentQA.snapshot("wc-session-activation") }
 #endif
         guard activationState == .activated else { return }
         receiveQueueSnapshot(session.receivedApplicationContext)

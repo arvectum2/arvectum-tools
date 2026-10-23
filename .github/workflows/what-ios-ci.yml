@@ -36,6 +36,13 @@ jobs:
         run: brew install xcodegen
       - name: Generate What project
         run: xcodegen generate
+      - name: Check committed Xcode project matches XcodeGen
+        run: |
+          if ! git diff --quiet -- What.xcodeproj/project.pbxproj; then
+            echo "::error file=what/ios/What.xcodeproj/project.pbxproj::Committed project is stale. Run xcodegen generate in what/ios and commit What.xcodeproj/project.pbxproj."
+            git diff --stat -- What.xcodeproj/project.pbxproj
+            exit 1
+          fi
       - name: Test durable Watch queue and receiver AAC validation
         run: |
           xcodebuild \
