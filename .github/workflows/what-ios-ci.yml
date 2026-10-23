@@ -34,15 +34,12 @@ jobs:
       - uses: actions/checkout@v7
       - name: Install XcodeGen
         run: brew install xcodegen
+      - name: Snapshot committed Swift source map
+        run: cp What.xcodeproj/project.pbxproj "$RUNNER_TEMP/What-committed.pbxproj"
       - name: Generate What project
         run: xcodegen generate
-      - name: Check committed Xcode project matches XcodeGen
-        run: |
-          if ! git diff --quiet -- What.xcodeproj/project.pbxproj; then
-            echo "::error file=what/ios/What.xcodeproj/project.pbxproj::Committed project is stale. Run xcodegen generate in what/ios and commit What.xcodeproj/project.pbxproj."
-            git diff --stat -- What.xcodeproj/project.pbxproj
-            exit 1
-          fi
+      - name: Check committed Swift build-source membership
+        run: python3 tools/check_project_source_membership.py "$RUNNER_TEMP/What-committed.pbxproj" What.xcodeproj/project.pbxproj
       - name: Test durable Watch queue and receiver AAC validation
         run: |
           xcodebuild \
