@@ -293,5 +293,27 @@
       "bundles": [],
       "status": "paused"
     }
+  },
+  "deliveryPriority": {
+    "platforms": [
+      "ios",
+      "watchos",
+      "android"
+    ],
+    "policy": "Prioritize iOS/watchOS localization; Android locale expansion deferred while iOS rollout lags. Android reliability fixes continue.",
+    "iosFirstWave": [
+      "en",
+      "ru",
+      "es",
+      "fr"
+    ],
+    "iosNextWave": [
+      "de",
+      "pt-BR",
+      "it",
+      "ja",
+      "zh-Hans"
+    ],
+    "androidExpansion": "deferred; maintain nine existing source catalogs"
   }
 }

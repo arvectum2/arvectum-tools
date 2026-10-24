@@ -14,9 +14,40 @@ class LocalizationPortfolioTests(unittest.TestCase):
         self.assertEqual(len(reg["targets"]), 50)
         self.assertEqual(reg["targets"][0]["code"], "en")
         self.assertEqual(reg["fallback"], "en")
+        delivery = reg["deliveryPriority"]
+        self.assertEqual(delivery["platforms"], ["ios", "watchos", "android"])
+        self.assertEqual(delivery["iosFirstWave"], ["en", "ru", "es", "fr"])
+        self.assertEqual(delivery["iosNextWave"], ["de", "pt-BR", "it", "ja", "zh-Hans"])
+
         self.assertEqual(set(reg["apps"]), {"chickmark", "pushkin", "what", "photo-pdf-to-size", "where"})
         self.assertEqual(reg["apps"]["photo-pdf-to-size"]["android"]["sourceLocale"], "en")
         self.assertEqual([sum(x["tier"] == t for x in reg["targets"]) for t in (1, 2, 3)], [20, 20, 10])
+
+    def test_all_active_ios_bundles_have_four_localized_catalogs(self):
+        """First four localization packs are present in all active iOS bundles.
+
+        This tests source parity, not linguistic quality or App Store release.
+        """
+        registry = i18n.config()
+        for app in ("chickmark", "pushkin", "what", "photo-pdf-to-size"):
+            for name in registry["apps"][app]["bundles"]:
+                bundle = ROOT / name
+                baseline = i18n.read_strings(
+                    bundle / "en.lproj/Localizable.strings", [])
+                self.assertTrue(baseline, f"{app}/{name} missing English")
+                for code in ("ru", "es", "fr"):
+                    errors = []
+                    translated = i18n.read_strings(
+                        bundle / f"{code}.lproj/Localizable.strings", errors)
+                    self.assertEqual(errors, [], f"{app}/{name}/{code}")
+                    self.assertEqual(
+                        set(baseline), set(translated),
+                        f"{app}/{name}/{code} missing or extra keys")
+                    for key in baseline:
+                        self.assertEqual(
+                            i18n.placeholders(baseline[key]),
+                            i18n.placeholders(translated[key]),
+                            f"{app}/{name}/{code}/{key}")
 
     def test_placeholders(self):
         self.assertEqual(i18n.placeholders("%d of %@"), i18n.placeholders("%2$@ from %1$d"))
