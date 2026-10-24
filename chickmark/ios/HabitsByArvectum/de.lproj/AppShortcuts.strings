@@ -1,0 +1,5 @@
+// Deutsch; Texte und Berechtigungen vor Release redaktionell prüfen.
+"Complete a habit in ${applicationName}" = "Eine Gewohnheit in ${applicationName} erledigen";
+"Check off a habit in ${applicationName}" = "Eine Gewohnheit in ${applicationName} abhaken";
+"Undo a habit in ${applicationName}" = "Eine Gewohnheit in ${applicationName} rückgängig machen";
+"Mark a habit incomplete in ${applicationName}" = "Eine Gewohnheit in ${applicationName} als nicht erledigt markieren";

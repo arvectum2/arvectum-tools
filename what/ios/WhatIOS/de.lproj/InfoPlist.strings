@@ -1,0 +1,5 @@
+// Deutsch; Texte und Berechtigungen vor Release redaktionell prüfen.
+"CFBundleDisplayName" = "UhWhat?";
+"NSMicrophoneUsageDescription" = "Nehmen Sie private Audio- und Videonotizen auf diesem Gerät auf. Ihre Dateien bleiben auf Ihrem Gerät.";
+"NSSpeechRecognitionUsageDescription" = "Transkribieren Sie gespeicherte Sprachnotizen direkt auf diesem Gerät mittels lokaler Spracherkennung.";
+"NSCameraUsageDescription" = "Nehmen Sie private Videonotizen mit der Kamera auf. Die Videos bleiben auf diesem Gerät.";

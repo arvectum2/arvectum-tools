@@ -1,0 +1,4 @@
+// Deutsch; Texte und Berechtigungen vor Release redaktionell prüfen.
+"CFBundleDisplayName" = "UhWhat?";
+"CFBundleName" = "UhWhat?";
+"NSMicrophoneUsageDescription" = "Nehmen Sie Gedanken auf Ihrer Apple Watch auf. Das Audio bleibt auf der Watch, bis es sicher auf das iPhone übertragen wurde.";

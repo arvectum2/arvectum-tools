@@ -1,0 +1,3 @@
+// Deutsch; Texte und Berechtigungen vor Release redaktionell prüfen.
+"NSHealthShareUsageDescription" = "ChickMark liest Aktivitätswerte nur für Gewohnheiten, die Sie mit Apple Health verknüpfen. Gesundheitswerte bleiben auf Ihrem Gerät.";
+"NSHealthUpdateUsageDescription" = "ChickMark verwendet Apple Health zur Verfolgung der von Ihnen ausgewählten Aktivitätsziele. Die App fügt keine Gesundheitsdaten hinzu und verändert sie nicht.";

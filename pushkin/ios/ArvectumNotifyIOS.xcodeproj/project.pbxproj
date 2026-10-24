@@ -649,6 +649,7 @@
 		96C2F849305CF78BED35B7C8 /* PUSHKIN - Флюгер.shortcut in Resources */ = {isa = PBXBuildFile; fileRef = 8064F3A532B3BFA7728318A0 /* PUSHKIN - Флюгер.shortcut */; };
 		970D6B17F9E3332E9B31AF1D /* PUSHKIN - KWSP i-Akaun.shortcut in Resources */ = {isa = PBXBuildFile; fileRef = FDED924C04A9D837207226E4 /* PUSHKIN - KWSP i-Akaun.shortcut */; };
 		978A1FB317590A93C4B69D73 /* PUSHKIN - Poste Italiane.shortcut in Resources */ = {isa = PBXBuildFile; fileRef = 12ED960FED3DCCB6A3A86174 /* PUSHKIN - Poste Italiane.shortcut */; };
+		97AB1F573BD0FA4F0F19A498 /* GermanLocalizationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F88370E401F99465A57E0A0 /* GermanLocalizationUITests.swift */; };
 		982CE0ED1BC27C5DA60E11B5 /* SetupGuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D54F7586D603FB09EE71E73 /* SetupGuideView.swift */; };
 		9836A17582C1F759E841FEDE /* PUSHKIN - Atome PH - Buy Now Pay Later.shortcut in Resources */ = {isa = PBXBuildFile; fileRef = 5B7A7369B66704875C00D603 /* PUSHKIN - Atome PH - Buy Now Pay Later.shortcut */; };
 		98C00200E95F88CA416B9C41 /* PUSHKIN - CaLoMei 卡老味 - Calorie Tracker.shortcut in Resources */ = {isa = PBXBuildFile; fileRef = 2949D38AEC11048B63747724 /* PUSHKIN - CaLoMei 卡老味 - Calorie Tracker.shortcut */; };
@@ -1383,6 +1384,7 @@
 		4E1B04E1C2DE350AA4E4A5AD /* PUSHKIN - コメダ珈琲店.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - コメダ珈琲店.shortcut"; sourceTree = "<group>"; };
 		4E4AC66BA7A2755861E04A98 /* PUSHKIN - AliExpress Shopping App.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - AliExpress Shopping App.shortcut"; sourceTree = "<group>"; };
 		4E6D06F62C90D9B67368C352 /* PUSHKIN - ホットペッパーグルメ.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - ホットペッパーグルメ.shortcut"; sourceTree = "<group>"; };
+		4E7671F46FA6ECE5656AC19C /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4E7F543B83034E7ED7447228 /* PUSHKIN - VietinBank iPay.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - VietinBank iPay.shortcut"; sourceTree = "<group>"; };
 		4F792FC81F54BC2B05A4B8BA /* PUSHKIN - Prudential Singapore.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - Prudential Singapore.shortcut"; sourceTree = "<group>"; };
 		4F9D80B772DB3D8DD1625AFB /* PUSHKIN - Bolt- Request a Ride.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - Bolt- Request a Ride.shortcut"; sourceTree = "<group>"; };
@@ -1599,6 +1601,7 @@
 		7EA7990C1909D260A5B24453 /* PUSHKIN - ZIVA - Zivilschutz Österreich.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - ZIVA - Zivilschutz Österreich.shortcut"; sourceTree = "<group>"; };
 		7EEF44EDF9172999836F850A /* PUSHKIN - Control remoto Roku (oficial).shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - Control remoto Roku (oficial).shortcut"; sourceTree = "<group>"; };
 		7F30617B90DFAA445155C993 /* PUSHKIN - 하나증권V-대표MTS(NEW).shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - 하나증권V-대표MTS(NEW).shortcut"; sourceTree = "<group>"; };
+		7F88370E401F99465A57E0A0 /* GermanLocalizationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GermanLocalizationUITests.swift; sourceTree = "<group>"; };
 		7FE35E94F775A3CD68CB647B /* PUSHKIN - ARD Sounds.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - ARD Sounds.shortcut"; sourceTree = "<group>"; };
 		8063064AD3A2A69479168AE9 /* PUSHKIN - NovaPay- Payment Systems.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - NovaPay- Payment Systems.shortcut"; sourceTree = "<group>"; };
 		8064F3A532B3BFA7728318A0 /* PUSHKIN - Флюгер.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - Флюгер.shortcut"; sourceTree = "<group>"; };
@@ -3274,6 +3277,7 @@
 				BB897591933CD56B6B623B63 /* AdaptiveLayoutUITests.swift */,
 				69843C842E153341D5E3508E /* AppStoreUpdatePromptUITests.swift */,
 				5B850BF285E0647A19365C7C /* FrenchLocalizationUITests.swift */,
+				7F88370E401F99465A57E0A0 /* GermanLocalizationUITests.swift */,
 				3FD0B05A3BA2A3C49263F3F9 /* MinimalUXUITests.swift */,
 				D601C4FCEB9D5152F6A69925 /* NotificationDeletionUITests.swift */,
 				9F07DF0E41880D8EE87B1466 /* PushkinA6OnboardingUITests.swift */,
@@ -3374,6 +3378,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				Base,
+				de,
 				en,
 				es,
 				fr,
@@ -4466,6 +4471,7 @@
 				552DA9E46BD1BD0F12D674DD /* AdaptiveLayoutUITests.swift in Sources */,
 				83E193DE6BFA082826D166EA /* AppStoreUpdatePromptUITests.swift in Sources */,
 				123476D28AD9DDDEE32AB9FC /* FrenchLocalizationUITests.swift in Sources */,
+				97AB1F573BD0FA4F0F19A498 /* GermanLocalizationUITests.swift in Sources */,
 				612C2D0E30CFB6699C65658F /* MinimalUXUITests.swift in Sources */,
 				B7C2A900D378C7CA9AEFD311 /* NotificationDeletionUITests.swift in Sources */,
 				A46B68266B9679CE0457E857 /* PUSHKINImportUITests.swift in Sources */,
@@ -4496,6 +4502,7 @@
 		1C7EF3371EE0BF674CA752AE /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
+				4E7671F46FA6ECE5656AC19C /* de */,
 				681E372D285F9C73EAEF2C12 /* en */,
 				A228AED0745DBFFE3AF7AEDE /* es */,
 				514CC7801B7D71CE15D6104E /* fr */,

@@ -1,5 +1,17 @@
 # ChickMark — актуальная дорожная карта
 
+## 24.10.2026 · ChickMark DE — iOS, Watch, виджеты
+
+- [x] DE: iPhone 302, Watch 22, iPhone Widget 16, Watch Widget 5 строк; Siri AppShortcuts и HealthKit разрешения переведены.
+- [x] Селектор языка допускает только полные каталоги; немецкий теперь доступен для выбора.
+- [x] unsigned iOS и watchOS Simulator builds PASS, Core 37/37 PASS.
+- [x] Немецкий UI Simulator synthetic-store 1/1 PASS (без изменений CloudKit).
+- [ ] Физический HealthKit/Water/Shortcuts/VoiceOver QA и экспертная вычитка.
+- [ ] Публичная версия ChickMark и уже отправленная на review 1.5.1 не менялись.
+
+[Акт](../core/docs/IOS_DE_PORTFOLIO_QA_2026-10-24.md).
+
+
 ## 24.10.2026 · Текущее окно релиза и QA
 
 - [x] **ChickMark 1.5.1 (19)** с RU/EN/ES/FR уже отправлен на App Review, WAITING_FOR_REVIEW, AFTER_APPROVAL. [Акт](../core/docs/FOUR_LANG_APP_REVIEW_SUBMITTED_2026-10-24.md).

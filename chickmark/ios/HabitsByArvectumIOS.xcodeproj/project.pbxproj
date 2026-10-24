@@ -22,6 +22,7 @@
 		101F4003B6B425A6A3F00968 /* HabitGoalModeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84AAA5B44A1DC2CDE2167BD /* HabitGoalModeTests.swift */; };
 		12436D825F2509786CC8B5D1 /* HabitFrequencyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DEFC0669243FAC8DAA87EF4 /* HabitFrequencyTests.swift */; };
 		164195FFAFD30E8BA34087D9 /* WatchComplicationHealthReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804C65FA0CA25AB0AA5CE4A2 /* WatchComplicationHealthReader.swift */; };
+		1AEAFBB78B22C551CEE5A597 /* GermanLocalizationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F817A30F24307BFB18C42973 /* GermanLocalizationUITests.swift */; };
 		1B3796126312FFBBB9FB2188 /* HabitMetricsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB9D2034D678C89F73555BE /* HabitMetricsTests.swift */; };
 		1C8D7B5D6547A004D41BF964 /* ChickMarkWeeklySummaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10D83DFF509BE51D59F7E8E /* ChickMarkWeeklySummaryTests.swift */; };
 		21DF624ACA84114CC41265CB /* ReviewNotificationPhysicalQA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62578BA41693E87CC32B0E02 /* ReviewNotificationPhysicalQA.swift */; };
@@ -253,6 +254,7 @@
 		1886D5E4794832CCBBF3CD08 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1B5B361ADF870E5AAE52E32A /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1BD4FD4F474FB2B18B6A96BB /* WaterExportPreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterExportPreferencesView.swift; sourceTree = "<group>"; };
+		1CF53C9118F5A499E5CE58E1 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1EC6488C5EDFD0074ECDE680 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1F722EA1B5BB1AD9F7A36315 /* HabitSyncProtocolTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitSyncProtocolTests.swift; sourceTree = "<group>"; };
 		20B38831019BE56F5DBB3E44 /* ArvectumJSONCodec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArvectumJSONCodec.swift; sourceTree = "<group>"; };
@@ -295,6 +297,7 @@
 		5FA6F44843E4EC332DD74956 /* ChickMarkBackupService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChickMarkBackupService.swift; sourceTree = "<group>"; };
 		61BD4968A72C4304A593165A /* ArvectumDesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArvectumDesignSystem.swift; sourceTree = "<group>"; };
 		61F3F0E65D67CCD1C03FEE5C /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		623381D841E2050FCA4ED96D /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		62578BA41693E87CC32B0E02 /* ReviewNotificationPhysicalQA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewNotificationPhysicalQA.swift; sourceTree = "<group>"; };
 		672D4F8673EEDD29DD32B521 /* HabitsWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitsWidget.swift; sourceTree = "<group>"; };
 		67C52D8B4207CF8331F30024 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -316,6 +319,7 @@
 		7FE25918D92BA577F2EC9541 /* HabitWidgetCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitWidgetCoordinator.swift; sourceTree = "<group>"; };
 		804C65FA0CA25AB0AA5CE4A2 /* WatchComplicationHealthReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchComplicationHealthReader.swift; sourceTree = "<group>"; };
 		82B9DF70810EAB9A7DEB5AA0 /* HabitDayMutationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitDayMutationTests.swift; sourceTree = "<group>"; };
+		82C5E4115BA7742CFAD555AE /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		83441499AE298B0432490D96 /* CrossSurfaceDurabilityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrossSurfaceDurabilityTests.swift; sourceTree = "<group>"; };
 		8C7D2D5FAA9C4EC951931185 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		8D717711220D00DA13E51E0D /* ReviewNoteHandoff.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewNoteHandoff.swift; sourceTree = "<group>"; };
@@ -328,6 +332,7 @@
 		9E8FFB381C39731633FAC0AD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		9EE25C5D1A563D46AEC2BD9B /* HabitOrderingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitOrderingTests.swift; sourceTree = "<group>"; };
 		9F8C029FD2B90418FFF21F92 /* HabitsByArvectumWatchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitsByArvectumWatchApp.swift; sourceTree = "<group>"; };
+		9FD694C5AC1BD1FE5FDFF51B /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		A01B765CB069F4D7363B3AA3 /* GentleRestartUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GentleRestartUITests.swift; sourceTree = "<group>"; };
 		A0F717AA559ED78F8825E3B2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		A33D61EE5EFE6AD53B0C0848 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/AppShortcuts.strings; sourceTree = "<group>"; };
@@ -350,9 +355,11 @@
 		B10D83DFF509BE51D59F7E8E /* ChickMarkWeeklySummaryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChickMarkWeeklySummaryTests.swift; sourceTree = "<group>"; };
 		B13D3C66AF60610CBDB248FB /* HabitSyncProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitSyncProtocol.swift; sourceTree = "<group>"; };
 		B23660D7685A24BA86928A0C /* HabitCompletionMutationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitCompletionMutationTests.swift; sourceTree = "<group>"; };
+		B25929FA39DAB5766138FE9E /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B2E0447F317827EF30F2EB13 /* HabitMetrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitMetrics.swift; sourceTree = "<group>"; };
 		B3D6ED6A034414C0CDB988BA /* HabitDayBoundaryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitDayBoundaryTests.swift; sourceTree = "<group>"; };
 		B4392DDA52F0D900C1606369 /* StorageRecoveryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageRecoveryView.swift; sourceTree = "<group>"; };
+		B44BBBCEF7B4875183392C97 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B4A200D64FEABD58CC9C02EA /* GentleRestart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GentleRestart.swift; sourceTree = "<group>"; };
 		B7244BB344EF7352D2851402 /* ManageHabitsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageHabitsView.swift; sourceTree = "<group>"; };
 		B753E63175CB5EEDE896FC81 /* AddOneOffReminderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddOneOffReminderView.swift; sourceTree = "<group>"; };
@@ -369,6 +376,7 @@
 		C29378A3FF6234A0F18F3D46 /* WatchHabitSyncStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchHabitSyncStore.swift; sourceTree = "<group>"; };
 		C371C059AB348F2240724BB3 /* AdaptiveLayoutUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveLayoutUITests.swift; sourceTree = "<group>"; };
 		C517D1EFFD7E2EE9D19ABA0B /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		C54B737E15496B72842EE71F /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/AppShortcuts.strings; sourceTree = "<group>"; };
 		C5F1B906C5D98220118F6E72 /* ChickMarkBackupTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChickMarkBackupTests.swift; sourceTree = "<group>"; };
 		C64B529435EC0167EF9CCEED /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C87A11EBE4A7566B04031352 /* HabitMultiCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitMultiCheck.swift; sourceTree = "<group>"; };
@@ -402,6 +410,7 @@
 		F4B1E619EDF2ED01AD368C04 /* HabitsByArvectum.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = HabitsByArvectum.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6EDEAB72F03791360B785EC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F71FE24BEA20826ABE68C53C /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		F817A30F24307BFB18C42973 /* GermanLocalizationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GermanLocalizationUITests.swift; sourceTree = "<group>"; };
 		F8C26C1D0FB611A5B2CDBFD3 /* Localization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Localization.swift; sourceTree = "<group>"; };
 		F91145FAACA13EDBA7235063 /* HabitAdvancedInsightsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitAdvancedInsightsTests.swift; sourceTree = "<group>"; };
 		F995E4D46A90D1D27AF172E7 /* AddHabitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddHabitView.swift; sourceTree = "<group>"; };
@@ -665,6 +674,7 @@
 				BAFD2C0FB685D6BEE84C97D1 /* ChickMarkWeeklySummaryUITests.swift */,
 				757B53D06724D346A446FBF0 /* FrenchLocalizationUITests.swift */,
 				A01B765CB069F4D7363B3AA3 /* GentleRestartUITests.swift */,
+				F817A30F24307BFB18C42973 /* GermanLocalizationUITests.swift */,
 				D22C8F956F6A7D2DF37112DD /* HabitFlowUITests.swift */,
 				511A36FD7170E8026ACA82DF /* WaterExportSettingsUITests.swift */,
 			);
@@ -887,6 +897,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				Base,
+				de,
 				en,
 				es,
 				fr,
@@ -1054,6 +1065,7 @@
 				0A8B3CC74C9DB1241DA92C2D /* ChickMarkWeeklySummaryUITests.swift in Sources */,
 				C80CC9DBE337D4B25246CDAE /* FrenchLocalizationUITests.swift in Sources */,
 				A55CAF84EA1614D77EE0917A /* GentleRestartUITests.swift in Sources */,
+				1AEAFBB78B22C551CEE5A597 /* GermanLocalizationUITests.swift in Sources */,
 				4C2AA6FBC032014EB6A2B646 /* HabitFlowUITests.swift in Sources */,
 				CDAE731052E7A9DE768AF7EF /* WaterExportSettingsUITests.swift in Sources */,
 			);
@@ -1171,6 +1183,7 @@
 		085843EB015B5129156966B3 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
+				9FD694C5AC1BD1FE5FDFF51B /* de */,
 				BE29B38A1894E0BAF703283D /* en */,
 				E5DF0C357E074EC5D144DE7E /* es */,
 				C1BA6B7508576BB785D6266B /* fr */,
@@ -1182,6 +1195,7 @@
 		1B6B5D8AA9E9FACDE26D1C2A /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
+				82C5E4115BA7742CFAD555AE /* de */,
 				2D8003130407DFEFE6122B6A /* en */,
 				6E11D222A3BB20BE7D7152F2 /* es */,
 				50ECFC48A3B8F7E8999E1751 /* fr */,
@@ -1193,6 +1207,7 @@
 		3151C4449FA96F91F217BA3F /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
+				623381D841E2050FCA4ED96D /* de */,
 				5D9FBEEB427C182F749DFCF4 /* en */,
 				1EC6488C5EDFD0074ECDE680 /* es */,
 				1B5B361ADF870E5AAE52E32A /* fr */,
@@ -1204,6 +1219,7 @@
 		4348F31300811248BD9B6AC8 /* AppShortcuts.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
+				C54B737E15496B72842EE71F /* de */,
 				E27FE08B9B5050A43E097E12 /* en */,
 				39E7C1CA6AD7DA518A1C362C /* es */,
 				A33D61EE5EFE6AD53B0C0848 /* fr */,
@@ -1215,6 +1231,7 @@
 		5C96F4AE76FCEC772BE63744 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
+				B44BBBCEF7B4875183392C97 /* de */,
 				3AA7A843D4A75761F41CEA60 /* en */,
 				1886D5E4794832CCBBF3CD08 /* es */,
 				AF10A44B176BF649499F77C6 /* fr */,
@@ -1226,6 +1243,7 @@
 		65999EFA3F0C7DC0490E94DE /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
+				1CF53C9118F5A499E5CE58E1 /* de */,
 				AE43208C8D761531134C4095 /* en */,
 				CF084C9547AA74D471B8C21E /* es */,
 				9B259FA597F19304555DCA85 /* fr */,
@@ -1237,6 +1255,7 @@
 		BBC2CD90B6967564EC981C13 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
+				B25929FA39DAB5766138FE9E /* de */,
 				3AD1E183776883F6B043A643 /* en */,
 				5D16BF689AA0FD0DCA2C9453 /* es */,
 				8C7D2D5FAA9C4EC951931185 /* fr */,
