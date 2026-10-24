@@ -4,7 +4,8 @@
 
 - [x] Полные de.lproj source каталоги во всех 10 iOS/Watch/Widget bundles: Фото/PDF 155, Pushkin 151, Ухват 248, ChickMark 345.
 - [x] InfoPlist разрешения, Siri AppShortcuts, исправления runtime DE у Pushkin и Ухвата, Core 37/37, iOS/watchOS сборки PASS.
-- [ ] Редакторская вычитка, UI/физическая QA, VoiceOver и отдельное разрешение App Store для каждой версии.
+- [x] Немецкие iOS UI smoke: Pushkin/Ухват/ChickMark **3/3 PASS**. Xcode unit Pushkin 10/10 и Uhvat 8/8 PASS.
+- [ ] Редакторская вычитка, физическая Watch/UI QA, VoiceOver и разрешение App Store для каждой версии.
 - [ ] Android остается на девяти исходных пакетах; дальнейшая iOS волна PT-BR/IT/JA/ZH-Hans.
 
 [Акт](../docs/IOS_DE_PORTFOLIO_QA_2026-10-24.md).

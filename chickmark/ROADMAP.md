@@ -5,7 +5,8 @@
 - [x] DE: iPhone 302, Watch 22, iPhone Widget 16, Watch Widget 5 строк; Siri AppShortcuts и HealthKit разрешения переведены.
 - [x] Селектор языка допускает только полные каталоги; немецкий теперь доступен для выбора.
 - [x] unsigned iOS и watchOS Simulator builds PASS, Core 37/37 PASS.
-- [ ] Немецкий UI/AXXXL/VoiceOver, физический HealthKit/Water/Shortcuts QA и экспертная вычитка.
+- [x] Немецкий UI Simulator synthetic-store 1/1 PASS (без изменений CloudKit).
+- [ ] Физический HealthKit/Water/Shortcuts/VoiceOver QA и экспертная вычитка.
 - [ ] Публичная версия ChickMark и уже отправленная на review 1.5.1 не менялись.
 
 [Акт](../core/docs/IOS_DE_PORTFOLIO_QA_2026-10-24.md).

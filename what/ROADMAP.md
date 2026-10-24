@@ -5,7 +5,8 @@
 - [x] DE: iPhone 231, Watch 6, iPhone Widget 6, Watch Complication 5 строк. Дополнительные InfoPlist разрешения переведены.
 - [x] CaptureBrand маршрутизирует интерфейс на DE, форматирует de_DE и склоняет Notiz/Notizen.
 - [x] unsigned iOS/watchOS Simulator builds PASS; Core проверка ключей/параметров PASS.
-- [ ] Физические UI/Watch/VoiceOver/AXXXL тесты, проверка переводов; немецкая речь не обещается (настройка транскрипции отдельная).
+- [x] Немецкий iOS AXXXL Home UI 1/1 PASS и Swift LanguageFallback unit 8/8 PASS.
+- [ ] Физический Watch/VoiceOver/AXXXL, редактура; немецкая речь не обещается (транскрипция — отдельная настройка).
 - [ ] Не затрагивать личные аудиозаметки и очередь Watch; релиз только с отдельным разрешением.
 
 [Акт](../core/docs/IOS_DE_PORTFOLIO_QA_2026-10-24.md).

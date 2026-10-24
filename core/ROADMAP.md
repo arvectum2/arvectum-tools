@@ -6,7 +6,8 @@
 - [x] Pushkin 151, Ухват 248 и ChickMark 345 строк DE: добавлено 744 строки, включая Watch, iPhone widgets и watch complications.
 - [x] Системные InfoPlist и Siri AppShortcuts; исправлены разрешение немецкого в PushkinCopy и CaptureBrand Ухвата.
 - [x] Core unit 37/37 и locale/printf проверки PASS; unsigned сборки iOS всех трёх и watchOS Ухвата/ChickMark PASS.
-- [ ] UI/AXXXL/VoiceOver на симуляторе и физическом устройстве, проверка длинных DE инструкций и редакторская вычитка.
+- [x] Немецкие iOS Simulator smoke для Pushkin, Ухвата и ChickMark: **3/3 PASS**, Pushkin XCTest 10/10 и Ухват XCTest 8/8 PASS.
+- [ ] Реальные Apple Watch/Widget UI, VoiceOver на устройстве, проверка длинных DE инструкций и редакторская вычитка.
 - [ ] Следующая iOS волна: PT-BR, IT, JA, ZH-Hans. Android без дополнительных языков.
 - [ ] Это НЕ App Store выпуск. Любая загрузка — только по отдельному подтверждению.
 

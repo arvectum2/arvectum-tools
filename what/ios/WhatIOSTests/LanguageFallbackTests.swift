@@ -68,7 +68,7 @@ final class LanguageFallbackTests: XCTestCase {
         )
         XCTAssertEqual(
             CaptureBrand.text("Входящие", "Inbox", language: "de-DE"),
-            "Inbox"
+            "Eingang"
         )
         XCTAssertEqual(
             CaptureBrand.text("Ухвати мысль", "Catch that thought", language: "es"),

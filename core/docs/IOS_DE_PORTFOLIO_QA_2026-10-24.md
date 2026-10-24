@@ -40,8 +40,18 @@ applicationName placeholder preserved.
 - [x] Pushkin iOS Simulator unsigned build PASS.
 - [x] Uhvat iOS and watchOS Simulator unsigned build PASS.
 - [x] ChickMark iOS and watchOS Simulator unsigned build PASS.
-- [ ] German iOS XCUITest final rerun and real-device/Watch QA:
-  record completed results, not inferred success.
+- [x] Isolated iOS 27.0 iPhone 17 Pro Simulator: **German iOS UI 3/3 PASS**
+  across Pushkin navigation, Uhvat AXXXL home, ChickMark synthetic new habit.
+  Each test observed German UI copy and never changed real user data.
+- [x] Pushkin Xcode unit CoverageCatalogTests **10/10 PASS** (includes
+  explicit DE bundle and count assertions), and German UI test 1/1 PASS.
+- [x] Uhvat Xcode unit LanguageFallbackTests **8/8 PASS**, including German
+  interface and Notiz/Notizen; German UI 1/1 PASS.
+- [x] ChickMark German synthetic-store UI test 1/1 PASS.
+- [x] Verified de.lproj resources inside compiled iOS application,
+  embedded Watch application, iPhone widget and Watch complication
+  bundles; German InfoPlist/AppShortcuts files pass plutil -lint.
+- [ ] Real-device / Watch UI and accessibility QA, plus editorial review.
 - [ ] Professional proofreading for DE safety/privacy, HealthKit,
   Shortcut permissions and long UX instructions.
 - [ ] Real Watch/widget rendering and VoiceOver/AXXXL + device
@@ -52,3 +62,18 @@ The initial build using a forcibly supplied iphonesimulator SDK
 produced unrelated watch target errors. Rebuilding iOS and watchOS
 with per-destination SDK selection succeeded. No personal data,
 production metadata, signed submission, or public release modified.
+
+## Test triage and reproducibility
+
+An initial Pushkin and Uhvat German UI test failed because the
+runtime language resolvers only supported RU/EN/ES/FR. Their runtime
+selectors were fixed; both German UI tests then passed on rerun.
+The old Uhvat test expected German to fall back to English; after
+DE became supported, that expectation was updated to real German,
+and all 8 unit tests passed. ChickMark's existing bundled-language
+selector worked without code changes.
+
+The QA reports intentionally distinguish real Simulator UI evidence
+from Watch/VoiceOver physical device testing. No new App Store
+submission or public release occurred. Logs and xcresult bundles
+are retained on the Mac mini test evidence volume.

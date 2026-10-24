@@ -5,7 +5,8 @@
 - [x] 151 строк DE, без изменения идентификаторов Shortcuts или пользовательских уведомлений.
 - [x] Немецкий PushkinCopy действительно загружает de.lproj, а счётчик — 1 App / N Apps.
 - [x] iOS Simulator unsigned build PASS, locale parity/placeholder PASS.
-- [ ] Немецкие UI/AXXXL/VoiceOver, редактура сложных инструкций и физический Shortcuts QA.
+- [x] Немецкий iOS UI Simulator navigation 1/1 PASS и Swift unit 10/10 PASS.
+- [ ] Физический VoiceOver/Shortcuts, проверка длинных DE инструкций и экспертная вычитка.
 - [ ] Новый App Store upload только по отдельному разрешению; Pushkin 1.0.2 на review не менялся.
 
 [Акт](../core/docs/IOS_DE_PORTFOLIO_QA_2026-10-24.md).
