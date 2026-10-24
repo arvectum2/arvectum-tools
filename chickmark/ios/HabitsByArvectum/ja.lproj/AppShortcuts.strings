@@ -1,0 +1,4 @@
+"Complete a habit in ${applicationName}" = "${applicationName}で習慣を完了する";
+"Check off a habit in ${applicationName}" = "${applicationName}で習慣をチェックする";
+"Undo a habit in ${applicationName}" = "${applicationName}で習慣の完了を取り消す";
+"Mark a habit incomplete in ${applicationName}" = "${applicationName}で習慣を未完了にする";

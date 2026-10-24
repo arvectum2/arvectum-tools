@@ -1,0 +1,4 @@
+"CFBundleDisplayName" = "UhWhat?";
+"NSMicrophoneUsageDescription" = "この端末で非公開の音声・動画メモを録音します。ファイルは端末内に保存されます。";
+"NSSpeechRecognitionUsageDescription" = "保存した音声メモを端末内の音声認識で文字起こしするために使用します。";
+"NSCameraUsageDescription" = "カメラで非公開の動画メモを撮影します。動画はこの端末内に保存されます。";

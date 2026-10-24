@@ -1,0 +1,3 @@
+"CFBundleDisplayName" = "UhWhat?";
+"CFBundleName" = "UhWhat?";
+"NSMicrophoneUsageDescription" = "Apple Watchで思いついたことを録音します。iPhoneへの安全な転送が確認されるまで、音声はWatchに保持されます。";
