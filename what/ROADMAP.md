@@ -1,5 +1,15 @@
 # What? — Product Roadmap
 
+## 24.10.2026 · pt-BR Ухват iPhone/Watch/widgets
+
+- [x] pt-BR 231 iPhone + 6 Watch + 6 phone widget + 5 complication; системные InfoPlist разрешения.
+- [x] CaptureBrand поддерживает pt-BR/pt_BR, nota/notas; язык транскрипции независим.
+- [ ] XCUITest, физический Watch/VoiceOver, редактура и релизный gate.
+- [ ] Личные аудио и очередь Watch не менялись.
+
+[QA](../core/docs/IOS_PTBR_PORTFOLIO_QA_2026-10-24.md).
+
+
 ## 24.10.2026 · Ухват DE — iPhone, Watch и виджеты
 
 - [x] DE: iPhone 231, Watch 6, iPhone Widget 6, Watch Complication 5 строк. Дополнительные InfoPlist разрешения переведены.

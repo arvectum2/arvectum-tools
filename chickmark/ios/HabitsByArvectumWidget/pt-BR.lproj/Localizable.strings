@@ -1,0 +1,17 @@
+// Português do Brasil, revisão humana antes do release.
+"widget.title" = "Hoje";
+"widget.displayName" = "Hábitos de hoje";
+"widget.description" = "Veja o progresso de hoje e marque hábitos sem abrir o app.";
+"widget.empty" = "Nada programado para hoje";
+"widget.allDone" = "Tudo concluído por hoje";
+"widget.remaining.format" = "%d restantes";
+"widget.inline.format" = "%d de %d hoje";
+"widget.more.format" = "+%d outros";
+"widget.complete" = "Marcar como concluído";
+"widget.undo" = "Desfazer conclusão";
+"widget.preview.water" = "Água";
+"widget.preview.reading" = "Leitura";
+"widget.duration.format" = "%d / %d min";
+"widget.action.complete.format" = "Concluir %@";
+"widget.action.undo.format" = "Desfazer conclusão de %@";
+"widget.empty.small" = "Nada para hoje";

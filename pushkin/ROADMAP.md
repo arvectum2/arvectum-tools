@@ -1,5 +1,15 @@
 # PUSHKIN — Product Roadmap
 
+## 24.10.2026 · pt-BR Pushkin
+
+- [x] 151 строк pt-BR, включая инструкции Shortcuts.
+- [x] PushkinCopy теперь использует региональный pt-BR каталог.
+- [ ] UI/VoiceOver, длинные инструкции и физический Shortcuts QA.
+- [ ] App Store upload не выполнялся.
+
+[QA](../core/docs/IOS_PTBR_PORTFOLIO_QA_2026-10-24.md).
+
+
 ## 24.10.2026 · Pushkin DE — исходный язык №5
 
 - [x] 151 строк DE, без изменения идентификаторов Shortcuts или пользовательских уведомлений.

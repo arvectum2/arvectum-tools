@@ -1,5 +1,12 @@
 # Arvectum Tools — Roadmap Registry
 
+## 24.10.2026 · iOS-first: pt-BR в исходниках
+
+- [x] Шесть языков исходников RU/EN/ES/FR/DE/PT-BR во всех 10 компонентах iOS/watchOS/widgets, 899 строк pt-BR. [QA](docs/IOS_PTBR_PORTFOLIO_QA_2026-10-24.md).
+- [x] Android не расширен; перевод исходников не равен опубликованному App Store языку.
+- [ ] Физическая/редакторская приёмка и отдельный Apple approval ещё нужны.
+
+
 ## 24.10.2026 · Локализация: DE для 4 iOS-продуктов в исходниках
 
 - [x] Пять источников RU/EN/ES/FR/DE во всех 10 iOS/Watch/Widget bundles. [Акт](docs/IOS_DE_PORTFOLIO_QA_2026-10-24.md).
