@@ -68,22 +68,17 @@ final class WatchQueueStatusCache {
 // Product copy deliberately refers to the last Watch report, not live state.
 // A coalesced WCSession context cannot prove current connectivity/delivery.
 enum WatchQueueUserStatus {
-    static let waitingEnglish =
-        "Your Watch last reported recordings waiting for iPhone confirmation. Audio stays on Watch until iPhone confirms saving; background delivery can be delayed."
-    static let emptyEnglish =
-        "Your Watch last reported an empty queue. New recordings may have been made since that report."
-
     static func explanation(for snapshot: WatchQueueSnapshot, language: String? = nil) -> String {
         if snapshot.pendingCount > 0 {
             return CaptureBrand.text(
                 "В последнем отчёте часы ожидали подтверждения iPhone. Аудио остаётся на часах до подтверждения сохранения; фоновая доставка может задержаться.",
-                waitingEnglish,
+                "Your Watch last reported recordings waiting for iPhone confirmation. Audio stays on Watch until iPhone confirms saving; background delivery can be delayed.",
                 language: language
             )
         }
         return CaptureBrand.text(
             "В последнем отчёте очередь часов была пуста. С тех пор могли появиться новые записи.",
-            emptyEnglish,
+            "Your Watch last reported an empty queue. New recordings may have been made since that report.",
             language: language
         )
     }
