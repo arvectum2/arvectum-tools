@@ -261,12 +261,34 @@
         "chickmark/ios/HabitsByArvectumWatch",
         "chickmark/ios/HabitsByArvectumWidget",
         "chickmark/ios/HabitsByArvectumWatchWidget"
-      ]
+      ],
+      "ios": {
+        "sourceCatalogs": [
+          "en",
+          "ru",
+          "es",
+          "fr",
+          "de"
+        ],
+        "status": "source-de-structural-pass-not-published",
+        "note": "German Localizable catalog in every active iOS/watchOS/Widget bundle; applicable German InfoPlist and AppShortcuts strings added. These are development translations needing editorial/native and physical device QA. No release."
+      }
     },
     "pushkin": {
       "bundles": [
         "pushkin/ios/ArvectumNotify/Resources"
-      ]
+      ],
+      "ios": {
+        "sourceCatalogs": [
+          "en",
+          "ru",
+          "es",
+          "fr",
+          "de"
+        ],
+        "status": "source-de-structural-pass-not-published",
+        "note": "German Localizable catalog in every active iOS/watchOS/Widget bundle; applicable German InfoPlist and AppShortcuts strings added. These are development translations needing editorial/native and physical device QA. No release."
+      }
     },
     "what": {
       "bundles": [
@@ -276,7 +298,18 @@
         "what/ios/WhatWatchComplication"
       ],
       "status": "en-ru-es-development-catalogs-with-independent-visual-and-speech-locales",
-      "note": "What iPhone has 228 complete EN/RU/ES source strings, including 3 day headings and separate speech-vs-UI language settings label; Watch/PhoneWidget/WatchComplication retain 6/6/5 source strings. Interface follows iOS per-app/system RU/EN/ES preference, transcription stays independently selected. iOS Simulator focused tests 10/10 PASS; transcript write-failure and retained draft checked on iOS Simulator; human/editorial, compatibility review, physical Watch/VoiceOver QA still open. No release. Recovery UI now includes read-only status preview and opt-in confirmation, RU/EN/ES copy. Simulator UI preview passed; native confirmation/durable restore full UI still requires device signoff."
+      "note": "What iPhone has 228 complete EN/RU/ES source strings, including 3 day headings and separate speech-vs-UI language settings label; Watch/PhoneWidget/WatchComplication retain 6/6/5 source strings. Interface follows iOS per-app/system RU/EN/ES preference, transcription stays independently selected. iOS Simulator focused tests 10/10 PASS; transcript write-failure and retained draft checked on iOS Simulator; human/editorial, compatibility review, physical Watch/VoiceOver QA still open. No release. Recovery UI now includes read-only status preview and opt-in confirmation, RU/EN/ES copy. Simulator UI preview passed; native confirmation/durable restore full UI still requires device signoff.",
+      "ios": {
+        "sourceCatalogs": [
+          "en",
+          "ru",
+          "es",
+          "fr",
+          "de"
+        ],
+        "status": "source-de-structural-pass-not-published",
+        "note": "German Localizable catalog in every active iOS/watchOS/Widget bundle; applicable German InfoPlist and AppShortcuts strings added. These are development translations needing editorial/native and physical device QA. No release."
+      }
     },
     "photo-pdf-to-size": {
       "bundles": [

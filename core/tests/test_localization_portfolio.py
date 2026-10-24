@@ -23,10 +23,14 @@ class LocalizationPortfolioTests(unittest.TestCase):
         self.assertEqual(reg["apps"]["photo-pdf-to-size"]["android"]["sourceLocale"], "en")
         self.assertEqual(reg["apps"]["photo-pdf-to-size"]["ios"]["sourceCatalogs"],
                          ["en", "ru", "es", "fr", "de"])
+        for app in ("pushkin", "what", "chickmark"):
+            self.assertEqual(reg["apps"][app]["ios"]["sourceCatalogs"],
+                             ["en", "ru", "es", "fr", "de"])
+
         self.assertEqual([sum(x["tier"] == t for x in reg["targets"]) for t in (1, 2, 3)], [20, 20, 10])
 
-    def test_all_active_ios_bundles_have_four_localized_catalogs(self):
-        """First four localization packs are present in all active iOS bundles.
+    def test_all_active_ios_bundles_have_five_localized_catalogs(self):
+        """First five localization packs are present in all active iOS bundles.
 
         This tests source parity, not linguistic quality or App Store release.
         """
@@ -37,7 +41,7 @@ class LocalizationPortfolioTests(unittest.TestCase):
                 baseline = i18n.read_strings(
                     bundle / "en.lproj/Localizable.strings", [])
                 self.assertTrue(baseline, f"{app}/{name} missing English")
-                for code in ("ru", "es", "fr"):
+                for code in ("ru", "es", "fr", "de"):
                     errors = []
                     translated = i18n.read_strings(
                         bundle / f"{code}.lproj/Localizable.strings", errors)
@@ -50,6 +54,54 @@ class LocalizationPortfolioTests(unittest.TestCase):
                             i18n.placeholders(baseline[key]),
                             i18n.placeholders(translated[key]),
                             f"{app}/{name}/{code}/{key}")
+
+    def test_german_info_plist_and_shortcuts_bundles(self):
+        # Localizable.strings key parity cannot detect missing permission
+        # descriptions or Siri phrases. Validate companion DE resources.
+        required = {
+            "what/ios/WhatIOS": ["InfoPlist.strings"],
+            "what/ios/WhatWatch": ["InfoPlist.strings"],
+            "what/ios/WhatPhoneWidget": ["InfoPlist.strings"],
+            "what/ios/WhatWatchComplication": ["InfoPlist.strings"],
+            "chickmark/ios/HabitsByArvectum": [
+                "InfoPlist.strings", "AppShortcuts.strings"],
+            "chickmark/ios/HabitsByArvectumWatch": ["InfoPlist.strings"],
+        }
+        for bundle, filenames in required.items():
+            root = ROOT / bundle
+            for filename in filenames:
+                errors = []
+                base = i18n.read_strings(root / "en.lproj" / filename, errors)
+                german = i18n.read_strings(root / "de.lproj" / filename, errors)
+                self.assertEqual(errors, [], f"{bundle}/{filename}")
+                self.assertTrue(base)
+                self.assertEqual(set(base), set(german))
+                for key in base:
+                    self.assertEqual(
+                        i18n.placeholders(base[key]),
+                        i18n.placeholders(german[key]),
+                        f"{bundle}/{filename}/{key}")
+                    if filename == "AppShortcuts.strings":
+                        self.assertIn("$" + "{applicationName}", german[key])
+                if filename == "InfoPlist.strings":
+                    for key in base:
+                        if key.startswith("NS") and "UsageDescription" in key:
+                            self.assertNotEqual(base[key], german[key],
+                                                f"{bundle}/{key} untranslated")
+
+    def test_german_portfolio_copy_is_not_an_english_placeholder(self):
+        # Proper nouns/units can remain identical, but entire English
+        # catalogs must not be copied and counted as a translated language.
+        reg = i18n.config()
+        for app in ("chickmark", "pushkin", "what", "photo-pdf-to-size"):
+            for name in reg["apps"][app]["bundles"]:
+                root = ROOT / name
+                source = i18n.read_strings(root / "en.lproj/Localizable.strings", [])
+                german = i18n.read_strings(root / "de.lproj/Localizable.strings", [])
+                changed = sum(source[k] != german[k] for k in source)
+                self.assertGreaterEqual(
+                    changed / len(source), 0.60,
+                    f"{app}/{name} German looks like English fallback")
 
     def test_photo_ios_german_catalog_complete_and_placeholder_safe(self):
         # German is the first new iOS locale, not a claim that all apps have DE.

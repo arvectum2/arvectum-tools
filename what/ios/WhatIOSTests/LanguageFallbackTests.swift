@@ -68,7 +68,7 @@ final class LanguageFallbackTests: XCTestCase {
         )
         XCTAssertEqual(
             CaptureBrand.text("Входящие", "Inbox", language: "de-DE"),
-            "Inbox"
+            "Eingang"
         )
         XCTAssertEqual(
             CaptureBrand.text("Ухвати мысль", "Catch that thought", language: "es"),
@@ -89,6 +89,17 @@ final class LanguageFallbackTests: XCTestCase {
         XCTAssertEqual(CaptureBrand.noteCount(1, language: "es"), "1 nota")
         XCTAssertEqual(CaptureBrand.noteCount(2, language: "es"), "2 notas")
         XCTAssertEqual(CaptureBrand.noteCount(0, language: "es"), "0 notas")
+    }
+
+    func testGermanInterfaceLocaleAndLocalTranslation() {
+        XCTAssertEqual(
+            CaptureBrand.resolvedInterfaceLanguage(for: ["de-DE", "en-US"]), "de")
+        XCTAssertEqual(
+            CaptureBrand.text("Все заметки", "All notes", language: "de"), "Alle Notizen")
+        XCTAssertEqual(
+            CaptureBrand.text("Сохранить", "Save", language: "de"), "Speichern")
+        XCTAssertEqual(
+            CaptureBrand.noteCount(2, language: "de"), "2 Notizen")
     }
 
     func testFrenchInterfaceAndSafeFormatting() {
@@ -118,6 +129,6 @@ final class LanguageFallbackTests: XCTestCase {
         XCTAssertEqual(CaptureBrand.noteCount(114, language: "ru"), "114 заметок")
         XCTAssertEqual(CaptureBrand.noteCount(1, language: "en"), "1 note")
         XCTAssertEqual(CaptureBrand.noteCount(25, language: "en"), "25 notes")
-        XCTAssertEqual(CaptureBrand.noteCount(1, language: "de"), "1 note")
+        XCTAssertEqual(CaptureBrand.noteCount(1, language: "de"), "1 Notiz")
     }
 }

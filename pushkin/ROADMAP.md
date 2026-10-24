@@ -1,5 +1,17 @@
 # PUSHKIN — Product Roadmap
 
+## 24.10.2026 · Pushkin DE — исходный язык №5
+
+- [x] 151 строк DE, без изменения идентификаторов Shortcuts или пользовательских уведомлений.
+- [x] Немецкий PushkinCopy действительно загружает de.lproj, а счётчик — 1 App / N Apps.
+- [x] iOS Simulator unsigned build PASS, locale parity/placeholder PASS.
+- [x] Немецкий iOS UI Simulator navigation 1/1 PASS и Swift unit 10/10 PASS.
+- [ ] Физический VoiceOver/Shortcuts, проверка длинных DE инструкций и экспертная вычитка.
+- [ ] Новый App Store upload только по отдельному разрешению; Pushkin 1.0.2 на review не менялся.
+
+[Акт](../core/docs/IOS_DE_PORTFOLIO_QA_2026-10-24.md).
+
+
 ## 24.10.2026 · Контрольная точка после отправки 1.0.2
 
 - [x] **Pushkin 1.0.2 (build 6) уже загружен и отправлен Apple**: VALID / WAITING_FOR_REVIEW / AFTER_APPROVAL. Отправка — **выполненная задача**, а не запланированная. [Акт](docs/PUSHKIN_1_0_2_APP_REVIEW_SUBMISSION_2026-10-24.md).

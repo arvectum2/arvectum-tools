@@ -1,0 +1,17 @@
+// Deutsche Übersetzung: redaktionelle Prüfung vor Veröffentlichung erforderlich.
+"widget.title" = "Heute";
+"widget.displayName" = "Gewohnheiten heute";
+"widget.description" = "Zeigen Sie den heutigen Fortschritt an und haken Sie Gewohnheiten ab, ohne die App zu öffnen.";
+"widget.empty" = "Heute nichts geplant";
+"widget.allDone" = "Für heute alles erledigt";
+"widget.remaining.format" = "%d verbleiben";
+"widget.inline.format" = "%d von %d heute";
+"widget.more.format" = "+%d weitere";
+"widget.complete" = "Als erledigt markieren";
+"widget.undo" = "Erledigung rückgängig machen";
+"widget.preview.water" = "Wasser";
+"widget.preview.reading" = "Lesen";
+"widget.duration.format" = "%d / %d Min.";
+"widget.action.complete.format" = "%@ erledigen";
+"widget.action.undo.format" = "Erledigung von %@ rückgängig machen";
+"widget.empty.small" = "Heute nichts fällig";

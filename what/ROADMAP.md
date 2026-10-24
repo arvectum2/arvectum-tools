@@ -1,5 +1,17 @@
 # What? — Product Roadmap
 
+## 24.10.2026 · Ухват DE — iPhone, Watch и виджеты
+
+- [x] DE: iPhone 231, Watch 6, iPhone Widget 6, Watch Complication 5 строк. Дополнительные InfoPlist разрешения переведены.
+- [x] CaptureBrand маршрутизирует интерфейс на DE, форматирует de_DE и склоняет Notiz/Notizen.
+- [x] unsigned iOS/watchOS Simulator builds PASS; Core проверка ключей/параметров PASS.
+- [x] Немецкий iOS AXXXL Home UI 1/1 PASS и Swift LanguageFallback unit 8/8 PASS.
+- [ ] Физический Watch/VoiceOver/AXXXL, редактура; немецкая речь не обещается (транскрипция — отдельная настройка).
+- [ ] Не затрагивать личные аудиозаметки и очередь Watch; релиз только с отдельным разрешением.
+
+[Акт](../core/docs/IOS_DE_PORTFOLIO_QA_2026-10-24.md).
+
+
 ## 24.10.2026 · Текущее окно релиза и следующая приёмка
 
 - [x] **Ухват / What? 1.1.1 (9)** с четырьмя языками и Watch/widget уже отправлен на App Review: WAITING_FOR_REVIEW, AFTER_APPROVAL; публично по последнему датированному RU Lookup — 1.1.0. [Акт](../core/docs/FOUR_LANG_APP_REVIEW_SUBMITTED_2026-10-24.md).

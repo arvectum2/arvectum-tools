@@ -1,0 +1,6 @@
+// Deutsche Übersetzung: redaktionelle Prüfung vor Veröffentlichung erforderlich.
+"watch.widget.title" = "ChickMark";
+"watch.widget.description" = "Sehen Sie den heutigen Gewohnheitsfortschritt direkt auf dem Zifferblatt.";
+"watch.widget.empty" = "Nichts fällig";
+"watch.widget.inline.format" = "%d/%d Gewohnheiten";
+"watch.widget.next.format" = "Als Nächstes: %@";
