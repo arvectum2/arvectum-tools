@@ -1,5 +1,14 @@
 # ChickMark — актуальная дорожная карта
 
+## 24.10.2026 · Текущее окно релиза и QA
+
+- [x] **ChickMark 1.5.1 (19)** с RU/EN/ES/FR уже отправлен на App Review, WAITING_FOR_REVIEW, AFTER_APPROVAL. [Акт](../core/docs/FOUR_LANG_APP_REVIEW_SUBMITTED_2026-10-24.md).
+- [x] Primary category **Productivity** проверена в редактируемом ASC AppInfo версии 1.5.1; последняя датированная публичная 1.5.0 ещё была **Health & Fitness**. Проверить фактическую смену после READY_FOR_SALE.
+- [x] Safe scoped HealthKit water API QA и simulator consent PASS; не считать их полной hardware/UI приёмкой.
+- [ ] **P0:** физический user-flow check-in/edit/undo и revoke/regrant для HealthKit, Watch/CloudKit sync, недеструктивный upgrade и пользовательский VoiceOver.
+- [ ] **P1:** проверить опубликованные языки/скриншоты и продуктивность новой категории, затем работать с retention и review prompt без накруток.
+
+
 - [x] 24.10.2026: ChickMark 1.5.1(19) отправлен на App Review после iPad 13 screenshot gate; WAITING_FOR_REVIEW и AFTER_APPROVAL; категория Productivity. [Акт](../core/docs/FOUR_LANG_APP_REVIEW_SUBMITTED_2026-10-24.md).
 
 

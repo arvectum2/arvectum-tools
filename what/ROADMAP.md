@@ -1,5 +1,14 @@
 # What? — Product Roadmap
 
+## 24.10.2026 · Текущее окно релиза и следующая приёмка
+
+- [x] **Ухват / What? 1.1.1 (9)** с четырьмя языками и Watch/widget уже отправлен на App Review: WAITING_FOR_REVIEW, AFTER_APPROVAL; публично по последнему датированному RU Lookup — 1.1.0. [Акт](../core/docs/FOUR_LANG_APP_REVIEW_SUBMITTED_2026-10-24.md).
+- [x] Физическая Watch→iPhone cold-background доставка и ACK подтверждены адресно; очереди и защита файлов проверялись. Задержка другого фонового маршрута около **171 с** измерена, своевременная повторяемая доставка не доказана.
+- [x] Пояснение об opportunistic background transfer, хранении Watch AAC до ACK и не-live статусе очереди разработано и слито; физическая проверка VoiceOver остаётся открытой.
+- [ ] **P0:** после review подтвердить READY_FOR_SALE; выполнить физическую пользовательскую приёмку ожидания/доставки, восстановления и доступности, без повторов закрытых QA.
+- [ ] **P1:** звонок/interrupt, длительное видео, reboot→first unlock, ENOSPC и backup/restore — только в изолированном безопасном QA-контуре и без вмешательства в личные медиа.
+
+
 - [x] 24.10.2026: Ухват 1.1.1(9) отправлен на App Review с 4 языками, WAITING_FOR_REVIEW и AFTER_APPROVAL. [Акт](../core/docs/FOUR_LANG_APP_REVIEW_SUBMITTED_2026-10-24.md).
 
 

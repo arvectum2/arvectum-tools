@@ -1,5 +1,18 @@
 # Arvectum Tools Core — дорожная карта
 
+## 24.10.2026 · Консолидированный статус (последнее уточнение)
+
+- [x] **Pushkin 1.0.2 (6)** — отправлена на App Review; WAITING_FOR_REVIEW, автоматическая публикация AFTER_APPROVAL. [Акт](../pushkin/docs/PUSHKIN_1_0_2_APP_REVIEW_SUBMISSION_2026-10-24.md).
+- [x] **Фото/PDF 1.0.2** — **уже одобрена и опубликована**, по подтверждению владельца 24.10; старую задачу «дождаться App Review» считать закрытой. Внешнюю датированную проверку витрины ведёт Growth.
+- [x] **Ухват 1.1.1 (9) и ChickMark 1.5.1 (19)** — App Review WAITING_FOR_REVIEW, AFTER_APPROVAL; не считать публичными до READY_FOR_SALE. [Акт](docs/FOUR_LANG_APP_REVIEW_SUBMITTED_2026-10-24.md).
+- [x] Общая архитектура, адаптивная вёрстка, не блокирующий App Store update prompt, дизайн-токены и 4-язычная база интегрированы в код; опубликованная версия каждого приложения проверяется отдельно.
+- [ ] **Core P0:** проверить независимый статус Apple после review, version/update prompt в физическом обновлении и сохранность личных данных, с отдельным разрешением на *каждый следующий* upload/metadata.
+- [ ] **Core P1:** app-specific physical VoiceOver, iPad/Duo, Watch/HealthKit/Files/Photos/РСЯ gates остаются у продуктовых владельцев; общий Core не подменяет эти проверки.
+- [ ] **Core P2:** Android: 41/50 языков ещё требуют работы; Where?, SmartSearch и Growth Agent не активированы.
+
+[Единая матрица статусов](PORTFOLIO.md) · [Актуальная очередь](EXECUTION_PLAN.md). Следующие датированные блоки сохраняются как история; в частности прежний пункт о Фото/PDF «WAITING_FOR_REVIEW» ниже **устарел**.
+
+
 - [x] 24.10.2026: PUSHKIN 1.0.2(6) four locales RU/EN/ES/FR, signed IPA and Apple review WAITING_FOR_REVIEW, AFTER_APPROVAL. [Record](../pushkin/docs/PUSHKIN_1_0_2_APP_REVIEW_SUBMISSION_2026-10-24.md).
 
 

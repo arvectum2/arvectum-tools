@@ -1,5 +1,14 @@
 # PUSHKIN — Product Roadmap
 
+## 24.10.2026 · Контрольная точка после отправки 1.0.2
+
+- [x] **Pushkin 1.0.2 (build 6) уже загружен и отправлен Apple**: VALID / WAITING_FOR_REVIEW / AFTER_APPROVAL. Отправка — **выполненная задача**, а не запланированная. [Акт](docs/PUSHKIN_1_0_2_APP_REVIEW_SUBMISSION_2026-10-24.md).
+- [x] До решения по 1.0.2 ранее подтверждена публичная RU 1.0.1 (исторический [Lookup baseline](../growth/docs/APP_STORE_BASELINE_2026-10-24.md)).
+- [ ] **P0:** read-only дождаться READY_FOR_SALE и сверить RU/EN/ES/FR карточки, новые отзывы и пользовательское обновление без потери истории.
+- [ ] **P1:** физический VoiceOver, Shortcuts onboarding/удаление, миграция истории и UX без обещания полного архива всех iOS-уведомлений. Не изменять личные Shortcuts.
+- [ ] Любой будущий build/upload/metadata — только с отдельным подтверждением владельца; AFTER_APPROVAL сохраняется.
+
+
 ## 24.10.2026 — Pushkin 1.0.2(6) submitted to Apple
 
 - [x] **App Review WAITING_FOR_REVIEW**, automatic release AFTER_APPROVAL,
