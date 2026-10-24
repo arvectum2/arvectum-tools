@@ -5,7 +5,8 @@
 - [x] Переведены все 10 iOS/Watch/Widget bundles (899 строк), полная девятка языков в исходниках.
 - [x] InfoPlist, Siri AppShortcuts, Core locale/printf gate **45/45 PASS**.
 - [x] zh-Hans и zh-CN выбирают упрощённый; zh-Hant не подменяется упрощённым.
-- [ ] Native UI/Swift XCTest, редактура и физический VoiceOver/Watch QA.
+- [x] Native iOS/watchOS 6/6 builds PASS, Chinese UI 6/6 PASS, Swift 35/35 PASS.
+- [ ] Нативная китайская вычитка и физический VoiceOver/Watch QA.
 - [ ] Android пока без новых языков.
 
 [QA](../docs/IOS_ZH_HANS_PORTFOLIO_QA_2026-10-24.md).

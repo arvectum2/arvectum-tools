@@ -4,7 +4,8 @@
 
 - [x] 231 iPhone + 6 Watch + 6 Phone Widget + 5 complication китайских строк; системные разрешения.
 - [x] CaptureBrand выбирает zh-Hans/zh-CN, не подменяет zh-Hant, форматирует китайские счётчики. Офлайн-транскрипция от языка UI независима.
-- [ ] Симуляторный AXXXL, реальный Watch/VoiceOver/permissions, редактура.
+- [x] Китайский AXXXL UI 1/1 и Swift unit 12/12 PASS (после обновления старого fallback теста).
+- [ ] Реальный Watch/VoiceOver/permissions и редактура.
 - [ ] Личные аудиофайлы и очередь Watch не трогали.
 
 [QA](../core/docs/IOS_ZH_HANS_PORTFOLIO_QA_2026-10-24.md).

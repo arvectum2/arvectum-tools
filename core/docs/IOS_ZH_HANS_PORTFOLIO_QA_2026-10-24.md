@@ -32,10 +32,10 @@ translated. Translations require editorial verification by native speakers.
 - [x] Interface language is separate from local offline ASR availability.
 - [x] Core 9-language catalog/key/format/companion audit 45/45 PASS.
 - [x] XcodeGen regenerated four iOS projects and Chinese UI smoke tests.
-- [ ] Unsigned 4 iOS and 2 watchOS native builds: log actual results.
-- [ ] iPhone Simulator Chinese UI Photo/PDF, Pushkin, Uhvat, ChickMark.
-- [ ] Native Swift language unit tests.
-- [ ] Verify zh-Hans.lproj in actual compiled app/Watch/widget artifacts.
+- [x] 6/6 unsigned iOS/watchOS Simulator builds PASS: Photo/PDF iOS, Pushkin iOS, Uhvat iOS, ChickMark iOS, Uhvat watchOS, ChickMark watchOS.
+- [x] 6/6 Chinese iPhone Simulator XCUITest PASS: Photo/PDF photo, PDF and AXXXL (3/3), Pushkin navigation (1/1), Uhvat AXXXL home (1/1, no recording), ChickMark synthetic new habit (1/1, no CloudKit).
+- [x] 35/35 native Swift localization XCTest PASS: Pushkin CoverageCatalogTests 14/14, Uhvat LanguageFallbackTests 12/12 (full suite rerun), ChickMark LocalizationTests 9/9.
+- [x] Inspected compiled app and extension resources: zh-Hans.lproj is embedded in all four iOS apps plus Watch/Widgets.
 
 ## Release gates
 
@@ -47,3 +47,21 @@ translated. Translations require editorial verification by native speakers.
   No App Store/TestFlight uploads or publication performed.
 
 Stacked draft PR chain #141 → #142 → #143 → #144 → #145 → #146 → zh-Hans PR.
+
+
+## Regression triage / evidence
+
+One pre-existing Uhvat LanguageFallbackTests assertion expected an English
+fallback for Simplified Chinese. Now that Simplified Chinese is bundled,
+the correct resolved interface language is Chinese. Updated the obsolete
+assertion and reran the complete suite: 12/12 PASS. The original failing
+run is retained in evidence and not counted as a passing test.
+
+Traditional Chinese locales (zh-Hant, zh-TW, zh-HK, zh-MO) must not
+silently become Simplified Chinese, and this is covered by Swift tests.
+The UI locale does not promise Chinese offline speech-recognition support.
+
+Native QA: isolated iPhone 17 Pro / iOS 27.0 Simulator, synthetic fixtures.
+No production user audio, CloudKit/HealthKit, TestFlight, App Store
+metadata, or public versions were modified. Raw logs, xcresult packages,
+and status JSON are stored on the authorized Mac mini SSD.

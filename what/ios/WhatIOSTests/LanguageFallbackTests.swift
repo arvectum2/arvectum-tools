@@ -34,7 +34,7 @@ final class LanguageFallbackTests: XCTestCase {
         )
         XCTAssertEqual(
             CaptureBrand.resolvedInterfaceLanguage(for: ["zh-Hans"]),
-            "en"
+            "zh"
         )
     }
 

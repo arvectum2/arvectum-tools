@@ -4,7 +4,8 @@
 
 - [x] 155 китайских строк iOS, перевод рекламы, фото документов, PDF и InfoPlist.
 - [x] Core 9-язычный форматный аудит PASS.
-- [ ] zh-Hans photo/PDF/AXXXL UI, вычитка документов, рекламы и физическая проверка.
+- [x] zh-Hans photo/PDF/AXXXL iPhone Simulator UI 3/3 PASS.
+- [ ] Вычитка документов/рекламы и физическая проверка.
 - [ ] Публичная версия 1.0.2 не менялась.
 
 [QA](../core/docs/IOS_ZH_HANS_PORTFOLIO_QA_2026-10-24.md).

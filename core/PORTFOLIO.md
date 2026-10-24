@@ -4,7 +4,8 @@
 
 - [x] Полные RU/EN/ES/FR/DE/PT-BR/IT/JA/ZH-Hans в 4 iOS-приложениях и десяти iPhone/Watch/widgets bundles.
 - [x] 899 китайских строк, локализованные разрешения и региональный fallback. [QA](docs/IOS_ZH_HANS_PORTFOLIO_QA_2026-10-24.md).
-- [ ] Симуляторные и физические/редакторские проверки, отдельный Apple approval.
+- [x] Китайские сборки 6/6, UI 6/6, Swift unit 35/35 PASS.
+- [ ] Физическая/редакторская QA, отдельное согласование Apple релиза.
 
 
 ## 24.10.2026 · iOS-first Japanese

@@ -4,7 +4,8 @@
 
 - [x] 151 китайская строка, включая инструкции Apple快捷指令.
 - [x] PushkinCopy направляет zh/zh-CN в zh-Hans, zh-Hant не подменяет упрощённым.
-- [ ] Китайские UI/Swift unit, физический Shortcuts/VoiceOver и вычитка.
+- [x] Китайский UI 1/1 и Swift unit 14/14 PASS.
+- [ ] Физический Shortcuts/VoiceOver и редактура.
 - [ ] App Store review и публичные версии не менялись.
 
 [QA](../core/docs/IOS_ZH_HANS_PORTFOLIO_QA_2026-10-24.md).
