@@ -14,6 +14,11 @@ class LocalizationPortfolioTests(unittest.TestCase):
         self.assertEqual(len(reg["targets"]), 50)
         self.assertEqual(reg["targets"][0]["code"], "en")
         self.assertEqual(reg["fallback"], "en")
+        delivery = reg["deliveryPriority"]
+        self.assertEqual(delivery["platforms"], ["ios", "watchos", "android"])
+        self.assertEqual(delivery["iosFirstWave"], ["en", "ru", "es", "fr"])
+        self.assertEqual(delivery["iosNextWave"], ["de", "pt-BR", "it", "ja", "zh-Hans"])
+
         self.assertEqual(set(reg["apps"]), {"chickmark", "pushkin", "what", "photo-pdf-to-size", "where"})
         self.assertEqual(reg["apps"]["photo-pdf-to-size"]["android"]["sourceLocale"], "en")
         self.assertEqual([sum(x["tier"] == t for x in reg["targets"]) for t in (1, 2, 3)], [20, 20, 10])
