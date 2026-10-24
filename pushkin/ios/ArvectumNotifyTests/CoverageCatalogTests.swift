@@ -99,6 +99,15 @@ final class CoverageCatalogTests: XCTestCase {
         XCTAssertEqual(PushkinCopy.appCount(2, language: "it"), "2 app")
     }
 
+    func testJapaneseUsesRealBundledTranslationsAndCounters() {
+        XCTAssertEqual(PushkinCopy.text("History", language: "ja-JP"), "履歴")
+        XCTAssertEqual(PushkinCopy.text("Settings", language: "ja"), "設定")
+        XCTAssertEqual(PushkinCopy.text("Apps & Setup", language: "ja-JP"), "アプリと設定")
+        XCTAssertEqual(PushkinCopy.text("Group %d", language: "ja"), "グループ %d")
+        XCTAssertEqual(PushkinCopy.appCount(1, language: "ja"), "1件のアプリ")
+        XCTAssertEqual(PushkinCopy.appCount(2, language: "ja-JP"), "2件のアプリ")
+    }
+
     func testPendingSourceNameIsBriefWithoutChangingSourceIdentity() {
         XCTAssertEqual(
             PushkinDisplayName.brief("CapCut: Photo & Video Editor"),

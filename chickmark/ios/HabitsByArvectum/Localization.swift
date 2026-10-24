@@ -95,6 +95,7 @@ enum ChickMarkLanguage {
         case "es": return "Español"
         case "pt-BR": return "Português (Brasil)"
         case "it": return "Italiano"
+        case "ja": return "日本語"
         case system: return L10n.string("language.system")
         default:
             // Autonym, rather than displaying the language name in the

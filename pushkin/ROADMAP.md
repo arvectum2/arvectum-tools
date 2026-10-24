@@ -1,5 +1,16 @@
 # PUSHKIN — Product Roadmap
 
+## 24.10.2026 · Pushkin JA
+
+- [x] 151 строка японского интерфейса и настроек ショートカット (Shortcuts).
+- [x] PushkinCopy реально переключает на JA, счётчики локализованы.
+- [x] Japanese iOS UI **1/1**, Swift unit **13/13 PASS**.
+- [ ] Физический Shortcuts/VoiceOver и редактура.
+- [ ] Apple upload не выполнялся.
+
+[QA](../core/docs/IOS_JA_PORTFOLIO_QA_2026-10-24.md).
+
+
 ## 24.10.2026 · Pushkin — итальянский IT
 
 - [x] 151 строка IT, включая инструкции ручной установки Comandi (Shortcuts).

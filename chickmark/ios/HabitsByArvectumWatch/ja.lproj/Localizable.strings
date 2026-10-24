@@ -1,0 +1,23 @@
+// Traduzione italiana preliminare; revisione editoriale prima del rilascio.
+"watch.today" = "今日";
+"watch.progress.format" = "%d／%d";
+"watch.empty" = "今日の予定はありません";
+"watch.streak.format" = "%d日連続";
+"watch.weekly.format" = "今週：%d／%d";
+"watch.completed" = "完了";
+"watch.notCompleted" = "未完了";
+"watch.skipped" = "スキップ";
+"watch.undoHint" = "ダブルタップで完了を取り消す";
+"watch.completeHint" = "ダブルタップで完了にする";
+"watch.duration.format" = "%d／%d分";
+"watch.step.add" = "1回追加";
+"watch.step.remove" = "1回取り消す";
+"watch.preview.water" = "水を飲む";
+"watch.preview.reading" = "読書";
+"watch.checkins.progress.format" = "記録 %d／%d";
+"watch.health.unit.steps" = "歩";
+"watch.health.unit.kilometers" = "km";
+"watch.health.unit.minutes" = "分";
+"watch.health.unit.hours" = "時間";
+"watch.health.unit.unknown" = "";
+"watch.health.unavailable" = "Appleヘルスケアのデータを利用できません";

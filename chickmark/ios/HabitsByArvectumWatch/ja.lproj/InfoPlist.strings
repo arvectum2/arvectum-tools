@@ -1,0 +1,2 @@
+"NSHealthShareUsageDescription" = "Appleヘルスケアと連携した習慣についてのみ、アクティビティの値を読み取ります。健康データはこの端末内に保持されます。";
+"NSHealthUpdateUsageDescription" = "ChickMarkは選択したアクティビティ目標を追跡するためにAppleヘルスケアを使用します。健康データを追加・変更することはありません。";

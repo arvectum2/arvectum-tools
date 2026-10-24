@@ -1,0 +1,2 @@
+"NSHealthShareUsageDescription" = "Appleヘルスケアと連携した習慣の達成を確認するためにのみ、日々のアクティビティを読み取ります。";
+"NSHealthUpdateUsageDescription" = "数量ベースの習慣で書き出しを有効にした場合のみ、ChickMarkがAppleヘルスケアに水分摂取量を追加します。ヘルスケアの設定から許可を取り消せます。";

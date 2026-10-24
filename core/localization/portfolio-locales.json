@@ -270,10 +270,11 @@
           "fr",
           "de",
           "pt-BR",
-          "it"
+          "it",
+          "ja"
         ],
-        "status": "source-it-catalog-complete-pending-human-and-device-review",
-        "note": "All 10 active iOS/Watch/Widget bundles have 7 source catalogs EN/RU/ES/FR/DE/PT-BR/IT. Italian app copy is draft and requires native editorial and physical QA; no App Store upload."
+        "status": "source-ja-complete-editorial-device-qa-pending",
+        "note": "Eight catalog-complete iOS/watchOS/widget locales EN/RU/ES/FR/DE/PT-BR/IT/JA. ja localizations are development drafts and require native review and real-device QA. No App Store release."
       }
     },
     "pushkin": {
@@ -288,10 +289,11 @@
           "fr",
           "de",
           "pt-BR",
-          "it"
+          "it",
+          "ja"
         ],
-        "status": "source-it-catalog-complete-pending-human-and-device-review",
-        "note": "All 10 active iOS/Watch/Widget bundles have 7 source catalogs EN/RU/ES/FR/DE/PT-BR/IT. Italian app copy is draft and requires native editorial and physical QA; no App Store upload."
+        "status": "source-ja-complete-editorial-device-qa-pending",
+        "note": "Eight catalog-complete iOS/watchOS/widget locales EN/RU/ES/FR/DE/PT-BR/IT/JA. ja localizations are development drafts and require native review and real-device QA. No App Store release."
       }
     },
     "what": {
@@ -311,10 +313,11 @@
           "fr",
           "de",
           "pt-BR",
-          "it"
+          "it",
+          "ja"
         ],
-        "status": "source-it-catalog-complete-pending-human-and-device-review",
-        "note": "All 10 active iOS/Watch/Widget bundles have 7 source catalogs EN/RU/ES/FR/DE/PT-BR/IT. Italian app copy is draft and requires native editorial and physical QA; no App Store upload."
+        "status": "source-ja-complete-editorial-device-qa-pending",
+        "note": "Eight catalog-complete iOS/watchOS/widget locales EN/RU/ES/FR/DE/PT-BR/IT/JA. ja localizations are development drafts and require native review and real-device QA. No App Store release."
       }
     },
     "photo-pdf-to-size": {
@@ -335,10 +338,11 @@
           "fr",
           "de",
           "pt-BR",
-          "it"
+          "it",
+          "ja"
         ],
-        "status": "source-it-catalog-complete-pending-human-and-device-review",
-        "note": "All 10 active iOS/Watch/Widget bundles have 7 source catalogs EN/RU/ES/FR/DE/PT-BR/IT. Italian app copy is draft and requires native editorial and physical QA; no App Store upload."
+        "status": "source-ja-complete-editorial-device-qa-pending",
+        "note": "Eight catalog-complete iOS/watchOS/widget locales EN/RU/ES/FR/DE/PT-BR/IT/JA. ja localizations are development drafts and require native review and real-device QA. No App Store release."
       }
     },
     "where": {

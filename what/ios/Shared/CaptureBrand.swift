@@ -37,7 +37,7 @@ enum CaptureBrand {
         for identifier in preferredLanguages {
             let language = Locale(identifier: identifier)
                 .language.languageCode?.identifier.lowercased()
-            if let language, ["ru", "en", "es", "fr", "de", "pt", "it"].contains(language) {
+            if let language, ["ru", "en", "es", "fr", "de", "pt", "it", "ja"].contains(language) {
                 return language
             }
         }
@@ -86,6 +86,12 @@ enum CaptureBrand {
         return Bundle(path: path)
     }()
 
+    private static let japaneseBundle: Bundle? = {
+        guard let path = Bundle.main.path(forResource: "ja", ofType: "lproj")
+        else { return nil }
+        return Bundle(path: path)
+    }()
+
     static var name: String { isRussian ? "Ухват" : "UhWhat?" }
 
     static func text(
@@ -118,6 +124,11 @@ enum CaptureBrand {
                 forKey: english, value: english, table: nil
             ) ?? english
         }
+        if code.hasPrefix("ja") {
+            return japaneseBundle?.localizedString(
+                forKey: english, value: english, table: nil
+            ) ?? english
+        }
         return english
     }
 
@@ -136,7 +147,8 @@ enum CaptureBrand {
             code.hasPrefix("fr") ? "fr_FR" :
             code.hasPrefix("de") ? "de_DE" :
             code.hasPrefix("pt") ? "pt_BR" :
-            code.hasPrefix("it") ? "it_IT" : "en_US"
+            code.hasPrefix("it") ? "it_IT" :
+            code.hasPrefix("ja") ? "ja_JP" : "en_US"
         )
         return String(
             format: text(russian, english, language: code),
@@ -175,6 +187,9 @@ enum CaptureBrand {
         }
         if language.hasPrefix("it") {
             return "\(count) \(count == 1 ? "nota" : "note")"
+        }
+        if language.hasPrefix("ja") {
+            return "\(count)件のメモ"
         }
         return "\(count) \(count == 1 ? "note" : "notes")"
     }
