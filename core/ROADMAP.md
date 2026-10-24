@@ -1,5 +1,8 @@
 # Arvectum Tools Core — дорожная карта
 
+- [x] 24.10.2026: Ухват 1.1.1(9) и ChickMark 1.5.1(19) отправлены в App Review; оба WAITING_FOR_REVIEW и AFTER_APPROVAL. [Акт](docs/FOUR_LANG_APP_REVIEW_SUBMITTED_2026-10-24.md).
+
+
 - [x] **24.10.2026: два 4-язычных IPA подписаны.** Ухват 1.1.1(9), ChickMark 1.5.1(19), RU/EN/ES/FR в 8/8 bundle, PR #138/139 merged. [Акт](docs/FOUR_LANGUAGE_RELEASE_CANDIDATES_2026-10-24.md). До загрузки требуется явное разрешение на конкретные версии.
 
 

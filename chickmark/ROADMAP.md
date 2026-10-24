@@ -1,5 +1,8 @@
 # ChickMark — актуальная дорожная карта
 
+- [x] 24.10.2026: ChickMark 1.5.1(19) отправлен на App Review после iPad 13 screenshot gate; WAITING_FOR_REVIEW и AFTER_APPROVAL; категория Productivity. [Акт](../core/docs/FOUR_LANG_APP_REVIEW_SUBMITTED_2026-10-24.md).
+
+
 - [x] **24.10.2026: 4 языка, подписанный кандидат 1.5.1(19).** RU/EN/ES/FR во всех iPhone/Watch/widgets и French Shortcuts, PR #139 merged. Category Productivity в source; ASC ещё не изменён. [Свидетельство](../core/docs/FOUR_LANGUAGE_RELEASE_CANDIDATES_2026-10-24.md).
 
 

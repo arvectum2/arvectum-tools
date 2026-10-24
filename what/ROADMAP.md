@@ -1,5 +1,8 @@
 # What? — Product Roadmap
 
+- [x] 24.10.2026: Ухват 1.1.1(9) отправлен на App Review с 4 языками, WAITING_FOR_REVIEW и AFTER_APPROVAL. [Акт](../core/docs/FOUR_LANG_APP_REVIEW_SUBMITTED_2026-10-24.md).
+
+
 - [x] **24.10.2026: 4 языка, подписанный кандидат 1.1.1(9).** RU/EN/ES/FR во всех iPhone/Watch/Widget/complication, PR #138 merged. [Свидетельство](../core/docs/FOUR_LANGUAGE_RELEASE_CANDIDATES_2026-10-24.md). App Review ещё не отправлен.
 
 
