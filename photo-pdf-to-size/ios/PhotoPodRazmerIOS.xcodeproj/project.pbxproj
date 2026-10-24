@@ -86,12 +86,14 @@
 		499263E4679EADCAE1EA5A65 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4BC9368CF5B6238AB8AD7E58 /* QAFixtures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QAFixtures.swift; sourceTree = "<group>"; };
 		4C4218562232EFB974A3F790 /* AppModel+Lifecycle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppModel+Lifecycle.swift"; sourceTree = "<group>"; };
+		4E5FA122EC548C560FEF50C4 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		51511B7AEB7D0B5421F72F64 /* LayoutRegressionUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutRegressionUITests.swift; sourceTree = "<group>"; };
 		59831C9A026EC3777AFF1AE3 /* PhotoPodRazmer.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = PhotoPodRazmer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		64353080C7BFC26040DFCC0D /* AdBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdBannerView.swift; sourceTree = "<group>"; };
 		6ABA14F6C19916B76F84EFA8 /* AdPlacements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdPlacements.swift; sourceTree = "<group>"; };
 		6EB98F5B7046F064E296DCE0 /* FileExport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileExport.swift; sourceTree = "<group>"; };
 		705150ECFF2DFDD01819AA14 /* PDFEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFEngine.swift; sourceTree = "<group>"; };
+		80AE379C986847049827FA6E /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		859CD85E40C881410B84E65B /* PassportCropView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassportCropView.swift; sourceTree = "<group>"; };
 		86220EAB9DCD77B6155B0390 /* AdaptiveLayoutUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveLayoutUITests.swift; sourceTree = "<group>"; };
 		89EE7554AAE420CCFCD6DCDB /* AppModel+Processing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppModel+Processing.swift"; sourceTree = "<group>"; };
@@ -349,6 +351,7 @@
 				Base,
 				en,
 				es,
+				fr,
 				ru,
 			);
 			mainGroup = A9C114D71BFDA3C453DFA7B7;
@@ -463,6 +466,7 @@
 			children = (
 				499263E4679EADCAE1EA5A65 /* en */,
 				C73CED7FA58809F3D8187E7B /* es */,
+				80AE379C986847049827FA6E /* fr */,
 				101DE697CC76956CE3889DE5 /* ru */,
 			);
 			name = InfoPlist.strings;
@@ -473,6 +477,7 @@
 			children = (
 				3B1197D2C48FCE7500B11E87 /* en */,
 				2D5EAD1878C26C6F6327B7B1 /* es */,
+				4E5FA122EC548C560FEF50C4 /* fr */,
 				357DC3C94F468E01EBFED12A /* ru */,
 			);
 			name = Localizable.strings;

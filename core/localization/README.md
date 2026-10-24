@@ -1,5 +1,18 @@
 # Arvectum Tools — portfolio localization (50 locales)
 
+## 24 октября 2026 — единая первая волна iOS
+
+- [x] Четыре активных iOS-продукта содержат RU/EN/ES/FR source-каталоги: ChickMark (4 bundle), Pushkin (1), Ухват (4), Фото/PDF (1).
+- [x] Фото/PDF FR: 155 ключей и InfoPlist для отображаемого имени/рекламного разрешения.
+- [x] Добавлена регрессия присутствия RU/EN/ES/FR во всех 10 iOS bundles.
+- [ ] Требуется проверка носителем языка, особенно текстов согласия и конфиденциальности.
+- [ ] Нужны французские UI/AXXXL/VoiceOver тесты и физическая QA перед публикацией.
+- [ ] Приложение не публиковать без отдельного разрешения на новую версию.
+
+Android Фото/PDF: 9 исходных языковых каталогов из 50, это не 9 опубликованных локализаций. Остальные 41 остаются в плане.
+
+
+
 **Status: target registry and initial extraction/audit, NOT 50 completed translations.**
 Four active iOS apps: ChickMark, Pushkin, Ухват, Фото/PDF под размер; the Android version of Фото/PDF is also in scope. Where? is registered but paused.
 
