@@ -4,6 +4,7 @@
 
 - [x] Официальный Apple RU Lookup снова проверен по всем четырём приложениям: **Pushkin 1.0.1**, Ухват **1.1.0**, ChickMark **1.5.0**, Фото/PDF **1.0.1**; рейтинги **0/0/2/2** оценок соответственно (у последних двух 5.0/5). [Датированный baseline](docs/APP_STORE_BASELINE_2026-10-24.md).
 - [x] **Pushkin уже публичен в версии 1.0.1**: историческое WAITING_FOR_REVIEW от 19.10 не следует считать текущим статусом. Точный номер внутреннего билда не подтверждён публичным API.
+- [x] Apple RU Lookup подтвердил текущую категорию ChickMark **Health & Fitness** (genreId 6013). **Productivity** по-прежнему запланирована для следующей разрешённой редактируемой ASC версии.
 - [x] Site [PR #15](https://github.com/arvectum2/arvectum-site/pull/15) подготовлен: predeploy/rollback checklist, GitHub CI 2/2 SUCCESS, локальный npm run verify PASS (54 indexable HTML, 0 orphans, 71 статический HTML, PHP lint); **не merged и не deployed**.
 - [ ] P1: согласованный merge/deploy сайта с сохранением env/storage, резервной копией, post-deploy smoke и индексацией. Действие требует отдельного approval.
 - [ ] P1: ASC Analytics 403 — получить read-only доступ; category ChickMark Productivity — только следующая разрешённая редактируемая версия. Отдельно замерить реальные РСЯ fill/выручку.

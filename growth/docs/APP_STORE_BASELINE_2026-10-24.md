@@ -22,9 +22,9 @@ Connect изменений или Apple API POST/PATCH выполнено не �
 
 Growth Analytics 403 — это отсутствие прав у использованного ключа,
 а не нулевые значения установок/показов. Изменение категории ChickMark
-на Productivity остаётся OPEN: публичная карточка пока описана в
-исторической дорожной карте как Health & Fitness; публикационные
-изменения требуют отдельного разрешения.
+на Productivity остаётся OPEN: независимый официальный RU Lookup 24.10
+подтвердил primaryGenreName=Health & Fitness, primaryGenreId=6013.
+Публикационные изменения требуют отдельного разрешения.
 
 Сайт: Arvectum Site PR #15 (https://github.com/arvectum2/arvectum-site/pull/15)
 проверен, merge/deploy НЕ делали. В PR добавлен отдельный
