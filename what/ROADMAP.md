@@ -1,5 +1,11 @@
 # What? — Product Roadmap
 
+## 24.10.2026 · Физические фоновые условия получены
+
+- [x] QA bundle на iPhone 13 запущен; журнал 38 событий подтверждает active → Settings/background → active; refresh=available, lowPower=true, protectedData=true, WCSession activated, paired=true, watchInstalled=true, reachable=false. Новых AAC нет. [Акт](docs/WATCH_BACKGROUND_WAKE_POLICY_QA_2026-10-24.md).
+- [ ] Проверить продуктовый UX задержанной передачи/очереди; Low Power — гипотеза, а не доказанная причина задержки ~171 с.
+
+
 ## 24.10.2026 · Фоновые условия iPhone: инструментация без новых аудиозаписей
 
 - [x] Только в QA добавлен снимок Background App Refresh, Low Power Mode, protected data, scene phase и WCSession на MainActor. Подписанная сборка установлена на физический iPhone 13. [Протокол](docs/WATCH_BACKGROUND_WAKE_POLICY_QA_2026-10-24.md).

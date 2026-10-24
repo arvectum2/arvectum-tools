@@ -112,3 +112,30 @@ what/ios/tools/check_project_source_membership.py:
 Этот gate предотвращает именно пропущенные исходники, но не утверждает,
 что любое изменение параметров сборки будет замечено. Стандартный
 production build и реальные XCTest остаются отдельными проверками.
+
+## 24.10.2026 · Дополнение: физический замер выполнен
+
+Повторный реальный запуск QA bundle `ru.arvectum.tools.what.watchphysqa` на
+iPhone 13 завершился успешно. Через `devicectl device copy from` считан
+`Documents/WatchRouteQA/events.json`. На Mac mini сохранены:
+`/Volumes/ArvectumSSD/Arvectum/tmp/what-watch-wake-policy-20261024/events-today.json`
+и `events-today-background.json` (38 событий).
+
+Проведён один недеструктивный цикл запуска QA → системные Settings →
+возврат в QA. Журнал физически подтвердил `scene-background` и
+последующий `scene-active`.
+
+Реальные значения:
+- `backgroundRefreshStatus=available`;
+- `isLowPowerModeEnabled=true`;
+- `isProtectedDataAvailable=true`;
+- `WCSession.activationState=2` (activated);
+- `isPaired=true`, `isWatchAppInstalled=true`, `isReachable=false`.
+
+Вывод: прежний блокер `Locked` для этого шага снят; фоновые условия
+измерены. **Low Power Mode активен**, что стоит учитывать при анализе
+оппортунистической передачи. Это **не доказательство**, что именно он
+вызвал ранее измеренные 170,883 с задержки. Новый Watch AAC не
+создавался, системные настройки не менялись, production bundle не
+изменялся. Открытая задача: сопоставить сценарии и UX ожидания,
+не обещая мгновенной фоновой доставки без подтверждения.

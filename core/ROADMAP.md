@@ -3,7 +3,7 @@
 ## 24.10.2026 — актуализированная очередь
 
 - [x] `main` / CI на HEAD `319bca9` проверены; ранее выполненные hardware regression тесты и XcodeGen guard остаются закрытыми.
-- [ ] **Сейчас:** незавершённый физический замер Background Refresh / Low Power / WCSession на разблокированном iPhone → анализ фоновой доставки Ухвата.
+- [x] **24.10 физический замер:** цикл iPhone QA active → background → active прошёл, 38 событий; Background Refresh=available, Low Power=true, protectedData=true, WCSession activated. Следующий этап — анализ задержанной доставки Ухвата.
 - [ ] **Затем:** не закрытые физические UI/доступность/HealthKit/Photos/РСЯ по четырём приложениям; сайт PR #15 готов по CI, но не опубликован.
 - [ ] **Отложено:** 41 Android язык, Where?, SmartSearch и Growth Agent. Новые App Store релизы и сайт — только по отдельному разрешению.
 

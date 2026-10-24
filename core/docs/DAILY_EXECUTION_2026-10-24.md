@@ -4,15 +4,15 @@
 
 ## Проверено сегодня
 
-- [x] Репозиторий `arvectum-tools`: `main...origin/main`, чистое дерево; HEAD `319bca9` (24.10). GitHub Actions по текущему HEAD: Architecture contract, Localization portfolio, Uhvat capture reliability CI и GitVerse mirror — SUCCESS.
+- [x] Репозиторий `arvectum-tools`: `main...origin/main`, чистое дерево; исходный HEAD `319bca9` (24.10); предыдущая актуализация зафиксирована в `c3a7b59`. GitHub Actions по текущему HEAD: Architecture contract, Localization portfolio, Uhvat capture reliability CI и GitVerse mirror — SUCCESS.
 - [x] Ухват/What?: в `main` синхронизирован XcodeGen-проект; семантическая проверка 92 Swift target entries PASS, а исторический пропуск исходников обнаруживается. Обычная iOS/watchOS unsigned build ранее PASS. **Это не новый подписанный production release.**
 - [x] Уже выполненные аппаратные тесты Ухвата не повторяем: 18/18 FileProtection/recovery/fault/AXXXL на iPhone 13; 132 XCTest, 0 FAIL и 3 expected SKIP для PhoneCaptures; Watch receiver 15/15; отдельный cold-background доставил 1 AAC; трасса другого `transferFile` показала ~171 с до iPhone `didReceive` при foreground. Реальная своевременная доставка в фоне всё ещё **не доказана**.
-- [x] Сборка с диагностикой Background App Refresh / Low Power / protected data / scene / WCSession установлена в отдельный QA bundle на iPhone. Физические значения **не собраны**: iOS вернула RequestDenied: Locked.
+- [x] **24.10, новое физическое измерение:** отдельный QA bundle запущен на iPhone 13; цикл active → Settings/background → active подтверждён системным журналом. Background Refresh=available, Low Power=true, protectedData=true, WCSession activationState=2, paired=true, watchInstalled=true, reachable=false. Ранее зафиксированный Locked больше не блокирует этот диагностический этап.
 - [x] Arvectum Site: [PR #15](https://github.com/arvectum2/arvectum-site/pull/15) OPEN, MERGEABLE, обе проверки SUCCESS. Это **не** merge и **не** деплой.
 
 ## P0 · Сегодня — завершить новый этап без повторов
 
-- [ ] **T24-01 · Ухват — фоновые условия на iPhone.** После штатной разблокировки iPhone запустить уже установленный `ru.arvectum.tools.what.watchphysqa`; выполнить один цикл active → Settings/background → active; прочитать `WatchRouteQA/events.json` и зафиксировать реальные Background Refresh, Low Power Mode, protected data, scene, WCSession. Не создавать новый AAC, не менять системные настройки и не трогать production bundle.
+- [x] **T24-01 · Ухват — фоновые условия на iPhone.** QA bundle `ru.arvectum.tools.what.watchphysqa` запущен, выполнен цикл active → Settings/background → active, получено 38 событий; Background Refresh=available, Low Power=true, protectedData=true, WCSession=2, paired=true, watchInstalled=true, reachable=false. Данные синхронизированы с Mac mini, новых AAC нет. [Акт](../../what/docs/WATCH_BACKGROUND_WAKE_POLICY_QA_2026-10-24.md).
 - [ ] **T24-02 · Ухват — решение по фоновому обещанию.** Сопоставить измерения с уже задокументированным `transferFile`, отделить гарантированное сохранение на Watch/доставку с ACK от негарантируемой задержки iOS. При необходимости сформулировать честный UX-статус «на часах / ожидает доставки / на iPhone». Не перезапускать закрытые radio-offline/lost-ACK/10-second тесты.
 - [ ] **T24-03 · Физический UX/безопасность.** По возможности на отдельном QA bundle закрыть VoiceOver и сценарии обычного пользовательского восстановления, не изменяя личные данные, Shortcuts, HealthKit и production приложения. Для reboot до первой разблокировки, настоящего OS kill, ENOSPC, 30+ минут, входящего звонка, encrypted backup/restore и Watch radio/reboot — отдельные контролируемые аппаратные прогоны; не отмечать выполненными без актов.
 
@@ -30,6 +30,6 @@
 - [ ] **PAUSED · Where?, SmartSearch, Growth Agent:** не начинать без нового продуктового решения.
 - [ ] **Release gate:** ни App Store Connect/TestFlight/upload/review/publication, ни изменение live metadata, ни деплой сайта не следуют автоматически из зелёного CI, обновления дорожной карты или общего «продолжай». Требуется отдельная конкретная авторизация.
 
-**Definition of done на сегодня:** T24-01 — реальные значения и сохранённый QA-протокол; T24-02 — обоснованное решение по гарантиям фоновой передачи; T24-03/04/05 — только фактически пройденные сценарии. Задачи без физического доступа остаются OPEN, а не объявляются выполненными.
+**Definition of done на сегодня:** T24-01 завершён — реальные значения и сохранённый QA-протокол; T24-02 — обоснованное решение по гарантиям фоновой передачи; T24-03/04/05 — только фактически пройденные сценарии. Задачи без физического доступа остаются OPEN, а не объявляются выполненными.
 
 Источники: [What? roadmap](../../what/ROADMAP.md) · [Фоновые условия](../../what/docs/WATCH_BACKGROUND_WAKE_POLICY_QA_2026-10-24.md) · [Сверка Watch](../../what/docs/PHYSICAL_WATCH_ACCEPTANCE_DEDUP_2026-10-22.md) · [Growth](../../growth/ROADMAP.md) · [Релизные ограничения](../../AGENTS.md).
