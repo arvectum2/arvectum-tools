@@ -524,6 +524,7 @@ struct RecordingLibraryView: View {
                 Text("Русский").tag("ru-RU")
                 Text("English").tag("en-US")
                 Text("Español").tag("es-ES")
+                Text("Français").tag("fr-FR")
             }
             Link(destination: URL(string: UIApplication.openSettingsURLString)!) {
                 Label(

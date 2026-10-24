@@ -4,7 +4,7 @@ import Foundation
 /// same Watch/phone URL scheme also routes new text and video notes.
 enum CaptureBrand {
     /// Speech recognition is a separate setting from the visual interface.
-    /// Interface follows iOS per-app/device language in RU/EN/ES; unsupported
+    /// Interface follows iOS per-app/device language in RU/EN/ES/FR; unsupported
     /// interface languages have an English fallback. Watch and widget process
     /// locales are resolved independently. Existing recording language
     /// preferences and original audio remain untouched.
@@ -12,7 +12,7 @@ enum CaptureBrand {
 
     static var selectedTranscriptionLocale: String {
         if let stored = UserDefaults.standard.string(forKey: languagePreferenceKey),
-           ["ru-RU", "en-US", "es-ES"].contains(stored) {
+           ["ru-RU", "en-US", "es-ES", "fr-FR"].contains(stored) {
             return stored
         }
         return defaultTranscriptionLocale(
@@ -26,6 +26,7 @@ enum CaptureBrand {
         switch language {
         case "ru": return "ru-RU"
         case "es": return "es-ES"
+        case "fr": return "fr-FR"
         default: return "en-US"
         }
     }
@@ -36,7 +37,7 @@ enum CaptureBrand {
         for identifier in preferredLanguages {
             let language = Locale(identifier: identifier)
                 .language.languageCode?.identifier.lowercased()
-            if let language, ["ru", "en", "es"].contains(language) {
+            if let language, ["ru", "en", "es", "fr"].contains(language) {
                 return language
             }
         }
@@ -61,6 +62,12 @@ enum CaptureBrand {
         return Bundle(path: path)
     }()
 
+    private static let frenchBundle: Bundle? = {
+        guard let path = Bundle.main.path(forResource: "fr", ofType: "lproj")
+        else { return nil }
+        return Bundle(path: path)
+    }()
+
     static var name: String { isRussian ? "Ухват" : "UhWhat?" }
 
     static func text(
@@ -70,6 +77,11 @@ enum CaptureBrand {
         if code.hasPrefix("ru") { return russian }
         if code.hasPrefix("es") {
             return spanishBundle?.localizedString(
+                forKey: english, value: english, table: nil
+            ) ?? english
+        }
+        if code.hasPrefix("fr") {
+            return frenchBundle?.localizedString(
                 forKey: english, value: english, table: nil
             ) ?? english
         }
@@ -87,7 +99,8 @@ enum CaptureBrand {
         let code = language ?? selectedInterfaceLanguage
         let locale = Locale(identifier:
             code.hasPrefix("ru") ? "ru_RU" :
-            code.hasPrefix("es") ? "es_ES" : "en_US"
+            code.hasPrefix("es") ? "es_ES" :
+            code.hasPrefix("fr") ? "fr_FR" : "en_US"
         )
         return String(
             format: text(russian, english, language: code),
@@ -114,6 +127,9 @@ enum CaptureBrand {
         }
         if language.hasPrefix("es") {
             return "\(count) \(count == 1 ? "nota" : "notas")"
+        }
+        if language.hasPrefix("fr") {
+            return "\(count) \(count == 1 ? "note" : "notes")"
         }
         return "\(count) \(count == 1 ? "note" : "notes")"
     }

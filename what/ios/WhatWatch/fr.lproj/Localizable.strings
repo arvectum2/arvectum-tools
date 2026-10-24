@@ -1,0 +1,7 @@
+// French UI localization; verify sensitive wording and visual layout in release QA.
+"Preparing microphone…" = "Préparation du microphone…";
+"Record" = "Enregistrer";
+"Saved" = "Enregistré";
+"Stop" = "Arrêt";
+"Try again" = "Essayer à nouveau";
+"%d waiting for iPhone" = "%d en attente d'iPhone";

@@ -1,0 +1,4 @@
+"CFBundleDisplayName" = "UhWhat?";
+"NSMicrophoneUsageDescription" = "Enregistrez des notes audio et vidéo privées sur cet appareil. Vos fichiers restent sur l’appareil.";
+"NSSpeechRecognitionUsageDescription" = "Transcrivez vos notes vocales sauvegardées avec la reconnaissance vocale sur cet appareil.";
+"NSCameraUsageDescription" = "Enregistrez des notes vidéo privées avec la caméra. Les vidéos restent sur cet appareil.";

@@ -3,7 +3,7 @@ import XCTest
 
 final class LanguageFallbackTests: XCTestCase {
     func testUnsupportedDeviceLanguagesUseEnglish() {
-        for language in ["fr", "de", "zh", "pt", "ar", "hi"] {
+        for language in ["de", "zh", "pt", "ar", "hi"] {
             XCTAssertEqual(CaptureBrand.defaultTranscriptionLocale(for: language), "en-US")
         }
         XCTAssertEqual(CaptureBrand.defaultTranscriptionLocale(for: nil), "en-US")
@@ -12,6 +12,7 @@ final class LanguageFallbackTests: XCTestCase {
     func testSupportedDeviceLanguagePreserved() {
         XCTAssertEqual(CaptureBrand.defaultTranscriptionLocale(for: "ru"), "ru-RU")
         XCTAssertEqual(CaptureBrand.defaultTranscriptionLocale(for: "es"), "es-ES")
+        XCTAssertEqual(CaptureBrand.defaultTranscriptionLocale(for: "fr"), "fr-FR")
         XCTAssertEqual(CaptureBrand.defaultTranscriptionLocale(for: "en"), "en-US")
     }
     func testInterfaceFollowsIOSLanguageNotDictationSetting() {
@@ -29,7 +30,7 @@ final class LanguageFallbackTests: XCTestCase {
         )
         XCTAssertEqual(
             CaptureBrand.resolvedInterfaceLanguage(for: ["fr-FR", "en-GB"]),
-            "en"
+            "fr"
         )
         XCTAssertEqual(
             CaptureBrand.resolvedInterfaceLanguage(for: ["zh-Hans"]),
@@ -88,6 +89,23 @@ final class LanguageFallbackTests: XCTestCase {
         XCTAssertEqual(CaptureBrand.noteCount(1, language: "es"), "1 nota")
         XCTAssertEqual(CaptureBrand.noteCount(2, language: "es"), "2 notas")
         XCTAssertEqual(CaptureBrand.noteCount(0, language: "es"), "0 notas")
+    }
+
+    func testFrenchInterfaceAndSafeFormatting() {
+        XCTAssertEqual(
+            CaptureBrand.text("Входящие", "Inbox", language: "fr-FR"),
+            "Boîte de réception"
+        )
+        XCTAssertEqual(
+            CaptureBrand.text("Записать", "Record", language: "fr"),
+            "Enregistrer"
+        )
+        XCTAssertEqual(
+            CaptureBrand.formatted("Вход: %@", "Input: %@", language: "fr", "Microphone"),
+            "Entrée : Microphone"
+        )
+        XCTAssertEqual(CaptureBrand.noteCount(1, language: "fr"), "1 note")
+        XCTAssertEqual(CaptureBrand.noteCount(2, language: "fr"), "2 notes")
     }
 
     func testNoteCountPluralFormsAreReadable() {
