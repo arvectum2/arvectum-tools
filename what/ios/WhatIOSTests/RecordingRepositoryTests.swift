@@ -37,7 +37,7 @@ final class RecordingRepositoryTests: XCTestCase {
     /// background receiver after first unlock but protected before it.
     /// Use an isolated temporary root with synthetic bytes, never user AAC.
     func testPhysicalIncomingAudioAndIndexAreProtectedUntilFirstUnlock() throws {
-#if os(iOS) && !targetEnvironment(simulator) && !targetEnvironment(simulator) && !targetEnvironment(simulator)
+#if os(iOS) && !targetEnvironment(simulator)
         let root = FileManager.default.temporaryDirectory
             .appendingPathComponent("what-audio-protection-\(UUID().uuidString)")
         defer { try? FileManager.default.removeItem(at: root) }
@@ -91,7 +91,7 @@ final class RecordingRepositoryTests: XCTestCase {
     }
 
     func testPhysicalLegacyIndexProtectionMigrationKeepsBytes() throws {
-#if os(iOS) && !targetEnvironment(simulator) && !targetEnvironment(simulator) && !targetEnvironment(simulator)
+#if os(iOS) && !targetEnvironment(simulator)
         let root = FileManager.default.temporaryDirectory
             .appendingPathComponent("what-legacy-index-\(UUID().uuidString)")
         defer { try? FileManager.default.removeItem(at: root) }
@@ -155,7 +155,7 @@ final class RecordingRepositoryTests: XCTestCase {
     }
 
     func testPhysicalLegacyAACMigrationProtectsWithoutChangingAnyBytes() throws {
-#if os(iOS) && !targetEnvironment(simulator) && !targetEnvironment(simulator) && !targetEnvironment(simulator)
+#if os(iOS) && !targetEnvironment(simulator)
         let root = FileManager.default.temporaryDirectory
             .appendingPathComponent("what-legacy-aac-\(UUID().uuidString)")
         defer { try? FileManager.default.removeItem(at: root) }
