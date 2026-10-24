@@ -1,0 +1,4 @@
+"Complete a habit in ${applicationName}" = "Accomplir une habitude dans ${applicationName}";
+"Check off a habit in ${applicationName}" = "Marquer une habitude comme faite dans ${applicationName}";
+"Undo a habit in ${applicationName}" = "Annuler la validation d’une habitude dans ${applicationName}";
+"Mark a habit incomplete in ${applicationName}" = "Marquer une habitude comme non effectuée dans ${applicationName}";

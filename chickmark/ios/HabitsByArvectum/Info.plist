@@ -42,7 +42,7 @@
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>LSApplicationCategoryType</key>
-	<string>public.app-category.healthcare-fitness</string>
+	<string>public.app-category.productivity</string>
 	<key>NSHealthShareUsageDescription</key>
 	<string>ChickMark reads activity totals only for habits you link to Apple Health.</string>
 	<key>NSHealthUpdateUsageDescription</key>
@@ -976,8 +976,6 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
-	<key>YandexNativeAdUnitID</key>
-	<string>R-M-20183085-1</string>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
@@ -985,5 +983,7 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>YandexNativeAdUnitID</key>
+	<string>R-M-20183085-1</string>
 </dict>
 </plist>
