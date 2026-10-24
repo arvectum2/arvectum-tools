@@ -1,5 +1,24 @@
 # Arvectum Tools — portfolio localization (50 locales)
 
+## 25 октября 2026 - сквозная регрессия 9 языков
+
+- [x] Проверены все 9 исходных каталогов; Core 52/52, Swift 68/68, переведённые UI 40/40 PASS.
+- [x] [Подробный QA-протокол](../docs/IOS_NINE_LANGUAGE_INTEGRATION_2026-10-25.md); сырые XCTest и логи на Mac mini.
+- [ ] Реальные устройства и профессиональная языковая редактура остаются до релиза.
+
+
+## 24 октября 2026 · Девятый язык исходников — ZH-Hans
+
+- [x] Переведены все 10 iOS/Watch/Widget bundles (899 строк), полная девятка языков в исходниках.
+- [x] InfoPlist, Siri AppShortcuts, Core locale/printf gate **45/45 PASS**.
+- [x] zh-Hans и zh-CN выбирают упрощённый; zh-Hant не подменяется упрощённым.
+- [x] Native iOS/watchOS 6/6 builds PASS, Chinese UI 6/6 PASS, Swift 35/35 PASS.
+- [ ] Нативная китайская вычитка и физический VoiceOver/Watch QA.
+- [ ] Android пока без новых языков.
+
+[QA](../docs/IOS_ZH_HANS_PORTFOLIO_QA_2026-10-24.md).
+
+
 ## 24 октября 2026 — японский JA, исходный язык №8
 
 - [x] JA доступен во всех 10 iOS/Watch/Widget bundles: 899 исходных переводов.

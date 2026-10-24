@@ -1,5 +1,28 @@
 # Arvectum Tools Core — дорожная карта
 
+## 25.10.2026 - C5: единая приёмка 9 языков
+
+- [x] Сводный аудит девяти исходных языков, четыре iOS-приложения и 10 iPhone/Watch/Widget bundles.
+- [x] 52/52 Core + 68/68 Swift unit + 60/60 translated UI = **180/180 PASS** на отдельном iPhone Simulator.
+- [x] [Финальный C5 QA-протокол](docs/IOS_NINE_LANGUAGE_INTEGRATION_2026-10-25.md).
+- [ ] Физический iPhone/Watch и VoiceOver, редактура носителями, GitHub main CI и отдельное App Store согласование.
+
+
+## 24.10.2026 · C5.6 — упрощённый китайский ZH-Hans, язык №9 для iOS
+
+- [x] Все 4 iOS-приложения и 10 iOS/Watch/Widget targets: **899 строк zh-Hans** в исходниках.
+- [x] Системные InfoPlist, рекламные согласия, HealthKit и Siri; выбор zh-Hans/zh-CN в Pushkin, Ухвате и ChickMark с защитой zh-Hant.
+- [x] Core девятиязычный аудит ключей и форматных параметров: **45/45 PASS**.
+- [x] 6/6 iOS/watchOS сборок PASS; китайские ресурсы есть в собранных приложениях и расширениях.
+- [x] Китайский UI 6/6 PASS (Фото/PDF 3, Pushkin 1, Ухват 1, ChickMark 1).
+- [x] Swift unit 35/35 PASS: Pushkin 14, Ухват 12 после полного повторного прогона, ChickMark 9.
+- [ ] Нативная китайская вычитка, физическая VoiceOver/Watch/consent QA перед релизом.
+- [ ] iOS-first сохраняется; Android не расширять до приёмки.
+- [ ] Ни один App Store upload не разрешён автоматически.
+
+[Отчёт](docs/IOS_ZH_HANS_PORTFOLIO_QA_2026-10-24.md).
+
+
 ## 24.10.2026 · Core C5.5 — японский JA, восьмой язык в исходниках
 
 - [x] Все 4 iOS-приложения и 10 iOS/Watch/Widget bundles: 899 японских строк.

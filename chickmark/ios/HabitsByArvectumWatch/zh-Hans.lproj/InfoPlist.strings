@@ -1,0 +1,2 @@
+"NSHealthShareUsageDescription" = "仅为连接Apple健康的习惯读取活动统计。健康数据保留在此设备本地。";
+"NSHealthUpdateUsageDescription" = "ChickMark通过Apple健康跟踪您选择的活动目标，不会新增或修改健康数据。";

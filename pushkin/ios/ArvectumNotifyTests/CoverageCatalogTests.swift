@@ -108,6 +108,17 @@ final class CoverageCatalogTests: XCTestCase {
         XCTAssertEqual(PushkinCopy.appCount(2, language: "ja-JP"), "2件のアプリ")
     }
 
+    func testSimplifiedChineseBundleAndTraditionalChineseFallback() {
+        XCTAssertEqual(PushkinCopy.text("History", language: "zh-Hans"), "历史记录")
+        XCTAssertEqual(PushkinCopy.text("Settings", language: "zh-CN"), "设置")
+        XCTAssertEqual(PushkinCopy.text("Apps & Setup", language: "zh-Hans-CN"), "应用与设置")
+        XCTAssertEqual(PushkinCopy.text("Group %d", language: "zh-CN"), "第%d组")
+        XCTAssertEqual(PushkinCopy.appCount(1, language: "zh-Hans"), "1个应用")
+        XCTAssertEqual(PushkinCopy.appCount(2, language: "zh-CN"), "2个应用")
+        XCTAssertEqual(PushkinCopy.text("History", language: "zh-Hant"), "History")
+        XCTAssertEqual(PushkinCopy.appCount(2, language: "zh-TW"), "2 apps")
+    }
+
     func testPendingSourceNameIsBriefWithoutChangingSourceIdentity() {
         XCTAssertEqual(
             PushkinDisplayName.brief("CapCut: Photo & Video Editor"),

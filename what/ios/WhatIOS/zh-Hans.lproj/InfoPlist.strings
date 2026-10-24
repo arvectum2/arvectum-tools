@@ -1,0 +1,4 @@
+"CFBundleDisplayName" = "UhWhat?";
+"NSMicrophoneUsageDescription" = "在此设备上录制私密的音频和视频笔记。媒体文件保存在设备本地。";
+"NSSpeechRecognitionUsageDescription" = "使用设备本地语音识别功能转写已保存的语音笔记。";
+"NSCameraUsageDescription" = "使用摄像头录制私密视频笔记。视频保存在此设备本地。";
