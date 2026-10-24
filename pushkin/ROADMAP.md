@@ -1,5 +1,11 @@
 # PUSHKIN — Product Roadmap
 
+## 24.10.2026 · RU App Store — 1.0.1 опубликована
+
+- [x] Официальный RU iTunes Lookup сообщил Pushkin **version 1.0.1**, releaseDate **2026-10-19T20:29:58Z**; старый пункт WAITING_FOR_REVIEW от 19.10 закрыт для публичной RU-версии. [Акт](../growth/docs/APP_STORE_BASELINE_2026-10-24.md).
+- [ ] Публичный API не показывает внутренний номер билда и не доказывает сохранность истории персонального production bundle при обновлении. Не рисковать личными данными ради теста.
+- [ ] Новая отправка build, изменение карточки или App Review — строго после отдельного согласования.
+
 ### UX/дизайн-код: очередь D1 (19.10.2026, план)
 - [x] D4.3 (20.10): Optional Groups полностью RU/EN, цвет/состояние выбора доступны VoiceOver, поиск выше динамически появляющихся групп и закрывает клавиатуру по Done. AXXXL RU полный Xcode AX audit PASS; EN UI PASS; прежний select/clear UI PASS; unit PASS. Данные/автоматизации не затронуты.
 - [x] D4.1 (20.10): Setup quick-add использует Core 48pt; общий DesignSystem подключён через XcodeGen. AXXXL Setup → Coverage UI PASS, iOS Debug build PASS.

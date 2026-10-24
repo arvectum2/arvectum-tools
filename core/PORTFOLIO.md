@@ -1,5 +1,11 @@
 # Arvectum Tools — Roadmap Registry
 
+## 24.10.2026 · актуальный публичный RU App Store baseline
+
+- [x] Apple Lookup подтверждает Pushkin **1.0.1**, Ухват **1.1.0**, ChickMark **1.5.0**, Фото/PDF **1.0.1**; дата/рейтинг и ограничения — [Growth baseline](../growth/docs/APP_STORE_BASELINE_2026-10-24.md).
+- [x] Подготовлен deploy/rollback checklist для site PR #15; код сайта не развёрнут.
+- [ ] Следующие выпускаемые бинарники требуют отдельных физических QA и авторизации. Нельзя путать опубликованную версию с последними изменениями main.
+
 ## 19.10.2026 · Core: необязательное обновление App Store интегрировано
 
 - [x] [PR #133](https://github.com/arvectum2/arvectum-tools/pull/133) **MERGED в main** (`08107c3`): общий Apple Lookup / «Обновить» / «Позже» подключён к iOS ChickMark, Pushkin, Фото/PDF и Ухват. Core 19/19, iOS 4/4, watchOS 2/2 локально PASS. [Акт](docs/APP_STORE_UPDATE_INTEGRATION_2026-10-19.md).
