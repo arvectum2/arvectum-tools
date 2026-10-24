@@ -103,7 +103,7 @@ final class PhoneCaptureStorageTests: XCTestCase {
     }
 
     func testPhysicalProtectionFailureKeepsUncommittedSource() throws {
-#if os(iOS) && !targetEnvironment(simulator)
+#if os(iOS)
         let dir = root()
         defer { try? FileManager.default.removeItem(at: dir) }
         try FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
@@ -147,7 +147,7 @@ final class PhoneCaptureStorageTests: XCTestCase {
 
     @MainActor
     func testPhysicalRecoveryProtectionFailureKeepsOldAACAndRefusesImport() throws {
-#if os(iOS) && !targetEnvironment(simulator)
+#if os(iOS)
         let dir = root()
         defer { try? FileManager.default.removeItem(at: dir) }
         try FileManager.default.createDirectory(
