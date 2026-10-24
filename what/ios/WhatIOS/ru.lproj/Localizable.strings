@@ -231,3 +231,5 @@
 
 "Your Watch last reported recordings waiting for iPhone confirmation. Audio stays on Watch until iPhone confirms saving; background delivery can be delayed." = "В последнем отчёте часы ожидали подтверждения iPhone. Аудио остаётся на часах до подтверждения сохранения; фоновая доставка может задержаться.";
 "Your Watch last reported an empty queue. New recordings may have been made since that report." = "В последнем отчёте очередь часов была пуста. С тех пор могли появиться новые записи.";
+
+"Français" = "Français";

@@ -1,0 +1,7 @@
+// French UI localization; verify sensitive wording and visual layout in release QA.
+"Open UhWhat? and immediately start a voice note on your iPhone." = "Ouvrir euh quoi ? et démarrez immédiatement une note vocale sur votre iPhone.";
+"Open UhWhat? and start voice recording" = "Ouvrir euh quoi ? et démarrez l'enregistrement vocal";
+"Record" = "Enregistrer";
+"Record thought" = "Enregistrer la pensée";
+"Record with UhWhat?" = "Enregistrez avec UhWhat ?";
+"Tap to record an idea" = "Appuyez pour enregistrer une idée";
