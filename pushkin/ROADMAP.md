@@ -1,5 +1,15 @@
 # PUSHKIN — Product Roadmap
 
+## 24.10.2026 — four-language 1.0.2 (6), signed release candidate
+
+- [x] Release archive 1.0.2 build 6 and signed IPA contain RU/EN/ES/FR,
+  with SHA-256 and codesign verified. Public 1.0.1 remains live in Apple.
+- [x] Core 33 localization tests and portfolio audit PASS.
+- [ ] PR CI, App Store ES/FR screenshots and metadata.
+- [ ] App Review and IPA upload only after owner approval for
+  exactly PUSHKIN 1.0.2(6). [Evidence](docs/PUSHKIN_1_0_2_FOUR_LANG_RC_2026-10-24.md).
+
+
 ## 24.10.2026 · RU App Store — 1.0.1 опубликована
 
 - [x] Официальный RU iTunes Lookup сообщил Pushkin **version 1.0.1**, releaseDate **2026-10-19T20:29:58Z**; старый пункт WAITING_FOR_REVIEW от 19.10 закрыт для публичной RU-версии. [Акт](../growth/docs/APP_STORE_BASELINE_2026-10-24.md).
