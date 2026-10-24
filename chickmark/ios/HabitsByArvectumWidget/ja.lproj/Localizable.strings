@@ -1,0 +1,17 @@
+// Traduzione italiana preliminare; revisione editoriale prima del rilascio.
+"widget.title" = "今日";
+"widget.displayName" = "今日の習慣";
+"widget.description" = "アプリを開かずに今日の進捗を確認し、習慣をチェックできます。";
+"widget.empty" = "今日の予定はありません";
+"widget.allDone" = "今日の予定はすべて完了";
+"widget.remaining.format" = "残り%d件";
+"widget.inline.format" = "今日：%d／%d";
+"widget.more.format" = "ほか%d件";
+"widget.complete" = "完了にする";
+"widget.undo" = "完了を取り消す";
+"widget.preview.water" = "水を飲む";
+"widget.preview.reading" = "読書";
+"widget.duration.format" = "%d／%d分";
+"widget.action.complete.format" = "%@を完了にする";
+"widget.action.undo.format" = "%@の完了を取り消す";
+"widget.empty.small" = "今日の予定はありません";

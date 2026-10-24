@@ -1,0 +1,6 @@
+// Traduzione italiana preliminare; revisione editoriale prima del rilascio.
+"watch.widget.title" = "ChickMark";
+"watch.widget.description" = "文字盤で今日の習慣の進捗を確認できます。";
+"watch.widget.empty" = "予定なし";
+"watch.widget.inline.format" = "習慣 %d／%d";
+"watch.widget.next.format" = "次：%@";

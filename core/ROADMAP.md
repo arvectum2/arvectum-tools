@@ -1,5 +1,18 @@
 # Arvectum Tools Core — дорожная карта
 
+## 24.10.2026 · Core C5.5 — японский JA, восьмой язык в исходниках
+
+- [x] Все 4 iOS-приложения и 10 iOS/Watch/Widget bundles: 899 японских строк.
+- [x] Японские InfoPlist, реклама, HealthKit, Siri, разрешения; реальная JA-маршрутизация Pushkin/Ухвата/ChickMark.
+- [x] Обязательный восьмиязычный Core gate 43/43 PASS.
+- [ ] iOS/watchOS сборки и целевые UI/Swift XCTest — зафиксировать реальные результаты.
+- [ ] Профессиональная японская вычитка, физические Watch/VoiceOver/permission QA.
+- [ ] Далее iOS-first: упрощённый китайский zh-Hans. Android без расширения.
+- [ ] Никаких загрузок App Store без отдельного согласования.
+
+[QA](docs/IOS_JA_PORTFOLIO_QA_2026-10-24.md).
+
+
 ## 24.10.2026 · C5.4 — итальянский (IT) для iOS/watchOS
 
 - [x] Все 4 iOS-приложения и Watch/Widget bundles имеют исходные каталоги IT: 899 переведённых строк / 10 targets.

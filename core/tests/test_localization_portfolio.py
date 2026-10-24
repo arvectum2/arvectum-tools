@@ -22,15 +22,15 @@ class LocalizationPortfolioTests(unittest.TestCase):
         self.assertEqual(set(reg["apps"]), {"chickmark", "pushkin", "what", "photo-pdf-to-size", "where"})
         self.assertEqual(reg["apps"]["photo-pdf-to-size"]["android"]["sourceLocale"], "en")
         self.assertEqual(reg["apps"]["photo-pdf-to-size"]["ios"]["sourceCatalogs"],
-                         ["en", "ru", "es", "fr", "de", "pt-BR", "it"])
+                         ["en", "ru", "es", "fr", "de", "pt-BR", "it", "ja"])
         for app in ("pushkin", "what", "chickmark"):
             self.assertEqual(reg["apps"][app]["ios"]["sourceCatalogs"],
-                             ["en", "ru", "es", "fr", "de", "pt-BR", "it"])
+                             ["en", "ru", "es", "fr", "de", "pt-BR", "it", "ja"])
 
         self.assertEqual([sum(x["tier"] == t for x in reg["targets"]) for t in (1, 2, 3)], [20, 20, 10])
 
-    def test_all_active_ios_bundles_have_seven_localized_catalogs(self):
-        """First seven localization packs are present in all active iOS bundles.
+    def test_all_active_ios_bundles_have_eight_localized_catalogs(self):
+        """First eight localization packs are present in all active iOS bundles.
 
         This tests source parity, not linguistic quality or App Store release.
         """
@@ -41,7 +41,7 @@ class LocalizationPortfolioTests(unittest.TestCase):
                 baseline = i18n.read_strings(
                     bundle / "en.lproj/Localizable.strings", [])
                 self.assertTrue(baseline, f"{app}/{name} missing English")
-                for code in ("ru", "es", "fr", "de", "pt-BR", "it"):
+                for code in ("ru", "es", "fr", "de", "pt-BR", "it", "ja"):
                     errors = []
                     translated = i18n.read_strings(
                         bundle / f"{code}.lproj/Localizable.strings", errors)
@@ -54,6 +54,43 @@ class LocalizationPortfolioTests(unittest.TestCase):
                             i18n.placeholders(baseline[key]),
                             i18n.placeholders(translated[key]),
                             f"{app}/{name}/{code}/{key}")
+
+    def test_japanese_info_plist_and_shortcuts(self):
+        required = {
+            "photo-pdf-to-size/ios/PhotoPodRazmer/Resources": ["InfoPlist.strings"],
+            "what/ios/WhatIOS": ["InfoPlist.strings"],
+            "what/ios/WhatWatch": ["InfoPlist.strings"],
+            "what/ios/WhatPhoneWidget": ["InfoPlist.strings"],
+            "what/ios/WhatWatchComplication": ["InfoPlist.strings"],
+            "chickmark/ios/HabitsByArvectum": ["InfoPlist.strings", "AppShortcuts.strings"],
+            "chickmark/ios/HabitsByArvectumWatch": ["InfoPlist.strings"],
+        }
+        for bundle, filenames in required.items():
+            root = ROOT / bundle
+            for filename in filenames:
+                errors = []
+                base = i18n.read_strings(root / "en.lproj" / filename, errors)
+                japanese = i18n.read_strings(root / "ja.lproj" / filename, errors)
+                self.assertEqual(errors, [], f"{bundle}/{filename}")
+                self.assertTrue(base)
+                self.assertEqual(set(base), set(japanese))
+                for key in base:
+                    self.assertEqual(i18n.placeholders(base[key]), i18n.placeholders(japanese[key]),
+                                     f"{bundle}/{filename}/{key}")
+                    if filename == "AppShortcuts.strings":
+                        self.assertIn("$" + "{applicationName}", japanese[key])
+                    if key.startswith("NS") and "UsageDescription" in key:
+                        self.assertNotEqual(base[key], japanese[key])
+
+    def test_japanese_catalogs_are_not_english_placeholders(self):
+        reg = i18n.config()
+        for app in ("chickmark", "pushkin", "what", "photo-pdf-to-size"):
+            for name in reg["apps"][app]["bundles"]:
+                bundle = ROOT / name
+                en = i18n.read_strings(bundle / "en.lproj/Localizable.strings", [])
+                ja = i18n.read_strings(bundle / "ja.lproj/Localizable.strings", [])
+                changed = sum(en[key] != ja[key] for key in en)
+                self.assertGreaterEqual(changed / len(en), 0.60, f"{name} looks like English")
 
     def test_italian_info_plist_and_shortcuts(self):
         required = {

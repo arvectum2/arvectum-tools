@@ -1,5 +1,15 @@
 # Arvectum Tools — portfolio localization (50 locales)
 
+## 24 октября 2026 — японский JA, исходный язык №8
+
+- [x] JA доступен во всех 10 iOS/Watch/Widget bundles: 899 исходных переводов.
+- [x] EN/RU/ES/FR/DE/PT-BR/IT/JA каталоги complete; Core 43/43 PASS.
+- [ ] Реальные сборки и UI/Swift XCTest, японская редактура и физическая QA.
+- [ ] Android остаётся на 9 языковых каталогах.
+
+[QA](../docs/IOS_JA_PORTFOLIO_QA_2026-10-24.md).
+
+
 ## 24 октября 2026 — итальянский (IT), язык №7 для iOS
 
 - [x] IT во всех 10 активных iOS/Watch/Widget bundles: 899 переведённых строк. Полный набор EN/RU/ES/FR/DE/PT-BR/IT.
