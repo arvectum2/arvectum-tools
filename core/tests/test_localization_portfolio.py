@@ -21,6 +21,8 @@ class LocalizationPortfolioTests(unittest.TestCase):
 
         self.assertEqual(set(reg["apps"]), {"chickmark", "pushkin", "what", "photo-pdf-to-size", "where"})
         self.assertEqual(reg["apps"]["photo-pdf-to-size"]["android"]["sourceLocale"], "en")
+        self.assertEqual(reg["apps"]["photo-pdf-to-size"]["ios"]["sourceCatalogs"],
+                         ["en", "ru", "es", "fr", "de"])
         self.assertEqual([sum(x["tier"] == t for x in reg["targets"]) for t in (1, 2, 3)], [20, 20, 10])
 
     def test_all_active_ios_bundles_have_four_localized_catalogs(self):
@@ -48,6 +50,25 @@ class LocalizationPortfolioTests(unittest.TestCase):
                             i18n.placeholders(baseline[key]),
                             i18n.placeholders(translated[key]),
                             f"{app}/{name}/{code}/{key}")
+
+    def test_photo_ios_german_catalog_complete_and_placeholder_safe(self):
+        # German is the first new iOS locale, not a claim that all apps have DE.
+        bundle = ROOT / "photo-pdf-to-size/ios/PhotoPodRazmer/Resources"
+        errors = []
+        base = i18n.read_strings(bundle / "en.lproj/Localizable.strings", errors)
+        german = i18n.read_strings(bundle / "de.lproj/Localizable.strings", errors)
+        self.assertEqual(errors, [])
+        self.assertEqual(len(base), 155)
+        self.assertEqual(set(base), set(german))
+        for key in base:
+            self.assertEqual(i18n.placeholders(base[key]),
+                             i18n.placeholders(german[key]), key)
+        self.assertEqual(german["Сжать файл"], "Datei komprimieren")
+        self.assertEqual(german["ГОТОВО"], "FERTIG")
+        self.assertEqual(german["Свой"], "Eigene")
+        self.assertEqual(german["Сохранить файл"], "Datei speichern")
+        self.assertNotEqual(german["Реклама и конфиденциальность"],
+                            base["Реклама и конфиденциальность"])
 
     def test_placeholders(self):
         self.assertEqual(i18n.placeholders("%d of %@"), i18n.placeholders("%2$@ from %1$d"))

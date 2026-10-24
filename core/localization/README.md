@@ -1,5 +1,11 @@
 # Arvectum Tools — portfolio localization (50 locales)
 
+## 24 октября 2026 — пилот немецкого iOS Фото/PDF
+
+- [x] Фото/PDF iOS DE: 155 строк и InfoPlist, 35/35 Core unit PASS, de_DE iOS Simulator UI 3/3 PASS. [Акт](../docs/IOS_GERMAN_PHOTO_QA_2026-10-24.md).
+- [x] Исправлено усечение длинного немецкого названия пресета, добавлена UI-регрессия.
+- [ ] Остальные три iOS-продукта остаются с четырьмя исходными языками; немецкий для них еще не реализован. Android без новых локалей.
+
 ## 24 октября 2026 — проверка первого общего набора
 
 - [x] iOS FR Фото/PDF 155 ключей, FR / ES UI QA по **3/3 PASS** и общий Core locale audit 34/34 PASS. [Акт](../docs/IOS_FIRST_FR_ES_UI_QA_2026-10-24.md).
