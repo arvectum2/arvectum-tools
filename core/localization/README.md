@@ -1,5 +1,15 @@
 # Arvectum Tools — portfolio localization (50 locales)
 
+## 24 октября 2026 — итальянский (IT), язык №7 для iOS
+
+- [x] IT во всех 10 активных iOS/Watch/Widget bundles: 899 переведённых строк. Полный набор EN/RU/ES/FR/DE/PT-BR/IT.
+- [x] InfoPlist, Apple Health, Siri, runtime it/it-IT, Core source QA 41/41 PASS.
+- [ ] Записать результаты нативной симуляторной сборки/UI XCTest, затем редактура и физическая приёмка.
+- [ ] Android остаётся без добавления новых языков.
+
+[Акт](../docs/IOS_IT_PORTFOLIO_QA_2026-10-24.md).
+
+
 ## 24 октября 2026 — pt-BR: шестой язык в исходниках iOS
 
 - [x] RU/EN/ES/FR/DE/PT-BR во всех 10 iOS/Watch/Widget bundles; pt-BR 899 строк.

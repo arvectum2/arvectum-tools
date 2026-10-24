@@ -1,5 +1,15 @@
 # ChickMark — актуальная дорожная карта
 
+## 24.10.2026 · ChickMark — итальянский iOS/Watch/widgets
+
+- [x] IT: iPhone 302 + Watch 22 + iPhone Widget 16 + Watch Widget 5; переведены HealthKit InfoPlist и Siri AppShortcuts.
+- [x] Выбор Italiano в языке интерфейса доступен через полный каталог; параметры форматирования проверяет Core.
+- [ ] IT UI/HealthKit/Watch/VoiceOver, профессиональная вычитка текста разрешений.
+- [ ] Публичные версии и данные пользователя не менялись.
+
+[Акт](../core/docs/IOS_IT_PORTFOLIO_QA_2026-10-24.md).
+
+
 ## 24.10.2026 · pt-BR ChickMark iPhone/Watch/widgets
 
 - [x] pt-BR 302 iPhone + 22 Watch + 16 phone widget + 5 watch widget; HealthKit InfoPlist и Siri AppShortcuts.

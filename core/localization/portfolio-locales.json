@@ -269,10 +269,11 @@
           "es",
           "fr",
           "de",
-          "pt-BR"
+          "pt-BR",
+          "it"
         ],
-        "status": "source-ptbr-complete-pending-editorial-hardware-qa",
-        "note": "EN/RU/ES/FR/DE/PT-BR source catalogs complete in active targets. pt-BR user interface and companion strings added; editorial, physical Watch/VoiceOver and release checks pending. No App Store publication."
+        "status": "source-it-catalog-complete-pending-human-and-device-review",
+        "note": "All 10 active iOS/Watch/Widget bundles have 7 source catalogs EN/RU/ES/FR/DE/PT-BR/IT. Italian app copy is draft and requires native editorial and physical QA; no App Store upload."
       }
     },
     "pushkin": {
@@ -286,10 +287,11 @@
           "es",
           "fr",
           "de",
-          "pt-BR"
+          "pt-BR",
+          "it"
         ],
-        "status": "source-ptbr-complete-pending-editorial-hardware-qa",
-        "note": "EN/RU/ES/FR/DE/PT-BR source catalogs complete in active targets. pt-BR user interface and companion strings added; editorial, physical Watch/VoiceOver and release checks pending. No App Store publication."
+        "status": "source-it-catalog-complete-pending-human-and-device-review",
+        "note": "All 10 active iOS/Watch/Widget bundles have 7 source catalogs EN/RU/ES/FR/DE/PT-BR/IT. Italian app copy is draft and requires native editorial and physical QA; no App Store upload."
       }
     },
     "what": {
@@ -308,10 +310,11 @@
           "es",
           "fr",
           "de",
-          "pt-BR"
+          "pt-BR",
+          "it"
         ],
-        "status": "source-ptbr-complete-pending-editorial-hardware-qa",
-        "note": "EN/RU/ES/FR/DE/PT-BR source catalogs complete in active targets. pt-BR user interface and companion strings added; editorial, physical Watch/VoiceOver and release checks pending. No App Store publication."
+        "status": "source-it-catalog-complete-pending-human-and-device-review",
+        "note": "All 10 active iOS/Watch/Widget bundles have 7 source catalogs EN/RU/ES/FR/DE/PT-BR/IT. Italian app copy is draft and requires native editorial and physical QA; no App Store upload."
       }
     },
     "photo-pdf-to-size": {
@@ -331,10 +334,11 @@
           "es",
           "fr",
           "de",
-          "pt-BR"
+          "pt-BR",
+          "it"
         ],
-        "status": "source-ptbr-complete-pending-editorial-hardware-qa",
-        "note": "EN/RU/ES/FR/DE/PT-BR source catalogs complete in active targets. pt-BR user interface and companion strings added; editorial, physical Watch/VoiceOver and release checks pending. No App Store publication."
+        "status": "source-it-catalog-complete-pending-human-and-device-review",
+        "note": "All 10 active iOS/Watch/Widget bundles have 7 source catalogs EN/RU/ES/FR/DE/PT-BR/IT. Italian app copy is draft and requires native editorial and physical QA; no App Store upload."
       }
     },
     "where": {

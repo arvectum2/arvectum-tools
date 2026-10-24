@@ -1,5 +1,15 @@
 # What? — Product Roadmap
 
+## 24.10.2026 · Ухват — итальянский для iOS/Watch/widgets
+
+- [x] IT: 231 iPhone + 6 Watch + 6 Phone Widget + 5 Watch Complication.
+- [x] Итальянские системные разрешения и реальный выбор it/it-IT в CaptureBrand; nota/note. Язык интерфейса не означает поддержку итальянской локальной транскрипции.
+- [ ] IT AXXXL UI, физический Watch/VoiceOver, редакторская вычитка, релизный approval.
+- [ ] Личные записи и очереди Watch не изменялись.
+
+[Акт](../core/docs/IOS_IT_PORTFOLIO_QA_2026-10-24.md).
+
+
 ## 24.10.2026 · pt-BR Ухват iPhone/Watch/widgets
 
 - [x] pt-BR 231 iPhone + 6 Watch + 6 phone widget + 5 complication; системные InfoPlist разрешения.
