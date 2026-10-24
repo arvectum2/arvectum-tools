@@ -1,0 +1,6 @@
+// Traduzione italiana preliminare; revisione editoriale prima del rilascio.
+"watch.widget.title" = "ChickMark";
+"watch.widget.description" = "Controlla i progressi delle abitudini di oggi direttamente sul quadrante.";
+"watch.widget.empty" = "Niente in programma";
+"watch.widget.inline.format" = "%d/%d abitudini";
+"watch.widget.next.format" = "Prossima: %@";

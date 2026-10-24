@@ -1,5 +1,19 @@
 # Arvectum Tools Core — дорожная карта
 
+## 24.10.2026 · C5.4 — итальянский (IT) для iOS/watchOS
+
+- [x] Все 4 iOS-приложения и Watch/Widget bundles имеют исходные каталоги IT: 899 переведённых строк / 10 targets.
+- [x] Итальянские InfoPlist, HealthKit, реклама/приватность, Siri AppShortcuts, выбор it/it-IT у Pushkin/Ухвата/ChickMark.
+- [x] Core 7-язычный аудит ключей, подстановок и разрешений: **41/41 PASS**.
+- [x] 6/6 iOS/watchOS Simulator unsigned builds PASS; реально собранные IT-ресурсы есть во всех 10 целях.
+- [x] Итальянский iOS Simulator UI **6/6 PASS** (Фото/PDF 3/3, Pushkin 1/1, Ухват 1/1, ChickMark 1/1).
+- [x] Native Swift XCTest **29/29 PASS**: Pushkin 12, Ухват 10, ChickMark 7.
+- [ ] Профессиональная вычитка итальянского, физическая Watch/VoiceOver/permissions QA, отдельное согласование релизов.
+- [ ] Следующая очередь iOS: JA и ZH-Hans. Android без новых языков.
+
+[Акт проверки](docs/IOS_IT_PORTFOLIO_QA_2026-10-24.md).
+
+
 ## 24.10.2026 · C5.3 — pt-BR во всех iOS и watchOS
 
 - [x] RU/EN/ES/FR/DE/PT-BR в исходниках всех 4 iOS-продуктов: 899 португальских строк, 10 bundles.

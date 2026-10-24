@@ -1,0 +1,17 @@
+// Traduzione italiana preliminare; revisione editoriale prima del rilascio.
+"widget.title" = "Oggi";
+"widget.displayName" = "Abitudini di oggi";
+"widget.description" = "Controlla i progressi di oggi e spunta le abitudini senza aprire l'app.";
+"widget.empty" = "Niente in programma oggi";
+"widget.allDone" = "Tutto fatto per oggi";
+"widget.remaining.format" = "%d rimanenti";
+"widget.inline.format" = "%d di %d oggi";
+"widget.more.format" = "+%d altre";
+"widget.complete" = "Segna come completato";
+"widget.undo" = "Annulla completamento";
+"widget.preview.water" = "Acqua";
+"widget.preview.reading" = "Lettura";
+"widget.duration.format" = "%d / %d min";
+"widget.action.complete.format" = "Completa %@";
+"widget.action.undo.format" = "Annulla completamento di %@";
+"widget.empty.small" = "Niente da fare oggi";
