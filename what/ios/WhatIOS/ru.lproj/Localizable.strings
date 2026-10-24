@@ -228,3 +228,6 @@
 "Transcripts were restored from the backup." = "Расшифровки восстановлены из резервной копии.";
 "Could not restore transcripts: %@" = "Не удалось восстановить расшифровки: %@";
 "The last valid backup will be used. Recent text edits may be missing. Deleted notes will not be restored." = "Будет использована последняя исправная копия. Недавние изменения текста могут отсутствовать. Удалённые заметки не восстанавливаются.";
+
+"Your Watch last reported recordings waiting for iPhone confirmation. Audio stays on Watch until iPhone confirms saving; background delivery can be delayed." = "В последнем отчёте часы ожидали подтверждения iPhone. Аудио остаётся на часах до подтверждения сохранения; фоновая доставка может задержаться.";
+"Your Watch last reported an empty queue. New recordings may have been made since that report." = "В последнем отчёте очередь часов была пуста. С тех пор могли появиться новые записи.";

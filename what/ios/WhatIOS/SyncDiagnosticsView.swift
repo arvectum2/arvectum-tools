@@ -147,6 +147,11 @@ struct SyncDiagnosticsView: View {
                              value: "\(snapshot.pendingCount)")
             diagnosticMetric(CaptureBrand.text("Время отчёта часов", "Watch report timestamp"),
                              value: snapshot.updatedAt.formatted(date: .abbreviated, time: .standard))
+            Text(WatchQueueUserStatus.explanation(for: snapshot))
+                .font(.footnote)
+                .foregroundStyle(.secondary)
+                .fixedSize(horizontal: false, vertical: true)
+                .accessibilityIdentifier("watchQueueDeliveryExplanation")
         } else {
             Text(CaptureBrand.text("Отчёт об очереди с часов ещё не получен.",
                                    "No Watch queue report received yet."))

@@ -1,5 +1,11 @@
 # What? — Product Roadmap
 
+## 24.10.2026 · UX задержанной доставки — готов в feature-ветке
+
+- [x] Вместо предположения о мгновенной доставке iPhone поясняет сохранение AAC на Watch до ACK и негарантируемое фоновое ожидание; для пустой последней очереди не заявляет синхронизацию в реальном времени. RU/EN/ES + unit 1/1 PASS, локализационный аудит PASS. [Акт](docs/WATCH_BACKGROUND_DELIVERY_UX_2026-10-24.md).
+- [ ] Отдельные CI, физический UI/VoiceOver и аппаратная повторяемость background остаются открытыми до приёмки.
+
+
 ## 24.10.2026 · Физические фоновые условия получены
 
 - [x] QA bundle на iPhone 13 запущен; журнал 38 событий подтверждает active → Settings/background → active; refresh=available, lowPower=true, protectedData=true, WCSession activated, paired=true, watchInstalled=true, reachable=false. Новых AAC нет. [Акт](docs/WATCH_BACKGROUND_WAKE_POLICY_QA_2026-10-24.md).

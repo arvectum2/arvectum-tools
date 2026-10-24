@@ -227,3 +227,6 @@
 "Transcripts were restored from the backup." = "Se han restaurado las transcripciones desde la copia.";
 "Could not restore transcripts: %@" = "No se pudieron restaurar las transcripciones: %@";
 "The last valid backup will be used. Recent text edits may be missing. Deleted notes will not be restored." = "Se usará la última copia válida. Es posible que falten cambios recientes. No se restaurarán las notas eliminadas.";
+
+"Your Watch last reported recordings waiting for iPhone confirmation. Audio stays on Watch until iPhone confirms saving; background delivery can be delayed." = "En el último informe había grabaciones pendientes de confirmación. El audio permanece en el Watch hasta que el iPhone confirma que se ha guardado; la entrega en segundo plano puede retrasarse.";
+"Your Watch last reported an empty queue. New recordings may have been made since that report." = "El último informe del Watch indicaba una cola vacía. Es posible que se hayan creado nuevas grabaciones desde entonces.";

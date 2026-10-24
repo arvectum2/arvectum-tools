@@ -13,7 +13,7 @@
 ## P0 · Сегодня — завершить новый этап без повторов
 
 - [x] **T24-01 · Ухват — фоновые условия на iPhone.** QA bundle `ru.arvectum.tools.what.watchphysqa` запущен, выполнен цикл active → Settings/background → active, получено 38 событий; Background Refresh=available, Low Power=true, protectedData=true, WCSession=2, paired=true, watchInstalled=true, reachable=false. Данные синхронизированы с Mac mini, новых AAC нет. [Акт](../../what/docs/WATCH_BACKGROUND_WAKE_POLICY_QA_2026-10-24.md).
-- [ ] **T24-02 · Ухват — решение по фоновому обещанию.** Сопоставить измерения с уже задокументированным `transferFile`, отделить гарантированное сохранение на Watch/доставку с ACK от негарантируемой задержки iOS. При необходимости сформулировать честный UX-статус «на часах / ожидает доставки / на iPhone». Не перезапускать закрытые radio-offline/lost-ACK/10-second тесты.
+- [x] **T24-02 · Ухват — честный UX ожидающей передачи.** Экран синхронизации поясняет: аудио остаётся на Watch до ACK, а последний отчёт (включая 0 ожидающих) не доказывает live sync; фоновая доставка может задержаться. RU/EN/ES и адресный unit PASS, локализации PASS; [акт](../../what/docs/WATCH_BACKGROUND_DELIVERY_UX_2026-10-24.md). Физические UI/VoiceOver и CI — отдельные gates.
 - [ ] **T24-03 · Физический UX/безопасность.** По возможности на отдельном QA bundle закрыть VoiceOver и сценарии обычного пользовательского восстановления, не изменяя личные данные, Shortcuts, HealthKit и production приложения. Для reboot до первой разблокировки, настоящего OS kill, ENOSPC, 30+ минут, входящего звонка, encrypted backup/restore и Watch radio/reboot — отдельные контролируемые аппаратные прогоны; не отмечать выполненными без актов.
 
 ## P1 · Следующие практические задачи
