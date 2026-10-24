@@ -1,5 +1,16 @@
 # Фото и PDF под размер — Product Roadmap
 
+## 24.10.2026 · Фото/PDF — итальянский IT
+
+- [x] 155 строк IT, включая файлы, фотографии документов, PDF, рекламу и системные разрешения.
+- [x] Core source locale/placeholder parity PASS.
+- [x] Итальянский iOS Simulator Photo/PDF/AXXXL XCUITest **3/3 PASS**.
+- [ ] Вычитка документов/объявлений и физический тест.
+- [ ] Публичная 1.0.2 не менялась.
+
+[Акт](../core/docs/IOS_IT_PORTFOLIO_QA_2026-10-24.md).
+
+
 ## 24.10.2026 · pt-BR Фото/PDF
 
 - [x] 155 строк pt-BR, InfoPlist и рекламные тексты.

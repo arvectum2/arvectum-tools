@@ -25,6 +25,7 @@
 		227D739414C4A4B0A524EF61 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BC5256A0E66398B704FA4575 /* InfoPlist.strings */; };
 		234EA537934DE57D638D69B5 /* RussianConceptSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E538C9737AF66FDF491ED6C /* RussianConceptSearch.swift */; };
 		23C3DC142A5320642976B51C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F5BECCDE1474FF547D4DDE /* ContentView.swift */; };
+		262E2B333C046F72C5269BC2 /* ItalianLocalizationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50823D2601A933C59EDA0910 /* ItalianLocalizationUITests.swift */; };
 		284F584356287FCAF49AA327 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 82FC46350848674262184DB6 /* Localizable.strings */; };
 		29C27FAB856BF25AAF99EA4B /* WatchCaptureValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34695056F0776593473FDE58 /* WatchCaptureValidation.swift */; };
 		2A8F5E422C6CA0E9AC0E6C5A /* WhatWatchComplication.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 30A158E04405BA04A51B6785 /* WhatWatchComplication.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -197,6 +198,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		044051545C4CEC2458E9B719 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
+		092FA994CA0CDB160B4C6B77 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
 		0A671C143C8B8AA6E71D5046 /* InboxOrganizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxOrganizer.swift; sourceTree = "<group>"; };
 		0C8C7D0F4914D000D27D69C4 /* WhatPhoneWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatPhoneWidget.swift; sourceTree = "<group>"; };
 		0E538C9737AF66FDF491ED6C /* RussianConceptSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RussianConceptSearch.swift; sourceTree = "<group>"; };
@@ -251,6 +254,7 @@
 		4E7551688F04996B25C560E4 /* VideoRecordingSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoRecordingSheet.swift; sourceTree = "<group>"; };
 		4EF0E2FFE3E8099A4E2FAF8D /* SpeechAttemptGate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechAttemptGate.swift; sourceTree = "<group>"; };
 		504D7E8A050C788BB8AB0E56 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		50823D2601A933C59EDA0910 /* ItalianLocalizationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItalianLocalizationUITests.swift; sourceTree = "<group>"; };
 		551D930570643A0C473CBBCC /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		551E716AB170B3B71C038ECA /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		554A6308CE6E00D0214C452B /* PhysicalVideoCaptureUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicalVideoCaptureUITests.swift; sourceTree = "<group>"; };
@@ -304,14 +308,17 @@
 		9851B1A64006E368DF20933C /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A18C5018F3923EB2CC41A40A /* QuickCaptureHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickCaptureHomeView.swift; sourceTree = "<group>"; };
 		A4ED5C55003D60E489465C5D /* WhatWatchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatWatchApp.swift; sourceTree = "<group>"; };
+		A64C383346AF3874B0263106 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A723E3078BCABEEBB69B6BC6 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		A7594885189CFE2057AA3037 /* SyncDiagnosticsLocalizationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncDiagnosticsLocalizationUITests.swift; sourceTree = "<group>"; };
 		A837788192B4123FD29CD0D1 /* WhatComplicationMark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatComplicationMark.swift; sourceTree = "<group>"; };
+		A88F92E69D615712396DE232 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		AF84AA6ED70EBF8AE05B9A8A /* RussianModelManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RussianModelManager.swift; sourceTree = "<group>"; };
 		B0B46C6D45A3D916911E2EE9 /* AppStoreUpdatePromptUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoreUpdatePromptUITests.swift; sourceTree = "<group>"; };
 		B0FF8E47CCBED30E85236611 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B1E49164E4A1CFB3AACF5601 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B443BA7E93D732977AB2850B /* ReviewNoteHandoffTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewNoteHandoffTests.swift; sourceTree = "<group>"; };
+		B57932F5E5FCB62F32228CD5 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		BAE26A89EE1D5F22115781E2 /* NoteReminderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteReminderTests.swift; sourceTree = "<group>"; };
 		BD17D674B9340C94107DCF39 /* ImmediateRecordingPayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImmediateRecordingPayload.swift; sourceTree = "<group>"; };
 		C07F27ECDA004569B200D0FA /* WatchAcknowledgementJournal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchAcknowledgementJournal.swift; sourceTree = "<group>"; };
@@ -320,7 +327,9 @@
 		CCEC9E429D08B3C421557916 /* WhatIOS.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = WhatIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD08F98DA09E748DB00A2E3B /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CD77D9CE7514B2812E2AA048 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		CE89CAA8ECF8F31D67BA2ECD /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CECAA3B8CBC13E2455D09ADE /* CaptureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureView.swift; sourceTree = "<group>"; };
+		CF4244518B6BDDD1E7970310 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D6D1A5C9E79CC4A544374E3E /* WhatComplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatComplication.swift; sourceTree = "<group>"; };
 		D77CB821F9683C6381DD792C /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DAAB014EC25B8F1BE07A8003 /* WatchQueueSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchQueueSnapshot.swift; sourceTree = "<group>"; };
@@ -341,6 +350,7 @@
 		F4FC9E063FD5D4055BEA98E8 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		F6C2BBC3DEC5AB7AD4740E28 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F79DF7539B0FE6EA45B04055 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		F8F5CEA4B3A795DEC60389E3 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		FE07C75A266F4FC33389F35D /* SpanishLocalizationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpanishLocalizationUITests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -471,6 +481,7 @@
 				90671F94F3E392AC149620AD /* BrazilianPortugueseLocalizationUITests.swift */,
 				E6ACA38EC5E339EF4FE47646 /* CaptureFirstUITests.swift */,
 				71F2BBDBB4B641E2CBE4EC2A /* GermanLocalizationUITests.swift */,
+				50823D2601A933C59EDA0910 /* ItalianLocalizationUITests.swift */,
 				554A6308CE6E00D0214C452B /* PhysicalVideoCaptureUITests.swift */,
 				3EEC5029D31A75E43264EDFD /* ReviewDemoUITests.swift */,
 				FE07C75A266F4FC33389F35D /* SpanishLocalizationUITests.swift */,
@@ -762,6 +773,7 @@
 				en,
 				es,
 				fr,
+				it,
 				"pt-BR",
 				ru,
 			);
@@ -873,6 +885,7 @@
 				BBB8FD23CB4A4234EA62B20A /* BrazilianPortugueseLocalizationUITests.swift in Sources */,
 				4B245C0DC2EC18A8311E7D0C /* CaptureFirstUITests.swift in Sources */,
 				C88BAC0848F878D70E02626F /* GermanLocalizationUITests.swift in Sources */,
+				262E2B333C046F72C5269BC2 /* ItalianLocalizationUITests.swift in Sources */,
 				3C065E85B30A37BB3D5F3833 /* PhysicalVideoCaptureUITests.swift in Sources */,
 				0633B2238EF1A5BD5B32969F /* ReviewDemoUITests.swift in Sources */,
 				C3E7359E6447841179AA5181 /* SpanishLocalizationUITests.swift in Sources */,
@@ -1013,6 +1026,7 @@
 				B1E49164E4A1CFB3AACF5601 /* en */,
 				E5FE8F5E7855A20A137D581A /* es */,
 				CD08F98DA09E748DB00A2E3B /* fr */,
+				092FA994CA0CDB160B4C6B77 /* it */,
 				606F42C983BED3191751F9F9 /* pt-BR */,
 				75FC8C5D4AC63C7FB4687328 /* ru */,
 			);
@@ -1026,6 +1040,7 @@
 				56C77D1ACC0672BA94F31EC5 /* en */,
 				85D3D5590BB58299630E564B /* es */,
 				F6C2BBC3DEC5AB7AD4740E28 /* fr */,
+				A64C383346AF3874B0263106 /* it */,
 				22E3D16FAA16F453B88C6F57 /* pt-BR */,
 				4830C8A2C90521D5AB373CAB /* ru */,
 			);
@@ -1039,6 +1054,7 @@
 				96FD19BD89F6F02DB1E7C6ED /* en */,
 				E26092B5A3C7E2E0F327746D /* es */,
 				ED862264EAF4F83AA102BD01 /* fr */,
+				CE89CAA8ECF8F31D67BA2ECD /* it */,
 				3C45BB5F90E0776E72538BFF /* pt-BR */,
 				2AC3CDB54C38567DA4A0FC87 /* ru */,
 			);
@@ -1052,6 +1068,7 @@
 				F2BFC9C4506A03AAA4B5CCC7 /* en */,
 				EC79A9FAA879224ADB720831 /* es */,
 				551E716AB170B3B71C038ECA /* fr */,
+				A88F92E69D615712396DE232 /* it */,
 				2DB40E50DC58ABC77D8C9DA2 /* pt-BR */,
 				CD77D9CE7514B2812E2AA048 /* ru */,
 			);
@@ -1064,6 +1081,7 @@
 				551D930570643A0C473CBBCC /* de */,
 				246D11929E5A69C73C37010B /* en */,
 				66F94BDADC97B3A436C4671A /* fr */,
+				CF4244518B6BDDD1E7970310 /* it */,
 				F4FC9E063FD5D4055BEA98E8 /* pt-BR */,
 				D77CB821F9683C6381DD792C /* ru */,
 			);
@@ -1077,6 +1095,7 @@
 				7CD89933E65194E6C772D383 /* en */,
 				A723E3078BCABEEBB69B6BC6 /* es */,
 				915A1EDB2F1648CE8B95426E /* fr */,
+				B57932F5E5FCB62F32228CD5 /* it */,
 				6FCF9BEEDFE0911C25F27044 /* pt-BR */,
 				45AF5A244D5C57B278411CCC /* ru */,
 			);
@@ -1090,6 +1109,7 @@
 				347A7E530D49925454ACC690 /* en */,
 				3223C46EF2D53F9D619555DB /* es */,
 				ECBA1CD1EC0D75C301D33609 /* fr */,
+				F8F5CEA4B3A795DEC60389E3 /* it */,
 				66A0B6812274E5E0A18C9D4B /* pt-BR */,
 				7FCAEBD0458C93CC98C920F3 /* ru */,
 			);
@@ -1103,6 +1123,7 @@
 				EE271F8D7887D904A165862E /* en */,
 				9851B1A64006E368DF20933C /* es */,
 				77D3906B60E2F4406C658F4D /* fr */,
+				044051545C4CEC2458E9B719 /* it */,
 				914F26E64948E28F334942B1 /* pt-BR */,
 				C9FFDE0F6D9564159A5742C2 /* ru */,
 			);

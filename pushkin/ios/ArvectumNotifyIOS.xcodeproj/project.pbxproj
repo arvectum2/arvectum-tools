@@ -187,6 +187,7 @@
 		2636213BB4652EA208329618 /* PUSHKIN - MyJio- For Everything Jio.shortcut in Resources */ = {isa = PBXBuildFile; fileRef = EF405AAFF36501638DE5EAAF /* PUSHKIN - MyJio- For Everything Jio.shortcut */; };
 		263880BE1E25081E399B6C50 /* PUSHKIN - 2GIS- Map, Navigation, Tracker.shortcut in Resources */ = {isa = PBXBuildFile; fileRef = 24F54749E62D37FC8BB2E85B /* PUSHKIN - 2GIS- Map, Navigation, Tracker.shortcut */; };
 		26D5EE512E93E159470584E6 /* PUSHKIN - alinmapay | Your Daily Wallet.shortcut in Resources */ = {isa = PBXBuildFile; fileRef = 80F487F0A47DE08CF8CDD8A3 /* PUSHKIN - alinmapay | Your Daily Wallet.shortcut */; };
+		2755EAF2299CA5BD7C7899BC /* ItalianLocalizationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526F64052ED77B6A392D90CB /* ItalianLocalizationUITests.swift */; };
 		276D14C8D3A49C82B076AE26 /* PUSHKIN - Mobily - موبايلي.shortcut in Resources */ = {isa = PBXBuildFile; fileRef = 4075359FB759A38961128713 /* PUSHKIN - Mobily - موبايلي.shortcut */; };
 		27863DD4DEDF3BD7454EEE64 /* PUSHKIN - JPJeQ.shortcut in Resources */ = {isa = PBXBuildFile; fileRef = 16046DC89E13AD3BF6B29EDF /* PUSHKIN - JPJeQ.shortcut */; };
 		2788FD980D219AA928CD00A7 /* PUSHKIN - Formo - Calorie Counter.shortcut in Resources */ = {isa = PBXBuildFile; fileRef = F1B80A259A8508D1832AB234 /* PUSHKIN - Formo - Calorie Counter.shortcut */; };
@@ -1402,6 +1403,7 @@
 		51D6757BB681C7C01192D3E2 /* PUSHKIN - Tabelog－日本餐廳探索、訂位與評價全方位平台.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - Tabelog－日本餐廳探索、訂位與評價全方位平台.shortcut"; sourceTree = "<group>"; };
 		5219D4AEBD6212886F093011 /* PUSHKIN - gov.br.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - gov.br.shortcut"; sourceTree = "<group>"; };
 		524A4A07AB91D43E70ADE1E4 /* PUSHKIN - Tikkie.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - Tikkie.shortcut"; sourceTree = "<group>"; };
+		526F64052ED77B6A392D90CB /* ItalianLocalizationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItalianLocalizationUITests.swift; sourceTree = "<group>"; };
 		5283DCBB2938C00209EE7AD1 /* PUSHKIN - Freedom SuperApp.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - Freedom SuperApp.shortcut"; sourceTree = "<group>"; };
 		52BEAFB46652CE7CF9FA9DB6 /* PUSHKIN - AXS Tickets.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - AXS Tickets.shortcut"; sourceTree = "<group>"; };
 		531D7974C11A034DC66ED91C /* PUSHKIN - Grok - AI 助理.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - Grok - AI 助理.shortcut"; sourceTree = "<group>"; };
@@ -1850,6 +1852,7 @@
 		BB897591933CD56B6B623B63 /* AdaptiveLayoutUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveLayoutUITests.swift; sourceTree = "<group>"; };
 		BBA50CFF515497A8C2307E4E /* PUSHKIN - SwapEasy Diagnose.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - SwapEasy Diagnose.shortcut"; sourceTree = "<group>"; };
 		BBE1CF1E208DBFEF5A299F56 /* PUSHKIN - ไทยแนนซ์.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - ไทยแนนซ์.shortcut"; sourceTree = "<group>"; };
+		BBFBA6E17ED88FA255B4CEA7 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
 		BCCEDED85CC48685E289CEED /* PUSHKIN - Mijn DHL.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - Mijn DHL.shortcut"; sourceTree = "<group>"; };
 		BD108FA9F0C5D1D216760C6E /* PUSHKIN - Alliance — мобільний банк.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - Alliance — мобільний банк.shortcut"; sourceTree = "<group>"; };
 		BD1F6D76000036553653D5DF /* PUSHKIN - Ticketmaster－Buy, Sell Tickets.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - Ticketmaster－Buy, Sell Tickets.shortcut"; sourceTree = "<group>"; };
@@ -3282,6 +3285,7 @@
 				F81BBAB3DF244E450F4E71D4 /* BrazilianPortugueseLocalizationUITests.swift */,
 				5B850BF285E0647A19365C7C /* FrenchLocalizationUITests.swift */,
 				7F88370E401F99465A57E0A0 /* GermanLocalizationUITests.swift */,
+				526F64052ED77B6A392D90CB /* ItalianLocalizationUITests.swift */,
 				3FD0B05A3BA2A3C49263F3F9 /* MinimalUXUITests.swift */,
 				D601C4FCEB9D5152F6A69925 /* NotificationDeletionUITests.swift */,
 				9F07DF0E41880D8EE87B1466 /* PushkinA6OnboardingUITests.swift */,
@@ -3386,6 +3390,7 @@
 				en,
 				es,
 				fr,
+				it,
 				"pt-BR",
 				ru,
 			);
@@ -4478,6 +4483,7 @@
 				C30E8DD1951053A047115364 /* BrazilianPortugueseLocalizationUITests.swift in Sources */,
 				123476D28AD9DDDEE32AB9FC /* FrenchLocalizationUITests.swift in Sources */,
 				97AB1F573BD0FA4F0F19A498 /* GermanLocalizationUITests.swift in Sources */,
+				2755EAF2299CA5BD7C7899BC /* ItalianLocalizationUITests.swift in Sources */,
 				612C2D0E30CFB6699C65658F /* MinimalUXUITests.swift in Sources */,
 				B7C2A900D378C7CA9AEFD311 /* NotificationDeletionUITests.swift in Sources */,
 				A46B68266B9679CE0457E857 /* PUSHKINImportUITests.swift in Sources */,
@@ -4512,6 +4518,7 @@
 				681E372D285F9C73EAEF2C12 /* en */,
 				A228AED0745DBFFE3AF7AEDE /* es */,
 				514CC7801B7D71CE15D6104E /* fr */,
+				BBFBA6E17ED88FA255B4CEA7 /* it */,
 				664D859F3EEA04DA41311D29 /* pt-BR */,
 				E88D3D65B6E0FF8B87FA0DE3 /* ru */,
 			);

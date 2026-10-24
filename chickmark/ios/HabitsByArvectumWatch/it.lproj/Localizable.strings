@@ -1,0 +1,23 @@
+// Traduzione italiana preliminare; revisione editoriale prima del rilascio.
+"watch.today" = "Oggi";
+"watch.progress.format" = "%d di %d";
+"watch.empty" = "Niente in programma oggi";
+"watch.streak.format" = "%d giorni di seguito";
+"watch.weekly.format" = "%d di %d questa settimana";
+"watch.completed" = "Completato";
+"watch.notCompleted" = "Non completato";
+"watch.skipped" = "Saltato";
+"watch.undoHint" = "Tocca due volte per annullare il completamento";
+"watch.completeHint" = "Tocca due volte per segnare come completato";
+"watch.duration.format" = "%d / %d min";
+"watch.step.add" = "Aggiungi un passo";
+"watch.step.remove" = "Annulla un passo";
+"watch.preview.water" = "Acqua";
+"watch.preview.reading" = "Lettura";
+"watch.checkins.progress.format" = "%d di %d registrazioni";
+"watch.health.unit.steps" = "passi";
+"watch.health.unit.kilometers" = "km";
+"watch.health.unit.minutes" = "min";
+"watch.health.unit.hours" = "ore";
+"watch.health.unit.unknown" = "";
+"watch.health.unavailable" = "Dati Apple Salute non disponibili";

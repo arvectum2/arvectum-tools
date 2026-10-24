@@ -4,7 +4,7 @@ import Foundation
 /// same Watch/phone URL scheme also routes new text and video notes.
 enum CaptureBrand {
     /// Speech recognition is a separate setting from the visual interface.
-    /// Interface follows iOS per-app/device language in RU/EN/ES/FR/DE/PT-BR; unsupported
+    /// Interface follows iOS per-app/device language in RU/EN/ES/FR/DE/PT-BR/IT; unsupported
     /// interface languages have an English fallback. Watch and widget process
     /// locales are resolved independently. Existing recording language
     /// preferences and original audio remain untouched.
@@ -37,7 +37,7 @@ enum CaptureBrand {
         for identifier in preferredLanguages {
             let language = Locale(identifier: identifier)
                 .language.languageCode?.identifier.lowercased()
-            if let language, ["ru", "en", "es", "fr", "de", "pt"].contains(language) {
+            if let language, ["ru", "en", "es", "fr", "de", "pt", "it"].contains(language) {
                 return language
             }
         }
@@ -80,6 +80,12 @@ enum CaptureBrand {
         return Bundle(path: path)
     }()
 
+    private static let italianBundle: Bundle? = {
+        guard let path = Bundle.main.path(forResource: "it", ofType: "lproj")
+        else { return nil }
+        return Bundle(path: path)
+    }()
+
     static var name: String { isRussian ? "Ухват" : "UhWhat?" }
 
     static func text(
@@ -107,6 +113,11 @@ enum CaptureBrand {
                 forKey: english, value: english, table: nil
             ) ?? english
         }
+        if code.hasPrefix("it") {
+            return italianBundle?.localizedString(
+                forKey: english, value: english, table: nil
+            ) ?? english
+        }
         return english
     }
 
@@ -124,7 +135,8 @@ enum CaptureBrand {
             code.hasPrefix("es") ? "es_ES" :
             code.hasPrefix("fr") ? "fr_FR" :
             code.hasPrefix("de") ? "de_DE" :
-            code.hasPrefix("pt") ? "pt_BR" : "en_US"
+            code.hasPrefix("pt") ? "pt_BR" :
+            code.hasPrefix("it") ? "it_IT" : "en_US"
         )
         return String(
             format: text(russian, english, language: code),
@@ -160,6 +172,9 @@ enum CaptureBrand {
         }
         if language.hasPrefix("pt") {
             return "\(count) \(count == 1 ? "nota" : "notas")"
+        }
+        if language.hasPrefix("it") {
+            return "\(count) \(count == 1 ? "nota" : "note")"
         }
         return "\(count) \(count == 1 ? "note" : "notes")"
     }
