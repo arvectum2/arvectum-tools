@@ -287,6 +287,17 @@
         "sourceLocale": "en",
         "resources": "photo-pdf-to-size/android/app/src/main/res",
         "note": "English fallback plus RU, ES, pt-BR, FR, DE, IT, NL, PL development catalogs. Each includes 93 base UI keys and 3 export filename suffixes (96 strings). 41 of 50 Android language targets untranslated. Native editorial and physical accessibility QA pending. No release."
+      },
+      "ios": {
+        "sourceCatalogs": [
+          "en",
+          "ru",
+          "es",
+          "fr",
+          "de"
+        ],
+        "status": "source-de-ready-simulator-qa-passed-not-released",
+        "note": "DE is complete for 155 UI keys and two InfoPlist strings; 3/3 targeted de_DE iPhone Simulator XCUITest PASS. German consent and document translations need editorial review. Not an App Store release."
       }
     },
     "where": {

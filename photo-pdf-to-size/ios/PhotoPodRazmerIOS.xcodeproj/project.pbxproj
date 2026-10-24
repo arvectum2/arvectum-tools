@@ -13,6 +13,7 @@
 		0FB37D5BE05CD84680ED52A3 /* SpanishLocalizationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83EF38BC2091092E3256431 /* SpanishLocalizationUITests.swift */; };
 		15735CC0D48C474DF95E86A5 /* AppModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1A80B3072CE5FACCF31E93 /* AppModelTests.swift */; };
 		2325751C72D9E2B7E65B54B3 /* PhotoTaskCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1704F4EFC78F45ED94849BE /* PhotoTaskCard.swift */; };
+		294F6FA31CEE4AC2D02399D1 /* GermanLocalizationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA17F22469ADEA9EEF3AB9D1 /* GermanLocalizationUITests.swift */; };
 		29C78D92E965C0229782689B /* PDFTaskCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A317268BAF55882F262F0D /* PDFTaskCard.swift */; };
 		2AB7F6CF8624FF0C7395E029 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 9C9CFC5AF3ABB172654A63C1 /* PrivacyInfo.xcprivacy */; };
 		2F8C49BE3134AF28B3A580FF /* FileExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB98F5B7046F064E296DCE0 /* FileExport.swift */; };
@@ -96,6 +97,7 @@
 		6EB98F5B7046F064E296DCE0 /* FileExport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileExport.swift; sourceTree = "<group>"; };
 		705150ECFF2DFDD01819AA14 /* PDFEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFEngine.swift; sourceTree = "<group>"; };
 		80AE379C986847049827FA6E /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		828E7D0B658668B6E2175B09 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		859CD85E40C881410B84E65B /* PassportCropView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassportCropView.swift; sourceTree = "<group>"; };
 		86220EAB9DCD77B6155B0390 /* AdaptiveLayoutUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveLayoutUITests.swift; sourceTree = "<group>"; };
 		89EE7554AAE420CCFCD6DCDB /* AppModel+Processing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppModel+Processing.swift"; sourceTree = "<group>"; };
@@ -113,6 +115,7 @@
 		BA6A19361B1CFE8FCAE5FEE1 /* AppModel+Internals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppModel+Internals.swift"; sourceTree = "<group>"; };
 		BF70A0A390BCD6BE5B7AA584 /* AdaptiveSourcePreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveSourcePreview.swift; sourceTree = "<group>"; };
 		BF81C2DB26B812C531A1B79E /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		C12FBF05D956B2D358FC0879 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C73CED7FA58809F3D8187E7B /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		CB73B138CC67081AF8838E65 /* PDFEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFEngineTests.swift; sourceTree = "<group>"; };
 		D193C4745F6EB7FC3712E160 /* PhotoPodRazmerUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = PhotoPodRazmerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -123,6 +126,7 @@
 		F1B5593105023DBFA51B2853 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		F2399FF183418363CD69E64C /* InputConstraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputConstraints.swift; sourceTree = "<group>"; };
 		F937E646A199C40CA670BDDA /* PhotoPodRazmerTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = PhotoPodRazmerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA17F22469ADEA9EEF3AB9D1 /* GermanLocalizationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GermanLocalizationUITests.swift; sourceTree = "<group>"; };
 		FAA4A5EFD1913620F19DA676 /* FilesImportUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilesImportUITests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -228,6 +232,7 @@
 				8C2BEE4260F53FA7FA646769 /* AppStoreUpdatePromptUITests.swift */,
 				FAA4A5EFD1913620F19DA676 /* FilesImportUITests.swift */,
 				63718FABF1BB1E0396D0D91F /* FrenchLocalizationUITests.swift */,
+				FA17F22469ADEA9EEF3AB9D1 /* GermanLocalizationUITests.swift */,
 				51511B7AEB7D0B5421F72F64 /* LayoutRegressionUITests.swift */,
 				E83EF38BC2091092E3256431 /* SpanishLocalizationUITests.swift */,
 				8D2E6DAE150416D54E6F5148 /* WorkflowUITests.swift */,
@@ -352,6 +357,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				Base,
+				de,
 				en,
 				es,
 				fr,
@@ -398,6 +404,7 @@
 				CAE9F723AB4378DF165700D1 /* AppStoreUpdatePromptUITests.swift in Sources */,
 				F17F62FE21A2AC89FA0CFB55 /* FilesImportUITests.swift in Sources */,
 				9FE9BE43C590539B7599B173 /* FrenchLocalizationUITests.swift in Sources */,
+				294F6FA31CEE4AC2D02399D1 /* GermanLocalizationUITests.swift in Sources */,
 				4F900A2725EFC0A15AE49B0F /* LayoutRegressionUITests.swift in Sources */,
 				0FB37D5BE05CD84680ED52A3 /* SpanishLocalizationUITests.swift in Sources */,
 				FCE6C79A3351D95AF2E4F003 /* WorkflowUITests.swift in Sources */,
@@ -468,6 +475,7 @@
 		F65B1DB20A70EDE63ACD8A44 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
+				C12FBF05D956B2D358FC0879 /* de */,
 				499263E4679EADCAE1EA5A65 /* en */,
 				C73CED7FA58809F3D8187E7B /* es */,
 				80AE379C986847049827FA6E /* fr */,
@@ -479,6 +487,7 @@
 		F70153CC2BE5352F2D9891E7 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
+				828E7D0B658668B6E2175B09 /* de */,
 				3B1197D2C48FCE7500B11E87 /* en */,
 				2D5EAD1878C26C6F6327B7B1 /* es */,
 				4E5FA122EC548C560FEF50C4 /* fr */,
