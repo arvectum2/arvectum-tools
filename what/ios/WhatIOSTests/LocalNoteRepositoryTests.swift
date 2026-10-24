@@ -55,7 +55,7 @@ final class LocalNoteRepositoryTests: XCTestCase {
     }
 
     func testPhysicalNewVideoAndLocalIndexUseFirstUnlockProtection() throws {
-#if os(iOS)
+#if os(iOS) && !targetEnvironment(simulator)
         let root = root()
         defer { try? FileManager.default.removeItem(at: root) }
         try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)
@@ -84,7 +84,7 @@ final class LocalNoteRepositoryTests: XCTestCase {
     }
 
     func testPhysicalLegacyVideoMigrationDoesNotAlterTextMOVOrDeletionLedger() throws {
-#if os(iOS)
+#if os(iOS) && !targetEnvironment(simulator)
         let root = root()
         defer { try? FileManager.default.removeItem(at: root) }
         let videos = root.appendingPathComponent("Videos", isDirectory: true)

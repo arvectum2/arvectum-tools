@@ -37,7 +37,7 @@ final class RecordingRepositoryTests: XCTestCase {
     /// background receiver after first unlock but protected before it.
     /// Use an isolated temporary root with synthetic bytes, never user AAC.
     func testPhysicalIncomingAudioAndIndexAreProtectedUntilFirstUnlock() throws {
-#if os(iOS)
+#if os(iOS) && !targetEnvironment(simulator)
         let root = FileManager.default.temporaryDirectory
             .appendingPathComponent("what-audio-protection-\(UUID().uuidString)")
         defer { try? FileManager.default.removeItem(at: root) }
@@ -91,7 +91,7 @@ final class RecordingRepositoryTests: XCTestCase {
     }
 
     func testPhysicalLegacyIndexProtectionMigrationKeepsBytes() throws {
-#if os(iOS)
+#if os(iOS) && !targetEnvironment(simulator)
         let root = FileManager.default.temporaryDirectory
             .appendingPathComponent("what-legacy-index-\(UUID().uuidString)")
         defer { try? FileManager.default.removeItem(at: root) }
@@ -155,7 +155,7 @@ final class RecordingRepositoryTests: XCTestCase {
     }
 
     func testPhysicalLegacyAACMigrationProtectsWithoutChangingAnyBytes() throws {
-#if os(iOS)
+#if os(iOS) && !targetEnvironment(simulator)
         let root = FileManager.default.temporaryDirectory
             .appendingPathComponent("what-legacy-aac-\(UUID().uuidString)")
         defer { try? FileManager.default.removeItem(at: root) }
@@ -1318,6 +1318,28 @@ final class RecordingRepositoryTests: XCTestCase {
         bad = original.context
         bad[TransferMetadataKey.type] = "something-else"
         XCTAssertNil(WatchQueueSnapshot(context: bad))
+    }
+
+    func testWatchQueueExplanationDoesNotClaimImmediateDeliveryOrLiveSync() {
+        let oldReport = Date(timeIntervalSince1970: 1_700_000_000)
+        let waiting = WatchQueueSnapshot(pendingCount: 2, updatedAt: oldReport)
+        let empty = WatchQueueSnapshot(pendingCount: 0, updatedAt: oldReport)
+
+        let waitingRU = WatchQueueUserStatus.explanation(for: waiting, language: "ru")
+        XCTAssertTrue(waitingRU.contains("Аудио остаётся на часах"))
+        XCTAssertTrue(waitingRU.contains("может задержаться"))
+        let waitingEN = WatchQueueUserStatus.explanation(for: waiting, language: "en")
+        XCTAssertTrue(waitingEN.contains("until iPhone confirms saving"))
+        XCTAssertTrue(waitingEN.contains("can be delayed"))
+        let waitingES = WatchQueueUserStatus.explanation(for: waiting, language: "es")
+        XCTAssertTrue(waitingES.contains("segundo plano"))
+
+        let emptyRU = WatchQueueUserStatus.explanation(for: empty, language: "ru")
+        XCTAssertTrue(emptyRU.contains("могли появиться новые записи"))
+        let emptyEN = WatchQueueUserStatus.explanation(for: empty, language: "en")
+        XCTAssertTrue(emptyEN.contains("may have been made"))
+        let emptyES = WatchQueueUserStatus.explanation(for: empty, language: "es")
+        XCTAssertTrue(emptyES.contains("nuevas grabaciones"))
     }
 
     func testWatchQueueCacheRejectsOutOfOrderStatusAndPersists() throws {

@@ -46,7 +46,7 @@ final class PhoneCaptureStorageTests: XCTestCase {
     }
 
     func testPhysicalLegacyAACAndJSONMigrationIsBytePreserving() throws {
-#if os(iOS)
+#if os(iOS) && !targetEnvironment(simulator)
         let dir = root()
         defer { try? FileManager.default.removeItem(at: dir) }
         try FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
@@ -77,7 +77,7 @@ final class PhoneCaptureStorageTests: XCTestCase {
     }
 
     func testPhysicalNewManifestAndRealAACProtectedBeforeRecording() throws {
-#if os(iOS)
+#if os(iOS) && !targetEnvironment(simulator)
         let dir = root()
         defer { try? FileManager.default.removeItem(at: dir) }
         let storage = PhoneCaptureStorage(directory: dir, files: .default)
@@ -124,7 +124,7 @@ final class PhoneCaptureStorageTests: XCTestCase {
     }
 
     func testPhysicalAlreadyStrongerCompleteProtectionRemainsUntouched() throws {
-#if os(iOS)
+#if os(iOS) && !targetEnvironment(simulator)
         let dir = root()
         defer { try? FileManager.default.removeItem(at: dir) }
         try FileManager.default.createDirectory(
@@ -183,7 +183,7 @@ final class PhoneCaptureStorageTests: XCTestCase {
 
     @MainActor
     func testPhysicalControllerRecoversExactlyOneAACWithoutMicrophone() throws {
-#if os(iOS)
+#if os(iOS) && !targetEnvironment(simulator)
         let dir = root()
         defer { try? FileManager.default.removeItem(at: dir) }
         let storage = PhoneCaptureStorage(directory: dir, files: .default)
@@ -215,7 +215,7 @@ final class PhoneCaptureStorageTests: XCTestCase {
 
     @MainActor
     func testPhysicalUnreadableRecoveryPreservesAACAndManifest() throws {
-#if os(iOS)
+#if os(iOS) && !targetEnvironment(simulator)
         let dir = root()
         defer { try? FileManager.default.removeItem(at: dir) }
         let storage = PhoneCaptureStorage(directory: dir, files: .default)

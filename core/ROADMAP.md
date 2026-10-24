@@ -2,6 +2,8 @@
 
 ## 24.10.2026 — актуализированная очередь
 
+- [x] **Ухват, T24-02:** реализован честный поясняющий статус асинхронной доставки Watch в диагностике iPhone (RU/EN/ES, 1/1 unit PASS). Отдельные CI и физический UI QA — открыты. [Акт](../what/docs/WATCH_BACKGROUND_DELIVERY_UX_2026-10-24.md).
+
 - [x] `main` / CI на HEAD `319bca9` проверены; ранее выполненные hardware regression тесты и XcodeGen guard остаются закрытыми.
 - [x] **24.10 физический замер:** цикл iPhone QA active → background → active прошёл, 38 событий; Background Refresh=available, Low Power=true, protectedData=true, WCSession activated. Следующий этап — анализ задержанной доставки Ухвата.
 - [ ] **Затем:** не закрытые физические UI/доступность/HealthKit/Photos/РСЯ по четырём приложениям; сайт PR #15 готов по CI, но не опубликован.

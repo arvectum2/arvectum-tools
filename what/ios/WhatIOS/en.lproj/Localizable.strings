@@ -227,3 +227,6 @@
 "Transcripts were restored from the backup." = "Transcripts were restored from the backup.";
 "Could not restore transcripts: %@" = "Could not restore transcripts: %@";
 "The last valid backup will be used. Recent text edits may be missing. Deleted notes will not be restored." = "The last valid backup will be used. Recent text edits may be missing. Deleted notes will not be restored.";
+
+"Your Watch last reported recordings waiting for iPhone confirmation. Audio stays on Watch until iPhone confirms saving; background delivery can be delayed." = "Your Watch last reported recordings waiting for iPhone confirmation. Audio stays on Watch until iPhone confirms saving; background delivery can be delayed.";
+"Your Watch last reported an empty queue. New recordings may have been made since that report." = "Your Watch last reported an empty queue. New recordings may have been made since that report.";
