@@ -91,6 +91,20 @@ final class LanguageFallbackTests: XCTestCase {
         XCTAssertEqual(CaptureBrand.noteCount(0, language: "es"), "0 notas")
     }
 
+    func testBrazilianPortugueseInterfaceWithIndependentTranscription() {
+        XCTAssertEqual(
+            CaptureBrand.resolvedInterfaceLanguage(for: ["pt-BR", "en-US"]), "pt")
+        // German/Portuguese UI does not imply their offline speech models exist.
+        XCTAssertEqual(CaptureBrand.defaultTranscriptionLocale(for: "pt"), "en-US")
+        XCTAssertEqual(
+            CaptureBrand.text("Все заметки", "All notes", language: "pt-BR"),
+            "Todas as notas")
+        XCTAssertEqual(
+            CaptureBrand.text("Сохранить", "Save", language: "pt"), "Salvar")
+        XCTAssertEqual(CaptureBrand.noteCount(1, language: "pt-BR"), "1 nota")
+        XCTAssertEqual(CaptureBrand.noteCount(2, language: "pt-BR"), "2 notas")
+    }
+
     func testGermanInterfaceLocaleAndLocalTranslation() {
         XCTAssertEqual(
             CaptureBrand.resolvedInterfaceLanguage(for: ["de-DE", "en-US"]), "de")

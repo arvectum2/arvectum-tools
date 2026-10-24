@@ -1,5 +1,20 @@
 # Arvectum Tools Core — дорожная карта
 
+## 24.10.2026 · C5.3 — pt-BR во всех iOS и watchOS
+
+- [x] RU/EN/ES/FR/DE/PT-BR в исходниках всех 4 iOS-продуктов: 899 португальских строк, 10 bundles.
+- [x] Системные InfoPlist, реклама/приватность, HealthKit и Siri AppShortcuts; региональное разрешение pt-BR в Pushkin, Ухвате и ChickMark.
+- [x] Core 6-язычный аудит и подстановки 39/39 PASS.
+- [x] Все 6 unsigned iOS/watchOS сборок PASS, pt-BR.lproj проверен внутри всех 10 продуктов/расширений.
+- [x] pt-BR iPhone Simulator UI **6/6 PASS**: Фото/PDF 3/3, Pushkin 1/1, Ухват 1/1, ChickMark 1/1.
+- [x] Swift XCTest pt-BR: Pushkin 11/11, Ухват 9/9, ChickMark 6/6 PASS.
+- [ ] Профессиональная вычитка, физический VoiceOver/Watch/consent QA перед релизом.
+- [ ] Следующая iOS-волна IT, JA, ZH-Hans; Android пока не расширять.
+- [ ] Никаких новых App Store загрузок без отдельного подтверждения владельца.
+
+[QA](docs/IOS_PTBR_PORTFOLIO_QA_2026-10-24.md).
+
+
 ## 24.10.2026 · C5.2 — DE для всех iOS и watchOS: исходники
 
 - [x] У всех 4 активных iOS-приложений полные RU/EN/ES/FR/DE исходные каталоги: 10 bundles, 899 немецких строк в портфеле.

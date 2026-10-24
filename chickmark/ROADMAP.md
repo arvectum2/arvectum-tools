@@ -1,5 +1,17 @@
 # ChickMark — актуальная дорожная карта
 
+## 24.10.2026 · pt-BR ChickMark iPhone/Watch/widgets
+
+- [x] pt-BR 302 iPhone + 22 Watch + 16 phone widget + 5 watch widget; HealthKit InfoPlist и Siri AppShortcuts.
+- [x] ChickMarkLanguage распознаёт pt-BR из настроек устройства и приложения.
+- [x] pt-BR iPhone synthetic-store new-habit UI 1/1 PASS, без изменения CloudKit.
+- [x] Swift XCTest pt-BR: Pushkin 11/11, Ухват 9/9, ChickMark 6/6 PASS.
+- [ ] Физический HealthKit/Watch/VoiceOver QA и экспертная вычитка.
+- [ ] Публичные версии и пользовательские записи не изменены.
+
+[QA](../core/docs/IOS_PTBR_PORTFOLIO_QA_2026-10-24.md).
+
+
 ## 24.10.2026 · ChickMark DE — iOS, Watch, виджеты
 
 - [x] DE: iPhone 302, Watch 22, iPhone Widget 16, Watch Widget 5 строк; Siri AppShortcuts и HealthKit разрешения переведены.

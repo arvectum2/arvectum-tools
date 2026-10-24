@@ -1,5 +1,18 @@
 # Arvectum Tools — portfolio localization (50 locales)
 
+## 24 октября 2026 — pt-BR: шестой язык в исходниках iOS
+
+- [x] RU/EN/ES/FR/DE/PT-BR во всех 10 iOS/Watch/Widget bundles; pt-BR 899 строк.
+- [x] Переведены разрешения, Siri-подстановки и региональный pt-BR в коде.
+- [x] Core locale QA 39/39 PASS.
+- [x] pt-BR Simulator UI 6/6 PASS; шесть iOS/watchOS unsigned builds PASS, все compiled bundles включают pt-BR.lproj.
+- [x] Swift XCTest pt-BR: Pushkin 11/11, Ухват 9/9, ChickMark 6/6 PASS.
+- [ ] Физический VoiceOver/Watch QA, профессиональная вычитка и отдельное разрешение релиза.
+- [ ] Android остаётся на девяти исходных пакетах.
+
+[QA](../docs/IOS_PTBR_PORTFOLIO_QA_2026-10-24.md).
+
+
 ## 24 октября 2026 — исходные DE во всех четырёх iOS-приложениях
 
 - [x] Полные de.lproj source каталоги во всех 10 iOS/Watch/Widget bundles: Фото/PDF 155, Pushkin 151, Ухват 248, ChickMark 345.
