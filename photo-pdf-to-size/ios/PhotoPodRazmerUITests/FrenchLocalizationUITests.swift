@@ -5,6 +5,20 @@ import XCTest
 final class FrenchLocalizationUITests: XCTestCase {
     override func setUpWithError() throws { continueAfterFailure = false }
 
+    /// App Store version checks are live in older simulator builds. A newer
+    /// public release can show this non-blocking prompt over the QA fixture.
+    /// Dismiss only the update dialog, without disabling production behavior.
+    @MainActor
+    private func dismissOptionalUpdatePrompt(_ app: XCUIApplication) {
+        let later = app.buttons.matching(
+            NSPredicate(format: "label == %@ OR label == %@", "Позже", "Later")
+        ).firstMatch
+        if later.waitForExistence(timeout: 8) {
+            XCTAssertTrue(later.isHittable, "Optional update prompt must be dismissible")
+            later.tap()
+        }
+    }
+
     @MainActor
     private func launchFrench(_ fixture: String) -> XCUIApplication {
         let app = XCUIApplication()
@@ -21,6 +35,7 @@ final class FrenchLocalizationUITests: XCTestCase {
             XCTAssertTrue(app.buttons["ad-consent-accept"].isHittable)
             decline.tap()
         }
+        dismissOptionalUpdatePrompt(app)
         return app
     }
 
@@ -62,6 +77,7 @@ final class FrenchLocalizationUITests: XCTestCase {
         app.launch()
         let decline = app.buttons["ad-consent-decline"]
         if decline.waitForExistence(timeout: 3) { decline.tap() }
+        dismissOptionalUpdatePrompt(app)
 
         let first = app.buttons["mode-fileSize"]
         let second = app.buttons["mode-pixels"]
