@@ -1,5 +1,18 @@
 # Arvectum Tools Core — дорожная карта
 
+## 24.10.2026 · C5.6 — упрощённый китайский ZH-Hans, язык №9 для iOS
+
+- [x] Все 4 iOS-приложения и 10 iOS/Watch/Widget targets: **899 строк zh-Hans** в исходниках.
+- [x] Системные InfoPlist, рекламные согласия, HealthKit и Siri; выбор zh-Hans/zh-CN в Pushkin, Ухвате и ChickMark с защитой zh-Hant.
+- [x] Core девятиязычный аудит ключей и форматных параметров: **45/45 PASS**.
+- [ ] iOS/watchOS сборки, настоящие UI/Swift XCTest — зафиксировать только по логам.
+- [ ] Нативная китайская вычитка, физическая VoiceOver/Watch/consent QA перед релизом.
+- [ ] iOS-first сохраняется; Android не расширять до приёмки.
+- [ ] Ни один App Store upload не разрешён автоматически.
+
+[Отчёт](docs/IOS_ZH_HANS_PORTFOLIO_QA_2026-10-24.md).
+
+
 ## 24.10.2026 · Core C5.5 — японский JA, восьмой язык в исходниках
 
 - [x] Все 4 iOS-приложения и 10 iOS/Watch/Widget bundles: 899 японских строк.

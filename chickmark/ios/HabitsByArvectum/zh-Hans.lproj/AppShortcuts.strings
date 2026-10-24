@@ -1,0 +1,4 @@
+"Complete a habit in ${applicationName}" = "在${applicationName}中完成习惯";
+"Check off a habit in ${applicationName}" = "在${applicationName}中打卡";
+"Undo a habit in ${applicationName}" = "在${applicationName}中撤销习惯完成";
+"Mark a habit incomplete in ${applicationName}" = "在${applicationName}中将习惯标记为未完成";

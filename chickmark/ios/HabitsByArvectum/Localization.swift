@@ -61,6 +61,12 @@ enum ChickMarkLanguage {
             let code = preference
                 .split(whereSeparator: { $0 == "-" || $0 == "_" })
                 .first.map(String.init)?.lowercased() ?? ""
+            let normalized = preference.lowercased().replacingOccurrences(of: "_", with: "-")
+            if code == "zh" && (normalized.hasPrefix("zh-hant") ||
+               normalized.hasPrefix("zh-tw") || normalized.hasPrefix("zh-hk") ||
+               normalized.hasPrefix("zh-mo")) {
+                continue
+            }
             if available.contains(code) { return code }
             // Locale identifiers can be regional (pt-BR). Keep fully
             // translated regional catalogues selectable under system locale.
@@ -96,6 +102,7 @@ enum ChickMarkLanguage {
         case "pt-BR": return "Português (Brasil)"
         case "it": return "Italiano"
         case "ja": return "日本語"
+        case "zh-Hans": return "简体中文"
         case system: return L10n.string("language.system")
         default:
             // Autonym, rather than displaying the language name in the

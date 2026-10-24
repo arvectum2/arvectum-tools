@@ -271,10 +271,11 @@
           "de",
           "pt-BR",
           "it",
-          "ja"
+          "ja",
+          "zh-Hans"
         ],
-        "status": "source-ja-complete-editorial-device-qa-pending",
-        "note": "Eight catalog-complete iOS/watchOS/widget locales EN/RU/ES/FR/DE/PT-BR/IT/JA. ja localizations are development drafts and require native review and real-device QA. No App Store release."
+        "status": "source-zh-hans-complete-native-editorial-and-physical-qa-pending",
+        "note": "Nine fully keyed iOS/Watch/Widget source catalogs EN/RU/ES/FR/DE/PT-BR/IT/JA/ZH-Hans across all four products, 899 Chinese source entries. Human and physical QA pending; no App Store publication."
       }
     },
     "pushkin": {
@@ -290,10 +291,11 @@
           "de",
           "pt-BR",
           "it",
-          "ja"
+          "ja",
+          "zh-Hans"
         ],
-        "status": "source-ja-complete-editorial-device-qa-pending",
-        "note": "Eight catalog-complete iOS/watchOS/widget locales EN/RU/ES/FR/DE/PT-BR/IT/JA. ja localizations are development drafts and require native review and real-device QA. No App Store release."
+        "status": "source-zh-hans-complete-native-editorial-and-physical-qa-pending",
+        "note": "Nine fully keyed iOS/Watch/Widget source catalogs EN/RU/ES/FR/DE/PT-BR/IT/JA/ZH-Hans across all four products, 899 Chinese source entries. Human and physical QA pending; no App Store publication."
       }
     },
     "what": {
@@ -314,10 +316,11 @@
           "de",
           "pt-BR",
           "it",
-          "ja"
+          "ja",
+          "zh-Hans"
         ],
-        "status": "source-ja-complete-editorial-device-qa-pending",
-        "note": "Eight catalog-complete iOS/watchOS/widget locales EN/RU/ES/FR/DE/PT-BR/IT/JA. ja localizations are development drafts and require native review and real-device QA. No App Store release."
+        "status": "source-zh-hans-complete-native-editorial-and-physical-qa-pending",
+        "note": "Nine fully keyed iOS/Watch/Widget source catalogs EN/RU/ES/FR/DE/PT-BR/IT/JA/ZH-Hans across all four products, 899 Chinese source entries. Human and physical QA pending; no App Store publication."
       }
     },
     "photo-pdf-to-size": {
@@ -339,10 +342,11 @@
           "de",
           "pt-BR",
           "it",
-          "ja"
+          "ja",
+          "zh-Hans"
         ],
-        "status": "source-ja-complete-editorial-device-qa-pending",
-        "note": "Eight catalog-complete iOS/watchOS/widget locales EN/RU/ES/FR/DE/PT-BR/IT/JA. ja localizations are development drafts and require native review and real-device QA. No App Store release."
+        "status": "source-zh-hans-complete-native-editorial-and-physical-qa-pending",
+        "note": "Nine fully keyed iOS/Watch/Widget source catalogs EN/RU/ES/FR/DE/PT-BR/IT/JA/ZH-Hans across all four products, 899 Chinese source entries. Human and physical QA pending; no App Store publication."
       }
     },
     "where": {

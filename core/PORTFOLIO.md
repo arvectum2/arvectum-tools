@@ -1,5 +1,12 @@
 # Arvectum Tools — Roadmap Registry
 
+## 24.10.2026 · ZH-Hans: девятый исходный язык iOS
+
+- [x] Полные RU/EN/ES/FR/DE/PT-BR/IT/JA/ZH-Hans в 4 iOS-приложениях и десяти iPhone/Watch/widgets bundles.
+- [x] 899 китайских строк, локализованные разрешения и региональный fallback. [QA](docs/IOS_ZH_HANS_PORTFOLIO_QA_2026-10-24.md).
+- [ ] Симуляторные и физические/редакторские проверки, отдельный Apple approval.
+
+
 ## 24.10.2026 · iOS-first Japanese
 
 - [x] Восемь исходных языков RU/EN/ES/FR/DE/PT-BR/IT/JA для 4 продуктов/10 targets; JA 899 строк.

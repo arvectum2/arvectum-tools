@@ -91,6 +91,22 @@ final class LanguageFallbackTests: XCTestCase {
         XCTAssertEqual(CaptureBrand.noteCount(0, language: "es"), "0 notas")
     }
 
+    func testSimplifiedChineseUIAndTraditionalChineseFallback() {
+        XCTAssertEqual(CaptureBrand.resolvedInterfaceLanguage(for: ["zh-Hans-CN", "en"]), "zh")
+        XCTAssertEqual(CaptureBrand.resolvedInterfaceLanguage(for: ["zh-CN", "en"]), "zh")
+        XCTAssertEqual(CaptureBrand.resolvedInterfaceLanguage(for: ["zh-Hant-TW", "en"]), "en")
+        XCTAssertEqual(CaptureBrand.defaultTranscriptionLocale(for: "zh"), "en-US")
+        XCTAssertEqual(
+            CaptureBrand.text("Все заметки", "All notes", language: "zh-Hans"), "全部笔记")
+        XCTAssertEqual(
+            CaptureBrand.text("Сохранить", "Save", language: "zh-CN"), "保存")
+        XCTAssertEqual(CaptureBrand.noteCount(1, language: "zh-Hans"), "1条笔记")
+        XCTAssertEqual(CaptureBrand.noteCount(2, language: "zh-CN"), "2条笔记")
+        XCTAssertEqual(
+            CaptureBrand.text("Все заметки", "All notes", language: "zh-Hant"), "All notes")
+        XCTAssertEqual(CaptureBrand.noteCount(2, language: "zh-TW"), "2 notes")
+    }
+
     func testJapaneseInterfaceIsIndependentFromDictationLanguage() {
         XCTAssertEqual(CaptureBrand.resolvedInterfaceLanguage(for: ["ja-JP", "en"]), "ja")
         XCTAssertEqual(CaptureBrand.defaultTranscriptionLocale(for: "ja"), "en-US")

@@ -1,5 +1,15 @@
 # PUSHKIN — Product Roadmap
 
+## 24.10.2026 · Pushkin — zh-Hans
+
+- [x] 151 китайская строка, включая инструкции Apple快捷指令.
+- [x] PushkinCopy направляет zh/zh-CN в zh-Hans, zh-Hant не подменяет упрощённым.
+- [ ] Китайские UI/Swift unit, физический Shortcuts/VoiceOver и вычитка.
+- [ ] App Store review и публичные версии не менялись.
+
+[QA](../core/docs/IOS_ZH_HANS_PORTFOLIO_QA_2026-10-24.md).
+
+
 ## 24.10.2026 · Pushkin JA
 
 - [x] 151 строка японского интерфейса и настроек ショートカット (Shortcuts).
