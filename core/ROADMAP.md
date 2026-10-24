@@ -5,7 +5,9 @@
 - [x] Все 4 iOS-приложения и Watch/Widget bundles имеют исходные каталоги IT: 899 переведённых строк / 10 targets.
 - [x] Итальянские InfoPlist, HealthKit, реклама/приватность, Siri AppShortcuts, выбор it/it-IT у Pushkin/Ухвата/ChickMark.
 - [x] Core 7-язычный аудит ключей, подстановок и разрешений: **41/41 PASS**.
-- [ ] Результаты шести iOS/watchOS сборок, Swift unit и целевых итальянских UI XCUITest — зафиксировать по логам.
+- [x] 6/6 iOS/watchOS Simulator unsigned builds PASS; реально собранные IT-ресурсы есть во всех 10 целях.
+- [x] Итальянский iOS Simulator UI **6/6 PASS** (Фото/PDF 3/3, Pushkin 1/1, Ухват 1/1, ChickMark 1/1).
+- [x] Native Swift XCTest **29/29 PASS**: Pushkin 12, Ухват 10, ChickMark 7.
 - [ ] Профессиональная вычитка итальянского, физическая Watch/VoiceOver/permissions QA, отдельное согласование релизов.
 - [ ] Следующая очередь iOS: JA и ZH-Hans. Android без новых языков.
 

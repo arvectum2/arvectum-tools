@@ -30,10 +30,16 @@ Android's existing 9 source locales remain unchanged.
 - [x] Added native Swift localization assertions and four Italian
   iOS XCUITest classes for synthetic no-user-data workflows.
 - [x] XcodeGen regenerated projects.
-- [ ] Four iOS/two watchOS Simulator build result — verify logs.
-- [ ] Italian iOS Simulator UI photo/PDF/AXXXL, Pushkin tabs,
-  Uhvat AXXXL, ChickMark isolated habit form — verify logs.
-- [ ] App-specific Swift language/routing test totals — verify logs.
+- [x] **6/6 unsigned Simulator builds PASS**: Photo/PDF iOS, PUSHKIN iOS, Uhvat iOS, ChickMark iOS, Uhvat watchOS, ChickMark watchOS.
+- [x] Italian source resources `it.lproj` directly verified in compiled four iOS `.app` bundles and embedded watchOS/widget targets.
+- [x] Real iOS 27.0 iPhone 17 Pro Simulator Italian UI **6/6 PASS**:
+  Photo/PDF synthetic image + PDF + Accessibility XXXL **3/3**, Pushkin
+  tab navigation **1/1** (final corrected test), Uhvat synthetic AXXXL
+  home **1/1** (no recording), ChickMark new-habit isolated store **1/1**
+  (no CloudKit changes).
+- [x] Real native Swift XCTest **29/29 PASS**: Pushkin CoverageCatalogTests
+  12/12, Uhvat LanguageFallbackTests 10/10, ChickMark LocalizationTests
+  7/7. Italian language routing and grammatically correct counters verified.
 
 ## Open gates
 - [ ] Native Italian proofreading, especially ads/privacy, document
@@ -45,3 +51,17 @@ Android's existing 9 source locales remain unchanged.
 - [ ] Continue iOS-first: Japanese ja and zh-Hans after completing IT QA.
 
 Stacked draft PR chain: #141 -> #142 -> #143 -> #144 -> Italian PR.
+
+## Incident triage
+The first Italian Pushkin UI test expected the English tab identifier
+"Apps", but the correctly translated UI label is the invariant Italian
+"App". Updated the test expectation, then **reran successfully 1/1**.
+The first UI test process was stopped after its failure was logged and
+its completion stalled; this is NOT counted as a passing test. Final
+numbers reflect the successful rerun. No production Pushkin behavior
+needed changing for this incident.
+
+## QA provenance
+Dedicated disposable iPhone 17 Pro iOS 27.0 Simulator; unsigned
+Xcode 27.1 builds; all real XCTest logs and xcresult packages kept
+on Mac mini SSD outside GitHub, plus this Markdown summary.

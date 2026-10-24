@@ -4,7 +4,8 @@
 
 - [x] 151 строка IT, включая инструкции ручной установки Comandi (Shortcuts).
 - [x] PushkinCopy выбирает итальянский пакет без изменения системных идентификаторов Shortcuts.
-- [ ] IT UI/Swift unit/VoiceOver, редакторская вычитка инструкций и физический QA.
+- [x] Итальянский UI Simulator **1/1 PASS**, Swift unit **12/12 PASS**.
+- [ ] VoiceOver, редакторская вычитка инструкций и физический QA.
 - [ ] Публичные версии и Apple review не менялись.
 
 [Акт](../core/docs/IOS_IT_PORTFOLIO_QA_2026-10-24.md).

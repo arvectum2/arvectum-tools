@@ -4,7 +4,8 @@
 
 - [x] IT во всех 10 активных iOS/Watch/Widget bundles: 899 переведённых строк. Полный набор EN/RU/ES/FR/DE/PT-BR/IT.
 - [x] InfoPlist, Apple Health, Siri, runtime it/it-IT, Core source QA 41/41 PASS.
-- [ ] Записать результаты нативной симуляторной сборки/UI XCTest, затем редактура и физическая приёмка.
+- [x] Шесть iOS/watchOS сборок PASS, итальянский UI 6/6 PASS, Swift language XCTest 29/29 PASS.
+- [ ] Нативная редактура и физическая приёмка (Apple Watch, VoiceOver, permissions) открыты.
 - [ ] Android остаётся без добавления новых языков.
 
 [Акт](../docs/IOS_IT_PORTFOLIO_QA_2026-10-24.md).

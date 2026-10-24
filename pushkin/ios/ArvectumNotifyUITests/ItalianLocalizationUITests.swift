@@ -15,7 +15,7 @@ final class ItalianLocalizationUITests: XCTestCase {
         if later.waitForExistence(timeout: 3) { later.tap() }
 
         let history = app.tabBars.buttons["Cronologia"].firstMatch
-        let apps = app.tabBars.buttons["Apps"].firstMatch
+        let apps = app.tabBars.buttons["App"].firstMatch
         let settings = app.tabBars.buttons["Impostazioni"].firstMatch
         XCTAssertTrue(history.waitForExistence(timeout: 12))
         XCTAssertTrue(app.navigationBars["Cronologia"].firstMatch.exists)
@@ -27,7 +27,7 @@ final class ItalianLocalizationUITests: XCTestCase {
         settings.tap()
         XCTAssertTrue(app.navigationBars["Impostazioni"].firstMatch.waitForExistence(timeout: 8))
         let evidence = XCTAttachment(screenshot: XCUIScreen.main.screenshot())
-        evidence.name = "pushkin-de-settings"
+        evidence.name = "pushkin-it-settings"
         evidence.lifetime = .keepAlways
         add(evidence)
     }

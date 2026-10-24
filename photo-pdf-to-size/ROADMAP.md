@@ -4,7 +4,8 @@
 
 - [x] 155 строк IT, включая файлы, фотографии документов, PDF, рекламу и системные разрешения.
 - [x] Core source locale/placeholder parity PASS.
-- [ ] Итальянский Photo/PDF/AXXXL UI XCUITest, вычитка документов/объявлений и физический тест.
+- [x] Итальянский iOS Simulator Photo/PDF/AXXXL XCUITest **3/3 PASS**.
+- [ ] Вычитка документов/объявлений и физический тест.
 - [ ] Публичная 1.0.2 не менялась.
 
 [Акт](../core/docs/IOS_IT_PORTFOLIO_QA_2026-10-24.md).

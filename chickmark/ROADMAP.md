@@ -4,7 +4,8 @@
 
 - [x] IT: iPhone 302 + Watch 22 + iPhone Widget 16 + Watch Widget 5; переведены HealthKit InfoPlist и Siri AppShortcuts.
 - [x] Выбор Italiano в языке интерфейса доступен через полный каталог; параметры форматирования проверяет Core.
-- [ ] IT UI/HealthKit/Watch/VoiceOver, профессиональная вычитка текста разрешений.
+- [x] Итальянский iOS Simulator synthetic-store UI **1/1 PASS**, Swift unit **7/7 PASS**.
+- [ ] Физический HealthKit/Watch/VoiceOver и профессиональная вычитка разрешений.
 - [ ] Публичные версии и данные пользователя не менялись.
 
 [Акт](../core/docs/IOS_IT_PORTFOLIO_QA_2026-10-24.md).
