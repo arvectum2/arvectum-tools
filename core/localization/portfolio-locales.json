@@ -268,10 +268,11 @@
           "ru",
           "es",
           "fr",
-          "de"
+          "de",
+          "pt-BR"
         ],
-        "status": "source-de-structural-pass-not-published",
-        "note": "German Localizable catalog in every active iOS/watchOS/Widget bundle; applicable German InfoPlist and AppShortcuts strings added. These are development translations needing editorial/native and physical device QA. No release."
+        "status": "source-ptbr-complete-pending-editorial-hardware-qa",
+        "note": "EN/RU/ES/FR/DE/PT-BR source catalogs complete in active targets. pt-BR user interface and companion strings added; editorial, physical Watch/VoiceOver and release checks pending. No App Store publication."
       }
     },
     "pushkin": {
@@ -284,10 +285,11 @@
           "ru",
           "es",
           "fr",
-          "de"
+          "de",
+          "pt-BR"
         ],
-        "status": "source-de-structural-pass-not-published",
-        "note": "German Localizable catalog in every active iOS/watchOS/Widget bundle; applicable German InfoPlist and AppShortcuts strings added. These are development translations needing editorial/native and physical device QA. No release."
+        "status": "source-ptbr-complete-pending-editorial-hardware-qa",
+        "note": "EN/RU/ES/FR/DE/PT-BR source catalogs complete in active targets. pt-BR user interface and companion strings added; editorial, physical Watch/VoiceOver and release checks pending. No App Store publication."
       }
     },
     "what": {
@@ -305,10 +307,11 @@
           "ru",
           "es",
           "fr",
-          "de"
+          "de",
+          "pt-BR"
         ],
-        "status": "source-de-structural-pass-not-published",
-        "note": "German Localizable catalog in every active iOS/watchOS/Widget bundle; applicable German InfoPlist and AppShortcuts strings added. These are development translations needing editorial/native and physical device QA. No release."
+        "status": "source-ptbr-complete-pending-editorial-hardware-qa",
+        "note": "EN/RU/ES/FR/DE/PT-BR source catalogs complete in active targets. pt-BR user interface and companion strings added; editorial, physical Watch/VoiceOver and release checks pending. No App Store publication."
       }
     },
     "photo-pdf-to-size": {
@@ -327,10 +330,11 @@
           "ru",
           "es",
           "fr",
-          "de"
+          "de",
+          "pt-BR"
         ],
-        "status": "source-de-ready-simulator-qa-passed-not-released",
-        "note": "DE is complete for 155 UI keys and two InfoPlist strings; 3/3 targeted de_DE iPhone Simulator XCUITest PASS. German consent and document translations need editorial review. Not an App Store release."
+        "status": "source-ptbr-complete-pending-editorial-hardware-qa",
+        "note": "EN/RU/ES/FR/DE/PT-BR source catalogs complete in active targets. pt-BR user interface and companion strings added; editorial, physical Watch/VoiceOver and release checks pending. No App Store publication."
       }
     },
     "where": {

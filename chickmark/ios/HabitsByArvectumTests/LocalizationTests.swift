@@ -123,7 +123,7 @@ final class LocalizationTests: XCTestCase {
     ]
 
     func testPickerOffersOnlyBundledLocales() {
-        XCTAssertEqual(ChickMarkLanguage.supported, ["ru", "en", "es", "fr"])
+        XCTAssertEqual(ChickMarkLanguage.supported, ["ru", "en", "es", "de", "fr", "pt-BR"])
         XCTAssertEqual(
             ChickMarkLanguage.orderedLanguages(["fr", "en", "Base", "ru", "es", "en"]),
             ["ru", "en", "es", "fr"]
@@ -146,6 +146,35 @@ final class LocalizationTests: XCTestCase {
             ChickMarkLanguage.orderedLanguages(["en", "ja", "de"]),
             ["en", "de", "ja"]
         )
+    }
+
+    func testBrazilianPortugueseRegionalLocaleResolutionAndCopy() {
+        let available = ["ru", "en", "de", "pt-BR"]
+        XCTAssertEqual(
+            ChickMarkLanguage.resolvedIdentifier(
+                for: "system", preferred: ["pt-BR", "en-US"],
+                available: available
+            ),
+            "pt-BR"
+        )
+        XCTAssertEqual(
+            ChickMarkLanguage.resolvedIdentifier(
+                for: "system", preferred: ["pt_BR", "en-US"],
+                available: available
+            ),
+            "pt-BR"
+        )
+        XCTAssertEqual(
+            ChickMarkLanguage.resolvedIdentifier(
+                for: "pt-BR", preferred: ["en-US"], available: available
+            ),
+            "pt-BR"
+        )
+        XCTAssertEqual(ChickMarkLanguage.displayName(for: "pt-BR"), "Português (Brasil)")
+        XCTAssertEqual(L10n.string("today.title", language: "pt-BR"), "Hoje")
+        XCTAssertEqual(L10n.string("habit.create", language: "pt-BR"), "Criar hábito")
+        let template = L10n.string("today.progress.format", language: "pt-BR")
+        XCTAssertEqual(String(format: template, 1, 3), "Marcados: 1 de 3")
     }
 
     func testUnsupportedSystemLanguageFallsBackToEnglish() {

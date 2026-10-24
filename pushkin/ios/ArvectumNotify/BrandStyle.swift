@@ -143,12 +143,12 @@ struct ArvectumCard<Content: View>: View {
 
 // MARK: - UX writing with EN, RU, ES, FR and DE interface copy
 // English is the canonical source. Russian retains the historical in-code
-// dictionary, and Spanish/French/German use complete .lproj catalogs.
+// dictionary, and Spanish/French/German/Brazilian Portuguese use complete .lproj catalogs.
 // Never translate Shortcuts identifiers or the user's notification content.
 enum PushkinCopy {
     private static let translatedBundles: [String: Bundle] = {
-        Dictionary(uniqueKeysWithValues: ["es", "fr", "de"].compactMap { language in
-            guard let path = Bundle.main.path(forResource: language, ofType: "lproj"),
+        Dictionary(uniqueKeysWithValues: ["es", "fr", "de", "pt"].compactMap { language in
+            guard let path = Bundle.main.path(forResource: language == "pt" ? "pt-BR" : language, ofType: "lproj"),
                   let bundle = Bundle(path: path)
             else { return nil }
             return (language, bundle)
@@ -166,7 +166,7 @@ enum PushkinCopy {
         switch code {
         case "ru":
             return russian[english] ?? english
-        case "es", "fr", "de":
+        case "es", "fr", "de", "pt":
             return translatedBundles[code]?.localizedString(
                 forKey: english, value: english, table: nil
             ) ?? english
@@ -185,6 +185,9 @@ enum PushkinCopy {
         }
         if language.lowercased().hasPrefix("fr") {
             return count == 1 ? "1 application" : "\(count) applications"
+        }
+        if language.lowercased().hasPrefix("pt") {
+            return count == 1 ? "1 app" : "\(count) apps"
         }
         if language.lowercased().hasPrefix("de") {
             return count == 1 ? "1 App" : "\(count) Apps"

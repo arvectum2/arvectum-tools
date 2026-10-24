@@ -82,6 +82,15 @@ final class CoverageCatalogTests: XCTestCase {
         XCTAssertEqual(PushkinCopy.appCount(1, language: "de-DE"), "1 App")
     }
 
+    func testBrazilianPortugueseBundleAndAppCount() {
+        XCTAssertEqual(PushkinCopy.text("History", language: "pt-BR"), "Histórico")
+        XCTAssertEqual(PushkinCopy.text("Settings", language: "pt_BR"), "Ajustes")
+        XCTAssertEqual(PushkinCopy.text("Apps & Setup", language: "pt"), "Apps e configuração")
+        XCTAssertEqual(PushkinCopy.text("Group %d", language: "pt-BR"), "Grupo %d")
+        XCTAssertEqual(PushkinCopy.appCount(1, language: "pt-BR"), "1 app")
+        XCTAssertEqual(PushkinCopy.appCount(2, language: "pt-BR"), "2 apps")
+    }
+
     func testPendingSourceNameIsBriefWithoutChangingSourceIdentity() {
         XCTAssertEqual(
             PushkinDisplayName.brief("CapCut: Photo & Video Editor"),

@@ -1,0 +1,6 @@
+// Português do Brasil, revisão humana antes do release.
+"watch.widget.title" = "ChickMark";
+"watch.widget.description" = "Veja o progresso dos hábitos de hoje no mostrador do relógio.";
+"watch.widget.empty" = "Nada pendente";
+"watch.widget.inline.format" = "%d/%d hábitos";
+"watch.widget.next.format" = "Próximo: %@";
