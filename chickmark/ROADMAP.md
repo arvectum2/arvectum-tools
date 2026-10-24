@@ -4,7 +4,8 @@
 
 - [x] JA iPhone 302, Watch 22, Phone Widget 16, Watch Widget 5 строк.
 - [x] Японский HealthKit InfoPlist, Siri AppShortcuts, выбор 日本語 из системы и приложения.
-- [ ] JA UI/Watch/HealthKit/VoiceOver, профессиональная редактура.
+- [x] Japanese iPhone UI **1/1**, Swift locale unit **8/8 PASS**.
+- [ ] Физический Watch/HealthKit/VoiceOver и японская редактура.
 - [ ] Публичная версия и пользовательские данные не менялись.
 
 [QA](../core/docs/IOS_JA_PORTFOLIO_QA_2026-10-24.md).

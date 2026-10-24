@@ -4,7 +4,8 @@
 
 - [x] 151 строка японского интерфейса и настроек ショートカット (Shortcuts).
 - [x] PushkinCopy реально переключает на JA, счётчики локализованы.
-- [ ] JA UI/Swift XCTest, физический Shortcuts/VoiceOver и редактура.
+- [x] Japanese iOS UI **1/1**, Swift unit **13/13 PASS**.
+- [ ] Физический Shortcuts/VoiceOver и редактура.
 - [ ] Apple upload не выполнялся.
 
 [QA](../core/docs/IOS_JA_PORTFOLIO_QA_2026-10-24.md).

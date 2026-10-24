@@ -94,7 +94,7 @@ final class JapaneseLocalizationUITests: XCTestCase {
             XCTAssertGreaterThanOrEqual(button.frame.height, 44)
         }
         XCTAssertEqual(first.label, "ファイルを圧縮")
-        XCTAssertEqual(second.label, "写真をサイズ変更")
+        XCTAssertEqual(second.label, "写真のサイズを変更")
         XCTAssertEqual(third.label, "証明写真")
         XCTAssertEqual(fourth.label, "PDFを処理")
         XCTAssertLessThan(abs(first.frame.minY - second.frame.minY), 12)

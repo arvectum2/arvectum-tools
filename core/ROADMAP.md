@@ -5,7 +5,8 @@
 - [x] Все 4 iOS-приложения и 10 iOS/Watch/Widget bundles: 899 японских строк.
 - [x] Японские InfoPlist, реклама, HealthKit, Siri, разрешения; реальная JA-маршрутизация Pushkin/Ухвата/ChickMark.
 - [x] Обязательный восьмиязычный Core gate 43/43 PASS.
-- [ ] iOS/watchOS сборки и целевые UI/Swift XCTest — зафиксировать реальные результаты.
+- [x] **6/6 iOS/watchOS сборок PASS**, ресурсы JA проверены в реальных собранных приложениях и расширениях.
+- [x] **6/6 японских UI PASS**, **32/32 Swift unit PASS** (Pushkin 13, Ухват 11, ChickMark 8).
 - [ ] Профессиональная японская вычитка, физические Watch/VoiceOver/permission QA.
 - [ ] Далее iOS-first: упрощённый китайский zh-Hans. Android без расширения.
 - [ ] Никаких загрузок App Store без отдельного согласования.

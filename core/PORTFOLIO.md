@@ -4,6 +4,7 @@
 
 - [x] Восемь исходных языков RU/EN/ES/FR/DE/PT-BR/IT/JA для 4 продуктов/10 targets; JA 899 строк.
 - [x] Исправлен японский интерфейс Pushkin/Ухвата/ChickMark. [QA](docs/IOS_JA_PORTFOLIO_QA_2026-10-24.md).
+- [x] Japanese builds 6/6, UI 6/6 и Swift language XCTest 32/32 PASS.
 - [ ] Физическая/редакторская QA и отдельное согласование Apple релизов.
 
 

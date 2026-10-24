@@ -4,7 +4,8 @@
 
 - [x] JA доступен во всех 10 iOS/Watch/Widget bundles: 899 исходных переводов.
 - [x] EN/RU/ES/FR/DE/PT-BR/IT/JA каталоги complete; Core 43/43 PASS.
-- [ ] Реальные сборки и UI/Swift XCTest, японская редактура и физическая QA.
+- [x] JA iOS/watchOS builds 6/6, Japanese UI 6/6 и Swift unit 32/32 PASS.
+- [ ] Профессиональная японская редактура и физическая VoiceOver/Watch QA.
 - [ ] Android остаётся на 9 языковых каталогах.
 
 [QA](../docs/IOS_JA_PORTFOLIO_QA_2026-10-24.md).

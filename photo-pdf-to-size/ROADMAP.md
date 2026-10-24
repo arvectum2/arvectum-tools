@@ -4,7 +4,8 @@
 
 - [x] 155 японских строк, включая фото, PDF, документы, рекламу и InfoPlist.
 - [x] Форматы Core PASS.
-- [ ] iOS Japanese UI photo/PDF/AXXXL, вычитка регламентов и физическая QA.
+- [x] Japanese photo/PDF/AXXXL Simulator UI **3/3 PASS** (AXXXL повторно с правильным названием кнопки).
+- [ ] Редакторская вычитка и физическая QA.
 - [ ] Публичная 1.0.2 не менялась.
 
 [QA](../core/docs/IOS_JA_PORTFOLIO_QA_2026-10-24.md).

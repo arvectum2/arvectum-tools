@@ -5,7 +5,8 @@
 - [x] iPhone 231, Watch 6, Phone Widget 6, Watch Complication 5 японских строк.
 - [x] JA InfoPlist и разрешения; CaptureBrand поддерживает ja-JP, счётчик 件のメモ.
 - [x] Язык интерфейса не связан с независимой настройкой транскрипции.
-- [ ] JA iPhone AXXXL, Watch/VoiceOver/редактура, отдельный релизный approval.
+- [x] Japanese iPhone AXXXL UI **1/1**, Swift unit **11/11 PASS**.
+- [ ] Физический Watch/VoiceOver и редактура, отдельное согласование релиза.
 - [ ] Личные аудиофайлы и очередь Watch не изменялись.
 
 [QA](../core/docs/IOS_JA_PORTFOLIO_QA_2026-10-24.md).
