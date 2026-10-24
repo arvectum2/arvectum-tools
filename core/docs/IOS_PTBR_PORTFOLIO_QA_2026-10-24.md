@@ -37,9 +37,12 @@ EN/RU/ES/FR and then DE. This branch follows stacked draft PRs
 - [x] pt-BR companion InfoPlist and Siri string lint and placeholder parity PASS.
 - [x] XcodeGen regenerated all four project sources.
 - [x] Six unsigned builds PASS: Photo/PDF iOS, PUSHKIN iOS, Uhvat iOS, ChickMark iOS, Uhvat watchOS and ChickMark watchOS.
-- [ ] pt-BR simulator XCUITests: Photo/PDF photo, PDF and AXXXL; Pushkin
-  navigation; Uhvat AXXXL; ChickMark synthetic isolated store.
+- [x] Isolated iPhone 17 Pro / iOS 27.0 pt-BR XCUITests **6/6 PASS**:
+  Photo/PDF photo, PDF and AXXXL **3/3**, Pushkin tabs/navigation **1/1**,
+  Uhvat AXXXL home **1/1** (synthetic, without recording), ChickMark
+  new-habit synthetic local store **1/1** (CloudKit disabled).
 - [x] Verified actual compiled pt-BR.lproj resources inside four iPhone apps, two embedded Watch apps and all four app extensions/widgets.
+- [x] Native Swift tests: Pushkin 11/11, Uhvat 9/9, ChickMark 6/6 PASS, no failures.
 
 ## Open release gates
 - [ ] Native Brazilian editorial review for legal/advertising, health,

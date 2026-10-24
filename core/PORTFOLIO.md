@@ -4,6 +4,7 @@
 
 - [x] Шесть языков исходников RU/EN/ES/FR/DE/PT-BR во всех 10 компонентах iOS/watchOS/widgets, 899 строк pt-BR. [QA](docs/IOS_PTBR_PORTFOLIO_QA_2026-10-24.md).
 - [x] Android не расширен; перевод исходников не равен опубликованному App Store языку.
+- [x] Шесть iOS/watchOS сборок и pt-BR iPhone Simulator UI 6/6 PASS.
 - [ ] Физическая/редакторская приёмка и отдельный Apple approval ещё нужны.
 
 

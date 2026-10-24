@@ -6,7 +6,8 @@
 - [x] Системные InfoPlist, реклама/приватность, HealthKit и Siri AppShortcuts; региональное разрешение pt-BR в Pushkin, Ухвате и ChickMark.
 - [x] Core 6-язычный аудит и подстановки 39/39 PASS.
 - [x] Все 6 unsigned iOS/watchOS сборок PASS, pt-BR.lproj проверен внутри всех 10 продуктов/расширений.
-- [ ] Завершить отдельные pt-BR XCUITest и записать реальные результаты.
+- [x] pt-BR iPhone Simulator UI **6/6 PASS**: Фото/PDF 3/3, Pushkin 1/1, Ухват 1/1, ChickMark 1/1.
+- [x] Swift XCTest pt-BR: Pushkin 11/11, Ухват 9/9, ChickMark 6/6 PASS.
 - [ ] Профессиональная вычитка, физический VoiceOver/Watch/consent QA перед релизом.
 - [ ] Следующая iOS-волна IT, JA, ZH-Hans; Android пока не расширять.
 - [ ] Никаких новых App Store загрузок без отдельного подтверждения владельца.

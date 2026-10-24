@@ -4,7 +4,9 @@
 
 - [x] 151 строк pt-BR, включая инструкции Shortcuts.
 - [x] PushkinCopy теперь использует региональный pt-BR каталог.
-- [ ] UI/VoiceOver, длинные инструкции и физический Shortcuts QA.
+- [x] pt-BR Simulator UI navigation 1/1 PASS.
+- [x] Swift XCTest pt-BR: Pushkin 11/11, Ухват 9/9, ChickMark 6/6 PASS.
+- [ ] Физический VoiceOver/Shortcuts QA и экспертная вычитка длинных инструкций.
 - [ ] App Store upload не выполнялся.
 
 [QA](../core/docs/IOS_PTBR_PORTFOLIO_QA_2026-10-24.md).

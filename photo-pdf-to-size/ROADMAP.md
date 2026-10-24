@@ -4,7 +4,8 @@
 
 - [x] 155 строк pt-BR, InfoPlist и рекламные тексты.
 - [x] Core parity/printf PASS.
-- [ ] pt-BR photo/PDF/AXXXL simulator UI, физическая QA и юридическая вычитка.
+- [x] pt-BR photo/PDF/AXXXL Simulator UI 3/3 PASS.
+- [ ] Физическая QA и юридическая вычитка рекламных текстов.
 - [ ] Публичная 1.0.2 не менялась.
 
 [QA](../core/docs/IOS_PTBR_PORTFOLIO_QA_2026-10-24.md).
