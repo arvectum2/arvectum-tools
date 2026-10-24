@@ -1,5 +1,13 @@
 # PUSHKIN — Product Roadmap
 
+## 24.10.2026 — Pushkin 1.0.2(6) submitted to Apple
+
+- [x] **App Review WAITING_FOR_REVIEW**, automatic release AFTER_APPROVAL,
+  signed build 6 VALID, RU/EN/ES/FR store localizations, screenshots COMPLETE.
+  [Submission evidence](docs/PUSHKIN_1_0_2_APP_REVIEW_SUBMISSION_2026-10-24.md).
+- [ ] Apple approval / READY_FOR_SALE and public language validation.
+
+
 ## 24.10.2026 — four-language 1.0.2 (6), signed release candidate
 
 - [x] Release archive 1.0.2 build 6 and signed IPA contain RU/EN/ES/FR,

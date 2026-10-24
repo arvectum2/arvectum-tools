@@ -1,5 +1,8 @@
 # Arvectum Tools Core — дорожная карта
 
+- [x] 24.10.2026: PUSHKIN 1.0.2(6) four locales RU/EN/ES/FR, signed IPA and Apple review WAITING_FOR_REVIEW, AFTER_APPROVAL. [Record](../pushkin/docs/PUSHKIN_1_0_2_APP_REVIEW_SUBMISSION_2026-10-24.md).
+
+
 - [x] 24.10.2026: Ухват 1.1.1(9) и ChickMark 1.5.1(19) отправлены в App Review; оба WAITING_FOR_REVIEW и AFTER_APPROVAL. [Акт](docs/FOUR_LANG_APP_REVIEW_SUBMITTED_2026-10-24.md).
 
 
