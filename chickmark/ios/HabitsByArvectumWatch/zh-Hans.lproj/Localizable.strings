@@ -1,0 +1,23 @@
+// Traduzione italiana preliminare; revisione editoriale prima del rilascio.
+"watch.today" = "今天";
+"watch.progress.format" = "%d／%d";
+"watch.empty" = "今天没有安排";
+"watch.streak.format" = "连续%d天";
+"watch.weekly.format" = "本周%d／%d";
+"watch.completed" = "已完成";
+"watch.notCompleted" = "未完成";
+"watch.skipped" = "已跳过";
+"watch.undoHint" = "双击撤销完成";
+"watch.completeHint" = "双击标记为完成";
+"watch.duration.format" = "%d／%d分钟";
+"watch.step.add" = "增加一次";
+"watch.step.remove" = "撤销一次";
+"watch.preview.water" = "喝水";
+"watch.preview.reading" = "阅读";
+"watch.checkins.progress.format" = "打卡%d／%d";
+"watch.health.unit.steps" = "步";
+"watch.health.unit.kilometers" = "公里";
+"watch.health.unit.minutes" = "分钟";
+"watch.health.unit.hours" = "小时";
+"watch.health.unit.unknown" = "";
+"watch.health.unavailable" = "Apple健康数据不可用";

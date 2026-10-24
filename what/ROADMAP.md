@@ -1,5 +1,16 @@
 # What? — Product Roadmap
 
+## 24.10.2026 · Ухват — zh-Hans iPhone/Watch/widgets
+
+- [x] 231 iPhone + 6 Watch + 6 Phone Widget + 5 complication китайских строк; системные разрешения.
+- [x] CaptureBrand выбирает zh-Hans/zh-CN, не подменяет zh-Hant, форматирует китайские счётчики. Офлайн-транскрипция от языка UI независима.
+- [x] Китайский AXXXL UI 1/1 и Swift unit 12/12 PASS (после обновления старого fallback теста).
+- [ ] Реальный Watch/VoiceOver/permissions и редактура.
+- [ ] Личные аудиофайлы и очередь Watch не трогали.
+
+[QA](../core/docs/IOS_ZH_HANS_PORTFOLIO_QA_2026-10-24.md).
+
+
 ## 24.10.2026 · Ухват JA
 
 - [x] iPhone 231, Watch 6, Phone Widget 6, Watch Complication 5 японских строк.

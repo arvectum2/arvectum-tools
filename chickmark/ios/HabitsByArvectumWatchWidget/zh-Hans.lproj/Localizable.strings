@@ -1,0 +1,6 @@
+// Traduzione italiana preliminare; revisione editoriale prima del rilascio.
+"watch.widget.title" = "ChickMark";
+"watch.widget.description" = "直接在表盘查看今天的习惯进度。";
+"watch.widget.empty" = "没有待办";
+"watch.widget.inline.format" = "习惯%d／%d";
+"watch.widget.next.format" = "下一项：%@";

@@ -1,0 +1,2 @@
+"NSHealthShareUsageDescription" = "仅为您连接Apple健康的习惯读取每日活动数据，以判断是否完成。";
+"NSHealthUpdateUsageDescription" = "仅当您为某个数量型习惯启用导出时，ChickMark才会向Apple健康写入饮水数据。您可以在健康设置中撤销此权限。";

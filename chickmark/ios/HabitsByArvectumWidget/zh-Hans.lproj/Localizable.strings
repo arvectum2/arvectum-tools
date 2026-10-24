@@ -1,0 +1,17 @@
+// Traduzione italiana preliminare; revisione editoriale prima del rilascio.
+"widget.title" = "今天";
+"widget.displayName" = "今天的习惯";
+"widget.description" = "无需打开应用即可查看今日进度并为习惯打卡。";
+"widget.empty" = "今天没有安排";
+"widget.allDone" = "今天的任务全部完成";
+"widget.remaining.format" = "剩余%d项";
+"widget.inline.format" = "今天%d／%d";
+"widget.more.format" = "另有%d项";
+"widget.complete" = "标记为完成";
+"widget.undo" = "撤销完成";
+"widget.preview.water" = "喝水";
+"widget.preview.reading" = "阅读";
+"widget.duration.format" = "%d／%d分钟";
+"widget.action.complete.format" = "完成%@";
+"widget.action.undo.format" = "撤销%@的完成状态";
+"widget.empty.small" = "今天没有待办";

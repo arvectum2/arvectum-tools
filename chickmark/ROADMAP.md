@@ -1,5 +1,16 @@
 # ChickMark — актуальная дорожная карта
 
+## 24.10.2026 · ChickMark — zh-Hans iPhone/Watch/widgets
+
+- [x] 302 iPhone + 22 Watch + 16 Phone Widget + 5 Watch Widget строк; HealthKit InfoPlist и Siri AppShortcuts.
+- [x] Языковой выбор 简体中文, защитный fallback для традиционного китайского.
+- [x] Китайский UI 1/1 и Swift unit 9/9 PASS.
+- [ ] Физический Apple Health/Watch/VoiceOver и редактура согласий.
+- [ ] Публичная версия и данные пользователя не менялись.
+
+[QA](../core/docs/IOS_ZH_HANS_PORTFOLIO_QA_2026-10-24.md).
+
+
 ## 24.10.2026 · ChickMark JA
 
 - [x] JA iPhone 302, Watch 22, Phone Widget 16, Watch Widget 5 строк.
