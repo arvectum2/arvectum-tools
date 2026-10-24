@@ -1,5 +1,8 @@
 # What? — Product Roadmap
 
+- [x] **24.10.2026: 4 языка, подписанный кандидат 1.1.1(9).** RU/EN/ES/FR во всех iPhone/Watch/Widget/complication, PR #138 merged. [Свидетельство](../core/docs/FOUR_LANGUAGE_RELEASE_CANDIDATES_2026-10-24.md). App Review ещё не отправлен.
+
+
 ## 24.10.2026 · UX задержанной доставки — готов в feature-ветке
 
 - [x] Вместо предположения о мгновенной доставке iPhone поясняет сохранение AAC на Watch до ACK и негарантируемое фоновое ожидание; для пустой последней очереди не заявляет синхронизацию в реальном времени. RU/EN/ES + unit 1/1 PASS, локализационный аудит PASS. [Акт](docs/WATCH_BACKGROUND_DELIVERY_UX_2026-10-24.md).

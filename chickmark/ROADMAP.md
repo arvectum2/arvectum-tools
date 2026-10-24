@@ -1,5 +1,8 @@
 # ChickMark — актуальная дорожная карта
 
+- [x] **24.10.2026: 4 языка, подписанный кандидат 1.5.1(19).** RU/EN/ES/FR во всех iPhone/Watch/widgets и French Shortcuts, PR #139 merged. Category Productivity в source; ASC ещё не изменён. [Свидетельство](../core/docs/FOUR_LANGUAGE_RELEASE_CANDIDATES_2026-10-24.md).
+
+
 ## 24.10.2026 · категория App Store — свежая публичная проверка
 
 - [x] Официальный Apple RU Lookup подтвердил категорию **Health & Fitness**, genreId 6013, в опубликованной ChickMark 1.5.0. [Датированный baseline](../growth/docs/APP_STORE_BASELINE_2026-10-24.md).
