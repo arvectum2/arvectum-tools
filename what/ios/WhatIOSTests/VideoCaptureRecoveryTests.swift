@@ -21,7 +21,7 @@ private final class PartialCopyOutOfSpaceFileManager: FileManager {
 
 final class VideoCaptureRecoveryTests: XCTestCase {
     func testPhysicalRecoveryJournalProtectsLegacySegmentsAndKeepsBytes() throws {
-#if os(iOS)
+#if os(iOS) && !targetEnvironment(simulator)
         let root = FileManager.default.temporaryDirectory
             .appendingPathComponent("what-recover-protection-\(UUID().uuidString)")
         defer { try? FileManager.default.removeItem(at: root) }
