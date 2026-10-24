@@ -74,6 +74,14 @@ final class CoverageCatalogTests: XCTestCase {
                        "This text is not in source")
     }
 
+    func testGermanUsesBundledTranslationsInsteadOfEnglishFallback() {
+        XCTAssertEqual(PushkinCopy.text("History", language: "de-DE"), "Verlauf")
+        XCTAssertEqual(PushkinCopy.text("Settings", language: "de"), "Einstellungen")
+        XCTAssertEqual(PushkinCopy.text("Apps & Setup", language: "de-DE"), "Apps & Einrichtung")
+        XCTAssertEqual(PushkinCopy.text("Group %d", language: "de"), "Gruppe %d")
+        XCTAssertEqual(PushkinCopy.appCount(1, language: "de-DE"), "1 App")
+    }
+
     func testPendingSourceNameIsBriefWithoutChangingSourceIdentity() {
         XCTAssertEqual(
             PushkinDisplayName.brief("CapCut: Photo & Video Editor"),

@@ -1,5 +1,18 @@
 # Arvectum Tools Core — дорожная карта
 
+## 24.10.2026 · C5.2 — DE для всех iOS и watchOS: исходники
+
+- [x] У всех 4 активных iOS-приложений полные RU/EN/ES/FR/DE исходные каталоги: 10 bundles, 899 немецких строк в портфеле.
+- [x] Pushkin 151, Ухват 248 и ChickMark 345 строк DE: добавлено 744 строки, включая Watch, iPhone widgets и watch complications.
+- [x] Системные InfoPlist и Siri AppShortcuts; исправлены разрешение немецкого в PushkinCopy и CaptureBrand Ухвата.
+- [x] Core unit 37/37 и locale/printf проверки PASS; unsigned сборки iOS всех трёх и watchOS Ухвата/ChickMark PASS.
+- [ ] UI/AXXXL/VoiceOver на симуляторе и физическом устройстве, проверка длинных DE инструкций и редакторская вычитка.
+- [ ] Следующая iOS волна: PT-BR, IT, JA, ZH-Hans. Android без дополнительных языков.
+- [ ] Это НЕ App Store выпуск. Любая загрузка — только по отдельному подтверждению.
+
+[Акт](docs/IOS_DE_PORTFOLIO_QA_2026-10-24.md).
+
+
 ## 24.10.2026 · C5.1 — немецкий iOS пилот
 
 - [x] Фото/PDF iOS: DE как пятый реальный исходный язык (155 строк + InfoPlist); для остальных iOS-продуктов DE ещё не готов.

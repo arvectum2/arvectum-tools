@@ -1,5 +1,15 @@
 # Arvectum Tools — portfolio localization (50 locales)
 
+## 24 октября 2026 — исходные DE во всех четырёх iOS-приложениях
+
+- [x] Полные de.lproj source каталоги во всех 10 iOS/Watch/Widget bundles: Фото/PDF 155, Pushkin 151, Ухват 248, ChickMark 345.
+- [x] InfoPlist разрешения, Siri AppShortcuts, исправления runtime DE у Pushkin и Ухвата, Core 37/37, iOS/watchOS сборки PASS.
+- [ ] Редакторская вычитка, UI/физическая QA, VoiceOver и отдельное разрешение App Store для каждой версии.
+- [ ] Android остается на девяти исходных пакетах; дальнейшая iOS волна PT-BR/IT/JA/ZH-Hans.
+
+[Акт](../docs/IOS_DE_PORTFOLIO_QA_2026-10-24.md).
+
+
 ## 24 октября 2026 — пилот немецкого iOS Фото/PDF
 
 - [x] Фото/PDF iOS DE: 155 строк и InfoPlist, 35/35 Core unit PASS, de_DE iOS Simulator UI 3/3 PASS. [Акт](../docs/IOS_GERMAN_PHOTO_QA_2026-10-24.md).

@@ -1,0 +1,3 @@
+// Deutsch; Texte und Berechtigungen vor Release redaktionell prüfen.
+"NSHealthShareUsageDescription" = "ChickMark liest Ihre tägliche Aktivität nur für die Gewohnheiten aus, die Sie mit Apple Health verbinden.";
+"NSHealthUpdateUsageDescription" = "ChickMark fügt den Wasserkonsum nur dann zu Apple Health hinzu, wenn Sie den Export für eine mengenbasierte Gewohnheit aktivieren. Sie können die Berechtigung in den Health-Einstellungen widerrufen.";
