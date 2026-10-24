@@ -5,6 +5,7 @@
 - [x] Машинный реестр локалей и unit-test фиксируют порядок iOS → watchOS → Android.
 - [x] Исходная первая волна RU/EN/ES/FR подготовлена для всех четырех активных iOS-приложений (10 bundles).
 - [x] Подготовлены fr_FR XCUITests для Фото/PDF: photo, PDF, accessibility AXXXL и consent.
+- [x] Физически выполнен iOS 27.0 Simulator E2E: FR 3/3 и ES 3/3 PASS, Core 34/34 Python PASS. [Акт](docs/IOS_FIRST_FR_ES_UI_QA_2026-10-24.md).
 - [ ] P0: UI/редакторская и физическая приемка французского языка; сохранить независимые release gates и безопасность.
 - [ ] P1: DE, PT-BR, IT, JA, ZH-Hans для каждого из четырех iOS-продуктов (переход 4 → 9 языков, без фиктивных переводов).
 - [ ] P2: довести iOS до Tier 1 (20), затем Tier 2 (20) и Tier 3 (10).

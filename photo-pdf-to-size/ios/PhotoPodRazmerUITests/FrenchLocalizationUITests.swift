@@ -11,7 +11,8 @@ final class FrenchLocalizationUITests: XCTestCase {
     @MainActor
     private func dismissOptionalUpdatePrompt(_ app: XCUIApplication) {
         let later = app.buttons.matching(
-            NSPredicate(format: "label == %@ OR label == %@", "Позже", "Later")
+            NSPredicate(format: "label == %@ OR label == %@ OR label == %@ OR label == %@",
+                        "Позже", "Later", "Más tarde", "Plus tard")
         ).firstMatch
         if later.waitForExistence(timeout: 8) {
             XCTAssertTrue(later.isHittable, "Optional update prompt must be dismissible")
