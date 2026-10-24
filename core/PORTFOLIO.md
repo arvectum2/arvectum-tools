@@ -1,5 +1,12 @@
 # Arvectum Tools — Roadmap Registry
 
+## 25.10.2026 - C5 9-language integration
+
+- [x] Девять языков в исходниках, 52/52 Core + 68/68 native Swift + 60/60 UI = **180/180 PASS**.
+- [x] [QA evidence](docs/IOS_NINE_LANGUAGE_INTEGRATION_2026-10-25.md).
+- [ ] Apple Watch, редактура, физическая приёмка и отдельный релизный approval.
+
+
 ## 24.10.2026 · ZH-Hans: девятый исходный язык iOS
 
 - [x] Полные RU/EN/ES/FR/DE/PT-BR/IT/JA/ZH-Hans в 4 iOS-приложениях и десяти iPhone/Watch/widgets bundles.
