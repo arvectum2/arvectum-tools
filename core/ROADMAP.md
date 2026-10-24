@@ -2,6 +2,10 @@
 
 ## 24.10.2026 — актуализированная очередь
 
+
+- [x] Фото/PDF 1.0.2(14) в Apple App Review: WAITING_FOR_REVIEW, AUTO AFTER_APPROVAL. [Акт](../photo-pdf-to-size/docs/appstore/RELEASE_1_0_2_SUBMITTED_2026-10-24.md).
+- [x] Ухват PR #137 слит после 20/20 CI PASS: 32f13ad.
+
 - [x] **Ухват, T24-02:** реализован честный поясняющий статус асинхронной доставки Watch в диагностике iPhone (RU/EN/ES, 1/1 unit PASS). Отдельные CI и физический UI QA — открыты. [Акт](../what/docs/WATCH_BACKGROUND_DELIVERY_UX_2026-10-24.md).
 
 - [x] `main` / CI на HEAD `319bca9` проверены; ранее выполненные hardware regression тесты и XcodeGen guard остаются закрытыми.

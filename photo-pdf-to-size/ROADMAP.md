@@ -1,5 +1,11 @@
 # Фото и PDF под размер — Product Roadmap
 
+## 24.10.2026 — Apple App Review
+
+- [x] 1.0.2(14) VALID, отправлена на App Review, WAITING_FOR_REVIEW, AFTER_APPROVAL. [Акт](docs/appstore/RELEASE_1_0_2_SUBMITTED_2026-10-24.md).
+- [ ] После решения проверить публичную RU версию; сейчас 1.0.1.
+
+
 ### UX/дизайн-код: очередь D1–D3 (19.10.2026, план)
 - [x] D4.1 (20.10): Save CTA использует Core 48pt и семантические Mint/Navy; фото/PDF Save UI **2/2 PASS**, Debug build PASS.
 - [x] Системный Xcode Accessibility Audit результата фото/PDF **2/2 PASS** на отдельном iPhone 17 Pro simulator (AXXXL): text clipping, hit region, labels, traits. Файлы photo-result-accessibility-audit-retry-20261020.log и pdf-result-accessibility-audit-over-ssh.log.
