@@ -1,5 +1,11 @@
 # Arvectum Tools — Roadmap Registry
 
+## 25.10.2026 - C5.8 manual GitHub native UI matrix
+
+- [x] 4-app manual-dispatch native XCUITest CI: 30 classes, full 36 language smoke pairs; static YAML/shell validation PASS.
+- [ ] Real dispatch on GitHub xcode-27 and physical/linguistic QA. [Evidence](docs/IOS_NINE_LANGUAGE_MANUAL_CI_2026-10-25.md).
+
+
 ## 25.10.2026 - C5.7 iOS locale UI coverage
 - [x] 36/36 app x language source UI test pairs; new 10/10 real XCUITest PASS.
 - [x] Previous main CI 8/8 PASS. [QA](docs/IOS_NINE_LANGUAGE_UI_MATRIX_2026-10-25.md).
