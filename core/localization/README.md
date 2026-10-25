@@ -927,3 +927,9 @@ Update: `pt-PT` draft resources now cover 18 `.strings` files across all four ac
 ### pt-PT simulator build checkpoint (2026-10-25)
 
 XcodeGen project regeneration succeeded for Photo, Pushkin, What and ChickMark. Generic iOS Simulator builds succeeded for all four app schemes. WhatIOS `LanguageFallbackTests` and Pushkin `CoverageCatalogTests` passed on the iOS 27.0 simulator. ChickMark `LocalizationTests` first run was interrupted by Xcode; the retry with parallel testing disabled passed. `pt-PT` remains a **draft** pending independent European Portuguese editorial review and visual/accessibility testing; do not ship or claim full native QA.
+
+### Korean `ko` first source pack (draft)
+
+`photo-pdf-to-size/ios/PhotoPodRazmer/Resources/ko.lproj` contains a full-key Korean draft for the Photo/PDF app (including consent and InfoPlist strings). Untranslated strings are measurement tokens and positional formatting templates. The pack is **not** registered for release; Korean copy, policy text and native iOS QA require independent review. Pushkin, What and ChickMark Korean packs are not yet translated.
+
+Korean Photo/PDF generic iOS Simulator build PASS after retry using existing derived data (first fresh-build invocation was interrupted by Xcode). 58/58 Core tests PASS; both Korean `.strings` files pass `plutil -lint`. These checks do not substitute for native UI tests or Korean editorial acceptance.

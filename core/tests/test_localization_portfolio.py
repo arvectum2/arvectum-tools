@@ -38,6 +38,22 @@ class LocalizationPortfolioTests(unittest.TestCase):
                         self.assertEqual(i18n.PRINTF.findall(br[key]),
                                          i18n.PRINTF.findall(pt[key]), key)
 
+    def test_photo_korean_draft_parity(self):
+        """Korean photo-only draft; review and other apps remain outstanding."""
+        root = ROOT / "photo-pdf-to-size/ios/PhotoPodRazmer/Resources"
+        for filename in ("Localizable.strings", "InfoPlist.strings"):
+            en = i18n.read_strings(root / "en.lproj" / filename, [])
+            ko = i18n.read_strings(root / "ko.lproj" / filename, [])
+            self.assertEqual(set(en), set(ko), filename)
+            for key in en:
+                self.assertEqual(i18n.PRINTF.findall(en[key]),
+                                 i18n.PRINTF.findall(ko[key]), key)
+        en = i18n.read_strings(root / "en.lproj/Localizable.strings", [])
+        ko = i18n.read_strings(root / "ko.lproj/Localizable.strings", [])
+        untranslated = [key for key in en if en[key] == ko[key]]
+        self.assertLessEqual(len(untranslated), 10)
+        self.assertEqual(ko["Сохранить файл"], "파일 저장")
+
     def test_registry(self):
         reg = i18n.config()
         self.assertEqual(len(reg["targets"]), 50)
