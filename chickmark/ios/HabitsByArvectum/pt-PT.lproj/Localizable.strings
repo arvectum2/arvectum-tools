@@ -38,7 +38,7 @@
 "schedule.flexible.description.format" = "%d vezes por semana";
 "schedule.interval.toggle" = "Repetir após concluir";
 "schedule.interval.days.format" = "A cada %d dias após concluir";
-"schedule.interval.hint" = "A próxima data é calculada a partir do dia em que você realmente concluir o hábito.";
+"schedule.interval.hint" = "A próxima data é calculada a partir do dia em que concluir efetivamente o hábito.";
 "schedule.interval.description.format" = "A cada %d dias após concluir";
 "habit.streak.weeks.format" = "%d semanas seguidas";
 "habit.weekly.progress.format" = "%d de %d nesta semana";
@@ -123,7 +123,7 @@
 "oneoff.section" = "Lembretes";
 "oneoff.new.title" = "Novo lembrete";
 "oneoff.edit.title" = "Editar lembrete";
-"oneoff.title.placeholder" = "Sobre o que devo lembrar você?";
+"oneoff.title.placeholder" = "Sobre o que devo lembrar?";
 "oneoff.when" = "Quando";
 "oneoff.dateTime" = "Data e horário";
 "oneoff.hint" = "Este lembrete dispara uma única vez e não afeta sequências nem estatísticas dos hábitos.";
@@ -199,7 +199,7 @@
 "health.title" = "Saúde da Apple";
 "health.connect.hint" = "Conecte sua atividade para registros automáticos";
 "health.connected.hint" = "Registros automáticos ativados";
-"health.auto.completed" = "Concluído pelo Saúde da Apple";
+"health.auto.completed" = "Concluído pela app Saúde da Apple";
 "health.description" = "Escolha uma métrica. O ChickMark registra a conclusão automaticamente quando o total do dia atinge sua meta.";
 "health.rule.section" = "Conclusão automática";
 "health.metric.title" = "Atividade";
@@ -215,16 +215,16 @@
 "health.disconnect" = "Desconectar Saúde da Apple";
 "health.settings" = "Saúde da Apple";
 "health.privacy" = "Os dados do HealthKit são verificados localmente no iPhone e Apple Watch. Nenhuma leitura de saúde nem resultado automático derivado é enviado ao CloudKit ou usado para publicidade. Hábitos marcados manualmente continuam sincronizando conforme seus ajustes. O estado da atividade automática pode ser atualizado com atraso. Desconectar interrompe novas verificações.";
-"health.error.unavailable" = "O Saúde da Apple não está disponível neste dispositivo.";
-"health.error.authorization" = "Não foi possível solicitar acesso ao Saúde da Apple.";
+"health.error.unavailable" = "A app Saúde da Apple não está disponível neste dispositivo.";
+"health.error.authorization" = "Não foi possível solicitar acesso à app Saúde da Apple.";
 "health.unsupported" = "Para metas semanais, apenas treinos de corrida individuais são compatíveis. Intervalos deslizantes e metas com vários registros exigem conclusão manual.";
 "health.metric.running" = "Treino de corrida (uma sessão)";
 "health.metric.sleep" = "Sono (dia do despertar)";
 "health.unit.hours" = "horas";
 "health.shortcuts.title" = "Leitura e outras aplicações · Atalhos";
 "health.shortcuts.action" = "Automatizar um hábito relacionado a aplicações";
-"health.shortcuts.instructions" = "Abra a aplicação Atalhos no iPhone → Automação → escolha um gatilho (por exemplo, fechar o Livros) → adicione a ação “Concluir hábito” do ChickMark → escolha seu hábito. Você também pode executar a ação manualmente pela Siri ou por um atalho na Ecrã de Início.";
-"health.shortcuts.limitation" = "Fechar uma aplicação não comprova que você leu por um determinado tempo. O Atalhos registra o evento escolhido, não o tempo real de leitura.";
+"health.shortcuts.instructions" = "Abra a aplicação Atalhos no iPhone → Automação → escolha um gatilho (por exemplo, fechar o Livros) → adicione a ação “Concluir hábito” do ChickMark → escolha seu hábito. Também pode executar a ação manualmente pela Siri ou por um atalho no Ecrã de Início.";
+"health.shortcuts.limitation" = "Fechar uma aplicação não comprova que houve leitura por um determinado tempo. O Atalhos registra o evento escolhido, não o tempo real de leitura.";
 "health.integrations.title" = "Automações inteligentes";
 "language.title" = "Idioma";
 "language.system" = "Padrão do sistema";
@@ -235,9 +235,9 @@
 "ads.debug.title" = "Diagnóstico de anúncios Yandex";
 "ads.debug.state" = "Status";
 "keyboard.dismiss" = "Ocultar teclado";
-"health.edit.target.hint" = "Edite a meta nos ajustes do hábito";
-"health.link.toggle" = "Concluir automaticamente pelo Saúde da Apple";
-"health.local.hint" = "O progresso permanece no dispositivo. As mudanças passam a valer quando você guardar.";
+"health.edit.target.hint" = "Edite a meta nas definições do hábito";
+"health.link.toggle" = "Concluir automaticamente pela app Saúde da Apple";
+"health.local.hint" = "O progresso permanece no dispositivo. As mudanças passam a valer quando guardar.";
 "restart.settings.title" = "Recomeço gentil";
 "restart.settings.enable" = "Oferecer um retorno tranquilo";
 "restart.settings.threshold" = "Após um período de pausa";
@@ -250,7 +250,7 @@
 "restart.card.later" = "Talvez amanhã";
 "weekly.title" = "Resumo semanal";
 "weekly.optIn" = "Mostrar resumo semanal local";
-"weekly.privacy" = "Desativado por padrão. Calculado apenas neste dispositivo; sem notificações, conta, análises ou sincronização de rede. Hábitos conectados ao Saúde da Apple são excluídos porque conclusões automáticas anteriores não podem ser deduzidas dos registros manuais.";
+"weekly.privacy" = "Desativado por padrão. Calculado apenas neste dispositivo; sem notificações, conta, análises ou sincronização de rede. Hábitos conectados à app Saúde da Apple são excluídos porque conclusões automáticas anteriores não podem ser deduzidas dos registros manuais.";
 "weekly.lastCompleted" = "Última semana completa no calendário";
 "weekly.calendarWeek" = "Semana";
 "weekly.scheduled" = "Dias programados";
@@ -267,7 +267,7 @@
 "review.video.fallback" = "Vídeo";
 "review.note.prefix" = "Revisar nota:";
 "review.source.title" = "Nota do UhWhat?";
-"review.paste.instructions" = "Toque no botão Colar do sistema para permitir que o ChickMark leia a nota compartilhada. Você confirmará novamente antes de criar um lembrete único.";
+"review.paste.instructions" = "Toque no botão Colar do sistema para permitir que o ChickMark leia a nota compartilhada. Será pedida uma nova confirmação antes de criar um lembrete único.";
 "review.paste.expired" = "A área de transferência mudou ou o link expirou. Compartilhe a nota novamente pelo UhWhat?.";
 "review.paste.accessibility" = "Colar nota";
 "review.paste.title" = "Receber nota";
@@ -295,7 +295,7 @@
 "review.import.failure" = "Não foi possível abrir as notas importadas:";
 "review.notification.genericTitle" = "ChickMark: revisar uma nota";
 "water.export.title" = "Exportar água para o Saúde da Apple";
-"water.export.toggle" = "Adicionar água ao Saúde da Apple";
+"water.export.toggle" = "Adicionar água à app Saúde da Apple";
 "water.export.volume" = "Mililitros por registo: %d ml";
 "water.export.example" = "Cada registo adiciona exatamente o volume escolhido, não uma quantidade presumida de um copo.";
 "water.export.explanation" = "Vale apenas para este hábito de quantidade, a partir do dia em que for ativado. Dias anteriores não são importados. Desfazer ou corrigir atualiza somente os registros criados pelo ChickMark.";

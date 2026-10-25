@@ -71,7 +71,7 @@ class LocalizationPortfolioTests(unittest.TestCase):
         result = review.audit()
         self.assertGreaterEqual(result["files"], 180)
         self.assertGreaterEqual(result["entries"], 9000)
-        self.assertTrue(any(f["kind"] == "pt_pt_brazilian_flags" for f in result["findings"]))
+        self.assertEqual(sum(f["pt_pt_brazilian_flags"] for f in result["catalogs"]), 0)
         self.assertEqual(sum(f["format_mismatch"] for f in result["catalogs"]), 0)
         self.assertEqual(sum(f["missing"] + f["extra"] for f in result["catalogs"]), 0)
 

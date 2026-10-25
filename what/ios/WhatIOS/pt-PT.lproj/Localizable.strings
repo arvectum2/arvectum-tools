@@ -193,7 +193,7 @@
 "iPhone capture responsiveness" = "Tempo de resposta da gravação no iPhone";
 "Delete note" = "Eliminar nota";
 "Note text" = "Texto da nota";
-"Saved automatically as you type" = "Guardado automaticamente enquanto você digita";
+"Saved automatically as you type" = "Guardado automaticamente enquanto escreve";
 "Use + for text, or go back to record." = "Use + para texto ou volte para gravar.";
 "%d indexed" = "%d indexados";
 "Elapsed %d sec" = "Decorridos: %d s";
@@ -209,7 +209,7 @@
 "Catch that thought" = "Capture uma ideia";
 "Double-tap to record audio. Choose the Record video action for video." = "Toque duas vezes para gravar áudio. Escolha a ação Gravar vídeo para vídeo.";
 "Open saved voice notes" = "Abrir notas de voz salvas";
-"Open video recording. You can also hold the main button" = "Abrir gravação de vídeo. Você também pode manter o botão principal pressionado";
+"Open video recording. You can also hold the main button" = "Abrir gravação de vídeo. Também pode manter o botão principal pressionado";
 "QUICK CAPTURE" = "CAPTURA RÁPIDA";
 "Record video" = "Gravar vídeo";
 "Tap for audio" = "Toque para gravar áudio";

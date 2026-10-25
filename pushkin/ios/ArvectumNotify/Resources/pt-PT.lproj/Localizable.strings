@@ -11,7 +11,7 @@
 "At least one capture received" = "Pelo menos uma notificação recebida";
 "Base shortcut is unavailable" = "Atalho principal indisponível";
 "Cancel" = "Cancelar";
-"Choose only apps you have installed. This page plans groups locally; it cannot add or activate Shortcuts automations for you." = "Selecione apenas as aplicações instaladas. Esta página organiza grupos localmente; ela não consegue adicionar nem ativar automações dos Atalhos para você.";
+"Choose only apps you have installed. This page plans groups locally; it cannot add or activate Shortcuts automations for you." = "Selecione apenas as aplicações instaladas. Esta página organiza grupos localmente; ela não consegue adicionar nem ativar automações dos Atalhos por si.";
 "Clear group plan" = "Limpar plano de grupos";
 "Clear search" = "Limpar busca";
 "Clearing this local checklist does not remove any automation or notification history." = "Limpar esta lista local não remove nenhuma automação nem o histórico de notificações.";
@@ -40,7 +40,7 @@
 "Never lose an important notification again." = "Nunca mais perca uma notificação importante.";
 "Newly imported automations are disabled. Turn each one on in Shortcuts; PUSHKIN cannot read its enabled state. A notification from one app does not verify every app." = "Automações recém-importadas ficam desativadas. Ative cada uma na app Atalhos; o PUSHKIN não consegue verificar esse estado. Uma notificação de uma aplicação não confirma o funcionamento de todos.";
 "No notifications or selected app lists leave your iPhone." = "Nenhuma notificação ou lista de aplicações selecionadas sai do seu iPhone.";
-"Nothing is uploaded. You create one Notification automation directly in Apple's Shortcuts app." = "Nada é enviado à internet. Você cria uma automação de Notificação diretamente na aplicação Atalhos da Apple.";
+"Nothing is uploaded. You create one Notification automation directly in Apple's Shortcuts app." = "Nada é enviado à internet. Crie uma automação de Notificação diretamente na aplicação Atalhos da Apple.";
 "Notification content stays on this device" = "O conteúdo das notificações permanece neste dispositivo";
 "OK" = "OK";
 "One base shortcut can contain 1,000 app entries. Optional groups of 25 are just a planning convenience, not an iOS limit." = "Um atalho principal pode conter 1.000 entradas de aplicações. Grupos opcionais de 25 são apenas uma conveniência de organização, não um limite do iOS.";
@@ -65,7 +65,7 @@
 "Search notifications" = "Pesquisar notificações";
 "Searches the offline catalog bundled with this version of PUSHKIN." = "Pesquisa no catálogo off-line incluído nesta versão do PUSHKIN.";
 "Send a known number of notifications and compare it with Captured. Record delayed captures separately from missing captures." = "Envie uma quantidade conhecida de notificações e compare com o total registado. Anote separadamente as notificações atrasadas e as não recebidas.";
-"Send a real notification from one app in each group and check that it appears in History. One captured app does not verify every app in its group." = "Envie uma notificação real de uma aplicação de cada grupo e confirme que ela aparece no Histórico. Uma notificação recebida não verifica todos as aplicações daquele grupo.";
+"Send a real notification from one app in each group and check that it appears in History. One captured app does not verify every app in its group." = "Envie uma notificação real de uma aplicação de cada grupo e confirme que ela aparece no Histórico. Uma notificação recebida não verifica todas as aplicações daquele grupo.";
 "Set up PUSHKIN" = "Configurar PUSHKIN";
 "Set up PUSHKIN once, then incoming notifications can be archived automatically." = "Configure o PUSHKIN uma vez para que novas notificações possam ser arquivadas automaticamente.";
 "Settings" = "Ajustes";
@@ -78,7 +78,7 @@
 "Waiting for first capture" = "Aguardando a primeira notificação";
 "Want this app to become a one-tap option? Mention its exact name in an App Store review or send it to Arvectum support. Requested apps can be added in regular catalog updates." = "Quer adicionar esta aplicação com um toque? Informe o nome exato em uma avaliação na App Store ou entre em contato com o suporte Arvectum. Os aplicações solicitadas podem entrar em atualizações regulares do catálogo.";
 "When Shortcuts asks how the automation should run, choose the immediate/automatic option." = "Quando a app Atalhos perguntar como executar a automação, escolha a opção imediata ou automática.";
-"You can still add this app manually in Shortcuts." = "Você ainda pode adicionar esta aplicação manualmente na app Atalhos.";
+"You can still add this app manually in Shortcuts." = "Pode ainda adicionar esta aplicação manualmente na app Atalhos.";
 "Your plan" = "Seu plano";
 "Group %d" = "Grupo %d";
 "1. Add PUSHKIN" = "1. Adicionar PUSHKIN";
@@ -122,7 +122,7 @@
 "Offline catalog" = "Catálogo off-line";
 "On this iPhone" = "Neste iPhone";
 "Only Shortcuts knows whether an automation is enabled. PUSHKIN cannot check or change that switch." = "Apenas a app Atalhos sabe se uma automação está ativada. O PUSHKIN não consegue verificar nem alterar essa opção.";
-"Opening the preview does not mean you tapped Add or enabled the automation." = "Abrir a prévia não significa que você tocou em Adicionar ou ativou a automação.";
+"Opening the preview does not mean you tapped Add or enabled the automation." = "Abrir a prévia não significa que tocou em Adicionar ou ativou a automação.";
 "Optional groups" = "Grupos opcionais";
 "Optional: smaller groups" = "Opcional: grupos menores";
 "PUSHKIN received a notification from %@. This confirms that source only; check the automation in Shortcuts." = "O PUSHKIN recebeu uma notificação de %@. Isso confirma apenas esta origem; verifique a automação na app Atalhos.";
@@ -132,7 +132,7 @@
 "Product" = "Produto";
 "Received" = "Recebido";
 "Review notifications captured from apps you connected." = "Revise as notificações capturadas das aplicações conectadas.";
-"Review the app list and tap Add in Shortcuts. You do not have to manually select all 1,000 catalog apps." = "Revise a lista e toque em Adicionar na app Atalhos. Você não precisa selecionar manualmente todos os 1.000 aplicações do catálogo.";
+"Review the app list and tap Add in Shortcuts. You do not have to manually select all 1,000 catalog apps." = "Revise a lista e toque em Adicionar na app Atalhos. Não é necessário selecionar manualmente as 1.000 aplicações do catálogo.";
 "Selected" = "Selecionado";
 "Selected apps" = "Aplicações selecionados";
 "Send one real notification from an app already installed and included in Shortcuts. Return to History to check the result." = "Envie uma notificação real de uma aplicação já instalado e incluído na app Atalhos. Volte ao Histórico para conferir o resultado.";
@@ -143,11 +143,11 @@
 "Suggested groups" = "Grupos sugeridos";
 "Test capture received" = "Notificação de teste recebida";
 "The base shortcut includes 1,000 entries. Only apps recognized by Shortcuts when you configure the automation can send captures." = "O atalho principal contém 1.000 entradas. Só as aplicações reconhecidas pela app Atalhos durante a configuração da automação podem gerar registros.";
-"This proves PUSHKIN received a notification from at least one source. It does not prove that all selected apps are covered or that the automation is still enabled." = "Isso confirma que o PUSHKIN recebeu uma notificação de pelo menos uma origem. Não comprova que todos as aplicações selecionadas são monitorados nem que a automação continua ativada.";
+"This proves PUSHKIN received a notification from at least one source. It does not prove that all selected apps are covered or that the automation is still enabled." = "Isso confirma que o PUSHKIN recebeu uma notificação de pelo menos uma origem. Não comprova que todas as aplicações selecionadas são monitorados nem que a automação continua ativada.";
 "Time" = "Horário";
 "Title" = "Título";
 "Version" = "Versão";
-"When you install another app" = "Quando você instalar outra aplicação";
-"You searched for" = "Você pesquisou por";
+"When you install another app" = "Quando instalar outra aplicação";
+"You searched for" = "Pesquisou por";
 "Your group plan is stored locally in PUSHKIN. Copying app names uses the system clipboard." = "Seu plano de grupos fica armazenado localmente no PUSHKIN. Copiar nomes de aplicações usa a área de transferência do sistema.";
-"iOS does not allow PUSHKIN to read every app's notifications or turn on automations itself. You control which apps are included." = "O iOS não permite que o PUSHKIN leia as notificações de todos as aplicações nem ative automações sozinho. Você controla quais aplicações são incluídos.";
+"iOS does not allow PUSHKIN to read every app's notifications or turn on automations itself. You control which apps are included." = "O iOS não permite que o PUSHKIN leia as notificações de todas as aplicações nem ative automações sozinho. Pode controlar quais aplicações são incluídas.";

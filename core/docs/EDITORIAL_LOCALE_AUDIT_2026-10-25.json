@@ -274,7 +274,7 @@
       "format_mismatch": 0,
       "english_identical": 0,
       "high_risk_review": 2,
-      "pt_pt_brazilian_flags": 2
+      "pt_pt_brazilian_flags": 0
     },
     {
       "app": "chickmark",
@@ -287,7 +287,7 @@
       "format_mismatch": 0,
       "english_identical": 0,
       "high_risk_review": 78,
-      "pt_pt_brazilian_flags": 7
+      "pt_pt_brazilian_flags": 0
     },
     {
       "app": "chickmark",
@@ -1028,7 +1028,7 @@
       "format_mismatch": 0,
       "english_identical": 0,
       "high_risk_review": 57,
-      "pt_pt_brazilian_flags": 8
+      "pt_pt_brazilian_flags": 0
     },
     {
       "app": "pushkin",
@@ -1236,7 +1236,7 @@
       "format_mismatch": 0,
       "english_identical": 0,
       "high_risk_review": 56,
-      "pt_pt_brazilian_flags": 2
+      "pt_pt_brazilian_flags": 0
     },
     {
       "app": "what",
@@ -2402,78 +2402,6 @@
     },
     {
       "app": "chickmark",
-      "locale": "pt-PT",
-      "file": "chickmark/ios/HabitsByArvectum/pt-PT.lproj/InfoPlist.strings",
-      "kind": "pt_pt_brazilian_flags",
-      "key": "NSHealthShareUsageDescription",
-      "value": "Ler a atividade diária somente para concluir os hábitos que você conectar."
-    },
-    {
-      "app": "chickmark",
-      "locale": "pt-PT",
-      "file": "chickmark/ios/HabitsByArvectum/pt-PT.lproj/InfoPlist.strings",
-      "kind": "pt_pt_brazilian_flags",
-      "key": "NSHealthUpdateUsageDescription",
-      "value": "O ChickMark adiciona o consumo de água ao Saúde da Apple somente quando você ativa a exportação de um hábito de quantidade. Você pode desativar esse acesso nos ajustes do Saúde."
-    },
-    {
-      "app": "chickmark",
-      "locale": "pt-PT",
-      "file": "chickmark/ios/HabitsByArvectum/pt-PT.lproj/Localizable.strings",
-      "kind": "pt_pt_brazilian_flags",
-      "key": "schedule.interval.hint",
-      "value": "A próxima data é calculada a partir do dia em que você realmente concluir o hábito."
-    },
-    {
-      "app": "chickmark",
-      "locale": "pt-PT",
-      "file": "chickmark/ios/HabitsByArvectum/pt-PT.lproj/Localizable.strings",
-      "kind": "pt_pt_brazilian_flags",
-      "key": "oneoff.title.placeholder",
-      "value": "Sobre o que devo lembrar você?"
-    },
-    {
-      "app": "chickmark",
-      "locale": "pt-PT",
-      "file": "chickmark/ios/HabitsByArvectum/pt-PT.lproj/Localizable.strings",
-      "kind": "pt_pt_brazilian_flags",
-      "key": "health.shortcuts.instructions",
-      "value": "Abra a aplicação Atalhos no iPhone → Automação → escolha um gatilho (por exemplo, fechar o Livros) → adicione a ação “Concluir hábito” do ChickMark → escolha seu hábito. Você também pode executar a ação manualmente pela Siri ou por um atalh"
-    },
-    {
-      "app": "chickmark",
-      "locale": "pt-PT",
-      "file": "chickmark/ios/HabitsByArvectum/pt-PT.lproj/Localizable.strings",
-      "kind": "pt_pt_brazilian_flags",
-      "key": "health.shortcuts.limitation",
-      "value": "Fechar uma aplicação não comprova que você leu por um determinado tempo. O Atalhos registra o evento escolhido, não o tempo real de leitura."
-    },
-    {
-      "app": "chickmark",
-      "locale": "pt-PT",
-      "file": "chickmark/ios/HabitsByArvectum/pt-PT.lproj/Localizable.strings",
-      "kind": "pt_pt_brazilian_flags",
-      "key": "health.edit.target.hint",
-      "value": "Edite a meta nos ajustes do hábito"
-    },
-    {
-      "app": "chickmark",
-      "locale": "pt-PT",
-      "file": "chickmark/ios/HabitsByArvectum/pt-PT.lproj/Localizable.strings",
-      "kind": "pt_pt_brazilian_flags",
-      "key": "health.local.hint",
-      "value": "O progresso permanece no dispositivo. As mudanças passam a valer quando você guardar."
-    },
-    {
-      "app": "chickmark",
-      "locale": "pt-PT",
-      "file": "chickmark/ios/HabitsByArvectum/pt-PT.lproj/Localizable.strings",
-      "kind": "pt_pt_brazilian_flags",
-      "key": "review.paste.instructions",
-      "value": "Toque no botão Colar do sistema para permitir que o ChickMark leia a nota compartilhada. Você confirmará novamente antes de criar um lembrete único."
-    },
-    {
-      "app": "chickmark",
       "locale": "de",
       "file": "chickmark/ios/HabitsByArvectumWatchWidget/de.lproj/Localizable.strings",
       "kind": "english_identical",
@@ -2565,16 +2493,16 @@
       "locale": "fr",
       "file": "pushkin/ios/ArvectumNotify/Resources/fr.lproj/Localizable.strings",
       "kind": "english_identical",
-      "key": "Notification",
-      "value": "Notification"
+      "key": "Diagnostics",
+      "value": "Diagnostics"
     },
     {
       "app": "pushkin",
       "locale": "fr",
       "file": "pushkin/ios/ArvectumNotify/Resources/fr.lproj/Localizable.strings",
       "kind": "english_identical",
-      "key": "Diagnostics",
-      "value": "Diagnostics"
+      "key": "Notification",
+      "value": "Notification"
     },
     {
       "app": "pushkin",
@@ -2583,70 +2511,6 @@
       "kind": "english_identical",
       "key": "In PUSHKIN",
       "value": "In PUSHKIN"
-    },
-    {
-      "app": "pushkin",
-      "locale": "pt-PT",
-      "file": "pushkin/ios/ArvectumNotify/Resources/pt-PT.lproj/Localizable.strings",
-      "kind": "pt_pt_brazilian_flags",
-      "key": "Choose only apps you have installed. This page plans groups locally; it cannot add or activate Shortcuts automations for you.",
-      "value": "Selecione apenas as aplicações instaladas. Esta página organiza grupos localmente; ela não consegue adicionar nem ativar automações dos Atalhos para você."
-    },
-    {
-      "app": "pushkin",
-      "locale": "pt-PT",
-      "file": "pushkin/ios/ArvectumNotify/Resources/pt-PT.lproj/Localizable.strings",
-      "kind": "pt_pt_brazilian_flags",
-      "key": "Nothing is uploaded. You create one Notification automation directly in Apple's Shortcuts app.",
-      "value": "Nada é enviado à internet. Você cria uma automação de Notificação diretamente na aplicação Atalhos da Apple."
-    },
-    {
-      "app": "pushkin",
-      "locale": "pt-PT",
-      "file": "pushkin/ios/ArvectumNotify/Resources/pt-PT.lproj/Localizable.strings",
-      "kind": "pt_pt_brazilian_flags",
-      "key": "You can still add this app manually in Shortcuts.",
-      "value": "Você ainda pode adicionar esta aplicação manualmente na app Atalhos."
-    },
-    {
-      "app": "pushkin",
-      "locale": "pt-PT",
-      "file": "pushkin/ios/ArvectumNotify/Resources/pt-PT.lproj/Localizable.strings",
-      "kind": "pt_pt_brazilian_flags",
-      "key": "Opening the preview does not mean you tapped Add or enabled the automation.",
-      "value": "Abrir a prévia não significa que você tocou em Adicionar ou ativou a automação."
-    },
-    {
-      "app": "pushkin",
-      "locale": "pt-PT",
-      "file": "pushkin/ios/ArvectumNotify/Resources/pt-PT.lproj/Localizable.strings",
-      "kind": "pt_pt_brazilian_flags",
-      "key": "Review the app list and tap Add in Shortcuts. You do not have to manually select all 1,000 catalog apps.",
-      "value": "Revise a lista e toque em Adicionar na app Atalhos. Você não precisa selecionar manualmente todos os 1.000 aplicações do catálogo."
-    },
-    {
-      "app": "pushkin",
-      "locale": "pt-PT",
-      "file": "pushkin/ios/ArvectumNotify/Resources/pt-PT.lproj/Localizable.strings",
-      "kind": "pt_pt_brazilian_flags",
-      "key": "When you install another app",
-      "value": "Quando você instalar outra aplicação"
-    },
-    {
-      "app": "pushkin",
-      "locale": "pt-PT",
-      "file": "pushkin/ios/ArvectumNotify/Resources/pt-PT.lproj/Localizable.strings",
-      "kind": "pt_pt_brazilian_flags",
-      "key": "You searched for",
-      "value": "Você pesquisou por"
-    },
-    {
-      "app": "pushkin",
-      "locale": "pt-PT",
-      "file": "pushkin/ios/ArvectumNotify/Resources/pt-PT.lproj/Localizable.strings",
-      "kind": "pt_pt_brazilian_flags",
-      "key": "iOS does not allow PUSHKIN to read every app's notifications or turn on automations itself. You control which apps are included.",
-      "value": "O iOS não permite que o PUSHKIN leia as notificações de todos as aplicações nem ative automações sozinho. Você controla quais aplicações são incluídos."
     },
     {
       "app": "what",
@@ -2689,20 +2553,12 @@
       "value": "Audio (.m4a)"
     },
     {
-      "app": "what",
-      "locale": "pt-PT",
-      "file": "what/ios/WhatIOS/pt-PT.lproj/Localizable.strings",
-      "kind": "pt_pt_brazilian_flags",
-      "key": "Saved automatically as you type",
-      "value": "Guardado automaticamente enquanto você digita"
-    },
-    {
-      "app": "what",
-      "locale": "pt-PT",
-      "file": "what/ios/WhatIOS/pt-PT.lproj/Localizable.strings",
-      "kind": "pt_pt_brazilian_flags",
-      "key": "Open video recording. You can also hold the main button",
-      "value": "Abrir gravação de vídeo. Você também pode manter o botão principal pressionado"
+      "app": "photo-pdf-to-size",
+      "locale": "de",
+      "file": "photo-pdf-to-size/ios/PhotoPodRazmer/Resources/de.lproj/Localizable.strings",
+      "kind": "english_identical",
+      "key": "900×900 px · JPEG · 10 KB–1 MB",
+      "value": "900×900 px · JPEG · 10 KB–1 MB"
     },
     {
       "app": "photo-pdf-to-size",
@@ -2714,8 +2570,8 @@
     },
     {
       "app": "photo-pdf-to-size",
-      "locale": "de",
-      "file": "photo-pdf-to-size/ios/PhotoPodRazmer/Resources/de.lproj/Localizable.strings",
+      "locale": "es",
+      "file": "photo-pdf-to-size/ios/PhotoPodRazmer/Resources/es.lproj/Localizable.strings",
       "kind": "english_identical",
       "key": "900×900 px · JPEG · 10 KB–1 MB",
       "value": "900×900 px · JPEG · 10 KB–1 MB"
@@ -2727,14 +2583,6 @@
       "kind": "english_identical",
       "key": "600×600 px · JPEG · ≤240 KB",
       "value": "600×600 px · JPEG · ≤240 KB"
-    },
-    {
-      "app": "photo-pdf-to-size",
-      "locale": "es",
-      "file": "photo-pdf-to-size/ios/PhotoPodRazmer/Resources/es.lproj/Localizable.strings",
-      "kind": "english_identical",
-      "key": "900×900 px · JPEG · 10 KB–1 MB",
-      "value": "900×900 px · JPEG · 10 KB–1 MB"
     },
     {
       "app": "photo-pdf-to-size",
@@ -2773,16 +2621,16 @@
       "locale": "ru",
       "file": "photo-pdf-to-size/ios/PhotoPodRazmer/Resources/ru.lproj/Localizable.strings",
       "kind": "english_identical",
-      "key": "600×600 px · JPEG · ≤240 KB",
-      "value": "600×600 px · JPEG · ≤240 KB"
+      "key": "900×900 px · JPEG · 10 KB–1 MB",
+      "value": "900×900 px · JPEG · 10 KB–1 MB"
     },
     {
       "app": "photo-pdf-to-size",
       "locale": "ru",
       "file": "photo-pdf-to-size/ios/PhotoPodRazmer/Resources/ru.lproj/Localizable.strings",
       "kind": "english_identical",
-      "key": "900×900 px · JPEG · 10 KB–1 MB",
-      "value": "900×900 px · JPEG · 10 KB–1 MB"
+      "key": "600×600 px · JPEG · ≤240 KB",
+      "value": "600×600 px · JPEG · ≤240 KB"
     }
   ]
 }
