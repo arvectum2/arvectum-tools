@@ -1,5 +1,14 @@
 # Arvectum Tools Core — дорожная карта
 
+## 25.10.2026 - C5.7: 36/36 iOS language UI coverage
+- [x] Main CI after #141-147: 8/8 PASS.
+- [x] RU/EN baseline for four apps, FR Uhvat, ES ChickMark: 10/10 new XCUITest PASS.
+- [x] All 36 app x 9 locale source UI smoke pairs now covered and Python-gated.
+- [ ] Physical Apple Watch/VoiceOver/permissions/upgrade and native editorial QA.
+- [ ] App Store upload only with per-version owner approval.
+- [Evidence](docs/IOS_NINE_LANGUAGE_UI_MATRIX_2026-10-25.md).
+
+
 ## 25.10.2026 - C5: единая приёмка 9 языков
 
 - [x] Сводный аудит девяти исходных языков, четыре iOS-приложения и 10 iPhone/Watch/Widget bundles.

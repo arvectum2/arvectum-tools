@@ -29,6 +29,47 @@ class LocalizationPortfolioTests(unittest.TestCase):
 
         self.assertEqual([sum(x["tier"] == t for x in reg["targets"]) for t in (1, 2, 3)], [20, 20, 10])
 
+    def test_all_four_ios_apps_have_nine_language_ui_smoke_coverage(self):
+        """Maintain a source-level iPhone UI smoke for 36 app-locale pairs.
+
+        Presence proves the test is authored, not that it passed or was run
+        on a real device. Native XCUITest remains an independent CI gate.
+        """
+        roots = {
+            "photo": "photo-pdf-to-size/ios/PhotoPodRazmerUITests",
+            "pushkin": "pushkin/ios/ArvectumNotifyUITests",
+            "what": "what/ios/WhatIOSUITests",
+            "chickmark": "chickmark/ios/HabitsByArvectumUITests",
+        }
+        code_names = {
+            "es": "Spanish", "fr": "French", "de": "German",
+            "pt-BR": "BrazilianPortuguese", "it": "Italian",
+            "ja": "Japanese", "zh-Hans": "SimplifiedChinese",
+        }
+        covered = 0
+        for app, relative_root in roots.items():
+            root = ROOT / relative_root
+            baseline = (root / "CoreLanguageCoverageUITests.swift").read_text()
+            self.assertIn("final class CoreLanguageCoverageUITests", baseline)
+            for locale, method in (
+                ("ru", "testRussianBaseline"),
+                ("en", "testEnglishBaseline"),
+            ):
+                self.assertIn("func " + method, baseline, f"{app}/{locale}")
+                covered += 1
+            for locale, name in code_names.items():
+                path = root / (name + "LocalizationUITests.swift")
+                if path.exists():
+                    text = path.read_text()
+                    self.assertIn("final class " + name + "LocalizationUITests", text)
+                    self.assertIn("func test", text, f"{app}/{locale}")
+                else:
+                    method = "test" + name
+                    self.assertIn("func " + method, baseline,
+                                  f"{app}/{locale}: no dedicated UI smoke")
+                covered += 1
+        self.assertEqual(covered, 36)
+
     def test_all_active_ios_bundles_have_nine_localized_catalogs(self):
         """First nine localization packs are present in all active iOS bundles.
 

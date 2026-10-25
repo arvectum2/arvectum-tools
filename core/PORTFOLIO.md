@@ -1,5 +1,11 @@
 # Arvectum Tools — Roadmap Registry
 
+## 25.10.2026 - C5.7 iOS locale UI coverage
+- [x] 36/36 app x language source UI test pairs; new 10/10 real XCUITest PASS.
+- [x] Previous main CI 8/8 PASS. [QA](docs/IOS_NINE_LANGUAGE_UI_MATRIX_2026-10-25.md).
+- [ ] Physical and editorial QA; release authorizations.
+
+
 ## 25.10.2026 - C5 9-language integration
 
 - [x] Девять языков в исходниках, 52/52 Core + 68/68 native Swift + 60/60 UI = **180/180 PASS**.
