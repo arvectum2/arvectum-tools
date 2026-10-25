@@ -1,5 +1,13 @@
 # PUSHKIN — Product Roadmap
 
+## 25.10.2026 - deletion CI recovery
+
+- [x] Diagnosed Xcode Simulator launch timeout; deletion logic unchanged.
+- [x] Private booted CI Simulator with bounded retry, Mac mini 12/12 PASS.
+- [ ] New GitHub CI must pass; all release gates remain.
+- [Evidence](../core/docs/PUSHKIN_CI_SIMULATOR_LAUNCH_FIX_2026-10-25.md).
+
+
 ## 24.10.2026 · Pushkin — zh-Hans
 
 - [x] 151 китайская строка, включая инструкции Apple快捷指令.

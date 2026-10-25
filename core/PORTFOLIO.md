@@ -1,5 +1,11 @@
 # Arvectum Tools — Roadmap Registry
 
+## 25.10.2026 - Pushkin CI simulator isolation
+
+- [x] Investigated launch timeout, implemented disposable CI device and bounded retry, verified Mac mini 12/12 PASS.
+- [ ] Green GitHub CI and physical release acceptance.
+- [Evidence](docs/PUSHKIN_CI_SIMULATOR_LAUNCH_FIX_2026-10-25.md).
+
 ## 25.10.2026 - C5.8 manual GitHub native UI matrix
 
 - [x] 4-app manual-dispatch native XCUITest CI: 30 classes, full 36 language smoke pairs; static YAML/shell validation PASS.
