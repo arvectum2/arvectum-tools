@@ -287,7 +287,7 @@
       "format_mismatch": 0,
       "english_identical": 0,
       "high_risk_review": 78,
-      "pt_pt_brazilian_flags": 9
+      "pt_pt_brazilian_flags": 7
     },
     {
       "app": "chickmark",
@@ -1028,7 +1028,7 @@
       "format_mismatch": 0,
       "english_identical": 0,
       "high_risk_review": 57,
-      "pt_pt_brazilian_flags": 37
+      "pt_pt_brazilian_flags": 8
     },
     {
       "app": "pushkin",
@@ -1236,7 +1236,7 @@
       "format_mismatch": 0,
       "english_identical": 0,
       "high_risk_review": 56,
-      "pt_pt_brazilian_flags": 3
+      "pt_pt_brazilian_flags": 2
     },
     {
       "app": "what",
@@ -2389,7 +2389,7 @@
       "locale": "de",
       "file": "chickmark/ios/HabitsByArvectum/de.lproj/Localizable.strings",
       "kind": "english_identical",
-      "key": "health.settings",
+      "key": "health.title",
       "value": "Apple Health"
     },
     {
@@ -2397,7 +2397,7 @@
       "locale": "de",
       "file": "chickmark/ios/HabitsByArvectum/de.lproj/Localizable.strings",
       "kind": "english_identical",
-      "key": "health.title",
+      "key": "health.settings",
       "value": "Apple Health"
     },
     {
@@ -2437,24 +2437,8 @@
       "locale": "pt-PT",
       "file": "chickmark/ios/HabitsByArvectum/pt-PT.lproj/Localizable.strings",
       "kind": "pt_pt_brazilian_flags",
-      "key": "health.shortcuts.title",
-      "value": "Leitura e outros apps · Atalhos"
-    },
-    {
-      "app": "chickmark",
-      "locale": "pt-PT",
-      "file": "chickmark/ios/HabitsByArvectum/pt-PT.lproj/Localizable.strings",
-      "kind": "pt_pt_brazilian_flags",
-      "key": "health.shortcuts.action",
-      "value": "Automatizar um hábito relacionado a apps"
-    },
-    {
-      "app": "chickmark",
-      "locale": "pt-PT",
-      "file": "chickmark/ios/HabitsByArvectum/pt-PT.lproj/Localizable.strings",
-      "kind": "pt_pt_brazilian_flags",
       "key": "health.shortcuts.instructions",
-      "value": "Abra o app Atalhos no iPhone → Automação → escolha um gatilho (por exemplo, fechar o Livros) → adicione a ação “Concluir hábito” do ChickMark → escolha seu hábito. Você também pode executar a ação manualmente pela Siri ou por um atalho na E"
+      "value": "Abra a aplicação Atalhos no iPhone → Automação → escolha um gatilho (por exemplo, fechar o Livros) → adicione a ação “Concluir hábito” do ChickMark → escolha seu hábito. Você também pode executar a ação manualmente pela Siri ou por um atalh"
     },
     {
       "app": "chickmark",
@@ -2462,7 +2446,7 @@
       "file": "chickmark/ios/HabitsByArvectum/pt-PT.lproj/Localizable.strings",
       "kind": "pt_pt_brazilian_flags",
       "key": "health.shortcuts.limitation",
-      "value": "Fechar um app não comprova que você leu por um determinado tempo. O Atalhos registra o evento escolhido, não o tempo real de leitura."
+      "value": "Fechar uma aplicação não comprova que você leu por um determinado tempo. O Atalhos registra o evento escolhido, não o tempo real de leitura."
     },
     {
       "app": "chickmark",
@@ -2581,16 +2565,16 @@
       "locale": "fr",
       "file": "pushkin/ios/ArvectumNotify/Resources/fr.lproj/Localizable.strings",
       "kind": "english_identical",
-      "key": "Diagnostics",
-      "value": "Diagnostics"
+      "key": "Notification",
+      "value": "Notification"
     },
     {
       "app": "pushkin",
       "locale": "fr",
       "file": "pushkin/ios/ArvectumNotify/Resources/fr.lproj/Localizable.strings",
       "kind": "english_identical",
-      "key": "Notification",
-      "value": "Notification"
+      "key": "Diagnostics",
+      "value": "Diagnostics"
     },
     {
       "app": "pushkin",
@@ -2605,64 +2589,8 @@
       "locale": "pt-PT",
       "file": "pushkin/ios/ArvectumNotify/Resources/pt-PT.lproj/Localizable.strings",
       "kind": "pt_pt_brazilian_flags",
-      "key": "Add or manage apps",
-      "value": "Adicionar ou gerir apps"
-    },
-    {
-      "app": "pushkin",
-      "locale": "pt-PT",
-      "file": "pushkin/ios/ArvectumNotify/Resources/pt-PT.lproj/Localizable.strings",
-      "kind": "pt_pt_brazilian_flags",
-      "key": "Apps",
-      "value": "Apps"
-    },
-    {
-      "app": "pushkin",
-      "locale": "pt-PT",
-      "file": "pushkin/ios/ArvectumNotify/Resources/pt-PT.lproj/Localizable.strings",
-      "kind": "pt_pt_brazilian_flags",
-      "key": "Apps & Setup",
-      "value": "Apps e configuração"
-    },
-    {
-      "app": "pushkin",
-      "locale": "pt-PT",
-      "file": "pushkin/ios/ArvectumNotify/Resources/pt-PT.lproj/Localizable.strings",
-      "kind": "pt_pt_brazilian_flags",
       "key": "Choose only apps you have installed. This page plans groups locally; it cannot add or activate Shortcuts automations for you.",
-      "value": "Selecione apenas os apps instalados. Esta página organiza grupos localmente; ela não consegue adicionar nem ativar automações dos Atalhos para você."
-    },
-    {
-      "app": "pushkin",
-      "locale": "pt-PT",
-      "file": "pushkin/ios/ArvectumNotify/Resources/pt-PT.lproj/Localizable.strings",
-      "kind": "pt_pt_brazilian_flags",
-      "key": "Copy app names",
-      "value": "Copiar nomes dos apps"
-    },
-    {
-      "app": "pushkin",
-      "locale": "pt-PT",
-      "file": "pushkin/ios/ArvectumNotify/Resources/pt-PT.lproj/Localizable.strings",
-      "kind": "pt_pt_brazilian_flags",
-      "key": "Create a Notification automation for each group. Select its apps, add PUSHKIN → Archive Notification, map App / Title / Subtitle / Text, then enable it. Copying names is only a checklist; Shortcuts still requires manual app selection.",
-      "value": "Crie uma automação de Notificação para cada grupo. Selecione os apps, adicione PUSHKIN → Arquivar notificação, associe App / Título / Subtítulo / Texto e ative a automação. Copiar os nomes cria apenas uma lista; a seleção dos apps na app At"
-    },
-    {
-      "app": "pushkin",
-      "locale": "pt-PT",
-      "file": "pushkin/ios/ArvectumNotify/Resources/pt-PT.lproj/Localizable.strings",
-      "kind": "pt_pt_brazilian_flags",
-      "key": "Missing an app? Send us its exact name. The most-requested apps move to the top of our update list.",
-      "value": "Algum app está faltando? Envie o nome exato. Priorizamos os apps mais solicitados nas atualizações."
-    },
-    {
-      "app": "pushkin",
-      "locale": "pt-PT",
-      "file": "pushkin/ios/ArvectumNotify/Resources/pt-PT.lproj/Localizable.strings",
-      "kind": "pt_pt_brazilian_flags",
-      "key": "No notifications or selected app lists leave your iPhone.",
-      "value": "Nenhuma notificação ou lista de apps selecionados sai do seu iPhone."
+      "value": "Selecione apenas as aplicações instaladas. Esta página organiza grupos localmente; ela não consegue adicionar nem ativar automações dos Atalhos para você."
     },
     {
       "app": "pushkin",
@@ -2670,87 +2598,7 @@
       "file": "pushkin/ios/ArvectumNotify/Resources/pt-PT.lproj/Localizable.strings",
       "kind": "pt_pt_brazilian_flags",
       "key": "Nothing is uploaded. You create one Notification automation directly in Apple's Shortcuts app.",
-      "value": "Nada é enviado à internet. Você cria uma automação de Notificação diretamente no app Atalhos da Apple."
-    },
-    {
-      "app": "pushkin",
-      "locale": "pt-PT",
-      "file": "pushkin/ios/ArvectumNotify/Resources/pt-PT.lproj/Localizable.strings",
-      "kind": "pt_pt_brazilian_flags",
-      "key": "One base shortcut can contain 1,000 app entries. Optional groups of 25 are just a planning convenience, not an iOS limit.",
-      "value": "Um atalho principal pode conter 1.000 entradas de apps. Grupos opcionais de 25 são apenas uma conveniência de organização, não um limite do iOS."
-    },
-    {
-      "app": "pushkin",
-      "locale": "pt-PT",
-      "file": "pushkin/ios/ArvectumNotify/Resources/pt-PT.lproj/Localizable.strings",
-      "kind": "pt_pt_brazilian_flags",
-      "key": "PUSHKIN's signed base shortcut already contains 1,000 app entries. An iOS 27 test retained all of them in one trigger. 25 is a convenient group size, not a confirmed iOS limit.",
-      "value": "O atalho principal assinado do PUSHKIN já contém 1.000 entradas de apps. Em um teste no iOS 27, todas permaneceram em um único gatilho. O tamanho de 25 apps por grupo é apenas uma conveniência, não um limite confirmado do iOS."
-    },
-    {
-      "app": "pushkin",
-      "locale": "pt-PT",
-      "file": "pushkin/ios/ArvectumNotify/Resources/pt-PT.lproj/Localizable.strings",
-      "kind": "pt_pt_brazilian_flags",
-      "key": "Plan groups of apps",
-      "value": "Planejar grupos de apps"
-    },
-    {
-      "app": "pushkin",
-      "locale": "pt-PT",
-      "file": "pushkin/ios/ArvectumNotify/Resources/pt-PT.lproj/Localizable.strings",
-      "kind": "pt_pt_brazilian_flags",
-      "key": "Save and make sure the new automation is enabled. The first matching notification should then appear in PUSHKIN automatically.",
-      "value": "Salve e confira se a nova automação está ativada. A primeira notificação correspondente deverá aparecer automaticamente no PUSHKIN."
-    },
-    {
-      "app": "pushkin",
-      "locale": "pt-PT",
-      "file": "pushkin/ios/ArvectumNotify/Resources/pt-PT.lproj/Localizable.strings",
-      "kind": "pt_pt_brazilian_flags",
-      "key": "Search apps",
-      "value": "Buscar apps"
-    },
-    {
-      "app": "pushkin",
-      "locale": "pt-PT",
-      "file": "pushkin/ios/ArvectumNotify/Resources/pt-PT.lproj/Localizable.strings",
-      "kind": "pt_pt_brazilian_flags",
-      "key": "Send a real notification from one app in each group and check that it appears in History. One captured app does not verify every app in its group.",
-      "value": "Envie uma notificação real de um app de cada grupo e confirme que ela aparece no Histórico. Uma notificação recebida não verifica todos os apps daquele grupo."
-    },
-    {
-      "app": "pushkin",
-      "locale": "pt-PT",
-      "file": "pushkin/ios/ArvectumNotify/Resources/pt-PT.lproj/Localizable.strings",
-      "kind": "pt_pt_brazilian_flags",
-      "key": "Support and missing-app requests",
-      "value": "Suporte e solicitações de apps ausentes"
-    },
-    {
-      "app": "pushkin",
-      "locale": "pt-PT",
-      "file": "pushkin/ios/ArvectumNotify/Resources/pt-PT.lproj/Localizable.strings",
-      "kind": "pt_pt_brazilian_flags",
-      "key": "This cannot be undone. PUSHKIN setup and app coverage stay intact.",
-      "value": "Esta ação não pode ser desfeita. A configuração do PUSHKIN e os apps conectados serão mantidos."
-    },
-    {
-      "app": "pushkin",
-      "locale": "pt-PT",
-      "file": "pushkin/ios/ArvectumNotify/Resources/pt-PT.lproj/Localizable.strings",
-      "kind": "pt_pt_brazilian_flags",
-      "key": "This path is only for apps missing from the built-in catalog.",
-      "value": "Este caminho é apenas para apps ausentes do catálogo integrado."
-    },
-    {
-      "app": "pushkin",
-      "locale": "pt-PT",
-      "file": "pushkin/ios/ArvectumNotify/Resources/pt-PT.lproj/Localizable.strings",
-      "kind": "pt_pt_brazilian_flags",
-      "key": "Want this app to become a one-tap option? Mention its exact name in an App Store review or send it to Arvectum support. Requested apps can be added in regular catalog updates.",
-      "value": "Quer adicionar este app com um toque? Informe o nome exato em uma avaliação na App Store ou entre em contato com o suporte Arvectum. Os apps solicitados podem entrar em atualizações regulares do catálogo."
+      "value": "Nada é enviado à internet. Você cria uma automação de Notificação diretamente na aplicação Atalhos da Apple."
     },
     {
       "app": "pushkin",
@@ -2758,47 +2606,7 @@
       "file": "pushkin/ios/ArvectumNotify/Resources/pt-PT.lproj/Localizable.strings",
       "kind": "pt_pt_brazilian_flags",
       "key": "You can still add this app manually in Shortcuts.",
-      "value": "Você ainda pode adicionar este app manualmente na app Atalhos."
-    },
-    {
-      "app": "pushkin",
-      "locale": "pt-PT",
-      "file": "pushkin/ios/ArvectumNotify/Resources/pt-PT.lproj/Localizable.strings",
-      "kind": "pt_pt_brazilian_flags",
-      "key": "An app installed after the base shortcut was imported is not automatically connected, even if it is in the 1,000-app catalog. Import its signed one-app shortcut, enable it and verify a real notification.",
-      "value": "Um app instalado depois que o atalho principal foi importado não é conectado automaticamente, mesmo que faça parte do catálogo de 1.000 apps. Importe o atalho assinado desse app, ative-o e verifique uma notificação real."
-    },
-    {
-      "app": "pushkin",
-      "locale": "pt-PT",
-      "file": "pushkin/ios/ArvectumNotify/Resources/pt-PT.lproj/Localizable.strings",
-      "kind": "pt_pt_brazilian_flags",
-      "key": "App packages opened",
-      "value": "Pacotes de apps abertos"
-    },
-    {
-      "app": "pushkin",
-      "locale": "pt-PT",
-      "file": "pushkin/ios/ArvectumNotify/Resources/pt-PT.lproj/Localizable.strings",
-      "kind": "pt_pt_brazilian_flags",
-      "key": "Choose apps for groups",
-      "value": "Escolher apps para os grupos"
-    },
-    {
-      "app": "pushkin",
-      "locale": "pt-PT",
-      "file": "pushkin/ios/ArvectumNotify/Resources/pt-PT.lproj/Localizable.strings",
-      "kind": "pt_pt_brazilian_flags",
-      "key": "Connect the apps you want to track in Shortcuts. Notifications captured from those sources will appear here.",
-      "value": "Conecte na app Atalhos os apps que deseja acompanhar. As notificações recebidas desses apps aparecerão aqui."
-    },
-    {
-      "app": "pushkin",
-      "locale": "pt-PT",
-      "file": "pushkin/ios/ArvectumNotify/Resources/pt-PT.lproj/Localizable.strings",
-      "kind": "pt_pt_brazilian_flags",
-      "key": "Observed source apps",
-      "value": "Apps de origem observados"
+      "value": "Você ainda pode adicionar esta aplicação manualmente na app Atalhos."
     },
     {
       "app": "pushkin",
@@ -2813,56 +2621,8 @@
       "locale": "pt-PT",
       "file": "pushkin/ios/ArvectumNotify/Resources/pt-PT.lproj/Localizable.strings",
       "kind": "pt_pt_brazilian_flags",
-      "key": "Popular apps",
-      "value": "Apps populares"
-    },
-    {
-      "app": "pushkin",
-      "locale": "pt-PT",
-      "file": "pushkin/ios/ArvectumNotify/Resources/pt-PT.lproj/Localizable.strings",
-      "kind": "pt_pt_brazilian_flags",
-      "key": "Review notifications captured from apps you connected.",
-      "value": "Revise as notificações capturadas dos apps conectados."
-    },
-    {
-      "app": "pushkin",
-      "locale": "pt-PT",
-      "file": "pushkin/ios/ArvectumNotify/Resources/pt-PT.lproj/Localizable.strings",
-      "kind": "pt_pt_brazilian_flags",
       "key": "Review the app list and tap Add in Shortcuts. You do not have to manually select all 1,000 catalog apps.",
-      "value": "Revise a lista e toque em Adicionar na app Atalhos. Você não precisa selecionar manualmente todos os 1.000 apps do catálogo."
-    },
-    {
-      "app": "pushkin",
-      "locale": "pt-PT",
-      "file": "pushkin/ios/ArvectumNotify/Resources/pt-PT.lproj/Localizable.strings",
-      "kind": "pt_pt_brazilian_flags",
-      "key": "Selected apps",
-      "value": "Apps selecionados"
-    },
-    {
-      "app": "pushkin",
-      "locale": "pt-PT",
-      "file": "pushkin/ios/ArvectumNotify/Resources/pt-PT.lproj/Localizable.strings",
-      "kind": "pt_pt_brazilian_flags",
-      "key": "Signed app options",
-      "value": "Opções de apps assinadas"
-    },
-    {
-      "app": "pushkin",
-      "locale": "pt-PT",
-      "file": "pushkin/ios/ArvectumNotify/Resources/pt-PT.lproj/Localizable.strings",
-      "kind": "pt_pt_brazilian_flags",
-      "key": "The base shortcut includes 1,000 entries. Only apps recognized by Shortcuts when you configure the automation can send captures.",
-      "value": "O atalho principal contém 1.000 entradas. Só os apps reconhecidos pela app Atalhos durante a configuração da automação podem gerar registros."
-    },
-    {
-      "app": "pushkin",
-      "locale": "pt-PT",
-      "file": "pushkin/ios/ArvectumNotify/Resources/pt-PT.lproj/Localizable.strings",
-      "kind": "pt_pt_brazilian_flags",
-      "key": "This proves PUSHKIN received a notification from at least one source. It does not prove that all selected apps are covered or that the automation is still enabled.",
-      "value": "Isso confirma que o PUSHKIN recebeu uma notificação de pelo menos uma origem. Não comprova que todos os apps selecionados são monitorados nem que a automação continua ativada."
+      "value": "Revise a lista e toque em Adicionar na app Atalhos. Você não precisa selecionar manualmente todos os 1.000 aplicações do catálogo."
     },
     {
       "app": "pushkin",
@@ -2870,7 +2630,7 @@
       "file": "pushkin/ios/ArvectumNotify/Resources/pt-PT.lproj/Localizable.strings",
       "kind": "pt_pt_brazilian_flags",
       "key": "When you install another app",
-      "value": "Quando você instalar outro app"
+      "value": "Quando você instalar outra aplicação"
     },
     {
       "app": "pushkin",
@@ -2885,24 +2645,8 @@
       "locale": "pt-PT",
       "file": "pushkin/ios/ArvectumNotify/Resources/pt-PT.lproj/Localizable.strings",
       "kind": "pt_pt_brazilian_flags",
-      "key": "Your group plan is stored locally in PUSHKIN. Copying app names uses the system clipboard.",
-      "value": "Seu plano de grupos fica armazenado localmente no PUSHKIN. Copiar nomes de apps usa a área de transferência do sistema."
-    },
-    {
-      "app": "pushkin",
-      "locale": "pt-PT",
-      "file": "pushkin/ios/ArvectumNotify/Resources/pt-PT.lproj/Localizable.strings",
-      "kind": "pt_pt_brazilian_flags",
       "key": "iOS does not allow PUSHKIN to read every app's notifications or turn on automations itself. You control which apps are included.",
-      "value": "O iOS não permite que o PUSHKIN leia as notificações de todos os apps nem ative automações sozinho. Você controla quais apps são incluídos."
-    },
-    {
-      "app": "what",
-      "locale": "de",
-      "file": "what/ios/WhatIOS/de.lproj/Localizable.strings",
-      "kind": "english_identical",
-      "key": "Filter %@, %@",
-      "value": "Filter %@, %@"
+      "value": "O iOS não permite que o PUSHKIN leia as notificações de todos as aplicações nem ative automações sozinho. Você controla quais aplicações são incluídos."
     },
     {
       "app": "what",
@@ -2911,6 +2655,14 @@
       "kind": "english_identical",
       "key": "Audio (.m4a)",
       "value": "Audio (.m4a)"
+    },
+    {
+      "app": "what",
+      "locale": "de",
+      "file": "what/ios/WhatIOS/de.lproj/Localizable.strings",
+      "kind": "english_identical",
+      "key": "Filter %@, %@",
+      "value": "Filter %@, %@"
     },
     {
       "app": "what",
@@ -2935,14 +2687,6 @@
       "kind": "english_identical",
       "key": "Audio (.m4a)",
       "value": "Audio (.m4a)"
-    },
-    {
-      "app": "what",
-      "locale": "pt-PT",
-      "file": "what/ios/WhatIOS/pt-PT.lproj/Localizable.strings",
-      "kind": "pt_pt_brazilian_flags",
-      "key": "Speech was not detected. Check the recording or choose another language. Audio is safe.",
-      "value": "Nenhuma fala foi detectada. Confira a gravação ou escolha outro idioma. O áudio está preservado."
     },
     {
       "app": "what",
@@ -3005,16 +2749,16 @@
       "locale": "fr",
       "file": "photo-pdf-to-size/ios/PhotoPodRazmer/Resources/fr.lproj/Localizable.strings",
       "kind": "english_identical",
-      "key": "На документы",
-      "value": "Documents"
+      "key": "НА ДОКУМЕНТЫ",
+      "value": "DOCUMENTS"
     },
     {
       "app": "photo-pdf-to-size",
       "locale": "fr",
       "file": "photo-pdf-to-size/ios/PhotoPodRazmer/Resources/fr.lproj/Localizable.strings",
       "kind": "english_identical",
-      "key": "НА ДОКУМЕНТЫ",
-      "value": "DOCUMENTS"
+      "key": "На документы",
+      "value": "Documents"
     },
     {
       "app": "photo-pdf-to-size",

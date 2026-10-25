@@ -2,7 +2,7 @@
 // Português (Portugal), revisão humana antes do release.
 "widget.title" = "Hoje";
 "widget.displayName" = "Hábitos de hoje";
-"widget.description" = "Veja o progresso de hoje e marque hábitos sem abrir o app.";
+"widget.description" = "Veja o progresso de hoje e marque hábitos sem abrir a aplicação.";
 "widget.empty" = "Nada programado para hoje";
 "widget.allDone" = "Tudo concluído por hoje";
 "widget.remaining.format" = "%d restantes";

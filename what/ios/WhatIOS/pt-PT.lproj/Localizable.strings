@@ -45,7 +45,7 @@
 "After 3 hours" = "Após 3 horas";
 "All" = "Tudo";
 "Allow Speech Recognition for UhWhat? in iPhone Settings. Your audio is safe." = "Permita o reconhecimento de fala do UhWhat? nas Definições do iPhone. Seu áudio está preservado.";
-"App settings and diagnostics" = "Ajustes do app e diagnóstico";
+"App settings and diagnostics" = "Ajustes da aplicação e diagnóstico";
 "Apple Watch — last reported state" = "Apple Watch — último estado informado";
 "Archive" = "Ficheiro";
 "Archive is empty" = "O ficheiro está vazio";
@@ -66,7 +66,7 @@
 "Capture interrupted; saved segments will be preserved. " = "Gravação interrompida; os segmentos salvos serão preservados.";
 "Captured starts" = "Inícios de gravação";
 "Catch a thought…" = "Capture uma ideia…";
-"ChickMark is unavailable or cannot receive notes. Update the app and retry." = "O ChickMark está indisponível ou não consegue receber notas. Atualize o app e tente novamente.";
+"ChickMark is unavailable or cannot receive notes. Update the app and retry." = "O ChickMark está indisponível ou não consegue receber notas. Atualize a aplicação e tente novamente.";
 "Close" = "Fechar";
 "Connecting to microphone…" = "Conectando ao microfone…";
 "Continue" = "Continuar";
@@ -106,7 +106,7 @@
 "Inbox is empty" = "A caixa de entrada está vazia";
 "Speech recognition language" = "Idioma do reconhecimento de fala";
 "Mark reviewed" = "Marcar como revisado";
-"Measured after pressing Record and entering the app's recorder; excludes system launch time. Stored only on this iPhone." = "Medido após tocar em Gravar e entrar no gravador do app; não inclui o tempo de abertura do sistema. Armazenado apenas neste iPhone.";
+"Measured after pressing Record and entering the app's recorder; excludes system launch time. Stored only on this iPhone." = "Medido após tocar em Gravar e entrar no gravador da aplicação; não inclui o tempo de abertura do sistema. Armazenado apenas neste iPhone.";
 "Microphone connected — speak now" = "Microfone conectado — pode falar";
 "Microphone is capturing sound" = "O microfone está captando som";
 "More recording actions" = "Mais ações de gravação";
@@ -155,7 +155,7 @@
 "Search transcripts and dates" = "Buscar transcrições e datas";
 "Send to ChickMark" = "Enviar ao ChickMark";
 "Show all types" = "Mostrar todos os tipos";
-"Speech was not detected. Check the recording or choose another language. Audio is safe." = "Nenhuma fala foi detectada. Confira a gravação ou escolha outro idioma. O áudio está preservado.";
+"Speech was not detected. Check the recording or choose another language. Audio is safe." = "Nenhuma fala foi detectada. Verifique a gravação ou escolha outro idioma. O áudio está preservado.";
 "Speech was recognized, but the text could not be saved. Original audio was not deleted." = "A fala foi reconhecida, mas o texto não pôde ser guardado. O áudio original não foi excluído.";
 "Start recording" = "Iniciar gravação";
 "Stop" = "Parar";

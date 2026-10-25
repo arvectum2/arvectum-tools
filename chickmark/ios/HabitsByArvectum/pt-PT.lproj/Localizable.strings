@@ -108,7 +108,7 @@
 "accessibility.symbol.format" = "Ícone %d";
 "accessibility.selected" = "Selecionado";
 "storage.error.title" = "Os dados do ChickMark estão temporariamente indisponíveis";
-"storage.error.message" = "Seus dados não foram redefinidos nem sobrescritos. Feche e abra o ChickMark novamente. Se o problema persistir, atualize o app antes de tentar de novo.";
+"storage.error.message" = "Seus dados não foram redefinidos nem sobrescritos. Feche e abra o ChickMark novamente. Se o problema persistir, atualize a aplicação antes de tentar de novo.";
 "shortcut.habit.type" = "Hábito";
 "shortcut.habit.parameter" = "Hábito";
 "shortcut.complete.title" = "Concluir hábito";
@@ -221,10 +221,10 @@
 "health.metric.running" = "Treino de corrida (uma sessão)";
 "health.metric.sleep" = "Sono (dia do despertar)";
 "health.unit.hours" = "horas";
-"health.shortcuts.title" = "Leitura e outros apps · Atalhos";
-"health.shortcuts.action" = "Automatizar um hábito relacionado a apps";
-"health.shortcuts.instructions" = "Abra o app Atalhos no iPhone → Automação → escolha um gatilho (por exemplo, fechar o Livros) → adicione a ação “Concluir hábito” do ChickMark → escolha seu hábito. Você também pode executar a ação manualmente pela Siri ou por um atalho na Ecrã de Início.";
-"health.shortcuts.limitation" = "Fechar um app não comprova que você leu por um determinado tempo. O Atalhos registra o evento escolhido, não o tempo real de leitura.";
+"health.shortcuts.title" = "Leitura e outras aplicações · Atalhos";
+"health.shortcuts.action" = "Automatizar um hábito relacionado a aplicações";
+"health.shortcuts.instructions" = "Abra a aplicação Atalhos no iPhone → Automação → escolha um gatilho (por exemplo, fechar o Livros) → adicione a ação “Concluir hábito” do ChickMark → escolha seu hábito. Você também pode executar a ação manualmente pela Siri ou por um atalho na Ecrã de Início.";
+"health.shortcuts.limitation" = "Fechar uma aplicação não comprova que você leu por um determinado tempo. O Atalhos registra o evento escolhido, não o tempo real de leitura.";
 "health.integrations.title" = "Automações inteligentes";
 "language.title" = "Idioma";
 "language.system" = "Padrão do sistema";
@@ -301,4 +301,4 @@
 "water.export.explanation" = "Vale apenas para este hábito de quantidade, a partir do dia em que for ativado. Dias anteriores não são importados. Desfazer ou corrigir atualiza somente os registros criados pelo ChickMark.";
 "water.export.privacy" = "As quantidades de água permanecem no dispositivo. O ChickMark solicitará permissão de escrita no Saúde da Apple ao guardar.";
 "water.export.error" = "Exportação de água indisponível";
-"water.export.storage.error" = "O ChickMark não consegue ler os ajustes de exportação de água. Nenhuma alteração foi feita. Abra o app novamente e tente de novo.";
+"water.export.storage.error" = "O ChickMark não consegue ler os ajustes de exportação de água. Nenhuma alteração foi feita. Abra a aplicação novamente e tente de novo.";
