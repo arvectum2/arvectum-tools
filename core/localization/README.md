@@ -1,5 +1,12 @@
 # Arvectum Tools — portfolio localization (50 locales)
 
+## 25 October 2026 - C5.7 source UI matrix
+- [x] 36/36 iPhone app x locale pairs covered by native XCUITest source.
+- [x] Ten new tests passed 10/10 on iPhone Simulator.
+- [ ] Native proofreading and physical Watch/VoiceOver remain blockers.
+- [Evidence](../docs/IOS_NINE_LANGUAGE_UI_MATRIX_2026-10-25.md).
+
+
 ## 25 октября 2026 - сквозная регрессия 9 языков
 
 - [x] Проверены все 9 исходных каталогов; Core 52/52, Swift 68/68, переведённые UI 40/40 PASS.

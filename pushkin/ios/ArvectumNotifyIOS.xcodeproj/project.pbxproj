@@ -437,6 +437,7 @@
 		624D429E816B607E23D09B79 /* PUSHKIN - MobilePay.shortcut in Resources */ = {isa = PBXBuildFile; fileRef = 77803DFCCA1D299684D12FDE /* PUSHKIN - MobilePay.shortcut */; };
 		62759E52A0E5A33B9A5973BA /* PUSHKIN - Chailease Cash.shortcut in Resources */ = {isa = PBXBuildFile; fileRef = CEE4D92C2A49A21BC4043ECF /* PUSHKIN - Chailease Cash.shortcut */; };
 		62F845162FCD42DEF93526A0 /* PUSHKIN - myGov.shortcut in Resources */ = {isa = PBXBuildFile; fileRef = 9358F174E2EC7E1CAB567AE2 /* PUSHKIN - myGov.shortcut */; };
+		6311BAAB5AB06F7F5C235762 /* CoreLanguageCoverageUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9A88F3143EB689185CF71F1 /* CoreLanguageCoverageUITests.swift */; };
 		6364BFF4AE4B9D5A7E02F185 /* PUSHKIN - SWISS.shortcut in Resources */ = {isa = PBXBuildFile; fileRef = C76A59CC2C835628561090D8 /* PUSHKIN - SWISS.shortcut */; };
 		639FFC3CE11992327F12968D /* PUSHKIN - OLX- Marketplace, Auto, Work.shortcut in Resources */ = {isa = PBXBuildFile; fileRef = 16D3B8BFFD8154508ED4F09B /* PUSHKIN - OLX- Marketplace, Auto, Work.shortcut */; };
 		63B154826793E34032224C6F /* PUSHKIN - Công dân số TPHCM.shortcut in Resources */ = {isa = PBXBuildFile; fileRef = 060B23C0CC1F3903EC36A4C8 /* PUSHKIN - Công dân số TPHCM.shortcut */; };
@@ -1776,6 +1777,7 @@
 		A81DC0C7B8E6B221422E6518 /* PUSHKIN - Resurs Bank.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - Resurs Bank.shortcut"; sourceTree = "<group>"; };
 		A8416530428EF342FF2C18F0 /* PUSHKIN - LICENSE DXB APP.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - LICENSE DXB APP.shortcut"; sourceTree = "<group>"; };
 		A9704CC9A9A75819ED51B632 /* PUSHKIN - Melolo - Short Movie & TV.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - Melolo - Short Movie & TV.shortcut"; sourceTree = "<group>"; };
+		A9A88F3143EB689185CF71F1 /* CoreLanguageCoverageUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreLanguageCoverageUITests.swift; sourceTree = "<group>"; };
 		A9B2992C3E10DCEEFF6874D3 /* PUSHKIN - Hacoo - Discovering &Inspiring.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - Hacoo - Discovering &Inspiring.shortcut"; sourceTree = "<group>"; };
 		A9C87B0CC18083C503E304ED /* PUSHKIN - ジハンピ.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - ジハンピ.shortcut"; sourceTree = "<group>"; };
 		AA291EDFF10E5CEE5F2EBD78 /* PUSHKIN - foodora Essen & Lebensmittel.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - foodora Essen & Lebensmittel.shortcut"; sourceTree = "<group>"; };
@@ -3289,6 +3291,7 @@
 				BB897591933CD56B6B623B63 /* AdaptiveLayoutUITests.swift */,
 				69843C842E153341D5E3508E /* AppStoreUpdatePromptUITests.swift */,
 				F81BBAB3DF244E450F4E71D4 /* BrazilianPortugueseLocalizationUITests.swift */,
+				A9A88F3143EB689185CF71F1 /* CoreLanguageCoverageUITests.swift */,
 				5B850BF285E0647A19365C7C /* FrenchLocalizationUITests.swift */,
 				7F88370E401F99465A57E0A0 /* GermanLocalizationUITests.swift */,
 				526F64052ED77B6A392D90CB /* ItalianLocalizationUITests.swift */,
@@ -4491,6 +4494,7 @@
 				552DA9E46BD1BD0F12D674DD /* AdaptiveLayoutUITests.swift in Sources */,
 				83E193DE6BFA082826D166EA /* AppStoreUpdatePromptUITests.swift in Sources */,
 				C30E8DD1951053A047115364 /* BrazilianPortugueseLocalizationUITests.swift in Sources */,
+				6311BAAB5AB06F7F5C235762 /* CoreLanguageCoverageUITests.swift in Sources */,
 				123476D28AD9DDDEE32AB9FC /* FrenchLocalizationUITests.swift in Sources */,
 				97AB1F573BD0FA4F0F19A498 /* GermanLocalizationUITests.swift in Sources */,
 				2755EAF2299CA5BD7C7899BC /* ItalianLocalizationUITests.swift in Sources */,
