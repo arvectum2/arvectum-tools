@@ -1,5 +1,14 @@
 # Arvectum Tools Core — дорожная карта
 
+## 25.10.2026 - Pushkin CI simulator launch
+
+- [x] Original GitHub red job traced to 129-second Xcode simulator app-launch timeout; other deletion UI and Swift unit tests passed.
+- [x] Isolated prebooted CI Simulator, bounded retry and cleanup.
+- [x] Mac mini independent 12/12 deletion regression PASS, exit 0.
+- [ ] Confirm new CI on real GitHub xcode-27 runner before merging.
+- [Evidence](docs/PUSHKIN_CI_SIMULATOR_LAUNCH_FIX_2026-10-25.md).
+
+
 ## 25.10.2026 - C5.7: 36/36 iOS language UI coverage
 - [x] Main CI after #141-147: 8/8 PASS.
 - [x] RU/EN baseline for four apps, FR Uhvat, ES ChickMark: 10/10 new XCUITest PASS.

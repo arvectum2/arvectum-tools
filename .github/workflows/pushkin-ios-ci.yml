@@ -67,16 +67,40 @@ jobs:
         run: brew install xcodegen
       - name: Generate project
         run: xcodegen generate
-      - name: Exercise deletion in isolated iOS simulator
+      # Previous failure was a first-launch timeout in CI Simulator.
+      # Boot and use a private simulator for deletion regression.
+      - name: Boot disposable deletion-test simulator
         run: |
+          set -euo pipefail
+          sim_id=$(xcrun simctl create "Pushkin-Delete-CI-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}" \
+            "iPhone 18 Pro" "iOS 27.0")
+          echo "PUSHKIN_DELETE_SIM=$sim_id" >> "$GITHUB_ENV"
+          xcrun simctl boot "$sim_id"
+          xcrun simctl bootstatus "$sim_id" -b
+
+      - name: Exercise deletion in isolated iOS simulator
+        timeout-minutes: 19
+        run: |
+          set -euo pipefail
           xcodebuild \
             -project ArvectumNotifyIOS.xcodeproj \
             -scheme ArvectumNotify \
-            -destination 'platform=iOS Simulator,name=iPhone 18 Pro,OS=27.0' \
+            -destination "platform=iOS Simulator,id=$PUSHKIN_DELETE_SIM" \
             -parallel-testing-enabled NO \
             -jobs 2 \
+            -test-iterations 2 \
+            -retry-tests-on-failure \
+            -test-repetition-relaunch-enabled YES \
             CODE_SIGNING_ALLOWED=NO \
             COMPILER_INDEX_STORE_ENABLE=NO \
             -only-testing:ArvectumNotifyTests/NotificationHistoryDeletionTests \
             -only-testing:ArvectumNotifyUITests/NotificationDeletionUITests \
             test
+
+      - name: Remove disposable deletion-test simulator
+        if: always()
+        run: |
+          if [ -n "${PUSHKIN_DELETE_SIM:-}" ]; then
+            xcrun simctl shutdown "$PUSHKIN_DELETE_SIM" 2>/dev/null || true
+            xcrun simctl delete "$PUSHKIN_DELETE_SIM" 2>/dev/null || true
+          fi
