@@ -1,0 +1,18 @@
+// Draft zh-Hant (Taiwan) converted with OpenCC s2twp; native editorial review REQUIRED before release.
+// Traduzione italiana preliminare; revisione editoriale prima del rilascio.
+"widget.title" = "今天";
+"widget.displayName" = "今天的習慣";
+"widget.description" = "無需開啟應用即可檢視今日進度併為習慣打卡。";
+"widget.empty" = "今天沒有安排";
+"widget.allDone" = "今天的任務全部完成";
+"widget.remaining.format" = "剩餘%d項";
+"widget.inline.format" = "今天%d／%d";
+"widget.more.format" = "另有%d項";
+"widget.complete" = "標記為完成";
+"widget.undo" = "撤銷完成";
+"widget.preview.water" = "喝水";
+"widget.preview.reading" = "閱讀";
+"widget.duration.format" = "%d／%d分鐘";
+"widget.action.complete.format" = "完成%@";
+"widget.action.undo.format" = "撤銷%@的完成狀態";
+"widget.empty.small" = "今天沒有待辦";

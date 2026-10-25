@@ -1,5 +1,21 @@
 # Arvectum Tools — Roadmap Registry
 
+## 25.10.2026 · Сводка Core и всех продуктов
+
+| Владелец | Последний подтверждённый статус | Следующий gate |
+| --- | --- | --- |
+| [Core](ROADMAP.md) | 9 языков протестировано, десятый zh-Hant — source draft | Simulator/CI, human QA, hardware |
+| [Фото/PDF](../photo-pdf-to-size/ROADMAP.md) | Публичная 1.0.2 по подтверждению владельца 24.10; zh-Hant draft | Files/PDF/Photos/РСЯ и языковая QA |
+| [Pushkin](../pushkin/ROADMAP.md) | 1.0.2(6) отправлена 24.10 в review; zh-Hant draft | Read-only Apple, Shortcuts/data upgrade, CI |
+| [Ухват](../what/ROADMAP.md) | 1.1.1(9) отправлена 24.10 в review; zh-Hant draft | Watch ACK/фон, длинные записи |
+| [ChickMark](../chickmark/ROADMAP.md) | 1.5.1(19) отправлена 24.10 в review; zh-Hant draft | HealthKit/CloudKit/Watch; Productivity |
+| [Where?](../where/ROADMAP.md) | PAUSED, MVP/PAO отсутствуют | Решение владельца о запуске |
+| [Growth](../growth/ROADMAP.md) | Site PR #15 не deployed; Agent PAUSED | ASC Analytics 403/РСЯ/SEO |
+
+**Не объявлять Apple-review версии опубликованными без новой проверки.** Данные Apple датированы 24.10, новые локализации не отправлялись. [Детали C6](docs/IOS_ZH_HANT_TIER1_DRAFT_2026-10-25.md).
+
+
+
 ## 25.10.2026 - Pushkin CI simulator isolation
 
 - [x] Investigated launch timeout, implemented disposable CI device and bounded retry, verified Mac mini 12/12 PASS.

@@ -832,6 +832,7 @@
 		C75E30103874C7BB4015F6A9 /* PUSHKIN - Mr D - Groceries & Takeaway.shortcut in Resources */ = {isa = PBXBuildFile; fileRef = B71024C1D7CCF953C40F60FD /* PUSHKIN - Mr D - Groceries & Takeaway.shortcut */; };
 		C771AF6A70E1EC852B57371E /* PUSHKIN - NHG Health.shortcut in Resources */ = {isa = PBXBuildFile; fileRef = FE26BE58D28CB68B0E27CDA0 /* PUSHKIN - NHG Health.shortcut */; };
 		C798EAB1DD60DFEDA23F50CD /* PUSHKIN - 고용24(Work24).shortcut in Resources */ = {isa = PBXBuildFile; fileRef = 9792FE4ED794CC904BF433D9 /* PUSHKIN - 고용24(Work24).shortcut */; };
+		C79B06CE6D9DBF830CD63C11 /* TraditionalChineseLocalizationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E7A235C73B16BE9931CA865 /* TraditionalChineseLocalizationUITests.swift */; };
 		C81BDC01D5FAB130A938CB71 /* PUSHKIN - Norwegian Travel Assistant.shortcut in Resources */ = {isa = PBXBuildFile; fileRef = 968F5FB6386D28672958D52A /* PUSHKIN - Norwegian Travel Assistant.shortcut */; };
 		C85516977A29673962DFB971 /* PUSHKIN - Talkmore appen.shortcut in Resources */ = {isa = PBXBuildFile; fileRef = 29A2161C8DFFF41DFAADAEA7 /* PUSHKIN - Talkmore appen.shortcut */; };
 		C862FAFDB79AC2C1B1403155 /* PUSHKIN - Zalando – fashion & clothing.shortcut in Resources */ = {isa = PBXBuildFile; fileRef = 896167613570360537BED3A4 /* PUSHKIN - Zalando – fashion & clothing.shortcut */; };
@@ -1358,6 +1359,7 @@
 		45CFFCCFE59E54B05F261B39 /* PUSHKIN - Hudhud- Accurate KSA Maps.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - Hudhud- Accurate KSA Maps.shortcut"; sourceTree = "<group>"; };
 		461C19F4FEBD9149007EA843 /* PUSHKIN - MARTI- TAG & Scooter.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - MARTI- TAG & Scooter.shortcut"; sourceTree = "<group>"; };
 		4636C855F52768AA40555B3B /* PUSHKIN - Flyt Foresatt.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - Flyt Foresatt.shortcut"; sourceTree = "<group>"; };
+		464DEF383CA0B3CDBF23C4EA /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		47A64FBD055C9807B4ABF21E /* PUSHKIN - Hepsiburada- Online Shopping.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - Hepsiburada- Online Shopping.shortcut"; sourceTree = "<group>"; };
 		47FFFDC797092AFF137674A4 /* PUSHKIN - Edenred+.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - Edenred+.shortcut"; sourceTree = "<group>"; };
 		480289CCFCEF5E75CA790125 /* PUSHKIN - NetShort - 熱門短劇盡情觀賞.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - NetShort - 熱門短劇盡情觀賞.shortcut"; sourceTree = "<group>"; };
@@ -1607,6 +1609,7 @@
 		7DE4B9ED9A9895A3A3516C90 /* PUSHKIN - Haze@SG.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - Haze@SG.shortcut"; sourceTree = "<group>"; };
 		7E337CD839AB6C5DED31D00D /* PUSHKIN - 포켓CU.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - 포켓CU.shortcut"; sourceTree = "<group>"; };
 		7E6382F38D33C1E403C85CC3 /* PUSHKIN - Повітряна тривога.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - Повітряна тривога.shortcut"; sourceTree = "<group>"; };
+		7E7A235C73B16BE9931CA865 /* TraditionalChineseLocalizationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraditionalChineseLocalizationUITests.swift; sourceTree = "<group>"; };
 		7EA7990C1909D260A5B24453 /* PUSHKIN - ZIVA - Zivilschutz Österreich.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - ZIVA - Zivilschutz Österreich.shortcut"; sourceTree = "<group>"; };
 		7EEF44EDF9172999836F850A /* PUSHKIN - Control remoto Roku (oficial).shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - Control remoto Roku (oficial).shortcut"; sourceTree = "<group>"; };
 		7F30617B90DFAA445155C993 /* PUSHKIN - 하나증권V-대표MTS(NEW).shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - 하나증권V-대표MTS(NEW).shortcut"; sourceTree = "<group>"; };
@@ -3306,6 +3309,7 @@
 				CA59FDA83533FF0A6BA5E9DF /* SimulatorShortcutUITests.swift */,
 				B93835056FA6DA990667586A /* SimulatorShortcutUITests.swift.tmp */,
 				DB523F075DBF5937FDB5B343 /* SpanishLocalizationUITests.swift */,
+				7E7A235C73B16BE9931CA865 /* TraditionalChineseLocalizationUITests.swift */,
 			);
 			path = ArvectumNotifyUITests;
 			sourceTree = "<group>";
@@ -3406,6 +3410,7 @@
 				"pt-BR",
 				ru,
 				"zh-Hans",
+				"zh-Hant",
 			);
 			mainGroup = 5E24A853970EE4E87421C056;
 			minimizedProjectReferenceProxies = 1;
@@ -4508,6 +4513,7 @@
 				179C5545DEACC95BE0D04203 /* SimulatorRebindUITests.swift in Sources */,
 				556A90005EA203276F345B2E /* SimulatorShortcutUITests.swift in Sources */,
 				E799782A5F83A7CDECA520DB /* SpanishLocalizationUITests.swift in Sources */,
+				C79B06CE6D9DBF830CD63C11 /* TraditionalChineseLocalizationUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4539,6 +4545,7 @@
 				664D859F3EEA04DA41311D29 /* pt-BR */,
 				E88D3D65B6E0FF8B87FA0DE3 /* ru */,
 				1E6167A9AFE175E135406217 /* zh-Hans */,
+				464DEF383CA0B3CDBF23C4EA /* zh-Hant */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";

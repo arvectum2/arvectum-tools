@@ -44,6 +44,7 @@
 		3B33A97091850D9E5D73B313 /* HabitHistoryCalendarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3994450D5C2D132493FFC8FC /* HabitHistoryCalendarTests.swift */; };
 		3D615909092A2873B72CDE03 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = AF3A24ACE75EB10202D9164A /* PrivacyInfo.xcprivacy */; };
 		4490AD067F5C4E0A6A91303C /* WatchHealthEvaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 177DC094E58447E014E5C326 /* WatchHealthEvaluator.swift */; };
+		45A1FA280282216AA42D6ABB /* TraditionalChineseLocalizationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58AF34D4B445B52917428EC3 /* TraditionalChineseLocalizationUITests.swift */; };
 		45EE183496DA73DC0C30A282 /* HabitScheduleText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07EEFC14FA3B5F51E4785CA2 /* HabitScheduleText.swift */; };
 		46332C7D33E100BEC6E668FB /* HabitInsights.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAB7F2EEB508F20E0E392A7 /* HabitInsights.swift */; };
 		48FF93B834C335A493D472FC /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCED7F4CF60499949A8BF95B /* Theme.swift */; };
@@ -280,6 +281,7 @@
 		2E3399B6CE660C30A90E8802 /* HabitTodayProjectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitTodayProjectionTests.swift; sourceTree = "<group>"; };
 		2FEFE949207102917817DFE1 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
 		306AEBE034C4BC280E31DEDD /* WatchComplicationBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchComplicationBridge.swift; sourceTree = "<group>"; };
+		30C8A43C79CC1E666F0F69F7 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		31BD80A734AB2489D684C099 /* WaterExportPlanning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterExportPlanning.swift; sourceTree = "<group>"; };
 		32BC7F93D721C95F71E9D332 /* SimplifiedChineseLocalizationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimplifiedChineseLocalizationUITests.swift; sourceTree = "<group>"; };
 		32F2678FF48FDC395902721D /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -307,6 +309,8 @@
 		511A36FD7170E8026ACA82DF /* WaterExportSettingsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterExportSettingsUITests.swift; sourceTree = "<group>"; };
 		54CDBA8AD41C1E6158BA8F4B /* HabitsByArvectumApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitsByArvectumApp.swift; sourceTree = "<group>"; };
 		56C6C32A6E197D5CEB5EF468 /* ChickMarkGroups.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChickMarkGroups.swift; sourceTree = "<group>"; };
+		56DA1EFF8870BBAD65199E7F /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		58AF34D4B445B52917428EC3 /* TraditionalChineseLocalizationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraditionalChineseLocalizationUITests.swift; sourceTree = "<group>"; };
 		595379F0DA6D68FC9689DCCB /* HabitProgressEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitProgressEditor.swift; sourceTree = "<group>"; };
 		5B384F9752CF25314170B7F4 /* HabitHistoryCalendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitHistoryCalendar.swift; sourceTree = "<group>"; };
 		5C930DE1D91E04C8E406F858 /* ChickMarkBrandHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChickMarkBrandHeader.swift; sourceTree = "<group>"; };
@@ -327,6 +331,7 @@
 		6B1B1EBFEB27804C3BE251B4 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
 		6E11D222A3BB20BE7D7152F2 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		6EFF402AF41E0508DF3485CE /* ChickMarkBackup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChickMarkBackup.swift; sourceTree = "<group>"; };
+		6F77ACFBCC361130C9CDA135 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		71230D7CEB9B54C7E4D87BE2 /* WaterExportPlanningTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterExportPlanningTests.swift; sourceTree = "<group>"; };
 		736ECF84651A1834D4FDE061 /* HabitDeepLinkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitDeepLinkTests.swift; sourceTree = "<group>"; };
 		741CF78431FA0AEFA8509611 /* ReviewNoteAttachments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewNoteAttachments.swift; sourceTree = "<group>"; };
@@ -334,6 +339,7 @@
 		75766395CF3C9486287F9A0A /* HabitsByArvectum.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HabitsByArvectum.entitlements; sourceTree = "<group>"; };
 		757B53D06724D346A446FBF0 /* FrenchLocalizationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrenchLocalizationUITests.swift; sourceTree = "<group>"; };
 		757DC5D1E3DA51B75310C714 /* ItalianLocalizationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItalianLocalizationUITests.swift; sourceTree = "<group>"; };
+		76CC4096D337315C93C790AC /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/AppShortcuts.strings"; sourceTree = "<group>"; };
 		77D3E4728149D56F9020EC00 /* WatchLocalization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchLocalization.swift; sourceTree = "<group>"; };
 		7BDA0BB1957D1482062907D0 /* HabitSkipMutation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitSkipMutation.swift; sourceTree = "<group>"; };
 		7E070B43DDE998354FF69C58 /* HabitInsightsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitInsightsTests.swift; sourceTree = "<group>"; };
@@ -360,6 +366,7 @@
 		9EE25C5D1A563D46AEC2BD9B /* HabitOrderingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitOrderingTests.swift; sourceTree = "<group>"; };
 		9F8C029FD2B90418FFF21F92 /* HabitsByArvectumWatchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitsByArvectumWatchApp.swift; sourceTree = "<group>"; };
 		9FD694C5AC1BD1FE5FDFF51B /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		9FDF591469328D163C1A0BA4 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		A01B765CB069F4D7363B3AA3 /* GentleRestartUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GentleRestartUITests.swift; sourceTree = "<group>"; };
 		A0F717AA559ED78F8825E3B2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		A33D61EE5EFE6AD53B0C0848 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/AppShortcuts.strings; sourceTree = "<group>"; };
@@ -410,6 +417,7 @@
 		C54B737E15496B72842EE71F /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/AppShortcuts.strings; sourceTree = "<group>"; };
 		C5F1B906C5D98220118F6E72 /* ChickMarkBackupTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChickMarkBackupTests.swift; sourceTree = "<group>"; };
 		C64B529435EC0167EF9CCEED /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		C740107987B5AD624778E375 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		C87A11EBE4A7566B04031352 /* HabitMultiCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitMultiCheck.swift; sourceTree = "<group>"; };
 		C9660A3999A4B4DFD667737E /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		C990AEEED2A8EA56AF8184B8 /* ChickMarkGroupsCloudSync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChickMarkGroupsCloudSync.swift; sourceTree = "<group>"; };
@@ -417,6 +425,7 @@
 		C9CEC055065FD3A77D98A0C6 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		CA51BC686DE2EAB3EB275EB6 /* HabitReminderCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitReminderCoordinator.swift; sourceTree = "<group>"; };
 		CA5EA0BF7A26CFFB5A398718 /* AppStoreUpdatePrompt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoreUpdatePrompt.swift; sourceTree = "<group>"; };
+		CBCF9023E75E6740F3639567 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		CC82BE16E4CFB3CD6C2D04E9 /* PhoneWatchSyncCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneWatchSyncCoordinator.swift; sourceTree = "<group>"; };
 		CCAFF99AA2E1F12C6A6E30ED /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/AppShortcuts.strings"; sourceTree = "<group>"; };
 		CF084C9547AA74D471B8C21E /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -719,6 +728,7 @@
 				757DC5D1E3DA51B75310C714 /* ItalianLocalizationUITests.swift */,
 				07F9456247F55114884100F2 /* JapaneseLocalizationUITests.swift */,
 				32BC7F93D721C95F71E9D332 /* SimplifiedChineseLocalizationUITests.swift */,
+				58AF34D4B445B52917428EC3 /* TraditionalChineseLocalizationUITests.swift */,
 				511A36FD7170E8026ACA82DF /* WaterExportSettingsUITests.swift */,
 			);
 			path = HabitsByArvectumUITests;
@@ -949,6 +959,7 @@
 				"pt-BR",
 				ru,
 				"zh-Hans",
+				"zh-Hant",
 			);
 			mainGroup = 5081445F99E4AC1F078CE02A;
 			minimizedProjectReferenceProxies = 1;
@@ -1119,6 +1130,7 @@
 				7F343D1C18945BC9CA8A3914 /* ItalianLocalizationUITests.swift in Sources */,
 				A02BDE5DE60397A4A478D744 /* JapaneseLocalizationUITests.swift in Sources */,
 				AA5110FC99914603F81C9B5C /* SimplifiedChineseLocalizationUITests.swift in Sources */,
+				45A1FA280282216AA42D6ABB /* TraditionalChineseLocalizationUITests.swift in Sources */,
 				CDAE731052E7A9DE768AF7EF /* WaterExportSettingsUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1244,6 +1256,7 @@
 				C9660A3999A4B4DFD667737E /* pt-BR */,
 				C9CEC055065FD3A77D98A0C6 /* ru */,
 				FD2D69506D88E6AB26D42D63 /* zh-Hans */,
+				C740107987B5AD624778E375 /* zh-Hant */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -1260,6 +1273,7 @@
 				213C0ABA7F4C68808304DC3D /* pt-BR */,
 				F71FE24BEA20826ABE68C53C /* ru */,
 				8FB4657544AAF9943DEE8FC9 /* zh-Hans */,
+				30C8A43C79CC1E666F0F69F7 /* zh-Hant */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -1276,6 +1290,7 @@
 				23A013AA7D0C1A62C832D155 /* pt-BR */,
 				C64B529435EC0167EF9CCEED /* ru */,
 				F8F6D82E2BD17A91C6930B5A /* zh-Hans */,
+				56DA1EFF8870BBAD65199E7F /* zh-Hant */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -1292,6 +1307,7 @@
 				3F57A8F2FFE79A5D4AFE8EF4 /* pt-BR */,
 				EC77FAA3B558115AFFA6CBCF /* ru */,
 				CCAFF99AA2E1F12C6A6E30ED /* zh-Hans */,
+				76CC4096D337315C93C790AC /* zh-Hant */,
 			);
 			name = AppShortcuts.strings;
 			sourceTree = "<group>";
@@ -1308,6 +1324,7 @@
 				3A83EC7AE3694FE45C5E49D1 /* pt-BR */,
 				C517D1EFFD7E2EE9D19ABA0B /* ru */,
 				32F2678FF48FDC395902721D /* zh-Hans */,
+				CBCF9023E75E6740F3639567 /* zh-Hant */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -1324,6 +1341,7 @@
 				92837D9B992B7314F4DDFE61 /* pt-BR */,
 				67C52D8B4207CF8331F30024 /* ru */,
 				E997D4B8D7AB0137D8CFB791 /* zh-Hans */,
+				9FDF591469328D163C1A0BA4 /* zh-Hant */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -1340,6 +1358,7 @@
 				25624A5C5E4C925081513565 /* pt-BR */,
 				61F3F0E65D67CCD1C03FEE5C /* ru */,
 				A6C0C243EE464F435ED74BDC /* zh-Hans */,
+				6F77ACFBCC361130C9CDA135 /* zh-Hant */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";

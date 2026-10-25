@@ -62,9 +62,12 @@ enum ChickMarkLanguage {
                 .split(whereSeparator: { $0 == "-" || $0 == "_" })
                 .first.map(String.init)?.lowercased() ?? ""
             let normalized = preference.lowercased().replacingOccurrences(of: "_", with: "-")
-            if code == "zh" && (normalized.hasPrefix("zh-hant") ||
-               normalized.hasPrefix("zh-tw") || normalized.hasPrefix("zh-hk") ||
-               normalized.hasPrefix("zh-mo")) {
+            if code == "zh" {
+                let traditional = normalized.hasPrefix("zh-hant") ||
+                    normalized.hasPrefix("zh-tw") || normalized.hasPrefix("zh-hk") ||
+                    normalized.hasPrefix("zh-mo")
+                if traditional && available.contains("zh-Hant") { return "zh-Hant" }
+                if !traditional && available.contains("zh-Hans") { return "zh-Hans" }
                 continue
             }
             if available.contains(code) { return code }
@@ -103,6 +106,7 @@ enum ChickMarkLanguage {
         case "it": return "Italiano"
         case "ja": return "日本語"
         case "zh-Hans": return "简体中文"
+        case "zh-Hant": return "繁體中文"
         case system: return L10n.string("language.system")
         default:
             // Autonym, rather than displaying the language name in the

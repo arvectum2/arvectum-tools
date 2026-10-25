@@ -1,5 +1,16 @@
 # Фото и PDF под размер — Product Roadmap
 
+## 25.10.2026 · Фото/PDF: zh-Hant + physical gates
+
+- [x] 155 zh-Hant UI strings и системные InfoPlist строки для iPhone (OpenCC Taiwan-oriented draft), новые XCUITest photo/PDF/AXXXL.
+- [ ] Native Simulator, длинные предупреждения PDF, документы, РСЯ/consent, носитель языка и VoiceOver.
+- [ ] Пострелизная физическая QA Files/Photos/HEIC/EXIF, большой PDF, no-fill; публичная 1.0.2 по подтверждению от 24.10 без повторной отправки.
+- [ ] Android остаётся на девяти исходных пакетах; 41 новый отложен. App Store upload только после отдельной авторизации.
+
+[QA C6](../core/docs/IOS_ZH_HANT_TIER1_DRAFT_2026-10-25.md).
+
+
+
 ## 24.10.2026 · Фото/PDF — zh-Hans
 
 - [x] 155 китайских строк iOS, перевод рекламы, фото документов, PDF и InfoPlist.

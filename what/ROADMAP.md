@@ -1,5 +1,17 @@
 # What? — Product Roadmap
 
+## 25.10.2026 · Ухват: zh-Hant во всех компонентах
+
+- [x] Zh-Hant draft: iPhone 231, Watch 6, Phone Widget 6, complication 5 UI строк, InfoPlist; UI регион zh-TW/HK/MO не зависит от языка транскрипции.
+- [x] Добавлены Swift/XCUITest для языковой маршрутизации и AXXXL без реального аудио.
+- [ ] Xcode iOS/watchOS, VoiceOver, редактура permissions и физических Watch/widget.
+- [ ] P0: Watch→iPhone ACK при фоне (~171 с наблюдалось), offline/reboot, звонок и 30+ минут, без риска личным записям.
+- [ ] 1.1.1(9) WAITING_FOR_REVIEW по 24.10; публичный статус перепроверить, upload только отдельно разрешённый.
+
+[QA C6](../core/docs/IOS_ZH_HANT_TIER1_DRAFT_2026-10-25.md).
+
+
+
 ## 24.10.2026 · Ухват — zh-Hans iPhone/Watch/widgets
 
 - [x] 231 iPhone + 6 Watch + 6 Phone Widget + 5 complication китайских строк; системные разрешения.

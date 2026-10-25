@@ -1,5 +1,17 @@
 # ChickMark — актуальная дорожная карта
 
+## 25.10.2026 · ChickMark: zh-Hant и безопасная приёмка
+
+- [x] Zh-Hant draft: iPhone 302, Watch 22, Phone Widget 16, Watch Widget 5 строк, InfoPlist/HealthKit/Siri AppShortcuts.
+- [x] Селектор языка разделяет zh-Hant (TW/HK/MO) и zh-Hans (CN), подготовлены Swift unit/UI тесты.
+- [ ] Native Simulator/Watch, редактура HealthKit/Siri/длинных строк, физический VoiceOver.
+- [ ] P0: Water check-in/edit/undo на живом UI, revoke/regrant, CloudKit/Watch и недеструктивный upgrade.
+- [ ] 1.5.1(19) WAITING_FOR_REVIEW на 24.10; Productivity сверить уже на публичной версии, не считать опубликованной по ASC edit state.
+
+[QA C6](../core/docs/IOS_ZH_HANT_TIER1_DRAFT_2026-10-25.md).
+
+
+
 ## 24.10.2026 · ChickMark — zh-Hans iPhone/Watch/widgets
 
 - [x] 302 iPhone + 22 Watch + 16 Phone Widget + 5 Watch Widget строк; HealthKit InfoPlist и Siri AppShortcuts.

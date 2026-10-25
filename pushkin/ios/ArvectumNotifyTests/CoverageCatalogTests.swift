@@ -115,8 +115,9 @@ final class CoverageCatalogTests: XCTestCase {
         XCTAssertEqual(PushkinCopy.text("Group %d", language: "zh-CN"), "第%d组")
         XCTAssertEqual(PushkinCopy.appCount(1, language: "zh-Hans"), "1个应用")
         XCTAssertEqual(PushkinCopy.appCount(2, language: "zh-CN"), "2个应用")
-        XCTAssertEqual(PushkinCopy.text("History", language: "zh-Hant"), "History")
-        XCTAssertEqual(PushkinCopy.appCount(2, language: "zh-TW"), "2 apps")
+        XCTAssertEqual(PushkinCopy.text("History", language: "zh-Hant"), "歷史記錄")
+        XCTAssertEqual(PushkinCopy.text("Settings", language: "zh-TW"), "設定")
+        XCTAssertEqual(PushkinCopy.appCount(2, language: "zh-TW"), "2 個應用程式")
     }
 
     func testPendingSourceNameIsBriefWithoutChangingSourceIdentity() {

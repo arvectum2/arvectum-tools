@@ -1,0 +1,7 @@
+// Draft zh-Hant (Taiwan) converted with OpenCC s2twp; native editorial review REQUIRED before release.
+// Traduzione italiana preliminare; revisione editoriale prima del rilascio.
+"watch.widget.title" = "ChickMark";
+"watch.widget.description" = "直接在錶盤檢視今天的習慣進度。";
+"watch.widget.empty" = "沒有待辦";
+"watch.widget.inline.format" = "習慣%d／%d";
+"watch.widget.next.format" = "下一項：%@";

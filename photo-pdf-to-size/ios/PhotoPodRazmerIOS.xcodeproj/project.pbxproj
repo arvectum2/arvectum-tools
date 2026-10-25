@@ -40,6 +40,7 @@
 		9CA1CED137733DAABE1AE178 /* AdaptiveSourcePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF70A0A390BCD6BE5B7AA584 /* AdaptiveSourcePreview.swift */; };
 		9D16124B37A5F15F6268968B /* AdBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64353080C7BFC26040DFCC0D /* AdBannerView.swift */; };
 		9D825F00961E047BD45E701A /* PDFEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB73B138CC67081AF8838E65 /* PDFEngineTests.swift */; };
+		9E67640ED05A2512E7F44A1A /* TraditionalChineseLocalizationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FD0C4EF226F6B750CCA541 /* TraditionalChineseLocalizationUITests.swift */; };
 		9FE9BE43C590539B7599B173 /* FrenchLocalizationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63718FABF1BB1E0396D0D91F /* FrenchLocalizationUITests.swift */; };
 		A14C4FFB7BF4ADFCE42B2BC6 /* SimplifiedChineseLocalizationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27309A197DFD8EB8A4CA2BD2 /* SimplifiedChineseLocalizationUITests.swift */; };
 		A4020173E1729A70A112D128 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E54EEFD9D84C1CAF06B85B34 /* Assets.xcassets */; };
@@ -90,6 +91,8 @@
 		2D5EAD1878C26C6F6327B7B1 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		31BF5181B6888781E533A313 /* SharedControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedControls.swift; sourceTree = "<group>"; };
 		357DC3C94F468E01EBFED12A /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		38DBFA6F740637133E1969A4 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		39CCA4DCB3A8A89769B1EF8E /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		3B1197D2C48FCE7500B11E87 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		3CACC593929E161B41BE2C26 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		404074593195EA93F1DF28D2 /* PhotoPodRazmerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPodRazmerApp.swift; sourceTree = "<group>"; };
@@ -131,6 +134,7 @@
 		BA6A19361B1CFE8FCAE5FEE1 /* AppModel+Internals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppModel+Internals.swift"; sourceTree = "<group>"; };
 		BF70A0A390BCD6BE5B7AA584 /* AdaptiveSourcePreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveSourcePreview.swift; sourceTree = "<group>"; };
 		BF81C2DB26B812C531A1B79E /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		C0FD0C4EF226F6B750CCA541 /* TraditionalChineseLocalizationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraditionalChineseLocalizationUITests.swift; sourceTree = "<group>"; };
 		C12FBF05D956B2D358FC0879 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C73CED7FA58809F3D8187E7B /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		CB73B138CC67081AF8838E65 /* PDFEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFEngineTests.swift; sourceTree = "<group>"; };
@@ -258,6 +262,7 @@
 				51511B7AEB7D0B5421F72F64 /* LayoutRegressionUITests.swift */,
 				27309A197DFD8EB8A4CA2BD2 /* SimplifiedChineseLocalizationUITests.swift */,
 				E83EF38BC2091092E3256431 /* SpanishLocalizationUITests.swift */,
+				C0FD0C4EF226F6B750CCA541 /* TraditionalChineseLocalizationUITests.swift */,
 				8D2E6DAE150416D54E6F5148 /* WorkflowUITests.swift */,
 			);
 			path = PhotoPodRazmerUITests;
@@ -389,6 +394,7 @@
 				"pt-BR",
 				ru,
 				"zh-Hans",
+				"zh-Hant",
 			);
 			mainGroup = A9C114D71BFDA3C453DFA7B7;
 			minimizedProjectReferenceProxies = 1;
@@ -439,6 +445,7 @@
 				4F900A2725EFC0A15AE49B0F /* LayoutRegressionUITests.swift in Sources */,
 				A14C4FFB7BF4ADFCE42B2BC6 /* SimplifiedChineseLocalizationUITests.swift in Sources */,
 				0FB37D5BE05CD84680ED52A3 /* SpanishLocalizationUITests.swift in Sources */,
+				9E67640ED05A2512E7F44A1A /* TraditionalChineseLocalizationUITests.swift in Sources */,
 				FCE6C79A3351D95AF2E4F003 /* WorkflowUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -516,6 +523,7 @@
 				2C8B8D4B8B1A02379AF8BF89 /* pt-BR */,
 				101DE697CC76956CE3889DE5 /* ru */,
 				8291211027E28825CBCA3CE8 /* zh-Hans */,
+				38DBFA6F740637133E1969A4 /* zh-Hant */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -532,6 +540,7 @@
 				83E1CB68C17ED972374B56F7 /* pt-BR */,
 				357DC3C94F468E01EBFED12A /* ru */,
 				3CACC593929E161B41BE2C26 /* zh-Hans */,
+				39CCA4DCB3A8A89769B1EF8E /* zh-Hant */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";

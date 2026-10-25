@@ -1,0 +1,5 @@
+// Draft zh-Hant (Taiwan) converted with OpenCC s2twp; native editorial review REQUIRED before release.
+"Complete a habit in ${applicationName}" = "在${applicationName}中完成習慣";
+"Check off a habit in ${applicationName}" = "在${applicationName}中打卡";
+"Undo a habit in ${applicationName}" = "在${applicationName}中撤銷習慣完成";
+"Mark a habit incomplete in ${applicationName}" = "在${applicationName}中將習慣標記為未完成";

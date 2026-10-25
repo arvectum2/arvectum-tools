@@ -1,0 +1,5 @@
+// Draft zh-Hant (Taiwan) converted with OpenCC s2twp; native editorial review REQUIRED before release.
+"CFBundleDisplayName" = "UhWhat?";
+"NSMicrophoneUsageDescription" = "在此裝置上錄製私密的音訊和影片筆記。媒體檔案儲存在裝置本地。";
+"NSSpeechRecognitionUsageDescription" = "使用裝置本地語音識別功能轉寫已儲存的語音筆記。";
+"NSCameraUsageDescription" = "使用攝像頭錄製私密影片筆記。影片儲存在此裝置本地。";

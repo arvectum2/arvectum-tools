@@ -1,5 +1,19 @@
 # Arvectum Tools — план исполнения без Where?
 
+## 25.10.2026 · Единая активная очередь
+
+- [x] C5 завершено: девять языков исходников и UI matrix для 4 iOS приложений. C6 начато: десятый zh-Hant draft в 10 iPhone/Watch/widget bundles.
+- [ ] **P0 Core:** компиляция, Simulator UI zh-Hant, новая GitHub manual matrix, переводческая/физическая приёмка без изменения публичных бинарников.
+- [ ] **P0 App reliability:** Pushkin physical Shortcuts/data upgrade; Ухват ACK/фон и без потерь; ChickMark HealthKit/Watch/CloudKit; Фото/PDF Files/Photos/PDF/РСЯ.
+- [ ] **P0 Apple read-only:** повторная сверка всех 4 публичных версий и отправленных 24.10 ревью, не путать review с READY_FOR_SALE.
+- [ ] **P1 i18n:** оставшиеся 10 языков Tier 1 после zh-Hant + RTL/plural. Android 41 новых каталога позднее.
+- [ ] **P1 Growth:** ASC Analytics 403, категория Productivity в публичном ChickMark и РСЯ; site PR #15 deploy только при согласовании.
+- [ ] **PAUSED:** Where?, Growth Agent. App Store/TestFlight/metadata и изменение live сайта не разрешаются общей командой на код.
+
+[Реестр](PORTFOLIO.md) · [i18n C6](docs/IOS_ZH_HANT_TIER1_DRAFT_2026-10-25.md).
+
+
+
 ## 24.10.2026 · Исполняемая очередь после подтверждения релиза Фото/PDF
 
 **Сначала читать [актуальный реестр](PORTFOLIO.md); все старые пункты про ожидание Foto/PDF 1.0.2 внизу — исторические.**

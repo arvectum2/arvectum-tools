@@ -1,5 +1,17 @@
 # Arvectum Tools — portfolio localization (50 locales)
 
+## 25 October 2026 — zh-Hant draft, tenth iOS source locale
+
+- [x] Four active iOS apps/ten iPhone/Watch/widget bundles now have 10 complete-key source catalogs, including preliminary OpenCC s2twp zh-Hant. Script conversion is NOT native editorial validation.
+- [x] UI language routing distinguishes zh-Hans/zh-CN from zh-Hant/zh-TW/HK/MO, without changing the independent speech transcription setting.
+- [x] Added dedicated zh-Hant Swift and native UI test sources; manual CI workflow now selects 10 languages, retaining its historic filename.
+- [ ] Build and actual Simulator/Watch testing; traditional Chinese human proofreading of consent, privacy, Shortcuts, typography and VoiceOver; physical acceptance.
+- [ ] Tier 1 remainder: hi, ar, pt-PT, ko, id, tr, vi, nl, pl, uk. Android expansion stays deferred.
+
+[Draft evidence](../docs/IOS_ZH_HANT_TIER1_DRAFT_2026-10-25.md).
+
+
+
 ## 25 October 2026 C5.8 - GitHub on-demand native UI QA
 
 - [x] Manual (not automatically triggered) 4-job Xcode locale UI workflow for all 36 app×language smoke pairs.

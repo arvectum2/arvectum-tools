@@ -1,5 +1,16 @@
 # Arvectum Tools Core — дорожная карта
 
+## 25.10.2026 · C6 — zh-Hant, первый пакет после девяти языков
+
+- [x] Источники zh-Hant (Taiwan-oriented OpenCC s2twp draft) подготовлены для всех четырёх iOS-приложений, десяти bundles iPhone/Watch/widgets; ключи, placeholders, Siri и системные разрешения сохранены.
+- [x] Разделены маршруты zh-Hans/zh-CN и zh-Hant/zh-TW/HK/MO в Pushkin, Ухвате, ChickMark; добавлены unit и XCUITest sources.
+- [x] На этапе генерации Core localization audit и 46/46 unit PASS. [Протокол](docs/IOS_ZH_HANT_TIER1_DRAFT_2026-10-25.md).
+- [ ] Native iOS/watchOS builds, Simulator UI, GitHub manual ten-language matrix, редактура носителем, физический VoiceOver/Watch/consent QA.
+- [ ] Tier 1 сейчас **10/20 исходных пакетов**, включая zh-Hant draft; остальные hi, ar, pt-PT, ko, id, tr, vi, nl, pl, uk. Android остаётся 9 исходных языков и 41 отложенным.
+- [ ] Никаких Apple uploads/TestFlight/live metadata без явного отдельного согласия.
+
+
+
 ## 25.10.2026 - Pushkin CI simulator launch
 
 - [x] Original GitHub red job traced to 129-second Xcode simulator app-launch timeout; other deletion UI and Swift unit tests passed.

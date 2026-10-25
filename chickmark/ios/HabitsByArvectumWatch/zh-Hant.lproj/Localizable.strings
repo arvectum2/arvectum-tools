@@ -1,0 +1,24 @@
+// Draft zh-Hant (Taiwan) converted with OpenCC s2twp; native editorial review REQUIRED before release.
+// Traduzione italiana preliminare; revisione editoriale prima del rilascio.
+"watch.today" = "今天";
+"watch.progress.format" = "%d／%d";
+"watch.empty" = "今天沒有安排";
+"watch.streak.format" = "連續%d天";
+"watch.weekly.format" = "本週%d／%d";
+"watch.completed" = "已完成";
+"watch.notCompleted" = "未完成";
+"watch.skipped" = "已跳過";
+"watch.undoHint" = "雙擊撤銷完成";
+"watch.completeHint" = "雙擊標記為完成";
+"watch.duration.format" = "%d／%d分鐘";
+"watch.step.add" = "增加一次";
+"watch.step.remove" = "撤銷一次";
+"watch.preview.water" = "喝水";
+"watch.preview.reading" = "閱讀";
+"watch.checkins.progress.format" = "打卡%d／%d";
+"watch.health.unit.steps" = "步";
+"watch.health.unit.kilometers" = "公里";
+"watch.health.unit.minutes" = "分鐘";
+"watch.health.unit.hours" = "小時";
+"watch.health.unit.unknown" = "";
+"watch.health.unavailable" = "Apple健康資料不可用";

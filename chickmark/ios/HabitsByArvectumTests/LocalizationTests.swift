@@ -123,7 +123,7 @@ final class LocalizationTests: XCTestCase {
     ]
 
     func testPickerOffersOnlyBundledLocales() {
-        XCTAssertEqual(ChickMarkLanguage.supported, ["ru", "en", "es", "de", "fr", "it", "ja", "pt-BR", "zh-Hans"])
+        XCTAssertEqual(ChickMarkLanguage.supported, ["ru", "en", "es", "de", "fr", "it", "ja", "pt-BR", "zh-Hans", "zh-Hant"])
         XCTAssertEqual(
             ChickMarkLanguage.orderedLanguages(["fr", "en", "Base", "ru", "es", "en"]),
             ["ru", "en", "es", "fr"]
@@ -161,8 +161,13 @@ final class LocalizationTests: XCTestCase {
         XCTAssertEqual(
             ChickMarkLanguage.resolvedIdentifier(
                 for: "system", preferred: ["zh-Hant-TW", "en"], available: available
-            ), "en")
+            ), "zh-Hant")
+        XCTAssertEqual(ChickMarkLanguage.resolvedIdentifier(
+            for: "system", preferred: ["zh-TW", "en"], available: available
+        ), "zh-Hant")
         XCTAssertEqual(ChickMarkLanguage.displayName(for: "zh-Hans"), "简体中文")
+        XCTAssertEqual(ChickMarkLanguage.displayName(for: "zh-Hant"), "繁體中文")
+        XCTAssertEqual(L10n.string("habit.create", language: "zh-Hant"), "建立習慣")
         XCTAssertEqual(L10n.string("today.title", language: "zh-Hans"), "今天")
         XCTAssertEqual(L10n.string("habit.create", language: "zh-Hans"), "创建习惯")
         let template = L10n.string("today.progress.format", language: "zh-Hans")

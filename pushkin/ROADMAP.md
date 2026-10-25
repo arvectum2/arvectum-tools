@@ -1,5 +1,17 @@
 # PUSHKIN — Product Roadmap
 
+## 25.10.2026 · Pushkin: zh-Hant и release gates
+
+- [x] 151 zh-Hant UI ключ и отдельная маршрутизация языка zh-TW/HK/MO, включая историю и подсказки Shortcuts; личные уведомления и идентификаторы Shortcuts не изменены.
+- [x] Swift unit и XCUITest zh-Hant дополняют существующую девятиязычную базу.
+- [ ] Native Simulator/CI, вычитка Shortcuts и privacy, большой текст и физическая QA сохранения истории.
+- [ ] Последняя подтверждённая App Review 1.0.2(6) WAITING_FOR_REVIEW (24.10), требуется read-only свежая проверка и физическое обновление.
+- [ ] Новая загрузка App Store только с отдельным разрешением.
+
+[QA C6](../core/docs/IOS_ZH_HANT_TIER1_DRAFT_2026-10-25.md).
+
+
+
 ## 25.10.2026 - deletion CI recovery
 
 - [x] Diagnosed Xcode Simulator launch timeout; deletion logic unchanged.
