@@ -8,6 +8,15 @@
 - [ ] Confirm new CI on real GitHub xcode-27 runner before merging.
 - [Evidence](docs/PUSHKIN_CI_SIMULATOR_LAUNCH_FIX_2026-10-25.md).
 
+## 25.10.2026 - C5.8: ручной GitHub CI для 36 языковых UI-пар
+
+- [x] Добавлен workflow_dispatch для 4 iOS-приложений, 30 XCUITest-классов, 36 app-locale сочетаний.
+- [x] Отдельные iPhone-симуляторы в GitHub, Core-аудит, ограниченный retry и XCResult-артефакты без живых пользовательских данных.
+- [x] YAML, 4 job entries, shell syntax и все test-class пути проверены; Core 46/46 PASS.
+- [ ] Запустить один полноценный GitHub Actions manual run после объединения PR и проверить 4/4 jobs.
+- [ ] Физические устройства/Watch/VoiceOver и языковая вычитка до релизов.
+- [Акт](docs/IOS_NINE_LANGUAGE_MANUAL_CI_2026-10-25.md).
+
 
 ## 25.10.2026 - C5.7: 36/36 iOS language UI coverage
 - [x] Main CI after #141-147: 8/8 PASS.
