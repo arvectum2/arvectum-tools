@@ -147,7 +147,7 @@ struct ArvectumCard<Content: View>: View {
 // Never translate Shortcuts identifiers or the user's notification content.
 enum PushkinCopy {
     private static let translatedBundles: [String: Bundle] = {
-        Dictionary(uniqueKeysWithValues: ["es", "fr", "de", "pt", "it", "ja", "zh", "zh-Hant"].compactMap { language in
+        Dictionary(uniqueKeysWithValues: ["es", "fr", "de", "pt", "pt-PT", "it", "ja", "zh", "zh-Hant"].compactMap { language in
             let resource = language == "pt" ? "pt-BR" : language == "zh" ? "zh-Hans" : language
             guard let path = Bundle.main.path(forResource: resource, ofType: "lproj"),
                   let bundle = Bundle(path: path)
@@ -162,6 +162,11 @@ enum PushkinCopy {
             ?? Locale.preferredLanguages.first ?? "en"
     ) -> String {
         let normalized = language.lowercased().replacingOccurrences(of: "_", with: "-")
+        if normalized.hasPrefix("pt-pt") {
+            return translatedBundles["pt-PT"]?.localizedString(
+                forKey: english, value: english, table: nil
+            ) ?? english
+        }
         if normalized.hasPrefix("zh-hant") ||
            normalized.hasPrefix("zh-tw") ||
            normalized.hasPrefix("zh-hk") ||

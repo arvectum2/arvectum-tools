@@ -921,3 +921,5 @@ Those remain L4.19b release blockers. No main merge, release, or push.
 ### European Portuguese work-in-progress (2026-10-25)
 
 `photo-pdf-to-size/ios/PhotoPodRazmer/Resources/pt-PT.lproj` now contains a first regional draft derived from the existing pt-BR catalog (Localizable and InfoPlist). This is **not** a proofread, shipped, or portfolio-complete locale. Do not add `pt-PT` to the app's `sourceCatalogs` until a native-speaker review, permission/consent review, XCUITest, and all four app bundles are complete. The manifest continues to track `pt-PT` as Tier 1 remaining.
+
+Update: `pt-PT` draft resources now cover 18 `.strings` files across all four active iOS/Watch/widget products. Source-key parity is tested, and the regional locale routing is implemented in Pushkin and Uhvat. Native editorial review, permissions/consent QA, device UI tests, and App Store readiness are still outstanding. Do not count `pt-PT` as a released or editorially accepted source pack.

@@ -103,6 +103,7 @@ enum ChickMarkLanguage {
         case "en": return "English"
         case "es": return "Español"
         case "pt-BR": return "Português (Brasil)"
+        case "pt-PT": return "Português (Portugal)"
         case "it": return "Italiano"
         case "ja": return "日本語"
         case "zh-Hans": return "简体中文"

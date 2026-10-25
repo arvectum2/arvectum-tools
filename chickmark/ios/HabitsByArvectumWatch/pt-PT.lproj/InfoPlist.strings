@@ -1,0 +1,3 @@
+// Português (Portugal), rascunho derivado de pt-BR; revisão humana obrigatória.
+"NSHealthShareUsageDescription" = "O ChickMark lê os totais de atividade somente dos hábitos conectados ao Apple Saúde. Os dados de saúde permanecem no dispositivo.";
+"NSHealthUpdateUsageDescription" = "O ChickMark usa o Apple Saúde para acompanhar as metas de atividade escolhidas. O app não adiciona nem altera dados de saúde.";

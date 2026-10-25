@@ -1,0 +1,4 @@
+// Português (Portugal), rascunho derivado de pt-BR; revisão humana obrigatória.
+"CFBundleDisplayName" = "UhWhat?";
+"CFBundleName" = "UhWhat?";
+"NSMicrophoneUsageDescription" = "Grave ideias no Apple Watch. O áudio permanece no relógio até ser transferido com segurança para o iPhone.";

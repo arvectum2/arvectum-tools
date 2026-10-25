@@ -22,6 +22,22 @@ class LocalizationPortfolioTests(unittest.TestCase):
         self.assertEqual(pt["Сохранить файл"], "Guardar ficheiro")
         self.assertEqual(pt["Поделиться"], "Partilhar")
 
+    def test_pt_pt_draft_parity_all_ios_bundles(self):
+        """Draft-only parity; native copy and device QA remain mandatory."""
+        reg = i18n.config()
+        for app in ("chickmark", "pushkin", "what", "photo-pdf-to-size"):
+            for bundle in reg["apps"][app]["bundles"]:
+                root = ROOT / bundle
+                for br_file in (root / "pt-BR.lproj").glob("*.strings"):
+                    pt_file = root / "pt-PT.lproj" / br_file.name
+                    self.assertTrue(pt_file.is_file(), str(pt_file))
+                    br = i18n.read_strings(br_file, [])
+                    pt = i18n.read_strings(pt_file, [])
+                    self.assertEqual(set(br), set(pt), str(pt_file))
+                    for key in br:
+                        self.assertEqual(i18n.PRINTF.findall(br[key]),
+                                         i18n.PRINTF.findall(pt[key]), key)
+
     def test_registry(self):
         reg = i18n.config()
         self.assertEqual(len(reg["targets"]), 50)

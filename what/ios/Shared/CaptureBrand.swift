@@ -37,7 +37,9 @@ enum CaptureBrand {
         for identifier in preferredLanguages {
             let normalized = identifier.lowercased()
                 .replacingOccurrences(of: "_", with: "-")
-            // Preserve the Chinese script selected by the user.
+            // Preserve regional Portuguese and Chinese script choices.
+            if normalized.hasPrefix("pt-pt") { return "pt-PT" }
+            if normalized.hasPrefix("pt-br") { return "pt-BR" }
             if normalized.hasPrefix("zh-hant") || normalized.hasPrefix("zh-tw") ||
                normalized.hasPrefix("zh-hk") || normalized.hasPrefix("zh-mo") {
                 return "zh-Hant"
@@ -83,6 +85,12 @@ enum CaptureBrand {
 
     private static let brazilianPortugueseBundle: Bundle? = {
         guard let path = Bundle.main.path(forResource: "pt-BR", ofType: "lproj")
+        else { return nil }
+        return Bundle(path: path)
+    }()
+
+    private static let europeanPortugueseBundle: Bundle? = {
+        guard let path = Bundle.main.path(forResource: "pt-PT", ofType: "lproj")
         else { return nil }
         return Bundle(path: path)
     }()
@@ -137,6 +145,11 @@ enum CaptureBrand {
         }
         if code.hasPrefix("de") {
             return germanBundle?.localizedString(
+                forKey: english, value: english, table: nil
+            ) ?? english
+        }
+        if normalized.hasPrefix("pt-pt") {
+            return europeanPortugueseBundle?.localizedString(
                 forKey: english, value: english, table: nil
             ) ?? english
         }

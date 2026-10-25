@@ -1,0 +1,24 @@
+// Português (Portugal), rascunho derivado de pt-BR; revisão humana obrigatória.
+// Português do Brasil, revisão humana antes do release.
+"watch.today" = "Hoje";
+"watch.progress.format" = "%d de %d";
+"watch.empty" = "Nada programado para hoje";
+"watch.streak.format" = "%d dias seguidos";
+"watch.weekly.format" = "%d de %d nesta semana";
+"watch.completed" = "Concluído";
+"watch.notCompleted" = "Não concluído";
+"watch.skipped" = "Ignorado";
+"watch.undoHint" = "Toque duas vezes para desfazer a conclusão";
+"watch.completeHint" = "Toque duas vezes para marcar como concluído";
+"watch.duration.format" = "%d / %d min";
+"watch.step.add" = "Adicionar um passo";
+"watch.step.remove" = "Desfazer um passo";
+"watch.preview.water" = "Água";
+"watch.preview.reading" = "Leitura";
+"watch.checkins.progress.format" = "%d de %d registros";
+"watch.health.unit.steps" = "passos";
+"watch.health.unit.kilometers" = "km";
+"watch.health.unit.minutes" = "min";
+"watch.health.unit.hours" = "h";
+"watch.health.unit.unknown" = "";
+"watch.health.unavailable" = "Dados do Apple Saúde indisponíveis";

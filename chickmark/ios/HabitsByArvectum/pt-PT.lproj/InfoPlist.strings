@@ -1,0 +1,3 @@
+// Português (Portugal), rascunho derivado de pt-BR; revisão humana obrigatória.
+"NSHealthShareUsageDescription" = "Ler a atividade diária somente para concluir os hábitos que você conectar.";
+"NSHealthUpdateUsageDescription" = "O ChickMark adiciona o consumo de água ao Apple Saúde somente quando você ativa a exportação de um hábito de quantidade. Você pode desativar esse acesso nos ajustes do Saúde.";
