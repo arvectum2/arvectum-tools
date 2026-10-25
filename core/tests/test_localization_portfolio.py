@@ -66,6 +66,15 @@ class LocalizationPortfolioTests(unittest.TestCase):
             self.assertNotEqual(en[key], ko[key], key)
         self.assertEqual(ko["History"], "기록")
 
+    def test_editorial_audit_is_triage_not_signoff(self):
+        import editorial_localization_audit as review
+        result = review.audit()
+        self.assertGreaterEqual(result["files"], 180)
+        self.assertGreaterEqual(result["entries"], 9000)
+        self.assertTrue(any(f["kind"] == "pt_pt_brazilian_flags" for f in result["findings"]))
+        self.assertEqual(sum(f["format_mismatch"] for f in result["catalogs"]), 0)
+        self.assertEqual(sum(f["missing"] + f["extra"] for f in result["catalogs"]), 0)
+
     def test_registry(self):
         reg = i18n.config()
         self.assertEqual(len(reg["targets"]), 50)
