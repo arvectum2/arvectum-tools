@@ -6,7 +6,7 @@
 - [x] Разделены маршруты zh-Hans/zh-CN и zh-Hant/zh-TW/HK/MO в Pushkin, Ухвате, ChickMark; добавлены unit и XCUITest sources.
 - [x] На этапе генерации Core localization audit и 46/46 unit PASS. [Протокол](docs/IOS_ZH_HANT_TIER1_DRAFT_2026-10-25.md).
 - [ ] Native iOS/watchOS builds, Simulator UI, GitHub manual ten-language matrix, редактура носителем, физический VoiceOver/Watch/consent QA.
-- [ ] Tier 1 сейчас **10/20 исходных пакетов**, включая zh-Hant draft; остальные hi, ar, pt-PT, ko, id, tr, vi, nl, pl, uk. Android остаётся 9 исходных языков и 41 отложенным.
+- [ ] Tier 1 сейчас **10/20 исходных пакетов**, включая zh-Hant draft; остальные hi, ar, pt-PT, ko, id, tr, vi, nl, pl, th. Android остаётся 9 исходных языков и 41 отложенным.
 - [ ] Никаких Apple uploads/TestFlight/live metadata без явного отдельного согласия.
 
 

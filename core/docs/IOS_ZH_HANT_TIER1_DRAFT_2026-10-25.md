@@ -1,6 +1,6 @@
 # C6 — Traditional Chinese (zh-Hant) Tier 1 source draft
 
-**Date:** 2026-10-25. **Branch:** feature/portfolio-roadmaps-zh-hant-20261025.  
+**Date:** 2026-10-25. **Branch:** feature/portfolio-roadmaps-zh-hant-20261025.
 **Status:** source implementation + structural QA. **Not shipped to Apple** and **not linguistically approved**.
 
 ## Scope
@@ -32,5 +32,5 @@ No new App Store Connect upload, TestFlight, Review submission, metadata changes
 ## Next languages
 
 Tier 1 coverage: **10/20 source packs** (the tenth is a draft). Still planned:
-hi, ar, pt-PT, ko, id, tr, vi, nl, pl, uk. 
+hi, ar, pt-PT, ko, id, tr, vi, nl, pl, th.
 Arabic requires RTL and plural behavior; Indic scripts require typography and input QA; pt-PT is separate from pt-BR. Android's existing nine source packages and 41 untranslated target languages are unchanged.

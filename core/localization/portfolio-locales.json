@@ -99,8 +99,8 @@
       "tier": 1
     },
     {
-      "code": "uk",
-      "name": "Українська",
+      "code": "th",
+      "name": "ไทย",
       "tier": 1
     },
     {
@@ -154,8 +154,8 @@
       "tier": 2
     },
     {
-      "code": "th",
-      "name": "ไทย",
+      "code": "uz",
+      "name": "Oʻzbekcha",
       "tier": 2
     },
     {
@@ -392,7 +392,7 @@
       "vi",
       "nl",
       "pl",
-      "uk"
+      "th"
     ]
   }
 }

@@ -6,7 +6,7 @@
 - [x] UI language routing distinguishes zh-Hans/zh-CN from zh-Hant/zh-TW/HK/MO, without changing the independent speech transcription setting.
 - [x] Added dedicated zh-Hant Swift and native UI test sources; manual CI workflow now selects 10 languages, retaining its historic filename.
 - [ ] Build and actual Simulator/Watch testing; traditional Chinese human proofreading of consent, privacy, Shortcuts, typography and VoiceOver; physical acceptance.
-- [ ] Tier 1 remainder: hi, ar, pt-PT, ko, id, tr, vi, nl, pl, uk. Android expansion stays deferred.
+- [ ] Tier 1 remainder: hi, ar, pt-PT, ko, id, tr, vi, nl, pl, th. Android expansion stays deferred.
 
 [Draft evidence](../docs/IOS_ZH_HANT_TIER1_DRAFT_2026-10-25.md).
 
@@ -141,7 +141,7 @@ Four active iOS apps: ChickMark, Pushkin, Ухват, Фото/PDF под раз
 
 ## The 50 target locale packs
 
-Tier 1 (20): en, ru, es, zh-Hans, zh-Hant, hi, ar, pt-BR, pt-PT, fr, de, ja, ko, id, tr, vi, it, nl, pl, uk.
+Tier 1 (20): en, ru, es, zh-Hans, zh-Hant, hi, ar, pt-BR, pt-PT, fr, de, ja, ko, id, tr, vi, it, nl, pl, th.
 
 Tier 2 (20): fa, ur, bn, pa, ta, te, mr, gu, kn, ml, th, ms, fil, sw, ro, hu, cs, sk, el, he.
 
