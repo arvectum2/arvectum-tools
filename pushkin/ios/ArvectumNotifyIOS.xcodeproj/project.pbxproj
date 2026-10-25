@@ -1300,6 +1300,7 @@
 		36ED65681DAB0EC7EF53A6E2 /* PUSHKIN - ADP Mobile Solutions.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - ADP Mobile Solutions.shortcut"; sourceTree = "<group>"; };
 		3707846836F2C7F87327D6CF /* PUSHKIN - Live Translator -AI即時翻譯多語言助手.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - Live Translator -AI即時翻譯多語言助手.shortcut"; sourceTree = "<group>"; };
 		374D6657073123008F7D98C6 /* PUSHKIN - UK ETA.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - UK ETA.shortcut"; sourceTree = "<group>"; };
+		377506990E28740A8E0F96D9 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
 		3777C673653AB9F04182CEF7 /* PUSHKIN - ABC-mobile.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - ABC-mobile.shortcut"; sourceTree = "<group>"; };
 		377E0C8DA105690C0BCC6B31 /* PUSHKIN - Alaqan Mektep.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - Alaqan Mektep.shortcut"; sourceTree = "<group>"; };
 		37B5CA72B6C86887A61C739B /* PUSHKIN - Mercadona.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - Mercadona.shortcut"; sourceTree = "<group>"; };
@@ -3408,6 +3409,7 @@
 				fr,
 				it,
 				ja,
+				ko,
 				"pt-BR",
 				"pt-PT",
 				ru,
@@ -4544,6 +4546,7 @@
 				514CC7801B7D71CE15D6104E /* fr */,
 				BBFBA6E17ED88FA255B4CEA7 /* it */,
 				4978C07103A9114CF663D980 /* ja */,
+				377506990E28740A8E0F96D9 /* ko */,
 				664D859F3EEA04DA41311D29 /* pt-BR */,
 				67F3F4A6C7D0661CD621552C /* pt-PT */,
 				E88D3D65B6E0FF8B87FA0DE3 /* ru */,

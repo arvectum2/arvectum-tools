@@ -54,6 +54,18 @@ class LocalizationPortfolioTests(unittest.TestCase):
         self.assertLessEqual(len(untranslated), 10)
         self.assertEqual(ko["Сохранить файл"], "파일 저장")
 
+    def test_pushkin_korean_draft_parity(self):
+        """Pushkin Korean source catalog must preserve all English keys and tokens."""
+        root = ROOT / "pushkin/ios/ArvectumNotify/Resources"
+        en = i18n.read_strings(root / "en.lproj/Localizable.strings", [])
+        ko = i18n.read_strings(root / "ko.lproj/Localizable.strings", [])
+        self.assertEqual(set(en), set(ko))
+        for key in en:
+            self.assertEqual(i18n.PRINTF.findall(en[key]),
+                             i18n.PRINTF.findall(ko[key]), key)
+            self.assertNotEqual(en[key], ko[key], key)
+        self.assertEqual(ko["History"], "기록")
+
     def test_registry(self):
         reg = i18n.config()
         self.assertEqual(len(reg["targets"]), 50)

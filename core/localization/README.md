@@ -933,3 +933,7 @@ XcodeGen project regeneration succeeded for Photo, Pushkin, What and ChickMark. 
 `photo-pdf-to-size/ios/PhotoPodRazmer/Resources/ko.lproj` contains a full-key Korean draft for the Photo/PDF app (including consent and InfoPlist strings). Untranslated strings are measurement tokens and positional formatting templates. The pack is **not** registered for release; Korean copy, policy text and native iOS QA require independent review. Pushkin, What and ChickMark Korean packs are not yet translated.
 
 Korean Photo/PDF generic iOS Simulator build PASS after retry using existing derived data (first fresh-build invocation was interrupted by Xcode). 58/58 Core tests PASS; both Korean `.strings` files pass `plutil -lint`. These checks do not substitute for native UI tests or Korean editorial acceptance.
+
+### Korean PUSHKIN source pack (draft)
+
+All 151 extracted English source entries now have Korean draft translations at `pushkin/ios/ArvectumNotify/Resources/ko.lproj/Localizable.strings`; placeholder/key parity and no-English-source fallback are tested. `PushkinCopy` now resolves the Korean resource bundle. This is not an editorial sign-off or permission to publish: Shortcuts instructions, legal/privacy copy, dynamic strings and simulator UI require review.
