@@ -75,6 +75,36 @@ class LocalizationPortfolioTests(unittest.TestCase):
         self.assertEqual(sum(f["format_mismatch"] for f in result["catalogs"]), 0)
         self.assertEqual(sum(f["missing"] + f["extra"] for f in result["catalogs"]), 0)
 
+    def test_editorial_report_order_is_stable(self):
+        # Reproducible reports make real copy changes visible in code review.
+        import editorial_localization_audit as review
+        self.assertEqual(review.audit(), review.audit())
+        # Two interpreter hash seeds must produce byte-identical issue ordering.
+        import os
+        import subprocess
+        script = ("import json,sys; sys.path.insert(0, 'core/tools'); "
+                  "import editorial_localization_audit as a; "
+                  "print(json.dumps(a.audit()['findings'], ensure_ascii=False))")
+        outputs = []
+        for seed in ('1', '29'):
+            env = dict(os.environ, PYTHONHASHSEED=seed)
+            outputs.append(subprocess.check_output(
+                [sys.executable, '-c', script], cwd=ROOT, env=env))
+        self.assertEqual(outputs[0], outputs[1])
+
+    def test_pt_pt_editorial_regressions(self):
+        import editorial_localization_audit as review
+        finding = review.audit()
+        self.assertFalse([f for f in finding["findings"]
+                          if f["kind"] == "pt_pt_brazilian_flags"],
+                         "Portuguese (Portugal) regional terms need another pass")
+        base = ROOT / "chickmark/ios/HabitsByArvectum/pt-PT.lproj/Localizable.strings"
+        values = i18n.read_strings(base, [])
+        self.assertEqual(values["detail.history.hint"],
+                         "Toque num dia anterior para corrigir o seu registo.")
+        self.assertIn("Os seus hábitos", values["manage.empty.description"])
+        self.assertIn("os seus hábitos", values["backup.warning"])
+
     def test_registry(self):
         reg = i18n.config()
         self.assertEqual(len(reg["targets"]), 50)

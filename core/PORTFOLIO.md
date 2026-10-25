@@ -1,5 +1,30 @@
 # Arvectum Tools — Roadmap Registry
 
+## 26.10.2026 · Публичный RU Apple Lookup подтверждён
+
+- [x] **Все четыре версии публичны**: Фото/PDF 1.0.2, Pushkin 1.0.2, Ухват 1.1.1, ChickMark 1.5.1.
+- [x] **ChickMark категория Productivity** подтверждена Apple Lookup; прежняя задача на изменение категории закрыта.
+- [ ] **Это старые уже опубликованные версии**: новые исходные zh-Hant/pt-PT/KO и исправления 26.10 в них не попали; для будущих версий отдельный release gate.
+- [ ] Проверить отдельными способами установки/метрики/другие страны; Lookup не показывает количество скачиваний, build и аудит App Review.
+
+[Apple RU Lookup](docs/APPLE_PUBLIC_LOOKUP_2026-10-26.md).
+
+
+## 26.10.2026 · Актуальный срез
+
+| Продукт | Завершено сейчас | Блокер следующего релиза |
+| --- | --- | --- |
+| [Core](ROADMAP.md) | zh-Hant UI 6/6, Python 62/62, pt-PT редактура; 11 source-каталогов с полной key parity, включая черновик pt-PT | Носители, реальные устройства, Apple approval |
+| [Фото/PDF](../photo-pdf-to-size/ROADMAP.md) | zh-Hant UI 3/3, pt-PT улучшен; прежний подписанный IPA устарел | Пересборка после freeze, Files/Photos/РСЯ QA |
+| [Pushkin](../pushkin/ROADMAP.md) | zh-Hant UI 1/1, pt-PT текст исправлен | Provisioning, Shortcuts и сохранность данных |
+| [Ухват](../what/ROADMAP.md) | zh-Hant UI 1/1, pt-PT текст исправлен | Provisioning, Watch ACK, фон |
+| [ChickMark](../chickmark/ROADMAP.md) | zh-Hant UI 1/1, pt-PT/Watch исправлены | Provisioning, HealthKit/CloudKit, категория Productivity |
+| [Where?](../where/ROADMAP.md) | PAUSED | MVP по отдельному решению |
+| [Growth](../growth/ROADMAP.md) | без deploy/live изменений | Analytics 403, РСЯ/ASO |
+
+Последний Apple read-only baseline от 24.10; статусы review нельзя считать сегодняшними. В App Store ничего нового не отправлено. [Акт](docs/IOS_ZH_HANT_NATIVE_QA_2026-10-26.md).
+
+
 ## 25.10.2026 · Сводка Core и всех продуктов
 
 | Владелец | Последний подтверждённый статус | Следующий gate |

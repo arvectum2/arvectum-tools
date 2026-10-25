@@ -52,7 +52,7 @@
 "Optional Groups" = "Grupos opcionais";
 "Optional: plan smaller groups" = "Opcional: planejar grupos menores";
 "PUSHKIN works through Apple Shortcuts" = "O PUSHKIN funciona com a app Atalhos da Apple";
-"PUSHKIN's signed base shortcut already contains 1,000 app entries. An iOS 27 test retained all of them in one trigger. 25 is a convenient group size, not a confirmed iOS limit." = "O atalho principal assinado do PUSHKIN já contém 1.000 entradas de aplicações. Em um teste no iOS 27, todas permaneceram em um único gatilho. O tamanho de 25 aplicações por grupo é apenas uma conveniência, não um limite confirmado do iOS.";
+"PUSHKIN's signed base shortcut already contains 1,000 app entries. An iOS 27 test retained all of them in one trigger. 25 is a convenient group size, not a confirmed iOS limit." = "O atalho principal assinado do PUSHKIN já contém 1.000 entradas de aplicações. Num teste no iOS 27, todas permaneceram num único gatilho. O tamanho de 25 aplicações por grupo é apenas uma conveniência, não um limite confirmado do iOS.";
 "Plan groups of apps" = "Planejar grupos de aplicações";
 "Plan smaller groups" = "Planejar grupos menores";
 "Possible duplicate" = "Possível duplicata";
@@ -76,7 +76,7 @@
 "This cannot be undone. PUSHKIN setup and app coverage stay intact." = "Esta ação não pode ser desfeita. A configuração do PUSHKIN e as aplicações conectadas serão mantidos.";
 "This path is only for apps missing from the built-in catalog." = "Este caminho é apenas para aplicações em falta do catálogo integrado.";
 "Waiting for first capture" = "Aguardando a primeira notificação";
-"Want this app to become a one-tap option? Mention its exact name in an App Store review or send it to Arvectum support. Requested apps can be added in regular catalog updates." = "Quer adicionar esta aplicação com um toque? Informe o nome exato em uma avaliação na App Store ou entre em contato com o suporte Arvectum. Os aplicações solicitadas podem entrar em atualizações regulares do catálogo.";
+"Want this app to become a one-tap option? Mention its exact name in an App Store review or send it to Arvectum support. Requested apps can be added in regular catalog updates." = "Quer adicionar esta aplicação com um toque? Indique o nome exato numa avaliação na App Store ou contacte o suporte da Arvectum. As aplicações solicitadas podem ser adicionadas nas atualizações regulares do catálogo.";
 "When Shortcuts asks how the automation should run, choose the immediate/automatic option." = "Quando a app Atalhos perguntar como executar a automação, escolha a opção imediata ou automática.";
 "You can still add this app manually in Shortcuts." = "Pode ainda adicionar esta aplicação manualmente na app Atalhos.";
 "Your plan" = "Seu plano";
@@ -95,7 +95,7 @@
 "App not listed? Add manually" = "App fora da lista? Adicione manualmente";
 "App packages opened" = "Pacotes de aplicações abertos";
 "Before you start" = "Antes de começar";
-"Captured records" = "Registros capturados";
+"Captured records" = "Registos capturados";
 "Choose apps for groups" = "Escolher aplicações para os grupos";
 "Connect the apps you want to track in Shortcuts. Notifications captured from those sources will appear here." = "Conecte na app Atalhos as aplicações que deseja acompanhar. As notificações recebidas desses aplicações aparecerão aqui.";
 "Developer" = "Desenvolvedor";
@@ -142,7 +142,7 @@
 "Subtitle" = "Subtítulo";
 "Suggested groups" = "Grupos sugeridos";
 "Test capture received" = "Notificação de teste recebida";
-"The base shortcut includes 1,000 entries. Only apps recognized by Shortcuts when you configure the automation can send captures." = "O atalho principal contém 1.000 entradas. Só as aplicações reconhecidas pela app Atalhos durante a configuração da automação podem gerar registros.";
+"The base shortcut includes 1,000 entries. Only apps recognized by Shortcuts when you configure the automation can send captures." = "O atalho principal contém 1.000 entradas. Só as aplicações reconhecidas pela app Atalhos durante a configuração da automação podem gerar registos.";
 "This proves PUSHKIN received a notification from at least one source. It does not prove that all selected apps are covered or that the automation is still enabled." = "Isso confirma que o PUSHKIN recebeu uma notificação de pelo menos uma origem. Não comprova que todas as aplicações selecionadas são monitorados nem que a automação continua ativada.";
 "Time" = "Horário";
 "Title" = "Título";

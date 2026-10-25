@@ -110,7 +110,7 @@
 "Microphone connected — speak now" = "Microfone conectado — pode falar";
 "Microphone is capturing sound" = "O microfone está captando som";
 "More recording actions" = "Mais ações de gravação";
-"New notes only, with your permission" = "Apenas novas notas, com sua permissão";
+"New notes only, with your permission" = "Apenas novas notas, com a sua autorização";
 "New recording" = "Nova gravação";
 "New text note" = "Nova nota de texto";
 "No Watch queue report received yet." = "Ainda não recebemos o estado da fila do Watch.";
@@ -217,11 +217,11 @@
 "Yesterday" = "Ontem";
 "Earlier" = "Anteriormente";
 "Interface language: iOS Settings" = "Idioma da interface: Ajustes do iOS";
-"Transcript storage could not be read. Your edits were not saved." = "Não foi possível ler o armazenamento das transcrições. Suas alterações não foram salvas.";
+"Transcript storage could not be read. Your edits were not saved." = "Não foi possível ler o armazenamento das transcrições. As suas alterações não foram guardadas.";
 "Transcript recovery" = "Recuperação de transcrições";
-"Restore transcripts only when their storage is damaged." = "Restaure transcrições somente quando o armazenamento estiver danificado.";
+"Restore transcripts only when their storage is damaged." = "Restaure as transcrições apenas quando o armazenamento estiver danificado.";
 "Transcript storage is healthy. No recovery is needed." = "O armazenamento das transcrições está íntegro. Não é necessário recuperar.";
-"No usable backup was found. Your data was not changed." = "Nenhum backup utilizável foi encontrado. Seus dados não foram alterados.";
+"No usable backup was found. Your data was not changed." = "Nenhum backup utilizável foi encontrado. Os seus dados não foram alterados.";
 "Transcripts available in the backup: %d" = "Transcrições disponíveis no backup: %d";
 "Restore from backup" = "Restaurar do backup";
 "Restore transcripts from the backup?" = "Restaurar transcrições do backup?";

@@ -1,5 +1,19 @@
 # What? — Product Roadmap
 
+## 26.10.2026 · App Store RU статус (read-only)
+
+- [x] Apple Lookup подтвердил опубликованную **1.1.1**; категория **Productivity**. Свидетельство: [датированный реестр](../core/docs/APPLE_PUBLIC_LOOKUP_2026-10-26.md).
+- [ ] Новые локализации этого цикла не входят в публичный бинарник; дальнейшие загрузки требуют нового RC/QA и отдельного согласования.
+
+
+## 26.10.2026 · C6.1 локализация и релиз
+
+- [x] zh-Hant Native UI **1/1 PASS**, AXXXL synthetic экран без записи; pt-PT восстановление и разрешения отредактированы.
+- [ ] KO пока отсутствует; нужна редактура/физическая VoiceOver/Watch ACK/background no-loss приёмка.
+- [ ] Provisioning iPhone/Watch/widgets и новые signed RC; Apple 1.1.1(9) Review статус 24.10 не обновлён.
+- [ ] Apple upload только с отдельным подтверждением версии/build/hash. [QA](../core/docs/IOS_ZH_HANT_NATIVE_QA_2026-10-26.md).
+
+
 ## 25.10.2026 · Ухват: zh-Hant во всех компонентах
 
 - [x] Zh-Hant draft: iPhone 231, Watch 6, Phone Widget 6, complication 5 UI строк, InfoPlist; UI регион zh-TW/HK/MO не зависит от языка транскрипции.

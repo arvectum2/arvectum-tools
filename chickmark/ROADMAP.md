@@ -1,5 +1,20 @@
 # ChickMark — актуальная дорожная карта
 
+## 26.10.2026 · App Store RU статус (read-only)
+
+- [x] Apple Lookup подтвердил опубликованную **1.5.1**; категория **Productivity**. Свидетельство: [датированный реестр](../core/docs/APPLE_PUBLIC_LOOKUP_2026-10-26.md).
+- [ ] Новые локализации этого цикла не входят в публичный бинарник; дальнейшие загрузки требуют нового RC/QA и отдельного согласования.
+
+
+## 26.10.2026 · C6.1 локализация и релиз
+
+- [x] zh-Hant Native UI **1/1 PASS**, пустое состояние/новая привычка, без личных CloudKit-данных.
+- [x] pt-PT улучшены HealthKit, backup, привычки, включая Watch InfoPlist; структурный аудит PASS.
+- [ ] KO исходники отсутствуют; нужна редактура, physical Watch/HealthKit/CloudKit и безопасное обновление.
+- [ ] Capability-bearing provisioning и новый signed RC; Apple 1.5.1(19) Review статус 24.10 не обновлён; категория Productivity остаётся отдельной задачей live metadata.
+- [ ] Не загружать в Apple без per-release approval. [QA](../core/docs/IOS_ZH_HANT_NATIVE_QA_2026-10-26.md).
+
+
 ## 25.10.2026 · ChickMark: zh-Hant и безопасная приёмка
 
 - [x] Zh-Hant draft: iPhone 302, Watch 22, Phone Widget 16, Watch Widget 5 строк, InfoPlist/HealthKit/Siri AppShortcuts.

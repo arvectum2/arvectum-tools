@@ -1,5 +1,27 @@
 # Arvectum Tools — план исполнения без Where?
 
+## 26.10.2026 · Публичный RU Apple Lookup подтверждён
+
+- [x] **Все четыре версии публичны**: Фото/PDF 1.0.2, Pushkin 1.0.2, Ухват 1.1.1, ChickMark 1.5.1.
+- [x] **ChickMark категория Productivity** подтверждена Apple Lookup; прежняя задача на изменение категории закрыта.
+- [ ] **Это старые уже опубликованные версии**: новые исходные zh-Hant/pt-PT/KO и исправления 26.10 в них не попали; для будущих версий отдельный release gate.
+- [ ] Проверить отдельными способами установки/метрики/другие страны; Lookup не показывает количество скачиваний, build и аудит App Review.
+
+[Apple RU Lookup](docs/APPLE_PUBLIC_LOOKUP_2026-10-26.md).
+
+
+## 26.10.2026 · Обновлённая очередь
+
+- [x] C6.1: zh-Hant Native UI 6/6, PT-PT редактура, Core 62/62 и locale audit PASS.
+- [ ] P0: продолжить нативный QA остальных новых языков, проверить региональные privacy/consent и VoiceOver; физические iPhone/Watch.
+- [ ] P0: подтверждение GitHub ten-language CI, signed IPA на свежем source, восстановление provisioning для трёх приложений и extensions.
+- [ ] P0: read-only Apple status; новые Apple upload/review/live metadata — только по отдельному одобрению версии/build/hash.
+- [ ] P1: закончить KO в Ухвате/ChickMark, затем HI/AR/ID/TR/VI/NL/PL/TH, без английских заглушек.
+- [ ] Where?/Growth Agent PAUSED, Android расширение отложено.
+
+[Протокол](docs/IOS_ZH_HANT_NATIVE_QA_2026-10-26.md).
+
+
 ## 25.10.2026 · Единая активная очередь
 
 - [x] C5 завершено: девять языков исходников и UI matrix для 4 iOS приложений. C6 начато: десятый zh-Hant draft в 10 iPhone/Watch/widget bundles.

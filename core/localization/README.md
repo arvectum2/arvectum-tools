@@ -1,5 +1,15 @@
 # Arvectum Tools — portfolio localization (50 locales)
 
+## 26 October 2026 — verified progress
+
+- [x] 11 full-key iOS source locales across 4 apps (including draft pt-PT); KO is partial in two apps.
+- [x] Zh-Hant native iPhone Simulator XCUITest **6/6 PASS**; PT-PT corrections, Core **62/62 PASS**.
+- [ ] Human editorial sign-off, physical Watch/VoiceOver/privacy QA and GitHub manual CI; new signed device candidates and independent Apple approvals.
+- [ ] Remaining Tier 1: KO (2/4), HI, AR, ID, TR, VI, NL, PL, TH. Ukrainian excluded; Thai remains its replacement. Android on hold.
+
+[Report](../docs/IOS_ZH_HANT_NATIVE_QA_2026-10-26.md).
+
+
 ## 25 October 2026 — zh-Hant draft, tenth iOS source locale
 
 - [x] Four active iOS apps/ten iPhone/Watch/widget bundles now have 10 complete-key source catalogs, including preliminary OpenCC s2twp zh-Hant. Script conversion is NOT native editorial validation.

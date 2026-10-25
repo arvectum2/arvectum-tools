@@ -15,7 +15,7 @@
 "watch.step.remove" = "Desfazer um passo";
 "watch.preview.water" = "Água";
 "watch.preview.reading" = "Leitura";
-"watch.checkins.progress.format" = "%d de %d registros";
+"watch.checkins.progress.format" = "%d de %d registos";
 "watch.health.unit.steps" = "passos";
 "watch.health.unit.kilometers" = "km";
 "watch.health.unit.minutes" = "min";

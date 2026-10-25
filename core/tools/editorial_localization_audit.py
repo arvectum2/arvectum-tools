@@ -11,7 +11,7 @@ import localization_portfolio as lp
 
 ROOT=lp.ROOT
 HIGH_RISK=re.compile(r'privacy|permission|consent|tracking|health|shortcuts|automati|delete|remov|erase|location|advertis|notification|audio|microphone|speech|icloud|backup|sync|export|import|gps|photo|pdf|metadata|скры|удал|данн|соглас|разреш|уведом',re.I)
-PTPT=re.compile(r'\bvoc[eê]\b|\bseu aparelho\b|\bnos ajustes\b|\bno atalhos\b|\bapps\b|\barquivo\b|\bconfira\b|\bgerenciar\b|\bApple Saúde\b',re.I)
+PTPT=re.compile(r'\bvoc[eê]\b|\bseu aparelho\b|\bnos ajustes\b|\bno atalhos\b|\bapps\b|\barquivo\b|\bconfira\b|\bgerenciar\b|\bApple Saúde\b|\bregistros?\b|\bsomente\b|\bem um\b|\bem uma\b|\bos aplicações\b',re.I)
 
 def audit():
     entries=[];counts=Counter();issues=[]
@@ -27,9 +27,9 @@ def audit():
                 en=lp.read_strings(source,[])
                 tr=lp.read_strings(file,[])
                 missing=sorted(set(en)-set(tr));extra=sorted(set(tr)-set(en))
-                identical=[k for k in en.keys()&tr.keys() if en[k]==tr[k] and len(en[k])>8 and not en[k].startswith('%')]
-                fmt=[k for k in en.keys()&tr.keys() if lp.placeholders(en[k])!=lp.placeholders(tr[k])]
-                pt=[k for k,v in tr.items() if loc=='pt-PT' and PTPT.search(v)]
+                identical=sorted(k for k in en.keys()&tr.keys() if en[k]==tr[k] and len(en[k])>8 and not en[k].startswith('%'))
+                fmt=sorted(k for k in en.keys()&tr.keys() if lp.placeholders(en[k])!=lp.placeholders(tr[k]))
+                pt=sorted(k for k,v in tr.items() if loc=='pt-PT' and PTPT.search(v))
                 high=[k for k in tr if HIGH_RISK.search(k) or HIGH_RISK.search(en.get(k,''))]
                 counts[loc]+=len(tr)
                 item={'app':app,'bundle':bundle,'file':str(file.relative_to(ROOT)),'locale':loc,'entries':len(tr),'missing':len(missing),'extra':len(extra),'format_mismatch':len(fmt),'english_identical':len(identical),'high_risk_review':len(high),'pt_pt_brazilian_flags':len(pt)}

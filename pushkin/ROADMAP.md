@@ -1,5 +1,19 @@
 # PUSHKIN — Product Roadmap
 
+## 26.10.2026 · App Store RU статус (read-only)
+
+- [x] Apple Lookup подтвердил опубликованную **1.0.2**; категория **Utilities**. Свидетельство: [датированный реестр](../core/docs/APPLE_PUBLIC_LOOKUP_2026-10-26.md).
+- [ ] Новые локализации этого цикла не входят в публичный бинарник; дальнейшие загрузки требуют нового RC/QA и отдельного согласования.
+
+
+## 26.10.2026 · C6.1 локализация и релиз
+
+- [x] zh-Hant Native UI **1/1 PASS**, без изменений персональных Shortcut; pt-PT текст поддержки и автоматизаций исправлен.
+- [ ] KO — черновик исходных файлов без human QA; нужна проверка интерфейса и consent.
+- [ ] Provisioning профиля ArvectumNotify, новый signed RC, безопасный Shortcuts/data upgrade на физическом устройстве.
+- [ ] Apple Review 1.0.2(6) — прежнее наблюдение 24.10, требуется новая read-only проверка. Новая загрузка только по per-release approval. [QA](../core/docs/IOS_ZH_HANT_NATIVE_QA_2026-10-26.md).
+
+
 ## 25.10.2026 · Pushkin: zh-Hant и release gates
 
 - [x] 151 zh-Hant UI ключ и отдельная маршрутизация языка zh-TW/HK/MO, включая историю и подсказки Shortcuts; личные уведомления и идентификаторы Shortcuts не изменены.

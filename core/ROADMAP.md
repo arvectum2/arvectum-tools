@@ -1,5 +1,26 @@
 # Arvectum Tools Core — дорожная карта
 
+## 26.10.2026 · Публичный RU Apple Lookup подтверждён
+
+- [x] **Все четыре версии публичны**: Фото/PDF 1.0.2, Pushkin 1.0.2, Ухват 1.1.1, ChickMark 1.5.1.
+- [x] **ChickMark категория Productivity** подтверждена Apple Lookup; прежняя задача на изменение категории закрыта.
+- [ ] **Это старые уже опубликованные версии**: новые исходные zh-Hant/pt-PT/KO и исправления 26.10 в них не попали; для будущих версий отдельный release gate.
+- [ ] Проверить отдельными способами установки/метрики/другие страны; Lookup не показывает количество скачиваний, build и аудит App Review.
+
+[Apple RU Lookup](docs/APPLE_PUBLIC_LOOKUP_2026-10-26.md).
+
+
+## 26.10.2026 · C6.1: QA и редактура портфеля
+
+- [x] Zh-Hant XCUITest **6/6 PASS** (Фото/PDF 3; Pushkin 1; Ухват 1; ChickMark 1); все XCResult сохранены.
+- [x] PT-PT редактура в 4 приложениях и Watch, структурный аудит PASS, Core **62/62 PASS**; детерминированный редакторский отчёт и регрессионные тесты.
+- [x] **11/20 Tier 1 source packs** полные по ключам во всех 10 bundles (11-я pt-PT — черновик); KO только 2/4 приложений.
+- [ ] Native-speaker review, физический VoiceOver/Watch/consent/upgrade; GitHub manual 10-language CI; provisioning и новые подписанные архивы.
+- [ ] Apple read-only актуализация (предыдущие review сведения 24.10), отдельный release approval для каждого IPA. Прежний подписанный Фото/PDF IPA уже не содержит последние pt-PT изменения.
+
+[Протокол QA](docs/IOS_ZH_HANT_NATIVE_QA_2026-10-26.md).
+
+
 ## 25.10.2026 · C6 — zh-Hant, первый пакет после девяти языков
 
 - [x] Источники zh-Hant (Taiwan-oriented OpenCC s2twp draft) подготовлены для всех четырёх iOS-приложений, десяти bundles iPhone/Watch/widgets; ключи, placeholders, Siri и системные разрешения сохранены.
