@@ -19,3 +19,9 @@ Source: `feature/portfolio-roadmaps-zh-hant-20261025`, HEAD `703ad54` at start o
 - Per `AGENTS.md`, no Apple upload, TestFlight, review submission or release until owner explicitly approves exact IPA versions and hashes.
 
 **Outcome: 3/4 unsigned Release Simulator builds PASS; all four apps NOT RELEASE-READY.**
+
+## Follow-up verification — 25 October 2026 (ARC)
+
+The initial ChickMark interruption described above was resolved using a persistent tmux build. Verified `/tmp/chick-tmux-build.exit` = `0` and `/tmp/chick-tmux-build.log` contains `** BUILD SUCCEEDED **`. **All four Release Simulator builds now PASS.** This is not a signed device IPA or Apple submission.
+
+ARC direct-funnel access to Mac mini and repository files confirmed. Full Core test discovery: **60/60 PASS**; localization structural audit: **PASS**. Editorial sign-off, signed four-app IPA set, real-device checks, and owner-specific Apple release approval remain open.

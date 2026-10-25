@@ -3093,16 +3093,16 @@
       "locale": "de",
       "file": "what/ios/WhatIOS/de.lproj/Localizable.strings",
       "kind": "english_identical",
-      "key": "Filter %@, %@",
-      "value": "Filter %@, %@"
+      "key": "Audio (.m4a)",
+      "value": "Audio (.m4a)"
     },
     {
       "app": "what",
       "locale": "de",
       "file": "what/ios/WhatIOS/de.lproj/Localizable.strings",
       "kind": "english_identical",
-      "key": "Audio (.m4a)",
-      "value": "Audio (.m4a)"
+      "key": "Filter %@, %@",
+      "value": "Filter %@, %@"
     },
     {
       "app": "what",
@@ -3197,22 +3197,14 @@
       "locale": "de",
       "file": "photo-pdf-to-size/ios/PhotoPodRazmer/Resources/de.lproj/Localizable.strings",
       "kind": "english_identical",
-      "key": "900×900 px · JPEG · 10 KB–1 MB",
-      "value": "900×900 px · JPEG · 10 KB–1 MB"
+      "key": "600×600 px · JPEG · ≤240 KB",
+      "value": "600×600 px · JPEG · ≤240 KB"
     },
     {
       "app": "photo-pdf-to-size",
       "locale": "de",
       "file": "photo-pdf-to-size/ios/PhotoPodRazmer/Resources/de.lproj/Localizable.strings",
       "kind": "english_identical",
-      "key": "600×600 px · JPEG · ≤240 KB",
-      "value": "600×600 px · JPEG · ≤240 KB"
-    },
-    {
-      "app": "photo-pdf-to-size",
-      "locale": "es",
-      "file": "photo-pdf-to-size/ios/PhotoPodRazmer/Resources/es.lproj/Localizable.strings",
-      "kind": "english_identical",
       "key": "900×900 px · JPEG · 10 KB–1 MB",
       "value": "900×900 px · JPEG · 10 KB–1 MB"
     },
@@ -3223,6 +3215,14 @@
       "kind": "english_identical",
       "key": "600×600 px · JPEG · ≤240 KB",
       "value": "600×600 px · JPEG · ≤240 KB"
+    },
+    {
+      "app": "photo-pdf-to-size",
+      "locale": "es",
+      "file": "photo-pdf-to-size/ios/PhotoPodRazmer/Resources/es.lproj/Localizable.strings",
+      "kind": "english_identical",
+      "key": "900×900 px · JPEG · 10 KB–1 MB",
+      "value": "900×900 px · JPEG · 10 KB–1 MB"
     },
     {
       "app": "photo-pdf-to-size",
@@ -3261,16 +3261,16 @@
       "locale": "ru",
       "file": "photo-pdf-to-size/ios/PhotoPodRazmer/Resources/ru.lproj/Localizable.strings",
       "kind": "english_identical",
-      "key": "900×900 px · JPEG · 10 KB–1 MB",
-      "value": "900×900 px · JPEG · 10 KB–1 MB"
+      "key": "600×600 px · JPEG · ≤240 KB",
+      "value": "600×600 px · JPEG · ≤240 KB"
     },
     {
       "app": "photo-pdf-to-size",
       "locale": "ru",
       "file": "photo-pdf-to-size/ios/PhotoPodRazmer/Resources/ru.lproj/Localizable.strings",
       "kind": "english_identical",
-      "key": "600×600 px · JPEG · ≤240 KB",
-      "value": "600×600 px · JPEG · ≤240 KB"
+      "key": "900×900 px · JPEG · 10 KB–1 MB",
+      "value": "900×900 px · JPEG · 10 KB–1 MB"
     }
   ]
 }
