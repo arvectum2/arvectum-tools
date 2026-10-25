@@ -46,8 +46,18 @@ class LocalizationPortfolioTests(unittest.TestCase):
             "pt-BR": "BrazilianPortuguese", "it": "Italian",
             "ja": "Japanese", "zh-Hans": "SimplifiedChinese",
         }
+        registry = i18n.config()
         covered = 0
+        app_registry_names = {"photo": "photo-pdf-to-size",
+                              "pushkin": "pushkin", "what": "what",
+                              "chickmark": "chickmark"}
         for app, relative_root in roots.items():
+            # New iOS source locales must add an explicit UI smoke mapping.
+            # Otherwise the old nine-locale test could pass after locale #10.
+            locales = set(registry["apps"][app_registry_names[app]]["ios"]["sourceCatalogs"])
+            self.assertEqual(
+                locales, {"ru", "en", *code_names},
+                f"{app}: new source locale must have a UI smoke test mapping")
             root = ROOT / relative_root
             baseline = (root / "CoreLanguageCoverageUITests.swift").read_text()
             self.assertIn("final class CoreLanguageCoverageUITests", baseline)
