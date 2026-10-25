@@ -44,7 +44,7 @@
 "After 2 hours" = "Após 2 horas";
 "After 3 hours" = "Após 3 horas";
 "All" = "Tudo";
-"Allow Speech Recognition for UhWhat? in iPhone Settings. Your audio is safe." = "Permita o reconhecimento de fala do UhWhat? nos Ajustes do iPhone. Seu áudio está preservado.";
+"Allow Speech Recognition for UhWhat? in iPhone Settings. Your audio is safe." = "Permita o reconhecimento de fala do UhWhat? nas Definições do iPhone. Seu áudio está preservado.";
 "App settings and diagnostics" = "Ajustes do app e diagnóstico";
 "Apple Watch — last reported state" = "Apple Watch — último estado informado";
 "Archive" = "Ficheiro";
@@ -91,9 +91,9 @@
 "Edit text" = "Editar texto";
 "Edit transcription" = "Editar transcrição";
 "Editing changes only the transcript. Your original audio is never modified." = "A edição altera apenas a transcrição. O áudio original nunca é modificado.";
-"Enable camera access in Settings." = "Permita o acesso à câmara nos Ajustes.";
-"Enable microphone access in Settings." = "Permita o acesso ao microfone nos Ajustes.";
-"Enable microphone access to UhWhat? in iPhone Settings." = "Permita o acesso ao microfone do UhWhat? nos Ajustes do iPhone.";
+"Enable camera access in Settings." = "Permita o acesso à câmara nas Definições.";
+"Enable microphone access in Settings." = "Permita o acesso ao microfone nas Definições.";
+"Enable microphone access to UhWhat? in iPhone Settings." = "Permita o acesso ao microfone do UhWhat? nas Definições do iPhone.";
 "Español" = "Espanhol";
 "Export" = "Exportar";
 "Folder" = "Pasta";
@@ -122,7 +122,7 @@
 "Note media cleanup could not finish. If deletion was already committed, cleanup will retry on the next launch. " = "Não foi possível concluir a limpeza das ficheiros multimédia da nota. Se a exclusão já foi confirmada, a limpeza será repetida na próxima abertura.";
 "Note transfer" = "Transferência de notas";
 "Nothing yet" = "Nada por enquanto";
-"Notifications are disabled. Enable them in Settings." = "As notificações estão desativadas. Ative-as nos Ajustes.";
+"Notifications are disabled. Enable them in Settings." = "As notificações estão desativadas. Ative-as nas Definições.";
 "Off" = "Desativado";
 "On-device speech recognition is unavailable for the selected language. Choose another language or check iOS Settings. Original audio is preserved." = "O reconhecimento de fala no dispositivo está indisponível para o idioma selecionado. Escolha outro idioma ou verifique os Ajustes do iOS. O áudio original será preservado.";
 "Open" = "Abrir";

@@ -21,4 +21,4 @@
 "watch.health.unit.minutes" = "min";
 "watch.health.unit.hours" = "h";
 "watch.health.unit.unknown" = "";
-"watch.health.unavailable" = "Dados do Apple Saúde indisponíveis";
+"watch.health.unavailable" = "Dados do Saúde da Apple indisponíveis";

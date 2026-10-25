@@ -287,7 +287,7 @@
       "format_mismatch": 0,
       "english_identical": 0,
       "high_risk_review": 78,
-      "pt_pt_brazilian_flags": 23
+      "pt_pt_brazilian_flags": 9
     },
     {
       "app": "chickmark",
@@ -573,7 +573,7 @@
       "format_mismatch": 0,
       "english_identical": 0,
       "high_risk_review": 2,
-      "pt_pt_brazilian_flags": 2
+      "pt_pt_brazilian_flags": 0
     },
     {
       "app": "chickmark",
@@ -586,7 +586,7 @@
       "format_mismatch": 0,
       "english_identical": 0,
       "high_risk_review": 7,
-      "pt_pt_brazilian_flags": 1
+      "pt_pt_brazilian_flags": 0
     },
     {
       "app": "chickmark",
@@ -1028,7 +1028,7 @@
       "format_mismatch": 0,
       "english_identical": 0,
       "high_risk_review": 57,
-      "pt_pt_brazilian_flags": 44
+      "pt_pt_brazilian_flags": 37
     },
     {
       "app": "pushkin",
@@ -1236,7 +1236,7 @@
       "format_mismatch": 0,
       "english_identical": 0,
       "high_risk_review": 56,
-      "pt_pt_brazilian_flags": 8
+      "pt_pt_brazilian_flags": 3
     },
     {
       "app": "what",
@@ -2414,7 +2414,7 @@
       "file": "chickmark/ios/HabitsByArvectum/pt-PT.lproj/InfoPlist.strings",
       "kind": "pt_pt_brazilian_flags",
       "key": "NSHealthUpdateUsageDescription",
-      "value": "O ChickMark adiciona o consumo de água ao Apple Saúde somente quando você ativa a exportação de um hábito de quantidade. Você pode desativar esse acesso nos ajustes do Saúde."
+      "value": "O ChickMark adiciona o consumo de água ao Saúde da Apple somente quando você ativa a exportação de um hábito de quantidade. Você pode desativar esse acesso nos ajustes do Saúde."
     },
     {
       "app": "chickmark",
@@ -2429,72 +2429,8 @@
       "locale": "pt-PT",
       "file": "chickmark/ios/HabitsByArvectum/pt-PT.lproj/Localizable.strings",
       "kind": "pt_pt_brazilian_flags",
-      "key": "notification.denied.message",
-      "value": "Permita notificações do ChickMark nos Ajustes do iPhone para ativar lembretes."
-    },
-    {
-      "app": "chickmark",
-      "locale": "pt-PT",
-      "file": "chickmark/ios/HabitsByArvectum/pt-PT.lproj/Localizable.strings",
-      "kind": "pt_pt_brazilian_flags",
       "key": "oneoff.title.placeholder",
       "value": "Sobre o que devo lembrar você?"
-    },
-    {
-      "app": "chickmark",
-      "locale": "pt-PT",
-      "file": "chickmark/ios/HabitsByArvectum/pt-PT.lproj/Localizable.strings",
-      "kind": "pt_pt_brazilian_flags",
-      "key": "oneoff.notification.denied.message",
-      "value": "Permita notificações do ChickMark nos Ajustes do iPhone para receber lembretes únicos."
-    },
-    {
-      "app": "chickmark",
-      "locale": "pt-PT",
-      "file": "chickmark/ios/HabitsByArvectum/pt-PT.lproj/Localizable.strings",
-      "kind": "pt_pt_brazilian_flags",
-      "key": "health.title",
-      "value": "Apple Saúde"
-    },
-    {
-      "app": "chickmark",
-      "locale": "pt-PT",
-      "file": "chickmark/ios/HabitsByArvectum/pt-PT.lproj/Localizable.strings",
-      "kind": "pt_pt_brazilian_flags",
-      "key": "health.auto.completed",
-      "value": "Concluído pelo Apple Saúde"
-    },
-    {
-      "app": "chickmark",
-      "locale": "pt-PT",
-      "file": "chickmark/ios/HabitsByArvectum/pt-PT.lproj/Localizable.strings",
-      "kind": "pt_pt_brazilian_flags",
-      "key": "health.disconnect",
-      "value": "Desconectar Apple Saúde"
-    },
-    {
-      "app": "chickmark",
-      "locale": "pt-PT",
-      "file": "chickmark/ios/HabitsByArvectum/pt-PT.lproj/Localizable.strings",
-      "kind": "pt_pt_brazilian_flags",
-      "key": "health.settings",
-      "value": "Apple Saúde"
-    },
-    {
-      "app": "chickmark",
-      "locale": "pt-PT",
-      "file": "chickmark/ios/HabitsByArvectum/pt-PT.lproj/Localizable.strings",
-      "kind": "pt_pt_brazilian_flags",
-      "key": "health.error.unavailable",
-      "value": "O Apple Saúde não está disponível neste dispositivo."
-    },
-    {
-      "app": "chickmark",
-      "locale": "pt-PT",
-      "file": "chickmark/ios/HabitsByArvectum/pt-PT.lproj/Localizable.strings",
-      "kind": "pt_pt_brazilian_flags",
-      "key": "health.error.authorization",
-      "value": "Não foi possível solicitar acesso ao Apple Saúde."
     },
     {
       "app": "chickmark",
@@ -2541,14 +2477,6 @@
       "locale": "pt-PT",
       "file": "chickmark/ios/HabitsByArvectum/pt-PT.lproj/Localizable.strings",
       "kind": "pt_pt_brazilian_flags",
-      "key": "health.link.toggle",
-      "value": "Concluir automaticamente pelo Apple Saúde"
-    },
-    {
-      "app": "chickmark",
-      "locale": "pt-PT",
-      "file": "chickmark/ios/HabitsByArvectum/pt-PT.lproj/Localizable.strings",
-      "kind": "pt_pt_brazilian_flags",
       "key": "health.local.hint",
       "value": "O progresso permanece no dispositivo. As mudanças passam a valer quando você guardar."
     },
@@ -2557,72 +2485,8 @@
       "locale": "pt-PT",
       "file": "chickmark/ios/HabitsByArvectum/pt-PT.lproj/Localizable.strings",
       "kind": "pt_pt_brazilian_flags",
-      "key": "weekly.privacy",
-      "value": "Desativado por padrão. Calculado apenas neste dispositivo; sem notificações, conta, análises ou sincronização de rede. Hábitos conectados ao Apple Saúde são excluídos porque conclusões automáticas anteriores não podem ser deduzidas dos regi"
-    },
-    {
-      "app": "chickmark",
-      "locale": "pt-PT",
-      "file": "chickmark/ios/HabitsByArvectum/pt-PT.lproj/Localizable.strings",
-      "kind": "pt_pt_brazilian_flags",
       "key": "review.paste.instructions",
       "value": "Toque no botão Colar do sistema para permitir que o ChickMark leia a nota compartilhada. Você confirmará novamente antes de criar um lembrete único."
-    },
-    {
-      "app": "chickmark",
-      "locale": "pt-PT",
-      "file": "chickmark/ios/HabitsByArvectum/pt-PT.lproj/Localizable.strings",
-      "kind": "pt_pt_brazilian_flags",
-      "key": "review.notification.permission",
-      "value": "Permita notificações do ChickMark nos Ajustes para criar o lembrete."
-    },
-    {
-      "app": "chickmark",
-      "locale": "pt-PT",
-      "file": "chickmark/ios/HabitsByArvectum/pt-PT.lproj/Localizable.strings",
-      "kind": "pt_pt_brazilian_flags",
-      "key": "water.export.title",
-      "value": "Exportar água para o Apple Saúde"
-    },
-    {
-      "app": "chickmark",
-      "locale": "pt-PT",
-      "file": "chickmark/ios/HabitsByArvectum/pt-PT.lproj/Localizable.strings",
-      "kind": "pt_pt_brazilian_flags",
-      "key": "water.export.toggle",
-      "value": "Adicionar água ao Apple Saúde"
-    },
-    {
-      "app": "chickmark",
-      "locale": "pt-PT",
-      "file": "chickmark/ios/HabitsByArvectum/pt-PT.lproj/Localizable.strings",
-      "kind": "pt_pt_brazilian_flags",
-      "key": "water.export.privacy",
-      "value": "As quantidades de água permanecem no dispositivo. O ChickMark solicitará permissão de escrita no Apple Saúde ao guardar."
-    },
-    {
-      "app": "chickmark",
-      "locale": "pt-PT",
-      "file": "chickmark/ios/HabitsByArvectumWatch/pt-PT.lproj/InfoPlist.strings",
-      "kind": "pt_pt_brazilian_flags",
-      "key": "NSHealthShareUsageDescription",
-      "value": "O ChickMark lê os totais de atividade somente dos hábitos conectados ao Apple Saúde. Os dados de saúde permanecem no dispositivo."
-    },
-    {
-      "app": "chickmark",
-      "locale": "pt-PT",
-      "file": "chickmark/ios/HabitsByArvectumWatch/pt-PT.lproj/InfoPlist.strings",
-      "kind": "pt_pt_brazilian_flags",
-      "key": "NSHealthUpdateUsageDescription",
-      "value": "O ChickMark usa o Apple Saúde para acompanhar as metas de atividade escolhidas. O app não adiciona nem altera dados de saúde."
-    },
-    {
-      "app": "chickmark",
-      "locale": "pt-PT",
-      "file": "chickmark/ios/HabitsByArvectumWatch/pt-PT.lproj/Localizable.strings",
-      "kind": "pt_pt_brazilian_flags",
-      "key": "watch.health.unavailable",
-      "value": "Dados do Apple Saúde indisponíveis"
     },
     {
       "app": "chickmark",
@@ -2717,16 +2581,16 @@
       "locale": "fr",
       "file": "pushkin/ios/ArvectumNotify/Resources/fr.lproj/Localizable.strings",
       "kind": "english_identical",
-      "key": "Notification",
-      "value": "Notification"
+      "key": "Diagnostics",
+      "value": "Diagnostics"
     },
     {
       "app": "pushkin",
       "locale": "fr",
       "file": "pushkin/ios/ArvectumNotify/Resources/fr.lproj/Localizable.strings",
       "kind": "english_identical",
-      "key": "Diagnostics",
-      "value": "Diagnostics"
+      "key": "Notification",
+      "value": "Notification"
     },
     {
       "app": "pushkin",
@@ -2773,14 +2637,6 @@
       "locale": "pt-PT",
       "file": "pushkin/ios/ArvectumNotify/Resources/pt-PT.lproj/Localizable.strings",
       "kind": "pt_pt_brazilian_flags",
-      "key": "Configure manually in Shortcuts",
-      "value": "Configurar manualmente no Atalhos"
-    },
-    {
-      "app": "pushkin",
-      "locale": "pt-PT",
-      "file": "pushkin/ios/ArvectumNotify/Resources/pt-PT.lproj/Localizable.strings",
-      "kind": "pt_pt_brazilian_flags",
       "key": "Copy app names",
       "value": "Copiar nomes dos apps"
     },
@@ -2790,23 +2646,7 @@
       "file": "pushkin/ios/ArvectumNotify/Resources/pt-PT.lproj/Localizable.strings",
       "kind": "pt_pt_brazilian_flags",
       "key": "Create a Notification automation for each group. Select its apps, add PUSHKIN → Archive Notification, map App / Title / Subtitle / Text, then enable it. Copying names is only a checklist; Shortcuts still requires manual app selection.",
-      "value": "Crie uma automação de Notificação para cada grupo. Selecione os apps, adicione PUSHKIN → Arquivar notificação, associe App / Título / Subtítulo / Texto e ative a automação. Copiar os nomes cria apenas uma lista; a seleção dos apps no Atalho"
-    },
-    {
-      "app": "pushkin",
-      "locale": "pt-PT",
-      "file": "pushkin/ios/ArvectumNotify/Resources/pt-PT.lproj/Localizable.strings",
-      "kind": "pt_pt_brazilian_flags",
-      "key": "Importing a signed app package opens Shortcuts but does not enable the new automation. Enable it there and check a real notification. If missing from this catalog, use the manual guide.",
-      "value": "Importar um pacote assinado abre o Atalhos, mas não ativa a nova automação. Ative-a no Atalhos e teste com uma notificação real. Se o app não estiver no catálogo, use o guia manual."
-    },
-    {
-      "app": "pushkin",
-      "locale": "pt-PT",
-      "file": "pushkin/ios/ArvectumNotify/Resources/pt-PT.lproj/Localizable.strings",
-      "kind": "pt_pt_brazilian_flags",
-      "key": "In Shortcuts, tap Add, then enable the new automation (imports start disabled). PUSHKIN can observe a real notification from this app, but cannot read the Shortcuts enable switch.",
-      "value": "No Atalhos, toque em Adicionar e ative a nova automação (as importações começam desativadas). O PUSHKIN consegue observar uma notificação real desse app, mas não consegue ler o estado do botão de ativação."
+      "value": "Crie uma automação de Notificação para cada grupo. Selecione os apps, adicione PUSHKIN → Arquivar notificação, associe App / Título / Subtítulo / Texto e ative a automação. Copiar os nomes cria apenas uma lista; a seleção dos apps na app At"
     },
     {
       "app": "pushkin",
@@ -2815,14 +2655,6 @@
       "kind": "pt_pt_brazilian_flags",
       "key": "Missing an app? Send us its exact name. The most-requested apps move to the top of our update list.",
       "value": "Algum app está faltando? Envie o nome exato. Priorizamos os apps mais solicitados nas atualizações."
-    },
-    {
-      "app": "pushkin",
-      "locale": "pt-PT",
-      "file": "pushkin/ios/ArvectumNotify/Resources/pt-PT.lproj/Localizable.strings",
-      "kind": "pt_pt_brazilian_flags",
-      "key": "Newly imported automations are disabled. Turn each one on in Shortcuts; PUSHKIN cannot read its enabled state. A notification from one app does not verify every app.",
-      "value": "Automações recém-importadas ficam desativadas. Ative cada uma no Atalhos; o PUSHKIN não consegue verificar esse estado. Uma notificação de um app não confirma o funcionamento de todos."
     },
     {
       "app": "pushkin",
@@ -2847,14 +2679,6 @@
       "kind": "pt_pt_brazilian_flags",
       "key": "One base shortcut can contain 1,000 app entries. Optional groups of 25 are just a planning convenience, not an iOS limit.",
       "value": "Um atalho principal pode conter 1.000 entradas de apps. Grupos opcionais de 25 são apenas uma conveniência de organização, não um limite do iOS."
-    },
-    {
-      "app": "pushkin",
-      "locale": "pt-PT",
-      "file": "pushkin/ios/ArvectumNotify/Resources/pt-PT.lproj/Localizable.strings",
-      "kind": "pt_pt_brazilian_flags",
-      "key": "Open base shortcut in Shortcuts",
-      "value": "Abrir atalho principal no Atalhos"
     },
     {
       "app": "pushkin",
@@ -2934,7 +2758,7 @@
       "file": "pushkin/ios/ArvectumNotify/Resources/pt-PT.lproj/Localizable.strings",
       "kind": "pt_pt_brazilian_flags",
       "key": "You can still add this app manually in Shortcuts.",
-      "value": "Você ainda pode adicionar este app manualmente no Atalhos."
+      "value": "Você ainda pode adicionar este app manualmente na app Atalhos."
     },
     {
       "app": "pushkin",
@@ -2966,7 +2790,7 @@
       "file": "pushkin/ios/ArvectumNotify/Resources/pt-PT.lproj/Localizable.strings",
       "kind": "pt_pt_brazilian_flags",
       "key": "Connect the apps you want to track in Shortcuts. Notifications captured from those sources will appear here.",
-      "value": "Conecte no Atalhos os apps que deseja acompanhar. As notificações recebidas desses apps aparecerão aqui."
+      "value": "Conecte na app Atalhos os apps que deseja acompanhar. As notificações recebidas desses apps aparecerão aqui."
     },
     {
       "app": "pushkin",
@@ -2983,14 +2807,6 @@
       "kind": "pt_pt_brazilian_flags",
       "key": "Opening the preview does not mean you tapped Add or enabled the automation.",
       "value": "Abrir a prévia não significa que você tocou em Adicionar ou ativou a automação."
-    },
-    {
-      "app": "pushkin",
-      "locale": "pt-PT",
-      "file": "pushkin/ios/ArvectumNotify/Resources/pt-PT.lproj/Localizable.strings",
-      "kind": "pt_pt_brazilian_flags",
-      "key": "PUSHKIN received a notification from %@. This confirms that source only; check the automation in Shortcuts.",
-      "value": "O PUSHKIN recebeu uma notificação de %@. Isso confirma apenas esta origem; verifique a automação no Atalhos."
     },
     {
       "app": "pushkin",
@@ -3014,7 +2830,7 @@
       "file": "pushkin/ios/ArvectumNotify/Resources/pt-PT.lproj/Localizable.strings",
       "kind": "pt_pt_brazilian_flags",
       "key": "Review the app list and tap Add in Shortcuts. You do not have to manually select all 1,000 catalog apps.",
-      "value": "Revise a lista e toque em Adicionar no Atalhos. Você não precisa selecionar manualmente todos os 1.000 apps do catálogo."
+      "value": "Revise a lista e toque em Adicionar na app Atalhos. Você não precisa selecionar manualmente todos os 1.000 apps do catálogo."
     },
     {
       "app": "pushkin",
@@ -3023,14 +2839,6 @@
       "kind": "pt_pt_brazilian_flags",
       "key": "Selected apps",
       "value": "Apps selecionados"
-    },
-    {
-      "app": "pushkin",
-      "locale": "pt-PT",
-      "file": "pushkin/ios/ArvectumNotify/Resources/pt-PT.lproj/Localizable.strings",
-      "kind": "pt_pt_brazilian_flags",
-      "key": "Send one real notification from an app already installed and included in Shortcuts. Return to History to check the result.",
-      "value": "Envie uma notificação real de um app já instalado e incluído no Atalhos. Volte ao Histórico para conferir o resultado."
     },
     {
       "app": "pushkin",
@@ -3046,7 +2854,7 @@
       "file": "pushkin/ios/ArvectumNotify/Resources/pt-PT.lproj/Localizable.strings",
       "kind": "pt_pt_brazilian_flags",
       "key": "The base shortcut includes 1,000 entries. Only apps recognized by Shortcuts when you configure the automation can send captures.",
-      "value": "O atalho principal contém 1.000 entradas. Só os apps reconhecidos pelo Atalhos durante a configuração da automação podem gerar registros."
+      "value": "O atalho principal contém 1.000 entradas. Só os apps reconhecidos pela app Atalhos durante a configuração da automação podem gerar registros."
     },
     {
       "app": "pushkin",
@@ -3093,16 +2901,16 @@
       "locale": "de",
       "file": "what/ios/WhatIOS/de.lproj/Localizable.strings",
       "kind": "english_identical",
-      "key": "Audio (.m4a)",
-      "value": "Audio (.m4a)"
+      "key": "Filter %@, %@",
+      "value": "Filter %@, %@"
     },
     {
       "app": "what",
       "locale": "de",
       "file": "what/ios/WhatIOS/de.lproj/Localizable.strings",
       "kind": "english_identical",
-      "key": "Filter %@, %@",
-      "value": "Filter %@, %@"
+      "key": "Audio (.m4a)",
+      "value": "Audio (.m4a)"
     },
     {
       "app": "what",
@@ -3127,46 +2935,6 @@
       "kind": "english_identical",
       "key": "Audio (.m4a)",
       "value": "Audio (.m4a)"
-    },
-    {
-      "app": "what",
-      "locale": "pt-PT",
-      "file": "what/ios/WhatIOS/pt-PT.lproj/Localizable.strings",
-      "kind": "pt_pt_brazilian_flags",
-      "key": "Allow Speech Recognition for UhWhat? in iPhone Settings. Your audio is safe.",
-      "value": "Permita o reconhecimento de fala do UhWhat? nos Ajustes do iPhone. Seu áudio está preservado."
-    },
-    {
-      "app": "what",
-      "locale": "pt-PT",
-      "file": "what/ios/WhatIOS/pt-PT.lproj/Localizable.strings",
-      "kind": "pt_pt_brazilian_flags",
-      "key": "Enable camera access in Settings.",
-      "value": "Permita o acesso à câmara nos Ajustes."
-    },
-    {
-      "app": "what",
-      "locale": "pt-PT",
-      "file": "what/ios/WhatIOS/pt-PT.lproj/Localizable.strings",
-      "kind": "pt_pt_brazilian_flags",
-      "key": "Enable microphone access in Settings.",
-      "value": "Permita o acesso ao microfone nos Ajustes."
-    },
-    {
-      "app": "what",
-      "locale": "pt-PT",
-      "file": "what/ios/WhatIOS/pt-PT.lproj/Localizable.strings",
-      "kind": "pt_pt_brazilian_flags",
-      "key": "Enable microphone access to UhWhat? in iPhone Settings.",
-      "value": "Permita o acesso ao microfone do UhWhat? nos Ajustes do iPhone."
-    },
-    {
-      "app": "what",
-      "locale": "pt-PT",
-      "file": "what/ios/WhatIOS/pt-PT.lproj/Localizable.strings",
-      "kind": "pt_pt_brazilian_flags",
-      "key": "Notifications are disabled. Enable them in Settings.",
-      "value": "As notificações estão desativadas. Ative-as nos Ajustes."
     },
     {
       "app": "what",
@@ -3229,8 +2997,8 @@
       "locale": "fr",
       "file": "photo-pdf-to-size/ios/PhotoPodRazmer/Resources/fr.lproj/Localizable.strings",
       "kind": "english_identical",
-      "key": "НА ДОКУМЕНТЫ",
-      "value": "DOCUMENTS"
+      "key": "filename.pixels",
+      "value": "dimensions"
     },
     {
       "app": "photo-pdf-to-size",
@@ -3245,8 +3013,8 @@
       "locale": "fr",
       "file": "photo-pdf-to-size/ios/PhotoPodRazmer/Resources/fr.lproj/Localizable.strings",
       "kind": "english_identical",
-      "key": "filename.pixels",
-      "value": "dimensions"
+      "key": "НА ДОКУМЕНТЫ",
+      "value": "DOCUMENTS"
     },
     {
       "app": "photo-pdf-to-size",
