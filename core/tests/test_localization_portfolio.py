@@ -9,6 +9,19 @@ import localization_portfolio as i18n
 
 
 class LocalizationPortfolioTests(unittest.TestCase):
+    def test_photo_european_portuguese_draft_parity(self):
+        """Draft must keep keys/placeholders without implying release readiness."""
+        base = ROOT / "photo-pdf-to-size/ios/PhotoPodRazmer/Resources"
+        for filename in ("Localizable.strings", "InfoPlist.strings"):
+            br = i18n.read_strings(base / "pt-BR.lproj" / filename, [])
+            pt = i18n.read_strings(base / "pt-PT.lproj" / filename, [])
+            self.assertEqual(set(br), set(pt))
+            for key in br:
+                self.assertEqual(i18n.PRINTF.findall(br[key]), i18n.PRINTF.findall(pt[key]), key)
+        pt = i18n.read_strings(base / "pt-PT.lproj/Localizable.strings", [])
+        self.assertEqual(pt["Сохранить файл"], "Guardar ficheiro")
+        self.assertEqual(pt["Поделиться"], "Partilhar")
+
     def test_registry(self):
         reg = i18n.config()
         self.assertEqual(len(reg["targets"]), 50)
