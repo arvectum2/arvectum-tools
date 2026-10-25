@@ -1,0 +1,126 @@
+name: iOS nine-language UI matrix (manual)
+
+# This broad native UI suite is intentionally opt-in: it uses four
+# macOS Xcode runners and exercises the full 9-locale app/source matrix.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ios-nine-language-ui-matrix-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ios-localized-ui:
+    name: UI ${{ matrix.app }} (9 locales)
+    runs-on: xcode-27
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - app: photo
+            folder: photo-pdf-to-size/ios
+            project: PhotoPodRazmerIOS.xcodeproj
+            scheme: PhotoPodRazmer
+            uitests: PhotoPodRazmerUITests
+            test_sources: PhotoPodRazmerUITests
+          - app: pushkin
+            folder: pushkin/ios
+            project: ArvectumNotifyIOS.xcodeproj
+            scheme: ArvectumNotify
+            uitests: ArvectumNotifyUITests
+            test_sources: ArvectumNotifyUITests
+          - app: uhvat
+            folder: what/ios
+            project: What.xcodeproj
+            scheme: WhatIOS
+            uitests: WhatIOSUITests
+            test_sources: WhatIOSUITests
+          - app: chickmark
+            folder: chickmark/ios
+            project: HabitsByArvectumIOS.xcodeproj
+            scheme: HabitsByArvectum
+            uitests: HabitsByArvectumUITests
+            test_sources: HabitsByArvectumUITests
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Validate full source locale/UI coverage
+        run: |
+          python3 core/tools/localization_portfolio.py --audit
+          python3 -m unittest discover -s core/tests -p test_localization_portfolio.py -v
+
+      - name: Prepare generated project
+        working-directory: ${{ matrix.folder }}
+        run: |
+          brew install xcodegen
+          xcodegen generate
+
+      - name: Boot isolated simulator
+        run: |
+          set -euo pipefail
+          sim_id=$(xcrun simctl create "Arvectum-i18n-${{ github.run_id }}-${{ matrix.app }}" \
+            "iPhone 18 Pro" "iOS 27.0")
+          echo "MATRIX_SIM_ID=$sim_id" >> "$GITHUB_ENV"
+          xcrun simctl boot "$sim_id"
+          xcrun simctl bootstatus "$sim_id" -b
+
+      - name: Run locale-specific iOS XCUITest
+        working-directory: ${{ matrix.folder }}
+        timeout-minutes: 48
+        run: |
+          set -euo pipefail
+          tests=()
+          for class in \
+            CoreLanguageCoverageUITests \
+            SpanishLocalizationUITests \
+            FrenchLocalizationUITests \
+            GermanLocalizationUITests \
+            BrazilianPortugueseLocalizationUITests \
+            ItalianLocalizationUITests \
+            JapaneseLocalizationUITests \
+            SimplifiedChineseLocalizationUITests; do
+            if [ -f "${{ matrix.test_sources }}/${class}.swift" ]; then
+              tests+=("-only-testing:${{ matrix.uitests }}/${class}")
+            fi
+          done
+          if [ "${#tests[@]}" -lt 7 ]; then
+            echo "::error::Missing expected language UI test classes"
+            exit 1
+          fi
+          xcodebuild test \
+            -project "${{ matrix.project }}" \
+            -scheme "${{ matrix.scheme }}" \
+            -destination "platform=iOS Simulator,id=$MATRIX_SIM_ID" \
+            -parallel-testing-enabled NO \
+            -jobs 2 \
+            -test-iterations 2 \
+            -retry-tests-on-failure \
+            -test-repetition-relaunch-enabled YES \
+            -derivedDataPath "$RUNNER_TEMP/${{ matrix.app }}-localization-derived" \
+            -resultBundlePath "$RUNNER_TEMP/${{ matrix.app }}-localization.xcresult" \
+            CODE_SIGNING_ALLOWED=NO \
+            COMPILER_INDEX_STORE_ENABLE=NO \
+            "${tests[@]}" 2>&1 | tee "$RUNNER_TEMP/${{ matrix.app }}-localization.log"
+
+      - name: Delete isolated simulator
+        if: always()
+        run: |
+          if [ -n "${MATRIX_SIM_ID:-}" ]; then
+            xcrun simctl shutdown "$MATRIX_SIM_ID" 2>/dev/null || true
+            xcrun simctl delete "$MATRIX_SIM_ID" 2>/dev/null || true
+          fi
+
+      - name: Upload XCResult and runner log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-nine-lang-${{ matrix.app }}-${{ github.run_id }}
+          path: |
+            ${{ runner.temp }}/${{ matrix.app }}-localization.xcresult
+            ${{ runner.temp }}/${{ matrix.app }}-localization.log
+          if-no-files-found: warn
+          retention-days: 7
