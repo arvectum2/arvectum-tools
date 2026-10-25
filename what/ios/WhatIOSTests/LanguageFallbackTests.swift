@@ -129,6 +129,13 @@ final class LanguageFallbackTests: XCTestCase {
         XCTAssertEqual(CaptureBrand.noteCount(2, language: "it"), "2 note")
     }
 
+    func testEuropeanPortugueseRegionalSelection() {
+        XCTAssertEqual(CaptureBrand.resolvedInterfaceLanguage(for: ["pt-PT", "en-US"]), "pt-PT")
+        XCTAssertEqual(CaptureBrand.resolvedInterfaceLanguage(for: ["pt-BR", "en-US"]), "pt")
+        XCTAssertEqual(CaptureBrand.defaultTranscriptionLocale(for: "pt"), "en-US")
+        XCTAssertEqual(CaptureBrand.text("Сохранить", "Save", language: "pt-PT"), "Guardar")
+    }
+
     func testBrazilianPortugueseInterfaceWithIndependentTranscription() {
         XCTAssertEqual(
             CaptureBrand.resolvedInterfaceLanguage(for: ["pt-BR", "en-US"]), "pt")

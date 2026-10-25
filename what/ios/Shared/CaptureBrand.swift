@@ -39,7 +39,7 @@ enum CaptureBrand {
                 .replacingOccurrences(of: "_", with: "-")
             // Preserve regional Portuguese and Chinese script choices.
             if normalized.hasPrefix("pt-pt") { return "pt-PT" }
-            if normalized.hasPrefix("pt-br") { return "pt-BR" }
+            if normalized.hasPrefix("pt-br") { return "pt" }
             if normalized.hasPrefix("zh-hant") || normalized.hasPrefix("zh-tw") ||
                normalized.hasPrefix("zh-hk") || normalized.hasPrefix("zh-mo") {
                 return "zh-Hant"

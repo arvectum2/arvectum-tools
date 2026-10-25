@@ -1,5 +1,5 @@
 // Português (Portugal), rascunho derivado de pt-BR; revisão humana obrigatória.
-// Português do Brasil. Revisão editorial antes do lançamento.
+// Português (Portugal). Revisão editorial antes do lançamento.
 "Actual Apple similarity scores (not accuracy percentages):" = "Pontuações reais de similaridade da Apple (não são percentuais de precisão):";
 "Apple contextual similarity is experimental; concept matches do not require its download." = "A similaridade contextual da Apple é experimental; a busca por conceitos não exige esse download.";
 "Audio (.m4a)" = "Áudio (.m4a)";
@@ -17,7 +17,7 @@
 "Install Russian model" = "Instalar modelo de russo";
 "OK" = "OK";
 "Offline concept and word evidence" = "Evidências off-line de conceitos e palavras";
-"Only on this iPhone" = "Somente neste iPhone";
+"Only on this iPhone" = "Apenas neste iPhone";
 "Only saved text is searchable. New audio must be transcribed first." = "Apenas textos salvos podem ser pesquisados. Novos áudios precisam ser transcritos primeiro.";
 "Open original recording" = "Abrir gravação original";
 "Private, on-device excerpts" = "Trechos privados neste dispositivo";
@@ -119,7 +119,7 @@
 "No notes of this type" = "Nenhuma nota deste tipo";
 "No video was captured." = "Nenhum vídeo foi capturado.";
 "Not enough free storage to safely save this video. Original segments remain on this device. Free up space and retry recovery." = "Não há espaço livre suficiente para guardar este vídeo com segurança. Os segmentos originais permanecem neste dispositivo. Libere espaço e tente recuperar novamente.";
-"Note media cleanup could not finish. If deletion was already committed, cleanup will retry on the next launch. " = "Não foi possível concluir a limpeza das mídias da nota. Se a exclusão já foi confirmada, a limpeza será repetida na próxima abertura.";
+"Note media cleanup could not finish. If deletion was already committed, cleanup will retry on the next launch. " = "Não foi possível concluir a limpeza das ficheiros multimédia da nota. Se a exclusão já foi confirmada, a limpeza será repetida na próxima abertura.";
 "Note transfer" = "Transferência de notas";
 "Nothing yet" = "Nada por enquanto";
 "Notifications are disabled. Enable them in Settings." = "As notificações estão desativadas. Ative-as nos Ajustes.";

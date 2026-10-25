@@ -82,6 +82,11 @@ final class CoverageCatalogTests: XCTestCase {
         XCTAssertEqual(PushkinCopy.appCount(1, language: "de-DE"), "1 App")
     }
 
+    func testEuropeanPortugueseBundleRouting() {
+        XCTAssertEqual(PushkinCopy.text("Delete", language: "pt-PT"), "Eliminar")
+        XCTAssertEqual(PushkinCopy.text("History", language: "pt-PT"), "Histórico")
+    }
+
     func testBrazilianPortugueseBundleAndAppCount() {
         XCTAssertEqual(PushkinCopy.text("History", language: "pt-BR"), "Histórico")
         XCTAssertEqual(PushkinCopy.text("Settings", language: "pt_BR"), "Ajustes")

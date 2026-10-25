@@ -1511,6 +1511,7 @@
 		67AC1BD2A84EE9CD14508B9E /* PUSHKIN - ShopBack- Shop & Earn Cashback.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - ShopBack- Shop & Earn Cashback.shortcut"; sourceTree = "<group>"; };
 		67CFE818C7D59E9407FAD953 /* PUSHKIN - bob World New.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - bob World New.shortcut"; sourceTree = "<group>"; };
 		67DD684D85E29EF8F21A861B /* PUSHKIN - OVO.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - OVO.shortcut"; sourceTree = "<group>"; };
+		67F3F4A6C7D0661CD621552C /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		6810B2C71110CACB69F9D2C9 /* PUSHKIN - KLM - Boek een vlucht.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - KLM - Boek een vlucht.shortcut"; sourceTree = "<group>"; };
 		681E372D285F9C73EAEF2C12 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		68611965A1B607D4E63F4B50 /* PUSHKIN - Pick n Pay asap + SmartShopper.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - Pick n Pay asap + SmartShopper.shortcut"; sourceTree = "<group>"; };
@@ -3408,6 +3409,7 @@
 				it,
 				ja,
 				"pt-BR",
+				"pt-PT",
 				ru,
 				"zh-Hans",
 				"zh-Hant",
@@ -4543,6 +4545,7 @@
 				BBFBA6E17ED88FA255B4CEA7 /* it */,
 				4978C07103A9114CF663D980 /* ja */,
 				664D859F3EEA04DA41311D29 /* pt-BR */,
+				67F3F4A6C7D0661CD621552C /* pt-PT */,
 				E88D3D65B6E0FF8B87FA0DE3 /* ru */,
 				1E6167A9AFE175E135406217 /* zh-Hans */,
 				464DEF383CA0B3CDBF23C4EA /* zh-Hant */,

@@ -70,7 +70,7 @@
 "weekday.sat.short" = "Sáb.";
 "weekday.sun.short" = "Dom.";
 "detail.history.title" = "Últimas 6 semanas";
-"detail.history.hint" = "Toque em um dia anterior para corrigir seu registro.";
+"detail.history.hint" = "Toque em um dia anterior para corrigir seu registo.";
 "detail.pause" = "Pausar hábito";
 "detail.resume" = "Retomar hábito";
 "detail.archive" = "Arquivar";
@@ -83,8 +83,8 @@
 "archive.accessibility" = "Hábitos arquivados";
 "archive.empty.title" = "Nenhum hábito arquivado";
 "archive.empty.description" = "Hábitos arquivados aparecerão aqui.";
-"manage.title" = "Gerenciar hábitos";
-"manage.accessibility" = "Gerenciar hábitos";
+"manage.title" = "Gerir hábitos";
+"manage.accessibility" = "Gerir hábitos";
 "manage.active" = "Ativos";
 "manage.paused" = "Pausados";
 "manage.reorder.hint" = "Toque em Editar para arrastar os hábitos para a ordem desejada.";
@@ -152,8 +152,8 @@
 "backup.result" = "Backup";
 "backup.success" = "Dados importados com sucesso.";
 "habit.multi.target.format" = "Registros por dia: %d";
-"habit.multi.target.hint" = "Cada registro conta separadamente. O hábito é concluído quando todos os círculos estiverem preenchidos.";
-"habit.multi.slot.format" = "Registro %d de %d";
+"habit.multi.target.hint" = "Cada registo conta separadamente. O hábito é concluído quando todos os círculos estiverem preenchidos.";
+"habit.multi.slot.format" = "Registo %d de %d";
 "habit.multi.checked" = "Concluído";
 "habit.multi.unchecked" = "Não concluído";
 "habit.multi.target.locked" = "A quantidade de registros diários não pode mudar depois que o histórico começar.";
@@ -187,7 +187,7 @@
 "insights.weekly.neutral" = "Pausadas: %d semanas";
 "insights.interval.title" = "Histórico de repetições";
 "insights.ninetyDays" = "90 dias";
-"insights.interval.note" = "Somente conclusões reais são contadas; metas repetidas após a conclusão não têm cota diária.";
+"insights.interval.note" = "Apenas conclusões reais são contadas; metas repetidas após a conclusão não têm cota diária.";
 "insights.interval.occurrences" = "conclusões";
 "insights.interval.average" = "Intervalo médio: %d dias";
 "insights.interval.noGap" = "Histórico insuficiente";
@@ -263,7 +263,7 @@
 "weekly.trend" = "Mudança em relação à semana anterior";
 "weekly.ratio" = "%d de %d";
 "weekly.bestDay.format" = "%@ (%d)";
-"weekly.note" = "Somente semanas completas anteriores são contabilizadas. Hoje não é avaliado. Dias ignorados e pausados são neutros; metas semanais são avaliadas uma vez por semana, e hábitos com intervalo contam ocorrências reais, não faltas inventadas. A tendência compara dias de hábitos concluídos, não porcentagens.";
+"weekly.note" = "Apenas semanas completas anteriores são contabilizadas. Hoje não é avaliado. Dias ignorados e pausados são neutros; metas semanais são avaliadas uma vez por semana, e hábitos com intervalo contam ocorrências reais, não faltas inventadas. A tendência compara dias de hábitos concluídos, não porcentagens.";
 "review.video.fallback" = "Vídeo";
 "review.note.prefix" = "Revisar nota:";
 "review.source.title" = "Nota do UhWhat?";
@@ -296,8 +296,8 @@
 "review.notification.genericTitle" = "ChickMark: revisar uma nota";
 "water.export.title" = "Exportar água para o Apple Saúde";
 "water.export.toggle" = "Adicionar água ao Apple Saúde";
-"water.export.volume" = "Mililitros por registro: %d ml";
-"water.export.example" = "Cada registro adiciona exatamente o volume escolhido, não uma quantidade presumida de um copo.";
+"water.export.volume" = "Mililitros por registo: %d ml";
+"water.export.example" = "Cada registo adiciona exatamente o volume escolhido, não uma quantidade presumida de um copo.";
 "water.export.explanation" = "Vale apenas para este hábito de quantidade, a partir do dia em que for ativado. Dias anteriores não são importados. Desfazer ou corrigir atualiza somente os registros criados pelo ChickMark.";
 "water.export.privacy" = "As quantidades de água permanecem no dispositivo. O ChickMark solicitará permissão de escrita no Apple Saúde ao guardar.";
 "water.export.error" = "Exportação de água indisponível";
