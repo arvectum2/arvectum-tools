@@ -104,16 +104,10 @@
 "Дополнительно" = "Advanced";
 
 "Реклама и конфиденциальность" = "Ads & Privacy";
-"Фото и PDF обрабатываются только на устройстве. Для показа рекламы используется Yandex Mobile Ads. Вы можете разрешить рекламному SDK обработку технических данных или отказаться. Геолокация отключена, разрешение App Tracking Transparency приложение не запрашивает." = "Photos and PDFs are processed only on your device. Yandex Mobile Ads is used to display ads. You can allow the advertising SDK to process technical data or decline. Location is disabled and the app does not request App Tracking Transparency permission.";
 "Политика конфиденциальности" = "Privacy Policy";
-"Разрешить для рекламы" = "Allow for ads";
-"Отказаться" = "Decline";
 
 
 "Реклама в приложении" = "Ads in the app";
-"Разрешить обработку данных" = "Allow data processing";
-"Не разрешать обработку данных" = "Do not allow data processing";
-"«Фото и PDF под размер» бесплатно и поддерживается рекламой. Реклама будет показываться независимо от вашего выбора. Вы можете разрешить или не разрешить Yandex Mobile Ads обработку данных для рекламы. Если разрешите, iOS может отдельно спросить разрешение на отслеживание. При отказе реклама останется, но без доступа к рекламному идентификатору. Фото и PDF обрабатываются только на устройстве, геолокация отключена." = "Photo & PDF Resize is free and supported by ads. Ads are shown regardless of your choice. You can allow or decline Yandex Mobile Ads data processing for advertising. If you allow it, iOS may separately ask for tracking permission. If you decline tracking, ads remain but the advertising identifier is unavailable. Photos and PDFs are processed only on your device and location is disabled.";
 
 "Файлы" = "Files";
 
@@ -161,3 +155,13 @@
 "%1$d %2$@" = "%1$d %2$@";
 "%1$d×%2$d px · %3$@" = "%1$d×%2$d px · %3$@";
 "%1$@ · %2$@" = "%1$@ · %2$@";
+
+// New visa/passport size presets; human editorial review pending.
+"Шенген · виза (печать)" = "Schengen · visa photo (print)";
+"Китай · виза (digital)" = "China · visa photo (digital)";
+"Канада · паспорт (печать)" = "Canada · passport photo (print)";
+"Канада требует оригинальную фотографию от фотографа. Изменённые или обрезанные снимки могут отклонить." = "Canada requires original studio photographs. Altered or cropped photos may be rejected.";
+
+// Contextual advertising privacy disclosure
+"Фото и PDF обрабатываются только на iPhone и не передаются рекламной сети. Приложение не запрашивает геолокацию или разрешение ATT. Рекламный SDK может собирать технические данные, включая идентификаторы устройства." = "Photos and PDFs are processed only on your iPhone and never sent to ad networks. The app does not request location or ATT permission. The ad SDK may collect technical data, including device identifiers.";
+"Закрыть" = "Close";

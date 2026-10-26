@@ -823,7 +823,7 @@ class LocalizationPortfolioTests(unittest.TestCase):
 
     def test_chickmark_french_catalog_across_phone_watch_and_widgets(self):
         bundles = [
-            ("HabitsByArvectum", 302),
+            ("HabitsByArvectum", 311),
             ("HabitsByArvectumWatch", 22),
             ("HabitsByArvectumWidget", 16),
             ("HabitsByArvectumWatchWidget", 5),
@@ -894,10 +894,14 @@ class LocalizationPortfolioTests(unittest.TestCase):
         self.assertEqual(set(en), set(es))
         self.assertEqual(len(es), 155)
         self.assertEqual(es["Сжать PDF до выбранного размера"], "Comprimir PDF al tamaño elegido")
-        self.assertTrue(any("Yandex Mobile Ads" in text and "dispositivo" in text for text in es.values()))
+        self.assertIn("Фото и PDF обрабатываются только на iPhone и не передаются рекламной сети. Приложение не запрашивает геолокацию или разрешение ATT. Рекламный SDK может собирать технические данные, включая идентификаторы устройства.", es)
+        ad_code=(ROOT / "photo-pdf-to-size/ios/PhotoPodRazmer/Advertising/AdService.swift").read_text()
+        self.assertIn("YandexAds.setUserConsent(false)", ad_code)
+        self.assertIn("YandexAds.setLocationTracking(false)", ad_code)
+        self.assertNotIn("ATTrackingManager", ad_code)
         info = i18n.read_strings(path / "es.lproj/InfoPlist.strings", [])
-        self.assertEqual(set(info), {"CFBundleDisplayName", "NSUserTrackingUsageDescription"})
-        self.assertIn("identificador publicitario", info["NSUserTrackingUsageDescription"])
+        self.assertEqual(set(info), {"CFBundleDisplayName"})
+        self.assertNotIn("NSUserTrackingUsageDescription", info)
 
     def test_android_export_filenames_localized_for_all_shipping_languages(self):
         from xml.etree import ElementTree

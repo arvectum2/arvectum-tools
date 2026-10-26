@@ -144,8 +144,14 @@ struct ContentView: View {
                         Text("Arvectum.com")
                         Text("·")
                     }
-                    Button(tr("Реклама и конфиденциальность")) {
+                    Button {
                         showingAdPrivacySettings = true
+                    } label: {
+                        Text(tr("Реклама и конфиденциальность"))
+                            .multilineTextAlignment(.center)
+                            .fixedSize(horizontal: false, vertical: true)
+                            .frame(minHeight: 44)
+                            .contentShape(Rectangle())
                     }
                     .buttonStyle(.plain)
                 }
@@ -154,10 +160,9 @@ struct ContentView: View {
                 .font(.caption.weight(.semibold))
                 .dynamicTypeSize(dynamicTypeSize.isAccessibilitySize ? .xxxLarge : dynamicTypeSize)
                 .foregroundStyle(.secondary)
-                .lineLimit(1)
-                .minimumScaleFactor(0.7)
                 .tracking(0.3)
-                .frame(minHeight: (model.result == nil && model.pdfResult == nil) ? 24 : 20)
+                .fixedSize(horizontal: false, vertical: true)
+                .frame(minHeight: 44)
                 .accessibilityElement(children: .contain)
                 .accessibilityIdentifier("app-footer")
             }
@@ -175,11 +180,12 @@ struct ContentView: View {
             }
         }
         .onAppear {
-            mainNativeAdSession.prefetch()
+            if !ProcessInfo.processInfo.arguments.contains("--store-screenshot-clean") {
+                mainNativeAdSession.prefetch()
+            }
         }
         .sheet(isPresented: $showingAdPrivacySettings) {
-            AdConsentSheet { value in
-                AdSDK.setUserConsent(value)
+            AdConsentSheet {
                 showingAdPrivacySettings = false
             }
             .presentationDetents([.large])

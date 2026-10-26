@@ -49,13 +49,13 @@ enum HabitAdSDK {
 
 /// A dedicated bottom sibling of TodayView's ScrollView: habit rows scroll
 /// above the native ad and can never be occluded by its dynamic height.
-struct HabitStickyNativeSlot: View {
+struct HabitInFeedNativeSlot: View {
     let onUnavailable: () -> Void
 
     var body: some View {
         if let unitID = HabitAdUnitIDs.native {
             HabitNativeAdContent(adUnitID: unitID, onUnavailable: onUnavailable)
-                .accessibilityIdentifier("today-sticky-ad-slot")
+                .accessibilityIdentifier("today-in-feed-ad-slot")
 #if DEBUG
                 .onAppear {
                     HabitAdDiagnosticStore.record("slot-mounted", unit: unitID)

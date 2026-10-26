@@ -1,79 +1,26 @@
-import ArvectumCore
-import AppTrackingTransparency
 import SwiftUI
-import UIKit
-@preconcurrency import YandexMobileAds
 
+/// Read-only advertising disclosure. No user tracking or consent prompts.
 struct AdConsentSheet: View {
-    let onDecision: (Bool) -> Void
+    let onClose: () -> Void
 
     var body: some View {
-        VStack(spacing: 0) {
-            // The long localized explanation may exceed the available sheet height,
-            // especially with large accessibility text. Keep decisions outside the
-            // scroll area so refusing consent is always possible.
-            ScrollView {
-                VStack(alignment: .leading, spacing: 18) {
-                    HStack(spacing: 10) {
-                        Image(systemName: "rectangle.badge.person.crop")
-                            .font(.title2)
-                            .foregroundStyle(Color.arvectumMint)
-
-                        Text(tr("Реклама в приложении"))
-                            .font(.title3.weight(.semibold))
-                            .foregroundStyle(Color.arvectumPrimaryText)
-                    }
-
-                    Text(tr("«Фото и PDF под размер» бесплатно и поддерживается рекламой. Реклама будет показываться независимо от вашего выбора. Вы можете разрешить или не разрешить Yandex Mobile Ads обработку данных для рекламы. Если разрешите, iOS может отдельно спросить разрешение на отслеживание. При отказе реклама останется, но без доступа к рекламному идентификатору. Фото и PDF обрабатываются только на устройстве, геолокация отключена."))
-                        .font(.body)
-                        .foregroundStyle(.secondary)
-                        .fixedSize(horizontal: false, vertical: true)
-
-                    Link(destination: AdConsentStore.privacyPolicyURL) {
-                        Label(tr("Политика конфиденциальности"), systemImage: "safari")
-                            .font(.subheadline.weight(.semibold))
-                    }
-                }
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.horizontal, 20)
-                .padding(.top, 20)
+        VStack(alignment: .leading, spacing: 20) {
+            Label(tr("Реклама в приложении"), systemImage: "hand.raised")
+                .font(.title2.weight(.semibold))
+            Text(tr("Фото и PDF обрабатываются только на iPhone и не передаются рекламной сети. Приложение не запрашивает геолокацию или разрешение ATT. Рекламный SDK может собирать технические данные, включая идентификаторы устройства."))
+                .font(.body)
+                .fixedSize(horizontal: false, vertical: true)
+            Link(destination: AdPrivacyPolicy.url) {
+                Label(tr("Политика конфиденциальности"), systemImage: "safari")
             }
-
-            VStack(spacing: 12) {
-                Button {
-                    onDecision(true)
-                } label: {
-                    Text(tr("Разрешить обработку данных"))
-                        .font(.headline)
-                        .frame(maxWidth: .infinity)
-                        .frame(minHeight: 48)
-                }
-                .buttonStyle(.plain)
-                .foregroundStyle(Color.arvectumPrimaryText)
-                .background(Color.arvectumMint, in: RoundedRectangle(cornerRadius: 16))
-                .accessibilityIdentifier("ad-consent-accept")
-
-                Button {
-                    onDecision(false)
-                } label: {
-                    Text(tr("Не разрешать обработку данных"))
-                        .font(.headline)
-                        .frame(maxWidth: .infinity)
-                        .frame(minHeight: 46)
-                }
-                .buttonStyle(.plain)
-                .foregroundStyle(Color.arvectumPrimaryText)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 16)
-                        .stroke(Color.arvectumStrongBorder, lineWidth: 1)
-                )
-                .accessibilityIdentifier("ad-consent-decline")
-            }
-            .padding(.horizontal, 20)
-            .padding(.top, 12)
-            .padding(.bottom, 20)
-            .background(Color.arvectumBackground)
+            Spacer(minLength: 0)
+            Button(tr("Закрыть")) { onClose() }
+                .buttonStyle(.borderedProminent)
+                .frame(maxWidth: .infinity, minHeight: 48)
+                .accessibilityIdentifier("ad-privacy-close")
         }
+        .padding(22)
         .background(Color.arvectumBackground)
     }
 }

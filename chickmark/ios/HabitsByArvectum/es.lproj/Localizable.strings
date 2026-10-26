@@ -329,3 +329,14 @@
 "water.export.error" = "Exportación de agua no disponible";
 
 "water.export.storage.error" = "ChickMark no puede leer los ajustes de exportación de agua. No se cambió nada. Vuelve a abrir la app e inténtalo de nuevo.";
+
+// First-run onboarding
+"onboarding.first.title" = "Un pequeño hábito";
+"onboarding.first.body" = "Pulsa + para crear un hábito y elegir cuándo repetirlo.";
+"onboarding.second.title" = "Marca tus logros";
+"onboarding.second.body" = "Marca los hábitos de hoy. Tú decides el calendario.";
+"onboarding.third.title" = "Mantén el ritmo";
+"onboarding.third.body" = "Los recordatorios son opcionales y se pueden cambiar.";
+"onboarding.skip" = "Omitir";
+"onboarding.next" = "Siguiente";
+"onboarding.start" = "Empezar";

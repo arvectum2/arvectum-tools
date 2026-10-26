@@ -350,3 +350,14 @@
 "water.export.error" = "Экспорт воды недоступен";
 
 "water.export.storage.error" = "ChickMark не может прочитать настройки экспорта воды. Ничего не изменено. Перезапустите приложение и повторите попытку.";
+
+// First-run onboarding
+"onboarding.first.title" = "Начните с одной привычки";
+"onboarding.first.body" = "Нажмите +, добавьте привычку и настройте её повторение.";
+"onboarding.second.title" = "Отмечайте выполнение";
+"onboarding.second.body" = "Отмечайте привычки за сегодня. Расписание остаётся под вашим контролем.";
+"onboarding.third.title" = "Не забывайте о важном";
+"onboarding.third.body" = "Необязательные напоминания помогут вернуться. Их можно менять.";
+"onboarding.skip" = "Пропустить";
+"onboarding.next" = "Далее";
+"onboarding.start" = "Начать";

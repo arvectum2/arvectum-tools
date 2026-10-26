@@ -1,4 +1,3 @@
-import AppTrackingTransparency
 import SwiftUI
 import UIKit
 @preconcurrency import YandexMobileAds

@@ -3,7 +3,7 @@
 import json, re, sys, unicodedata
 from pathlib import Path
 
-path = Path(__file__).with_name("metadata-2026-10-10.json")
+path = Path(next((s for s in sys.argv[1:] if s.endswith(".json")), str(Path(__file__).with_name("metadata-2026-10-10.json"))))
 data = json.loads(path.read_text(encoding="utf-8"))
 errors = []
 trimmed = []

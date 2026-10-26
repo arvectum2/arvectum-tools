@@ -1,5 +1,15 @@
 # ChickMark — актуальная дорожная карта
 
+## 26.10.2026 · P0 — реклама больше не перекрывает привычки; onboarding готов в коде
+
+- [x] Native YAN блок `R-M-20183085-1` перенесён из sticky-футера в конец прокручиваемого списка; legal/ad assets не прячем, banner unit намеренно не подменяем Native ID.
+- [x] Onboarding 3 шага: создание привычки → отметка выполнения → необязательные напоминания; есть «Пропустить», перелистывание и persisted completion. Существующим пользователям с привычками не мешает. 11 локалей.
+- [x] 5/5 native UI PASS: новые сценарии onboard/skip/persistence + ad in-feed/no-fill/AXXXL.
+- [ ] Проверить live Yandex fill/revenue и физический iPhone (offline); отдельный Banner ID при выборе баннера потребуется в РСЯ, не создан.
+
+[Акт](../core/docs/PHOTO_CHICKMARK_REVIEW_QA_2026-10-26.md).
+
+
 ## 26.10.2026 · Signed IPA QA
 
 - [x] Main/Watch/widgets Store-профили обнаружены; локальный автоматический экспорт App Store IPA PASS, codesign/SHA-256 PASS.

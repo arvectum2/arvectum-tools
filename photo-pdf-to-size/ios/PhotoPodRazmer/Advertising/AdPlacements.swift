@@ -1,4 +1,3 @@
-import AppTrackingTransparency
 import SwiftUI
 import UIKit
 @preconcurrency import YandexMobileAds
@@ -7,10 +6,14 @@ struct MainScreenNativeAdSlot: View {
     @ObservedObject var session: NativeAdSession
 
     var body: some View {
-        NativeAdSlot(session: session)
+        if ProcessInfo.processInfo.arguments.contains("--store-screenshot-clean") {
+            EmptyView()
+        } else {
+            NativeAdSlot(session: session)
             .frame(maxWidth: .infinity)
             .accessibilityElement(children: .contain)
             .accessibilityIdentifier("main-native-ad-slot")
+        }
     }
 }
 
@@ -18,6 +21,9 @@ struct ResultScreenAdSlot: View {
     var body: some View {
         Group {
 #if DEBUG
+            if ProcessInfo.processInfo.arguments.contains("--store-screenshot-clean") {
+                EmptyView()
+            } else {
             switch ProcessInfo.processInfo.environment["ARVECTUM_RESULT_AD_QA_FIXTURE"] {
             case "no-fill":
                 // UI layout-only fixture: no network or ad SDK impression.
@@ -44,6 +50,7 @@ struct ResultScreenAdSlot: View {
             default:
                 AdaptiveInlineBannerSlot()
                     .accessibilityIdentifier("result-ad-slot-banner")
+            }
             }
 #else
             AdaptiveInlineBannerSlot()

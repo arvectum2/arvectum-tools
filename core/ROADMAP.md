@@ -1,5 +1,16 @@
 # Arvectum Tools Core — дорожная карта
 
+## 26.10.2026 · C7 — Photo/PDF отзыв + ChickMark UX
+
+- [x] Отдельная ветка `feature/review-ux-photo-chickmark-20261026`: Photo/PDF (консервативная реклама/privacy disclosure, 3 новых visa/passport-пресета) и ChickMark (native ad в конце прокручиваемого списка, 3-экранный первый запуск).
+- [x] Native targeted UI: Photo 3/3, ChickMark 5/5 PASS; Core 63/63, locale audit PASS; 20 ASO draft locales VALID, 12 новых screenshot-композиций RU/en-US/en-GB без Demo Ad.
+- [x] Предыдущая 11-locale iOS GitHub UI matrix: 4/4 jobs SUCCESS.
+- [ ] Перечитать настоящие SDK privacy manifests: AppMetrica AdSupport всё ещё declares tracking=true; нельзя объявлять app tracking-free, несмотря на отказ от ATT. Нужен отдельный SDK/legal review.
+- [ ] Физические устройства offline; native VoiceOver/a11y дополнительный прогон ещё в процессе, App Store metadata/публикация не тронуты.
+
+[Подробный QA](docs/PHOTO_CHICKMARK_REVIEW_QA_2026-10-26.md).
+
+
 ## 26.10.2026 · C6.4 — signing/preflight QA
 
 - [x] Все четыре Release builds, подписанные iOS device xcarchive **4/4 PASS**, App Store IPA exports **4/4 PASS**; каждый IPA `codesign --verify --deep --strict` **PASS**, SHA-256 зафиксированы.

@@ -33,7 +33,6 @@ targets:
         CFBundleVersion: "$(CURRENT_PROJECT_VERSION)"
         LSApplicationCategoryType: public.app-category.utilities
         ITSAppUsesNonExemptEncryption: false
-        NSUserTrackingUsageDescription: "Реклама помогает поддерживать приложение бесплатным. Разрешение позволяет использовать рекламный идентификатор для персонализации рекламы и измерения её эффективности."
         SKAdNetworkItems:
           - SKAdNetworkIdentifier: zq492l623r.skadnetwork
           - SKAdNetworkIdentifier: cstr6suwn9.skadnetwork

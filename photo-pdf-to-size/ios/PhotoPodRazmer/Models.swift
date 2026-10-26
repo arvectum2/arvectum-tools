@@ -116,6 +116,9 @@ enum DocumentPhotoPreset: String, CaseIterable, Identifiable, Equatable {
     case usVisaDigital
     case indiaEVisa
     case ukPassportPrint
+    case schengenVisaPrint
+    case chinaVisaDigital
+    case canadaPassportPrint
 
     var id: String { rawValue }
 
@@ -126,6 +129,9 @@ enum DocumentPhotoPreset: String, CaseIterable, Identifiable, Equatable {
         case .usVisaDigital: return tr("США · виза (digital)")
         case .indiaEVisa: return tr("Индия · e-Visa")
         case .ukPassportPrint: return tr("Великобритания · паспорт (печать)")
+        case .schengenVisaPrint: return tr("Шенген · виза (печать)")
+        case .chinaVisaDigital: return tr("Китай · виза (digital)")
+        case .canadaPassportPrint: return tr("Канада · паспорт (печать)")
         }
     }
 
@@ -134,7 +140,9 @@ enum DocumentPhotoPreset: String, CaseIterable, Identifiable, Equatable {
         case .russiaPassport: return 620
         case .usPassportPrint, .usVisaDigital: return 600
         case .indiaEVisa: return 900
-        case .ukPassportPrint: return 413
+        case .ukPassportPrint, .schengenVisaPrint: return 413
+        case .chinaVisaDigital: return 354
+        case .canadaPassportPrint: return 591
         }
     }
 
@@ -142,21 +150,24 @@ enum DocumentPhotoPreset: String, CaseIterable, Identifiable, Equatable {
         switch self {
         case .russiaPassport: return 797
         case .usPassportPrint, .usVisaDigital, .indiaEVisa: return widthPixels
-        case .ukPassportPrint: return 531
+        case .ukPassportPrint, .schengenVisaPrint: return 531
+        case .chinaVisaDigital: return 472
+        case .canadaPassportPrint: return 827
         }
     }
 
     var dpi: Int? {
         switch self {
         case .russiaPassport: return 450
-        case .usPassportPrint, .usVisaDigital, .ukPassportPrint: return 300
-        case .indiaEVisa: return nil
+        case .usPassportPrint, .usVisaDigital, .ukPassportPrint, .schengenVisaPrint, .canadaPassportPrint: return 300
+        case .indiaEVisa, .chinaVisaDigital: return nil
         }
     }
 
     var minimumBytes: Int {
         switch self {
         case .russiaPassport, .indiaEVisa: return 10_000
+        case .chinaVisaDigital: return 40_000
         default: return 0
         }
     }
@@ -164,6 +175,7 @@ enum DocumentPhotoPreset: String, CaseIterable, Identifiable, Equatable {
     var maximumBytes: Int {
         switch self {
         case .usVisaDigital: return 240_000
+        case .chinaVisaDigital: return 120_000
         case .indiaEVisa: return 1_000_000
         default: return 5_000_000
         }
@@ -179,14 +191,18 @@ enum DocumentPhotoPreset: String, CaseIterable, Identifiable, Equatable {
             return tr("600×600 px · JPEG · ≤240 KB")
         case .indiaEVisa:
             return tr("900×900 px · JPEG · 10 KB–1 MB")
-        case .ukPassportPrint:
+        case .ukPassportPrint, .schengenVisaPrint:
             return "35×45 mm · 413×531 px · 300 DPI · JPEG"
+        case .chinaVisaDigital:
+            return "354×472 px · JPEG · 40–120 KB"
+        case .canadaPassportPrint:
+            return "50×70 mm · 591×827 px · 300 DPI · JPEG"
         }
     }
 
     var printSheetSpec: PrintSheetSpec? {
         switch self {
-        case .russiaPassport, .ukPassportPrint:
+        case .russiaPassport, .ukPassportPrint, .schengenVisaPrint:
             return PrintSheetSpec(
                 widthPixels: 1181,
                 heightPixels: 1772,
@@ -208,7 +224,7 @@ enum DocumentPhotoPreset: String, CaseIterable, Identifiable, Equatable {
                 photoHeightPixels: 600,
                 label: tr("4×6 in · 4 фото · 300 DPI")
             )
-        case .usVisaDigital, .indiaEVisa:
+        case .usVisaDigital, .indiaEVisa, .chinaVisaDigital, .canadaPassportPrint:
             return nil
         }
     }
@@ -225,6 +241,12 @@ enum DocumentPhotoPreset: String, CaseIterable, Identifiable, Equatable {
             return tr("Для India e-Visa: квадратный JPEG от 10 КБ до 1 МБ.")
         case .ukPassportPrint:
             return tr("Формат для печати 35×45 мм. Для онлайн-паспорта GOV.UK просит не обрезать фото самостоятельно.")
+        case .schengenVisaPrint:
+            return tr("Кадрирование вручную. Лицо и фон приложение не изменяет.")
+        case .chinaVisaDigital:
+            return tr("Кадрирование вручную. Лицо и фон приложение не изменяет.")
+        case .canadaPassportPrint:
+            return tr("Канада требует оригинальную фотографию от фотографа. Изменённые или обрезанные снимки могут отклонить.")
         }
     }
 }

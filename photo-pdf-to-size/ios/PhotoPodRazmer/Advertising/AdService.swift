@@ -1,4 +1,3 @@
-import AppTrackingTransparency
 import SwiftUI
 import UIKit
 @preconcurrency import YandexMobileAds
@@ -50,53 +49,20 @@ final class NativeAdSession: ObservableObject {
     }
 }
 
-enum AdConsentStore {
-    private static let key = "arvectum.ads.user-consent"
-    static let privacyPolicyURL = URL(string: "https://arvectum.com/photo-pod-razmer-privacy.html")!
-
-    static var storedConsent: Bool? {
-        guard UserDefaults.standard.object(forKey: key) != nil else { return nil }
-        return UserDefaults.standard.bool(forKey: key)
-    }
-
-    static func save(_ consent: Bool) {
-        UserDefaults.standard.set(consent, forKey: key)
-    }
+enum AdPrivacyPolicy {
+    static let url = URL(string: "https://arvectum.com/photo-pod-razmer-privacy.html")!
 }
 
 @MainActor
 enum AdSDK {
     static func configure() {
-        // Privacy-conservative defaults:
-        // - no precise location;
-        // - no positive GDPR consent until the user explicitly grants it;
-        // - ATT is requested only after positive advertising-data consent.
+        // Contextual ad mode only; never request ATT/IDFA and never
+        // opt in to personalised advertising. No location access.
         YandexAds.setLocationTracking(false)
-        YandexAds.setUserConsent(AdConsentStore.storedConsent ?? false)
+        YandexAds.setUserConsent(false)
 #if DEBUG
         YandexAds.enableLogging()
 #endif
-        Task {
-            await YandexAds.initializeSDK()
-        }
-    }
-
-    static func setUserConsent(_ consent: Bool) {
-        AdConsentStore.save(consent)
-        YandexAds.setUserConsent(consent)
-
-        if consent {
-            requestTrackingAuthorizationIfNeeded()
-        }
-    }
-
-    private static func requestTrackingAuthorizationIfNeeded() {
-        guard ATTrackingManager.trackingAuthorizationStatus == .notDetermined else { return }
-
-        // Let the SwiftUI consent sheet finish dismissing before the system ATT prompt.
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
-            guard ATTrackingManager.trackingAuthorizationStatus == .notDetermined else { return }
-            ATTrackingManager.requestTrackingAuthorization { _ in }
-        }
+        Task { await YandexAds.initializeSDK() }
     }
 }

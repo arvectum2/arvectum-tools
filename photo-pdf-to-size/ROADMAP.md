@@ -1,5 +1,17 @@
 # Фото и PDF под размер — Product Roadmap
 
+## 26.10.2026 · P0 — доработка по отзыву
+
+- [x] Файлы обрабатываются on-device; рекламный SDK переведён на `setUserConsent(false)`, геолокация off, нет ATT запроса; footer объясняет SDK ID и ссылается на политику.
+- [x] Встроенный AppMetrica AdSupport всё ещё **declares tracking true**. Публичный App Privacy label не меняли — он требует SDK/vendor проверки и отдельного разрешения.
+- [x] Шенген 35×45, Китай digital 354×472/40–120 КБ, Канада 50×70 + предупреждение об оригинальных снимках.
+- [x] Native 3/3 unit+UI PASS, Core 63/63, локализация сохранена; 20 ASO metadata DRAFT locales валидны.
+- [x] Стадированы 12 новых скриншотов RU/en-US/en-GB без Demo Ad, с реальным 2.92 MB→472 KB фото и PDF 249→95 KB; первый и второй кадры ещё надо переснять из final binary перед публикацией.
+- [ ] Физическая/редакторская/юридическая приёмка; App Store Accessibility поля и EN title/subtitle только как черновик. Apple не обновляли.
+
+[QA](../core/docs/PHOTO_CHICKMARK_REVIEW_QA_2026-10-26.md) · [Privacy draft](docs/appstore/APP_PRIVACY.md).
+
+
 ## 26.10.2026 · Signed IPA QA
 
 - [x] Device xcarchive + App Store IPA export + signature SHA-256 verification PASS.

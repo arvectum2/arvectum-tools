@@ -245,7 +245,7 @@ final class WorkflowUITests: XCTestCase {
         assertResultAdState("no-fill")
     }
 
-    func testPrivacyConsentControlsRemainReachableFromResult() {
+    func testContextualAdsPrivacyDisclosureRemainsReachableFromResult() {
         let app = launch("--qa-photo-fixture")
         XCTAssertTrue(app.buttons["Уменьшить фото"].waitForExistence(timeout: 8))
         app.buttons["Уменьшить фото"].tap()
@@ -255,12 +255,11 @@ final class WorkflowUITests: XCTestCase {
         XCTAssertTrue(privacy.isHittable)
         privacy.tap()
 
-        let allow = app.buttons["ad-consent-accept"]
-        let decline = app.buttons["ad-consent-decline"]
-        XCTAssertTrue(allow.waitForExistence(timeout: 8))
-        XCTAssertTrue(decline.isHittable)
-        XCTAssertTrue(allow.isHittable)
-        decline.tap()
+        let close = app.buttons["ad-privacy-close"]
+        XCTAssertTrue(close.waitForExistence(timeout: 8))
+        XCTAssertTrue(close.isHittable)
+        XCTAssertFalse(app.buttons["ad-consent-accept"].exists)
+        close.tap()
         XCTAssertTrue(app.staticTexts["ГОТОВО"].waitForExistence(timeout: 8))
         XCTAssertTrue(app.buttons["result-save-primary"].isHittable)
     }

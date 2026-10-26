@@ -1250,7 +1250,7 @@ final class HabitFlowUITests: XCTestCase {
         add(screenshot)
     }
 
-    func testA6NativeDemoRemainsPinnedWhileHabitsScroll() throws {
+    func testA6NativeDemoIsInFeedAndHabitsFillViewport() throws {
         app.terminate()
         app.launchArguments = [
             "-AppleLanguages", "(en)", "-AppleLocale", "en_US",
@@ -1259,52 +1259,31 @@ final class HabitFlowUITests: XCTestCase {
             "--chickmark-demo-ads"
         ]
         app.launch()
-
-        let demoAd = app.staticTexts["Яндекс.Такси"].firstMatch
-        try XCTSkipUnless(
-            demoAd.waitForExistence(timeout: 30),
-            "Yandex native demo did not fill on this CI simulator"
-        )
-        XCTAssertTrue(app.staticTexts["QA Scroll 1"].exists)
-        let initialAdPosition = demoAd.frame
         let list = app.scrollViews.firstMatch
-        XCTAssertTrue(list.exists)
+        XCTAssertTrue(list.waitForExistence(timeout: 8))
+        XCTAssertTrue(app.staticTexts["QA Scroll 1"].exists)
+        // A native ad is never a sticky overlay covering the first task.
+        XCTAssertTrue(app.staticTexts["QA Scroll 1"].isHittable)
+        let initialBottom = list.frame.maxY
 
         let lastHabit = app.staticTexts["QA Scroll 12"].firstMatch
-        // XCTest's generic ScrollView swipe starts near the BOTTOM of its
-        // full-screen AX bounds, which is now occupied by the pinned ad.
-        // Mimic an actual user's finger drag entirely inside the upper habit
-        // list rather than swiping ON the ad.
-        let start = app.coordinate(
-            withNormalizedOffset: CGVector(dx: 0.55, dy: 0.39)
-        )
-        let end = app.coordinate(
-            withNormalizedOffset: CGVector(dx: 0.55, dy: 0.20)
-        )
-        for attempt in 0..<16 {
-            guard !lastHabit.isHittable else { break }
+        let start = app.coordinate(withNormalizedOffset: CGVector(dx: 0.55, dy: 0.70))
+        let end = app.coordinate(withNormalizedOffset: CGVector(dx: 0.55, dy: 0.20))
+        for _ in 0..<16 {
+            if lastHabit.isHittable { break }
             start.press(forDuration: 0.08, thenDragTo: end)
-            print("A6_SCROLL_ATTEMPT=\(attempt + 1) last=\(lastHabit.isHittable)")
         }
-
-        XCTAssertTrue(lastHabit.isHittable, "Final habit must remain reachable")
-        Thread.sleep(forTimeInterval: 1)
-        XCTAssertTrue(demoAd.exists)
-        print("A6_NATIVE_POSITION ad=\(demoAd.frame) list=\(list.frame) finalHabit=\(lastHabit.frame)")
-        XCTAssertLessThanOrEqual(
-            list.frame.maxY, demoAd.frame.minY,
-            "The ScrollView viewport must end above the independent native ad"
-        )
-        XCTAssertEqual(demoAd.frame.minY, initialAdPosition.minY, accuracy: 5)
-        XCTAssertTrue(demoAd.isHittable, "Pinned ad should stay in the viewport")
-        XCTAssertLessThan(
-            lastHabit.frame.maxY,
-            demoAd.frame.minY,
-            "The last habit must be ABOVE the native card, never occluded behind it"
-        )
-
+        XCTAssertTrue(lastHabit.isHittable)
+        XCTAssertEqual(list.frame.maxY, initialBottom, accuracy: 3)
+        // The native ad appears after all habits, with its legal assets intact.
+        let ad = app.staticTexts["Яндекс.Такси"].firstMatch
+        if ad.waitForExistence(timeout: 8) {
+            for _ in 0..<8 where !ad.isHittable { list.swipeUp() }
+            XCTAssertTrue(ad.isHittable)
+            XCTAssertGreaterThan(ad.frame.minY, lastHabit.frame.minY)
+        }
         let attachment = XCTAttachment(screenshot: XCUIScreen.main.screenshot())
-        attachment.name = "A6_Native_Demo_Footer_After_Habits_Scroll"
+        attachment.name = "A6_Native_In_Feed_After_Habits"
         attachment.lifetime = .keepAlways
         add(attachment)
     }
@@ -1372,16 +1351,17 @@ final class HabitFlowUITests: XCTestCase {
         app.launch()
 
         let demoAd = app.staticTexts["Яндекс.Такси"].firstMatch
-        try XCTSkipUnless(
-            demoAd.waitForExistence(timeout: 30),
-            "No Yandex native demo fill for AXXXL screenshot"
-        )
         XCTAssertTrue(app.buttons["Manage habits"].isHittable)
         XCTAssertTrue(app.buttons["Add"].isHittable)
         let first = app.staticTexts["QA Scroll 1"].firstMatch
         XCTAssertTrue(first.exists)
-        let adFrame = demoAd.frame
-        XCTAssertGreaterThan(adFrame.minY, app.buttons["Add"].frame.maxY)
+        let list = app.scrollViews.firstMatch
+        XCTAssertTrue(list.exists)
+        XCTAssertTrue(app.staticTexts["QA Scroll 1"].isHittable)
+        if demoAd.waitForExistence(timeout: 5) {
+            for _ in 0..<20 where !demoAd.isHittable { list.swipeUp() }
+            XCTAssertTrue(demoAd.isHittable)
+        }
         let screenshot = XCTAttachment(screenshot: XCUIScreen.main.screenshot())
         screenshot.name = "A6_Native_Demo_AXXXL"
         screenshot.lifetime = .keepAlways
@@ -1397,7 +1377,7 @@ final class HabitFlowUITests: XCTestCase {
         ]
         app.launch()
         XCTAssertTrue(app.staticTexts["QA Scroll 1"].waitForExistence(timeout: 6))
-        XCTAssertFalse(app.descendants(matching: .any)["today-sticky-ad-slot"].exists)
+        XCTAssertFalse(app.descendants(matching: .any)["today-in-feed-ad-slot"].exists)
         XCTAssertFalse(app.staticTexts["Яндекс.Такси"].exists)
         let list = app.scrollViews.firstMatch
         XCTAssertTrue(list.exists)

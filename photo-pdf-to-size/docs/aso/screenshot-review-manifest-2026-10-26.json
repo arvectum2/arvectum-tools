@@ -1,0 +1,70 @@
+{
+  "scope": "staged screenshots only; no App Store Connect changes",
+  "build": "26 October iPhone Simulator demo sources; 01/02 existing real result captures, 03/04 2026-10-26 re-captured current build",
+  "resolution": [
+    1320,
+    2868
+  ],
+  "files": [
+    {
+      "path": "store-assets/appstore/review-20261026/ru/iphone-6.9/01-photo-kb.jpg",
+      "sha256": "93f2fcc69172d8022b4ecc32b3585b131ba9aa5522719ae85d0c63329af220c2",
+      "size": 338169
+    },
+    {
+      "path": "store-assets/appstore/review-20261026/ru/iphone-6.9/02-pixel-dimensions.jpg",
+      "sha256": "ee4363f681d5273a7ddf21632efe032cfac3047f66ca836e0da6036df18b7590",
+      "size": 344535
+    },
+    {
+      "path": "store-assets/appstore/review-20261026/ru/iphone-6.9/03-visa-presets.jpg",
+      "sha256": "7674ae3bb7e70bc0999b61de9486c1474aa167ed6a9224fc21cc95c5728fb800",
+      "size": 356901
+    },
+    {
+      "path": "store-assets/appstore/review-20261026/ru/iphone-6.9/04-pdf-kb.jpg",
+      "sha256": "96a0b7f7504476af4996e0b5fd04e0ae37a992d2ce5c4b0671d48ec68d2af7b0",
+      "size": 297110
+    },
+    {
+      "path": "store-assets/appstore/review-20261026/en-US/iphone-6.9/01-photo-kb.jpg",
+      "sha256": "04e7610f7a87320ab5935f704435541e9b1b0d00f8028ff8d824755561841bca",
+      "size": 362342
+    },
+    {
+      "path": "store-assets/appstore/review-20261026/en-US/iphone-6.9/02-pixel-dimensions.jpg",
+      "sha256": "765104a59ae92170b399a1554a4e857d03e776adb71731215c8d000a30edd751",
+      "size": 364448
+    },
+    {
+      "path": "store-assets/appstore/review-20261026/en-US/iphone-6.9/03-visa-presets.jpg",
+      "sha256": "35ec0dc216444dc1ec985da658bc970cd34c39863810a242ad3005a7ccc6dbd4",
+      "size": 349373
+    },
+    {
+      "path": "store-assets/appstore/review-20261026/en-US/iphone-6.9/04-pdf-kb.jpg",
+      "sha256": "5f57be7a75fdaf33e5d278b4bc0f1841bd67f78ce6e07a03d10e9208f1a08b5c",
+      "size": 291098
+    },
+    {
+      "path": "store-assets/appstore/review-20261026/en-GB/iphone-6.9/01-photo-kb.jpg",
+      "sha256": "04e7610f7a87320ab5935f704435541e9b1b0d00f8028ff8d824755561841bca",
+      "size": 362342
+    },
+    {
+      "path": "store-assets/appstore/review-20261026/en-GB/iphone-6.9/02-pixel-dimensions.jpg",
+      "sha256": "765104a59ae92170b399a1554a4e857d03e776adb71731215c8d000a30edd751",
+      "size": 364448
+    },
+    {
+      "path": "store-assets/appstore/review-20261026/en-GB/iphone-6.9/03-visa-presets.jpg",
+      "sha256": "26ff777fc519fb8a359286761ff7afb4d1acbdf44feb166053b46184db7f7c48",
+      "size": 344940
+    },
+    {
+      "path": "store-assets/appstore/review-20261026/en-GB/iphone-6.9/04-pdf-kb.jpg",
+      "sha256": "0f624c502d24fe98848020b0a41071b3f29480a39de16bdb5628031ba915ca93",
+      "size": 286275
+    }
+  ]
+}

@@ -301,3 +301,14 @@
 "water.export.privacy" = "Wassermengen bleiben auf Ihrem Gerät. ChickMark fragt beim Speichern Apple Health nach Schreibberechtigung.";
 "water.export.error" = "Wasserexport nicht verfügbar";
 "water.export.storage.error" = "ChickMark kann die Einstellungen für den Wasserexport nicht lesen. Es wurden keine Änderungen vorgenommen. Öffnen Sie die App erneut und versuchen Sie es noch einmal.";
+
+// First-run onboarding
+"onboarding.first.title" = "Eine kleine Gewohnheit";
+"onboarding.first.body" = "Tippe auf +, um eine Gewohnheit und ihren Rhythmus festzulegen.";
+"onboarding.second.title" = "Erfolge abhaken";
+"onboarding.second.body" = "Hake heutige Gewohnheiten ab. Den Zeitplan bestimmst du.";
+"onboarding.third.title" = "Dranbleiben";
+"onboarding.third.body" = "Erinnerungen sind optional und jederzeit anpassbar.";
+"onboarding.skip" = "Überspringen";
+"onboarding.next" = "Weiter";
+"onboarding.start" = "Loslegen";
