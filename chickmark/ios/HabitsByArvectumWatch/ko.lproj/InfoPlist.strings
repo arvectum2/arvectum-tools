@@ -1,0 +1,4 @@
+// Korean translation: automated DRAFT from English; native-speaker/privacy/permission review REQUIRED.
+// Do not publish on catalog parity alone.
+"NSHealthShareUsageDescription" = "ChickMark는 Apple Health에 연결한 습관에 대한 활동 합계만 읽습니다. 건강 측정값은 기기에 유지됩니다.";
+"NSHealthUpdateUsageDescription" = "ChickMark는 Apple 건강을 사용하여 귀하가 선택한 활동 목표를 추적합니다. 건강 데이터를 추가하거나 변경하지 않습니다.";

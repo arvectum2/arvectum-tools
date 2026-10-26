@@ -1,0 +1,6 @@
+// Korean translation: automated DRAFT from English; native-speaker/privacy/permission review REQUIRED.
+// Do not publish on catalog parity alone.
+"CFBundleDisplayName" = "UhWhat?";
+"NSMicrophoneUsageDescription" = "이 장치에 비공개 오디오 및 비디오 메모를 녹음하세요. 미디어는 장치에 남아 있습니다.";
+"NSSpeechRecognitionUsageDescription" = "기기 내 음성 인식을 사용하여 이 기기에 저장된 음성 메모를 텍스트로 변환하세요.";
+"NSCameraUsageDescription" = "카메라를 사용하여 비공개 비디오 메모를 녹화하세요. 동영상은 이 기기에 유지됩니다.";

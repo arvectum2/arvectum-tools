@@ -1,0 +1,24 @@
+// Korean translation: automated DRAFT from English; native-speaker/privacy/permission review REQUIRED.
+// Do not publish on catalog parity alone.
+"watch.today" = "오늘";
+"watch.progress.format" = "%d/%d";
+"watch.empty" = "오늘 마감일이 없습니다";
+"watch.streak.format" = "%d일 연속";
+"watch.weekly.format" = "이번 주 %d 중 %d";
+"watch.completed" = "완전한";
+"watch.notCompleted" = "완료되지 않음";
+"watch.skipped" = "건너뛰었습니다.";
+"watch.undoHint" = "완료를 취소하려면 두 번 탭하세요.";
+"watch.completeHint" = "완료로 표시하려면 두 번 탭하세요.";
+"watch.duration.format" = "%d/%d분";
+"watch.step.add" = "한 단계 추가";
+"watch.step.remove" = "한 단계 실행 취소";
+"watch.preview.water" = "물";
+"watch.preview.reading" = "독서";
+"watch.checkins.progress.format" = "%d/%d개의 체크인";
+"watch.health.unit.steps" = "단계";
+"watch.health.unit.kilometers" = "km";
+"watch.health.unit.minutes" = "분";
+"watch.health.unit.hours" = "시간";
+"watch.health.unit.unknown" = "";
+"watch.health.unavailable" = "Apple 건강 데이터를 사용할 수 없습니다.";

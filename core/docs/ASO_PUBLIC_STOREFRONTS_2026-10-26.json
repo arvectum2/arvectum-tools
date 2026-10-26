@@ -1,0 +1,961 @@
+{
+  "source": "Apple public iTunes Lookup API and apps.apple.com HTML subtitles, read-only, 2026-10-26",
+  "countries": [
+    "ru",
+    "us",
+    "gb",
+    "de",
+    "fr",
+    "es",
+    "br",
+    "jp",
+    "kr",
+    "cn",
+    "tr",
+    "th"
+  ],
+  "apps": {
+    "6816346084": "Фото/PDF",
+    "6817847111": "Pushkin",
+    "6822476399": "Ухват",
+    "6818711298": "ChickMark"
+  },
+  "results": [
+    {
+      "store": "ru",
+      "id": 6816346084,
+      "name": "Фото и PDF под размер",
+      "version": "1.0.2",
+      "category": "Utilities",
+      "languages": [
+        "EN",
+        "RU"
+      ],
+      "link": "https://apps.apple.com/ru/app/%D1%84%D0%BE%D1%82%D0%BE-%D0%B8-pdf-%D0%BF%D0%BE%D0%B4-%D1%80%D0%B0%D0%B7%D0%BC%D0%B5%D1%80/id6816346084?uo=4",
+      "ratingCount": 2,
+      "rating": 5,
+      "subtitle": "Сжать фото и PDF по КБ",
+      "screenshotCount": 4,
+      "iPadScreenshotCount": 0,
+      "firstScreenshotURL": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/99/d5/62/99d562d1-f012-00ef-df86-654b2e0a94c9/01-weight.jpg/320x480bb.jpg"
+    },
+    {
+      "store": "ru",
+      "id": 6817847111,
+      "name": "PUSHKIN by Arvectum",
+      "version": "1.0.2",
+      "category": "Utilities",
+      "languages": [
+        "EN",
+        "FR",
+        "RU",
+        "ES"
+      ],
+      "link": "https://apps.apple.com/ru/app/pushkin-by-arvectum/id6817847111?uo=4",
+      "ratingCount": 0,
+      "rating": 0,
+      "subtitle": "История уведомлений",
+      "screenshotCount": 3,
+      "iPadScreenshotCount": 0,
+      "firstScreenshotURL": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/aa/f0/2d/aaf02d27-195f-5374-58f7-84b766fb2603/01-history.png/320x480bb.jpg"
+    },
+    {
+      "store": "ru",
+      "id": 6822476399,
+      "name": "Ухват: голосовые заметки",
+      "version": "1.1.1",
+      "category": "Productivity",
+      "languages": [
+        "EN",
+        "FR",
+        "RU",
+        "ES"
+      ],
+      "link": "https://apps.apple.com/ru/app/%D1%83%D1%85%D0%B2%D0%B0%D1%82-%D0%B3%D0%BE%D0%BB%D0%BE%D1%81%D0%BE%D0%B2%D1%8B%D0%B5-%D0%B7%D0%B0%D0%BC%D0%B5%D1%82%D0%BA%D0%B8/id6822476399?uo=4",
+      "ratingCount": 0,
+      "rating": 0,
+      "subtitle": "Запись мыслей в одно касание",
+      "screenshotCount": 3,
+      "iPadScreenshotCount": 1,
+      "firstScreenshotURL": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/42/1d/10/421d1059-6965-d7a7-44dc-13ceb7d2b0e2/uhvat_ru_APP_IPHONE_61_01.png/320x480bb.jpg"
+    },
+    {
+      "store": "ru",
+      "id": 6818711298,
+      "name": "ChickMark: трекер привычек",
+      "version": "1.5.1",
+      "category": "Productivity",
+      "languages": [
+        "EN",
+        "FR",
+        "RU",
+        "ES"
+      ],
+      "link": "https://apps.apple.com/ru/app/chickmark-%D1%82%D1%80%D0%B5%D0%BA%D0%B5%D1%80-%D0%BF%D1%80%D0%B8%D0%B2%D1%8B%D1%87%D0%B5%D0%BA/id6818711298?uo=4",
+      "ratingCount": 2,
+      "rating": 5,
+      "subtitle": "Цели, серии и напоминания",
+      "screenshotCount": 3,
+      "iPadScreenshotCount": 1,
+      "firstScreenshotURL": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/2f/82/50/2f8250b9-4b07-b23e-2e0a-29602878dee6/01-today.png/320x480bb.jpg"
+    },
+    {
+      "store": "us",
+      "id": 6816346084,
+      "name": "Photo & PDF Resize: KB",
+      "version": "1.0.2",
+      "category": "Utilities",
+      "languages": [
+        "EN",
+        "RU"
+      ],
+      "link": "https://apps.apple.com/us/app/photo-pdf-resize-kb/id6816346084?uo=4",
+      "ratingCount": 0,
+      "rating": 0,
+      "subtitle": "Compress photos & PDFs",
+      "screenshotCount": 4,
+      "iPadScreenshotCount": 0,
+      "firstScreenshotURL": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/0c/2d/2d/0c2d2dd9-b257-3e8e-9ef2-8378dc8ce477/01-weight.jpg/320x480bb.jpg"
+    },
+    {
+      "store": "us",
+      "id": 6817847111,
+      "name": "PUSHKIN by Arvectum",
+      "version": "1.0.2",
+      "category": "Utilities",
+      "languages": [
+        "EN",
+        "FR",
+        "RU",
+        "ES"
+      ],
+      "link": "https://apps.apple.com/us/app/pushkin-by-arvectum/id6817847111?uo=4",
+      "ratingCount": 0,
+      "rating": 0,
+      "subtitle": "Notification History",
+      "screenshotCount": 3,
+      "iPadScreenshotCount": 0,
+      "firstScreenshotURL": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/49/2d/1d/492d1d6c-5cc3-3418-b4ef-4f10f6b62c49/01-history.png/320x480bb.jpg"
+    },
+    {
+      "store": "us",
+      "id": 6822476399,
+      "name": "UhWhat? Voice Notes",
+      "version": "1.1.1",
+      "category": "Productivity",
+      "languages": [
+        "EN",
+        "FR",
+        "RU",
+        "ES"
+      ],
+      "link": "https://apps.apple.com/us/app/uhwhat-voice-notes/id6822476399?uo=4",
+      "ratingCount": 0,
+      "rating": 0,
+      "subtitle": "Capture thoughts in one tap",
+      "screenshotCount": 3,
+      "iPadScreenshotCount": 1,
+      "firstScreenshotURL": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/05/f2/99/05f299b8-7c71-e703-8bb2-3178242ef1f7/01-quick-capture.jpg/320x480bb.jpg"
+    },
+    {
+      "store": "us",
+      "id": 6818711298,
+      "name": "ChickMark: Habit Tracker",
+      "version": "1.5.1",
+      "category": "Productivity",
+      "languages": [
+        "EN",
+        "FR",
+        "RU",
+        "ES"
+      ],
+      "link": "https://apps.apple.com/us/app/chickmark-habit-tracker/id6818711298?uo=4",
+      "ratingCount": 0,
+      "rating": 0,
+      "subtitle": "Goals, streaks & reminders",
+      "screenshotCount": 3,
+      "iPadScreenshotCount": 1,
+      "firstScreenshotURL": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/4b/ed/c2/4bedc2c4-08fd-0a3b-0331-3fd437194107/01-today.png/320x480bb.jpg"
+    },
+    {
+      "store": "gb",
+      "id": 6816346084,
+      "name": "Photo & PDF Resize: KB",
+      "version": "1.0.2",
+      "category": "Utilities",
+      "languages": [
+        "EN",
+        "RU"
+      ],
+      "link": "https://apps.apple.com/gb/app/photo-pdf-resize-kb/id6816346084?uo=4",
+      "ratingCount": 0,
+      "rating": 0,
+      "subtitle": "Resize photos & PDFs",
+      "screenshotCount": 4,
+      "iPadScreenshotCount": 0,
+      "firstScreenshotURL": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/9e/a4/2d/9ea42d7f-8344-2f7b-a97e-3084b1b4edfe/01-weight.jpg/320x480bb.jpg"
+    },
+    {
+      "store": "gb",
+      "id": 6817847111,
+      "name": "PUSHKIN by Arvectum",
+      "version": "1.0.2",
+      "category": "Utilities",
+      "languages": [
+        "EN",
+        "FR",
+        "RU",
+        "ES"
+      ],
+      "link": "https://apps.apple.com/gb/app/pushkin-by-arvectum/id6817847111?uo=4",
+      "ratingCount": 0,
+      "rating": 0,
+      "subtitle": "Notification History",
+      "screenshotCount": 3,
+      "iPadScreenshotCount": 0,
+      "firstScreenshotURL": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/49/2d/1d/492d1d6c-5cc3-3418-b4ef-4f10f6b62c49/01-history.png/320x480bb.jpg"
+    },
+    {
+      "store": "gb",
+      "id": 6822476399,
+      "name": "UhWhat? Voice Notes",
+      "version": "1.1.1",
+      "category": "Productivity",
+      "languages": [
+        "EN",
+        "FR",
+        "RU",
+        "ES"
+      ],
+      "link": "https://apps.apple.com/gb/app/uhwhat-voice-notes/id6822476399?uo=4",
+      "ratingCount": 0,
+      "rating": 0,
+      "subtitle": "Capture thoughts in one tap",
+      "screenshotCount": 3,
+      "iPadScreenshotCount": 1,
+      "firstScreenshotURL": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/05/f2/99/05f299b8-7c71-e703-8bb2-3178242ef1f7/01-quick-capture.jpg/320x480bb.jpg"
+    },
+    {
+      "store": "gb",
+      "id": 6818711298,
+      "name": "ChickMark: Habit Tracker",
+      "version": "1.5.1",
+      "category": "Productivity",
+      "languages": [
+        "EN",
+        "FR",
+        "RU",
+        "ES"
+      ],
+      "link": "https://apps.apple.com/gb/app/chickmark-habit-tracker/id6818711298?uo=4",
+      "ratingCount": 0,
+      "rating": 0,
+      "subtitle": "Goals, streaks & reminders",
+      "screenshotCount": 3,
+      "iPadScreenshotCount": 1,
+      "firstScreenshotURL": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/4b/ed/c2/4bedc2c4-08fd-0a3b-0331-3fd437194107/01-today.png/320x480bb.jpg"
+    },
+    {
+      "store": "de",
+      "id": 6816346084,
+      "name": "Фото и PDF под размер",
+      "version": "1.0.2",
+      "category": "Utilities",
+      "languages": [
+        "EN",
+        "RU"
+      ],
+      "link": "https://apps.apple.com/de/app/%D1%84%D0%BE%D1%82%D0%BE-%D0%B8-pdf-%D0%BF%D0%BE%D0%B4-%D1%80%D0%B0%D0%B7%D0%BC%D0%B5%D1%80/id6816346084?uo=4",
+      "ratingCount": 0,
+      "rating": 0,
+      "subtitle": "Dienst­programme",
+      "screenshotCount": 4,
+      "iPadScreenshotCount": 0,
+      "firstScreenshotURL": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/99/d5/62/99d562d1-f012-00ef-df86-654b2e0a94c9/01-weight.jpg/320x480bb.jpg"
+    },
+    {
+      "store": "de",
+      "id": 6817847111,
+      "name": "PUSHKIN by Arvectum",
+      "version": "1.0.2",
+      "category": "Utilities",
+      "languages": [
+        "EN",
+        "FR",
+        "RU",
+        "ES"
+      ],
+      "link": "https://apps.apple.com/de/app/pushkin-by-arvectum/id6817847111?uo=4",
+      "ratingCount": 0,
+      "rating": 0,
+      "subtitle": "Dienst­programme",
+      "screenshotCount": 3,
+      "iPadScreenshotCount": 0,
+      "firstScreenshotURL": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/49/2d/1d/492d1d6c-5cc3-3418-b4ef-4f10f6b62c49/01-history.png/320x480bb.jpg"
+    },
+    {
+      "store": "de",
+      "id": 6822476399,
+      "name": "UhWhat? Voice Notes",
+      "version": "1.1.1",
+      "category": "Productivity",
+      "languages": [
+        "EN",
+        "FR",
+        "RU",
+        "ES"
+      ],
+      "link": "https://apps.apple.com/de/app/uhwhat-voice-notes/id6822476399?uo=4",
+      "ratingCount": 0,
+      "rating": 0,
+      "subtitle": "Produktivität",
+      "screenshotCount": 3,
+      "iPadScreenshotCount": 1,
+      "firstScreenshotURL": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/05/f2/99/05f299b8-7c71-e703-8bb2-3178242ef1f7/01-quick-capture.jpg/320x480bb.jpg"
+    },
+    {
+      "store": "de",
+      "id": 6818711298,
+      "name": "ChickMark: трекер привычек",
+      "version": "1.5.1",
+      "category": "Productivity",
+      "languages": [
+        "EN",
+        "FR",
+        "RU",
+        "ES"
+      ],
+      "link": "https://apps.apple.com/de/app/chickmark-%D1%82%D1%80%D0%B5%D0%BA%D0%B5%D1%80-%D0%BF%D1%80%D0%B8%D0%B2%D1%8B%D1%87%D0%B5%D0%BA/id6818711298?uo=4",
+      "ratingCount": 0,
+      "rating": 0,
+      "subtitle": "Produktivität",
+      "screenshotCount": 3,
+      "iPadScreenshotCount": 1,
+      "firstScreenshotURL": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/2f/82/50/2f8250b9-4b07-b23e-2e0a-29602878dee6/01-today.png/320x480bb.jpg"
+    },
+    {
+      "store": "fr",
+      "id": 6816346084,
+      "name": "Фото и PDF под размер",
+      "version": "1.0.2",
+      "category": "Utilities",
+      "languages": [
+        "EN",
+        "RU"
+      ],
+      "link": "https://apps.apple.com/fr/app/%D1%84%D0%BE%D1%82%D0%BE-%D0%B8-pdf-%D0%BF%D0%BE%D0%B4-%D1%80%D0%B0%D0%B7%D0%BC%D0%B5%D1%80/id6816346084?uo=4",
+      "ratingCount": 0,
+      "rating": 0,
+      "subtitle": "Utilitaires",
+      "screenshotCount": 4,
+      "iPadScreenshotCount": 0,
+      "firstScreenshotURL": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/99/d5/62/99d562d1-f012-00ef-df86-654b2e0a94c9/01-weight.jpg/320x480bb.jpg"
+    },
+    {
+      "store": "fr",
+      "id": 6817847111,
+      "name": "PUSHKIN by Arvectum",
+      "version": "1.0.2",
+      "category": "Utilities",
+      "languages": [
+        "EN",
+        "FR",
+        "RU",
+        "ES"
+      ],
+      "link": "https://apps.apple.com/fr/app/pushkin-by-arvectum/id6817847111?uo=4",
+      "ratingCount": 0,
+      "rating": 0,
+      "subtitle": "Notification History",
+      "screenshotCount": 3,
+      "iPadScreenshotCount": 0,
+      "firstScreenshotURL": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/1e/df/8b/1edf8b6b-e3ee-5059-01be-a19adb01d0c1/pushkin_fr_FR_APP_IPHONE_67_01.png/320x480bb.jpg"
+    },
+    {
+      "store": "fr",
+      "id": 6822476399,
+      "name": "UhWhat? Voice Notes",
+      "version": "1.1.1",
+      "category": "Productivity",
+      "languages": [
+        "EN",
+        "FR",
+        "RU",
+        "ES"
+      ],
+      "link": "https://apps.apple.com/fr/app/uhwhat-voice-notes/id6822476399?uo=4",
+      "ratingCount": 0,
+      "rating": 0,
+      "subtitle": "Capture thoughts in one tap",
+      "screenshotCount": 3,
+      "iPadScreenshotCount": 1,
+      "firstScreenshotURL": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/3f/df/7e/3fdf7e3c-cde4-9444-d084-aefe7fba049e/uhvat_fr_FR_APP_IPHONE_61_01.png/320x480bb.jpg"
+    },
+    {
+      "store": "fr",
+      "id": 6818711298,
+      "name": "ChickMark: трекер привычек",
+      "version": "1.5.1",
+      "category": "Productivity",
+      "languages": [
+        "EN",
+        "FR",
+        "RU",
+        "ES"
+      ],
+      "link": "https://apps.apple.com/fr/app/chickmark-%D1%82%D1%80%D0%B5%D0%BA%D0%B5%D1%80-%D0%BF%D1%80%D0%B8%D0%B2%D1%8B%D1%87%D0%B5%D0%BA/id6818711298?uo=4",
+      "ratingCount": 0,
+      "rating": 0,
+      "subtitle": "Цели, серии и напоминания",
+      "screenshotCount": 3,
+      "iPadScreenshotCount": 1,
+      "firstScreenshotURL": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/ec/77/85/ec77852a-8b1a-79e4-9b8b-40544ab7b612/chickmark_fr_FR_APP_IPHONE_67_01.png/320x480bb.jpg"
+    },
+    {
+      "store": "es",
+      "id": 6816346084,
+      "name": "Фото и PDF под размер",
+      "version": "1.0.2",
+      "category": "Utilities",
+      "languages": [
+        "EN",
+        "RU"
+      ],
+      "link": "https://apps.apple.com/es/app/%D1%84%D0%BE%D1%82%D0%BE-%D0%B8-pdf-%D0%BF%D0%BE%D0%B4-%D1%80%D0%B0%D0%B7%D0%BC%D0%B5%D1%80/id6816346084?uo=4",
+      "ratingCount": 0,
+      "rating": 0,
+      "subtitle": "Utilidades",
+      "screenshotCount": 4,
+      "iPadScreenshotCount": 0,
+      "firstScreenshotURL": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/99/d5/62/99d562d1-f012-00ef-df86-654b2e0a94c9/01-weight.jpg/320x480bb.jpg"
+    },
+    {
+      "store": "es",
+      "id": 6817847111,
+      "name": "PUSHKIN by Arvectum",
+      "version": "1.0.2",
+      "category": "Utilities",
+      "languages": [
+        "EN",
+        "FR",
+        "RU",
+        "ES"
+      ],
+      "link": "https://apps.apple.com/es/app/pushkin-by-arvectum/id6817847111?uo=4",
+      "ratingCount": 0,
+      "rating": 0,
+      "subtitle": "Notification History",
+      "screenshotCount": 3,
+      "iPadScreenshotCount": 0,
+      "firstScreenshotURL": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/72/8b/d1/728bd11e-c5ef-54cd-3d1f-cc8488ca9cd6/pushkin_es_ES_APP_IPHONE_67_01.png/320x480bb.jpg"
+    },
+    {
+      "store": "es",
+      "id": 6822476399,
+      "name": "UhWhat? Voice Notes",
+      "version": "1.1.1",
+      "category": "Productivity",
+      "languages": [
+        "EN",
+        "FR",
+        "RU",
+        "ES"
+      ],
+      "link": "https://apps.apple.com/es/app/uhwhat-voice-notes/id6822476399?uo=4",
+      "ratingCount": 0,
+      "rating": 0,
+      "subtitle": "Capture thoughts in one tap",
+      "screenshotCount": 3,
+      "iPadScreenshotCount": 1,
+      "firstScreenshotURL": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/41/56/99/4156996e-d5c9-5cb7-37ab-12976afc2f4c/uhvat_es_ES_APP_IPHONE_61_01.png/320x480bb.jpg"
+    },
+    {
+      "store": "es",
+      "id": 6818711298,
+      "name": "ChickMark: hábitos diarios",
+      "version": "1.5.1",
+      "category": "Productivity",
+      "languages": [
+        "EN",
+        "FR",
+        "RU",
+        "ES"
+      ],
+      "link": "https://apps.apple.com/es/app/chickmark-h%C3%A1bitos-diarios/id6818711298?uo=4",
+      "ratingCount": 0,
+      "rating": 0,
+      "subtitle": "Metas, rachas y recordatorios",
+      "screenshotCount": 3,
+      "iPadScreenshotCount": 1,
+      "firstScreenshotURL": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/65/32/e5/6532e52d-5232-291a-0fe0-1fad5a16e36e/01_today.png/320x480bb.jpg"
+    },
+    {
+      "store": "br",
+      "id": 6816346084,
+      "name": "Фото и PDF под размер",
+      "version": "1.0.2",
+      "category": "Utilities",
+      "languages": [
+        "EN",
+        "RU"
+      ],
+      "link": "https://apps.apple.com/br/app/%D1%84%D0%BE%D1%82%D0%BE-%D0%B8-pdf-%D0%BF%D0%BE%D0%B4-%D1%80%D0%B0%D0%B7%D0%BC%D0%B5%D1%80/id6816346084?uo=4",
+      "ratingCount": 0,
+      "rating": 0,
+      "subtitle": "Utilidades",
+      "screenshotCount": 4,
+      "iPadScreenshotCount": 0,
+      "firstScreenshotURL": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/99/d5/62/99d562d1-f012-00ef-df86-654b2e0a94c9/01-weight.jpg/320x480bb.jpg"
+    },
+    {
+      "store": "br",
+      "id": 6817847111,
+      "name": "PUSHKIN by Arvectum",
+      "version": "1.0.2",
+      "category": "Utilities",
+      "languages": [
+        "EN",
+        "FR",
+        "RU",
+        "ES"
+      ],
+      "link": "https://apps.apple.com/br/app/pushkin-by-arvectum/id6817847111?uo=4",
+      "ratingCount": 0,
+      "rating": 0,
+      "subtitle": "Utilidades",
+      "screenshotCount": 3,
+      "iPadScreenshotCount": 0,
+      "firstScreenshotURL": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/49/2d/1d/492d1d6c-5cc3-3418-b4ef-4f10f6b62c49/01-history.png/320x480bb.jpg"
+    },
+    {
+      "store": "br",
+      "id": 6822476399,
+      "name": "UhWhat? Voice Notes",
+      "version": "1.1.1",
+      "category": "Productivity",
+      "languages": [
+        "EN",
+        "FR",
+        "RU",
+        "ES"
+      ],
+      "link": "https://apps.apple.com/br/app/uhwhat-voice-notes/id6822476399?uo=4",
+      "ratingCount": 0,
+      "rating": 0,
+      "subtitle": "Produtividade",
+      "screenshotCount": 3,
+      "iPadScreenshotCount": 1,
+      "firstScreenshotURL": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/05/f2/99/05f299b8-7c71-e703-8bb2-3178242ef1f7/01-quick-capture.jpg/320x480bb.jpg"
+    },
+    {
+      "store": "br",
+      "id": 6818711298,
+      "name": "ChickMark: трекер привычек",
+      "version": "1.5.1",
+      "category": "Productivity",
+      "languages": [
+        "EN",
+        "FR",
+        "RU",
+        "ES"
+      ],
+      "link": "https://apps.apple.com/br/app/chickmark-%D1%82%D1%80%D0%B5%D0%BA%D0%B5%D1%80-%D0%BF%D1%80%D0%B8%D0%B2%D1%8B%D1%87%D0%B5%D0%BA/id6818711298?uo=4",
+      "ratingCount": 0,
+      "rating": 0,
+      "subtitle": "Produtividade",
+      "screenshotCount": 3,
+      "iPadScreenshotCount": 1,
+      "firstScreenshotURL": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/2f/82/50/2f8250b9-4b07-b23e-2e0a-29602878dee6/01-today.png/320x480bb.jpg"
+    },
+    {
+      "store": "jp",
+      "id": 6816346084,
+      "name": "Фото и PDF под размер",
+      "version": "1.0.2",
+      "category": "Utilities",
+      "languages": [
+        "EN",
+        "RU"
+      ],
+      "link": "https://apps.apple.com/jp/app/%D1%84%D0%BE%D1%82%D0%BE-%D0%B8-pdf-%D0%BF%D0%BE%D0%B4-%D1%80%D0%B0%D0%B7%D0%BC%D0%B5%D1%80/id6816346084?uo=4",
+      "ratingCount": 0,
+      "rating": 0,
+      "subtitle": "ユーティリティ",
+      "screenshotCount": 4,
+      "iPadScreenshotCount": 0,
+      "firstScreenshotURL": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/99/d5/62/99d562d1-f012-00ef-df86-654b2e0a94c9/01-weight.jpg/320x480bb.jpg"
+    },
+    {
+      "store": "jp",
+      "id": 6817847111,
+      "name": "PUSHKIN by Arvectum",
+      "version": "1.0.2",
+      "category": "Utilities",
+      "languages": [
+        "EN",
+        "FR",
+        "RU",
+        "ES"
+      ],
+      "link": "https://apps.apple.com/jp/app/pushkin-by-arvectum/id6817847111?uo=4",
+      "ratingCount": 0,
+      "rating": 0,
+      "subtitle": "ユーティリティ",
+      "screenshotCount": 3,
+      "iPadScreenshotCount": 0,
+      "firstScreenshotURL": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/49/2d/1d/492d1d6c-5cc3-3418-b4ef-4f10f6b62c49/01-history.png/320x480bb.jpg"
+    },
+    {
+      "store": "jp",
+      "id": 6822476399,
+      "name": "UhWhat? Voice Notes",
+      "version": "1.1.1",
+      "category": "Productivity",
+      "languages": [
+        "EN",
+        "FR",
+        "RU",
+        "ES"
+      ],
+      "link": "https://apps.apple.com/jp/app/uhwhat-voice-notes/id6822476399?uo=4",
+      "ratingCount": 0,
+      "rating": 0,
+      "subtitle": "仕事効率化",
+      "screenshotCount": 3,
+      "iPadScreenshotCount": 1,
+      "firstScreenshotURL": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/05/f2/99/05f299b8-7c71-e703-8bb2-3178242ef1f7/01-quick-capture.jpg/320x480bb.jpg"
+    },
+    {
+      "store": "jp",
+      "id": 6818711298,
+      "name": "ChickMark: трекер привычек",
+      "version": "1.5.1",
+      "category": "Productivity",
+      "languages": [
+        "EN",
+        "FR",
+        "RU",
+        "ES"
+      ],
+      "link": "https://apps.apple.com/jp/app/chickmark-%D1%82%D1%80%D0%B5%D0%BA%D0%B5%D1%80-%D0%BF%D1%80%D0%B8%D0%B2%D1%8B%D1%87%D0%B5%D0%BA/id6818711298?uo=4",
+      "ratingCount": 0,
+      "rating": 0,
+      "subtitle": "仕事効率化",
+      "screenshotCount": 3,
+      "iPadScreenshotCount": 1,
+      "firstScreenshotURL": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/2f/82/50/2f8250b9-4b07-b23e-2e0a-29602878dee6/01-today.png/320x480bb.jpg"
+    },
+    {
+      "store": "kr",
+      "id": 6816346084,
+      "name": "Фото и PDF под размер",
+      "version": "1.0.2",
+      "category": "Utilities",
+      "languages": [
+        "EN",
+        "RU"
+      ],
+      "link": "https://apps.apple.com/kr/app/%D1%84%D0%BE%D1%82%D0%BE-%D0%B8-pdf-%D0%BF%D0%BE%D0%B4-%D1%80%D0%B0%D0%B7%D0%BC%D0%B5%D1%80/id6816346084?uo=4",
+      "ratingCount": 0,
+      "rating": 0,
+      "subtitle": "유틸리티",
+      "screenshotCount": 4,
+      "iPadScreenshotCount": 0,
+      "firstScreenshotURL": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/99/d5/62/99d562d1-f012-00ef-df86-654b2e0a94c9/01-weight.jpg/320x480bb.jpg"
+    },
+    {
+      "store": "kr",
+      "id": 6817847111,
+      "name": "PUSHKIN by Arvectum",
+      "version": "1.0.2",
+      "category": "Utilities",
+      "languages": [
+        "EN",
+        "FR",
+        "RU",
+        "ES"
+      ],
+      "link": "https://apps.apple.com/kr/app/pushkin-by-arvectum/id6817847111?uo=4",
+      "ratingCount": 0,
+      "rating": 0,
+      "subtitle": "유틸리티",
+      "screenshotCount": 3,
+      "iPadScreenshotCount": 0,
+      "firstScreenshotURL": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/49/2d/1d/492d1d6c-5cc3-3418-b4ef-4f10f6b62c49/01-history.png/320x480bb.jpg"
+    },
+    {
+      "store": "kr",
+      "id": 6822476399,
+      "name": "UhWhat? Voice Notes",
+      "version": "1.1.1",
+      "category": "Productivity",
+      "languages": [
+        "EN",
+        "FR",
+        "RU",
+        "ES"
+      ],
+      "link": "https://apps.apple.com/kr/app/uhwhat-voice-notes/id6822476399?uo=4",
+      "ratingCount": 0,
+      "rating": 0,
+      "subtitle": "생산성",
+      "screenshotCount": 3,
+      "iPadScreenshotCount": 1,
+      "firstScreenshotURL": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/05/f2/99/05f299b8-7c71-e703-8bb2-3178242ef1f7/01-quick-capture.jpg/320x480bb.jpg"
+    },
+    {
+      "store": "kr",
+      "id": 6818711298,
+      "name": "ChickMark: трекер привычек",
+      "version": "1.5.1",
+      "category": "Productivity",
+      "languages": [
+        "EN",
+        "FR",
+        "RU",
+        "ES"
+      ],
+      "link": "https://apps.apple.com/kr/app/chickmark-%D1%82%D1%80%D0%B5%D0%BA%D0%B5%D1%80-%D0%BF%D1%80%D0%B8%D0%B2%D1%8B%D1%87%D0%B5%D0%BA/id6818711298?uo=4",
+      "ratingCount": 0,
+      "rating": 0,
+      "subtitle": "생산성",
+      "screenshotCount": 3,
+      "iPadScreenshotCount": 1,
+      "firstScreenshotURL": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/2f/82/50/2f8250b9-4b07-b23e-2e0a-29602878dee6/01-today.png/320x480bb.jpg"
+    },
+    {
+      "store": "cn",
+      "id": 6816346084,
+      "name": "Фото и PDF под размер",
+      "version": "1.0.2",
+      "category": "Utilities",
+      "languages": [
+        "EN",
+        "RU"
+      ],
+      "link": "https://apps.apple.com/cn/app/%D1%84%D0%BE%D1%82%D0%BE-%D0%B8-pdf-%D0%BF%D0%BE%D0%B4-%D1%80%D0%B0%D0%B7%D0%BC%D0%B5%D1%80/id6816346084?uo=4",
+      "ratingCount": 0,
+      "rating": 0,
+      "subtitle": "工具",
+      "screenshotCount": 4,
+      "iPadScreenshotCount": 0,
+      "firstScreenshotURL": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/99/d5/62/99d562d1-f012-00ef-df86-654b2e0a94c9/01-weight.jpg/320x480bb.jpg"
+    },
+    {
+      "store": "cn",
+      "id": 6817847111,
+      "name": "PUSHKIN by Arvectum",
+      "version": "1.0.2",
+      "category": "Utilities",
+      "languages": [
+        "EN",
+        "FR",
+        "RU",
+        "ES"
+      ],
+      "link": "https://apps.apple.com/cn/app/pushkin-by-arvectum/id6817847111?uo=4",
+      "ratingCount": 0,
+      "rating": 0,
+      "subtitle": "工具",
+      "screenshotCount": 3,
+      "iPadScreenshotCount": 0,
+      "firstScreenshotURL": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/49/2d/1d/492d1d6c-5cc3-3418-b4ef-4f10f6b62c49/01-history.png/320x480bb.jpg"
+    },
+    {
+      "store": "cn",
+      "id": 6822476399,
+      "name": "UhWhat? Voice Notes",
+      "version": "1.1.1",
+      "category": "Productivity",
+      "languages": [
+        "EN",
+        "FR",
+        "RU",
+        "ES"
+      ],
+      "link": "https://apps.apple.com/cn/app/uhwhat-voice-notes/id6822476399?uo=4",
+      "ratingCount": 0,
+      "rating": 0,
+      "subtitle": "效率",
+      "screenshotCount": 3,
+      "iPadScreenshotCount": 1,
+      "firstScreenshotURL": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/05/f2/99/05f299b8-7c71-e703-8bb2-3178242ef1f7/01-quick-capture.jpg/320x480bb.jpg"
+    },
+    {
+      "store": "cn",
+      "id": 6818711298,
+      "name": "ChickMark: трекер привычек",
+      "version": "1.5.1",
+      "category": "Productivity",
+      "languages": [
+        "EN",
+        "FR",
+        "RU",
+        "ES"
+      ],
+      "link": "https://apps.apple.com/cn/app/chickmark-%D1%82%D1%80%D0%B5%D0%BA%D0%B5%D1%80-%D0%BF%D1%80%D0%B8%D0%B2%D1%8B%D1%87%D0%B5%D0%BA/id6818711298?uo=4",
+      "ratingCount": 0,
+      "rating": 0,
+      "subtitle": "效率",
+      "screenshotCount": 3,
+      "iPadScreenshotCount": 1,
+      "firstScreenshotURL": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/2f/82/50/2f8250b9-4b07-b23e-2e0a-29602878dee6/01-today.png/320x480bb.jpg"
+    },
+    {
+      "store": "tr",
+      "id": 6816346084,
+      "name": "Photo & PDF Resize: KB",
+      "version": "1.0.2",
+      "category": "Utilities",
+      "languages": [
+        "EN",
+        "RU"
+      ],
+      "link": "https://apps.apple.com/tr/app/photo-pdf-resize-kb/id6816346084?uo=4",
+      "ratingCount": 0,
+      "rating": 0,
+      "subtitle": "Resize photos & PDFs",
+      "screenshotCount": 4,
+      "iPadScreenshotCount": 0,
+      "firstScreenshotURL": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/9e/a4/2d/9ea42d7f-8344-2f7b-a97e-3084b1b4edfe/01-weight.jpg/320x480bb.jpg"
+    },
+    {
+      "store": "tr",
+      "id": 6817847111,
+      "name": "PUSHKIN by Arvectum",
+      "version": "1.0.2",
+      "category": "Utilities",
+      "languages": [
+        "EN",
+        "FR",
+        "RU",
+        "ES"
+      ],
+      "link": "https://apps.apple.com/tr/app/pushkin-by-arvectum/id6817847111?uo=4",
+      "ratingCount": 0,
+      "rating": 0,
+      "subtitle": "Notification History",
+      "screenshotCount": 3,
+      "iPadScreenshotCount": 0,
+      "firstScreenshotURL": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/49/2d/1d/492d1d6c-5cc3-3418-b4ef-4f10f6b62c49/01-history.png/320x480bb.jpg"
+    },
+    {
+      "store": "tr",
+      "id": 6822476399,
+      "name": "UhWhat? Voice Notes",
+      "version": "1.1.1",
+      "category": "Productivity",
+      "languages": [
+        "EN",
+        "FR",
+        "RU",
+        "ES"
+      ],
+      "link": "https://apps.apple.com/tr/app/uhwhat-voice-notes/id6822476399?uo=4",
+      "ratingCount": 0,
+      "rating": 0,
+      "subtitle": "Capture thoughts in one tap",
+      "screenshotCount": 3,
+      "iPadScreenshotCount": 1,
+      "firstScreenshotURL": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/05/f2/99/05f299b8-7c71-e703-8bb2-3178242ef1f7/01-quick-capture.jpg/320x480bb.jpg"
+    },
+    {
+      "store": "tr",
+      "id": 6818711298,
+      "name": "ChickMark: Habit Tracker",
+      "version": "1.5.1",
+      "category": "Productivity",
+      "languages": [
+        "EN",
+        "FR",
+        "RU",
+        "ES"
+      ],
+      "link": "https://apps.apple.com/tr/app/chickmark-habit-tracker/id6818711298?uo=4",
+      "ratingCount": 0,
+      "rating": 0,
+      "subtitle": "Goals, streaks & reminders",
+      "screenshotCount": 3,
+      "iPadScreenshotCount": 1,
+      "firstScreenshotURL": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/4b/ed/c2/4bedc2c4-08fd-0a3b-0331-3fd437194107/01-today.png/320x480bb.jpg"
+    },
+    {
+      "store": "th",
+      "id": 6816346084,
+      "name": "Photo & PDF Resize: KB",
+      "version": "1.0.2",
+      "category": "Utilities",
+      "languages": [
+        "EN",
+        "RU"
+      ],
+      "link": "https://apps.apple.com/th/app/photo-pdf-resize-kb/id6816346084?uo=4",
+      "ratingCount": 0,
+      "rating": 0,
+      "subtitle": "Resize photos & PDFs",
+      "screenshotCount": 4,
+      "iPadScreenshotCount": 0,
+      "firstScreenshotURL": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/9e/a4/2d/9ea42d7f-8344-2f7b-a97e-3084b1b4edfe/01-weight.jpg/320x480bb.jpg"
+    },
+    {
+      "store": "th",
+      "id": 6817847111,
+      "name": "PUSHKIN by Arvectum",
+      "version": "1.0.2",
+      "category": "Utilities",
+      "languages": [
+        "EN",
+        "FR",
+        "RU",
+        "ES"
+      ],
+      "link": "https://apps.apple.com/th/app/pushkin-by-arvectum/id6817847111?uo=4",
+      "ratingCount": 0,
+      "rating": 0,
+      "subtitle": "Notification History",
+      "screenshotCount": 3,
+      "iPadScreenshotCount": 0,
+      "firstScreenshotURL": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/49/2d/1d/492d1d6c-5cc3-3418-b4ef-4f10f6b62c49/01-history.png/320x480bb.jpg"
+    },
+    {
+      "store": "th",
+      "id": 6822476399,
+      "name": "UhWhat? Voice Notes",
+      "version": "1.1.1",
+      "category": "Productivity",
+      "languages": [
+        "EN",
+        "FR",
+        "RU",
+        "ES"
+      ],
+      "link": "https://apps.apple.com/th/app/uhwhat-voice-notes/id6822476399?uo=4",
+      "ratingCount": 0,
+      "rating": 0,
+      "subtitle": "Capture thoughts in one tap",
+      "screenshotCount": 3,
+      "iPadScreenshotCount": 1,
+      "firstScreenshotURL": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/05/f2/99/05f299b8-7c71-e703-8bb2-3178242ef1f7/01-quick-capture.jpg/320x480bb.jpg"
+    },
+    {
+      "store": "th",
+      "id": 6818711298,
+      "name": "ChickMark: Habit Tracker",
+      "version": "1.5.1",
+      "category": "Productivity",
+      "languages": [
+        "EN",
+        "FR",
+        "RU",
+        "ES"
+      ],
+      "link": "https://apps.apple.com/th/app/chickmark-habit-tracker/id6818711298?uo=4",
+      "ratingCount": 0,
+      "rating": 0,
+      "subtitle": "Goals, streaks & reminders",
+      "screenshotCount": 3,
+      "iPadScreenshotCount": 1,
+      "firstScreenshotURL": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/4b/ed/c2/4bedc2c4-08fd-0a3b-0331-3fd437194107/01-today.png/320x480bb.jpg"
+    }
+  ]
+}

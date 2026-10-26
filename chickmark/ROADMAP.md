@@ -1,5 +1,14 @@
 # ChickMark — актуальная дорожная карта
 
+## C9 — KO iPhone/Watch/widgets (26.10.2026)
+
+- [x] KO draft: iPhone 311 + Watch 22 + PhoneWidget 16 + WatchWidget 5, HealthKit InfoPlist и AppShortcuts.
+- [x] 10 Swift unit + 1 Korean XCUITest PASS (синтетическое хранилище, CloudKit off).
+- [ ] Вычитка HealthKit/permissions, реальные Watch, РСЯ и безопасный upgrade, новый подписанный RC.
+
+[ASO-аудит](../core/docs/ASO_PUBLIC_AUDIT_2026-10-26.md).
+
+
 ## 26.10.2026 · C8 — актуальный статус ChickMark
 
 - [x] 11 полных source-пакетов iPhone/Watch/widgets; новый onboarding переведён на 11 языков; native/VoiceOver QA PASS.

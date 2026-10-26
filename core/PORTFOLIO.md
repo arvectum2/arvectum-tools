@@ -1,5 +1,7 @@
 # Arvectum Tools — Roadmap Registry
 
+[**C9: 12/20 локализаций в 4/4 продуктах и ASO-аудит 48 карточек**](docs/LOCALIZATION_C9_2026-10-26.md).
+
 [**Проверенный C8 статус локализаций 26.10: 11/20 Tier 1, KO 2/4; source ≠ App Store**](docs/LOCALIZATION_STATUS_2026-10-26.md).
 
 [**Текущий срез 26.10.2026**](docs/ROADMAP_LIVE_2026-10-26.md) — читайте до исторических заметок ниже.

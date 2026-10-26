@@ -1,5 +1,14 @@
 # What? — Product Roadmap
 
+## C9 — KO iPhone/Watch/widgets (26.10.2026)
+
+- [x] KO draft: iPhone 231 + Watch 6 + PhoneWidget 6 + complication 5, permissions, locale routing и счётчик; транскрипция независима.
+- [x] 14 Swift unit и 1 native iPhone AXXXL KO UI PASS; без новых аудио/видео и изменения личных данных.
+- [ ] Native speaker/permissions и физические Watch ACK, background, VoiceOver; затем новый signed RC.
+
+[Сводка](../core/docs/LOCALIZATION_C9_2026-10-26.md).
+
+
 ## 26.10.2026 · C8 — актуальный статус Ухвата
 
 - [x] 11 полных исходных языковых пакетов iPhone/Watch/widgets; PT-PT и zh-Hant native smoke PASS.
