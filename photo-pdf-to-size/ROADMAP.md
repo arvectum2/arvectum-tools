@@ -1,5 +1,11 @@
 # Фото и PDF под размер — Product Roadmap
 
+## C10 — 16 региональных ASO черновиков (26.10.2026)
+
+- [x] Новый консолидированный пакет из 16 Apple-supported locales, включая zh-Hans/zh-Hant; 64 metadata fields для Фото/PDF структурно PASS, legal/privacy оговорки сохранены.
+- [x] 12 RU/en-US/en-GB image drafts в repo учтены и SHA проверены; старые 01/02 нужно переснять на новом RC.
+- [ ] Native-speaker editing, новые real iPhone/iPad screenshots и физическая рекламная/privacy QA до следующего 1.0.3(15); без публикации без одобрения. [C10](../core/docs/EDITORIAL_ASO_C10_2026-10-26.md).
+
 ## C9 — реальные App Store карточки (26.10.2026)
 
 - [x] 12 storefronts: DE/FR/ES/BR/JP/KR/CN пока показывают русские заголовки/описания, публичный UI — EN/RU.

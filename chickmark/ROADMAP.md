@@ -1,5 +1,11 @@
 # ChickMark — актуальная дорожная карта
 
+## C10 — локализованные карточки (26.10.2026)
+
+- [x] 16 draft metadata locales, включая HealthKit и рекламу без лишних обещаний; Apple field validation PASS.
+- [x] Исправлены критичные смысловые ошибки KO в напоминаниях и recovery; editorial mechanical audit PASS.
+- [ ] Финальная native-speaker редактура, iPhone/iPad/Watch screenshots, HealthKit/CloudKit/РСЯ физическая QA и signed RC; 16×4 headline specs готовы, реальные кадры ещё нет. [C10](../core/docs/EDITORIAL_ASO_C10_2026-10-26.md).
+
 ## C9 — KO iPhone/Watch/widgets (26.10.2026)
 
 - [x] KO draft: iPhone 311 + Watch 22 + PhoneWidget 16 + WatchWidget 5, HealthKit InfoPlist и AppShortcuts.

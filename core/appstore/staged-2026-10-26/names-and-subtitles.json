@@ -1,0 +1,41 @@
+{
+"pushkin":{
+ "en":["PUSHKIN: Notification History","Save alerts with Shortcuts"],
+ "ru":["PUSHKIN: история уведомлений","Архив через «Команды»"],
+ "es":["PUSHKIN: historial de avisos","Historial con Atajos"],
+ "fr":["PUSHKIN : notifications","Historique via Raccourcis"],
+ "de":["PUSHKIN: Mitteilungen","Verlauf mit Kurzbefehlen"],
+ "it":["PUSHKIN: notifiche","Cronologia con Comandi"],
+ "ja":["PUSHKIN: 通知履歴","ショートカットで通知を保存"],
+ "ko":["PUSHKIN: 알림 기록","단축어로 알림 저장"],
+ "pt":["PUSHKIN: notificações","Histórico com Atalhos"],
+ "zh-Hans":["PUSHKIN: 通知记录","用快捷指令保存通知"],
+ "zh-Hant":["PUSHKIN: 通知記錄","透過捷徑保存通知"]},
+"what":{
+ "en":["UhWhat? Voice Notes","Record ideas in one tap"],
+ "ru":["Ухват: голосовые заметки","Запись мыслей одним нажатием"],
+ "es":["UhWhat?: notas de voz","Graba ideas en un toque"],
+ "fr":["UhWhat? : notes vocales","Enregistrez vos idées vite"],
+ "de":["UhWhat?: Sprachnotizen","Ideen mit einem Tipp"],
+ "it":["UhWhat?: note vocali","Registra idee con un tocco"],
+ "ja":["UhWhat?: 音声メモ","ワンタップで音声メモ"],
+ "ko":["UhWhat?: 음성 메모","한 번의 탭으로 음성 녹음"],
+ "pt":["UhWhat?: notas de voz","Grave ideias com um toque"],
+ "zh-Hans":["UhWhat?: 语音笔记","一键记录灵感"],
+ "zh-Hant":["UhWhat?: 語音筆記","一鍵記錄靈感"]},
+"chickmark":{
+ "en":["ChickMark: Habit Tracker","Habits, streaks & reminders"],
+ "ru":["ChickMark: трекер привычек","Привычки, серии, напоминания"],
+ "es":["ChickMark: hábitos","Hábitos, rachas y avisos"],
+ "fr":["ChickMark : habitudes","Habitudes et rappels"],
+ "de":["ChickMark: Gewohnheiten","Gewohnheiten & Erinnerungen"],
+ "it":["ChickMark: abitudini","Abitudini e promemoria"],
+ "ja":["ChickMark: 習慣記録","習慣・連続記録・リマインダー"],
+ "ko":["ChickMark: 습관 기록","습관 기록과 알림"],
+ "pt":["ChickMark: hábitos","Hábitos e lembretes"],
+ "zh-Hans":["ChickMark: 习惯打卡","习惯打卡与提醒"],
+ "zh-Hant":["ChickMark: 習慣打卡","習慣打卡與提醒"]},
+"photo":{
+ "zh-Hans":["照片与PDF压缩","按文件大小压缩与调整尺寸"],
+ "zh-Hant":["照片與PDF壓縮","按檔案大小壓縮與調整尺寸"]}
+}

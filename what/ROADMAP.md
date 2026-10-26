@@ -1,5 +1,11 @@
 # What? — Product Roadmap
 
+## C10 — локализованные карточки (26.10.2026)
+
+- [x] 16 draft App Store метаданных; сохранён бренд UhWhat? и ограничения транскрипции и фоновой передачи Apple Watch, 100-byte keywords PASS.
+- [x] Исправлены KO смысловые ошибки (перевод транскрипции, Watch/widget имя). Структурный аудит всего портфеля PASS.
+- [ ] Редактура носителями, реальные iPhone/iPad/Watch screenshots, физический Watch ACK, новый signed release. [C10](../core/docs/EDITORIAL_ASO_C10_2026-10-26.md).
+
 ## C9 — KO iPhone/Watch/widgets (26.10.2026)
 
 - [x] KO draft: iPhone 231 + Watch 6 + PhoneWidget 6 + complication 5, permissions, locale routing и счётчик; транскрипция независима.

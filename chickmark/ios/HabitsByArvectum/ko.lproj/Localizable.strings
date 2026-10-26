@@ -108,7 +108,7 @@
 "accessibility.symbol.format" = "아이콘 %d";
 "accessibility.selected" = "선택된";
 "storage.error.title" = "ChickMark 데이터를 일시적으로 사용할 수 없습니다.";
-"storage.error.message" = "귀하의 데이터는 재설정되거나 덮어쓰여지지 않았습니다. 습관을 닫았다가 다시 엽니다. 문제가 계속되면 다시 시도하기 전에 앱을 업데이트하세요.";
+"storage.error.message" = "데이터는 초기화되거나 덮어쓰이지 않았습니다. ChickMark를 완전히 종료한 다음 다시 여세요. 문제가 계속되면 재시도하기 전에 앱을 업데이트하세요.";
 "shortcut.habit.type" = "습관";
 "shortcut.habit.parameter" = "습관";
 "shortcut.complete.title" = "완전한 습관";
@@ -224,7 +224,7 @@
 "health.shortcuts.title" = "독서 및 기타 앱 · 바로가기";
 "health.shortcuts.action" = "앱 관련 습관 자동화";
 "health.shortcuts.instructions" = "iPhone 단축어 앱 열기 → 자동화 → 트리거 선택(예: 책 닫기) → ChickMark의 \"습관 완료\" 동작 추가 → 습관 선택. Siri 또는 홈 화면 바로가기에서 해당 작업을 수동으로 실행할 수도 있습니다.";
-"health.shortcuts.limitation" = "앱을 종료한다고 해서 일정 시간 동안 책을 읽었다는 사실이 증명되는 것은 아닙니다. 바로가기는 실제 읽기 시간이 아닌 선택한 이벤트를 등록합니다.";
+"health.shortcuts.limitation" = "앱을 닫았다고 해서 일정 시간 동안 독서했다는 뜻은 아닙니다. 단축어는 실제 독서 시간이 아닌 선택한 이벤트만 기록합니다.";
 "health.integrations.title" = "스마트 자동화";
 "language.title" = "언어";
 "language.system" = "시스템 기본값";
@@ -282,7 +282,7 @@
 "review.source.open" = "원본 열기";
 "review.remind.section" = "알림";
 "review.due.label" = "나에게 알림";
-"review.privacy.explanation" = "이것은 반복되는 습관이 아니라 일회성 알림입니다. 텍스트는 확인 후 ChickMark에 로컬로 저장됩니다. 알림에는 성적표가 공개되지 않습니다.";
+"review.privacy.explanation" = "이 알림은 반복 습관이 아닌 일회성 알림입니다. 확인하면 텍스트가 ChickMark에 로컬로 저장됩니다. 알림에는 음성 메모의 전사 내용이 표시되지 않습니다.";
 "review.add.title" = "어뭐야에서 추가해?";
 "review.add.create" = "만들다";
 "review.add.failed" = "알림을 만들 수 없습니다.";

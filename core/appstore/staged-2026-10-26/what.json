@@ -1,0 +1,249 @@
+{
+  "appId": "6822476399",
+  "bundleId": "ru.arvectum.tools.what",
+  "stage": "DRAFT_NOT_UPLOADED",
+  "source": "curated EN/RU seeds and automated translations; not native-speaker approved",
+  "created": "2026-10-26",
+  "localeData": {
+    "ru": {
+      "promotionalText": "Ухвати мысль голосом, текстом или видео. Быстрая запись на iPhone и Apple Watch с сохранением оригинального аудио.",
+      "description": "Мысль пришла — ухвати, пока не забыл. «Ухват» помогает быстро сохранить идею и найти её позже.\n\nЗАПИСЬ: создавайте голосовые заметки на iPhone или Apple Watch. Оригинальное аудио сохраняется.\n\nТЕКСТ И ВИДЕО: пишите заметки и записывайте видео на iPhone. Ищите по сохранённому тексту.\n\nРАСШИФРОВКА: если iOS поддерживает локальное распознавание выбранного языка, превращайте аудио в текст. Язык интерфейса и язык распознавания независимы.\n\nAPPLE WATCH: запись остаётся в очереди часов до подтверждения сохранения на iPhone. Фоновая передача может задерживаться.\n\nМедиафайлы обрабатываются на устройствах. Доступность распознавания зависит от версии iOS и языка.",
+      "whatsNew": "Улучшены устойчивость записи, восстановление данных и локализация интерфейса на iPhone, Apple Watch и в виджетах.",
+      "screenshots": [
+        "Ухвати мысль в одно касание",
+        "Сохрани оригинальное аудио",
+        "Находи заметки по тексту",
+        "Записывай с Apple Watch"
+      ],
+      "keywords": "диктофон,голос,запись,аудио,мысли,видео",
+      "name": "Ухват: голосовые заметки",
+      "subtitle": "Запись мыслей одним нажатием",
+      "privacyPolicyUrl": "https://arvectum.com/privacy.html"
+    },
+    "en-US": {
+      "promotionalText": "Capture thoughts as audio, text or video. One-tap voice notes on iPhone and Apple Watch, with your originals preserved.",
+      "description": "Catch an idea before it disappears. UhWhat? makes it easy to capture thoughts and revisit them.\n\nQUICK RECORDING: record voice notes on iPhone or Apple Watch. Keep the original audio.\n\nTEXT AND VIDEO: write notes or record videos on iPhone, then search saved text.\n\nTRANSCRIPTION: where on-device speech recognition is supported, convert recordings to text. Your app interface language and speech recognition language are separate.\n\nWATCH: audio stays in the watch transfer queue until the iPhone confirms saving. Background delivery may be delayed.\n\nNotes and media are handled on your devices. Speech recognition availability depends on iOS and your selected language.",
+      "whatsNew": "Improved recording reliability, recovery guidance and iPhone, Apple Watch and widget interface localization.",
+      "screenshots": [
+        "One tap to save an idea",
+        "Keep your original recordings",
+        "Find notes by saved text",
+        "Capture from Apple Watch"
+      ],
+      "keywords": "voice,recorder,audio,memos,ideas,transcript,watch,notes,video,search,private",
+      "name": "UhWhat? Voice Notes",
+      "subtitle": "Record ideas in one tap",
+      "privacyPolicyUrl": "https://arvectum.com/privacy.html"
+    },
+    "en-GB": {
+      "promotionalText": "Capture thoughts as audio, text or video. One-tap voice notes on iPhone and Apple Watch, with your originals preserved.",
+      "description": "Catch an idea before it disappears. UhWhat? makes it easy to capture thoughts and revisit them.\n\nQUICK RECORDING: record voice notes on iPhone or Apple Watch. Keep the original audio.\n\nTEXT AND VIDEO: write notes or record videos on iPhone, then search saved text.\n\nTRANSCRIPTION: where on-device speech recognition is supported, convert recordings to text. Your app interface language and speech recognition language are separate.\n\nWATCH: audio stays in the watch transfer queue until the iPhone confirms saving. Background delivery may be delayed.\n\nNotes and media are handled on your devices. Speech recognition availability depends on iOS and your selected language.",
+      "whatsNew": "Improved recording reliability, recovery guidance and iPhone, Apple Watch and widget interface localization.",
+      "screenshots": [
+        "One tap to save an idea",
+        "Keep your original recordings",
+        "Find notes by saved text",
+        "Capture from Apple Watch"
+      ],
+      "keywords": "voice,recorder,audio,memos,ideas,transcript,watch,notes,video,search,private",
+      "name": "UhWhat? Voice Notes",
+      "subtitle": "Record ideas in one tap",
+      "privacyPolicyUrl": "https://arvectum.com/privacy.html"
+    },
+    "en-AU": {
+      "promotionalText": "Capture thoughts as audio, text or video. One-tap voice notes on iPhone and Apple Watch, with your originals preserved.",
+      "description": "Catch an idea before it disappears. UhWhat? makes it easy to capture thoughts and revisit them.\n\nQUICK RECORDING: record voice notes on iPhone or Apple Watch. Keep the original audio.\n\nTEXT AND VIDEO: write notes or record videos on iPhone, then search saved text.\n\nTRANSCRIPTION: where on-device speech recognition is supported, convert recordings to text. Your app interface language and speech recognition language are separate.\n\nWATCH: audio stays in the watch transfer queue until the iPhone confirms saving. Background delivery may be delayed.\n\nNotes and media are handled on your devices. Speech recognition availability depends on iOS and your selected language.",
+      "whatsNew": "Improved recording reliability, recovery guidance and iPhone, Apple Watch and widget interface localization.",
+      "screenshots": [
+        "One tap to save an idea",
+        "Keep your original recordings",
+        "Find notes by saved text",
+        "Capture from Apple Watch"
+      ],
+      "keywords": "voice,recorder,audio,memos,ideas,transcript,watch,notes,video,search,private",
+      "name": "UhWhat? Voice Notes",
+      "subtitle": "Record ideas in one tap",
+      "privacyPolicyUrl": "https://arvectum.com/privacy.html"
+    },
+    "en-CA": {
+      "promotionalText": "Capture thoughts as audio, text or video. One-tap voice notes on iPhone and Apple Watch, with your originals preserved.",
+      "description": "Catch an idea before it disappears. UhWhat? makes it easy to capture thoughts and revisit them.\n\nQUICK RECORDING: record voice notes on iPhone or Apple Watch. Keep the original audio.\n\nTEXT AND VIDEO: write notes or record videos on iPhone, then search saved text.\n\nTRANSCRIPTION: where on-device speech recognition is supported, convert recordings to text. Your app interface language and speech recognition language are separate.\n\nWATCH: audio stays in the watch transfer queue until the iPhone confirms saving. Background delivery may be delayed.\n\nNotes and media are handled on your devices. Speech recognition availability depends on iOS and your selected language.",
+      "whatsNew": "Improved recording reliability, recovery guidance and iPhone, Apple Watch and widget interface localization.",
+      "screenshots": [
+        "One tap to save an idea",
+        "Keep your original recordings",
+        "Find notes by saved text",
+        "Capture from Apple Watch"
+      ],
+      "keywords": "voice,recorder,audio,memos,ideas,transcript,watch,notes,video,search,private",
+      "name": "UhWhat? Voice Notes",
+      "subtitle": "Record ideas in one tap",
+      "privacyPolicyUrl": "https://arvectum.com/privacy.html"
+    },
+    "es-ES": {
+      "promotionalText": "Capture pensamientos como audio, texto o video. Notas de voz con un solo toque en iPhone y Apple Watch, conservando sus originales.",
+      "description": "Capte una idea antes de que desaparezca. UhWhat? facilita capturar pensamientos y revisarlos.\n\nGRABACIÓN RÁPIDA: grabe notas de voz en iPhone o Apple Watch. Conserva el audio original.\n\nTEXTO Y VIDEO: escriba notas o grabe videos en el iPhone, luego busque el texto guardado.\n\nTRANSCRIPCIÓN: cuando se admita el reconocimiento de voz en el dispositivo, convierta las grabaciones a texto. El idioma de la interfaz de su aplicación y el idioma de reconocimiento de voz están separados.\n\nMIRAR: el audio permanece en la cola de transferencia del reloj hasta que el iPhone confirma que se guardó. La entrega en segundo plano puede retrasarse.\n\nLas notas y los medios se manejan en sus dispositivos. La disponibilidad del reconocimiento de voz depende de iOS y del idioma seleccionado.",
+      "whatsNew": "Confiabilidad de grabación mejorada, guía de recuperación y localización de interfaz de iPhone, Apple Watch y widgets.",
+      "screenshots": [
+        "Un toque para guardar una idea",
+        "Conserva tus grabaciones originales",
+        "Buscar notas por texto guardado",
+        "Captura desde Apple Watch"
+      ],
+      "keywords": "voz,grabadora,audio,notas,ideas,transcripción,ver,vídeo,búsqueda,privado",
+      "name": "UhWhat?: notas de voz",
+      "subtitle": "Graba ideas en un toque",
+      "privacyPolicyUrl": "https://arvectum.com/privacy.html"
+    },
+    "es-MX": {
+      "promotionalText": "Capture pensamientos como audio, texto o video. Notas de voz con un solo toque en iPhone y Apple Watch, conservando sus originales.",
+      "description": "Capte una idea antes de que desaparezca. UhWhat? facilita capturar pensamientos y revisarlos.\n\nGRABACIÓN RÁPIDA: grabe notas de voz en iPhone o Apple Watch. Conserva el audio original.\n\nTEXTO Y VIDEO: escriba notas o grabe videos en el iPhone, luego busque el texto guardado.\n\nTRANSCRIPCIÓN: cuando se admita el reconocimiento de voz en el dispositivo, convierta las grabaciones a texto. El idioma de la interfaz de su aplicación y el idioma de reconocimiento de voz están separados.\n\nMIRAR: el audio permanece en la cola de transferencia del reloj hasta que el iPhone confirma que se guardó. La entrega en segundo plano puede retrasarse.\n\nLas notas y los medios se manejan en sus dispositivos. La disponibilidad del reconocimiento de voz depende de iOS y del idioma seleccionado.",
+      "whatsNew": "Confiabilidad de grabación mejorada, guía de recuperación y localización de interfaz de iPhone, Apple Watch y widgets.",
+      "screenshots": [
+        "Un toque para guardar una idea",
+        "Conserva tus grabaciones originales",
+        "Buscar notas por texto guardado",
+        "Captura desde Apple Watch"
+      ],
+      "keywords": "voz,grabadora,audio,notas,ideas,transcripción,ver,vídeo,búsqueda,privado",
+      "name": "UhWhat?: notas de voz",
+      "subtitle": "Graba ideas en un toque",
+      "privacyPolicyUrl": "https://arvectum.com/privacy.html"
+    },
+    "fr-FR": {
+      "promotionalText": "Capturez vos pensées sous forme audio, texte ou vidéo. Notes vocales en un seul clic sur iPhone et Apple Watch, avec vos originaux préservés.",
+      "description": "Attrapez une idée avant qu’elle ne disparaisse. UhWhat? facilite la capture des pensées et leur révision.\n\nENREGISTREMENT RAPIDE : enregistrez des notes vocales sur iPhone ou Apple Watch. Conservez l'audio original.\n\nTEXTE ET VIDÉO : rédigez des notes ou enregistrez des vidéos sur iPhone, puis recherchez le texte enregistré.\n\nTRANSCRIPTION : lorsque la reconnaissance vocale sur l'appareil est prise en charge, convertissez les enregistrements en texte. La langue de l'interface de votre application et la langue de la reconnaissance vocale sont distinctes.\n\nREGARDER : l'audio reste dans la file d'attente de transfert de la montre jusqu'à ce que l'iPhone confirme l'enregistrement. La livraison en arrière-plan peut être retardée.\n\nLes notes et les médias sont gérés sur vos appareils. La disponibilité de la reconnaissance vocale dépend d'iOS et de la langue sélectionnée.",
+      "whatsNew": "Fiabilité d'enregistrement améliorée, conseils de récupération et localisation de l'iPhone, de l'Apple Watch et de l'interface des widgets.",
+      "screenshots": [
+        "Un clic pour enregistrer une idée",
+        "Conservez vos enregistrements originaux",
+        "Rechercher des notes par texte enregistré",
+        "Capturer depuis Apple Watch"
+      ],
+      "keywords": "voix,enregistreur,audio,mémos,idées,transcription,montre,notes,vidéo,recherche,privé",
+      "name": "UhWhat? : notes vocales",
+      "subtitle": "Enregistrez vos idées vite",
+      "privacyPolicyUrl": "https://arvectum.com/privacy.html"
+    },
+    "de-DE": {
+      "promotionalText": "Erfassen Sie Gedanken als Audio, Text oder Video. Sprachnotizen mit nur einem Tastendruck auf dem iPhone und der Apple Watch, wobei Ihre Originale erhalten bleiben.",
+      "description": "Fangen Sie eine Idee ein, bevor sie verschwindet. UhWhat? macht es einfach, Gedanken festzuhalten und sie erneut zu betrachten.\n\nSCHNELLE AUFNAHME: Nehmen Sie Sprachnotizen auf dem iPhone oder der Apple Watch auf. Behalten Sie den Originalton bei.\n\nTEXT UND VIDEO: Schreiben Sie Notizen oder nehmen Sie Videos auf dem iPhone auf und durchsuchen Sie dann den gespeicherten Text.\n\nTRANSKRIPTION: Konvertieren Sie Aufnahmen in Text, wenn die Spracherkennung auf dem Gerät unterstützt wird. Die Sprache Ihrer App-Benutzeroberfläche und die Sprache der Spracherkennung sind getrennt.\n\nUHR: Audio bleibt in der Übertragungswarteschlange der Uhr, bis das iPhone das Speichern bestätigt. Die Hintergrundzustellung kann sich verzögern.\n\nNotizen und Medien werden auf Ihren Geräten verwaltet. Die Verfügbarkeit der Spracherkennung hängt von iOS und der von Ihnen ausgewählten Sprache ab.",
+      "whatsNew": "Verbesserte Aufzeichnungszuverlässigkeit, Wiederherstellungsanleitung und Lokalisierung der iPhone-, Apple Watch- und Widget-Schnittstelle.",
+      "screenshots": [
+        "Ein Tipp, um eine Idee zu speichern",
+        "Behalten Sie Ihre Originalaufnahmen",
+        "Finden Sie Notizen anhand des gespeicherten Textes",
+        "Aufnahme von der Apple Watch"
+      ],
+      "keywords": "Stimme,Rekorder,Audio,Memos,Ideen,Transkript,ansehen,Notizen,Video,Suche,privat",
+      "name": "UhWhat?: Sprachnotizen",
+      "subtitle": "Ideen mit einem Tipp",
+      "privacyPolicyUrl": "https://arvectum.com/privacy.html"
+    },
+    "it": {
+      "promotionalText": "Cattura i pensieri come audio, testo o video. Note vocali con un solo tocco su iPhone e Apple Watch, mantenendo gli originali.",
+      "description": "Cattura un'idea prima che scompaia. UhWhat? rende facile catturare i pensieri e rivisitarli.\n\nREGISTRAZIONE RAPIDA: registra note vocali su iPhone o Apple Watch. Mantieni l'audio originale.\n\nTESTO E VIDEO: scrivi note o registra video su iPhone, quindi cerca il testo salvato.\n\nTRASCRIZIONE: dove è supportato il riconoscimento vocale sul dispositivo, converte le registrazioni in testo. La lingua dell'interfaccia dell'app e la lingua di riconoscimento vocale sono separate.\n\nGUARDA: l'audio rimane nella coda di trasferimento dell'orologio finché l'iPhone non conferma il salvataggio. La consegna dello sfondo potrebbe subire ritardi.\n\nLe note e i contenuti multimediali vengono gestiti sui tuoi dispositivi. La disponibilità del riconoscimento vocale dipende da iOS e dalla lingua selezionata.",
+      "whatsNew": "Migliorata l'affidabilità della registrazione, la guida al ripristino e la localizzazione dell'interfaccia di iPhone, Apple Watch e widget.",
+      "screenshots": [
+        "Un tocco per salvare un'idea",
+        "Conserva le tue registrazioni originali",
+        "Trova le note in base al testo salvato",
+        "Cattura da Apple Watch"
+      ],
+      "keywords": "voce,registratore,audio,promemoria,idee,trascrizione,guarda,note,video,ricerca,privato",
+      "name": "UhWhat?: note vocali",
+      "subtitle": "Registra idee con un tocco",
+      "privacyPolicyUrl": "https://arvectum.com/privacy.html"
+    },
+    "ja": {
+      "promotionalText": "思考を音声、テキスト、またはビデオとしてキャプチャします。オリジナルを保存したまま、iPhone と Apple Watch でワンタップの音声メモを作成できます。",
+      "description": "アイデアが消える前にキャッチしましょう。UhWhat?考えを簡単に記録し、確認することができます。\n\nクイック録音: iPhone または Apple Watch で音声メモを録音します。元の音声を保持します。\n\nテキストとビデオ: iPhone でメモを書くかビデオを録画し、保存されたテキストを検索します。\n\n文字起こし: デバイス上の音声認識がサポートされている場合は、録音をテキストに変換します。アプリのインターフェース言語と音声認識言語は別のものです。\n\nWATCH: iPhone が保存を確認するまで、オーディオは Watch 転送キューに残ります。バックグラウンド配信が遅れる場合があります。\n\nメモとメディアはデバイス上で処理されます。音声認識が利用できるかどうかは、iOS と選択した言語によって異なります。",
+      "whatsNew": "録音の信頼性、回復ガイダンス、iPhone、Apple Watch、ウィジェット インターフェイスのローカリゼーションが向上しました。",
+      "screenshots": [
+        "ワンタップでアイデアを保存",
+        "オリジナルの録音を保存する",
+        "保存されたテキストでメモを検索する",
+        "Apple Watchからキャプチャする"
+      ],
+      "keywords": "音声,レコーダー,オーディオ,メモ,アイデア,トランスクリプト,時計,ビデオ",
+      "name": "UhWhat?: 音声メモ",
+      "subtitle": "ワンタップで音声メモ",
+      "privacyPolicyUrl": "https://arvectum.com/privacy.html"
+    },
+    "ko": {
+      "promotionalText": "생각을 오디오, 텍스트 또는 비디오로 캡처하세요. 원본이 보존된 iPhone 및 Apple Watch에서 한 번의 탭으로 음성 메모를 작성할 수 있습니다.",
+      "description": "아이디어가 사라지기 전에 포착하세요. UhWhat? 생각을 쉽게 포착하고 다시 확인할 수 있습니다.\n\n빠른 녹음: iPhone 또는 Apple Watch에 음성 메모를 녹음하세요. 원본 오디오를 유지하세요.\n\n텍스트 및 비디오: iPhone에서 메모를 작성하거나 비디오를 녹화한 다음 저장된 텍스트를 검색하세요.\n\n전사: 기기 내 음성 인식이 지원되는 경우 녹음 내용을 텍스트로 변환합니다. 앱 인터페이스 언어와 음성 인식 언어는 별개입니다.\n\n시계: iPhone이 저장을 확인할 때까지 오디오는 시계 전송 대기열에 유지됩니다. 백그라운드 전달이 지연될 수 있습니다.\n\n메모와 미디어는 귀하의 장치에서 처리됩니다. 음성 인식 가능 여부는 iOS 및 선택한 언어에 따라 다릅니다.",
+      "whatsNew": "향상된 녹음 안정성, 복구 지침 및 iPhone, Apple Watch 및 위젯 인터페이스 현지화.",
+      "screenshots": [
+        "탭 한 번으로 아이디어 저장",
+        "원본 녹음을 유지하세요",
+        "저장된 텍스트로 메모 찾기",
+        "Apple Watch에서 캡처"
+      ],
+      "keywords": "음성,녹음,오디오,메모,아이디어,받아쓰기,시계,동영상,검색",
+      "name": "UhWhat?: 음성 메모",
+      "subtitle": "한 번의 탭으로 음성 녹음",
+      "privacyPolicyUrl": "https://arvectum.com/privacy.html"
+    },
+    "pt-BR": {
+      "promotionalText": "Capture pensamentos como áudio, texto ou vídeo. Notas de voz com um toque no iPhone e no Apple Watch, com os originais preservados.",
+      "description": "Pegue uma ideia antes que ela desapareça. UhWhat? torna mais fácil capturar pensamentos e revisitá-los.\n\nGRAVAÇÃO RÁPIDA: grave notas de voz no iPhone ou Apple Watch. Mantenha o áudio original.\n\nTEXTO E VÍDEO: escreva notas ou grave vídeos no iPhone e pesquise o texto salvo.\n\nTRANSCRIÇÃO: onde o reconhecimento de fala no dispositivo for compatível, converta as gravações em texto. O idioma da interface do aplicativo e o idioma de reconhecimento de fala são separados.\n\nASSISTIR: o áudio permanece na fila de transferência do relógio até que o iPhone confirme o salvamento. A entrega em segundo plano pode ser atrasada.\n\nNotas e mídia são gerenciadas em seus dispositivos. A disponibilidade do reconhecimento de fala depende do iOS e do idioma selecionado.",
+      "whatsNew": "Maior confiabilidade de gravação, orientação de recuperação e localização de interface de iPhone, Apple Watch e widget.",
+      "screenshots": [
+        "Um toque para salvar uma ideia",
+        "Mantenha suas gravações originais",
+        "Encontre notas por texto salvo",
+        "Capturar do Apple Watch"
+      ],
+      "keywords": "voz,gravador,áudio,memorandos,ideias,transcrição,assistir,notas,vídeo,pesquisa,privado",
+      "name": "UhWhat?: notas de voz",
+      "subtitle": "Grave ideias com um toque",
+      "privacyPolicyUrl": "https://arvectum.com/privacy.html"
+    },
+    "pt-PT": {
+      "promotionalText": "Capte pensamentos como áudio, texto ou vídeo. Notas de voz com um toque no iPhone e no Apple Watch, com os originais preservados.",
+      "description": "Pegue numa ideia antes que desapareça. UhWhat? torna mais fácil captar pensamentos e revisitá-los.\n\nGRAVAÇÃO RÁPIDA: grave notas de voz no iPhone ou Apple Watch. Mantenha o áudio original.\n\nTEXTO E VÍDEO: escreva notas ou grave vídeos no iPhone e pesquise o texto guardado.\n\nTRANSCRIÇÃO: quando o reconhecimento de voz no dispositivo for compatível, converta as gravações em texto. O idioma da interface da aplicação e o idioma de reconhecimento de voz são separados.\n\nASSISTIR: o áudio permanece na fila de transferência do relógio até que o iPhone confirme a gravação. A entrega em segundo plano pode ser atrasada.\n\nAs notas e os suportes são geridos em seus dispositivos. A disponibilidade do reconhecimento de voz depende do iOS e do idioma selecionado.",
+      "whatsNew": "Maior fiabilidade de gravação, orientação de recuperação e localização da interface do iPhone, Apple Watch e widget.",
+      "screenshots": [
+        "Um toque para guardar uma ideia",
+        "Mantenha as suas gravações originais",
+        "Encontrar notas por texto guardado",
+        "Capturar do Apple Watch"
+      ],
+      "keywords": "voz,gravador,áudio,memorandos,ideias,transcrição,assistir,notas,vídeo,pesquisa,privado",
+      "name": "UhWhat?: notas de voz",
+      "subtitle": "Grave ideias com um toque",
+      "privacyPolicyUrl": "https://arvectum.com/privacy.html"
+    },
+    "zh-Hans": {
+      "promotionalText": "将想法捕捉为音频、文本或视频。在 iPhone 和 Apple Watch 上一键语音记事，并保留您的原始语音记事。",
+      "description": "在想法消失之前抓住它。UhWhat?可以轻松捕捉想法并重新审视它们。\n\n快速录音：在 iPhone 或 Apple Watch 上录制语音笔记。保留原始音频。\n\n文本和视频：在 iPhone 上写笔记或录制视频，然后搜索保存的文本。\n\n转录：在支持设备上语音识别的情况下，将录音转换为文本。您的应用程序界面语言和语音识别语言是分开的。\n\nWATCH：音频保留在手表传输队列中，直到 iPhone 确认保存。后台传送可能会延迟。\n\n笔记和媒体在您的设备上处理。语音识别的可用性取决于 iOS 和您选择的语言。",
+      "whatsNew": "改进了记录可靠性、恢复指导以及 iPhone、Apple Watch 和小部件界面本地化。",
+      "screenshots": [
+        "一键保存想法",
+        "保留您的原始录音",
+        "通过保存的文本查找笔记",
+        "从 Apple Watch 捕捉"
+      ],
+      "keywords": "语音,录音机,音频,备忘录,想法,成绩单,观看,笔记,视频,搜索,私人",
+      "name": "UhWhat?: 语音笔记",
+      "subtitle": "一键记录灵感",
+      "privacyPolicyUrl": "https://arvectum.com/privacy.html"
+    },
+    "zh-Hant": {
+      "promotionalText": "將想法捕捉為音訊、文字或視訊。在 iPhone 和 Apple Watch 上一鍵語音記事，並保留您的原始語音記事。",
+      "description": "在想法消失之前抓住它。UhWhat?可以輕鬆捕捉想法並重新審視它們。\n\n快速錄音：在 iPhone 或 Apple Watch 上錄製語音筆記。保留原始音訊。\n\n文字和視頻：在 iPhone 上寫筆記或錄製視頻，然後搜尋已儲存的文字。\n\n轉錄：在支援設備上語音辨識的情況下，將錄音轉換為文字。您的應用程式介面語言和語音辨識語言是分開的。\n\nWATCH：音訊保留在手錶傳輸佇列中，直到 iPhone 確認儲存。後台傳送可能會延遲。\n\n筆記和媒體在您的裝置上處理。語音辨識的可用性取決於 iOS 和您選擇的語言。",
+      "whatsNew": "改進了記錄可靠性、恢復指導以及 iPhone、Apple Watch 和小部件介面本地化。",
+      "screenshots": [
+        "一鍵保存想法",
+        "保留您的原始錄音",
+        "透過儲存的文字來尋找筆記",
+        "從 Apple Watch 捕捉"
+      ],
+      "keywords": "語音,錄音機,音訊,備忘錄,想法,成績單,觀看,筆記,影片,搜尋,私人",
+      "name": "UhWhat?: 語音筆記",
+      "subtitle": "一鍵記錄靈感",
+      "privacyPolicyUrl": "https://arvectum.com/privacy.html"
+    }
+  }
+}

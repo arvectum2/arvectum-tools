@@ -1,5 +1,12 @@
 # Arvectum Tools — Growth Roadmap
 
+## C10 — полный draft ASO 4×16 (26.10.2026)
+
+- [x] Подготовлены 64 комплекта текстовых карточек (названия/подзаголовки/keywords/описания/промо/What's New) и 256 подписей к экранам; 64/64 metadata validation PASS.
+- [x] Pushkin RU: настоящий iPhone screenshot 1320×2868 для истории/источников/настроек, native UI 3/3 PASS.
+- [ ] Скриншоты остальных локалей + iPad там, где поддерживается, native-speaker QA, App Store Connect read-only перед выпуском; **433 из 448** image slots ещё открыты.
+- [ ] Никаких live metadata changes без конкретного согласия и version/build/hash. [Сводка](../core/docs/EDITORIAL_ASO_C10_2026-10-26.md).
+
 ## C9 — ASO App Store (26.10.2026)
 
 - [x] 48 реальных карточек (12 стран × 4 приложения): названия, подзаголовки, категории, описания, первые изображения и языки публичных бинарников.

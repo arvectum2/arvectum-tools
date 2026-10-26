@@ -1,0 +1,316 @@
+[
+  {
+    "app": "photo",
+    "locale": "es-ES",
+    "backTranslation": "PHOTOS: Choose a limit, such as 100 KB, 500 KB, or 1 MB, and check the result.\nPDF: Compress documents for uploading. Strong compression can turn pages into images and disable text search.\nDIMENSIONS: Adjust width and height in pixels and export JPEG, PNG or HEIC in supported modes.\nDOCUMENTS: technical adjustments for certain international passport and visa photos; official acceptance is not guaranteed.\nBEFORE AND AFTER: Compare the result and remove EXIF ​​or location data if you want. Files are processed on the device. Ads may use the internet, but files are not sent for processing.",
+    "missingAnchors": [],
+    "status": "HEURISTIC_OK"
+  },
+  {
+    "app": "photo",
+    "locale": "es-MX",
+    "backTranslation": "Includes some technical photo templates for international documents and visas. It does not guarantee that a photo will be accepted. Strong PDF compression can convert text to image. Files are processed locally; the internet can be used to display advertisements.",
+    "missingAnchors": [],
+    "status": "HEURISTIC_OK"
+  },
+  {
+    "app": "photo",
+    "locale": "fr-FR",
+    "backTranslation": "PHOTOS: Choose 100 KB, 500 KB, 1 MB or a custom limit and check the result.\nPDF: Compress a document to send it. Heavy compression can turn pages into images, with no selectable text.\nDIMENSIONS: Adjust the width and height in pixels and export to JPEG, PNG or HEIC where possible.\nIDENTITY: technical presets for certain international passports and visas, without guarantee of acceptance.\nBEFORE/AFTER: compare and delete EXIF ​​and location data if necessary. Files are processed on the device. The Internet can be used to display advertising.",
+    "missingAnchors": [],
+    "status": "HEURISTIC_OK"
+  },
+  {
+    "app": "photo",
+    "locale": "de-DE",
+    "backTranslation": "PHOTOS: Choose 100 KB, 500 KB, 1 MB or your own limit and check the file size.\nPDF: Compress files for uploads. Heavy compression can rasterize pages, making text unsearchable.\nIMAGES: Set pixel dimensions and export JPEG, PNG or HEIC depending on the mode.\nDOCUMENT PHOTOS: technical templates for selected international ID cards and visas; no guarantee of official recognition.\nBEFORE/AFTER: Compare the results and optionally remove EXIF ​​and location data. Processing takes place on the device. Internet access may be required for advertising.",
+    "missingAnchors": [],
+    "status": "HEURISTIC_OK"
+  },
+  {
+    "app": "photo",
+    "locale": "it",
+    "backTranslation": "Technical presets are available for some international passports and visas, with no guarantee of acceptance by authorities. Strong PDF compression can turn pages into unsearchable images. Everything is processed on the device; the network can be used for advertisements.",
+    "missingAnchors": [
+      "file"
+    ],
+    "status": "FLAG_FOR_EDITOR"
+  },
+  {
+    "app": "photo",
+    "locale": "ja",
+    "backTranslation": "Compression of photos: Specify the upper limit such as 100KB, 500KB, 1MB, etc. and check the size after output.\nCompress PDF: Reduce the size of PDF for submission. Strong compression may turn the page into an image, making it impossible to search or select text.\nImage resizing: specify width and height in pixels. In supported modes, you can save in JPEG, PNG, and HEIC.\nID photo: Technical sizing for passports and visas for some countries. Acceptance by public institutions is not guaranteed.\nCompares before and after processing, and also supports deletion of EXIF ​​and location information. Processing is done within the terminal. Communications may be used to display advertisements.",
+    "missingAnchors": [
+      "file"
+    ],
+    "status": "FLAG_FOR_EDITOR"
+  },
+  {
+    "app": "photo",
+    "locale": "ko",
+    "backTranslation": "We provide technical standard presets for some overseas passport and visa photos. Acceptance of submission by government agencies is not guaranteed. Highly compressing a PDF can turn pages into images, making text unselectable and searchable. Files are processed on the device. You can use the Internet for advertising.",
+    "missingAnchors": [],
+    "status": "HEURISTIC_OK"
+  },
+  {
+    "app": "photo",
+    "locale": "pt-BR",
+    "backTranslation": "PHOTOS: choose 100 KB, 500 KB, 1 MB or a custom limit and check the result.\nPDF: shrink the file to attach. Strong compression can turn pages into images and remove text selection.\nIMAGES: Adjust pixel dimensions and export JPEG, PNG, or HEIC in supported modes.\nDOCUMENTS: technical templates for some passport and visa photos, without guarantee of official acceptance.\nBEFORE/AFTER: check the result and remove EXIF ​​and location if you want. Processing takes place on the device. The internet can be used for advertisements, never for processing files.",
+    "missingAnchors": [],
+    "status": "HEURISTIC_OK"
+  },
+  {
+    "app": "photo",
+    "locale": "pt-PT",
+    "backTranslation": "Set 100 KB, 500 KB, 1 MB or other limit; compress PDF; adjust dimensions in pixels; Compare the before and after and export JPEG, PNG or HEIC when available. There are technical presets for some photographs of international documents, with no guarantee of acceptance. Heavy PDF compression can convert pages to images and prevent text selection. Processing happens on the device; the internet can be used for advertising.",
+    "missingAnchors": [
+      "file"
+    ],
+    "status": "FLAG_FOR_EDITOR"
+  },
+  {
+    "app": "photo",
+    "locale": "zh-Hans",
+    "backTranslation": "Files are processed on the device. No account required. Advertising can use the Internet, but files will not be uploaded for processing. Advertising & Privacy: Photos and PDFs are not sent to ad networks. The Advertising SDK may collect technical device data, including identifiers; see Privacy Policy.",
+    "missingAnchors": [],
+    "status": "HEURISTIC_OK"
+  },
+  {
+    "app": "photo",
+    "locale": "zh-Hant",
+    "backTranslation": "Files are processed on the device. No account required. AD can use the Internet but will not upload files for processing. Advertising & Privacy: Photos and PDFs are not sent to advertising networks. The Advertising SDK may collect technical device data, including identifiers; see Privacy Policy.",
+    "missingAnchors": [],
+    "status": "HEURISTIC_OK"
+  },
+  {
+    "app": "pushkin",
+    "locale": "es-ES",
+    "backTranslation": "PRIVATE: Message content remains locally on your iPhone. A PUSHKIN cloud account is not required. Capturing a notification depends on the automation enabled and the capabilities of iOS shortcuts. PUSHKIN is not a universal notification logger.",
+    "missingAnchors": [],
+    "status": "HEURISTIC_OK"
+  },
+  {
+    "app": "pushkin",
+    "locale": "es-MX",
+    "backTranslation": "PRIVATE: Message content remains locally on your iPhone. A PUSHKIN cloud account is not required. Capturing a notification depends on the automation enabled and the capabilities of iOS shortcuts. PUSHKIN is not a universal notification logger.",
+    "missingAnchors": [],
+    "status": "HEURISTIC_OK"
+  },
+  {
+    "app": "pushkin",
+    "locale": "fr-FR",
+    "backTranslation": "PRIVATE: Message content stays locally on your iPhone. No POUCHKINE cloud account is required. Capturing a notification depends on enabled automation and iOS Shortcuts capabilities. POUCHKINE is not a universal notification recorder.",
+    "missingAnchors": [],
+    "status": "HEURISTIC_OK"
+  },
+  {
+    "app": "pushkin",
+    "locale": "de-DE",
+    "backTranslation": "PRIVATE: Message content stays local to your iPhone. No PUSHKIN cloud account is required. Capturing a notification depends on enabled automation and iOS shortcuts capabilities. PUSHKIN is not a universal notification logger.",
+    "missingAnchors": [],
+    "status": "HEURISTIC_OK"
+  },
+  {
+    "app": "pushkin",
+    "locale": "it",
+    "backTranslation": "PRIVATE: The message content remains locally on your iPhone. No PUSHKIN cloud account is required. Getting a notification depends on the automation enabled and iOS Shortcuts capabilities. PUSHKIN is not a universal notification recorder.",
+    "missingAnchors": [],
+    "status": "HEURISTIC_OK"
+  },
+  {
+    "app": "pushkin",
+    "locale": "ja",
+    "backTranslation": "Private: Message content remains locally on your iPhone. No PUSHKIN cloud account required. Capturing notifications depends on the functionality of enabled automations and iOS shortcuts. PUSHKIN is not a general purpose notification logger.",
+    "missingAnchors": [],
+    "status": "HEURISTIC_OK"
+  },
+  {
+    "app": "pushkin",
+    "locale": "ko",
+    "backTranslation": "Private: Message content remains local to your iPhone. No PUSHKIN cloud account required. Notification capture depends on enabled automation and iOS shortcut features. PUSHKIN is not a general purpose notification logger.",
+    "missingAnchors": [],
+    "status": "HEURISTIC_OK"
+  },
+  {
+    "app": "pushkin",
+    "locale": "pt-BR",
+    "backTranslation": "PRIVATE: Message content remains locally on your iPhone. No PUSHKIN cloud account required. Capturing a notification depends on enabled automation and iOS Shortcuts capabilities. PUSHKIN is not a universal notification logger.",
+    "missingAnchors": [],
+    "status": "HEURISTIC_OK"
+  },
+  {
+    "app": "pushkin",
+    "locale": "pt-PT",
+    "backTranslation": "PRIVATE: Message content remains locally on your iPhone. No PUSHKIN cloud account required. Capturing a notification depends on whether automation is enabled and iOS shortcuts features. PUSHKIN is not a universal notification registry.",
+    "missingAnchors": [],
+    "status": "HEURISTIC_OK"
+  },
+  {
+    "app": "pushkin",
+    "locale": "zh-Hans",
+    "backTranslation": "Private: Message content remains local to your iPhone. No PUSHKIN cloud account required. Capturing notifications depends on enabled automation and the functionality of iOS shortcuts. PUSHKIN is not a universal notification logger.",
+    "missingAnchors": [],
+    "status": "HEURISTIC_OK"
+  },
+  {
+    "app": "pushkin",
+    "locale": "zh-Hant",
+    "backTranslation": "Private: Message content remains local to your iPhone. No PUSHKIN cloud account required. Capturing notifications depends on enabled automation and the functionality of iOS shortcuts. PUSHKIN is not a universal notification logger.",
+    "missingAnchors": [],
+    "status": "HEURISTIC_OK"
+  },
+  {
+    "app": "what",
+    "locale": "es-ES",
+    "backTranslation": "WATCH: The audio remains in the watch's transfer queue until the iPhone confirms it has been saved. Background delivery may be delayed. Notes and media are handled on your devices. The availability of voice recognition depends on iOS and the selected language.",
+    "missingAnchors": [],
+    "status": "HEURISTIC_OK"
+  },
+  {
+    "app": "what",
+    "locale": "es-MX",
+    "backTranslation": "WATCH: The audio remains in the watch's transfer queue until the iPhone confirms it has been saved. Background delivery may be delayed. Notes and media are handled on your devices. The availability of voice recognition depends on iOS and the selected language.",
+    "missingAnchors": [],
+    "status": "HEURISTIC_OK"
+  },
+  {
+    "app": "what",
+    "locale": "fr-FR",
+    "backTranslation": "WATCH: Audio remains in the watch's transfer queue until iPhone confirms recording. Background delivery may be delayed. Notes and media are managed on your devices. Availability of voice recognition depends on iOS and selected language.",
+    "missingAnchors": [],
+    "status": "HEURISTIC_OK"
+  },
+  {
+    "app": "what",
+    "locale": "de-DE",
+    "backTranslation": "WATCH: Audio remains in the Watch transfer queue until iPhone confirms saving. Background delivery may be delayed. Notes and media are managed on your devices. The availability of speech recognition depends on iOS and the language you select.",
+    "missingAnchors": [],
+    "status": "HEURISTIC_OK"
+  },
+  {
+    "app": "what",
+    "locale": "it",
+    "backTranslation": "WATCH: Audio remains in the Watch's transfer queue until your iPhone confirms saving. Wallpaper delivery may be delayed. Notes and media are managed on your devices. The availability of voice recognition depends on iOS and the selected language.",
+    "missingAnchors": [],
+    "status": "HEURISTIC_OK"
+  },
+  {
+    "app": "what",
+    "locale": "ja",
+    "backTranslation": "WATCH: Audio remains in the Watch transfer queue until your iPhone confirms the save. Background delivery may be delayed. Notes and media are processed on your device. Speech recognition availability depends on iOS and language selected.",
+    "missingAnchors": [],
+    "status": "HEURISTIC_OK"
+  },
+  {
+    "app": "what",
+    "locale": "ko",
+    "backTranslation": "Clock: Audio stays in the Clock transfer queue until iPhone confirms storage. Background delivery may be delayed. Notes and media are handled on your device. Speech recognition availability varies depending on iOS and selected language.",
+    "missingAnchors": [],
+    "status": "HEURISTIC_OK"
+  },
+  {
+    "app": "what",
+    "locale": "pt-BR",
+    "backTranslation": "WATCH: The audio remains in the watch's transfer queue until your iPhone confirms the save. Background delivery may be delayed. Notes and media are managed across your devices. Availability of speech recognition depends on iOS and the selected language.",
+    "missingAnchors": [],
+    "status": "HEURISTIC_OK"
+  },
+  {
+    "app": "what",
+    "locale": "pt-PT",
+    "backTranslation": "WATCH: Audio remains in the watch's transfer queue until your iPhone confirms recording. Background delivery may be delayed. Notes and media are managed on your devices. Availability of speech recognition depends on iOS and the selected language.",
+    "missingAnchors": [],
+    "status": "HEURISTIC_OK"
+  },
+  {
+    "app": "what",
+    "locale": "zh-Hans",
+    "backTranslation": "WATCH: Audio remains in the watch transfer queue until iPhone confirms the save. Background transfers may be delayed. Notes and media are processed on your device. Speech recognition availability depends on iOS and the language you choose.",
+    "missingAnchors": [],
+    "status": "HEURISTIC_OK"
+  },
+  {
+    "app": "what",
+    "locale": "zh-Hant",
+    "backTranslation": "WATCH: The message remains in the watch transfer queue until iPhone confirms the save. Background transfers may be delayed. Notes and media are processed on your device. Speech recognition availability depends on iOS and the language you choose.",
+    "missingAnchors": [],
+    "status": "HEURISTIC_OK"
+  },
+  {
+    "app": "chickmark",
+    "locale": "es-ES",
+    "backTranslation": "APPLE HEALTH OPTIONAL: Connect selected activity goals or enable water intake export when you explicitly allow access. PRIVACY: Habits are saved locally, with optional Apple services for supported features. The free app may display advertisements. Please read the privacy policy for details of advertising data.",
+    "missingAnchors": [],
+    "status": "HEURISTIC_OK"
+  },
+  {
+    "app": "chickmark",
+    "locale": "es-MX",
+    "backTranslation": "APPLE HEALTH OPTIONAL: Connect selected activity goals or enable water intake export when you explicitly allow access. PRIVACY: Habits are saved locally, with optional Apple services for supported features. The free app may display advertisements. Please read the privacy policy for details of advertising data.",
+    "missingAnchors": [],
+    "status": "HEURISTIC_OK"
+  },
+  {
+    "app": "chickmark",
+    "locale": "fr-FR",
+    "backTranslation": "OPTIONAL APPLE HEALTH: Connect selected activity goals or enable water consumption export when you explicitly allow access. PRIVACY: Habits are saved locally, with optional Apple services for supported features. The free application may display advertisements. Read the privacy policy for more details on advertising data.",
+    "missingAnchors": [],
+    "status": "HEURISTIC_OK"
+  },
+  {
+    "app": "chickmark",
+    "locale": "de-DE",
+    "backTranslation": "OPTIONAL APPLE HEALTH: Link selected activity goals or enable water intake export if you explicitly allow access. PRIVACY: Habits are stored locally, with optional Apple services for supported features. The free app may display advertisements. For details on advertising data, please see the privacy policy.",
+    "missingAnchors": [],
+    "status": "HEURISTIC_OK"
+  },
+  {
+    "app": "chickmark",
+    "locale": "it",
+    "backTranslation": "OPTIONAL APPLE HEALTH: Link selected activity goals or enable water intake export when you explicitly allow access. PRIVACY: Habits are saved locally, with optional Apple Services for supported features. The free app may display ads. Read the privacy policy for details on advertising data.",
+    "missingAnchors": [],
+    "status": "HEURISTIC_OK"
+  },
+  {
+    "app": "chickmark",
+    "locale": "ja",
+    "backTranslation": "Optional APPLE HEALTH: Enable water intake export if you connect the selected activity goal or explicitly allow access. Privacy: Habits are stored locally and optional Apple services are used for supported features. Free apps may display advertisements. For more information about advertising data, please read our privacy policy.",
+    "missingAnchors": [],
+    "status": "HEURISTIC_OK"
+  },
+  {
+    "app": "chickmark",
+    "locale": "ko",
+    "backTranslation": "Optional APPLE HEALTH: Enables export of water intake when linking selected activity goals or explicitly allowing access. Privacy: Habits are stored locally through optional Apple services for supported features. Free apps may display ads. Read our privacy policy for advertising data details.",
+    "missingAnchors": [],
+    "status": "HEURISTIC_OK"
+  },
+  {
+    "app": "chickmark",
+    "locale": "pt-BR",
+    "backTranslation": "OPTIONAL APPLE HEALTH: Connect selected activity goals or enable water intake export when you explicitly allow access. PRIVACY: Habits are saved locally, with optional Apple services for supported features. The free app may display advertisements. Please read the privacy policy for details about advertising data.",
+    "missingAnchors": [],
+    "status": "HEURISTIC_OK"
+  },
+  {
+    "app": "chickmark",
+    "locale": "pt-PT",
+    "backTranslation": "OPTIONAL APPLE HEALTH: Turn on selected activity goals or enable water intake export when explicitly allowing access. PRIVACY: Habits are saved locally, with optional Apple services for supported features. The free application may display advertisements. Please read the privacy policy for details about advertising data.",
+    "missingAnchors": [],
+    "status": "HEURISTIC_OK"
+  },
+  {
+    "app": "chickmark",
+    "locale": "zh-Hans",
+    "backTranslation": "Optional Apple Health: Connect selected activity goals or enable water intake export when you explicitly allow access. Privacy: Habits are saved locally with the option of supporting Apple services. Free apps may display ads. Please read the privacy policy for advertising data details.",
+    "missingAnchors": [],
+    "status": "HEURISTIC_OK"
+  },
+  {
+    "app": "chickmark",
+    "locale": "zh-Hant",
+    "backTranslation": "Optional Apple Health: Connect selected activity goals or enable water intake export when you explicitly allow access. Privacy: Habits are saved locally and optionally supported by Apple services. Free apps may display ads. Please read the Privacy Policy for details on advertising data.",
+    "missingAnchors": [],
+    "status": "HEURISTIC_OK"
+  }
+]

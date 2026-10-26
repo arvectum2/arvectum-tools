@@ -1,5 +1,7 @@
 # Arvectum Tools — Roadmap Registry
 
+[**C10: 64 черновых карточки / 16 регионов; редакторская сверка 10 237 строк**](docs/EDITORIAL_ASO_C10_2026-10-26.md).
+
 [**C9: 12/20 локализаций в 4/4 продуктах и ASO-аудит 48 карточек**](docs/LOCALIZATION_C9_2026-10-26.md).
 
 [**Проверенный C8 статус локализаций 26.10: 11/20 Tier 1, KO 2/4; source ≠ App Store**](docs/LOCALIZATION_STATUS_2026-10-26.md).

@@ -1,0 +1,4074 @@
+{
+  "status": "STAGED_ONLY_NOT_UPLOADED",
+  "scope": "Native iPhone/iPad actual UI captures; no synthetic text overlays over the wrong UI",
+  "date": "2026-10-26",
+  "apps": {
+    "photo": {
+      "locales": 16,
+      "slots": [
+        {
+          "locale": "ru",
+          "device": "iphone-6.9",
+          "position": 1,
+          "headline": "2,92 МБ → 472 КБ",
+          "requiredNativeLocale": "ru",
+          "status": "DRAFT_CAPTURE_REQUIRES_FINAL_RC_REFRESH",
+          "path": "photo-pdf-to-size/store-assets/appstore/review-20261026/ru/iphone-6.9/01-photo-kb.jpg",
+          "sha256": "93f2fcc69172d8022b4ecc32b3585b131ba9aa5522719ae85d0c63329af220c2"
+        },
+        {
+          "locale": "ru",
+          "device": "iphone-6.9",
+          "position": 2,
+          "headline": "5184×3456 → 600×400 px",
+          "requiredNativeLocale": "ru",
+          "status": "DRAFT_CAPTURE_REQUIRES_FINAL_RC_REFRESH",
+          "path": "photo-pdf-to-size/store-assets/appstore/review-20261026/ru/iphone-6.9/02-pixel-dimensions.jpg",
+          "sha256": "ee4363f681d5273a7ddf21632efe032cfac3047f66ca836e0da6036df18b7590"
+        },
+        {
+          "locale": "ru",
+          "device": "iphone-6.9",
+          "position": 3,
+          "headline": "Виза Китая и фото на документы",
+          "requiredNativeLocale": "ru",
+          "status": "DRAFT_CAPTURE_REQUIRES_FINAL_RC_REFRESH",
+          "path": "photo-pdf-to-size/store-assets/appstore/review-20261026/ru/iphone-6.9/03-visa-presets.jpg",
+          "sha256": "7674ae3bb7e70bc0999b61de9486c1474aa167ed6a9224fc21cc95c5728fb800"
+        },
+        {
+          "locale": "ru",
+          "device": "iphone-6.9",
+          "position": 4,
+          "headline": "PDF до заданного лимита",
+          "requiredNativeLocale": "ru",
+          "status": "DRAFT_CAPTURE_REQUIRES_FINAL_RC_REFRESH",
+          "path": "photo-pdf-to-size/store-assets/appstore/review-20261026/ru/iphone-6.9/04-pdf-kb.jpg",
+          "sha256": "96a0b7f7504476af4996e0b5fd04e0ae37a992d2ce5c4b0671d48ec68d2af7b0"
+        },
+        {
+          "locale": "ru",
+          "device": "ipad-13",
+          "position": 1,
+          "headline": "2,92 МБ → 472 КБ",
+          "requiredNativeLocale": "ru",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "ru",
+          "device": "ipad-13",
+          "position": 2,
+          "headline": "5184×3456 → 600×400 px",
+          "requiredNativeLocale": "ru",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "ru",
+          "device": "ipad-13",
+          "position": 3,
+          "headline": "Виза Китая и фото на документы",
+          "requiredNativeLocale": "ru",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "ru",
+          "device": "ipad-13",
+          "position": 4,
+          "headline": "PDF до заданного лимита",
+          "requiredNativeLocale": "ru",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-US",
+          "device": "iphone-6.9",
+          "position": 1,
+          "headline": "2.92 MB → 472 KB",
+          "requiredNativeLocale": "en",
+          "status": "DRAFT_CAPTURE_REQUIRES_FINAL_RC_REFRESH",
+          "path": "photo-pdf-to-size/store-assets/appstore/review-20261026/en-US/iphone-6.9/01-photo-kb.jpg",
+          "sha256": "04e7610f7a87320ab5935f704435541e9b1b0d00f8028ff8d824755561841bca"
+        },
+        {
+          "locale": "en-US",
+          "device": "iphone-6.9",
+          "position": 2,
+          "headline": "5184×3456 → 600×400 px",
+          "requiredNativeLocale": "en",
+          "status": "DRAFT_CAPTURE_REQUIRES_FINAL_RC_REFRESH",
+          "path": "photo-pdf-to-size/store-assets/appstore/review-20261026/en-US/iphone-6.9/02-pixel-dimensions.jpg",
+          "sha256": "765104a59ae92170b399a1554a4e857d03e776adb71731215c8d000a30edd751"
+        },
+        {
+          "locale": "en-US",
+          "device": "iphone-6.9",
+          "position": 3,
+          "headline": "China visa & document photo sizes",
+          "requiredNativeLocale": "en",
+          "status": "DRAFT_CAPTURE_REQUIRES_FINAL_RC_REFRESH",
+          "path": "photo-pdf-to-size/store-assets/appstore/review-20261026/en-US/iphone-6.9/03-visa-presets.jpg",
+          "sha256": "35ec0dc216444dc1ec985da658bc970cd34c39863810a242ad3005a7ccc6dbd4"
+        },
+        {
+          "locale": "en-US",
+          "device": "iphone-6.9",
+          "position": 4,
+          "headline": "Shrink PDF to an upload limit",
+          "requiredNativeLocale": "en",
+          "status": "DRAFT_CAPTURE_REQUIRES_FINAL_RC_REFRESH",
+          "path": "photo-pdf-to-size/store-assets/appstore/review-20261026/en-US/iphone-6.9/04-pdf-kb.jpg",
+          "sha256": "5f57be7a75fdaf33e5d278b4bc0f1841bd67f78ce6e07a03d10e9208f1a08b5c"
+        },
+        {
+          "locale": "en-US",
+          "device": "ipad-13",
+          "position": 1,
+          "headline": "2.92 MB → 472 KB",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-US",
+          "device": "ipad-13",
+          "position": 2,
+          "headline": "5184×3456 → 600×400 px",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-US",
+          "device": "ipad-13",
+          "position": 3,
+          "headline": "China visa & document photo sizes",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-US",
+          "device": "ipad-13",
+          "position": 4,
+          "headline": "Shrink PDF to an upload limit",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-GB",
+          "device": "iphone-6.9",
+          "position": 1,
+          "headline": "2.92 MB → 472 KB",
+          "requiredNativeLocale": "en",
+          "status": "DRAFT_CAPTURE_REQUIRES_FINAL_RC_REFRESH",
+          "path": "photo-pdf-to-size/store-assets/appstore/review-20261026/en-GB/iphone-6.9/01-photo-kb.jpg",
+          "sha256": "04e7610f7a87320ab5935f704435541e9b1b0d00f8028ff8d824755561841bca"
+        },
+        {
+          "locale": "en-GB",
+          "device": "iphone-6.9",
+          "position": 2,
+          "headline": "5184×3456 → 600×400 px",
+          "requiredNativeLocale": "en",
+          "status": "DRAFT_CAPTURE_REQUIRES_FINAL_RC_REFRESH",
+          "path": "photo-pdf-to-size/store-assets/appstore/review-20261026/en-GB/iphone-6.9/02-pixel-dimensions.jpg",
+          "sha256": "765104a59ae92170b399a1554a4e857d03e776adb71731215c8d000a30edd751"
+        },
+        {
+          "locale": "en-GB",
+          "device": "iphone-6.9",
+          "position": 3,
+          "headline": "Visa & passport photo presets",
+          "requiredNativeLocale": "en",
+          "status": "DRAFT_CAPTURE_REQUIRES_FINAL_RC_REFRESH",
+          "path": "photo-pdf-to-size/store-assets/appstore/review-20261026/en-GB/iphone-6.9/03-visa-presets.jpg",
+          "sha256": "26ff777fc519fb8a359286761ff7afb4d1acbdf44feb166053b46184db7f7c48"
+        },
+        {
+          "locale": "en-GB",
+          "device": "iphone-6.9",
+          "position": 4,
+          "headline": "PDF to a chosen file limit",
+          "requiredNativeLocale": "en",
+          "status": "DRAFT_CAPTURE_REQUIRES_FINAL_RC_REFRESH",
+          "path": "photo-pdf-to-size/store-assets/appstore/review-20261026/en-GB/iphone-6.9/04-pdf-kb.jpg",
+          "sha256": "0f624c502d24fe98848020b0a41071b3f29480a39de16bdb5628031ba915ca93"
+        },
+        {
+          "locale": "en-GB",
+          "device": "ipad-13",
+          "position": 1,
+          "headline": "2.92 MB → 472 KB",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-GB",
+          "device": "ipad-13",
+          "position": 2,
+          "headline": "5184×3456 → 600×400 px",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-GB",
+          "device": "ipad-13",
+          "position": 3,
+          "headline": "Visa & passport photo presets",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-GB",
+          "device": "ipad-13",
+          "position": 4,
+          "headline": "PDF to a chosen file limit",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-AU",
+          "device": "iphone-6.9",
+          "position": 1,
+          "headline": "2.92 MB → 472 KB",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-AU",
+          "device": "iphone-6.9",
+          "position": 2,
+          "headline": "5184×3456 → 600×400 px",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-AU",
+          "device": "iphone-6.9",
+          "position": 3,
+          "headline": "Visa & passport photo presets",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-AU",
+          "device": "iphone-6.9",
+          "position": 4,
+          "headline": "PDF to a chosen file limit",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-AU",
+          "device": "ipad-13",
+          "position": 1,
+          "headline": "2.92 MB → 472 KB",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-AU",
+          "device": "ipad-13",
+          "position": 2,
+          "headline": "5184×3456 → 600×400 px",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-AU",
+          "device": "ipad-13",
+          "position": 3,
+          "headline": "Visa & passport photo presets",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-AU",
+          "device": "ipad-13",
+          "position": 4,
+          "headline": "PDF to a chosen file limit",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-CA",
+          "device": "iphone-6.9",
+          "position": 1,
+          "headline": "2.92 MB → 472 KB",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-CA",
+          "device": "iphone-6.9",
+          "position": 2,
+          "headline": "5184×3456 → 600×400 px",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-CA",
+          "device": "iphone-6.9",
+          "position": 3,
+          "headline": "Visa & passport photo presets",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-CA",
+          "device": "iphone-6.9",
+          "position": 4,
+          "headline": "PDF to a chosen file limit",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-CA",
+          "device": "ipad-13",
+          "position": 1,
+          "headline": "2.92 MB → 472 KB",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-CA",
+          "device": "ipad-13",
+          "position": 2,
+          "headline": "5184×3456 → 600×400 px",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-CA",
+          "device": "ipad-13",
+          "position": 3,
+          "headline": "Visa & passport photo presets",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-CA",
+          "device": "ipad-13",
+          "position": 4,
+          "headline": "PDF to a chosen file limit",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "es-ES",
+          "device": "iphone-6.9",
+          "position": 1,
+          "headline": "2.92 MB → 472 KB",
+          "requiredNativeLocale": "es",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "es-ES",
+          "device": "iphone-6.9",
+          "position": 2,
+          "headline": "Cambia el tamaño en píxeles",
+          "requiredNativeLocale": "es",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "es-ES",
+          "device": "iphone-6.9",
+          "position": 3,
+          "headline": "Fotos para documentos",
+          "requiredNativeLocale": "es",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "es-ES",
+          "device": "iphone-6.9",
+          "position": 4,
+          "headline": "Reduce el tamaño de archivos PDF",
+          "requiredNativeLocale": "es",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "es-ES",
+          "device": "ipad-13",
+          "position": 1,
+          "headline": "2.92 MB → 472 KB",
+          "requiredNativeLocale": "es",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "es-ES",
+          "device": "ipad-13",
+          "position": 2,
+          "headline": "Cambia el tamaño en píxeles",
+          "requiredNativeLocale": "es",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "es-ES",
+          "device": "ipad-13",
+          "position": 3,
+          "headline": "Fotos para documentos",
+          "requiredNativeLocale": "es",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "es-ES",
+          "device": "ipad-13",
+          "position": 4,
+          "headline": "Reduce el tamaño de archivos PDF",
+          "requiredNativeLocale": "es",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "es-MX",
+          "device": "iphone-6.9",
+          "position": 1,
+          "headline": "2.92 MB → 472 KB",
+          "requiredNativeLocale": "es",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "es-MX",
+          "device": "iphone-6.9",
+          "position": 2,
+          "headline": "Ajusta los píxeles",
+          "requiredNativeLocale": "es",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "es-MX",
+          "device": "iphone-6.9",
+          "position": 3,
+          "headline": "Fotos para trámites",
+          "requiredNativeLocale": "es",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "es-MX",
+          "device": "iphone-6.9",
+          "position": 4,
+          "headline": "Baja el peso de tus PDF",
+          "requiredNativeLocale": "es",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "es-MX",
+          "device": "ipad-13",
+          "position": 1,
+          "headline": "2.92 MB → 472 KB",
+          "requiredNativeLocale": "es",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "es-MX",
+          "device": "ipad-13",
+          "position": 2,
+          "headline": "Ajusta los píxeles",
+          "requiredNativeLocale": "es",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "es-MX",
+          "device": "ipad-13",
+          "position": 3,
+          "headline": "Fotos para trámites",
+          "requiredNativeLocale": "es",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "es-MX",
+          "device": "ipad-13",
+          "position": 4,
+          "headline": "Baja el peso de tus PDF",
+          "requiredNativeLocale": "es",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "fr-FR",
+          "device": "iphone-6.9",
+          "position": 1,
+          "headline": "2.92 MB → 472 KB",
+          "requiredNativeLocale": "fr",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "fr-FR",
+          "device": "iphone-6.9",
+          "position": 2,
+          "headline": "Dimensions en pixels",
+          "requiredNativeLocale": "fr",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "fr-FR",
+          "device": "iphone-6.9",
+          "position": 3,
+          "headline": "Photos pour documents",
+          "requiredNativeLocale": "fr",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "fr-FR",
+          "device": "iphone-6.9",
+          "position": 4,
+          "headline": "Réduisez les fichiers PDF",
+          "requiredNativeLocale": "fr",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "fr-FR",
+          "device": "ipad-13",
+          "position": 1,
+          "headline": "2.92 MB → 472 KB",
+          "requiredNativeLocale": "fr",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "fr-FR",
+          "device": "ipad-13",
+          "position": 2,
+          "headline": "Dimensions en pixels",
+          "requiredNativeLocale": "fr",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "fr-FR",
+          "device": "ipad-13",
+          "position": 3,
+          "headline": "Photos pour documents",
+          "requiredNativeLocale": "fr",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "fr-FR",
+          "device": "ipad-13",
+          "position": 4,
+          "headline": "Réduisez les fichiers PDF",
+          "requiredNativeLocale": "fr",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "de-DE",
+          "device": "iphone-6.9",
+          "position": 1,
+          "headline": "2.92 MB → 472 KB",
+          "requiredNativeLocale": "de",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "de-DE",
+          "device": "iphone-6.9",
+          "position": 2,
+          "headline": "Bildmaße in Pixeln ändern",
+          "requiredNativeLocale": "de",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "de-DE",
+          "device": "iphone-6.9",
+          "position": 3,
+          "headline": "Passfoto-Formate",
+          "requiredNativeLocale": "de",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "de-DE",
+          "device": "iphone-6.9",
+          "position": 4,
+          "headline": "PDF-Dateien auf KB verkleinern",
+          "requiredNativeLocale": "de",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "de-DE",
+          "device": "ipad-13",
+          "position": 1,
+          "headline": "2.92 MB → 472 KB",
+          "requiredNativeLocale": "de",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "de-DE",
+          "device": "ipad-13",
+          "position": 2,
+          "headline": "Bildmaße in Pixeln ändern",
+          "requiredNativeLocale": "de",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "de-DE",
+          "device": "ipad-13",
+          "position": 3,
+          "headline": "Passfoto-Formate",
+          "requiredNativeLocale": "de",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "de-DE",
+          "device": "ipad-13",
+          "position": 4,
+          "headline": "PDF-Dateien auf KB verkleinern",
+          "requiredNativeLocale": "de",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "it",
+          "device": "iphone-6.9",
+          "position": 1,
+          "headline": "2.92 MB → 472 KB",
+          "requiredNativeLocale": "it",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "it",
+          "device": "iphone-6.9",
+          "position": 2,
+          "headline": "Modifica le dimensioni in pixel",
+          "requiredNativeLocale": "it",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "it",
+          "device": "iphone-6.9",
+          "position": 3,
+          "headline": "Foto per documenti",
+          "requiredNativeLocale": "it",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "it",
+          "device": "iphone-6.9",
+          "position": 4,
+          "headline": "Riduci le dimensioni dei PDF",
+          "requiredNativeLocale": "it",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "it",
+          "device": "ipad-13",
+          "position": 1,
+          "headline": "2.92 MB → 472 KB",
+          "requiredNativeLocale": "it",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "it",
+          "device": "ipad-13",
+          "position": 2,
+          "headline": "Modifica le dimensioni in pixel",
+          "requiredNativeLocale": "it",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "it",
+          "device": "ipad-13",
+          "position": 3,
+          "headline": "Foto per documenti",
+          "requiredNativeLocale": "it",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "it",
+          "device": "ipad-13",
+          "position": 4,
+          "headline": "Riduci le dimensioni dei PDF",
+          "requiredNativeLocale": "it",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "ja",
+          "device": "iphone-6.9",
+          "position": 1,
+          "headline": "2.92 MB → 472 KB",
+          "requiredNativeLocale": "ja",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "ja",
+          "device": "iphone-6.9",
+          "position": 2,
+          "headline": "ピクセルでサイズ変更",
+          "requiredNativeLocale": "ja",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "ja",
+          "device": "iphone-6.9",
+          "position": 3,
+          "headline": "証明写真のサイズ設定",
+          "requiredNativeLocale": "ja",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "ja",
+          "device": "iphone-6.9",
+          "position": 4,
+          "headline": "PDFを指定サイズまで圧縮",
+          "requiredNativeLocale": "ja",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "ja",
+          "device": "ipad-13",
+          "position": 1,
+          "headline": "2.92 MB → 472 KB",
+          "requiredNativeLocale": "ja",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "ja",
+          "device": "ipad-13",
+          "position": 2,
+          "headline": "ピクセルでサイズ変更",
+          "requiredNativeLocale": "ja",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "ja",
+          "device": "ipad-13",
+          "position": 3,
+          "headline": "証明写真のサイズ設定",
+          "requiredNativeLocale": "ja",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "ja",
+          "device": "ipad-13",
+          "position": 4,
+          "headline": "PDFを指定サイズまで圧縮",
+          "requiredNativeLocale": "ja",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "ko",
+          "device": "iphone-6.9",
+          "position": 1,
+          "headline": "2.92 MB → 472 KB",
+          "requiredNativeLocale": "ko",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "ko",
+          "device": "iphone-6.9",
+          "position": 2,
+          "headline": "픽셀 크기 조절",
+          "requiredNativeLocale": "ko",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "ko",
+          "device": "iphone-6.9",
+          "position": 3,
+          "headline": "증명사진 규격",
+          "requiredNativeLocale": "ko",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "ko",
+          "device": "iphone-6.9",
+          "position": 4,
+          "headline": "PDF 파일 용량 줄이기",
+          "requiredNativeLocale": "ko",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "ko",
+          "device": "ipad-13",
+          "position": 1,
+          "headline": "2.92 MB → 472 KB",
+          "requiredNativeLocale": "ko",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "ko",
+          "device": "ipad-13",
+          "position": 2,
+          "headline": "픽셀 크기 조절",
+          "requiredNativeLocale": "ko",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "ko",
+          "device": "ipad-13",
+          "position": 3,
+          "headline": "증명사진 규격",
+          "requiredNativeLocale": "ko",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "ko",
+          "device": "ipad-13",
+          "position": 4,
+          "headline": "PDF 파일 용량 줄이기",
+          "requiredNativeLocale": "ko",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "pt-BR",
+          "device": "iphone-6.9",
+          "position": 1,
+          "headline": "2.92 MB → 472 KB",
+          "requiredNativeLocale": "pt-BR",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "pt-BR",
+          "device": "iphone-6.9",
+          "position": 2,
+          "headline": "Ajuste dimensões em pixels",
+          "requiredNativeLocale": "pt-BR",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "pt-BR",
+          "device": "iphone-6.9",
+          "position": 3,
+          "headline": "Fotos para documentos",
+          "requiredNativeLocale": "pt-BR",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "pt-BR",
+          "device": "iphone-6.9",
+          "position": 4,
+          "headline": "Reduza PDFs para enviar",
+          "requiredNativeLocale": "pt-BR",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "pt-BR",
+          "device": "ipad-13",
+          "position": 1,
+          "headline": "2.92 MB → 472 KB",
+          "requiredNativeLocale": "pt-BR",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "pt-BR",
+          "device": "ipad-13",
+          "position": 2,
+          "headline": "Ajuste dimensões em pixels",
+          "requiredNativeLocale": "pt-BR",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "pt-BR",
+          "device": "ipad-13",
+          "position": 3,
+          "headline": "Fotos para documentos",
+          "requiredNativeLocale": "pt-BR",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "pt-BR",
+          "device": "ipad-13",
+          "position": 4,
+          "headline": "Reduza PDFs para enviar",
+          "requiredNativeLocale": "pt-BR",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "pt-PT",
+          "device": "iphone-6.9",
+          "position": 1,
+          "headline": "2.92 MB → 472 KB",
+          "requiredNativeLocale": "pt-PT",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "pt-PT",
+          "device": "iphone-6.9",
+          "position": 2,
+          "headline": "Altere dimensões em píxeis",
+          "requiredNativeLocale": "pt-PT",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "pt-PT",
+          "device": "iphone-6.9",
+          "position": 3,
+          "headline": "Fotografias para documentos",
+          "requiredNativeLocale": "pt-PT",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "pt-PT",
+          "device": "iphone-6.9",
+          "position": 4,
+          "headline": "Reduza o tamanho dos PDF",
+          "requiredNativeLocale": "pt-PT",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "pt-PT",
+          "device": "ipad-13",
+          "position": 1,
+          "headline": "2.92 MB → 472 KB",
+          "requiredNativeLocale": "pt-PT",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "pt-PT",
+          "device": "ipad-13",
+          "position": 2,
+          "headline": "Altere dimensões em píxeis",
+          "requiredNativeLocale": "pt-PT",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "pt-PT",
+          "device": "ipad-13",
+          "position": 3,
+          "headline": "Fotografias para documentos",
+          "requiredNativeLocale": "pt-PT",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "pt-PT",
+          "device": "ipad-13",
+          "position": 4,
+          "headline": "Reduza o tamanho dos PDF",
+          "requiredNativeLocale": "pt-PT",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "zh-Hans",
+          "device": "iphone-6.9",
+          "position": 1,
+          "headline": "2.92 MB → 472 KB",
+          "requiredNativeLocale": "zh-Hans",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "zh-Hans",
+          "device": "iphone-6.9",
+          "position": 2,
+          "headline": "5184×3456→600×400像素",
+          "requiredNativeLocale": "zh-Hans",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "zh-Hans",
+          "device": "iphone-6.9",
+          "position": 3,
+          "headline": "中国签证和文件照片尺寸",
+          "requiredNativeLocale": "zh-Hans",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "zh-Hans",
+          "device": "iphone-6.9",
+          "position": 4,
+          "headline": "将 PDF 缩小到上传限制",
+          "requiredNativeLocale": "zh-Hans",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "zh-Hans",
+          "device": "ipad-13",
+          "position": 1,
+          "headline": "2.92 MB → 472 KB",
+          "requiredNativeLocale": "zh-Hans",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "zh-Hans",
+          "device": "ipad-13",
+          "position": 2,
+          "headline": "5184×3456→600×400像素",
+          "requiredNativeLocale": "zh-Hans",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "zh-Hans",
+          "device": "ipad-13",
+          "position": 3,
+          "headline": "中国签证和文件照片尺寸",
+          "requiredNativeLocale": "zh-Hans",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "zh-Hans",
+          "device": "ipad-13",
+          "position": 4,
+          "headline": "将 PDF 缩小到上传限制",
+          "requiredNativeLocale": "zh-Hans",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "zh-Hant",
+          "device": "iphone-6.9",
+          "position": 1,
+          "headline": "2.92 MB → 472 KB",
+          "requiredNativeLocale": "zh-Hant",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "zh-Hant",
+          "device": "iphone-6.9",
+          "position": 2,
+          "headline": "5184×3456→600×400像素",
+          "requiredNativeLocale": "zh-Hant",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "zh-Hant",
+          "device": "iphone-6.9",
+          "position": 3,
+          "headline": "中國簽證和文件照片尺寸",
+          "requiredNativeLocale": "zh-Hant",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "zh-Hant",
+          "device": "iphone-6.9",
+          "position": 4,
+          "headline": "將 PDF 縮小到上傳限制",
+          "requiredNativeLocale": "zh-Hant",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "zh-Hant",
+          "device": "ipad-13",
+          "position": 1,
+          "headline": "2.92 MB → 472 KB",
+          "requiredNativeLocale": "zh-Hant",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "zh-Hant",
+          "device": "ipad-13",
+          "position": 2,
+          "headline": "5184×3456→600×400像素",
+          "requiredNativeLocale": "zh-Hant",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "zh-Hant",
+          "device": "ipad-13",
+          "position": 3,
+          "headline": "中國簽證和文件照片尺寸",
+          "requiredNativeLocale": "zh-Hant",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "zh-Hant",
+          "device": "ipad-13",
+          "position": 4,
+          "headline": "將 PDF 縮小到上傳限制",
+          "requiredNativeLocale": "zh-Hant",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        }
+      ]
+    },
+    "pushkin": {
+      "locales": 16,
+      "slots": [
+        {
+          "locale": "ru",
+          "device": "iphone-6.9",
+          "position": 1,
+          "headline": "История уведомлений на iPhone",
+          "requiredNativeLocale": "ru",
+          "status": "NATIVE_SCREENSHOT_DRAFT_REQUIRES_FINAL_RC_REFRESH",
+          "path": "pushkin/store-assets/appstore/editorial-20261026/ru/iphone-6.9/01-history.png",
+          "sha256": "945330182afa745fd31e77a92b7964b73e5e15909dbbc4ce709284dab48d63c0"
+        },
+        {
+          "locale": "ru",
+          "device": "iphone-6.9",
+          "position": 2,
+          "headline": "Подключение через «Команды»",
+          "requiredNativeLocale": "ru",
+          "status": "NATIVE_SCREENSHOT_DRAFT_REQUIRES_FINAL_RC_REFRESH",
+          "path": "pushkin/store-assets/appstore/editorial-20261026/ru/iphone-6.9/02-sources.png",
+          "sha256": "e0daaa430fffdf7f38c79deb4a015810521670598044925c52d76b33bd1bb049"
+        },
+        {
+          "locale": "ru",
+          "device": "iphone-6.9",
+          "position": 3,
+          "headline": "Приватность и настройки",
+          "requiredNativeLocale": "ru",
+          "status": "NATIVE_SCREENSHOT_DRAFT_REQUIRES_FINAL_RC_REFRESH",
+          "path": "pushkin/store-assets/appstore/editorial-20261026/ru/iphone-6.9/03-settings.png",
+          "sha256": "d3d07a1781c5c206ebe73821e1176c31a19c258c053aa85dc93dd2ba2b404d8f"
+        },
+        {
+          "locale": "ru",
+          "device": "iphone-6.9",
+          "position": 4,
+          "headline": "Поиск по сообщениям",
+          "requiredNativeLocale": "ru",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-US",
+          "device": "iphone-6.9",
+          "position": 1,
+          "headline": "Find saved notifications",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-US",
+          "device": "iphone-6.9",
+          "position": 2,
+          "headline": "Set up via Apple Shortcuts",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-US",
+          "device": "iphone-6.9",
+          "position": 3,
+          "headline": "Privacy and settings",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-US",
+          "device": "iphone-6.9",
+          "position": 4,
+          "headline": "Search by app or message",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-GB",
+          "device": "iphone-6.9",
+          "position": 1,
+          "headline": "Find saved notifications",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-GB",
+          "device": "iphone-6.9",
+          "position": 2,
+          "headline": "Set up via Apple Shortcuts",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-GB",
+          "device": "iphone-6.9",
+          "position": 3,
+          "headline": "Privacy and settings",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-GB",
+          "device": "iphone-6.9",
+          "position": 4,
+          "headline": "Search by app or message",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-AU",
+          "device": "iphone-6.9",
+          "position": 1,
+          "headline": "Find saved notifications",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-AU",
+          "device": "iphone-6.9",
+          "position": 2,
+          "headline": "Set up via Apple Shortcuts",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-AU",
+          "device": "iphone-6.9",
+          "position": 3,
+          "headline": "Privacy and settings",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-AU",
+          "device": "iphone-6.9",
+          "position": 4,
+          "headline": "Search by app or message",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-CA",
+          "device": "iphone-6.9",
+          "position": 1,
+          "headline": "Find saved notifications",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-CA",
+          "device": "iphone-6.9",
+          "position": 2,
+          "headline": "Set up via Apple Shortcuts",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-CA",
+          "device": "iphone-6.9",
+          "position": 3,
+          "headline": "Privacy and settings",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-CA",
+          "device": "iphone-6.9",
+          "position": 4,
+          "headline": "Search by app or message",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "es-ES",
+          "device": "iphone-6.9",
+          "position": 1,
+          "headline": "Encuentra notificaciones guardadas",
+          "requiredNativeLocale": "es",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "es-ES",
+          "device": "iphone-6.9",
+          "position": 2,
+          "headline": "Configurar mediante accesos directos de Apple",
+          "requiredNativeLocale": "es",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "es-ES",
+          "device": "iphone-6.9",
+          "position": 3,
+          "headline": "Privacidad y configuración",
+          "requiredNativeLocale": "es",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "es-ES",
+          "device": "iphone-6.9",
+          "position": 4,
+          "headline": "Buscar por aplicación o mensaje",
+          "requiredNativeLocale": "es",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "es-MX",
+          "device": "iphone-6.9",
+          "position": 1,
+          "headline": "Encuentra notificaciones guardadas",
+          "requiredNativeLocale": "es",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "es-MX",
+          "device": "iphone-6.9",
+          "position": 2,
+          "headline": "Configurar mediante accesos directos de Apple",
+          "requiredNativeLocale": "es",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "es-MX",
+          "device": "iphone-6.9",
+          "position": 3,
+          "headline": "Privacidad y configuración",
+          "requiredNativeLocale": "es",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "es-MX",
+          "device": "iphone-6.9",
+          "position": 4,
+          "headline": "Buscar por aplicación o mensaje",
+          "requiredNativeLocale": "es",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "fr-FR",
+          "device": "iphone-6.9",
+          "position": 1,
+          "headline": "Rechercher des notifications enregistrées",
+          "requiredNativeLocale": "fr",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "fr-FR",
+          "device": "iphone-6.9",
+          "position": 2,
+          "headline": "Configuration via les raccourcis Apple",
+          "requiredNativeLocale": "fr",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "fr-FR",
+          "device": "iphone-6.9",
+          "position": 3,
+          "headline": "Confidentialité et paramètres",
+          "requiredNativeLocale": "fr",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "fr-FR",
+          "device": "iphone-6.9",
+          "position": 4,
+          "headline": "Rechercher par application ou par message",
+          "requiredNativeLocale": "fr",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "de-DE",
+          "device": "iphone-6.9",
+          "position": 1,
+          "headline": "Suchen Sie nach gespeicherten Benachrichtigungen",
+          "requiredNativeLocale": "de",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "de-DE",
+          "device": "iphone-6.9",
+          "position": 2,
+          "headline": "Einrichtung über Apple Shortcuts",
+          "requiredNativeLocale": "de",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "de-DE",
+          "device": "iphone-6.9",
+          "position": 3,
+          "headline": "Datenschutz und Einstellungen",
+          "requiredNativeLocale": "de",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "de-DE",
+          "device": "iphone-6.9",
+          "position": 4,
+          "headline": "Suche per App oder Nachricht",
+          "requiredNativeLocale": "de",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "it",
+          "device": "iphone-6.9",
+          "position": 1,
+          "headline": "Trova le notifiche salvate",
+          "requiredNativeLocale": "it",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "it",
+          "device": "iphone-6.9",
+          "position": 2,
+          "headline": "Configurazione tramite scorciatoie Apple",
+          "requiredNativeLocale": "it",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "it",
+          "device": "iphone-6.9",
+          "position": 3,
+          "headline": "Privacy e impostazioni",
+          "requiredNativeLocale": "it",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "it",
+          "device": "iphone-6.9",
+          "position": 4,
+          "headline": "Cerca per app o messaggio",
+          "requiredNativeLocale": "it",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "ja",
+          "device": "iphone-6.9",
+          "position": 1,
+          "headline": "保存された通知を見つける",
+          "requiredNativeLocale": "ja",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "ja",
+          "device": "iphone-6.9",
+          "position": 2,
+          "headline": "Apple ショートカット経由でセットアップする",
+          "requiredNativeLocale": "ja",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "ja",
+          "device": "iphone-6.9",
+          "position": 3,
+          "headline": "プライバシーと設定",
+          "requiredNativeLocale": "ja",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "ja",
+          "device": "iphone-6.9",
+          "position": 4,
+          "headline": "アプリまたはメッセージで検索",
+          "requiredNativeLocale": "ja",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "ko",
+          "device": "iphone-6.9",
+          "position": 1,
+          "headline": "저장된 알림 찾기",
+          "requiredNativeLocale": "ko",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "ko",
+          "device": "iphone-6.9",
+          "position": 2,
+          "headline": "Apple 바로가기를 통해 설정",
+          "requiredNativeLocale": "ko",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "ko",
+          "device": "iphone-6.9",
+          "position": 3,
+          "headline": "개인정보 보호 및 설정",
+          "requiredNativeLocale": "ko",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "ko",
+          "device": "iphone-6.9",
+          "position": 4,
+          "headline": "앱 또는 메시지로 검색",
+          "requiredNativeLocale": "ko",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "pt-BR",
+          "device": "iphone-6.9",
+          "position": 1,
+          "headline": "Encontre notificações salvas",
+          "requiredNativeLocale": "pt-BR",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "pt-BR",
+          "device": "iphone-6.9",
+          "position": 2,
+          "headline": "Configurar através dos atalhos da Apple",
+          "requiredNativeLocale": "pt-BR",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "pt-BR",
+          "device": "iphone-6.9",
+          "position": 3,
+          "headline": "Privacidade e configurações",
+          "requiredNativeLocale": "pt-BR",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "pt-BR",
+          "device": "iphone-6.9",
+          "position": 4,
+          "headline": "Pesquise por aplicativo ou mensagem",
+          "requiredNativeLocale": "pt-BR",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "pt-PT",
+          "device": "iphone-6.9",
+          "position": 1,
+          "headline": "Encontre notificações guardadas",
+          "requiredNativeLocale": "pt-PT",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "pt-PT",
+          "device": "iphone-6.9",
+          "position": 2,
+          "headline": "Configurar através dos atalhos da Apple",
+          "requiredNativeLocale": "pt-PT",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "pt-PT",
+          "device": "iphone-6.9",
+          "position": 3,
+          "headline": "Privacidade e definições",
+          "requiredNativeLocale": "pt-PT",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "pt-PT",
+          "device": "iphone-6.9",
+          "position": 4,
+          "headline": "Pesquisar por aplicação ou mensagem",
+          "requiredNativeLocale": "pt-PT",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "zh-Hans",
+          "device": "iphone-6.9",
+          "position": 1,
+          "headline": "查找已保存的通知",
+          "requiredNativeLocale": "zh-Hans",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "zh-Hans",
+          "device": "iphone-6.9",
+          "position": 2,
+          "headline": "通过 Apple 快捷方式设置",
+          "requiredNativeLocale": "zh-Hans",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "zh-Hans",
+          "device": "iphone-6.9",
+          "position": 3,
+          "headline": "隐私和设置",
+          "requiredNativeLocale": "zh-Hans",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "zh-Hans",
+          "device": "iphone-6.9",
+          "position": 4,
+          "headline": "按应用程序或消息搜索",
+          "requiredNativeLocale": "zh-Hans",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "zh-Hant",
+          "device": "iphone-6.9",
+          "position": 1,
+          "headline": "尋找已儲存的通知",
+          "requiredNativeLocale": "zh-Hant",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "zh-Hant",
+          "device": "iphone-6.9",
+          "position": 2,
+          "headline": "透過 Apple 快捷方式設定",
+          "requiredNativeLocale": "zh-Hant",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "zh-Hant",
+          "device": "iphone-6.9",
+          "position": 3,
+          "headline": "隱私和設定",
+          "requiredNativeLocale": "zh-Hant",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "zh-Hant",
+          "device": "iphone-6.9",
+          "position": 4,
+          "headline": "按應用程式或訊息搜尋",
+          "requiredNativeLocale": "zh-Hant",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        }
+      ]
+    },
+    "what": {
+      "locales": 16,
+      "slots": [
+        {
+          "locale": "ru",
+          "device": "iphone-6.9",
+          "position": 1,
+          "headline": "Ухвати мысль в одно касание",
+          "requiredNativeLocale": "ru",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "ru",
+          "device": "iphone-6.9",
+          "position": 2,
+          "headline": "Сохрани оригинальное аудио",
+          "requiredNativeLocale": "ru",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "ru",
+          "device": "iphone-6.9",
+          "position": 3,
+          "headline": "Находи заметки по тексту",
+          "requiredNativeLocale": "ru",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "ru",
+          "device": "iphone-6.9",
+          "position": 4,
+          "headline": "Записывай с Apple Watch",
+          "requiredNativeLocale": "ru",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "ru",
+          "device": "ipad-13",
+          "position": 1,
+          "headline": "Ухвати мысль в одно касание",
+          "requiredNativeLocale": "ru",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "ru",
+          "device": "ipad-13",
+          "position": 2,
+          "headline": "Сохрани оригинальное аудио",
+          "requiredNativeLocale": "ru",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "ru",
+          "device": "ipad-13",
+          "position": 3,
+          "headline": "Находи заметки по тексту",
+          "requiredNativeLocale": "ru",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "ru",
+          "device": "ipad-13",
+          "position": 4,
+          "headline": "Записывай с Apple Watch",
+          "requiredNativeLocale": "ru",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-US",
+          "device": "iphone-6.9",
+          "position": 1,
+          "headline": "One tap to save an idea",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-US",
+          "device": "iphone-6.9",
+          "position": 2,
+          "headline": "Keep your original recordings",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-US",
+          "device": "iphone-6.9",
+          "position": 3,
+          "headline": "Find notes by saved text",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-US",
+          "device": "iphone-6.9",
+          "position": 4,
+          "headline": "Capture from Apple Watch",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-US",
+          "device": "ipad-13",
+          "position": 1,
+          "headline": "One tap to save an idea",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-US",
+          "device": "ipad-13",
+          "position": 2,
+          "headline": "Keep your original recordings",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-US",
+          "device": "ipad-13",
+          "position": 3,
+          "headline": "Find notes by saved text",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-US",
+          "device": "ipad-13",
+          "position": 4,
+          "headline": "Capture from Apple Watch",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-GB",
+          "device": "iphone-6.9",
+          "position": 1,
+          "headline": "One tap to save an idea",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-GB",
+          "device": "iphone-6.9",
+          "position": 2,
+          "headline": "Keep your original recordings",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-GB",
+          "device": "iphone-6.9",
+          "position": 3,
+          "headline": "Find notes by saved text",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-GB",
+          "device": "iphone-6.9",
+          "position": 4,
+          "headline": "Capture from Apple Watch",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-GB",
+          "device": "ipad-13",
+          "position": 1,
+          "headline": "One tap to save an idea",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-GB",
+          "device": "ipad-13",
+          "position": 2,
+          "headline": "Keep your original recordings",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-GB",
+          "device": "ipad-13",
+          "position": 3,
+          "headline": "Find notes by saved text",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-GB",
+          "device": "ipad-13",
+          "position": 4,
+          "headline": "Capture from Apple Watch",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-AU",
+          "device": "iphone-6.9",
+          "position": 1,
+          "headline": "One tap to save an idea",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-AU",
+          "device": "iphone-6.9",
+          "position": 2,
+          "headline": "Keep your original recordings",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-AU",
+          "device": "iphone-6.9",
+          "position": 3,
+          "headline": "Find notes by saved text",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-AU",
+          "device": "iphone-6.9",
+          "position": 4,
+          "headline": "Capture from Apple Watch",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-AU",
+          "device": "ipad-13",
+          "position": 1,
+          "headline": "One tap to save an idea",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-AU",
+          "device": "ipad-13",
+          "position": 2,
+          "headline": "Keep your original recordings",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-AU",
+          "device": "ipad-13",
+          "position": 3,
+          "headline": "Find notes by saved text",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-AU",
+          "device": "ipad-13",
+          "position": 4,
+          "headline": "Capture from Apple Watch",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-CA",
+          "device": "iphone-6.9",
+          "position": 1,
+          "headline": "One tap to save an idea",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-CA",
+          "device": "iphone-6.9",
+          "position": 2,
+          "headline": "Keep your original recordings",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-CA",
+          "device": "iphone-6.9",
+          "position": 3,
+          "headline": "Find notes by saved text",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-CA",
+          "device": "iphone-6.9",
+          "position": 4,
+          "headline": "Capture from Apple Watch",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-CA",
+          "device": "ipad-13",
+          "position": 1,
+          "headline": "One tap to save an idea",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-CA",
+          "device": "ipad-13",
+          "position": 2,
+          "headline": "Keep your original recordings",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-CA",
+          "device": "ipad-13",
+          "position": 3,
+          "headline": "Find notes by saved text",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-CA",
+          "device": "ipad-13",
+          "position": 4,
+          "headline": "Capture from Apple Watch",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "es-ES",
+          "device": "iphone-6.9",
+          "position": 1,
+          "headline": "Un toque para guardar una idea",
+          "requiredNativeLocale": "es",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "es-ES",
+          "device": "iphone-6.9",
+          "position": 2,
+          "headline": "Conserva tus grabaciones originales",
+          "requiredNativeLocale": "es",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "es-ES",
+          "device": "iphone-6.9",
+          "position": 3,
+          "headline": "Buscar notas por texto guardado",
+          "requiredNativeLocale": "es",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "es-ES",
+          "device": "iphone-6.9",
+          "position": 4,
+          "headline": "Captura desde Apple Watch",
+          "requiredNativeLocale": "es",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "es-ES",
+          "device": "ipad-13",
+          "position": 1,
+          "headline": "Un toque para guardar una idea",
+          "requiredNativeLocale": "es",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "es-ES",
+          "device": "ipad-13",
+          "position": 2,
+          "headline": "Conserva tus grabaciones originales",
+          "requiredNativeLocale": "es",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "es-ES",
+          "device": "ipad-13",
+          "position": 3,
+          "headline": "Buscar notas por texto guardado",
+          "requiredNativeLocale": "es",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "es-ES",
+          "device": "ipad-13",
+          "position": 4,
+          "headline": "Captura desde Apple Watch",
+          "requiredNativeLocale": "es",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "es-MX",
+          "device": "iphone-6.9",
+          "position": 1,
+          "headline": "Un toque para guardar una idea",
+          "requiredNativeLocale": "es",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "es-MX",
+          "device": "iphone-6.9",
+          "position": 2,
+          "headline": "Conserva tus grabaciones originales",
+          "requiredNativeLocale": "es",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "es-MX",
+          "device": "iphone-6.9",
+          "position": 3,
+          "headline": "Buscar notas por texto guardado",
+          "requiredNativeLocale": "es",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "es-MX",
+          "device": "iphone-6.9",
+          "position": 4,
+          "headline": "Captura desde Apple Watch",
+          "requiredNativeLocale": "es",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "es-MX",
+          "device": "ipad-13",
+          "position": 1,
+          "headline": "Un toque para guardar una idea",
+          "requiredNativeLocale": "es",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "es-MX",
+          "device": "ipad-13",
+          "position": 2,
+          "headline": "Conserva tus grabaciones originales",
+          "requiredNativeLocale": "es",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "es-MX",
+          "device": "ipad-13",
+          "position": 3,
+          "headline": "Buscar notas por texto guardado",
+          "requiredNativeLocale": "es",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "es-MX",
+          "device": "ipad-13",
+          "position": 4,
+          "headline": "Captura desde Apple Watch",
+          "requiredNativeLocale": "es",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "fr-FR",
+          "device": "iphone-6.9",
+          "position": 1,
+          "headline": "Un clic pour enregistrer une idée",
+          "requiredNativeLocale": "fr",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "fr-FR",
+          "device": "iphone-6.9",
+          "position": 2,
+          "headline": "Conservez vos enregistrements originaux",
+          "requiredNativeLocale": "fr",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "fr-FR",
+          "device": "iphone-6.9",
+          "position": 3,
+          "headline": "Rechercher des notes par texte enregistré",
+          "requiredNativeLocale": "fr",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "fr-FR",
+          "device": "iphone-6.9",
+          "position": 4,
+          "headline": "Capturer depuis Apple Watch",
+          "requiredNativeLocale": "fr",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "fr-FR",
+          "device": "ipad-13",
+          "position": 1,
+          "headline": "Un clic pour enregistrer une idée",
+          "requiredNativeLocale": "fr",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "fr-FR",
+          "device": "ipad-13",
+          "position": 2,
+          "headline": "Conservez vos enregistrements originaux",
+          "requiredNativeLocale": "fr",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "fr-FR",
+          "device": "ipad-13",
+          "position": 3,
+          "headline": "Rechercher des notes par texte enregistré",
+          "requiredNativeLocale": "fr",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "fr-FR",
+          "device": "ipad-13",
+          "position": 4,
+          "headline": "Capturer depuis Apple Watch",
+          "requiredNativeLocale": "fr",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "de-DE",
+          "device": "iphone-6.9",
+          "position": 1,
+          "headline": "Ein Tipp, um eine Idee zu speichern",
+          "requiredNativeLocale": "de",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "de-DE",
+          "device": "iphone-6.9",
+          "position": 2,
+          "headline": "Behalten Sie Ihre Originalaufnahmen",
+          "requiredNativeLocale": "de",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "de-DE",
+          "device": "iphone-6.9",
+          "position": 3,
+          "headline": "Finden Sie Notizen anhand des gespeicherten Textes",
+          "requiredNativeLocale": "de",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "de-DE",
+          "device": "iphone-6.9",
+          "position": 4,
+          "headline": "Aufnahme von der Apple Watch",
+          "requiredNativeLocale": "de",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "de-DE",
+          "device": "ipad-13",
+          "position": 1,
+          "headline": "Ein Tipp, um eine Idee zu speichern",
+          "requiredNativeLocale": "de",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "de-DE",
+          "device": "ipad-13",
+          "position": 2,
+          "headline": "Behalten Sie Ihre Originalaufnahmen",
+          "requiredNativeLocale": "de",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "de-DE",
+          "device": "ipad-13",
+          "position": 3,
+          "headline": "Finden Sie Notizen anhand des gespeicherten Textes",
+          "requiredNativeLocale": "de",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "de-DE",
+          "device": "ipad-13",
+          "position": 4,
+          "headline": "Aufnahme von der Apple Watch",
+          "requiredNativeLocale": "de",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "it",
+          "device": "iphone-6.9",
+          "position": 1,
+          "headline": "Un tocco per salvare un'idea",
+          "requiredNativeLocale": "it",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "it",
+          "device": "iphone-6.9",
+          "position": 2,
+          "headline": "Conserva le tue registrazioni originali",
+          "requiredNativeLocale": "it",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "it",
+          "device": "iphone-6.9",
+          "position": 3,
+          "headline": "Trova le note in base al testo salvato",
+          "requiredNativeLocale": "it",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "it",
+          "device": "iphone-6.9",
+          "position": 4,
+          "headline": "Cattura da Apple Watch",
+          "requiredNativeLocale": "it",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "it",
+          "device": "ipad-13",
+          "position": 1,
+          "headline": "Un tocco per salvare un'idea",
+          "requiredNativeLocale": "it",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "it",
+          "device": "ipad-13",
+          "position": 2,
+          "headline": "Conserva le tue registrazioni originali",
+          "requiredNativeLocale": "it",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "it",
+          "device": "ipad-13",
+          "position": 3,
+          "headline": "Trova le note in base al testo salvato",
+          "requiredNativeLocale": "it",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "it",
+          "device": "ipad-13",
+          "position": 4,
+          "headline": "Cattura da Apple Watch",
+          "requiredNativeLocale": "it",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "ja",
+          "device": "iphone-6.9",
+          "position": 1,
+          "headline": "ワンタップでアイデアを保存",
+          "requiredNativeLocale": "ja",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "ja",
+          "device": "iphone-6.9",
+          "position": 2,
+          "headline": "オリジナルの録音を保存する",
+          "requiredNativeLocale": "ja",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "ja",
+          "device": "iphone-6.9",
+          "position": 3,
+          "headline": "保存されたテキストでメモを検索する",
+          "requiredNativeLocale": "ja",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "ja",
+          "device": "iphone-6.9",
+          "position": 4,
+          "headline": "Apple Watchからキャプチャする",
+          "requiredNativeLocale": "ja",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "ja",
+          "device": "ipad-13",
+          "position": 1,
+          "headline": "ワンタップでアイデアを保存",
+          "requiredNativeLocale": "ja",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "ja",
+          "device": "ipad-13",
+          "position": 2,
+          "headline": "オリジナルの録音を保存する",
+          "requiredNativeLocale": "ja",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "ja",
+          "device": "ipad-13",
+          "position": 3,
+          "headline": "保存されたテキストでメモを検索する",
+          "requiredNativeLocale": "ja",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "ja",
+          "device": "ipad-13",
+          "position": 4,
+          "headline": "Apple Watchからキャプチャする",
+          "requiredNativeLocale": "ja",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "ko",
+          "device": "iphone-6.9",
+          "position": 1,
+          "headline": "탭 한 번으로 아이디어 저장",
+          "requiredNativeLocale": "ko",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "ko",
+          "device": "iphone-6.9",
+          "position": 2,
+          "headline": "원본 녹음을 유지하세요",
+          "requiredNativeLocale": "ko",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "ko",
+          "device": "iphone-6.9",
+          "position": 3,
+          "headline": "저장된 텍스트로 메모 찾기",
+          "requiredNativeLocale": "ko",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "ko",
+          "device": "iphone-6.9",
+          "position": 4,
+          "headline": "Apple Watch에서 캡처",
+          "requiredNativeLocale": "ko",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "ko",
+          "device": "ipad-13",
+          "position": 1,
+          "headline": "탭 한 번으로 아이디어 저장",
+          "requiredNativeLocale": "ko",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "ko",
+          "device": "ipad-13",
+          "position": 2,
+          "headline": "원본 녹음을 유지하세요",
+          "requiredNativeLocale": "ko",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "ko",
+          "device": "ipad-13",
+          "position": 3,
+          "headline": "저장된 텍스트로 메모 찾기",
+          "requiredNativeLocale": "ko",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "ko",
+          "device": "ipad-13",
+          "position": 4,
+          "headline": "Apple Watch에서 캡처",
+          "requiredNativeLocale": "ko",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "pt-BR",
+          "device": "iphone-6.9",
+          "position": 1,
+          "headline": "Um toque para salvar uma ideia",
+          "requiredNativeLocale": "pt-BR",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "pt-BR",
+          "device": "iphone-6.9",
+          "position": 2,
+          "headline": "Mantenha suas gravações originais",
+          "requiredNativeLocale": "pt-BR",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "pt-BR",
+          "device": "iphone-6.9",
+          "position": 3,
+          "headline": "Encontre notas por texto salvo",
+          "requiredNativeLocale": "pt-BR",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "pt-BR",
+          "device": "iphone-6.9",
+          "position": 4,
+          "headline": "Capturar do Apple Watch",
+          "requiredNativeLocale": "pt-BR",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "pt-BR",
+          "device": "ipad-13",
+          "position": 1,
+          "headline": "Um toque para salvar uma ideia",
+          "requiredNativeLocale": "pt-BR",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "pt-BR",
+          "device": "ipad-13",
+          "position": 2,
+          "headline": "Mantenha suas gravações originais",
+          "requiredNativeLocale": "pt-BR",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "pt-BR",
+          "device": "ipad-13",
+          "position": 3,
+          "headline": "Encontre notas por texto salvo",
+          "requiredNativeLocale": "pt-BR",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "pt-BR",
+          "device": "ipad-13",
+          "position": 4,
+          "headline": "Capturar do Apple Watch",
+          "requiredNativeLocale": "pt-BR",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "pt-PT",
+          "device": "iphone-6.9",
+          "position": 1,
+          "headline": "Um toque para guardar uma ideia",
+          "requiredNativeLocale": "pt-PT",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "pt-PT",
+          "device": "iphone-6.9",
+          "position": 2,
+          "headline": "Mantenha as suas gravações originais",
+          "requiredNativeLocale": "pt-PT",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "pt-PT",
+          "device": "iphone-6.9",
+          "position": 3,
+          "headline": "Encontrar notas por texto guardado",
+          "requiredNativeLocale": "pt-PT",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "pt-PT",
+          "device": "iphone-6.9",
+          "position": 4,
+          "headline": "Capturar do Apple Watch",
+          "requiredNativeLocale": "pt-PT",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "pt-PT",
+          "device": "ipad-13",
+          "position": 1,
+          "headline": "Um toque para guardar uma ideia",
+          "requiredNativeLocale": "pt-PT",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "pt-PT",
+          "device": "ipad-13",
+          "position": 2,
+          "headline": "Mantenha as suas gravações originais",
+          "requiredNativeLocale": "pt-PT",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "pt-PT",
+          "device": "ipad-13",
+          "position": 3,
+          "headline": "Encontrar notas por texto guardado",
+          "requiredNativeLocale": "pt-PT",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "pt-PT",
+          "device": "ipad-13",
+          "position": 4,
+          "headline": "Capturar do Apple Watch",
+          "requiredNativeLocale": "pt-PT",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "zh-Hans",
+          "device": "iphone-6.9",
+          "position": 1,
+          "headline": "一键保存想法",
+          "requiredNativeLocale": "zh-Hans",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "zh-Hans",
+          "device": "iphone-6.9",
+          "position": 2,
+          "headline": "保留您的原始录音",
+          "requiredNativeLocale": "zh-Hans",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "zh-Hans",
+          "device": "iphone-6.9",
+          "position": 3,
+          "headline": "通过保存的文本查找笔记",
+          "requiredNativeLocale": "zh-Hans",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "zh-Hans",
+          "device": "iphone-6.9",
+          "position": 4,
+          "headline": "从 Apple Watch 捕捉",
+          "requiredNativeLocale": "zh-Hans",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "zh-Hans",
+          "device": "ipad-13",
+          "position": 1,
+          "headline": "一键保存想法",
+          "requiredNativeLocale": "zh-Hans",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "zh-Hans",
+          "device": "ipad-13",
+          "position": 2,
+          "headline": "保留您的原始录音",
+          "requiredNativeLocale": "zh-Hans",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "zh-Hans",
+          "device": "ipad-13",
+          "position": 3,
+          "headline": "通过保存的文本查找笔记",
+          "requiredNativeLocale": "zh-Hans",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "zh-Hans",
+          "device": "ipad-13",
+          "position": 4,
+          "headline": "从 Apple Watch 捕捉",
+          "requiredNativeLocale": "zh-Hans",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "zh-Hant",
+          "device": "iphone-6.9",
+          "position": 1,
+          "headline": "一鍵保存想法",
+          "requiredNativeLocale": "zh-Hant",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "zh-Hant",
+          "device": "iphone-6.9",
+          "position": 2,
+          "headline": "保留您的原始錄音",
+          "requiredNativeLocale": "zh-Hant",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "zh-Hant",
+          "device": "iphone-6.9",
+          "position": 3,
+          "headline": "透過儲存的文字來尋找筆記",
+          "requiredNativeLocale": "zh-Hant",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "zh-Hant",
+          "device": "iphone-6.9",
+          "position": 4,
+          "headline": "從 Apple Watch 捕捉",
+          "requiredNativeLocale": "zh-Hant",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "zh-Hant",
+          "device": "ipad-13",
+          "position": 1,
+          "headline": "一鍵保存想法",
+          "requiredNativeLocale": "zh-Hant",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "zh-Hant",
+          "device": "ipad-13",
+          "position": 2,
+          "headline": "保留您的原始錄音",
+          "requiredNativeLocale": "zh-Hant",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "zh-Hant",
+          "device": "ipad-13",
+          "position": 3,
+          "headline": "透過儲存的文字來尋找筆記",
+          "requiredNativeLocale": "zh-Hant",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "zh-Hant",
+          "device": "ipad-13",
+          "position": 4,
+          "headline": "從 Apple Watch 捕捉",
+          "requiredNativeLocale": "zh-Hant",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        }
+      ]
+    },
+    "chickmark": {
+      "locales": 16,
+      "slots": [
+        {
+          "locale": "ru",
+          "device": "iphone-6.9",
+          "position": 1,
+          "headline": "Начни с одной привычки",
+          "requiredNativeLocale": "ru",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "ru",
+          "device": "iphone-6.9",
+          "position": 2,
+          "headline": "Отметь выполнение одним касанием",
+          "requiredNativeLocale": "ru",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "ru",
+          "device": "iphone-6.9",
+          "position": 3,
+          "headline": "Следи за прогрессом и сериями",
+          "requiredNativeLocale": "ru",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "ru",
+          "device": "iphone-6.9",
+          "position": 4,
+          "headline": "Напоминания и Apple Watch",
+          "requiredNativeLocale": "ru",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "ru",
+          "device": "ipad-13",
+          "position": 1,
+          "headline": "Начни с одной привычки",
+          "requiredNativeLocale": "ru",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "ru",
+          "device": "ipad-13",
+          "position": 2,
+          "headline": "Отметь выполнение одним касанием",
+          "requiredNativeLocale": "ru",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "ru",
+          "device": "ipad-13",
+          "position": 3,
+          "headline": "Следи за прогрессом и сериями",
+          "requiredNativeLocale": "ru",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "ru",
+          "device": "ipad-13",
+          "position": 4,
+          "headline": "Напоминания и Apple Watch",
+          "requiredNativeLocale": "ru",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-US",
+          "device": "iphone-6.9",
+          "position": 1,
+          "headline": "Start with one small habit",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-US",
+          "device": "iphone-6.9",
+          "position": 2,
+          "headline": "Check in with one tap",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-US",
+          "device": "iphone-6.9",
+          "position": 3,
+          "headline": "See your progress and streaks",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-US",
+          "device": "iphone-6.9",
+          "position": 4,
+          "headline": "Reminders and Apple Watch",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-US",
+          "device": "ipad-13",
+          "position": 1,
+          "headline": "Start with one small habit",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-US",
+          "device": "ipad-13",
+          "position": 2,
+          "headline": "Check in with one tap",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-US",
+          "device": "ipad-13",
+          "position": 3,
+          "headline": "See your progress and streaks",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-US",
+          "device": "ipad-13",
+          "position": 4,
+          "headline": "Reminders and Apple Watch",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-GB",
+          "device": "iphone-6.9",
+          "position": 1,
+          "headline": "Start with one small habit",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-GB",
+          "device": "iphone-6.9",
+          "position": 2,
+          "headline": "Check in with one tap",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-GB",
+          "device": "iphone-6.9",
+          "position": 3,
+          "headline": "See your progress and streaks",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-GB",
+          "device": "iphone-6.9",
+          "position": 4,
+          "headline": "Reminders and Apple Watch",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-GB",
+          "device": "ipad-13",
+          "position": 1,
+          "headline": "Start with one small habit",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-GB",
+          "device": "ipad-13",
+          "position": 2,
+          "headline": "Check in with one tap",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-GB",
+          "device": "ipad-13",
+          "position": 3,
+          "headline": "See your progress and streaks",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-GB",
+          "device": "ipad-13",
+          "position": 4,
+          "headline": "Reminders and Apple Watch",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-AU",
+          "device": "iphone-6.9",
+          "position": 1,
+          "headline": "Start with one small habit",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-AU",
+          "device": "iphone-6.9",
+          "position": 2,
+          "headline": "Check in with one tap",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-AU",
+          "device": "iphone-6.9",
+          "position": 3,
+          "headline": "See your progress and streaks",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-AU",
+          "device": "iphone-6.9",
+          "position": 4,
+          "headline": "Reminders and Apple Watch",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-AU",
+          "device": "ipad-13",
+          "position": 1,
+          "headline": "Start with one small habit",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-AU",
+          "device": "ipad-13",
+          "position": 2,
+          "headline": "Check in with one tap",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-AU",
+          "device": "ipad-13",
+          "position": 3,
+          "headline": "See your progress and streaks",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-AU",
+          "device": "ipad-13",
+          "position": 4,
+          "headline": "Reminders and Apple Watch",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-CA",
+          "device": "iphone-6.9",
+          "position": 1,
+          "headline": "Start with one small habit",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-CA",
+          "device": "iphone-6.9",
+          "position": 2,
+          "headline": "Check in with one tap",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-CA",
+          "device": "iphone-6.9",
+          "position": 3,
+          "headline": "See your progress and streaks",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-CA",
+          "device": "iphone-6.9",
+          "position": 4,
+          "headline": "Reminders and Apple Watch",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-CA",
+          "device": "ipad-13",
+          "position": 1,
+          "headline": "Start with one small habit",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-CA",
+          "device": "ipad-13",
+          "position": 2,
+          "headline": "Check in with one tap",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-CA",
+          "device": "ipad-13",
+          "position": 3,
+          "headline": "See your progress and streaks",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "en-CA",
+          "device": "ipad-13",
+          "position": 4,
+          "headline": "Reminders and Apple Watch",
+          "requiredNativeLocale": "en",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "es-ES",
+          "device": "iphone-6.9",
+          "position": 1,
+          "headline": "Comience con un pequeño hábito",
+          "requiredNativeLocale": "es",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "es-ES",
+          "device": "iphone-6.9",
+          "position": 2,
+          "headline": "Regístrese con un toque",
+          "requiredNativeLocale": "es",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "es-ES",
+          "device": "iphone-6.9",
+          "position": 3,
+          "headline": "Mira tu progreso y rachas",
+          "requiredNativeLocale": "es",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "es-ES",
+          "device": "iphone-6.9",
+          "position": 4,
+          "headline": "Recordatorios y Apple Watch",
+          "requiredNativeLocale": "es",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "es-ES",
+          "device": "ipad-13",
+          "position": 1,
+          "headline": "Comience con un pequeño hábito",
+          "requiredNativeLocale": "es",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "es-ES",
+          "device": "ipad-13",
+          "position": 2,
+          "headline": "Regístrese con un toque",
+          "requiredNativeLocale": "es",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "es-ES",
+          "device": "ipad-13",
+          "position": 3,
+          "headline": "Mira tu progreso y rachas",
+          "requiredNativeLocale": "es",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "es-ES",
+          "device": "ipad-13",
+          "position": 4,
+          "headline": "Recordatorios y Apple Watch",
+          "requiredNativeLocale": "es",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "es-MX",
+          "device": "iphone-6.9",
+          "position": 1,
+          "headline": "Comience con un pequeño hábito",
+          "requiredNativeLocale": "es",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "es-MX",
+          "device": "iphone-6.9",
+          "position": 2,
+          "headline": "Regístrese con un toque",
+          "requiredNativeLocale": "es",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "es-MX",
+          "device": "iphone-6.9",
+          "position": 3,
+          "headline": "Mira tu progreso y rachas",
+          "requiredNativeLocale": "es",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "es-MX",
+          "device": "iphone-6.9",
+          "position": 4,
+          "headline": "Recordatorios y Apple Watch",
+          "requiredNativeLocale": "es",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "es-MX",
+          "device": "ipad-13",
+          "position": 1,
+          "headline": "Comience con un pequeño hábito",
+          "requiredNativeLocale": "es",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "es-MX",
+          "device": "ipad-13",
+          "position": 2,
+          "headline": "Regístrese con un toque",
+          "requiredNativeLocale": "es",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "es-MX",
+          "device": "ipad-13",
+          "position": 3,
+          "headline": "Mira tu progreso y rachas",
+          "requiredNativeLocale": "es",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "es-MX",
+          "device": "ipad-13",
+          "position": 4,
+          "headline": "Recordatorios y Apple Watch",
+          "requiredNativeLocale": "es",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "fr-FR",
+          "device": "iphone-6.9",
+          "position": 1,
+          "headline": "Commencez par une petite habitude",
+          "requiredNativeLocale": "fr",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "fr-FR",
+          "device": "iphone-6.9",
+          "position": 2,
+          "headline": "Enregistrez-vous en un seul clic",
+          "requiredNativeLocale": "fr",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "fr-FR",
+          "device": "iphone-6.9",
+          "position": 3,
+          "headline": "Voir vos progrès et vos séquences",
+          "requiredNativeLocale": "fr",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "fr-FR",
+          "device": "iphone-6.9",
+          "position": 4,
+          "headline": "Rappels et Apple Watch",
+          "requiredNativeLocale": "fr",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "fr-FR",
+          "device": "ipad-13",
+          "position": 1,
+          "headline": "Commencez par une petite habitude",
+          "requiredNativeLocale": "fr",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "fr-FR",
+          "device": "ipad-13",
+          "position": 2,
+          "headline": "Enregistrez-vous en un seul clic",
+          "requiredNativeLocale": "fr",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "fr-FR",
+          "device": "ipad-13",
+          "position": 3,
+          "headline": "Voir vos progrès et vos séquences",
+          "requiredNativeLocale": "fr",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "fr-FR",
+          "device": "ipad-13",
+          "position": 4,
+          "headline": "Rappels et Apple Watch",
+          "requiredNativeLocale": "fr",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "de-DE",
+          "device": "iphone-6.9",
+          "position": 1,
+          "headline": "Beginnen Sie mit einer kleinen Angewohnheit",
+          "requiredNativeLocale": "de",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "de-DE",
+          "device": "iphone-6.9",
+          "position": 2,
+          "headline": "Checken Sie mit einem Fingertipp ein",
+          "requiredNativeLocale": "de",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "de-DE",
+          "device": "iphone-6.9",
+          "position": 3,
+          "headline": "Sehen Sie sich Ihre Fortschritte und Erfolge an",
+          "requiredNativeLocale": "de",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "de-DE",
+          "device": "iphone-6.9",
+          "position": 4,
+          "headline": "Erinnerungen und Apple Watch",
+          "requiredNativeLocale": "de",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "de-DE",
+          "device": "ipad-13",
+          "position": 1,
+          "headline": "Beginnen Sie mit einer kleinen Angewohnheit",
+          "requiredNativeLocale": "de",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "de-DE",
+          "device": "ipad-13",
+          "position": 2,
+          "headline": "Checken Sie mit einem Fingertipp ein",
+          "requiredNativeLocale": "de",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "de-DE",
+          "device": "ipad-13",
+          "position": 3,
+          "headline": "Sehen Sie sich Ihre Fortschritte und Erfolge an",
+          "requiredNativeLocale": "de",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "de-DE",
+          "device": "ipad-13",
+          "position": 4,
+          "headline": "Erinnerungen und Apple Watch",
+          "requiredNativeLocale": "de",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "it",
+          "device": "iphone-6.9",
+          "position": 1,
+          "headline": "Inizia con una piccola abitudine",
+          "requiredNativeLocale": "it",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "it",
+          "device": "iphone-6.9",
+          "position": 2,
+          "headline": "Effettua il check-in con un solo tocco",
+          "requiredNativeLocale": "it",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "it",
+          "device": "iphone-6.9",
+          "position": 3,
+          "headline": "Visualizza i tuoi progressi e i tuoi successi",
+          "requiredNativeLocale": "it",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "it",
+          "device": "iphone-6.9",
+          "position": 4,
+          "headline": "Promemoria e Apple Watch",
+          "requiredNativeLocale": "it",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "it",
+          "device": "ipad-13",
+          "position": 1,
+          "headline": "Inizia con una piccola abitudine",
+          "requiredNativeLocale": "it",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "it",
+          "device": "ipad-13",
+          "position": 2,
+          "headline": "Effettua il check-in con un solo tocco",
+          "requiredNativeLocale": "it",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "it",
+          "device": "ipad-13",
+          "position": 3,
+          "headline": "Visualizza i tuoi progressi e i tuoi successi",
+          "requiredNativeLocale": "it",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "it",
+          "device": "ipad-13",
+          "position": 4,
+          "headline": "Promemoria e Apple Watch",
+          "requiredNativeLocale": "it",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "ja",
+          "device": "iphone-6.9",
+          "position": 1,
+          "headline": "まずは小さな習慣から始めましょう",
+          "requiredNativeLocale": "ja",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "ja",
+          "device": "iphone-6.9",
+          "position": 2,
+          "headline": "ワンタップでチェックイン",
+          "requiredNativeLocale": "ja",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "ja",
+          "device": "iphone-6.9",
+          "position": 3,
+          "headline": "進捗状況と連続記録を確認する",
+          "requiredNativeLocale": "ja",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "ja",
+          "device": "iphone-6.9",
+          "position": 4,
+          "headline": "リマインダーとApple Watch",
+          "requiredNativeLocale": "ja",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "ja",
+          "device": "ipad-13",
+          "position": 1,
+          "headline": "まずは小さな習慣から始めましょう",
+          "requiredNativeLocale": "ja",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "ja",
+          "device": "ipad-13",
+          "position": 2,
+          "headline": "ワンタップでチェックイン",
+          "requiredNativeLocale": "ja",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "ja",
+          "device": "ipad-13",
+          "position": 3,
+          "headline": "進捗状況と連続記録を確認する",
+          "requiredNativeLocale": "ja",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "ja",
+          "device": "ipad-13",
+          "position": 4,
+          "headline": "リマインダーとApple Watch",
+          "requiredNativeLocale": "ja",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "ko",
+          "device": "iphone-6.9",
+          "position": 1,
+          "headline": "작은 습관 하나로 시작해 보세요",
+          "requiredNativeLocale": "ko",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "ko",
+          "device": "iphone-6.9",
+          "position": 2,
+          "headline": "탭 한 번으로 체크인하세요",
+          "requiredNativeLocale": "ko",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "ko",
+          "device": "iphone-6.9",
+          "position": 3,
+          "headline": "진행 상황과 연속 기록을 확인하세요",
+          "requiredNativeLocale": "ko",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "ko",
+          "device": "iphone-6.9",
+          "position": 4,
+          "headline": "미리 알림 및 Apple Watch",
+          "requiredNativeLocale": "ko",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "ko",
+          "device": "ipad-13",
+          "position": 1,
+          "headline": "작은 습관 하나로 시작해 보세요",
+          "requiredNativeLocale": "ko",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "ko",
+          "device": "ipad-13",
+          "position": 2,
+          "headline": "탭 한 번으로 체크인하세요",
+          "requiredNativeLocale": "ko",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "ko",
+          "device": "ipad-13",
+          "position": 3,
+          "headline": "진행 상황과 연속 기록을 확인하세요",
+          "requiredNativeLocale": "ko",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "ko",
+          "device": "ipad-13",
+          "position": 4,
+          "headline": "미리 알림 및 Apple Watch",
+          "requiredNativeLocale": "ko",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "pt-BR",
+          "device": "iphone-6.9",
+          "position": 1,
+          "headline": "Comece com um pequeno hábito",
+          "requiredNativeLocale": "pt-BR",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "pt-BR",
+          "device": "iphone-6.9",
+          "position": 2,
+          "headline": "Faça check-in com um toque",
+          "requiredNativeLocale": "pt-BR",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "pt-BR",
+          "device": "iphone-6.9",
+          "position": 3,
+          "headline": "Veja seu progresso e sequências",
+          "requiredNativeLocale": "pt-BR",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "pt-BR",
+          "device": "iphone-6.9",
+          "position": 4,
+          "headline": "Lembretes e Apple Watch",
+          "requiredNativeLocale": "pt-BR",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "pt-BR",
+          "device": "ipad-13",
+          "position": 1,
+          "headline": "Comece com um pequeno hábito",
+          "requiredNativeLocale": "pt-BR",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "pt-BR",
+          "device": "ipad-13",
+          "position": 2,
+          "headline": "Faça check-in com um toque",
+          "requiredNativeLocale": "pt-BR",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "pt-BR",
+          "device": "ipad-13",
+          "position": 3,
+          "headline": "Veja seu progresso e sequências",
+          "requiredNativeLocale": "pt-BR",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "pt-BR",
+          "device": "ipad-13",
+          "position": 4,
+          "headline": "Lembretes e Apple Watch",
+          "requiredNativeLocale": "pt-BR",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "pt-PT",
+          "device": "iphone-6.9",
+          "position": 1,
+          "headline": "Comece por um pequeno hábito",
+          "requiredNativeLocale": "pt-PT",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "pt-PT",
+          "device": "iphone-6.9",
+          "position": 2,
+          "headline": "Faça o check-in com um toque",
+          "requiredNativeLocale": "pt-PT",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "pt-PT",
+          "device": "iphone-6.9",
+          "position": 3,
+          "headline": "Veja o seu progresso e sequências",
+          "requiredNativeLocale": "pt-PT",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "pt-PT",
+          "device": "iphone-6.9",
+          "position": 4,
+          "headline": "Lembretes e Apple Watch",
+          "requiredNativeLocale": "pt-PT",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "pt-PT",
+          "device": "ipad-13",
+          "position": 1,
+          "headline": "Comece por um pequeno hábito",
+          "requiredNativeLocale": "pt-PT",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "pt-PT",
+          "device": "ipad-13",
+          "position": 2,
+          "headline": "Faça o check-in com um toque",
+          "requiredNativeLocale": "pt-PT",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "pt-PT",
+          "device": "ipad-13",
+          "position": 3,
+          "headline": "Veja o seu progresso e sequências",
+          "requiredNativeLocale": "pt-PT",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "pt-PT",
+          "device": "ipad-13",
+          "position": 4,
+          "headline": "Lembretes e Apple Watch",
+          "requiredNativeLocale": "pt-PT",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "zh-Hans",
+          "device": "iphone-6.9",
+          "position": 1,
+          "headline": "从一个小习惯开始",
+          "requiredNativeLocale": "zh-Hans",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "zh-Hans",
+          "device": "iphone-6.9",
+          "position": 2,
+          "headline": "一键签到",
+          "requiredNativeLocale": "zh-Hans",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "zh-Hans",
+          "device": "iphone-6.9",
+          "position": 3,
+          "headline": "查看您的进步和连胜",
+          "requiredNativeLocale": "zh-Hans",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "zh-Hans",
+          "device": "iphone-6.9",
+          "position": 4,
+          "headline": "提醒和 Apple Watch",
+          "requiredNativeLocale": "zh-Hans",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "zh-Hans",
+          "device": "ipad-13",
+          "position": 1,
+          "headline": "从一个小习惯开始",
+          "requiredNativeLocale": "zh-Hans",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "zh-Hans",
+          "device": "ipad-13",
+          "position": 2,
+          "headline": "一键签到",
+          "requiredNativeLocale": "zh-Hans",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "zh-Hans",
+          "device": "ipad-13",
+          "position": 3,
+          "headline": "查看您的进步和连胜",
+          "requiredNativeLocale": "zh-Hans",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "zh-Hans",
+          "device": "ipad-13",
+          "position": 4,
+          "headline": "提醒和 Apple Watch",
+          "requiredNativeLocale": "zh-Hans",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "zh-Hant",
+          "device": "iphone-6.9",
+          "position": 1,
+          "headline": "從一個小習慣開始",
+          "requiredNativeLocale": "zh-Hant",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "zh-Hant",
+          "device": "iphone-6.9",
+          "position": 2,
+          "headline": "一鍵簽到",
+          "requiredNativeLocale": "zh-Hant",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "zh-Hant",
+          "device": "iphone-6.9",
+          "position": 3,
+          "headline": "查看您的進步和連勝",
+          "requiredNativeLocale": "zh-Hant",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "zh-Hant",
+          "device": "iphone-6.9",
+          "position": 4,
+          "headline": "提醒和 Apple Watch",
+          "requiredNativeLocale": "zh-Hant",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "zh-Hant",
+          "device": "ipad-13",
+          "position": 1,
+          "headline": "從一個小習慣開始",
+          "requiredNativeLocale": "zh-Hant",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "zh-Hant",
+          "device": "ipad-13",
+          "position": 2,
+          "headline": "一鍵簽到",
+          "requiredNativeLocale": "zh-Hant",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "zh-Hant",
+          "device": "ipad-13",
+          "position": 3,
+          "headline": "查看您的進步和連勝",
+          "requiredNativeLocale": "zh-Hant",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        },
+        {
+          "locale": "zh-Hant",
+          "device": "ipad-13",
+          "position": 4,
+          "headline": "提醒和 Apple Watch",
+          "requiredNativeLocale": "zh-Hant",
+          "status": "PENDING_REAL_NATIVE_CAPTURE",
+          "path": null
+        }
+      ]
+    }
+  }
+}

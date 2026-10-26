@@ -1,5 +1,11 @@
 # PUSHKIN — Product Roadmap
 
+## C10 — все ASO-тексты и RU кадры (26.10.2026)
+
+- [x] Готовы 16 региональных draft metadata locales; бренд сохранён, Shortcuts limitations не замаскированы, keyword/title limits PASS.
+- [x] Три русскоязычных native Simulator кадра 1320×2868 (история, источники, настройки); 3/3 XCUITest PASS. Старый English RU screenshot в App Store пока не заменён.
+- [ ] Нативные скриншоты остальных языков и реальный RC, финальная редактура 11 переводных языков и Apple approval. [Файлы](../core/appstore/staged-2026-10-26/README.md).
+
 ## C9 — реальные App Store карточки (26.10.2026)
 
 - [x] RU title PUSHKIN by Arvectum, subtitle «История уведомлений»; первый опубликованный RU скриншот содержит английский интерфейс.
