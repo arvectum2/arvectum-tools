@@ -833,6 +833,8 @@
 		C771AF6A70E1EC852B57371E /* PUSHKIN - NHG Health.shortcut in Resources */ = {isa = PBXBuildFile; fileRef = FE26BE58D28CB68B0E27CDA0 /* PUSHKIN - NHG Health.shortcut */; };
 		C798EAB1DD60DFEDA23F50CD /* PUSHKIN - 고용24(Work24).shortcut in Resources */ = {isa = PBXBuildFile; fileRef = 9792FE4ED794CC904BF433D9 /* PUSHKIN - 고용24(Work24).shortcut */; };
 		C79B06CE6D9DBF830CD63C11 /* TraditionalChineseLocalizationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E7A235C73B16BE9931CA865 /* TraditionalChineseLocalizationUITests.swift */; };
+		FE02A0010000000000000000 /* EuropeanPortugueseLocalizationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD02A0010000000000000000 /* EuropeanPortugueseLocalizationUITests.swift */; };
+		FE02A0020000000000000000 /* KoreanLocalizationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD02A0020000000000000000 /* KoreanLocalizationUITests.swift */; };
 		C81BDC01D5FAB130A938CB71 /* PUSHKIN - Norwegian Travel Assistant.shortcut in Resources */ = {isa = PBXBuildFile; fileRef = 968F5FB6386D28672958D52A /* PUSHKIN - Norwegian Travel Assistant.shortcut */; };
 		C85516977A29673962DFB971 /* PUSHKIN - Talkmore appen.shortcut in Resources */ = {isa = PBXBuildFile; fileRef = 29A2161C8DFFF41DFAADAEA7 /* PUSHKIN - Talkmore appen.shortcut */; };
 		C862FAFDB79AC2C1B1403155 /* PUSHKIN - Zalando – fashion & clothing.shortcut in Resources */ = {isa = PBXBuildFile; fileRef = 896167613570360537BED3A4 /* PUSHKIN - Zalando – fashion & clothing.shortcut */; };
@@ -1612,6 +1614,8 @@
 		7E337CD839AB6C5DED31D00D /* PUSHKIN - 포켓CU.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - 포켓CU.shortcut"; sourceTree = "<group>"; };
 		7E6382F38D33C1E403C85CC3 /* PUSHKIN - Повітряна тривога.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - Повітряна тривога.shortcut"; sourceTree = "<group>"; };
 		7E7A235C73B16BE9931CA865 /* TraditionalChineseLocalizationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraditionalChineseLocalizationUITests.swift; sourceTree = "<group>"; };
+		FD02A0010000000000000000 /* EuropeanPortugueseLocalizationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EuropeanPortugueseLocalizationUITests.swift; sourceTree = "<group>"; };
+		FD02A0020000000000000000 /* KoreanLocalizationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KoreanLocalizationUITests.swift; sourceTree = "<group>"; };
 		7EA7990C1909D260A5B24453 /* PUSHKIN - ZIVA - Zivilschutz Österreich.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - ZIVA - Zivilschutz Österreich.shortcut"; sourceTree = "<group>"; };
 		7EEF44EDF9172999836F850A /* PUSHKIN - Control remoto Roku (oficial).shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - Control remoto Roku (oficial).shortcut"; sourceTree = "<group>"; };
 		7F30617B90DFAA445155C993 /* PUSHKIN - 하나증권V-대표MTS(NEW).shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - 하나증권V-대표MTS(NEW).shortcut"; sourceTree = "<group>"; };
@@ -3312,6 +3316,8 @@
 				B93835056FA6DA990667586A /* SimulatorShortcutUITests.swift.tmp */,
 				DB523F075DBF5937FDB5B343 /* SpanishLocalizationUITests.swift */,
 				7E7A235C73B16BE9931CA865 /* TraditionalChineseLocalizationUITests.swift */,
+				FD02A0010000000000000000 /* EuropeanPortugueseLocalizationUITests.swift */,
+				FD02A0020000000000000000 /* KoreanLocalizationUITests.swift */,
 			);
 			path = ArvectumNotifyUITests;
 			sourceTree = "<group>";
@@ -4518,6 +4524,8 @@
 				556A90005EA203276F345B2E /* SimulatorShortcutUITests.swift in Sources */,
 				E799782A5F83A7CDECA520DB /* SpanishLocalizationUITests.swift in Sources */,
 				C79B06CE6D9DBF830CD63C11 /* TraditionalChineseLocalizationUITests.swift in Sources */,
+				FE02A0010000000000000000 /* EuropeanPortugueseLocalizationUITests.swift in Sources */,
+				FE02A0020000000000000000 /* KoreanLocalizationUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

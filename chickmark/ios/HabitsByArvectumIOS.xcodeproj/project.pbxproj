@@ -45,6 +45,7 @@
 		3D615909092A2873B72CDE03 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = AF3A24ACE75EB10202D9164A /* PrivacyInfo.xcprivacy */; };
 		4490AD067F5C4E0A6A91303C /* WatchHealthEvaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 177DC094E58447E014E5C326 /* WatchHealthEvaluator.swift */; };
 		45A1FA280282216AA42D6ABB /* TraditionalChineseLocalizationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58AF34D4B445B52917428EC3 /* TraditionalChineseLocalizationUITests.swift */; };
+		FE03A0010000000000000000 /* EuropeanPortugueseLocalizationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD03A0010000000000000000 /* EuropeanPortugueseLocalizationUITests.swift */; };
 		45EE183496DA73DC0C30A282 /* HabitScheduleText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07EEFC14FA3B5F51E4785CA2 /* HabitScheduleText.swift */; };
 		46332C7D33E100BEC6E668FB /* HabitInsights.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAB7F2EEB508F20E0E392A7 /* HabitInsights.swift */; };
 		48FF93B834C335A493D472FC /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCED7F4CF60499949A8BF95B /* Theme.swift */; };
@@ -314,6 +315,7 @@
 		56C6C32A6E197D5CEB5EF468 /* ChickMarkGroups.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChickMarkGroups.swift; sourceTree = "<group>"; };
 		56DA1EFF8870BBAD65199E7F /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		58AF34D4B445B52917428EC3 /* TraditionalChineseLocalizationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraditionalChineseLocalizationUITests.swift; sourceTree = "<group>"; };
+		FD03A0010000000000000000 /* EuropeanPortugueseLocalizationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EuropeanPortugueseLocalizationUITests.swift; sourceTree = "<group>"; };
 		595379F0DA6D68FC9689DCCB /* HabitProgressEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitProgressEditor.swift; sourceTree = "<group>"; };
 		5B384F9752CF25314170B7F4 /* HabitHistoryCalendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitHistoryCalendar.swift; sourceTree = "<group>"; };
 		5C930DE1D91E04C8E406F858 /* ChickMarkBrandHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChickMarkBrandHeader.swift; sourceTree = "<group>"; };
@@ -736,6 +738,7 @@
 				07F9456247F55114884100F2 /* JapaneseLocalizationUITests.swift */,
 				32BC7F93D721C95F71E9D332 /* SimplifiedChineseLocalizationUITests.swift */,
 				58AF34D4B445B52917428EC3 /* TraditionalChineseLocalizationUITests.swift */,
+				FD03A0010000000000000000 /* EuropeanPortugueseLocalizationUITests.swift */,
 				511A36FD7170E8026ACA82DF /* WaterExportSettingsUITests.swift */,
 			);
 			path = HabitsByArvectumUITests;
@@ -1139,6 +1142,7 @@
 				A02BDE5DE60397A4A478D744 /* JapaneseLocalizationUITests.swift in Sources */,
 				AA5110FC99914603F81C9B5C /* SimplifiedChineseLocalizationUITests.swift in Sources */,
 				45A1FA280282216AA42D6ABB /* TraditionalChineseLocalizationUITests.swift in Sources */,
+				FE03A0010000000000000000 /* EuropeanPortugueseLocalizationUITests.swift in Sources */,
 				CDAE731052E7A9DE768AF7EF /* WaterExportSettingsUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
