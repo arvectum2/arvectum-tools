@@ -1,5 +1,13 @@
 # What? — Product Roadmap
 
+## 26.10.2026 · PT-PT приёмка
+
+- [x] PT-PT native iPhone UI 1/1 PASS, синтетический AXXXL экран.
+- [ ] Корейский KO пока отсутствует; Watch/Widget перевод, физический ACK/VoiceOver и signing заблокированы до приёмки.
+
+[QA](../core/docs/IOS_PTPT_KO_NATIVE_QA_2026-10-26.md).
+
+
 ## 26.10.2026 · App Store RU статус (read-only)
 
 - [x] Apple Lookup подтвердил опубликованную **1.1.1**; категория **Productivity**. Свидетельство: [датированный реестр](../core/docs/APPLE_PUBLIC_LOOKUP_2026-10-26.md).

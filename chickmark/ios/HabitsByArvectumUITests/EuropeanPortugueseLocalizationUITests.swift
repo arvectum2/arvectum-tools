@@ -24,7 +24,7 @@ final class EuropeanPortugueseLocalizationUITests: XCTestCase {
         XCTAssertTrue(app.textFields["Nome do hábito"].firstMatch.exists)
         XCTAssertTrue(app.buttons["Concluído"].firstMatch.exists)
         let image = XCTAttachment(screenshot: XCUIScreen.main.screenshot())
-        image.name = "chickmark-de-new-habit"
+        image.name = "chickmark-ptpt-new-habit"
         image.lifetime = .keepAlways
         add(image)
     }

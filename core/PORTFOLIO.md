@@ -1,5 +1,12 @@
 # Arvectum Tools — Roadmap Registry
 
+## 26.10.2026 · Контроль качества локализаций C6.3
+
+**10/10 Native UI PASS** новых языков на четырёх приложениях: PT-PT 6/6; KO Фото/PDF и Pushkin 4/4. KO Pushkin исправлен и переиспытан; Swift unit 1/1. Core 63/63. Новые языки не опубликованы. Проверка носителями, Watch/физические устройства, provisioning и release gate ещё открыты.
+
+[Протокол](docs/IOS_PTPT_KO_NATIVE_QA_2026-10-26.md).
+
+
 ## 26.10.2026 · Публичный RU Apple Lookup подтверждён
 
 - [x] **Все четыре версии публичны**: Фото/PDF 1.0.2, Pushkin 1.0.2, Ухват 1.1.1, ChickMark 1.5.1.

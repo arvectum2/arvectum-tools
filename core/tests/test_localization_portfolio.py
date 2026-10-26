@@ -88,6 +88,9 @@ class LocalizationPortfolioTests(unittest.TestCase):
         self.assertEqual(sum(f["pt_pt_brazilian_flags"] for f in result["catalogs"]), 0)
         self.assertEqual(sum(f["format_mismatch"] for f in result["catalogs"]), 0)
         self.assertEqual(sum(f["missing"] + f["extra"] for f in result["catalogs"]), 0)
+        self.assertEqual(result['english_identical_triaged'], 31)
+        self.assertEqual(result['english_identical_untriaged'], [])
+        self.assertEqual(result['english_identical_stale_exceptions'], [])
 
     def test_editorial_report_order_is_stable(self):
         # Reproducible reports make real copy changes visible in code review.

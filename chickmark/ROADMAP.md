@@ -1,5 +1,13 @@
 # ChickMark — актуальная дорожная карта
 
+## 26.10.2026 · PT-PT приёмка
+
+- [x] PT-PT native iPhone UI 1/1 PASS (без реальных CloudKit данных).
+- [ ] KO отсутствует, требуется перевод iPhone/Watch/Widget, human editorial, физический HealthKit/CloudKit и подписанный RC.
+
+[QA](../core/docs/IOS_PTPT_KO_NATIVE_QA_2026-10-26.md).
+
+
 ## 26.10.2026 · App Store RU статус (read-only)
 
 - [x] Apple Lookup подтвердил опубликованную **1.5.1**; категория **Productivity**. Свидетельство: [датированный реестр](../core/docs/APPLE_PUBLIC_LOOKUP_2026-10-26.md).

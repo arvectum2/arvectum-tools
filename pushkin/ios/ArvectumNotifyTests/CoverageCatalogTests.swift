@@ -104,6 +104,17 @@ final class CoverageCatalogTests: XCTestCase {
         XCTAssertEqual(PushkinCopy.appCount(2, language: "it"), "2 app")
     }
 
+    func testKoreanBundleAndRegionalLanguageFallback() {
+        XCTAssertEqual(PushkinCopy.text("History", language: "ko"), "기록")
+        XCTAssertEqual(PushkinCopy.text("History", language: "ko-KR"), "기록")
+        XCTAssertEqual(PushkinCopy.text("Apps", language: "ko_KR"), "앱")
+        XCTAssertEqual(PushkinCopy.text("Apps & Setup", language: "ko"), "앱 및 설정")
+        XCTAssertEqual(PushkinCopy.text("Group %d", language: "ko-KR"), "그룹 %d")
+        XCTAssertEqual(PushkinCopy.appCount(1, language: "ko"), "1개 앱")
+        XCTAssertEqual(PushkinCopy.appCount(25, language: "ko-KR"), "25개 앱")
+        XCTAssertEqual(PushkinCopy.text("Unknown UI label", language: "ko"), "Unknown UI label")
+    }
+
     func testJapaneseUsesRealBundledTranslationsAndCounters() {
         XCTAssertEqual(PushkinCopy.text("History", language: "ja-JP"), "履歴")
         XCTAssertEqual(PushkinCopy.text("Settings", language: "ja"), "設定")

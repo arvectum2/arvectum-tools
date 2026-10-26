@@ -181,7 +181,7 @@ enum PushkinCopy {
         switch code {
         case "ru":
             return russian[english] ?? english
-        case "es", "fr", "de", "pt", "it", "ja", "zh":
+        case "es", "fr", "de", "pt", "it", "ja", "ko", "zh":
             return translatedBundles[code]?.localizedString(
                 forKey: english, value: english, table: nil
             ) ?? english
@@ -211,6 +211,7 @@ enum PushkinCopy {
         }
         if language.lowercased().hasPrefix("it") { return "\(count) app" }
         if language.lowercased().hasPrefix("ja") { return "\(count)件のアプリ" }
+        if language.lowercased().hasPrefix("ko") { return "\(count)개 앱" }
         if language.lowercased().hasPrefix("zh") { return "\(count)个应用" }
         if language.lowercased().hasPrefix("de") {
             return count == 1 ? "1 App" : "\(count) Apps"

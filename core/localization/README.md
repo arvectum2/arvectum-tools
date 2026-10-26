@@ -1,5 +1,14 @@
 # Arvectum Tools — portfolio localization (50 locales)
 
+## 26.10.2026 · PT-PT и KO native QA
+
+- [x] PT-PT 6/6 UI и KO 4/4 UI PASS в доступных приложениях; Pushkin KO routing fixed и Swift regression PASS.
+- [x] 31 EN identical машинный разбор, 0 новых неразобранных текстов, Core 63/63.
+- [ ] Корейский в Ухвате/ChickMark, native proofread, физическая Watch/VoiceOver QA и новая подписанная четвёрка RC.
+
+[QA](../docs/IOS_PTPT_KO_NATIVE_QA_2026-10-26.md).
+
+
 ## 26 October 2026 — verified progress
 
 - [x] 11 full-key iOS source locales across 4 apps (including draft pt-PT); KO is partial in two apps.

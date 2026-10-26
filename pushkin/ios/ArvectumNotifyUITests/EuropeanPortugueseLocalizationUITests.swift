@@ -27,7 +27,7 @@ final class EuropeanPortugueseLocalizationUITests: XCTestCase {
         settings.tap()
         XCTAssertTrue(app.navigationBars["Ajustes"].firstMatch.waitForExistence(timeout: 8))
         let evidence = XCTAttachment(screenshot: XCUIScreen.main.screenshot())
-        evidence.name = "pushkin-de-settings"
+        evidence.name = "pushkin-ptpt-settings"
         evidence.lifetime = .keepAlways
         add(evidence)
     }

@@ -2632,5 +2632,8 @@
       "key": "900×900 px · JPEG · 10 KB–1 MB",
       "value": "900×900 px · JPEG · 10 KB–1 MB"
     }
-  ]
+  ],
+  "english_identical_triaged": 31,
+  "english_identical_untriaged": [],
+  "english_identical_stale_exceptions": []
 }

@@ -1,5 +1,14 @@
 # Arvectum Tools — план исполнения без Where?
 
+## 26.10.2026 · Следующий рубеж
+
+- [x] PT-PT 6/6 и KO 4/4 Native UI PASS, Swift KO unit PASS; Core 63/63 PASS.
+- [ ] Закончить KO для Ухвата/ChickMark, редактуру носителями, Watch/VoiceOver/permission физическую приёмку.
+- [ ] Полный GitHub 11-язычный UI CI, подписанные архивы/provisioning, отдельный per-release Apple approval.
+
+[QA](docs/IOS_PTPT_KO_NATIVE_QA_2026-10-26.md).
+
+
 ## 26.10.2026 · Публичный RU Apple Lookup подтверждён
 
 - [x] **Все четыре версии публичны**: Фото/PDF 1.0.2, Pushkin 1.0.2, Ухват 1.1.1, ChickMark 1.5.1.

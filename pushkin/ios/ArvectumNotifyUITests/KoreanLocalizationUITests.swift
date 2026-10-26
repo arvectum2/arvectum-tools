@@ -27,7 +27,7 @@ final class KoreanLocalizationUITests: XCTestCase {
         settings.tap()
         XCTAssertTrue(app.navigationBars["설정"].firstMatch.waitForExistence(timeout: 8))
         let evidence = XCTAttachment(screenshot: XCUIScreen.main.screenshot())
-        evidence.name = "pushkin-de-settings"
+        evidence.name = "pushkin-ko-settings"
         evidence.lifetime = .keepAlways
         add(evidence)
     }

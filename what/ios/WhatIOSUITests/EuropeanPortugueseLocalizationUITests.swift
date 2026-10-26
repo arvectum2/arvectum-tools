@@ -32,7 +32,7 @@ final class EuropeanPortugueseLocalizationUITests: XCTestCase {
         XCTAssertTrue(library.isHittable)
         XCTAssertTrue(library.label.hasPrefix("Todas as notas, "), library.label)
         let evidence = XCTAttachment(screenshot: XCUIScreen.main.screenshot())
-        evidence.name = "uhvat-de-home-axxxl"
+        evidence.name = "uhvat-ptpt-home-axxxl"
         evidence.lifetime = .keepAlways
         add(evidence)
     }

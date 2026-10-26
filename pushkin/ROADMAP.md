@@ -1,5 +1,14 @@
 # PUSHKIN — Product Roadmap
 
+## 26.10.2026 · Корейский runtime исправлен
+
+- [x] Подключён `ko` в PushkinCopy.text, число приложений локализовано `N개 앱`.
+- [x] Повторный KO iOS UI 1/1 и Swift unit 1/1 PASS; PT-PT UI 1/1 PASS.
+- [ ] Human editor + физический Shortcuts/VoiceOver/upgrade, provisioning и отдельное Apple согласование.
+
+[QA](../core/docs/IOS_PTPT_KO_NATIVE_QA_2026-10-26.md).
+
+
 ## 26.10.2026 · App Store RU статус (read-only)
 
 - [x] Apple Lookup подтвердил опубликованную **1.0.2**; категория **Utilities**. Свидетельство: [датированный реестр](../core/docs/APPLE_PUBLIC_LOOKUP_2026-10-26.md).

@@ -1,5 +1,15 @@
 # Arvectum Tools Core — дорожная карта
 
+## 26.10.2026 · C6.3 — подтверждённая PT-PT/KO приёмка
+
+- [x] Native iPhone UI: **10/10 PASS** — PT-PT 6/6 (4 apps), KO 4/4 (Фото/PDF и Pushkin).
+- [x] Исправлена настоящая ошибка KO языка Pushkin (`PushkinCopy.text`): повторный KO UI 1/1 + Swift unit 1/1 PASS.
+- [x] Core 63/63 PASS, 31 совпадение EN лексически классифицировано в явном allowlist, 0 новых необъяснённых совпадений.
+- [ ] KO отсутствует для Ухвата/ChickMark, human editorial / физическая QA / Watch / VoiceOver / signing и полный CI остаются release gates.
+
+[Акт native QA](docs/IOS_PTPT_KO_NATIVE_QA_2026-10-26.md).
+
+
 ## 26.10.2026 · KO — два частичных iOS-каталога
 
 - [x] Для корейских исходных каталогов Фото/PDF и Pushkin добавлены независимые KoreanLocalizationUITests: синтетические экраны, без пользовательских данных/автоматизаций.
