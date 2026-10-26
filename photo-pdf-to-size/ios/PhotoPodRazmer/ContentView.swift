@@ -33,7 +33,8 @@ struct ContentView: View {
         ZStack {
             Color.arvectumBackground.ignoresSafeArea()
 
-            VStack(spacing: 6) {
+            // Preserve the native ad viewport alongside the 44pt privacy footer.
+            VStack(spacing: 2) {
                 BrandHeader(
                     showHome: model.result != nil || model.pdfResult != nil,
                     onHome: model.backToSelection
@@ -76,7 +77,7 @@ struct ContentView: View {
                     }
                 } else {
                     ScrollView(showsIndicators: false) {
-                        VStack(spacing: 10) {
+                        VStack(spacing: 4) {
                             ArvectumAdaptiveContentStack(minimumPaneWidth: 300, spacing: 16, showTrailingInCompact: false) {
                                 Group {
                                     if model.inputKind == .photo {

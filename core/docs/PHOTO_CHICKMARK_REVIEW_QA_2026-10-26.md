@@ -17,8 +17,10 @@ Source branch: `feature/review-ux-photo-chickmark-20261026` (stacked after prior
 ## Accessibility regression: recorded failure and fix
 - [x] Photo result VoiceOver speech smoke 2/2 PASS on iOS 27.0 Simulator (photo and PDF results).
 - [x] System accessibility audit discovered a **too-small hit region** for the footer «Реклама и конфиденциальность»; the app was changed to a 44pt button. A follow-up audit exposed **text clipped** when the caption was forced onto one line. We removed one-line truncation, enabled text wrapping and retained the 44pt tap area.
-- [ ] Final re-run of the **two Photo accessibility system audits** against the second fix is running; do not call these two PASS until the test bundle verifies it.
-- [ ] ChickMark additional VoiceOver accessibility tests currently queued/running; earlier first-run/onboarding and AXXXL tests did PASS as reported above.
+- [ ] **Photo full system accessibility audit remains FAIL**: even after 44pt tappable footer and multiline copy, Xcode reports potential `Text clipped` under simulated larger Dynamic Type (both photo and PDF, including first-party-only isolation). Do not mark full accessibility acceptance as passed; requires a separate layout fix and full regression.
+- [x] **VoiceOver FINAL 5/5 PASS** on a fresh isolated iPhone 18 Pro iOS 27.0 simulator: Photo/PDF 2/2 (photo/PDF result speech); ChickMark 3/3 (today speech, full core navigation, three-step onboarding speech). No failures, both .xcresult saved in `/Volumes/ArvectumSSD/Arvectum/qa/voiceover-final-20261026/`.
+
+- [x] **Mac mini VoiceOver is OFF after testing**: verified via `NSWorkspace.shared.isVoiceOverEnabled == false`, the actual System Settings → Accessibility → VoiceOver switch is value 0, `com.apple.universalaccess voiceOverOnOffKey = 0`, no VoiceOver process; temporary simulator shut down/deleted. No voice/screen accessibility settings left toggled on.
 
 ## Implementation summary
 **Photo/PDF**: no startup personalised-ad consent/ATT; `YandexAds.setUserConsent(false)` and `setLocationTracking(false)`; read-only honest disclosure in footer. New document size presets: Schengen 35×45 mm, China digital 354×472 px 40–120 KB, Canada 50×70 mm; government approval is NOT guaranteed. Marketing assets use real app screen captures and local file operations only.
@@ -26,7 +28,8 @@ Source branch: `feature/review-ux-photo-chickmark-20261026` (stacked after prior
 **ChickMark**: removed the native ad from fixed footer; it is now **at the bottom of the scrolling task list**, preserving complete sponsored disclosure/SDK assets without wasting the main viewport. Native ad unit preserved, not misused as banner. First launch has 3-page swipe carousel, skip/next/start, no permission/login requests, persisted completion; existing users with habits do not get interrupted.
 
 ## Release gate — outstanding
-- [ ] This feature branch's own GitHub CI and native accessibility/VoiceOver rerun. (A11y job currently running at report creation; update status only after inspecting result).
+- [ ] Updated commit PR CI after this targeted layout fix (older runs failed prior to fix).
+- [x] Photo/PDF **native ad visibility regression re-run PASS**: tightened root/home inter-section spacing to preserve the 44pt tappable privacy footer; real iPhone 18 Pro iOS 27.0 XCUITest `testWorstCaseNativeNoScrollRUAndENLightDark` passed across **RU + EN / light + dark / three photo modes**. Evidence: `/Volumes/ArvectumSSD/Arvectum/qa/photo-layout-vo-followup-20261026/photo.xcresult`. Two older GitHub A5 runs were red before this fix; NEW PR CI must pass after push.
 - [ ] **Physical iPhone + Watch acceptance**: `xcrun xctrace list devices` shows owner iPhone and Watch **offline** at the Mac mini, so their live privacy/permissions, real Yandex ad fill, VoiceOver and upgrade behavior could not be inspected. Never disturb personal HealthKit/Shortcuts records for QA.
 - [ ] Native-language legal/UX review for consent and country-specific document requirement caveats.
 - [ ] SDK/vendor privacy assessment and public policy alignment; if AppMetrica tracking remains, **do not** claim no tracking in App Store Nutrition Label.

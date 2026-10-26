@@ -1,6 +1,7 @@
 # Фото и PDF под размер — Product Roadmap
 
 ## 26.10.2026 · P0 — доработка по отзыву
+- [x] VoiceOver 26.10 на Mac mini: Photo/PDF 2/2 + ChickMark 3/3 PASS; системный VoiceOver после тестов **выключен** и подтверждён через AppKit/Settings.
 
 - [x] Файлы обрабатываются on-device; рекламный SDK переведён на `setUserConsent(false)`, геолокация off, нет ATT запроса; footer объясняет SDK ID и ссылается на политику.
 - [x] Встроенный AppMetrica AdSupport всё ещё **declares tracking true**. Публичный App Privacy label не меняли — он требует SDK/vendor проверки и отдельного разрешения.

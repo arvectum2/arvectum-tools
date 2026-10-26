@@ -38,3 +38,31 @@ final class OnboardingUITests: XCTestCase {
         XCTAssertFalse(application.buttons["chickmark.onboarding.next"].exists)
     }
 }
+
+#if compiler(>=6.4)
+extension OnboardingUITests {
+    @MainActor
+    func testFirstLaunchOnboardingVoiceOverSpeech() throws {
+        guard #available(iOS 27.0, *) else {
+            throw XCTSkip("VoiceOver speech needs iOS 27 or later")
+        }
+        let application = app()
+        application.launch()
+        XCTAssertTrue(application.staticTexts["One small habit"].waitForExistence(timeout: 12))
+        let voiceOver = XCUIDevice.shared.voiceOverService
+        defer { _ = try? voiceOver.disable() }
+        _ = try? voiceOver.disable()
+        _ = try voiceOver.enable()
+        var spoken: [String] = [try voiceOver.currentSpeech().utterance]
+        for _ in 0..<12 { spoken.append(try voiceOver.moveForward().utterance) }
+        print("CHICKMARK_ONBOARDING_VOICEOVER=\(spoken)")
+        XCTAssertTrue(spoken.contains {
+            $0.localizedCaseInsensitiveContains("One small habit")
+        }, "VoiceOver must announce the onboarding title")
+        XCTAssertTrue(spoken.contains {
+            $0.localizedCaseInsensitiveContains("Skip") ||
+            $0.localizedCaseInsensitiveContains("Next")
+        }, "Onboarding navigation must be discoverable with VoiceOver")
+    }
+}
+#endif
