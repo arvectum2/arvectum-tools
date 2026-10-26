@@ -78,6 +78,10 @@ for rel in tracked_files():
         "core/tools/check_swift_lockfiles.py",
         "core/tools/check_ci_coverage.py",
         "core/tools/localization_portfolio.py",
+        # ASO source and screenshot inventory tools read product assets to
+        # build draft documentation, never linked into shared Core runtime.
+        "core/tools/plan_appstore_screenshots.py",
+        "core/tools/prepare_appstore_localizations.py",
         "core/tests/test_localization_portfolio.py",
         "core/tests/test_android_photo_picker_qa.py",
         "core/tests/test_android_photo_pipeline_qa.py",
