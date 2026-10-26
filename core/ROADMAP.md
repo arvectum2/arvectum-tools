@@ -3,7 +3,8 @@
 ## 26.10.2026 · C8 — проверенный статус локализаций и релизов
 
 - [x] 11/20 полных source-пакетов Tier 1 во всех 4 продуктах (pt-PT — draft); KO только Фото/PDF и Pushkin, итого 2/4.
-- [x] Аудит ключей и placeholders PASS, 56/56 профильных тестов PASS; CI PR #151 и #152 SUCCESS, **оба PR OPEN**.
+- [x] Аудит ключей/placeholders PASS; 56/56 профильных тестов PASS; ранее зелёный CI PR #151 и кодового commit PR #152, **оба PR OPEN**.
+- [ ] Дождаться итогового CI на самом новом commit PR #152: после документационного обновления часть jobs ещё выполнялась.
 - [ ] Native-speaker/physical iPhone+Watch QA, новые подписанные IPA/SHA-256, отдельный Apple approval.
 - [ ] После KO в Ухвате/ChickMark — следующие Tier 1 языки по очереди.
 

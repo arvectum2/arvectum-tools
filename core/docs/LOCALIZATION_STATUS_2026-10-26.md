@@ -1,6 +1,6 @@
 # Arvectum Tools — локализации: проверенный срез 26.10.2026
 
-Источник: рабочая ветка `feature/review-ux-photo-chickmark-20261026` (commit `84af001`) на Mac mini через ARC. Это **готовность исходников**, а не число языков в опубликованных App Store версиях.
+Источник: рабочая ветка `feature/review-ux-photo-chickmark-20261026` (срез исходного кода `84af001`, документация обновлена последующими коммитами) на Mac mini через ARC. Это **готовность исходников**, а не число языков в опубликованных App Store версиях.
 
 ## Матрица
 
@@ -21,7 +21,8 @@ Android Фото/PDF: English + восемь draft-каталогов (`ru/de/es
 - [x] `localization_portfolio.py --report`: структура, ключи и placeholders PASS; каталоги 12/12/11/11 по приложениям.
 - [x] 56/56 профильных `test_localization_portfolio.py` PASS.
 - [x] Предыдущая native QA: pt-PT 6/6, ko 4/4, zh-Hant 6/6, 11-язычная manual UI matrix — 4/4 jobs SUCCESS.
-- [x] GitHub PR [#151](https://github.com/arvectum2/arvectum-tools/pull/151) и [#152](https://github.com/arvectum2/arvectum-tools/pull/152): все доступные CI checks SUCCESS, **оба OPEN** по проверке `gh pr view` 26.10.
+- [x] GitHub PR [#151](https://github.com/arvectum2/arvectum-tools/pull/151): **21/21 CI checks SUCCESS**, PR OPEN. Предыдущий кодовый commit PR [#152](https://github.com/arvectum2/arvectum-tools/pull/152) (`84af001`) успешно проходил CI; оба PR OPEN.
+- [ ] Последний commit PR #152 после правок документации проходит **новый** CI: на контрольной проверке часть jobs IN_PROGRESS/QUEUED; не считать этот прогон завершённым до окончательного зелёного статуса.
 - [x] ASO Фото/PDF: **20 draft metadata локалей**, в `metadata-2026-10-26-review.json` есть тайский `th`; эти метаданные не означают поддержку языка интерфейсом.
 
 ## Публичные версии и RC

@@ -5,7 +5,8 @@
 ## C8 — итог сверки локализаций 26.10.2026
 
 - [x] 11/20 Tier 1 исходных языков во всех 4 iOS-приложениях, корейский KO — только 2/4 (Фото/PDF, Pushkin), pt-PT — draft; Core portfolio structural PASS и 56/56 профильных тестов PASS.
-- [x] Прямой GitHub read-only: [PR #151](https://github.com/arvectum2/arvectum-tools/pull/151) и [#152](https://github.com/arvectum2/arvectum-tools/pull/152) — все представленные CI checks SUCCESS, **оба OPEN** на момент сверки.
+- [x] GitHub read-only: [PR #151](https://github.com/arvectum2/arvectum-tools/pull/151) — 21/21 SUCCESS, оба PR **OPEN**; предыдущий кодовый commit [#152](https://github.com/arvectum2/arvectum-tools/pull/152) успешно проходил CI.
+- [ ] На новом commit PR #152 после документационных изменений снова идёт CI (часть jobs IN_PROGRESS/QUEUED); финальный статус ещё не подтверждён.
 - [x] Новая ASO пачка Фото/PDF: 20 draft локалей, тайский `th` вместо ранее исключённого языка; не равно опубликованному UI.
 - [ ] KO Ухват+ChickMark; ещё 8 Tier 1 языков; human/physical QA и новые подписанные RC, без Apple uploads.
 
@@ -41,7 +42,8 @@
 - [x] Полная ручная GitHub 11-язычная матрица **4/4 jobs PASS**, [run 40278441525](https://github.com/arvectum2/arvectum-tools/actions/runs/40278441525).
 - [x] Ранее созданы **4/4 device xcarchive** и **4/4 подписанных App Store IPA**, проверены codesign и SHA-256; это **артефакты до последних изменений**, а не новая версия для загрузки.
 - [x] Системный VoiceOver на Mac mini после VoiceOver QA выключен, AppKit подтвердил `false`; временные симуляторы удалены.
-- [x] CI последних коммитов PR [#151](https://github.com/arvectum2/arvectum-tools/pull/151) и [#152](https://github.com/arvectum2/arvectum-tools/pull/152) проверен read-only: все представленные checks SUCCESS.
+- [x] CI базового PR [#151](https://github.com/arvectum2/arvectum-tools/pull/151) и предыдущего кодового commit [#152](https://github.com/arvectum2/arvectum-tools/pull/152) завершался SUCCESS.
+- [ ] Новый CI документационных правок #152 ещё должен завершиться.
 - [ ] Оба PR пока OPEN; решить merge последовательно (#151 → #152) отдельно от Apple release.
 - [ ] На физическом iPhone/Watch проверить сохранность данных и разрешения: Pushkin/Shortcuts, Ухват/запись+ACK/фон, ChickMark/HealthKit+CloudKit+Watch, Фото/PDF/Files+Photos. Все без сброса личных приложений и записей.
 - [ ] Региональная редактура носителями: в первую очередь privacy/system prompts, pt-PT/ko/zh-Hant.
