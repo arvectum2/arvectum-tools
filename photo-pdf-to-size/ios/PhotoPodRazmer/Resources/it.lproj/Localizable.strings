@@ -156,5 +156,11 @@
 "Канада требует оригинальную фотографию от фотографа. Изменённые или обрезанные снимки могут отклонить." = "Il Canada richiede foto originali dello studio. Le immagini ritagliate o modificate possono essere rifiutate.";
 
 // Contextual advertising privacy disclosure
-"Фото и PDF обрабатываются только на iPhone и не передаются рекламной сети. Приложение не запрашивает геолокацию или разрешение ATT. Рекламный SDK может собирать технические данные, включая идентификаторы устройства." = "Foto e PDF vengono elaborati solo su iPhone e non inviati alle reti pubblicitarie. L’app non richiede la posizione né il permesso ATT. L’SDK pubblicitario può raccogliere dati tecnici, compresi identificatori del dispositivo.";
-"Закрыть" = "Chiudi";
+
+// Advertising permission and ATT prompts restored for user-approved tracking configuration.
+"Фото и PDF обрабатываются только на устройстве. Для показа рекламы используется Yandex Mobile Ads. Вы можете разрешить рекламному SDK обработку технических данных или отказаться. Геолокация отключена, разрешение App Tracking Transparency приложение не запрашивает." = "Foto e PDF vengono elaborati esclusivamente sul dispositivo. Yandex Mobile Ads viene utilizzato per mostrare annunci. Puoi consentire o rifiutare il trattamento dei dati tecnici da parte dell'SDK pubblicitario. La localizzazione è disattivata e l'app non richiede il permesso di tracciamento di App Tracking Transparency.";
+"Разрешить для рекламы" = "Consenti per gli annunci";
+"Отказаться" = "Rifiuta";
+"Разрешить обработку данных" = "Consenti il trattamento dei dati";
+"Не разрешать обработку данных" = "Non consentire il trattamento dei dati";
+"«Фото и PDF под размер» бесплатно и поддерживается рекламой. Реклама будет показываться независимо от вашего выбора. Вы можете разрешить или не разрешить Yandex Mobile Ads обработку данных для рекламы. Если разрешите, iOS может отдельно спросить разрешение на отслеживание. При отказе реклама останется, но без доступа к рекламному идентификатору. Фото и PDF обрабатываются только на устройстве, геолокация отключена." = "Foto e PDF su misura è gratuito e sostenuto dalla pubblicità. Gli annunci vengono mostrati indipendentemente dalla tua scelta. Puoi consentire o rifiutare il trattamento dei dati pubblicitari da parte di Yandex Mobile Ads. Se acconsenti, iOS potrebbe chiedere separatamente il permesso di tracciamento. Se rifiuti il tracciamento, gli annunci restano visibili, ma l'identificatore pubblicitario non sarà disponibile. Foto e PDF vengono elaborati solo sul dispositivo e la localizzazione è disattivata.";

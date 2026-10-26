@@ -32,7 +32,7 @@ final class WorkflowUITests: XCTestCase {
             "Settings must remain reachable without scrolling"
         )
         XCTAssertTrue(
-            app.buttons["Реклама и конфиденциальность"].isHittable,
+            app.buttons["ad-privacy-settings-button"].isHittable,
             "Privacy controls must remain reachable"
         )
         XCTAssertLessThanOrEqual(save.frame.height, 96,
@@ -229,7 +229,7 @@ final class WorkflowUITests: XCTestCase {
         let save = app.buttons["result-save-primary"]
         XCTAssertTrue(save.isHittable)
         XCTAssertLessThanOrEqual(save.frame.maxY, app.frame.maxY + 1)
-        XCTAssertTrue(app.buttons["Реклама и конфиденциальность"].isHittable)
+        XCTAssertTrue(app.buttons["ad-privacy-settings-button"].isHittable)
         XCTAssertTrue(app.buttons["edit-settings-button"].isHittable)
         let fixtureID = state == "loaded" ? "result-ad-loaded-qa" : "result-ad-no-fill"
         let fixture = app.descendants(matching: .any)[fixtureID]
@@ -253,21 +253,21 @@ final class WorkflowUITests: XCTestCase {
         assertResultAdState("no-fill")
     }
 
-    func testContextualAdsPrivacyDisclosureRemainsReachableFromResult() {
+    func testAdTrackingConsentRemainsReachableFromResult() {
         let app = launch("--qa-photo-fixture")
         XCTAssertTrue(app.buttons["Уменьшить фото"].waitForExistence(timeout: 8))
         app.buttons["Уменьшить фото"].tap()
         XCTAssertTrue(app.staticTexts["ГОТОВО"].waitForExistence(timeout: 25))
 
-        let privacy = app.buttons["Реклама и конфиденциальность"]
+        let privacy = app.buttons["ad-privacy-settings-button"]
         XCTAssertTrue(privacy.isHittable)
         privacy.tap()
 
-        let close = app.buttons["ad-privacy-close"]
-        XCTAssertTrue(close.waitForExistence(timeout: 8))
-        XCTAssertTrue(close.isHittable)
-        XCTAssertFalse(app.buttons["ad-consent-accept"].exists)
-        close.tap()
+        let decline = app.buttons["ad-consent-decline"]
+        XCTAssertTrue(decline.waitForExistence(timeout: 8))
+        XCTAssertTrue(app.buttons["ad-consent-accept"].exists)
+        XCTAssertTrue(decline.isHittable)
+        decline.tap()
         XCTAssertTrue(app.staticTexts["ГОТОВО"].waitForExistence(timeout: 8))
         XCTAssertTrue(app.buttons["result-save-primary"].isHittable)
     }

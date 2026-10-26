@@ -1,5 +1,12 @@
 # ChickMark — актуальная дорожная карта
 
+## Release RC 26.10.2026
+
+- [x] Restore Photo/PDF advertising consent, IDFA ATT prompt and analytics as previously deployed; no change to the live Apple privacy label.
+- [x] Prepare versions Photo/PDF 1.0.3 (15) and ChickMark 1.5.2 (20).
+- [ ] Test fresh binary, archive/sign/export and collect exact SHA-256. Owner per-build approval required for Apple uploads.
+
+
 ## 26.10.2026 · P0 — реклама больше не перекрывает привычки; onboarding готов в коде
 - [x] VoiceOver 26.10 на Mac mini: Photo/PDF 2/2 + ChickMark 3/3 PASS; системный VoiceOver после тестов **выключен** и подтверждён через AppKit/Settings.
 

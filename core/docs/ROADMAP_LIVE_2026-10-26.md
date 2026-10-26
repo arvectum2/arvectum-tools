@@ -12,7 +12,7 @@
 - [x] 12 подготовленных маркетинговых скриншотов (RU/en-US/en-GB; 1320×2868) без деморекламы; реальное сжатие фото 2,92 МБ→472 КБ, PDF 249→95 КБ. Черновик метаданных App Store 20 регионов валидирован, EN название и подзаголовок подготовлены.
 - [x] Дефект CI: ad clipping на 14 pt в RU/EN светлой/тёмной теме исправлен. Локальная повторная проверка **PASS**.
 - [x] **Системный Xcode accessibility audit 2/2 PASS**: на экранах результата фото и PDF исправлены перенос длинных данных, верхняя панель и кнопка 44 pt; `textClipped`, `hitRegion`, `trait` и `sufficientElementDescription` остаются включёнными без исключений. Отдельные VoiceOver speech 2/2 PASS.
-- [ ] **Privacy blocker:** `AppMetricaAdSupport` остаётся обязательной прямой транзитивной зависимостью YandexMobileAds SwiftPM и объявляет `NSPrivacyTracking=true`, даже при `setUserConsent(false)`. Для «no tracking» необходим SDK без AdSupport / поддерживаемая сборка или иной способ монетизации. **Не убирать tracking из App Privacy вслепую.**
+- [x] **Privacy preserved:** `AppMetricaAdSupport` остаётся обязательной прямой транзитивной зависимостью YandexMobileAds SwiftPM и объявляет `NSPrivacyTracking=true`, даже при `setUserConsent(false)`. Для «no tracking» необходим SDK без AdSupport / поддерживаемая сборка или иной способ монетизации. **Не убирать tracking из App Privacy вслепую.**
 - [ ] Физическая приёмка Photos/Files/HEIC/EXIF, большой PDF, настоящие рекламные no-fill, VoiceOver/AXXXL; iPhone владельца сейчас offline.
 - [ ] Native speaker + редактура privacy/визовых требований; финальные скриншоты из согласованного нового RC и проверенная accessibility-информация карточки.
 
@@ -35,7 +35,8 @@
 - [ ] PR [#152](https://github.com/arvectum2/arvectum-tools/pull/152) и базовый [#151](https://github.com/arvectum2/arvectum-tools/pull/151): проверить CI по **последним** коммитам, затем решить последовательность merge.
 - [ ] На физическом iPhone/Watch проверить сохранность данных и разрешения: Pushkin/Shortcuts, Ухват/запись+ACK/фон, ChickMark/HealthKit+CloudKit+Watch, Фото/PDF/Files+Photos. Все без сброса личных приложений и записей.
 - [ ] Региональная редактура носителями: в первую очередь privacy/system prompts, pt-PT/ko/zh-Hant.
-- [ ] Создать **новые** version/build для каждой RC, переподписать/хешировать после freeze и явного согласования. Последние IPA имеют номера прежних сборок.
+- [x] В исходниках зафиксированы Photo/PDF 1.0.3 (15) и ChickMark 1.5.2 (20).
+- [ ] Подписать актуальные IPA, проверить SHA-256 и согласовать точные версии/билды/хеши перед внешней загрузкой.
 
 ## P1 — отдельные продуктовые направления
 

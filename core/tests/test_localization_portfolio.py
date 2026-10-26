@@ -466,7 +466,7 @@ class LocalizationPortfolioTests(unittest.TestCase):
         base = i18n.read_strings(bundle / "en.lproj/Localizable.strings", errors)
         german = i18n.read_strings(bundle / "de.lproj/Localizable.strings", errors)
         self.assertEqual(errors, [])
-        self.assertEqual(len(base), 155)
+        self.assertEqual(len(base), 159)
         self.assertEqual(set(base), set(german))
         for key in base:
             self.assertEqual(i18n.placeholders(base[key]),
@@ -892,17 +892,21 @@ class LocalizationPortfolioTests(unittest.TestCase):
         en = i18n.read_strings(path / "en.lproj/Localizable.strings", [])
         es = i18n.read_strings(path / "es.lproj/Localizable.strings", [])
         self.assertEqual(set(en), set(es))
-        self.assertEqual(len(es), 155)
+        self.assertEqual(len(es), 159)
         self.assertEqual(es["Сжать PDF до выбранного размера"], "Comprimir PDF al tamaño elegido")
-        self.assertIn("Фото и PDF обрабатываются только на iPhone и не передаются рекламной сети. Приложение не запрашивает геолокацию или разрешение ATT. Рекламный SDK может собирать технические данные, включая идентификаторы устройства.", es)
+        consent_key = "«Фото и PDF под размер» бесплатно и поддерживается рекламой. Реклама будет показываться независимо от вашего выбора. Вы можете разрешить или не разрешить Yandex Mobile Ads обработку данных для рекламы. Если разрешите, iOS может отдельно спросить разрешение на отслеживание. При отказе реклама останется, но без доступа к рекламному идентификатору. Фото и PDF обрабатываются только на устройстве, геолокация отключена."
+        self.assertIn(consent_key, es)
+        self.assertIn("Разрешить обработку данных", es)
+        self.assertIn("Не разрешать обработку данных", es)
         ad_code=(ROOT / "photo-pdf-to-size/ios/PhotoPodRazmer/Advertising/AdService.swift").read_text()
-        self.assertIn("YandexAds.setUserConsent(false)", ad_code)
+        self.assertIn("AdConsentStore.storedConsent ?? false", ad_code)
         self.assertIn("YandexAds.setLocationTracking(false)", ad_code)
-        self.assertIn("YandexAds.setAppAdAnalyticsReportingEnabled(false)", ad_code)
-        self.assertNotIn("ATTrackingManager", ad_code)
+        self.assertIn("ATTrackingManager.requestTrackingAuthorization", ad_code)
+        self.assertIn("YandexAds.setUserConsent(consent)", ad_code)
+        self.assertNotIn("YandexAds.setAppAdAnalyticsReportingEnabled(false)", ad_code)
         info = i18n.read_strings(path / "es.lproj/InfoPlist.strings", [])
-        self.assertEqual(set(info), {"CFBundleDisplayName"})
-        self.assertNotIn("NSUserTrackingUsageDescription", info)
+        self.assertEqual(set(info), {"CFBundleDisplayName", "NSUserTrackingUsageDescription"})
+        self.assertIn("identificador publicitario", info["NSUserTrackingUsageDescription"])
 
     def test_android_export_filenames_localized_for_all_shipping_languages(self):
         from xml.etree import ElementTree

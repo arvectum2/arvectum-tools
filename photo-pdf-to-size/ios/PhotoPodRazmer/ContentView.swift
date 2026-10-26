@@ -152,6 +152,7 @@ struct ContentView: View {
                             .contentShape(Rectangle())
                     }
                     .buttonStyle(.plain)
+                    .accessibilityIdentifier("ad-privacy-settings-button")
                     // Short visible title remains the spoken button label;
                     // VoiceOver adds the destination's privacy details as a hint.
                     .accessibilityHint(tr("Реклама и конфиденциальность"))
@@ -185,7 +186,8 @@ struct ContentView: View {
             }
         }
         .sheet(isPresented: $showingAdPrivacySettings) {
-            AdConsentSheet {
+            AdConsentSheet { value in
+                AdSDK.setUserConsent(value)
                 showingAdPrivacySettings = false
             }
             .presentationDetents([.large])

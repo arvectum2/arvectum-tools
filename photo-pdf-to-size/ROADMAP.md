@@ -1,5 +1,12 @@
 # Фото и PDF под размер — Product Roadmap
 
+## Release RC 26.10.2026
+
+- [x] Restore Photo/PDF advertising consent, IDFA ATT prompt and analytics as previously deployed; no change to the live Apple privacy label.
+- [x] Prepare versions Photo/PDF 1.0.3 (15) and ChickMark 1.5.2 (20).
+- [ ] Test fresh binary, archive/sign/export and collect exact SHA-256. Owner per-build approval required for Apple uploads.
+
+
 - [x] **26.10.2026 Фото/PDF системный AX 2/2 PASS** (фото + PDF, включая `textClipped`), плюс VoiceOver 2/2 PASS; финальный XCResult на Mac mini: `/Volumes/ArvectumSSD/Arvectum/qa/photo-a11y-icons-final-20261026/photo.xcresult`.
 
 ## 26.10.2026 · P0 — доработка по отзыву
