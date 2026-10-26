@@ -77,7 +77,7 @@
 "detail.restore" = "Restaurar do ficheiro";
 "detail.delete" = "Eliminar hábito";
 "detail.delete.title" = "Eliminar hábito?";
-"detail.delete.message" = "O histórico de conclusão deste hábito também será excluído.";
+"detail.delete.message" = "O histórico de conclusão deste hábito também será eliminado.";
 "detail.more.accessibility" = "Mais ações do hábito";
 "archive.title" = "Arquivados";
 "archive.accessibility" = "Hábitos arquivados";
@@ -156,7 +156,7 @@
 "habit.multi.slot.format" = "Registo %d de %d";
 "habit.multi.checked" = "Concluído";
 "habit.multi.unchecked" = "Não concluído";
-"habit.multi.target.locked" = "A quantidade de registos diários não pode mudar depois que o histórico começar.";
+"habit.multi.target.locked" = "A quantidade de registos diários não pode ser alterada depois de começar a registar o histórico.";
 "habit.goal.kind" = "Tipo de meta";
 "habit.goal.checks" = "Registos";
 "habit.goal.quantity" = "Quantidade";
@@ -241,7 +241,7 @@
 "restart.settings.title" = "Recomeço gentil";
 "restart.settings.enable" = "Oferecer um retorno tranquilo";
 "restart.settings.threshold" = "Após um período de pausa";
-"restart.settings.explanation" = "Desativado por padrão. Oferece um convite discreto após uma pausa. Registos anteriores, dias ignorados, sequências e cronogramas nunca são reescritos. Este ajuste permanece neste iPhone.";
+"restart.settings.explanation" = "Desativado por predefinição. Oferece um convite discreto após uma pausa. Registos anteriores, dias ignorados, sequências e cronogramas nunca são reescritos. Esta definição permanece neste iPhone.";
 "restart.settings.shortTitle" = "Recomeçar";
 "restart.settings.disabledHint" = "Ative o Recomeço gentil para escolher o intervalo.";
 "restart.days" = "%d dias";
@@ -250,7 +250,7 @@
 "restart.card.later" = "Talvez amanhã";
 "weekly.title" = "Resumo semanal";
 "weekly.optIn" = "Mostrar resumo semanal local";
-"weekly.privacy" = "Desativado por padrão. Calculado apenas neste dispositivo; sem notificações, conta, análises ou sincronização de rede. Hábitos ligados à app Saúde da Apple são excluídos porque conclusões automáticas anteriores não podem ser deduzidas dos registos manuais.";
+"weekly.privacy" = "Desativado por predefinição. Calculado apenas neste dispositivo; sem notificações, conta, análises ou sincronização de rede. Hábitos ligados à app Saúde da Apple são excluídos porque conclusões automáticas anteriores não podem ser deduzidas dos registos manuais.";
 "weekly.lastCompleted" = "Última semana completa no calendário";
 "weekly.calendarWeek" = "Semana";
 "weekly.scheduled" = "Dias programados";

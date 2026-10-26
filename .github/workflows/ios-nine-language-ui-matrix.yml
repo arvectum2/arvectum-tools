@@ -1,7 +1,7 @@
-name: iOS ten-language UI matrix (manual)
+name: iOS eleven-language UI matrix (manual)
 
 # This broad native UI suite is intentionally opt-in: it uses four
-# macOS Xcode runners and exercises the full 10-locale app/source matrix.
+# macOS Xcode runners and exercises the full 11-locale app/source matrix.
 on:
   workflow_dispatch:
 
@@ -9,12 +9,12 @@ permissions:
   contents: read
 
 concurrency:
-  group: ios-ten-language-ui-matrix-${{ github.ref }}
+  group: ios-eleven-language-ui-matrix-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
   ios-localized-ui:
-    name: UI ${{ matrix.app }} (10 locales)
+    name: UI ${{ matrix.app }} (11 locales)
     runs-on: xcode-27
     timeout-minutes: 60
     strategy:
@@ -80,6 +80,7 @@ jobs:
             FrenchLocalizationUITests \
             GermanLocalizationUITests \
             BrazilianPortugueseLocalizationUITests \
+            EuropeanPortugueseLocalizationUITests \
             ItalianLocalizationUITests \
             JapaneseLocalizationUITests \
             SimplifiedChineseLocalizationUITests \
@@ -88,7 +89,7 @@ jobs:
               tests+=("-only-testing:${{ matrix.uitests }}/${class}")
             fi
           done
-          if [ "${#tests[@]}" -lt 8 ]; then
+          if [ "${#tests[@]}" -lt 9 ]; then
             echo "::error::Missing expected language UI test classes"
             exit 1
           fi
@@ -119,7 +120,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: ios-ten-lang-${{ matrix.app }}-${{ github.run_id }}
+          name: ios-eleven-lang-${{ matrix.app }}-${{ github.run_id }}
           path: |
             ${{ runner.temp }}/${{ matrix.app }}-localization.xcresult
             ${{ runner.temp }}/${{ matrix.app }}-localization.log

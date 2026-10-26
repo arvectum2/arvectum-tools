@@ -44,8 +44,8 @@
 "After 2 hours" = "Após 2 horas";
 "After 3 hours" = "Após 3 horas";
 "All" = "Tudo";
-"Allow Speech Recognition for UhWhat? in iPhone Settings. Your audio is safe." = "Permita o reconhecimento de fala do UhWhat? nas Definições do iPhone. Seu áudio está preservado.";
-"App settings and diagnostics" = "Ajustes da aplicação e diagnóstico";
+"Allow Speech Recognition for UhWhat? in iPhone Settings. Your audio is safe." = "Permita o reconhecimento de fala do UhWhat? nas Definições do iPhone. O áudio original está preservado.";
+"App settings and diagnostics" = "Definições da aplicação e diagnóstico";
 "Apple Watch — last reported state" = "Apple Watch — último estado informado";
 "Archive" = "Ficheiro";
 "Archive is empty" = "O ficheiro está vazio";
@@ -124,7 +124,7 @@
 "Nothing yet" = "Nada por enquanto";
 "Notifications are disabled. Enable them in Settings." = "As notificações estão desativadas. Ative-as nas Definições.";
 "Off" = "Desativado";
-"On-device speech recognition is unavailable for the selected language. Choose another language or check iOS Settings. Original audio is preserved." = "O reconhecimento de fala no dispositivo está indisponível para o idioma selecionado. Escolha outro idioma ou verifique os Ajustes do iOS. O áudio original será preservado.";
+"On-device speech recognition is unavailable for the selected language. Choose another language or check iOS Settings. Original audio is preserved." = "O reconhecimento de fala no dispositivo está indisponível para o idioma selecionado. Escolha outro idioma ou verifique as Definições do iOS. O áudio original será preservado.";
 "Open" = "Abrir";
 "Original note" = "Nota original";
 "Pending on Watch" = "Pendente no Watch";
@@ -216,7 +216,7 @@
 "Today" = "Hoje";
 "Yesterday" = "Ontem";
 "Earlier" = "Anteriormente";
-"Interface language: iOS Settings" = "Idioma da interface: Ajustes do iOS";
+"Interface language: iOS Settings" = "Idioma da interface: Definições do iOS";
 "Transcript storage could not be read. Your edits were not saved." = "Não foi possível ler o armazenamento das transcrições. As suas alterações não foram guardadas.";
 "Transcript recovery" = "Recuperação de transcrições";
 "Restore transcripts only when their storage is damaged." = "Restaure as transcrições apenas quando o armazenamento estiver danificado.";

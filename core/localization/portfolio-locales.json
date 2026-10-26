@@ -270,6 +270,7 @@
           "fr",
           "de",
           "pt-BR",
+          "pt-PT",
           "it",
           "ja",
           "zh-Hans",
@@ -291,6 +292,7 @@
           "fr",
           "de",
           "pt-BR",
+          "pt-PT",
           "it",
           "ja",
           "zh-Hans",
@@ -317,6 +319,7 @@
           "fr",
           "de",
           "pt-BR",
+          "pt-PT",
           "it",
           "ja",
           "zh-Hans",
@@ -344,6 +347,7 @@
           "fr",
           "de",
           "pt-BR",
+          "pt-PT",
           "it",
           "ja",
           "zh-Hans",
@@ -380,12 +384,12 @@
     ],
     "androidExpansion": "deferred; maintain nine existing source catalogs",
     "iosTier1Active": [
-      "zh-Hant"
+      "zh-Hant",
+      "pt-PT"
     ],
     "iosTier1Remaining": [
       "hi",
       "ar",
-      "pt-PT",
       "ko",
       "id",
       "tr",

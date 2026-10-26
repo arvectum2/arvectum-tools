@@ -1,5 +1,12 @@
 # Arvectum Tools Core — дорожная карта
 
+## 26.10.2026 · C6.2 — pt-PT Core registry и UI coverage
+
+- [x] 11-й исходный пакет pt-PT добавлен в Core registry всех четырёх приложений, отдельные EuropeanPortuguese native UI smoke tests включены в ручную 11-язычную GitHub матрицу.
+- [x] Исправлены дополнительные европейские португальские формулировки Pushkin/Ухвата/ChickMark.
+- [ ] Новые pt-PT XCUITest ещё не выполнены; native speaker/VoiceOver/Watch и физическая приёмка открыты. Apple release только по отдельному согласованию.
+
+
 ## 26.10.2026 · Публичный RU Apple Lookup подтверждён
 
 - [x] **Все четыре версии публичны**: Фото/PDF 1.0.2, Pushkin 1.0.2, Ухват 1.1.1, ChickMark 1.5.1.
