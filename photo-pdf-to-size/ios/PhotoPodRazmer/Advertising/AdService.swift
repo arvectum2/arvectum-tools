@@ -60,6 +60,9 @@ enum AdSDK {
         // opt in to personalised advertising. No location access.
         YandexAds.setLocationTracking(false)
         YandexAds.setUserConsent(false)
+        // Disable automatic AppMetrica anonymous advertising analytics too.
+        // This alone does NOT remove the transitive AdSupport tracking manifest.
+        YandexAds.setAppAdAnalyticsReportingEnabled(false)
 #if DEBUG
         YandexAds.enableLogging()
 #endif

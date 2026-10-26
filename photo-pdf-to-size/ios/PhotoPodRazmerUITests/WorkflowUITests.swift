@@ -111,7 +111,15 @@ final class WorkflowUITests: XCTestCase {
 #endif
 
     private func auditResultAccessibility(fixture: String, processAction: String) throws {
-        let app = launch(fixture)
+        // App-owned result UI: exclude the external Yandex creative and the
+        // App Store update prompt; they have separate integration tests.
+        // Keep ALL four system audits including textClipped enabled.
+        let app = XCUIApplication()
+        app.launchArguments = [
+            "-AppleLanguages", "(ru)", "-AppleLocale", "ru_RU",
+            fixture, "--store-screenshot-clean"
+        ]
+        app.launch()
         let process = app.buttons[processAction]
         XCTAssertTrue(process.waitForExistence(timeout: 8))
         process.tap()

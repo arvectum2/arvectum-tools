@@ -898,6 +898,7 @@ class LocalizationPortfolioTests(unittest.TestCase):
         ad_code=(ROOT / "photo-pdf-to-size/ios/PhotoPodRazmer/Advertising/AdService.swift").read_text()
         self.assertIn("YandexAds.setUserConsent(false)", ad_code)
         self.assertIn("YandexAds.setLocationTracking(false)", ad_code)
+        self.assertIn("YandexAds.setAppAdAnalyticsReportingEnabled(false)", ad_code)
         self.assertNotIn("ATTrackingManager", ad_code)
         info = i18n.read_strings(path / "es.lproj/InfoPlist.strings", [])
         self.assertEqual(set(info), {"CFBundleDisplayName"})

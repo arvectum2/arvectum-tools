@@ -1,5 +1,7 @@
 # Фото и PDF под размер — Product Roadmap
 
+- [x] **26.10.2026 Фото/PDF системный AX 2/2 PASS** (фото + PDF, включая `textClipped`), плюс VoiceOver 2/2 PASS; финальный XCResult на Mac mini: `/Volumes/ArvectumSSD/Arvectum/qa/photo-a11y-icons-final-20261026/photo.xcresult`.
+
 ## 26.10.2026 · P0 — доработка по отзыву
 - [x] VoiceOver 26.10 на Mac mini: Photo/PDF 2/2 + ChickMark 3/3 PASS; системный VoiceOver после тестов **выключен** и подтверждён через AppKit/Settings.
 

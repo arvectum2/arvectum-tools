@@ -1,5 +1,8 @@
 # Arvectum Tools — Roadmap Registry
 
+[**Текущий срез 26.10.2026**](docs/ROADMAP_LIVE_2026-10-26.md) — читайте до исторических заметок ниже.
+
+
 ## 26.10.2026 · Все четыре приложения подписаны локально
 
 4/4 Release Simulator builds, 4/4 device xcarchives, **4/4 App Store IPA экспорта** и 4/4 проверенные подписи Apple Distribution. Это QA-артефакты, **не новые релизы**: версия Фото/PDF в IPA даже ниже публичной. Прежние provisioning-блокеры для локального экспорта устранены; человеческие редакторские/физические проверки и новый version/build/hash approval остаются.

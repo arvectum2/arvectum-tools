@@ -1,5 +1,10 @@
 # Arvectum Tools Core — дорожная карта
 
+- [x] **26.10.2026 Фото/PDF системный AX 2/2 PASS** (фото + PDF, включая `textClipped`), плюс VoiceOver 2/2 PASS; финальный XCResult на Mac mini: `/Volumes/ArvectumSSD/Arvectum/qa/photo-a11y-icons-final-20261026/photo.xcresult`.
+
+[**Оперативная дорожная карта 26.10.2026 — P0/P1 и блокеры**](docs/ROADMAP_LIVE_2026-10-26.md). Документы ниже сохраняют хронологию, но не всегда содержат финальный результат сегодняшних тестов.
+
+
 ## 26.10.2026 · C7 — Photo/PDF отзыв + ChickMark UX
 - [x] VoiceOver 26.10 на Mac mini: Photo/PDF 2/2 + ChickMark 3/3 PASS; системный VoiceOver после тестов **выключен** и подтверждён через AppKit/Settings.
 

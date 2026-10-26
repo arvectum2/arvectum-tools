@@ -5,6 +5,7 @@
 ## Verified application behavior
 - Photo/PDF bytes are read from user-selected Photos/Files sources, processed on iPhone and exported via a user-initiated share/save. No app-level upload of photo/PDF content to Yandex or Arvectum.
 - `YandexAds.setLocationTracking(false)`, `YandexAds.setUserConsent(false)` at startup. No ATT request, `ATTrackingManager` usage, or `NSUserTrackingUsageDescription` in the new build.
+- Explicitly called `YandexAds.setAppAdAnalyticsReportingEnabled(false)` to avoid the automatically enabled anonymous AppMetrica reports; this setting is supported by the bundled `YandexMobileAds.framework` Swift interface.
 - This **does not mean "no data collected"**. Yandex Mobile Ads and transitive AppMetrica dependencies can collect technical device/ad data while serving ads. The application displays a read-only disclosure plus the privacy-policy link instead of a misleading personalised-ad consent flow.
 
 ## Direct manifest audit (26 October, Debug iOS Simulator build)
@@ -26,3 +27,7 @@
 - [ ] Complete native-speaker copy review and physical privacy/permission QA; signed IPA and version/build bump; separate ASC/TestFlight upload approval.
 
 Source check: `photo-pdf-to-size/ios/PhotoPodRazmer/Advertising/AdService.swift`, bundled privacy manifests at `/Volumes/ArvectumSSD/Arvectum/qa/review-ux-20261026/derived-photo/Build/Products/Debug-iphonesimulator/PhotoPodRazmer.app`.
+
+## 26.10.2026 direct dependency finding
+
+The checked-out Yandex Mobile Ads Swift Package `yandex-ads-sdk-ios/Package.swift` directly includes `AppMetricaAdSupport` in the product dependencies (two variants). Simply removing `NSUserTrackingUsageDescription` or setting `setUserConsent(false)` cannot erase the bundled tracking manifest. The official AppMetrica guide confirms excluding `AppMetricaAdSupport` is the documented approach for disabling tracking, but the current Yandex SDK integration requires the module. Do **not** fork/vendor the SDK, silently remove required targets or change live privacy disclosures without testing Yandex ad filling and obtaining a supported upstream integration path. Vendor source: https://yandex.com/support/appmetrica-io/en/data-security/app-privacy-apple .

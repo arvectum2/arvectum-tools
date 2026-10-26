@@ -112,8 +112,7 @@ struct ContentView: View {
                             // Keep the sticky CTA readable and within the
                             // viewport at AXXXL; don't constrain result body.
                             .dynamicTypeSize(dynamicTypeSize.isAccessibilitySize ? .accessibility1 : dynamicTypeSize)
-                            .lineLimit(1)
-                            .minimumScaleFactor(0.75)
+                            .fixedSize(horizontal: false, vertical: true)
                             .frame(maxWidth: .infinity)
                             .frame(minHeight: ArvectumDesignMetrics.preferredControlHeight)
                             .contentShape(Rectangle())
@@ -133,31 +132,31 @@ struct ContentView: View {
                         Label(tr("Файл сохранён"), systemImage: "checkmark.circle.fill")
                             .font(.footnote.weight(.semibold))
                             .foregroundStyle(Color.arvectumAccentText)
-                            .lineLimit(1)
-                            .minimumScaleFactor(0.85)
+                            .fixedSize(horizontal: false, vertical: true)
                             .frame(maxWidth: .infinity)
                             .accessibilityIdentifier("export-success")
                     }
                 }
 
                 HStack(spacing: 6) {
-                    if !dynamicTypeSize.isAccessibilitySize {
-                        Text("Arvectum.com")
-                        Text("·")
-                    }
+                    // The brand already appears in the header; omit the
+                    // redundant website prefix, which stole space from the
+                    // privacy action at the simulated largest Dynamic Type.
                     Button {
                         showingAdPrivacySettings = true
                     } label: {
-                        Text(tr("Реклама и конфиденциальность"))
+                        Text(tr("Реклама в приложении"))
                             .multilineTextAlignment(.center)
                             .fixedSize(horizontal: false, vertical: true)
                             .frame(minHeight: 44)
                             .contentShape(Rectangle())
                     }
                     .buttonStyle(.plain)
+                    // Short visible title remains the spoken button label;
+                    // VoiceOver adds the destination's privacy details as a hint.
+                    .accessibilityHint(tr("Реклама и конфиденциальность"))
                 }
-                // Preserve the full privacy/advertising label rather than
-                // sacrificing it to a decorative website prefix at AXXXL.
+                // Keep the privacy control a full-size touch target at AXXXL.
                 .font(.caption.weight(.semibold))
                 .dynamicTypeSize(dynamicTypeSize.isAccessibilitySize ? .xxxLarge : dynamicTypeSize)
                 .foregroundStyle(.secondary)
