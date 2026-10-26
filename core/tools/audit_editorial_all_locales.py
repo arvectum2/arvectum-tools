@@ -86,4 +86,3 @@ f"Разрешённых совпадений с английским: {findings
 (OUT/"REPORT.md").write_text("\n".join(md)+"\n")
 print("EDITORIAL",findings["files"],"catalogs",findings["entries"],"strings",len(critical),"critical",len(flags),"machine flags")
 if flags:sys.exit(1)
-

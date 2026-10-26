@@ -96,4 +96,3 @@ for app in ["pushkin","what","chickmark","photo"]:
   result["localeData"][loc]=entry
  (OUT/f"{app}.json").write_text(json.dumps(result,ensure_ascii=False,indent=2)+"\n")
  print("WROTE",app,len(result["localeData"]),"locales",flush=True)
-
