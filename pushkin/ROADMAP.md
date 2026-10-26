@@ -1,5 +1,13 @@
 # PUSHKIN — Product Roadmap
 
+## 26.10.2026 · C8 — актуальный статус Pushkin
+
+- [x] 12 полных source-пакетов, включая KO; PT-PT/KO/zh-Hant native smoke PASS; Core audit PASS.
+- [x] Публичная RU 1.0.2. Текущий подписанный IPA — прежний QA-артефакт, не новый релиз.
+- [ ] Human review инструкций и разрешений, Shortcuts/история на физическом iPhone, свежая подпись/версия, отдельное согласование Apple.
+
+[Статус портфеля](../core/docs/LOCALIZATION_STATUS_2026-10-26.md).
+
 ## 26.10.2026 · Signed IPA QA
 
 - [x] Store IPA из локального архивирования, подпись Apple Distribution проверена; прежний missing profile для локального экспорта больше не блокирует.

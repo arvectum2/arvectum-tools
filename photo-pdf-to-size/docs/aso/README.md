@@ -1,5 +1,10 @@
 # App Store ASO — global rollout (DRAFT, 2026-10-10)
 
+## 26 October 2026 — localization update
+
+- [x] Активный ASO-план 20 локалей: `th` вместо исключённого языкового варианта. Драфт `metadata-2026-10-26-review.json` и рабочая базовая ASO-заготовка согласованы по составу.
+- [ ] `th` UI ещё не готов; все новые метаданные требуют редакторской проверки. Архив `metadata-1.0.1.json` не использовать для новых публикаций.
+
 ## 26 October 2026 — user-review response (staged, not published)
 
 - [x] New local App Store screenshot drafts for RU, en-US, en-GB — 12 true-size 1320×2868 JPEG composites, no Yandex Demo Ad, strong numeric differentiation between compress-to-KB and pixel-resize.
@@ -28,7 +33,7 @@
 |---|---|---|
 | P0, launch with refactor | `ru`, `en-US`, `en-GB`, `es-MX`, `es-ES`, `pt-BR`, `de-DE`, `fr-FR` | Russian baseline, English global reach, Mexico/LatAm and Spain, Brazil, Germany, France. |
 | P1 | `en-AU`, `en-CA`, `pt-PT`, `it`, `hi`, `tr`, `id` | Country-specific English, Portugal/Italy, India, Turkey, Indonesia. |
-| P2 | `pl`, `ja`, `ko`, `uk`, `vi` | Additional indexed locales; review actual app-language support and market impressions first. |
+| P2 | `pl`, `ja`, `ko`, `th`, `vi` | Additional indexed locales; review actual app-language support and market impressions first. |
 
 **Important:** App Store metadata localization ≠ in-app UI localization. The current UI screenshot sources are Russian and English. Non-RU/EN screenshots have a localized headline but English app UI. For a polished release, localize the actual UI to P0 languages **during the refactor**, or explicitly choose to ship English UI to those countries. Do not advertise a fully translated app until it is implemented.
 

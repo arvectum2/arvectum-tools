@@ -1,5 +1,7 @@
 # Arvectum Tools — Roadmap Registry
 
+[**Проверенный C8 статус локализаций 26.10: 11/20 Tier 1, KO 2/4; source ≠ App Store**](docs/LOCALIZATION_STATUS_2026-10-26.md).
+
 [**Текущий срез 26.10.2026**](docs/ROADMAP_LIVE_2026-10-26.md) — читайте до исторических заметок ниже.
 
 

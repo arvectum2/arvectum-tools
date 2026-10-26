@@ -1,5 +1,14 @@
 # Arvectum Tools Core — дорожная карта
 
+## 26.10.2026 · C8 — проверенный статус локализаций и релизов
+
+- [x] 11/20 полных source-пакетов Tier 1 во всех 4 продуктах (pt-PT — draft); KO только Фото/PDF и Pushkin, итого 2/4.
+- [x] Аудит ключей и placeholders PASS, 56/56 профильных тестов PASS; CI PR #151 и #152 SUCCESS, **оба PR OPEN**.
+- [ ] Native-speaker/physical iPhone+Watch QA, новые подписанные IPA/SHA-256, отдельный Apple approval.
+- [ ] После KO в Ухвате/ChickMark — следующие Tier 1 языки по очереди.
+
+[Полная актуальная матрица](docs/LOCALIZATION_STATUS_2026-10-26.md).
+
 ## Release RC 26.10.2026
 
 - [x] Restore Photo/PDF advertising consent, IDFA ATT prompt and analytics as previously deployed; no change to the live Apple privacy label.

@@ -1,5 +1,13 @@
 # ChickMark — актуальная дорожная карта
 
+## 26.10.2026 · C8 — актуальный статус ChickMark
+
+- [x] 11 полных source-пакетов iPhone/Watch/widgets; новый onboarding переведён на 11 языков; native/VoiceOver QA PASS.
+- [x] Публичная RU 1.5.1, категория Productivity; в коде RC **1.5.2 (20)**, не опубликован.
+- [ ] KO во всех компонентах, физическая HealthKit/CloudKit/Watch QA, реальные показы РСЯ, редактура и новый IPA/SHA-256.
+
+[Статус портфеля](../core/docs/LOCALIZATION_STATUS_2026-10-26.md).
+
 ## Release RC 26.10.2026
 
 - [x] Restore Photo/PDF advertising consent, IDFA ATT prompt and analytics as previously deployed; no change to the live Apple privacy label.

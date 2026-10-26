@@ -1,5 +1,14 @@
 # Фото и PDF под размер — Product Roadmap
 
+## 26.10.2026 · C8 — актуальный статус Фото/PDF
+
+- [x] 12/20 Tier 1 исходных пакетов, включая KO; общий структурный audit PASS. PT-PT и KO требуют редакторской приёмки.
+- [x] Public RU 1.0.2; в коде RC **1.0.3 (15)**, не опубликован.
+- [x] После `cd8ebc3` восстановлен диалог рекламного согласия: до выбора `userConsent=false`; геолокация off; ATT возможен после положительного согласия. Прежние записи ниже про отсутствие ATT — история, не текущий код.
+- [ ] Реальные рекламные показы/ATT, Files/Photos/PDF на физическом iPhone, редактура; свежая подпись и согласование релиза.
+
+[Статус портфеля](../core/docs/LOCALIZATION_STATUS_2026-10-26.md).
+
 ## Release RC 26.10.2026
 
 - [x] Restore Photo/PDF advertising consent, IDFA ATT prompt and analytics as previously deployed; no change to the live Apple privacy label.
@@ -12,7 +21,7 @@
 ## 26.10.2026 · P0 — доработка по отзыву
 - [x] VoiceOver 26.10 на Mac mini: Photo/PDF 2/2 + ChickMark 3/3 PASS; системный VoiceOver после тестов **выключен** и подтверждён через AppKit/Settings.
 
-- [x] Файлы обрабатываются on-device; рекламный SDK переведён на `setUserConsent(false)`, геолокация off, нет ATT запроса; footer объясняет SDK ID и ссылается на политику.
+- [x] Файлы обрабатываются on-device, геолокация off. Сейчас `setUserConsent(false)` действует до выбора пользователя; разрешение сохраняется локально, после positive consent может появиться ATT. Footer объясняет SDK ID и ссылается на политику.
 - [x] Встроенный AppMetrica AdSupport всё ещё **declares tracking true**. Публичный App Privacy label не меняли — он требует SDK/vendor проверки и отдельного разрешения.
 - [x] Шенген 35×45, Китай digital 354×472/40–120 КБ, Канада 50×70 + предупреждение об оригинальных снимках.
 - [x] Native 3/3 unit+UI PASS, Core 63/63, локализация сохранена; 20 ASO metadata DRAFT locales валидны.

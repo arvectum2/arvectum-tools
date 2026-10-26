@@ -2,17 +2,26 @@
 
 Этот документ — **актуальный срез**, исторические разделы в отдельных ROADMAP.md не пересказывают сегодняшнюю приёмку. **RDC не используется, работа только через ARC на Mac mini.**
 
+## C8 — итог сверки локализаций 26.10.2026
+
+- [x] 11/20 Tier 1 исходных языков во всех 4 iOS-приложениях, корейский KO — только 2/4 (Фото/PDF, Pushkin), pt-PT — draft; Core portfolio structural PASS и 56/56 профильных тестов PASS.
+- [x] Прямой GitHub read-only: [PR #151](https://github.com/arvectum2/arvectum-tools/pull/151) и [#152](https://github.com/arvectum2/arvectum-tools/pull/152) — все представленные CI checks SUCCESS, **оба OPEN** на момент сверки.
+- [x] Новая ASO пачка Фото/PDF: 20 draft локалей, тайский `th` вместо ранее исключённого языка; не равно опубликованному UI.
+- [ ] KO Ухват+ChickMark; ещё 8 Tier 1 языков; human/physical QA и новые подписанные RC, без Apple uploads.
+
+[Матрица локализаций и релизов](LOCALIZATION_STATUS_2026-10-26.md).
+
 ## P0 — Фото и PDF под размер, ветка `feature/review-ux-photo-chickmark-20261026`
 
 - [x] Обработка входных фото и PDF локально; приложение не отправляет содержимое файлов рекламной сети.
-- [x] Убраны прямые запросы ATT и рекламной геолокации; рекламному SDK передаётся `userConsent=false`, автоматические анонимные AppMetrica ad analytics отключены.
+- [x] После последней правки consent UI восстановлен: рекламный SDK получает `userConsent=false` до выбора, геолокация отключена. При положительном согласии возможен ATT; прежнее утверждение об отсутствии ATT устарело.
 - [x] В интерфейсе есть честная информация о технических данных и идентификаторах SDK; кнопка приватности доступна VoiceOver, имеет высоту ≥44 pt и сокращённую видимую подпись.
 - [x] Новые типовые форматы: шенгенское фото 35×45 мм, цифровая китайская виза 354×472 px (40–120 КБ), канадский паспорт 50×70 мм. Требования ведомств и оригиналы от фотографа не гарантируются приложением.
 - [x] Native unit/UI проверки обновлённых пресетов и страницы приватности — **3/3 PASS**; голосовая приёмка результата фото и PDF **2/2 PASS**.
 - [x] 12 подготовленных маркетинговых скриншотов (RU/en-US/en-GB; 1320×2868) без деморекламы; реальное сжатие фото 2,92 МБ→472 КБ, PDF 249→95 КБ. Черновик метаданных App Store 20 регионов валидирован, EN название и подзаголовок подготовлены.
 - [x] Дефект CI: ad clipping на 14 pt в RU/EN светлой/тёмной теме исправлен. Локальная повторная проверка **PASS**.
 - [x] **Системный Xcode accessibility audit 2/2 PASS**: на экранах результата фото и PDF исправлены перенос длинных данных, верхняя панель и кнопка 44 pt; `textClipped`, `hitRegion`, `trait` и `sufficientElementDescription` остаются включёнными без исключений. Отдельные VoiceOver speech 2/2 PASS.
-- [x] **Privacy preserved:** `AppMetricaAdSupport` остаётся обязательной прямой транзитивной зависимостью YandexMobileAds SwiftPM и объявляет `NSPrivacyTracking=true`, даже при `setUserConsent(false)`. Для «no tracking» необходим SDK без AdSupport / поддерживаемая сборка или иной способ монетизации. **Не убирать tracking из App Privacy вслепую.**
+- [x] **Privacy preserved:** `AppMetricaAdSupport` остаётся обязательной прямой транзитивной зависимостью YandexMobileAds SwiftPM и объявляет `NSPrivacyTracking=true`, даже при отказе в согласии. Для изменения App Privacy нужна отдельная проверка SDK и правовых раскрытий. **Не убирать tracking из App Privacy вслепую.**
 - [ ] Физическая приёмка Photos/Files/HEIC/EXIF, большой PDF, настоящие рекламные no-fill, VoiceOver/AXXXL; iPhone владельца сейчас offline.
 - [ ] Native speaker + редактура privacy/визовых требований; финальные скриншоты из согласованного нового RC и проверенная accessibility-информация карточки.
 
@@ -32,7 +41,8 @@
 - [x] Полная ручная GitHub 11-язычная матрица **4/4 jobs PASS**, [run 40278441525](https://github.com/arvectum2/arvectum-tools/actions/runs/40278441525).
 - [x] Ранее созданы **4/4 device xcarchive** и **4/4 подписанных App Store IPA**, проверены codesign и SHA-256; это **артефакты до последних изменений**, а не новая версия для загрузки.
 - [x] Системный VoiceOver на Mac mini после VoiceOver QA выключен, AppKit подтвердил `false`; временные симуляторы удалены.
-- [ ] PR [#152](https://github.com/arvectum2/arvectum-tools/pull/152) и базовый [#151](https://github.com/arvectum2/arvectum-tools/pull/151): проверить CI по **последним** коммитам, затем решить последовательность merge.
+- [x] CI последних коммитов PR [#151](https://github.com/arvectum2/arvectum-tools/pull/151) и [#152](https://github.com/arvectum2/arvectum-tools/pull/152) проверен read-only: все представленные checks SUCCESS.
+- [ ] Оба PR пока OPEN; решить merge последовательно (#151 → #152) отдельно от Apple release.
 - [ ] На физическом iPhone/Watch проверить сохранность данных и разрешения: Pushkin/Shortcuts, Ухват/запись+ACK/фон, ChickMark/HealthKit+CloudKit+Watch, Фото/PDF/Files+Photos. Все без сброса личных приложений и записей.
 - [ ] Региональная редактура носителями: в первую очередь privacy/system prompts, pt-PT/ko/zh-Hant.
 - [x] В исходниках зафиксированы Photo/PDF 1.0.3 (15) и ChickMark 1.5.2 (20).
