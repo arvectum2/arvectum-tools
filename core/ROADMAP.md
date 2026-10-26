@@ -1,5 +1,12 @@
 # Arvectum Tools Core — дорожная карта
 
+## 26.10.2026 · KO — два частичных iOS-каталога
+
+- [x] Для корейских исходных каталогов Фото/PDF и Pushkin добавлены независимые KoreanLocalizationUITests: синтетические экраны, без пользовательских данных/автоматизаций.
+- [x] Ручная GitHub locale UI матрица обнаруживает корейские классы только там, где они существуют.
+- [ ] Исполнить native UI Korean QA; What/Ухват и ChickMark ещё не переведены на KO. Для release нужны перевод, human proofreading и физический VoiceOver/Watch.
+
+
 ## 26.10.2026 · C6.2 — pt-PT Core registry и UI coverage
 
 - [x] 11-й исходный пакет pt-PT добавлен в Core registry всех четырёх приложений, отдельные EuropeanPortuguese native UI smoke tests включены в ручную 11-язычную GitHub матрицу.

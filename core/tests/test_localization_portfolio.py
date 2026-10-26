@@ -38,6 +38,20 @@ class LocalizationPortfolioTests(unittest.TestCase):
                         self.assertEqual(i18n.PRINTF.findall(br[key]),
                                          i18n.PRINTF.findall(pt[key]), key)
 
+    def test_korean_draft_ui_smoke_is_present_for_two_apps(self):
+        """Source UI smoke only; KO is not complete in Uhvat or ChickMark."""
+        dirs = (
+            "photo-pdf-to-size/ios/PhotoPodRazmerUITests",
+            "pushkin/ios/ArvectumNotifyUITests",
+        )
+        for directory in dirs:
+            path = ROOT / directory / "KoreanLocalizationUITests.swift"
+            text = path.read_text(encoding="utf-8")
+            self.assertIn("final class KoreanLocalizationUITests", text)
+            self.assertIn("func testKorean", text)
+            self.assertIn("(ko)", text)
+            self.assertIn("ko_KR", text)
+
     def test_photo_korean_draft_parity(self):
         """Korean photo-only draft; review and other apps remain outstanding."""
         root = ROOT / "photo-pdf-to-size/ios/PhotoPodRazmer/Resources"
