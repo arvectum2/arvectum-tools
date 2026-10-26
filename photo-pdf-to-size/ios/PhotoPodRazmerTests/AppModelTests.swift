@@ -113,7 +113,10 @@ final class AppModelTests: XCTestCase {
         defer { try? FileManager.default.removeItem(at: file) }
         let model = AppModel()
         model.selectPDFFile(file)
-        for _ in 0..<150 where model.isWorking {
+        // A loaded CI simulator can delay PDFKit's detached inspection much
+        // longer than 3 seconds. Wait for the actual PDF result or error,
+        // not only a transient isWorking flag. Do not skip assertions.
+        for _ in 0..<1000 where model.pdfSource == nil && model.errorMessage == nil {
             try await Task.sleep(nanoseconds: 20_000_000)
         }
         XCTAssertFalse(model.isWorking)
