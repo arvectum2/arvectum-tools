@@ -1,5 +1,12 @@
 # ChickMark — актуальная дорожная карта
 
+## 26.10.2026 · Signed IPA QA
+
+- [x] Main/Watch/widgets Store-профили обнаружены; локальный автоматический экспорт App Store IPA PASS, codesign/SHA-256 PASS.
+- [ ] IPA **1.5.1 (19)** ещё прежнего поколения. Новая версия/build после physical HealthKit/CloudKit/Watch/VoiceOver и human editor QA.
+- [ ] Apple upload только с отдельным согласием. [Акт](../core/docs/IOS_SIGNED_IPA_GATE_2026-10-26.md).
+
+
 ## 26.10.2026 · PT-PT приёмка
 
 - [x] PT-PT native iPhone UI 1/1 PASS (без реальных CloudKit данных).

@@ -1,5 +1,12 @@
 # What? — Product Roadmap
 
+## 26.10.2026 · Signed IPA QA
+
+- [x] Все 4 Store-профиля main/Watch/widget установлены, автоматический локальный экспорт IPA PASS, codesign/SHA-256 PASS.
+- [ ] Подписанная IPA **1.1.1 (9)** повторяет прежнюю версию, **не upload-ready**; до нового release — новая версия/build и physical Watch ACK/VoiceOver/review.
+- [ ] App Store upload только по отдельному согласию. [Акт](../core/docs/IOS_SIGNED_IPA_GATE_2026-10-26.md).
+
+
 ## 26.10.2026 · PT-PT приёмка
 
 - [x] PT-PT native iPhone UI 1/1 PASS, синтетический AXXXL экран.

@@ -1,5 +1,12 @@
 # Arvectum Tools — Roadmap Registry
 
+## 26.10.2026 · Все четыре приложения подписаны локально
+
+4/4 Release Simulator builds, 4/4 device xcarchives, **4/4 App Store IPA экспорта** и 4/4 проверенные подписи Apple Distribution. Это QA-артефакты, **не новые релизы**: версия Фото/PDF в IPA даже ниже публичной. Прежние provisioning-блокеры для локального экспорта устранены; человеческие редакторские/физические проверки и новый version/build/hash approval остаются.
+
+[Акт подписи](docs/IOS_SIGNED_IPA_GATE_2026-10-26.md).
+
+
 ## 26.10.2026 · Контроль качества локализаций C6.3
 
 **10/10 Native UI PASS** новых языков на четырёх приложениях: PT-PT 6/6; KO Фото/PDF и Pushkin 4/4. KO Pushkin исправлен и переиспытан; Swift unit 1/1. Core 63/63. Новые языки не опубликованы. Проверка носителями, Watch/физические устройства, provisioning и release gate ещё открыты.

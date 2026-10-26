@@ -21,3 +21,7 @@ Xcode 27.1, независимые iPhone 18 Pro Simulator iOS 27.0, `CODE_SIGNI
 Автоматизированный редакторский аудит: 182 файла/9484 ключей вне EN, 0 региональных флагов PT-PT; 31 совпадение EN зарегистрировано в `core/localization/english-identical-exceptions.json`, 0 неразобранных. Это **лексическая классификация**, не проверка носителем.
 
 **Открытые блокеры:** KO в Ухвате/ChickMark; носители языков и физический Watch/iPhone/VoiceOver/consent/upgrade; полная ручная GitHub UI matrix; provisioning для подписанных релизов. Новые IPA/App Store Connect/TestFlight/Review не отправлялись; по `AGENTS.md` нужен отдельный per-version/build/hash approval.
+
+## Подписанный артефактный preflight 26.10
+
+Независимо от вышеописанной нативной QA созданы 4/4 device xcarchive и 4/4 локально подписанных IPA (Apple Distribution), проверенных по SHA-256. Это **не новые** App Store версии, ни один IPA не загружен в Apple. Подробности и текущие блокеры — [signed IPA gate](IOS_SIGNED_IPA_GATE_2026-10-26.md).

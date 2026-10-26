@@ -1,5 +1,14 @@
 # Arvectum Tools — план исполнения без Where?
 
+## 26.10.2026 · Локальная подпись завершена
+
+- [x] 4/4 unsigned Release Simulator PASS; 4/4 device archives PASS; 4/4 App Store IPA exports/подписи PASS, SHA-256 записаны.
+- [ ] Следующий RC: новые версии/build numbers; после native-speaker, физической и CI QA — повторная упаковка/новые хеши.
+- [ ] Отдельная per-release Apple approval (включая TestFlight) обязательна. Никакой загрузки или метаданных Apple не изменяли.
+
+[Акт](docs/IOS_SIGNED_IPA_GATE_2026-10-26.md).
+
+
 ## 26.10.2026 · Следующий рубеж
 
 - [x] PT-PT 6/6 и KO 4/4 Native UI PASS, Swift KO unit PASS; Core 63/63 PASS.

@@ -1,5 +1,12 @@
 # PUSHKIN — Product Roadmap
 
+## 26.10.2026 · Signed IPA QA
+
+- [x] Store IPA из локального архивирования, подпись Apple Distribution проверена; прежний missing profile для локального экспорта больше не блокирует.
+- [ ] IPA имеет **1.0.2 (6)**, это ещё не новая версия; после human editor/Shortcuts QA нужен новый version/build и owner release approval.
+- [ ] Новых загрузок в ASC нет. [Акт](../core/docs/IOS_SIGNED_IPA_GATE_2026-10-26.md).
+
+
 ## 26.10.2026 · Корейский runtime исправлен
 
 - [x] Подключён `ko` в PushkinCopy.text, число приложений локализовано `N개 앱`.

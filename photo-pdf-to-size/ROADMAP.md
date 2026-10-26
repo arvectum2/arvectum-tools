@@ -1,5 +1,12 @@
 # Фото и PDF под размер — Product Roadmap
 
+## 26.10.2026 · Signed IPA QA
+
+- [x] Device xcarchive + App Store IPA export + signature SHA-256 verification PASS.
+- [ ] Подписанная IPA **1.0.1 (13)** старее публичной **1.0.2** — не готова к upload; нужна новая версия/build, редактура/физическая QA и повторная подпись.
+- [ ] Apple release только по отдельному разрешению. [Артефакт](../core/docs/IOS_SIGNED_IPA_GATE_2026-10-26.md).
+
+
 ## 26.10.2026 · PT-PT и KO
 
 - [x] PT-PT 3/3 и KO 3/3 Native UI PASS (фото, PDF, доступность).

@@ -1,5 +1,12 @@
 # Signed archive gate — 2026-10-25
 
+## Обновление 26.10.2026
+
+Этот документ сохраняет **исторический** blocker на 25.10. На 26.10 локальный сертификат Distribution и Store provisioning всех четырёх приложений и расширений найдены: 4/4 `.xcarchive` + 4/4 IPA export/подписи PASS. Сборки являются QA-артефактами со **старыми** версиями/build numbers и не готовы к загрузке.
+
+[Текущий подписанный QA отчёт](IOS_SIGNED_IPA_GATE_2026-10-26.md).
+
+
 Release candidate source: `feature/portfolio-roadmaps-zh-hant-20261025` at `b68ac42`.
 
 ## Confirmed

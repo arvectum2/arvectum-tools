@@ -1,5 +1,15 @@
 # Arvectum Tools Core — дорожная карта
 
+## 26.10.2026 · C6.4 — signing/preflight QA
+
+- [x] Все четыре Release builds, подписанные iOS device xcarchive **4/4 PASS**, App Store IPA exports **4/4 PASS**; каждый IPA `codesign --verify --deep --strict` **PASS**, SHA-256 зафиксированы.
+- [x] Локальные Store provisioning profiles для Main/Watch/Widget найдены; прежний blocker missing provisioning снят для offline-экспорта, без Apple Developer Portal изменений.
+- [ ] **Не upload-ready**: Фото/PDF IPA `1.0.1 (13)` при публичной `1.0.2`, остальные версии/билды совпадают с текущими; нужны новые version/build и повторная подпись после редакторской/физической QA.
+- [ ] GitHub full 11-language UI matrix запущен (run 40278441525), завершение не подтверждено. Apple upload/Review только с отдельным согласием на exact version/build/hash.
+
+[Signed artifact report](docs/IOS_SIGNED_IPA_GATE_2026-10-26.md).
+
+
 ## 26.10.2026 · C6.3 — подтверждённая PT-PT/KO приёмка
 
 - [x] Native iPhone UI: **10/10 PASS** — PT-PT 6/6 (4 apps), KO 4/4 (Фото/PDF и Pushkin).
