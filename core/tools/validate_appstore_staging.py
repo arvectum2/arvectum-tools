@@ -2,6 +2,7 @@
 """Offline staging checks only; passing does NOT mean App Review approval."""
 import json
 import re
+import struct
 import sys
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2]
@@ -52,8 +53,23 @@ for app,item in manifest['apps'].items():
    f=ROOT/shot['path']
    if not f.exists() or hashlib.sha256(f.read_bytes()).hexdigest()!=shot['sha256']:
     errors.append(('stale screenshot hash',key))
-   else:captured+=1
+   else:
+    captured+=1
+    if f.suffix.lower() != '.png':
+     errors.append(('final staged capture must be PNG',key,f.name))
+    else:
+     with f.open('rb') as image_stream:
+      png_header=image_stream.read(24)
+     if png_header[:8] != b'\x89PNG\r\n\x1a\n' or png_header[12:16] != b'IHDR':
+      errors.append(('invalid native PNG header',key))
+     else:
+      width,height=struct.unpack('>II',png_header[16:24])
+      accepted={'iphone-6.9':{(1320,2868),(1290,2796),(1260,2736)},
+                'ipad-13':{(2064,2752),(2048,2732)}}
+      if (width,height) not in accepted[shot['device']]:
+       errors.append(('incorrect Apple device dimensions',key,(width,height)))
 if slots!=448:errors.append(('screenshot slots expected 448',slots))
+if captured!=448:errors.append(('not all 448 native captures verified',captured))
 if errors:
  for e in errors: print('ERROR',e,file=sys.stderr)
  raise SystemExit(1)

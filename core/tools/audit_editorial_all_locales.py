@@ -44,10 +44,10 @@ for app,conf in reg["apps"].items():
 for item in findings["english_identical_untriaged"]:
  flags.append(("","","",item[1],"unclassified_english_identical",item[2],""))
 with (OUT/"critical_source_target_review.csv").open("w",newline="") as f:
- w=csv.writer(f);w.writerow(["app","bundle","locale","file","key","canonical_english","translated_copy","review_status"])
+ w=csv.writer(f,lineterminator="\n");w.writerow(["app","bundle","locale","file","key","canonical_english","translated_copy","review_status"])
  w.writerows(critical)
 with (OUT/"machine_flags.csv").open("w",newline="") as f:
- w=csv.writer(f);w.writerow(["app","bundle","locale","key","finding","source","target"]);w.writerows(flags)
+ w=csv.writer(f,lineterminator="\n");w.writerow(["app","bundle","locale","key","finding","source","target"]);w.writerows(flags)
 details={"status":"structural_and_risk_screen_only_not_human_editorial_signoff",
  "date":"2026-10-26","catalogFiles":findings["files"],
  "localizedEntries":findings["entries"],

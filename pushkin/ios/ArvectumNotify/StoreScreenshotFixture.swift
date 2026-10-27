@@ -19,9 +19,8 @@ enum StoreScreenshotFixture {
         try? context.delete(model: CapturedNotification.self)
 
         let now = Date()
-        let isRussian = Locale.preferredLanguages.first?.hasPrefix("ru") == true
         func localized(_ english: String, _ russian: String) -> String {
-            isRussian ? russian : english
+            StoreScreenshotTranslations.value(english, russian)
         }
         let samples: [CapturedNotification] = [
             CapturedNotification(

@@ -35,10 +35,10 @@
       "description": "Catch an idea before it disappears. UhWhat? makes it easy to capture thoughts and revisit them.\n\nQUICK RECORDING: record voice notes on iPhone or Apple Watch. Keep the original audio.\n\nTEXT AND VIDEO: write notes or record videos on iPhone, then search saved text.\n\nTRANSCRIPTION: where on-device speech recognition is supported, convert recordings to text. Your app interface language and speech recognition language are separate.\n\nWATCH: audio stays in the watch transfer queue until the iPhone confirms saving. Background delivery may be delayed.\n\nNotes and media are handled on your devices. Speech recognition availability depends on iOS and your selected language.",
       "whatsNew": "Improved recording reliability, recovery guidance and iPhone, Apple Watch and widget interface localization.",
       "screenshots": [
-        "One tap to save an idea",
-        "Keep your original recordings",
-        "Find notes by saved text",
-        "Capture from Apple Watch"
+        "Capture a thought in one tap",
+        "All your notes in one place",
+        "Set language and reminders",
+        "Write a quick text note"
       ],
       "keywords": "voice,recorder,audio,memos,ideas,transcript,watch,notes,video,search,private"
     },
@@ -48,9 +48,9 @@
       "whatsNew": "Улучшены устойчивость записи, восстановление данных и локализация интерфейса на iPhone, Apple Watch и в виджетах.",
       "screenshots": [
         "Ухвати мысль в одно касание",
-        "Сохрани оригинальное аудио",
-        "Находи заметки по тексту",
-        "Записывай с Apple Watch"
+        "Заметки в одном месте",
+        "Язык и напоминания под контролем",
+        "Быстро создай текстовую заметку"
       ],
       "keywords": "диктофон,голос,запись,мысли,идеи,транскрипция,часы,видео,поиск"
     }
@@ -63,10 +63,10 @@
       "description": "Build habits without a complicated planner. ChickMark keeps your daily check-ins close at hand.\n\nONE-TAP CHECK-INS: create a habit, mark it complete and follow your streaks and progress.\n\nFLEXIBLE ROUTINES: select schedules, reminders and goals that work for you.\n\nWATCH AND WIDGETS: view progress and complete habits from supported Apple Watch and widget surfaces. Sync depends on device settings and connectivity.\n\nOPTIONAL APPLE HEALTH: connect selected activity goals or enable water intake export when you explicitly allow access.\n\nPRIVACY: habits are saved locally, with optional Apple services for supported features. The free app may display ads. Read the privacy policy for advertising data details.",
       "whatsNew": "Refined first-run guidance, easier access to daily habits and a less intrusive native ad placement.",
       "screenshots": [
-        "Start with one small habit",
-        "Check in with one tap",
-        "See your progress and streaks",
-        "Reminders and Apple Watch"
+        "Your habits, one simple view",
+        "Create a habit in seconds",
+        "See progress and streaks",
+        "Set schedules and reminders"
       ],
       "keywords": "habits,routines,streaks,goals,planner,daily,checklist,reminders,progress,watch"
     },
@@ -75,10 +75,10 @@
       "description": "ChickMark — простой трекер привычек, который не превращается в ещё одну сложную систему.\n\nБЫСТРЫЕ ОТМЕТКИ: создай привычку, отмечай её выполнение и следи за сериями и прогрессом.\n\nГИБКОЕ РАСПИСАНИЕ: выбери дни, напоминания и цели под свой ритм.\n\nAPPLE WATCH И ВИДЖЕТЫ: отслеживай прогресс и отмечай привычки на поддерживаемых устройствах. Синхронизация зависит от настроек и подключения.\n\nAPPLE HEALTH: по желанию подключай отдельные цели активности или включай экспорт потребления воды, предоставив разрешения.\n\nПРИВАТНОСТЬ: привычки сохраняются локально; отдельные функции используют сервисы Apple. В бесплатном приложении может показываться реклама. Подробности — в политике конфиденциальности.",
       "whatsNew": "Обновлены первые шаги, удобнее стал список привычек, а реклама меньше отвлекает от главного.",
       "screenshots": [
-        "Начни с одной привычки",
-        "Отметь выполнение одним касанием",
-        "Следи за прогрессом и сериями",
-        "Напоминания и Apple Watch"
+        "Привычки в одном списке",
+        "Создайте привычку за пару касаний",
+        "Прогресс и серии по дням",
+        "Настройте график и напоминания"
       ],
       "keywords": "привычки,ритуалы,серии,цели,расписание,напоминания,планер,прогресс"
     }

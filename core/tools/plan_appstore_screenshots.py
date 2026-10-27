@@ -5,7 +5,15 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2]
 STAGE=ROOT/'core/appstore/staged-2026-10-26'
 SRC=ROOT/'photo-pdf-to-size'
-manifest={'status':'STAGED_ONLY_NOT_UPLOADED','scope':'Native iPhone/iPad actual UI captures; no synthetic text overlays over the wrong UI','date':'2026-10-26','apps':{}}
+manifest={'status':'STAGED_ONLY_NOT_UPLOADED','scope':'Native iPhone/iPad actual UI captures; no synthetic text overlays over the wrong UI','date':'2026-10-27','apps':{}}
+prior_path=STAGE/'screenshot_manifest.json'
+previous={}
+if prior_path.is_file():
+ old_doc=json.loads(prior_path.read_text())
+ for app,group in old_doc.get('apps',{}).items():
+  for item in group['slots']:
+   if item.get('path'):
+    previous[(app,item['locale'],item['device'],item['position'])]=item
 for app in ('photo','pushkin','what','chickmark'):
  d=json.loads((STAGE/f'{app}.json').read_text())['localeData']
  record={'locales':len(d),'slots':[]}
@@ -28,6 +36,12 @@ for app in ('photo','pushkin','what','chickmark'):
      if p.is_file():
       r['status']='NATIVE_SCREENSHOT_DRAFT_REQUIRES_FINAL_RC_REFRESH'
       r['path']=str(p.relative_to(ROOT));r['sha256']=hashlib.sha256(p.read_bytes()).hexdigest()
+    key=(app,loc,device,pos)
+    older=previous.get(key)
+    if older and older.get('headline') == headline:
+     old_file=ROOT/older['path']
+     if old_file.is_file() and hashlib.sha256(old_file.read_bytes()).hexdigest()==older.get('sha256'):
+      r.update({k:older[k] for k in ('path','sha256','status','evidence') if k in older})
     record['slots'].append(r)
  manifest['apps'][app]=record
 (STAGE/'screenshot_manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n')

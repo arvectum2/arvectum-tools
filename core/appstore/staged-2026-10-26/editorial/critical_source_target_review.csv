@@ -559,7 +559,7 @@ chickmark,chickmark/ios/HabitsByArvectum,ko,Localizable.strings,backup.error.ver
 chickmark,chickmark/ios/HabitsByArvectum,ko,Localizable.strings,backup.error.invalid,Invalid or inconsistent ChickMark backup data.,유효하지 않거나 일관성이 없는 ChickMark 백업 데이터입니다.,NATIVE_REVIEW_REQUIRED
 chickmark,chickmark/ios/HabitsByArvectum,ko,Localizable.strings,backup.error.unreadable,The selected backup file is unreadable.,선택한 백업 파일을 읽을 수 없습니다.,NATIVE_REVIEW_REQUIRED
 chickmark,chickmark/ios/HabitsByArvectum,ko,Localizable.strings,habit.history.error,Could not save changes,변경사항을 저장할 수 없습니다.,NATIVE_REVIEW_REQUIRED
-chickmark,chickmark/ios/HabitsByArvectum,ko,Localizable.strings,health.title,Apple Health,사과 건강,NATIVE_REVIEW_REQUIRED
+chickmark,chickmark/ios/HabitsByArvectum,ko,Localizable.strings,health.title,Apple Health,Apple Health,NATIVE_REVIEW_REQUIRED
 chickmark,chickmark/ios/HabitsByArvectum,ko,Localizable.strings,health.connect.hint,Connect activity for automatic check-ins,자동 체크인을 위한 활동 연결,NATIVE_REVIEW_REQUIRED
 chickmark,chickmark/ios/HabitsByArvectum,ko,Localizable.strings,health.connected.hint,Automatic check-ins enabled,자동 체크인 활성화됨,NATIVE_REVIEW_REQUIRED
 chickmark,chickmark/ios/HabitsByArvectum,ko,Localizable.strings,health.auto.completed,Completed from Apple Health,Apple Health에서 완료됨,NATIVE_REVIEW_REQUIRED
@@ -575,8 +575,8 @@ chickmark,chickmark/ios/HabitsByArvectum,ko,Localizable.strings,health.unit.minu
 chickmark,chickmark/ios/HabitsByArvectum,ko,Localizable.strings,health.target,Daily goal,일일 목표,NATIVE_REVIEW_REQUIRED
 chickmark,chickmark/ios/HabitsByArvectum,ko,Localizable.strings,health.connect,Connect to Health,건강에 연결,NATIVE_REVIEW_REQUIRED
 chickmark,chickmark/ios/HabitsByArvectum,ko,Localizable.strings,health.save,Save rule,규칙 저장,NATIVE_REVIEW_REQUIRED
-chickmark,chickmark/ios/HabitsByArvectum,ko,Localizable.strings,health.disconnect,Disconnect Apple Health,Apple 건강 연결 해제,NATIVE_REVIEW_REQUIRED
-chickmark,chickmark/ios/HabitsByArvectum,ko,Localizable.strings,health.settings,Apple Health,사과 건강,NATIVE_REVIEW_REQUIRED
+chickmark,chickmark/ios/HabitsByArvectum,ko,Localizable.strings,health.disconnect,Disconnect Apple Health,Apple Health 연결 해제,NATIVE_REVIEW_REQUIRED
+chickmark,chickmark/ios/HabitsByArvectum,ko,Localizable.strings,health.settings,Apple Health,Apple Health,NATIVE_REVIEW_REQUIRED
 chickmark,chickmark/ios/HabitsByArvectum,ko,Localizable.strings,health.privacy,HealthKit results are checked locally on iPhone and Apple Watch. No health readings or automatically derived results are uploaded to CloudKit or sent for advertising. Ordinary manually checked habits still sync using your existing settings. Automatic activity status may update with a delay. Disconnecting stops new checks.,HealthKit 결과는 iPhone 및 Apple Watch에서 로컬로 확인됩니다. 상태 판독값이나 자동으로 파생된 결과는 CloudKit에 업로드되거나 광고용으로 전송되지 않습니다. 수동으로 확인하는 일반적인 습관은 기존 설정을 사용하여 계속 동기화됩니다. 자동 활동 상태는 지연되어 업데이트될 수 있습니다. 연결을 끊으면 새로운 확인이 중지됩니다.,NATIVE_REVIEW_REQUIRED
 chickmark,chickmark/ios/HabitsByArvectum,ko,Localizable.strings,health.error.unavailable,Apple Health is not available on this device.,이 기기에서는 Apple Health를 사용할 수 없습니다.,NATIVE_REVIEW_REQUIRED
 chickmark,chickmark/ios/HabitsByArvectum,ko,Localizable.strings,health.error.authorization,Could not request access to Apple Health.,Apple Health에 대한 액세스를 요청할 수 없습니다.,NATIVE_REVIEW_REQUIRED

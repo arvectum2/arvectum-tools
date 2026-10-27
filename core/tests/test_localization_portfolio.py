@@ -103,6 +103,15 @@ class LocalizationPortfolioTests(unittest.TestCase):
             i18n.read_strings(ROOT / "chickmark/ios/HabitsByArvectum/ko.lproj/Localizable.strings", [])["habit.create"],
             "습관 만들기")
 
+    def test_korean_apple_health_is_protected_brand_not_fruit(self):
+        """An in-review iPad screenshot exposed the literal fruit-translation bug."""
+        translations = i18n.read_strings(
+            ROOT / "chickmark/ios/HabitsByArvectum/ko.lproj/Localizable.strings", [])
+        self.assertEqual(translations["health.title"], "Apple Health")
+        self.assertEqual(translations["health.settings"], "Apple Health")
+        self.assertEqual(translations["health.disconnect"], "Apple Health 연결 해제")
+        self.assertNotIn("사과 건강", " ".join(translations.values()))
+
     def test_editorial_audit_is_triage_not_signoff(self):
         import editorial_localization_audit as review
         result = review.audit()
@@ -111,7 +120,7 @@ class LocalizationPortfolioTests(unittest.TestCase):
         self.assertEqual(sum(f["pt_pt_brazilian_flags"] for f in result["catalogs"]), 0)
         self.assertEqual(sum(f["format_mismatch"] for f in result["catalogs"]), 0)
         self.assertEqual(sum(f["missing"] + f["extra"] for f in result["catalogs"]), 0)
-        self.assertEqual(result['english_identical_triaged'], 32)
+        self.assertEqual(result['english_identical_triaged'], 34)
         self.assertEqual(result['english_identical_untriaged'], [])
         self.assertEqual(result['english_identical_stale_exceptions'], [])
 

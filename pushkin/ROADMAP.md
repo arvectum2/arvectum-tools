@@ -1,5 +1,8 @@
 # PUSHKIN — Product Roadmap
 
+**C11 27.10:** новый нативный маркетинговый UI сценарий для 12 языков (история, источники, настройки, поиск), фикстуры уведомлений переводятся отдельно, реальные iPhone скриншоты: [C11](../core/docs/ASO_NATIVE_CAPTURE_C11_2026-10-27.md). Без изменений live App Store.
+
+
 ## C10 — все ASO-тексты и RU кадры (26.10.2026)
 
 - [x] Готовы 16 региональных draft metadata locales; бренд сохранён, Shortcuts limitations не замаскированы, keyword/title limits PASS.

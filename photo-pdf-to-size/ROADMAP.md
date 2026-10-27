@@ -1,5 +1,8 @@
 # Фото и PDF под размер — Product Roadmap
 
+**C11 27.10:** нативный XCUITest снял 4 режима на 12 языках как iPhone 18 Pro Max, так и iPad 13″; региональная связка и SHA в [C11](../core/docs/ASO_NATIVE_CAPTURE_C11_2026-10-27.md), требуется визуальный отбор и новый подписанный RC.
+
+
 ## C10 — 16 региональных ASO черновиков (26.10.2026)
 
 - [x] Новый консолидированный пакет из 16 Apple-supported locales, включая zh-Hans/zh-Hant; 64 metadata fields для Фото/PDF структурно PASS, legal/privacy оговорки сохранены.

@@ -149,6 +149,7 @@
 		1D042D002F23E1F595D4AFA4 /* PUSHKIN - MyTelkom App.shortcut in Resources */ = {isa = PBXBuildFile; fileRef = 788E92D223BBAC714F6A58B6 /* PUSHKIN - MyTelkom App.shortcut */; };
 		1D06643C91286C029A87FE0A /* PUSHKIN - NAVER Maps, Navigation.shortcut in Resources */ = {isa = PBXBuildFile; fileRef = 0EAF4D73FAA937DE171779FA /* PUSHKIN - NAVER Maps, Navigation.shortcut */; };
 		1D6F0837A18BDC3345710369 /* PUSHKIN - EDEKA.shortcut in Resources */ = {isa = PBXBuildFile; fileRef = 11837743ABC77F9DCFE0CBD9 /* PUSHKIN - EDEKA.shortcut */; };
+		1D783D5A9192E9DC76F12590 /* StoreScreenshotTranslations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EE158F577AFCBB0D0F6D31 /* StoreScreenshotTranslations.swift */; };
 		1D95339F6DF3E78486495631 /* PUSHKIN - France Identité.shortcut in Resources */ = {isa = PBXBuildFile; fileRef = 89AD2FE65F24BCE565F3AA1C /* PUSHKIN - France Identité.shortcut */; };
 		1D9FD468DE0F4A2CA585D1BE /* PUSHKIN - MariBank Singapore.shortcut in Resources */ = {isa = PBXBuildFile; fileRef = 2569231FC7D4A9D19EA19A75 /* PUSHKIN - MariBank Singapore.shortcut */; };
 		1E035B1F5938716EE74576CB /* PUSHKIN - Wero.shortcut in Resources */ = {isa = PBXBuildFile; fileRef = D282D5F6FFE643371FEA2A2B /* PUSHKIN - Wero.shortcut */; };
@@ -812,6 +813,7 @@
 		BF9FE41FBBAD565247D44C1C /* PUSHKIN - Spenn – Flexible points.shortcut in Resources */ = {isa = PBXBuildFile; fileRef = BDED03838C3E10BEEAAAB028 /* PUSHKIN - Spenn – Flexible points.shortcut */; };
 		BFCBB25DD360AF82E24F2B49 /* PUSHKIN - Freecash - Get Paid Real Money.shortcut in Resources */ = {isa = PBXBuildFile; fileRef = 31EEAE8461024E2E42AE925A /* PUSHKIN - Freecash - Get Paid Real Money.shortcut */; };
 		BFF0DC52DA2E2ABBE6AA181F /* PUSHKIN - PLAYFUL REWARDS- Earn Rewards.shortcut in Resources */ = {isa = PBXBuildFile; fileRef = 6EB694CC52706262B9BFA406 /* PUSHKIN - PLAYFUL REWARDS- Earn Rewards.shortcut */; };
+		BFF4FA6ECCB08633DCA9054B /* ASOAllLocalesCaptureUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44B7F6EF5784BA68E09ABA51 /* ASOAllLocalesCaptureUITests.swift */; };
 		C027BED87C0667DDBFA43F23 /* PUSHKIN - e-Título.shortcut in Resources */ = {isa = PBXBuildFile; fileRef = 27AAF067B9480CF478C95AE9 /* PUSHKIN - e-Título.shortcut */; };
 		C034EC5D3475021AEFF12A84 /* PUSHKIN - PK雙饗卡-必勝客x肯德基KFC 行動會員卡.shortcut in Resources */ = {isa = PBXBuildFile; fileRef = E71B44A5139DB9BE032E57A2 /* PUSHKIN - PK雙饗卡-必勝客x肯德基KFC 行動會員卡.shortcut */; };
 		C0A87B26E7BC39B653E08EF0 /* PUSHKIN - ShortMax - Short Dramas & TV.shortcut in Resources */ = {isa = PBXBuildFile; fileRef = AD145F057AE9CF2F3C333312 /* PUSHKIN - ShortMax - Short Dramas & TV.shortcut */; };
@@ -1357,6 +1359,7 @@
 		440C5130182CA648C6ECD112 /* PUSHKIN - Hjelp 113.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - Hjelp 113.shortcut"; sourceTree = "<group>"; };
 		443D6E74794DF8FE3E97C4A4 /* PUSHKIN - 신한 슈퍼SOL - 신한 유니버셜 금융 앱.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - 신한 슈퍼SOL - 신한 유니버셜 금융 앱.shortcut"; sourceTree = "<group>"; };
 		4461891E20414D4FE64A068D /* PUSHKIN - Urna Simulador 2026.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - Urna Simulador 2026.shortcut"; sourceTree = "<group>"; };
+		44B7F6EF5784BA68E09ABA51 /* ASOAllLocalesCaptureUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASOAllLocalesCaptureUITests.swift; sourceTree = "<group>"; };
 		4591F943E8D7710235EB7E94 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		45A6722DCC01226DF2E18BFB /* PUSHKIN - CashFlicks.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - CashFlicks.shortcut"; sourceTree = "<group>"; };
 		45B33F5E2DC13F74D73A0B68 /* PUSHKIN - FPT Life.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - FPT Life.shortcut"; sourceTree = "<group>"; };
@@ -1493,6 +1496,7 @@
 		62D382CE8F63A8917327275D /* PUSHKIN - Okta Verify.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - Okta Verify.shortcut"; sourceTree = "<group>"; };
 		62E58CBECC5CB15AE545FF81 /* PUSHKIN - Tabletki.ua - Пошук Ліків.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - Tabletki.ua - Пошук Ліків.shortcut"; sourceTree = "<group>"; };
 		62E95BF6DC978CADD01A31FF /* PUSHKIN - eGovPH.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - eGovPH.shortcut"; sourceTree = "<group>"; };
+		62EE158F577AFCBB0D0F6D31 /* StoreScreenshotTranslations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreScreenshotTranslations.swift; sourceTree = "<group>"; };
 		63D087D273BE8DEF5BDE1755 /* PUSHKIN - Tankille - refuel and save.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - Tankille - refuel and save.shortcut"; sourceTree = "<group>"; };
 		640E2DF688AB72DD4858F86E /* PUSHKIN - Pepco- deals and vouchers.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - Pepco- deals and vouchers.shortcut"; sourceTree = "<group>"; };
 		643CB87F70DCA768C8FB8A06 /* PUSHKIN - Glovo- Food & Grocery Delivery.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - Glovo- Food & Grocery Delivery.shortcut"; sourceTree = "<group>"; };
@@ -2218,6 +2222,7 @@
 				6D54F7586D603FB09EE71E73 /* SetupGuideView.swift */,
 				54AC9AE39B3C4E7B44CA35BD /* ShortcutPackagePresenter.swift */,
 				D7BC94A8E929B357C2B55393 /* StoreScreenshotFixture.swift */,
+				62EE158F577AFCBB0D0F6D31 /* StoreScreenshotTranslations.swift */,
 				5C3611018596AED583B164EA /* Resources */,
 			);
 			path = ArvectumNotify;
@@ -3301,6 +3306,7 @@
 			children = (
 				BB897591933CD56B6B623B63 /* AdaptiveLayoutUITests.swift */,
 				69843C842E153341D5E3508E /* AppStoreUpdatePromptUITests.swift */,
+				44B7F6EF5784BA68E09ABA51 /* ASOAllLocalesCaptureUITests.swift */,
 				F81BBAB3DF244E450F4E71D4 /* BrazilianPortugueseLocalizationUITests.swift */,
 				A9A88F3143EB689185CF71F1 /* CoreLanguageCoverageUITests.swift */,
 				F9F02DB450C489F5808B10ED /* EuropeanPortugueseLocalizationUITests.swift */,
@@ -4491,6 +4497,7 @@
 				982CE0ED1BC27C5DA60E11B5 /* SetupGuideView.swift in Sources */,
 				16D449AEE5523042E21958AA /* ShortcutPackagePresenter.swift in Sources */,
 				0A6C2CD03C12B420BC02BC32 /* StoreScreenshotFixture.swift in Sources */,
+				1D783D5A9192E9DC76F12590 /* StoreScreenshotTranslations.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4509,6 +4516,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BFF4FA6ECCB08633DCA9054B /* ASOAllLocalesCaptureUITests.swift in Sources */,
 				552DA9E46BD1BD0F12D674DD /* AdaptiveLayoutUITests.swift in Sources */,
 				83E193DE6BFA082826D166EA /* AppStoreUpdatePromptUITests.swift in Sources */,
 				C30E8DD1951053A047115364 /* BrazilianPortugueseLocalizationUITests.swift in Sources */,

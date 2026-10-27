@@ -196,7 +196,7 @@
 "habit.history.error" = "변경사항을 저장할 수 없습니다.";
 "quick.multicheck" = "물 (5회)";
 "brand.website.accessibility" = "Arvectum의 ChickMark v%@ 웹사이트 열기";
-"health.title" = "사과 건강";
+"health.title" = "Apple Health";
 "health.connect.hint" = "자동 체크인을 위한 활동 연결";
 "health.connected.hint" = "자동 체크인 활성화됨";
 "health.auto.completed" = "Apple Health에서 완료됨";
@@ -212,8 +212,8 @@
 "health.target" = "일일 목표";
 "health.connect" = "건강에 연결";
 "health.save" = "규칙 저장";
-"health.disconnect" = "Apple 건강 연결 해제";
-"health.settings" = "사과 건강";
+"health.disconnect" = "Apple Health 연결 해제";
+"health.settings" = "Apple Health";
 "health.privacy" = "HealthKit 결과는 iPhone 및 Apple Watch에서 로컬로 확인됩니다. 상태 판독값이나 자동으로 파생된 결과는 CloudKit에 업로드되거나 광고용으로 전송되지 않습니다. 수동으로 확인하는 일반적인 습관은 기존 설정을 사용하여 계속 동기화됩니다. 자동 활동 상태는 지연되어 업데이트될 수 있습니다. 연결을 끊으면 새로운 확인이 중지됩니다.";
 "health.error.unavailable" = "이 기기에서는 Apple Health를 사용할 수 없습니다.";
 "health.error.authorization" = "Apple Health에 대한 액세스를 요청할 수 없습니다.";

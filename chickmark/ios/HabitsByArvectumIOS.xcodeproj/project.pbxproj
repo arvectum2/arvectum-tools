@@ -143,6 +143,7 @@
 		CE2BE7EEE33994B9FC25738B /* KoreanLocalizationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D01417CE78EBAA1D48951DC /* KoreanLocalizationUITests.swift */; };
 		CE7E95D8B2A0D48F0E149DE5 /* HabitSyncProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13D3C66AF60610CBDB248FB /* HabitSyncProtocol.swift */; };
 		D0EA3AABB82B1EB3CF2CD0EA /* ChickMarkBrandHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C930DE1D91E04C8E406F858 /* ChickMarkBrandHeader.swift */; };
+		D2C7B8BDF530D7BDFF8C75C5 /* ASOAllLocalesCaptureUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62CB21586FCA79AD11E01C34 /* ASOAllLocalesCaptureUITests.swift */; };
 		D75FE55863F54446FB97AE52 /* TodayComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754AF88484D07D6E1ABB8D82 /* TodayComponents.swift */; };
 		D93012FB5BB6084E800F292E /* HabitDeepLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = E780CF37E596549D09FDBA30 /* HabitDeepLink.swift */; };
 		DCAE4D8F1BB3ED44221DF94B /* WatchHabitSyncStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29378A3FF6234A0F18F3D46 /* WatchHabitSyncStore.swift */; };
@@ -335,6 +336,7 @@
 		61F3F0E65D67CCD1C03FEE5C /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		623381D841E2050FCA4ED96D /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		62578BA41693E87CC32B0E02 /* ReviewNotificationPhysicalQA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewNotificationPhysicalQA.swift; sourceTree = "<group>"; };
+		62CB21586FCA79AD11E01C34 /* ASOAllLocalesCaptureUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASOAllLocalesCaptureUITests.swift; sourceTree = "<group>"; };
 		64497A6095465AC2202435AA /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
 		672D4F8673EEDD29DD32B521 /* HabitsWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitsWidget.swift; sourceTree = "<group>"; };
 		67C52D8B4207CF8331F30024 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -741,6 +743,7 @@
 			children = (
 				C371C059AB348F2240724BB3 /* AdaptiveLayoutUITests.swift */,
 				99139DB9EC28A0ECCC815E96 /* AppStoreUpdatePromptUITests.swift */,
+				62CB21586FCA79AD11E01C34 /* ASOAllLocalesCaptureUITests.swift */,
 				1D904841F1035078A4177CB4 /* BrazilianPortugueseLocalizationUITests.swift */,
 				BAFD2C0FB685D6BEE84C97D1 /* ChickMarkWeeklySummaryUITests.swift */,
 				DBC6C7AC29B9FAE1C6B59C16 /* CoreLanguageCoverageUITests.swift */,
@@ -1146,6 +1149,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D2C7B8BDF530D7BDFF8C75C5 /* ASOAllLocalesCaptureUITests.swift in Sources */,
 				EF2964D2072284CE607FC49D /* AdaptiveLayoutUITests.swift in Sources */,
 				2E91D293874AA3D4C6C4669A /* AppStoreUpdatePromptUITests.swift in Sources */,
 				F65EDDD389D6C56A6D88D28A /* BrazilianPortugueseLocalizationUITests.swift in Sources */,
