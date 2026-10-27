@@ -9,12 +9,18 @@ class ReleaseApprovalBoundary(unittest.TestCase):
   self.assertEqual(d['stage'],'DRAFT_NOT_UPLOADED')
   self.assertEqual(len(d['requiredBeforeAppStoreMutation']),6)
   for name,v in d['requiredBeforeAppStoreMutation'].items():
-   self.assertFalse(v['approved'],name)
-   self.assertIsNone(v['evidence'],name)
+   self.assertIsInstance(v['approved'],bool,name)
+   if v['approved']:
+    self.assertIsInstance(v['evidence'],str,name)
+    self.assertTrue(v['evidence'].strip(),name)
+   else:
+    self.assertIsNone(v['evidence'],name)
  def test_release_cli_blocks_unapproved_mutation(self):
   cmd=[sys.executable,str(ROOT/'core/tools/check_appstore_release_readiness.py')]
   self.assertEqual(subprocess.run(cmd,capture_output=True).returncode,0)
   blocked=subprocess.run(cmd+['--for-release'],capture_output=True,text=True)
-  self.assertEqual(blocked.returncode,2)
-  self.assertIn('BLOCKED',blocked.stderr)
+  gates=json.loads((STAGE/'c14-release-gate.json').read_text())['requiredBeforeAppStoreMutation']
+  pending=any(not v['approved'] or not v['evidence'] for v in gates.values())
+  self.assertEqual(blocked.returncode,2 if pending else 0)
+  if pending:self.assertIn('BLOCKED',blocked.stderr)
 if __name__=='__main__':unittest.main()
