@@ -11,8 +11,8 @@
 | [Ухват / What?](../../what/ROADMAP.md) | 1.1.1 | 1.1.2 (10) | WAITING_FOR_REVIEW; AFTER_APPROVAL | P0 Watch/ACK/фон |
 | [ChickMark](../../chickmark/ROADMAP.md) | 1.5.2 | 1.5.3 (21) | WAITING_FOR_REVIEW; AFTER_APPROVAL | P0 HealthKit/CloudKit/контраст |
 | [Where?](../../where/ROADMAP.md) | не опубликован | нет | PAUSED, MVP отсутствует | Отдельное решение о возобновлении |
-| [APL](https://github.com/arvectum2/proxy-launcher/blob/main/docs/ROADMAP.md) | отдельные платформы | отдельные ветки | Вне репозитория Tools | Mobile UX/ASO/монетизация, настольный продукт |
-| [MAX2TG](https://github.com/arvectum2/max2tg/blob/main/docs/ROADMAP.md) | личный bridge | SaaS prototype | Личная версия работает; общий bot не запущен | Gateway → worker / безопасная multi-tenancy |
+| [APL](https://github.com/arvectum2/proxy-launcher/pull/266) | отдельные платформы | отдельные ветки | Вне репозитория Tools | Mobile UX/ASO/монетизация, настольный продукт |
+| [MAX2TG](https://github.com/arvectum2/max2tg/pull/1) | личный bridge | SaaS prototype | Личная версия работает; общий bot не запущен | Gateway → worker / безопасная multi-tenancy |
 
 **C17 принят по факту загрузки:** 4/4 Apple Distribution IPA отправлены; App Review submission всех четырёх подтверждён ASC. 64/64 набора метаданных (16 storefront locale × 4), 448/448 скриншотов приняты ASC; 144 iPad marketing JPEG использованы в подготовке. В исходниках 12 языков UI, остальные региональные варианты — не отдельные языковые переводы интерфейса. Состояние WAITING_FOR_REVIEW не равно READY_FOR_SALE. Фактические version/build/SHA — [C17 манифест](INDIEAPPCIRCLE_C17_SIGNED_RELEASE_MANIFEST.json), [сверка ASC](INDIEAPPCIRCLE_C17_APPLE_SUBMITTED_2026-10-27.md).
 
@@ -26,7 +26,8 @@
 - [ ] Ухват: физически подтвердить Watch → iPhone → ACK при блокировке экрана/разрыве связи, длительных аудио/видео записях, восстановлении и дубликатах; не удалять пользовательские записи.
 - [ ] ChickMark: реальный HealthKit (включая разрешения записи воды), CloudKit двух устройств, Watch, пользовательская история и показы РСЯ. C18 исправление контраста формы группы сделано **после** отправки 1.5.3(21) и **не входит** в неё; отдельный future build/QA.
 - [ ] Независимая native-speaker проверка рискованных текстов, privacy/permissions, уведомлений и ASO; машинный/редакторский PASS не подменяет человеческий.
-- [ ] Разобрать текущие CI/PR, включая ChickMark accessibility regression и проверить свежий green на изменённом C18 коммите. Не объявлять незамерженную ветку опубликованным приложением.
+- [x] C18 локальные XCUITest на контраст и создание группы — 2/2 PASS в [PR #156](https://github.com/arvectum2/arvectum-tools/pull/156), не входят в C17 подписанный IPA.
+- [ ] Провести CI/merge цепочки stacked PR #151–#156 в main; незамерженный код не равен опубликованному приложению.
 
 ## P1 · продуктовые улучшения
 
