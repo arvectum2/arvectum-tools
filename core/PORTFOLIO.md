@@ -1,5 +1,60 @@
 # Arvectum Tools — Roadmap Registry
 
+## 26.10.2026 · Все четыре приложения подписаны локально
+
+4/4 Release Simulator builds, 4/4 device xcarchives, **4/4 App Store IPA экспорта** и 4/4 проверенные подписи Apple Distribution. Это QA-артефакты, **не новые релизы**: версия Фото/PDF в IPA даже ниже публичной. Прежние provisioning-блокеры для локального экспорта устранены; человеческие редакторские/физические проверки и новый version/build/hash approval остаются.
+
+[Акт подписи](docs/IOS_SIGNED_IPA_GATE_2026-10-26.md).
+
+
+## 26.10.2026 · Контроль качества локализаций C6.3
+
+**10/10 Native UI PASS** новых языков на четырёх приложениях: PT-PT 6/6; KO Фото/PDF и Pushkin 4/4. KO Pushkin исправлен и переиспытан; Swift unit 1/1. Core 63/63. Новые языки не опубликованы. Проверка носителями, Watch/физические устройства, provisioning и release gate ещё открыты.
+
+[Протокол](docs/IOS_PTPT_KO_NATIVE_QA_2026-10-26.md).
+
+
+## 26.10.2026 · Публичный RU Apple Lookup подтверждён
+
+- [x] **Все четыре версии публичны**: Фото/PDF 1.0.2, Pushkin 1.0.2, Ухват 1.1.1, ChickMark 1.5.1.
+- [x] **ChickMark категория Productivity** подтверждена Apple Lookup; прежняя задача на изменение категории закрыта.
+- [ ] **Это старые уже опубликованные версии**: новые исходные zh-Hant/pt-PT/KO и исправления 26.10 в них не попали; для будущих версий отдельный release gate.
+- [ ] Проверить отдельными способами установки/метрики/другие страны; Lookup не показывает количество скачиваний, build и аудит App Review.
+
+[Apple RU Lookup](docs/APPLE_PUBLIC_LOOKUP_2026-10-26.md).
+
+
+## 26.10.2026 · Актуальный срез
+
+| Продукт | Завершено сейчас | Блокер следующего релиза |
+| --- | --- | --- |
+| [Core](ROADMAP.md) | zh-Hant UI 6/6, Python 62/62, pt-PT редактура; 11 source-каталогов с полной key parity, включая черновик pt-PT | Носители, реальные устройства, Apple approval |
+| [Фото/PDF](../photo-pdf-to-size/ROADMAP.md) | zh-Hant UI 3/3, pt-PT улучшен; прежний подписанный IPA устарел | Пересборка после freeze, Files/Photos/РСЯ QA |
+| [Pushkin](../pushkin/ROADMAP.md) | zh-Hant UI 1/1, pt-PT текст исправлен | Provisioning, Shortcuts и сохранность данных |
+| [Ухват](../what/ROADMAP.md) | zh-Hant UI 1/1, pt-PT текст исправлен | Provisioning, Watch ACK, фон |
+| [ChickMark](../chickmark/ROADMAP.md) | zh-Hant UI 1/1, pt-PT/Watch исправлены | Provisioning, HealthKit/CloudKit, категория Productivity |
+| [Where?](../where/ROADMAP.md) | PAUSED | MVP по отдельному решению |
+| [Growth](../growth/ROADMAP.md) | без deploy/live изменений | Analytics 403, РСЯ/ASO |
+
+Последний Apple read-only baseline от 24.10; статусы review нельзя считать сегодняшними. В App Store ничего нового не отправлено. [Акт](docs/IOS_ZH_HANT_NATIVE_QA_2026-10-26.md).
+
+
+## 25.10.2026 · Сводка Core и всех продуктов
+
+| Владелец | Последний подтверждённый статус | Следующий gate |
+| --- | --- | --- |
+| [Core](ROADMAP.md) | 9 языков протестировано, десятый zh-Hant — source draft | Simulator/CI, human QA, hardware |
+| [Фото/PDF](../photo-pdf-to-size/ROADMAP.md) | Публичная 1.0.2 по подтверждению владельца 24.10; zh-Hant draft | Files/PDF/Photos/РСЯ и языковая QA |
+| [Pushkin](../pushkin/ROADMAP.md) | 1.0.2(6) отправлена 24.10 в review; zh-Hant draft | Read-only Apple, Shortcuts/data upgrade, CI |
+| [Ухват](../what/ROADMAP.md) | 1.1.1(9) отправлена 24.10 в review; zh-Hant draft | Watch ACK/фон, длинные записи |
+| [ChickMark](../chickmark/ROADMAP.md) | 1.5.1(19) отправлена 24.10 в review; zh-Hant draft | HealthKit/CloudKit/Watch; Productivity |
+| [Where?](../where/ROADMAP.md) | PAUSED, MVP/PAO отсутствуют | Решение владельца о запуске |
+| [Growth](../growth/ROADMAP.md) | Site PR #15 не deployed; Agent PAUSED | ASC Analytics 403/РСЯ/SEO |
+
+**Не объявлять Apple-review версии опубликованными без новой проверки.** Данные Apple датированы 24.10, новые локализации не отправлялись. [Детали C6](docs/IOS_ZH_HANT_TIER1_DRAFT_2026-10-25.md).
+
+
+
 ## 25.10.2026 - Pushkin CI simulator isolation
 
 - [x] Investigated launch timeout, implemented disposable CI device and bounded retry, verified Mac mini 12/12 PASS.

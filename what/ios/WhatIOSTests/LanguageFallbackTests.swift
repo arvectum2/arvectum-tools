@@ -94,7 +94,7 @@ final class LanguageFallbackTests: XCTestCase {
     func testSimplifiedChineseUIAndTraditionalChineseFallback() {
         XCTAssertEqual(CaptureBrand.resolvedInterfaceLanguage(for: ["zh-Hans-CN", "en"]), "zh")
         XCTAssertEqual(CaptureBrand.resolvedInterfaceLanguage(for: ["zh-CN", "en"]), "zh")
-        XCTAssertEqual(CaptureBrand.resolvedInterfaceLanguage(for: ["zh-Hant-TW", "en"]), "en")
+        XCTAssertEqual(CaptureBrand.resolvedInterfaceLanguage(for: ["zh-Hant-TW", "en"]), "zh-Hant")
         XCTAssertEqual(CaptureBrand.defaultTranscriptionLocale(for: "zh"), "en-US")
         XCTAssertEqual(
             CaptureBrand.text("Все заметки", "All notes", language: "zh-Hans"), "全部笔记")
@@ -103,8 +103,8 @@ final class LanguageFallbackTests: XCTestCase {
         XCTAssertEqual(CaptureBrand.noteCount(1, language: "zh-Hans"), "1条笔记")
         XCTAssertEqual(CaptureBrand.noteCount(2, language: "zh-CN"), "2条笔记")
         XCTAssertEqual(
-            CaptureBrand.text("Все заметки", "All notes", language: "zh-Hant"), "All notes")
-        XCTAssertEqual(CaptureBrand.noteCount(2, language: "zh-TW"), "2 notes")
+            CaptureBrand.text("Все заметки", "All notes", language: "zh-Hant"), "全部筆記")
+        XCTAssertEqual(CaptureBrand.noteCount(2, language: "zh-TW"), "2 則筆記")
     }
 
     func testJapaneseInterfaceIsIndependentFromDictationLanguage() {
@@ -127,6 +127,13 @@ final class LanguageFallbackTests: XCTestCase {
             CaptureBrand.text("Сохранить", "Save", language: "it-IT"), "Salva")
         XCTAssertEqual(CaptureBrand.noteCount(1, language: "it"), "1 nota")
         XCTAssertEqual(CaptureBrand.noteCount(2, language: "it"), "2 note")
+    }
+
+    func testEuropeanPortugueseRegionalSelection() {
+        XCTAssertEqual(CaptureBrand.resolvedInterfaceLanguage(for: ["pt-PT", "en-US"]), "pt-PT")
+        XCTAssertEqual(CaptureBrand.resolvedInterfaceLanguage(for: ["pt-BR", "en-US"]), "pt")
+        XCTAssertEqual(CaptureBrand.defaultTranscriptionLocale(for: "pt"), "en-US")
+        XCTAssertEqual(CaptureBrand.text("Сохранить", "Save", language: "pt-PT"), "Guardar")
     }
 
     func testBrazilianPortugueseInterfaceWithIndependentTranscription() {

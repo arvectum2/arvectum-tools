@@ -1,5 +1,59 @@
 # Arvectum Tools — план исполнения без Where?
 
+## 26.10.2026 · Локальная подпись завершена
+
+- [x] 4/4 unsigned Release Simulator PASS; 4/4 device archives PASS; 4/4 App Store IPA exports/подписи PASS, SHA-256 записаны.
+- [ ] Следующий RC: новые версии/build numbers; после native-speaker, физической и CI QA — повторная упаковка/новые хеши.
+- [ ] Отдельная per-release Apple approval (включая TestFlight) обязательна. Никакой загрузки или метаданных Apple не изменяли.
+
+[Акт](docs/IOS_SIGNED_IPA_GATE_2026-10-26.md).
+
+
+## 26.10.2026 · Следующий рубеж
+
+- [x] PT-PT 6/6 и KO 4/4 Native UI PASS, Swift KO unit PASS; Core 63/63 PASS.
+- [ ] Закончить KO для Ухвата/ChickMark, редактуру носителями, Watch/VoiceOver/permission физическую приёмку.
+- [ ] Полный GitHub 11-язычный UI CI, подписанные архивы/provisioning, отдельный per-release Apple approval.
+
+[QA](docs/IOS_PTPT_KO_NATIVE_QA_2026-10-26.md).
+
+
+## 26.10.2026 · Публичный RU Apple Lookup подтверждён
+
+- [x] **Все четыре версии публичны**: Фото/PDF 1.0.2, Pushkin 1.0.2, Ухват 1.1.1, ChickMark 1.5.1.
+- [x] **ChickMark категория Productivity** подтверждена Apple Lookup; прежняя задача на изменение категории закрыта.
+- [ ] **Это старые уже опубликованные версии**: новые исходные zh-Hant/pt-PT/KO и исправления 26.10 в них не попали; для будущих версий отдельный release gate.
+- [ ] Проверить отдельными способами установки/метрики/другие страны; Lookup не показывает количество скачиваний, build и аудит App Review.
+
+[Apple RU Lookup](docs/APPLE_PUBLIC_LOOKUP_2026-10-26.md).
+
+
+## 26.10.2026 · Обновлённая очередь
+
+- [x] C6.1: zh-Hant Native UI 6/6, PT-PT редактура, Core 62/62 и locale audit PASS.
+- [ ] P0: продолжить нативный QA остальных новых языков, проверить региональные privacy/consent и VoiceOver; физические iPhone/Watch.
+- [ ] P0: подтверждение GitHub ten-language CI, signed IPA на свежем source, восстановление provisioning для трёх приложений и extensions.
+- [ ] P0: read-only Apple status; новые Apple upload/review/live metadata — только по отдельному одобрению версии/build/hash.
+- [ ] P1: закончить KO в Ухвате/ChickMark, затем HI/AR/ID/TR/VI/NL/PL/TH, без английских заглушек.
+- [ ] Where?/Growth Agent PAUSED, Android расширение отложено.
+
+[Протокол](docs/IOS_ZH_HANT_NATIVE_QA_2026-10-26.md).
+
+
+## 25.10.2026 · Единая активная очередь
+
+- [x] C5 завершено: девять языков исходников и UI matrix для 4 iOS приложений. C6 начато: десятый zh-Hant draft в 10 iPhone/Watch/widget bundles.
+- [ ] **P0 Core:** компиляция, Simulator UI zh-Hant, новая GitHub manual matrix, переводческая/физическая приёмка без изменения публичных бинарников.
+- [ ] **P0 App reliability:** Pushkin physical Shortcuts/data upgrade; Ухват ACK/фон и без потерь; ChickMark HealthKit/Watch/CloudKit; Фото/PDF Files/Photos/PDF/РСЯ.
+- [ ] **P0 Apple read-only:** повторная сверка всех 4 публичных версий и отправленных 24.10 ревью, не путать review с READY_FOR_SALE.
+- [ ] **P1 i18n:** оставшиеся 10 языков Tier 1 после zh-Hant + RTL/plural. Android 41 новых каталога позднее.
+- [ ] **P1 Growth:** ASC Analytics 403, категория Productivity в публичном ChickMark и РСЯ; site PR #15 deploy только при согласовании.
+- [ ] **PAUSED:** Where?, Growth Agent. App Store/TestFlight/metadata и изменение live сайта не разрешаются общей командой на код.
+
+[Реестр](PORTFOLIO.md) · [i18n C6](docs/IOS_ZH_HANT_TIER1_DRAFT_2026-10-25.md).
+
+
+
 ## 24.10.2026 · Исполняемая очередь после подтверждения релиза Фото/PDF
 
 **Сначала читать [актуальный реестр](PORTFOLIO.md); все старые пункты про ожидание Foto/PDF 1.0.2 внизу — исторические.**

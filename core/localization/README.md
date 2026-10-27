@@ -1,5 +1,36 @@
 # Arvectum Tools — portfolio localization (50 locales)
 
+## 26.10.2026 · PT-PT и KO native QA
+
+- [x] PT-PT 6/6 UI и KO 4/4 UI PASS в доступных приложениях; Pushkin KO routing fixed и Swift regression PASS.
+- [x] 31 EN identical машинный разбор, 0 новых неразобранных текстов, Core 63/63.
+- [ ] Корейский в Ухвате/ChickMark, native proofread, физическая Watch/VoiceOver QA и новая подписанная четвёрка RC.
+
+[QA](../docs/IOS_PTPT_KO_NATIVE_QA_2026-10-26.md).
+
+
+## 26 October 2026 — verified progress
+
+- [x] 11 full-key iOS source locales across 4 apps (including draft pt-PT); KO is partial in two apps.
+- [x] Zh-Hant native iPhone Simulator XCUITest **6/6 PASS**; PT-PT corrections, Core **62/62 PASS**.
+- [ ] Human editorial sign-off, physical Watch/VoiceOver/privacy QA and GitHub manual CI; new signed device candidates and independent Apple approvals.
+- [ ] Remaining Tier 1: KO (2/4), HI, AR, ID, TR, VI, NL, PL, TH. Ukrainian excluded; Thai remains its replacement. Android on hold.
+
+[Report](../docs/IOS_ZH_HANT_NATIVE_QA_2026-10-26.md).
+
+
+## 25 October 2026 — zh-Hant draft, tenth iOS source locale
+
+- [x] Four active iOS apps/ten iPhone/Watch/widget bundles now have 10 complete-key source catalogs, including preliminary OpenCC s2twp zh-Hant. Script conversion is NOT native editorial validation.
+- [x] UI language routing distinguishes zh-Hans/zh-CN from zh-Hant/zh-TW/HK/MO, without changing the independent speech transcription setting.
+- [x] Added dedicated zh-Hant Swift and native UI test sources; manual CI workflow now selects 10 languages, retaining its historic filename.
+- [ ] Build and actual Simulator/Watch testing; traditional Chinese human proofreading of consent, privacy, Shortcuts, typography and VoiceOver; physical acceptance.
+- [ ] Tier 1 remainder: hi, ar, pt-PT, ko, id, tr, vi, nl, pl, th. Android expansion stays deferred.
+
+[Draft evidence](../docs/IOS_ZH_HANT_TIER1_DRAFT_2026-10-25.md).
+
+
+
 ## 25 October 2026 C5.8 - GitHub on-demand native UI QA
 
 - [x] Manual (not automatically triggered) 4-job Xcode locale UI workflow for all 36 app×language smoke pairs.
@@ -129,7 +160,7 @@ Four active iOS apps: ChickMark, Pushkin, Ухват, Фото/PDF под раз
 
 ## The 50 target locale packs
 
-Tier 1 (20): en, ru, es, zh-Hans, zh-Hant, hi, ar, pt-BR, pt-PT, fr, de, ja, ko, id, tr, vi, it, nl, pl, uk.
+Tier 1 (20): en, ru, es, zh-Hans, zh-Hant, hi, ar, pt-BR, pt-PT, fr, de, ja, ko, id, tr, vi, it, nl, pl, th.
 
 Tier 2 (20): fa, ur, bn, pa, ta, te, mr, gu, kn, ml, th, ms, fil, sw, ro, hu, cs, sk, el, he.
 
@@ -905,3 +936,23 @@ The focused Spanish save-failure UI test was included.
 This is deterministic error injection, NOT SIGKILL between write
 syscalls and NOT actual power-loss or storage-full testing.
 Those remain L4.19b release blockers. No main merge, release, or push.
+
+### European Portuguese work-in-progress (2026-10-25)
+
+`photo-pdf-to-size/ios/PhotoPodRazmer/Resources/pt-PT.lproj` now contains a first regional draft derived from the existing pt-BR catalog (Localizable and InfoPlist). This is **not** a proofread, shipped, or portfolio-complete locale. Do not add `pt-PT` to the app's `sourceCatalogs` until a native-speaker review, permission/consent review, XCUITest, and all four app bundles are complete. The manifest continues to track `pt-PT` as Tier 1 remaining.
+
+Update: `pt-PT` draft resources now cover 18 `.strings` files across all four active iOS/Watch/widget products. Source-key parity is tested, and the regional locale routing is implemented in Pushkin and Uhvat. Native editorial review, permissions/consent QA, device UI tests, and App Store readiness are still outstanding. Do not count `pt-PT` as a released or editorially accepted source pack.
+
+### pt-PT simulator build checkpoint (2026-10-25)
+
+XcodeGen project regeneration succeeded for Photo, Pushkin, What and ChickMark. Generic iOS Simulator builds succeeded for all four app schemes. WhatIOS `LanguageFallbackTests` and Pushkin `CoverageCatalogTests` passed on the iOS 27.0 simulator. ChickMark `LocalizationTests` first run was interrupted by Xcode; the retry with parallel testing disabled passed. `pt-PT` remains a **draft** pending independent European Portuguese editorial review and visual/accessibility testing; do not ship or claim full native QA.
+
+### Korean `ko` first source pack (draft)
+
+`photo-pdf-to-size/ios/PhotoPodRazmer/Resources/ko.lproj` contains a full-key Korean draft for the Photo/PDF app (including consent and InfoPlist strings). Untranslated strings are measurement tokens and positional formatting templates. The pack is **not** registered for release; Korean copy, policy text and native iOS QA require independent review. Pushkin, What and ChickMark Korean packs are not yet translated.
+
+Korean Photo/PDF generic iOS Simulator build PASS after retry using existing derived data (first fresh-build invocation was interrupted by Xcode). 58/58 Core tests PASS; both Korean `.strings` files pass `plutil -lint`. These checks do not substitute for native UI tests or Korean editorial acceptance.
+
+### Korean PUSHKIN source pack (draft)
+
+All 151 extracted English source entries now have Korean draft translations at `pushkin/ios/ArvectumNotify/Resources/ko.lproj/Localizable.strings`; placeholder/key parity and no-English-source fallback are tested. `PushkinCopy` now resolves the Korean resource bundle. This is not an editorial sign-off or permission to publish: Shortcuts instructions, legal/privacy copy, dynamic strings and simulator UI require review.

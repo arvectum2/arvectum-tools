@@ -1,0 +1,8 @@
+// Draft zh-Hant (Taiwan) converted with OpenCC s2twp; native editorial review REQUIRED before release.
+// Traduzione italiana preliminare; revisione editoriale prima del rilascio.
+"Preparing microphone…" = "正在準備麥克風…";
+"Record" = "錄音";
+"Saved" = "已儲存";
+"Stop" = "停止";
+"Try again" = "重試";
+"%d waiting for iPhone" = "%d條等待傳輸到iPhone";

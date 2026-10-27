@@ -1,5 +1,71 @@
 # Arvectum Tools Core — дорожная карта
 
+## 26.10.2026 · C6.4 — signing/preflight QA
+
+- [x] Все четыре Release builds, подписанные iOS device xcarchive **4/4 PASS**, App Store IPA exports **4/4 PASS**; каждый IPA `codesign --verify --deep --strict` **PASS**, SHA-256 зафиксированы.
+- [x] Локальные Store provisioning profiles для Main/Watch/Widget найдены; прежний blocker missing provisioning снят для offline-экспорта, без Apple Developer Portal изменений.
+- [ ] **Не upload-ready**: Фото/PDF IPA `1.0.1 (13)` при публичной `1.0.2`, остальные версии/билды совпадают с текущими; нужны новые version/build и повторная подпись после редакторской/физической QA.
+- [ ] GitHub full 11-language UI matrix запущен (run 40278441525), завершение не подтверждено. Apple upload/Review только с отдельным согласием на exact version/build/hash.
+
+[Signed artifact report](docs/IOS_SIGNED_IPA_GATE_2026-10-26.md).
+
+
+## 26.10.2026 · C6.3 — подтверждённая PT-PT/KO приёмка
+
+- [x] Native iPhone UI: **10/10 PASS** — PT-PT 6/6 (4 apps), KO 4/4 (Фото/PDF и Pushkin).
+- [x] Исправлена настоящая ошибка KO языка Pushkin (`PushkinCopy.text`): повторный KO UI 1/1 + Swift unit 1/1 PASS.
+- [x] Core 63/63 PASS, 31 совпадение EN лексически классифицировано в явном allowlist, 0 новых необъяснённых совпадений.
+- [ ] KO отсутствует для Ухвата/ChickMark, human editorial / физическая QA / Watch / VoiceOver / signing и полный CI остаются release gates.
+
+[Акт native QA](docs/IOS_PTPT_KO_NATIVE_QA_2026-10-26.md).
+
+
+## 26.10.2026 · KO — два частичных iOS-каталога
+
+- [x] Для корейских исходных каталогов Фото/PDF и Pushkin добавлены независимые KoreanLocalizationUITests: синтетические экраны, без пользовательских данных/автоматизаций.
+- [x] Ручная GitHub locale UI матрица обнаруживает корейские классы только там, где они существуют.
+- [ ] Исполнить native UI Korean QA; What/Ухват и ChickMark ещё не переведены на KO. Для release нужны перевод, human proofreading и физический VoiceOver/Watch.
+
+
+## 26.10.2026 · C6.2 — pt-PT Core registry и UI coverage
+
+- [x] 11-й исходный пакет pt-PT добавлен в Core registry всех четырёх приложений, отдельные EuropeanPortuguese native UI smoke tests включены в ручную 11-язычную GitHub матрицу.
+- [x] Исправлены дополнительные европейские португальские формулировки Pushkin/Ухвата/ChickMark.
+- [ ] Новые pt-PT XCUITest ещё не выполнены; native speaker/VoiceOver/Watch и физическая приёмка открыты. Apple release только по отдельному согласованию.
+
+
+## 26.10.2026 · Публичный RU Apple Lookup подтверждён
+
+- [x] **Все четыре версии публичны**: Фото/PDF 1.0.2, Pushkin 1.0.2, Ухват 1.1.1, ChickMark 1.5.1.
+- [x] **ChickMark категория Productivity** подтверждена Apple Lookup; прежняя задача на изменение категории закрыта.
+- [ ] **Это старые уже опубликованные версии**: новые исходные zh-Hant/pt-PT/KO и исправления 26.10 в них не попали; для будущих версий отдельный release gate.
+- [ ] Проверить отдельными способами установки/метрики/другие страны; Lookup не показывает количество скачиваний, build и аудит App Review.
+
+[Apple RU Lookup](docs/APPLE_PUBLIC_LOOKUP_2026-10-26.md).
+
+
+## 26.10.2026 · C6.1: QA и редактура портфеля
+
+- [x] Zh-Hant XCUITest **6/6 PASS** (Фото/PDF 3; Pushkin 1; Ухват 1; ChickMark 1); все XCResult сохранены.
+- [x] PT-PT редактура в 4 приложениях и Watch, структурный аудит PASS, Core **62/62 PASS**; детерминированный редакторский отчёт и регрессионные тесты.
+- [x] **11/20 Tier 1 source packs** полные по ключам во всех 10 bundles (11-я pt-PT — черновик); KO только 2/4 приложений.
+- [ ] Native-speaker review, физический VoiceOver/Watch/consent/upgrade; GitHub manual 10-language CI; provisioning и новые подписанные архивы.
+- [ ] Apple read-only актуализация (предыдущие review сведения 24.10), отдельный release approval для каждого IPA. Прежний подписанный Фото/PDF IPA уже не содержит последние pt-PT изменения.
+
+[Протокол QA](docs/IOS_ZH_HANT_NATIVE_QA_2026-10-26.md).
+
+
+## 25.10.2026 · C6 — zh-Hant, первый пакет после девяти языков
+
+- [x] Источники zh-Hant (Taiwan-oriented OpenCC s2twp draft) подготовлены для всех четырёх iOS-приложений, десяти bundles iPhone/Watch/widgets; ключи, placeholders, Siri и системные разрешения сохранены.
+- [x] Разделены маршруты zh-Hans/zh-CN и zh-Hant/zh-TW/HK/MO в Pushkin, Ухвате, ChickMark; добавлены unit и XCUITest sources.
+- [x] На этапе генерации Core localization audit и 46/46 unit PASS. [Протокол](docs/IOS_ZH_HANT_TIER1_DRAFT_2026-10-25.md).
+- [ ] Native iOS/watchOS builds, Simulator UI, GitHub manual ten-language matrix, редактура носителем, физический VoiceOver/Watch/consent QA.
+- [ ] Tier 1 сейчас **10/20 исходных пакетов**, включая zh-Hant draft; остальные hi, ar, pt-PT, ko, id, tr, vi, nl, pl, th. Android остаётся 9 исходных языков и 41 отложенным.
+- [ ] Никаких Apple uploads/TestFlight/live metadata без явного отдельного согласия.
+
+
+
 ## 25.10.2026 - Pushkin CI simulator launch
 
 - [x] Original GitHub red job traced to 129-second Xcode simulator app-launch timeout; other deletion UI and Swift unit tests passed.

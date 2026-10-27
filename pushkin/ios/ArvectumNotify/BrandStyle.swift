@@ -147,8 +147,9 @@ struct ArvectumCard<Content: View>: View {
 // Never translate Shortcuts identifiers or the user's notification content.
 enum PushkinCopy {
     private static let translatedBundles: [String: Bundle] = {
-        Dictionary(uniqueKeysWithValues: ["es", "fr", "de", "pt", "it", "ja", "zh"].compactMap { language in
-            guard let path = Bundle.main.path(forResource: language == "pt" ? "pt-BR" : (language == "zh" ? "zh-Hans" : language), ofType: "lproj"),
+        Dictionary(uniqueKeysWithValues: ["es", "fr", "de", "pt", "pt-PT", "it", "ja", "ko", "zh", "zh-Hant"].compactMap { language in
+            let resource = language == "pt" ? "pt-BR" : language == "zh" ? "zh-Hans" : language
+            guard let path = Bundle.main.path(forResource: resource, ofType: "lproj"),
                   let bundle = Bundle(path: path)
             else { return nil }
             return (language, bundle)
@@ -161,12 +162,18 @@ enum PushkinCopy {
             ?? Locale.preferredLanguages.first ?? "en"
     ) -> String {
         let normalized = language.lowercased().replacingOccurrences(of: "_", with: "-")
-        // Traditional Chinese is not part of the Simplified Chinese pack.
+        if normalized.hasPrefix("pt-pt") {
+            return translatedBundles["pt-PT"]?.localizedString(
+                forKey: english, value: english, table: nil
+            ) ?? english
+        }
         if normalized.hasPrefix("zh-hant") ||
            normalized.hasPrefix("zh-tw") ||
            normalized.hasPrefix("zh-hk") ||
            normalized.hasPrefix("zh-mo") {
-            return english
+            return translatedBundles["zh-Hant"]?.localizedString(
+                forKey: english, value: english, table: nil
+            ) ?? english
         }
         let code = language
             .split(whereSeparator: { $0 == "-" || $0 == "_" })
@@ -174,7 +181,7 @@ enum PushkinCopy {
         switch code {
         case "ru":
             return russian[english] ?? english
-        case "es", "fr", "de", "pt", "it", "ja", "zh":
+        case "es", "fr", "de", "pt", "it", "ja", "ko", "zh":
             return translatedBundles[code]?.localizedString(
                 forKey: english, value: english, table: nil
             ) ?? english
@@ -191,7 +198,7 @@ enum PushkinCopy {
         let region = language.lowercased().replacingOccurrences(of: "_", with: "-")
         if region.hasPrefix("zh-hant") || region.hasPrefix("zh-tw") ||
            region.hasPrefix("zh-hk") || region.hasPrefix("zh-mo") {
-            return "\(count) apps"
+            return "\(count) 個應用程式"
         }
         if language.lowercased().hasPrefix("es") {
             return count == 1 ? "1 aplicación" : "\(count) aplicaciones"
@@ -204,6 +211,7 @@ enum PushkinCopy {
         }
         if language.lowercased().hasPrefix("it") { return "\(count) app" }
         if language.lowercased().hasPrefix("ja") { return "\(count)件のアプリ" }
+        if language.lowercased().hasPrefix("ko") { return "\(count)개 앱" }
         if language.lowercased().hasPrefix("zh") { return "\(count)个应用" }
         if language.lowercased().hasPrefix("de") {
             return count == 1 ? "1 App" : "\(count) Apps"

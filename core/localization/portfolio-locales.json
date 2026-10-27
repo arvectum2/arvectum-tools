@@ -99,8 +99,8 @@
       "tier": 1
     },
     {
-      "code": "uk",
-      "name": "Українська",
+      "code": "th",
+      "name": "ไทย",
       "tier": 1
     },
     {
@@ -154,8 +154,8 @@
       "tier": 2
     },
     {
-      "code": "th",
-      "name": "ไทย",
+      "code": "uz",
+      "name": "Oʻzbekcha",
       "tier": 2
     },
     {
@@ -270,12 +270,14 @@
           "fr",
           "de",
           "pt-BR",
+          "pt-PT",
           "it",
           "ja",
-          "zh-Hans"
+          "zh-Hans",
+          "zh-Hant"
         ],
-        "status": "source-zh-hans-complete-native-editorial-and-physical-qa-pending",
-        "note": "Nine fully keyed iOS/Watch/Widget source catalogs EN/RU/ES/FR/DE/PT-BR/IT/JA/ZH-Hans across all four products, 899 Chinese source entries. Human and physical QA pending; no App Store publication."
+        "status": "source-zh-hant-draft-structural-qa-editorial-and-device-qa-pending",
+        "note": "Ten source catalogs across active iOS/Watch/Widget bundles; zh-Hant drafted with OpenCC s2twp from zh-Hans, meaning and consent must be reviewed by native speakers. Not shipped in App Store; no new build uploaded."
       }
     },
     "pushkin": {
@@ -290,12 +292,14 @@
           "fr",
           "de",
           "pt-BR",
+          "pt-PT",
           "it",
           "ja",
-          "zh-Hans"
+          "zh-Hans",
+          "zh-Hant"
         ],
-        "status": "source-zh-hans-complete-native-editorial-and-physical-qa-pending",
-        "note": "Nine fully keyed iOS/Watch/Widget source catalogs EN/RU/ES/FR/DE/PT-BR/IT/JA/ZH-Hans across all four products, 899 Chinese source entries. Human and physical QA pending; no App Store publication."
+        "status": "source-zh-hant-draft-structural-qa-editorial-and-device-qa-pending",
+        "note": "Ten source catalogs across active iOS/Watch/Widget bundles; zh-Hant drafted with OpenCC s2twp from zh-Hans, meaning and consent must be reviewed by native speakers. Not shipped in App Store; no new build uploaded."
       }
     },
     "what": {
@@ -315,12 +319,14 @@
           "fr",
           "de",
           "pt-BR",
+          "pt-PT",
           "it",
           "ja",
-          "zh-Hans"
+          "zh-Hans",
+          "zh-Hant"
         ],
-        "status": "source-zh-hans-complete-native-editorial-and-physical-qa-pending",
-        "note": "Nine fully keyed iOS/Watch/Widget source catalogs EN/RU/ES/FR/DE/PT-BR/IT/JA/ZH-Hans across all four products, 899 Chinese source entries. Human and physical QA pending; no App Store publication."
+        "status": "source-zh-hant-draft-structural-qa-editorial-and-device-qa-pending",
+        "note": "Ten source catalogs across active iOS/Watch/Widget bundles; zh-Hant drafted with OpenCC s2twp from zh-Hans, meaning and consent must be reviewed by native speakers. Not shipped in App Store; no new build uploaded."
       }
     },
     "photo-pdf-to-size": {
@@ -341,12 +347,14 @@
           "fr",
           "de",
           "pt-BR",
+          "pt-PT",
           "it",
           "ja",
-          "zh-Hans"
+          "zh-Hans",
+          "zh-Hant"
         ],
-        "status": "source-zh-hans-complete-native-editorial-and-physical-qa-pending",
-        "note": "Nine fully keyed iOS/Watch/Widget source catalogs EN/RU/ES/FR/DE/PT-BR/IT/JA/ZH-Hans across all four products, 899 Chinese source entries. Human and physical QA pending; no App Store publication."
+        "status": "source-zh-hant-draft-structural-qa-editorial-and-device-qa-pending",
+        "note": "Ten source catalogs across active iOS/Watch/Widget bundles; zh-Hant drafted with OpenCC s2twp from zh-Hans, meaning and consent must be reviewed by native speakers. Not shipped in App Store; no new build uploaded."
       }
     },
     "where": {
@@ -374,6 +382,21 @@
       "ja",
       "zh-Hans"
     ],
-    "androidExpansion": "deferred; maintain nine existing source catalogs"
+    "androidExpansion": "deferred; maintain nine existing source catalogs",
+    "iosTier1Active": [
+      "zh-Hant",
+      "pt-PT"
+    ],
+    "iosTier1Remaining": [
+      "hi",
+      "ar",
+      "ko",
+      "id",
+      "tr",
+      "vi",
+      "nl",
+      "pl",
+      "th"
+    ]
   }
 }

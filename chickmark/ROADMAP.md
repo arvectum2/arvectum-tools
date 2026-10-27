@@ -1,5 +1,47 @@
 # ChickMark — актуальная дорожная карта
 
+## 26.10.2026 · Signed IPA QA
+
+- [x] Main/Watch/widgets Store-профили обнаружены; локальный автоматический экспорт App Store IPA PASS, codesign/SHA-256 PASS.
+- [ ] IPA **1.5.1 (19)** ещё прежнего поколения. Новая версия/build после physical HealthKit/CloudKit/Watch/VoiceOver и human editor QA.
+- [ ] Apple upload только с отдельным согласием. [Акт](../core/docs/IOS_SIGNED_IPA_GATE_2026-10-26.md).
+
+
+## 26.10.2026 · PT-PT приёмка
+
+- [x] PT-PT native iPhone UI 1/1 PASS (без реальных CloudKit данных).
+- [ ] KO отсутствует, требуется перевод iPhone/Watch/Widget, human editorial, физический HealthKit/CloudKit и подписанный RC.
+
+[QA](../core/docs/IOS_PTPT_KO_NATIVE_QA_2026-10-26.md).
+
+
+## 26.10.2026 · App Store RU статус (read-only)
+
+- [x] Apple Lookup подтвердил опубликованную **1.5.1**; категория **Productivity**. Свидетельство: [датированный реестр](../core/docs/APPLE_PUBLIC_LOOKUP_2026-10-26.md).
+- [ ] Новые локализации этого цикла не входят в публичный бинарник; дальнейшие загрузки требуют нового RC/QA и отдельного согласования.
+
+
+## 26.10.2026 · C6.1 локализация и релиз
+
+- [x] zh-Hant Native UI **1/1 PASS**, пустое состояние/новая привычка, без личных CloudKit-данных.
+- [x] pt-PT улучшены HealthKit, backup, привычки, включая Watch InfoPlist; структурный аудит PASS.
+- [ ] KO исходники отсутствуют; нужна редактура, physical Watch/HealthKit/CloudKit и безопасное обновление.
+- [ ] Capability-bearing provisioning и новый signed RC; Apple 1.5.1(19) Review статус 24.10 не обновлён; категория Productivity остаётся отдельной задачей live metadata.
+- [ ] Не загружать в Apple без per-release approval. [QA](../core/docs/IOS_ZH_HANT_NATIVE_QA_2026-10-26.md).
+
+
+## 25.10.2026 · ChickMark: zh-Hant и безопасная приёмка
+
+- [x] Zh-Hant draft: iPhone 302, Watch 22, Phone Widget 16, Watch Widget 5 строк, InfoPlist/HealthKit/Siri AppShortcuts.
+- [x] Селектор языка разделяет zh-Hant (TW/HK/MO) и zh-Hans (CN), подготовлены Swift unit/UI тесты.
+- [ ] Native Simulator/Watch, редактура HealthKit/Siri/длинных строк, физический VoiceOver.
+- [ ] P0: Water check-in/edit/undo на живом UI, revoke/regrant, CloudKit/Watch и недеструктивный upgrade.
+- [ ] 1.5.1(19) WAITING_FOR_REVIEW на 24.10; Productivity сверить уже на публичной версии, не считать опубликованной по ASC edit state.
+
+[QA C6](../core/docs/IOS_ZH_HANT_TIER1_DRAFT_2026-10-25.md).
+
+
+
 ## 24.10.2026 · ChickMark — zh-Hans iPhone/Watch/widgets
 
 - [x] 302 iPhone + 22 Watch + 16 Phone Widget + 5 Watch Widget строк; HealthKit InfoPlist и Siri AppShortcuts.

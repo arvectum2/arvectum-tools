@@ -1,0 +1,4 @@
+// Draft zh-Hant (Taiwan) converted with OpenCC s2twp; native editorial review REQUIRED before release.
+"CFBundleDisplayName" = "UhWhat?";
+"CFBundleName" = "UhWhat?";
+"NSMicrophoneUsageDescription" = "在Apple Watch上錄下想法。安全傳輸到iPhone並得到確認之前，音訊將保留在Watch上。";

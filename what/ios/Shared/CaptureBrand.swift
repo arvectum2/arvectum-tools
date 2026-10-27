@@ -37,10 +37,12 @@ enum CaptureBrand {
         for identifier in preferredLanguages {
             let normalized = identifier.lowercased()
                 .replacingOccurrences(of: "_", with: "-")
-            // zh-Hant uses different writing and must not silently use zh-Hans.
+            // Preserve regional Portuguese and Chinese script choices.
+            if normalized.hasPrefix("pt-pt") { return "pt-PT" }
+            if normalized.hasPrefix("pt-br") { return "pt" }
             if normalized.hasPrefix("zh-hant") || normalized.hasPrefix("zh-tw") ||
                normalized.hasPrefix("zh-hk") || normalized.hasPrefix("zh-mo") {
-                continue
+                return "zh-Hant"
             }
             let language = Locale(identifier: identifier)
                 .language.languageCode?.identifier.lowercased()
@@ -87,6 +89,12 @@ enum CaptureBrand {
         return Bundle(path: path)
     }()
 
+    private static let europeanPortugueseBundle: Bundle? = {
+        guard let path = Bundle.main.path(forResource: "pt-PT", ofType: "lproj")
+        else { return nil }
+        return Bundle(path: path)
+    }()
+
     private static let italianBundle: Bundle? = {
         guard let path = Bundle.main.path(forResource: "it", ofType: "lproj")
         else { return nil }
@@ -105,6 +113,12 @@ enum CaptureBrand {
         return Bundle(path: path)
     }()
 
+    private static let traditionalChineseBundle: Bundle? = {
+        guard let path = Bundle.main.path(forResource: "zh-Hant", ofType: "lproj")
+        else { return nil }
+        return Bundle(path: path)
+    }()
+
     static var name: String { isRussian ? "Ухват" : "UhWhat?" }
 
     static func text(
@@ -114,7 +128,9 @@ enum CaptureBrand {
         let normalized = code.replacingOccurrences(of: "_", with: "-")
         if normalized.hasPrefix("zh-hant") || normalized.hasPrefix("zh-tw") ||
            normalized.hasPrefix("zh-hk") || normalized.hasPrefix("zh-mo") {
-            return english
+            return traditionalChineseBundle?.localizedString(
+                forKey: english, value: english, table: nil
+            ) ?? english
         }
         if code.hasPrefix("ru") { return russian }
         if code.hasPrefix("es") {
@@ -129,6 +145,11 @@ enum CaptureBrand {
         }
         if code.hasPrefix("de") {
             return germanBundle?.localizedString(
+                forKey: english, value: english, table: nil
+            ) ?? english
+        }
+        if normalized.hasPrefix("pt-pt") {
+            return europeanPortugueseBundle?.localizedString(
                 forKey: english, value: english, table: nil
             ) ?? english
         }
@@ -172,6 +193,10 @@ enum CaptureBrand {
             code.hasPrefix("pt") ? "pt_BR" :
             code.hasPrefix("it") ? "it_IT" :
             code.hasPrefix("ja") ? "ja_JP" :
+            (code.lowercased().hasPrefix("zh-hant") ||
+             code.lowercased().hasPrefix("zh-tw") ||
+             code.lowercased().hasPrefix("zh-hk") ||
+             code.lowercased().hasPrefix("zh-mo")) ? "zh_Hant_TW" :
             code.hasPrefix("zh") ? "zh_Hans_CN" : "en_US"
         )
         return String(
@@ -185,7 +210,7 @@ enum CaptureBrand {
         let normalized = language.lowercased().replacingOccurrences(of: "_", with: "-")
         if normalized.hasPrefix("zh-hant") || normalized.hasPrefix("zh-tw") ||
            normalized.hasPrefix("zh-hk") || normalized.hasPrefix("zh-mo") {
-            return count == 1 ? "1 note" : "\(count) notes"
+            return "\(count) 則筆記"
         }
         if language == "ru" {
             let lastTwo = count % 100

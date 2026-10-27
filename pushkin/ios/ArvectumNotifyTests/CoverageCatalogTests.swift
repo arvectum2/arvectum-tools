@@ -82,6 +82,11 @@ final class CoverageCatalogTests: XCTestCase {
         XCTAssertEqual(PushkinCopy.appCount(1, language: "de-DE"), "1 App")
     }
 
+    func testEuropeanPortugueseBundleRouting() {
+        XCTAssertEqual(PushkinCopy.text("Delete", language: "pt-PT"), "Eliminar")
+        XCTAssertEqual(PushkinCopy.text("History", language: "pt-PT"), "Histórico")
+    }
+
     func testBrazilianPortugueseBundleAndAppCount() {
         XCTAssertEqual(PushkinCopy.text("History", language: "pt-BR"), "Histórico")
         XCTAssertEqual(PushkinCopy.text("Settings", language: "pt_BR"), "Ajustes")
@@ -97,6 +102,17 @@ final class CoverageCatalogTests: XCTestCase {
         XCTAssertEqual(PushkinCopy.text("Apps & Setup", language: "it-IT"), "App e configurazione")
         XCTAssertEqual(PushkinCopy.appCount(1, language: "it"), "1 app")
         XCTAssertEqual(PushkinCopy.appCount(2, language: "it"), "2 app")
+    }
+
+    func testKoreanBundleAndRegionalLanguageFallback() {
+        XCTAssertEqual(PushkinCopy.text("History", language: "ko"), "기록")
+        XCTAssertEqual(PushkinCopy.text("History", language: "ko-KR"), "기록")
+        XCTAssertEqual(PushkinCopy.text("Apps", language: "ko_KR"), "앱")
+        XCTAssertEqual(PushkinCopy.text("Apps & Setup", language: "ko"), "앱 및 설정")
+        XCTAssertEqual(PushkinCopy.text("Group %d", language: "ko-KR"), "그룹 %d")
+        XCTAssertEqual(PushkinCopy.appCount(1, language: "ko"), "1개 앱")
+        XCTAssertEqual(PushkinCopy.appCount(25, language: "ko-KR"), "25개 앱")
+        XCTAssertEqual(PushkinCopy.text("Unknown UI label", language: "ko"), "Unknown UI label")
     }
 
     func testJapaneseUsesRealBundledTranslationsAndCounters() {
@@ -115,8 +131,9 @@ final class CoverageCatalogTests: XCTestCase {
         XCTAssertEqual(PushkinCopy.text("Group %d", language: "zh-CN"), "第%d组")
         XCTAssertEqual(PushkinCopy.appCount(1, language: "zh-Hans"), "1个应用")
         XCTAssertEqual(PushkinCopy.appCount(2, language: "zh-CN"), "2个应用")
-        XCTAssertEqual(PushkinCopy.text("History", language: "zh-Hant"), "History")
-        XCTAssertEqual(PushkinCopy.appCount(2, language: "zh-TW"), "2 apps")
+        XCTAssertEqual(PushkinCopy.text("History", language: "zh-Hant"), "歷史記錄")
+        XCTAssertEqual(PushkinCopy.text("Settings", language: "zh-TW"), "設定")
+        XCTAssertEqual(PushkinCopy.appCount(2, language: "zh-TW"), "2 個應用程式")
     }
 
     func testPendingSourceNameIsBriefWithoutChangingSourceIdentity() {

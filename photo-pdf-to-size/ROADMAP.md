@@ -1,5 +1,45 @@
 # Фото и PDF под размер — Product Roadmap
 
+## 26.10.2026 · Signed IPA QA
+
+- [x] Device xcarchive + App Store IPA export + signature SHA-256 verification PASS.
+- [ ] Подписанная IPA **1.0.1 (13)** старее публичной **1.0.2** — не готова к upload; нужна новая версия/build, редактура/физическая QA и повторная подпись.
+- [ ] Apple release только по отдельному разрешению. [Артефакт](../core/docs/IOS_SIGNED_IPA_GATE_2026-10-26.md).
+
+
+## 26.10.2026 · PT-PT и KO
+
+- [x] PT-PT 3/3 и KO 3/3 Native UI PASS (фото, PDF, доступность).
+- [ ] Human editorial, физические Photos/Files/РСЯ QA, новый signed IPA; прежний IPA устарел относительно последней локализации.
+
+[QA](../core/docs/IOS_PTPT_KO_NATIVE_QA_2026-10-26.md).
+
+
+## 26.10.2026 · App Store RU статус (read-only)
+
+- [x] Apple Lookup подтвердил опубликованную **1.0.2**; категория **Utilities**. Свидетельство: [датированный реестр](../core/docs/APPLE_PUBLIC_LOOKUP_2026-10-26.md).
+- [ ] Новые локализации этого цикла не входят в публичный бинарник; дальнейшие загрузки требуют нового RC/QA и отдельного согласования.
+
+
+## 26.10.2026 · C6.1 локализация и релиз
+
+- [x] zh-Hant Native UI **3/3 PASS**; pt-PT исправлены согласование названия и тексты рекламы/приватности.
+- [x] Struct/format/plutil PASS. Подписанный ранее IPA создан до нынешней корректировки pt-PT и не является новым RC.
+- [ ] Редактура носителем, физический Files/Photos/PDF и РСЯ QA, переархивация и отдельное разрешение загрузки в Apple.
+- [ ] Публичная 1.0.2 — предыдущее подтверждение владельца, не результат новой внешней проверки. [QA](../core/docs/IOS_ZH_HANT_NATIVE_QA_2026-10-26.md).
+
+
+## 25.10.2026 · Фото/PDF: zh-Hant + physical gates
+
+- [x] 155 zh-Hant UI strings и системные InfoPlist строки для iPhone (OpenCC Taiwan-oriented draft), новые XCUITest photo/PDF/AXXXL.
+- [ ] Native Simulator, длинные предупреждения PDF, документы, РСЯ/consent, носитель языка и VoiceOver.
+- [ ] Пострелизная физическая QA Files/Photos/HEIC/EXIF, большой PDF, no-fill; публичная 1.0.2 по подтверждению от 24.10 без повторной отправки.
+- [ ] Android остаётся на девяти исходных пакетах; 41 новый отложен. App Store upload только после отдельной авторизации.
+
+[QA C6](../core/docs/IOS_ZH_HANT_TIER1_DRAFT_2026-10-25.md).
+
+
+
 ## 24.10.2026 · Фото/PDF — zh-Hans
 
 - [x] 155 китайских строк iOS, перевод рекламы, фото документов, PDF и InfoPlist.

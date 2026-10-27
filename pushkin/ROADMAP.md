@@ -1,5 +1,47 @@
 # PUSHKIN — Product Roadmap
 
+## 26.10.2026 · Signed IPA QA
+
+- [x] Store IPA из локального архивирования, подпись Apple Distribution проверена; прежний missing profile для локального экспорта больше не блокирует.
+- [ ] IPA имеет **1.0.2 (6)**, это ещё не новая версия; после human editor/Shortcuts QA нужен новый version/build и owner release approval.
+- [ ] Новых загрузок в ASC нет. [Акт](../core/docs/IOS_SIGNED_IPA_GATE_2026-10-26.md).
+
+
+## 26.10.2026 · Корейский runtime исправлен
+
+- [x] Подключён `ko` в PushkinCopy.text, число приложений локализовано `N개 앱`.
+- [x] Повторный KO iOS UI 1/1 и Swift unit 1/1 PASS; PT-PT UI 1/1 PASS.
+- [ ] Human editor + физический Shortcuts/VoiceOver/upgrade, provisioning и отдельное Apple согласование.
+
+[QA](../core/docs/IOS_PTPT_KO_NATIVE_QA_2026-10-26.md).
+
+
+## 26.10.2026 · App Store RU статус (read-only)
+
+- [x] Apple Lookup подтвердил опубликованную **1.0.2**; категория **Utilities**. Свидетельство: [датированный реестр](../core/docs/APPLE_PUBLIC_LOOKUP_2026-10-26.md).
+- [ ] Новые локализации этого цикла не входят в публичный бинарник; дальнейшие загрузки требуют нового RC/QA и отдельного согласования.
+
+
+## 26.10.2026 · C6.1 локализация и релиз
+
+- [x] zh-Hant Native UI **1/1 PASS**, без изменений персональных Shortcut; pt-PT текст поддержки и автоматизаций исправлен.
+- [ ] KO — черновик исходных файлов без human QA; нужна проверка интерфейса и consent.
+- [ ] Provisioning профиля ArvectumNotify, новый signed RC, безопасный Shortcuts/data upgrade на физическом устройстве.
+- [ ] Apple Review 1.0.2(6) — прежнее наблюдение 24.10, требуется новая read-only проверка. Новая загрузка только по per-release approval. [QA](../core/docs/IOS_ZH_HANT_NATIVE_QA_2026-10-26.md).
+
+
+## 25.10.2026 · Pushkin: zh-Hant и release gates
+
+- [x] 151 zh-Hant UI ключ и отдельная маршрутизация языка zh-TW/HK/MO, включая историю и подсказки Shortcuts; личные уведомления и идентификаторы Shortcuts не изменены.
+- [x] Swift unit и XCUITest zh-Hant дополняют существующую девятиязычную базу.
+- [ ] Native Simulator/CI, вычитка Shortcuts и privacy, большой текст и физическая QA сохранения истории.
+- [ ] Последняя подтверждённая App Review 1.0.2(6) WAITING_FOR_REVIEW (24.10), требуется read-only свежая проверка и физическое обновление.
+- [ ] Новая загрузка App Store только с отдельным разрешением.
+
+[QA C6](../core/docs/IOS_ZH_HANT_TIER1_DRAFT_2026-10-25.md).
+
+
+
 ## 25.10.2026 - deletion CI recovery
 
 - [x] Diagnosed Xcode Simulator launch timeout; deletion logic unchanged.

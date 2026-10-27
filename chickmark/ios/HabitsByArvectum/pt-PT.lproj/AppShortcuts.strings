@@ -1,0 +1,5 @@
+// Português (Portugal), rascunho derivado de pt-BR; revisão humana obrigatória.
+"Complete a habit in ${applicationName}" = "Concluir um hábito no ${applicationName}";
+"Check off a habit in ${applicationName}" = "Marcar um hábito no ${applicationName}";
+"Undo a habit in ${applicationName}" = "Desfazer um hábito no ${applicationName}";
+"Mark a habit incomplete in ${applicationName}" = "Marcar um hábito como não concluído no ${applicationName}";

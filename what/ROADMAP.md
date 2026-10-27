@@ -1,5 +1,46 @@
 # What? — Product Roadmap
 
+## 26.10.2026 · Signed IPA QA
+
+- [x] Все 4 Store-профиля main/Watch/widget установлены, автоматический локальный экспорт IPA PASS, codesign/SHA-256 PASS.
+- [ ] Подписанная IPA **1.1.1 (9)** повторяет прежнюю версию, **не upload-ready**; до нового release — новая версия/build и physical Watch ACK/VoiceOver/review.
+- [ ] App Store upload только по отдельному согласию. [Акт](../core/docs/IOS_SIGNED_IPA_GATE_2026-10-26.md).
+
+
+## 26.10.2026 · PT-PT приёмка
+
+- [x] PT-PT native iPhone UI 1/1 PASS, синтетический AXXXL экран.
+- [ ] Корейский KO пока отсутствует; Watch/Widget перевод, физический ACK/VoiceOver и signing заблокированы до приёмки.
+
+[QA](../core/docs/IOS_PTPT_KO_NATIVE_QA_2026-10-26.md).
+
+
+## 26.10.2026 · App Store RU статус (read-only)
+
+- [x] Apple Lookup подтвердил опубликованную **1.1.1**; категория **Productivity**. Свидетельство: [датированный реестр](../core/docs/APPLE_PUBLIC_LOOKUP_2026-10-26.md).
+- [ ] Новые локализации этого цикла не входят в публичный бинарник; дальнейшие загрузки требуют нового RC/QA и отдельного согласования.
+
+
+## 26.10.2026 · C6.1 локализация и релиз
+
+- [x] zh-Hant Native UI **1/1 PASS**, AXXXL synthetic экран без записи; pt-PT восстановление и разрешения отредактированы.
+- [ ] KO пока отсутствует; нужна редактура/физическая VoiceOver/Watch ACK/background no-loss приёмка.
+- [ ] Provisioning iPhone/Watch/widgets и новые signed RC; Apple 1.1.1(9) Review статус 24.10 не обновлён.
+- [ ] Apple upload только с отдельным подтверждением версии/build/hash. [QA](../core/docs/IOS_ZH_HANT_NATIVE_QA_2026-10-26.md).
+
+
+## 25.10.2026 · Ухват: zh-Hant во всех компонентах
+
+- [x] Zh-Hant draft: iPhone 231, Watch 6, Phone Widget 6, complication 5 UI строк, InfoPlist; UI регион zh-TW/HK/MO не зависит от языка транскрипции.
+- [x] Добавлены Swift/XCUITest для языковой маршрутизации и AXXXL без реального аудио.
+- [ ] Xcode iOS/watchOS, VoiceOver, редактура permissions и физических Watch/widget.
+- [ ] P0: Watch→iPhone ACK при фоне (~171 с наблюдалось), offline/reboot, звонок и 30+ минут, без риска личным записям.
+- [ ] 1.1.1(9) WAITING_FOR_REVIEW по 24.10; публичный статус перепроверить, upload только отдельно разрешённый.
+
+[QA C6](../core/docs/IOS_ZH_HANT_TIER1_DRAFT_2026-10-25.md).
+
+
+
 ## 24.10.2026 · Ухват — zh-Hans iPhone/Watch/widgets
 
 - [x] 231 iPhone + 6 Watch + 6 Phone Widget + 5 complication китайских строк; системные разрешения.

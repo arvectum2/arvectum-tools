@@ -9,6 +9,119 @@ import localization_portfolio as i18n
 
 
 class LocalizationPortfolioTests(unittest.TestCase):
+    def test_photo_european_portuguese_draft_parity(self):
+        """Draft must keep keys/placeholders without implying release readiness."""
+        base = ROOT / "photo-pdf-to-size/ios/PhotoPodRazmer/Resources"
+        for filename in ("Localizable.strings", "InfoPlist.strings"):
+            br = i18n.read_strings(base / "pt-BR.lproj" / filename, [])
+            pt = i18n.read_strings(base / "pt-PT.lproj" / filename, [])
+            self.assertEqual(set(br), set(pt))
+            for key in br:
+                self.assertEqual(i18n.PRINTF.findall(br[key]), i18n.PRINTF.findall(pt[key]), key)
+        pt = i18n.read_strings(base / "pt-PT.lproj/Localizable.strings", [])
+        self.assertEqual(pt["Сохранить файл"], "Guardar ficheiro")
+        self.assertEqual(pt["Поделиться"], "Partilhar")
+
+    def test_pt_pt_draft_parity_all_ios_bundles(self):
+        """Draft-only parity; native copy and device QA remain mandatory."""
+        reg = i18n.config()
+        for app in ("chickmark", "pushkin", "what", "photo-pdf-to-size"):
+            for bundle in reg["apps"][app]["bundles"]:
+                root = ROOT / bundle
+                for br_file in (root / "pt-BR.lproj").glob("*.strings"):
+                    pt_file = root / "pt-PT.lproj" / br_file.name
+                    self.assertTrue(pt_file.is_file(), str(pt_file))
+                    br = i18n.read_strings(br_file, [])
+                    pt = i18n.read_strings(pt_file, [])
+                    self.assertEqual(set(br), set(pt), str(pt_file))
+                    for key in br:
+                        self.assertEqual(i18n.PRINTF.findall(br[key]),
+                                         i18n.PRINTF.findall(pt[key]), key)
+
+    def test_korean_draft_ui_smoke_is_present_for_two_apps(self):
+        """Source UI smoke only; KO is not complete in Uhvat or ChickMark."""
+        dirs = (
+            "photo-pdf-to-size/ios/PhotoPodRazmerUITests",
+            "pushkin/ios/ArvectumNotifyUITests",
+        )
+        for directory in dirs:
+            path = ROOT / directory / "KoreanLocalizationUITests.swift"
+            text = path.read_text(encoding="utf-8")
+            self.assertIn("final class KoreanLocalizationUITests", text)
+            self.assertIn("func testKorean", text)
+            self.assertIn("(ko)", text)
+            self.assertIn("ko_KR", text)
+
+    def test_photo_korean_draft_parity(self):
+        """Korean photo-only draft; review and other apps remain outstanding."""
+        root = ROOT / "photo-pdf-to-size/ios/PhotoPodRazmer/Resources"
+        for filename in ("Localizable.strings", "InfoPlist.strings"):
+            en = i18n.read_strings(root / "en.lproj" / filename, [])
+            ko = i18n.read_strings(root / "ko.lproj" / filename, [])
+            self.assertEqual(set(en), set(ko), filename)
+            for key in en:
+                self.assertEqual(i18n.PRINTF.findall(en[key]),
+                                 i18n.PRINTF.findall(ko[key]), key)
+        en = i18n.read_strings(root / "en.lproj/Localizable.strings", [])
+        ko = i18n.read_strings(root / "ko.lproj/Localizable.strings", [])
+        untranslated = [key for key in en if en[key] == ko[key]]
+        self.assertLessEqual(len(untranslated), 10)
+        self.assertEqual(ko["Сохранить файл"], "파일 저장")
+
+    def test_pushkin_korean_draft_parity(self):
+        """Pushkin Korean source catalog must preserve all English keys and tokens."""
+        root = ROOT / "pushkin/ios/ArvectumNotify/Resources"
+        en = i18n.read_strings(root / "en.lproj/Localizable.strings", [])
+        ko = i18n.read_strings(root / "ko.lproj/Localizable.strings", [])
+        self.assertEqual(set(en), set(ko))
+        for key in en:
+            self.assertEqual(i18n.PRINTF.findall(en[key]),
+                             i18n.PRINTF.findall(ko[key]), key)
+            self.assertNotEqual(en[key], ko[key], key)
+        self.assertEqual(ko["History"], "기록")
+
+    def test_editorial_audit_is_triage_not_signoff(self):
+        import editorial_localization_audit as review
+        result = review.audit()
+        self.assertGreaterEqual(result["files"], 180)
+        self.assertGreaterEqual(result["entries"], 9000)
+        self.assertEqual(sum(f["pt_pt_brazilian_flags"] for f in result["catalogs"]), 0)
+        self.assertEqual(sum(f["format_mismatch"] for f in result["catalogs"]), 0)
+        self.assertEqual(sum(f["missing"] + f["extra"] for f in result["catalogs"]), 0)
+        self.assertEqual(result['english_identical_triaged'], 31)
+        self.assertEqual(result['english_identical_untriaged'], [])
+        self.assertEqual(result['english_identical_stale_exceptions'], [])
+
+    def test_editorial_report_order_is_stable(self):
+        # Reproducible reports make real copy changes visible in code review.
+        import editorial_localization_audit as review
+        self.assertEqual(review.audit(), review.audit())
+        # Two interpreter hash seeds must produce byte-identical issue ordering.
+        import os
+        import subprocess
+        script = ("import json,sys; sys.path.insert(0, 'core/tools'); "
+                  "import editorial_localization_audit as a; "
+                  "print(json.dumps(a.audit()['findings'], ensure_ascii=False))")
+        outputs = []
+        for seed in ('1', '29'):
+            env = dict(os.environ, PYTHONHASHSEED=seed)
+            outputs.append(subprocess.check_output(
+                [sys.executable, '-c', script], cwd=ROOT, env=env))
+        self.assertEqual(outputs[0], outputs[1])
+
+    def test_pt_pt_editorial_regressions(self):
+        import editorial_localization_audit as review
+        finding = review.audit()
+        self.assertFalse([f for f in finding["findings"]
+                          if f["kind"] == "pt_pt_brazilian_flags"],
+                         "Portuguese (Portugal) regional terms need another pass")
+        base = ROOT / "chickmark/ios/HabitsByArvectum/pt-PT.lproj/Localizable.strings"
+        values = i18n.read_strings(base, [])
+        self.assertEqual(values["detail.history.hint"],
+                         "Toque num dia anterior para corrigir o seu registo.")
+        self.assertIn("Os seus hábitos", values["manage.empty.description"])
+        self.assertIn("os seus hábitos", values["backup.warning"])
+
     def test_registry(self):
         reg = i18n.config()
         self.assertEqual(len(reg["targets"]), 50)
@@ -22,15 +135,15 @@ class LocalizationPortfolioTests(unittest.TestCase):
         self.assertEqual(set(reg["apps"]), {"chickmark", "pushkin", "what", "photo-pdf-to-size", "where"})
         self.assertEqual(reg["apps"]["photo-pdf-to-size"]["android"]["sourceLocale"], "en")
         self.assertEqual(reg["apps"]["photo-pdf-to-size"]["ios"]["sourceCatalogs"],
-                         ["en", "ru", "es", "fr", "de", "pt-BR", "it", "ja", "zh-Hans"])
+                         ["en", "ru", "es", "fr", "de", "pt-BR", "pt-PT", "it", "ja", "zh-Hans", "zh-Hant"])
         for app in ("pushkin", "what", "chickmark"):
             self.assertEqual(reg["apps"][app]["ios"]["sourceCatalogs"],
-                             ["en", "ru", "es", "fr", "de", "pt-BR", "it", "ja", "zh-Hans"])
+                             ["en", "ru", "es", "fr", "de", "pt-BR", "pt-PT", "it", "ja", "zh-Hans", "zh-Hant"])
 
         self.assertEqual([sum(x["tier"] == t for x in reg["targets"]) for t in (1, 2, 3)], [20, 20, 10])
 
-    def test_all_four_ios_apps_have_nine_language_ui_smoke_coverage(self):
-        """Maintain a source-level iPhone UI smoke for 36 app-locale pairs.
+    def test_all_four_ios_apps_have_eleven_language_ui_smoke_coverage(self):
+        """Maintain a source-level iPhone UI smoke for 44 app-locale pairs.
 
         Presence proves the test is authored, not that it passed or was run
         on a real device. Native XCUITest remains an independent CI gate.
@@ -43,8 +156,8 @@ class LocalizationPortfolioTests(unittest.TestCase):
         }
         code_names = {
             "es": "Spanish", "fr": "French", "de": "German",
-            "pt-BR": "BrazilianPortuguese", "it": "Italian",
-            "ja": "Japanese", "zh-Hans": "SimplifiedChinese",
+            "pt-BR": "BrazilianPortuguese", "pt-PT": "EuropeanPortuguese", "it": "Italian",
+            "ja": "Japanese", "zh-Hans": "SimplifiedChinese", "zh-Hant": "TraditionalChinese",
         }
         registry = i18n.config()
         covered = 0
@@ -53,7 +166,7 @@ class LocalizationPortfolioTests(unittest.TestCase):
                               "chickmark": "chickmark"}
         for app, relative_root in roots.items():
             # New iOS source locales must add an explicit UI smoke mapping.
-            # Otherwise the old nine-locale test could pass after locale #10.
+            # Reject any locale without an authored XCUITest smoke mapping.
             locales = set(registry["apps"][app_registry_names[app]]["ios"]["sourceCatalogs"])
             self.assertEqual(
                 locales, {"ru", "en", *code_names},
@@ -78,10 +191,10 @@ class LocalizationPortfolioTests(unittest.TestCase):
                     self.assertIn("func " + method, baseline,
                                   f"{app}/{locale}: no dedicated UI smoke")
                 covered += 1
-        self.assertEqual(covered, 36)
+        self.assertEqual(covered, 44)
 
-    def test_all_active_ios_bundles_have_nine_localized_catalogs(self):
-        """First nine localization packs are present in all active iOS bundles.
+    def test_all_active_ios_bundles_have_eleven_localized_catalogs(self):
+        """First eleven localization packs are present in all active iOS bundles.
 
         This tests source parity, not linguistic quality or App Store release.
         """
@@ -92,7 +205,7 @@ class LocalizationPortfolioTests(unittest.TestCase):
                 baseline = i18n.read_strings(
                     bundle / "en.lproj/Localizable.strings", [])
                 self.assertTrue(baseline, f"{app}/{name} missing English")
-                for code in ("ru", "es", "fr", "de", "pt-BR", "it", "ja", "zh-Hans"):
+                for code in ("ru", "es", "fr", "de", "pt-BR", "pt-PT", "it", "ja", "zh-Hans", "zh-Hant"):
                     errors = []
                     translated = i18n.read_strings(
                         bundle / f"{code}.lproj/Localizable.strings", errors)
@@ -105,6 +218,43 @@ class LocalizationPortfolioTests(unittest.TestCase):
                             i18n.placeholders(baseline[key]),
                             i18n.placeholders(translated[key]),
                             f"{app}/{name}/{code}/{key}")
+
+    def test_traditional_chinese_is_distinct_from_simplified_in_each_bundle(self):
+        """zh-Hant must not be an English or Simplified copy. Native QA is separate."""
+        registry = i18n.config()
+        for app in ("chickmark", "pushkin", "what", "photo-pdf-to-size"):
+            for name in registry["apps"][app]["bundles"]:
+                folder = ROOT / name
+                zh_hans = i18n.read_strings(folder / "zh-Hans.lproj/Localizable.strings", [])
+                zh_hant = i18n.read_strings(folder / "zh-Hant.lproj/Localizable.strings", [])
+                en = i18n.read_strings(folder / "en.lproj/Localizable.strings", [])
+                self.assertEqual(set(en), set(zh_hant), name)
+                self.assertTrue(any(zh_hans[key] != zh_hant[key] for key in en),
+                                f"{name}: Traditional must differ from Simplified")
+                self.assertTrue(any(en[key] != zh_hant[key] for key in en),
+                                f"{name}: Traditional must differ from English")
+
+    def test_traditional_chinese_system_permissions_and_shortcuts(self):
+        required = {
+            "photo-pdf-to-size/ios/PhotoPodRazmer/Resources": ["InfoPlist.strings"],
+            "what/ios/WhatIOS": ["InfoPlist.strings"],
+            "what/ios/WhatWatch": ["InfoPlist.strings"],
+            "what/ios/WhatPhoneWidget": ["InfoPlist.strings"],
+            "what/ios/WhatWatchComplication": ["InfoPlist.strings"],
+            "chickmark/ios/HabitsByArvectum": ["InfoPlist.strings", "AppShortcuts.strings"],
+            "chickmark/ios/HabitsByArvectumWatch": ["InfoPlist.strings"],
+        }
+        for bundle, filenames in required.items():
+            for filename in filenames:
+                root = ROOT / bundle
+                base = i18n.read_strings(root / "en.lproj" / filename, [])
+                hant = i18n.read_strings(root / "zh-Hant.lproj" / filename, [])
+                self.assertTrue(base, f"{bundle}/{filename}: missing base")
+                self.assertEqual(set(base), set(hant), f"{bundle}/{filename}")
+                for key in base:
+                    self.assertEqual(i18n.placeholders(base[key]),
+                                     i18n.placeholders(hant[key]),
+                                     f"{bundle}/{filename}/{key}")
 
     def test_simplified_chinese_info_plist_and_shortcuts(self):
         required = {
