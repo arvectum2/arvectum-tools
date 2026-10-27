@@ -1,5 +1,20 @@
 # Фото и PDF под размер — Product Roadmap
 
+C15 (27.10): исправлен иностранный fallback «Исходный файл»/preview во всех 12 UI локалях (24 значения), пересняты 48 настоящих 13″ iPad кадра; сделаны 48 локализованных iPad-маркетинговых JPEG (12 языков × 4 позиции). [C15](../core/docs/ASO_C15_EDITORIAL_ACCEPTANCE_2026-10-27.md).
+
+C14 (27.10): устранён повторный keyword в одном регионе; первый 13-дюймовый iPad-кадр помечен для маркетинговой переработки из-за большой пустой области. [C14](../core/docs/ASO_C14_KEYWORDS_VISUAL_GATE_2026-10-27.md).
+
+C13: zh-Hans/zh-Hant ASO переписаны с оговорками про PDF, документы и рекламный SDK. [Матрица](../core/docs/ASO_C13_LINGUISTIC_EDITORIAL_2026-10-27.md).
+
+**C11 27.10:** нативный XCUITest снял 4 режима на 12 языках как iPhone 18 Pro Max, так и iPad 13″; региональная связка и SHA в [C11](../core/docs/ASO_NATIVE_CAPTURE_C11_2026-10-27.md), требуется визуальный отбор и новый подписанный RC.
+
+
+## C10 — 16 региональных ASO черновиков (26.10.2026)
+
+- [x] Новый консолидированный пакет из 16 Apple-supported locales, включая zh-Hans/zh-Hant; 64 metadata fields для Фото/PDF структурно PASS, legal/privacy оговорки сохранены.
+- [x] 12 RU/en-US/en-GB image drafts в repo учтены и SHA проверены; старые 01/02 нужно переснять на новом RC.
+- [ ] Native-speaker editing, новые real iPhone/iPad screenshots и физическая рекламная/privacy QA до следующего 1.0.3(15); без публикации без одобрения. [C10](../core/docs/EDITORIAL_ASO_C10_2026-10-26.md).
+
 ## C9 — реальные App Store карточки (26.10.2026)
 
 - [x] 12 storefronts: DE/FR/ES/BR/JP/KR/CN пока показывают русские заголовки/описания, публичный UI — EN/RU.

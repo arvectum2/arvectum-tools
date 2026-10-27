@@ -1,0 +1,434 @@
+{
+  "pushkin": {
+    "es-ES": {
+      "promotionalText": "Guarda y busca avisos con las automatizaciones que configures en Atajos. Los mensajes se conservan en tu iPhone.",
+      "description": "PUSHKIN guarda un historial de las notificaciones de apps que conectes mediante automatizaciones de Atajos de Apple.\n\nCONFIGURACIÓN: elige una app compatible y activa una automatización siguiendo las instrucciones. iOS no permite registrar automáticamente todas las notificaciones.\nBÚSQUEDA: encuentra mensajes guardados por app, título o texto. Cópialos, compártelos o elimínalos.\nPRIVACIDAD: los mensajes permanecen en el iPhone. No se necesita una cuenta PUSHKIN.\n\nEl guardado depende de las automatizaciones activadas y de las funciones de iOS. PUSHKIN no es un historial universal de notificaciones.",
+      "whatsNew": "Mejoras en los idiomas de la interfaz y en las instrucciones para configurar automatizaciones en Atajos.",
+      "keywords": "notificaciones,historial,avisos,alertas,archivo,atajos,automatización,buscar,privacidad",
+      "screenshots": [
+        "Busca avisos guardados",
+        "Configura Atajos de Apple",
+        "Privacidad y ajustes",
+        "Busca por app o mensaje"
+      ]
+    },
+    "es-MX": {
+      "promotionalText": "Guarda y busca notificaciones con las automatizaciones que configures en Atajos. El historial permanece en tu iPhone.",
+      "description": "PUSHKIN guarda notificaciones de las apps que conectes con automatizaciones de Atajos de Apple.\n\nCONFIGURACIÓN: elige una app compatible y sigue las instrucciones. iOS no permite registrar automáticamente todas las notificaciones.\nBÚSQUEDA: encuentra mensajes guardados por app, título o texto. Cópialos, compártelos o elimínalos.\nPRIVACIDAD: los mensajes se guardan en el iPhone. No necesitas una cuenta PUSHKIN.\n\nEl guardado depende de las automatizaciones activadas y las funciones de iOS. PUSHKIN no es un historial universal de notificaciones.",
+      "whatsNew": "Mejoramos los textos de la interfaz y las instrucciones para conectar apps mediante Atajos.",
+      "keywords": "notificaciones,historial,avisos,alertas,atajos,automatización,archivo,buscar,privacidad",
+      "screenshots": [
+        "Encuentra avisos guardados",
+        "Configura Atajos de Apple",
+        "Privacidad y configuración",
+        "Busca por app o mensaje"
+      ]
+    },
+    "fr-FR": {
+      "promotionalText": "Retrouvez les notifications enregistrées par les automatisations que vous configurez dans Raccourcis. Tout reste sur iPhone.",
+      "description": "PUSHKIN enregistre les notifications des apps que vous reliez à des automatisations dans Raccourcis d’Apple.\n\nCONFIGURATION : choisissez une app compatible et activez une automatisation. iOS ne permet pas à PUSHKIN de récupérer automatiquement toutes les notifications.\nRECHERCHE : retrouvez les messages enregistrés par app, titre ou contenu. Copiez, partagez ou supprimez les entrées.\nCONFIDENTIALITÉ : le contenu reste sur votre iPhone, sans compte PUSHKIN.\n\nL’enregistrement dépend des automatisations activées et des possibilités d’iOS. PUSHKIN n’est pas un journal universel des notifications.",
+      "whatsNew": "Traductions affinées et instructions plus claires pour configurer les automatisations dans Raccourcis.",
+      "keywords": "notifications,historique,alertes,raccourcis,archives,recherche,automatisation,privé",
+      "screenshots": [
+        "Retrouvez vos notifications",
+        "Configurez Raccourcis",
+        "Confidentialité et réglages",
+        "Recherchez par app ou message"
+      ]
+    },
+    "de-DE": {
+      "promotionalText": "Durchsuchen Sie Mitteilungen, die Ihre eigenen Automationen in der App Kurzbefehle gespeichert haben – lokal auf dem iPhone.",
+      "description": "PUSHKIN legt Mitteilungen unterstützter Apps, die Sie über Apples Kurzbefehle-Automationen verbinden, in einem durchsuchbaren Verlauf ab.\n\nEINRICHTUNG: Wählen Sie eine unterstützte App und aktivieren Sie die passende Automation. iOS erlaubt PUSHKIN nicht, alle Mitteilungen automatisch zu erfassen.\nSUCHE: Finden Sie gespeicherte Nachrichten nach App, Titel oder Text. Kopieren, teilen oder löschen Sie Einträge.\nDATENSCHUTZ: Nachrichten bleiben auf Ihrem iPhone. Ein PUSHKIN-Konto ist nicht nötig.\n\nWas gespeichert werden kann, hängt von der Automation und den iOS-Funktionen ab. PUSHKIN ist kein vollständiges Mitteilungsprotokoll.",
+      "whatsNew": "Überarbeitete Übersetzungen und verständlichere Anleitungen für Automationen in Kurzbefehle.",
+      "keywords": "Mitteilungen,Verlauf,Benachrichtigungen,Archiv,Kurzbefehle,Suche,Automationen,privat",
+      "screenshots": [
+        "Gespeicherte Mitteilungen finden",
+        "Kurzbefehle einrichten",
+        "Datenschutz und Einstellungen",
+        "Nach App oder Nachricht suchen"
+      ],
+      "subtitle": "Verlauf mit Kurzbefehlen"
+    },
+    "it": {
+      "promotionalText": "Ritrova le notifiche salvate dalle automazioni che configuri in Comandi Rapidi. Archivio consultabile sul tuo iPhone.",
+      "description": "PUSHKIN conserva una cronologia ricercabile delle notifiche delle app collegate tramite le automazioni di Comandi Rapidi di Apple.\n\nCONFIGURAZIONE: scegli un’app supportata e attiva un’automazione. iOS non consente a PUSHKIN di acquisire automaticamente tutte le notifiche.\nRICERCA: trova messaggi per app, titolo o testo. Copia, condividi o elimina le voci salvate.\nPRIVACY: i messaggi restano sul tuo iPhone. Non serve un account PUSHKIN.\n\nIl salvataggio dipende dalle automazioni abilitate e dalle funzioni di iOS. PUSHKIN non è un registro universale delle notifiche.",
+      "whatsNew": "Traduzioni migliorate e istruzioni più chiare per collegare le app con Comandi Rapidi.",
+      "keywords": "notifiche,cronologia,archivio,avvisi,ricerca,comandi rapidi,automazioni,privacy",
+      "screenshots": [
+        "Trova le notifiche salvate",
+        "Configura Comandi Rapidi",
+        "Privacy e impostazioni",
+        "Cerca per app o messaggio"
+      ],
+      "subtitle": "Cronologia con Comandi Rapidi"
+    },
+    "ja": {
+      "promotionalText": "ショートカットのオートメーションで保存した通知をiPhone上で検索。メッセージは端末内に保存されます。",
+      "description": "PUSHKINは、Appleの「ショートカット」で設定したオートメーションを通じて、対応アプリの通知を保存・検索します。\n\n設定：対応アプリを選び、オートメーションを有効にします。iOSの制限により、すべての通知を自動取得することはできません。\n検索：通知をアプリ名、タイトル、本文から探せます。コピー・共有・削除も可能です。\nプライバシー：通知の本文はiPhone内に保存され、PUSHKINのアカウントは不要です。\n\n保存できる通知はオートメーションとiOSの機能に依存します。すべての通知を記録するアプリではありません。",
+      "whatsNew": "日本語表現とショートカットのオートメーション設定手順を改善しました。",
+      "keywords": "通知,履歴,通知履歴,検索,保存,ショートカット,自動化,プライバシー",
+      "screenshots": [
+        "保存した通知を探す",
+        "ショートカットで設定",
+        "プライバシーと設定",
+        "アプリ名や本文で検索"
+      ]
+    },
+    "ko": {
+      "promotionalText": "Apple 단축어 자동화로 저장한 알림을 iPhone에서 검색하세요. 기록은 기기에 보관되며 계정은 필요하지 않습니다.",
+      "description": "PUSHKIN은 Apple 단축어 자동화로 연결한 앱의 알림을 저장하고 검색할 수 있도록 도와줍니다.\n\n설정: 지원되는 앱을 선택하고 안내에 따라 자동화를 활성화하세요. iOS 제한으로 모든 앱의 알림을 자동 수집할 수는 없습니다.\n검색: 앱 이름, 제목, 메시지 내용으로 저장된 알림을 찾고 복사, 공유, 삭제할 수 있습니다.\n개인정보 보호: 알림 내용은 iPhone에 저장됩니다. PUSHKIN 계정은 필요하지 않습니다.\n\n알림 저장 여부는 자동화와 iOS 단축어 지원 범위에 따라 달라집니다. 모든 알림을 기록하는 시스템 로그가 아닙니다.",
+      "whatsNew": "인터페이스 번역과 Apple 단축어 자동화 설정 안내를 개선했습니다.",
+      "keywords": "알림,알림기록,기록,검색,단축어,자동화,보관,개인정보,메시지",
+      "screenshots": [
+        "저장한 알림 확인",
+        "Apple 단축어로 연결",
+        "개인정보 보호 및 설정",
+        "앱과 메시지로 검색"
+      ]
+    },
+    "pt-BR": {
+      "promotionalText": "Encontre notificações salvas pelas automações que você configura no app Atalhos. Histórico pesquisável no iPhone.",
+      "description": "O PUSHKIN mantém um histórico pesquisável das notificações de apps conectados por automações no app Atalhos da Apple.\n\nCONFIGURAÇÃO: escolha um app compatível e ative uma automação. O iOS não permite capturar automaticamente todas as notificações.\nBUSCA: encontre mensagens por app, título ou conteúdo. Copie, compartilhe ou exclua registros.\nPRIVACIDADE: as mensagens ficam no iPhone, sem conta PUSHKIN.\n\nO registro depende das automações ativadas e dos recursos do iOS. O PUSHKIN não é um histórico universal de notificações.",
+      "whatsNew": "Traduções revisadas e instruções mais claras para conectar apps usando Atalhos.",
+      "keywords": "notificações,histórico,alertas,atalhos,automação,busca,arquivo,privacidade,mensagens",
+      "screenshots": [
+        "Encontre notificações salvas",
+        "Configure o app Atalhos",
+        "Privacidade e ajustes",
+        "Busque por app ou mensagem"
+      ]
+    },
+    "pt-PT": {
+      "promotionalText": "Encontre notificações guardadas pelas automatizações que configura na app Atalhos. Histórico pesquisável no iPhone.",
+      "description": "O PUSHKIN guarda um histórico pesquisável das notificações de aplicações ligadas através de automatizações na app Atalhos da Apple.\n\nCONFIGURAÇÃO: escolha uma aplicação compatível e ative uma automatização. O iOS não permite registar automaticamente todas as notificações.\nPESQUISA: encontre mensagens por aplicação, título ou conteúdo. Copie, partilhe ou elimine registos.\nPRIVACIDADE: as mensagens ficam no iPhone. Não precisa de conta PUSHKIN.\n\nO registo depende das automatizações ativadas e das funcionalidades do iOS. O PUSHKIN não é um histórico universal de notificações.",
+      "whatsNew": "Traduções revistas e instruções mais claras para ligar aplicações através da app Atalhos.",
+      "keywords": "notificações,histórico,alertas,atalhos,automatização,pesquisa,arquivo,privacidade",
+      "screenshots": [
+        "Encontre notificações guardadas",
+        "Configure a app Atalhos",
+        "Privacidade e definições",
+        "Pesquise por app ou mensagem"
+      ]
+    },
+    "zh-Hans": {
+      "promotionalText": "通过苹果「快捷指令」自动化保存通知，并在iPhone上搜索。通知内容保留在设备本地。",
+      "description": "PUSHKIN 帮你保存和搜索通过苹果「快捷指令」自动化连接的应用通知。\n\n设置：选择支持的应用，按指引开启自动化。受iOS限制，PUSHKIN无法自动读取所有应用的通知。\n搜索：按应用名称、标题或消息内容查找通知，也能复制、分享或删除。\n隐私：消息内容保存在iPhone本地，无需PUSHKIN账户。\n\n可保存的通知取决于启用的自动化及iOS功能。PUSHKIN并非记录全部系统通知的工具。",
+      "whatsNew": "优化了界面文案和「快捷指令」自动化的设置说明。",
+      "keywords": "通知,通知记录,历史,搜索,快捷指令,自动化,消息,本地,隐私",
+      "screenshots": [
+        "查看已保存通知",
+        "设置快捷指令自动化",
+        "隐私与设置",
+        "按应用或消息搜索"
+      ],
+      "subtitle": "通过快捷指令保存通知"
+    },
+    "zh-Hant": {
+      "promotionalText": "透過Apple「捷徑」自動化儲存通知，再於iPhone上搜尋。通知內容保留在裝置上。",
+      "description": "PUSHKIN 可協助你儲存並搜尋透過Apple「捷徑」自動化連結的App通知。\n\n設定：選擇支援的App，按指引啟用自動化。受iOS限制，無法自動讀取所有App通知。\n搜尋：依App名稱、標題或訊息內容尋找通知，也可複製、分享或刪除。\n隱私：訊息內容儲存在iPhone本機，無須註冊PUSHKIN帳號。\n\n可儲存的通知取決於已啟用的自動化及iOS功能。PUSHKIN並非記錄所有系統通知的工具。",
+      "whatsNew": "改善介面文案與Apple「捷徑」自動化的設定說明。",
+      "keywords": "通知,通知紀錄,歷史,搜尋,捷徑,自動化,訊息,本機,隱私",
+      "screenshots": [
+        "查看已儲存通知",
+        "設定捷徑自動化",
+        "隱私與設定",
+        "依App或訊息搜尋"
+      ],
+      "subtitle": "透過捷徑儲存通知"
+    }
+  },
+  "what": {
+    "es-ES": {
+      "promotionalText": "Graba ideas en audio, texto o vídeo. Notas de voz con un toque en iPhone y Apple Watch, conservando el audio original.",
+      "description": "Una idea puede desaparecer en segundos. UhWhat? te ayuda a guardarla y encontrarla después.\n\nGRABACIÓN: crea notas de voz en iPhone o Apple Watch. Se conserva el audio original.\nTEXTO Y VÍDEO: escribe notas, graba vídeos en iPhone y busca en los textos guardados.\nTRANSCRIPCIÓN: convierte audio en texto si tu dispositivo y el idioma elegido admiten reconocimiento de voz local. El idioma de la interfaz se configura por separado.\nAPPLE WATCH: el audio permanece en la cola del reloj hasta que el iPhone confirma que lo ha guardado. La transferencia en segundo plano puede tardar.\n\nLas notas se gestionan en tus dispositivos. El reconocimiento de voz depende de iOS y del idioma.",
+      "whatsNew": "Mejoras de estabilidad de grabación, recuperación y traducciones de iPhone, Apple Watch y widgets.",
+      "keywords": "voz,grabadora,audio,notas,ideas,transcripción,apple watch,vídeo,búsqueda",
+      "screenshots": [
+        "Guarda una idea con un toque",
+        "Todas tus notas, juntas",
+        "Idioma y recordatorios",
+        "Escribe una nota rápida"
+      ]
+    },
+    "es-MX": {
+      "promotionalText": "Graba ideas en audio, texto o video. Notas de voz con un toque en iPhone y Apple Watch, conservando el audio original.",
+      "description": "Una buena idea puede desaparecer en segundos. UhWhat? te ayuda a guardarla y encontrarla después.\n\nGRABACIÓN: crea notas de voz en iPhone o Apple Watch. Se conserva el audio original.\nTEXTO Y VIDEO: escribe notas, graba videos en iPhone y busca en los textos guardados.\nTRANSCRIPCIÓN: convierte audio en texto si el dispositivo y el idioma admiten reconocimiento de voz local. El idioma de la interfaz se configura aparte.\nAPPLE WATCH: el audio permanece en la cola del reloj hasta que el iPhone confirma que lo guardó. La transferencia en segundo plano puede tardar.\n\nLas notas se manejan en tus dispositivos. El reconocimiento depende de iOS y del idioma.",
+      "whatsNew": "Mejoramos la estabilidad de grabación, las opciones de recuperación y las traducciones en iPhone, Apple Watch y widgets.",
+      "keywords": "voz,grabadora,audio,notas,ideas,transcripción,apple watch,video,buscar",
+      "screenshots": [
+        "Guarda una idea con un toque",
+        "Todas tus notas en un lugar",
+        "Idioma y recordatorios",
+        "Escribe una nota rápida"
+      ]
+    },
+    "fr-FR": {
+      "promotionalText": "Notez vos idées en audio, texte ou vidéo. Enregistrement en un geste sur iPhone et Apple Watch, audio original conservé.",
+      "description": "Une idée vous vient ? UhWhat? vous aide à la noter avant de l’oublier.\n\nENREGISTREMENT : créez des notes vocales sur iPhone ou Apple Watch. L’audio d’origine est conservé.\nTEXTE ET VIDÉO : rédigez des notes, filmez sur iPhone et recherchez vos textes enregistrés.\nTRANSCRIPTION : convertissez l’audio en texte lorsque la reconnaissance vocale locale est disponible. La langue de l’interface est indépendante de celle de la transcription.\nAPPLE WATCH : l’audio reste en attente sur la montre jusqu’à confirmation de l’enregistrement par l’iPhone. Le transfert en arrière-plan peut prendre du temps.\n\nLes notes restent gérées sur vos appareils. La reconnaissance dépend d’iOS et de la langue choisie.",
+      "whatsNew": "Fiabilité des enregistrements, options de récupération et traductions des interfaces iPhone, Apple Watch et widgets améliorées.",
+      "keywords": "voix,dictaphone,audio,notes,idées,transcription,apple watch,vidéo,recherche",
+      "screenshots": [
+        "Une idée, un geste",
+        "Toutes vos notes au même endroit",
+        "Langue et rappels",
+        "Écrivez une note rapidement"
+      ]
+    },
+    "de-DE": {
+      "promotionalText": "Halten Sie Ideen als Sprach-, Text- oder Videonotiz fest. Auf iPhone und Apple Watch genügt ein Fingertipp.",
+      "description": "Gedanken kommen oft unerwartet. Mit UhWhat? halten Sie sie fest, bevor sie verloren gehen.\n\nSPRACHNOTIZEN: Nehmen Sie Audio auf dem iPhone oder der Apple Watch auf. Die Originalaufnahme bleibt erhalten.\nTEXT UND VIDEO: Schreiben Sie Notizen oder filmen Sie mit dem iPhone. Gespeicherte Texte sind durchsuchbar.\nTRANSKRIPTION: Wandeln Sie Aufnahmen in Text um, sofern die lokale Spracherkennung für Gerät und Sprache verfügbar ist. App-Sprache und Transkriptionssprache sind getrennt einstellbar.\nAPPLE WATCH: Audio verbleibt auf der Uhr, bis das iPhone das Speichern bestätigt. Die Übertragung im Hintergrund kann länger dauern.\n\nNotizen und Medien werden auf Ihren Geräten verwaltet. Spracherkennung hängt von iOS und der ausgewählten Sprache ab.",
+      "whatsNew": "Zuverlässigere Aufnahmen, bessere Wiederherstellungshinweise und überarbeitete iPhone-, Watch- und Widget-Texte.",
+      "keywords": "Sprachnotizen,Diktiergerät,Aufnahme,Audio,Ideen,Transkription,Apple Watch,Notizen,Video",
+      "screenshots": [
+        "Ideen mit einem Tipp aufnehmen",
+        "Alle Notizen an einem Ort",
+        "Sprache und Erinnerungen",
+        "Schnelle Textnotiz schreiben"
+      ]
+    },
+    "it": {
+      "promotionalText": "Salva le idee come audio, testo o video. Note vocali con un tocco su iPhone e Apple Watch, con audio originale conservato.",
+      "description": "Un’idea può svanire in un attimo. UhWhat? ti aiuta a salvarla e ritrovarla.\n\nREGISTRAZIONE: crea note vocali su iPhone o Apple Watch. L’audio originale viene conservato.\nTESTO E VIDEO: scrivi note o registra video su iPhone e cerca nei testi salvati.\nTRASCRIZIONE: trasforma l’audio in testo se il riconoscimento vocale locale è disponibile per il dispositivo e la lingua scelta. La lingua dell’interfaccia è indipendente da quella della trascrizione.\nAPPLE WATCH: l’audio rimane in coda sull’orologio finché l’iPhone non conferma il salvataggio. Il trasferimento in background può richiedere tempo.\n\nNote e contenuti multimediali sono gestiti sui tuoi dispositivi. Il riconoscimento dipende da iOS e dalla lingua.",
+      "whatsNew": "Registrazioni più affidabili, indicazioni per il recupero e testi delle interfacce iPhone, Apple Watch e widget migliorati.",
+      "keywords": "voce,registratore,audio,note,idee,trascrizione,apple watch,video,ricerca",
+      "screenshots": [
+        "Registra un’idea con un tocco",
+        "Tutte le note in un unico posto",
+        "Lingua e promemoria",
+        "Scrivi una nota veloce"
+      ]
+    },
+    "ja": {
+      "promotionalText": "音声・テキスト・動画で思いつきを記録。iPhoneとApple Watchからすぐに録音でき、元の音声も保存できます。",
+      "description": "思いついたことを忘れる前に。UhWhat?なら、アイデアを手軽に残して後から探せます。\n\n録音：iPhoneやApple Watchで音声メモを作成。元の音声も保存します。\nテキスト・動画：iPhoneでメモを書いたり動画を撮影したりできます。保存したテキストは検索可能です。\n文字起こし：端末内の音声認識に対応する言語では録音を文字に変換できます。表示言語と認識言語は別々に設定します。\nAPPLE WATCH：iPhoneが保存を確認するまで、音声はWatchの送信待ちキューに残ります。バックグラウンド転送は遅れることがあります。\n\nメモとメディアは端末上で管理します。音声認識はiOSと選択した言語に依存します。",
+      "whatsNew": "録音の安定性、復旧時の案内、iPhone・Apple Watch・ウィジェットの表示を改善しました。",
+      "keywords": "音声メモ,録音,ボイスメモ,アイデア,文字起こし,Apple Watch,テキスト,動画",
+      "screenshots": [
+        "ワンタップでアイデアを録音",
+        "メモをまとめて管理",
+        "言語とリマインダー",
+        "テキストメモを作成"
+      ]
+    },
+    "ko": {
+      "promotionalText": "생각이 떠오르면 음성, 텍스트, 동영상으로 기록하세요. iPhone과 Apple Watch에서 빠르게 녹음하고 원본 음성을 보관합니다.",
+      "description": "떠오른 생각을 잊기 전에 기록하세요. UhWhat?으로 아이디어를 쉽게 남기고 다시 찾을 수 있습니다.\n\n음성 녹음: iPhone과 Apple Watch에서 음성 메모를 만들고 원본 오디오를 보관합니다.\n텍스트 및 동영상: iPhone에서 메모를 작성하거나 동영상을 촬영하고 저장된 텍스트를 검색할 수 있습니다.\n텍스트 변환: 기기 내 음성 인식을 지원하는 언어에서는 녹음을 텍스트로 변환합니다. 화면 언어와 음성 인식 언어는 별도로 설정합니다.\nAPPLE WATCH: iPhone에서 저장을 확인할 때까지 녹음 파일은 시계의 전송 대기열에 남습니다. 백그라운드 전송이 지연될 수 있습니다.\n\n메모와 미디어는 기기에서 관리됩니다. 음성 인식 지원 여부는 iOS와 선택한 언어에 따라 달라집니다.",
+      "whatsNew": "녹음 안정성, 복구 안내, iPhone·Apple Watch·위젯 번역을 개선했습니다.",
+      "keywords": "음성메모,녹음,오디오,메모,아이디어,텍스트변환,애플워치,동영상,검색",
+      "screenshots": [
+        "한 번에 생각 기록",
+        "메모를 한곳에 모으기",
+        "언어 및 알림 설정",
+        "빠른 텍스트 메모"
+      ]
+    },
+    "pt-BR": {
+      "promotionalText": "Guarde ideias em áudio, texto ou vídeo. Grave com um toque no iPhone e no Apple Watch, mantendo o áudio original.",
+      "description": "Teve uma ideia? O UhWhat? ajuda você a registrá-la antes que ela escape.\n\nGRAVAÇÃO: crie notas de voz no iPhone ou Apple Watch. O áudio original é preservado.\nTEXTO E VÍDEO: escreva notas, grave vídeos no iPhone e pesquise textos salvos.\nTRANSCRIÇÃO: converta gravações em texto quando o reconhecimento de voz local estiver disponível para o idioma escolhido. Os idiomas da interface e da transcrição são independentes.\nAPPLE WATCH: o áudio fica na fila do relógio até o iPhone confirmar que foi salvo. A transferência em segundo plano pode demorar.\n\nSuas notas são gerenciadas nos seus dispositivos. O reconhecimento de voz depende do iOS e do idioma.",
+      "whatsNew": "Melhoramos a estabilidade da gravação, as orientações de recuperação e a tradução para iPhone, Apple Watch e widgets.",
+      "keywords": "voz,gravador,áudio,notas,ideias,transcrição,apple watch,vídeo,pesquisa",
+      "screenshots": [
+        "Guarde ideias com um toque",
+        "Todas as notas em um lugar",
+        "Idioma e lembretes",
+        "Escreva uma nota rápida"
+      ]
+    },
+    "pt-PT": {
+      "promotionalText": "Guarde ideias em áudio, texto ou vídeo. Grave com um toque no iPhone e no Apple Watch, mantendo o áudio original.",
+      "description": "Surgiu-lhe uma ideia? O UhWhat? ajuda a registá-la antes que se perca.\n\nGRAVAÇÃO: crie notas de voz no iPhone ou Apple Watch. O áudio original é preservado.\nTEXTO E VÍDEO: escreva notas, grave vídeos no iPhone e pesquise textos guardados.\nTRANSCRIÇÃO: converta gravações em texto quando existir reconhecimento de voz local para o idioma escolhido. As línguas da interface e da transcrição são independentes.\nAPPLE WATCH: o áudio fica na fila do relógio até o iPhone confirmar que foi guardado. A transferência em segundo plano pode demorar.\n\nAs notas são geridas nos seus dispositivos. O reconhecimento de voz depende do iOS e da língua selecionada.",
+      "whatsNew": "Melhorámos a fiabilidade das gravações, as indicações de recuperação e a tradução do iPhone, Apple Watch e widgets.",
+      "keywords": "voz,gravador,áudio,notas,ideias,transcrição,apple watch,vídeo,pesquisa",
+      "screenshots": [
+        "Guarde ideias com um toque",
+        "Todas as notas num só lugar",
+        "Idioma e lembretes",
+        "Escreva uma nota rápida"
+      ]
+    },
+    "zh-Hans": {
+      "promotionalText": "想法随时记录：语音、文字或视频。通过iPhone和Apple Watch快速录音，并保留原始音频。",
+      "description": "灵感一闪而过？UhWhat?帮你及时记录，方便日后查找。\n\n语音录制：在iPhone或Apple Watch上创建语音笔记，保留原始录音。\n文字与视频：在iPhone上写笔记、拍摄视频，并搜索保存的文字。\n语音转文字：当设备和所选语言支持本地语音识别时，可将录音转为文字。界面语言与识别语言分别设置。\nAPPLE WATCH：iPhone确认保存之前，音频会留在手表的待传输队列中。后台传输可能延迟。\n\n笔记和媒体在你的设备上管理。语音识别功能受iOS版本和所选语言限制。",
+      "whatsNew": "改善了录音稳定性、恢复提示，以及iPhone、Apple Watch和小组件的界面翻译。",
+      "keywords": "语音,录音,语音笔记,备忘录,灵感,语音转文字,手表,视频,搜索",
+      "screenshots": [
+        "一键记录灵感",
+        "所有笔记集中管理",
+        "语言与提醒设置",
+        "快速创建文字笔记"
+      ]
+    },
+    "zh-Hant": {
+      "promotionalText": "靈感隨時記錄：語音、文字或影片。透過iPhone和Apple Watch快速錄音，保留原始音訊。",
+      "description": "靈感一閃即逝？UhWhat?協助你即時記下，之後也能輕鬆尋找。\n\n語音錄製：在iPhone或Apple Watch建立語音筆記，保留原始錄音。\n文字與影片：在iPhone撰寫筆記、拍攝影片，並搜尋已儲存的文字。\n語音轉文字：裝置與所選語言支援本機語音辨識時，可將錄音轉成文字。介面語言與辨識語言可分開設定。\nAPPLE WATCH：iPhone確認儲存之前，音訊會留在手錶的待傳送佇列。背景傳送可能延遲。\n\n筆記與媒體在你的裝置上管理。語音辨識受iOS版本與所選語言限制。",
+      "whatsNew": "改善錄音穩定性、復原提示，以及iPhone、Apple Watch和小工具的介面翻譯。",
+      "keywords": "語音,錄音,語音筆記,備忘錄,靈感,語音轉文字,手錶,影片,搜尋",
+      "screenshots": [
+        "一鍵記錄靈感",
+        "所有筆記集中管理",
+        "語言與提醒設定",
+        "快速建立文字筆記"
+      ]
+    }
+  },
+  "chickmark": {
+    "es-ES": {
+      "promotionalText": "Crea hábitos, márcalos con un toque y sigue tus rachas. Añade recordatorios, widgets y Apple Watch a tu rutina.",
+      "description": "ChickMark te ayuda a mantener tus hábitos sin complicados planificadores.\n\nSEGUIMIENTO: crea hábitos, registra tus avances y consulta las rachas de días consecutivos.\nHORARIOS: elige días, objetivos y recordatorios que encajen con tu rutina.\nAPPLE WATCH Y WIDGETS: consulta y marca hábitos desde las funciones compatibles. La sincronización depende de la conexión y los ajustes de tus dispositivos.\nAPPLE HEALTH (OPCIONAL): vincula determinadas metas de actividad o exporta registros de agua tras conceder permiso.\nPRIVACIDAD: los hábitos se guardan en el dispositivo; algunas funciones pueden usar servicios de Apple. La app gratuita puede mostrar anuncios. Consulta la política de privacidad para conocer los datos publicitarios.",
+      "whatsNew": "Mejoras en la configuración inicial, el acceso a los hábitos diarios y la ubicación de los anuncios.",
+      "keywords": "hábitos,seguimiento,rachas,metas,rutinas,recordatorios,lista,progreso,apple watch",
+      "screenshots": [
+        "Tus hábitos, a la vista",
+        "Crea un hábito en segundos",
+        "Sigue tu progreso y rachas",
+        "Horarios y recordatorios"
+      ]
+    },
+    "es-MX": {
+      "promotionalText": "Crea hábitos, márcalos con un toque y sigue tus rachas. Usa recordatorios, widgets y Apple Watch cada día.",
+      "description": "ChickMark te ayuda a formar hábitos sin tener que usar un planificador complicado.\n\nSEGUIMIENTO: crea hábitos, registra avances y revisa tus rachas de días consecutivos.\nHORARIOS: configura días, metas y recordatorios a tu ritmo.\nAPPLE WATCH Y WIDGETS: revisa y marca hábitos en las funciones compatibles. La sincronización depende de la conexión y la configuración de tus dispositivos.\nAPPLE HEALTH (OPCIONAL): conecta algunas metas de actividad o exporta registros de agua con tu permiso.\nPRIVACIDAD: los hábitos se guardan en tu dispositivo y algunas funciones usan servicios de Apple. La app gratuita puede mostrar anuncios. Revisa la política de privacidad para conocer los datos de publicidad.",
+      "whatsNew": "Mejoramos los primeros pasos, el acceso a hábitos diarios y la presentación de anuncios.",
+      "keywords": "hábitos,seguimiento,rachas,metas,rutinas,recordatorios,lista,progreso,apple watch",
+      "screenshots": [
+        "Tus hábitos de un vistazo",
+        "Crea un hábito en segundos",
+        "Revisa avances y rachas",
+        "Configura días y recordatorios"
+      ]
+    },
+    "fr-FR": {
+      "promotionalText": "Créez des habitudes, validez-les d’un geste et suivez vos séries de jours. Rappels, widgets et Apple Watch.",
+      "description": "ChickMark vous aide à installer de nouvelles habitudes sans agenda compliqué.\n\nSUIVI : créez une habitude, cochez chaque réussite et suivez vos progrès et vos jours consécutifs.\nRYTHME : choisissez les jours, objectifs et rappels qui vous conviennent.\nAPPLE WATCH ET WIDGETS : consultez et validez vos habitudes depuis les fonctions compatibles. La synchronisation dépend de vos appareils et de la connexion.\nAPPLE HEALTH (FACULTATIF) : reliez certains objectifs d’activité ou exportez votre consommation d’eau avec votre autorisation.\nCONFIDENTIALITÉ : vos habitudes sont enregistrées sur l’appareil. Certaines fonctions utilisent les services Apple. L’app gratuite peut afficher des publicités ; consultez la politique de confidentialité.",
+      "whatsNew": "Prise en main simplifiée, accès plus direct aux habitudes du jour et publicités moins envahissantes.",
+      "keywords": "habitudes,suivi,routines,objectifs,rappels,calendrier,progression,séries,apple watch",
+      "screenshots": [
+        "Vos habitudes en un clin d’œil",
+        "Créez une habitude rapidement",
+        "Suivez vos progrès",
+        "Planifiez et ajoutez des rappels"
+      ]
+    },
+    "de-DE": {
+      "promotionalText": "Gewohnheiten anlegen, mit einem Tipp abhaken und Serien verfolgen. Mit Erinnerungen, Widgets und Apple Watch.",
+      "description": "Mit ChickMark entwickeln Sie Gewohnheiten, ohne einen komplizierten Planer zu brauchen.\n\nÜBERBLICK: Legen Sie Gewohnheiten an, haken Sie Erledigtes ab und verfolgen Sie Serien und Fortschritte.\nZEITPLAN: Wählen Sie passende Tage, Ziele und Erinnerungen.\nAPPLE WATCH UND WIDGETS: Prüfen und erledigen Sie Gewohnheiten über unterstützte Funktionen. Die Synchronisierung hängt von Verbindung und Geräteeinstellungen ab.\nAPPLE HEALTH (OPTIONAL): Verbinden Sie ausgewählte Aktivitätsziele oder exportieren Sie Ihre Wasseraufnahme nach ausdrücklicher Freigabe.\nDATENSCHUTZ: Gewohnheiten werden lokal gespeichert; für bestimmte Funktionen sind Apple-Dienste optional. Die kostenlose App kann Werbung enthalten. Weitere Angaben in der Datenschutzerklärung.",
+      "whatsNew": "Verbesserter Einstieg, direkterer Zugriff auf tägliche Gewohnheiten und dezenter platzierte Werbung.",
+      "keywords": "Gewohnheiten,Habit Tracker,Routine,Serien,Ziele,Erinnerungen,Fortschritt,Apple Watch",
+      "screenshots": [
+        "Gewohnheiten im Überblick",
+        "Neue Gewohnheit anlegen",
+        "Fortschritte und Serien",
+        "Zeitpläne und Erinnerungen"
+      ]
+    },
+    "it": {
+      "promotionalText": "Crea abitudini, segnale con un tocco e segui i giorni consecutivi. Con promemoria, widget e Apple Watch.",
+      "description": "ChickMark ti aiuta a costruire abitudini senza un’agenda complicata.\n\nPROGRESSI: crea un’abitudine, segnala quando la completi e segui le serie di giorni consecutivi.\nORARI: scegli giorni, obiettivi e promemoria adatti alla tua routine.\nAPPLE WATCH E WIDGET: controlla e completa abitudini con le funzioni supportate. La sincronizzazione dipende dalle impostazioni e dalla connessione dei dispositivi.\nAPPLE HEALTH (FACOLTATIVO): collega alcuni obiettivi di attività o esporta i dati sull’acqua dopo aver concesso l’accesso.\nPRIVACY: le abitudini sono salvate sul dispositivo. Alcune funzioni usano servizi Apple facoltativi. L’app gratuita può mostrare annunci: consulta l’informativa sulla privacy.",
+      "whatsNew": "Avvio più semplice, accesso rapido alle abitudini quotidiane e annunci meno invadenti.",
+      "keywords": "abitudini,routine,obiettivi,serie,progressi,promemoria,calendario,apple watch",
+      "screenshots": [
+        "Abitudini a colpo d’occhio",
+        "Crea un’abitudine in pochi tocchi",
+        "Controlla i progressi",
+        "Orari e promemoria"
+      ]
+    },
+    "ja": {
+      "promotionalText": "習慣を作ってワンタップで記録。連続達成日数や進捗を確認できます。リマインダーやApple Watchにも対応。",
+      "description": "ChickMarkは、毎日の習慣を手軽に記録するためのアプリです。\n\n記録：習慣を作成し、完了したらチェック。連続達成日数や進捗を確認できます。\nスケジュール：曜日、目標、リマインダーを自分のペースに合わせて設定。\nAPPLE WATCH・ウィジェット：対応する機能から習慣を確認・記録できます。同期は端末の設定や接続状況によって異なります。\nAPPLE HEALTH（任意）：許可した場合に限り、一部の活動目標と連携したり水分摂取量を記録用に書き出したりできます。\nプライバシー：習慣は端末に保存され、一部の機能でAppleのサービスを使用します。無料版には広告が表示される場合があります。詳細はプライバシーポリシーをご覧ください。",
+      "whatsNew": "初回案内と毎日の習慣へのアクセスを改善し、広告の表示を控えめにしました。",
+      "keywords": "習慣,習慣管理,記録,継続,目標,リマインダー,連続記録,進捗,Apple Watch",
+      "screenshots": [
+        "今日の習慣を一覧表示",
+        "数秒で習慣を作成",
+        "進捗と連続達成を確認",
+        "予定と通知を設定"
+      ]
+    },
+    "ko": {
+      "promotionalText": "습관을 만들고 한 번의 탭으로 완료를 기록하세요. 연속 달성 기록과 진행 상황을 확인하고 알림과 Apple Watch도 활용해 보세요.",
+      "description": "ChickMark는 복잡한 계획표 없이 매일의 습관을 관리하도록 도와줍니다.\n\n기록: 습관을 만들고 완료할 때마다 체크하세요. 연속 달성 일수와 진행 상황을 확인할 수 있습니다.\n일정: 요일, 목표, 알림을 내 생활에 맞게 설정하세요.\nAPPLE WATCH 및 위젯: 지원되는 기능에서 습관을 확인하고 완료를 기록할 수 있습니다. 동기화는 연결 및 기기 설정에 따라 달라집니다.\nAPPLE HEALTH(선택 사항): 권한을 허용하면 일부 활동 목표를 연결하거나 물 섭취 기록을 내보낼 수 있습니다.\n개인정보 보호: 습관은 기기에 저장되며 일부 기능은 Apple 서비스를 이용할 수 있습니다. 무료 앱에는 광고가 표시될 수 있습니다. 자세한 내용은 개인정보 처리방침을 확인하세요.",
+      "whatsNew": "첫 사용 안내와 오늘의 습관 화면을 개선하고 광고가 덜 방해되도록 조정했습니다.",
+      "keywords": "습관,습관관리,연속기록,목표,루틴,알림,체크리스트,진행상황,애플워치",
+      "screenshots": [
+        "오늘의 습관 한눈에",
+        "새 습관 빠르게 만들기",
+        "진행 상황과 연속 기록",
+        "일정과 알림 설정"
+      ]
+    },
+    "pt-BR": {
+      "promotionalText": "Crie hábitos, marque o que fez com um toque e acompanhe as sequências. Use lembretes, widgets e Apple Watch.",
+      "description": "O ChickMark ajuda você a cultivar hábitos sem depender de um planejador complicado.\n\nACOMPANHAMENTO: crie hábitos, marque as tarefas concluídas e acompanhe sequências de dias e seu progresso.\nROTINA: escolha dias, metas e lembretes que combinam com você.\nAPPLE WATCH E WIDGETS: consulte e conclua hábitos nas funções compatíveis. A sincronização depende da conexão e das configurações dos dispositivos.\nAPPLE HEALTH (OPCIONAL): conecte certas metas de atividade ou exporte dados de consumo de água com sua autorização.\nPRIVACIDADE: os hábitos ficam salvos no dispositivo. Algumas funções usam serviços opcionais da Apple. O app gratuito pode exibir anúncios; consulte a política de privacidade.",
+      "whatsNew": "Melhoramos as orientações iniciais, o acesso aos hábitos diários e a apresentação dos anúncios.",
+      "keywords": "hábitos,rotina,metas,lembretes,sequência,progresso,checklist,apple watch",
+      "screenshots": [
+        "Seus hábitos em um só lugar",
+        "Crie um hábito rapidamente",
+        "Acompanhe seu progresso",
+        "Agende e receba lembretes"
+      ]
+    },
+    "pt-PT": {
+      "promotionalText": "Crie hábitos, assinale-os com um toque e acompanhe os dias consecutivos. Utilize lembretes, widgets e Apple Watch.",
+      "description": "O ChickMark ajuda a criar hábitos sem precisar de um planeador complicado.\n\nREGISTO: crie hábitos, assinale o que concluiu e acompanhe os dias consecutivos e o progresso.\nROTINA: escolha dias, objetivos e lembretes à sua medida.\nAPPLE WATCH E WIDGETS: consulte e conclua hábitos nas funcionalidades compatíveis. A sincronização depende da ligação e das definições dos dispositivos.\nAPPLE HEALTH (OPCIONAL): associe determinados objetivos de atividade ou exporte registos de consumo de água com a sua autorização.\nPRIVACIDADE: os hábitos são guardados no dispositivo. Algumas funções recorrem a serviços opcionais da Apple. A aplicação gratuita pode apresentar anúncios; consulte a política de privacidade.",
+      "whatsNew": "Melhorámos a apresentação inicial, o acesso aos hábitos diários e a colocação dos anúncios.",
+      "keywords": "hábitos,rotina,objetivos,lembretes,progresso,sequências,lista,apple watch",
+      "screenshots": [
+        "Os seus hábitos num só lugar",
+        "Crie um hábito rapidamente",
+        "Acompanhe o progresso",
+        "Horários e lembretes"
+      ]
+    },
+    "zh-Hans": {
+      "promotionalText": "创建习惯，一键打卡，查看连续坚持天数与进度。支持提醒、小组件及Apple Watch。",
+      "description": "ChickMark让习惯管理更简单，不需要复杂的计划表。\n\n习惯打卡：创建习惯，完成后轻点记录，查看连续坚持天数和进度。\n灵活安排：按自己的节奏设置日期、目标与提醒。\nAPPLE WATCH与小组件：通过支持的功能查看或完成习惯。同步取决于设备设置与连接情况。\nApple 健康（可选）：获得授权后，可关联部分活动目标或导出饮水记录。\n隐私：习惯记录保存在设备本地，部分功能可使用Apple服务。免费应用可能显示广告，详情请查看隐私政策。",
+      "whatsNew": "改进首次使用引导和每日习惯入口，减少广告对使用体验的干扰。",
+      "keywords": "习惯,习惯打卡,坚持,连续天数,目标,提醒,计划,进度,Apple Watch",
+      "screenshots": [
+        "每日习惯一目了然",
+        "快速创建新习惯",
+        "查看进度与连续记录",
+        "设置日程和提醒"
+      ]
+    },
+    "zh-Hant": {
+      "promotionalText": "建立習慣、一鍵打卡，查看連續達成天數與進度。支援提醒、小工具及Apple Watch。",
+      "description": "ChickMark讓習慣管理更簡單，不需要複雜的計畫表。\n\n習慣打卡：建立習慣，完成後輕點記錄，查看連續達成天數與進度。\n彈性安排：依自己的步調設定日期、目標與提醒。\nAPPLE WATCH與小工具：透過支援的功能查看或完成習慣。同步依裝置設定與連線狀況而定。\nApple 健康（選用）：取得授權後，可連結部分活動目標或匯出飲水紀錄。\n隱私：習慣紀錄儲存在裝置本機，部分功能可使用Apple服務。免費App可能顯示廣告，詳情請參閱隱私權政策。",
+      "whatsNew": "改善初次使用引導與每日習慣入口，減少廣告對操作的干擾。",
+      "keywords": "習慣,習慣打卡,堅持,連續天數,目標,提醒,計畫,進度,Apple Watch",
+      "screenshots": [
+        "每日習慣一目了然",
+        "快速建立新習慣",
+        "查看進度與連續紀錄",
+        "設定日程和提醒"
+      ]
+    }
+  },
+  "photo": {
+    "zh-Hans": {
+      "promotionalText": "在iPhone上将照片和PDF压缩到指定大小：100 KB、500 KB、1 MB或自定义上限。可调整像素尺寸与证件照规格，文件在本机处理。",
+      "description": "文件太大，无法提交表单？在iPhone上按目标KB或MB压缩照片和PDF。\n\n照片：选择100 KB、500 KB、1 MB或自定义上限，保存前查看实际结果。\nPDF：缩小文件以便上传。高强度压缩可能把页面转为图片，导致文字无法选中或搜索。\n图片尺寸：设置宽高像素，可选择保持比例。根据格式支持情况导出JPEG、PNG或HEIC。\n证件照：提供部分国家和地区的签证、护照照片尺寸预设，包括中国、美国、英国、俄罗斯、印度、加拿大及申根国家。无法保证官方审核通过。\n对比：查看处理前后的文件大小与图片效果，可按需移除EXIF及位置信息。\n\n照片和PDF在设备本地处理，无需注册账户。广告可能需要联网，但原始文件不会上传到广告网络进行处理。\n\n广告与隐私：广告SDK可能收集设备技术信息及标识符。详情请阅读隐私政策。",
+      "whatsNew": "优化照片和PDF处理工具，增加证件照尺寸预设，并进一步说明应用内广告与隐私信息。",
+      "keywords": "照片,图片,压缩,PDF,文件大小,100kb,500kb,1mb,证件照,签证,像素,离线",
+      "screenshots": [
+        "2.92 MB → 472 KB",
+        "按像素调整尺寸",
+        "签证及证件照尺寸",
+        "压缩PDF以便上传"
+      ]
+    },
+    "zh-Hant": {
+      "promotionalText": "在iPhone上將照片與PDF壓縮到指定大小：100 KB、500 KB、1 MB或自訂上限。可調整像素尺寸及證件照規格，檔案在本機處理。",
+      "description": "檔案太大，無法提交表單？在iPhone上依指定KB或MB上限壓縮照片與PDF。\n\n照片：選擇100 KB、500 KB、1 MB或自訂上限，儲存前查看實際結果。\nPDF：縮小檔案方便上傳。高強度壓縮可能將頁面轉成影像，導致文字無法選取或搜尋。\n圖片尺寸：設定寬高像素，可選擇維持比例。依格式支援情況匯出JPEG、PNG或HEIC。\n證件照：提供部分國家與地區的簽證、護照照片尺寸預設，包括中國、美國、英國、俄羅斯、印度、加拿大及申根國家。不保證官方審核通過。\n比較：查看處理前後的檔案大小與影像效果，也可移除EXIF及位置資訊。\n\n照片與PDF於裝置本機處理，無須註冊帳號。廣告可能需要連網，但原始檔案不會上傳至廣告網路進行處理。\n\n廣告與隱私：廣告SDK可能收集裝置技術資訊及識別碼。詳情請參閱隱私權政策。",
+      "whatsNew": "改善照片與PDF處理工具，新增證件照尺寸預設，並清楚說明App內廣告與隱私資訊。",
+      "keywords": "照片,圖片,壓縮,PDF,檔案大小,100kb,500kb,1mb,證件照,簽證,像素,離線",
+      "screenshots": [
+        "2.92 MB → 472 KB",
+        "依像素調整尺寸",
+        "簽證與證件照尺寸",
+        "壓縮PDF方便上傳"
+      ]
+    }
+  }
+}

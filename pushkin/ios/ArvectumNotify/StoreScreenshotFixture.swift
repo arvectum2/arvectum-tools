@@ -19,44 +19,47 @@ enum StoreScreenshotFixture {
         try? context.delete(model: CapturedNotification.self)
 
         let now = Date()
+        func localized(_ english: String, _ russian: String) -> String {
+            StoreScreenshotTranslations.value(english, russian)
+        }
         let samples: [CapturedNotification] = [
             CapturedNotification(
-                sourceApp: "Messages",
-                titleText: "Delivery update",
+                sourceApp: localized("Messages", "Сообщения"),
+                titleText: localized("Delivery update", "Статус доставки"),
                 subtitleText: "",
-                bodyText: "Your order will arrive between 18:00 and 19:00.",
+                bodyText: localized("Your order will arrive between 18:00 and 19:00.", "Ваш заказ приедет с 18:00 до 19:00."),
                 receivedAt: now.addingTimeInterval(-7 * 60),
                 capturedAt: now.addingTimeInterval(-7 * 60)
             ),
             CapturedNotification(
                 sourceApp: "Telegram",
-                titleText: "Design team",
+                titleText: localized("Design team", "Команда дизайна"),
                 subtitleText: "Maya",
-                bodyText: "I sent the final mockups — take a look when you can.",
+                bodyText: localized("I sent the final mockups — take a look when you can.", "Отправила макеты — посмотри, пожалуйста."),
                 receivedAt: now.addingTimeInterval(-24 * 60),
                 capturedAt: now.addingTimeInterval(-24 * 60)
             ),
             CapturedNotification(
-                sourceApp: "Mail",
-                titleText: "Your booking is confirmed",
+                sourceApp: localized("Mail", "Почта"),
+                titleText: localized("Your booking is confirmed", "Бронирование подтверждено"),
                 subtitleText: "",
-                bodyText: "Confirmation #4821 · Thursday, 10:30",
+                bodyText: localized("Confirmation #4821 · Thursday, 10:30", "Подтверждение №4821 · четверг, 10:30"),
                 receivedAt: now.addingTimeInterval(-58 * 60),
                 capturedAt: now.addingTimeInterval(-58 * 60)
             ),
             CapturedNotification(
                 sourceApp: "WhatsApp Messenger",
-                titleText: "Family",
+                titleText: localized("Family", "Семья"),
                 subtitleText: "",
-                bodyText: "Don't forget the photos from yesterday 🙂",
+                bodyText: localized("Don't forget the photos from yesterday 🙂", "Не забудь фотографии со вчерашнего дня 🙂"),
                 receivedAt: now.addingTimeInterval(-2 * 60 * 60),
                 capturedAt: now.addingTimeInterval(-2 * 60 * 60)
             ),
             CapturedNotification(
                 sourceApp: "OZON",
-                titleText: "Order ready for pickup",
+                titleText: localized("Order ready for pickup", "Заказ готов к выдаче"),
                 subtitleText: "",
-                bodyText: "You can collect it until October 4.",
+                bodyText: localized("You can collect it until October 4.", "Заберите заказ до 4 октября."),
                 receivedAt: now.addingTimeInterval(-5 * 60 * 60),
                 capturedAt: now.addingTimeInterval(-5 * 60 * 60)
             )

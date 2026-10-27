@@ -35,7 +35,7 @@
 "Source recording" = "소스 녹음";
 "These are possible matches from saved notes, not a generated answer. Meaning-based matches can be approximate. Open the audio to verify them." = "이는 생성된 답변이 아닌 저장된 메모에서 가능한 일치 항목입니다. 의미 기반 일치는 대략적일 수 있습니다. 오디오를 열어 확인하세요.";
 "Transcript (.txt)" = "성적 증명서(.txt)";
-"Try different words, or transcribe more voice recordings. Search never guesses missing content." = "다른 단어를 사용해 보거나 더 많은 음성 녹음을 녹음해 보세요. 검색에서는 누락된 콘텐츠를 추측하지 않습니다.";
+"Try different words, or transcribe more voice recordings. Search never guesses missing content." = "다른 검색어를 사용하거나 더 많은 음성 녹음을 텍스트로 변환해 보세요. 검색은 누락된 내용을 추측하지 않습니다.";
 "Русский" = "러시아인";
 "A new transcription will replace your current text, including any manual corrections. The original audio will be kept." = "수동 수정을 포함하여 새로운 텍스트 변환이 현재 텍스트를 대체합니다. 원본 오디오는 유지됩니다.";
 "A saved thought is ready to review." = "저장된 생각을 검토할 준비가 되었습니다.";
@@ -206,7 +206,7 @@
 "Video recovery failed. Original files remain on device. %@" = "비디오 복구에 실패했습니다. 원본 파일은 기기에 남아 있습니다. %@";
 "All notes" = "모든 메모";
 "All notes, %@" = "모든 메모, %@";
-"Catch that thought" = "그 생각을 잡아라";
+"Catch that thought" = "떠오른 생각을 기록하세요";
 "Double-tap to record audio. Choose the Record video action for video." = "오디오를 녹음하려면 두 번 탭하세요. 비디오에 대한 비디오 녹화 작업을 선택합니다.";
 "Open saved voice notes" = "저장된 음성 메모 열기";
 "Open video recording. You can also hold the main button" = "비디오 녹화를 엽니다. 메인 버튼을 길게 누를 수도 있습니다.";

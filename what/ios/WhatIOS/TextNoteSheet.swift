@@ -67,14 +67,37 @@ struct TextNoteSheet: View {
                         id = note.id
                         bodyText = note.body
                     }
+#if DEBUG
+                    // A text-editor marketing screenshot must show a real
+                    // in-memory sample without writing to any repository.
+                    if note == nil &&
+                       ProcessInfo.processInfo.arguments.contains(
+                        "--qa-aso-filled-library"
+                       ) {
+                        bodyText = store.localNotes.first?.body ?? ""
+                        ready = true
+                        editorFocused = false
+                        return
+                    }
+#endif
                     ready = true
                     editorFocused = true
                 }
                 .onChange(of: bodyText) { _, text in
                     guard ready else { return }
+#if DEBUG
+                    if ProcessInfo.processInfo.arguments.contains(
+                        "--qa-aso-filled-library"
+                    ) { return }
+#endif
                     store.saveText(id: id, body: text)
                 }
                 .onDisappear {
+#if DEBUG
+                    if ProcessInfo.processInfo.arguments.contains(
+                        "--qa-aso-filled-library"
+                    ) { return }
+#endif
                     // Only newly created notes are eligible for automatic
                     // follow-up. Editing an old note must never reschedule it.
                     if note == nil { store.finishedNewTextNote(id: id) }

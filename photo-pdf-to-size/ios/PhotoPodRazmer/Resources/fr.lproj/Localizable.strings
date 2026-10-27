@@ -172,3 +172,7 @@
 "Разрешить обработку данных" = "Autoriser le traitement des données";
 "Не разрешать обработку данных" = "Refuser le traitement des données";
 "«Фото и PDF под размер» бесплатно и поддерживается рекламой. Реклама будет показываться независимо от вашего выбора. Вы можете разрешить или не разрешить Yandex Mobile Ads обработку данных для рекламы. Если разрешите, iOS может отдельно спросить разрешение на отслеживание. При отказе реклама останется, но без доступа к рекламному идентификатору. Фото и PDF обрабатываются только на устройстве, геолокация отключена." = "« Photo et PDF aux bonnes dimensions » est gratuite et financée par la publicité. Les publicités s’affichent quel que soit votre choix. Vous pouvez autoriser ou refuser le traitement de données à des fins publicitaires par Yandex Mobile Ads. Si vous l’autorisez, iOS peut demander séparément l’autorisation de suivi. Si vous refusez le suivi, les publicités restent affichées, mais sans accès à l’identifiant publicitaire. Les photos et les PDF sont traités uniquement sur votre appareil et la géolocalisation est désactivée.";
+
+"Исходный файл" = "Fichier d’origine";
+
+"Предпросмотр исходного файла" = "Aperçu du fichier d’origine";

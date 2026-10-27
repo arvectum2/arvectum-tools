@@ -103,6 +103,49 @@ class LocalizationPortfolioTests(unittest.TestCase):
             i18n.read_strings(ROOT / "chickmark/ios/HabitsByArvectum/ko.lproj/Localizable.strings", [])["habit.create"],
             "습관 만들기")
 
+    def test_photo_source_preview_captions_are_localized_in_12_languages(self):
+        cases = {
+            "ru": "Исходный файл", "en": "Source file", "de": "Quelldatei",
+            "es": "Archivo original", "fr": "Fichier d’origine",
+            "it": "File originale", "ja": "元のファイル", "ko": "원본 파일",
+            "pt-BR": "Arquivo original", "pt-PT": "Ficheiro original",
+            "zh-Hans": "原始文件", "zh-Hant": "原始檔案",
+        }
+        root = ROOT / "photo-pdf-to-size/ios/PhotoPodRazmer/Resources"
+        for locale, expected in cases.items():
+            loc = i18n.read_strings(root / f"{locale}.lproj/Localizable.strings", [])
+            self.assertEqual(loc["Исходный файл"], expected, locale)
+            self.assertTrue(loc["Предпросмотр исходного файла"], locale)
+            if locale != "ru":
+                self.assertNotEqual(loc["Предпросмотр исходного файла"],
+                                    "Предпросмотр исходного файла", locale)
+
+    def test_korean_uhvat_headline_is_idiomatic(self):
+        loc = i18n.read_strings(ROOT / "what/ios/WhatIOS/ko.lproj/Localizable.strings", [])
+        self.assertEqual(loc["Catch that thought"], "떠오른 생각을 기록하세요")
+        self.assertNotIn("그 생각을 잡아라", " ".join(loc.values()))
+
+    def test_korean_apple_health_is_protected_brand_not_fruit(self):
+        """An in-review iPad screenshot exposed the literal fruit-translation bug."""
+        translations = i18n.read_strings(
+            ROOT / "chickmark/ios/HabitsByArvectum/ko.lproj/Localizable.strings", [])
+        self.assertEqual(translations["health.title"], "Apple Health")
+        self.assertEqual(translations["health.settings"], "Apple Health")
+        self.assertEqual(translations["health.disconnect"], "Apple Health 연결 해제")
+        self.assertNotIn("사과 건강", " ".join(translations.values()))
+
+    def test_korean_habit_editorial_glossary_and_weekly_ratio(self):
+        values = i18n.read_strings(
+            ROOT / "chickmark/ios/HabitsByArvectum/ko.lproj/Localizable.strings", [])
+        self.assertEqual(values["appearance.icon"], "아이콘")
+        self.assertEqual(values["health.metric.steps"], "걸음 수")
+        self.assertEqual(values["health.unit.steps"], "걸음")
+        self.assertEqual(values["health.metric.sleep"], "수면 시간(기상일 기준)")
+        self.assertEqual(values["insights.weekly.ratio"], "%d주 달성 / 총 %d주")
+        self.assertNotIn("요금", values["insights.weekly.note"])
+        self.assertEqual(i18n.placeholders("%d of %d weeks"),
+                         i18n.placeholders(values["insights.weekly.ratio"]))
+
     def test_editorial_audit_is_triage_not_signoff(self):
         import editorial_localization_audit as review
         result = review.audit()
@@ -111,7 +154,7 @@ class LocalizationPortfolioTests(unittest.TestCase):
         self.assertEqual(sum(f["pt_pt_brazilian_flags"] for f in result["catalogs"]), 0)
         self.assertEqual(sum(f["format_mismatch"] for f in result["catalogs"]), 0)
         self.assertEqual(sum(f["missing"] + f["extra"] for f in result["catalogs"]), 0)
-        self.assertEqual(result['english_identical_triaged'], 32)
+        self.assertEqual(result['english_identical_triaged'], 34)
         self.assertEqual(result['english_identical_untriaged'], [])
         self.assertEqual(result['english_identical_stale_exceptions'], [])
 
@@ -489,7 +532,7 @@ class LocalizationPortfolioTests(unittest.TestCase):
         base = i18n.read_strings(bundle / "en.lproj/Localizable.strings", errors)
         german = i18n.read_strings(bundle / "de.lproj/Localizable.strings", errors)
         self.assertEqual(errors, [])
-        self.assertEqual(len(base), 159)
+        self.assertEqual(len(base), 161)
         self.assertEqual(set(base), set(german))
         for key in base:
             self.assertEqual(i18n.placeholders(base[key]),
@@ -915,7 +958,7 @@ class LocalizationPortfolioTests(unittest.TestCase):
         en = i18n.read_strings(path / "en.lproj/Localizable.strings", [])
         es = i18n.read_strings(path / "es.lproj/Localizable.strings", [])
         self.assertEqual(set(en), set(es))
-        self.assertEqual(len(es), 159)
+        self.assertEqual(len(es), 161)
         self.assertEqual(es["Сжать PDF до выбранного размера"], "Comprimir PDF al tamaño elegido")
         consent_key = "«Фото и PDF под размер» бесплатно и поддерживается рекламой. Реклама будет показываться независимо от вашего выбора. Вы можете разрешить или не разрешить Yandex Mobile Ads обработку данных для рекламы. Если разрешите, iOS может отдельно спросить разрешение на отслеживание. При отказе реклама останется, но без доступа к рекламному идентификатору. Фото и PDF обрабатываются только на устройстве, геолокация отключена."
         self.assertIn(consent_key, es)

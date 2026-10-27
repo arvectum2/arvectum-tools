@@ -1,5 +1,22 @@
 # ChickMark — актуальная дорожная карта
 
+C15 (27.10): 48 локализованных маркетинговых iPad JPEG вместо больших пустот, все заголовки 12 UI языков соответствуют реальным кадрам. [C15](../core/docs/ASO_C15_EDITORIAL_ACCEPTANCE_2026-10-27.md).
+
+C14 (27.10): keywords оптимизированы в 15 региональных ASO-карточках; первый iPad-скриншот с пустым пространством требует улучшения перед публикацией. [C14](../core/docs/ASO_C14_KEYWORDS_VISUAL_GATE_2026-10-27.md).
+
+C13: 11 переводных ASO-карточек с правильными терминами серий, отметок, Apple Watch и Health. [Редактура](../core/docs/ASO_C13_LINGUISTIC_EDITORIAL_2026-10-27.md).
+
+C12: реальные раскрытые настройки напоминаний iPhone/iPad во всех 12 языках; отдельная корейская редактура и регрессионная защита терминов. [Акт C12](../core/docs/ASO_C12_EDITORIAL_2026-10-27.md). Нужны native-speaker и физическая HealthKit/Watch/CloudKit QA.
+
+**C11 27.10:** 4 реальных сценария для каждого из 12 UI языков (список, создание привычки, прогресс, напоминания), настоящие iPhone/iPad кадры отслеживаются в [C11](../core/docs/ASO_NATIVE_CAPTURE_C11_2026-10-27.md); HealthKit/CloudKit/нативная вычитка ещё требуют QA.
+
+
+## C10 — локализованные карточки (26.10.2026)
+
+- [x] 16 draft metadata locales, включая HealthKit и рекламу без лишних обещаний; Apple field validation PASS.
+- [x] Исправлены критичные смысловые ошибки KO в напоминаниях и recovery; editorial mechanical audit PASS.
+- [ ] Финальная native-speaker редактура, iPhone/iPad/Watch screenshots, HealthKit/CloudKit/РСЯ физическая QA и signed RC; 16×4 headline specs готовы, реальные кадры ещё нет. [C10](../core/docs/EDITORIAL_ASO_C10_2026-10-26.md).
+
 ## C9 — KO iPhone/Watch/widgets (26.10.2026)
 
 - [x] KO draft: iPhone 311 + Watch 22 + PhoneWidget 16 + WatchWidget 5, HealthKit InfoPlist и AppShortcuts.

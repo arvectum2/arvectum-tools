@@ -77,7 +77,79 @@ final class PhoneStore: NSObject, ObservableObject, AVAudioPlayerDelegate,
     /// Never writes notes, files, archive states, or Watch recordings.
     private func seedDesignLibraryForUITestsIfRequested() {
         let args = ProcessInfo.processInfo.arguments
-        guard args.contains("--qa-design-filled-library") else { return }
+        guard args.contains("--qa-design-filled-library") ||
+              args.contains("--qa-aso-filled-library") else { return }
+
+        // Native App Store fixture: localized example TEXT only.
+        // In-memory data, no fake audio or files; DEBUG-only.
+        if args.contains("--qa-aso-filled-library") {
+            let language = CaptureBrand.resolvedInterfaceLanguage(
+                for: Locale.preferredLanguages)
+            let texts: [String]
+            switch language {
+            case "ru": texts = [
+                "Подготовить вопросы к встрече",
+                "Проверить идеи для нового проекта"
+            ]
+            case "es": texts = [
+                "Preparar preguntas para la reunión",
+                "Revisar ideas para un nuevo proyecto"
+            ]
+            case "fr": texts = [
+                "Préparer des questions pour la réunion",
+                "Revoir les idées pour un nouveau projet"
+            ]
+            case "de": texts = [
+                "Fragen für das Treffen vorbereiten",
+                "Ideen für ein neues Projekt prüfen"
+            ]
+            case "it": texts = [
+                "Preparare le domande per la riunione",
+                "Rivedere le idee per un nuovo progetto"
+            ]
+            case "ja": texts = [
+                "会議で聞くことを整理する",
+                "新しい企画のアイデアを確認する"
+            ]
+            case "ko": texts = [
+                "회의에서 할 질문 준비하기",
+                "새 프로젝트 아이디어 검토하기"
+            ]
+            case "pt-PT": texts = [
+                "Preparar perguntas para a reunião",
+                "Rever ideias para um novo projeto"
+            ]
+            case "pt": texts = [
+                "Preparar perguntas para a reunião",
+                "Revisar ideias para um novo projeto"
+            ]
+            case "zh-Hant": texts = [
+                "準備會議要問的問題",
+                "整理新專案的想法"
+            ]
+            case "zh": texts = [
+                "准备会议要问的问题",
+                "整理新项目的想法"
+            ]
+            default: texts = [
+                "Prepare questions for the meeting",
+                "Review ideas for a new project"
+            ]
+            }
+            let now = Date()
+            localNotes = texts.enumerated().map { index, text in
+                LocalNote(
+                    id: UUID(uuidString: String(format:
+                        "AAAA0000-0000-0000-0000-%012d", 200 + index))!,
+                    kind: .text,
+                    createdAt: now.addingTimeInterval(Double(-index * 3600)),
+                    updatedAt: now, body: text, fileName: nil,
+                    duration: nil, archived: false,
+                    sourceDevice: "ASO Simulator"
+                )
+            }
+            return
+        }
 
         func qaID(_ last: Int) -> UUID {
             UUID(uuidString: String(format:

@@ -14,6 +14,18 @@
       "reason": "Official Apple Health product name in this locale"
     },
     {
+      "file": "chickmark/ios/HabitsByArvectum/ko.lproj/Localizable.strings",
+      "key": "health.settings",
+      "value": "Apple Health",
+      "reason": "Protected Apple Health product name; Korean 사과 건강 is an incorrect literal fruit translation"
+    },
+    {
+      "file": "chickmark/ios/HabitsByArvectum/ko.lproj/Localizable.strings",
+      "key": "health.title",
+      "value": "Apple Health",
+      "reason": "Protected Apple Health product name; Korean 사과 건강 is an incorrect literal fruit translation"
+    },
+    {
       "file": "chickmark/ios/HabitsByArvectumWatchWidget/de.lproj/Localizable.strings",
       "key": "watch.widget.title",
       "value": "ChickMark",

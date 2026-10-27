@@ -4,8 +4,17 @@ on:
   push:
     paths:
       - "core/localization/**"
+      - "core/appstore/**"
+      - "core/tools/*appstore*.py"
+      - "core/tools/audit_editorial_all_locales.py"
       - "core/tools/localization_portfolio.py"
       - "core/tests/test_localization_portfolio.py"
+      - "core/tests/test_appstore_keyword_c14.py"
+      - "core/tests/test_appstore_release_gate.py"
+      - "core/tests/test_appstore_marketing_c15.py"
+      - "core/tests/test_appstore_public_snapshot_c16.py"
+      - "core/tools/audit_public_appstore_c16.py"
+      - "core/tools/render_appstore_ipad_hero_c15.swift"
       - "chickmark/ios/**"
       - "photo-pdf-to-size/ios/**"
       - "photo-pdf-to-size/android/app/src/main/**"
@@ -15,8 +24,17 @@ on:
   pull_request:
     paths:
       - "core/localization/**"
+      - "core/appstore/**"
+      - "core/tools/*appstore*.py"
+      - "core/tools/audit_editorial_all_locales.py"
       - "core/tools/localization_portfolio.py"
       - "core/tests/test_localization_portfolio.py"
+      - "core/tests/test_appstore_keyword_c14.py"
+      - "core/tests/test_appstore_release_gate.py"
+      - "core/tests/test_appstore_marketing_c15.py"
+      - "core/tests/test_appstore_public_snapshot_c16.py"
+      - "core/tools/audit_public_appstore_c16.py"
+      - "core/tools/render_appstore_ipad_hero_c15.swift"
       - "chickmark/ios/**"
       - "photo-pdf-to-size/ios/**"
       - "photo-pdf-to-size/android/app/src/main/**"
@@ -32,5 +50,23 @@ jobs:
       - uses: actions/checkout@v4
       - name: Verify locale catalog and format parity
         run: python3 core/tools/localization_portfolio.py --audit
+      - name: Check staged App Store texts and risk copy (offline)
+        run: |
+          python3 core/tools/validate_appstore_staging.py
+          python3 core/tools/audit_editorial_all_locales.py
+      - name: Verify local-only ASO gallery and all 448 links
+        run: python3 -m unittest discover -s core/tests -p test_appstore_review_gallery.py -q
+      - name: Guard editorial ASO copy and product-limit caveats
+        run: python3 -m unittest discover -s core/tests -p test_appstore_linguistic_review.py -q
+      - name: Guard ASO keyword efficiency (C14)
+        run: python3 -m unittest discover -s core/tests -p test_appstore_keyword_c14.py -q
+      - name: Confirm release gate blocks unauthorised ASC changes
+        run: |
+          python3 core/tools/check_appstore_release_readiness.py
+          python3 -m unittest discover -s core/tests -p test_appstore_release_gate.py -q
+      - name: Verify C15 native-iPad marketing assets against source SHA
+        run: python3 -m unittest discover -s core/tests -p test_appstore_marketing_c15.py -q
+      - name: Verify dated read-only Apple public storefront snapshot
+        run: python3 -m unittest discover -s core/tests -p test_appstore_public_snapshot_c16.py -q
       - name: Test shared locale registry and English fallback
         run: python3 -m unittest discover -s core/tests -p test_localization_portfolio.py -v

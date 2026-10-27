@@ -1,5 +1,15 @@
 # Arvectum Tools — Roadmap Registry
 
+[C15: внутренняя редактура 64 ASO-карточек и 144 iPad маркетинговых кадра](docs/ASO_C15_EDITORIAL_ACCEPTANCE_2026-10-27.md).
+
+[C13: редактура 64 ASO-карточек](docs/ASO_C13_LINGUISTIC_EDITORIAL_2026-10-27.md).
+
+[C12: редакторская ASO-галерея и обновлённые нативные кадры](docs/ASO_C12_EDITORIAL_2026-10-27.md).
+
+[C11: настоящий native UI screenshots по 12 языкам iPhone и 13″ iPad](docs/ASO_NATIVE_CAPTURE_C11_2026-10-27.md).
+
+[**C10: 64 черновых карточки / 16 регионов; редакторская сверка 10 237 строк**](docs/EDITORIAL_ASO_C10_2026-10-26.md).
+
 [**C9: 12/20 локализаций в 4/4 продуктах и ASO-аудит 48 карточек**](docs/LOCALIZATION_C9_2026-10-26.md).
 
 [**Проверенный C8 статус локализаций 26.10: 11/20 Tier 1, KO 2/4; source ≠ App Store**](docs/LOCALIZATION_STATUS_2026-10-26.md).

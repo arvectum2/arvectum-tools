@@ -1,5 +1,7 @@
 # Arvectum Tools — публичный ASO-аудит App Store, 26.10.2026
 
+**Исправления подготовлены в ветке C10:** [64 draft ASO-пакета](../appstore/staged-2026-10-26/README.md), [3 исправленных настоящих RU кадра Pushkin](../../pushkin/store-assets/appstore/editorial-20261026/ru/iphone-6.9/), [редакторская матрица](EDITORIAL_ASO_C10_2026-10-26.md). Публичный App Store не изменялся.
+
 **Проверено непосредственно, read-only:** 4 Apple ID × 12 витрин (RU/US/GB/DE/FR/ES/BR/JP/KR/CN/TR/TH) = **48 карточек**. Данные о версии/названии/описании/языках/скриншотах/рейтингах из официального [Apple Lookup](https://itunes.apple.com/lookup?id=6816346084,6817847111,6822476399,6818711298&country=ru&entity=software); **подзаголовки** извлечены из публичных страниц apps.apple.com как текст \`p.subtitle\`. Все 48 HTML страниц отвечали HTTP 200. Отчёт не использует App Store Connect, не меняет живые метаданные.
 
 ## Реальные версии и карточки RU / US / DE / FR
