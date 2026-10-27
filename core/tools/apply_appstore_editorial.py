@@ -54,3 +54,15 @@ for app,locales in kw.items():
   d['localeData'][loc]['keywords']=rec['after']
  p.write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n')
 print('C14 keyword changes',sum(len(v) for v in kw.values()))
+
+# C17 IndieAppCircle feedback What's New copy (curated, not live ASC).
+notes=json.loads((ROOT/'editorial/c17-feedback-whatsnew-overrides.json').read_text())
+for app,locales in notes.items():
+    path=ROOT/f'{app}.json'
+    metadata=json.loads(path.read_text())
+    for locale,record in locales.items():
+        current=metadata['localeData'][locale]['whatsNew']
+        assert current in (record['before'],record['after']), (app,locale,'unexpected release-note source')
+        metadata['localeData'][locale]['whatsNew']=record['after']
+    path.write_text(json.dumps(metadata,ensure_ascii=False,indent=2)+'\n')
+print('C17 release notes applied:',sum(len(v) for v in notes.values()))

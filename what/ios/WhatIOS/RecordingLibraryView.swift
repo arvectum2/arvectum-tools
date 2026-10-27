@@ -837,6 +837,18 @@ struct RecordingLibraryView: View {
 
             if let transcript = store.transcripts[recording.id] {
                 Text(transcript).font(.body).textSelection(.enabled)
+            } else if store.isAudioComplete(recording),
+                      store.transcribingID != recording.id {
+                // Reviewers mistook the global "Text 0" filter for a failed
+                // transcript. Explain the explicitly opt-in conversion here.
+                Text(CaptureBrand.text(
+                    "Текста пока нет. Нажмите «Расшифровать», чтобы получить его из аудио.",
+                    "No text yet. Tap Transcribe to turn this audio into text."
+                ))
+                .font(.footnote)
+                .foregroundStyle(.secondary)
+                .fixedSize(horizontal: false, vertical: true)
+                .accessibilityIdentifier("what.recording.transcriptionHint")
             }
         }
         .padding(.vertical, 5)

@@ -14,6 +14,21 @@ final class HabitFlowUITests: XCTestCase {
         app.launch()
     }
 
+    func testCustomGroupCanBeCreatedInsideNewHabitForm() throws {
+        let create = app.buttons["Create habit"]
+        XCTAssertTrue(create.waitForExistence(timeout: 9))
+        create.tap()
+        let newName = app.textFields["habit.group.newName"]
+        XCTAssertTrue(newName.waitForExistence(timeout: 10))
+        newName.tap()
+        newName.typeText("My custom group")
+        let add = app.buttons["habit.group.add"]
+        XCTAssertTrue(add.isEnabled)
+        add.tap()
+        XCTAssertTrue(app.descendants(matching: .any)["habit.group.picker"]
+            .waitForExistence(timeout: 8))
+    }
+
     func testTodaySystemAccessibilityAudit() throws {
         XCTAssertTrue(app.buttons["Manage habits"].waitForExistence(timeout: 8))
         // First-run empty state must have a real, unclipped secondary CTA.

@@ -1,5 +1,18 @@
 # Фото и PDF под размер — Product Roadmap
 
+## Актуально 27.10.2026 · C17
+
+- [x] Фото/PDF **1.0.4 (16)**: signed IPA, 16 ASC локалей, 128 screenshot slots; App Review **WAITING_FOR_REVIEW**, публикация **AFTER_APPROVAL**. Публичная версия при последнем Lookup — **1.0.3**. [ASC C17](../core/docs/INDIEAPPCIRCLE_C17_APPLE_SUBMITTED_2026-10-27.md).
+- [x] По отзыву IndieAppCircle: улучшена навигация обратно после результата; входит в отправленный C17 кандидат.
+- [ ] После Apple Review проверить настоящий release/storefront без приравнивания submission к публикации.
+- [ ] P0 App Privacy: разбор YandexMobileAds/AppMetrica, ATT, фактических идентификаторов/tracking; без бездоказательного изменения privacy label. Физическая Photos/Files/HEIC/EXIF/PDF/VoiceOver и ad fill/no-fill.
+- [ ] P1: QA паспортных/визовых presets и размеров, локализации требований; метрики рекламы только по реальным данным.
+
+[Сводка всех продуктов](../core/docs/ROADMAP_PORTFOLIO_2026-10-27.md).
+
+
+C17 IndieAppCircle: визуально понятная стрелка возврата после обработки; Schengen/China/Canada уже реализованы, не дублировать; P0 privacy label — реклама Yandex+AppMetrica декларирует данные. Candidate 1.0.4(16), signed QA/preflight, ожидает per-release approval. См. core/docs/INDIEAPPCIRCLE_APP_PRIVACY_AUDIT_2026-10-27.md.
+
 C15 (27.10): исправлен иностранный fallback «Исходный файл»/preview во всех 12 UI локалях (24 значения), пересняты 48 настоящих 13″ iPad кадра; сделаны 48 локализованных iPad-маркетинговых JPEG (12 языков × 4 позиции). [C15](../core/docs/ASO_C15_EDITORIAL_ACCEPTANCE_2026-10-27.md).
 
 C14 (27.10): устранён повторный keyword в одном регионе; первый 13-дюймовый iPad-кадр помечен для маркетинговой переработки из-за большой пустой области. [C14](../core/docs/ASO_C14_KEYWORDS_VISUAL_GATE_2026-10-27.md).

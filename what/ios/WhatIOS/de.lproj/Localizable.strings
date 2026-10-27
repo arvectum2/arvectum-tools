@@ -230,3 +230,4 @@
 "Your Watch last reported recordings waiting for iPhone confirmation. Audio stays on Watch until iPhone confirms saving; background delivery can be delayed." = "Ihre Watch hat zuletzt Aufnahmen gemeldet, die auf eine Bestätigung des iPhone warten. Audio bleibt auf der Watch, bis das iPhone die Speicherung bestätigt. Die Hintergrundübertragung kann sich verzögern.";
 "Your Watch last reported an empty queue. New recordings may have been made since that report." = "Ihre Watch hat zuletzt eine leere Warteschlange gemeldet. Seitdem könnten neue Aufnahmen entstanden sein.";
 "Français" = "Französisch";
+"No text yet. Tap Transcribe to turn this audio into text." = "Noch kein Text. Tippe auf „Transkribieren“, um die Aufnahme in Text umzuwandeln.";

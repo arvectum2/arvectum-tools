@@ -1,0 +1,266 @@
+{
+  "photo": {
+    "ru": {
+      "before": "Дополнительные размеры фото для виз и документов, улучшено объяснение данных рекламы, обновлены экраны.",
+      "after": "Теперь проще вернуться к настройкам после обработки фото. Улучшена навигация; обработка фото и PDF по-прежнему выполняется на устройстве."
+    },
+    "en-US": {
+      "before": "Updated photo/PDF tools, three additional document photo presets and clearer in-app advertising information. No account required; photo and PDF processing stays on your iPhone.",
+      "after": "A clearer way back to settings after processing photos. Photo and PDF files are still processed on your device."
+    },
+    "en-GB": {
+      "before": "Updated photo/PDF tools, three additional document photo presets and clearer in-app advertising information. No account required; photo and PDF processing stays on your iPhone.",
+      "after": "A clearer way back to settings after processing photos. Photo and PDF files are still processed on your device."
+    },
+    "en-AU": {
+      "before": "Updated photo/PDF tools, three additional document photo presets and clearer in-app advertising information. No account required; photo and PDF processing stays on your iPhone.",
+      "after": "A clearer way back to settings after processing photos. Photo and PDF files are still processed on your device."
+    },
+    "en-CA": {
+      "before": "Updated photo/PDF tools, three additional document photo presets and clearer in-app advertising information. No account required; photo and PDF processing stays on your iPhone.",
+      "after": "A clearer way back to settings after processing photos. Photo and PDF files are still processed on your device."
+    },
+    "es-ES": {
+      "before": "Versión 1.0: nueva arquitectura interna y mejoras de estabilidad. Comprime fotos y PDF, ajusta las dimensiones y prepara fotos para documentos desde tu iPhone.",
+      "after": "Ahora es más fácil volver a los ajustes después de procesar una foto. Las fotos y los PDF siguen procesándose en tu dispositivo."
+    },
+    "es-MX": {
+      "before": "Versión 1.0: mejoramos la estabilidad del procesamiento de fotos y PDF, los tamaños en píxeles y las plantillas para documentos. Todo en tu iPhone.",
+      "after": "Ahora es más fácil volver a los ajustes después de procesar una foto. Las fotos y los PDF siguen procesándose en tu dispositivo."
+    },
+    "fr-FR": {
+      "before": "Version 1.0 : architecture revue et fiabilité améliorée. Compressez photos et PDF, ajustez les dimensions et préparez les photos pour documents sur iPhone.",
+      "after": "Le retour aux réglages après le traitement d’une photo est plus clair. Les photos et PDF sont toujours traités sur votre appareil."
+    },
+    "de-DE": {
+      "before": "Version 1.0: überarbeitete Architektur und höhere Zuverlässigkeit. Fotos und PDFs verkleinern, Pixelmaße anpassen und Dokumentfotos lokal vorbereiten.",
+      "after": "Nach der Fotobearbeitung kommst du leichter zu den Einstellungen zurück. Fotos und PDFs werden weiterhin auf deinem Gerät verarbeitet."
+    },
+    "it": {
+      "before": "Versione 1.0: architettura migliorata e maggiore affidabilità. Comprimi foto e PDF, modifica le dimensioni e prepara foto per documenti su iPhone.",
+      "after": "Tornare alle impostazioni dopo aver elaborato una foto è più semplice. Foto e PDF restano elaborati sul dispositivo."
+    },
+    "ja": {
+      "before": "バージョン1.0：内部構成を改善し、ファイル処理の安定性を向上。写真とPDFの圧縮、ピクセル単位のサイズ変更、証明写真の設定に対応。",
+      "after": "写真の処理後、設定画面へ戻りやすくなりました。写真とPDFの処理は引き続き端末上で行われます。"
+    },
+    "ko": {
+      "before": "버전 1.0: 내부 구조를 개선해 파일 처리 안정성을 높였습니다. 사진 및 PDF 압축, 픽셀 크기 조절, 증명사진 규격을 지원합니다.",
+      "after": "사진 처리 후 설정으로 더 쉽게 돌아갈 수 있습니다. 사진과 PDF는 계속 기기에서 직접 처리됩니다."
+    },
+    "pt-BR": {
+      "before": "Versão 1.0: arquitetura renovada e melhorias de estabilidade. Comprima fotos e PDFs, redimensione imagens e prepare arquivos para documentos no iPhone.",
+      "after": "Ficou mais fácil voltar às configurações após processar uma foto. Fotos e PDFs continuam sendo processados no dispositivo."
+    },
+    "pt-PT": {
+      "before": "Versão 1.0: arquitetura melhorada e mais fiabilidade ao comprimir fotografias e PDFs, ajustar dimensões e preparar fotos para documentos.",
+      "after": "Agora é mais fácil voltar às definições depois de processar uma fotografia. As fotografias e os PDF continuam a ser processados no dispositivo."
+    },
+    "zh-Hans": {
+      "before": "优化照片和PDF处理工具，增加证件照尺寸预设，并进一步说明应用内广告与隐私信息。",
+      "after": "处理照片后更容易返回设置。照片和 PDF 仍在设备本地处理。"
+    },
+    "zh-Hant": {
+      "before": "改善照片與PDF處理工具，新增證件照尺寸預設，並清楚說明App內廣告與隱私資訊。",
+      "after": "處理照片後更容易返回設定。照片和 PDF 仍在裝置本機處理。"
+    }
+  },
+  "pushkin": {
+    "ru": {
+      "before": "Улучшены языки интерфейса и инструкции подключения через «Команды». Для сохранения уведомлений по-прежнему нужны включённые вами автоматизации.",
+      "after": "Международные приложения теперь проще найти в списке быстрых подключений. Сохранение уведомлений по-прежнему требует настроенной автоматизации в «Командах»."
+    },
+    "en-US": {
+      "before": "Improved interface localization and guidance for connecting apps through Shortcuts. Notification capture continues to depend on your enabled automations.",
+      "after": "Popular international apps are easier to find in the suggested setup list. Saving notifications still requires your configured Shortcuts automations."
+    },
+    "en-GB": {
+      "before": "Improved interface localization and guidance for connecting apps through Shortcuts. Notification capture continues to depend on your enabled automations.",
+      "after": "Popular international apps are easier to find in the suggested setup list. Saving notifications still requires your configured Shortcuts automations."
+    },
+    "en-AU": {
+      "before": "Improved interface localization and guidance for connecting apps through Shortcuts. Notification capture continues to depend on your enabled automations.",
+      "after": "Popular international apps are easier to find in the suggested setup list. Saving notifications still requires your configured Shortcuts automations."
+    },
+    "en-CA": {
+      "before": "Improved interface localization and guidance for connecting apps through Shortcuts. Notification capture continues to depend on your enabled automations.",
+      "after": "Popular international apps are easier to find in the suggested setup list. Saving notifications still requires your configured Shortcuts automations."
+    },
+    "es-ES": {
+      "before": "Mejoras en los idiomas de la interfaz y en las instrucciones para configurar automatizaciones en Atajos.",
+      "after": "Ahora es más fácil encontrar aplicaciones internacionales en la lista de configuración. Para guardar notificaciones sigue siendo necesario configurar las automatizaciones de Atajos."
+    },
+    "es-MX": {
+      "before": "Mejoramos los textos de la interfaz y las instrucciones para conectar apps mediante Atajos.",
+      "after": "Ahora es más fácil encontrar aplicaciones internacionales en la lista de configuración. Para guardar notificaciones sigue siendo necesario configurar las automatizaciones de Atajos."
+    },
+    "fr-FR": {
+      "before": "Traductions affinées et instructions plus claires pour configurer les automatisations dans Raccourcis.",
+      "after": "Les applications internationales sont plus faciles à trouver dans la liste de configuration. L’enregistrement des notifications nécessite toujours vos automatisations Raccourcis."
+    },
+    "de-DE": {
+      "before": "Überarbeitete Übersetzungen und verständlichere Anleitungen für Automationen in Kurzbefehle.",
+      "after": "Internationale Apps findest du jetzt leichter in der Einrichtungsliste. Zum Speichern von Mitteilungen müssen weiterhin Kurzbefehle-Automationen eingerichtet sein."
+    },
+    "it": {
+      "before": "Traduzioni migliorate e istruzioni più chiare per collegare le app con Comandi Rapidi.",
+      "after": "Le app internazionali sono più facili da trovare nell’elenco di configurazione. Per salvare le notifiche occorrono comunque le automazioni di Comandi."
+    },
+    "ja": {
+      "before": "日本語表現とショートカットのオートメーション設定手順を改善しました。",
+      "after": "海外の人気アプリを設定候補から探しやすくなりました。通知の保存には、引き続きショートカットのオートメーション設定が必要です。"
+    },
+    "ko": {
+      "before": "인터페이스 번역과 Apple 단축어 자동화 설정 안내를 개선했습니다.",
+      "after": "해외에서 많이 사용하는 앱을 설정 목록에서 더 쉽게 찾을 수 있습니다. 알림 저장에는 여전히 단축어 자동화 설정이 필요합니다."
+    },
+    "pt-BR": {
+      "before": "Traduções revisadas e instruções mais claras para conectar apps usando Atalhos.",
+      "after": "Ficou mais fácil encontrar apps internacionais na lista de configuração. Salvar notificações ainda exige as automações configuradas no Atalhos."
+    },
+    "pt-PT": {
+      "before": "Traduções revistas e instruções mais claras para ligar aplicações através da app Atalhos.",
+      "after": "Agora é mais fácil encontrar aplicações internacionais na lista de configuração. Guardar notificações continua a exigir as automações configuradas na app Atalhos."
+    },
+    "zh-Hans": {
+      "before": "优化了界面文案和「快捷指令」自动化的设置说明。",
+      "after": "现在更容易在设置列表中找到常用的国际应用。保存通知仍需自行配置“快捷指令”自动化。"
+    },
+    "zh-Hant": {
+      "before": "改善介面文案與Apple「捷徑」自動化的設定說明。",
+      "after": "現在更容易在設定清單中找到常用的國際應用程式。儲存通知仍需自行設定「捷徑」自動化。"
+    }
+  },
+  "what": {
+    "ru": {
+      "before": "Улучшены устойчивость записи, восстановление данных и локализация интерфейса на iPhone, Apple Watch и в виджетах.",
+      "after": "Под аудиозаписью стало понятнее, как получить расшифровку. Улучшены подсказки по работе с аудио и текстом."
+    },
+    "en-US": {
+      "before": "Improved recording reliability, recovery guidance and iPhone, Apple Watch and widget interface localization.",
+      "after": "Clearer guidance on how to transcribe a saved recording. Audio and text actions are now easier to understand."
+    },
+    "en-GB": {
+      "before": "Improved recording reliability, recovery guidance and iPhone, Apple Watch and widget interface localization.",
+      "after": "Clearer guidance on how to transcribe a saved recording. Audio and text actions are now easier to understand."
+    },
+    "en-AU": {
+      "before": "Improved recording reliability, recovery guidance and iPhone, Apple Watch and widget interface localization.",
+      "after": "Clearer guidance on how to transcribe a saved recording. Audio and text actions are now easier to understand."
+    },
+    "en-CA": {
+      "before": "Improved recording reliability, recovery guidance and iPhone, Apple Watch and widget interface localization.",
+      "after": "Clearer guidance on how to transcribe a saved recording. Audio and text actions are now easier to understand."
+    },
+    "es-ES": {
+      "before": "Mejoras de estabilidad de grabación, recuperación y traducciones de iPhone, Apple Watch y widgets.",
+      "after": "Instrucciones más claras para transcribir una grabación guardada. Ahora resulta más fácil entender las acciones de audio y texto."
+    },
+    "es-MX": {
+      "before": "Mejoramos la estabilidad de grabación, las opciones de recuperación y las traducciones en iPhone, Apple Watch y widgets.",
+      "after": "Instrucciones más claras para transcribir una grabación guardada. Ahora resulta más fácil entender las acciones de audio y texto."
+    },
+    "fr-FR": {
+      "before": "Fiabilité des enregistrements, options de récupération et traductions des interfaces iPhone, Apple Watch et widgets améliorées.",
+      "after": "Des indications plus claires pour transcrire un enregistrement. Les actions audio et texte sont plus faciles à comprendre."
+    },
+    "de-DE": {
+      "before": "Zuverlässigere Aufnahmen, bessere Wiederherstellungshinweise und überarbeitete iPhone-, Watch- und Widget-Texte.",
+      "after": "Klarere Hinweise zum Transkribieren gespeicherter Aufnahmen. Audio- und Textaktionen sind jetzt verständlicher."
+    },
+    "it": {
+      "before": "Registrazioni più affidabili, indicazioni per il recupero e testi delle interfacce iPhone, Apple Watch e widget migliorati.",
+      "after": "Indicazioni più chiare per trascrivere una registrazione salvata. Le azioni relative ad audio e testo sono più semplici."
+    },
+    "ja": {
+      "before": "録音の安定性、復旧時の案内、iPhone・Apple Watch・ウィジェットの表示を改善しました。",
+      "after": "保存した録音を文字起こしする方法がより分かりやすくなりました。音声とテキストの操作も明確になりました。"
+    },
+    "ko": {
+      "before": "녹음 안정성, 복구 안내, iPhone·Apple Watch·위젯 번역을 개선했습니다.",
+      "after": "저장한 녹음을 텍스트로 변환하는 방법이 더 명확해졌습니다. 오디오와 텍스트 작업을 쉽게 이해할 수 있습니다."
+    },
+    "pt-BR": {
+      "before": "Melhoramos a estabilidade da gravação, as orientações de recuperação e a tradução para iPhone, Apple Watch e widgets.",
+      "after": "Orientações mais claras para transcrever uma gravação salva. Agora as ações de áudio e texto são mais fáceis de entender."
+    },
+    "pt-PT": {
+      "before": "Melhorámos a fiabilidade das gravações, as indicações de recuperação e a tradução do iPhone, Apple Watch e widgets.",
+      "after": "Instruções mais claras para transcrever uma gravação guardada. As ações de áudio e texto são agora mais fáceis de compreender."
+    },
+    "zh-Hans": {
+      "before": "改善了录音稳定性、恢复提示，以及iPhone、Apple Watch和小组件的界面翻译。",
+      "after": "更清楚地说明如何转写已保存的录音，让音频和文本操作更易理解。"
+    },
+    "zh-Hant": {
+      "before": "改善錄音穩定性、復原提示，以及iPhone、Apple Watch和小工具的介面翻譯。",
+      "after": "更清楚地說明如何轉錄已儲存的錄音，讓音訊和文字操作更容易理解。"
+    }
+  },
+  "chickmark": {
+    "ru": {
+      "before": "Обновлены первые шаги, удобнее стал список привычек, а реклама меньше отвлекает от главного.",
+      "after": "Теперь собственную группу можно создать прямо при добавлении привычки. Не нужно выходить из формы или искать отдельные настройки."
+    },
+    "en-US": {
+      "before": "Refined first-run guidance, easier access to daily habits and a less intrusive native ad placement.",
+      "after": "Create a custom group right inside the new-habit form. No need to leave the form or hunt through settings."
+    },
+    "en-GB": {
+      "before": "Refined first-run guidance, easier access to daily habits and a less intrusive native ad placement.",
+      "after": "Create a custom group right inside the new-habit form. No need to leave the form or hunt through settings."
+    },
+    "en-AU": {
+      "before": "Refined first-run guidance, easier access to daily habits and a less intrusive native ad placement.",
+      "after": "Create a custom group right inside the new-habit form. No need to leave the form or hunt through settings."
+    },
+    "en-CA": {
+      "before": "Refined first-run guidance, easier access to daily habits and a less intrusive native ad placement.",
+      "after": "Create a custom group right inside the new-habit form. No need to leave the form or hunt through settings."
+    },
+    "es-ES": {
+      "before": "Mejoras en la configuración inicial, el acceso a los hábitos diarios y la ubicación de los anuncios.",
+      "after": "Ahora puedes crear un grupo personalizado al añadir un hábito, sin salir del formulario ni buscar otra pantalla."
+    },
+    "es-MX": {
+      "before": "Mejoramos los primeros pasos, el acceso a hábitos diarios y la presentación de anuncios.",
+      "after": "Ahora puedes crear un grupo personalizado al añadir un hábito, sin salir del formulario ni buscar otra pantalla."
+    },
+    "fr-FR": {
+      "before": "Prise en main simplifiée, accès plus direct aux habitudes du jour et publicités moins envahissantes.",
+      "after": "Créez un groupe personnalisé directement lors de l’ajout d’une habitude, sans quitter le formulaire."
+    },
+    "de-DE": {
+      "before": "Verbesserter Einstieg, direkterer Zugriff auf tägliche Gewohnheiten und dezenter platzierte Werbung.",
+      "after": "Eigene Gruppen lassen sich jetzt direkt beim Anlegen einer Gewohnheit erstellen, ohne das Formular zu verlassen."
+    },
+    "it": {
+      "before": "Avvio più semplice, accesso rapido alle abitudini quotidiane e annunci meno invadenti.",
+      "after": "Ora puoi creare un gruppo personalizzato direttamente mentre aggiungi un’abitudine, senza uscire dal modulo."
+    },
+    "ja": {
+      "before": "初回案内と毎日の習慣へのアクセスを改善し、広告の表示を控えめにしました。",
+      "after": "新しい習慣の追加画面から、そのまま自分用のグループを作成できるようになりました。"
+    },
+    "ko": {
+      "before": "첫 사용 안내와 오늘의 습관 화면을 개선하고 광고가 덜 방해되도록 조정했습니다.",
+      "after": "새 습관을 추가하는 화면에서 나만의 그룹을 바로 만들 수 있습니다. 다른 설정 화면으로 이동할 필요가 없습니다."
+    },
+    "pt-BR": {
+      "before": "Melhoramos as orientações iniciais, o acesso aos hábitos diários e a apresentação dos anúncios.",
+      "after": "Agora você pode criar um grupo personalizado ao adicionar um hábito, sem sair do formulário."
+    },
+    "pt-PT": {
+      "before": "Melhorámos a apresentação inicial, o acesso aos hábitos diários e a colocação dos anúncios.",
+      "after": "Agora pode criar um grupo personalizado ao adicionar um hábito, sem sair do formulário."
+    },
+    "zh-Hans": {
+      "before": "改进首次使用引导和每日习惯入口，减少广告对使用体验的干扰。",
+      "after": "现在可以直接在添加习惯的表单中创建自定义分组，无需切换到设置。"
+    },
+    "zh-Hant": {
+      "before": "改善初次使用引導與每日習慣入口，減少廣告對操作的干擾。",
+      "after": "現在可以直接在新增習慣的表單中建立自訂群組，不必切換至設定。"
+    }
+  }
+}
