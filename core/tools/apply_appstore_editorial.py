@@ -45,3 +45,12 @@ if updated:
     manifest_path.write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+"\n")
 print("Applied",count,"regional overrides;",updated,
       "captions synchronized to existing native files (no ASC writes)")
+# C14 keyword overlay: exact title/subtitle duplicates replaced, original preserved.
+kw=json.loads((ROOT/'editorial/c14-keyword-overrides.json').read_text())
+for app,locales in kw.items():
+ p=ROOT/f'{app}.json';d=json.loads(p.read_text())
+ for loc,rec in locales.items():
+  assert d['localeData'][loc]['keywords'] in (rec['before'],rec['after'])
+  d['localeData'][loc]['keywords']=rec['after']
+ p.write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n')
+print('C14 keyword changes',sum(len(v) for v in kw.values()))

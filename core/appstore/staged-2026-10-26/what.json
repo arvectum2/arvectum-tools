@@ -15,7 +15,7 @@
         "Язык и напоминания под контролем",
         "Быстро создай текстовую заметку"
       ],
-      "keywords": "диктофон,голос,запись,аудио,мысли,видео",
+      "keywords": "диктофон,голос,аудио,мысли,видео,диктовка,расшифровка",
       "name": "Ухват: голосовые заметки",
       "subtitle": "Запись мыслей одним нажатием",
       "privacyPolicyUrl": "https://arvectum.com/privacy.html"
@@ -30,7 +30,7 @@
         "Set language and reminders",
         "Write a quick text note"
       ],
-      "keywords": "voice,recorder,audio,memos,ideas,transcript,watch,notes,video,search,private",
+      "keywords": "recorder,audio,memos,transcript,watch,video,search,private,dictation,quick,capture,transcription",
       "name": "UhWhat? Voice Notes",
       "subtitle": "Record ideas in one tap",
       "privacyPolicyUrl": "https://arvectum.com/privacy.html"
@@ -45,7 +45,7 @@
         "Set language and reminders",
         "Write a quick text note"
       ],
-      "keywords": "voice,recorder,audio,memos,ideas,transcript,watch,notes,video,search,private",
+      "keywords": "recorder,audio,memos,transcript,watch,video,search,private,dictation,quick,capture,transcription",
       "name": "UhWhat? Voice Notes",
       "subtitle": "Record ideas in one tap",
       "privacyPolicyUrl": "https://arvectum.com/privacy.html"
@@ -60,7 +60,7 @@
         "Set language and reminders",
         "Write a quick text note"
       ],
-      "keywords": "voice,recorder,audio,memos,ideas,transcript,watch,notes,video,search,private",
+      "keywords": "recorder,audio,memos,transcript,watch,video,search,private,dictation,quick,capture,transcription",
       "name": "UhWhat? Voice Notes",
       "subtitle": "Record ideas in one tap",
       "privacyPolicyUrl": "https://arvectum.com/privacy.html"
@@ -75,7 +75,7 @@
         "Set language and reminders",
         "Write a quick text note"
       ],
-      "keywords": "voice,recorder,audio,memos,ideas,transcript,watch,notes,video,search,private",
+      "keywords": "recorder,audio,memos,transcript,watch,video,search,private,dictation,quick,capture,transcription",
       "name": "UhWhat? Voice Notes",
       "subtitle": "Record ideas in one tap",
       "privacyPolicyUrl": "https://arvectum.com/privacy.html"
@@ -90,7 +90,7 @@
         "Idioma y recordatorios",
         "Escribe una nota rápida"
       ],
-      "keywords": "voz,grabadora,audio,notas,ideas,transcripción,apple watch,vídeo,búsqueda",
+      "keywords": "grabadora,audio,transcripción,apple watch,vídeo,búsqueda",
       "name": "UhWhat?: notas de voz",
       "subtitle": "Graba ideas en un toque",
       "privacyPolicyUrl": "https://arvectum.com/privacy.html"
@@ -105,7 +105,7 @@
         "Idioma y recordatorios",
         "Escribe una nota rápida"
       ],
-      "keywords": "voz,grabadora,audio,notas,ideas,transcripción,apple watch,video,buscar",
+      "keywords": "grabadora,audio,transcripción,apple watch,video,buscar",
       "name": "UhWhat?: notas de voz",
       "subtitle": "Graba ideas en un toque",
       "privacyPolicyUrl": "https://arvectum.com/privacy.html"
@@ -120,7 +120,7 @@
         "Langue et rappels",
         "Écrivez une note rapidement"
       ],
-      "keywords": "voix,dictaphone,audio,notes,idées,transcription,apple watch,vidéo,recherche",
+      "keywords": "voix,dictaphone,audio,transcription,apple watch,vidéo,recherche",
       "name": "UhWhat? : notes vocales",
       "subtitle": "Enregistrez vos idées vite",
       "privacyPolicyUrl": "https://arvectum.com/privacy.html"
@@ -135,7 +135,7 @@
         "Sprache und Erinnerungen",
         "Schnelle Textnotiz schreiben"
       ],
-      "keywords": "Sprachnotizen,Diktiergerät,Aufnahme,Audio,Ideen,Transkription,Apple Watch,Notizen,Video",
+      "keywords": "Diktiergerät,Aufnahme,Audio,Transkription,Apple Watch,Notizen,Video",
       "name": "UhWhat?: Sprachnotizen",
       "subtitle": "Ideen mit einem Tipp",
       "privacyPolicyUrl": "https://arvectum.com/privacy.html"
@@ -150,7 +150,7 @@
         "Lingua e promemoria",
         "Scrivi una nota veloce"
       ],
-      "keywords": "voce,registratore,audio,note,idee,trascrizione,apple watch,video,ricerca",
+      "keywords": "voce,registratore,audio,trascrizione,apple watch,video,ricerca",
       "name": "UhWhat?: note vocali",
       "subtitle": "Registra idee con un tocco",
       "privacyPolicyUrl": "https://arvectum.com/privacy.html"
@@ -165,7 +165,7 @@
         "言語とリマインダー",
         "テキストメモを作成"
       ],
-      "keywords": "音声メモ,録音,ボイスメモ,アイデア,文字起こし,Apple Watch,テキスト,動画",
+      "keywords": "録音,ボイスメモ,アイデア,文字起こし,Apple Watch,テキスト,動画",
       "name": "UhWhat?: 音声メモ",
       "subtitle": "ワンタップで音声メモ",
       "privacyPolicyUrl": "https://arvectum.com/privacy.html"
@@ -195,7 +195,7 @@
         "Idioma e lembretes",
         "Escreva uma nota rápida"
       ],
-      "keywords": "voz,gravador,áudio,notas,ideias,transcrição,apple watch,vídeo,pesquisa",
+      "keywords": "gravador,áudio,transcrição,apple watch,vídeo,pesquisa",
       "name": "UhWhat?: notas de voz",
       "subtitle": "Grave ideias com um toque",
       "privacyPolicyUrl": "https://arvectum.com/privacy.html"
@@ -210,7 +210,7 @@
         "Idioma e lembretes",
         "Escreva uma nota rápida"
       ],
-      "keywords": "voz,gravador,áudio,notas,ideias,transcrição,apple watch,vídeo,pesquisa",
+      "keywords": "gravador,áudio,transcrição,apple watch,vídeo,pesquisa",
       "name": "UhWhat?: notas de voz",
       "subtitle": "Grave ideias com um toque",
       "privacyPolicyUrl": "https://arvectum.com/privacy.html"
@@ -225,7 +225,7 @@
         "语言与提醒设置",
         "快速创建文字笔记"
       ],
-      "keywords": "语音,录音,语音笔记,备忘录,灵感,语音转文字,手表,视频,搜索",
+      "keywords": "语音,录音,备忘录,灵感,语音转文字,手表,视频,搜索",
       "name": "UhWhat?: 语音笔记",
       "subtitle": "一键记录灵感",
       "privacyPolicyUrl": "https://arvectum.com/privacy.html"
@@ -240,7 +240,7 @@
         "語言與提醒設定",
         "快速建立文字筆記"
       ],
-      "keywords": "語音,錄音,語音筆記,備忘錄,靈感,語音轉文字,手錶,影片,搜尋",
+      "keywords": "語音,錄音,備忘錄,靈感,語音轉文字,手錶,影片,搜尋",
       "name": "UhWhat?: 語音筆記",
       "subtitle": "一鍵記錄靈感",
       "privacyPolicyUrl": "https://arvectum.com/privacy.html"

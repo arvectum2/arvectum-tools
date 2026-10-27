@@ -15,7 +15,7 @@
         "Приватность и настройки",
         "Поиск по сообщениям"
       ],
-      "keywords": "уведомления,архив,поиск,команды,история",
+      "keywords": "уведомления,поиск,оповещения,сообщения,журнал",
       "name": "PUSHKIN: история уведомлений",
       "subtitle": "Архив через «Команды»",
       "privacyPolicyUrl": "https://arvectum.com/privacy.html"
@@ -30,7 +30,7 @@
         "Privacy and settings",
         "Search by app or message"
       ],
-      "keywords": "alerts,history,archive,missed,notification,search,shortcuts,private,local,log",
+      "keywords": "archive,missed,search,private,local,log,messages,automation,capture,inbox",
       "name": "PUSHKIN: Notification History",
       "subtitle": "Save alerts with Shortcuts",
       "privacyPolicyUrl": "https://arvectum.com/privacy.html"
@@ -45,7 +45,7 @@
         "Privacy and settings",
         "Search by app or message"
       ],
-      "keywords": "alerts,history,archive,missed,notification,search,shortcuts,private,local,log",
+      "keywords": "archive,missed,search,private,local,log,messages,automation,capture,inbox",
       "name": "PUSHKIN: Notification History",
       "subtitle": "Save alerts with Shortcuts",
       "privacyPolicyUrl": "https://arvectum.com/privacy.html"
@@ -60,7 +60,7 @@
         "Privacy and settings",
         "Search by app or message"
       ],
-      "keywords": "alerts,history,archive,missed,notification,search,shortcuts,private,local,log",
+      "keywords": "archive,missed,search,private,local,log,messages,automation,capture,inbox",
       "name": "PUSHKIN: Notification History",
       "subtitle": "Save alerts with Shortcuts",
       "privacyPolicyUrl": "https://arvectum.com/privacy.html"
@@ -75,7 +75,7 @@
         "Privacy and settings",
         "Search by app or message"
       ],
-      "keywords": "alerts,history,archive,missed,notification,search,shortcuts,private,local,log",
+      "keywords": "archive,missed,search,private,local,log,messages,automation,capture,inbox",
       "name": "PUSHKIN: Notification History",
       "subtitle": "Save alerts with Shortcuts",
       "privacyPolicyUrl": "https://arvectum.com/privacy.html"
@@ -90,7 +90,7 @@
         "Privacidad y ajustes",
         "Busca por app o mensaje"
       ],
-      "keywords": "notificaciones,historial,avisos,alertas,archivo,atajos,automatización,buscar,privacidad",
+      "keywords": "notificaciones,alertas,archivo,automatización,buscar,privacidad",
       "name": "PUSHKIN: historial de avisos",
       "subtitle": "Historial con Atajos",
       "privacyPolicyUrl": "https://arvectum.com/privacy.html"
@@ -105,7 +105,7 @@
         "Privacidad y configuración",
         "Busca por app o mensaje"
       ],
-      "keywords": "notificaciones,historial,avisos,alertas,atajos,automatización,archivo,buscar,privacidad",
+      "keywords": "notificaciones,alertas,automatización,archivo,buscar,privacidad",
       "name": "PUSHKIN: historial de avisos",
       "subtitle": "Historial con Atajos",
       "privacyPolicyUrl": "https://arvectum.com/privacy.html"
@@ -120,7 +120,7 @@
         "Confidentialité et réglages",
         "Recherchez par app ou message"
       ],
-      "keywords": "notifications,historique,alertes,raccourcis,archives,recherche,automatisation,privé",
+      "keywords": "alertes,archives,recherche,automatisation,privé",
       "name": "PUSHKIN : notifications",
       "subtitle": "Historique via Raccourcis",
       "privacyPolicyUrl": "https://arvectum.com/privacy.html"
@@ -135,7 +135,7 @@
         "Datenschutz und Einstellungen",
         "Nach App oder Nachricht suchen"
       ],
-      "keywords": "Mitteilungen,Verlauf,Benachrichtigungen,Archiv,Kurzbefehle,Suche,Automationen,privat",
+      "keywords": "Benachrichtigungen,Archiv,Kurzbefehle,Suche,Automationen,privat",
       "name": "PUSHKIN: Mitteilungen",
       "subtitle": "Verlauf mit Kurzbefehlen",
       "privacyPolicyUrl": "https://arvectum.com/privacy.html"
@@ -150,7 +150,7 @@
         "Privacy e impostazioni",
         "Cerca per app o messaggio"
       ],
-      "keywords": "notifiche,cronologia,archivio,avvisi,ricerca,comandi rapidi,automazioni,privacy",
+      "keywords": "archivio,avvisi,ricerca,comandi rapidi,automazioni,privacy",
       "name": "PUSHKIN: notifiche",
       "subtitle": "Cronologia con Comandi Rapidi",
       "privacyPolicyUrl": "https://arvectum.com/privacy.html"
@@ -165,7 +165,7 @@
         "プライバシーと設定",
         "アプリ名や本文で検索"
       ],
-      "keywords": "通知,履歴,通知履歴,検索,保存,ショートカット,自動化,プライバシー",
+      "keywords": "通知,履歴,検索,保存,ショートカット,自動化,プライバシー",
       "name": "PUSHKIN: 通知履歴",
       "subtitle": "ショートカットで通知を保存",
       "privacyPolicyUrl": "https://arvectum.com/privacy.html"
@@ -195,7 +195,7 @@
         "Privacidade e ajustes",
         "Busque por app ou mensagem"
       ],
-      "keywords": "notificações,histórico,alertas,atalhos,automação,busca,arquivo,privacidade,mensagens",
+      "keywords": "alertas,automação,busca,arquivo,privacidade,mensagens",
       "name": "PUSHKIN: notificações",
       "subtitle": "Histórico com Atalhos",
       "privacyPolicyUrl": "https://arvectum.com/privacy.html"
@@ -210,7 +210,7 @@
         "Privacidade e definições",
         "Pesquise por app ou mensagem"
       ],
-      "keywords": "notificações,histórico,alertas,atalhos,automatização,pesquisa,arquivo,privacidade",
+      "keywords": "alertas,automatização,pesquisa,arquivo,privacidade",
       "name": "PUSHKIN: notificações",
       "subtitle": "Histórico com Atalhos",
       "privacyPolicyUrl": "https://arvectum.com/privacy.html"
@@ -225,7 +225,7 @@
         "隐私与设置",
         "按应用或消息搜索"
       ],
-      "keywords": "通知,通知记录,历史,搜索,快捷指令,自动化,消息,本地,隐私",
+      "keywords": "通知,历史,搜索,快捷指令,自动化,消息,本地,隐私",
       "name": "PUSHKIN: 通知记录",
       "subtitle": "通过快捷指令保存通知",
       "privacyPolicyUrl": "https://arvectum.com/privacy.html"

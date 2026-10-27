@@ -1,0 +1,387 @@
+{
+  "photo": {
+    "es-ES": {
+      "before": "reducir,peso,archivo,100kb,500kb,1mb,imagen,jpg,jpeg,pixeles,pasaporte,formulario,tramites,heic",
+      "after": "peso,archivo,100kb,500kb,1mb,imagen,jpg,jpeg,pixeles,pasaporte,formulario,tramites,heic",
+      "removed": [
+        "reducir"
+      ]
+    }
+  },
+  "pushkin": {
+    "ru": {
+      "before": "уведомления,архив,поиск,команды,история",
+      "after": "уведомления,поиск,оповещения,сообщения,журнал",
+      "removed": [
+        "архив",
+        "команды",
+        "история"
+      ]
+    },
+    "en-US": {
+      "before": "alerts,history,archive,missed,notification,search,shortcuts,private,local,log",
+      "after": "archive,missed,search,private,local,log,messages,automation,capture,inbox",
+      "removed": [
+        "alerts",
+        "history",
+        "notification",
+        "shortcuts"
+      ]
+    },
+    "en-GB": {
+      "before": "alerts,history,archive,missed,notification,search,shortcuts,private,local,log",
+      "after": "archive,missed,search,private,local,log,messages,automation,capture,inbox",
+      "removed": [
+        "alerts",
+        "history",
+        "notification",
+        "shortcuts"
+      ]
+    },
+    "en-AU": {
+      "before": "alerts,history,archive,missed,notification,search,shortcuts,private,local,log",
+      "after": "archive,missed,search,private,local,log,messages,automation,capture,inbox",
+      "removed": [
+        "alerts",
+        "history",
+        "notification",
+        "shortcuts"
+      ]
+    },
+    "en-CA": {
+      "before": "alerts,history,archive,missed,notification,search,shortcuts,private,local,log",
+      "after": "archive,missed,search,private,local,log,messages,automation,capture,inbox",
+      "removed": [
+        "alerts",
+        "history",
+        "notification",
+        "shortcuts"
+      ]
+    },
+    "es-ES": {
+      "before": "notificaciones,historial,avisos,alertas,archivo,atajos,automatización,buscar,privacidad",
+      "after": "notificaciones,alertas,archivo,automatización,buscar,privacidad",
+      "removed": [
+        "historial",
+        "avisos",
+        "atajos"
+      ]
+    },
+    "es-MX": {
+      "before": "notificaciones,historial,avisos,alertas,atajos,automatización,archivo,buscar,privacidad",
+      "after": "notificaciones,alertas,automatización,archivo,buscar,privacidad",
+      "removed": [
+        "historial",
+        "avisos",
+        "atajos"
+      ]
+    },
+    "fr-FR": {
+      "before": "notifications,historique,alertes,raccourcis,archives,recherche,automatisation,privé",
+      "after": "alertes,archives,recherche,automatisation,privé",
+      "removed": [
+        "notifications",
+        "historique",
+        "raccourcis"
+      ]
+    },
+    "de-DE": {
+      "before": "Mitteilungen,Verlauf,Benachrichtigungen,Archiv,Kurzbefehle,Suche,Automationen,privat",
+      "after": "Benachrichtigungen,Archiv,Kurzbefehle,Suche,Automationen,privat",
+      "removed": [
+        "Mitteilungen",
+        "Verlauf"
+      ]
+    },
+    "it": {
+      "before": "notifiche,cronologia,archivio,avvisi,ricerca,comandi rapidi,automazioni,privacy",
+      "after": "archivio,avvisi,ricerca,comandi rapidi,automazioni,privacy",
+      "removed": [
+        "notifiche",
+        "cronologia"
+      ]
+    },
+    "ja": {
+      "before": "通知,履歴,通知履歴,検索,保存,ショートカット,自動化,プライバシー",
+      "after": "通知,履歴,検索,保存,ショートカット,自動化,プライバシー",
+      "removed": [
+        "通知履歴"
+      ]
+    },
+    "pt-BR": {
+      "before": "notificações,histórico,alertas,atalhos,automação,busca,arquivo,privacidade,mensagens",
+      "after": "alertas,automação,busca,arquivo,privacidade,mensagens",
+      "removed": [
+        "notificações",
+        "histórico",
+        "atalhos"
+      ]
+    },
+    "pt-PT": {
+      "before": "notificações,histórico,alertas,atalhos,automatização,pesquisa,arquivo,privacidade",
+      "after": "alertas,automatização,pesquisa,arquivo,privacidade",
+      "removed": [
+        "notificações",
+        "histórico",
+        "atalhos"
+      ]
+    },
+    "zh-Hans": {
+      "before": "通知,通知记录,历史,搜索,快捷指令,自动化,消息,本地,隐私",
+      "after": "通知,历史,搜索,快捷指令,自动化,消息,本地,隐私",
+      "removed": [
+        "通知记录"
+      ]
+    }
+  },
+  "what": {
+    "ru": {
+      "before": "диктофон,голос,запись,аудио,мысли,видео",
+      "after": "диктофон,голос,аудио,мысли,видео,диктовка,расшифровка",
+      "removed": [
+        "запись"
+      ]
+    },
+    "en-US": {
+      "before": "voice,recorder,audio,memos,ideas,transcript,watch,notes,video,search,private",
+      "after": "recorder,audio,memos,transcript,watch,video,search,private,dictation,quick,capture,transcription",
+      "removed": [
+        "voice",
+        "ideas",
+        "notes"
+      ]
+    },
+    "en-GB": {
+      "before": "voice,recorder,audio,memos,ideas,transcript,watch,notes,video,search,private",
+      "after": "recorder,audio,memos,transcript,watch,video,search,private,dictation,quick,capture,transcription",
+      "removed": [
+        "voice",
+        "ideas",
+        "notes"
+      ]
+    },
+    "en-AU": {
+      "before": "voice,recorder,audio,memos,ideas,transcript,watch,notes,video,search,private",
+      "after": "recorder,audio,memos,transcript,watch,video,search,private,dictation,quick,capture,transcription",
+      "removed": [
+        "voice",
+        "ideas",
+        "notes"
+      ]
+    },
+    "en-CA": {
+      "before": "voice,recorder,audio,memos,ideas,transcript,watch,notes,video,search,private",
+      "after": "recorder,audio,memos,transcript,watch,video,search,private,dictation,quick,capture,transcription",
+      "removed": [
+        "voice",
+        "ideas",
+        "notes"
+      ]
+    },
+    "es-ES": {
+      "before": "voz,grabadora,audio,notas,ideas,transcripción,apple watch,vídeo,búsqueda",
+      "after": "grabadora,audio,transcripción,apple watch,vídeo,búsqueda",
+      "removed": [
+        "voz",
+        "notas",
+        "ideas"
+      ]
+    },
+    "es-MX": {
+      "before": "voz,grabadora,audio,notas,ideas,transcripción,apple watch,video,buscar",
+      "after": "grabadora,audio,transcripción,apple watch,video,buscar",
+      "removed": [
+        "voz",
+        "notas",
+        "ideas"
+      ]
+    },
+    "fr-FR": {
+      "before": "voix,dictaphone,audio,notes,idées,transcription,apple watch,vidéo,recherche",
+      "after": "voix,dictaphone,audio,transcription,apple watch,vidéo,recherche",
+      "removed": [
+        "notes",
+        "idées"
+      ]
+    },
+    "de-DE": {
+      "before": "Sprachnotizen,Diktiergerät,Aufnahme,Audio,Ideen,Transkription,Apple Watch,Notizen,Video",
+      "after": "Diktiergerät,Aufnahme,Audio,Transkription,Apple Watch,Notizen,Video",
+      "removed": [
+        "Sprachnotizen",
+        "Ideen"
+      ]
+    },
+    "it": {
+      "before": "voce,registratore,audio,note,idee,trascrizione,apple watch,video,ricerca",
+      "after": "voce,registratore,audio,trascrizione,apple watch,video,ricerca",
+      "removed": [
+        "note",
+        "idee"
+      ]
+    },
+    "ja": {
+      "before": "音声メモ,録音,ボイスメモ,アイデア,文字起こし,Apple Watch,テキスト,動画",
+      "after": "録音,ボイスメモ,アイデア,文字起こし,Apple Watch,テキスト,動画",
+      "removed": [
+        "音声メモ"
+      ]
+    },
+    "pt-BR": {
+      "before": "voz,gravador,áudio,notas,ideias,transcrição,apple watch,vídeo,pesquisa",
+      "after": "gravador,áudio,transcrição,apple watch,vídeo,pesquisa",
+      "removed": [
+        "voz",
+        "notas",
+        "ideias"
+      ]
+    },
+    "pt-PT": {
+      "before": "voz,gravador,áudio,notas,ideias,transcrição,apple watch,vídeo,pesquisa",
+      "after": "gravador,áudio,transcrição,apple watch,vídeo,pesquisa",
+      "removed": [
+        "voz",
+        "notas",
+        "ideias"
+      ]
+    },
+    "zh-Hans": {
+      "before": "语音,录音,语音笔记,备忘录,灵感,语音转文字,手表,视频,搜索",
+      "after": "语音,录音,备忘录,灵感,语音转文字,手表,视频,搜索",
+      "removed": [
+        "语音笔记"
+      ]
+    },
+    "zh-Hant": {
+      "before": "語音,錄音,語音筆記,備忘錄,靈感,語音轉文字,手錶,影片,搜尋",
+      "after": "語音,錄音,備忘錄,靈感,語音轉文字,手錶,影片,搜尋",
+      "removed": [
+        "語音筆記"
+      ]
+    }
+  },
+  "chickmark": {
+    "ru": {
+      "before": "привычки,серии,цели,планер,отметки",
+      "after": "цели,планер,отметки,прогресс,расписание,ежедневник",
+      "removed": [
+        "привычки",
+        "серии"
+      ]
+    },
+    "en-US": {
+      "before": "habits,routines,streaks,goals,planner,daily,checklist,reminders,progress,watch",
+      "after": "routines,goals,planner,daily,checklist,progress,watch,widgets,water,fitness,weekly",
+      "removed": [
+        "habits",
+        "streaks",
+        "reminders"
+      ]
+    },
+    "en-GB": {
+      "before": "habits,routines,streaks,goals,planner,daily,checklist,reminders,progress,watch",
+      "after": "routines,goals,planner,daily,checklist,progress,watch,widgets,water,fitness,weekly",
+      "removed": [
+        "habits",
+        "streaks",
+        "reminders"
+      ]
+    },
+    "en-AU": {
+      "before": "habits,routines,streaks,goals,planner,daily,checklist,reminders,progress,watch",
+      "after": "routines,goals,planner,daily,checklist,progress,watch,widgets,water,fitness,weekly",
+      "removed": [
+        "habits",
+        "streaks",
+        "reminders"
+      ]
+    },
+    "en-CA": {
+      "before": "habits,routines,streaks,goals,planner,daily,checklist,reminders,progress,watch",
+      "after": "routines,goals,planner,daily,checklist,progress,watch,widgets,water,fitness,weekly",
+      "removed": [
+        "habits",
+        "streaks",
+        "reminders"
+      ]
+    },
+    "es-ES": {
+      "before": "hábitos,seguimiento,rachas,metas,rutinas,recordatorios,lista,progreso,apple watch",
+      "after": "seguimiento,metas,rutinas,recordatorios,lista,progreso,apple watch",
+      "removed": [
+        "hábitos",
+        "rachas"
+      ]
+    },
+    "es-MX": {
+      "before": "hábitos,seguimiento,rachas,metas,rutinas,recordatorios,lista,progreso,apple watch",
+      "after": "seguimiento,metas,rutinas,recordatorios,lista,progreso,apple watch",
+      "removed": [
+        "hábitos",
+        "rachas"
+      ]
+    },
+    "fr-FR": {
+      "before": "habitudes,suivi,routines,objectifs,rappels,calendrier,progression,séries,apple watch",
+      "after": "suivi,routines,objectifs,calendrier,progression,séries,apple watch",
+      "removed": [
+        "habitudes",
+        "rappels"
+      ]
+    },
+    "de-DE": {
+      "before": "Gewohnheiten,Habit Tracker,Routine,Serien,Ziele,Erinnerungen,Fortschritt,Apple Watch",
+      "after": "Habit Tracker,Routine,Serien,Ziele,Fortschritt,Apple Watch",
+      "removed": [
+        "Gewohnheiten",
+        "Erinnerungen"
+      ]
+    },
+    "it": {
+      "before": "abitudini,routine,obiettivi,serie,progressi,promemoria,calendario,apple watch",
+      "after": "routine,obiettivi,serie,progressi,calendario,apple watch",
+      "removed": [
+        "abitudini",
+        "promemoria"
+      ]
+    },
+    "ja": {
+      "before": "習慣,習慣管理,記録,継続,目標,リマインダー,連続記録,進捗,Apple Watch",
+      "after": "習慣,習慣管理,記録,継続,目標,進捗,Apple Watch",
+      "removed": [
+        "リマインダー",
+        "連続記録"
+      ]
+    },
+    "pt-BR": {
+      "before": "hábitos,rotina,metas,lembretes,sequência,progresso,checklist,apple watch",
+      "after": "rotina,metas,sequência,progresso,checklist,apple watch",
+      "removed": [
+        "hábitos",
+        "lembretes"
+      ]
+    },
+    "pt-PT": {
+      "before": "hábitos,rotina,objetivos,lembretes,progresso,sequências,lista,apple watch",
+      "after": "rotina,objetivos,progresso,sequências,lista,apple watch",
+      "removed": [
+        "hábitos",
+        "lembretes"
+      ]
+    },
+    "zh-Hans": {
+      "before": "习惯,习惯打卡,坚持,连续天数,目标,提醒,计划,进度,Apple Watch",
+      "after": "习惯,坚持,连续天数,目标,提醒,计划,进度,Apple Watch",
+      "removed": [
+        "习惯打卡"
+      ]
+    },
+    "zh-Hant": {
+      "before": "習慣,習慣打卡,堅持,連續天數,目標,提醒,計畫,進度,Apple Watch",
+      "after": "習慣,堅持,連續天數,目標,提醒,計畫,進度,Apple Watch",
+      "removed": [
+        "習慣打卡"
+      ]
+    }
+  }
+}

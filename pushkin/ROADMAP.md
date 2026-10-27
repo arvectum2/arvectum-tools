@@ -1,5 +1,7 @@
 # PUSHKIN — Product Roadmap
 
+C14 (27.10): keywords оптимизированы в 14 региональных ASO-карточках, сохранена оговорка Shortcuts; изображения не менялись. [C14](../core/docs/ASO_C14_KEYWORDS_VISUAL_GATE_2026-10-27.md).
+
 P0: опубликованный PUSHKIN и Xcode project.yml требуют iOS 27.0 (остальной портфель iOS 17.0). Проверить API и безопасную обратную совместимость отдельной задачей, не менять target вслепую. [Сверка](../core/docs/ASO_C13_LIVE_APPSTORE_DRIFT_2026-10-27.md).
 
 C13: переписаны ASO-описания, keywords, промотексты и подписи на 11 переводных регионов, уточнены ограничения iOS. [Матрица](../core/docs/ASO_C13_LINGUISTIC_EDITORIAL_2026-10-27.md).

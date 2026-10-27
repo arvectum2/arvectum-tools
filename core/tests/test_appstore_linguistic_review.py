@@ -9,6 +9,7 @@ class LinguisticASOReviewTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.overrides=json.loads(MANUAL.read_text())
+        cls.c14=json.loads((STAGE/"editorial/c14-keyword-overrides.json").read_text())
     def test_complete_review_and_canonical_fields(self):
         self.assertEqual({a:len(v) for a,v in self.overrides.items()},
                          {"pushkin":11,"what":11,"chickmark":11,"photo":2})
@@ -19,7 +20,9 @@ class LinguisticASOReviewTests(unittest.TestCase):
                 self.assertTrue(fields<=set(patch),(app,loc))
                 self.assertEqual(len(patch["screenshots"]),4)
                 for key in fields:
-                    self.assertEqual(data[loc][key],patch[key],(app,loc,key))
+                    expected=(self.c14.get(app,{}).get(loc,{}).get("after",patch[key])
+                              if key=="keywords" else patch[key])
+                    self.assertEqual(data[loc][key],expected,(app,loc,key))
                 self.assertLessEqual(len(patch["keywords"].encode("utf-8")),100)
                 self.assertLessEqual(len(patch["promotionalText"]),170)
     def test_bad_automated_terms_no_longer_present_in_reviewed_copy(self):

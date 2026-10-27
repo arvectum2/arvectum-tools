@@ -9,6 +9,8 @@ on:
       - "core/tools/audit_editorial_all_locales.py"
       - "core/tools/localization_portfolio.py"
       - "core/tests/test_localization_portfolio.py"
+      - "core/tests/test_appstore_keyword_c14.py"
+      - "core/tests/test_appstore_release_gate.py"
       - "chickmark/ios/**"
       - "photo-pdf-to-size/ios/**"
       - "photo-pdf-to-size/android/app/src/main/**"
@@ -23,6 +25,8 @@ on:
       - "core/tools/audit_editorial_all_locales.py"
       - "core/tools/localization_portfolio.py"
       - "core/tests/test_localization_portfolio.py"
+      - "core/tests/test_appstore_keyword_c14.py"
+      - "core/tests/test_appstore_release_gate.py"
       - "chickmark/ios/**"
       - "photo-pdf-to-size/ios/**"
       - "photo-pdf-to-size/android/app/src/main/**"
@@ -46,5 +50,11 @@ jobs:
         run: python3 -m unittest discover -s core/tests -p test_appstore_review_gallery.py -q
       - name: Guard editorial ASO copy and product-limit caveats
         run: python3 -m unittest discover -s core/tests -p test_appstore_linguistic_review.py -q
+      - name: Guard ASO keyword efficiency (C14)
+        run: python3 -m unittest discover -s core/tests -p test_appstore_keyword_c14.py -q
+      - name: Confirm release gate blocks unauthorised ASC changes
+        run: |
+          python3 core/tools/check_appstore_release_readiness.py
+          python3 -m unittest discover -s core/tests -p test_appstore_release_gate.py -q
       - name: Test shared locale registry and English fallback
         run: python3 -m unittest discover -s core/tests -p test_localization_portfolio.py -v

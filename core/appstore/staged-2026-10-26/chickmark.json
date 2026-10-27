@@ -15,7 +15,7 @@
         "Прогресс и серии по дням",
         "Настройте график и напоминания"
       ],
-      "keywords": "привычки,серии,цели,планер,отметки",
+      "keywords": "цели,планер,отметки,прогресс,расписание,ежедневник",
       "name": "ChickMark: трекер привычек",
       "subtitle": "Привычки, серии, напоминания",
       "privacyPolicyUrl": "https://arvectum.com/privacy.html"
@@ -30,7 +30,7 @@
         "See progress and streaks",
         "Set schedules and reminders"
       ],
-      "keywords": "habits,routines,streaks,goals,planner,daily,checklist,reminders,progress,watch",
+      "keywords": "routines,goals,planner,daily,checklist,progress,watch,widgets,water,fitness,weekly",
       "name": "ChickMark: Habit Tracker",
       "subtitle": "Habits, streaks & reminders",
       "privacyPolicyUrl": "https://arvectum.com/privacy.html"
@@ -45,7 +45,7 @@
         "See progress and streaks",
         "Set schedules and reminders"
       ],
-      "keywords": "habits,routines,streaks,goals,planner,daily,checklist,reminders,progress,watch",
+      "keywords": "routines,goals,planner,daily,checklist,progress,watch,widgets,water,fitness,weekly",
       "name": "ChickMark: Habit Tracker",
       "subtitle": "Habits, streaks & reminders",
       "privacyPolicyUrl": "https://arvectum.com/privacy.html"
@@ -60,7 +60,7 @@
         "See progress and streaks",
         "Set schedules and reminders"
       ],
-      "keywords": "habits,routines,streaks,goals,planner,daily,checklist,reminders,progress,watch",
+      "keywords": "routines,goals,planner,daily,checklist,progress,watch,widgets,water,fitness,weekly",
       "name": "ChickMark: Habit Tracker",
       "subtitle": "Habits, streaks & reminders",
       "privacyPolicyUrl": "https://arvectum.com/privacy.html"
@@ -75,7 +75,7 @@
         "See progress and streaks",
         "Set schedules and reminders"
       ],
-      "keywords": "habits,routines,streaks,goals,planner,daily,checklist,reminders,progress,watch",
+      "keywords": "routines,goals,planner,daily,checklist,progress,watch,widgets,water,fitness,weekly",
       "name": "ChickMark: Habit Tracker",
       "subtitle": "Habits, streaks & reminders",
       "privacyPolicyUrl": "https://arvectum.com/privacy.html"
@@ -90,7 +90,7 @@
         "Sigue tu progreso y rachas",
         "Horarios y recordatorios"
       ],
-      "keywords": "hábitos,seguimiento,rachas,metas,rutinas,recordatorios,lista,progreso,apple watch",
+      "keywords": "seguimiento,metas,rutinas,recordatorios,lista,progreso,apple watch",
       "name": "ChickMark: hábitos",
       "subtitle": "Hábitos, rachas y avisos",
       "privacyPolicyUrl": "https://arvectum.com/privacy.html"
@@ -105,7 +105,7 @@
         "Revisa avances y rachas",
         "Configura días y recordatorios"
       ],
-      "keywords": "hábitos,seguimiento,rachas,metas,rutinas,recordatorios,lista,progreso,apple watch",
+      "keywords": "seguimiento,metas,rutinas,recordatorios,lista,progreso,apple watch",
       "name": "ChickMark: hábitos",
       "subtitle": "Hábitos, rachas y avisos",
       "privacyPolicyUrl": "https://arvectum.com/privacy.html"
@@ -120,7 +120,7 @@
         "Suivez vos progrès",
         "Planifiez et ajoutez des rappels"
       ],
-      "keywords": "habitudes,suivi,routines,objectifs,rappels,calendrier,progression,séries,apple watch",
+      "keywords": "suivi,routines,objectifs,calendrier,progression,séries,apple watch",
       "name": "ChickMark : habitudes",
       "subtitle": "Habitudes et rappels",
       "privacyPolicyUrl": "https://arvectum.com/privacy.html"
@@ -135,7 +135,7 @@
         "Fortschritte und Serien",
         "Zeitpläne und Erinnerungen"
       ],
-      "keywords": "Gewohnheiten,Habit Tracker,Routine,Serien,Ziele,Erinnerungen,Fortschritt,Apple Watch",
+      "keywords": "Habit Tracker,Routine,Serien,Ziele,Fortschritt,Apple Watch",
       "name": "ChickMark: Gewohnheiten",
       "subtitle": "Gewohnheiten & Erinnerungen",
       "privacyPolicyUrl": "https://arvectum.com/privacy.html"
@@ -150,7 +150,7 @@
         "Controlla i progressi",
         "Orari e promemoria"
       ],
-      "keywords": "abitudini,routine,obiettivi,serie,progressi,promemoria,calendario,apple watch",
+      "keywords": "routine,obiettivi,serie,progressi,calendario,apple watch",
       "name": "ChickMark: abitudini",
       "subtitle": "Abitudini e promemoria",
       "privacyPolicyUrl": "https://arvectum.com/privacy.html"
@@ -165,7 +165,7 @@
         "進捗と連続達成を確認",
         "予定と通知を設定"
       ],
-      "keywords": "習慣,習慣管理,記録,継続,目標,リマインダー,連続記録,進捗,Apple Watch",
+      "keywords": "習慣,習慣管理,記録,継続,目標,進捗,Apple Watch",
       "name": "ChickMark: 習慣記録",
       "subtitle": "習慣・連続記録・リマインダー",
       "privacyPolicyUrl": "https://arvectum.com/privacy.html"
@@ -195,7 +195,7 @@
         "Acompanhe seu progresso",
         "Agende e receba lembretes"
       ],
-      "keywords": "hábitos,rotina,metas,lembretes,sequência,progresso,checklist,apple watch",
+      "keywords": "rotina,metas,sequência,progresso,checklist,apple watch",
       "name": "ChickMark: hábitos",
       "subtitle": "Hábitos e lembretes",
       "privacyPolicyUrl": "https://arvectum.com/privacy.html"
@@ -210,7 +210,7 @@
         "Acompanhe o progresso",
         "Horários e lembretes"
       ],
-      "keywords": "hábitos,rotina,objetivos,lembretes,progresso,sequências,lista,apple watch",
+      "keywords": "rotina,objetivos,progresso,sequências,lista,apple watch",
       "name": "ChickMark: hábitos",
       "subtitle": "Hábitos e lembretes",
       "privacyPolicyUrl": "https://arvectum.com/privacy.html"
@@ -225,7 +225,7 @@
         "查看进度与连续记录",
         "设置日程和提醒"
       ],
-      "keywords": "习惯,习惯打卡,坚持,连续天数,目标,提醒,计划,进度,Apple Watch",
+      "keywords": "习惯,坚持,连续天数,目标,提醒,计划,进度,Apple Watch",
       "name": "ChickMark: 习惯打卡",
       "subtitle": "习惯打卡与提醒",
       "privacyPolicyUrl": "https://arvectum.com/privacy.html"
@@ -240,7 +240,7 @@
         "查看進度與連續紀錄",
         "設定日程和提醒"
       ],
-      "keywords": "習慣,習慣打卡,堅持,連續天數,目標,提醒,計畫,進度,Apple Watch",
+      "keywords": "習慣,堅持,連續天數,目標,提醒,計畫,進度,Apple Watch",
       "name": "ChickMark: 習慣打卡",
       "subtitle": "習慣打卡與提醒",
       "privacyPolicyUrl": "https://arvectum.com/privacy.html"
