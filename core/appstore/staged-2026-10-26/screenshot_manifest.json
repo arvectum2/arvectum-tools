@@ -58,7 +58,7 @@
           "requiredNativeLocale": "ru",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/ru/ipad-13/01-fileSize.png",
-          "sha256": "32e8e4af2ec6a93fc1e3c34147f95bfb4afe3d143591eee004c767820ee80388",
+          "sha256": "149475753e7bd9a3bc14d85a939d7168bf5ddd0bb1f5749cee43d444aa08b901",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -69,7 +69,7 @@
           "requiredNativeLocale": "ru",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/ru/ipad-13/02-pixels.png",
-          "sha256": "bdc845e03314e491200057ee57933e2a1fef3c0c6aac74d5471c6a45aa5b503d",
+          "sha256": "c97d29cbb1e5bdc7576b7b811972c6ebf1f9514d5f6b5dd67fabc8467001bbc1",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -80,7 +80,7 @@
           "requiredNativeLocale": "ru",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/ru/ipad-13/03-passport.png",
-          "sha256": "281252d966e26c1fce62ed33e88c850e82c32f9b09a87576a5e3bf5d04367355",
+          "sha256": "b0bb4bab322c28fab6aa82d1ac4a29528f10f0ee895009c45a1da06cd374577d",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -91,7 +91,7 @@
           "requiredNativeLocale": "ru",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/ru/ipad-13/04-pdf.png",
-          "sha256": "df176ba0c242f31e22833cd9df074578521bdb671a711d34d44cf366884712d4",
+          "sha256": "b8bfa216238dbeccc62b0b03b6a1038c871eb3f904c02f8fbcff43de9e37127d",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -146,7 +146,7 @@
           "requiredNativeLocale": "en",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/en/ipad-13/01-fileSize.png",
-          "sha256": "571fb0750bd1fd06ae10a4f1437639b4f10a25c415e6841d10bd64282bd46a6c",
+          "sha256": "b4bb993e6f80e13ff66ea6a9458c2fc99c6190942fcfcf812d80f3c691de0e04",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -157,7 +157,7 @@
           "requiredNativeLocale": "en",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/en/ipad-13/02-pixels.png",
-          "sha256": "c81271596c9fec0358dcb98610b30cdf2a272df048ef056517397619efa531da",
+          "sha256": "be7fe86be01e5ad9e33c5f7251e7d960ab6ef25f217e511df7519b37db9dccbd",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -168,7 +168,7 @@
           "requiredNativeLocale": "en",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/en/ipad-13/03-passport.png",
-          "sha256": "3aca524fb19c90af2e04286745db0c1b36378fa9cb1198fa3b9817bb916ce258",
+          "sha256": "8ab706ced59580ceeee03b2cbb593e4fed10749b57d2e293661e2e2b4f3d00b6",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -179,7 +179,7 @@
           "requiredNativeLocale": "en",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/en/ipad-13/04-pdf.png",
-          "sha256": "203745b8fd716db3d79bff8d90f8d3cda0133a957886685ce1694c30caf9d74b",
+          "sha256": "6e33216587ff2984bfd80e72e7fca57fcd56c1e77ca730c2b5df8e1199aa7995",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -234,7 +234,7 @@
           "requiredNativeLocale": "en",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/en/ipad-13/01-fileSize.png",
-          "sha256": "571fb0750bd1fd06ae10a4f1437639b4f10a25c415e6841d10bd64282bd46a6c",
+          "sha256": "b4bb993e6f80e13ff66ea6a9458c2fc99c6190942fcfcf812d80f3c691de0e04",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -245,7 +245,7 @@
           "requiredNativeLocale": "en",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/en/ipad-13/02-pixels.png",
-          "sha256": "c81271596c9fec0358dcb98610b30cdf2a272df048ef056517397619efa531da",
+          "sha256": "be7fe86be01e5ad9e33c5f7251e7d960ab6ef25f217e511df7519b37db9dccbd",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -256,7 +256,7 @@
           "requiredNativeLocale": "en",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/en/ipad-13/03-passport.png",
-          "sha256": "3aca524fb19c90af2e04286745db0c1b36378fa9cb1198fa3b9817bb916ce258",
+          "sha256": "8ab706ced59580ceeee03b2cbb593e4fed10749b57d2e293661e2e2b4f3d00b6",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -267,7 +267,7 @@
           "requiredNativeLocale": "en",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/en/ipad-13/04-pdf.png",
-          "sha256": "203745b8fd716db3d79bff8d90f8d3cda0133a957886685ce1694c30caf9d74b",
+          "sha256": "6e33216587ff2984bfd80e72e7fca57fcd56c1e77ca730c2b5df8e1199aa7995",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -322,7 +322,7 @@
           "requiredNativeLocale": "en",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/en/ipad-13/01-fileSize.png",
-          "sha256": "571fb0750bd1fd06ae10a4f1437639b4f10a25c415e6841d10bd64282bd46a6c",
+          "sha256": "b4bb993e6f80e13ff66ea6a9458c2fc99c6190942fcfcf812d80f3c691de0e04",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -333,7 +333,7 @@
           "requiredNativeLocale": "en",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/en/ipad-13/02-pixels.png",
-          "sha256": "c81271596c9fec0358dcb98610b30cdf2a272df048ef056517397619efa531da",
+          "sha256": "be7fe86be01e5ad9e33c5f7251e7d960ab6ef25f217e511df7519b37db9dccbd",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -344,7 +344,7 @@
           "requiredNativeLocale": "en",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/en/ipad-13/03-passport.png",
-          "sha256": "3aca524fb19c90af2e04286745db0c1b36378fa9cb1198fa3b9817bb916ce258",
+          "sha256": "8ab706ced59580ceeee03b2cbb593e4fed10749b57d2e293661e2e2b4f3d00b6",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -355,7 +355,7 @@
           "requiredNativeLocale": "en",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/en/ipad-13/04-pdf.png",
-          "sha256": "203745b8fd716db3d79bff8d90f8d3cda0133a957886685ce1694c30caf9d74b",
+          "sha256": "6e33216587ff2984bfd80e72e7fca57fcd56c1e77ca730c2b5df8e1199aa7995",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -410,7 +410,7 @@
           "requiredNativeLocale": "en",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/en/ipad-13/01-fileSize.png",
-          "sha256": "571fb0750bd1fd06ae10a4f1437639b4f10a25c415e6841d10bd64282bd46a6c",
+          "sha256": "b4bb993e6f80e13ff66ea6a9458c2fc99c6190942fcfcf812d80f3c691de0e04",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -421,7 +421,7 @@
           "requiredNativeLocale": "en",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/en/ipad-13/02-pixels.png",
-          "sha256": "c81271596c9fec0358dcb98610b30cdf2a272df048ef056517397619efa531da",
+          "sha256": "be7fe86be01e5ad9e33c5f7251e7d960ab6ef25f217e511df7519b37db9dccbd",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -432,7 +432,7 @@
           "requiredNativeLocale": "en",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/en/ipad-13/03-passport.png",
-          "sha256": "3aca524fb19c90af2e04286745db0c1b36378fa9cb1198fa3b9817bb916ce258",
+          "sha256": "8ab706ced59580ceeee03b2cbb593e4fed10749b57d2e293661e2e2b4f3d00b6",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -443,7 +443,7 @@
           "requiredNativeLocale": "en",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/en/ipad-13/04-pdf.png",
-          "sha256": "203745b8fd716db3d79bff8d90f8d3cda0133a957886685ce1694c30caf9d74b",
+          "sha256": "6e33216587ff2984bfd80e72e7fca57fcd56c1e77ca730c2b5df8e1199aa7995",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -498,7 +498,7 @@
           "requiredNativeLocale": "es",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/es/ipad-13/01-fileSize.png",
-          "sha256": "f859ec4c216d30efbb1fd09925de9a45f9b0505ec1f673b75d36ed0a0141b15e",
+          "sha256": "2085576de6c31408d26fcd31d4fe8d045dc5d51a461a06b80a0a33af270dd519",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -509,7 +509,7 @@
           "requiredNativeLocale": "es",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/es/ipad-13/02-pixels.png",
-          "sha256": "72dcafe3ae8aee37fbb45bedefd20c82e5f883e424063af57cf200b7cb175ef9",
+          "sha256": "3b6f745d5724bd02ee7cb405fd31b3938a26e7c7358d064da0f721d35c18ebea",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -520,7 +520,7 @@
           "requiredNativeLocale": "es",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/es/ipad-13/03-passport.png",
-          "sha256": "b03abac19cdfee97e675321d288e9ebc60290266ed605d58d5e798577a1646d2",
+          "sha256": "e53016b5e3ab9219b30e2f46999da5a8dca72b9eadbc040dc0eaaeb122655041",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -531,7 +531,7 @@
           "requiredNativeLocale": "es",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/es/ipad-13/04-pdf.png",
-          "sha256": "51f2c4f367acc52f0d6c8073ede4537b6a89d70817811ecb5c3353ea360ea206",
+          "sha256": "e30febbdb058dd604b12318f8cae252397548068a5e28c0faf8e125a904ea2c5",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -586,7 +586,7 @@
           "requiredNativeLocale": "es",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/es/ipad-13/01-fileSize.png",
-          "sha256": "f859ec4c216d30efbb1fd09925de9a45f9b0505ec1f673b75d36ed0a0141b15e",
+          "sha256": "2085576de6c31408d26fcd31d4fe8d045dc5d51a461a06b80a0a33af270dd519",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -597,7 +597,7 @@
           "requiredNativeLocale": "es",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/es/ipad-13/02-pixels.png",
-          "sha256": "72dcafe3ae8aee37fbb45bedefd20c82e5f883e424063af57cf200b7cb175ef9",
+          "sha256": "3b6f745d5724bd02ee7cb405fd31b3938a26e7c7358d064da0f721d35c18ebea",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -608,7 +608,7 @@
           "requiredNativeLocale": "es",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/es/ipad-13/03-passport.png",
-          "sha256": "b03abac19cdfee97e675321d288e9ebc60290266ed605d58d5e798577a1646d2",
+          "sha256": "e53016b5e3ab9219b30e2f46999da5a8dca72b9eadbc040dc0eaaeb122655041",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -619,7 +619,7 @@
           "requiredNativeLocale": "es",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/es/ipad-13/04-pdf.png",
-          "sha256": "51f2c4f367acc52f0d6c8073ede4537b6a89d70817811ecb5c3353ea360ea206",
+          "sha256": "e30febbdb058dd604b12318f8cae252397548068a5e28c0faf8e125a904ea2c5",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -674,7 +674,7 @@
           "requiredNativeLocale": "fr",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/fr/ipad-13/01-fileSize.png",
-          "sha256": "96e758898ce61317816dbf7f0df2342c15d09fa489bde944c3445fdfe69f8804",
+          "sha256": "3f8b7e0ebaae9d55dc5d75cfdefc3ba1401623d5bf0eac1b4000104c2774ed85",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -685,7 +685,7 @@
           "requiredNativeLocale": "fr",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/fr/ipad-13/02-pixels.png",
-          "sha256": "4059ad96941114425acdd7d6e86d8fd0cc3436b4281d6d35d0af8907653fd0f0",
+          "sha256": "251d20931b93bc3a83db4130fccf898b8903a0edcc045bf5d276d307458e4221",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -696,7 +696,7 @@
           "requiredNativeLocale": "fr",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/fr/ipad-13/03-passport.png",
-          "sha256": "0b880083c86f8fc4658f07c7f495e95878a93cf42128323263883101b91f14b0",
+          "sha256": "c9415f752039b43bd17b2d11f138363c6c8aec5fd2fcd256bbadfc9f070ccd78",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -707,7 +707,7 @@
           "requiredNativeLocale": "fr",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/fr/ipad-13/04-pdf.png",
-          "sha256": "c038201f86893bd897ccbc9814427f58ea954cfb8b9d5cfe8ab63eb89d758ce7",
+          "sha256": "b170e562935558c7b83b51067423369ed678afb072ac535bf046ef30faa7d8f0",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -762,7 +762,7 @@
           "requiredNativeLocale": "de",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/de/ipad-13/01-fileSize.png",
-          "sha256": "8125e27b0e61f4a76f66bf7e6d0685f344ed2637a3036fcb73b07f787a702529",
+          "sha256": "e8a80d64c88270ba035f88f991ce979c03848353627c9812ab42c36a419a9125",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -773,7 +773,7 @@
           "requiredNativeLocale": "de",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/de/ipad-13/02-pixels.png",
-          "sha256": "14d707f9b86dfd007b1c52cee9adc9dc38707df95778fc46995d8dcbb506947c",
+          "sha256": "e8aec4bee0a1882659cdd40cf8609789dad3300023fa53f03a4cdcef1556be8c",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -784,7 +784,7 @@
           "requiredNativeLocale": "de",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/de/ipad-13/03-passport.png",
-          "sha256": "3f555c61d6fe9b37494e60ccd729a242dc0f4adcc53cb42e76a699cd483f03e7",
+          "sha256": "002fe5b805bec21838daabe659d404534281c5b8571da9ab832f29d2829d4dd6",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -795,7 +795,7 @@
           "requiredNativeLocale": "de",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/de/ipad-13/04-pdf.png",
-          "sha256": "4f6564c2365515b377e730b7f74d76050e349c9f21456d819430d32a5d3213ee",
+          "sha256": "a394e0b670567d89b7acbfc0fa92532ef7ea9dc79bab949bbb5cfffbe65e6278",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -850,7 +850,7 @@
           "requiredNativeLocale": "it",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/it/ipad-13/01-fileSize.png",
-          "sha256": "0b61f87c6522f9099c87fa63512e02193dcf639f1cbc5a335fc73364f3f4bda4",
+          "sha256": "ba62a00ed6a783415478eff7cb5e44abe83dec2d8f9ba0c345649699dbb215ca",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -861,7 +861,7 @@
           "requiredNativeLocale": "it",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/it/ipad-13/02-pixels.png",
-          "sha256": "e57037444b91c2cb7b69ae2bcd6d31a4435d503eea16fd9fe85cb7b79f462a46",
+          "sha256": "f4c286a083dd6a7b46ac2167bf7925ef67bbb9bd226ea25f7ac6f5cadd5630e4",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -872,7 +872,7 @@
           "requiredNativeLocale": "it",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/it/ipad-13/03-passport.png",
-          "sha256": "d84a9f649cb5ae1c3bc1e3d713ff2eded99f4a2510a87319c3a3831e169ffd07",
+          "sha256": "325e30053c60c5df547eb241e7adeb4aa5d73966343cb5b40cdb4fccd023ecde",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -883,7 +883,7 @@
           "requiredNativeLocale": "it",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/it/ipad-13/04-pdf.png",
-          "sha256": "620504b26919906dc6a40708cb49c322d8617fc0eee32608f9cb4b4feb219682",
+          "sha256": "21c07e111ae41ee47d0b8fa35df37b2f0b2878e4e4a5335d47ccb46f9decaf38",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -938,7 +938,7 @@
           "requiredNativeLocale": "ja",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/ja/ipad-13/01-fileSize.png",
-          "sha256": "2e44f0b4b63be9f18447198e8ab3a78abab07bfefcbd871ecb882f211f59f986",
+          "sha256": "75fe09143959e1db44dfe19f516f023698f9c7fe7df23cc5968bf8cd97c1fd89",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -949,7 +949,7 @@
           "requiredNativeLocale": "ja",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/ja/ipad-13/02-pixels.png",
-          "sha256": "0ff4b1dcc30153fa19b2947bf4a484ba25657d62f3c18cc09567e73d6bfbcc47",
+          "sha256": "227780dd8eceb282a1e93c7fa5f642992600ba4b1bd8779aaebe429d3de626db",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -960,7 +960,7 @@
           "requiredNativeLocale": "ja",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/ja/ipad-13/03-passport.png",
-          "sha256": "52d54c34ffc62a5b9b8a7d487b50a8d9255fabd8c6552f7c1eade4c22e4f4765",
+          "sha256": "55fbf35f072c96dfe13fc21401a541731ef0ce5c78564380699f583f05542eba",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -971,7 +971,7 @@
           "requiredNativeLocale": "ja",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/ja/ipad-13/04-pdf.png",
-          "sha256": "75acd79c4e338c5fafde39ed217821e9844b2cc94193b10c205d1503447911ba",
+          "sha256": "40c4669d0b17fadad339ffa67771ce5c43e10693b0343a9dbb10e0ffacf5d5b4",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -1026,7 +1026,7 @@
           "requiredNativeLocale": "ko",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/ko/ipad-13/01-fileSize.png",
-          "sha256": "3113db75594b31f9f1b43a54588f5b4b95eb12504c8fd6cede2808f7a7ba28a3",
+          "sha256": "2220968c2a16544283844567ad3f1639164a5c4c96945da8eee73db56247ff9a",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -1037,7 +1037,7 @@
           "requiredNativeLocale": "ko",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/ko/ipad-13/02-pixels.png",
-          "sha256": "e205c564936ef8dd65bd51975e29e61e4d50671bb0ebc4c96d88289164608ca3",
+          "sha256": "6ea83afa3bcd623bbd66e5e97c528449b54143a606359388b6a1e446622a4562",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -1048,7 +1048,7 @@
           "requiredNativeLocale": "ko",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/ko/ipad-13/03-passport.png",
-          "sha256": "084e39758dd0216dae7f2e0e3b28c0f06761de4bccf6ea7914f1821bde625e25",
+          "sha256": "dbc0baf2924ef79ec019d7aa96e577cdf4be260dbd5a66a556f224e3b2776d9e",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -1059,7 +1059,7 @@
           "requiredNativeLocale": "ko",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/ko/ipad-13/04-pdf.png",
-          "sha256": "1515bc6ba5ac5eef45ee292c2b0d5b967c1806946e74b8b6e10d0c396b7221ec",
+          "sha256": "e0223028cf776747220ccb53d6569f9d29e6b92c0728560816d2686791aa493b",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -1114,7 +1114,7 @@
           "requiredNativeLocale": "pt-BR",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/pt-BR/ipad-13/01-fileSize.png",
-          "sha256": "7fe364a6d4c307f4c14cdfb98f27b856490e5ffd8c6bbf0d20f7eda7cb1871f4",
+          "sha256": "023a8bd04bed25fa42d83347a8c573ca673b75550bdcbaa227cf0677e6a4dd32",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -1125,7 +1125,7 @@
           "requiredNativeLocale": "pt-BR",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/pt-BR/ipad-13/02-pixels.png",
-          "sha256": "1da4c14a4ad2cf3b39e1f98dbc121deacbf68ab065e90b1a04931611934738c1",
+          "sha256": "8db86373c07c69b1d687c9ccc9f904bb67b522a522b38b63a1cf16c6f4ec8e61",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -1136,7 +1136,7 @@
           "requiredNativeLocale": "pt-BR",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/pt-BR/ipad-13/03-passport.png",
-          "sha256": "6a774964ebc0debfafdca6bfe2b8734547c3712688c7519ce8569d2c133c64a3",
+          "sha256": "1d1cd0205fe1f47bd0735934ba3d4d549185bc62d8e7038f9f27409ce5393da0",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -1147,7 +1147,7 @@
           "requiredNativeLocale": "pt-BR",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/pt-BR/ipad-13/04-pdf.png",
-          "sha256": "3ebb46b0da8795be4b17fa46bb55487b0c833b9b9df4c82941ad160aad2a8e1a",
+          "sha256": "edd10159c0cca7a99f25734321b5029dcf0a0bfee4728efad2328e9137d07523",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -1202,7 +1202,7 @@
           "requiredNativeLocale": "pt-PT",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/pt-PT/ipad-13/01-fileSize.png",
-          "sha256": "9cac18f80aa8e48b90c3ab68163c91669b7ab4d9dba4a2909a40723c74a1f934",
+          "sha256": "910e5bc9db3e136d260ba8ac08f19145fcd3820d3c3b318c4c499fb23c533c5a",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -1213,7 +1213,7 @@
           "requiredNativeLocale": "pt-PT",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/pt-PT/ipad-13/02-pixels.png",
-          "sha256": "5fc47e2fab934325dde659eef042d8266cbe51603dc349b984b7cc59601fafdc",
+          "sha256": "2f0ca6224bde7aa7ff7ff68e8b6e8638b463269ea96b4f0b4fc2c8330e7ceb3b",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -1224,7 +1224,7 @@
           "requiredNativeLocale": "pt-PT",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/pt-PT/ipad-13/03-passport.png",
-          "sha256": "d1ef6f9f48101cc8045b978dc5dd700cf7465f4daf4128b2321f2c6d43d70c32",
+          "sha256": "af753617662a53f775827e91b5783f0ac59ce109762135adf60691e96efc43c8",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -1235,7 +1235,7 @@
           "requiredNativeLocale": "pt-PT",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/pt-PT/ipad-13/04-pdf.png",
-          "sha256": "b241caeb9b3eeee928f8487aac02a07908f263c44e7ac06f34ef5575f011f1a8",
+          "sha256": "6c8740de8ef1f1dda40a818178befd10628712cf3ffc876e072401c697ccc154",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -1290,7 +1290,7 @@
           "requiredNativeLocale": "zh-Hans",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/zh-Hans/ipad-13/01-fileSize.png",
-          "sha256": "de618ccdff9d2d62f3057308f272893e63a485423a31ca421b26300854e754f4",
+          "sha256": "23f9ab0ad9171d875bc42b67bc14dcc419f909e1e543ae41c8bf242b05458239",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -1301,7 +1301,7 @@
           "requiredNativeLocale": "zh-Hans",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/zh-Hans/ipad-13/02-pixels.png",
-          "sha256": "d7b465b3657b9ee3c7aff10660d34bc506e931771c8432b1785d08fd878c0f3e",
+          "sha256": "a4c05002575bd38e183e8ba929209f9eb63dbd4073b3333de323ed094a4e4ee0",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -1312,7 +1312,7 @@
           "requiredNativeLocale": "zh-Hans",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/zh-Hans/ipad-13/03-passport.png",
-          "sha256": "a47d54789a13b3b0c7b7fc65e71f6cc7196e8851bcf9b3f815ad7bb42d7be312",
+          "sha256": "1233996b7dd5b3a7c5491d5d985412e3cf550720757947293c6ce867431b5b40",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -1323,7 +1323,7 @@
           "requiredNativeLocale": "zh-Hans",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/zh-Hans/ipad-13/04-pdf.png",
-          "sha256": "c079c54d7ae3b133344c98ff9b1be21f6a9ba75e3607c2566f17a6f049db01cf",
+          "sha256": "fa21f8878a1ca205d37ca86ca8ec199db900e6e87d7d6310b03b6cdac2ec0cc6",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -1378,7 +1378,7 @@
           "requiredNativeLocale": "zh-Hant",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/zh-Hant/ipad-13/01-fileSize.png",
-          "sha256": "537418d7784c8be69d8606bde277388d6a60f1767f40680dc77e0a88fd7ad84b",
+          "sha256": "bbb8099f4c2d739fbab1d2a8d739d4805f87209687616908e2e84373473cabc1",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -1389,7 +1389,7 @@
           "requiredNativeLocale": "zh-Hant",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/zh-Hant/ipad-13/02-pixels.png",
-          "sha256": "d8b0850456449fcbca99321e42c844f3e05a294b167815cb91fe0b4136fcd597",
+          "sha256": "0f5a9db33ac51965090efcfcfdf8b97b174f5d47b760f5342a53c05ea3480b14",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -1400,7 +1400,7 @@
           "requiredNativeLocale": "zh-Hant",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/zh-Hant/ipad-13/03-passport.png",
-          "sha256": "89fa645faf409f6392b901e1b904edffeb813c30f3b0f9894521c78a81e05f18",
+          "sha256": "f28444eec0512dff760ede7be0b6d25ead29f1a5c807abe8c46773c5ea31c031",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -1411,7 +1411,7 @@
           "requiredNativeLocale": "zh-Hant",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/zh-Hant/ipad-13/04-pdf.png",
-          "sha256": "7c70754b4535491e3947a97a62f482a71d4f55294ee6131f93fc082cb477736a",
+          "sha256": "f31f2b83201ae85f1d487435bd03f04cf51b89791ef1e28cc0aee6da965215ba",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         }
       ]
@@ -2158,7 +2158,7 @@
           "requiredNativeLocale": "ru",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/ru/iphone-6.9/03-settings.png",
-          "sha256": "b7970287f23e62bbaecf414a595d78caa5aae029729a0c7ff50aab5283abbf8d",
+          "sha256": "3f783a3424729362f35df0b9acdfc3db0ac11c2c2ec628c1af1fa2ddce64539e",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -2202,7 +2202,7 @@
           "requiredNativeLocale": "ru",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/ru/ipad-13/03-settings.png",
-          "sha256": "0e06c97b4fc0c570404d0dc5f7a4ba8f17fed2150b2f0655b66140a93b629012",
+          "sha256": "49e1fdde7942476a838211cf82ef4ee098f1d351aae941145f9b583eb971b07a",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -2246,7 +2246,7 @@
           "requiredNativeLocale": "en",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/en/iphone-6.9/03-settings.png",
-          "sha256": "5449b1313ca85e4a53d0a037fda2631c53123d7b77e836867e47dc7fc4a10ed6",
+          "sha256": "292d751366dd8599123e3fc18becaecc1a933da713978b9c43c52c3480e502ee",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -2290,7 +2290,7 @@
           "requiredNativeLocale": "en",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/en/ipad-13/03-settings.png",
-          "sha256": "ded69c098f727d301e2b361a5bd8f00f4d4188d415e58e4767944088d0affd9d",
+          "sha256": "364eeeb68a900788544125954e41da0b717f60b0127a30f99f1c391228b21345",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -2334,7 +2334,7 @@
           "requiredNativeLocale": "en",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/en/iphone-6.9/03-settings.png",
-          "sha256": "5449b1313ca85e4a53d0a037fda2631c53123d7b77e836867e47dc7fc4a10ed6",
+          "sha256": "292d751366dd8599123e3fc18becaecc1a933da713978b9c43c52c3480e502ee",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -2378,7 +2378,7 @@
           "requiredNativeLocale": "en",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/en/ipad-13/03-settings.png",
-          "sha256": "ded69c098f727d301e2b361a5bd8f00f4d4188d415e58e4767944088d0affd9d",
+          "sha256": "364eeeb68a900788544125954e41da0b717f60b0127a30f99f1c391228b21345",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -2422,7 +2422,7 @@
           "requiredNativeLocale": "en",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/en/iphone-6.9/03-settings.png",
-          "sha256": "5449b1313ca85e4a53d0a037fda2631c53123d7b77e836867e47dc7fc4a10ed6",
+          "sha256": "292d751366dd8599123e3fc18becaecc1a933da713978b9c43c52c3480e502ee",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -2466,7 +2466,7 @@
           "requiredNativeLocale": "en",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/en/ipad-13/03-settings.png",
-          "sha256": "ded69c098f727d301e2b361a5bd8f00f4d4188d415e58e4767944088d0affd9d",
+          "sha256": "364eeeb68a900788544125954e41da0b717f60b0127a30f99f1c391228b21345",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -2510,7 +2510,7 @@
           "requiredNativeLocale": "en",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/en/iphone-6.9/03-settings.png",
-          "sha256": "5449b1313ca85e4a53d0a037fda2631c53123d7b77e836867e47dc7fc4a10ed6",
+          "sha256": "292d751366dd8599123e3fc18becaecc1a933da713978b9c43c52c3480e502ee",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -2554,7 +2554,7 @@
           "requiredNativeLocale": "en",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/en/ipad-13/03-settings.png",
-          "sha256": "ded69c098f727d301e2b361a5bd8f00f4d4188d415e58e4767944088d0affd9d",
+          "sha256": "364eeeb68a900788544125954e41da0b717f60b0127a30f99f1c391228b21345",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -2598,7 +2598,7 @@
           "requiredNativeLocale": "es",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/es/iphone-6.9/03-settings.png",
-          "sha256": "cc902db5958af8ed1afcaa7b7e9b1774f66579a8812b487033f56a560e072764",
+          "sha256": "860d666dbe584f331c38925d655b220c7b68247e7832c4979c5a05888768eaa0",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -2642,7 +2642,7 @@
           "requiredNativeLocale": "es",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/es/ipad-13/03-settings.png",
-          "sha256": "ae5931b481ca9c51c428ce18a10f8c6eab2cb06d401c4132d8870ae54c219236",
+          "sha256": "e7119622863b0972babedceea8cd4fcc8f74bdb88dae43177de10f746cdd4c0a",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -2686,7 +2686,7 @@
           "requiredNativeLocale": "es",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/es/iphone-6.9/03-settings.png",
-          "sha256": "cc902db5958af8ed1afcaa7b7e9b1774f66579a8812b487033f56a560e072764",
+          "sha256": "860d666dbe584f331c38925d655b220c7b68247e7832c4979c5a05888768eaa0",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -2730,7 +2730,7 @@
           "requiredNativeLocale": "es",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/es/ipad-13/03-settings.png",
-          "sha256": "ae5931b481ca9c51c428ce18a10f8c6eab2cb06d401c4132d8870ae54c219236",
+          "sha256": "e7119622863b0972babedceea8cd4fcc8f74bdb88dae43177de10f746cdd4c0a",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -2774,7 +2774,7 @@
           "requiredNativeLocale": "fr",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/fr/iphone-6.9/03-settings.png",
-          "sha256": "1ce6fab0f9d3247ed51904fa004f307a2c94e2f481ab4af6d7ef7444bad03d8b",
+          "sha256": "ad8c3381dce4b165ba8ba5ae924d57d039ab6a1a6aecb37d051235e70302de2a",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -2818,7 +2818,7 @@
           "requiredNativeLocale": "fr",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/fr/ipad-13/03-settings.png",
-          "sha256": "7b262bea1336e292be4ca24116ac3539391d524d28a5c92ad548a157f5358cbc",
+          "sha256": "239187add79097fb1afc6c8cfd718f28b4293712b8cce2246261704987495bdd",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -2862,7 +2862,7 @@
           "requiredNativeLocale": "de",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/de/iphone-6.9/03-settings.png",
-          "sha256": "a39d5a75bffb70937599f0a08712175f0bba57405cd5c9c76cf2df8d86023d67",
+          "sha256": "7eb32e2e9775a077d13edcc1c0c027c5ab77f7df10b26b1a8aa2e491ec02f89b",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -2906,7 +2906,7 @@
           "requiredNativeLocale": "de",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/de/ipad-13/03-settings.png",
-          "sha256": "52c7687b93fba59c3e8eaaca20495f966f97e84cd700dd335552ac9c3d6ef1e5",
+          "sha256": "1462dcda5381a3c2625bf83f65f4e5b6bf3a25528c45f0c5fb698f69128ef489",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -2950,7 +2950,7 @@
           "requiredNativeLocale": "it",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/it/iphone-6.9/03-settings.png",
-          "sha256": "4f9eb748f89557ea4dfc7e414a4b36a1e95d85a4d40041d52911b21365fb67a7",
+          "sha256": "57dd5ad550b83915a00fe49873ab56c74ef621c6aec636929f75ff7fdc11e5ed",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -2994,7 +2994,7 @@
           "requiredNativeLocale": "it",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/it/ipad-13/03-settings.png",
-          "sha256": "a7a5d0d841a74d4a7e1d4bab957895fff3cd88dd2746a761508505ca637427f3",
+          "sha256": "b00f149e4214680158692d3a7b4940edf26c19142a5e2eb496f1f3786a90db95",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -3038,7 +3038,7 @@
           "requiredNativeLocale": "ja",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/ja/iphone-6.9/03-settings.png",
-          "sha256": "716aad10e1d39bf6edae5025f633bbf2b9c7f6a8d1a086c3109c9cec21d4c1d5",
+          "sha256": "7bf1e24b6327b52228bb058555c517006f3b333a4f0d4697c7e331169f9aaf0b",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -3082,7 +3082,7 @@
           "requiredNativeLocale": "ja",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/ja/ipad-13/03-settings.png",
-          "sha256": "86e68c34f7f636be0fb9805bc484a97500f8ffc7b735e9698daa2e871470c71d",
+          "sha256": "5d1dbcfef0756fe75bcefa62ecc0bd577c0c41ae0131ab86d2ee3b2973d654b7",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -3104,7 +3104,7 @@
           "requiredNativeLocale": "ko",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/ko/iphone-6.9/01-home.png",
-          "sha256": "95f017e8588fcddbc8b8d701c65c8b56da089b69782c63bf8fe4ef4f0976d3ab",
+          "sha256": "f759cf52e5fafb5a6a05406a3b208304990397c539b0099064fd59cc168a9a75",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -3115,7 +3115,7 @@
           "requiredNativeLocale": "ko",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/ko/iphone-6.9/02-library.png",
-          "sha256": "4096da3c5610ef9b50c3ad8cf970ae98fb1d25910334ace9db7b7395e1885853",
+          "sha256": "1d846e958eb46fa82728c1e80716130a517d59c2b5ad9abab636181f41640e56",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -3126,7 +3126,7 @@
           "requiredNativeLocale": "ko",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/ko/iphone-6.9/03-settings.png",
-          "sha256": "812051d8310de73ed9f6f297cad78d59e4d3a0c849226018b88ab0d195121e2b",
+          "sha256": "3211ba59b3034f4d1298571ad4b549ace21ddcc4d7d42b422221673aed9f71b6",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -3137,7 +3137,7 @@
           "requiredNativeLocale": "ko",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/ko/iphone-6.9/04-text.png",
-          "sha256": "b8f2eafbef43d98946baad3cea43f61e18ea7005d8ade30308f32f3006dd962b",
+          "sha256": "f4dee778c8f99d726ed0f6b5ed5c9b0fe85338f2e703e285c629d8f30b32d1b8",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -3148,7 +3148,7 @@
           "requiredNativeLocale": "ko",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/ko/ipad-13/01-home.png",
-          "sha256": "fa486342f604f9b9bf5cb9efe52765cc98ddb0f28d07ccf47e9d7a5ad777c54c",
+          "sha256": "1fff4e3d8c5c3b078bee3b7d4f207dcf82cdf30e4d30fa2e4604997d1cff23c8",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -3159,7 +3159,7 @@
           "requiredNativeLocale": "ko",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/ko/ipad-13/02-library.png",
-          "sha256": "0b0f75696c167251563c52d49e4e3e8d1d87b47633e6e31b2c034129ca147b57",
+          "sha256": "009a1d6104eea4397ca9249eb4201d82aa3f35b158e6c2a6f0cfdc2219c4aa45",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -3170,7 +3170,7 @@
           "requiredNativeLocale": "ko",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/ko/ipad-13/03-settings.png",
-          "sha256": "32518a8740b99b4af821703bd007f9bd706ad308d3b738221bd1bf8ad3b5e7bc",
+          "sha256": "d77009e4906b6b25697f7126c2de470e959d61280f4df6502758261f56e93be6",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -3181,7 +3181,7 @@
           "requiredNativeLocale": "ko",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/ko/ipad-13/04-text.png",
-          "sha256": "2cc0003312a4399bbfd4f75aa5ebf72e95f92a9474e1d305fa33ebd441722263",
+          "sha256": "1f860445887def7e4cc81bddfe910df7a997c311a44067a2b5c603e1e80c0ac6",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -3214,7 +3214,7 @@
           "requiredNativeLocale": "pt-BR",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/pt-BR/iphone-6.9/03-settings.png",
-          "sha256": "cafe6ec65b9a58e840e1c3a2de6562457f9395c84f7b68a2db24199c0a66844f",
+          "sha256": "80d4f4cc30983aeade5d386e6617d44012a2de14807f0e174f982ab4958411bc",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -3258,7 +3258,7 @@
           "requiredNativeLocale": "pt-BR",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/pt-BR/ipad-13/03-settings.png",
-          "sha256": "6277281adbae3bbe9753b87024f0d91fd2625b8e8b29d833e64b0c62b545e798",
+          "sha256": "dc00addaa827cab8af9533ff4762375867e8615e6a0b901aefacd1f65bd09431",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -3302,7 +3302,7 @@
           "requiredNativeLocale": "pt-PT",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/pt-PT/iphone-6.9/03-settings.png",
-          "sha256": "73bae7e2e64cedc9b3496a68a00bc2c098e37b7cd115182ef071e301187ea970",
+          "sha256": "f896c867e1cf1cc4e56241b61ad885b91002ec53bf94acececf6bdbd1240fd26",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -3346,7 +3346,7 @@
           "requiredNativeLocale": "pt-PT",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/pt-PT/ipad-13/03-settings.png",
-          "sha256": "69d3c44cc485095162179abefa01fccd7cf5382c0eae6a19b74d919ae56e9306",
+          "sha256": "ce86b5a53ab3888cbcb2bfe9120234aba02e5529bf09f4d3b5e075d8a9579927",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -3390,7 +3390,7 @@
           "requiredNativeLocale": "zh-Hans",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/zh-Hans/iphone-6.9/03-settings.png",
-          "sha256": "a7e223bf56977ee2e4109e8aba16e222c621ecfd90c8d3257322edaa78ca4ef1",
+          "sha256": "a8527282c1014a0d2626b70c510905dadc6e0fac57b0f5f6395f83bcad297a82",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -3434,7 +3434,7 @@
           "requiredNativeLocale": "zh-Hans",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/zh-Hans/ipad-13/03-settings.png",
-          "sha256": "c31d7c682b8b95e7a287635fe71991cf1e5173281aa2619208ac34e4857accec",
+          "sha256": "7ee9782f08b882107405ee595a5e517461985190830953a907c55cc7512bebe7",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -3478,7 +3478,7 @@
           "requiredNativeLocale": "zh-Hant",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/zh-Hant/iphone-6.9/03-settings.png",
-          "sha256": "594d3f1e921cea8c5491bb1bc68aa6c3992ea4031deddbfb3b80969e93ac4562",
+          "sha256": "9bc82ca62daa2ed355ea1b51a5dbba780e413346dce42eaef24edc626382839d",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -3522,7 +3522,7 @@
           "requiredNativeLocale": "zh-Hant",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/zh-Hant/ipad-13/03-settings.png",
-          "sha256": "84d098e8b551d649cb926476109dad436c9ac179003b23ec819d7b5fcc42f9d5",
+          "sha256": "75c298287b363652630330b4619b4f33344598f3bf986ecd8e56dc89e11ace9b",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {

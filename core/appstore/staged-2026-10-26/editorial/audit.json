@@ -2,87 +2,87 @@
   "status": "structural_and_risk_screen_only_not_human_editorial_signoff",
   "date": "2026-10-26",
   "catalogFiles": 197,
-  "localizedEntries": 10237,
+  "localizedEntries": 10259,
   "englishIdenticalTriaged": 34,
   "englishIdenticalUntriaged": [],
   "englishIdenticalStaleExceptions": [],
-  "criticalReviewRows": 4155,
+  "criticalReviewRows": 4177,
   "machineErrorFlags": 0,
   "locales": {
     "de": {
       "bundles": 10,
-      "keys": 931,
-      "high_risk": 378,
+      "keys": 933,
+      "high_risk": 380,
       "flags": 0,
       "nativeSpeakerSignedOff": false
     },
     "es": {
       "bundles": 10,
-      "keys": 927,
-      "high_risk": 375,
+      "keys": 929,
+      "high_risk": 377,
       "flags": 0,
       "nativeSpeakerSignedOff": false
     },
     "fr": {
       "bundles": 10,
-      "keys": 931,
-      "high_risk": 378,
+      "keys": 933,
+      "high_risk": 380,
       "flags": 0,
       "nativeSpeakerSignedOff": false
     },
     "it": {
       "bundles": 10,
-      "keys": 931,
-      "high_risk": 378,
+      "keys": 933,
+      "high_risk": 380,
       "flags": 0,
       "nativeSpeakerSignedOff": false
     },
     "ja": {
       "bundles": 10,
-      "keys": 931,
-      "high_risk": 378,
+      "keys": 933,
+      "high_risk": 380,
       "flags": 0,
       "nativeSpeakerSignedOff": false
     },
     "ko": {
       "bundles": 10,
-      "keys": 931,
-      "high_risk": 378,
+      "keys": 933,
+      "high_risk": 380,
       "flags": 0,
       "nativeSpeakerSignedOff": false
     },
     "pt-BR": {
       "bundles": 10,
-      "keys": 931,
-      "high_risk": 378,
+      "keys": 933,
+      "high_risk": 380,
       "flags": 0,
       "nativeSpeakerSignedOff": false
     },
     "pt-PT": {
       "bundles": 10,
-      "keys": 931,
-      "high_risk": 378,
+      "keys": 933,
+      "high_risk": 380,
       "flags": 0,
       "nativeSpeakerSignedOff": false
     },
     "ru": {
       "bundles": 10,
-      "keys": 931,
-      "high_risk": 378,
+      "keys": 933,
+      "high_risk": 380,
       "flags": 0,
       "nativeSpeakerSignedOff": false
     },
     "zh-Hans": {
       "bundles": 10,
-      "keys": 931,
-      "high_risk": 378,
+      "keys": 933,
+      "high_risk": 380,
       "flags": 0,
       "nativeSpeakerSignedOff": false
     },
     "zh-Hant": {
       "bundles": 10,
-      "keys": 931,
-      "high_risk": 378,
+      "keys": 933,
+      "high_risk": 380,
       "flags": 0,
       "nativeSpeakerSignedOff": false
     }

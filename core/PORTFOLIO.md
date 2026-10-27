@@ -1,5 +1,7 @@
 # Arvectum Tools — Roadmap Registry
 
+[C15: внутренняя редактура 64 ASO-карточек и 144 iPad маркетинговых кадра](docs/ASO_C15_EDITORIAL_ACCEPTANCE_2026-10-27.md).
+
 [C13: редактура 64 ASO-карточек](docs/ASO_C13_LINGUISTIC_EDITORIAL_2026-10-27.md).
 
 [C12: редакторская ASO-галерея и обновлённые нативные кадры](docs/ASO_C12_EDITORIAL_2026-10-27.md).

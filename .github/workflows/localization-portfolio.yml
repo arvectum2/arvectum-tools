@@ -11,6 +11,8 @@ on:
       - "core/tests/test_localization_portfolio.py"
       - "core/tests/test_appstore_keyword_c14.py"
       - "core/tests/test_appstore_release_gate.py"
+      - "core/tests/test_appstore_marketing_c15.py"
+      - "core/tools/render_appstore_ipad_hero_c15.swift"
       - "chickmark/ios/**"
       - "photo-pdf-to-size/ios/**"
       - "photo-pdf-to-size/android/app/src/main/**"
@@ -27,6 +29,8 @@ on:
       - "core/tests/test_localization_portfolio.py"
       - "core/tests/test_appstore_keyword_c14.py"
       - "core/tests/test_appstore_release_gate.py"
+      - "core/tests/test_appstore_marketing_c15.py"
+      - "core/tools/render_appstore_ipad_hero_c15.swift"
       - "chickmark/ios/**"
       - "photo-pdf-to-size/ios/**"
       - "photo-pdf-to-size/android/app/src/main/**"
@@ -56,5 +60,7 @@ jobs:
         run: |
           python3 core/tools/check_appstore_release_readiness.py
           python3 -m unittest discover -s core/tests -p test_appstore_release_gate.py -q
+      - name: Verify C15 native-iPad marketing assets against source SHA
+        run: python3 -m unittest discover -s core/tests -p test_appstore_marketing_c15.py -q
       - name: Test shared locale registry and English fallback
         run: python3 -m unittest discover -s core/tests -p test_localization_portfolio.py -v

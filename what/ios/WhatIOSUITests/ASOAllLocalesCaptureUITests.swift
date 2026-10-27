@@ -5,6 +5,16 @@ import XCTest
 final class ASOAllLocalesCaptureUITests: XCTestCase {
     @MainActor
     func testBundledLanguagesHomeLibraryAndSettings() {
+        captureLocales(only: nil)
+    }
+
+    @MainActor
+    func testKoreanMarketingAfterCopyEdit() {
+        captureLocales(only: "ko")
+    }
+
+    @MainActor
+    private func captureLocales(only selectedLanguage: String?) {
         let locales = [
             ("ru", "ru_RU"), ("en", "en_US"), ("es", "es_ES"),
             ("fr", "fr_FR"), ("de", "de_DE"), ("it", "it_IT"),
@@ -13,6 +23,7 @@ final class ASOAllLocalesCaptureUITests: XCTestCase {
             ("zh-Hant", "zh_Hant_TW")
         ]
         for (language, locale) in locales {
+            if let selectedLanguage, language != selectedLanguage { continue }
             let app = XCUIApplication()
             app.launchArguments = [
                 "-AppleLanguages", "(\(language))", "-AppleLocale", locale,
@@ -24,6 +35,10 @@ final class ASOAllLocalesCaptureUITests: XCTestCase {
                 XCTFail("Missing actual home UI for \(language)")
                 app.terminate()
                 continue
+            }
+            if language == "ko" {
+                XCTAssertTrue(app.staticTexts["떠오른 생각을 기록하세요"].firstMatch.exists,
+                              "Korean UI must not use literal catch/grab imperative")
             }
             capture(name: "aso-what--\(language)--home")
             let library = app.buttons["what.open.library"]
@@ -67,6 +82,45 @@ final class ASOAllLocalesCaptureUITests: XCTestCase {
             }
             capture(name: "aso-what--\(language)--text")
             note.terminate()
+        }
+    }
+
+    /// Re-capture real language/settings menu over an illustrative, nonempty inbox.
+    @MainActor
+    func testC15SeededSettingsAcrossLocales() {
+        let locales = [
+            ("ru", "ru_RU"), ("en", "en_US"), ("es", "es_ES"),
+            ("fr", "fr_FR"), ("de", "de_DE"), ("it", "it_IT"),
+            ("ja", "ja_JP"), ("ko", "ko_KR"), ("pt-BR", "pt_BR"),
+            ("pt-PT", "pt_PT"), ("zh-Hans", "zh_Hans_CN"),
+            ("zh-Hant", "zh_Hant_TW")
+        ]
+        for (language, region) in locales {
+            let app = XCUIApplication()
+            app.launchArguments = [
+                "-AppleLanguages", "(\(language))", "-AppleLocale", region,
+                "--qa-aso-filled-library"
+            ]
+            app.launch()
+            let library = app.buttons["what.open.library"]
+            guard library.waitForExistence(timeout: 12) else {
+                XCTFail("No library action for \(language)")
+                app.terminate()
+                continue
+            }
+            library.tap()
+            let settings = app.buttons["what.library.settings"]
+            guard settings.waitForExistence(timeout: 10) else {
+                XCTFail("No settings menu for \(language)")
+                app.terminate()
+                continue
+            }
+            XCTAssertFalse(app.otherElements["what.library.empty"].exists,
+                           "ASO settings frame must not show a missing note library")
+            settings.tap()
+            XCTAssertTrue(app.wait(for: .runningForeground, timeout: 5))
+            capture(name: "aso-what--\(language)--settings")
+            app.terminate()
         }
     }
 

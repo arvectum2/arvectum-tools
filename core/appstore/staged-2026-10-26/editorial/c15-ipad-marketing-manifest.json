@@ -1,0 +1,3660 @@
+{
+  "stage": "DRAFT_NOT_UPLOADED",
+  "render": "c15-read-only-repackaging-of-two_real_native_screens",
+  "apps": {
+    "photo": [
+      {
+        "locale": "ru",
+        "uiLanguage": "ru",
+        "marketingPath": "photo-pdf-to-size/store-assets/appstore/marketing-20261027/ru/ipad-13/01-hero.jpg",
+        "sha256": "9540dde2a75a99db8420e739055ec9c016ccedce67acf5e38aa811df2c93aa88",
+        "sources": [
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/ru/ipad-13/01-fileSize.png",
+            "sha256": "149475753e7bd9a3bc14d85a939d7168bf5ddd0bb1f5749cee43d444aa08b901"
+          },
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/ru/ipad-13/02-pixels.png",
+            "sha256": "c97d29cbb1e5bdc7576b7b811972c6ebf1f9514d5f6b5dd67fabc8467001bbc1"
+          }
+        ],
+        "caption": "2,92 МБ → 472 КБ",
+        "position": 1,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "ru",
+        "uiLanguage": "ru",
+        "marketingPath": "photo-pdf-to-size/store-assets/appstore/marketing-20261027/ru/ipad-13/02-hero.jpg",
+        "sha256": "0ce58f5057759bbee88770d2d4defb60d6ff8163371d23c7f4391dc0a0d531ad",
+        "sources": [
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/ru/ipad-13/02-pixels.png",
+            "sha256": "c97d29cbb1e5bdc7576b7b811972c6ebf1f9514d5f6b5dd67fabc8467001bbc1"
+          },
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/ru/ipad-13/03-passport.png",
+            "sha256": "b0bb4bab322c28fab6aa82d1ac4a29528f10f0ee895009c45a1da06cd374577d"
+          }
+        ],
+        "caption": "5184×3456 → 600×400 px",
+        "position": 2,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "ru",
+        "uiLanguage": "ru",
+        "marketingPath": "photo-pdf-to-size/store-assets/appstore/marketing-20261027/ru/ipad-13/03-hero.jpg",
+        "sha256": "fb2a7e876ecb07ebf2074829215e8495fcf4c0b9e75f50d0e4b98561d1d72f99",
+        "sources": [
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/ru/ipad-13/03-passport.png",
+            "sha256": "b0bb4bab322c28fab6aa82d1ac4a29528f10f0ee895009c45a1da06cd374577d"
+          },
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/ru/ipad-13/04-pdf.png",
+            "sha256": "b8bfa216238dbeccc62b0b03b6a1038c871eb3f904c02f8fbcff43de9e37127d"
+          }
+        ],
+        "caption": "Виза Китая и фото на документы",
+        "position": 3,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "ru",
+        "uiLanguage": "ru",
+        "marketingPath": "photo-pdf-to-size/store-assets/appstore/marketing-20261027/ru/ipad-13/04-hero.jpg",
+        "sha256": "02a309bd3ce6c89e90215803a0efd1ced1d25a9f8348ea74de2ea4b203f51f96",
+        "sources": [
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/ru/ipad-13/04-pdf.png",
+            "sha256": "b8bfa216238dbeccc62b0b03b6a1038c871eb3f904c02f8fbcff43de9e37127d"
+          },
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/ru/ipad-13/01-fileSize.png",
+            "sha256": "149475753e7bd9a3bc14d85a939d7168bf5ddd0bb1f5749cee43d444aa08b901"
+          }
+        ],
+        "caption": "PDF до заданного лимита",
+        "position": 4,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "en-US",
+        "uiLanguage": "en",
+        "marketingPath": "photo-pdf-to-size/store-assets/appstore/marketing-20261027/en/ipad-13/01-hero.jpg",
+        "sha256": "e20d32445fe06974a1c8313ebef5be063afec4c52d5dd2a748a95e9c26a21479",
+        "sources": [
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/en/ipad-13/01-fileSize.png",
+            "sha256": "b4bb993e6f80e13ff66ea6a9458c2fc99c6190942fcfcf812d80f3c691de0e04"
+          },
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/en/ipad-13/02-pixels.png",
+            "sha256": "be7fe86be01e5ad9e33c5f7251e7d960ab6ef25f217e511df7519b37db9dccbd"
+          }
+        ],
+        "caption": "2.92 MB → 472 KB",
+        "position": 1,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "en-US",
+        "uiLanguage": "en",
+        "marketingPath": "photo-pdf-to-size/store-assets/appstore/marketing-20261027/en/ipad-13/02-hero.jpg",
+        "sha256": "b1697690fd241f182ea2f7747438e1617bedea3df160bf1a4104d837e35631b1",
+        "sources": [
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/en/ipad-13/02-pixels.png",
+            "sha256": "be7fe86be01e5ad9e33c5f7251e7d960ab6ef25f217e511df7519b37db9dccbd"
+          },
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/en/ipad-13/03-passport.png",
+            "sha256": "8ab706ced59580ceeee03b2cbb593e4fed10749b57d2e293661e2e2b4f3d00b6"
+          }
+        ],
+        "caption": "5184×3456 → 600×400 px",
+        "position": 2,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "en-US",
+        "uiLanguage": "en",
+        "marketingPath": "photo-pdf-to-size/store-assets/appstore/marketing-20261027/en/ipad-13/03-hero.jpg",
+        "sha256": "17efa39c622a717f52061415455bd99332c6c6914865ef72aaa8068f169e49b9",
+        "sources": [
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/en/ipad-13/03-passport.png",
+            "sha256": "8ab706ced59580ceeee03b2cbb593e4fed10749b57d2e293661e2e2b4f3d00b6"
+          },
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/en/ipad-13/04-pdf.png",
+            "sha256": "6e33216587ff2984bfd80e72e7fca57fcd56c1e77ca730c2b5df8e1199aa7995"
+          }
+        ],
+        "caption": "China visa & document photo sizes",
+        "position": 3,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "en-US",
+        "uiLanguage": "en",
+        "marketingPath": "photo-pdf-to-size/store-assets/appstore/marketing-20261027/en/ipad-13/04-hero.jpg",
+        "sha256": "889ac3c948a534ba5ebcd7b62ae1da7a6980fca5b211fc11da9c1636299e19db",
+        "sources": [
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/en/ipad-13/04-pdf.png",
+            "sha256": "6e33216587ff2984bfd80e72e7fca57fcd56c1e77ca730c2b5df8e1199aa7995"
+          },
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/en/ipad-13/01-fileSize.png",
+            "sha256": "b4bb993e6f80e13ff66ea6a9458c2fc99c6190942fcfcf812d80f3c691de0e04"
+          }
+        ],
+        "caption": "Shrink PDF to an upload limit",
+        "position": 4,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "en-GB",
+        "uiLanguage": "en",
+        "marketingPath": "photo-pdf-to-size/store-assets/appstore/marketing-20261027/en/ipad-13/01-hero.jpg",
+        "sha256": "e20d32445fe06974a1c8313ebef5be063afec4c52d5dd2a748a95e9c26a21479",
+        "sources": [
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/en/ipad-13/01-fileSize.png",
+            "sha256": "b4bb993e6f80e13ff66ea6a9458c2fc99c6190942fcfcf812d80f3c691de0e04"
+          },
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/en/ipad-13/02-pixels.png",
+            "sha256": "be7fe86be01e5ad9e33c5f7251e7d960ab6ef25f217e511df7519b37db9dccbd"
+          }
+        ],
+        "caption": "2.92 MB → 472 KB",
+        "position": 1,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "en-GB",
+        "uiLanguage": "en",
+        "marketingPath": "photo-pdf-to-size/store-assets/appstore/marketing-20261027/en/ipad-13/02-hero.jpg",
+        "sha256": "b1697690fd241f182ea2f7747438e1617bedea3df160bf1a4104d837e35631b1",
+        "sources": [
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/en/ipad-13/02-pixels.png",
+            "sha256": "be7fe86be01e5ad9e33c5f7251e7d960ab6ef25f217e511df7519b37db9dccbd"
+          },
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/en/ipad-13/03-passport.png",
+            "sha256": "8ab706ced59580ceeee03b2cbb593e4fed10749b57d2e293661e2e2b4f3d00b6"
+          }
+        ],
+        "caption": "5184×3456 → 600×400 px",
+        "position": 2,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "en-GB",
+        "uiLanguage": "en",
+        "marketingPath": "photo-pdf-to-size/store-assets/appstore/marketing-20261027/en/ipad-13/03-hero.jpg",
+        "sha256": "17efa39c622a717f52061415455bd99332c6c6914865ef72aaa8068f169e49b9",
+        "sources": [
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/en/ipad-13/03-passport.png",
+            "sha256": "8ab706ced59580ceeee03b2cbb593e4fed10749b57d2e293661e2e2b4f3d00b6"
+          },
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/en/ipad-13/04-pdf.png",
+            "sha256": "6e33216587ff2984bfd80e72e7fca57fcd56c1e77ca730c2b5df8e1199aa7995"
+          }
+        ],
+        "caption": "Visa & passport photo presets",
+        "position": 3,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "en-GB",
+        "uiLanguage": "en",
+        "marketingPath": "photo-pdf-to-size/store-assets/appstore/marketing-20261027/en/ipad-13/04-hero.jpg",
+        "sha256": "889ac3c948a534ba5ebcd7b62ae1da7a6980fca5b211fc11da9c1636299e19db",
+        "sources": [
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/en/ipad-13/04-pdf.png",
+            "sha256": "6e33216587ff2984bfd80e72e7fca57fcd56c1e77ca730c2b5df8e1199aa7995"
+          },
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/en/ipad-13/01-fileSize.png",
+            "sha256": "b4bb993e6f80e13ff66ea6a9458c2fc99c6190942fcfcf812d80f3c691de0e04"
+          }
+        ],
+        "caption": "PDF to a chosen file limit",
+        "position": 4,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "en-AU",
+        "uiLanguage": "en",
+        "marketingPath": "photo-pdf-to-size/store-assets/appstore/marketing-20261027/en/ipad-13/01-hero.jpg",
+        "sha256": "e20d32445fe06974a1c8313ebef5be063afec4c52d5dd2a748a95e9c26a21479",
+        "sources": [
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/en/ipad-13/01-fileSize.png",
+            "sha256": "b4bb993e6f80e13ff66ea6a9458c2fc99c6190942fcfcf812d80f3c691de0e04"
+          },
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/en/ipad-13/02-pixels.png",
+            "sha256": "be7fe86be01e5ad9e33c5f7251e7d960ab6ef25f217e511df7519b37db9dccbd"
+          }
+        ],
+        "caption": "2.92 MB → 472 KB",
+        "position": 1,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "en-AU",
+        "uiLanguage": "en",
+        "marketingPath": "photo-pdf-to-size/store-assets/appstore/marketing-20261027/en/ipad-13/02-hero.jpg",
+        "sha256": "b1697690fd241f182ea2f7747438e1617bedea3df160bf1a4104d837e35631b1",
+        "sources": [
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/en/ipad-13/02-pixels.png",
+            "sha256": "be7fe86be01e5ad9e33c5f7251e7d960ab6ef25f217e511df7519b37db9dccbd"
+          },
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/en/ipad-13/03-passport.png",
+            "sha256": "8ab706ced59580ceeee03b2cbb593e4fed10749b57d2e293661e2e2b4f3d00b6"
+          }
+        ],
+        "caption": "5184×3456 → 600×400 px",
+        "position": 2,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "en-AU",
+        "uiLanguage": "en",
+        "marketingPath": "photo-pdf-to-size/store-assets/appstore/marketing-20261027/en/ipad-13/03-hero.jpg",
+        "sha256": "17efa39c622a717f52061415455bd99332c6c6914865ef72aaa8068f169e49b9",
+        "sources": [
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/en/ipad-13/03-passport.png",
+            "sha256": "8ab706ced59580ceeee03b2cbb593e4fed10749b57d2e293661e2e2b4f3d00b6"
+          },
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/en/ipad-13/04-pdf.png",
+            "sha256": "6e33216587ff2984bfd80e72e7fca57fcd56c1e77ca730c2b5df8e1199aa7995"
+          }
+        ],
+        "caption": "Visa & passport photo presets",
+        "position": 3,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "en-AU",
+        "uiLanguage": "en",
+        "marketingPath": "photo-pdf-to-size/store-assets/appstore/marketing-20261027/en/ipad-13/04-hero.jpg",
+        "sha256": "889ac3c948a534ba5ebcd7b62ae1da7a6980fca5b211fc11da9c1636299e19db",
+        "sources": [
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/en/ipad-13/04-pdf.png",
+            "sha256": "6e33216587ff2984bfd80e72e7fca57fcd56c1e77ca730c2b5df8e1199aa7995"
+          },
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/en/ipad-13/01-fileSize.png",
+            "sha256": "b4bb993e6f80e13ff66ea6a9458c2fc99c6190942fcfcf812d80f3c691de0e04"
+          }
+        ],
+        "caption": "PDF to a chosen file limit",
+        "position": 4,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "en-CA",
+        "uiLanguage": "en",
+        "marketingPath": "photo-pdf-to-size/store-assets/appstore/marketing-20261027/en/ipad-13/01-hero.jpg",
+        "sha256": "e20d32445fe06974a1c8313ebef5be063afec4c52d5dd2a748a95e9c26a21479",
+        "sources": [
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/en/ipad-13/01-fileSize.png",
+            "sha256": "b4bb993e6f80e13ff66ea6a9458c2fc99c6190942fcfcf812d80f3c691de0e04"
+          },
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/en/ipad-13/02-pixels.png",
+            "sha256": "be7fe86be01e5ad9e33c5f7251e7d960ab6ef25f217e511df7519b37db9dccbd"
+          }
+        ],
+        "caption": "2.92 MB → 472 KB",
+        "position": 1,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "en-CA",
+        "uiLanguage": "en",
+        "marketingPath": "photo-pdf-to-size/store-assets/appstore/marketing-20261027/en/ipad-13/02-hero.jpg",
+        "sha256": "b1697690fd241f182ea2f7747438e1617bedea3df160bf1a4104d837e35631b1",
+        "sources": [
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/en/ipad-13/02-pixels.png",
+            "sha256": "be7fe86be01e5ad9e33c5f7251e7d960ab6ef25f217e511df7519b37db9dccbd"
+          },
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/en/ipad-13/03-passport.png",
+            "sha256": "8ab706ced59580ceeee03b2cbb593e4fed10749b57d2e293661e2e2b4f3d00b6"
+          }
+        ],
+        "caption": "5184×3456 → 600×400 px",
+        "position": 2,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "en-CA",
+        "uiLanguage": "en",
+        "marketingPath": "photo-pdf-to-size/store-assets/appstore/marketing-20261027/en/ipad-13/03-hero.jpg",
+        "sha256": "17efa39c622a717f52061415455bd99332c6c6914865ef72aaa8068f169e49b9",
+        "sources": [
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/en/ipad-13/03-passport.png",
+            "sha256": "8ab706ced59580ceeee03b2cbb593e4fed10749b57d2e293661e2e2b4f3d00b6"
+          },
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/en/ipad-13/04-pdf.png",
+            "sha256": "6e33216587ff2984bfd80e72e7fca57fcd56c1e77ca730c2b5df8e1199aa7995"
+          }
+        ],
+        "caption": "Visa & passport photo presets",
+        "position": 3,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "en-CA",
+        "uiLanguage": "en",
+        "marketingPath": "photo-pdf-to-size/store-assets/appstore/marketing-20261027/en/ipad-13/04-hero.jpg",
+        "sha256": "889ac3c948a534ba5ebcd7b62ae1da7a6980fca5b211fc11da9c1636299e19db",
+        "sources": [
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/en/ipad-13/04-pdf.png",
+            "sha256": "6e33216587ff2984bfd80e72e7fca57fcd56c1e77ca730c2b5df8e1199aa7995"
+          },
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/en/ipad-13/01-fileSize.png",
+            "sha256": "b4bb993e6f80e13ff66ea6a9458c2fc99c6190942fcfcf812d80f3c691de0e04"
+          }
+        ],
+        "caption": "PDF to a chosen file limit",
+        "position": 4,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "es-ES",
+        "uiLanguage": "es",
+        "marketingPath": "photo-pdf-to-size/store-assets/appstore/marketing-20261027/es/ipad-13/01-hero.jpg",
+        "sha256": "89558d9fbc3bcc5cc483cd6c4f87c432e5a3ac4d56e3491203637f0821a7e4bb",
+        "sources": [
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/es/ipad-13/01-fileSize.png",
+            "sha256": "2085576de6c31408d26fcd31d4fe8d045dc5d51a461a06b80a0a33af270dd519"
+          },
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/es/ipad-13/02-pixels.png",
+            "sha256": "3b6f745d5724bd02ee7cb405fd31b3938a26e7c7358d064da0f721d35c18ebea"
+          }
+        ],
+        "caption": "2.92 MB → 472 KB",
+        "position": 1,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "es-ES",
+        "uiLanguage": "es",
+        "marketingPath": "photo-pdf-to-size/store-assets/appstore/marketing-20261027/es/ipad-13/02-hero.jpg",
+        "sha256": "508d1337a304f02ec0bebf03105363d0b781b7676a80d916f560366f6296f66b",
+        "sources": [
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/es/ipad-13/02-pixels.png",
+            "sha256": "3b6f745d5724bd02ee7cb405fd31b3938a26e7c7358d064da0f721d35c18ebea"
+          },
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/es/ipad-13/03-passport.png",
+            "sha256": "e53016b5e3ab9219b30e2f46999da5a8dca72b9eadbc040dc0eaaeb122655041"
+          }
+        ],
+        "caption": "Cambia el tamaño en píxeles",
+        "position": 2,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "es-ES",
+        "uiLanguage": "es",
+        "marketingPath": "photo-pdf-to-size/store-assets/appstore/marketing-20261027/es/ipad-13/03-hero.jpg",
+        "sha256": "204de00ae949ef156cf1f9ddc0362cb00c3ca4b223b8053b37e73b18303feea0",
+        "sources": [
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/es/ipad-13/03-passport.png",
+            "sha256": "e53016b5e3ab9219b30e2f46999da5a8dca72b9eadbc040dc0eaaeb122655041"
+          },
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/es/ipad-13/04-pdf.png",
+            "sha256": "e30febbdb058dd604b12318f8cae252397548068a5e28c0faf8e125a904ea2c5"
+          }
+        ],
+        "caption": "Fotos para documentos",
+        "position": 3,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "es-ES",
+        "uiLanguage": "es",
+        "marketingPath": "photo-pdf-to-size/store-assets/appstore/marketing-20261027/es/ipad-13/04-hero.jpg",
+        "sha256": "115f17c02b1ff517b2de4182dcd0218716dcb37af559c20750a136ee71b393c7",
+        "sources": [
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/es/ipad-13/04-pdf.png",
+            "sha256": "e30febbdb058dd604b12318f8cae252397548068a5e28c0faf8e125a904ea2c5"
+          },
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/es/ipad-13/01-fileSize.png",
+            "sha256": "2085576de6c31408d26fcd31d4fe8d045dc5d51a461a06b80a0a33af270dd519"
+          }
+        ],
+        "caption": "Reduce el tamaño de archivos PDF",
+        "position": 4,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "es-MX",
+        "uiLanguage": "es",
+        "marketingPath": "photo-pdf-to-size/store-assets/appstore/marketing-20261027/es/ipad-13/01-hero.jpg",
+        "sha256": "89558d9fbc3bcc5cc483cd6c4f87c432e5a3ac4d56e3491203637f0821a7e4bb",
+        "sources": [
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/es/ipad-13/01-fileSize.png",
+            "sha256": "2085576de6c31408d26fcd31d4fe8d045dc5d51a461a06b80a0a33af270dd519"
+          },
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/es/ipad-13/02-pixels.png",
+            "sha256": "3b6f745d5724bd02ee7cb405fd31b3938a26e7c7358d064da0f721d35c18ebea"
+          }
+        ],
+        "caption": "2.92 MB → 472 KB",
+        "position": 1,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "es-MX",
+        "uiLanguage": "es",
+        "marketingPath": "photo-pdf-to-size/store-assets/appstore/marketing-20261027/es/ipad-13/02-hero.jpg",
+        "sha256": "508d1337a304f02ec0bebf03105363d0b781b7676a80d916f560366f6296f66b",
+        "sources": [
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/es/ipad-13/02-pixels.png",
+            "sha256": "3b6f745d5724bd02ee7cb405fd31b3938a26e7c7358d064da0f721d35c18ebea"
+          },
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/es/ipad-13/03-passport.png",
+            "sha256": "e53016b5e3ab9219b30e2f46999da5a8dca72b9eadbc040dc0eaaeb122655041"
+          }
+        ],
+        "caption": "Ajusta los píxeles",
+        "position": 2,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "es-MX",
+        "uiLanguage": "es",
+        "marketingPath": "photo-pdf-to-size/store-assets/appstore/marketing-20261027/es/ipad-13/03-hero.jpg",
+        "sha256": "204de00ae949ef156cf1f9ddc0362cb00c3ca4b223b8053b37e73b18303feea0",
+        "sources": [
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/es/ipad-13/03-passport.png",
+            "sha256": "e53016b5e3ab9219b30e2f46999da5a8dca72b9eadbc040dc0eaaeb122655041"
+          },
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/es/ipad-13/04-pdf.png",
+            "sha256": "e30febbdb058dd604b12318f8cae252397548068a5e28c0faf8e125a904ea2c5"
+          }
+        ],
+        "caption": "Fotos para trámites",
+        "position": 3,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "es-MX",
+        "uiLanguage": "es",
+        "marketingPath": "photo-pdf-to-size/store-assets/appstore/marketing-20261027/es/ipad-13/04-hero.jpg",
+        "sha256": "115f17c02b1ff517b2de4182dcd0218716dcb37af559c20750a136ee71b393c7",
+        "sources": [
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/es/ipad-13/04-pdf.png",
+            "sha256": "e30febbdb058dd604b12318f8cae252397548068a5e28c0faf8e125a904ea2c5"
+          },
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/es/ipad-13/01-fileSize.png",
+            "sha256": "2085576de6c31408d26fcd31d4fe8d045dc5d51a461a06b80a0a33af270dd519"
+          }
+        ],
+        "caption": "Baja el peso de tus PDF",
+        "position": 4,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "fr-FR",
+        "uiLanguage": "fr",
+        "marketingPath": "photo-pdf-to-size/store-assets/appstore/marketing-20261027/fr/ipad-13/01-hero.jpg",
+        "sha256": "0b51da59ae0f255efd93f444f9bf630cf996a92952e044399ca258f8e99dc455",
+        "sources": [
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/fr/ipad-13/01-fileSize.png",
+            "sha256": "3f8b7e0ebaae9d55dc5d75cfdefc3ba1401623d5bf0eac1b4000104c2774ed85"
+          },
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/fr/ipad-13/02-pixels.png",
+            "sha256": "251d20931b93bc3a83db4130fccf898b8903a0edcc045bf5d276d307458e4221"
+          }
+        ],
+        "caption": "2.92 MB → 472 KB",
+        "position": 1,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "fr-FR",
+        "uiLanguage": "fr",
+        "marketingPath": "photo-pdf-to-size/store-assets/appstore/marketing-20261027/fr/ipad-13/02-hero.jpg",
+        "sha256": "f2b94ffa3a101b0f4418210bcb181702c6bce0e19fdc62d1867793d6c41738f6",
+        "sources": [
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/fr/ipad-13/02-pixels.png",
+            "sha256": "251d20931b93bc3a83db4130fccf898b8903a0edcc045bf5d276d307458e4221"
+          },
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/fr/ipad-13/03-passport.png",
+            "sha256": "c9415f752039b43bd17b2d11f138363c6c8aec5fd2fcd256bbadfc9f070ccd78"
+          }
+        ],
+        "caption": "Dimensions en pixels",
+        "position": 2,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "fr-FR",
+        "uiLanguage": "fr",
+        "marketingPath": "photo-pdf-to-size/store-assets/appstore/marketing-20261027/fr/ipad-13/03-hero.jpg",
+        "sha256": "5ff9242242675992942f37e4432c0343f68caab4414d9f89cfc939c1215b90c1",
+        "sources": [
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/fr/ipad-13/03-passport.png",
+            "sha256": "c9415f752039b43bd17b2d11f138363c6c8aec5fd2fcd256bbadfc9f070ccd78"
+          },
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/fr/ipad-13/04-pdf.png",
+            "sha256": "b170e562935558c7b83b51067423369ed678afb072ac535bf046ef30faa7d8f0"
+          }
+        ],
+        "caption": "Photos pour documents",
+        "position": 3,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "fr-FR",
+        "uiLanguage": "fr",
+        "marketingPath": "photo-pdf-to-size/store-assets/appstore/marketing-20261027/fr/ipad-13/04-hero.jpg",
+        "sha256": "641566b83005167b94c718240d013a4fca46246ebe7b8be28bcf0f72b56fddc5",
+        "sources": [
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/fr/ipad-13/04-pdf.png",
+            "sha256": "b170e562935558c7b83b51067423369ed678afb072ac535bf046ef30faa7d8f0"
+          },
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/fr/ipad-13/01-fileSize.png",
+            "sha256": "3f8b7e0ebaae9d55dc5d75cfdefc3ba1401623d5bf0eac1b4000104c2774ed85"
+          }
+        ],
+        "caption": "Réduisez les fichiers PDF",
+        "position": 4,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "de-DE",
+        "uiLanguage": "de",
+        "marketingPath": "photo-pdf-to-size/store-assets/appstore/marketing-20261027/de/ipad-13/01-hero.jpg",
+        "sha256": "b296733461b2c12ef9e8c1abaf7d02f573c19a2493c027f745a27241810b776e",
+        "sources": [
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/de/ipad-13/01-fileSize.png",
+            "sha256": "e8a80d64c88270ba035f88f991ce979c03848353627c9812ab42c36a419a9125"
+          },
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/de/ipad-13/02-pixels.png",
+            "sha256": "e8aec4bee0a1882659cdd40cf8609789dad3300023fa53f03a4cdcef1556be8c"
+          }
+        ],
+        "caption": "2.92 MB → 472 KB",
+        "position": 1,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "de-DE",
+        "uiLanguage": "de",
+        "marketingPath": "photo-pdf-to-size/store-assets/appstore/marketing-20261027/de/ipad-13/02-hero.jpg",
+        "sha256": "fc66c05b3013572b73783335ac39560719e0078fcdc642ce61174e0aed35826d",
+        "sources": [
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/de/ipad-13/02-pixels.png",
+            "sha256": "e8aec4bee0a1882659cdd40cf8609789dad3300023fa53f03a4cdcef1556be8c"
+          },
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/de/ipad-13/03-passport.png",
+            "sha256": "002fe5b805bec21838daabe659d404534281c5b8571da9ab832f29d2829d4dd6"
+          }
+        ],
+        "caption": "Bildmaße in Pixeln ändern",
+        "position": 2,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "de-DE",
+        "uiLanguage": "de",
+        "marketingPath": "photo-pdf-to-size/store-assets/appstore/marketing-20261027/de/ipad-13/03-hero.jpg",
+        "sha256": "d561f5ce43282bd2153702125d0a2adf96029a80af3945a6800fa9ca6b9caefc",
+        "sources": [
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/de/ipad-13/03-passport.png",
+            "sha256": "002fe5b805bec21838daabe659d404534281c5b8571da9ab832f29d2829d4dd6"
+          },
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/de/ipad-13/04-pdf.png",
+            "sha256": "a394e0b670567d89b7acbfc0fa92532ef7ea9dc79bab949bbb5cfffbe65e6278"
+          }
+        ],
+        "caption": "Passfoto-Formate",
+        "position": 3,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "de-DE",
+        "uiLanguage": "de",
+        "marketingPath": "photo-pdf-to-size/store-assets/appstore/marketing-20261027/de/ipad-13/04-hero.jpg",
+        "sha256": "8483a3a3f803277b8b27781d4fbc66e92ab7e805ac670aa73f2203c833c9e5d5",
+        "sources": [
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/de/ipad-13/04-pdf.png",
+            "sha256": "a394e0b670567d89b7acbfc0fa92532ef7ea9dc79bab949bbb5cfffbe65e6278"
+          },
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/de/ipad-13/01-fileSize.png",
+            "sha256": "e8a80d64c88270ba035f88f991ce979c03848353627c9812ab42c36a419a9125"
+          }
+        ],
+        "caption": "PDF-Dateien auf KB verkleinern",
+        "position": 4,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "it",
+        "uiLanguage": "it",
+        "marketingPath": "photo-pdf-to-size/store-assets/appstore/marketing-20261027/it/ipad-13/01-hero.jpg",
+        "sha256": "c6594af1a385950013c41dbec9a83461184baac26fb69788f98183a5f1cc0e8b",
+        "sources": [
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/it/ipad-13/01-fileSize.png",
+            "sha256": "ba62a00ed6a783415478eff7cb5e44abe83dec2d8f9ba0c345649699dbb215ca"
+          },
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/it/ipad-13/02-pixels.png",
+            "sha256": "f4c286a083dd6a7b46ac2167bf7925ef67bbb9bd226ea25f7ac6f5cadd5630e4"
+          }
+        ],
+        "caption": "2.92 MB → 472 KB",
+        "position": 1,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "it",
+        "uiLanguage": "it",
+        "marketingPath": "photo-pdf-to-size/store-assets/appstore/marketing-20261027/it/ipad-13/02-hero.jpg",
+        "sha256": "edf98bdb1398574e3b57cc1156d19833046842d7f7968356787a72f40bb5a5ba",
+        "sources": [
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/it/ipad-13/02-pixels.png",
+            "sha256": "f4c286a083dd6a7b46ac2167bf7925ef67bbb9bd226ea25f7ac6f5cadd5630e4"
+          },
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/it/ipad-13/03-passport.png",
+            "sha256": "325e30053c60c5df547eb241e7adeb4aa5d73966343cb5b40cdb4fccd023ecde"
+          }
+        ],
+        "caption": "Modifica le dimensioni in pixel",
+        "position": 2,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "it",
+        "uiLanguage": "it",
+        "marketingPath": "photo-pdf-to-size/store-assets/appstore/marketing-20261027/it/ipad-13/03-hero.jpg",
+        "sha256": "e0d9df42877a4fd288e3cf10d48b68c9e8e2f094f0ad8a9bd80630132b7f7d91",
+        "sources": [
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/it/ipad-13/03-passport.png",
+            "sha256": "325e30053c60c5df547eb241e7adeb4aa5d73966343cb5b40cdb4fccd023ecde"
+          },
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/it/ipad-13/04-pdf.png",
+            "sha256": "21c07e111ae41ee47d0b8fa35df37b2f0b2878e4e4a5335d47ccb46f9decaf38"
+          }
+        ],
+        "caption": "Foto per documenti",
+        "position": 3,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "it",
+        "uiLanguage": "it",
+        "marketingPath": "photo-pdf-to-size/store-assets/appstore/marketing-20261027/it/ipad-13/04-hero.jpg",
+        "sha256": "a3e5d617e27f8151f3a068e96c82abdee5284126e2cdf684258195723843b81b",
+        "sources": [
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/it/ipad-13/04-pdf.png",
+            "sha256": "21c07e111ae41ee47d0b8fa35df37b2f0b2878e4e4a5335d47ccb46f9decaf38"
+          },
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/it/ipad-13/01-fileSize.png",
+            "sha256": "ba62a00ed6a783415478eff7cb5e44abe83dec2d8f9ba0c345649699dbb215ca"
+          }
+        ],
+        "caption": "Riduci le dimensioni dei PDF",
+        "position": 4,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "ja",
+        "uiLanguage": "ja",
+        "marketingPath": "photo-pdf-to-size/store-assets/appstore/marketing-20261027/ja/ipad-13/01-hero.jpg",
+        "sha256": "c23a6f2b6c34cea2b2469ba3666de7fc22bb06ccdd8eef5d3e33aa906da22db3",
+        "sources": [
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/ja/ipad-13/01-fileSize.png",
+            "sha256": "75fe09143959e1db44dfe19f516f023698f9c7fe7df23cc5968bf8cd97c1fd89"
+          },
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/ja/ipad-13/02-pixels.png",
+            "sha256": "227780dd8eceb282a1e93c7fa5f642992600ba4b1bd8779aaebe429d3de626db"
+          }
+        ],
+        "caption": "2.92 MB → 472 KB",
+        "position": 1,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "ja",
+        "uiLanguage": "ja",
+        "marketingPath": "photo-pdf-to-size/store-assets/appstore/marketing-20261027/ja/ipad-13/02-hero.jpg",
+        "sha256": "18b80c17c7e1919cb3e0d7cb101860ac6e44ec5b91c119c4bca3d9d47f2eaa23",
+        "sources": [
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/ja/ipad-13/02-pixels.png",
+            "sha256": "227780dd8eceb282a1e93c7fa5f642992600ba4b1bd8779aaebe429d3de626db"
+          },
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/ja/ipad-13/03-passport.png",
+            "sha256": "55fbf35f072c96dfe13fc21401a541731ef0ce5c78564380699f583f05542eba"
+          }
+        ],
+        "caption": "ピクセルでサイズ変更",
+        "position": 2,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "ja",
+        "uiLanguage": "ja",
+        "marketingPath": "photo-pdf-to-size/store-assets/appstore/marketing-20261027/ja/ipad-13/03-hero.jpg",
+        "sha256": "dedc02f9b085e63474069168c146622b05bbf805615eb3c84f85deaebb24c68e",
+        "sources": [
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/ja/ipad-13/03-passport.png",
+            "sha256": "55fbf35f072c96dfe13fc21401a541731ef0ce5c78564380699f583f05542eba"
+          },
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/ja/ipad-13/04-pdf.png",
+            "sha256": "40c4669d0b17fadad339ffa67771ce5c43e10693b0343a9dbb10e0ffacf5d5b4"
+          }
+        ],
+        "caption": "証明写真のサイズ設定",
+        "position": 3,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "ja",
+        "uiLanguage": "ja",
+        "marketingPath": "photo-pdf-to-size/store-assets/appstore/marketing-20261027/ja/ipad-13/04-hero.jpg",
+        "sha256": "33cdcbf6f86366e61a858d7c746c4da53780ad6e1c01fd5375166c05aa223978",
+        "sources": [
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/ja/ipad-13/04-pdf.png",
+            "sha256": "40c4669d0b17fadad339ffa67771ce5c43e10693b0343a9dbb10e0ffacf5d5b4"
+          },
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/ja/ipad-13/01-fileSize.png",
+            "sha256": "75fe09143959e1db44dfe19f516f023698f9c7fe7df23cc5968bf8cd97c1fd89"
+          }
+        ],
+        "caption": "PDFを指定サイズまで圧縮",
+        "position": 4,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "ko",
+        "uiLanguage": "ko",
+        "marketingPath": "photo-pdf-to-size/store-assets/appstore/marketing-20261027/ko/ipad-13/01-hero.jpg",
+        "sha256": "40f5603d7c12067e50f9264690ba1383e6061c04ffb3e0cf634efbcea4f6161d",
+        "sources": [
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/ko/ipad-13/01-fileSize.png",
+            "sha256": "2220968c2a16544283844567ad3f1639164a5c4c96945da8eee73db56247ff9a"
+          },
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/ko/ipad-13/02-pixels.png",
+            "sha256": "6ea83afa3bcd623bbd66e5e97c528449b54143a606359388b6a1e446622a4562"
+          }
+        ],
+        "caption": "2.92 MB → 472 KB",
+        "position": 1,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "ko",
+        "uiLanguage": "ko",
+        "marketingPath": "photo-pdf-to-size/store-assets/appstore/marketing-20261027/ko/ipad-13/02-hero.jpg",
+        "sha256": "dc97b052fcf0c273ba96adacb9585465b62dd3c9a93dabe0ba34169c1478cbc2",
+        "sources": [
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/ko/ipad-13/02-pixels.png",
+            "sha256": "6ea83afa3bcd623bbd66e5e97c528449b54143a606359388b6a1e446622a4562"
+          },
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/ko/ipad-13/03-passport.png",
+            "sha256": "dbc0baf2924ef79ec019d7aa96e577cdf4be260dbd5a66a556f224e3b2776d9e"
+          }
+        ],
+        "caption": "픽셀 크기 조절",
+        "position": 2,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "ko",
+        "uiLanguage": "ko",
+        "marketingPath": "photo-pdf-to-size/store-assets/appstore/marketing-20261027/ko/ipad-13/03-hero.jpg",
+        "sha256": "6f0a09766ba382af539662669b0f86e04bf3ef9d4000fabed9b868e63cc75be3",
+        "sources": [
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/ko/ipad-13/03-passport.png",
+            "sha256": "dbc0baf2924ef79ec019d7aa96e577cdf4be260dbd5a66a556f224e3b2776d9e"
+          },
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/ko/ipad-13/04-pdf.png",
+            "sha256": "e0223028cf776747220ccb53d6569f9d29e6b92c0728560816d2686791aa493b"
+          }
+        ],
+        "caption": "증명사진 규격",
+        "position": 3,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "ko",
+        "uiLanguage": "ko",
+        "marketingPath": "photo-pdf-to-size/store-assets/appstore/marketing-20261027/ko/ipad-13/04-hero.jpg",
+        "sha256": "ed366e6cab0315721959ca8cdb0f19e68a521e18d21fb0c239b29837aaecc5df",
+        "sources": [
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/ko/ipad-13/04-pdf.png",
+            "sha256": "e0223028cf776747220ccb53d6569f9d29e6b92c0728560816d2686791aa493b"
+          },
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/ko/ipad-13/01-fileSize.png",
+            "sha256": "2220968c2a16544283844567ad3f1639164a5c4c96945da8eee73db56247ff9a"
+          }
+        ],
+        "caption": "PDF 파일 용량 줄이기",
+        "position": 4,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "pt-BR",
+        "uiLanguage": "pt-BR",
+        "marketingPath": "photo-pdf-to-size/store-assets/appstore/marketing-20261027/pt-BR/ipad-13/01-hero.jpg",
+        "sha256": "9dce9db73e79d5a21bea82707b50e5efedb4b27ae1669e5de914ed0f2510ca1b",
+        "sources": [
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/pt-BR/ipad-13/01-fileSize.png",
+            "sha256": "023a8bd04bed25fa42d83347a8c573ca673b75550bdcbaa227cf0677e6a4dd32"
+          },
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/pt-BR/ipad-13/02-pixels.png",
+            "sha256": "8db86373c07c69b1d687c9ccc9f904bb67b522a522b38b63a1cf16c6f4ec8e61"
+          }
+        ],
+        "caption": "2.92 MB → 472 KB",
+        "position": 1,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "pt-BR",
+        "uiLanguage": "pt-BR",
+        "marketingPath": "photo-pdf-to-size/store-assets/appstore/marketing-20261027/pt-BR/ipad-13/02-hero.jpg",
+        "sha256": "b5ae94e6f97843622ef4441520b4108c6e4d456ae9e3a6b6714a2b628ba4292c",
+        "sources": [
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/pt-BR/ipad-13/02-pixels.png",
+            "sha256": "8db86373c07c69b1d687c9ccc9f904bb67b522a522b38b63a1cf16c6f4ec8e61"
+          },
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/pt-BR/ipad-13/03-passport.png",
+            "sha256": "1d1cd0205fe1f47bd0735934ba3d4d549185bc62d8e7038f9f27409ce5393da0"
+          }
+        ],
+        "caption": "Ajuste dimensões em pixels",
+        "position": 2,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "pt-BR",
+        "uiLanguage": "pt-BR",
+        "marketingPath": "photo-pdf-to-size/store-assets/appstore/marketing-20261027/pt-BR/ipad-13/03-hero.jpg",
+        "sha256": "fd39b3d3714e1c3cd8feae98e3ba0538d285fd0a749912582867d301e2f8bbe7",
+        "sources": [
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/pt-BR/ipad-13/03-passport.png",
+            "sha256": "1d1cd0205fe1f47bd0735934ba3d4d549185bc62d8e7038f9f27409ce5393da0"
+          },
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/pt-BR/ipad-13/04-pdf.png",
+            "sha256": "edd10159c0cca7a99f25734321b5029dcf0a0bfee4728efad2328e9137d07523"
+          }
+        ],
+        "caption": "Fotos para documentos",
+        "position": 3,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "pt-BR",
+        "uiLanguage": "pt-BR",
+        "marketingPath": "photo-pdf-to-size/store-assets/appstore/marketing-20261027/pt-BR/ipad-13/04-hero.jpg",
+        "sha256": "fbf67a57df04952481ec430e827089a0411f8e1c8a54dde7389184cec006c55b",
+        "sources": [
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/pt-BR/ipad-13/04-pdf.png",
+            "sha256": "edd10159c0cca7a99f25734321b5029dcf0a0bfee4728efad2328e9137d07523"
+          },
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/pt-BR/ipad-13/01-fileSize.png",
+            "sha256": "023a8bd04bed25fa42d83347a8c573ca673b75550bdcbaa227cf0677e6a4dd32"
+          }
+        ],
+        "caption": "Reduza PDFs para enviar",
+        "position": 4,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "pt-PT",
+        "uiLanguage": "pt-PT",
+        "marketingPath": "photo-pdf-to-size/store-assets/appstore/marketing-20261027/pt-PT/ipad-13/01-hero.jpg",
+        "sha256": "1e27e58378c4211b83b31ed31b3d2b2e622893475f7d4ca5ea51dab8099d260c",
+        "sources": [
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/pt-PT/ipad-13/01-fileSize.png",
+            "sha256": "910e5bc9db3e136d260ba8ac08f19145fcd3820d3c3b318c4c499fb23c533c5a"
+          },
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/pt-PT/ipad-13/02-pixels.png",
+            "sha256": "2f0ca6224bde7aa7ff7ff68e8b6e8638b463269ea96b4f0b4fc2c8330e7ceb3b"
+          }
+        ],
+        "caption": "2.92 MB → 472 KB",
+        "position": 1,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "pt-PT",
+        "uiLanguage": "pt-PT",
+        "marketingPath": "photo-pdf-to-size/store-assets/appstore/marketing-20261027/pt-PT/ipad-13/02-hero.jpg",
+        "sha256": "c45b128b9f843eab8853ac2bcb634850864f40cbfa0105d56cb36d370863e684",
+        "sources": [
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/pt-PT/ipad-13/02-pixels.png",
+            "sha256": "2f0ca6224bde7aa7ff7ff68e8b6e8638b463269ea96b4f0b4fc2c8330e7ceb3b"
+          },
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/pt-PT/ipad-13/03-passport.png",
+            "sha256": "af753617662a53f775827e91b5783f0ac59ce109762135adf60691e96efc43c8"
+          }
+        ],
+        "caption": "Altere dimensões em píxeis",
+        "position": 2,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "pt-PT",
+        "uiLanguage": "pt-PT",
+        "marketingPath": "photo-pdf-to-size/store-assets/appstore/marketing-20261027/pt-PT/ipad-13/03-hero.jpg",
+        "sha256": "086c131cce9f7499e8d83d5c749a0b08dad623c522bb6b7449a87990ccaece8a",
+        "sources": [
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/pt-PT/ipad-13/03-passport.png",
+            "sha256": "af753617662a53f775827e91b5783f0ac59ce109762135adf60691e96efc43c8"
+          },
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/pt-PT/ipad-13/04-pdf.png",
+            "sha256": "6c8740de8ef1f1dda40a818178befd10628712cf3ffc876e072401c697ccc154"
+          }
+        ],
+        "caption": "Fotografias para documentos",
+        "position": 3,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "pt-PT",
+        "uiLanguage": "pt-PT",
+        "marketingPath": "photo-pdf-to-size/store-assets/appstore/marketing-20261027/pt-PT/ipad-13/04-hero.jpg",
+        "sha256": "fc30fde2721c4ae5bde2702c7aa707a39dc5dbc78b9c995c788e1beef035eec1",
+        "sources": [
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/pt-PT/ipad-13/04-pdf.png",
+            "sha256": "6c8740de8ef1f1dda40a818178befd10628712cf3ffc876e072401c697ccc154"
+          },
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/pt-PT/ipad-13/01-fileSize.png",
+            "sha256": "910e5bc9db3e136d260ba8ac08f19145fcd3820d3c3b318c4c499fb23c533c5a"
+          }
+        ],
+        "caption": "Reduza o tamanho dos PDF",
+        "position": 4,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "zh-Hans",
+        "uiLanguage": "zh-Hans",
+        "marketingPath": "photo-pdf-to-size/store-assets/appstore/marketing-20261027/zh-Hans/ipad-13/01-hero.jpg",
+        "sha256": "060bfdab232837229000bf4fd3e895ba7070b8492494a435ecfb4f4546b63a68",
+        "sources": [
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/zh-Hans/ipad-13/01-fileSize.png",
+            "sha256": "23f9ab0ad9171d875bc42b67bc14dcc419f909e1e543ae41c8bf242b05458239"
+          },
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/zh-Hans/ipad-13/02-pixels.png",
+            "sha256": "a4c05002575bd38e183e8ba929209f9eb63dbd4073b3333de323ed094a4e4ee0"
+          }
+        ],
+        "caption": "2.92 MB → 472 KB",
+        "position": 1,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "zh-Hans",
+        "uiLanguage": "zh-Hans",
+        "marketingPath": "photo-pdf-to-size/store-assets/appstore/marketing-20261027/zh-Hans/ipad-13/02-hero.jpg",
+        "sha256": "12568ea6e5d0e9281ac4136e867a726432fb2c275cc7e3dbd4bfe71af109317a",
+        "sources": [
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/zh-Hans/ipad-13/02-pixels.png",
+            "sha256": "a4c05002575bd38e183e8ba929209f9eb63dbd4073b3333de323ed094a4e4ee0"
+          },
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/zh-Hans/ipad-13/03-passport.png",
+            "sha256": "1233996b7dd5b3a7c5491d5d985412e3cf550720757947293c6ce867431b5b40"
+          }
+        ],
+        "caption": "按像素调整尺寸",
+        "position": 2,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "zh-Hans",
+        "uiLanguage": "zh-Hans",
+        "marketingPath": "photo-pdf-to-size/store-assets/appstore/marketing-20261027/zh-Hans/ipad-13/03-hero.jpg",
+        "sha256": "b3dfbf8ea50f7409479e6122834ffa7b382a1229d395e0de3469d05b810dae4b",
+        "sources": [
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/zh-Hans/ipad-13/03-passport.png",
+            "sha256": "1233996b7dd5b3a7c5491d5d985412e3cf550720757947293c6ce867431b5b40"
+          },
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/zh-Hans/ipad-13/04-pdf.png",
+            "sha256": "fa21f8878a1ca205d37ca86ca8ec199db900e6e87d7d6310b03b6cdac2ec0cc6"
+          }
+        ],
+        "caption": "签证及证件照尺寸",
+        "position": 3,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "zh-Hans",
+        "uiLanguage": "zh-Hans",
+        "marketingPath": "photo-pdf-to-size/store-assets/appstore/marketing-20261027/zh-Hans/ipad-13/04-hero.jpg",
+        "sha256": "d2807ed97b819491bdc4810a6646e076d0a23e95eb5a5206a2a5cc48ea4d1325",
+        "sources": [
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/zh-Hans/ipad-13/04-pdf.png",
+            "sha256": "fa21f8878a1ca205d37ca86ca8ec199db900e6e87d7d6310b03b6cdac2ec0cc6"
+          },
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/zh-Hans/ipad-13/01-fileSize.png",
+            "sha256": "23f9ab0ad9171d875bc42b67bc14dcc419f909e1e543ae41c8bf242b05458239"
+          }
+        ],
+        "caption": "压缩PDF以便上传",
+        "position": 4,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "zh-Hant",
+        "uiLanguage": "zh-Hant",
+        "marketingPath": "photo-pdf-to-size/store-assets/appstore/marketing-20261027/zh-Hant/ipad-13/01-hero.jpg",
+        "sha256": "4a22bd4523398638094e37e6654af1031e544c517dfeaafa9ba275bb9158b206",
+        "sources": [
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/zh-Hant/ipad-13/01-fileSize.png",
+            "sha256": "bbb8099f4c2d739fbab1d2a8d739d4805f87209687616908e2e84373473cabc1"
+          },
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/zh-Hant/ipad-13/02-pixels.png",
+            "sha256": "0f5a9db33ac51965090efcfcfdf8b97b174f5d47b760f5342a53c05ea3480b14"
+          }
+        ],
+        "caption": "2.92 MB → 472 KB",
+        "position": 1,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "zh-Hant",
+        "uiLanguage": "zh-Hant",
+        "marketingPath": "photo-pdf-to-size/store-assets/appstore/marketing-20261027/zh-Hant/ipad-13/02-hero.jpg",
+        "sha256": "c9e74531f53f21b81e1b2e454b25a5148830f0af4b11e8e8f8f133ba79a3878f",
+        "sources": [
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/zh-Hant/ipad-13/02-pixels.png",
+            "sha256": "0f5a9db33ac51965090efcfcfdf8b97b174f5d47b760f5342a53c05ea3480b14"
+          },
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/zh-Hant/ipad-13/03-passport.png",
+            "sha256": "f28444eec0512dff760ede7be0b6d25ead29f1a5c807abe8c46773c5ea31c031"
+          }
+        ],
+        "caption": "依像素調整尺寸",
+        "position": 2,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "zh-Hant",
+        "uiLanguage": "zh-Hant",
+        "marketingPath": "photo-pdf-to-size/store-assets/appstore/marketing-20261027/zh-Hant/ipad-13/03-hero.jpg",
+        "sha256": "226612b108ce5823508898777b5502c4b00a429eccdf06a4d2b75f5e967eacdb",
+        "sources": [
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/zh-Hant/ipad-13/03-passport.png",
+            "sha256": "f28444eec0512dff760ede7be0b6d25ead29f1a5c807abe8c46773c5ea31c031"
+          },
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/zh-Hant/ipad-13/04-pdf.png",
+            "sha256": "f31f2b83201ae85f1d487435bd03f04cf51b89791ef1e28cc0aee6da965215ba"
+          }
+        ],
+        "caption": "簽證與證件照尺寸",
+        "position": 3,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "zh-Hant",
+        "uiLanguage": "zh-Hant",
+        "marketingPath": "photo-pdf-to-size/store-assets/appstore/marketing-20261027/zh-Hant/ipad-13/04-hero.jpg",
+        "sha256": "ae6ffbf885fc75ece869b790642807382da034fb49e7c7e960623cc5900ad1c8",
+        "sources": [
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/zh-Hant/ipad-13/04-pdf.png",
+            "sha256": "f31f2b83201ae85f1d487435bd03f04cf51b89791ef1e28cc0aee6da965215ba"
+          },
+          {
+            "path": "photo-pdf-to-size/store-assets/appstore/editorial-20261027/zh-Hant/ipad-13/01-fileSize.png",
+            "sha256": "bbb8099f4c2d739fbab1d2a8d739d4805f87209687616908e2e84373473cabc1"
+          }
+        ],
+        "caption": "壓縮PDF方便上傳",
+        "position": 4,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      }
+    ],
+    "what": [
+      {
+        "locale": "ru",
+        "uiLanguage": "ru",
+        "marketingPath": "what/store-assets/appstore/marketing-20261027/ru/ipad-13/01-hero.jpg",
+        "sha256": "1032067d34ec7a63b1bbaea9d7ef863a0f1224c35ae3958f6cbc4d18fb0b88b4",
+        "sources": [
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/ru/ipad-13/01-home.png",
+            "sha256": "34f75a5c5a45216887b28f878669f7663242c49a5bedde73001dd0a613d4f4ed"
+          },
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/ru/ipad-13/02-library.png",
+            "sha256": "9dea74bbb5f54c231fa83c2e3f475fea176aaf8065562df0afc9f299094c8aed"
+          }
+        ],
+        "caption": "Ухвати мысль в одно касание",
+        "position": 1,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "ru",
+        "uiLanguage": "ru",
+        "marketingPath": "what/store-assets/appstore/marketing-20261027/ru/ipad-13/02-hero.jpg",
+        "sha256": "692744a523b3dc331635b8a6620dac228fedf7d9b9d40e4512b056a813d2c366",
+        "sources": [
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/ru/ipad-13/02-library.png",
+            "sha256": "9dea74bbb5f54c231fa83c2e3f475fea176aaf8065562df0afc9f299094c8aed"
+          },
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/ru/ipad-13/03-settings.png",
+            "sha256": "49e1fdde7942476a838211cf82ef4ee098f1d351aae941145f9b583eb971b07a"
+          }
+        ],
+        "caption": "Заметки в одном месте",
+        "position": 2,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "ru",
+        "uiLanguage": "ru",
+        "marketingPath": "what/store-assets/appstore/marketing-20261027/ru/ipad-13/03-hero.jpg",
+        "sha256": "907c01917396e44bf2dd8440b8d03e4baf9ff7b3433c8e8100e70bfbde809650",
+        "sources": [
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/ru/ipad-13/03-settings.png",
+            "sha256": "49e1fdde7942476a838211cf82ef4ee098f1d351aae941145f9b583eb971b07a"
+          },
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/ru/ipad-13/04-text.png",
+            "sha256": "43432d767161c7d788c077df159c36c8d5544544cd0eba40c68aa4d345cedbf9"
+          }
+        ],
+        "caption": "Язык и напоминания под контролем",
+        "position": 3,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "ru",
+        "uiLanguage": "ru",
+        "marketingPath": "what/store-assets/appstore/marketing-20261027/ru/ipad-13/04-hero.jpg",
+        "sha256": "eed7b55d2f6e8a65a1c6581bb3d5b9372abc07ec2acd56670bb4157614792039",
+        "sources": [
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/ru/ipad-13/04-text.png",
+            "sha256": "43432d767161c7d788c077df159c36c8d5544544cd0eba40c68aa4d345cedbf9"
+          },
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/ru/ipad-13/01-home.png",
+            "sha256": "34f75a5c5a45216887b28f878669f7663242c49a5bedde73001dd0a613d4f4ed"
+          }
+        ],
+        "caption": "Быстро создай текстовую заметку",
+        "position": 4,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "en-US",
+        "uiLanguage": "en",
+        "marketingPath": "what/store-assets/appstore/marketing-20261027/en/ipad-13/01-hero.jpg",
+        "sha256": "14217da970e1a970a29c0bad5eb8ae5b999bdcd946a9a675316d98e71d4ec97b",
+        "sources": [
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/en/ipad-13/01-home.png",
+            "sha256": "d2c043af4caa8c803be7204540127b6104144f24cefaffc7c3c34453a3f52aa5"
+          },
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/en/ipad-13/02-library.png",
+            "sha256": "c86ec5ac0c2fedd16ea33f616abf233def6619e582e0ee29c6e125ee44d6b933"
+          }
+        ],
+        "caption": "Capture a thought in one tap",
+        "position": 1,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "en-US",
+        "uiLanguage": "en",
+        "marketingPath": "what/store-assets/appstore/marketing-20261027/en/ipad-13/02-hero.jpg",
+        "sha256": "083ba3227e81ff73f94503642f5903fb89a25a64ee4882b269a9d8b78004b8c9",
+        "sources": [
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/en/ipad-13/02-library.png",
+            "sha256": "c86ec5ac0c2fedd16ea33f616abf233def6619e582e0ee29c6e125ee44d6b933"
+          },
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/en/ipad-13/03-settings.png",
+            "sha256": "364eeeb68a900788544125954e41da0b717f60b0127a30f99f1c391228b21345"
+          }
+        ],
+        "caption": "All your notes in one place",
+        "position": 2,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "en-US",
+        "uiLanguage": "en",
+        "marketingPath": "what/store-assets/appstore/marketing-20261027/en/ipad-13/03-hero.jpg",
+        "sha256": "65fcddfdbcacbc0b9d2c00d41b419a55cd5d4a43e6840ce0607bbd50c57367d6",
+        "sources": [
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/en/ipad-13/03-settings.png",
+            "sha256": "364eeeb68a900788544125954e41da0b717f60b0127a30f99f1c391228b21345"
+          },
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/en/ipad-13/04-text.png",
+            "sha256": "02b6c40870840d9e87ad9f0a6e55b2f4c0b37bc5d7d70670f4053b346f20b726"
+          }
+        ],
+        "caption": "Set language and reminders",
+        "position": 3,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "en-US",
+        "uiLanguage": "en",
+        "marketingPath": "what/store-assets/appstore/marketing-20261027/en/ipad-13/04-hero.jpg",
+        "sha256": "fe7aeaf66687f7a3bcf8f73bde2ea36dd4c456165b6f5fd6390a0dbb44ab1f5c",
+        "sources": [
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/en/ipad-13/04-text.png",
+            "sha256": "02b6c40870840d9e87ad9f0a6e55b2f4c0b37bc5d7d70670f4053b346f20b726"
+          },
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/en/ipad-13/01-home.png",
+            "sha256": "d2c043af4caa8c803be7204540127b6104144f24cefaffc7c3c34453a3f52aa5"
+          }
+        ],
+        "caption": "Write a quick text note",
+        "position": 4,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "en-GB",
+        "uiLanguage": "en",
+        "marketingPath": "what/store-assets/appstore/marketing-20261027/en/ipad-13/01-hero.jpg",
+        "sha256": "14217da970e1a970a29c0bad5eb8ae5b999bdcd946a9a675316d98e71d4ec97b",
+        "sources": [
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/en/ipad-13/01-home.png",
+            "sha256": "d2c043af4caa8c803be7204540127b6104144f24cefaffc7c3c34453a3f52aa5"
+          },
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/en/ipad-13/02-library.png",
+            "sha256": "c86ec5ac0c2fedd16ea33f616abf233def6619e582e0ee29c6e125ee44d6b933"
+          }
+        ],
+        "caption": "Capture a thought in one tap",
+        "position": 1,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "en-GB",
+        "uiLanguage": "en",
+        "marketingPath": "what/store-assets/appstore/marketing-20261027/en/ipad-13/02-hero.jpg",
+        "sha256": "083ba3227e81ff73f94503642f5903fb89a25a64ee4882b269a9d8b78004b8c9",
+        "sources": [
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/en/ipad-13/02-library.png",
+            "sha256": "c86ec5ac0c2fedd16ea33f616abf233def6619e582e0ee29c6e125ee44d6b933"
+          },
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/en/ipad-13/03-settings.png",
+            "sha256": "364eeeb68a900788544125954e41da0b717f60b0127a30f99f1c391228b21345"
+          }
+        ],
+        "caption": "All your notes in one place",
+        "position": 2,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "en-GB",
+        "uiLanguage": "en",
+        "marketingPath": "what/store-assets/appstore/marketing-20261027/en/ipad-13/03-hero.jpg",
+        "sha256": "65fcddfdbcacbc0b9d2c00d41b419a55cd5d4a43e6840ce0607bbd50c57367d6",
+        "sources": [
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/en/ipad-13/03-settings.png",
+            "sha256": "364eeeb68a900788544125954e41da0b717f60b0127a30f99f1c391228b21345"
+          },
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/en/ipad-13/04-text.png",
+            "sha256": "02b6c40870840d9e87ad9f0a6e55b2f4c0b37bc5d7d70670f4053b346f20b726"
+          }
+        ],
+        "caption": "Set language and reminders",
+        "position": 3,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "en-GB",
+        "uiLanguage": "en",
+        "marketingPath": "what/store-assets/appstore/marketing-20261027/en/ipad-13/04-hero.jpg",
+        "sha256": "fe7aeaf66687f7a3bcf8f73bde2ea36dd4c456165b6f5fd6390a0dbb44ab1f5c",
+        "sources": [
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/en/ipad-13/04-text.png",
+            "sha256": "02b6c40870840d9e87ad9f0a6e55b2f4c0b37bc5d7d70670f4053b346f20b726"
+          },
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/en/ipad-13/01-home.png",
+            "sha256": "d2c043af4caa8c803be7204540127b6104144f24cefaffc7c3c34453a3f52aa5"
+          }
+        ],
+        "caption": "Write a quick text note",
+        "position": 4,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "en-AU",
+        "uiLanguage": "en",
+        "marketingPath": "what/store-assets/appstore/marketing-20261027/en/ipad-13/01-hero.jpg",
+        "sha256": "14217da970e1a970a29c0bad5eb8ae5b999bdcd946a9a675316d98e71d4ec97b",
+        "sources": [
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/en/ipad-13/01-home.png",
+            "sha256": "d2c043af4caa8c803be7204540127b6104144f24cefaffc7c3c34453a3f52aa5"
+          },
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/en/ipad-13/02-library.png",
+            "sha256": "c86ec5ac0c2fedd16ea33f616abf233def6619e582e0ee29c6e125ee44d6b933"
+          }
+        ],
+        "caption": "Capture a thought in one tap",
+        "position": 1,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "en-AU",
+        "uiLanguage": "en",
+        "marketingPath": "what/store-assets/appstore/marketing-20261027/en/ipad-13/02-hero.jpg",
+        "sha256": "083ba3227e81ff73f94503642f5903fb89a25a64ee4882b269a9d8b78004b8c9",
+        "sources": [
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/en/ipad-13/02-library.png",
+            "sha256": "c86ec5ac0c2fedd16ea33f616abf233def6619e582e0ee29c6e125ee44d6b933"
+          },
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/en/ipad-13/03-settings.png",
+            "sha256": "364eeeb68a900788544125954e41da0b717f60b0127a30f99f1c391228b21345"
+          }
+        ],
+        "caption": "All your notes in one place",
+        "position": 2,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "en-AU",
+        "uiLanguage": "en",
+        "marketingPath": "what/store-assets/appstore/marketing-20261027/en/ipad-13/03-hero.jpg",
+        "sha256": "65fcddfdbcacbc0b9d2c00d41b419a55cd5d4a43e6840ce0607bbd50c57367d6",
+        "sources": [
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/en/ipad-13/03-settings.png",
+            "sha256": "364eeeb68a900788544125954e41da0b717f60b0127a30f99f1c391228b21345"
+          },
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/en/ipad-13/04-text.png",
+            "sha256": "02b6c40870840d9e87ad9f0a6e55b2f4c0b37bc5d7d70670f4053b346f20b726"
+          }
+        ],
+        "caption": "Set language and reminders",
+        "position": 3,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "en-AU",
+        "uiLanguage": "en",
+        "marketingPath": "what/store-assets/appstore/marketing-20261027/en/ipad-13/04-hero.jpg",
+        "sha256": "fe7aeaf66687f7a3bcf8f73bde2ea36dd4c456165b6f5fd6390a0dbb44ab1f5c",
+        "sources": [
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/en/ipad-13/04-text.png",
+            "sha256": "02b6c40870840d9e87ad9f0a6e55b2f4c0b37bc5d7d70670f4053b346f20b726"
+          },
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/en/ipad-13/01-home.png",
+            "sha256": "d2c043af4caa8c803be7204540127b6104144f24cefaffc7c3c34453a3f52aa5"
+          }
+        ],
+        "caption": "Write a quick text note",
+        "position": 4,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "en-CA",
+        "uiLanguage": "en",
+        "marketingPath": "what/store-assets/appstore/marketing-20261027/en/ipad-13/01-hero.jpg",
+        "sha256": "14217da970e1a970a29c0bad5eb8ae5b999bdcd946a9a675316d98e71d4ec97b",
+        "sources": [
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/en/ipad-13/01-home.png",
+            "sha256": "d2c043af4caa8c803be7204540127b6104144f24cefaffc7c3c34453a3f52aa5"
+          },
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/en/ipad-13/02-library.png",
+            "sha256": "c86ec5ac0c2fedd16ea33f616abf233def6619e582e0ee29c6e125ee44d6b933"
+          }
+        ],
+        "caption": "Capture a thought in one tap",
+        "position": 1,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "en-CA",
+        "uiLanguage": "en",
+        "marketingPath": "what/store-assets/appstore/marketing-20261027/en/ipad-13/02-hero.jpg",
+        "sha256": "083ba3227e81ff73f94503642f5903fb89a25a64ee4882b269a9d8b78004b8c9",
+        "sources": [
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/en/ipad-13/02-library.png",
+            "sha256": "c86ec5ac0c2fedd16ea33f616abf233def6619e582e0ee29c6e125ee44d6b933"
+          },
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/en/ipad-13/03-settings.png",
+            "sha256": "364eeeb68a900788544125954e41da0b717f60b0127a30f99f1c391228b21345"
+          }
+        ],
+        "caption": "All your notes in one place",
+        "position": 2,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "en-CA",
+        "uiLanguage": "en",
+        "marketingPath": "what/store-assets/appstore/marketing-20261027/en/ipad-13/03-hero.jpg",
+        "sha256": "65fcddfdbcacbc0b9d2c00d41b419a55cd5d4a43e6840ce0607bbd50c57367d6",
+        "sources": [
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/en/ipad-13/03-settings.png",
+            "sha256": "364eeeb68a900788544125954e41da0b717f60b0127a30f99f1c391228b21345"
+          },
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/en/ipad-13/04-text.png",
+            "sha256": "02b6c40870840d9e87ad9f0a6e55b2f4c0b37bc5d7d70670f4053b346f20b726"
+          }
+        ],
+        "caption": "Set language and reminders",
+        "position": 3,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "en-CA",
+        "uiLanguage": "en",
+        "marketingPath": "what/store-assets/appstore/marketing-20261027/en/ipad-13/04-hero.jpg",
+        "sha256": "fe7aeaf66687f7a3bcf8f73bde2ea36dd4c456165b6f5fd6390a0dbb44ab1f5c",
+        "sources": [
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/en/ipad-13/04-text.png",
+            "sha256": "02b6c40870840d9e87ad9f0a6e55b2f4c0b37bc5d7d70670f4053b346f20b726"
+          },
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/en/ipad-13/01-home.png",
+            "sha256": "d2c043af4caa8c803be7204540127b6104144f24cefaffc7c3c34453a3f52aa5"
+          }
+        ],
+        "caption": "Write a quick text note",
+        "position": 4,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "es-ES",
+        "uiLanguage": "es",
+        "marketingPath": "what/store-assets/appstore/marketing-20261027/es/ipad-13/01-hero.jpg",
+        "sha256": "0d61c08daf93ddce7b72fe8088f50b0d90ddae90ed91e5583775fd1323782acf",
+        "sources": [
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/es/ipad-13/01-home.png",
+            "sha256": "89b2ccbbcac5b10ff8ab0df3bf3b40c0cd84ed65fa73167c126119fbd0ff77af"
+          },
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/es/ipad-13/02-library.png",
+            "sha256": "e8c3a0ab076d394a5b5c9cf5d40ac6bc83cc085b20403ea1e18a2cbc65fe99b2"
+          }
+        ],
+        "caption": "Guarda una idea con un toque",
+        "position": 1,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "es-ES",
+        "uiLanguage": "es",
+        "marketingPath": "what/store-assets/appstore/marketing-20261027/es/ipad-13/02-hero.jpg",
+        "sha256": "75625c1bedc522de824ce1241f258ebfa1b25080f09f1478fb8c71d6159e33c8",
+        "sources": [
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/es/ipad-13/02-library.png",
+            "sha256": "e8c3a0ab076d394a5b5c9cf5d40ac6bc83cc085b20403ea1e18a2cbc65fe99b2"
+          },
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/es/ipad-13/03-settings.png",
+            "sha256": "e7119622863b0972babedceea8cd4fcc8f74bdb88dae43177de10f746cdd4c0a"
+          }
+        ],
+        "caption": "Todas tus notas, juntas",
+        "position": 2,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "es-ES",
+        "uiLanguage": "es",
+        "marketingPath": "what/store-assets/appstore/marketing-20261027/es/ipad-13/03-hero.jpg",
+        "sha256": "9820b753641e6eae6a1ca1780132b052966a37ef34fee4f073658b909a910368",
+        "sources": [
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/es/ipad-13/03-settings.png",
+            "sha256": "e7119622863b0972babedceea8cd4fcc8f74bdb88dae43177de10f746cdd4c0a"
+          },
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/es/ipad-13/04-text.png",
+            "sha256": "be31be775ca68928f34a3c32692e5315f4ba11c67d2bee1de0194dabae91d2cb"
+          }
+        ],
+        "caption": "Idioma y recordatorios",
+        "position": 3,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "es-ES",
+        "uiLanguage": "es",
+        "marketingPath": "what/store-assets/appstore/marketing-20261027/es/ipad-13/04-hero.jpg",
+        "sha256": "253321951d0f01c6cd5649e02c553bb50a1c617603c40d8ba1bf84241a6e2dd7",
+        "sources": [
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/es/ipad-13/04-text.png",
+            "sha256": "be31be775ca68928f34a3c32692e5315f4ba11c67d2bee1de0194dabae91d2cb"
+          },
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/es/ipad-13/01-home.png",
+            "sha256": "89b2ccbbcac5b10ff8ab0df3bf3b40c0cd84ed65fa73167c126119fbd0ff77af"
+          }
+        ],
+        "caption": "Escribe una nota rápida",
+        "position": 4,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "es-MX",
+        "uiLanguage": "es",
+        "marketingPath": "what/store-assets/appstore/marketing-20261027/es/ipad-13/01-hero.jpg",
+        "sha256": "0d61c08daf93ddce7b72fe8088f50b0d90ddae90ed91e5583775fd1323782acf",
+        "sources": [
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/es/ipad-13/01-home.png",
+            "sha256": "89b2ccbbcac5b10ff8ab0df3bf3b40c0cd84ed65fa73167c126119fbd0ff77af"
+          },
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/es/ipad-13/02-library.png",
+            "sha256": "e8c3a0ab076d394a5b5c9cf5d40ac6bc83cc085b20403ea1e18a2cbc65fe99b2"
+          }
+        ],
+        "caption": "Guarda una idea con un toque",
+        "position": 1,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "es-MX",
+        "uiLanguage": "es",
+        "marketingPath": "what/store-assets/appstore/marketing-20261027/es/ipad-13/02-hero.jpg",
+        "sha256": "75625c1bedc522de824ce1241f258ebfa1b25080f09f1478fb8c71d6159e33c8",
+        "sources": [
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/es/ipad-13/02-library.png",
+            "sha256": "e8c3a0ab076d394a5b5c9cf5d40ac6bc83cc085b20403ea1e18a2cbc65fe99b2"
+          },
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/es/ipad-13/03-settings.png",
+            "sha256": "e7119622863b0972babedceea8cd4fcc8f74bdb88dae43177de10f746cdd4c0a"
+          }
+        ],
+        "caption": "Todas tus notas en un lugar",
+        "position": 2,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "es-MX",
+        "uiLanguage": "es",
+        "marketingPath": "what/store-assets/appstore/marketing-20261027/es/ipad-13/03-hero.jpg",
+        "sha256": "9820b753641e6eae6a1ca1780132b052966a37ef34fee4f073658b909a910368",
+        "sources": [
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/es/ipad-13/03-settings.png",
+            "sha256": "e7119622863b0972babedceea8cd4fcc8f74bdb88dae43177de10f746cdd4c0a"
+          },
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/es/ipad-13/04-text.png",
+            "sha256": "be31be775ca68928f34a3c32692e5315f4ba11c67d2bee1de0194dabae91d2cb"
+          }
+        ],
+        "caption": "Idioma y recordatorios",
+        "position": 3,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "es-MX",
+        "uiLanguage": "es",
+        "marketingPath": "what/store-assets/appstore/marketing-20261027/es/ipad-13/04-hero.jpg",
+        "sha256": "253321951d0f01c6cd5649e02c553bb50a1c617603c40d8ba1bf84241a6e2dd7",
+        "sources": [
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/es/ipad-13/04-text.png",
+            "sha256": "be31be775ca68928f34a3c32692e5315f4ba11c67d2bee1de0194dabae91d2cb"
+          },
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/es/ipad-13/01-home.png",
+            "sha256": "89b2ccbbcac5b10ff8ab0df3bf3b40c0cd84ed65fa73167c126119fbd0ff77af"
+          }
+        ],
+        "caption": "Escribe una nota rápida",
+        "position": 4,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "fr-FR",
+        "uiLanguage": "fr",
+        "marketingPath": "what/store-assets/appstore/marketing-20261027/fr/ipad-13/01-hero.jpg",
+        "sha256": "067ebdc7c046fef9ebfa7d73d8ebe556d5011abdf7d5634830195b909bd1b565",
+        "sources": [
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/fr/ipad-13/01-home.png",
+            "sha256": "717f0ce8e399578416ff20bfe5a547229ba2782c7176975f8e08be9c2353b1b7"
+          },
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/fr/ipad-13/02-library.png",
+            "sha256": "e2882e72f8372a9f405cd9bd81dc8eb8cf450a124fe2fd409e2a1c108d4008b7"
+          }
+        ],
+        "caption": "Une idée, un geste",
+        "position": 1,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "fr-FR",
+        "uiLanguage": "fr",
+        "marketingPath": "what/store-assets/appstore/marketing-20261027/fr/ipad-13/02-hero.jpg",
+        "sha256": "4690dedf344721fc5d8dc96ad87a0cd655339209fa88bb322b373729108a89e9",
+        "sources": [
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/fr/ipad-13/02-library.png",
+            "sha256": "e2882e72f8372a9f405cd9bd81dc8eb8cf450a124fe2fd409e2a1c108d4008b7"
+          },
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/fr/ipad-13/03-settings.png",
+            "sha256": "239187add79097fb1afc6c8cfd718f28b4293712b8cce2246261704987495bdd"
+          }
+        ],
+        "caption": "Toutes vos notes au même endroit",
+        "position": 2,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "fr-FR",
+        "uiLanguage": "fr",
+        "marketingPath": "what/store-assets/appstore/marketing-20261027/fr/ipad-13/03-hero.jpg",
+        "sha256": "a45b132d0fe23ace476b31536b8f1449f9da4f99cc5023465d9c96272ac4ff97",
+        "sources": [
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/fr/ipad-13/03-settings.png",
+            "sha256": "239187add79097fb1afc6c8cfd718f28b4293712b8cce2246261704987495bdd"
+          },
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/fr/ipad-13/04-text.png",
+            "sha256": "92b45c56d1381c2004004bbae2c23c4831124f7b9bbfe9adfd75e39b360d1139"
+          }
+        ],
+        "caption": "Langue et rappels",
+        "position": 3,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "fr-FR",
+        "uiLanguage": "fr",
+        "marketingPath": "what/store-assets/appstore/marketing-20261027/fr/ipad-13/04-hero.jpg",
+        "sha256": "8a07ec90757d1f5412337726db5df7a910a389f7fe6980bdbb13fa65c1921e75",
+        "sources": [
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/fr/ipad-13/04-text.png",
+            "sha256": "92b45c56d1381c2004004bbae2c23c4831124f7b9bbfe9adfd75e39b360d1139"
+          },
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/fr/ipad-13/01-home.png",
+            "sha256": "717f0ce8e399578416ff20bfe5a547229ba2782c7176975f8e08be9c2353b1b7"
+          }
+        ],
+        "caption": "Écrivez une note rapidement",
+        "position": 4,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "de-DE",
+        "uiLanguage": "de",
+        "marketingPath": "what/store-assets/appstore/marketing-20261027/de/ipad-13/01-hero.jpg",
+        "sha256": "df189ba9c73998565d95e25d7b8a1db4edb0ebdf6031e12f509c81ac72a9b8bc",
+        "sources": [
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/de/ipad-13/01-home.png",
+            "sha256": "64df8cf36ca4cada2cdceca56573aa6c54808cfe5b1c75fee4cc4cd298389c67"
+          },
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/de/ipad-13/02-library.png",
+            "sha256": "02b56c21215a5bc3793d035c575b5105e0fa72fa35f6a7c6eb340e006c408c83"
+          }
+        ],
+        "caption": "Ideen mit einem Tipp aufnehmen",
+        "position": 1,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "de-DE",
+        "uiLanguage": "de",
+        "marketingPath": "what/store-assets/appstore/marketing-20261027/de/ipad-13/02-hero.jpg",
+        "sha256": "797156086307719d464bd701ac4b8f75fb48d332781a392b6d2b1fb2754a6c6e",
+        "sources": [
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/de/ipad-13/02-library.png",
+            "sha256": "02b56c21215a5bc3793d035c575b5105e0fa72fa35f6a7c6eb340e006c408c83"
+          },
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/de/ipad-13/03-settings.png",
+            "sha256": "1462dcda5381a3c2625bf83f65f4e5b6bf3a25528c45f0c5fb698f69128ef489"
+          }
+        ],
+        "caption": "Alle Notizen an einem Ort",
+        "position": 2,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "de-DE",
+        "uiLanguage": "de",
+        "marketingPath": "what/store-assets/appstore/marketing-20261027/de/ipad-13/03-hero.jpg",
+        "sha256": "44bd339116c3b9c2d178030dd11fb968eea3048d9f1a1dd69a20ed4868be33bf",
+        "sources": [
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/de/ipad-13/03-settings.png",
+            "sha256": "1462dcda5381a3c2625bf83f65f4e5b6bf3a25528c45f0c5fb698f69128ef489"
+          },
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/de/ipad-13/04-text.png",
+            "sha256": "0898d9b7ec39bae4980d6543e18bc2c410b139f03152567a8d4ec0bbb194a395"
+          }
+        ],
+        "caption": "Sprache und Erinnerungen",
+        "position": 3,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "de-DE",
+        "uiLanguage": "de",
+        "marketingPath": "what/store-assets/appstore/marketing-20261027/de/ipad-13/04-hero.jpg",
+        "sha256": "8e260d423c43085b1d9392c3c9f304c60944c1edfeed77515f810235d0f1d526",
+        "sources": [
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/de/ipad-13/04-text.png",
+            "sha256": "0898d9b7ec39bae4980d6543e18bc2c410b139f03152567a8d4ec0bbb194a395"
+          },
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/de/ipad-13/01-home.png",
+            "sha256": "64df8cf36ca4cada2cdceca56573aa6c54808cfe5b1c75fee4cc4cd298389c67"
+          }
+        ],
+        "caption": "Schnelle Textnotiz schreiben",
+        "position": 4,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "it",
+        "uiLanguage": "it",
+        "marketingPath": "what/store-assets/appstore/marketing-20261027/it/ipad-13/01-hero.jpg",
+        "sha256": "b4d7b1acb0da34e7bfd912d84e760f3ecce9d3db012730034216bc668bd9e758",
+        "sources": [
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/it/ipad-13/01-home.png",
+            "sha256": "5b116b592a386e1364c90cd5c1ad03c2c0e9bcbf1f1d0c5a6012f2807ec2bb55"
+          },
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/it/ipad-13/02-library.png",
+            "sha256": "d21642d102aa11644dc1fbb279cbdbc63f0ca1fc0254580bce2791cbd6c817ae"
+          }
+        ],
+        "caption": "Registra un’idea con un tocco",
+        "position": 1,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "it",
+        "uiLanguage": "it",
+        "marketingPath": "what/store-assets/appstore/marketing-20261027/it/ipad-13/02-hero.jpg",
+        "sha256": "68be9931a093c58c2ad3d75d522f3a10b6cbff14e83a48ec21e244cd63511c79",
+        "sources": [
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/it/ipad-13/02-library.png",
+            "sha256": "d21642d102aa11644dc1fbb279cbdbc63f0ca1fc0254580bce2791cbd6c817ae"
+          },
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/it/ipad-13/03-settings.png",
+            "sha256": "b00f149e4214680158692d3a7b4940edf26c19142a5e2eb496f1f3786a90db95"
+          }
+        ],
+        "caption": "Tutte le note in un unico posto",
+        "position": 2,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "it",
+        "uiLanguage": "it",
+        "marketingPath": "what/store-assets/appstore/marketing-20261027/it/ipad-13/03-hero.jpg",
+        "sha256": "ec3ceb53f78bfb229509eb578c71a8e54826a982c0f88b4efb8329655fed9af8",
+        "sources": [
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/it/ipad-13/03-settings.png",
+            "sha256": "b00f149e4214680158692d3a7b4940edf26c19142a5e2eb496f1f3786a90db95"
+          },
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/it/ipad-13/04-text.png",
+            "sha256": "5be94c17dcd2bb51a578785cc6601b04f1fb2da2731f0956d649c2eb02feb5ce"
+          }
+        ],
+        "caption": "Lingua e promemoria",
+        "position": 3,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "it",
+        "uiLanguage": "it",
+        "marketingPath": "what/store-assets/appstore/marketing-20261027/it/ipad-13/04-hero.jpg",
+        "sha256": "0ab3022c0a6142aee930195081f072fb7f58d502985bda1c24e09689cb615e9c",
+        "sources": [
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/it/ipad-13/04-text.png",
+            "sha256": "5be94c17dcd2bb51a578785cc6601b04f1fb2da2731f0956d649c2eb02feb5ce"
+          },
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/it/ipad-13/01-home.png",
+            "sha256": "5b116b592a386e1364c90cd5c1ad03c2c0e9bcbf1f1d0c5a6012f2807ec2bb55"
+          }
+        ],
+        "caption": "Scrivi una nota veloce",
+        "position": 4,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "ja",
+        "uiLanguage": "ja",
+        "marketingPath": "what/store-assets/appstore/marketing-20261027/ja/ipad-13/01-hero.jpg",
+        "sha256": "7a951677082c6c409389db41187c37a245bac772c0bd201334989fb239dd7c23",
+        "sources": [
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/ja/ipad-13/01-home.png",
+            "sha256": "0563e8dd8da0baa3d592522a649d53ac4e083a405eb60cf1c18e4371d7c59952"
+          },
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/ja/ipad-13/02-library.png",
+            "sha256": "568e2445fbdc210ef14cb7f03cc2980ec9b0549e88f14fea2e31ae30f4a70055"
+          }
+        ],
+        "caption": "ワンタップでアイデアを録音",
+        "position": 1,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "ja",
+        "uiLanguage": "ja",
+        "marketingPath": "what/store-assets/appstore/marketing-20261027/ja/ipad-13/02-hero.jpg",
+        "sha256": "86efe8be290632bf274e331fe8b6e670441f34c60b1c8f2689db1482e685e634",
+        "sources": [
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/ja/ipad-13/02-library.png",
+            "sha256": "568e2445fbdc210ef14cb7f03cc2980ec9b0549e88f14fea2e31ae30f4a70055"
+          },
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/ja/ipad-13/03-settings.png",
+            "sha256": "5d1dbcfef0756fe75bcefa62ecc0bd577c0c41ae0131ab86d2ee3b2973d654b7"
+          }
+        ],
+        "caption": "メモをまとめて管理",
+        "position": 2,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "ja",
+        "uiLanguage": "ja",
+        "marketingPath": "what/store-assets/appstore/marketing-20261027/ja/ipad-13/03-hero.jpg",
+        "sha256": "19e26cb4546f1a3c0bc13045f6880ef46de5f5674299a631e8c7c6f2accce61a",
+        "sources": [
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/ja/ipad-13/03-settings.png",
+            "sha256": "5d1dbcfef0756fe75bcefa62ecc0bd577c0c41ae0131ab86d2ee3b2973d654b7"
+          },
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/ja/ipad-13/04-text.png",
+            "sha256": "2c92f358fe19110b6d1b2d2ae8112b6a67070ad99e50a5629e2bce03095ec8a8"
+          }
+        ],
+        "caption": "言語とリマインダー",
+        "position": 3,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "ja",
+        "uiLanguage": "ja",
+        "marketingPath": "what/store-assets/appstore/marketing-20261027/ja/ipad-13/04-hero.jpg",
+        "sha256": "dd891d0ec88e278e4caf99b9d9d7a532fbb6a06a13e2a3609a5c90dd82b9435b",
+        "sources": [
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/ja/ipad-13/04-text.png",
+            "sha256": "2c92f358fe19110b6d1b2d2ae8112b6a67070ad99e50a5629e2bce03095ec8a8"
+          },
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/ja/ipad-13/01-home.png",
+            "sha256": "0563e8dd8da0baa3d592522a649d53ac4e083a405eb60cf1c18e4371d7c59952"
+          }
+        ],
+        "caption": "テキストメモを作成",
+        "position": 4,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "ko",
+        "uiLanguage": "ko",
+        "marketingPath": "what/store-assets/appstore/marketing-20261027/ko/ipad-13/01-hero.jpg",
+        "sha256": "4edcc234405ad71e9af69fe5aa83747fed9fb4f3ff6ae61aed6ebc02ec1cbb20",
+        "sources": [
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/ko/ipad-13/01-home.png",
+            "sha256": "1fff4e3d8c5c3b078bee3b7d4f207dcf82cdf30e4d30fa2e4604997d1cff23c8"
+          },
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/ko/ipad-13/02-library.png",
+            "sha256": "009a1d6104eea4397ca9249eb4201d82aa3f35b158e6c2a6f0cfdc2219c4aa45"
+          }
+        ],
+        "caption": "한 번에 생각 기록",
+        "position": 1,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "ko",
+        "uiLanguage": "ko",
+        "marketingPath": "what/store-assets/appstore/marketing-20261027/ko/ipad-13/02-hero.jpg",
+        "sha256": "046fa85500e05355237851ef39fa89107cdef3a3ca53897b197ab67a58b06681",
+        "sources": [
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/ko/ipad-13/02-library.png",
+            "sha256": "009a1d6104eea4397ca9249eb4201d82aa3f35b158e6c2a6f0cfdc2219c4aa45"
+          },
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/ko/ipad-13/03-settings.png",
+            "sha256": "d77009e4906b6b25697f7126c2de470e959d61280f4df6502758261f56e93be6"
+          }
+        ],
+        "caption": "메모를 한곳에 모으기",
+        "position": 2,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "ko",
+        "uiLanguage": "ko",
+        "marketingPath": "what/store-assets/appstore/marketing-20261027/ko/ipad-13/03-hero.jpg",
+        "sha256": "63a07a2866a8715e839ac537e28aa1bb75924476e3a57813597e3352611afa51",
+        "sources": [
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/ko/ipad-13/03-settings.png",
+            "sha256": "d77009e4906b6b25697f7126c2de470e959d61280f4df6502758261f56e93be6"
+          },
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/ko/ipad-13/04-text.png",
+            "sha256": "1f860445887def7e4cc81bddfe910df7a997c311a44067a2b5c603e1e80c0ac6"
+          }
+        ],
+        "caption": "언어 및 알림 설정",
+        "position": 3,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "ko",
+        "uiLanguage": "ko",
+        "marketingPath": "what/store-assets/appstore/marketing-20261027/ko/ipad-13/04-hero.jpg",
+        "sha256": "8bcd2b0716bc3292acc33d08fa6f392ba01478396fced6e63a92828196a6d056",
+        "sources": [
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/ko/ipad-13/04-text.png",
+            "sha256": "1f860445887def7e4cc81bddfe910df7a997c311a44067a2b5c603e1e80c0ac6"
+          },
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/ko/ipad-13/01-home.png",
+            "sha256": "1fff4e3d8c5c3b078bee3b7d4f207dcf82cdf30e4d30fa2e4604997d1cff23c8"
+          }
+        ],
+        "caption": "빠른 텍스트 메모",
+        "position": 4,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "pt-BR",
+        "uiLanguage": "pt-BR",
+        "marketingPath": "what/store-assets/appstore/marketing-20261027/pt-BR/ipad-13/01-hero.jpg",
+        "sha256": "c43aa5a2e53f72806b895fcecf21eb81a0089b1d5c2132281df65c6c86e3ebe0",
+        "sources": [
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/pt-BR/ipad-13/01-home.png",
+            "sha256": "4304daa686649414e06e00a4ccb06cf6054602efa2c9e56c6eec6b02bb87ed50"
+          },
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/pt-BR/ipad-13/02-library.png",
+            "sha256": "decbdd101e9a1c247aaeab196d563afe30b1fe92dc07ce46d69fca6fc6aab849"
+          }
+        ],
+        "caption": "Guarde ideias com um toque",
+        "position": 1,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "pt-BR",
+        "uiLanguage": "pt-BR",
+        "marketingPath": "what/store-assets/appstore/marketing-20261027/pt-BR/ipad-13/02-hero.jpg",
+        "sha256": "9da038f687cba8080a7952c8b566c143311c6dbed75f638c5e2e385422150820",
+        "sources": [
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/pt-BR/ipad-13/02-library.png",
+            "sha256": "decbdd101e9a1c247aaeab196d563afe30b1fe92dc07ce46d69fca6fc6aab849"
+          },
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/pt-BR/ipad-13/03-settings.png",
+            "sha256": "dc00addaa827cab8af9533ff4762375867e8615e6a0b901aefacd1f65bd09431"
+          }
+        ],
+        "caption": "Todas as notas em um lugar",
+        "position": 2,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "pt-BR",
+        "uiLanguage": "pt-BR",
+        "marketingPath": "what/store-assets/appstore/marketing-20261027/pt-BR/ipad-13/03-hero.jpg",
+        "sha256": "8479dddcf2d00eb35fe8ea98d79856d59c194eefb3d3985d6973560b7ed921d2",
+        "sources": [
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/pt-BR/ipad-13/03-settings.png",
+            "sha256": "dc00addaa827cab8af9533ff4762375867e8615e6a0b901aefacd1f65bd09431"
+          },
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/pt-BR/ipad-13/04-text.png",
+            "sha256": "d3476f3b216a3560dfeecbc87bfe80aef48e08aa6eb84ed228702ee2453c3d4e"
+          }
+        ],
+        "caption": "Idioma e lembretes",
+        "position": 3,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "pt-BR",
+        "uiLanguage": "pt-BR",
+        "marketingPath": "what/store-assets/appstore/marketing-20261027/pt-BR/ipad-13/04-hero.jpg",
+        "sha256": "5ff4da27c01c8aaa0a72f54cc0441a84ce5c5a9d66cf6bcb6ad5e2c2d1ffa2fd",
+        "sources": [
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/pt-BR/ipad-13/04-text.png",
+            "sha256": "d3476f3b216a3560dfeecbc87bfe80aef48e08aa6eb84ed228702ee2453c3d4e"
+          },
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/pt-BR/ipad-13/01-home.png",
+            "sha256": "4304daa686649414e06e00a4ccb06cf6054602efa2c9e56c6eec6b02bb87ed50"
+          }
+        ],
+        "caption": "Escreva uma nota rápida",
+        "position": 4,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "pt-PT",
+        "uiLanguage": "pt-PT",
+        "marketingPath": "what/store-assets/appstore/marketing-20261027/pt-PT/ipad-13/01-hero.jpg",
+        "sha256": "abff63734962fa56dcabbdda31f2e408088cc6fcce0beb2bb5cff98a6bba0f13",
+        "sources": [
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/pt-PT/ipad-13/01-home.png",
+            "sha256": "007e78079f347a5ea356d312c6d9d12b6af821c098a5e744a43a5b70ecabe4c8"
+          },
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/pt-PT/ipad-13/02-library.png",
+            "sha256": "0461fb35bee8e14a84aba0e0d1362f3891fee129927d9dd4e8272aad0c0dce1e"
+          }
+        ],
+        "caption": "Guarde ideias com um toque",
+        "position": 1,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "pt-PT",
+        "uiLanguage": "pt-PT",
+        "marketingPath": "what/store-assets/appstore/marketing-20261027/pt-PT/ipad-13/02-hero.jpg",
+        "sha256": "d1ec5773288f3cf3b69272596f3293da77a00f16f32e4cbf85653d620ed53593",
+        "sources": [
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/pt-PT/ipad-13/02-library.png",
+            "sha256": "0461fb35bee8e14a84aba0e0d1362f3891fee129927d9dd4e8272aad0c0dce1e"
+          },
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/pt-PT/ipad-13/03-settings.png",
+            "sha256": "ce86b5a53ab3888cbcb2bfe9120234aba02e5529bf09f4d3b5e075d8a9579927"
+          }
+        ],
+        "caption": "Todas as notas num só lugar",
+        "position": 2,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "pt-PT",
+        "uiLanguage": "pt-PT",
+        "marketingPath": "what/store-assets/appstore/marketing-20261027/pt-PT/ipad-13/03-hero.jpg",
+        "sha256": "4a61fc2af46f97678e86d25953b4a3eecf0b0689beb11c81f690b30636338476",
+        "sources": [
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/pt-PT/ipad-13/03-settings.png",
+            "sha256": "ce86b5a53ab3888cbcb2bfe9120234aba02e5529bf09f4d3b5e075d8a9579927"
+          },
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/pt-PT/ipad-13/04-text.png",
+            "sha256": "d3476f3b216a3560dfeecbc87bfe80aef48e08aa6eb84ed228702ee2453c3d4e"
+          }
+        ],
+        "caption": "Idioma e lembretes",
+        "position": 3,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "pt-PT",
+        "uiLanguage": "pt-PT",
+        "marketingPath": "what/store-assets/appstore/marketing-20261027/pt-PT/ipad-13/04-hero.jpg",
+        "sha256": "5ff4da27c01c8aaa0a72f54cc0441a84ce5c5a9d66cf6bcb6ad5e2c2d1ffa2fd",
+        "sources": [
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/pt-PT/ipad-13/04-text.png",
+            "sha256": "d3476f3b216a3560dfeecbc87bfe80aef48e08aa6eb84ed228702ee2453c3d4e"
+          },
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/pt-PT/ipad-13/01-home.png",
+            "sha256": "007e78079f347a5ea356d312c6d9d12b6af821c098a5e744a43a5b70ecabe4c8"
+          }
+        ],
+        "caption": "Escreva uma nota rápida",
+        "position": 4,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "zh-Hans",
+        "uiLanguage": "zh-Hans",
+        "marketingPath": "what/store-assets/appstore/marketing-20261027/zh-Hans/ipad-13/01-hero.jpg",
+        "sha256": "203894c5c26530fd0b2c8ce0e0a629868307f5e41d1a656c6b3e3026f0bf67b2",
+        "sources": [
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/zh-Hans/ipad-13/01-home.png",
+            "sha256": "b088fd28a72cf09e2a9f77a11f2492eaf35ae39b9c8a904936251d180eab50ba"
+          },
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/zh-Hans/ipad-13/02-library.png",
+            "sha256": "ba4d81bdb479503655ecc029c59a01c0d7cd937fabda2ef4c6b94bd945c116ce"
+          }
+        ],
+        "caption": "一键记录灵感",
+        "position": 1,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "zh-Hans",
+        "uiLanguage": "zh-Hans",
+        "marketingPath": "what/store-assets/appstore/marketing-20261027/zh-Hans/ipad-13/02-hero.jpg",
+        "sha256": "3225609ed70b4fa405969c671db2ab6055c8cad73910100cceaf235e73a81005",
+        "sources": [
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/zh-Hans/ipad-13/02-library.png",
+            "sha256": "ba4d81bdb479503655ecc029c59a01c0d7cd937fabda2ef4c6b94bd945c116ce"
+          },
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/zh-Hans/ipad-13/03-settings.png",
+            "sha256": "7ee9782f08b882107405ee595a5e517461985190830953a907c55cc7512bebe7"
+          }
+        ],
+        "caption": "所有笔记集中管理",
+        "position": 2,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "zh-Hans",
+        "uiLanguage": "zh-Hans",
+        "marketingPath": "what/store-assets/appstore/marketing-20261027/zh-Hans/ipad-13/03-hero.jpg",
+        "sha256": "24f5277d4dc02e4aed7f4778ff1ea00324741d300c2e31097de09dc10d8235a5",
+        "sources": [
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/zh-Hans/ipad-13/03-settings.png",
+            "sha256": "7ee9782f08b882107405ee595a5e517461985190830953a907c55cc7512bebe7"
+          },
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/zh-Hans/ipad-13/04-text.png",
+            "sha256": "e9aa15ea2d615d96b1bd0e3a1414205ce1e2479a879fc07f8c6a0fe3af43790d"
+          }
+        ],
+        "caption": "语言与提醒设置",
+        "position": 3,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "zh-Hans",
+        "uiLanguage": "zh-Hans",
+        "marketingPath": "what/store-assets/appstore/marketing-20261027/zh-Hans/ipad-13/04-hero.jpg",
+        "sha256": "b2f7b8ef576beeb2567f9e68faf121b63ab16ae2e64c41411277f96de92f61e0",
+        "sources": [
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/zh-Hans/ipad-13/04-text.png",
+            "sha256": "e9aa15ea2d615d96b1bd0e3a1414205ce1e2479a879fc07f8c6a0fe3af43790d"
+          },
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/zh-Hans/ipad-13/01-home.png",
+            "sha256": "b088fd28a72cf09e2a9f77a11f2492eaf35ae39b9c8a904936251d180eab50ba"
+          }
+        ],
+        "caption": "快速创建文字笔记",
+        "position": 4,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "zh-Hant",
+        "uiLanguage": "zh-Hant",
+        "marketingPath": "what/store-assets/appstore/marketing-20261027/zh-Hant/ipad-13/01-hero.jpg",
+        "sha256": "4e6427109a394fc54410fe3a1f1c680f697aca3473e1f263790484b3a94ecf89",
+        "sources": [
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/zh-Hant/ipad-13/01-home.png",
+            "sha256": "303f62c2075c883de63538548c86d3f3d0463bf49e748d9d28815cf1042487f1"
+          },
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/zh-Hant/ipad-13/02-library.png",
+            "sha256": "bcfce3a08099fbac190755247f12d0d599e5134528e656e15d543ed9ac23bb16"
+          }
+        ],
+        "caption": "一鍵記錄靈感",
+        "position": 1,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "zh-Hant",
+        "uiLanguage": "zh-Hant",
+        "marketingPath": "what/store-assets/appstore/marketing-20261027/zh-Hant/ipad-13/02-hero.jpg",
+        "sha256": "4bd4e789f90ff026892f9b0f0108622f194b17ee9e7f84fce3cf34dd3bd034b0",
+        "sources": [
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/zh-Hant/ipad-13/02-library.png",
+            "sha256": "bcfce3a08099fbac190755247f12d0d599e5134528e656e15d543ed9ac23bb16"
+          },
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/zh-Hant/ipad-13/03-settings.png",
+            "sha256": "75c298287b363652630330b4619b4f33344598f3bf986ecd8e56dc89e11ace9b"
+          }
+        ],
+        "caption": "所有筆記集中管理",
+        "position": 2,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "zh-Hant",
+        "uiLanguage": "zh-Hant",
+        "marketingPath": "what/store-assets/appstore/marketing-20261027/zh-Hant/ipad-13/03-hero.jpg",
+        "sha256": "df86b71615f0ae41118c90e2a6cf22a84f8bda476bfae010838fae32f38826d2",
+        "sources": [
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/zh-Hant/ipad-13/03-settings.png",
+            "sha256": "75c298287b363652630330b4619b4f33344598f3bf986ecd8e56dc89e11ace9b"
+          },
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/zh-Hant/ipad-13/04-text.png",
+            "sha256": "c2106eced106a4bc67a5b20d8dfa1f534f0458cdf16e87467a85856ec4969261"
+          }
+        ],
+        "caption": "語言與提醒設定",
+        "position": 3,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "zh-Hant",
+        "uiLanguage": "zh-Hant",
+        "marketingPath": "what/store-assets/appstore/marketing-20261027/zh-Hant/ipad-13/04-hero.jpg",
+        "sha256": "5660f7a024aee730f5f72ae318852823f7f5cb52476511cfc953ca58df548cb2",
+        "sources": [
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/zh-Hant/ipad-13/04-text.png",
+            "sha256": "c2106eced106a4bc67a5b20d8dfa1f534f0458cdf16e87467a85856ec4969261"
+          },
+          {
+            "path": "what/store-assets/appstore/editorial-20261027/zh-Hant/ipad-13/01-home.png",
+            "sha256": "303f62c2075c883de63538548c86d3f3d0463bf49e748d9d28815cf1042487f1"
+          }
+        ],
+        "caption": "快速建立文字筆記",
+        "position": 4,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      }
+    ],
+    "chickmark": [
+      {
+        "locale": "ru",
+        "uiLanguage": "ru",
+        "marketingPath": "chickmark/store-assets/appstore/marketing-20261027/ru/ipad-13/01-hero.jpg",
+        "sha256": "a56324f0ebd144d25d9ff45cc01a57ffdbe3147ac03ab5a39be48064751c97ce",
+        "sources": [
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/ru/ipad-13/01-habits.png",
+            "sha256": "ef44eb897293f6489667bce50cfb059ec45d5dc111f5427ece5e584ce45aa5d3"
+          },
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/ru/ipad-13/02-create.png",
+            "sha256": "29d0552feef42fa284cd616f867c074661d3723dd297b31df4ae9920d9ea5222"
+          }
+        ],
+        "caption": "Привычки в одном списке",
+        "position": 1,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "ru",
+        "uiLanguage": "ru",
+        "marketingPath": "chickmark/store-assets/appstore/marketing-20261027/ru/ipad-13/02-hero.jpg",
+        "sha256": "4cbaa40f36370946a32d6037e51c8905d8c1df3abd2fb7342e67af388c41558b",
+        "sources": [
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/ru/ipad-13/02-create.png",
+            "sha256": "29d0552feef42fa284cd616f867c074661d3723dd297b31df4ae9920d9ea5222"
+          },
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/ru/ipad-13/03-progress.png",
+            "sha256": "6b35bf215fb5d23312fbbafb9ca034e4f94fccd1dbb40bb21bfadf59797d714f"
+          }
+        ],
+        "caption": "Создайте привычку за пару касаний",
+        "position": 2,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "ru",
+        "uiLanguage": "ru",
+        "marketingPath": "chickmark/store-assets/appstore/marketing-20261027/ru/ipad-13/03-hero.jpg",
+        "sha256": "b71769add9d985ec982caa60f2c5d52769c289b495a5698c84a29d0d071d22c5",
+        "sources": [
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/ru/ipad-13/03-progress.png",
+            "sha256": "6b35bf215fb5d23312fbbafb9ca034e4f94fccd1dbb40bb21bfadf59797d714f"
+          },
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/ru/ipad-13/04-reminders.png",
+            "sha256": "ab24c067b3ad0c399b42919d4a454e953552c5914183d8a90ea37accafeb6d59"
+          }
+        ],
+        "caption": "Прогресс и серии по дням",
+        "position": 3,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "ru",
+        "uiLanguage": "ru",
+        "marketingPath": "chickmark/store-assets/appstore/marketing-20261027/ru/ipad-13/04-hero.jpg",
+        "sha256": "833e51b5f9f328f6f259559780cea5479d1e02f39a112bf3660e6e8729dfbab2",
+        "sources": [
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/ru/ipad-13/04-reminders.png",
+            "sha256": "ab24c067b3ad0c399b42919d4a454e953552c5914183d8a90ea37accafeb6d59"
+          },
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/ru/ipad-13/01-habits.png",
+            "sha256": "ef44eb897293f6489667bce50cfb059ec45d5dc111f5427ece5e584ce45aa5d3"
+          }
+        ],
+        "caption": "Настройте график и напоминания",
+        "position": 4,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "en-US",
+        "uiLanguage": "en",
+        "marketingPath": "chickmark/store-assets/appstore/marketing-20261027/en/ipad-13/01-hero.jpg",
+        "sha256": "a196248fdf542a73b20691817b96af77adf87d5a8226cd991ee1770d26ff5ac2",
+        "sources": [
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/en/ipad-13/01-habits.png",
+            "sha256": "794abcfa796c12770c68422bfb50e9bf168c7ae7aab525d505240f41076f7e1c"
+          },
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/en/ipad-13/02-create.png",
+            "sha256": "246d564e498be70153b16c57fd4de3aef9d36abd865046702df9e7ae1e53c386"
+          }
+        ],
+        "caption": "Your habits, one simple view",
+        "position": 1,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "en-US",
+        "uiLanguage": "en",
+        "marketingPath": "chickmark/store-assets/appstore/marketing-20261027/en/ipad-13/02-hero.jpg",
+        "sha256": "09d48f58e9d03f7d19528cc5bed6aeb1eacd26d79e4b1d8deb1d87b2284ff269",
+        "sources": [
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/en/ipad-13/02-create.png",
+            "sha256": "246d564e498be70153b16c57fd4de3aef9d36abd865046702df9e7ae1e53c386"
+          },
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/en/ipad-13/03-progress.png",
+            "sha256": "5a2e7226d22ad0ff753fc16c25788df5c8bdee127cc2c8a41acc4307fa2cfd62"
+          }
+        ],
+        "caption": "Create a habit in seconds",
+        "position": 2,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "en-US",
+        "uiLanguage": "en",
+        "marketingPath": "chickmark/store-assets/appstore/marketing-20261027/en/ipad-13/03-hero.jpg",
+        "sha256": "78242f9a0cbdd97e436a84347ada7a68aafbd261bab7a17f277a85cb7799bb73",
+        "sources": [
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/en/ipad-13/03-progress.png",
+            "sha256": "5a2e7226d22ad0ff753fc16c25788df5c8bdee127cc2c8a41acc4307fa2cfd62"
+          },
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/en/ipad-13/04-reminders.png",
+            "sha256": "44210dcb98691793e60bb85f8d10a6a276642fd21b73d55ace52f5833842736c"
+          }
+        ],
+        "caption": "See progress and streaks",
+        "position": 3,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "en-US",
+        "uiLanguage": "en",
+        "marketingPath": "chickmark/store-assets/appstore/marketing-20261027/en/ipad-13/04-hero.jpg",
+        "sha256": "35f7ed9aa63157ad6700894371fc7dc124ae592b6cd10a71d241e0027ce7a32d",
+        "sources": [
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/en/ipad-13/04-reminders.png",
+            "sha256": "44210dcb98691793e60bb85f8d10a6a276642fd21b73d55ace52f5833842736c"
+          },
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/en/ipad-13/01-habits.png",
+            "sha256": "794abcfa796c12770c68422bfb50e9bf168c7ae7aab525d505240f41076f7e1c"
+          }
+        ],
+        "caption": "Set schedules and reminders",
+        "position": 4,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "en-GB",
+        "uiLanguage": "en",
+        "marketingPath": "chickmark/store-assets/appstore/marketing-20261027/en/ipad-13/01-hero.jpg",
+        "sha256": "a196248fdf542a73b20691817b96af77adf87d5a8226cd991ee1770d26ff5ac2",
+        "sources": [
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/en/ipad-13/01-habits.png",
+            "sha256": "794abcfa796c12770c68422bfb50e9bf168c7ae7aab525d505240f41076f7e1c"
+          },
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/en/ipad-13/02-create.png",
+            "sha256": "246d564e498be70153b16c57fd4de3aef9d36abd865046702df9e7ae1e53c386"
+          }
+        ],
+        "caption": "Your habits, one simple view",
+        "position": 1,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "en-GB",
+        "uiLanguage": "en",
+        "marketingPath": "chickmark/store-assets/appstore/marketing-20261027/en/ipad-13/02-hero.jpg",
+        "sha256": "09d48f58e9d03f7d19528cc5bed6aeb1eacd26d79e4b1d8deb1d87b2284ff269",
+        "sources": [
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/en/ipad-13/02-create.png",
+            "sha256": "246d564e498be70153b16c57fd4de3aef9d36abd865046702df9e7ae1e53c386"
+          },
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/en/ipad-13/03-progress.png",
+            "sha256": "5a2e7226d22ad0ff753fc16c25788df5c8bdee127cc2c8a41acc4307fa2cfd62"
+          }
+        ],
+        "caption": "Create a habit in seconds",
+        "position": 2,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "en-GB",
+        "uiLanguage": "en",
+        "marketingPath": "chickmark/store-assets/appstore/marketing-20261027/en/ipad-13/03-hero.jpg",
+        "sha256": "78242f9a0cbdd97e436a84347ada7a68aafbd261bab7a17f277a85cb7799bb73",
+        "sources": [
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/en/ipad-13/03-progress.png",
+            "sha256": "5a2e7226d22ad0ff753fc16c25788df5c8bdee127cc2c8a41acc4307fa2cfd62"
+          },
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/en/ipad-13/04-reminders.png",
+            "sha256": "44210dcb98691793e60bb85f8d10a6a276642fd21b73d55ace52f5833842736c"
+          }
+        ],
+        "caption": "See progress and streaks",
+        "position": 3,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "en-GB",
+        "uiLanguage": "en",
+        "marketingPath": "chickmark/store-assets/appstore/marketing-20261027/en/ipad-13/04-hero.jpg",
+        "sha256": "35f7ed9aa63157ad6700894371fc7dc124ae592b6cd10a71d241e0027ce7a32d",
+        "sources": [
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/en/ipad-13/04-reminders.png",
+            "sha256": "44210dcb98691793e60bb85f8d10a6a276642fd21b73d55ace52f5833842736c"
+          },
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/en/ipad-13/01-habits.png",
+            "sha256": "794abcfa796c12770c68422bfb50e9bf168c7ae7aab525d505240f41076f7e1c"
+          }
+        ],
+        "caption": "Set schedules and reminders",
+        "position": 4,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "en-AU",
+        "uiLanguage": "en",
+        "marketingPath": "chickmark/store-assets/appstore/marketing-20261027/en/ipad-13/01-hero.jpg",
+        "sha256": "a196248fdf542a73b20691817b96af77adf87d5a8226cd991ee1770d26ff5ac2",
+        "sources": [
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/en/ipad-13/01-habits.png",
+            "sha256": "794abcfa796c12770c68422bfb50e9bf168c7ae7aab525d505240f41076f7e1c"
+          },
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/en/ipad-13/02-create.png",
+            "sha256": "246d564e498be70153b16c57fd4de3aef9d36abd865046702df9e7ae1e53c386"
+          }
+        ],
+        "caption": "Your habits, one simple view",
+        "position": 1,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "en-AU",
+        "uiLanguage": "en",
+        "marketingPath": "chickmark/store-assets/appstore/marketing-20261027/en/ipad-13/02-hero.jpg",
+        "sha256": "09d48f58e9d03f7d19528cc5bed6aeb1eacd26d79e4b1d8deb1d87b2284ff269",
+        "sources": [
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/en/ipad-13/02-create.png",
+            "sha256": "246d564e498be70153b16c57fd4de3aef9d36abd865046702df9e7ae1e53c386"
+          },
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/en/ipad-13/03-progress.png",
+            "sha256": "5a2e7226d22ad0ff753fc16c25788df5c8bdee127cc2c8a41acc4307fa2cfd62"
+          }
+        ],
+        "caption": "Create a habit in seconds",
+        "position": 2,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "en-AU",
+        "uiLanguage": "en",
+        "marketingPath": "chickmark/store-assets/appstore/marketing-20261027/en/ipad-13/03-hero.jpg",
+        "sha256": "78242f9a0cbdd97e436a84347ada7a68aafbd261bab7a17f277a85cb7799bb73",
+        "sources": [
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/en/ipad-13/03-progress.png",
+            "sha256": "5a2e7226d22ad0ff753fc16c25788df5c8bdee127cc2c8a41acc4307fa2cfd62"
+          },
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/en/ipad-13/04-reminders.png",
+            "sha256": "44210dcb98691793e60bb85f8d10a6a276642fd21b73d55ace52f5833842736c"
+          }
+        ],
+        "caption": "See progress and streaks",
+        "position": 3,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "en-AU",
+        "uiLanguage": "en",
+        "marketingPath": "chickmark/store-assets/appstore/marketing-20261027/en/ipad-13/04-hero.jpg",
+        "sha256": "35f7ed9aa63157ad6700894371fc7dc124ae592b6cd10a71d241e0027ce7a32d",
+        "sources": [
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/en/ipad-13/04-reminders.png",
+            "sha256": "44210dcb98691793e60bb85f8d10a6a276642fd21b73d55ace52f5833842736c"
+          },
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/en/ipad-13/01-habits.png",
+            "sha256": "794abcfa796c12770c68422bfb50e9bf168c7ae7aab525d505240f41076f7e1c"
+          }
+        ],
+        "caption": "Set schedules and reminders",
+        "position": 4,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "en-CA",
+        "uiLanguage": "en",
+        "marketingPath": "chickmark/store-assets/appstore/marketing-20261027/en/ipad-13/01-hero.jpg",
+        "sha256": "a196248fdf542a73b20691817b96af77adf87d5a8226cd991ee1770d26ff5ac2",
+        "sources": [
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/en/ipad-13/01-habits.png",
+            "sha256": "794abcfa796c12770c68422bfb50e9bf168c7ae7aab525d505240f41076f7e1c"
+          },
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/en/ipad-13/02-create.png",
+            "sha256": "246d564e498be70153b16c57fd4de3aef9d36abd865046702df9e7ae1e53c386"
+          }
+        ],
+        "caption": "Your habits, one simple view",
+        "position": 1,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "en-CA",
+        "uiLanguage": "en",
+        "marketingPath": "chickmark/store-assets/appstore/marketing-20261027/en/ipad-13/02-hero.jpg",
+        "sha256": "09d48f58e9d03f7d19528cc5bed6aeb1eacd26d79e4b1d8deb1d87b2284ff269",
+        "sources": [
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/en/ipad-13/02-create.png",
+            "sha256": "246d564e498be70153b16c57fd4de3aef9d36abd865046702df9e7ae1e53c386"
+          },
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/en/ipad-13/03-progress.png",
+            "sha256": "5a2e7226d22ad0ff753fc16c25788df5c8bdee127cc2c8a41acc4307fa2cfd62"
+          }
+        ],
+        "caption": "Create a habit in seconds",
+        "position": 2,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "en-CA",
+        "uiLanguage": "en",
+        "marketingPath": "chickmark/store-assets/appstore/marketing-20261027/en/ipad-13/03-hero.jpg",
+        "sha256": "78242f9a0cbdd97e436a84347ada7a68aafbd261bab7a17f277a85cb7799bb73",
+        "sources": [
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/en/ipad-13/03-progress.png",
+            "sha256": "5a2e7226d22ad0ff753fc16c25788df5c8bdee127cc2c8a41acc4307fa2cfd62"
+          },
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/en/ipad-13/04-reminders.png",
+            "sha256": "44210dcb98691793e60bb85f8d10a6a276642fd21b73d55ace52f5833842736c"
+          }
+        ],
+        "caption": "See progress and streaks",
+        "position": 3,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "en-CA",
+        "uiLanguage": "en",
+        "marketingPath": "chickmark/store-assets/appstore/marketing-20261027/en/ipad-13/04-hero.jpg",
+        "sha256": "35f7ed9aa63157ad6700894371fc7dc124ae592b6cd10a71d241e0027ce7a32d",
+        "sources": [
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/en/ipad-13/04-reminders.png",
+            "sha256": "44210dcb98691793e60bb85f8d10a6a276642fd21b73d55ace52f5833842736c"
+          },
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/en/ipad-13/01-habits.png",
+            "sha256": "794abcfa796c12770c68422bfb50e9bf168c7ae7aab525d505240f41076f7e1c"
+          }
+        ],
+        "caption": "Set schedules and reminders",
+        "position": 4,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "es-ES",
+        "uiLanguage": "es",
+        "marketingPath": "chickmark/store-assets/appstore/marketing-20261027/es/ipad-13/01-hero.jpg",
+        "sha256": "0ec2c9001200dec7385659214970340552567ecc7ad004a345961ca2f77b2bbd",
+        "sources": [
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/es/ipad-13/01-habits.png",
+            "sha256": "3bb09bfd9d28b5ebbf6c561af92e0324fcce974b8ffc61b41b2e22d45559c905"
+          },
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/es/ipad-13/02-create.png",
+            "sha256": "48771e09bfc3e0470591d5e74037388d7609addfeaa98ea6c542799d2263592e"
+          }
+        ],
+        "caption": "Tus hábitos, a la vista",
+        "position": 1,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "es-ES",
+        "uiLanguage": "es",
+        "marketingPath": "chickmark/store-assets/appstore/marketing-20261027/es/ipad-13/02-hero.jpg",
+        "sha256": "7c707339185dc941538ae8ee3738a351c693869589c0b31767aa5268ab7c9c81",
+        "sources": [
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/es/ipad-13/02-create.png",
+            "sha256": "48771e09bfc3e0470591d5e74037388d7609addfeaa98ea6c542799d2263592e"
+          },
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/es/ipad-13/03-progress.png",
+            "sha256": "ed0ef0a1ab7ca0619c0beb25dae81f1f5168f67d7bc42d6d4809da2382d6e092"
+          }
+        ],
+        "caption": "Crea un hábito en segundos",
+        "position": 2,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "es-ES",
+        "uiLanguage": "es",
+        "marketingPath": "chickmark/store-assets/appstore/marketing-20261027/es/ipad-13/03-hero.jpg",
+        "sha256": "198a08a3f1a704a6d79605a34d2e645fc3ecd1d77646537c6a7339a1512a3537",
+        "sources": [
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/es/ipad-13/03-progress.png",
+            "sha256": "ed0ef0a1ab7ca0619c0beb25dae81f1f5168f67d7bc42d6d4809da2382d6e092"
+          },
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/es/ipad-13/04-reminders.png",
+            "sha256": "9fa2a93a90e221486171a16285f55f16e91a2df9b23f3bf0cb730258a215dbdf"
+          }
+        ],
+        "caption": "Sigue tu progreso y rachas",
+        "position": 3,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "es-ES",
+        "uiLanguage": "es",
+        "marketingPath": "chickmark/store-assets/appstore/marketing-20261027/es/ipad-13/04-hero.jpg",
+        "sha256": "b657fb8ac494cfdebfd0e1e966911ebeb8aa91da8ff5276714a8b6695a4e600d",
+        "sources": [
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/es/ipad-13/04-reminders.png",
+            "sha256": "9fa2a93a90e221486171a16285f55f16e91a2df9b23f3bf0cb730258a215dbdf"
+          },
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/es/ipad-13/01-habits.png",
+            "sha256": "3bb09bfd9d28b5ebbf6c561af92e0324fcce974b8ffc61b41b2e22d45559c905"
+          }
+        ],
+        "caption": "Horarios y recordatorios",
+        "position": 4,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "es-MX",
+        "uiLanguage": "es",
+        "marketingPath": "chickmark/store-assets/appstore/marketing-20261027/es/ipad-13/01-hero.jpg",
+        "sha256": "0ec2c9001200dec7385659214970340552567ecc7ad004a345961ca2f77b2bbd",
+        "sources": [
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/es/ipad-13/01-habits.png",
+            "sha256": "3bb09bfd9d28b5ebbf6c561af92e0324fcce974b8ffc61b41b2e22d45559c905"
+          },
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/es/ipad-13/02-create.png",
+            "sha256": "48771e09bfc3e0470591d5e74037388d7609addfeaa98ea6c542799d2263592e"
+          }
+        ],
+        "caption": "Tus hábitos de un vistazo",
+        "position": 1,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "es-MX",
+        "uiLanguage": "es",
+        "marketingPath": "chickmark/store-assets/appstore/marketing-20261027/es/ipad-13/02-hero.jpg",
+        "sha256": "7c707339185dc941538ae8ee3738a351c693869589c0b31767aa5268ab7c9c81",
+        "sources": [
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/es/ipad-13/02-create.png",
+            "sha256": "48771e09bfc3e0470591d5e74037388d7609addfeaa98ea6c542799d2263592e"
+          },
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/es/ipad-13/03-progress.png",
+            "sha256": "ed0ef0a1ab7ca0619c0beb25dae81f1f5168f67d7bc42d6d4809da2382d6e092"
+          }
+        ],
+        "caption": "Crea un hábito en segundos",
+        "position": 2,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "es-MX",
+        "uiLanguage": "es",
+        "marketingPath": "chickmark/store-assets/appstore/marketing-20261027/es/ipad-13/03-hero.jpg",
+        "sha256": "198a08a3f1a704a6d79605a34d2e645fc3ecd1d77646537c6a7339a1512a3537",
+        "sources": [
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/es/ipad-13/03-progress.png",
+            "sha256": "ed0ef0a1ab7ca0619c0beb25dae81f1f5168f67d7bc42d6d4809da2382d6e092"
+          },
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/es/ipad-13/04-reminders.png",
+            "sha256": "9fa2a93a90e221486171a16285f55f16e91a2df9b23f3bf0cb730258a215dbdf"
+          }
+        ],
+        "caption": "Revisa avances y rachas",
+        "position": 3,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "es-MX",
+        "uiLanguage": "es",
+        "marketingPath": "chickmark/store-assets/appstore/marketing-20261027/es/ipad-13/04-hero.jpg",
+        "sha256": "b657fb8ac494cfdebfd0e1e966911ebeb8aa91da8ff5276714a8b6695a4e600d",
+        "sources": [
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/es/ipad-13/04-reminders.png",
+            "sha256": "9fa2a93a90e221486171a16285f55f16e91a2df9b23f3bf0cb730258a215dbdf"
+          },
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/es/ipad-13/01-habits.png",
+            "sha256": "3bb09bfd9d28b5ebbf6c561af92e0324fcce974b8ffc61b41b2e22d45559c905"
+          }
+        ],
+        "caption": "Configura días y recordatorios",
+        "position": 4,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "fr-FR",
+        "uiLanguage": "fr",
+        "marketingPath": "chickmark/store-assets/appstore/marketing-20261027/fr/ipad-13/01-hero.jpg",
+        "sha256": "99d1651a946f3e465b29d796cde1bd6378955f14ea292b948a0b134a572a65e3",
+        "sources": [
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/fr/ipad-13/01-habits.png",
+            "sha256": "2851277a7bbe72775487aa4a69e927b05dc3dc92b5ff83f07203af2523960eda"
+          },
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/fr/ipad-13/02-create.png",
+            "sha256": "390abdaee017dd7c2efa23a584269b585e0e2767416d805528a2bcc948ca846d"
+          }
+        ],
+        "caption": "Vos habitudes en un clin d’œil",
+        "position": 1,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "fr-FR",
+        "uiLanguage": "fr",
+        "marketingPath": "chickmark/store-assets/appstore/marketing-20261027/fr/ipad-13/02-hero.jpg",
+        "sha256": "1a3313ebb7cd13e3f72a75b6697a9776307b944cc71bb7026d4a6fe876cd9538",
+        "sources": [
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/fr/ipad-13/02-create.png",
+            "sha256": "390abdaee017dd7c2efa23a584269b585e0e2767416d805528a2bcc948ca846d"
+          },
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/fr/ipad-13/03-progress.png",
+            "sha256": "64238db4f622ef16d6133cbb564ee8fd4496f81a9954008a9d37e90e24d5f8ed"
+          }
+        ],
+        "caption": "Créez une habitude rapidement",
+        "position": 2,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "fr-FR",
+        "uiLanguage": "fr",
+        "marketingPath": "chickmark/store-assets/appstore/marketing-20261027/fr/ipad-13/03-hero.jpg",
+        "sha256": "6c7db831a7c785653c3a86107c4dafa13f5f5b0c1122571ab54052b67789dd02",
+        "sources": [
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/fr/ipad-13/03-progress.png",
+            "sha256": "64238db4f622ef16d6133cbb564ee8fd4496f81a9954008a9d37e90e24d5f8ed"
+          },
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/fr/ipad-13/04-reminders.png",
+            "sha256": "cd30d9193b1b321a6bbdf9dcaafc3ffab874aa6d75149a73349d5c4d18909777"
+          }
+        ],
+        "caption": "Suivez vos progrès",
+        "position": 3,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "fr-FR",
+        "uiLanguage": "fr",
+        "marketingPath": "chickmark/store-assets/appstore/marketing-20261027/fr/ipad-13/04-hero.jpg",
+        "sha256": "a11a2e9cebac30b52d2f2803fe2d81901f644c52d36c822e1430a387955444aa",
+        "sources": [
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/fr/ipad-13/04-reminders.png",
+            "sha256": "cd30d9193b1b321a6bbdf9dcaafc3ffab874aa6d75149a73349d5c4d18909777"
+          },
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/fr/ipad-13/01-habits.png",
+            "sha256": "2851277a7bbe72775487aa4a69e927b05dc3dc92b5ff83f07203af2523960eda"
+          }
+        ],
+        "caption": "Planifiez et ajoutez des rappels",
+        "position": 4,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "de-DE",
+        "uiLanguage": "de",
+        "marketingPath": "chickmark/store-assets/appstore/marketing-20261027/de/ipad-13/01-hero.jpg",
+        "sha256": "b0e02f8636b4c1448adaf5cb8e905a1c1dfa9feaf5dbc834b4537f8c41b54b80",
+        "sources": [
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/de/ipad-13/01-habits.png",
+            "sha256": "f6083338547310a74d1f1f46437fd5dc78fe2ffde93d072ea87c9091ead84deb"
+          },
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/de/ipad-13/02-create.png",
+            "sha256": "8e702d813078cb744506ebaf3b6355bc043f025978d587a8dff2b1b20d7c3461"
+          }
+        ],
+        "caption": "Gewohnheiten im Überblick",
+        "position": 1,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "de-DE",
+        "uiLanguage": "de",
+        "marketingPath": "chickmark/store-assets/appstore/marketing-20261027/de/ipad-13/02-hero.jpg",
+        "sha256": "b6463a863a5c96c472ef06fecd0dab39fcd0f00553176c2b34197afb91592d0e",
+        "sources": [
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/de/ipad-13/02-create.png",
+            "sha256": "8e702d813078cb744506ebaf3b6355bc043f025978d587a8dff2b1b20d7c3461"
+          },
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/de/ipad-13/03-progress.png",
+            "sha256": "2b1b93980ad4ad81983d11348850f72e8317b3f6bdb4bc7e9f77779ae5fb6f9a"
+          }
+        ],
+        "caption": "Neue Gewohnheit anlegen",
+        "position": 2,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "de-DE",
+        "uiLanguage": "de",
+        "marketingPath": "chickmark/store-assets/appstore/marketing-20261027/de/ipad-13/03-hero.jpg",
+        "sha256": "0a3f077ba39771f70cfbe2db0cb6e422de3bd95a34fdce4a59fb88d2afb66157",
+        "sources": [
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/de/ipad-13/03-progress.png",
+            "sha256": "2b1b93980ad4ad81983d11348850f72e8317b3f6bdb4bc7e9f77779ae5fb6f9a"
+          },
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/de/ipad-13/04-reminders.png",
+            "sha256": "bf787aae0760fcd401494d0bcc7ac6d6ae4e538e9483bd86a83feff080edae3e"
+          }
+        ],
+        "caption": "Fortschritte und Serien",
+        "position": 3,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "de-DE",
+        "uiLanguage": "de",
+        "marketingPath": "chickmark/store-assets/appstore/marketing-20261027/de/ipad-13/04-hero.jpg",
+        "sha256": "c8574a752bb78f72db38e03080f419c3c7714f64436a260195fd268a0df091c2",
+        "sources": [
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/de/ipad-13/04-reminders.png",
+            "sha256": "bf787aae0760fcd401494d0bcc7ac6d6ae4e538e9483bd86a83feff080edae3e"
+          },
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/de/ipad-13/01-habits.png",
+            "sha256": "f6083338547310a74d1f1f46437fd5dc78fe2ffde93d072ea87c9091ead84deb"
+          }
+        ],
+        "caption": "Zeitpläne und Erinnerungen",
+        "position": 4,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "it",
+        "uiLanguage": "it",
+        "marketingPath": "chickmark/store-assets/appstore/marketing-20261027/it/ipad-13/01-hero.jpg",
+        "sha256": "7668cb9d336bb4158fd73a9262d8c8e91e9bba9b9654be229bd9b99df963821e",
+        "sources": [
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/it/ipad-13/01-habits.png",
+            "sha256": "f02fb5ff4c7b0fc4f8654605f825d9a54f6294f7876b15a64aa2dc93cf153345"
+          },
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/it/ipad-13/02-create.png",
+            "sha256": "c170bf69c7d1f998022e0cd3f6bfd7c89fdee41c3e1fd6ab69723ba942a0d775"
+          }
+        ],
+        "caption": "Abitudini a colpo d’occhio",
+        "position": 1,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "it",
+        "uiLanguage": "it",
+        "marketingPath": "chickmark/store-assets/appstore/marketing-20261027/it/ipad-13/02-hero.jpg",
+        "sha256": "35c2508a716baba9ade26cc0c9218966e2f1078940de2544e1c55bcef4aa9b5d",
+        "sources": [
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/it/ipad-13/02-create.png",
+            "sha256": "c170bf69c7d1f998022e0cd3f6bfd7c89fdee41c3e1fd6ab69723ba942a0d775"
+          },
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/it/ipad-13/03-progress.png",
+            "sha256": "ce2b7d3e278c54f7d27dd94b280eb097dd7d4c85bd914b33bf388dc784257d5b"
+          }
+        ],
+        "caption": "Crea un’abitudine in pochi tocchi",
+        "position": 2,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "it",
+        "uiLanguage": "it",
+        "marketingPath": "chickmark/store-assets/appstore/marketing-20261027/it/ipad-13/03-hero.jpg",
+        "sha256": "b1e6a3c4e4dd7bd064e00baa10cca3feeb5c434f5968ff3f41ae20988da37312",
+        "sources": [
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/it/ipad-13/03-progress.png",
+            "sha256": "ce2b7d3e278c54f7d27dd94b280eb097dd7d4c85bd914b33bf388dc784257d5b"
+          },
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/it/ipad-13/04-reminders.png",
+            "sha256": "44383ea50caf682778c52285ca8e5013591fb865da26bba43b7f70c509c449da"
+          }
+        ],
+        "caption": "Controlla i progressi",
+        "position": 3,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "it",
+        "uiLanguage": "it",
+        "marketingPath": "chickmark/store-assets/appstore/marketing-20261027/it/ipad-13/04-hero.jpg",
+        "sha256": "e7cef229c48df107650054c26b6d3607e7affb8465b4fcbb6dc0df2c1c7e0ca1",
+        "sources": [
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/it/ipad-13/04-reminders.png",
+            "sha256": "44383ea50caf682778c52285ca8e5013591fb865da26bba43b7f70c509c449da"
+          },
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/it/ipad-13/01-habits.png",
+            "sha256": "f02fb5ff4c7b0fc4f8654605f825d9a54f6294f7876b15a64aa2dc93cf153345"
+          }
+        ],
+        "caption": "Orari e promemoria",
+        "position": 4,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "ja",
+        "uiLanguage": "ja",
+        "marketingPath": "chickmark/store-assets/appstore/marketing-20261027/ja/ipad-13/01-hero.jpg",
+        "sha256": "f6ee6e4815134d785f64ecf7b165c5bf28ee722a0f72ee171faa5c8611908e3a",
+        "sources": [
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/ja/ipad-13/01-habits.png",
+            "sha256": "3caf748fb64377b5f2af62a008b7ebf7ca6d903aa9ea80dc52f602f79bd034d9"
+          },
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/ja/ipad-13/02-create.png",
+            "sha256": "6956e1a8a45f3aa9349444e506f620c4419c6e7683645a72f8cf52c48a0c62ba"
+          }
+        ],
+        "caption": "今日の習慣を一覧表示",
+        "position": 1,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "ja",
+        "uiLanguage": "ja",
+        "marketingPath": "chickmark/store-assets/appstore/marketing-20261027/ja/ipad-13/02-hero.jpg",
+        "sha256": "1d12f81821657593ab755439581c371b1b0ad74fcb17708b8a8e880bf1a4e4b4",
+        "sources": [
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/ja/ipad-13/02-create.png",
+            "sha256": "6956e1a8a45f3aa9349444e506f620c4419c6e7683645a72f8cf52c48a0c62ba"
+          },
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/ja/ipad-13/03-progress.png",
+            "sha256": "2c4393258cc99e46e37fe119287fbf3210aeef1609e43a0f2da52468e849f34e"
+          }
+        ],
+        "caption": "数秒で習慣を作成",
+        "position": 2,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "ja",
+        "uiLanguage": "ja",
+        "marketingPath": "chickmark/store-assets/appstore/marketing-20261027/ja/ipad-13/03-hero.jpg",
+        "sha256": "45bae1a52ae24fb4593aaf26e77435b860bf0f467f7e3cec035669774a6af19a",
+        "sources": [
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/ja/ipad-13/03-progress.png",
+            "sha256": "2c4393258cc99e46e37fe119287fbf3210aeef1609e43a0f2da52468e849f34e"
+          },
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/ja/ipad-13/04-reminders.png",
+            "sha256": "4ce6662dd5a06187a9b15030c0652ce70ff3cddab3f2d54bbe1a6c6798497310"
+          }
+        ],
+        "caption": "進捗と連続達成を確認",
+        "position": 3,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "ja",
+        "uiLanguage": "ja",
+        "marketingPath": "chickmark/store-assets/appstore/marketing-20261027/ja/ipad-13/04-hero.jpg",
+        "sha256": "e2ed83af03ebb068e796f9952f572122cd7deb5fb0614eef0b81d7c5ea4041fd",
+        "sources": [
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/ja/ipad-13/04-reminders.png",
+            "sha256": "4ce6662dd5a06187a9b15030c0652ce70ff3cddab3f2d54bbe1a6c6798497310"
+          },
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/ja/ipad-13/01-habits.png",
+            "sha256": "3caf748fb64377b5f2af62a008b7ebf7ca6d903aa9ea80dc52f602f79bd034d9"
+          }
+        ],
+        "caption": "予定と通知を設定",
+        "position": 4,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "ko",
+        "uiLanguage": "ko",
+        "marketingPath": "chickmark/store-assets/appstore/marketing-20261027/ko/ipad-13/01-hero.jpg",
+        "sha256": "2508a2a58aa0640c8bd8d2a4f659a65aa691a4943a43d17a957bab8e939fa4c2",
+        "sources": [
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/ko/ipad-13/01-habits.png",
+            "sha256": "0059cc8289b1c577bc60cd7ddd573e0f547329ff73d5ee187ff0c1c0eac662fa"
+          },
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/ko/ipad-13/02-create.png",
+            "sha256": "860f9f619ecb5ba0fa7dfa5626c58a0377dfcceb579be86fc757cf781db207e7"
+          }
+        ],
+        "caption": "오늘의 습관 한눈에",
+        "position": 1,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "ko",
+        "uiLanguage": "ko",
+        "marketingPath": "chickmark/store-assets/appstore/marketing-20261027/ko/ipad-13/02-hero.jpg",
+        "sha256": "b91460dce7c73b7548ad92796a1212ee9c5436d17edf4043fe4b6a24723c53c2",
+        "sources": [
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/ko/ipad-13/02-create.png",
+            "sha256": "860f9f619ecb5ba0fa7dfa5626c58a0377dfcceb579be86fc757cf781db207e7"
+          },
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/ko/ipad-13/03-progress.png",
+            "sha256": "2f3ee6096ac9f68f166f3c0d4d7a653997a224cedaca83911179d6aef7a794c0"
+          }
+        ],
+        "caption": "새 습관 빠르게 만들기",
+        "position": 2,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "ko",
+        "uiLanguage": "ko",
+        "marketingPath": "chickmark/store-assets/appstore/marketing-20261027/ko/ipad-13/03-hero.jpg",
+        "sha256": "fd205eaca6b2578750cc2ea872d52e0ecb964f10b3ada0c3327808e929bc2952",
+        "sources": [
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/ko/ipad-13/03-progress.png",
+            "sha256": "2f3ee6096ac9f68f166f3c0d4d7a653997a224cedaca83911179d6aef7a794c0"
+          },
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/ko/ipad-13/04-reminders.png",
+            "sha256": "541f382a378e44b90450f6b5902c331153c6f2ed7929c14d8e3cf4e2fd08a8c1"
+          }
+        ],
+        "caption": "진행 상황과 연속 기록",
+        "position": 3,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "ko",
+        "uiLanguage": "ko",
+        "marketingPath": "chickmark/store-assets/appstore/marketing-20261027/ko/ipad-13/04-hero.jpg",
+        "sha256": "2801fe3c313b7b1e6f50d1d040a254d6f754419b64106802cc5c3ce46a66fc55",
+        "sources": [
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/ko/ipad-13/04-reminders.png",
+            "sha256": "541f382a378e44b90450f6b5902c331153c6f2ed7929c14d8e3cf4e2fd08a8c1"
+          },
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/ko/ipad-13/01-habits.png",
+            "sha256": "0059cc8289b1c577bc60cd7ddd573e0f547329ff73d5ee187ff0c1c0eac662fa"
+          }
+        ],
+        "caption": "일정과 알림 설정",
+        "position": 4,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "pt-BR",
+        "uiLanguage": "pt-BR",
+        "marketingPath": "chickmark/store-assets/appstore/marketing-20261027/pt-BR/ipad-13/01-hero.jpg",
+        "sha256": "2aebe6f20215cc989cbc99e7afa627b98d74b7307a5a0e07e83038ce39886e72",
+        "sources": [
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/pt-BR/ipad-13/01-habits.png",
+            "sha256": "88daa3f5967efc822e793ed14c930606fe4b4390061b8c2b04ca7e8482d0b6a3"
+          },
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/pt-BR/ipad-13/02-create.png",
+            "sha256": "6f2232c2149252e47b43d70da5b1bcf6ea4f5b5c587471855a36be861981842a"
+          }
+        ],
+        "caption": "Seus hábitos em um só lugar",
+        "position": 1,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "pt-BR",
+        "uiLanguage": "pt-BR",
+        "marketingPath": "chickmark/store-assets/appstore/marketing-20261027/pt-BR/ipad-13/02-hero.jpg",
+        "sha256": "d7cd032f0ab221c03b86b306bb3079426a96674f0d7ea2aa9d5191fb446bef78",
+        "sources": [
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/pt-BR/ipad-13/02-create.png",
+            "sha256": "6f2232c2149252e47b43d70da5b1bcf6ea4f5b5c587471855a36be861981842a"
+          },
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/pt-BR/ipad-13/03-progress.png",
+            "sha256": "e1674c9f05cfaebf08f8645ad23893c8e8ca7664df659c9a65f91a4e7382bf9c"
+          }
+        ],
+        "caption": "Crie um hábito rapidamente",
+        "position": 2,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "pt-BR",
+        "uiLanguage": "pt-BR",
+        "marketingPath": "chickmark/store-assets/appstore/marketing-20261027/pt-BR/ipad-13/03-hero.jpg",
+        "sha256": "d8cde9596e7d6646fb4e868d10408f067b6c513493770f0a2119d796ba160f19",
+        "sources": [
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/pt-BR/ipad-13/03-progress.png",
+            "sha256": "e1674c9f05cfaebf08f8645ad23893c8e8ca7664df659c9a65f91a4e7382bf9c"
+          },
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/pt-BR/ipad-13/04-reminders.png",
+            "sha256": "fd674e38d9b5694279733f8c0b964510072e3b0dfa0370cbc70a5ecf2f9cfcf2"
+          }
+        ],
+        "caption": "Acompanhe seu progresso",
+        "position": 3,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "pt-BR",
+        "uiLanguage": "pt-BR",
+        "marketingPath": "chickmark/store-assets/appstore/marketing-20261027/pt-BR/ipad-13/04-hero.jpg",
+        "sha256": "8d995e72193d2f00b5ad79c966c1e85b8ec7ec9d781614d13fe0519949ed8f58",
+        "sources": [
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/pt-BR/ipad-13/04-reminders.png",
+            "sha256": "fd674e38d9b5694279733f8c0b964510072e3b0dfa0370cbc70a5ecf2f9cfcf2"
+          },
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/pt-BR/ipad-13/01-habits.png",
+            "sha256": "88daa3f5967efc822e793ed14c930606fe4b4390061b8c2b04ca7e8482d0b6a3"
+          }
+        ],
+        "caption": "Agende e receba lembretes",
+        "position": 4,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "pt-PT",
+        "uiLanguage": "pt-PT",
+        "marketingPath": "chickmark/store-assets/appstore/marketing-20261027/pt-PT/ipad-13/01-hero.jpg",
+        "sha256": "230394b1dc8ec2ff8f60b10cfb57b024ba446e73f1e88d2af3bc6aaee1edce74",
+        "sources": [
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/pt-PT/ipad-13/01-habits.png",
+            "sha256": "d4277b72e6abf4b38f67e97911f8fb252b147e4ca83044637ff606b00c8cef29"
+          },
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/pt-PT/ipad-13/02-create.png",
+            "sha256": "5db0b35080d8936ed837c16adff2b0a46e5d218628b2e3c5edbd8dddc938d213"
+          }
+        ],
+        "caption": "Os seus hábitos num só lugar",
+        "position": 1,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "pt-PT",
+        "uiLanguage": "pt-PT",
+        "marketingPath": "chickmark/store-assets/appstore/marketing-20261027/pt-PT/ipad-13/02-hero.jpg",
+        "sha256": "d38335a5b07b7569cf988072ff7196bf0840821ec97bf949be392de2c1440aff",
+        "sources": [
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/pt-PT/ipad-13/02-create.png",
+            "sha256": "5db0b35080d8936ed837c16adff2b0a46e5d218628b2e3c5edbd8dddc938d213"
+          },
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/pt-PT/ipad-13/03-progress.png",
+            "sha256": "a716449799baca02a55f9087c245207415345e905ac8868a97fa18e5a3a85817"
+          }
+        ],
+        "caption": "Crie um hábito rapidamente",
+        "position": 2,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "pt-PT",
+        "uiLanguage": "pt-PT",
+        "marketingPath": "chickmark/store-assets/appstore/marketing-20261027/pt-PT/ipad-13/03-hero.jpg",
+        "sha256": "feb86c185248f98f32dd2e9129044bc2b330956bd1a4d4735935916b460003ba",
+        "sources": [
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/pt-PT/ipad-13/03-progress.png",
+            "sha256": "a716449799baca02a55f9087c245207415345e905ac8868a97fa18e5a3a85817"
+          },
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/pt-PT/ipad-13/04-reminders.png",
+            "sha256": "04b1efaa582a2b8f13fa75707af1df788c94945ffaaecf9ec8828cd228a5241c"
+          }
+        ],
+        "caption": "Acompanhe o progresso",
+        "position": 3,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "pt-PT",
+        "uiLanguage": "pt-PT",
+        "marketingPath": "chickmark/store-assets/appstore/marketing-20261027/pt-PT/ipad-13/04-hero.jpg",
+        "sha256": "c436686c6af9320cdf83481ce8118e9c117c825dbac8c5ec48588f479c8aefcd",
+        "sources": [
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/pt-PT/ipad-13/04-reminders.png",
+            "sha256": "04b1efaa582a2b8f13fa75707af1df788c94945ffaaecf9ec8828cd228a5241c"
+          },
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/pt-PT/ipad-13/01-habits.png",
+            "sha256": "d4277b72e6abf4b38f67e97911f8fb252b147e4ca83044637ff606b00c8cef29"
+          }
+        ],
+        "caption": "Horários e lembretes",
+        "position": 4,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "zh-Hans",
+        "uiLanguage": "zh-Hans",
+        "marketingPath": "chickmark/store-assets/appstore/marketing-20261027/zh-Hans/ipad-13/01-hero.jpg",
+        "sha256": "430f99da1d5f1952153eb77cc86ee4c832cfa47d2a96a99e2673b95e60c86910",
+        "sources": [
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/zh-Hans/ipad-13/01-habits.png",
+            "sha256": "b946cd2bd4652a130a246ec023b441936e44af0cb13849d5e7d1d9b118fda016"
+          },
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/zh-Hans/ipad-13/02-create.png",
+            "sha256": "cdbf1d5a652c4ba209bda75476e615c921ea53dea9721c6e8fc551556ba854a5"
+          }
+        ],
+        "caption": "每日习惯一目了然",
+        "position": 1,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "zh-Hans",
+        "uiLanguage": "zh-Hans",
+        "marketingPath": "chickmark/store-assets/appstore/marketing-20261027/zh-Hans/ipad-13/02-hero.jpg",
+        "sha256": "eabb920b5d56a2ce6b6c6b14ecce8b6d07645ad0d1c76842cf5f0aa5d891c64b",
+        "sources": [
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/zh-Hans/ipad-13/02-create.png",
+            "sha256": "cdbf1d5a652c4ba209bda75476e615c921ea53dea9721c6e8fc551556ba854a5"
+          },
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/zh-Hans/ipad-13/03-progress.png",
+            "sha256": "5a25ab0b8ed166ea303e4052ee0a3f686cf81bc4640d5af3531af180a4091a70"
+          }
+        ],
+        "caption": "快速创建新习惯",
+        "position": 2,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "zh-Hans",
+        "uiLanguage": "zh-Hans",
+        "marketingPath": "chickmark/store-assets/appstore/marketing-20261027/zh-Hans/ipad-13/03-hero.jpg",
+        "sha256": "bb28a67468c02a54d13ea9c7882d2fec446cf0d18f0b885e39c16f0c5cef2923",
+        "sources": [
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/zh-Hans/ipad-13/03-progress.png",
+            "sha256": "5a25ab0b8ed166ea303e4052ee0a3f686cf81bc4640d5af3531af180a4091a70"
+          },
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/zh-Hans/ipad-13/04-reminders.png",
+            "sha256": "e0a73ea32549f9d1c865504f24abe8bc432e5299b5bcade613086cf6995c9f14"
+          }
+        ],
+        "caption": "查看进度与连续记录",
+        "position": 3,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "zh-Hans",
+        "uiLanguage": "zh-Hans",
+        "marketingPath": "chickmark/store-assets/appstore/marketing-20261027/zh-Hans/ipad-13/04-hero.jpg",
+        "sha256": "d08cf3fbc9db5b085085271e68ea04f412093eeeddb919ed5a419015bf3cdfb7",
+        "sources": [
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/zh-Hans/ipad-13/04-reminders.png",
+            "sha256": "e0a73ea32549f9d1c865504f24abe8bc432e5299b5bcade613086cf6995c9f14"
+          },
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/zh-Hans/ipad-13/01-habits.png",
+            "sha256": "b946cd2bd4652a130a246ec023b441936e44af0cb13849d5e7d1d9b118fda016"
+          }
+        ],
+        "caption": "设置日程和提醒",
+        "position": 4,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "zh-Hant",
+        "uiLanguage": "zh-Hant",
+        "marketingPath": "chickmark/store-assets/appstore/marketing-20261027/zh-Hant/ipad-13/01-hero.jpg",
+        "sha256": "fa761caf9ecd605b11b8c1a169e6d1e256ba0a1c976778487b114a70bc0e8487",
+        "sources": [
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/zh-Hant/ipad-13/01-habits.png",
+            "sha256": "ed35a91dfeab54c3f755797c5f544763e9eac249f6769a4e6e2fa8c16a0964f4"
+          },
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/zh-Hant/ipad-13/02-create.png",
+            "sha256": "05655b36f5fbe19bd1492ea9bb0c7557f7bea0332bdddb8694da38243e9876ec"
+          }
+        ],
+        "caption": "每日習慣一目了然",
+        "position": 1,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "zh-Hant",
+        "uiLanguage": "zh-Hant",
+        "marketingPath": "chickmark/store-assets/appstore/marketing-20261027/zh-Hant/ipad-13/02-hero.jpg",
+        "sha256": "b77188e28b176720dca26b4d62e7cc17bc763ca145b352a10b582f9f06234a59",
+        "sources": [
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/zh-Hant/ipad-13/02-create.png",
+            "sha256": "05655b36f5fbe19bd1492ea9bb0c7557f7bea0332bdddb8694da38243e9876ec"
+          },
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/zh-Hant/ipad-13/03-progress.png",
+            "sha256": "0d918593052cb1701b1367ffdc57761d89580320009bfc945a5ec3ab2cae309b"
+          }
+        ],
+        "caption": "快速建立新習慣",
+        "position": 2,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "zh-Hant",
+        "uiLanguage": "zh-Hant",
+        "marketingPath": "chickmark/store-assets/appstore/marketing-20261027/zh-Hant/ipad-13/03-hero.jpg",
+        "sha256": "273b92b324d9ff9cadc8d8264d0e50794a553507ae130963ba9340282d01a59c",
+        "sources": [
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/zh-Hant/ipad-13/03-progress.png",
+            "sha256": "0d918593052cb1701b1367ffdc57761d89580320009bfc945a5ec3ab2cae309b"
+          },
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/zh-Hant/ipad-13/04-reminders.png",
+            "sha256": "4a0909bcfa97c814a4f123f3f1ce498d6e59c203ac67a1a225226aef7bcf1a89"
+          }
+        ],
+        "caption": "查看進度與連續紀錄",
+        "position": 3,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      },
+      {
+        "locale": "zh-Hant",
+        "uiLanguage": "zh-Hant",
+        "marketingPath": "chickmark/store-assets/appstore/marketing-20261027/zh-Hant/ipad-13/04-hero.jpg",
+        "sha256": "c53fd7f30190ed5a17300cb6c82a6ade3527ca222ebdff6f3ac93ce4ede93c1b",
+        "sources": [
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/zh-Hant/ipad-13/04-reminders.png",
+            "sha256": "4a0909bcfa97c814a4f123f3f1ce498d6e59c203ac67a1a225226aef7bcf1a89"
+          },
+          {
+            "path": "chickmark/store-assets/appstore/editorial-20261027/zh-Hant/ipad-13/01-habits.png",
+            "sha256": "ed35a91dfeab54c3f755797c5f544763e9eac249f6769a4e6e2fa8c16a0964f4"
+          }
+        ],
+        "caption": "設定日程和提醒",
+        "position": 4,
+        "stage": "SIMULATOR_MARKETING_DRAFT"
+      }
+    ]
+  }
+}
