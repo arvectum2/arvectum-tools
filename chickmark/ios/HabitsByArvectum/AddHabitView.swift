@@ -391,16 +391,20 @@ struct AddHabitView: View {
                             .submitLabel(.done)
                             .onSubmit(createGroupFromForm)
                             .accessibilityIdentifier("habit.group.newName")
-                        Button(L10n.string("groups.add")) {
-                            createGroupFromForm()
-                        }
-                        .disabled(newGroupName.trimmingCharacters(
+                        if !newGroupName.trimmingCharacters(
                             in: .whitespacesAndNewlines
-                        ).isEmpty)
-                        .accessibilityIdentifier("habit.group.add")
+                        ).isEmpty {
+                            // Only offer the actionable control when the
+                            // group has a name; do not expose a low-contrast,
+                            // non-actionable disabled button in the form.
+                            Button(L10n.string("groups.add")) {
+                                createGroupFromForm()
+                            }
+                            .buttonStyle(.plain)
+                            .foregroundStyle(.primary)
+                            .accessibilityIdentifier("habit.group.add")
+                        }
                     }
-                } header: {
-                    Text(L10n.string("groups.select"))
                 }
 
                 Section {
