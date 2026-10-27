@@ -31,7 +31,7 @@ concurrency:
 jobs:
   build-and-test:
     runs-on: xcode-27
-    timeout-minutes: 35
+    timeout-minutes: 45
     defaults:
       run:
         working-directory: chickmark/ios
@@ -71,5 +71,19 @@ jobs:
         timeout-minutes: 20
         run: bash scripts/ci_essential_ui_smoke.sh
 
-      - name: Archive smoke
+  archive-smoke:
+    # Independent gate: cannot lose the archive to the lengthy unit+UI job timeout.
+    runs-on: xcode-27
+    timeout-minutes: 25
+    defaults:
+      run:
+        working-directory: chickmark/ios
+    steps:
+      - uses: actions/checkout@v7
+      - name: Verify Xcode 27
+        run: xcodebuild -version | grep -q '^Xcode 27\.'
+      - name: Install XcodeGen
+        run: brew install xcodegen
+      - name: Verify Release archive (iOS + Watch + privacy manifests)
+        timeout-minutes: 20
         run: scripts/archive_smoke.sh

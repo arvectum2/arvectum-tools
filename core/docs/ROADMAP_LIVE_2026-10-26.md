@@ -1,5 +1,7 @@
 # Arvectum Tools — оперативная дорожная карта на 26.10.2026
 
+C16 (27.10): проверены 64 публичные App Store витрины, Photo/PDF опубликована 1.0.3; Apple public API не показывает ASC build/keywords. [C16](ASO_C16_PUBLIC_STORE_QA_2026-10-27.md).
+
 C15 (27.10): 64/64 ASO-пакета, 448/448 native PNG и 144 iPad marketing JPEG на 12 языках UI. Переснята панель исходного файла Photo/PDF, исправлена KO строка Uhvat. [C15](ASO_C15_EDITORIAL_ACCEPTANCE_2026-10-27.md). Реальные iPhone/Watch недоступны, Apple не затронут.
 
 C14 (27.10): оптимизированы поисковые слова в 45/64 карточках согласно Apple, все 448 PNG не изменены. Блокеры: первый iPad-кадр Фото/PDF и ChickMark слишком пустой; нет независимой языковой, аппаратной и релизной приёмки. [C14](ASO_C14_KEYWORDS_VISUAL_GATE_2026-10-27.md).

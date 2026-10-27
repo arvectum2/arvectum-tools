@@ -1,0 +1,1462 @@
+{
+  "asOfUTC": "2026-10-27T17:39:38+00:00",
+  "source": "Apple public iTunes Lookup (not App Store Connect)",
+  "countries": {
+    "ru": {
+      "photo": {
+        "name": "Фото и PDF под размер",
+        "version": "1.0.3",
+        "releaseDate": "2026-10-26T22:01:53Z",
+        "category": "Utilities",
+        "languages": [
+          "EN",
+          "FR",
+          "DE",
+          "IT",
+          "JA",
+          "KO",
+          "PT",
+          "RU",
+          "ZH",
+          "ES",
+          "ZH"
+        ],
+        "screenshots": {
+          "screenshotUrls": 4,
+          "ipadScreenshotUrls": 1,
+          "appletvScreenshotUrls": 0
+        },
+        "minimumOs": "17.0",
+        "storeURL": "https://apps.apple.com/ru/app/%D1%84%D0%BE%D1%82%D0%BE-%D0%B8-pdf-%D0%BF%D0%BE%D0%B4-%D1%80%D0%B0%D0%B7%D0%BC%D0%B5%D1%80/id6816346084?uo=4"
+      },
+      "pushkin": {
+        "name": "PUSHKIN by Arvectum",
+        "version": "1.0.2",
+        "releaseDate": "2026-10-24T18:29:16Z",
+        "category": "Utilities",
+        "languages": [
+          "EN",
+          "FR",
+          "RU",
+          "ES"
+        ],
+        "screenshots": {
+          "screenshotUrls": 3,
+          "ipadScreenshotUrls": 0,
+          "appletvScreenshotUrls": 0
+        },
+        "minimumOs": "27.0",
+        "storeURL": "https://apps.apple.com/ru/app/pushkin-by-arvectum/id6817847111?uo=4"
+      },
+      "what": {
+        "name": "Ухват: голосовые заметки",
+        "version": "1.1.1",
+        "releaseDate": "2026-10-24T17:50:00Z",
+        "category": "Productivity",
+        "languages": [
+          "EN",
+          "FR",
+          "RU",
+          "ES"
+        ],
+        "screenshots": {
+          "screenshotUrls": 3,
+          "ipadScreenshotUrls": 1,
+          "appletvScreenshotUrls": 0
+        },
+        "minimumOs": "17.0",
+        "storeURL": "https://apps.apple.com/ru/app/%D1%83%D1%85%D0%B2%D0%B0%D1%82-%D0%B3%D0%BE%D0%BB%D0%BE%D1%81%D0%BE%D0%B2%D1%8B%D0%B5-%D0%B7%D0%B0%D0%BC%D0%B5%D1%82%D0%BA%D0%B8/id6822476399?uo=4"
+      },
+      "chickmark": {
+        "name": "ChickMark: трекер привычек",
+        "version": "1.5.2",
+        "releaseDate": "2026-10-26T21:54:23Z",
+        "category": "Productivity",
+        "languages": [
+          "EN",
+          "FR",
+          "DE",
+          "IT",
+          "JA",
+          "PT",
+          "RU",
+          "ZH",
+          "ES",
+          "ZH"
+        ],
+        "screenshots": {
+          "screenshotUrls": 3,
+          "ipadScreenshotUrls": 1,
+          "appletvScreenshotUrls": 0
+        },
+        "minimumOs": "17.0",
+        "storeURL": "https://apps.apple.com/ru/app/chickmark-%D1%82%D1%80%D0%B5%D0%BA%D0%B5%D1%80-%D0%BF%D1%80%D0%B8%D0%B2%D1%8B%D1%87%D0%B5%D0%BA/id6818711298?uo=4"
+      }
+    },
+    "us": {
+      "photo": {
+        "name": "Compress Photo & PDF to KB",
+        "version": "1.0.3",
+        "releaseDate": "2026-10-26T22:01:53Z",
+        "category": "Utilities",
+        "languages": [
+          "EN",
+          "FR",
+          "DE",
+          "IT",
+          "JA",
+          "KO",
+          "PT",
+          "RU",
+          "ZH",
+          "ES",
+          "ZH"
+        ],
+        "screenshots": {
+          "screenshotUrls": 4,
+          "ipadScreenshotUrls": 1,
+          "appletvScreenshotUrls": 0
+        },
+        "minimumOs": "17.0",
+        "storeURL": "https://apps.apple.com/us/app/compress-photo-pdf-to-kb/id6816346084?uo=4"
+      },
+      "pushkin": {
+        "name": "PUSHKIN by Arvectum",
+        "version": "1.0.2",
+        "releaseDate": "2026-10-24T18:29:16Z",
+        "category": "Utilities",
+        "languages": [
+          "EN",
+          "FR",
+          "RU",
+          "ES"
+        ],
+        "screenshots": {
+          "screenshotUrls": 3,
+          "ipadScreenshotUrls": 0,
+          "appletvScreenshotUrls": 0
+        },
+        "minimumOs": "27.0",
+        "storeURL": "https://apps.apple.com/us/app/pushkin-by-arvectum/id6817847111?uo=4"
+      },
+      "what": {
+        "name": "UhWhat? Voice Notes",
+        "version": "1.1.1",
+        "releaseDate": "2026-10-24T17:50:00Z",
+        "category": "Productivity",
+        "languages": [
+          "EN",
+          "FR",
+          "RU",
+          "ES"
+        ],
+        "screenshots": {
+          "screenshotUrls": 3,
+          "ipadScreenshotUrls": 1,
+          "appletvScreenshotUrls": 0
+        },
+        "minimumOs": "17.0",
+        "storeURL": "https://apps.apple.com/us/app/uhwhat-voice-notes/id6822476399?uo=4"
+      },
+      "chickmark": {
+        "name": "ChickMark: Habit Tracker",
+        "version": "1.5.2",
+        "releaseDate": "2026-10-26T21:54:23Z",
+        "category": "Productivity",
+        "languages": [
+          "EN",
+          "FR",
+          "DE",
+          "IT",
+          "JA",
+          "PT",
+          "RU",
+          "ZH",
+          "ES",
+          "ZH"
+        ],
+        "screenshots": {
+          "screenshotUrls": 3,
+          "ipadScreenshotUrls": 1,
+          "appletvScreenshotUrls": 0
+        },
+        "minimumOs": "17.0",
+        "storeURL": "https://apps.apple.com/us/app/chickmark-habit-tracker/id6818711298?uo=4"
+      }
+    },
+    "gb": {
+      "photo": {
+        "name": "Photo & PDF Compressor: KB",
+        "version": "1.0.3",
+        "releaseDate": "2026-10-26T22:01:53Z",
+        "category": "Utilities",
+        "languages": [
+          "EN",
+          "FR",
+          "DE",
+          "IT",
+          "JA",
+          "KO",
+          "PT",
+          "RU",
+          "ZH",
+          "ES",
+          "ZH"
+        ],
+        "screenshots": {
+          "screenshotUrls": 4,
+          "ipadScreenshotUrls": 1,
+          "appletvScreenshotUrls": 0
+        },
+        "minimumOs": "17.0",
+        "storeURL": "https://apps.apple.com/gb/app/photo-pdf-compressor-kb/id6816346084?uo=4"
+      },
+      "pushkin": {
+        "name": "PUSHKIN by Arvectum",
+        "version": "1.0.2",
+        "releaseDate": "2026-10-24T18:29:16Z",
+        "category": "Utilities",
+        "languages": [
+          "EN",
+          "FR",
+          "RU",
+          "ES"
+        ],
+        "screenshots": {
+          "screenshotUrls": 3,
+          "ipadScreenshotUrls": 0,
+          "appletvScreenshotUrls": 0
+        },
+        "minimumOs": "27.0",
+        "storeURL": "https://apps.apple.com/gb/app/pushkin-by-arvectum/id6817847111?uo=4"
+      },
+      "what": {
+        "name": "UhWhat? Voice Notes",
+        "version": "1.1.1",
+        "releaseDate": "2026-10-24T17:50:00Z",
+        "category": "Productivity",
+        "languages": [
+          "EN",
+          "FR",
+          "RU",
+          "ES"
+        ],
+        "screenshots": {
+          "screenshotUrls": 3,
+          "ipadScreenshotUrls": 1,
+          "appletvScreenshotUrls": 0
+        },
+        "minimumOs": "17.0",
+        "storeURL": "https://apps.apple.com/gb/app/uhwhat-voice-notes/id6822476399?uo=4"
+      },
+      "chickmark": {
+        "name": "ChickMark: Habit Tracker",
+        "version": "1.5.2",
+        "releaseDate": "2026-10-26T21:54:23Z",
+        "category": "Productivity",
+        "languages": [
+          "EN",
+          "FR",
+          "DE",
+          "IT",
+          "JA",
+          "PT",
+          "RU",
+          "ZH",
+          "ES",
+          "ZH"
+        ],
+        "screenshots": {
+          "screenshotUrls": 3,
+          "ipadScreenshotUrls": 1,
+          "appletvScreenshotUrls": 0
+        },
+        "minimumOs": "17.0",
+        "storeURL": "https://apps.apple.com/gb/app/chickmark-habit-tracker/id6818711298?uo=4"
+      }
+    },
+    "ca": {
+      "photo": {
+        "name": "Photo & PDF Compressor: KB",
+        "version": "1.0.3",
+        "releaseDate": "2026-10-26T22:01:53Z",
+        "category": "Utilities",
+        "languages": [
+          "EN",
+          "FR",
+          "DE",
+          "IT",
+          "JA",
+          "KO",
+          "PT",
+          "RU",
+          "ZH",
+          "ES",
+          "ZH"
+        ],
+        "screenshots": {
+          "screenshotUrls": 4,
+          "ipadScreenshotUrls": 1,
+          "appletvScreenshotUrls": 0
+        },
+        "minimumOs": "17.0",
+        "storeURL": "https://apps.apple.com/ca/app/photo-pdf-compressor-kb/id6816346084?uo=4"
+      },
+      "pushkin": {
+        "name": "PUSHKIN by Arvectum",
+        "version": "1.0.2",
+        "releaseDate": "2026-10-24T18:29:16Z",
+        "category": "Utilities",
+        "languages": [
+          "EN",
+          "FR",
+          "RU",
+          "ES"
+        ],
+        "screenshots": {
+          "screenshotUrls": 3,
+          "ipadScreenshotUrls": 0,
+          "appletvScreenshotUrls": 0
+        },
+        "minimumOs": "27.0",
+        "storeURL": "https://apps.apple.com/ca/app/pushkin-by-arvectum/id6817847111?uo=4"
+      },
+      "what": {
+        "name": "UhWhat? Voice Notes",
+        "version": "1.1.1",
+        "releaseDate": "2026-10-24T17:50:00Z",
+        "category": "Productivity",
+        "languages": [
+          "EN",
+          "FR",
+          "RU",
+          "ES"
+        ],
+        "screenshots": {
+          "screenshotUrls": 3,
+          "ipadScreenshotUrls": 1,
+          "appletvScreenshotUrls": 0
+        },
+        "minimumOs": "17.0",
+        "storeURL": "https://apps.apple.com/ca/app/uhwhat-voice-notes/id6822476399?uo=4"
+      },
+      "chickmark": {
+        "name": "ChickMark: Habit Tracker",
+        "version": "1.5.2",
+        "releaseDate": "2026-10-26T21:54:23Z",
+        "category": "Productivity",
+        "languages": [
+          "EN",
+          "FR",
+          "DE",
+          "IT",
+          "JA",
+          "PT",
+          "RU",
+          "ZH",
+          "ES",
+          "ZH"
+        ],
+        "screenshots": {
+          "screenshotUrls": 3,
+          "ipadScreenshotUrls": 1,
+          "appletvScreenshotUrls": 0
+        },
+        "minimumOs": "17.0",
+        "storeURL": "https://apps.apple.com/ca/app/chickmark-habit-tracker/id6818711298?uo=4"
+      }
+    },
+    "au": {
+      "photo": {
+        "name": "Photo & PDF Compressor: KB",
+        "version": "1.0.3",
+        "releaseDate": "2026-10-26T22:01:53Z",
+        "category": "Utilities",
+        "languages": [
+          "EN",
+          "FR",
+          "DE",
+          "IT",
+          "JA",
+          "KO",
+          "PT",
+          "RU",
+          "ZH",
+          "ES",
+          "ZH"
+        ],
+        "screenshots": {
+          "screenshotUrls": 4,
+          "ipadScreenshotUrls": 1,
+          "appletvScreenshotUrls": 0
+        },
+        "minimumOs": "17.0",
+        "storeURL": "https://apps.apple.com/au/app/photo-pdf-compressor-kb/id6816346084?uo=4"
+      },
+      "pushkin": {
+        "name": "PUSHKIN by Arvectum",
+        "version": "1.0.2",
+        "releaseDate": "2026-10-24T18:29:16Z",
+        "category": "Utilities",
+        "languages": [
+          "EN",
+          "FR",
+          "RU",
+          "ES"
+        ],
+        "screenshots": {
+          "screenshotUrls": 3,
+          "ipadScreenshotUrls": 0,
+          "appletvScreenshotUrls": 0
+        },
+        "minimumOs": "27.0",
+        "storeURL": "https://apps.apple.com/au/app/pushkin-by-arvectum/id6817847111?uo=4"
+      },
+      "what": {
+        "name": "UhWhat? Voice Notes",
+        "version": "1.1.1",
+        "releaseDate": "2026-10-24T17:50:00Z",
+        "category": "Productivity",
+        "languages": [
+          "EN",
+          "FR",
+          "RU",
+          "ES"
+        ],
+        "screenshots": {
+          "screenshotUrls": 3,
+          "ipadScreenshotUrls": 1,
+          "appletvScreenshotUrls": 0
+        },
+        "minimumOs": "17.0",
+        "storeURL": "https://apps.apple.com/au/app/uhwhat-voice-notes/id6822476399?uo=4"
+      },
+      "chickmark": {
+        "name": "ChickMark: Habit Tracker",
+        "version": "1.5.2",
+        "releaseDate": "2026-10-26T21:54:23Z",
+        "category": "Productivity",
+        "languages": [
+          "EN",
+          "FR",
+          "DE",
+          "IT",
+          "JA",
+          "PT",
+          "RU",
+          "ZH",
+          "ES",
+          "ZH"
+        ],
+        "screenshots": {
+          "screenshotUrls": 3,
+          "ipadScreenshotUrls": 1,
+          "appletvScreenshotUrls": 0
+        },
+        "minimumOs": "17.0",
+        "storeURL": "https://apps.apple.com/au/app/chickmark-habit-tracker/id6818711298?uo=4"
+      }
+    },
+    "es": {
+      "photo": {
+        "name": "Фото и PDF под размер",
+        "version": "1.0.3",
+        "releaseDate": "2026-10-26T22:01:53Z",
+        "category": "Utilities",
+        "languages": [
+          "EN",
+          "FR",
+          "DE",
+          "IT",
+          "JA",
+          "KO",
+          "PT",
+          "RU",
+          "ZH",
+          "ES",
+          "ZH"
+        ],
+        "screenshots": {
+          "screenshotUrls": 4,
+          "ipadScreenshotUrls": 1,
+          "appletvScreenshotUrls": 0
+        },
+        "minimumOs": "17.0",
+        "storeURL": "https://apps.apple.com/es/app/%D1%84%D0%BE%D1%82%D0%BE-%D0%B8-pdf-%D0%BF%D0%BE%D0%B4-%D1%80%D0%B0%D0%B7%D0%BC%D0%B5%D1%80/id6816346084?uo=4"
+      },
+      "pushkin": {
+        "name": "PUSHKIN by Arvectum",
+        "version": "1.0.2",
+        "releaseDate": "2026-10-24T18:29:16Z",
+        "category": "Utilities",
+        "languages": [
+          "EN",
+          "FR",
+          "RU",
+          "ES"
+        ],
+        "screenshots": {
+          "screenshotUrls": 3,
+          "ipadScreenshotUrls": 0,
+          "appletvScreenshotUrls": 0
+        },
+        "minimumOs": "27.0",
+        "storeURL": "https://apps.apple.com/es/app/pushkin-by-arvectum/id6817847111?uo=4"
+      },
+      "what": {
+        "name": "UhWhat? Voice Notes",
+        "version": "1.1.1",
+        "releaseDate": "2026-10-24T17:50:00Z",
+        "category": "Productivity",
+        "languages": [
+          "EN",
+          "FR",
+          "RU",
+          "ES"
+        ],
+        "screenshots": {
+          "screenshotUrls": 3,
+          "ipadScreenshotUrls": 1,
+          "appletvScreenshotUrls": 0
+        },
+        "minimumOs": "17.0",
+        "storeURL": "https://apps.apple.com/es/app/uhwhat-voice-notes/id6822476399?uo=4"
+      },
+      "chickmark": {
+        "name": "ChickMark: hábitos diarios",
+        "version": "1.5.2",
+        "releaseDate": "2026-10-26T21:54:23Z",
+        "category": "Productivity",
+        "languages": [
+          "EN",
+          "FR",
+          "DE",
+          "IT",
+          "JA",
+          "PT",
+          "RU",
+          "ZH",
+          "ES",
+          "ZH"
+        ],
+        "screenshots": {
+          "screenshotUrls": 3,
+          "ipadScreenshotUrls": 1,
+          "appletvScreenshotUrls": 0
+        },
+        "minimumOs": "17.0",
+        "storeURL": "https://apps.apple.com/es/app/chickmark-h%C3%A1bitos-diarios/id6818711298?uo=4"
+      }
+    },
+    "mx": {
+      "photo": {
+        "name": "Фото и PDF под размер",
+        "version": "1.0.3",
+        "releaseDate": "2026-10-26T22:01:53Z",
+        "category": "Utilities",
+        "languages": [
+          "EN",
+          "FR",
+          "DE",
+          "IT",
+          "JA",
+          "KO",
+          "PT",
+          "RU",
+          "ZH",
+          "ES",
+          "ZH"
+        ],
+        "screenshots": {
+          "screenshotUrls": 4,
+          "ipadScreenshotUrls": 1,
+          "appletvScreenshotUrls": 0
+        },
+        "minimumOs": "17.0",
+        "storeURL": "https://apps.apple.com/mx/app/%D1%84%D0%BE%D1%82%D0%BE-%D0%B8-pdf-%D0%BF%D0%BE%D0%B4-%D1%80%D0%B0%D0%B7%D0%BC%D0%B5%D1%80/id6816346084?uo=4"
+      },
+      "pushkin": {
+        "name": "PUSHKIN by Arvectum",
+        "version": "1.0.2",
+        "releaseDate": "2026-10-24T18:29:16Z",
+        "category": "Utilities",
+        "languages": [
+          "EN",
+          "FR",
+          "RU",
+          "ES"
+        ],
+        "screenshots": {
+          "screenshotUrls": 3,
+          "ipadScreenshotUrls": 0,
+          "appletvScreenshotUrls": 0
+        },
+        "minimumOs": "27.0",
+        "storeURL": "https://apps.apple.com/mx/app/pushkin-by-arvectum/id6817847111?uo=4"
+      },
+      "what": {
+        "name": "UhWhat? Voice Notes",
+        "version": "1.1.1",
+        "releaseDate": "2026-10-24T17:50:00Z",
+        "category": "Productivity",
+        "languages": [
+          "EN",
+          "FR",
+          "RU",
+          "ES"
+        ],
+        "screenshots": {
+          "screenshotUrls": 3,
+          "ipadScreenshotUrls": 1,
+          "appletvScreenshotUrls": 0
+        },
+        "minimumOs": "17.0",
+        "storeURL": "https://apps.apple.com/mx/app/uhwhat-voice-notes/id6822476399?uo=4"
+      },
+      "chickmark": {
+        "name": "ChickMark: hábitos y metas",
+        "version": "1.5.2",
+        "releaseDate": "2026-10-26T21:54:23Z",
+        "category": "Productivity",
+        "languages": [
+          "EN",
+          "FR",
+          "DE",
+          "IT",
+          "JA",
+          "PT",
+          "RU",
+          "ZH",
+          "ES",
+          "ZH"
+        ],
+        "screenshots": {
+          "screenshotUrls": 3,
+          "ipadScreenshotUrls": 1,
+          "appletvScreenshotUrls": 0
+        },
+        "minimumOs": "17.0",
+        "storeURL": "https://apps.apple.com/mx/app/chickmark-h%C3%A1bitos-y-metas/id6818711298?uo=4"
+      }
+    },
+    "fr": {
+      "photo": {
+        "name": "Фото и PDF под размер",
+        "version": "1.0.3",
+        "releaseDate": "2026-10-26T22:01:53Z",
+        "category": "Utilities",
+        "languages": [
+          "EN",
+          "FR",
+          "DE",
+          "IT",
+          "JA",
+          "KO",
+          "PT",
+          "RU",
+          "ZH",
+          "ES",
+          "ZH"
+        ],
+        "screenshots": {
+          "screenshotUrls": 4,
+          "ipadScreenshotUrls": 1,
+          "appletvScreenshotUrls": 0
+        },
+        "minimumOs": "17.0",
+        "storeURL": "https://apps.apple.com/fr/app/%D1%84%D0%BE%D1%82%D0%BE-%D0%B8-pdf-%D0%BF%D0%BE%D0%B4-%D1%80%D0%B0%D0%B7%D0%BC%D0%B5%D1%80/id6816346084?uo=4"
+      },
+      "pushkin": {
+        "name": "PUSHKIN by Arvectum",
+        "version": "1.0.2",
+        "releaseDate": "2026-10-24T18:29:16Z",
+        "category": "Utilities",
+        "languages": [
+          "EN",
+          "FR",
+          "RU",
+          "ES"
+        ],
+        "screenshots": {
+          "screenshotUrls": 3,
+          "ipadScreenshotUrls": 0,
+          "appletvScreenshotUrls": 0
+        },
+        "minimumOs": "27.0",
+        "storeURL": "https://apps.apple.com/fr/app/pushkin-by-arvectum/id6817847111?uo=4"
+      },
+      "what": {
+        "name": "UhWhat? Voice Notes",
+        "version": "1.1.1",
+        "releaseDate": "2026-10-24T17:50:00Z",
+        "category": "Productivity",
+        "languages": [
+          "EN",
+          "FR",
+          "RU",
+          "ES"
+        ],
+        "screenshots": {
+          "screenshotUrls": 3,
+          "ipadScreenshotUrls": 1,
+          "appletvScreenshotUrls": 0
+        },
+        "minimumOs": "17.0",
+        "storeURL": "https://apps.apple.com/fr/app/uhwhat-voice-notes/id6822476399?uo=4"
+      },
+      "chickmark": {
+        "name": "ChickMark: трекер привычек",
+        "version": "1.5.2",
+        "releaseDate": "2026-10-26T21:54:23Z",
+        "category": "Productivity",
+        "languages": [
+          "EN",
+          "FR",
+          "DE",
+          "IT",
+          "JA",
+          "PT",
+          "RU",
+          "ZH",
+          "ES",
+          "ZH"
+        ],
+        "screenshots": {
+          "screenshotUrls": 3,
+          "ipadScreenshotUrls": 1,
+          "appletvScreenshotUrls": 0
+        },
+        "minimumOs": "17.0",
+        "storeURL": "https://apps.apple.com/fr/app/chickmark-%D1%82%D1%80%D0%B5%D0%BA%D0%B5%D1%80-%D0%BF%D1%80%D0%B8%D0%B2%D1%8B%D1%87%D0%B5%D0%BA/id6818711298?uo=4"
+      }
+    },
+    "de": {
+      "photo": {
+        "name": "Фото и PDF под размер",
+        "version": "1.0.3",
+        "releaseDate": "2026-10-26T22:01:53Z",
+        "category": "Utilities",
+        "languages": [
+          "EN",
+          "FR",
+          "DE",
+          "IT",
+          "JA",
+          "KO",
+          "PT",
+          "RU",
+          "ZH",
+          "ES",
+          "ZH"
+        ],
+        "screenshots": {
+          "screenshotUrls": 4,
+          "ipadScreenshotUrls": 1,
+          "appletvScreenshotUrls": 0
+        },
+        "minimumOs": "17.0",
+        "storeURL": "https://apps.apple.com/de/app/%D1%84%D0%BE%D1%82%D0%BE-%D0%B8-pdf-%D0%BF%D0%BE%D0%B4-%D1%80%D0%B0%D0%B7%D0%BC%D0%B5%D1%80/id6816346084?uo=4"
+      },
+      "pushkin": {
+        "name": "PUSHKIN by Arvectum",
+        "version": "1.0.2",
+        "releaseDate": "2026-10-24T18:29:16Z",
+        "category": "Utilities",
+        "languages": [
+          "EN",
+          "FR",
+          "RU",
+          "ES"
+        ],
+        "screenshots": {
+          "screenshotUrls": 3,
+          "ipadScreenshotUrls": 0,
+          "appletvScreenshotUrls": 0
+        },
+        "minimumOs": "27.0",
+        "storeURL": "https://apps.apple.com/de/app/pushkin-by-arvectum/id6817847111?uo=4"
+      },
+      "what": {
+        "name": "UhWhat? Voice Notes",
+        "version": "1.1.1",
+        "releaseDate": "2026-10-24T17:50:00Z",
+        "category": "Productivity",
+        "languages": [
+          "EN",
+          "FR",
+          "RU",
+          "ES"
+        ],
+        "screenshots": {
+          "screenshotUrls": 3,
+          "ipadScreenshotUrls": 1,
+          "appletvScreenshotUrls": 0
+        },
+        "minimumOs": "17.0",
+        "storeURL": "https://apps.apple.com/de/app/uhwhat-voice-notes/id6822476399?uo=4"
+      },
+      "chickmark": {
+        "name": "ChickMark: трекер привычек",
+        "version": "1.5.2",
+        "releaseDate": "2026-10-26T21:54:23Z",
+        "category": "Productivity",
+        "languages": [
+          "EN",
+          "FR",
+          "DE",
+          "IT",
+          "JA",
+          "PT",
+          "RU",
+          "ZH",
+          "ES",
+          "ZH"
+        ],
+        "screenshots": {
+          "screenshotUrls": 3,
+          "ipadScreenshotUrls": 1,
+          "appletvScreenshotUrls": 0
+        },
+        "minimumOs": "17.0",
+        "storeURL": "https://apps.apple.com/de/app/chickmark-%D1%82%D1%80%D0%B5%D0%BA%D0%B5%D1%80-%D0%BF%D1%80%D0%B8%D0%B2%D1%8B%D1%87%D0%B5%D0%BA/id6818711298?uo=4"
+      }
+    },
+    "it": {
+      "photo": {
+        "name": "Фото и PDF под размер",
+        "version": "1.0.3",
+        "releaseDate": "2026-10-26T22:01:53Z",
+        "category": "Utilities",
+        "languages": [
+          "EN",
+          "FR",
+          "DE",
+          "IT",
+          "JA",
+          "KO",
+          "PT",
+          "RU",
+          "ZH",
+          "ES",
+          "ZH"
+        ],
+        "screenshots": {
+          "screenshotUrls": 4,
+          "ipadScreenshotUrls": 1,
+          "appletvScreenshotUrls": 0
+        },
+        "minimumOs": "17.0",
+        "storeURL": "https://apps.apple.com/it/app/%D1%84%D0%BE%D1%82%D0%BE-%D0%B8-pdf-%D0%BF%D0%BE%D0%B4-%D1%80%D0%B0%D0%B7%D0%BC%D0%B5%D1%80/id6816346084?uo=4"
+      },
+      "pushkin": {
+        "name": "PUSHKIN by Arvectum",
+        "version": "1.0.2",
+        "releaseDate": "2026-10-24T18:29:16Z",
+        "category": "Utilities",
+        "languages": [
+          "EN",
+          "FR",
+          "RU",
+          "ES"
+        ],
+        "screenshots": {
+          "screenshotUrls": 3,
+          "ipadScreenshotUrls": 0,
+          "appletvScreenshotUrls": 0
+        },
+        "minimumOs": "27.0",
+        "storeURL": "https://apps.apple.com/it/app/pushkin-by-arvectum/id6817847111?uo=4"
+      },
+      "what": {
+        "name": "UhWhat? Voice Notes",
+        "version": "1.1.1",
+        "releaseDate": "2026-10-24T17:50:00Z",
+        "category": "Productivity",
+        "languages": [
+          "EN",
+          "FR",
+          "RU",
+          "ES"
+        ],
+        "screenshots": {
+          "screenshotUrls": 3,
+          "ipadScreenshotUrls": 1,
+          "appletvScreenshotUrls": 0
+        },
+        "minimumOs": "17.0",
+        "storeURL": "https://apps.apple.com/it/app/uhwhat-voice-notes/id6822476399?uo=4"
+      },
+      "chickmark": {
+        "name": "ChickMark: трекер привычек",
+        "version": "1.5.2",
+        "releaseDate": "2026-10-26T21:54:23Z",
+        "category": "Productivity",
+        "languages": [
+          "EN",
+          "FR",
+          "DE",
+          "IT",
+          "JA",
+          "PT",
+          "RU",
+          "ZH",
+          "ES",
+          "ZH"
+        ],
+        "screenshots": {
+          "screenshotUrls": 3,
+          "ipadScreenshotUrls": 1,
+          "appletvScreenshotUrls": 0
+        },
+        "minimumOs": "17.0",
+        "storeURL": "https://apps.apple.com/it/app/chickmark-%D1%82%D1%80%D0%B5%D0%BA%D0%B5%D1%80-%D0%BF%D1%80%D0%B8%D0%B2%D1%8B%D1%87%D0%B5%D0%BA/id6818711298?uo=4"
+      }
+    },
+    "pt": {
+      "photo": {
+        "name": "Фото и PDF под размер",
+        "version": "1.0.3",
+        "releaseDate": "2026-10-26T22:01:53Z",
+        "category": "Utilities",
+        "languages": [
+          "EN",
+          "FR",
+          "DE",
+          "IT",
+          "JA",
+          "KO",
+          "PT",
+          "RU",
+          "ZH",
+          "ES",
+          "ZH"
+        ],
+        "screenshots": {
+          "screenshotUrls": 4,
+          "ipadScreenshotUrls": 1,
+          "appletvScreenshotUrls": 0
+        },
+        "minimumOs": "17.0",
+        "storeURL": "https://apps.apple.com/pt/app/%D1%84%D0%BE%D1%82%D0%BE-%D0%B8-pdf-%D0%BF%D0%BE%D0%B4-%D1%80%D0%B0%D0%B7%D0%BC%D0%B5%D1%80/id6816346084?uo=4"
+      },
+      "pushkin": {
+        "name": "PUSHKIN by Arvectum",
+        "version": "1.0.2",
+        "releaseDate": "2026-10-24T18:29:16Z",
+        "category": "Utilities",
+        "languages": [
+          "EN",
+          "FR",
+          "RU",
+          "ES"
+        ],
+        "screenshots": {
+          "screenshotUrls": 3,
+          "ipadScreenshotUrls": 0,
+          "appletvScreenshotUrls": 0
+        },
+        "minimumOs": "27.0",
+        "storeURL": "https://apps.apple.com/pt/app/pushkin-by-arvectum/id6817847111?uo=4"
+      },
+      "what": {
+        "name": "UhWhat? Voice Notes",
+        "version": "1.1.1",
+        "releaseDate": "2026-10-24T17:50:00Z",
+        "category": "Productivity",
+        "languages": [
+          "EN",
+          "FR",
+          "RU",
+          "ES"
+        ],
+        "screenshots": {
+          "screenshotUrls": 3,
+          "ipadScreenshotUrls": 1,
+          "appletvScreenshotUrls": 0
+        },
+        "minimumOs": "17.0",
+        "storeURL": "https://apps.apple.com/pt/app/uhwhat-voice-notes/id6822476399?uo=4"
+      },
+      "chickmark": {
+        "name": "ChickMark: трекер привычек",
+        "version": "1.5.2",
+        "releaseDate": "2026-10-26T21:54:23Z",
+        "category": "Productivity",
+        "languages": [
+          "EN",
+          "FR",
+          "DE",
+          "IT",
+          "JA",
+          "PT",
+          "RU",
+          "ZH",
+          "ES",
+          "ZH"
+        ],
+        "screenshots": {
+          "screenshotUrls": 3,
+          "ipadScreenshotUrls": 1,
+          "appletvScreenshotUrls": 0
+        },
+        "minimumOs": "17.0",
+        "storeURL": "https://apps.apple.com/pt/app/chickmark-%D1%82%D1%80%D0%B5%D0%BA%D0%B5%D1%80-%D0%BF%D1%80%D0%B8%D0%B2%D1%8B%D1%87%D0%B5%D0%BA/id6818711298?uo=4"
+      }
+    },
+    "br": {
+      "photo": {
+        "name": "Фото и PDF под размер",
+        "version": "1.0.3",
+        "releaseDate": "2026-10-26T22:01:53Z",
+        "category": "Utilities",
+        "languages": [
+          "EN",
+          "FR",
+          "DE",
+          "IT",
+          "JA",
+          "KO",
+          "PT",
+          "RU",
+          "ZH",
+          "ES",
+          "ZH"
+        ],
+        "screenshots": {
+          "screenshotUrls": 4,
+          "ipadScreenshotUrls": 1,
+          "appletvScreenshotUrls": 0
+        },
+        "minimumOs": "17.0",
+        "storeURL": "https://apps.apple.com/br/app/%D1%84%D0%BE%D1%82%D0%BE-%D0%B8-pdf-%D0%BF%D0%BE%D0%B4-%D1%80%D0%B0%D0%B7%D0%BC%D0%B5%D1%80/id6816346084?uo=4"
+      },
+      "pushkin": {
+        "name": "PUSHKIN by Arvectum",
+        "version": "1.0.2",
+        "releaseDate": "2026-10-24T18:29:16Z",
+        "category": "Utilities",
+        "languages": [
+          "EN",
+          "FR",
+          "RU",
+          "ES"
+        ],
+        "screenshots": {
+          "screenshotUrls": 3,
+          "ipadScreenshotUrls": 0,
+          "appletvScreenshotUrls": 0
+        },
+        "minimumOs": "27.0",
+        "storeURL": "https://apps.apple.com/br/app/pushkin-by-arvectum/id6817847111?uo=4"
+      },
+      "what": {
+        "name": "UhWhat? Voice Notes",
+        "version": "1.1.1",
+        "releaseDate": "2026-10-24T17:50:00Z",
+        "category": "Productivity",
+        "languages": [
+          "EN",
+          "FR",
+          "RU",
+          "ES"
+        ],
+        "screenshots": {
+          "screenshotUrls": 3,
+          "ipadScreenshotUrls": 1,
+          "appletvScreenshotUrls": 0
+        },
+        "minimumOs": "17.0",
+        "storeURL": "https://apps.apple.com/br/app/uhwhat-voice-notes/id6822476399?uo=4"
+      },
+      "chickmark": {
+        "name": "ChickMark: трекер привычек",
+        "version": "1.5.2",
+        "releaseDate": "2026-10-26T21:54:23Z",
+        "category": "Productivity",
+        "languages": [
+          "EN",
+          "FR",
+          "DE",
+          "IT",
+          "JA",
+          "PT",
+          "RU",
+          "ZH",
+          "ES",
+          "ZH"
+        ],
+        "screenshots": {
+          "screenshotUrls": 3,
+          "ipadScreenshotUrls": 1,
+          "appletvScreenshotUrls": 0
+        },
+        "minimumOs": "17.0",
+        "storeURL": "https://apps.apple.com/br/app/chickmark-%D1%82%D1%80%D0%B5%D0%BA%D0%B5%D1%80-%D0%BF%D1%80%D0%B8%D0%B2%D1%8B%D1%87%D0%B5%D0%BA/id6818711298?uo=4"
+      }
+    },
+    "jp": {
+      "photo": {
+        "name": "Фото и PDF под размер",
+        "version": "1.0.3",
+        "releaseDate": "2026-10-26T22:01:53Z",
+        "category": "Utilities",
+        "languages": [
+          "EN",
+          "FR",
+          "DE",
+          "IT",
+          "JA",
+          "KO",
+          "PT",
+          "RU",
+          "ZH",
+          "ES",
+          "ZH"
+        ],
+        "screenshots": {
+          "screenshotUrls": 4,
+          "ipadScreenshotUrls": 1,
+          "appletvScreenshotUrls": 0
+        },
+        "minimumOs": "17.0",
+        "storeURL": "https://apps.apple.com/jp/app/%D1%84%D0%BE%D1%82%D0%BE-%D0%B8-pdf-%D0%BF%D0%BE%D0%B4-%D1%80%D0%B0%D0%B7%D0%BC%D0%B5%D1%80/id6816346084?uo=4"
+      },
+      "pushkin": {
+        "name": "PUSHKIN by Arvectum",
+        "version": "1.0.2",
+        "releaseDate": "2026-10-24T18:29:16Z",
+        "category": "Utilities",
+        "languages": [
+          "EN",
+          "FR",
+          "RU",
+          "ES"
+        ],
+        "screenshots": {
+          "screenshotUrls": 3,
+          "ipadScreenshotUrls": 0,
+          "appletvScreenshotUrls": 0
+        },
+        "minimumOs": "27.0",
+        "storeURL": "https://apps.apple.com/jp/app/pushkin-by-arvectum/id6817847111?uo=4"
+      },
+      "what": {
+        "name": "UhWhat? Voice Notes",
+        "version": "1.1.1",
+        "releaseDate": "2026-10-24T17:50:00Z",
+        "category": "Productivity",
+        "languages": [
+          "EN",
+          "FR",
+          "RU",
+          "ES"
+        ],
+        "screenshots": {
+          "screenshotUrls": 3,
+          "ipadScreenshotUrls": 1,
+          "appletvScreenshotUrls": 0
+        },
+        "minimumOs": "17.0",
+        "storeURL": "https://apps.apple.com/jp/app/uhwhat-voice-notes/id6822476399?uo=4"
+      },
+      "chickmark": {
+        "name": "ChickMark: трекер привычек",
+        "version": "1.5.2",
+        "releaseDate": "2026-10-26T21:54:23Z",
+        "category": "Productivity",
+        "languages": [
+          "EN",
+          "FR",
+          "DE",
+          "IT",
+          "JA",
+          "PT",
+          "RU",
+          "ZH",
+          "ES",
+          "ZH"
+        ],
+        "screenshots": {
+          "screenshotUrls": 3,
+          "ipadScreenshotUrls": 1,
+          "appletvScreenshotUrls": 0
+        },
+        "minimumOs": "17.0",
+        "storeURL": "https://apps.apple.com/jp/app/chickmark-%D1%82%D1%80%D0%B5%D0%BA%D0%B5%D1%80-%D0%BF%D1%80%D0%B8%D0%B2%D1%8B%D1%87%D0%B5%D0%BA/id6818711298?uo=4"
+      }
+    },
+    "kr": {
+      "photo": {
+        "name": "Фото и PDF под размер",
+        "version": "1.0.3",
+        "releaseDate": "2026-10-26T22:01:53Z",
+        "category": "Utilities",
+        "languages": [
+          "EN",
+          "FR",
+          "DE",
+          "IT",
+          "JA",
+          "KO",
+          "PT",
+          "RU",
+          "ZH",
+          "ES",
+          "ZH"
+        ],
+        "screenshots": {
+          "screenshotUrls": 4,
+          "ipadScreenshotUrls": 1,
+          "appletvScreenshotUrls": 0
+        },
+        "minimumOs": "17.0",
+        "storeURL": "https://apps.apple.com/kr/app/%D1%84%D0%BE%D1%82%D0%BE-%D0%B8-pdf-%D0%BF%D0%BE%D0%B4-%D1%80%D0%B0%D0%B7%D0%BC%D0%B5%D1%80/id6816346084?uo=4"
+      },
+      "pushkin": {
+        "name": "PUSHKIN by Arvectum",
+        "version": "1.0.2",
+        "releaseDate": "2026-10-24T18:29:16Z",
+        "category": "Utilities",
+        "languages": [
+          "EN",
+          "FR",
+          "RU",
+          "ES"
+        ],
+        "screenshots": {
+          "screenshotUrls": 3,
+          "ipadScreenshotUrls": 0,
+          "appletvScreenshotUrls": 0
+        },
+        "minimumOs": "27.0",
+        "storeURL": "https://apps.apple.com/kr/app/pushkin-by-arvectum/id6817847111?uo=4"
+      },
+      "what": {
+        "name": "UhWhat? Voice Notes",
+        "version": "1.1.1",
+        "releaseDate": "2026-10-24T17:50:00Z",
+        "category": "Productivity",
+        "languages": [
+          "EN",
+          "FR",
+          "RU",
+          "ES"
+        ],
+        "screenshots": {
+          "screenshotUrls": 3,
+          "ipadScreenshotUrls": 1,
+          "appletvScreenshotUrls": 0
+        },
+        "minimumOs": "17.0",
+        "storeURL": "https://apps.apple.com/kr/app/uhwhat-voice-notes/id6822476399?uo=4"
+      },
+      "chickmark": {
+        "name": "ChickMark: трекер привычек",
+        "version": "1.5.2",
+        "releaseDate": "2026-10-26T21:54:23Z",
+        "category": "Productivity",
+        "languages": [
+          "EN",
+          "FR",
+          "DE",
+          "IT",
+          "JA",
+          "PT",
+          "RU",
+          "ZH",
+          "ES",
+          "ZH"
+        ],
+        "screenshots": {
+          "screenshotUrls": 3,
+          "ipadScreenshotUrls": 1,
+          "appletvScreenshotUrls": 0
+        },
+        "minimumOs": "17.0",
+        "storeURL": "https://apps.apple.com/kr/app/chickmark-%D1%82%D1%80%D0%B5%D0%BA%D0%B5%D1%80-%D0%BF%D1%80%D0%B8%D0%B2%D1%8B%D1%87%D0%B5%D0%BA/id6818711298?uo=4"
+      }
+    },
+    "cn": {
+      "photo": {
+        "name": "Фото и PDF под размер",
+        "version": "1.0.3",
+        "releaseDate": "2026-10-26T22:01:53Z",
+        "category": "Utilities",
+        "languages": [
+          "EN",
+          "FR",
+          "DE",
+          "IT",
+          "JA",
+          "KO",
+          "PT",
+          "RU",
+          "ZH",
+          "ES",
+          "ZH"
+        ],
+        "screenshots": {
+          "screenshotUrls": 4,
+          "ipadScreenshotUrls": 1,
+          "appletvScreenshotUrls": 0
+        },
+        "minimumOs": "17.0",
+        "storeURL": "https://apps.apple.com/cn/app/%D1%84%D0%BE%D1%82%D0%BE-%D0%B8-pdf-%D0%BF%D0%BE%D0%B4-%D1%80%D0%B0%D0%B7%D0%BC%D0%B5%D1%80/id6816346084?uo=4"
+      },
+      "pushkin": {
+        "name": "PUSHKIN by Arvectum",
+        "version": "1.0.2",
+        "releaseDate": "2026-10-24T18:29:16Z",
+        "category": "Utilities",
+        "languages": [
+          "EN",
+          "FR",
+          "RU",
+          "ES"
+        ],
+        "screenshots": {
+          "screenshotUrls": 3,
+          "ipadScreenshotUrls": 0,
+          "appletvScreenshotUrls": 0
+        },
+        "minimumOs": "27.0",
+        "storeURL": "https://apps.apple.com/cn/app/pushkin-by-arvectum/id6817847111?uo=4"
+      },
+      "what": {
+        "name": "UhWhat? Voice Notes",
+        "version": "1.1.1",
+        "releaseDate": "2026-10-24T17:50:00Z",
+        "category": "Productivity",
+        "languages": [
+          "EN",
+          "FR",
+          "RU",
+          "ES"
+        ],
+        "screenshots": {
+          "screenshotUrls": 3,
+          "ipadScreenshotUrls": 1,
+          "appletvScreenshotUrls": 0
+        },
+        "minimumOs": "17.0",
+        "storeURL": "https://apps.apple.com/cn/app/uhwhat-voice-notes/id6822476399?uo=4"
+      },
+      "chickmark": {
+        "name": "ChickMark: трекер привычек",
+        "version": "1.5.2",
+        "releaseDate": "2026-10-26T21:54:23Z",
+        "category": "Productivity",
+        "languages": [
+          "EN",
+          "FR",
+          "DE",
+          "IT",
+          "JA",
+          "PT",
+          "RU",
+          "ZH",
+          "ES",
+          "ZH"
+        ],
+        "screenshots": {
+          "screenshotUrls": 3,
+          "ipadScreenshotUrls": 1,
+          "appletvScreenshotUrls": 0
+        },
+        "minimumOs": "17.0",
+        "storeURL": "https://apps.apple.com/cn/app/chickmark-%D1%82%D1%80%D0%B5%D0%BA%D0%B5%D1%80-%D0%BF%D1%80%D0%B8%D0%B2%D1%8B%D1%87%D0%B5%D0%BA/id6818711298?uo=4"
+      }
+    },
+    "tw": {
+      "photo": {
+        "name": "Фото и PDF под размер",
+        "version": "1.0.3",
+        "releaseDate": "2026-10-26T22:01:53Z",
+        "category": "Utilities",
+        "languages": [
+          "EN",
+          "FR",
+          "DE",
+          "IT",
+          "JA",
+          "KO",
+          "PT",
+          "RU",
+          "ZH",
+          "ES",
+          "ZH"
+        ],
+        "screenshots": {
+          "screenshotUrls": 4,
+          "ipadScreenshotUrls": 1,
+          "appletvScreenshotUrls": 0
+        },
+        "minimumOs": "17.0",
+        "storeURL": "https://apps.apple.com/tw/app/%D1%84%D0%BE%D1%82%D0%BE-%D0%B8-pdf-%D0%BF%D0%BE%D0%B4-%D1%80%D0%B0%D0%B7%D0%BC%D0%B5%D1%80/id6816346084?uo=4"
+      },
+      "pushkin": {
+        "name": "PUSHKIN by Arvectum",
+        "version": "1.0.2",
+        "releaseDate": "2026-10-24T18:29:16Z",
+        "category": "Utilities",
+        "languages": [
+          "EN",
+          "FR",
+          "RU",
+          "ES"
+        ],
+        "screenshots": {
+          "screenshotUrls": 3,
+          "ipadScreenshotUrls": 0,
+          "appletvScreenshotUrls": 0
+        },
+        "minimumOs": "27.0",
+        "storeURL": "https://apps.apple.com/tw/app/pushkin-by-arvectum/id6817847111?uo=4"
+      },
+      "what": {
+        "name": "UhWhat? Voice Notes",
+        "version": "1.1.1",
+        "releaseDate": "2026-10-24T17:50:00Z",
+        "category": "Productivity",
+        "languages": [
+          "EN",
+          "FR",
+          "RU",
+          "ES"
+        ],
+        "screenshots": {
+          "screenshotUrls": 3,
+          "ipadScreenshotUrls": 1,
+          "appletvScreenshotUrls": 0
+        },
+        "minimumOs": "17.0",
+        "storeURL": "https://apps.apple.com/tw/app/uhwhat-voice-notes/id6822476399?uo=4"
+      },
+      "chickmark": {
+        "name": "ChickMark: трекер привычек",
+        "version": "1.5.2",
+        "releaseDate": "2026-10-26T21:54:23Z",
+        "category": "Productivity",
+        "languages": [
+          "EN",
+          "FR",
+          "DE",
+          "IT",
+          "JA",
+          "PT",
+          "RU",
+          "ZH",
+          "ES",
+          "ZH"
+        ],
+        "screenshots": {
+          "screenshotUrls": 3,
+          "ipadScreenshotUrls": 1,
+          "appletvScreenshotUrls": 0
+        },
+        "minimumOs": "17.0",
+        "storeURL": "https://apps.apple.com/tw/app/chickmark-%D1%82%D1%80%D0%B5%D0%BA%D0%B5%D1%80-%D0%BF%D1%80%D0%B8%D0%B2%D1%8B%D1%87%D0%B5%D0%BA/id6818711298?uo=4"
+      }
+    }
+  }
+}
