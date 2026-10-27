@@ -9,7 +9,7 @@ final class ASOAllLocalesCaptureUITests: XCTestCase {
 
     /// Cheap targeted retake after a Korean localization-only editorial fix.
     @MainActor
-    func testKoreanHealthTerminologyAndFourCaptures() {
+    func testKoreanHealthTerminologyAndBaseCaptures() {
         captureLanguageScreens(only: "ko")
     }
 
@@ -78,10 +78,82 @@ final class ASOAllLocalesCaptureUITests: XCTestCase {
                 XCTAssertFalse(form.staticTexts["사과 건강"].firstMatch.exists)
             }
             capture(name: "aso-chickmark--\(language)--create")
-            form.swipeUp()
-            form.swipeUp()
-            capture(name: "aso-chickmark--\(language)--reminders")
+            // The 4th slot must come ONLY from testLocalizedExpandedReminderOptions.
+            // Do not emit duplicate attachment names with a collapsed section.
             form.terminate()
+        }
+    }
+
+    /// Targeted marketing retake: expanded, real reminder options with no permission request.
+    @MainActor
+    func testLocalizedExpandedReminderOptions() {
+        captureReminderOptions(only: nil)
+    }
+
+    @MainActor
+    func testKoreanExpandedReminderOptions() {
+        captureReminderOptions(only: "ko")
+    }
+
+    @MainActor
+    private func captureReminderOptions(only selectedLanguage: String?) {
+        let locales: [(String, String, String, String, String)] = [
+            ("ru", "ru_RU", "Дополнительно", "Напомнить", "Создать привычку"),
+            ("en", "en_US", "More options", "Remind me", "Create habit"),
+            ("es", "es_ES", "Más opciones", "Recordármelo", "Crear hábito"),
+            ("fr", "fr_FR", "Autres options", "Me rappeler", "Créer une habitude"),
+            ("de", "de_DE", "Weitere Optionen", "Erinnerung aktivieren", "Gewohnheit erstellen"),
+            ("it", "it_IT", "Altre opzioni", "Attiva promemoria", "Crea abitudine"),
+            ("ja", "ja_JP", "その他のオプション", "リマインダーを有効化", "習慣を作成"),
+            ("ko", "ko_KR", "추가 옵션", "알림", "습관 만들기"),
+            ("pt-BR", "pt_BR", "Mais opções", "Lembrar-me", "Criar hábito"),
+            ("pt-PT", "pt_PT", "Mais opções", "Lembrar-me", "Criar hábito"),
+            ("zh-Hans", "zh_Hans_CN", "更多选项", "提醒我", "创建习惯"),
+            ("zh-Hant", "zh_Hant_TW", "更多選項", "提醒我", "建立習慣"),
+        ]
+        for (language, locale, moreLabel, reminderLabel, createLabel) in locales {
+            if let selectedLanguage, language != selectedLanguage { continue }
+            let app = XCUIApplication()
+            app.launchArguments = [
+                "-AppleLanguages", "(\(language))",
+                "-AppleLocale", locale,
+                "--ui-testing", "--disable-cloud-sync"
+            ]
+            app.launch()
+            let create = app.buttons[createLabel].firstMatch
+            guard create.waitForExistence(timeout: 10) else {
+                XCTFail("New habit unavailable for \(language)")
+                app.terminate()
+                continue
+            }
+            create.tap()
+            guard app.textFields.firstMatch.waitForExistence(timeout: 10) else {
+                XCTFail("Editor did not load for \(language)")
+                app.terminate()
+                continue
+            }
+            let more = app.staticTexts[moreLabel].firstMatch
+            for _ in 0..<3 where !more.isHittable { app.swipeUp() }
+            guard more.waitForExistence(timeout: 8), more.isHittable else {
+                XCTFail("More options missing for \(language): \(moreLabel)")
+                app.terminate()
+                continue
+            }
+            more.tap()
+            let reminder = app.switches[reminderLabel].firstMatch
+            for _ in 0..<3 where !reminder.isHittable { app.swipeUp() }
+            guard reminder.waitForExistence(timeout: 8), reminder.isHittable else {
+                XCTFail("Expanded reminder toggle missing for \(language): \(reminderLabel)")
+                app.terminate()
+                continue
+            }
+            if language == "ko" {
+                XCTAssertTrue(app.staticTexts["아이콘"].firstMatch.exists,
+                              "Korean UI must use the icon term, not the word for prize")
+                XCTAssertFalse(app.staticTexts["상"].firstMatch.exists)
+            }
+            capture(name: "aso-chickmark--\(language)--reminders")
+            app.terminate()
         }
     }
 

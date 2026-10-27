@@ -563,17 +563,17 @@ chickmark,chickmark/ios/HabitsByArvectum,ko,Localizable.strings,health.title,App
 chickmark,chickmark/ios/HabitsByArvectum,ko,Localizable.strings,health.connect.hint,Connect activity for automatic check-ins,자동 체크인을 위한 활동 연결,NATIVE_REVIEW_REQUIRED
 chickmark,chickmark/ios/HabitsByArvectum,ko,Localizable.strings,health.connected.hint,Automatic check-ins enabled,자동 체크인 활성화됨,NATIVE_REVIEW_REQUIRED
 chickmark,chickmark/ios/HabitsByArvectum,ko,Localizable.strings,health.auto.completed,Completed from Apple Health,Apple Health에서 완료됨,NATIVE_REVIEW_REQUIRED
-chickmark,chickmark/ios/HabitsByArvectum,ko,Localizable.strings,health.description,Choose a metric. ChickMark checks in automatically when the daily total meets your goal.,측정항목을 선택하세요. ChickMark는 일일 총액이 목표를 달성하면 자동으로 체크인합니다.,NATIVE_REVIEW_REQUIRED
+chickmark,chickmark/ios/HabitsByArvectum,ko,Localizable.strings,health.description,Choose a metric. ChickMark checks in automatically when the daily total meets your goal.,측정 항목을 선택하세요. 하루 누적 수치가 목표에 도달하면 ChickMark가 자동으로 완료를 기록합니다.,NATIVE_REVIEW_REQUIRED
 chickmark,chickmark/ios/HabitsByArvectum,ko,Localizable.strings,health.rule.section,Automatic completion,자동 완성,NATIVE_REVIEW_REQUIRED
 chickmark,chickmark/ios/HabitsByArvectum,ko,Localizable.strings,health.metric.title,Activity,활동,NATIVE_REVIEW_REQUIRED
-chickmark,chickmark/ios/HabitsByArvectum,ko,Localizable.strings,health.metric.steps,Steps,단계,NATIVE_REVIEW_REQUIRED
+chickmark,chickmark/ios/HabitsByArvectum,ko,Localizable.strings,health.metric.steps,Steps,걸음 수,NATIVE_REVIEW_REQUIRED
 chickmark,chickmark/ios/HabitsByArvectum,ko,Localizable.strings,health.metric.distance,Walking and running distance,걷고 달리는 거리,NATIVE_REVIEW_REQUIRED
 chickmark,chickmark/ios/HabitsByArvectum,ko,Localizable.strings,health.metric.workouts,Workout minutes,운동 시간,NATIVE_REVIEW_REQUIRED
-chickmark,chickmark/ios/HabitsByArvectum,ko,Localizable.strings,health.unit.steps,steps,단계,NATIVE_REVIEW_REQUIRED
+chickmark,chickmark/ios/HabitsByArvectum,ko,Localizable.strings,health.unit.steps,steps,걸음,NATIVE_REVIEW_REQUIRED
 chickmark,chickmark/ios/HabitsByArvectum,ko,Localizable.strings,health.unit.kilometers,km,km,NATIVE_REVIEW_REQUIRED
 chickmark,chickmark/ios/HabitsByArvectum,ko,Localizable.strings,health.unit.minutes,min,분,NATIVE_REVIEW_REQUIRED
 chickmark,chickmark/ios/HabitsByArvectum,ko,Localizable.strings,health.target,Daily goal,일일 목표,NATIVE_REVIEW_REQUIRED
-chickmark,chickmark/ios/HabitsByArvectum,ko,Localizable.strings,health.connect,Connect to Health,건강에 연결,NATIVE_REVIEW_REQUIRED
+chickmark,chickmark/ios/HabitsByArvectum,ko,Localizable.strings,health.connect,Connect to Health,Apple Health에 연결,NATIVE_REVIEW_REQUIRED
 chickmark,chickmark/ios/HabitsByArvectum,ko,Localizable.strings,health.save,Save rule,규칙 저장,NATIVE_REVIEW_REQUIRED
 chickmark,chickmark/ios/HabitsByArvectum,ko,Localizable.strings,health.disconnect,Disconnect Apple Health,Apple Health 연결 해제,NATIVE_REVIEW_REQUIRED
 chickmark,chickmark/ios/HabitsByArvectum,ko,Localizable.strings,health.settings,Apple Health,Apple Health,NATIVE_REVIEW_REQUIRED
@@ -582,9 +582,9 @@ chickmark,chickmark/ios/HabitsByArvectum,ko,Localizable.strings,health.error.una
 chickmark,chickmark/ios/HabitsByArvectum,ko,Localizable.strings,health.error.authorization,Could not request access to Apple Health.,Apple Health에 대한 액세스를 요청할 수 없습니다.,NATIVE_REVIEW_REQUIRED
 chickmark,chickmark/ios/HabitsByArvectum,ko,Localizable.strings,health.unsupported,"For weekly goals, only individual running workouts are supported. Sliding intervals and multi-check goals require manual completion.",주간 목표의 경우 개인별 달리기 운동만 지원됩니다. 슬라이딩 간격 및 다중 확인 목표에는 수동 완료가 필요합니다.,NATIVE_REVIEW_REQUIRED
 chickmark,chickmark/ios/HabitsByArvectum,ko,Localizable.strings,health.metric.running,Running workout (one session),달리기 운동(1회),NATIVE_REVIEW_REQUIRED
-chickmark,chickmark/ios/HabitsByArvectum,ko,Localizable.strings,health.metric.sleep,Asleep (wake-up day),자다(깨어난 날),NATIVE_REVIEW_REQUIRED
+chickmark,chickmark/ios/HabitsByArvectum,ko,Localizable.strings,health.metric.sleep,Asleep (wake-up day),수면 시간(기상일 기준),NATIVE_REVIEW_REQUIRED
 chickmark,chickmark/ios/HabitsByArvectum,ko,Localizable.strings,health.unit.hours,hours,시간,NATIVE_REVIEW_REQUIRED
-chickmark,chickmark/ios/HabitsByArvectum,ko,Localizable.strings,health.shortcuts.title,Reading and other apps · Shortcuts,독서 및 기타 앱 · 바로가기,NATIVE_REVIEW_REQUIRED
+chickmark,chickmark/ios/HabitsByArvectum,ko,Localizable.strings,health.shortcuts.title,Reading and other apps · Shortcuts,독서 및 기타 앱 · 단축어,NATIVE_REVIEW_REQUIRED
 chickmark,chickmark/ios/HabitsByArvectum,ko,Localizable.strings,health.shortcuts.action,Automate an app-related habit,앱 관련 습관 자동화,NATIVE_REVIEW_REQUIRED
 chickmark,chickmark/ios/HabitsByArvectum,ko,Localizable.strings,health.shortcuts.instructions,"Open the iPhone Shortcuts app → Automation → choose a trigger (for example, closing Books) → add ChickMark’s “Complete Habit” action → choose your habit. You can also run that action manually from Siri or a Home Screen shortcut.","iPhone 단축어 앱 열기 → 자동화 → 트리거 선택(예: 책 닫기) → ChickMark의 \""습관 완료\"" 동작 추가 → 습관 선택. Siri 또는 홈 화면 바로가기에서 해당 작업을 수동으로 실행할 수도 있습니다.",NATIVE_REVIEW_REQUIRED
 chickmark,chickmark/ios/HabitsByArvectum,ko,Localizable.strings,health.shortcuts.limitation,"An app closing does not prove you read for a certain amount of time. Shortcuts registers the chosen event, not actual reading duration.",앱을 닫았다고 해서 일정 시간 동안 독서했다는 뜻은 아닙니다. 단축어는 실제 독서 시간이 아닌 선택한 이벤트만 기록합니다.,NATIVE_REVIEW_REQUIRED

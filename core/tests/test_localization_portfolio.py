@@ -112,6 +112,18 @@ class LocalizationPortfolioTests(unittest.TestCase):
         self.assertEqual(translations["health.disconnect"], "Apple Health 연결 해제")
         self.assertNotIn("사과 건강", " ".join(translations.values()))
 
+    def test_korean_habit_editorial_glossary_and_weekly_ratio(self):
+        values = i18n.read_strings(
+            ROOT / "chickmark/ios/HabitsByArvectum/ko.lproj/Localizable.strings", [])
+        self.assertEqual(values["appearance.icon"], "아이콘")
+        self.assertEqual(values["health.metric.steps"], "걸음 수")
+        self.assertEqual(values["health.unit.steps"], "걸음")
+        self.assertEqual(values["health.metric.sleep"], "수면 시간(기상일 기준)")
+        self.assertEqual(values["insights.weekly.ratio"], "%d주 달성 / 총 %d주")
+        self.assertNotIn("요금", values["insights.weekly.note"])
+        self.assertEqual(i18n.placeholders("%d of %d weeks"),
+                         i18n.placeholders(values["insights.weekly.ratio"]))
+
     def test_editorial_audit_is_triage_not_signoff(self):
         import editorial_localization_audit as review
         result = review.audit()

@@ -2147,7 +2147,7 @@
           "requiredNativeLocale": "ru",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/ru/iphone-6.9/02-library.png",
-          "sha256": "3a36969d17f7e8034f922d2bbb513f369fb11c3e23b1720e4228a24f2667f88f",
+          "sha256": "52d39d0db2351835a16997ac6efd2778a890803a62235942689522b0fb14670e",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -2169,7 +2169,7 @@
           "requiredNativeLocale": "ru",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/ru/iphone-6.9/04-text.png",
-          "sha256": "387ed88f71bb38eff0db7b9a3fefa11bd12f27bfba87eb333e7ad9272b3406c5",
+          "sha256": "76dfc498260f496e8f3b8c460de007cfffa07f65f23248f1c947d8270f010c86",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -2191,7 +2191,7 @@
           "requiredNativeLocale": "ru",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/ru/ipad-13/02-library.png",
-          "sha256": "ef868cf11776a538a8b036e310f3e47ac3bda5bfc10434b3d0d6c0332fc22f40",
+          "sha256": "9dea74bbb5f54c231fa83c2e3f475fea176aaf8065562df0afc9f299094c8aed",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -2213,7 +2213,7 @@
           "requiredNativeLocale": "ru",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/ru/ipad-13/04-text.png",
-          "sha256": "00264f38a9a6dcfa1b2f675a829152e3d6bc42ffcda58ff15e3ba1bff97bab89",
+          "sha256": "43432d767161c7d788c077df159c36c8d5544544cd0eba40c68aa4d345cedbf9",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -2235,7 +2235,7 @@
           "requiredNativeLocale": "en",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/en/iphone-6.9/02-library.png",
-          "sha256": "378e8e31edff1888d9f8ab7232674a03285e0d8b48d2494af1db54411fdf6039",
+          "sha256": "8f49e2e5f7bf63529411eebf2fbd19b94058742a56a718b2b7e2747b5ab4e978",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -2257,7 +2257,7 @@
           "requiredNativeLocale": "en",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/en/iphone-6.9/04-text.png",
-          "sha256": "73bc37aea39f38ff4999307671c4db6ac6dfa12c2ff1d61e88711a8fcb09a4a1",
+          "sha256": "f98cf8d15a24eb4e235fbf87554cd24e4cf2768faabe33650c73a3df62e35484",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -2279,7 +2279,7 @@
           "requiredNativeLocale": "en",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/en/ipad-13/02-library.png",
-          "sha256": "5481deb213634d939b0d604e32e17bf0e1f4ef395832fed59b0dd32973cbf990",
+          "sha256": "c86ec5ac0c2fedd16ea33f616abf233def6619e582e0ee29c6e125ee44d6b933",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -2301,7 +2301,7 @@
           "requiredNativeLocale": "en",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/en/ipad-13/04-text.png",
-          "sha256": "510fea05ade825109b1374537e1299a98f352d30c22d69a6bb1b75d786af4f12",
+          "sha256": "02b6c40870840d9e87ad9f0a6e55b2f4c0b37bc5d7d70670f4053b346f20b726",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -2323,7 +2323,7 @@
           "requiredNativeLocale": "en",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/en/iphone-6.9/02-library.png",
-          "sha256": "378e8e31edff1888d9f8ab7232674a03285e0d8b48d2494af1db54411fdf6039",
+          "sha256": "8f49e2e5f7bf63529411eebf2fbd19b94058742a56a718b2b7e2747b5ab4e978",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -2345,7 +2345,7 @@
           "requiredNativeLocale": "en",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/en/iphone-6.9/04-text.png",
-          "sha256": "73bc37aea39f38ff4999307671c4db6ac6dfa12c2ff1d61e88711a8fcb09a4a1",
+          "sha256": "f98cf8d15a24eb4e235fbf87554cd24e4cf2768faabe33650c73a3df62e35484",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -2367,7 +2367,7 @@
           "requiredNativeLocale": "en",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/en/ipad-13/02-library.png",
-          "sha256": "5481deb213634d939b0d604e32e17bf0e1f4ef395832fed59b0dd32973cbf990",
+          "sha256": "c86ec5ac0c2fedd16ea33f616abf233def6619e582e0ee29c6e125ee44d6b933",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -2389,7 +2389,7 @@
           "requiredNativeLocale": "en",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/en/ipad-13/04-text.png",
-          "sha256": "510fea05ade825109b1374537e1299a98f352d30c22d69a6bb1b75d786af4f12",
+          "sha256": "02b6c40870840d9e87ad9f0a6e55b2f4c0b37bc5d7d70670f4053b346f20b726",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -2411,7 +2411,7 @@
           "requiredNativeLocale": "en",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/en/iphone-6.9/02-library.png",
-          "sha256": "378e8e31edff1888d9f8ab7232674a03285e0d8b48d2494af1db54411fdf6039",
+          "sha256": "8f49e2e5f7bf63529411eebf2fbd19b94058742a56a718b2b7e2747b5ab4e978",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -2433,7 +2433,7 @@
           "requiredNativeLocale": "en",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/en/iphone-6.9/04-text.png",
-          "sha256": "73bc37aea39f38ff4999307671c4db6ac6dfa12c2ff1d61e88711a8fcb09a4a1",
+          "sha256": "f98cf8d15a24eb4e235fbf87554cd24e4cf2768faabe33650c73a3df62e35484",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -2455,7 +2455,7 @@
           "requiredNativeLocale": "en",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/en/ipad-13/02-library.png",
-          "sha256": "5481deb213634d939b0d604e32e17bf0e1f4ef395832fed59b0dd32973cbf990",
+          "sha256": "c86ec5ac0c2fedd16ea33f616abf233def6619e582e0ee29c6e125ee44d6b933",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -2477,7 +2477,7 @@
           "requiredNativeLocale": "en",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/en/ipad-13/04-text.png",
-          "sha256": "510fea05ade825109b1374537e1299a98f352d30c22d69a6bb1b75d786af4f12",
+          "sha256": "02b6c40870840d9e87ad9f0a6e55b2f4c0b37bc5d7d70670f4053b346f20b726",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -2499,7 +2499,7 @@
           "requiredNativeLocale": "en",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/en/iphone-6.9/02-library.png",
-          "sha256": "378e8e31edff1888d9f8ab7232674a03285e0d8b48d2494af1db54411fdf6039",
+          "sha256": "8f49e2e5f7bf63529411eebf2fbd19b94058742a56a718b2b7e2747b5ab4e978",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -2521,7 +2521,7 @@
           "requiredNativeLocale": "en",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/en/iphone-6.9/04-text.png",
-          "sha256": "73bc37aea39f38ff4999307671c4db6ac6dfa12c2ff1d61e88711a8fcb09a4a1",
+          "sha256": "f98cf8d15a24eb4e235fbf87554cd24e4cf2768faabe33650c73a3df62e35484",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -2543,7 +2543,7 @@
           "requiredNativeLocale": "en",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/en/ipad-13/02-library.png",
-          "sha256": "5481deb213634d939b0d604e32e17bf0e1f4ef395832fed59b0dd32973cbf990",
+          "sha256": "c86ec5ac0c2fedd16ea33f616abf233def6619e582e0ee29c6e125ee44d6b933",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -2565,7 +2565,7 @@
           "requiredNativeLocale": "en",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/en/ipad-13/04-text.png",
-          "sha256": "510fea05ade825109b1374537e1299a98f352d30c22d69a6bb1b75d786af4f12",
+          "sha256": "02b6c40870840d9e87ad9f0a6e55b2f4c0b37bc5d7d70670f4053b346f20b726",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -2587,7 +2587,7 @@
           "requiredNativeLocale": "es",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/es/iphone-6.9/02-library.png",
-          "sha256": "7dce79351318e10bcceb50d5cc19a6e01097248e7e1dce7ed7e791f2707286d5",
+          "sha256": "d4958fa2ee43f78cbfd98458a2e31737e76aff7bb5a956727c900a2979f74382",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -2609,7 +2609,7 @@
           "requiredNativeLocale": "es",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/es/iphone-6.9/04-text.png",
-          "sha256": "f3ebad56574a2a81f95376589ea6f4f551c6536fa3d08986504bee47f735b56f",
+          "sha256": "f42d5cafd230e852404a5304c54c07a7c9fa56bc9af3294f2084845b0298d1cb",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -2631,7 +2631,7 @@
           "requiredNativeLocale": "es",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/es/ipad-13/02-library.png",
-          "sha256": "3481592983999905f80caf15fbc58d5b2851c23532a69969d394f6e6532e0eb6",
+          "sha256": "e8c3a0ab076d394a5b5c9cf5d40ac6bc83cc085b20403ea1e18a2cbc65fe99b2",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -2653,7 +2653,7 @@
           "requiredNativeLocale": "es",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/es/ipad-13/04-text.png",
-          "sha256": "ddcba557c2ebd62df6a1962977232b93a55be530a392893fdd542723f49fcfba",
+          "sha256": "be31be775ca68928f34a3c32692e5315f4ba11c67d2bee1de0194dabae91d2cb",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -2675,7 +2675,7 @@
           "requiredNativeLocale": "es",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/es/iphone-6.9/02-library.png",
-          "sha256": "7dce79351318e10bcceb50d5cc19a6e01097248e7e1dce7ed7e791f2707286d5",
+          "sha256": "d4958fa2ee43f78cbfd98458a2e31737e76aff7bb5a956727c900a2979f74382",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -2697,7 +2697,7 @@
           "requiredNativeLocale": "es",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/es/iphone-6.9/04-text.png",
-          "sha256": "f3ebad56574a2a81f95376589ea6f4f551c6536fa3d08986504bee47f735b56f",
+          "sha256": "f42d5cafd230e852404a5304c54c07a7c9fa56bc9af3294f2084845b0298d1cb",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -2719,7 +2719,7 @@
           "requiredNativeLocale": "es",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/es/ipad-13/02-library.png",
-          "sha256": "3481592983999905f80caf15fbc58d5b2851c23532a69969d394f6e6532e0eb6",
+          "sha256": "e8c3a0ab076d394a5b5c9cf5d40ac6bc83cc085b20403ea1e18a2cbc65fe99b2",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -2741,7 +2741,7 @@
           "requiredNativeLocale": "es",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/es/ipad-13/04-text.png",
-          "sha256": "ddcba557c2ebd62df6a1962977232b93a55be530a392893fdd542723f49fcfba",
+          "sha256": "be31be775ca68928f34a3c32692e5315f4ba11c67d2bee1de0194dabae91d2cb",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -2763,7 +2763,7 @@
           "requiredNativeLocale": "fr",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/fr/iphone-6.9/02-library.png",
-          "sha256": "e3ab6e4a9c8ef535729f4032e2bf797b57f78dcfdc5435f86dc8d03589067a36",
+          "sha256": "a9a4635b0d0f49e8ccb04360c1ce0c629578faff71e3c92dc500099f9b9512f1",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -2785,7 +2785,7 @@
           "requiredNativeLocale": "fr",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/fr/iphone-6.9/04-text.png",
-          "sha256": "955e9adb46ac5c9ee8735d8e15396c3319da97608730789a2f57a3de57bbdde6",
+          "sha256": "6e5e27982b5095d7b06b3828a5a6c9e83e2e4a20f3945bbcb7ed659bb296ad2c",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -2807,7 +2807,7 @@
           "requiredNativeLocale": "fr",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/fr/ipad-13/02-library.png",
-          "sha256": "3ebb350e2fb49bc2d6b0e9d153c6a6ecccdce39751ae8c73454bd0804ec8bfe0",
+          "sha256": "e2882e72f8372a9f405cd9bd81dc8eb8cf450a124fe2fd409e2a1c108d4008b7",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -2829,7 +2829,7 @@
           "requiredNativeLocale": "fr",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/fr/ipad-13/04-text.png",
-          "sha256": "ca8d713cb7231b5728e59d449aaebb63bb5d5bf415c7568b96d71084bfab932e",
+          "sha256": "92b45c56d1381c2004004bbae2c23c4831124f7b9bbfe9adfd75e39b360d1139",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -2851,7 +2851,7 @@
           "requiredNativeLocale": "de",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/de/iphone-6.9/02-library.png",
-          "sha256": "d5b35baf6d86375576fbf6670684d06e023eb340ee75865cf908b098739ef728",
+          "sha256": "530600ce71cbcc596f288f4318d12abe0d5b7fc05f47cdb498fbda93e39034ba",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -2873,7 +2873,7 @@
           "requiredNativeLocale": "de",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/de/iphone-6.9/04-text.png",
-          "sha256": "4a4d2b095f905643e939db20fd19b1fed2fc8dcf737399afd0a0d6f7ce876e72",
+          "sha256": "08ba46167ecdb2b5fe556f906f255ce1e5b14f7b9f4e9b5c4d4fe82d48e21d9f",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -2895,7 +2895,7 @@
           "requiredNativeLocale": "de",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/de/ipad-13/02-library.png",
-          "sha256": "e60fa90aa79447063446e0d38a04cc698debcabc34607efd3c517562957dbd8f",
+          "sha256": "02b56c21215a5bc3793d035c575b5105e0fa72fa35f6a7c6eb340e006c408c83",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -2917,7 +2917,7 @@
           "requiredNativeLocale": "de",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/de/ipad-13/04-text.png",
-          "sha256": "42f6838e1ad92585a8d558f3d8ee1f3d5d7dd6f5084729aca8f112af49ce94ad",
+          "sha256": "0898d9b7ec39bae4980d6543e18bc2c410b139f03152567a8d4ec0bbb194a395",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -2939,7 +2939,7 @@
           "requiredNativeLocale": "it",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/it/iphone-6.9/02-library.png",
-          "sha256": "e03d70e96bf2be39320bbbee4431a70656f7219e67420602bc0c7483dd371b07",
+          "sha256": "11c625774346902f62bf8f11ca8ba6364dd9ea8d2ddfc509aab1d8eff38e6c34",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -2961,7 +2961,7 @@
           "requiredNativeLocale": "it",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/it/iphone-6.9/04-text.png",
-          "sha256": "3b9464abd5fe5d36aa823178a5f69b56d82df3a2ebceda5ac056260bad2a4def",
+          "sha256": "08fcc829e7682111a29fc01d451eaae1153649665b0a7a7d338a444b6fbaff6b",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -2983,7 +2983,7 @@
           "requiredNativeLocale": "it",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/it/ipad-13/02-library.png",
-          "sha256": "5556d08282d43cf4ed4de92fcd17723e50bb1b4fffb53ff9eef5809628f4f989",
+          "sha256": "d21642d102aa11644dc1fbb279cbdbc63f0ca1fc0254580bce2791cbd6c817ae",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -3005,7 +3005,7 @@
           "requiredNativeLocale": "it",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/it/ipad-13/04-text.png",
-          "sha256": "344f6e9714f782ec6c030681ea1a3d016dd6605de16b1bc36eae5eb30b3d28ba",
+          "sha256": "5be94c17dcd2bb51a578785cc6601b04f1fb2da2731f0956d649c2eb02feb5ce",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -3027,7 +3027,7 @@
           "requiredNativeLocale": "ja",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/ja/iphone-6.9/02-library.png",
-          "sha256": "76f5858939a71ed20464266fe47f00abaa21fb5ab82f080072d2b6b4a725563d",
+          "sha256": "68ce8d9bbf66aec9da559053296698705b8eada23faa837b729c412a04e4ad92",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -3049,7 +3049,7 @@
           "requiredNativeLocale": "ja",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/ja/iphone-6.9/04-text.png",
-          "sha256": "3aa52fa8d0baa6beb69f0dc1d3a9588b4d73bb578ec5d850e8f0a0db9f277dd4",
+          "sha256": "d8a3a156f45574285bb406e3a01eb278573d85f8ae475af4713c2f65f02346c4",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -3071,7 +3071,7 @@
           "requiredNativeLocale": "ja",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/ja/ipad-13/02-library.png",
-          "sha256": "a29842d4cd399df809ce2e4bb0681777aa1db202fbfb8dcbcf73a87007274467",
+          "sha256": "568e2445fbdc210ef14cb7f03cc2980ec9b0549e88f14fea2e31ae30f4a70055",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -3093,7 +3093,7 @@
           "requiredNativeLocale": "ja",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/ja/ipad-13/04-text.png",
-          "sha256": "8790ae76f40055c70810ef0610e7d8493ea448f931ea9ab2de9329d31bdd2d6d",
+          "sha256": "2c92f358fe19110b6d1b2d2ae8112b6a67070ad99e50a5629e2bce03095ec8a8",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -3115,7 +3115,7 @@
           "requiredNativeLocale": "ko",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/ko/iphone-6.9/02-library.png",
-          "sha256": "cde9d60cd13226c44b30992262e4eb33961fad42b251c3cfbfdb43c835489ae4",
+          "sha256": "4096da3c5610ef9b50c3ad8cf970ae98fb1d25910334ace9db7b7395e1885853",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -3137,7 +3137,7 @@
           "requiredNativeLocale": "ko",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/ko/iphone-6.9/04-text.png",
-          "sha256": "8b387bb872cd5288b9a40b380d20a75f3c9bdc2553f1e8a245cfe3046880e52d",
+          "sha256": "b8f2eafbef43d98946baad3cea43f61e18ea7005d8ade30308f32f3006dd962b",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -3159,7 +3159,7 @@
           "requiredNativeLocale": "ko",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/ko/ipad-13/02-library.png",
-          "sha256": "060e19eb9fea844825eb4684739f9a5c0e29cc22baeca88d0c87a26fbab9a46e",
+          "sha256": "0b0f75696c167251563c52d49e4e3e8d1d87b47633e6e31b2c034129ca147b57",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -3181,7 +3181,7 @@
           "requiredNativeLocale": "ko",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/ko/ipad-13/04-text.png",
-          "sha256": "c4ed3fe5ba2bfdfd39656d5525cae0d2d0ce255f803c9bac0378df606681037a",
+          "sha256": "2cc0003312a4399bbfd4f75aa5ebf72e95f92a9474e1d305fa33ebd441722263",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -3203,7 +3203,7 @@
           "requiredNativeLocale": "pt-BR",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/pt-BR/iphone-6.9/02-library.png",
-          "sha256": "232d67848f0893b0d23617eed5b360a6a395d0c1545d75f559ab486c0a37cc69",
+          "sha256": "8efe655a61c35ade95d1d9408c328c13a0e25fe72a71b6b799cccda55ebfcfaa",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -3225,7 +3225,7 @@
           "requiredNativeLocale": "pt-BR",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/pt-BR/iphone-6.9/04-text.png",
-          "sha256": "81ce4052e7e4c9b5c0af8c20f801b5b287522fca4c2f236a2b2fc9802f7218c3",
+          "sha256": "4f1a98a1abd2bb552b4e94a787ef5d52bcb9ff5f6d890479302cc518656c46e3",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -3247,7 +3247,7 @@
           "requiredNativeLocale": "pt-BR",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/pt-BR/ipad-13/02-library.png",
-          "sha256": "2f4e6233f1097e0d10619a9ce0a07c25872f91874c9e7e6745a358765ba0b4d4",
+          "sha256": "decbdd101e9a1c247aaeab196d563afe30b1fe92dc07ce46d69fca6fc6aab849",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -3269,7 +3269,7 @@
           "requiredNativeLocale": "pt-BR",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/pt-BR/ipad-13/04-text.png",
-          "sha256": "9ee6d7bcdd92b9146f6aa844053745a4b631c10f4c2acc6defd8612014683259",
+          "sha256": "d3476f3b216a3560dfeecbc87bfe80aef48e08aa6eb84ed228702ee2453c3d4e",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -3291,7 +3291,7 @@
           "requiredNativeLocale": "pt-PT",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/pt-PT/iphone-6.9/02-library.png",
-          "sha256": "0bb8f5abb043f050b1975d7f9ad15a842fba1b43c5cfd28860b3eb5aa8d29538",
+          "sha256": "13e6d179d444cfd25df7360afc0f41e660f847efe8db53a41c2a5d1ef9fa6466",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -3313,7 +3313,7 @@
           "requiredNativeLocale": "pt-PT",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/pt-PT/iphone-6.9/04-text.png",
-          "sha256": "81ce4052e7e4c9b5c0af8c20f801b5b287522fca4c2f236a2b2fc9802f7218c3",
+          "sha256": "4f1a98a1abd2bb552b4e94a787ef5d52bcb9ff5f6d890479302cc518656c46e3",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -3335,7 +3335,7 @@
           "requiredNativeLocale": "pt-PT",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/pt-PT/ipad-13/02-library.png",
-          "sha256": "0792b3a85a9dd56279c9951a4ad287c960da01e590e4b6eeba0105ae691823bb",
+          "sha256": "0461fb35bee8e14a84aba0e0d1362f3891fee129927d9dd4e8272aad0c0dce1e",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -3357,7 +3357,7 @@
           "requiredNativeLocale": "pt-PT",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/pt-PT/ipad-13/04-text.png",
-          "sha256": "293e43cba06aa455a9ddc6aab05c22b1117189af57e69e0554f51410e29a738b",
+          "sha256": "d3476f3b216a3560dfeecbc87bfe80aef48e08aa6eb84ed228702ee2453c3d4e",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -3379,7 +3379,7 @@
           "requiredNativeLocale": "zh-Hans",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/zh-Hans/iphone-6.9/02-library.png",
-          "sha256": "d75ec4c6f735ff3c77594fc626b6b6eb8d34313ad608cf2f4e67416307b799d3",
+          "sha256": "928fc0d53611d90458e05948f42f2b79ed2f93e19dfaac64289ba796d177b98f",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -3401,7 +3401,7 @@
           "requiredNativeLocale": "zh-Hans",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/zh-Hans/iphone-6.9/04-text.png",
-          "sha256": "fea778d7ac831fa8905735849a8a14df716f9021b397f2beb170f1e8e0e68b40",
+          "sha256": "0aa33372c2952b1104835eccf99759842124034a6436692175abc230e75dec93",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -3423,7 +3423,7 @@
           "requiredNativeLocale": "zh-Hans",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/zh-Hans/ipad-13/02-library.png",
-          "sha256": "ecd50cf9dcc66ee3f372bf3458e8277f3d0b2b0dac6e30a34a3c630489f88e5e",
+          "sha256": "ba4d81bdb479503655ecc029c59a01c0d7cd937fabda2ef4c6b94bd945c116ce",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -3445,7 +3445,7 @@
           "requiredNativeLocale": "zh-Hans",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/zh-Hans/ipad-13/04-text.png",
-          "sha256": "5dd570f768be4b3bcc0f92743f29ad30236959cd63ad567b23bc8eecde833560",
+          "sha256": "e9aa15ea2d615d96b1bd0e3a1414205ce1e2479a879fc07f8c6a0fe3af43790d",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -3467,7 +3467,7 @@
           "requiredNativeLocale": "zh-Hant",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/zh-Hant/iphone-6.9/02-library.png",
-          "sha256": "3023a66cf8b87608047e03040897d2583f2106a9f4bdcabba004fc1a040282e1",
+          "sha256": "98d04d8bf15da5fcb08d029cef9127aefbdd7e666f4c44bd5173efa05a2252cf",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -3489,7 +3489,7 @@
           "requiredNativeLocale": "zh-Hant",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/zh-Hant/iphone-6.9/04-text.png",
-          "sha256": "270c0a28e376d138bbb4ed5ae508f97d30ec61f1cce1ed5003f2cff2b3b79be2",
+          "sha256": "35e59a69a8acb3fde7b2ab14991315df828f077a78061a58e20aa2d4dab29c63",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -3511,7 +3511,7 @@
           "requiredNativeLocale": "zh-Hant",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/zh-Hant/ipad-13/02-library.png",
-          "sha256": "353f782dcbbc4e5f179b1b4d33b9fa3827bbab0aff21dcc6ac0d5cc0b4907b04",
+          "sha256": "bcfce3a08099fbac190755247f12d0d599e5134528e656e15d543ed9ac23bb16",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -3533,7 +3533,7 @@
           "requiredNativeLocale": "zh-Hant",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "what/store-assets/appstore/editorial-20261027/zh-Hant/ipad-13/04-text.png",
-          "sha256": "6492f0146802d4e1be05cf6df036c1700bdb0360832e7b82e475c22db7b85b48",
+          "sha256": "c2106eced106a4bc67a5b20d8dfa1f534f0458cdf16e87467a85856ec4969261",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         }
       ]
@@ -3582,7 +3582,7 @@
           "requiredNativeLocale": "ru",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "chickmark/store-assets/appstore/editorial-20261027/ru/iphone-6.9/04-reminders.png",
-          "sha256": "caa29f0d14440c11d39a33d1379b5fbf3ce24f1fcffadfeb2a46c0aa939aba84",
+          "sha256": "881f0c839053f28fa049e1c4929a9b02b15bb85df52fb52f66a17d251801ee56",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -3626,7 +3626,7 @@
           "requiredNativeLocale": "ru",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "chickmark/store-assets/appstore/editorial-20261027/ru/ipad-13/04-reminders.png",
-          "sha256": "4697d961d3f7fcee07ae491711d0db1f48a1e1d136eed32732ea412d0d41aa7d",
+          "sha256": "ab24c067b3ad0c399b42919d4a454e953552c5914183d8a90ea37accafeb6d59",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -3670,7 +3670,7 @@
           "requiredNativeLocale": "en",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "chickmark/store-assets/appstore/editorial-20261027/en/iphone-6.9/04-reminders.png",
-          "sha256": "a434d8a426b158adce83691fdc34b12d904f3b8bed66810e157b7b32976a844d",
+          "sha256": "c217bdd77277bd99ff72ade3f2cf20c6ed92a7648dc7c9092c25ea247bbec513",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -3714,7 +3714,7 @@
           "requiredNativeLocale": "en",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "chickmark/store-assets/appstore/editorial-20261027/en/ipad-13/04-reminders.png",
-          "sha256": "c1051732aea7ca50cb7f40f1cf8c7f76864e0863a8988712ea2ed5f919e8f9e5",
+          "sha256": "44210dcb98691793e60bb85f8d10a6a276642fd21b73d55ace52f5833842736c",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -3758,7 +3758,7 @@
           "requiredNativeLocale": "en",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "chickmark/store-assets/appstore/editorial-20261027/en/iphone-6.9/04-reminders.png",
-          "sha256": "a434d8a426b158adce83691fdc34b12d904f3b8bed66810e157b7b32976a844d",
+          "sha256": "c217bdd77277bd99ff72ade3f2cf20c6ed92a7648dc7c9092c25ea247bbec513",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -3802,7 +3802,7 @@
           "requiredNativeLocale": "en",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "chickmark/store-assets/appstore/editorial-20261027/en/ipad-13/04-reminders.png",
-          "sha256": "c1051732aea7ca50cb7f40f1cf8c7f76864e0863a8988712ea2ed5f919e8f9e5",
+          "sha256": "44210dcb98691793e60bb85f8d10a6a276642fd21b73d55ace52f5833842736c",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -3846,7 +3846,7 @@
           "requiredNativeLocale": "en",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "chickmark/store-assets/appstore/editorial-20261027/en/iphone-6.9/04-reminders.png",
-          "sha256": "a434d8a426b158adce83691fdc34b12d904f3b8bed66810e157b7b32976a844d",
+          "sha256": "c217bdd77277bd99ff72ade3f2cf20c6ed92a7648dc7c9092c25ea247bbec513",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -3890,7 +3890,7 @@
           "requiredNativeLocale": "en",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "chickmark/store-assets/appstore/editorial-20261027/en/ipad-13/04-reminders.png",
-          "sha256": "c1051732aea7ca50cb7f40f1cf8c7f76864e0863a8988712ea2ed5f919e8f9e5",
+          "sha256": "44210dcb98691793e60bb85f8d10a6a276642fd21b73d55ace52f5833842736c",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -3934,7 +3934,7 @@
           "requiredNativeLocale": "en",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "chickmark/store-assets/appstore/editorial-20261027/en/iphone-6.9/04-reminders.png",
-          "sha256": "a434d8a426b158adce83691fdc34b12d904f3b8bed66810e157b7b32976a844d",
+          "sha256": "c217bdd77277bd99ff72ade3f2cf20c6ed92a7648dc7c9092c25ea247bbec513",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -3978,7 +3978,7 @@
           "requiredNativeLocale": "en",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "chickmark/store-assets/appstore/editorial-20261027/en/ipad-13/04-reminders.png",
-          "sha256": "c1051732aea7ca50cb7f40f1cf8c7f76864e0863a8988712ea2ed5f919e8f9e5",
+          "sha256": "44210dcb98691793e60bb85f8d10a6a276642fd21b73d55ace52f5833842736c",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -4022,7 +4022,7 @@
           "requiredNativeLocale": "es",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "chickmark/store-assets/appstore/editorial-20261027/es/iphone-6.9/04-reminders.png",
-          "sha256": "9714ad90c1c853eea8f649a73bcdb3f6daac4e539e1f5f1f24c676ce6db75a1a",
+          "sha256": "bb5dbc3d76cd8839fbf1469de0e05f9d6d2924961896b61246e8f88ab4b2e1fa",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -4066,7 +4066,7 @@
           "requiredNativeLocale": "es",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "chickmark/store-assets/appstore/editorial-20261027/es/ipad-13/04-reminders.png",
-          "sha256": "b092d277a07760d2745f7f235c62f9a987c8cc53040a0d43c4fcbc07c3459f69",
+          "sha256": "9fa2a93a90e221486171a16285f55f16e91a2df9b23f3bf0cb730258a215dbdf",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -4110,7 +4110,7 @@
           "requiredNativeLocale": "es",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "chickmark/store-assets/appstore/editorial-20261027/es/iphone-6.9/04-reminders.png",
-          "sha256": "9714ad90c1c853eea8f649a73bcdb3f6daac4e539e1f5f1f24c676ce6db75a1a",
+          "sha256": "bb5dbc3d76cd8839fbf1469de0e05f9d6d2924961896b61246e8f88ab4b2e1fa",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -4154,7 +4154,7 @@
           "requiredNativeLocale": "es",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "chickmark/store-assets/appstore/editorial-20261027/es/ipad-13/04-reminders.png",
-          "sha256": "b092d277a07760d2745f7f235c62f9a987c8cc53040a0d43c4fcbc07c3459f69",
+          "sha256": "9fa2a93a90e221486171a16285f55f16e91a2df9b23f3bf0cb730258a215dbdf",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -4198,7 +4198,7 @@
           "requiredNativeLocale": "fr",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "chickmark/store-assets/appstore/editorial-20261027/fr/iphone-6.9/04-reminders.png",
-          "sha256": "ba6516926f380d0dd5299f85d020f63d4210b5d0ebc6ba5fe2ee56a96ac9df4b",
+          "sha256": "eadb31881c9f51c9e80b4dbb29d9db99966b71fbb0746d0186add0a1a574e31b",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -4242,7 +4242,7 @@
           "requiredNativeLocale": "fr",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "chickmark/store-assets/appstore/editorial-20261027/fr/ipad-13/04-reminders.png",
-          "sha256": "649059dc4b13299c6bcc295f09d4818257de42e31e19bce3eec88febcaaace9e",
+          "sha256": "cd30d9193b1b321a6bbdf9dcaafc3ffab874aa6d75149a73349d5c4d18909777",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -4286,7 +4286,7 @@
           "requiredNativeLocale": "de",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "chickmark/store-assets/appstore/editorial-20261027/de/iphone-6.9/04-reminders.png",
-          "sha256": "9d9a10ea10e0c885686b2c6ea5c82d53c99085391c1fb135ce033f418db6fc48",
+          "sha256": "175b96a91d75566a6d5ae648118caf7dea8f58552db2d19766413cd984d1c878",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -4330,7 +4330,7 @@
           "requiredNativeLocale": "de",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "chickmark/store-assets/appstore/editorial-20261027/de/ipad-13/04-reminders.png",
-          "sha256": "5ef1f7e29ef862f4d12c665e056002964859b181023f52b0509f7917e72988cc",
+          "sha256": "bf787aae0760fcd401494d0bcc7ac6d6ae4e538e9483bd86a83feff080edae3e",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -4374,7 +4374,7 @@
           "requiredNativeLocale": "it",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "chickmark/store-assets/appstore/editorial-20261027/it/iphone-6.9/04-reminders.png",
-          "sha256": "ee693a56f01bde09a2c6d829fea940f5b53a81b2cd3f078c1965f73c3b71180d",
+          "sha256": "6e2ed8bef5d9781aaf0258e3e06ec7bdf4a0a4d7e42a5d4b745ef8bd69576c77",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -4418,7 +4418,7 @@
           "requiredNativeLocale": "it",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "chickmark/store-assets/appstore/editorial-20261027/it/ipad-13/04-reminders.png",
-          "sha256": "0bab9c75c6ba066454e2c8ef504fa8d91967398c17b4964a51f2b6fd95fdbb89",
+          "sha256": "44383ea50caf682778c52285ca8e5013591fb865da26bba43b7f70c509c449da",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -4462,7 +4462,7 @@
           "requiredNativeLocale": "ja",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "chickmark/store-assets/appstore/editorial-20261027/ja/iphone-6.9/04-reminders.png",
-          "sha256": "d7b4b4ec257b40773d55d514a60b47fe3be3af7802366702bc46571baccc8b2a",
+          "sha256": "0a7fdd9ac17919e38e4f9b31e0e07b38bb14a194a2583440a45d45a2cab77d8e",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -4506,7 +4506,7 @@
           "requiredNativeLocale": "ja",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "chickmark/store-assets/appstore/editorial-20261027/ja/ipad-13/04-reminders.png",
-          "sha256": "bf8596ed2b4de4c07be5e2c474754a26332e9a57409bbe00b40c8b1c1e344244",
+          "sha256": "4ce6662dd5a06187a9b15030c0652ce70ff3cddab3f2d54bbe1a6c6798497310",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -4517,7 +4517,7 @@
           "requiredNativeLocale": "ko",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "chickmark/store-assets/appstore/editorial-20261027/ko/iphone-6.9/01-habits.png",
-          "sha256": "8fb39b2fd6aace9e907d914f6fd17e487bb18938438bde601450d258d3433d9a",
+          "sha256": "c12cef67331348c5b2153f05a6c9ee6e29d3e1d91fb71bc9dbe50d532e4c4f27",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -4528,7 +4528,7 @@
           "requiredNativeLocale": "ko",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "chickmark/store-assets/appstore/editorial-20261027/ko/iphone-6.9/02-create.png",
-          "sha256": "eac28ff71145c7cea70e9f3656892fb88fab8ffd36fcd6732898b49bfb4e1c11",
+          "sha256": "c5a96db2daba92b9a2f57f3e4799ab7b3049ffb3d7cf63aad14e66e7a97fb1f9",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -4539,7 +4539,7 @@
           "requiredNativeLocale": "ko",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "chickmark/store-assets/appstore/editorial-20261027/ko/iphone-6.9/03-progress.png",
-          "sha256": "8af6e5d5c95e13ba654b6bc4900485a8c37cf27cee028eb5d8d96bdcfc865c11",
+          "sha256": "b0ebfcec02302eeba8440be8b91a881c47c7b2a6acfe4987ca7172021a354463",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -4550,7 +4550,7 @@
           "requiredNativeLocale": "ko",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "chickmark/store-assets/appstore/editorial-20261027/ko/iphone-6.9/04-reminders.png",
-          "sha256": "a2bd818dc06c027a3f7a67d34b3cf6351018db8802aca86becc0dccd229a6cb9",
+          "sha256": "57745c4bb8dec48a0f1219f1be8990a329c241bd7d2e2f890dc579da7f12e78e",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -4561,7 +4561,7 @@
           "requiredNativeLocale": "ko",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "chickmark/store-assets/appstore/editorial-20261027/ko/ipad-13/01-habits.png",
-          "sha256": "d161a5eccfa452d9927788eb77208567fc04984d9125a8827cfd7fc42a45a337",
+          "sha256": "0059cc8289b1c577bc60cd7ddd573e0f547329ff73d5ee187ff0c1c0eac662fa",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -4572,7 +4572,7 @@
           "requiredNativeLocale": "ko",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "chickmark/store-assets/appstore/editorial-20261027/ko/ipad-13/02-create.png",
-          "sha256": "6a3e6c8e1c9f3b2fde6f90b5d1a134e50b043b684c25d22100c989f84da7e0ee",
+          "sha256": "860f9f619ecb5ba0fa7dfa5626c58a0377dfcceb579be86fc757cf781db207e7",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -4583,7 +4583,7 @@
           "requiredNativeLocale": "ko",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "chickmark/store-assets/appstore/editorial-20261027/ko/ipad-13/03-progress.png",
-          "sha256": "d14be106b1e0bb9edd5b1d9cfa659e0cd673485d1a40f2a96a23f6fc328cd0f1",
+          "sha256": "2f3ee6096ac9f68f166f3c0d4d7a653997a224cedaca83911179d6aef7a794c0",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -4594,7 +4594,7 @@
           "requiredNativeLocale": "ko",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "chickmark/store-assets/appstore/editorial-20261027/ko/ipad-13/04-reminders.png",
-          "sha256": "83763ed166c418ae91b203478c650115f043d8c23f3aa83246611dff44aafb5c",
+          "sha256": "541f382a378e44b90450f6b5902c331153c6f2ed7929c14d8e3cf4e2fd08a8c1",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -4638,7 +4638,7 @@
           "requiredNativeLocale": "pt-BR",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "chickmark/store-assets/appstore/editorial-20261027/pt-BR/iphone-6.9/04-reminders.png",
-          "sha256": "e9785632ad4839b116345db609cedefa89d6ad01c9cfc0813c03b4c1fbaa9cc1",
+          "sha256": "a7f554816ec9667feaf836d21babe380a41bffb0b5a986da7055eba4d32ff2aa",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -4682,7 +4682,7 @@
           "requiredNativeLocale": "pt-BR",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "chickmark/store-assets/appstore/editorial-20261027/pt-BR/ipad-13/04-reminders.png",
-          "sha256": "78f10868a84d1c66aca0f9c2a99d48ab7b826a02f8ec9884d360801babb7f47e",
+          "sha256": "fd674e38d9b5694279733f8c0b964510072e3b0dfa0370cbc70a5ecf2f9cfcf2",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -4726,7 +4726,7 @@
           "requiredNativeLocale": "pt-PT",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "chickmark/store-assets/appstore/editorial-20261027/pt-PT/iphone-6.9/04-reminders.png",
-          "sha256": "ddec110b1ed9a0051ad20401e985451014abe61911658bbd79a9a6647f6ddb06",
+          "sha256": "808f165957ecd5d48c470999a75deafd680a639421a3eaf88a365c6a6a9eb3bc",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -4770,7 +4770,7 @@
           "requiredNativeLocale": "pt-PT",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "chickmark/store-assets/appstore/editorial-20261027/pt-PT/ipad-13/04-reminders.png",
-          "sha256": "d36fe937c12adf47bbb8e83d33c7b067800be7228e79facffda25b7747f8115e",
+          "sha256": "04b1efaa582a2b8f13fa75707af1df788c94945ffaaecf9ec8828cd228a5241c",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -4814,7 +4814,7 @@
           "requiredNativeLocale": "zh-Hans",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "chickmark/store-assets/appstore/editorial-20261027/zh-Hans/iphone-6.9/04-reminders.png",
-          "sha256": "d05bb29a3f4146afa83a5fb44f56e6345cd71e1af1233e0c2a62410e97556602",
+          "sha256": "898959da312f1984294cbda2f355e4f238c3a2d8fd5ba66050c14b4c69b006d3",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -4858,7 +4858,7 @@
           "requiredNativeLocale": "zh-Hans",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "chickmark/store-assets/appstore/editorial-20261027/zh-Hans/ipad-13/04-reminders.png",
-          "sha256": "c502bf154e9391ac8b45bb0c46bf921fa53a27922c61de3fa840139bf3557851",
+          "sha256": "e0a73ea32549f9d1c865504f24abe8bc432e5299b5bcade613086cf6995c9f14",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -4902,7 +4902,7 @@
           "requiredNativeLocale": "zh-Hant",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "chickmark/store-assets/appstore/editorial-20261027/zh-Hant/iphone-6.9/04-reminders.png",
-          "sha256": "e5a02a5be4e7916c81d2011d0b723fd9e4b3bedbedb3957b9f88b4955d15bf27",
+          "sha256": "f89ddd6ca5075ec24560d673962bd5947e59dd723eaa2db1d7f7d83608dc1a9b",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         },
         {
@@ -4946,7 +4946,7 @@
           "requiredNativeLocale": "zh-Hant",
           "status": "NATIVE_SIMULATOR_DRAFT_NOT_RELEASE_SIGNED",
           "path": "chickmark/store-assets/appstore/editorial-20261027/zh-Hant/ipad-13/04-reminders.png",
-          "sha256": "35be92c52e3be31a32c1f004352ee334d8ddc7373ce6dd96cef4a2d3adb9fd8d",
+          "sha256": "4a0909bcfa97c814a4f123f3f1ce498d6e59c203ac67a1a225226aef7bcf1a89",
           "evidence": "isolated XCTest screenshot; localized SwiftUI, synthetic QA data"
         }
       ]
