@@ -34,8 +34,7 @@ private struct ResultTopBar: View {
         Button(action: onBack) {
             Label(tr("Изменить настройки"), systemImage: "slider.horizontal.3")
                 .font(.caption.weight(.semibold))
-                .lineLimit(1)
-                .minimumScaleFactor(0.72)
+                .fixedSize(horizontal: false, vertical: true)
                 .padding(.horizontal, 10)
                 .frame(minHeight: 40)
         }
@@ -94,8 +93,7 @@ struct BeforeAfterPreview: View {
             Text(String(format: tr("%1$@ · %2$@"), dimensions, formatBytes(bytes)))
                 .font(.caption2)
                 .foregroundStyle(.secondary)
-                .lineLimit(1)
-                .minimumScaleFactor(0.78)
+                .fixedSize(horizontal: false, vertical: true)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
     }
@@ -150,8 +148,7 @@ struct PDFResultCard: View {
                 Label(tr("Поделиться"), systemImage: "square.and.arrow.up")
                     .font(.headline)
                     .dynamicTypeSize(dynamicTypeSize.isAccessibilitySize ? .accessibility1 : dynamicTypeSize)
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.75)
+                    .fixedSize(horizontal: false, vertical: true)
                     .frame(maxWidth: .infinity)
                     .frame(minHeight: 46)
             }
@@ -180,19 +177,17 @@ struct PDFResultCard: View {
             Text(label)
                 .font(.caption)
                 .foregroundStyle(.secondary)
-                .lineLimit(1)
-                .minimumScaleFactor(0.8)
+                .fixedSize(horizontal: false, vertical: true)
             if !stacked {
                 Spacer(minLength: 4)
             }
             Text(value)
                 .font(.subheadline.weight(.semibold))
                 .foregroundStyle(Color.arvectumPrimaryText)
-                .lineLimit(1)
-                .minimumScaleFactor(0.7)
+                .fixedSize(horizontal: false, vertical: true)
         }
-        // Keep label and value individually legible instead of wrapping a
-        // short amount onto multiple lines beside the PDF preview.
+        // Permit natural wrapping at large sizes while retaining
+        // a distinct, accessible label and value beside the PDF preview.
         .dynamicTypeSize(stacked ? .accessibility1 : dynamicTypeSize)
         .padding(10)
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -236,8 +231,7 @@ struct ResultCard: View {
                     Label("Лист для печати", systemImage: "square.grid.2x2")
                         .font(.headline)
                         .dynamicTypeSize(dynamicTypeSize.isAccessibilitySize ? .accessibility1 : dynamicTypeSize)
-                        .lineLimit(1)
-                        .minimumScaleFactor(0.75)
+                        .fixedSize(horizontal: false, vertical: true)
                         .frame(maxWidth: .infinity)
                         .frame(minHeight: result.mode == .passport ? 40 : 46)
                 }
@@ -258,8 +252,7 @@ struct ResultCard: View {
                 Label("Поделиться", systemImage: "square.and.arrow.up")
                     .font(.headline)
                     .dynamicTypeSize(dynamicTypeSize.isAccessibilitySize ? .accessibility1 : dynamicTypeSize)
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.75)
+                    .fixedSize(horizontal: false, vertical: true)
                     .frame(maxWidth: .infinity)
                     .frame(minHeight: result.mode == .passport ? 40 : 46)
             }
@@ -290,7 +283,7 @@ struct ResultCard: View {
             Text(value)
                 .font(.subheadline.weight(.semibold))
                 .foregroundStyle(Color.arvectumPrimaryText)
-                .lineLimit(1)
+                .fixedSize(horizontal: false, vertical: true)
         }
         .padding(result.mode == .passport ? 8 : 12)
         .frame(maxWidth: .infinity, alignment: .leading)

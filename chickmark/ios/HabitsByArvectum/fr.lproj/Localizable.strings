@@ -301,3 +301,14 @@
 "water.export.privacy" = "Les volumes d’eau restent sur votre appareil. ChickMark demandera l’autorisation d’écrire dans Santé d’Apple lors de l’enregistrement.";
 "water.export.error" = "Export d’eau indisponible";
 "water.export.storage.error" = "ChickMark ne peut pas lire ses réglages d’export d’eau. Aucune modification n’a été effectuée. Rouvrez l’app et réessayez.";
+
+// First-run onboarding
+"onboarding.first.title" = "Une petite habitude";
+"onboarding.first.body" = "Touchez + pour créer une habitude et choisir sa fréquence.";
+"onboarding.second.title" = "Cochez vos progrès";
+"onboarding.second.body" = "Cochez les habitudes du jour. Vous gardez le contrôle du calendrier.";
+"onboarding.third.title" = "Gardez le cap";
+"onboarding.third.body" = "Les rappels sont facultatifs et modifiables à tout moment.";
+"onboarding.skip" = "Ignorer";
+"onboarding.next" = "Suivant";
+"onboarding.start" = "Commencer";

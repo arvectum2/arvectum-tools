@@ -27,6 +27,7 @@ struct TodayView: View {
     @State private var chickInCelebrationHabitID: UUID?
     @State private var adEligible = false
     @State private var nativeAdUnavailable = false
+    @AppStorage("chickmark.onboarding.completed.v1") private var onboardingCompleted = false
 
     @State private var healthProjectionRevision = 0
 
@@ -88,28 +89,13 @@ struct TodayView: View {
             ZStack {
                 Color.habitsBackground.ignoresSafeArea()
 
-                // A genuine sibling footer ensures the scrollable habits
-                // area stops ABOVE the native ad, not behind it. A nested
-                // safeAreaInset on NavigationStack can instead overlap the
-                // scroll viewport after native content changes height.
-                VStack(spacing: 0) {
+                // Ad is in feed, never a permanent footer.
+                Group {
                     if habits.filter({ !$0.isArchived }).isEmpty &&
-                        pendingOneOffReminders.isEmpty
-                    {
-                        firstHabitEmptyState
-                            .frame(maxHeight: .infinity)
+                        pendingOneOffReminders.isEmpty {
+                        firstHabitEmptyState.frame(maxHeight: .infinity)
                     } else {
-                        todayContent
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    }
-
-                    if adEligible && !nativeAdUnavailable {
-                        HabitStickyNativeSlot {
-                            // Remove the *whole footer*, not just ad assets.
-                            // Otherwise the native host may reserve bottom
-                            // safe-area space after a no-fill/binding failure.
-                            nativeAdUnavailable = true
-                        }
+                        todayContent.frame(maxWidth: .infinity, maxHeight: .infinity)
                     }
                 }
                 .frame(maxWidth: 840)
@@ -175,6 +161,16 @@ struct TodayView: View {
                 .padding(.horizontal, 16)
                 .padding(.vertical, 4)
                 .background(Color.habitsBackground)
+            }
+            .fullScreenCover(isPresented: Binding(
+                get: {
+                    let args = ProcessInfo.processInfo.arguments
+                    return (!args.contains("--ui-testing") || args.contains("--test-onboarding")) &&
+                        !onboardingCompleted && habits.isEmpty && oneOffReminders.isEmpty
+                },
+                set: { if !$0 { onboardingCompleted = true } }
+            )) {
+                ChickMarkOnboardingView { onboardingCompleted = true }
             }
             .sheet(isPresented: $showingAddHabit) {
                 AddHabitView()
@@ -386,6 +382,9 @@ struct TodayView: View {
                     if !pendingOneOffReminders.isEmpty {
                         oneOffReminderSection
                     }
+                }
+                if adEligible && !nativeAdUnavailable {
+                    HabitInFeedNativeSlot { nativeAdUnavailable = true }
                 }
             }
             .padding(16)

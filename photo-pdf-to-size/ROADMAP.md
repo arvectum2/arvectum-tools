@@ -1,5 +1,36 @@
 # Фото и PDF под размер — Product Roadmap
 
+## 26.10.2026 · C8 — актуальный статус Фото/PDF
+
+- [x] 12/20 Tier 1 исходных пакетов, включая KO; общий структурный audit PASS. PT-PT и KO требуют редакторской приёмки.
+- [x] Public RU 1.0.2; в коде RC **1.0.3 (15)**, не опубликован.
+- [x] После `cd8ebc3` восстановлен диалог рекламного согласия: до выбора `userConsent=false`; геолокация off; ATT возможен после положительного согласия. Прежние записи ниже про отсутствие ATT — история, не текущий код.
+- [ ] Реальные рекламные показы/ATT, Files/Photos/PDF на физическом iPhone, редактура; свежая подпись и согласование релиза.
+
+[Статус портфеля](../core/docs/LOCALIZATION_STATUS_2026-10-26.md).
+
+## Release RC 26.10.2026
+
+- [x] Restore Photo/PDF advertising consent, IDFA ATT prompt and analytics as previously deployed; no change to the live Apple privacy label.
+- [x] Prepare versions Photo/PDF 1.0.3 (15) and ChickMark 1.5.2 (20).
+- [ ] Test fresh binary, archive/sign/export and collect exact SHA-256. Owner per-build approval required for Apple uploads.
+
+
+- [x] **26.10.2026 Фото/PDF системный AX 2/2 PASS** (фото + PDF, включая `textClipped`), плюс VoiceOver 2/2 PASS; финальный XCResult на Mac mini: `/Volumes/ArvectumSSD/Arvectum/qa/photo-a11y-icons-final-20261026/photo.xcresult`.
+
+## 26.10.2026 · P0 — доработка по отзыву
+- [x] VoiceOver 26.10 на Mac mini: Photo/PDF 2/2 + ChickMark 3/3 PASS; системный VoiceOver после тестов **выключен** и подтверждён через AppKit/Settings.
+
+- [x] Файлы обрабатываются on-device, геолокация off. Сейчас `setUserConsent(false)` действует до выбора пользователя; разрешение сохраняется локально, после positive consent может появиться ATT. Footer объясняет SDK ID и ссылается на политику.
+- [x] Встроенный AppMetrica AdSupport всё ещё **declares tracking true**. Публичный App Privacy label не меняли — он требует SDK/vendor проверки и отдельного разрешения.
+- [x] Шенген 35×45, Китай digital 354×472/40–120 КБ, Канада 50×70 + предупреждение об оригинальных снимках.
+- [x] Native 3/3 unit+UI PASS, Core 63/63, локализация сохранена; 20 ASO metadata DRAFT locales валидны.
+- [x] Стадированы 12 новых скриншотов RU/en-US/en-GB без Demo Ad, с реальным 2.92 MB→472 KB фото и PDF 249→95 KB; первый и второй кадры ещё надо переснять из final binary перед публикацией.
+- [ ] Физическая/редакторская/юридическая приёмка; App Store Accessibility поля и EN title/subtitle только как черновик. Apple не обновляли.
+
+[QA](../core/docs/PHOTO_CHICKMARK_REVIEW_QA_2026-10-26.md) · [Privacy draft](docs/appstore/APP_PRIVACY.md).
+
+
 ## 26.10.2026 · Signed IPA QA
 
 - [x] Device xcarchive + App Store IPA export + signature SHA-256 verification PASS.

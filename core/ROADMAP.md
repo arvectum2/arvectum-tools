@@ -1,5 +1,39 @@
 # Arvectum Tools Core — дорожная карта
 
+## 26.10.2026 · C8 — проверенный статус локализаций и релизов
+
+- [x] 11/20 полных source-пакетов Tier 1 во всех 4 продуктах (pt-PT — draft); KO только Фото/PDF и Pushkin, итого 2/4.
+- [x] Аудит ключей/placeholders PASS; 56/56 профильных тестов PASS; ранее зелёный CI PR #151 и кодового commit PR #152, **оба PR OPEN**.
+- [ ] Дождаться итогового CI на самом новом commit PR #152: после документационного обновления часть jobs ещё выполнялась.
+- [ ] Native-speaker/physical iPhone+Watch QA, новые подписанные IPA/SHA-256, отдельный Apple approval.
+- [ ] После KO в Ухвате/ChickMark — следующие Tier 1 языки по очереди.
+
+[Полная актуальная матрица](docs/LOCALIZATION_STATUS_2026-10-26.md).
+
+## Release RC 26.10.2026
+
+- [x] Restore Photo/PDF advertising consent, IDFA ATT prompt and analytics as previously deployed; no change to the live Apple privacy label.
+- [x] Prepare versions Photo/PDF 1.0.3 (15) and ChickMark 1.5.2 (20).
+- [ ] Test fresh binary, archive/sign/export and collect exact SHA-256. Owner per-build approval required for Apple uploads.
+
+
+- [x] **26.10.2026 Фото/PDF системный AX 2/2 PASS** (фото + PDF, включая `textClipped`), плюс VoiceOver 2/2 PASS; финальный XCResult на Mac mini: `/Volumes/ArvectumSSD/Arvectum/qa/photo-a11y-icons-final-20261026/photo.xcresult`.
+
+[**Оперативная дорожная карта 26.10.2026 — P0/P1 и блокеры**](docs/ROADMAP_LIVE_2026-10-26.md). Документы ниже сохраняют хронологию, но не всегда содержат финальный результат сегодняшних тестов.
+
+
+## 26.10.2026 · C7 — Photo/PDF отзыв + ChickMark UX
+- [x] VoiceOver 26.10 на Mac mini: Photo/PDF 2/2 + ChickMark 3/3 PASS; системный VoiceOver после тестов **выключен** и подтверждён через AppKit/Settings.
+
+- [x] Отдельная ветка `feature/review-ux-photo-chickmark-20261026`: Photo/PDF (консервативная реклама/privacy disclosure, 3 новых visa/passport-пресета) и ChickMark (native ad в конце прокручиваемого списка, 3-экранный первый запуск).
+- [x] Native targeted UI: Photo 3/3, ChickMark 5/5 PASS; Core 63/63, locale audit PASS; 20 ASO draft locales VALID, 12 новых screenshot-композиций RU/en-US/en-GB без Demo Ad.
+- [x] Предыдущая 11-locale iOS GitHub UI matrix: 4/4 jobs SUCCESS.
+- [ ] Перечитать настоящие SDK privacy manifests: AppMetrica AdSupport всё ещё declares tracking=true; нельзя объявлять app tracking-free, несмотря на отказ от ATT. Нужен отдельный SDK/legal review.
+- [ ] Физические устройства offline; native VoiceOver/a11y дополнительный прогон ещё в процессе, App Store metadata/публикация не тронуты.
+
+[Подробный QA](docs/PHOTO_CHICKMARK_REVIEW_QA_2026-10-26.md).
+
+
 ## 26.10.2026 · C6.4 — signing/preflight QA
 
 - [x] Все четыре Release builds, подписанные iOS device xcarchive **4/4 PASS**, App Store IPA exports **4/4 PASS**; каждый IPA `codesign --verify --deep --strict` **PASS**, SHA-256 зафиксированы.

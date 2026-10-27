@@ -36,6 +36,7 @@
 		2E91D293874AA3D4C6C4669A /* AppStoreUpdatePromptUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99139DB9EC28A0ECCC815E96 /* AppStoreUpdatePromptUITests.swift */; };
 		2F76D8A01CA277A408867ED4 /* ChickMarkGroupsCloudSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = C990AEEED2A8EA56AF8184B8 /* ChickMarkGroupsCloudSync.swift */; };
 		3265B9140A7E58081E5C2F48 /* WaterHealthKitWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCC14CBCD61360030E3E1D6 /* WaterHealthKitWriter.swift */; };
+		35CEAF2F1ED97CC30668459A /* ChickMarkOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B9851EF40861C518103B97C /* ChickMarkOnboardingView.swift */; };
 		35E77969306A355D1FAF0924 /* HabitsByArvectumApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54CDBA8AD41C1E6158BA8F4B /* HabitsByArvectumApp.swift */; };
 		35F03C8DF6CBC39DF94D4CA1 /* WatchHealthProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2214F3379E2C873AFFF9F362 /* WatchHealthProgress.swift */; };
 		38104BB8AC6262ADD6DA8B3E /* HabitDayBoundary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DB708D97911CD744C5225C /* HabitDayBoundary.swift */; };
@@ -45,7 +46,6 @@
 		3D615909092A2873B72CDE03 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = AF3A24ACE75EB10202D9164A /* PrivacyInfo.xcprivacy */; };
 		4490AD067F5C4E0A6A91303C /* WatchHealthEvaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 177DC094E58447E014E5C326 /* WatchHealthEvaluator.swift */; };
 		45A1FA280282216AA42D6ABB /* TraditionalChineseLocalizationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58AF34D4B445B52917428EC3 /* TraditionalChineseLocalizationUITests.swift */; };
-		FE03A0010000000000000000 /* EuropeanPortugueseLocalizationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD03A0010000000000000000 /* EuropeanPortugueseLocalizationUITests.swift */; };
 		45EE183496DA73DC0C30A282 /* HabitScheduleText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07EEFC14FA3B5F51E4785CA2 /* HabitScheduleText.swift */; };
 		46332C7D33E100BEC6E668FB /* HabitInsights.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAB7F2EEB508F20E0E392A7 /* HabitInsights.swift */; };
 		48FF93B834C335A493D472FC /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCED7F4CF60499949A8BF95B /* Theme.swift */; };
@@ -60,6 +60,7 @@
 		5AEA3B2E2298D4D88267CFFC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5C96F4AE76FCEC772BE63744 /* Localizable.strings */; };
 		5EDA528EF01C75F923B3182B /* HabitDeepLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = E780CF37E596549D09FDBA30 /* HabitDeepLink.swift */; };
 		5FD2A3574787D5264BFCF471 /* HabitWidgetCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FE25918D92BA577F2EC9541 /* HabitWidgetCoordinator.swift */; };
+		607B79F9508FA790293F5DF2 /* OnboardingUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B221010E0B663CEF4B2D320D /* OnboardingUITests.swift */; };
 		609F2ED86458D6F68DF28803 /* WaterExportPlanning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BD80A734AB2489D684C099 /* WaterExportPlanning.swift */; };
 		6457A357C24EDAA2789E3C6B /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = FD6387067DD3B41E3F7769A9 /* PrivacyInfo.xcprivacy */; };
 		656CA2BBBE772B3D620E5E3D /* HabitTodayProjection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268F01ED856611FB7C079BDE /* HabitTodayProjection.swift */; };
@@ -99,6 +100,7 @@
 		965A9325AE3E65A61E4B4131 /* HabitsByArvectumWatchWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 9587A52E9C895271311C6192 /* HabitsByArvectumWatchWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		972029E84B175A37E1DD9ABD /* LocalizationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5250B761AAD16F97821D84C /* LocalizationTests.swift */; };
 		986A3F72A6083B4978D77F53 /* HabitDetailInsights.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF260A659393461817BAE5E1 /* HabitDetailInsights.swift */; };
+		99861B9FD82489C3A0DC4972 /* EuropeanPortugueseLocalizationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B4408B36977B24DE0F90B8 /* EuropeanPortugueseLocalizationUITests.swift */; };
 		9BE43CF14A4ACF42D7F25196 /* ArvectumAdaptiveLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB05B26EF274DA7D711300AA /* ArvectumAdaptiveLayout.swift */; };
 		9DA3C1040CC7B898D7E0D2AB /* HabitCompletionMutation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69A4FE56BE10CA5F54FDD92C /* HabitCompletionMutation.swift */; };
 		A0042E62380897D7167A133F /* WatchHealthBackgroundDelivery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA037927527E4138A3CE3B4 /* WatchHealthBackgroundDelivery.swift */; };
@@ -284,6 +286,7 @@
 		2E3399B6CE660C30A90E8802 /* HabitTodayProjectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitTodayProjectionTests.swift; sourceTree = "<group>"; };
 		2FEFE949207102917817DFE1 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
 		306AEBE034C4BC280E31DEDD /* WatchComplicationBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchComplicationBridge.swift; sourceTree = "<group>"; };
+		30B4408B36977B24DE0F90B8 /* EuropeanPortugueseLocalizationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EuropeanPortugueseLocalizationUITests.swift; sourceTree = "<group>"; };
 		30C8A43C79CC1E666F0F69F7 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		31BD80A734AB2489D684C099 /* WaterExportPlanning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterExportPlanning.swift; sourceTree = "<group>"; };
 		32BC7F93D721C95F71E9D332 /* SimplifiedChineseLocalizationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimplifiedChineseLocalizationUITests.swift; sourceTree = "<group>"; };
@@ -315,7 +318,6 @@
 		56C6C32A6E197D5CEB5EF468 /* ChickMarkGroups.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChickMarkGroups.swift; sourceTree = "<group>"; };
 		56DA1EFF8870BBAD65199E7F /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		58AF34D4B445B52917428EC3 /* TraditionalChineseLocalizationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraditionalChineseLocalizationUITests.swift; sourceTree = "<group>"; };
-		FD03A0010000000000000000 /* EuropeanPortugueseLocalizationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EuropeanPortugueseLocalizationUITests.swift; sourceTree = "<group>"; };
 		595379F0DA6D68FC9689DCCB /* HabitProgressEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitProgressEditor.swift; sourceTree = "<group>"; };
 		5B384F9752CF25314170B7F4 /* HabitHistoryCalendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitHistoryCalendar.swift; sourceTree = "<group>"; };
 		5C930DE1D91E04C8E406F858 /* ChickMarkBrandHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChickMarkBrandHeader.swift; sourceTree = "<group>"; };
@@ -335,6 +337,7 @@
 		6943FE5CBF6843BB6E3C2E1C /* HabitDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitDetailView.swift; sourceTree = "<group>"; };
 		69A4FE56BE10CA5F54FDD92C /* HabitCompletionMutation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitCompletionMutation.swift; sourceTree = "<group>"; };
 		6B1B1EBFEB27804C3BE251B4 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
+		6B9851EF40861C518103B97C /* ChickMarkOnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChickMarkOnboardingView.swift; sourceTree = "<group>"; };
 		6E11D222A3BB20BE7D7152F2 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		6EFF402AF41E0508DF3485CE /* ChickMarkBackup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChickMarkBackup.swift; sourceTree = "<group>"; };
 		6F77ACFBCC361130C9CDA135 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
@@ -400,6 +403,7 @@
 		AFE8D03B76EA11035816EEDC /* SchemaVersioning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemaVersioning.swift; sourceTree = "<group>"; };
 		B10D83DFF509BE51D59F7E8E /* ChickMarkWeeklySummaryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChickMarkWeeklySummaryTests.swift; sourceTree = "<group>"; };
 		B13D3C66AF60610CBDB248FB /* HabitSyncProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitSyncProtocol.swift; sourceTree = "<group>"; };
+		B221010E0B663CEF4B2D320D /* OnboardingUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingUITests.swift; sourceTree = "<group>"; };
 		B23660D7685A24BA86928A0C /* HabitCompletionMutationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitCompletionMutationTests.swift; sourceTree = "<group>"; };
 		B25929FA39DAB5766138FE9E /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B2E0447F317827EF30F2EB13 /* HabitMetrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitMetrics.swift; sourceTree = "<group>"; };
@@ -653,6 +657,7 @@
 				5C930DE1D91E04C8E406F858 /* ChickMarkBrandHeader.swift */,
 				56C6C32A6E197D5CEB5EF468 /* ChickMarkGroups.swift */,
 				C990AEEED2A8EA56AF8184B8 /* ChickMarkGroupsCloudSync.swift */,
+				6B9851EF40861C518103B97C /* ChickMarkOnboardingView.swift */,
 				AB3AC18F41F6D969FAEBDBF1 /* ChickMarkProductLinks.swift */,
 				D4BAB017A94D5FC01A082B04 /* ChickMarkWeeklySummary.swift */,
 				3DA78BE1C270770CF4D14380 /* ChickMarkWeeklySummaryView.swift */,
@@ -730,15 +735,16 @@
 				1D904841F1035078A4177CB4 /* BrazilianPortugueseLocalizationUITests.swift */,
 				BAFD2C0FB685D6BEE84C97D1 /* ChickMarkWeeklySummaryUITests.swift */,
 				DBC6C7AC29B9FAE1C6B59C16 /* CoreLanguageCoverageUITests.swift */,
+				30B4408B36977B24DE0F90B8 /* EuropeanPortugueseLocalizationUITests.swift */,
 				757B53D06724D346A446FBF0 /* FrenchLocalizationUITests.swift */,
 				A01B765CB069F4D7363B3AA3 /* GentleRestartUITests.swift */,
 				F817A30F24307BFB18C42973 /* GermanLocalizationUITests.swift */,
 				D22C8F956F6A7D2DF37112DD /* HabitFlowUITests.swift */,
 				757DC5D1E3DA51B75310C714 /* ItalianLocalizationUITests.swift */,
 				07F9456247F55114884100F2 /* JapaneseLocalizationUITests.swift */,
+				B221010E0B663CEF4B2D320D /* OnboardingUITests.swift */,
 				32BC7F93D721C95F71E9D332 /* SimplifiedChineseLocalizationUITests.swift */,
 				58AF34D4B445B52917428EC3 /* TraditionalChineseLocalizationUITests.swift */,
-				FD03A0010000000000000000 /* EuropeanPortugueseLocalizationUITests.swift */,
 				511A36FD7170E8026ACA82DF /* WaterExportSettingsUITests.swift */,
 			);
 			path = HabitsByArvectumUITests;
@@ -1134,15 +1140,16 @@
 				F65EDDD389D6C56A6D88D28A /* BrazilianPortugueseLocalizationUITests.swift in Sources */,
 				0A8B3CC74C9DB1241DA92C2D /* ChickMarkWeeklySummaryUITests.swift in Sources */,
 				67CC5064E2C20FAE25135EF6 /* CoreLanguageCoverageUITests.swift in Sources */,
+				99861B9FD82489C3A0DC4972 /* EuropeanPortugueseLocalizationUITests.swift in Sources */,
 				C80CC9DBE337D4B25246CDAE /* FrenchLocalizationUITests.swift in Sources */,
 				A55CAF84EA1614D77EE0917A /* GentleRestartUITests.swift in Sources */,
 				1AEAFBB78B22C551CEE5A597 /* GermanLocalizationUITests.swift in Sources */,
 				4C2AA6FBC032014EB6A2B646 /* HabitFlowUITests.swift in Sources */,
 				7F343D1C18945BC9CA8A3914 /* ItalianLocalizationUITests.swift in Sources */,
 				A02BDE5DE60397A4A478D744 /* JapaneseLocalizationUITests.swift in Sources */,
+				607B79F9508FA790293F5DF2 /* OnboardingUITests.swift in Sources */,
 				AA5110FC99914603F81C9B5C /* SimplifiedChineseLocalizationUITests.swift in Sources */,
 				45A1FA280282216AA42D6ABB /* TraditionalChineseLocalizationUITests.swift in Sources */,
-				FE03A0010000000000000000 /* EuropeanPortugueseLocalizationUITests.swift in Sources */,
 				CDAE731052E7A9DE768AF7EF /* WaterExportSettingsUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1164,6 +1171,7 @@
 				D0EA3AABB82B1EB3CF2CD0EA /* ChickMarkBrandHeader.swift in Sources */,
 				F5AB8C000E201DE37B871850 /* ChickMarkGroups.swift in Sources */,
 				2F76D8A01CA277A408867ED4 /* ChickMarkGroupsCloudSync.swift in Sources */,
+				35CEAF2F1ED97CC30668459A /* ChickMarkOnboardingView.swift in Sources */,
 				CD18650372D2B7F5147F12E5 /* ChickMarkProductLinks.swift in Sources */,
 				807EC429C82987238431FC73 /* ChickMarkWeeklySummary.swift in Sources */,
 				FF11567003DCF8BBF42430D8 /* ChickMarkWeeklySummaryView.swift in Sources */,
@@ -1390,7 +1398,7 @@
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CODE_SIGN_ENTITLEMENTS = HabitsByArvectumWatchWidget/HabitsByArvectumWatchWidget.entitlements;
-				CURRENT_PROJECT_VERSION = 19;
+				CURRENT_PROJECT_VERSION = 20;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = HabitsByArvectumWatchWidget/Info.plist;
@@ -1399,7 +1407,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.5.1;
+				MARKETING_VERSION = 1.5.2;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.arvectum.tools.habits.watch.widget;
 				PRODUCT_MODULE_NAME = HabitsByArvectumWatchWidget;
 				PRODUCT_NAME = HabitsByArvectumWatchWidget;
@@ -1473,11 +1481,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = HabitsByArvectumWatch/HabitsByArvectumWatch.entitlements;
-				CURRENT_PROJECT_VERSION = 19;
+				CURRENT_PROJECT_VERSION = 20;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = HabitsByArvectumWatch/Info.plist;
-				MARKETING_VERSION = 1.5.1;
+				MARKETING_VERSION = 1.5.2;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.arvectum.tools.habits.watch;
 				PRODUCT_MODULE_NAME = HabitsByArvectumWatch;
 				PRODUCT_NAME = HabitsByArvectumWatch;
@@ -1493,7 +1501,7 @@
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CODE_SIGN_ENTITLEMENTS = HabitsByArvectumWatchWidget/HabitsByArvectumWatchWidget.entitlements;
-				CURRENT_PROJECT_VERSION = 19;
+				CURRENT_PROJECT_VERSION = 20;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = HabitsByArvectumWatchWidget/Info.plist;
@@ -1502,7 +1510,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.5.1;
+				MARKETING_VERSION = 1.5.2;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.arvectum.tools.habits.watch.widget;
 				PRODUCT_MODULE_NAME = HabitsByArvectumWatchWidget;
 				PRODUCT_NAME = HabitsByArvectumWatchWidget;
@@ -1538,7 +1546,7 @@
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CODE_SIGN_ENTITLEMENTS = HabitsByArvectumWidget/HabitsByArvectumWidget.entitlements;
-				CURRENT_PROJECT_VERSION = 19;
+				CURRENT_PROJECT_VERSION = 20;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = HabitsByArvectumWidget/Info.plist;
@@ -1548,7 +1556,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.5.1;
+				MARKETING_VERSION = 1.5.2;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.arvectum.tools.habits.widget;
 				PRODUCT_MODULE_NAME = HabitsByArvectumWidget;
 				PRODUCT_NAME = HabitsByArvectumWidget;
@@ -1584,7 +1592,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = HabitsByArvectum/HabitsByArvectum.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 19;
+				CURRENT_PROJECT_VERSION = 20;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = HabitsByArvectum/Info.plist;
@@ -1593,7 +1601,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.5.1;
+				MARKETING_VERSION = 1.5.2;
 				OTHER_LDFLAGS = "$(inherited) -ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = ru.arvectum.tools.habits;
 				PRODUCT_MODULE_NAME = HabitsByArvectum;
@@ -1696,7 +1704,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = HabitsByArvectum/HabitsByArvectum.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 19;
+				CURRENT_PROJECT_VERSION = 20;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = HabitsByArvectum/Info.plist;
@@ -1705,7 +1713,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.5.1;
+				MARKETING_VERSION = 1.5.2;
 				OTHER_LDFLAGS = "$(inherited) -ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = ru.arvectum.tools.habits;
 				PRODUCT_MODULE_NAME = HabitsByArvectum;
@@ -1741,7 +1749,7 @@
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CODE_SIGN_ENTITLEMENTS = HabitsByArvectumWidget/HabitsByArvectumWidget.entitlements;
-				CURRENT_PROJECT_VERSION = 19;
+				CURRENT_PROJECT_VERSION = 20;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = HabitsByArvectumWidget/Info.plist;
@@ -1751,7 +1759,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.5.1;
+				MARKETING_VERSION = 1.5.2;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.arvectum.tools.habits.widget;
 				PRODUCT_MODULE_NAME = HabitsByArvectumWidget;
 				PRODUCT_NAME = HabitsByArvectumWidget;
@@ -1765,11 +1773,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = HabitsByArvectumWatch/HabitsByArvectumWatch.entitlements;
-				CURRENT_PROJECT_VERSION = 19;
+				CURRENT_PROJECT_VERSION = 20;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = HabitsByArvectumWatch/Info.plist;
-				MARKETING_VERSION = 1.5.1;
+				MARKETING_VERSION = 1.5.2;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.arvectum.tools.habits.watch;
 				PRODUCT_MODULE_NAME = HabitsByArvectumWatch;
 				PRODUCT_NAME = HabitsByArvectumWatch;

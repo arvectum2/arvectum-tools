@@ -1,5 +1,7 @@
 # App Store localization matrix — pre-release drafts
 
+Обновление 26.10: активный ASO-черновик включает тайский `th`. Это не опубликованная карточка и не переведённый UI.
+
 | Locale | App name | Subtitle | Keywords (UTF-8 bytes) |
 |---|---|---|---:|
 | ru | Фото и PDF под размер | Сжать до 100 КБ и 1 МБ | 99 |
@@ -20,7 +22,7 @@
 | hi | फ़ोटो और PDF कंप्रेस | KB में साइज़ घटाएँ | 96 |
 | ja | 写真とPDFを圧縮・サイズ変更 | KB・MB指定でファイルを縮小 | 96 |
 | ko | 사진 및 PDF 압축 | KB·MB 용량과 사진 크기 조절 | 86 |
-| uk | Стиснути фото та PDF | Зменшити КБ, змінити розмір | 93 |
+| th | บีบอัดรูปและ PDF | ลดขนาดไฟล์และปรับรูป | 89 |
 | vi | Nén ảnh và PDF | Giảm KB, đổi kích thước ảnh | 96 |
 
 Full descriptions, promotional text, keywords and screenshot headings: [metadata JSON](metadata-2026-10-10.json).

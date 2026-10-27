@@ -350,3 +350,14 @@
 "water.export.error" = "Water export unavailable";
 
 "water.export.storage.error" = "ChickMark cannot read its water export settings. No changes were made. Reopen the app and try again.";
+
+// First-run onboarding
+"onboarding.first.title" = "One small habit";
+"onboarding.first.body" = "Tap + to create a habit and choose when it repeats.";
+"onboarding.second.title" = "Mark it done";
+"onboarding.second.body" = "Check off today's habits. Your schedule stays in control.";
+"onboarding.third.title" = "Stay on track";
+"onboarding.third.body" = "Optional reminders help you come back. Adjust them any time.";
+"onboarding.skip" = "Skip";
+"onboarding.next" = "Next";
+"onboarding.start" = "Get started";

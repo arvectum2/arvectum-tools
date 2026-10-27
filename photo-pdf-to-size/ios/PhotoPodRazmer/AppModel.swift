@@ -51,9 +51,11 @@ final class AppModel: ObservableObject {
                 pdfSource = inspected
                 targetBytes = 1_000_000
                 if args.contains("--qa-pdf-result") {
+                    let limit: Int64 = args.contains("--store-screenshot-clean")
+                        ? 100_000 : 1_000_000
                     pdfResult = try pdfEngine.compressByBytes(
                         source: inspected,
-                        requestedMaximumBytes: 1_000_000
+                        requestedMaximumBytes: limit
                     )
                 }
             } catch {

@@ -104,14 +104,8 @@
 "Не получилось подготовить лист для печати." = "Não foi possível preparar a folha para impressão.";
 "Дополнительно" = "Avançado";
 "Реклама и конфиденциальность" = "Anúncios e privacidade";
-"Фото и PDF обрабатываются только на устройстве. Для показа рекламы используется Yandex Mobile Ads. Вы можете разрешить рекламному SDK обработку технических данных или отказаться. Геолокация отключена, разрешение App Tracking Transparency приложение не запрашивает." = "Fotografias e PDFs são processados apenas no seu dispositivo. O Yandex Mobile Ads é usado para exibir anúncios. O utilizador pode permitir ou recusar o processamento de dados técnicos pelo SDK de publicidade. A localização está desativada e a aplicação não solicita permissão de rastreamento pela Transparência no Rastreamento em Aplicações.";
 "Политика конфиденциальности" = "Política de Privacidade";
-"Разрешить для рекламы" = "Permitir para anúncios";
-"Отказаться" = "Recusar";
 "Реклама в приложении" = "Anúncios na aplicação";
-"Разрешить обработку данных" = "Permitir o processamento de dados";
-"Не разрешать обработку данных" = "Não permitir o processamento de dados";
-"«Фото и PDF под размер» бесплатно и поддерживается рекламой. Реклама будет показываться независимо от вашего выбора. Вы можете разрешить или не разрешить Yandex Mobile Ads обработку данных для рекламы. Если разрешите, iOS может отдельно спросить разрешение на отслеживание. При отказе реклама останется, но без доступа к рекламному идентификатору. Фото и PDF обрабатываются только на устройстве, геолокация отключена." = "A aplicação «Fotografia e PDF sob Medida» é gratuita e financiada por publicidade. Os anúncios são exibidos independentemente da sua escolha. O utilizador pode permitir ou recusar o processamento de dados para publicidade pelo Yandex Mobile Ads. Se permitir, o iOS poderá solicitar separadamente a permissão de rastreamento. Se recusar o rastreamento, os anúncios continuarão aparecendo, mas o identificador de publicidade ficará indisponível. Fotografias e PDFs são processados apenas no seu dispositivo, e a localização está desativada.";
 "Файлы" = "Arquivos";
 "Изменить настройки" = "Editar definições";
 "На главный экран" = "Início";
@@ -154,3 +148,19 @@
 "%1$d %2$@" = "%1$d %2$@";
 "%1$d×%2$d px · %3$@" = "%1$d×%2$d px · %3$@";
 "%1$@ · %2$@" = "%1$@ · %2$@";
+
+// New visa/passport size presets; human editorial review pending.
+"Шенген · виза (печать)" = "Schengen · visto (impressão)";
+"Китай · виза (digital)" = "China · visto (digital)";
+"Канада · паспорт (печать)" = "Canadá · passaporte (impressão)";
+"Канада требует оригинальную фотографию от фотографа. Изменённые или обрезанные снимки могут отклонить." = "O Canadá exige fotografias originais de estúdio. Fotografias cortadas ou alteradas podem ser recusadas.";
+
+// Contextual advertising privacy disclosure
+
+// Advertising permission and ATT prompts restored for user-approved tracking configuration.
+"Фото и PDF обрабатываются только на устройстве. Для показа рекламы используется Yandex Mobile Ads. Вы можете разрешить рекламному SDK обработку технических данных или отказаться. Геолокация отключена, разрешение App Tracking Transparency приложение не запрашивает." = "Fotografias e PDFs são processados apenas no seu dispositivo. O Yandex Mobile Ads é usado para exibir anúncios. O utilizador pode permitir ou recusar o processamento de dados técnicos pelo SDK de publicidade. A localização está desativada e a aplicação não solicita permissão de rastreamento pela Transparência no Rastreamento em Aplicações.";
+"Разрешить для рекламы" = "Permitir para anúncios";
+"Отказаться" = "Recusar";
+"Разрешить обработку данных" = "Permitir o processamento de dados";
+"Не разрешать обработку данных" = "Não permitir o processamento de dados";
+"«Фото и PDF под размер» бесплатно и поддерживается рекламой. Реклама будет показываться независимо от вашего выбора. Вы можете разрешить или не разрешить Yandex Mobile Ads обработку данных для рекламы. Если разрешите, iOS может отдельно спросить разрешение на отслеживание. При отказе реклама останется, но без доступа к рекламному идентификатору. Фото и PDF обрабатываются только на устройстве, геолокация отключена." = "A aplicação «Fotografia e PDF sob Medida» é gratuita e financiada por publicidade. Os anúncios são exibidos independentemente da sua escolha. O utilizador pode permitir ou recusar o processamento de dados para publicidade pelo Yandex Mobile Ads. Se permitir, o iOS poderá solicitar separadamente a permissão de rastreamento. Se recusar o rastreamento, os anúncios continuarão aparecendo, mas o identificador de publicidade ficará indisponível. Fotografias e PDFs são processados apenas no seu dispositivo, e a localização está desativada.";

@@ -13,6 +13,11 @@ struct HabitsByArvectumApp: App {
         let schema = HabitsSchema.current
         let arguments = ProcessInfo.processInfo.arguments
         let isUITesting = arguments.contains("--ui-testing")
+#if DEBUG
+        if isUITesting && arguments.contains("--reset-onboarding") {
+            UserDefaults.standard.removeObject(forKey: "chickmark.onboarding.completed.v1")
+        }
+#endif
 #if REVIEW_HANDOFF_QA
         // The independently signed QA bundle must never access production
         // CloudKit, WatchConnectivity, widgets, or HealthKit.

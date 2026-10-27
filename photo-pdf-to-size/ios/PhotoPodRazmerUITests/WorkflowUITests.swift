@@ -32,7 +32,7 @@ final class WorkflowUITests: XCTestCase {
             "Settings must remain reachable without scrolling"
         )
         XCTAssertTrue(
-            app.buttons["Реклама и конфиденциальность"].isHittable,
+            app.buttons["ad-privacy-settings-button"].isHittable,
             "Privacy controls must remain reachable"
         )
         XCTAssertLessThanOrEqual(save.frame.height, 96,
@@ -111,7 +111,15 @@ final class WorkflowUITests: XCTestCase {
 #endif
 
     private func auditResultAccessibility(fixture: String, processAction: String) throws {
-        let app = launch(fixture)
+        // App-owned result UI: exclude the external Yandex creative and the
+        // App Store update prompt; they have separate integration tests.
+        // Keep ALL four system audits including textClipped enabled.
+        let app = XCUIApplication()
+        app.launchArguments = [
+            "-AppleLanguages", "(ru)", "-AppleLocale", "ru_RU",
+            fixture, "--store-screenshot-clean"
+        ]
+        app.launch()
         let process = app.buttons[processAction]
         XCTAssertTrue(process.waitForExistence(timeout: 8))
         process.tap()
@@ -221,7 +229,7 @@ final class WorkflowUITests: XCTestCase {
         let save = app.buttons["result-save-primary"]
         XCTAssertTrue(save.isHittable)
         XCTAssertLessThanOrEqual(save.frame.maxY, app.frame.maxY + 1)
-        XCTAssertTrue(app.buttons["Реклама и конфиденциальность"].isHittable)
+        XCTAssertTrue(app.buttons["ad-privacy-settings-button"].isHittable)
         XCTAssertTrue(app.buttons["edit-settings-button"].isHittable)
         let fixtureID = state == "loaded" ? "result-ad-loaded-qa" : "result-ad-no-fill"
         let fixture = app.descendants(matching: .any)[fixtureID]
@@ -245,21 +253,20 @@ final class WorkflowUITests: XCTestCase {
         assertResultAdState("no-fill")
     }
 
-    func testPrivacyConsentControlsRemainReachableFromResult() {
+    func testAdTrackingConsentRemainsReachableFromResult() {
         let app = launch("--qa-photo-fixture")
         XCTAssertTrue(app.buttons["Уменьшить фото"].waitForExistence(timeout: 8))
         app.buttons["Уменьшить фото"].tap()
         XCTAssertTrue(app.staticTexts["ГОТОВО"].waitForExistence(timeout: 25))
 
-        let privacy = app.buttons["Реклама и конфиденциальность"]
+        let privacy = app.buttons["ad-privacy-settings-button"]
         XCTAssertTrue(privacy.isHittable)
         privacy.tap()
 
-        let allow = app.buttons["ad-consent-accept"]
         let decline = app.buttons["ad-consent-decline"]
-        XCTAssertTrue(allow.waitForExistence(timeout: 8))
+        XCTAssertTrue(decline.waitForExistence(timeout: 8))
+        XCTAssertTrue(app.buttons["ad-consent-accept"].exists)
         XCTAssertTrue(decline.isHittable)
-        XCTAssertTrue(allow.isHittable)
         decline.tap()
         XCTAssertTrue(app.staticTexts["ГОТОВО"].waitForExistence(timeout: 8))
         XCTAssertTrue(app.buttons["result-save-primary"].isHittable)

@@ -301,3 +301,14 @@
 "water.export.privacy" = "水分量はこの端末内に保存されます。保存時に、ChickMarkがAppleヘルスケアへの書き込み許可を求めます。";
 "water.export.error" = "水分の書き出しを利用できません";
 "water.export.storage.error" = "ChickMarkが水分の書き出し設定を読み込めません。変更は行われていません。アプリを開き直して再試行してください。";
+
+// First-run onboarding
+"onboarding.first.title" = "小さな習慣から";
+"onboarding.first.body" = "＋をタップして習慣を作り、繰り返すタイミングを設定します。";
+"onboarding.second.title" = "できたらチェック";
+"onboarding.second.body" = "今日の習慣をチェック。予定はいつでも変更できます。";
+"onboarding.third.title" = "無理なく続けよう";
+"onboarding.third.body" = "リマインダーは任意です。後から変更できます。";
+"onboarding.skip" = "スキップ";
+"onboarding.next" = "次へ";
+"onboarding.start" = "始める";

@@ -301,3 +301,14 @@
 "water.export.privacy" = "饮水量保存在此设备本地。保存时，ChickMark会请求Apple健康的写入权限。";
 "water.export.error" = "饮水导出不可用";
 "water.export.storage.error" = "ChickMark无法读取饮水导出设置。尚未修改任何内容。请重新打开应用后重试。";
+
+// First-run onboarding
+"onboarding.first.title" = "从一个小习惯开始";
+"onboarding.first.body" = "点按＋创建习惯，并设置重复时间。";
+"onboarding.second.title" = "完成后打勾";
+"onboarding.second.body" = "勾选今天完成的习惯。日程由你掌控。";
+"onboarding.third.title" = "保持节奏";
+"onboarding.third.body" = "提醒功能可选，之后随时可以修改。";
+"onboarding.skip" = "跳过";
+"onboarding.next" = "下一步";
+"onboarding.start" = "开始使用";

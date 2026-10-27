@@ -1,5 +1,13 @@
 # What? — Product Roadmap
 
+## 26.10.2026 · C8 — актуальный статус Ухвата
+
+- [x] 11 полных исходных языковых пакетов iPhone/Watch/widgets; PT-PT и zh-Hant native smoke PASS.
+- [x] Публичная RU 1.1.1; подписанный IPA прежней версии — только QA.
+- [ ] KO для iPhone/Watch/widgets, физическая Watch→iPhone ACK/фон/длительная запись, редактура/новый build и явный Apple approval.
+
+[Статус портфеля](../core/docs/LOCALIZATION_STATUS_2026-10-26.md).
+
 ## 26.10.2026 · Signed IPA QA
 
 - [x] Все 4 Store-профиля main/Watch/widget установлены, автоматический локальный экспорт IPA PASS, codesign/SHA-256 PASS.

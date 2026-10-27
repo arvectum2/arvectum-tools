@@ -33,7 +33,8 @@ struct ContentView: View {
         ZStack {
             Color.arvectumBackground.ignoresSafeArea()
 
-            VStack(spacing: 6) {
+            // Preserve the native ad viewport alongside the 44pt privacy footer.
+            VStack(spacing: 2) {
                 BrandHeader(
                     showHome: model.result != nil || model.pdfResult != nil,
                     onHome: model.backToSelection
@@ -76,7 +77,7 @@ struct ContentView: View {
                     }
                 } else {
                     ScrollView(showsIndicators: false) {
-                        VStack(spacing: 10) {
+                        VStack(spacing: 4) {
                             ArvectumAdaptiveContentStack(minimumPaneWidth: 300, spacing: 16, showTrailingInCompact: false) {
                                 Group {
                                     if model.inputKind == .photo {
@@ -111,8 +112,7 @@ struct ContentView: View {
                             // Keep the sticky CTA readable and within the
                             // viewport at AXXXL; don't constrain result body.
                             .dynamicTypeSize(dynamicTypeSize.isAccessibilitySize ? .accessibility1 : dynamicTypeSize)
-                            .lineLimit(1)
-                            .minimumScaleFactor(0.75)
+                            .fixedSize(horizontal: false, vertical: true)
                             .frame(maxWidth: .infinity)
                             .frame(minHeight: ArvectumDesignMetrics.preferredControlHeight)
                             .contentShape(Rectangle())
@@ -132,32 +132,38 @@ struct ContentView: View {
                         Label(tr("Файл сохранён"), systemImage: "checkmark.circle.fill")
                             .font(.footnote.weight(.semibold))
                             .foregroundStyle(Color.arvectumAccentText)
-                            .lineLimit(1)
-                            .minimumScaleFactor(0.85)
+                            .fixedSize(horizontal: false, vertical: true)
                             .frame(maxWidth: .infinity)
                             .accessibilityIdentifier("export-success")
                     }
                 }
 
                 HStack(spacing: 6) {
-                    if !dynamicTypeSize.isAccessibilitySize {
-                        Text("Arvectum.com")
-                        Text("·")
-                    }
-                    Button(tr("Реклама и конфиденциальность")) {
+                    // The brand already appears in the header; omit the
+                    // redundant website prefix, which stole space from the
+                    // privacy action at the simulated largest Dynamic Type.
+                    Button {
                         showingAdPrivacySettings = true
+                    } label: {
+                        Text(tr("Реклама в приложении"))
+                            .multilineTextAlignment(.center)
+                            .fixedSize(horizontal: false, vertical: true)
+                            .frame(minHeight: 44)
+                            .contentShape(Rectangle())
                     }
                     .buttonStyle(.plain)
+                    .accessibilityIdentifier("ad-privacy-settings-button")
+                    // Short visible title remains the spoken button label;
+                    // VoiceOver adds the destination's privacy details as a hint.
+                    .accessibilityHint(tr("Реклама и конфиденциальность"))
                 }
-                // Preserve the full privacy/advertising label rather than
-                // sacrificing it to a decorative website prefix at AXXXL.
+                // Keep the privacy control a full-size touch target at AXXXL.
                 .font(.caption.weight(.semibold))
                 .dynamicTypeSize(dynamicTypeSize.isAccessibilitySize ? .xxxLarge : dynamicTypeSize)
                 .foregroundStyle(.secondary)
-                .lineLimit(1)
-                .minimumScaleFactor(0.7)
                 .tracking(0.3)
-                .frame(minHeight: (model.result == nil && model.pdfResult == nil) ? 24 : 20)
+                .fixedSize(horizontal: false, vertical: true)
+                .frame(minHeight: 44)
                 .accessibilityElement(children: .contain)
                 .accessibilityIdentifier("app-footer")
             }
@@ -175,7 +181,9 @@ struct ContentView: View {
             }
         }
         .onAppear {
-            mainNativeAdSession.prefetch()
+            if !ProcessInfo.processInfo.arguments.contains("--store-screenshot-clean") {
+                mainNativeAdSession.prefetch()
+            }
         }
         .sheet(isPresented: $showingAdPrivacySettings) {
             AdConsentSheet { value in

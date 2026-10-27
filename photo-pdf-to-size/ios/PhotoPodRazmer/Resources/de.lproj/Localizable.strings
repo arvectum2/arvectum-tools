@@ -105,16 +105,10 @@
 "Дополнительно" = "Erweitert";
 
 "Реклама и конфиденциальность" = "Werbung & Datenschutz";
-"Фото и PDF обрабатываются только на устройстве. Для показа рекламы используется Yandex Mobile Ads. Вы можете разрешить рекламному SDK обработку технических данных или отказаться. Геолокация отключена, разрешение App Tracking Transparency приложение не запрашивает." = "Fotos und PDFs werden ausschließlich auf Ihrem Gerät verarbeitet. Für die Anzeige von Werbung verwenden wir Yandex Mobile Ads. Sie können der Verarbeitung technischer Daten durch das Werbe-SDK zustimmen oder sie ablehnen. Die Standortermittlung ist deaktiviert und die App fordert keine Berechtigung für App Tracking Transparency an.";
 "Политика конфиденциальности" = "Datenschutzerklärung";
-"Разрешить для рекламы" = "Für Werbung erlauben";
-"Отказаться" = "Ablehnen";
 
 
 "Реклама в приложении" = "Werbung in der App";
-"Разрешить обработку данных" = "Datenverarbeitung erlauben";
-"Не разрешать обработку данных" = "Datenverarbeitung nicht erlauben";
-"«Фото и PDF под размер» бесплатно и поддерживается рекламой. Реклама будет показываться независимо от вашего выбора. Вы можете разрешить или не разрешить Yandex Mobile Ads обработку данных для рекламы. Если разрешите, iOS может отдельно спросить разрешение на отслеживание. При отказе реклама останется, но без доступа к рекламному идентификатору. Фото и PDF обрабатываются только на устройстве, геолокация отключена." = "„Fotos und PDFs verkleinern“ ist kostenlos und wird durch Werbung finanziert. Werbung wird unabhängig von Ihrer Wahl angezeigt. Sie können der Verarbeitung von Daten zu Werbezwecken durch Yandex Mobile Ads zustimmen oder sie ablehnen. Bei Ihrer Zustimmung kann iOS Sie gesondert um Erlaubnis zum Tracking bitten. Lehnen Sie Tracking ab, bleibt die Werbung sichtbar, hat jedoch keinen Zugriff auf die Werbe-ID. Fotos und PDFs werden nur auf Ihrem Gerät verarbeitet; die Standortermittlung ist deaktiviert.";
 
 "Файлы" = "Dateien";
 
@@ -162,3 +156,19 @@
 "%1$d %2$@" = "%1$d %2$@";
 "%1$d×%2$d px · %3$@" = "%1$d×%2$d px · %3$@";
 "%1$@ · %2$@" = "%1$@ · %2$@";
+
+// New visa/passport size presets; human editorial review pending.
+"Шенген · виза (печать)" = "Schengen · Visum (Druck)";
+"Китай · виза (digital)" = "China · Visum (digital)";
+"Канада · паспорт (печать)" = "Kanada · Reisepass (Druck)";
+"Канада требует оригинальную фотографию от фотографа. Изменённые или обрезанные снимки могут отклонить." = "Kanada verlangt originale Studiofotos. Bearbeitete oder zugeschnittene Fotos können abgelehnt werden.";
+
+// Contextual advertising privacy disclosure
+
+// Advertising permission and ATT prompts restored for user-approved tracking configuration.
+"Фото и PDF обрабатываются только на устройстве. Для показа рекламы используется Yandex Mobile Ads. Вы можете разрешить рекламному SDK обработку технических данных или отказаться. Геолокация отключена, разрешение App Tracking Transparency приложение не запрашивает." = "Fotos und PDFs werden ausschließlich auf Ihrem Gerät verarbeitet. Für die Anzeige von Werbung verwenden wir Yandex Mobile Ads. Sie können der Verarbeitung technischer Daten durch das Werbe-SDK zustimmen oder sie ablehnen. Die Standortermittlung ist deaktiviert und die App fordert keine Berechtigung für App Tracking Transparency an.";
+"Разрешить для рекламы" = "Für Werbung erlauben";
+"Отказаться" = "Ablehnen";
+"Разрешить обработку данных" = "Datenverarbeitung erlauben";
+"Не разрешать обработку данных" = "Datenverarbeitung nicht erlauben";
+"«Фото и PDF под размер» бесплатно и поддерживается рекламой. Реклама будет показываться независимо от вашего выбора. Вы можете разрешить или не разрешить Yandex Mobile Ads обработку данных для рекламы. Если разрешите, iOS может отдельно спросить разрешение на отслеживание. При отказе реклама останется, но без доступа к рекламному идентификатору. Фото и PDF обрабатываются только на устройстве, геолокация отключена." = "„Fotos und PDFs verkleinern“ ist kostenlos und wird durch Werbung finanziert. Werbung wird unabhängig von Ihrer Wahl angezeigt. Sie können der Verarbeitung von Daten zu Werbezwecken durch Yandex Mobile Ads zustimmen oder sie ablehnen. Bei Ihrer Zustimmung kann iOS Sie gesondert um Erlaubnis zum Tracking bitten. Lehnen Sie Tracking ab, bleibt die Werbung sichtbar, hat jedoch keinen Zugriff auf die Werbe-ID. Fotos und PDFs werden nur auf Ihrem Gerät verarbeitet; die Standortermittlung ist deaktiviert.";

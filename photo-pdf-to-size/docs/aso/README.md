@@ -1,5 +1,20 @@
 # App Store ASO — global rollout (DRAFT, 2026-10-10)
 
+## 26 October 2026 — localization update
+
+- [x] Активный ASO-план 20 локалей: `th` вместо исключённого языкового варианта. Драфт `metadata-2026-10-26-review.json` и рабочая базовая ASO-заготовка согласованы по составу.
+- [ ] `th` UI ещё не готов; все новые метаданные требуют редакторской проверки. Архив `metadata-1.0.1.json` не использовать для новых публикаций.
+
+## 26 October 2026 — user-review response (staged, not published)
+
+- [x] New local App Store screenshot drafts for RU, en-US, en-GB — 12 true-size 1320×2868 JPEG composites, no Yandex Demo Ad, strong numeric differentiation between compress-to-KB and pixel-resize.
+- [x] Screen 03 shows China's new 354×472 px visa preset in the updated real iOS app; screen 04 shows **actual PDF 249 KB → 95 KB** result.
+- [x] 20 App Store localization metadata records updated in `metadata-2026-10-26-review.json` with English names, corrected promo copy. File validated; this is **not** an ASC update.
+- [ ] Final signed binary screenshots, human review of the new presets, privacy SDK tracking disclosures, accessibility claims and per-release approval.
+
+[Review response](REVIEW_FEEDBACK_ACTIONS_2026-10-26.md) · [Image manifest](screenshot-review-manifest-2026-10-26.json).
+
+
 **Product:** Arvectum Tools — «Фото и PDF под размер» · App Store ID `6816346084` · bundle `ru.arvectum.tools.tosize`.
 
 **Release gate: HOLD.** These changes are **not in App Store Connect** and have **not been published**. Keep them in the `feature/photo-pdf-global-aso` branch and combine with the upcoming code refactor. Do not submit for review or update live metadata without the owner's explicit decision.
@@ -18,7 +33,7 @@
 |---|---|---|
 | P0, launch with refactor | `ru`, `en-US`, `en-GB`, `es-MX`, `es-ES`, `pt-BR`, `de-DE`, `fr-FR` | Russian baseline, English global reach, Mexico/LatAm and Spain, Brazil, Germany, France. |
 | P1 | `en-AU`, `en-CA`, `pt-PT`, `it`, `hi`, `tr`, `id` | Country-specific English, Portugal/Italy, India, Turkey, Indonesia. |
-| P2 | `pl`, `ja`, `ko`, `uk`, `vi` | Additional indexed locales; review actual app-language support and market impressions first. |
+| P2 | `pl`, `ja`, `ko`, `th`, `vi` | Additional indexed locales; review actual app-language support and market impressions first. |
 
 **Important:** App Store metadata localization ≠ in-app UI localization. The current UI screenshot sources are Russian and English. Non-RU/EN screenshots have a localized headline but English app UI. For a polished release, localize the actual UI to P0 languages **during the refactor**, or explicitly choose to ship English UI to those countries. Do not advertise a fully translated app until it is implemented.
 

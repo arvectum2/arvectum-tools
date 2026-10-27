@@ -1,6 +1,6 @@
-# App Store — App Privacy for iOS 0.5.1
+# App Store — App Privacy for iOS 1.0.3 RC (15)
 
-Prepared for 0.5.1 (7) with Yandex Mobile Ads SDK 8.5.0. Re-verify against the final release archive before submission.
+Release-candidate configuration dated 26 October 2026; Yandex Mobile Ads 8.6.0. Existing App Store Connect Privacy Nutrition Label is preserved unchanged, including Device ID for tracking. Re-verify against final signed archive.
 
 ## App Store Connect answers
 
@@ -47,3 +47,8 @@ Before submission, the public page must explicitly cover Yandex Mobile Ads, the 
 ## Export compliance
 
 The app sets `ITSAppUsesNonExemptEncryption = false`.
+
+
+## Owner decision: preserve tracking and existing App Store privacy
+Historic advertising consent, stored allow/refuse, Yandex SDK consent and Apple ATT have been restored. On approval, ATT may request IDFA; without approval IDFA is unavailable. No precise location forwarding. Automatic advertising reporting was restored to its previous SDK behavior.
+The existing App Store declaration is to be left unchanged; false statements about tracking or collected Device ID are prohibited. Live web privacy policy returned HTTP 200 and describes Yandex, ATT/IDFA and location tracking choices.

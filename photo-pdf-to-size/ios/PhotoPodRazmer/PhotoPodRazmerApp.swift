@@ -4,17 +4,27 @@ import SwiftUI
 @main
 struct PhotoPodRazmerApp: App {
     @StateObject private var model = AppModel()
-    @State private var showingInitialAdConsent = AdConsentStore.storedConsent == nil
+    // Clean DEBUG screenshot capture does not show the first-run consent overlay.
+    @State private var showingInitialAdConsent =
+        AdConsentStore.storedConsent == nil &&
+        !ProcessInfo.processInfo.arguments.contains("--store-screenshot-clean")
 
     init() {
+#if DEBUG
+        if !ProcessInfo.processInfo.arguments.contains("--store-screenshot-clean") {
+            AdSDK.configure()
+        }
+#else
         AdSDK.configure()
+#endif
     }
 
     var body: some Scene {
         WindowGroup {
             ContentView()
                 .environmentObject(model)
-                .appStoreUpdatePrompt(enabled: !showingInitialAdConsent)
+                .appStoreUpdatePrompt(enabled: !showingInitialAdConsent &&
+                    !ProcessInfo.processInfo.arguments.contains("--store-screenshot-clean"))
                 .sheet(isPresented: $showingInitialAdConsent) {
                     AdConsentSheet { value in
                         AdSDK.setUserConsent(value)

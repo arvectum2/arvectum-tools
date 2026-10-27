@@ -20,21 +20,14 @@ struct BrandHeader: View {
 
             if showHome {
                 Button(action: onHome) {
-                    Group {
-                        if dynamicTypeSize.isAccessibilitySize {
-                            // In the 46pt header, icon-only avoids clipping
-                            // while the full action remains spoken by VoiceOver.
-                            Image(systemName: "house.fill")
-                                .font(.system(size: 22, weight: .semibold))
-                                .frame(width: 44, height: 44)
-                        } else {
-                            Label(tr("Фото и PDF под размер"), systemImage: "house.fill")
-                                .font(.headline.weight(.semibold))
-                                .lineLimit(1)
-                                .minimumScaleFactor(0.84)
-                        }
-                    }
-                    .foregroundStyle(.white)
+                    // The brand appears as a wordmark at the start of the header.
+                    // Repeating it inside a one-line Home button clipped as
+                    // Dynamic Type grew; the action stays 44pt and has a
+                    // complete VoiceOver label (see below).
+                    Image(systemName: "house.fill")
+                        .font(.system(size: 22, weight: .semibold))
+                        .frame(width: 44, height: 44)
+                        .foregroundStyle(.white)
                 }
                 .buttonStyle(.plain)
                 .accessibilityLabel(Text(tr("На главный экран")))

@@ -1,5 +1,8 @@
 # Arvectum Tools — план исполнения без Where?
 
+[**Текущая очередь 26.10.2026**](docs/ROADMAP_LIVE_2026-10-26.md) — Photo/PDF, ChickMark, Core, голосовая/физическая приёмка и App Store release gate.
+
+
 ## 26.10.2026 · Локальная подпись завершена
 
 - [x] 4/4 unsigned Release Simulator PASS; 4/4 device archives PASS; 4/4 App Store IPA exports/подписи PASS, SHA-256 записаны.
