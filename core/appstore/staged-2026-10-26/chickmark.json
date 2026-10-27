@@ -88,7 +88,7 @@
         "Tus hábitos, a la vista",
         "Crea un hábito en segundos",
         "Sigue tu progreso y rachas",
-        "Organiza horarios y avisos"
+        "Horarios y recordatorios"
       ],
       "keywords": "hábitos,seguimiento,rachas,metas,rutinas,recordatorios,lista,progreso,apple watch",
       "name": "ChickMark: hábitos",
@@ -217,7 +217,7 @@
     },
     "zh-Hans": {
       "promotionalText": "创建习惯，一键打卡，查看连续坚持天数与进度。支持提醒、小组件及Apple Watch。",
-      "description": "ChickMark让习惯管理更简单，不需要复杂的计划表。\n\n习惯打卡：创建习惯，完成后轻点记录，查看连续坚持天数和进度。\n灵活安排：按自己的节奏设置日期、目标与提醒。\nAPPLE WATCH与小组件：通过支持的功能查看或完成习惯。同步取决于设备设置与连接情况。\nAPPLE健康（可选）：获得授权后，可关联部分活动目标或导出饮水记录。\n隐私：习惯记录保存在设备本地，部分功能可使用Apple服务。免费应用可能显示广告，详情请查看隐私政策。",
+      "description": "ChickMark让习惯管理更简单，不需要复杂的计划表。\n\n习惯打卡：创建习惯，完成后轻点记录，查看连续坚持天数和进度。\n灵活安排：按自己的节奏设置日期、目标与提醒。\nAPPLE WATCH与小组件：通过支持的功能查看或完成习惯。同步取决于设备设置与连接情况。\nApple 健康（可选）：获得授权后，可关联部分活动目标或导出饮水记录。\n隐私：习惯记录保存在设备本地，部分功能可使用Apple服务。免费应用可能显示广告，详情请查看隐私政策。",
       "whatsNew": "改进首次使用引导和每日习惯入口，减少广告对使用体验的干扰。",
       "screenshots": [
         "每日习惯一目了然",
@@ -232,7 +232,7 @@
     },
     "zh-Hant": {
       "promotionalText": "建立習慣、一鍵打卡，查看連續達成天數與進度。支援提醒、小工具及Apple Watch。",
-      "description": "ChickMark讓習慣管理更簡單，不需要複雜的計畫表。\n\n習慣打卡：建立習慣，完成後輕點記錄，查看連續達成天數與進度。\n彈性安排：依自己的步調設定日期、目標與提醒。\nAPPLE WATCH與小工具：透過支援的功能查看或完成習慣。同步依裝置設定與連線狀況而定。\nAPPLE健康（選用）：取得授權後，可連結部分活動目標或匯出飲水紀錄。\n隱私：習慣紀錄儲存在裝置本機，部分功能可使用Apple服務。免費App可能顯示廣告，詳情請參閱隱私權政策。",
+      "description": "ChickMark讓習慣管理更簡單，不需要複雜的計畫表。\n\n習慣打卡：建立習慣，完成後輕點記錄，查看連續達成天數與進度。\n彈性安排：依自己的步調設定日期、目標與提醒。\nAPPLE WATCH與小工具：透過支援的功能查看或完成習慣。同步依裝置設定與連線狀況而定。\nApple 健康（選用）：取得授權後，可連結部分活動目標或匯出飲水紀錄。\n隱私：習慣紀錄儲存在裝置本機，部分功能可使用Apple服務。免費App可能顯示廣告，詳情請參閱隱私權政策。",
       "whatsNew": "改善初次使用引導與每日習慣入口，減少廣告對操作的干擾。",
       "screenshots": [
         "每日習慣一目了然",
