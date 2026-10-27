@@ -2,7 +2,7 @@
   "appId": "6817847111",
   "bundleId": "ru.arvectum.tools.notify",
   "stage": "DRAFT_NOT_UPLOADED",
-  "source": "curated EN/RU seeds and automated translations; not native-speaker approved",
+  "source": "curated EN/RU seeds, translation draft and C13 AI linguistic editorial overrides; not independently native-speaker approved",
   "created": "2026-10-26",
   "localeData": {
     "ru": {
@@ -81,168 +81,168 @@
       "privacyPolicyUrl": "https://arvectum.com/privacy.html"
     },
     "es-ES": {
-      "promotionalText": "Encuentre notificaciones guardadas de fuentes que configure en Atajos de Apple. Un archivo privado con capacidad de búsqueda en tu iPhone.",
-      "description": "PUSHKIN guarda un historial de búsqueda de notificaciones de aplicaciones que conectas a través de la automatización de accesos directos de Apple.\n\nCONFIGURACIÓN: elija aplicaciones compatibles y siga los pasos guiados de los accesos directos. iOS no permite que PUSHKIN capture notificaciones de cada aplicación automáticamente. Habilitas tus propias automatizaciones.\n\nBÚSQUEDA: explore las notificaciones guardadas y encuéntrelas por nombre de aplicación, título o mensaje. Copie, comparta y elimine entradas.\n\nPRIVADO: el contenido del mensaje permanece localmente en su iPhone. No se requiere una cuenta en la nube PUSHKIN.\n\nLa captura de una notificación depende de la automatización habilitada y de las capacidades de los accesos directos de iOS. PUSHKIN no es un registrador de notificaciones universal.",
-      "whatsNew": "Localización de interfaz mejorada y orientación para conectar aplicaciones a través de accesos directos. La captura de notificaciones sigue dependiendo de las automatizaciones habilitadas.",
+      "promotionalText": "Guarda y busca avisos con las automatizaciones que configures en Atajos. Los mensajes se conservan en tu iPhone.",
+      "description": "PUSHKIN guarda un historial de las notificaciones de apps que conectes mediante automatizaciones de Atajos de Apple.\n\nCONFIGURACIÓN: elige una app compatible y activa una automatización siguiendo las instrucciones. iOS no permite registrar automáticamente todas las notificaciones.\nBÚSQUEDA: encuentra mensajes guardados por app, título o texto. Cópialos, compártelos o elimínalos.\nPRIVACIDAD: los mensajes permanecen en el iPhone. No se necesita una cuenta PUSHKIN.\n\nEl guardado depende de las automatizaciones activadas y de las funciones de iOS. PUSHKIN no es un historial universal de notificaciones.",
+      "whatsNew": "Mejoras en los idiomas de la interfaz y en las instrucciones para configurar automatizaciones en Atajos.",
       "screenshots": [
-        "Encuentra notificaciones guardadas",
-        "Configurar mediante accesos directos de Apple",
-        "Privacidad y configuración",
-        "Buscar por aplicación o mensaje"
+        "Busca avisos guardados",
+        "Configura Atajos de Apple",
+        "Privacidad y ajustes",
+        "Busca por app o mensaje"
       ],
-      "keywords": "alertas,historial,archivo,notificación perdida,búsqueda,atajos,privado,local,registro",
+      "keywords": "notificaciones,historial,avisos,alertas,archivo,atajos,automatización,buscar,privacidad",
       "name": "PUSHKIN: historial de avisos",
       "subtitle": "Historial con Atajos",
       "privacyPolicyUrl": "https://arvectum.com/privacy.html"
     },
     "es-MX": {
-      "promotionalText": "Encuentre notificaciones guardadas de fuentes que configure en Atajos de Apple. Un archivo privado con capacidad de búsqueda en tu iPhone.",
-      "description": "PUSHKIN guarda un historial de búsqueda de notificaciones de aplicaciones que conectas a través de la automatización de accesos directos de Apple.\n\nCONFIGURACIÓN: elija aplicaciones compatibles y siga los pasos guiados de los accesos directos. iOS no permite que PUSHKIN capture notificaciones de cada aplicación automáticamente. Habilitas tus propias automatizaciones.\n\nBÚSQUEDA: explore las notificaciones guardadas y encuéntrelas por nombre de aplicación, título o mensaje. Copie, comparta y elimine entradas.\n\nPRIVADO: el contenido del mensaje permanece localmente en su iPhone. No se requiere una cuenta en la nube PUSHKIN.\n\nLa captura de una notificación depende de la automatización habilitada y de las capacidades de los accesos directos de iOS. PUSHKIN no es un registrador de notificaciones universal.",
-      "whatsNew": "Localización de interfaz mejorada y orientación para conectar aplicaciones a través de accesos directos. La captura de notificaciones sigue dependiendo de las automatizaciones habilitadas.",
+      "promotionalText": "Guarda y busca notificaciones con las automatizaciones que configures en Atajos. El historial permanece en tu iPhone.",
+      "description": "PUSHKIN guarda notificaciones de las apps que conectes con automatizaciones de Atajos de Apple.\n\nCONFIGURACIÓN: elige una app compatible y sigue las instrucciones. iOS no permite registrar automáticamente todas las notificaciones.\nBÚSQUEDA: encuentra mensajes guardados por app, título o texto. Cópialos, compártelos o elimínalos.\nPRIVACIDAD: los mensajes se guardan en el iPhone. No necesitas una cuenta PUSHKIN.\n\nEl guardado depende de las automatizaciones activadas y las funciones de iOS. PUSHKIN no es un historial universal de notificaciones.",
+      "whatsNew": "Mejoramos los textos de la interfaz y las instrucciones para conectar apps mediante Atajos.",
       "screenshots": [
-        "Encuentra notificaciones guardadas",
-        "Configurar mediante accesos directos de Apple",
+        "Encuentra avisos guardados",
+        "Configura Atajos de Apple",
         "Privacidad y configuración",
-        "Buscar por aplicación o mensaje"
+        "Busca por app o mensaje"
       ],
-      "keywords": "alertas,historial,archivo,notificación perdida,búsqueda,atajos,privado,local,registro",
+      "keywords": "notificaciones,historial,avisos,alertas,atajos,automatización,archivo,buscar,privacidad",
       "name": "PUSHKIN: historial de avisos",
       "subtitle": "Historial con Atajos",
       "privacyPolicyUrl": "https://arvectum.com/privacy.html"
     },
     "fr-FR": {
-      "promotionalText": "Recherchez les notifications enregistrées à partir des sources que vous configurez dans les raccourcis Apple. Une archive privée et consultable sur votre iPhone.",
-      "description": "PUSHKIN enregistre un historique consultable des notifications des applications que vous connectez via l'automatisation des raccourcis d'Apple.\n\nCONFIGURATION : choisissez les applications prises en charge et suivez les étapes guidées des raccourcis. iOS ne permet pas à PUSHKIN de capturer automatiquement les notifications de chaque application. Vous activez vos propres automatisations.\n\nRECHERCHE : parcourez les notifications enregistrées et recherchez-les par nom d'application, titre ou message. Copiez, partagez et supprimez des entrées.\n\nPRIVÉ : le contenu des messages reste localement sur votre iPhone. Aucun compte cloud POUCHKINE n'est requis.\n\nLa capture d'une notification dépend de l'automatisation activée et des capacités des raccourcis iOS. POUCHKINE n'est pas un enregistreur de notifications universel.",
-      "whatsNew": "Localisation de l'interface améliorée et conseils pour connecter des applications via des raccourcis. La capture des notifications continue de dépendre de vos automatisations activées.",
+      "promotionalText": "Retrouvez les notifications enregistrées par les automatisations que vous configurez dans Raccourcis. Tout reste sur iPhone.",
+      "description": "PUSHKIN enregistre les notifications des apps que vous reliez à des automatisations dans Raccourcis d’Apple.\n\nCONFIGURATION : choisissez une app compatible et activez une automatisation. iOS ne permet pas à PUSHKIN de récupérer automatiquement toutes les notifications.\nRECHERCHE : retrouvez les messages enregistrés par app, titre ou contenu. Copiez, partagez ou supprimez les entrées.\nCONFIDENTIALITÉ : le contenu reste sur votre iPhone, sans compte PUSHKIN.\n\nL’enregistrement dépend des automatisations activées et des possibilités d’iOS. PUSHKIN n’est pas un journal universel des notifications.",
+      "whatsNew": "Traductions affinées et instructions plus claires pour configurer les automatisations dans Raccourcis.",
       "screenshots": [
-        "Rechercher des notifications enregistrées",
-        "Configuration via les raccourcis Apple",
-        "Confidentialité et paramètres",
-        "Rechercher par application ou par message"
+        "Retrouvez vos notifications",
+        "Configurez Raccourcis",
+        "Confidentialité et réglages",
+        "Recherchez par app ou message"
       ],
-      "keywords": "alertes,historique,archives,manqué,notification,recherche,raccourcis,privé,local,journal",
+      "keywords": "notifications,historique,alertes,raccourcis,archives,recherche,automatisation,privé",
       "name": "PUSHKIN : notifications",
       "subtitle": "Historique via Raccourcis",
       "privacyPolicyUrl": "https://arvectum.com/privacy.html"
     },
     "de-DE": {
-      "promotionalText": "Suchen Sie nach Benachrichtigungen, die von Quellen gespeichert wurden, die Sie in Apple Shortcuts konfigurieren. Ein privates, durchsuchbares Archiv auf Ihrem iPhone.",
-      "description": "PUSHKIN speichert einen durchsuchbaren Verlauf der Benachrichtigungen von Apps, die Sie über die Shortcuts-Automatisierung von Apple verbinden.\n\nEINRICHTEN: Wählen Sie unterstützte Apps aus und befolgen Sie die geführten Verknüpfungsschritte. iOS erlaubt PUSHKIN nicht, Benachrichtigungen von jeder App automatisch zu erfassen. Sie aktivieren Ihre eigenen Automatisierungen.\n\nSUCHE: Durchsuchen Sie gespeicherte Benachrichtigungen und finden Sie sie nach App-Name, Titel oder Nachricht. Einträge kopieren, teilen und löschen.\n\nPRIVAT: Der Nachrichteninhalt bleibt lokal auf Ihrem iPhone. Es ist kein PUSHKIN-Cloud-Konto erforderlich.\n\nDas Erfassen einer Benachrichtigung hängt von der aktivierten Automatisierung und den Funktionen von iOS-Verknüpfungen ab. PUSHKIN ist kein universeller Benachrichtigungslogger.",
-      "whatsNew": "Verbesserte Schnittstellenlokalisierung und Anleitung zum Verbinden von Apps über Verknüpfungen. Die Benachrichtigungserfassung hängt weiterhin von Ihren aktivierten Automatisierungen ab.",
+      "promotionalText": "Durchsuchen Sie Mitteilungen, die Ihre eigenen Automationen in der App Kurzbefehle gespeichert haben – lokal auf dem iPhone.",
+      "description": "PUSHKIN legt Mitteilungen unterstützter Apps, die Sie über Apples Kurzbefehle-Automationen verbinden, in einem durchsuchbaren Verlauf ab.\n\nEINRICHTUNG: Wählen Sie eine unterstützte App und aktivieren Sie die passende Automation. iOS erlaubt PUSHKIN nicht, alle Mitteilungen automatisch zu erfassen.\nSUCHE: Finden Sie gespeicherte Nachrichten nach App, Titel oder Text. Kopieren, teilen oder löschen Sie Einträge.\nDATENSCHUTZ: Nachrichten bleiben auf Ihrem iPhone. Ein PUSHKIN-Konto ist nicht nötig.\n\nWas gespeichert werden kann, hängt von der Automation und den iOS-Funktionen ab. PUSHKIN ist kein vollständiges Mitteilungsprotokoll.",
+      "whatsNew": "Überarbeitete Übersetzungen und verständlichere Anleitungen für Automationen in Kurzbefehle.",
       "screenshots": [
-        "Suchen Sie nach gespeicherten Benachrichtigungen",
-        "Einrichtung über Apple Shortcuts",
+        "Gespeicherte Mitteilungen finden",
+        "Kurzbefehle einrichten",
         "Datenschutz und Einstellungen",
-        "Suche per App oder Nachricht"
+        "Nach App oder Nachricht suchen"
       ],
-      "keywords": "Warnungen,Verlauf,Archiv,verpasst,Benachrichtigung,Suche,Verknüpfungen,privat,lokal,Protokoll",
+      "keywords": "Mitteilungen,Verlauf,Benachrichtigungen,Archiv,Kurzbefehle,Suche,Automationen,privat",
       "name": "PUSHKIN: Mitteilungen",
-      "subtitle": "Verlauf mit Kurzbefehlen",
+      "subtitle": "Verlauf per Kurzbefehle",
       "privacyPolicyUrl": "https://arvectum.com/privacy.html"
     },
     "it": {
-      "promotionalText": "Trova le notifiche salvate dalle fonti che configuri nelle Scorciatoie Apple. Un archivio privato e consultabile sul tuo iPhone.",
-      "description": "PUSHKIN salva una cronologia ricercabile delle notifiche dalle app che ti connetti tramite l'automazione delle scorciatoie di Apple.\n\nCONFIGURAZIONE: scegli le app supportate e segui i passaggi guidati delle scorciatoie. iOS non consente a PUSHKIN di acquisire automaticamente le notifiche da ogni app. Abilita le tue automazioni.\n\nCERCA: sfoglia le notifiche salvate e trovale per nome dell'app, titolo o messaggio. Copia, condividi ed elimina le voci.\n\nPRIVATO: il contenuto del messaggio rimane localmente sul tuo iPhone. Non è richiesto alcun account cloud PUSHKIN.\n\nL'acquisizione di una notifica dipende dall'automazione abilitata e dalle funzionalità dei collegamenti iOS. PUSHKIN non è un registratore di notifiche universale.",
-      "whatsNew": "Localizzazione dell'interfaccia migliorata e guida per la connessione di app tramite scorciatoie. L'acquisizione delle notifiche continua a dipendere dalle automazioni abilitate.",
+      "promotionalText": "Ritrova le notifiche salvate dalle automazioni che configuri in Comandi Rapidi. Archivio consultabile sul tuo iPhone.",
+      "description": "PUSHKIN conserva una cronologia ricercabile delle notifiche delle app collegate tramite le automazioni di Comandi Rapidi di Apple.\n\nCONFIGURAZIONE: scegli un’app supportata e attiva un’automazione. iOS non consente a PUSHKIN di acquisire automaticamente tutte le notifiche.\nRICERCA: trova messaggi per app, titolo o testo. Copia, condividi o elimina le voci salvate.\nPRIVACY: i messaggi restano sul tuo iPhone. Non serve un account PUSHKIN.\n\nIl salvataggio dipende dalle automazioni abilitate e dalle funzioni di iOS. PUSHKIN non è un registro universale delle notifiche.",
+      "whatsNew": "Traduzioni migliorate e istruzioni più chiare per collegare le app con Comandi Rapidi.",
       "screenshots": [
         "Trova le notifiche salvate",
-        "Configurazione tramite scorciatoie Apple",
+        "Configura Comandi Rapidi",
         "Privacy e impostazioni",
         "Cerca per app o messaggio"
       ],
-      "keywords": "avvisi,cronologia,archivio,persi,notifica,ricerca,scorciatoie,privato,locale,registro",
+      "keywords": "notifiche,cronologia,archivio,avvisi,ricerca,comandi rapidi,automazioni,privacy",
       "name": "PUSHKIN: notifiche",
-      "subtitle": "Cronologia con Comandi",
+      "subtitle": "Cronologia con Comandi Rapidi",
       "privacyPolicyUrl": "https://arvectum.com/privacy.html"
     },
     "ja": {
-      "promotionalText": "Apple ショートカットで構成したソースから保存された通知を見つけます。 iPhone 上のプライベートで検索可能なアーカイブ。",
-      "description": "PUSHKIN は、Apple のショートカット オートメーションを通じて接続したアプリからの通知の検索可能な履歴を保存します。\n\nセットアップ: サポートされているアプリを選択し、ガイド付きのショートカット手順に従います。 iOS では、PUSHKIN がすべてのアプリからの通知を自動的にキャプチャすることはできません。独自の自動化を有効にします。\n\n検索: 保存された通知を参照し、アプリ名、タイトル、またはメッセージで検索します。エントリをコピー、共有、削除します。\n\nプライベート: メッセージの内容は iPhone 上にローカルに残ります。 PUSHKIN クラウド アカウントは必要ありません。\n\n通知のキャプチャは、有効な自動化と iOS ショートカットの機能によって異なります。 PUSHKIN は汎用通知ロガーではありません。",
-      "whatsNew": "インターフェースのローカリゼーションと、ショートカットを介してアプリを接続するためのガイダンスが改善されました。通知のキャプチャは、引き続き有効な自動化に依存します。",
+      "promotionalText": "ショートカットのオートメーションで保存した通知をiPhone上で検索。メッセージは端末内に保存されます。",
+      "description": "PUSHKINは、Appleの「ショートカット」で設定したオートメーションを通じて、対応アプリの通知を保存・検索します。\n\n設定：対応アプリを選び、オートメーションを有効にします。iOSの制限により、すべての通知を自動取得することはできません。\n検索：通知をアプリ名、タイトル、本文から探せます。コピー・共有・削除も可能です。\nプライバシー：通知の本文はiPhone内に保存され、PUSHKINのアカウントは不要です。\n\n保存できる通知はオートメーションとiOSの機能に依存します。すべての通知を記録するアプリではありません。",
+      "whatsNew": "日本語表現とショートカットのオートメーション設定手順を改善しました。",
       "screenshots": [
-        "保存された通知を見つける",
-        "Apple ショートカット経由でセットアップする",
+        "保存した通知を探す",
+        "ショートカットで設定",
         "プライバシーと設定",
-        "アプリまたはメッセージで検索"
+        "アプリ名や本文で検索"
       ],
-      "keywords": "アラート,履歴,アーカイブ,見逃した,通知,検索,ショートカット,ローカル",
+      "keywords": "通知,履歴,通知履歴,検索,保存,ショートカット,自動化,プライバシー",
       "name": "PUSHKIN: 通知履歴",
       "subtitle": "ショートカットで通知を保存",
       "privacyPolicyUrl": "https://arvectum.com/privacy.html"
     },
     "ko": {
-      "promotionalText": "Apple 단축어에서 구성한 소스에서 저장된 알림을 찾아보세요. iPhone에 검색 가능한 비공개 아카이브입니다.",
-      "description": "PUSHKIN은 Apple의 바로가기 자동화를 통해 연결한 앱에서 검색 가능한 알림 기록을 저장합니다.\n\n설정: 지원되는 앱을 선택하고 안내되는 바로가기 단계를 따르세요. iOS에서는 PUSHKIN이 모든 앱의 알림을 자동으로 캡처하는 것을 허용하지 않습니다. 자신만의 자동화를 활성화할 수 있습니다.\n\n검색: 저장된 알림을 찾아보고 앱 이름, 제목 또는 메시지로 찾으세요. 항목을 복사, 공유 및 삭제합니다.\n\n비공개: 메시지 내용은 iPhone에 로컬로 유지됩니다. PUSHKIN 클라우드 계정이 필요하지 않습니다.\n\n알림 캡처는 활성화된 자동화와 iOS 바로가기 기능에 따라 달라집니다. PUSHKIN은 범용 알림 로거가 아닙니다.",
-      "whatsNew": "바로가기를 통해 앱을 연결하기 위한 인터페이스 현지화 및 지침이 개선되었습니다. 알림 캡처는 활성화된 자동화에 따라 계속해서 달라집니다.",
+      "promotionalText": "Apple 단축어 자동화로 저장한 알림을 iPhone에서 검색하세요. 기록은 기기에 보관되며 계정은 필요하지 않습니다.",
+      "description": "PUSHKIN은 Apple 단축어 자동화로 연결한 앱의 알림을 저장하고 검색할 수 있도록 도와줍니다.\n\n설정: 지원되는 앱을 선택하고 안내에 따라 자동화를 활성화하세요. iOS 제한으로 모든 앱의 알림을 자동 수집할 수는 없습니다.\n검색: 앱 이름, 제목, 메시지 내용으로 저장된 알림을 찾고 복사, 공유, 삭제할 수 있습니다.\n개인정보 보호: 알림 내용은 iPhone에 저장됩니다. PUSHKIN 계정은 필요하지 않습니다.\n\n알림 저장 여부는 자동화와 iOS 단축어 지원 범위에 따라 달라집니다. 모든 알림을 기록하는 시스템 로그가 아닙니다.",
+      "whatsNew": "인터페이스 번역과 Apple 단축어 자동화 설정 안내를 개선했습니다.",
       "screenshots": [
-        "저장된 알림 찾기",
-        "Apple 바로가기를 통해 설정",
+        "저장한 알림 확인",
+        "Apple 단축어로 연결",
         "개인정보 보호 및 설정",
-        "앱 또는 메시지로 검색"
+        "앱과 메시지로 검색"
       ],
-      "keywords": "알림,기록,보관함,놓친 알림,검색,단축어,비공개,로컬,로그",
+      "keywords": "알림,알림기록,기록,검색,단축어,자동화,보관,개인정보,메시지",
       "name": "PUSHKIN: 알림 기록",
       "subtitle": "단축어로 알림 저장",
       "privacyPolicyUrl": "https://arvectum.com/privacy.html"
     },
     "pt-BR": {
-      "promotionalText": "Encontre notificações salvas de fontes configuradas nos atalhos da Apple. Um arquivo privado e pesquisável no seu iPhone.",
-      "description": "PUSHKIN salva um histórico pesquisável de notificações de aplicativos que você conecta por meio da automação de atalhos da Apple.\n\nCONFIGURAÇÃO: escolha aplicativos compatíveis e siga as etapas guiadas dos atalhos. O iOS não permite que o PUSHKIN capture notificações de todos os aplicativos automaticamente. Você habilita suas próprias automações.\n\nPESQUISA: navegue pelas notificações salvas e encontre-as por nome do aplicativo, título ou mensagem. Copie, compartilhe e exclua entradas.\n\nPRIVADO: o conteúdo da mensagem permanece localmente no seu iPhone. Nenhuma conta na nuvem PUSHKIN é necessária.\n\nA captura de uma notificação depende da automação habilitada e dos recursos dos atalhos do iOS. PUSHKIN não é um registrador de notificação universal.",
-      "whatsNew": "Localização aprimorada da interface e orientação para conectar aplicativos por meio de atalhos. A captura de notificações continua a depender das automações habilitadas.",
+      "promotionalText": "Encontre notificações salvas pelas automações que você configura no app Atalhos. Histórico pesquisável no iPhone.",
+      "description": "O PUSHKIN mantém um histórico pesquisável das notificações de apps conectados por automações no app Atalhos da Apple.\n\nCONFIGURAÇÃO: escolha um app compatível e ative uma automação. O iOS não permite capturar automaticamente todas as notificações.\nBUSCA: encontre mensagens por app, título ou conteúdo. Copie, compartilhe ou exclua registros.\nPRIVACIDADE: as mensagens ficam no iPhone, sem conta PUSHKIN.\n\nO registro depende das automações ativadas e dos recursos do iOS. O PUSHKIN não é um histórico universal de notificações.",
+      "whatsNew": "Traduções revisadas e instruções mais claras para conectar apps usando Atalhos.",
       "screenshots": [
         "Encontre notificações salvas",
-        "Configurar através dos atalhos da Apple",
-        "Privacidade e configurações",
-        "Pesquise por aplicativo ou mensagem"
+        "Configure o app Atalhos",
+        "Privacidade e ajustes",
+        "Busque por app ou mensagem"
       ],
-      "keywords": "alertas,histórico,arquivo,perdido,notificação,pesquisa,atalhos,privado,local,registro",
+      "keywords": "notificações,histórico,alertas,atalhos,automação,busca,arquivo,privacidade,mensagens",
       "name": "PUSHKIN: notificações",
       "subtitle": "Histórico com Atalhos",
       "privacyPolicyUrl": "https://arvectum.com/privacy.html"
     },
     "pt-PT": {
-      "promotionalText": "Encontre notificações guardadas de fontes configuradas nos atalhos da Apple. Um ficheiro privado e pesquisável no seu iPhone.",
-      "description": "O PUSHKIN guarda um histórico pesquisável de notificações de aplicações que liga através da automatização de atalhos da Apple.\n\nCONFIGURAÇÃO: escolha aplicações compatíveis e siga os passos guiados dos atalhos. O iOS não permite que o PUSHKIN capte notificações de todas as aplicações automaticamente. Você ativa as suas próprias automações.\n\nPESQUISA: navegue pelas notificações guardadas e encontre-as por nome da aplicação, título ou mensagem. Copie, partilhe e apague entradas.\n\nPRIVADO: o conteúdo da mensagem permanece localmente no seu iPhone. Não é necessária nenhuma conta na nuvem PUSHKIN.\n\nA captura de uma notificação depende da automatização ativada e das funcionalidades dos atalhos do iOS. O PUSHKIN não é um registo de notificação universal.",
-      "whatsNew": "Localização melhorada da interface e orientação para ligar aplicações através de atalhos. A captura de notificações continua a depender das automatizações ativadas.",
+      "promotionalText": "Encontre notificações guardadas pelas automatizações que configura na app Atalhos. Histórico pesquisável no iPhone.",
+      "description": "O PUSHKIN guarda um histórico pesquisável das notificações de aplicações ligadas através de automatizações na app Atalhos da Apple.\n\nCONFIGURAÇÃO: escolha uma aplicação compatível e ative uma automatização. O iOS não permite registar automaticamente todas as notificações.\nPESQUISA: encontre mensagens por aplicação, título ou conteúdo. Copie, partilhe ou elimine registos.\nPRIVACIDADE: as mensagens ficam no iPhone. Não precisa de conta PUSHKIN.\n\nO registo depende das automatizações ativadas e das funcionalidades do iOS. O PUSHKIN não é um histórico universal de notificações.",
+      "whatsNew": "Traduções revistas e instruções mais claras para ligar aplicações através da app Atalhos.",
       "screenshots": [
         "Encontre notificações guardadas",
-        "Configurar através dos atalhos da Apple",
+        "Configure a app Atalhos",
         "Privacidade e definições",
-        "Pesquisar por aplicação ou mensagem"
+        "Pesquise por app ou mensagem"
       ],
-      "keywords": "alertas,histórico,ficheiro,perdido,notificação,pesquisa,atalhos,privado,local,registo",
+      "keywords": "notificações,histórico,alertas,atalhos,automatização,pesquisa,arquivo,privacidade",
       "name": "PUSHKIN: notificações",
       "subtitle": "Histórico com Atalhos",
       "privacyPolicyUrl": "https://arvectum.com/privacy.html"
     },
     "zh-Hans": {
-      "promotionalText": "查找从您在 Apple 快捷方式中配置的来源保存的通知。 iPhone 上的私人、可搜索存档。",
-      "description": "PUSHKIN 会保存您通过 Apple 快捷方式自动化连接的应用程序的通知的可搜索历史记录。\n\n设置：选择支持的应用程序并按照指导的快捷方式步骤操作。 iOS 不允许 PUSHKIN 自动捕获每个应用程序的通知。您启用自己的自动化。\n\n搜索：浏览保存的通知并按应用程序名称、标题或消息查找它们。复制、共享和删除条目。\n\n私人：消息内容保留在您的 iPhone 本地。无需 PUSHKIN 云帐户。\n\n捕获通知取决于启用的自动化和 iOS 快捷方式的功能。 PUSHKIN 不是通用通知记录器。",
-      "whatsNew": "改进了界面本地化和通过快捷方式连接应用程序的指导。通知捕获继续取决于您启用的自动化。",
+      "promotionalText": "通过苹果「快捷指令」自动化保存通知，并在iPhone上搜索。通知内容保留在设备本地。",
+      "description": "PUSHKIN 帮你保存和搜索通过苹果「快捷指令」自动化连接的应用通知。\n\n设置：选择支持的应用，按指引开启自动化。受iOS限制，PUSHKIN无法自动读取所有应用的通知。\n搜索：按应用名称、标题或消息内容查找通知，也能复制、分享或删除。\n隐私：消息内容保存在iPhone本地，无需PUSHKIN账户。\n\n可保存的通知取决于启用的自动化及iOS功能。PUSHKIN并非记录全部系统通知的工具。",
+      "whatsNew": "优化了界面文案和「快捷指令」自动化的设置说明。",
       "screenshots": [
-        "查找已保存的通知",
-        "通过 Apple 快捷方式设置",
-        "隐私和设置",
-        "按应用程序或消息搜索"
+        "查看已保存通知",
+        "设置快捷指令自动化",
+        "隐私与设置",
+        "按应用或消息搜索"
       ],
-      "keywords": "警报,历史记录,存档,错过,通知,搜索,快捷方式,私人,本地,日志",
+      "keywords": "通知,通知记录,历史,搜索,快捷指令,自动化,消息,本地,隐私",
       "name": "PUSHKIN: 通知记录",
-      "subtitle": "用快捷指令保存通知",
+      "subtitle": "通过快捷指令保存通知",
       "privacyPolicyUrl": "https://arvectum.com/privacy.html"
     },
     "zh-Hant": {
-      "promotionalText": "尋找從您在 Apple 快捷方式中配置的來源所儲存的通知。 iPhone 上的私人、可搜尋存檔。",
-      "description": "PUSHKIN 會儲存您透過 Apple 捷徑自動化連接的應用程式的通知的可搜尋記錄。\n\n設定：選擇支援的應用程式並按照指導的捷徑步驟操作。 iOS 不允許 PUSHKIN 自動擷取每個應用程式的通知。您啟用自己的自動化。\n\n搜尋：瀏覽已儲存的通知並按應用程式名稱、標題或訊息查找它們。複製、分享和刪除條目。\n\n私人：訊息內容保留在您的 iPhone 本地。無需 PUSHKIN 雲端帳戶。\n\n捕獲通知取決於啟用的自動化和 iOS 捷徑的功能。 PUSHKIN 不是通用通知記錄器。",
-      "whatsNew": "改進了介面本地化和透過快捷方式連接應用程式的指導。通知捕獲繼續取決於您啟用的自動化。",
+      "promotionalText": "透過Apple「捷徑」自動化儲存通知，再於iPhone上搜尋。通知內容保留在裝置上。",
+      "description": "PUSHKIN 可協助你儲存並搜尋透過Apple「捷徑」自動化連結的App通知。\n\n設定：選擇支援的App，按指引啟用自動化。受iOS限制，無法自動讀取所有App通知。\n搜尋：依App名稱、標題或訊息內容尋找通知，也可複製、分享或刪除。\n隱私：訊息內容儲存在iPhone本機，無須註冊PUSHKIN帳號。\n\n可儲存的通知取決於已啟用的自動化及iOS功能。PUSHKIN並非記錄所有系統通知的工具。",
+      "whatsNew": "改善介面文案與Apple「捷徑」自動化的設定說明。",
       "screenshots": [
-        "尋找已儲存的通知",
-        "透過 Apple 快捷方式設定",
-        "隱私和設定",
-        "按應用程式或訊息搜尋"
+        "查看已儲存通知",
+        "設定捷徑自動化",
+        "隱私與設定",
+        "依App或訊息搜尋"
       ],
-      "keywords": "警報,歷史記錄,存檔,錯過,通知,搜尋,捷徑,私人,本地,日誌",
+      "keywords": "通知,通知紀錄,歷史,搜尋,捷徑,自動化,訊息,本機,隱私",
       "name": "PUSHKIN: 通知記錄",
-      "subtitle": "透過捷徑保存通知",
+      "subtitle": "透過捷徑儲存通知",
       "privacyPolicyUrl": "https://arvectum.com/privacy.html"
     }
   }

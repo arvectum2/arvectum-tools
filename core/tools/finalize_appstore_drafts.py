@@ -37,3 +37,7 @@ for app in ('pushkin','what','chickmark','photo'):
    v['keywords']=v['keywords'].replace('부재중','놓친 알림').replace('바로가기','단축어')
  p.write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n')
  print('TERMS',app)
+# Reapply C13 manual language review after every machine-generated refresh.
+# Overrides must win over the translation cache and mechanical substitutions.
+import runpy
+runpy.run_path(str(Path(__file__).with_name("apply_appstore_editorial.py")),run_name="__main__")

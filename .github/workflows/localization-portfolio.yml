@@ -44,5 +44,7 @@ jobs:
           python3 core/tools/audit_editorial_all_locales.py
       - name: Verify local-only ASO gallery and all 448 links
         run: python3 -m unittest discover -s core/tests -p test_appstore_review_gallery.py -q
+      - name: Guard editorial ASO copy and product-limit caveats
+        run: python3 -m unittest discover -s core/tests -p test_appstore_linguistic_review.py -q
       - name: Test shared locale registry and English fallback
         run: python3 -m unittest discover -s core/tests -p test_localization_portfolio.py -v

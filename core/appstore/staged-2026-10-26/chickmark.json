@@ -2,7 +2,7 @@
   "appId": "6818711298",
   "bundleId": "ru.arvectum.tools.habits",
   "stage": "DRAFT_NOT_UPLOADED",
-  "source": "curated EN/RU seeds and automated translations; not native-speaker approved",
+  "source": "curated EN/RU seeds, translation draft and C13 AI linguistic editorial overrides; not independently native-speaker approved",
   "created": "2026-10-26",
   "localeData": {
     "ru": {
@@ -81,166 +81,166 @@
       "privacyPolicyUrl": "https://arvectum.com/privacy.html"
     },
     "es-ES": {
-      "promotionalText": "Desarrolle un hábito a la vez. Regístrese rápidamente, vea rachas y use recordatorios, widgets y Apple Watch.",
-      "description": "Desarrolle hábitos sin un planificador complicado. ChickMark mantiene sus registros diarios a mano.\n\nREGISTRO CON UN TOQUE: cree un hábito, márquelo como completo y siga sus rachas y progreso.\n\nRUTINAS FLEXIBLES: seleccione horarios, recordatorios y objetivos que funcionen para usted.\n\nRELOJ Y WIDGETS: vea el progreso y los hábitos completos desde Apple Watch y superficies de widgets compatibles. La sincronización depende de la configuración y la conectividad del dispositivo.\n\nAPPLE HEALTH OPCIONAL: conecte objetivos de actividad seleccionados o habilite la exportación de ingesta de agua cuando permita explícitamente el acceso.\n\nPRIVACIDAD: los hábitos se guardan localmente, con servicios Apple opcionales para funciones compatibles. La aplicación gratuita puede mostrar anuncios. Lea la política de privacidad para conocer los detalles de los datos publicitarios.",
-      "whatsNew": "Orientación refinada de primera ejecución, acceso más fácil a los hábitos diarios y una ubicación de anuncios nativos menos intrusiva.",
+      "promotionalText": "Crea hábitos, márcalos con un toque y sigue tus rachas. Añade recordatorios, widgets y Apple Watch a tu rutina.",
+      "description": "ChickMark te ayuda a mantener tus hábitos sin complicados planificadores.\n\nSEGUIMIENTO: crea hábitos, registra tus avances y consulta las rachas de días consecutivos.\nHORARIOS: elige días, objetivos y recordatorios que encajen con tu rutina.\nAPPLE WATCH Y WIDGETS: consulta y marca hábitos desde las funciones compatibles. La sincronización depende de la conexión y los ajustes de tus dispositivos.\nAPPLE HEALTH (OPCIONAL): vincula determinadas metas de actividad o exporta registros de agua tras conceder permiso.\nPRIVACIDAD: los hábitos se guardan en el dispositivo; algunas funciones pueden usar servicios de Apple. La app gratuita puede mostrar anuncios. Consulta la política de privacidad para conocer los datos publicitarios.",
+      "whatsNew": "Mejoras en la configuración inicial, el acceso a los hábitos diarios y la ubicación de los anuncios.",
       "screenshots": [
-        "Tus hábitos, una simple vista",
+        "Tus hábitos, a la vista",
         "Crea un hábito en segundos",
-        "Ver progreso y rachas",
-        "Establecer horarios y recordatorios"
+        "Sigue tu progreso y rachas",
+        "Organiza horarios y avisos"
       ],
-      "keywords": "hábitos,rutinas,rachas,metas,planificador,diario,lista de verificación,recordatorios,progreso,ver",
+      "keywords": "hábitos,seguimiento,rachas,metas,rutinas,recordatorios,lista,progreso,apple watch",
       "name": "ChickMark: hábitos",
       "subtitle": "Hábitos, rachas y avisos",
       "privacyPolicyUrl": "https://arvectum.com/privacy.html"
     },
     "es-MX": {
-      "promotionalText": "Desarrolle un hábito a la vez. Regístrese rápidamente, vea rachas y use recordatorios, widgets y Apple Watch.",
-      "description": "Desarrolle hábitos sin un planificador complicado. ChickMark mantiene sus registros diarios a mano.\n\nREGISTRO CON UN TOQUE: cree un hábito, márquelo como completo y siga sus rachas y progreso.\n\nRUTINAS FLEXIBLES: seleccione horarios, recordatorios y objetivos que funcionen para usted.\n\nRELOJ Y WIDGETS: vea el progreso y los hábitos completos desde Apple Watch y superficies de widgets compatibles. La sincronización depende de la configuración y la conectividad del dispositivo.\n\nAPPLE HEALTH OPCIONAL: conecte objetivos de actividad seleccionados o habilite la exportación de ingesta de agua cuando permita explícitamente el acceso.\n\nPRIVACIDAD: los hábitos se guardan localmente, con servicios Apple opcionales para funciones compatibles. La aplicación gratuita puede mostrar anuncios. Lea la política de privacidad para conocer los detalles de los datos publicitarios.",
-      "whatsNew": "Orientación refinada de primera ejecución, acceso más fácil a los hábitos diarios y una ubicación de anuncios nativos menos intrusiva.",
+      "promotionalText": "Crea hábitos, márcalos con un toque y sigue tus rachas. Usa recordatorios, widgets y Apple Watch cada día.",
+      "description": "ChickMark te ayuda a formar hábitos sin tener que usar un planificador complicado.\n\nSEGUIMIENTO: crea hábitos, registra avances y revisa tus rachas de días consecutivos.\nHORARIOS: configura días, metas y recordatorios a tu ritmo.\nAPPLE WATCH Y WIDGETS: revisa y marca hábitos en las funciones compatibles. La sincronización depende de la conexión y la configuración de tus dispositivos.\nAPPLE HEALTH (OPCIONAL): conecta algunas metas de actividad o exporta registros de agua con tu permiso.\nPRIVACIDAD: los hábitos se guardan en tu dispositivo y algunas funciones usan servicios de Apple. La app gratuita puede mostrar anuncios. Revisa la política de privacidad para conocer los datos de publicidad.",
+      "whatsNew": "Mejoramos los primeros pasos, el acceso a hábitos diarios y la presentación de anuncios.",
       "screenshots": [
-        "Tus hábitos, una simple vista",
+        "Tus hábitos de un vistazo",
         "Crea un hábito en segundos",
-        "Ver progreso y rachas",
-        "Establecer horarios y recordatorios"
+        "Revisa avances y rachas",
+        "Configura días y recordatorios"
       ],
-      "keywords": "hábitos,rutinas,rachas,metas,planificador,diario,lista de verificación,recordatorios,progreso,ver",
+      "keywords": "hábitos,seguimiento,rachas,metas,rutinas,recordatorios,lista,progreso,apple watch",
       "name": "ChickMark: hábitos",
       "subtitle": "Hábitos, rachas y avisos",
       "privacyPolicyUrl": "https://arvectum.com/privacy.html"
     },
     "fr-FR": {
-      "promotionalText": "Construisez une habitude à la fois. Enregistrez-vous rapidement, consultez les séquences et utilisez les rappels, les widgets et l'Apple Watch.",
-      "description": "Créez des habitudes sans planificateur compliqué. ChickMark garde vos enregistrements quotidiens à portée de main.\n\nENREGISTREMENT EN UN TAP : créez une habitude, marquez-la comme terminée et suivez vos séquences et vos progrès.\n\nROUTINES FLEXIBLES : sélectionnez des horaires, des rappels et des objectifs qui vous conviennent.\n\nMONTRE ET WIDGETS : affichez les progrès et les habitudes complètes à partir des surfaces Apple Watch et widgets prises en charge. La synchronisation dépend des paramètres de l'appareil et de la connectivité.\n\nAPPLE HEALTH EN OPTION : connectez les objectifs d'activité sélectionnés ou activez l'exportation de la consommation d'eau lorsque vous autorisez explicitement l'accès.\n\nCONFIDENTIALITÉ : les habitudes sont enregistrées localement, avec des services Apple en option pour les fonctionnalités prises en charge. L'application gratuite peut afficher des publicités. Lisez la politique de confidentialité pour plus de détails sur les données publicitaires.",
-      "whatsNew": "Des conseils de première diffusion raffinés, un accès plus facile aux habitudes quotidiennes et un placement d'annonces natives moins intrusif.",
+      "promotionalText": "Créez des habitudes, validez-les d’un geste et suivez vos séries de jours. Rappels, widgets et Apple Watch.",
+      "description": "ChickMark vous aide à installer de nouvelles habitudes sans agenda compliqué.\n\nSUIVI : créez une habitude, cochez chaque réussite et suivez vos progrès et vos jours consécutifs.\nRYTHME : choisissez les jours, objectifs et rappels qui vous conviennent.\nAPPLE WATCH ET WIDGETS : consultez et validez vos habitudes depuis les fonctions compatibles. La synchronisation dépend de vos appareils et de la connexion.\nAPPLE HEALTH (FACULTATIF) : reliez certains objectifs d’activité ou exportez votre consommation d’eau avec votre autorisation.\nCONFIDENTIALITÉ : vos habitudes sont enregistrées sur l’appareil. Certaines fonctions utilisent les services Apple. L’app gratuite peut afficher des publicités ; consultez la politique de confidentialité.",
+      "whatsNew": "Prise en main simplifiée, accès plus direct aux habitudes du jour et publicités moins envahissantes.",
       "screenshots": [
-        "Vos habitudes, une simple vue",
-        "Créez une habitude en quelques secondes",
-        "Voir les progrès et les séquences",
-        "Définir des horaires et des rappels"
+        "Vos habitudes en un clin d’œil",
+        "Créez une habitude rapidement",
+        "Suivez vos progrès",
+        "Planifiez et ajoutez des rappels"
       ],
-      "keywords": "habitudes,routines,séquences,objectifs,planificateur,quotidien,liste de contrôle,rappels,progrès",
+      "keywords": "habitudes,suivi,routines,objectifs,rappels,calendrier,progression,séries,apple watch",
       "name": "ChickMark : habitudes",
       "subtitle": "Habitudes et rappels",
       "privacyPolicyUrl": "https://arvectum.com/privacy.html"
     },
     "de-DE": {
-      "promotionalText": "Bauen Sie jeweils eine Gewohnheit auf. Checken Sie schnell ein, sehen Sie Streifen und nutzen Sie Erinnerungen, Widgets und die Apple Watch.",
-      "description": "Bauen Sie Gewohnheiten auf, ohne einen komplizierten Planer zu benötigen. ChickMark hält Ihre täglichen Check-ins immer griffbereit.\n\nEIN-TAP-CHECK-INS: Erstellen Sie eine Gewohnheit, markieren Sie sie als abgeschlossen und verfolgen Sie Ihre Erfolge und Fortschritte.\n\nFLEXIBLE ROUTINEN: Wählen Sie Zeitpläne, Erinnerungen und Ziele aus, die für Sie funktionieren.\n\nUHR UND WIDGETS: Zeigen Sie den Fortschritt und die vollständigen Gewohnheiten auf unterstützten Apple Watch- und Widget-Oberflächen an. Die Synchronisierung hängt von den Geräteeinstellungen und der Konnektivität ab.\n\nOPTIONAL APPLE HEALTH: Verknüpfen Sie ausgewählte Aktivitätsziele oder aktivieren Sie den Export der Wasseraufnahme, wenn Sie den Zugriff explizit zulassen.\n\nDATENSCHUTZ: Gewohnheiten werden lokal gespeichert, mit optionalen Apple-Diensten für unterstützte Funktionen. Die kostenlose App zeigt möglicherweise Werbung an. Einzelheiten zu den Werbedaten finden Sie in der Datenschutzerklärung.",
-      "whatsNew": "Verfeinerte Orientierung beim ersten Aufruf, einfacherer Zugang zu alltäglichen Gewohnheiten und eine weniger aufdringliche native Anzeigenplatzierung.",
+      "promotionalText": "Gewohnheiten anlegen, mit einem Tipp abhaken und Serien verfolgen. Mit Erinnerungen, Widgets und Apple Watch.",
+      "description": "Mit ChickMark entwickeln Sie Gewohnheiten, ohne einen komplizierten Planer zu brauchen.\n\nÜBERBLICK: Legen Sie Gewohnheiten an, haken Sie Erledigtes ab und verfolgen Sie Serien und Fortschritte.\nZEITPLAN: Wählen Sie passende Tage, Ziele und Erinnerungen.\nAPPLE WATCH UND WIDGETS: Prüfen und erledigen Sie Gewohnheiten über unterstützte Funktionen. Die Synchronisierung hängt von Verbindung und Geräteeinstellungen ab.\nAPPLE HEALTH (OPTIONAL): Verbinden Sie ausgewählte Aktivitätsziele oder exportieren Sie Ihre Wasseraufnahme nach ausdrücklicher Freigabe.\nDATENSCHUTZ: Gewohnheiten werden lokal gespeichert; für bestimmte Funktionen sind Apple-Dienste optional. Die kostenlose App kann Werbung enthalten. Weitere Angaben in der Datenschutzerklärung.",
+      "whatsNew": "Verbesserter Einstieg, direkterer Zugriff auf tägliche Gewohnheiten und dezenter platzierte Werbung.",
       "screenshots": [
-        "Ihre Gewohnheiten, eine einfache Ansicht",
-        "Erstellen Sie in Sekundenschnelle eine Gewohnheit",
-        "Sehen Sie Fortschritte und Erfolge",
-        "Legen Sie Zeitpläne und Erinnerungen fest"
+        "Gewohnheiten im Überblick",
+        "Neue Gewohnheit anlegen",
+        "Fortschritte und Serien",
+        "Zeitpläne und Erinnerungen"
       ],
-      "keywords": "Gewohnheiten,Routinen,Streaks,Ziele,Planer,täglich,Checkliste,Erinnerungen,Fortschritt,beobachten",
+      "keywords": "Gewohnheiten,Habit Tracker,Routine,Serien,Ziele,Erinnerungen,Fortschritt,Apple Watch",
       "name": "ChickMark: Gewohnheiten",
       "subtitle": "Gewohnheiten & Erinnerungen",
       "privacyPolicyUrl": "https://arvectum.com/privacy.html"
     },
     "it": {
-      "promotionalText": "Costruisci un'abitudine alla volta. Effettua rapidamente il check-in, visualizza le serie e utilizza promemoria, widget e Apple Watch.",
-      "description": "Costruisci abitudini senza un pianificatore complicato. ChickMark mantiene i tuoi check-in giornalieri a portata di mano.\n\nCHECK-IN CON UN TOCCO: crea un'abitudine, contrassegnala come completata e segui i tuoi successi e progressi.\n\nROUTINE FLESSIBILI: seleziona orari, promemoria e obiettivi che funzionano per te.\n\nOROLOGIO E WIDGET: visualizza i progressi e le abitudini complete dalle superfici supportate di Apple Watch e widget. La sincronizzazione dipende dalle impostazioni e dalla connettività del dispositivo.\n\nAPPLE HEALTH OPZIONALE: collega gli obiettivi di attività selezionati o abilita l'esportazione dell'assunzione di acqua quando consenti esplicitamente l'accesso.\n\nPRIVACY: le abitudini vengono salvate localmente, con servizi Apple opzionali per le funzionalità supportate. L'app gratuita potrebbe visualizzare annunci. Leggi l'informativa sulla privacy per i dettagli sui dati pubblicitari.",
-      "whatsNew": "Guida di prima esecuzione perfezionata, accesso più semplice alle abitudini quotidiane e posizionamento degli annunci nativi meno invadente.",
+      "promotionalText": "Crea abitudini, segnale con un tocco e segui i giorni consecutivi. Con promemoria, widget e Apple Watch.",
+      "description": "ChickMark ti aiuta a costruire abitudini senza un’agenda complicata.\n\nPROGRESSI: crea un’abitudine, segnala quando la completi e segui le serie di giorni consecutivi.\nORARI: scegli giorni, obiettivi e promemoria adatti alla tua routine.\nAPPLE WATCH E WIDGET: controlla e completa abitudini con le funzioni supportate. La sincronizzazione dipende dalle impostazioni e dalla connessione dei dispositivi.\nAPPLE HEALTH (FACOLTATIVO): collega alcuni obiettivi di attività o esporta i dati sull’acqua dopo aver concesso l’accesso.\nPRIVACY: le abitudini sono salvate sul dispositivo. Alcune funzioni usano servizi Apple facoltativi. L’app gratuita può mostrare annunci: consulta l’informativa sulla privacy.",
+      "whatsNew": "Avvio più semplice, accesso rapido alle abitudini quotidiane e annunci meno invadenti.",
       "screenshots": [
-        "Le tue abitudini, una semplice visione",
-        "Crea un'abitudine in pochi secondi",
-        "Visualizza i progressi e le serie",
-        "Imposta orari e promemoria"
+        "Abitudini a colpo d’occhio",
+        "Crea un’abitudine in pochi tocchi",
+        "Controlla i progressi",
+        "Orari e promemoria"
       ],
-      "keywords": "abitudini,routine,serie,obiettivi,agenda,quotidiano,lista di controllo,promemoria,progressi,orologio",
+      "keywords": "abitudini,routine,obiettivi,serie,progressi,promemoria,calendario,apple watch",
       "name": "ChickMark: abitudini",
       "subtitle": "Abitudini e promemoria",
       "privacyPolicyUrl": "https://arvectum.com/privacy.html"
     },
     "ja": {
-      "promotionalText": "一度に 1 つの習慣を築きましょう。すぐにチェックインし、連続記録を確認し、リマインダー、ウィジェット、Apple Watch を使用します。",
-      "description": "複雑なプランナーなしで習慣を構築しましょう。 ChickMark を使用すると、毎日のチェックインをすぐに行えます。\n\nワンタップチェックイン: 習慣を作成し、完了としてマークし、連続記録と進捗状況を追跡します。\n\n柔軟なルーティン: 自分に合ったスケジュール、リマインダー、目標を選択します。\n\nウォッチとウィジェット: サポートされている Apple Watch とウィジェットのサーフェスから進捗状況と完了した習慣を表示します。同期はデバイスの設定と接続によって異なります。\n\nオプションの APPLE HEALTH: 選択したアクティビティ目標を接続するか、明示的にアクセスを許可する場合に取水量のエクスポートを有効にします。\n\nプライバシー: 習慣はローカルに保存され、サポートされる機能についてはオプションの Apple サービスが使用されます。無料アプリには広告が表示される場合があります。広告データの詳細については、プライバシー ポリシーをお読みください。",
-      "whatsNew": "洗練された初回実行時のガイダンス、毎日の習慣への簡単なアクセス、邪魔にならないネイティブ広告の配置。",
+      "promotionalText": "習慣を作ってワンタップで記録。連続達成日数や進捗を確認できます。リマインダーやApple Watchにも対応。",
+      "description": "ChickMarkは、毎日の習慣を手軽に記録するためのアプリです。\n\n記録：習慣を作成し、完了したらチェック。連続達成日数や進捗を確認できます。\nスケジュール：曜日、目標、リマインダーを自分のペースに合わせて設定。\nAPPLE WATCH・ウィジェット：対応する機能から習慣を確認・記録できます。同期は端末の設定や接続状況によって異なります。\nAPPLE HEALTH（任意）：許可した場合に限り、一部の活動目標と連携したり水分摂取量を記録用に書き出したりできます。\nプライバシー：習慣は端末に保存され、一部の機能でAppleのサービスを使用します。無料版には広告が表示される場合があります。詳細はプライバシーポリシーをご覧ください。",
+      "whatsNew": "初回案内と毎日の習慣へのアクセスを改善し、広告の表示を控えめにしました。",
       "screenshots": [
-        "あなたの習慣を 1 つのシンプルなビューで表示",
-        "数秒で習慣を作る",
-        "進捗状況と連続記録を確認する",
-        "スケジュールとリマインダーを設定する"
+        "今日の習慣を一覧表示",
+        "数秒で習慣を作成",
+        "進捗と連続達成を確認",
+        "予定と通知を設定"
       ],
-      "keywords": "習慣,ルーチン,連続記録,目標,プランナー,毎日,チェックリスト,進捗状況",
+      "keywords": "習慣,習慣管理,記録,継続,目標,リマインダー,連続記録,進捗,Apple Watch",
       "name": "ChickMark: 習慣記録",
       "subtitle": "習慣・連続記録・リマインダー",
       "privacyPolicyUrl": "https://arvectum.com/privacy.html"
     },
     "ko": {
-      "promotionalText": "한 번에 하나의 습관을 길러보세요. 빠르게 체크인하고, 연속 항목을 확인하고, 미리 알림, 위젯 및 Apple Watch를 사용하세요.",
-      "description": "복잡한 계획 없이 습관을 형성하세요. ChickMark는 매일 체크인을 가까이에 유지합니다.\n\n원탭 체크인: 습관을 만들고, 완료로 표시하고, 연속 기록과 진행 상황을 추적하세요.\n\n유연한 루틴: 자신에게 맞는 일정, 알림, 목표를 선택하세요.\n\n시계 및 위젯: 지원되는 Apple Watch 및 위젯 표면에서 진행 상황과 전체 습관을 확인하세요. 동기화는 장치 설정 및 연결에 따라 달라집니다.\n\n선택적 APPLE HEALTH: 선택한 활동 목표를 연결하거나 명시적으로 액세스를 허용할 때 물 섭취량 내보내기를 활성화합니다.\n\n개인 정보 보호: 습관은 지원되는 기능에 대한 선택적 Apple 서비스를 통해 로컬로 저장됩니다. 무료 앱에는 광고가 표시될 수 있습니다. 광고 데이터 세부정보에 대한 개인정보 보호정책을 읽어보세요.",
-      "whatsNew": "개선된 첫 실행 안내, 일상 습관에 대한 더 쉬운 접근, 덜 방해적인 네이티브 광고 배치.",
+      "promotionalText": "습관을 만들고 한 번의 탭으로 완료를 기록하세요. 연속 달성 기록과 진행 상황을 확인하고 알림과 Apple Watch도 활용해 보세요.",
+      "description": "ChickMark는 복잡한 계획표 없이 매일의 습관을 관리하도록 도와줍니다.\n\n기록: 습관을 만들고 완료할 때마다 체크하세요. 연속 달성 일수와 진행 상황을 확인할 수 있습니다.\n일정: 요일, 목표, 알림을 내 생활에 맞게 설정하세요.\nAPPLE WATCH 및 위젯: 지원되는 기능에서 습관을 확인하고 완료를 기록할 수 있습니다. 동기화는 연결 및 기기 설정에 따라 달라집니다.\nAPPLE HEALTH(선택 사항): 권한을 허용하면 일부 활동 목표를 연결하거나 물 섭취 기록을 내보낼 수 있습니다.\n개인정보 보호: 습관은 기기에 저장되며 일부 기능은 Apple 서비스를 이용할 수 있습니다. 무료 앱에는 광고가 표시될 수 있습니다. 자세한 내용은 개인정보 처리방침을 확인하세요.",
+      "whatsNew": "첫 사용 안내와 오늘의 습관 화면을 개선하고 광고가 덜 방해되도록 조정했습니다.",
       "screenshots": [
-        "당신의 습관, 하나의 간단한 보기",
-        "단 몇 초 만에 습관 만들기",
-        "진행 상황 및 연속 기록 보기",
-        "일정 및 알림 설정"
+        "오늘의 습관 한눈에",
+        "새 습관 빠르게 만들기",
+        "진행 상황과 연속 기록",
+        "일정과 알림 설정"
       ],
-      "keywords": "습관,루틴,연속 기록,목표,매일,체크리스트,알림,진행 상황,애플워치",
+      "keywords": "습관,습관관리,연속기록,목표,루틴,알림,체크리스트,진행상황,애플워치",
       "name": "ChickMark: 습관 기록",
       "subtitle": "습관 기록과 알림",
       "privacyPolicyUrl": "https://arvectum.com/privacy.html"
     },
     "pt-BR": {
-      "promotionalText": "Crie um hábito de cada vez. Faça check-in rapidamente, veja sequências e use lembretes, widgets e Apple Watch.",
-      "description": "Crie hábitos sem um planejador complicado. O ChickMark mantém seus check-ins diários à mão.\n\nCHECK-INS COM UM TOQUE: crie um hábito, marque-o como concluído e acompanhe suas sequências e progresso.\n\nROTINAS FLEXÍVEIS: selecione horários, lembretes e metas que funcionam para você.\n\nRELÓGIO E WIDGETS: veja o progresso e hábitos completos do Apple Watch e superfícies de widgets compatíveis. A sincronização depende das configurações e da conectividade do dispositivo.\n\nAPPLE HEALTH OPCIONAL: conecte metas de atividade selecionadas ou habilite a exportação de ingestão de água quando você permitir explicitamente o acesso.\n\nPRIVACIDADE: os hábitos são salvos localmente, com serviços Apple opcionais para recursos suportados. O aplicativo gratuito pode exibir anúncios. Leia a política de privacidade para obter detalhes sobre dados publicitários.",
-      "whatsNew": "Orientação refinada na primeira execução, acesso mais fácil aos hábitos diários e posicionamento de anúncio nativo menos intrusivo.",
+      "promotionalText": "Crie hábitos, marque o que fez com um toque e acompanhe as sequências. Use lembretes, widgets e Apple Watch.",
+      "description": "O ChickMark ajuda você a cultivar hábitos sem depender de um planejador complicado.\n\nACOMPANHAMENTO: crie hábitos, marque as tarefas concluídas e acompanhe sequências de dias e seu progresso.\nROTINA: escolha dias, metas e lembretes que combinam com você.\nAPPLE WATCH E WIDGETS: consulte e conclua hábitos nas funções compatíveis. A sincronização depende da conexão e das configurações dos dispositivos.\nAPPLE HEALTH (OPCIONAL): conecte certas metas de atividade ou exporte dados de consumo de água com sua autorização.\nPRIVACIDADE: os hábitos ficam salvos no dispositivo. Algumas funções usam serviços opcionais da Apple. O app gratuito pode exibir anúncios; consulte a política de privacidade.",
+      "whatsNew": "Melhoramos as orientações iniciais, o acesso aos hábitos diários e a apresentação dos anúncios.",
       "screenshots": [
-        "Seus hábitos, uma visão simples",
-        "Crie um hábito em segundos",
-        "Veja o progresso e as sequências",
-        "Defina horários e lembretes"
+        "Seus hábitos em um só lugar",
+        "Crie um hábito rapidamente",
+        "Acompanhe seu progresso",
+        "Agende e receba lembretes"
       ],
-      "keywords": "hábitos,rotinas,sequências,metas,planejador,diário,lista de verificação,lembretes,progresso",
+      "keywords": "hábitos,rotina,metas,lembretes,sequência,progresso,checklist,apple watch",
       "name": "ChickMark: hábitos",
       "subtitle": "Hábitos e lembretes",
       "privacyPolicyUrl": "https://arvectum.com/privacy.html"
     },
     "pt-PT": {
-      "promotionalText": "Crie um hábito de cada vez. Faça check-in rapidamente, veja sequências e utilize lembretes, widgets e Apple Watch.",
-      "description": "Crie hábitos sem um planeador complicado. O ChickMark mantém os seus check-ins diários à mão.\n\nCHECK-INS COM UM TOQUE: crie um hábito, marque-o como concluído e acompanhe as suas sequências e progresso.\n\nROTINAS FLEXÍVEIS: selecione horários, lembretes e objetivos que funcionem para si.\n\nRELÓGIO E WIDGETS: veja o progresso e os hábitos completos do Apple Watch e as superfícies de widgets compatíveis. A sincronização depende das definições e da conectividade do dispositivo.\n\nAPPLE HEALTH OPCIONAL: ligue as metas de atividade selecionadas ou ative a exportação de ingestão de água quando permite explicitamente o acesso.\n\nPRIVACIDADE: os hábitos são guardados localmente, com serviços Apple opcionais para funcionalidades suportadas. A aplicação gratuita pode exibir anúncios. Leia a política de privacidade para obter detalhes sobre os dados publicitários.",
-      "whatsNew": "Orientação refinada à primeira execução, acesso mais fácil aos hábitos diários e posicionamento nativo do anúncio menos intrusivo.",
+      "promotionalText": "Crie hábitos, assinale-os com um toque e acompanhe os dias consecutivos. Utilize lembretes, widgets e Apple Watch.",
+      "description": "O ChickMark ajuda a criar hábitos sem precisar de um planeador complicado.\n\nREGISTO: crie hábitos, assinale o que concluiu e acompanhe os dias consecutivos e o progresso.\nROTINA: escolha dias, objetivos e lembretes à sua medida.\nAPPLE WATCH E WIDGETS: consulte e conclua hábitos nas funcionalidades compatíveis. A sincronização depende da ligação e das definições dos dispositivos.\nAPPLE HEALTH (OPCIONAL): associe determinados objetivos de atividade ou exporte registos de consumo de água com a sua autorização.\nPRIVACIDADE: os hábitos são guardados no dispositivo. Algumas funções recorrem a serviços opcionais da Apple. A aplicação gratuita pode apresentar anúncios; consulte a política de privacidade.",
+      "whatsNew": "Melhorámos a apresentação inicial, o acesso aos hábitos diários e a colocação dos anúncios.",
       "screenshots": [
-        "Os seus hábitos, uma visão simples",
-        "Crie um hábito em segundos",
-        "Veja o progresso e as sequências",
-        "Defina horários e lembretes"
+        "Os seus hábitos num só lugar",
+        "Crie um hábito rapidamente",
+        "Acompanhe o progresso",
+        "Horários e lembretes"
       ],
-      "keywords": "hábitos,rotinas,sequências,objetivos,planificador,diário,checklist,lembretes,progresso,observar",
+      "keywords": "hábitos,rotina,objetivos,lembretes,progresso,sequências,lista,apple watch",
       "name": "ChickMark: hábitos",
       "subtitle": "Hábitos e lembretes",
       "privacyPolicyUrl": "https://arvectum.com/privacy.html"
     },
     "zh-Hans": {
-      "promotionalText": "一次养成一种习惯。快速签到、查看条纹并使用提醒、小部件和 Apple Watch。",
-      "description": "无需复杂的计划即可养成习惯。 ChickMark 让您的日常签到触手可及。\n\n一键签入：养成习惯，将其标记为完成并跟踪您的连续记录和进度。\n\n灵活的日常安排：选择适合您的时间表、提醒和目标。\n\n手表和小部件：从支持的 Apple Watch 和小部件表面查看进度和完整习惯。同步取决于设备设置和连接。\n\n可选的苹果健康：连接选定的活动目标或在您明确允许访问时启用水摄入导出。\n\n隐私：习惯保存在本地，并可选择支持功能的 Apple 服务。免费应用程序可能会显示广告。请阅读隐私政策以了解广告数据详细信息。",
-      "whatsNew": "完善的首次运行指导、更容易了解日常习惯以及侵入性较小的原生广告投放。",
+      "promotionalText": "创建习惯，一键打卡，查看连续坚持天数与进度。支持提醒、小组件及Apple Watch。",
+      "description": "ChickMark让习惯管理更简单，不需要复杂的计划表。\n\n习惯打卡：创建习惯，完成后轻点记录，查看连续坚持天数和进度。\n灵活安排：按自己的节奏设置日期、目标与提醒。\nAPPLE WATCH与小组件：通过支持的功能查看或完成习惯。同步取决于设备设置与连接情况。\nAPPLE健康（可选）：获得授权后，可关联部分活动目标或导出饮水记录。\n隐私：习惯记录保存在设备本地，部分功能可使用Apple服务。免费应用可能显示广告，详情请查看隐私政策。",
+      "whatsNew": "改进首次使用引导和每日习惯入口，减少广告对使用体验的干扰。",
       "screenshots": [
-        "您的习惯，一个简单的视图",
-        "几秒钟内养成习惯",
-        "查看进度和连胜",
-        "设置时间表和提醒"
+        "每日习惯一目了然",
+        "快速创建新习惯",
+        "查看进度与连续记录",
+        "设置日程和提醒"
       ],
-      "keywords": "习惯,例程,条纹,目标,计划,每日,清单,提醒,进度,观看",
+      "keywords": "习惯,习惯打卡,坚持,连续天数,目标,提醒,计划,进度,Apple Watch",
       "name": "ChickMark: 习惯打卡",
       "subtitle": "习惯打卡与提醒",
       "privacyPolicyUrl": "https://arvectum.com/privacy.html"
     },
     "zh-Hant": {
-      "promotionalText": "一次養成一種習慣。快速簽到、查看條紋並使用提醒、小工具和 Apple Watch。",
-      "description": "無需複雜的計劃即可養成習慣。 ChickMark 讓您的日常簽到觸手可及。\n\n一鍵簽入：養成習慣，將其標記為完成並追蹤您的連續記錄和進度。\n\n靈活的日常安排：選擇適合您的時間表、提醒和目標。\n\n手錶和小部件：從支援的 Apple Watch 和小部件表面查看進度和完整習慣。同步取決於設備設定和連接。\n\n可選的蘋果健康：連接選定的活動目標或在您明確允許訪問時啟用水攝入導出。\n\n隱私：習慣保存在本地，並可選擇支援功能的 Apple 服務。免費應用程式可能會顯示廣告。請閱讀隱私權政策以了解廣告資料詳細資訊。",
-      "whatsNew": "完善的首次運行指導、更容易了解日常習慣以及侵入性較小的原生廣告投放。",
+      "promotionalText": "建立習慣、一鍵打卡，查看連續達成天數與進度。支援提醒、小工具及Apple Watch。",
+      "description": "ChickMark讓習慣管理更簡單，不需要複雜的計畫表。\n\n習慣打卡：建立習慣，完成後輕點記錄，查看連續達成天數與進度。\n彈性安排：依自己的步調設定日期、目標與提醒。\nAPPLE WATCH與小工具：透過支援的功能查看或完成習慣。同步依裝置設定與連線狀況而定。\nAPPLE健康（選用）：取得授權後，可連結部分活動目標或匯出飲水紀錄。\n隱私：習慣紀錄儲存在裝置本機，部分功能可使用Apple服務。免費App可能顯示廣告，詳情請參閱隱私權政策。",
+      "whatsNew": "改善初次使用引導與每日習慣入口，減少廣告對操作的干擾。",
       "screenshots": [
-        "您的習慣，一個簡單的視圖",
-        "幾秒鐘內養成習慣",
-        "查看進度和連勝",
-        "設定時間表和提醒"
+        "每日習慣一目了然",
+        "快速建立新習慣",
+        "查看進度與連續紀錄",
+        "設定日程和提醒"
       ],
-      "keywords": "習慣,例行公事,條紋,目標,計劃,每日,清單,提醒,進度,觀看",
+      "keywords": "習慣,習慣打卡,堅持,連續天數,目標,提醒,計畫,進度,Apple Watch",
       "name": "ChickMark: 習慣打卡",
       "subtitle": "習慣打卡與提醒",
       "privacyPolicyUrl": "https://arvectum.com/privacy.html"

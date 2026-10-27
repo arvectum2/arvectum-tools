@@ -1,5 +1,7 @@
 # Arvectum Tools — Roadmap Registry
 
+[C13: редактура 64 ASO-карточек](docs/ASO_C13_LINGUISTIC_EDITORIAL_2026-10-27.md).
+
 [C12: редакторская ASO-галерея и обновлённые нативные кадры](docs/ASO_C12_EDITORIAL_2026-10-27.md).
 
 [C11: настоящий native UI screenshots по 12 языкам iPhone и 13″ iPad](docs/ASO_NATIVE_CAPTURE_C11_2026-10-27.md).

@@ -2,7 +2,7 @@
   "appId": "6816346084",
   "bundleId": "ru.arvectum.tools.tosize",
   "stage": "DRAFT_NOT_UPLOADED",
-  "source": "curated EN/RU seeds and automated translations; not native-speaker approved",
+  "source": "curated EN/RU seeds, translation draft and C13 AI linguistic editorial overrides; not independently native-speaker approved",
   "created": "2026-10-26",
   "localeData": {
     "ru": {
@@ -216,31 +216,31 @@
       "whatsNew": "Versão 1.0: arquitetura melhorada e mais fiabilidade ao comprimir fotografias e PDFs, ajustar dimensões e preparar fotos para documentos."
     },
     "zh-Hans": {
-      "promotionalText": "压缩照片和 PDF 以在 iPhone 上上传限制。 100 KB、500 KB、1 MB、精确像素和签证照片预设。文件永远不会离开您的手机进行处理。",
-      "description": "文件太大无法上传？将 iPhone 上的照片和 PDF 减少到选定的 KB 或 MB 限制。\n\n照片：选择 100 KB、500 KB、1 MB 或自定义最大值；保存前检查结果大小。\nPDF：减少表单和上传的文件。强压缩可以光栅化页面，因此文本可能不再可供选择或搜索。\n图像尺寸：设置宽度和高度（以像素为单位），根据需要保留纵横比，并在支持的情况下导出 JPEG、PNG 或 HEIC。\n文件照片：选定护照和签证的技术预设（俄罗斯、美国、英国、印度、中国、加拿大和申根国家）。不保证官方接受。\nBEFORE / AFTER：比较实际结果，可选择删除 EXIF 和位置元数据。\n\n文件在设备上处理。无需帐户。广告可以使用互联网，但不会上传文件进行处理。\n\n广告和隐私：照片和 PDF 不会发送到广告网络。广告 SDK 可能会收集技术设备数据，包括标识符；请参阅隐私政策。",
-      "whatsNew": "更新的照片/PDF 工具、三个额外的文档照片预设以及更清晰的应用内广告信息。无需帐户；照片和 PDF 处理保留在您的 iPhone 上。",
+      "promotionalText": "在iPhone上将照片和PDF压缩到指定大小：100 KB、500 KB、1 MB或自定义上限。可调整像素尺寸与证件照规格，文件在本机处理。",
+      "description": "文件太大，无法提交表单？在iPhone上按目标KB或MB压缩照片和PDF。\n\n照片：选择100 KB、500 KB、1 MB或自定义上限，保存前查看实际结果。\nPDF：缩小文件以便上传。高强度压缩可能把页面转为图片，导致文字无法选中或搜索。\n图片尺寸：设置宽高像素，可选择保持比例。根据格式支持情况导出JPEG、PNG或HEIC。\n证件照：提供部分国家和地区的签证、护照照片尺寸预设，包括中国、美国、英国、俄罗斯、印度、加拿大及申根国家。无法保证官方审核通过。\n对比：查看处理前后的文件大小与图片效果，可按需移除EXIF及位置信息。\n\n照片和PDF在设备本地处理，无需注册账户。广告可能需要联网，但原始文件不会上传到广告网络进行处理。\n\n广告与隐私：广告SDK可能收集设备技术信息及标识符。详情请阅读隐私政策。",
+      "whatsNew": "优化照片和PDF处理工具，增加证件照尺寸预设，并进一步说明应用内广告与隐私信息。",
       "screenshots": [
         "2.92 MB → 472 KB",
-        "5184×3456→600×400像素",
-        "中国签证和文件照片尺寸",
-        "将 PDF 缩小到上传限制"
+        "按像素调整尺寸",
+        "签证及证件照尺寸",
+        "压缩PDF以便上传"
       ],
-      "keywords": "收缩,减少,文件,大小,100kb,200kb,500kb,1mb,jpg,jpeg,visa,像素,离线,heic,exif,表格",
+      "keywords": "照片,图片,压缩,PDF,文件大小,100kb,500kb,1mb,证件照,签证,像素,离线",
       "name": "照片与PDF压缩",
       "subtitle": "按文件大小压缩与调整尺寸",
       "privacyPolicyUrl": "https://arvectum.com/photo-pod-razmer-privacy.html"
     },
     "zh-Hant": {
-      "promotionalText": "壓縮照片和 PDF 以在 iPhone 上傳限制。 100 KB、500 KB、1 MB、精確像素和簽證照片預設。文件永遠不會離開您的手機進行處理。",
-      "description": "文件太大無法上傳？將 iPhone 上的照片和 PDF 減少到選定的 KB 或 MB 限制。\n\n照片：選擇 100 KB、500 KB、1 MB 或自訂最大值；儲存前檢查結果大小。\nPDF：減少表單和上傳的文件。強壓縮可以光柵化頁面，因此文字可能不再可供選擇或搜尋。\n圖片尺寸：設定寬度和高度（以像素為單位），根據需要保留縱橫比，並在支援的情況下匯出 JPEG、PNG 或 HEIC。\n文件照片：選定護照和簽證的技術預設（俄羅斯、美國、英國、印度、中國、加拿大和申根國家）。不保證官方接受。\nBEFORE / AFTER：比較實際結果，可選擇刪除 EXIF 和位置元資料。\n\n文件在設備上處理。無需帳戶。廣告可以使用互聯網，但不會上傳文件處理。\n\n廣告和隱私：照片和 PDF 不會發送到廣告網路。廣告 SDK 可能會收集技術設備數據，包括識別碼；請參閱隱私權政策。",
-      "whatsNew": "更新的照片/PDF 工具、三個額外的文件照片預設以及更清晰的應用程式內廣告訊息。無需帳戶；照片和 PDF 處理保留在您的 iPhone 上。",
+      "promotionalText": "在iPhone上將照片與PDF壓縮到指定大小：100 KB、500 KB、1 MB或自訂上限。可調整像素尺寸及證件照規格，檔案在本機處理。",
+      "description": "檔案太大，無法提交表單？在iPhone上依指定KB或MB上限壓縮照片與PDF。\n\n照片：選擇100 KB、500 KB、1 MB或自訂上限，儲存前查看實際結果。\nPDF：縮小檔案方便上傳。高強度壓縮可能將頁面轉成影像，導致文字無法選取或搜尋。\n圖片尺寸：設定寬高像素，可選擇維持比例。依格式支援情況匯出JPEG、PNG或HEIC。\n證件照：提供部分國家與地區的簽證、護照照片尺寸預設，包括中國、美國、英國、俄羅斯、印度、加拿大及申根國家。不保證官方審核通過。\n比較：查看處理前後的檔案大小與影像效果，也可移除EXIF及位置資訊。\n\n照片與PDF於裝置本機處理，無須註冊帳號。廣告可能需要連網，但原始檔案不會上傳至廣告網路進行處理。\n\n廣告與隱私：廣告SDK可能收集裝置技術資訊及識別碼。詳情請參閱隱私權政策。",
+      "whatsNew": "改善照片與PDF處理工具，新增證件照尺寸預設，並清楚說明App內廣告與隱私資訊。",
       "screenshots": [
         "2.92 MB → 472 KB",
-        "5184×3456→600×400像素",
-        "中國簽證和文件照片尺寸",
-        "將 PDF 縮小到上傳限制"
+        "依像素調整尺寸",
+        "簽證與證件照尺寸",
+        "壓縮PDF方便上傳"
       ],
-      "keywords": "縮小,減少,文件,大小,100kb,200kb,500kb,1mb,jpg,jpeg,visa,像素,離線,heic,exif,表格",
+      "keywords": "照片,圖片,壓縮,PDF,檔案大小,100kb,500kb,1mb,證件照,簽證,像素,離線",
       "name": "照片與PDF壓縮",
       "subtitle": "按檔案大小壓縮與調整尺寸",
       "privacyPolicyUrl": "https://arvectum.com/photo-pod-razmer-privacy.html"
