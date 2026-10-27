@@ -1,5 +1,8 @@
 # Arvectum Tools — оперативная дорожная карта на 26.10.2026
 
+**Обновление 27.10:** этот срез устарел. Текущий C17/C18 статус и очередь по всем продуктам см. в [портфельной карте 27.10](ROADMAP_PORTFOLIO_2026-10-27.md). C17 4/4 отправлены в App Review, не опубликованы.
+
+
 C17 (27.10): отзывы IndieAppCircle про пять приложений, четыре iOS правки в feature/indieappcircle-review-fixes-20261027, 64 What’s New для 16 регионов, четыре новые версии. Фото/PDF P0 App Privacy требует анализа Yandex SDK и ASC; финальный релиз только после precise approval.
 
 C16 (27.10): проверены 64 публичные App Store витрины, Photo/PDF опубликована 1.0.3; Apple public API не показывает ASC build/keywords. [C16](ASO_C16_PUBLIC_STORE_QA_2026-10-27.md).
