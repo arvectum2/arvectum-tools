@@ -1,5 +1,15 @@
 # PUSHKIN — Product Roadmap
 
+## Актуально 27.10.2026 · C17
+
+- [x] Pushkin **1.0.3 (7)**: signed IPA, 16 ASC локалей и 64 скриншота; App Review **WAITING_FOR_REVIEW**, **AFTER_APPROVAL**. Публичная при последнем Lookup — **1.0.2**. [ASC C17](../core/docs/INDIEAPPCIRCLE_C17_APPLE_SUBMITTED_2026-10-27.md).
+- [x] Международные проверенные стартовые источники вынесены выше по отзыву IndieAppCircle; неподтверждённые интеграции не заявлять.
+- [ ] P0: Shortcuts trigger, история, повторные уведомления, migration/no-data-loss на настоящем iPhone; исследовать iOS 27 minimum target до заявлений о расширенной совместимости.
+- [ ] P1: улучшение документации Shortcuts, честной ASO-механики ограничений iOS и реальной активации/удержания. После решения Apple сверить Store read-only.
+
+[Общий срез](../core/docs/ROADMAP_PORTFOLIO_2026-10-27.md).
+
+
 C17 IndieAppCircle: международным пользователям выше в списке показываются существующие Gmail/Instagram/Discord/Signal/Uber/DoorDash; Slack пока без подтверждённого подписанного Shortcut. Candidate 1.0.3(7), signed QA/preflight, ожидает per-release approval.
 
 C15 (27.10): 16 текстовых ASO-карточек прошли внутреннюю поязыковую редактуру; 64 iPhone региональных слота по-прежнему имеют 48 проверенных native PNG. iPad не поддерживается. [C15](../core/docs/ASO_C15_EDITORIAL_ACCEPTANCE_2026-10-27.md).

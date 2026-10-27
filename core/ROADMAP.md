@@ -1,5 +1,8 @@
 # Arvectum Tools Core — дорожная карта
 
+**Актуальная сводка · 27.10.2026:** [портфельная дорожная карта — C17 отправлен в Apple, C18 остаётся после отправки](docs/ROADMAP_PORTFOLIO_2026-10-27.md). Все 4 C17 версии WAITING_FOR_REVIEW, AFTER_APPROVAL; это не публикация. Ниже — исторические контрольные точки.
+
+
 C17 (27.10): получены 7 практических отзывов IndieAppCircle (4 в Arvectum/ceo + 3 в других ярлыках). Исправлены ChickMark custom groups, подсказка Uhvat transcription, international Pushkin starter apps, back-кнопка Фото/PDF. Проверены 64 локализованных release notes, кандидатные версии 1.0.4/1.0.3/1.1.2/1.5.3. Privacy рекламы проверена по встроенным manifest; ASC release gate остаётся.
 
 C16 (27.10): публичный Apple Lookup для 16 стран × 4 приложений, live-версии Photo/PDF 1.0.3, Pushkin 1.0.2, Uhvat 1.1.1, ChickMark 1.5.2. App Store Connect read-only ещё не проверен. [C16](docs/ASO_C16_PUBLIC_STORE_QA_2026-10-27.md).

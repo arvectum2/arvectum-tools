@@ -1,5 +1,8 @@
 # Arvectum Tools — Roadmap Registry
 
+**Текущий статус (27.10):** [операционная дорожная карта портфеля](docs/ROADMAP_PORTFOLIO_2026-10-27.md) — 4/4 C17 IPA отправлены на Apple Review; 64 ASO карточки/448 снимков приняты ASC. Публикация пока не подтверждена. Даты 26.10 ниже сохранены как история.
+
+
 [C15: внутренняя редактура 64 ASO-карточек и 144 iPad маркетинговых кадра](docs/ASO_C15_EDITORIAL_ACCEPTANCE_2026-10-27.md).
 
 [C13: редактура 64 ASO-карточек](docs/ASO_C13_LINGUISTIC_EDITORIAL_2026-10-27.md).
