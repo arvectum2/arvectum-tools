@@ -1,5 +1,15 @@
 # Arvectum Tools Core — дорожная карта
 
+## C9 — 26.10.2026 · KO 4/4 и Apple ASO
+
+- [x] 12/20 Tier 1 source-пакетов в четырёх iOS-приложениях; KO добавлен в Ухват и ChickMark (iPhone/Watch/widgets).
+- [x] Core 57/57 PASS; native KO Ухват 15/15 и ChickMark 11/11 PASS. Корейский остаётся машинным черновиком.
+- [x] Проверены 48 App Store карточек (4 приложения × 12 стран), реальный subtitle и скриншоты. [ASO-аудит](docs/ASO_PUBLIC_AUDIT_2026-10-26.md).
+- [ ] Native-speaker и физическая QA; доработать метаданные и скриншоты до новых подписанных RC, затем отдельный per-release approval.
+
+[Срез C9](docs/LOCALIZATION_C9_2026-10-26.md).
+
+
 ## 26.10.2026 · C8 — проверенный статус локализаций и релизов
 
 - [x] 11/20 полных source-пакетов Tier 1 во всех 4 продуктах (pt-PT — draft); KO только Фото/PDF и Pushkin, итого 2/4.

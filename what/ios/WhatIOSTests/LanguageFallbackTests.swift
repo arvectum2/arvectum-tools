@@ -38,6 +38,15 @@ final class LanguageFallbackTests: XCTestCase {
         )
     }
 
+    func testKoreanInterfaceAndCounterWithIndependentDictation() {
+        XCTAssertEqual(CaptureBrand.resolvedInterfaceLanguage(for: ["ko-KR", "en-US"]), "ko")
+        XCTAssertEqual(CaptureBrand.defaultTranscriptionLocale(for: "ko"), "en-US")
+        XCTAssertEqual(CaptureBrand.text("Создать", "New text note", language: "ko"), "새 텍스트 메모")
+        XCTAssertEqual(CaptureBrand.text("Записать", "Record", language: "ko-KR"), "녹음")
+        XCTAssertEqual(CaptureBrand.noteCount(1, language: "ko"), "1개 메모")
+        XCTAssertEqual(CaptureBrand.noteCount(4, language: "ko-KR"), "4개 메모")
+    }
+
     func testCompleteDynamicSentencePreservesValues() {
         XCTAssertEqual(
             CaptureBrand.formatted("Вход: %@", "Input: %@", language: "ru", "Microphone"),

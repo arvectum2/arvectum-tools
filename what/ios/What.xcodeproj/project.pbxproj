@@ -20,7 +20,6 @@
 		184CBDFDF9301A03F6E94D92 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9B3C5646789C3B6845315215 /* InfoPlist.strings */; };
 		1B01BE138A483EA2CE1DB1FE /* WhatWatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 9819634215CFE7B5CB7C96E2 /* WhatWatch.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		1B510BDB978C30BD8C418288 /* TraditionalChineseLocalizationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF64F1FDAA8AE1B806B76879 /* TraditionalChineseLocalizationUITests.swift */; };
-		FE01A0010000000000000000 /* EuropeanPortugueseLocalizationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD01A0010000000000000000 /* EuropeanPortugueseLocalizationUITests.swift */; };
 		1BC48103D6E86867BC619F4B /* PhoneRecordingSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3997C787CF6EC5F61396098 /* PhoneRecordingSheet.swift */; };
 		1DB28694A4FB2349E0C75253 /* WhatApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94ABD3BF183D4D22AF1CD0B0 /* WhatApp.swift */; };
 		21A6063DBDDDB23005137B78 /* WatchDurableQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8632BE1ABDF63CB6AD9F3FD6 /* WatchDurableQueue.swift */; };
@@ -117,6 +116,8 @@
 		E1410275E080ACF1E274640E /* VideoCaptureRecoveryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682F70E02EA71DD9734C7E1A /* VideoCaptureRecoveryTests.swift */; };
 		E279702F2EC466E836C3CC17 /* RecordingExportService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11CFD6F6D4AFB8ABAD4DFDB0 /* RecordingExportService.swift */; };
 		E3E14B894F6D08B14F550FD7 /* WhatPhoneWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C8C7D0F4914D000D27D69C4 /* WhatPhoneWidget.swift */; };
+		E3EC7772875D21FE83C98D9F /* EuropeanPortugueseLocalizationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EE260ED5F3AEB0432A1236 /* EuropeanPortugueseLocalizationUITests.swift */; };
+		E9C1E31B58255B32413DB1CD /* KoreanLocalizationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3947C020577C4C722DDE18C /* KoreanLocalizationUITests.swift */; };
 		F29A76210DD5A00A0345526E /* VideoCaptureRecovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10A0221F8BF766156AE3B4A9 /* VideoCaptureRecovery.swift */; };
 		F4303B6D62B69352F08A372A /* PhoneCaptureValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1245823325CC94B431825FC8 /* PhoneCaptureValidation.swift */; };
 		F5368DAB2C52D06EE5A584CD /* SyncDiagnosticsLocalizationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7594885189CFE2057AA3037 /* SyncDiagnosticsLocalizationUITests.swift */; };
@@ -260,12 +261,14 @@
 		3BF181DFF650E0EAEA1A695D /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		3C33E1F7206448BFA5509F23 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		3C45BB5F90E0776E72538BFF /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		3E6ADEC324BFC7D89481C4CB /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
 		3EEC5029D31A75E43264EDFD /* ReviewDemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewDemoUITests.swift; sourceTree = "<group>"; };
 		3FB4B2A7E318A157B3D280EF /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		3FEB908379268EDF523C2242 /* TranscriptEditorSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscriptEditorSheet.swift; sourceTree = "<group>"; };
 		456E30708D79A850A07FE2C5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		458F5B1112FC7208ED9E761A /* ReviewNoteHandoff.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewNoteHandoff.swift; sourceTree = "<group>"; };
 		45AF5A244D5C57B278411CCC /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		480F1F3A79FBD4DE29BED3B9 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4830C8A2C90521D5AB373CAB /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4D4FBFEDF647434B1312AE83 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		4E7551688F04996B25C560E4 /* VideoRecordingSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoRecordingSheet.swift; sourceTree = "<group>"; };
@@ -273,6 +276,7 @@
 		504D7E8A050C788BB8AB0E56 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		50823D2601A933C59EDA0910 /* ItalianLocalizationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItalianLocalizationUITests.swift; sourceTree = "<group>"; };
 		511084055435D5F88EA453AA /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		5239D792ACF26C213EAADDFA /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		551D930570643A0C473CBBCC /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		551E716AB170B3B71C038ECA /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		554A6308CE6E00D0214C452B /* PhysicalVideoCaptureUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicalVideoCaptureUITests.swift; sourceTree = "<group>"; };
@@ -283,6 +287,7 @@
 		59E24F762D8CA6A4BF7DAF1E /* CoreLanguageCoverageUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreLanguageCoverageUITests.swift; sourceTree = "<group>"; };
 		5AA9D8C395BF9B08940A7689 /* TextNoteSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextNoteSheet.swift; sourceTree = "<group>"; };
 		5ABEE922A1A0E2358928B374 /* RecordingLibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingLibraryView.swift; sourceTree = "<group>"; };
+		5B8BD825B2B4ED2634E490C4 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		5E06D8E105604548A96FC009 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		5F5B002901CADCA87C0FB4C0 /* WhatIOSUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = WhatIOSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		606F42C983BED3191751F9F9 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -297,6 +302,7 @@
 		68E4FE14B8CE4A20DF63A54C /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		68E55EB2B21D5BD5C09B0B44 /* WatchRouteQATrace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchRouteQATrace.swift; sourceTree = "<group>"; };
 		6E271C5E09EEF6A7C3469DA9 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		6EFA313EEB1B34C16F3BA4BF /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6F136B782C7BD70B4DF44EA5 /* LocalNoteRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNoteRepository.swift; sourceTree = "<group>"; };
 		6FCF9BEEDFE0911C25F27044 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		6FEDFC32DD8C7A561856A386 /* WatchCaptureController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchCaptureController.swift; sourceTree = "<group>"; };
@@ -343,7 +349,6 @@
 		A837788192B4123FD29CD0D1 /* WhatComplicationMark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatComplicationMark.swift; sourceTree = "<group>"; };
 		A88F92E69D615712396DE232 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		AF64F1FDAA8AE1B806B76879 /* TraditionalChineseLocalizationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraditionalChineseLocalizationUITests.swift; sourceTree = "<group>"; };
-		FD01A0010000000000000000 /* EuropeanPortugueseLocalizationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EuropeanPortugueseLocalizationUITests.swift; sourceTree = "<group>"; };
 		AF84AA6ED70EBF8AE05B9A8A /* RussianModelManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RussianModelManager.swift; sourceTree = "<group>"; };
 		B0B46C6D45A3D916911E2EE9 /* AppStoreUpdatePromptUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoreUpdatePromptUITests.swift; sourceTree = "<group>"; };
 		B0FF8E47CCBED30E85236611 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -351,10 +356,12 @@
 		B2C3214379E641ABD030F254 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		B443BA7E93D732977AB2850B /* ReviewNoteHandoffTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewNoteHandoffTests.swift; sourceTree = "<group>"; };
 		B57932F5E5FCB62F32228CD5 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		B7EE260ED5F3AEB0432A1236 /* EuropeanPortugueseLocalizationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EuropeanPortugueseLocalizationUITests.swift; sourceTree = "<group>"; };
 		BAE26A89EE1D5F22115781E2 /* NoteReminderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteReminderTests.swift; sourceTree = "<group>"; };
 		BB61D550F6AA1A588DDC9C94 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		BBB076D2E8DB5CFA20954DD2 /* JapaneseLocalizationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JapaneseLocalizationUITests.swift; sourceTree = "<group>"; };
 		BD17D674B9340C94107DCF39 /* ImmediateRecordingPayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImmediateRecordingPayload.swift; sourceTree = "<group>"; };
+		BD737D16F3F5C799DDA70AE4 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		BE3DE5F88063BCD69015B106 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		C07F27ECDA004569B200D0FA /* WatchAcknowledgementJournal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchAcknowledgementJournal.swift; sourceTree = "<group>"; };
 		C19BF99F0B4201679FF1F38D /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -370,8 +377,10 @@
 		D6D1A5C9E79CC4A544374E3E /* WhatComplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatComplication.swift; sourceTree = "<group>"; };
 		D77CB821F9683C6381DD792C /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DAAB014EC25B8F1BE07A8003 /* WatchQueueSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchQueueSnapshot.swift; sourceTree = "<group>"; };
+		DD41FF9AF97456964ADC1747 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E26092B5A3C7E2E0F327746D /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E2EC835E1A980C511E5E6EDD /* WatchDeliveredAudioValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchDeliveredAudioValidation.swift; sourceTree = "<group>"; };
+		E3947C020577C4C722DDE18C /* KoreanLocalizationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KoreanLocalizationUITests.swift; sourceTree = "<group>"; };
 		E3997C787CF6EC5F61396098 /* PhoneRecordingSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneRecordingSheet.swift; sourceTree = "<group>"; };
 		E401399D9CC19485D6B0BBA7 /* PhoneStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneStore.swift; sourceTree = "<group>"; };
 		E55E74EA9FC03255E4770F7A /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
@@ -379,6 +388,7 @@
 		E636A02A7F2781E5CBE6E6FA /* core */ = {isa = PBXFileReference; lastKnownFileType = folder; name = core; path = ../../core; sourceTree = SOURCE_ROOT; };
 		E6ACA38EC5E339EF4FE47646 /* CaptureFirstUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureFirstUITests.swift; sourceTree = "<group>"; };
 		E84E11CE4EF4013CCC145DC7 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		E88C7FDFFB865985A1B03E80 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E8B6F05978F34120C976EEBE /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		E8F96BFC4E2D4DD08402B798 /* PhoneRecordingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneRecordingController.swift; sourceTree = "<group>"; };
 		EBF159B5D81F63DE0DAE6484 /* WhatPhoneWidget.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = WhatPhoneWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -523,16 +533,17 @@
 				90671F94F3E392AC149620AD /* BrazilianPortugueseLocalizationUITests.swift */,
 				E6ACA38EC5E339EF4FE47646 /* CaptureFirstUITests.swift */,
 				59E24F762D8CA6A4BF7DAF1E /* CoreLanguageCoverageUITests.swift */,
+				B7EE260ED5F3AEB0432A1236 /* EuropeanPortugueseLocalizationUITests.swift */,
 				71F2BBDBB4B641E2CBE4EC2A /* GermanLocalizationUITests.swift */,
 				50823D2601A933C59EDA0910 /* ItalianLocalizationUITests.swift */,
 				BBB076D2E8DB5CFA20954DD2 /* JapaneseLocalizationUITests.swift */,
+				E3947C020577C4C722DDE18C /* KoreanLocalizationUITests.swift */,
 				554A6308CE6E00D0214C452B /* PhysicalVideoCaptureUITests.swift */,
 				3EEC5029D31A75E43264EDFD /* ReviewDemoUITests.swift */,
 				99F916F3F01B551D2F608D04 /* SimplifiedChineseLocalizationUITests.swift */,
 				FE07C75A266F4FC33389F35D /* SpanishLocalizationUITests.swift */,
 				A7594885189CFE2057AA3037 /* SyncDiagnosticsLocalizationUITests.swift */,
 				AF64F1FDAA8AE1B806B76879 /* TraditionalChineseLocalizationUITests.swift */,
-				FD01A0010000000000000000 /* EuropeanPortugueseLocalizationUITests.swift */,
 			);
 			path = WhatIOSUITests;
 			sourceTree = "<group>";
@@ -822,6 +833,7 @@
 				fr,
 				it,
 				ja,
+				ko,
 				"pt-BR",
 				"pt-PT",
 				ru,
@@ -936,16 +948,17 @@
 				BBB8FD23CB4A4234EA62B20A /* BrazilianPortugueseLocalizationUITests.swift in Sources */,
 				4B245C0DC2EC18A8311E7D0C /* CaptureFirstUITests.swift in Sources */,
 				C50F79C602328028A7E2C8C3 /* CoreLanguageCoverageUITests.swift in Sources */,
+				E3EC7772875D21FE83C98D9F /* EuropeanPortugueseLocalizationUITests.swift in Sources */,
 				C88BAC0848F878D70E02626F /* GermanLocalizationUITests.swift in Sources */,
 				262E2B333C046F72C5269BC2 /* ItalianLocalizationUITests.swift in Sources */,
 				6AE1BED850EA1D717E51F61A /* JapaneseLocalizationUITests.swift in Sources */,
+				E9C1E31B58255B32413DB1CD /* KoreanLocalizationUITests.swift in Sources */,
 				3C065E85B30A37BB3D5F3833 /* PhysicalVideoCaptureUITests.swift in Sources */,
 				0633B2238EF1A5BD5B32969F /* ReviewDemoUITests.swift in Sources */,
 				C1EBBA142E09B40E143A8159 /* SimplifiedChineseLocalizationUITests.swift in Sources */,
 				C3E7359E6447841179AA5181 /* SpanishLocalizationUITests.swift in Sources */,
 				F5368DAB2C52D06EE5A584CD /* SyncDiagnosticsLocalizationUITests.swift in Sources */,
 				1B510BDB978C30BD8C418288 /* TraditionalChineseLocalizationUITests.swift in Sources */,
-				FE01A0010000000000000000 /* EuropeanPortugueseLocalizationUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1084,6 +1097,7 @@
 				CD08F98DA09E748DB00A2E3B /* fr */,
 				092FA994CA0CDB160B4C6B77 /* it */,
 				65BD4FA43F95D29B09472D25 /* ja */,
+				480F1F3A79FBD4DE29BED3B9 /* ko */,
 				606F42C983BED3191751F9F9 /* pt-BR */,
 				36464C60C3807EB22DB35FD6 /* pt-PT */,
 				75FC8C5D4AC63C7FB4687328 /* ru */,
@@ -1102,6 +1116,7 @@
 				F6C2BBC3DEC5AB7AD4740E28 /* fr */,
 				A64C383346AF3874B0263106 /* it */,
 				96DB185BAF9064187728047E /* ja */,
+				3E6ADEC324BFC7D89481C4CB /* ko */,
 				22E3D16FAA16F453B88C6F57 /* pt-BR */,
 				E8B6F05978F34120C976EEBE /* pt-PT */,
 				4830C8A2C90521D5AB373CAB /* ru */,
@@ -1120,6 +1135,7 @@
 				ED862264EAF4F83AA102BD01 /* fr */,
 				CE89CAA8ECF8F31D67BA2ECD /* it */,
 				C19BF99F0B4201679FF1F38D /* ja */,
+				E88C7FDFFB865985A1B03E80 /* ko */,
 				3C45BB5F90E0776E72538BFF /* pt-BR */,
 				9D5EA171B3930602E2643C48 /* pt-PT */,
 				2AC3CDB54C38567DA4A0FC87 /* ru */,
@@ -1138,6 +1154,7 @@
 				551E716AB170B3B71C038ECA /* fr */,
 				A88F92E69D615712396DE232 /* it */,
 				007D82FC5DC5649D3B5438C1 /* ja */,
+				BD737D16F3F5C799DDA70AE4 /* ko */,
 				2DB40E50DC58ABC77D8C9DA2 /* pt-BR */,
 				BE3DE5F88063BCD69015B106 /* pt-PT */,
 				CD77D9CE7514B2812E2AA048 /* ru */,
@@ -1155,6 +1172,7 @@
 				66F94BDADC97B3A436C4671A /* fr */,
 				CF4244518B6BDDD1E7970310 /* it */,
 				239AAE2A5A4ECFD4D9CEE506 /* ja */,
+				5B8BD825B2B4ED2634E490C4 /* ko */,
 				F4FC9E063FD5D4055BEA98E8 /* pt-BR */,
 				73BDFBB7E31E271F23865666 /* pt-PT */,
 				D77CB821F9683C6381DD792C /* ru */,
@@ -1173,6 +1191,7 @@
 				915A1EDB2F1648CE8B95426E /* fr */,
 				B57932F5E5FCB62F32228CD5 /* it */,
 				BB61D550F6AA1A588DDC9C94 /* ja */,
+				5239D792ACF26C213EAADDFA /* ko */,
 				6FCF9BEEDFE0911C25F27044 /* pt-BR */,
 				511084055435D5F88EA453AA /* pt-PT */,
 				45AF5A244D5C57B278411CCC /* ru */,
@@ -1191,6 +1210,7 @@
 				ECBA1CD1EC0D75C301D33609 /* fr */,
 				F8F5CEA4B3A795DEC60389E3 /* it */,
 				E84E11CE4EF4013CCC145DC7 /* ja */,
+				6EFA313EEB1B34C16F3BA4BF /* ko */,
 				66A0B6812274E5E0A18C9D4B /* pt-BR */,
 				3FB4B2A7E318A157B3D280EF /* pt-PT */,
 				7FCAEBD0458C93CC98C920F3 /* ru */,
@@ -1209,6 +1229,7 @@
 				77D3906B60E2F4406C658F4D /* fr */,
 				044051545C4CEC2458E9B719 /* it */,
 				3C33E1F7206448BFA5509F23 /* ja */,
+				DD41FF9AF97456964ADC1747 /* ko */,
 				914F26E64948E28F334942B1 /* pt-BR */,
 				08591BF4E6379363956B909C /* pt-PT */,
 				C9FFDE0F6D9564159A5742C2 /* ru */,

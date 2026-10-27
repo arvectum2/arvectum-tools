@@ -123,7 +123,7 @@ final class LocalizationTests: XCTestCase {
     ]
 
     func testPickerOffersOnlyBundledLocales() {
-        XCTAssertEqual(ChickMarkLanguage.supported, ["ru", "en", "es", "de", "fr", "it", "ja", "pt-BR", "pt-PT", "zh-Hans", "zh-Hant"])
+        XCTAssertEqual(ChickMarkLanguage.supported, ["ru", "en", "es", "de", "fr", "it", "ja", "ko", "pt-BR", "pt-PT", "zh-Hans", "zh-Hant"])
         XCTAssertEqual(
             ChickMarkLanguage.orderedLanguages(["fr", "en", "Base", "ru", "es", "en"]),
             ["ru", "en", "es", "fr"]
@@ -172,6 +172,18 @@ final class LocalizationTests: XCTestCase {
         XCTAssertEqual(L10n.string("habit.create", language: "zh-Hans"), "创建习惯")
         let template = L10n.string("today.progress.format", language: "zh-Hans")
         XCTAssertEqual(String(format: template, 1, 3), "已打卡：1／3")
+    }
+
+    func testKoreanCatalogAndDeviceLocale() {
+        let available = ChickMarkLanguage.supported
+        XCTAssertTrue(available.contains("ko"), "Korean must be packaged with the iPhone app")
+        XCTAssertEqual(ChickMarkLanguage.resolvedIdentifier(
+            for: "system", preferred: ["ko-KR", "en"], available: available
+        ), "ko")
+        XCTAssertEqual(ChickMarkLanguage.displayName(for: "ko"), "한국어")
+        XCTAssertEqual(L10n.string("habit.create", language: "ko"), "습관 만들기")
+        XCTAssertEqual(L10n.string("today.title", language: "ko"), "오늘")
+        XCTAssertEqual(String(format: L10n.string("habit.streak.format", language: "ko"), 5), "연속 5일")
     }
 
     func testJapaneseCatalogAndSystemLocaleSelection() {

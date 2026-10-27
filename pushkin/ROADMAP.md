@@ -1,5 +1,13 @@
 # PUSHKIN — Product Roadmap
 
+## C9 — реальные App Store карточки (26.10.2026)
+
+- [x] RU title PUSHKIN by Arvectum, subtitle «История уведомлений»; первый опубликованный RU скриншот содержит английский интерфейс.
+- [ ] Переснять все три RU скриншота в новом RC, показать честный сценарий через Shortcuts и поддерживаемые уведомления.
+
+[ASO аудит](../core/docs/ASO_PUBLIC_AUDIT_2026-10-26.md).
+
+
 ## 26.10.2026 · C8 — актуальный статус Pushkin
 
 - [x] 12 полных source-пакетов, включая KO; PT-PT/KO/zh-Hant native smoke PASS; Core audit PASS.

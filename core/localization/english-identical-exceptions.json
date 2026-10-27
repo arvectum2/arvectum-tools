@@ -44,6 +44,12 @@
       "reason": "Product brand; should remain untranslated"
     },
     {
+      "file": "chickmark/ios/HabitsByArvectumWatchWidget/ko.lproj/Localizable.strings",
+      "key": "watch.widget.title",
+      "value": "ChickMark",
+      "reason": "Product brand; should remain untranslated"
+    },
+    {
       "file": "chickmark/ios/HabitsByArvectumWatchWidget/pt-BR.lproj/Localizable.strings",
       "key": "watch.widget.title",
       "value": "ChickMark",
@@ -72,60 +78,6 @@
       "key": "watch.widget.title",
       "value": "ChickMark",
       "reason": "Product brand; should remain untranslated"
-    },
-    {
-      "file": "pushkin/ios/ArvectumNotify/Resources/de.lproj/Localizable.strings",
-      "key": "In PUSHKIN",
-      "value": "In PUSHKIN",
-      "reason": "Short in-app branded label; same wording grammatical here"
-    },
-    {
-      "file": "pushkin/ios/ArvectumNotify/Resources/fr.lproj/Localizable.strings",
-      "key": "Diagnostics",
-      "value": "Diagnostics",
-      "reason": "Same spelling is valid in source and target language; short UI term"
-    },
-    {
-      "file": "pushkin/ios/ArvectumNotify/Resources/fr.lproj/Localizable.strings",
-      "key": "Notification",
-      "value": "Notification",
-      "reason": "Same spelling is valid in source and target language; short UI term"
-    },
-    {
-      "file": "pushkin/ios/ArvectumNotify/Resources/it.lproj/Localizable.strings",
-      "key": "In PUSHKIN",
-      "value": "In PUSHKIN",
-      "reason": "Short in-app branded label; same wording grammatical here"
-    },
-    {
-      "file": "what/ios/WhatIOS/de.lproj/Localizable.strings",
-      "key": "Audio (.m4a)",
-      "value": "Audio (.m4a)",
-      "reason": "Shared technical audio term and file-extension notation"
-    },
-    {
-      "file": "what/ios/WhatIOS/de.lproj/Localizable.strings",
-      "key": "Filter %@, %@",
-      "value": "Filter %@, %@",
-      "reason": "Identical German word and positional placeholder format"
-    },
-    {
-      "file": "what/ios/WhatIOS/es.lproj/Localizable.strings",
-      "key": "Audio (.m4a)",
-      "value": "Audio (.m4a)",
-      "reason": "Shared technical audio term and file-extension notation"
-    },
-    {
-      "file": "what/ios/WhatIOS/fr.lproj/Localizable.strings",
-      "key": "Audio (.m4a)",
-      "value": "Audio (.m4a)",
-      "reason": "Shared technical audio term and file-extension notation"
-    },
-    {
-      "file": "what/ios/WhatIOS/it.lproj/Localizable.strings",
-      "key": "Audio (.m4a)",
-      "value": "Audio (.m4a)",
-      "reason": "Shared technical audio term and file-extension notation"
     },
     {
       "file": "photo-pdf-to-size/ios/PhotoPodRazmer/Resources/de.lproj/Localizable.strings",
@@ -186,6 +138,60 @@
       "key": "900×900 px · JPEG · 10 KB–1 MB",
       "value": "900×900 px · JPEG · 10 KB–1 MB",
       "reason": "Language-independent photo dimensions, format and size units"
+    },
+    {
+      "file": "pushkin/ios/ArvectumNotify/Resources/de.lproj/Localizable.strings",
+      "key": "In PUSHKIN",
+      "value": "In PUSHKIN",
+      "reason": "Short in-app branded label; same wording grammatical here"
+    },
+    {
+      "file": "pushkin/ios/ArvectumNotify/Resources/fr.lproj/Localizable.strings",
+      "key": "Diagnostics",
+      "value": "Diagnostics",
+      "reason": "Same spelling is valid in source and target language; short UI term"
+    },
+    {
+      "file": "pushkin/ios/ArvectumNotify/Resources/fr.lproj/Localizable.strings",
+      "key": "Notification",
+      "value": "Notification",
+      "reason": "Same spelling is valid in source and target language; short UI term"
+    },
+    {
+      "file": "pushkin/ios/ArvectumNotify/Resources/it.lproj/Localizable.strings",
+      "key": "In PUSHKIN",
+      "value": "In PUSHKIN",
+      "reason": "Short in-app branded label; same wording grammatical here"
+    },
+    {
+      "file": "what/ios/WhatIOS/de.lproj/Localizable.strings",
+      "key": "Audio (.m4a)",
+      "value": "Audio (.m4a)",
+      "reason": "Shared technical audio term and file-extension notation"
+    },
+    {
+      "file": "what/ios/WhatIOS/de.lproj/Localizable.strings",
+      "key": "Filter %@, %@",
+      "value": "Filter %@, %@",
+      "reason": "Identical German word and positional placeholder format"
+    },
+    {
+      "file": "what/ios/WhatIOS/es.lproj/Localizable.strings",
+      "key": "Audio (.m4a)",
+      "value": "Audio (.m4a)",
+      "reason": "Shared technical audio term and file-extension notation"
+    },
+    {
+      "file": "what/ios/WhatIOS/fr.lproj/Localizable.strings",
+      "key": "Audio (.m4a)",
+      "value": "Audio (.m4a)",
+      "reason": "Shared technical audio term and file-extension notation"
+    },
+    {
+      "file": "what/ios/WhatIOS/it.lproj/Localizable.strings",
+      "key": "Audio (.m4a)",
+      "value": "Audio (.m4a)",
+      "reason": "Shared technical audio term and file-extension notation"
     }
   ]
 }

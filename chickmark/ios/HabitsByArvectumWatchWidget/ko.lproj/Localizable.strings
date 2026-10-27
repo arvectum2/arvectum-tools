@@ -1,0 +1,7 @@
+// Korean translation: automated DRAFT from English; native-speaker/privacy/permission review REQUIRED.
+// Do not publish on catalog parity alone.
+"watch.widget.title" = "ChickMark";
+"watch.widget.description" = "시계 모드에서 오늘의 습관 진행 상황을 확인하세요.";
+"watch.widget.empty" = "마감일 없음";
+"watch.widget.inline.format" = "%d/%d 습관";
+"watch.widget.next.format" = "다음: %@";

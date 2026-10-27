@@ -39,10 +39,12 @@ class LocalizationPortfolioTests(unittest.TestCase):
                                          i18n.PRINTF.findall(pt[key]), key)
 
     def test_korean_draft_ui_smoke_is_present_for_two_apps(self):
-        """Source UI smoke only; KO is not complete in Uhvat or ChickMark."""
+        """Verify Korean synthetic UI tests across all four apps; still not editorially approved."""
         dirs = (
             "photo-pdf-to-size/ios/PhotoPodRazmerUITests",
             "pushkin/ios/ArvectumNotifyUITests",
+            "what/ios/WhatIOSUITests",
+            "chickmark/ios/HabitsByArvectumUITests",
         )
         for directory in dirs:
             path = ROOT / directory / "KoreanLocalizationUITests.swift"
@@ -80,6 +82,27 @@ class LocalizationPortfolioTests(unittest.TestCase):
             self.assertNotEqual(en[key], ko[key], key)
         self.assertEqual(ko["History"], "기록")
 
+    def test_all_four_korean_catalogs_are_structurally_complete(self):
+        """Korean drafts in all active bundles must have full key and format parity."""
+        reg = i18n.config()
+        for app in ("chickmark", "pushkin", "what", "photo-pdf-to-size"):
+            for bundle in reg["apps"][app]["bundles"]:
+                root = ROOT / bundle
+                for english_file in sorted((root / "en.lproj").glob("*.strings")):
+                    korean_file = root / "ko.lproj" / english_file.name
+                    self.assertTrue(korean_file.exists(), str(korean_file))
+                    english = i18n.read_strings(english_file, [])
+                    korean = i18n.read_strings(korean_file, [])
+                    self.assertEqual(set(english), set(korean), str(korean_file))
+                    for key in english:
+                        self.assertEqual(i18n.placeholders(english[key]),
+                                         i18n.placeholders(korean[key]), f"{bundle}/{key}")
+                        if english_file.name == "AppShortcuts.strings":
+                            self.assertIn("$" + "{applicationName}", korean[key])
+        self.assertEqual(
+            i18n.read_strings(ROOT / "chickmark/ios/HabitsByArvectum/ko.lproj/Localizable.strings", [])["habit.create"],
+            "습관 만들기")
+
     def test_editorial_audit_is_triage_not_signoff(self):
         import editorial_localization_audit as review
         result = review.audit()
@@ -88,7 +111,7 @@ class LocalizationPortfolioTests(unittest.TestCase):
         self.assertEqual(sum(f["pt_pt_brazilian_flags"] for f in result["catalogs"]), 0)
         self.assertEqual(sum(f["format_mismatch"] for f in result["catalogs"]), 0)
         self.assertEqual(sum(f["missing"] + f["extra"] for f in result["catalogs"]), 0)
-        self.assertEqual(result['english_identical_triaged'], 31)
+        self.assertEqual(result['english_identical_triaged'], 32)
         self.assertEqual(result['english_identical_untriaged'], [])
         self.assertEqual(result['english_identical_stale_exceptions'], [])
 

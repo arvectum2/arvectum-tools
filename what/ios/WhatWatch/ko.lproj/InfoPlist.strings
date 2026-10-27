@@ -1,0 +1,5 @@
+// Korean translation: automated DRAFT from English; native-speaker/privacy/permission review REQUIRED.
+// Do not publish on catalog parity alone.
+"CFBundleDisplayName" = "UhWhat?";
+"CFBundleName" = "UhWhat?";
+"NSMicrophoneUsageDescription" = "Apple Watch에 생각을 기록하세요. 오디오는 iPhone으로 안전하게 전송될 때까지 시계에 남아 있습니다.";

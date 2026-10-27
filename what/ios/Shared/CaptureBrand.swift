@@ -4,7 +4,7 @@ import Foundation
 /// same Watch/phone URL scheme also routes new text and video notes.
 enum CaptureBrand {
     /// Speech recognition is a separate setting from the visual interface.
-    /// Interface follows iOS per-app/device language in RU/EN/ES/FR/DE/PT-BR/IT; unsupported
+    /// Interface follows iOS per-app/device language in bundled RU/EN/ES/FR/DE/PT/IT/JA/KO/ZH; unsupported
     /// interface languages have an English fallback. Watch and widget process
     /// locales are resolved independently. Existing recording language
     /// preferences and original audio remain untouched.
@@ -46,7 +46,7 @@ enum CaptureBrand {
             }
             let language = Locale(identifier: identifier)
                 .language.languageCode?.identifier.lowercased()
-            if let language, ["ru", "en", "es", "fr", "de", "pt", "it", "ja", "zh"].contains(language) {
+            if let language, ["ru", "en", "es", "fr", "de", "pt", "it", "ja", "ko", "zh"].contains(language) {
                 return language
             }
         }
@@ -107,6 +107,12 @@ enum CaptureBrand {
         return Bundle(path: path)
     }()
 
+    private static let koreanBundle: Bundle? = {
+        guard let path = Bundle.main.path(forResource: "ko", ofType: "lproj")
+        else { return nil }
+        return Bundle(path: path)
+    }()
+
     private static let simplifiedChineseBundle: Bundle? = {
         guard let path = Bundle.main.path(forResource: "zh-Hans", ofType: "lproj")
         else { return nil }
@@ -163,6 +169,11 @@ enum CaptureBrand {
                 forKey: english, value: english, table: nil
             ) ?? english
         }
+        if code.hasPrefix("ko") {
+            return koreanBundle?.localizedString(
+                forKey: english, value: english, table: nil
+            ) ?? english
+        }
         if code.hasPrefix("ja") {
             return japaneseBundle?.localizedString(
                 forKey: english, value: english, table: nil
@@ -193,6 +204,7 @@ enum CaptureBrand {
             code.hasPrefix("pt") ? "pt_BR" :
             code.hasPrefix("it") ? "it_IT" :
             code.hasPrefix("ja") ? "ja_JP" :
+            code.hasPrefix("ko") ? "ko_KR" :
             (code.lowercased().hasPrefix("zh-hant") ||
              code.lowercased().hasPrefix("zh-tw") ||
              code.lowercased().hasPrefix("zh-hk") ||
@@ -244,6 +256,9 @@ enum CaptureBrand {
         }
         if language.hasPrefix("ja") {
             return "\(count)件のメモ"
+        }
+        if language.hasPrefix("ko") {
+            return "\(count)개 메모"
         }
         if language.hasPrefix("zh") {
             return "\(count)条笔记"
