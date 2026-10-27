@@ -29,6 +29,7 @@ struct AddHabitView: View {
     @State private var dailyTarget: Int
     @AppStorage(ChickMarkGroups.storageKey) private var groupSettings = Data()
     @State private var selectedGroupID: UUID?
+    @State private var newGroupName = ""
     @State private var goalKind: String
     @State private var quantityTarget: Int
     @State private var durationMinutes: Int
@@ -55,6 +56,19 @@ struct AddHabitView: View {
         !completionIntervalEnabled &&
         (!flexibleWeeklyEnabled || healthMetric.supportsWeeklyGoal) &&
         (flexibleWeeklyEnabled || (goalKind == "check" && dailyTarget == 1))
+    }
+
+    /// Add a custom group without leaving the habit creation flow.
+    /// The SwiftData Habit schema stays unchanged; group membership remains
+    /// in existing optional preferences/Cloud KVS and backup storage.
+    private func createGroupFromForm() {
+        let trimmed = newGroupName.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard let group = ChickMarkGroups.create(name: trimmed) else { return }
+        groupSettings = UserDefaults.standard.data(
+            forKey: ChickMarkGroups.storageKey
+        ) ?? Data()
+        selectedGroupID = group.id
+        newGroupName = ""
     }
 
     private var quickHabits: [(title: String, symbol: String)] {
@@ -356,8 +370,8 @@ struct AddHabitView: View {
                     }
                 }
 
-                if !ChickMarkGroups.decode(groupSettings).isEmpty {
-                    Section {
+                Section {
+                    if !ChickMarkGroups.decode(groupSettings).isEmpty {
                         Picker(
                             L10n.string("groups.select"),
                             selection: $selectedGroupID
@@ -368,7 +382,25 @@ struct AddHabitView: View {
                                 Text(group.name).tag(Optional(group.id))
                             }
                         }
+                        .accessibilityIdentifier("habit.group.picker")
                     }
+
+                    HStack(spacing: 12) {
+                        TextField(L10n.string("groups.placeholder"),
+                                  text: $newGroupName)
+                            .submitLabel(.done)
+                            .onSubmit(createGroupFromForm)
+                            .accessibilityIdentifier("habit.group.newName")
+                        Button(L10n.string("groups.add")) {
+                            createGroupFromForm()
+                        }
+                        .disabled(newGroupName.trimmingCharacters(
+                            in: .whitespacesAndNewlines
+                        ).isEmpty)
+                        .accessibilityIdentifier("habit.group.add")
+                    }
+                } header: {
+                    Text(L10n.string("groups.select"))
                 }
 
                 Section {

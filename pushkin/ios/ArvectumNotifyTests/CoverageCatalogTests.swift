@@ -2,6 +2,22 @@ import XCTest
 @testable import ArvectumNotify
 
 final class CoverageCatalogTests: XCTestCase {
+    func testInternationalStarterAppsSurfaceExistingSignedPackages() {
+        let international = CoverageCatalog.commonEntries(preferredLanguages: ["en-US"])
+        let ids = Set(international.map(\.bundleIdentifier))
+        for id in ["com.google.Gmail", "com.burbn.instagram",
+                   "com.hammerandchisel.discord", "org.whispersystems.signal",
+                   "com.ubercab.UberClient", "doordash.DoorDashConsumer"] {
+            XCTAssertTrue(ids.contains(id), "Catalog app should be discoverable: \(id)")
+        }
+        XCTAssertEqual(international.count, 20)
+        let russian = CoverageCatalog.commonEntries(preferredLanguages: ["ru-RU"])
+        XCTAssertEqual(russian.first?.bundleIdentifier, "ph.telegra.Telegraph")
+        XCTAssertTrue(russian.prefix(6).contains(where: {
+            $0.bundleIdentifier == "ru.ozon.OzonStore"
+        }))
+    }
+
     func testLocalizedOptionalGroupCopyAndCounts() {
         XCTAssertEqual(PushkinCopy.text("Optional Groups", language: "ru-RU"),
                        "Дополнительные группы")

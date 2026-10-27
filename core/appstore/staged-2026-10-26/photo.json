@@ -18,7 +18,7 @@
         "PDF до заданного лимита"
       ],
       "privacyPolicyUrl": "https://arvectum.com/photo-pod-razmer-privacy.html",
-      "whatsNew": "Дополнительные размеры фото для виз и документов, улучшено объяснение данных рекламы, обновлены экраны."
+      "whatsNew": "Теперь проще вернуться к настройкам после обработки фото. Улучшена навигация; обработка фото и PDF по-прежнему выполняется на устройстве."
     },
     "en-US": {
       "name": "Compress Photo & PDF to KB",
@@ -33,7 +33,7 @@
         "Shrink PDF to an upload limit"
       ],
       "privacyPolicyUrl": "https://arvectum.com/photo-pod-razmer-privacy.html",
-      "whatsNew": "Updated photo/PDF tools, three additional document photo presets and clearer in-app advertising information. No account required; photo and PDF processing stays on your iPhone."
+      "whatsNew": "A clearer way back to settings after processing photos. Photo and PDF files are still processed on your device."
     },
     "en-GB": {
       "name": "Photo & PDF Compressor: KB",
@@ -48,7 +48,7 @@
         "PDF to a chosen file limit"
       ],
       "privacyPolicyUrl": "https://arvectum.com/photo-pod-razmer-privacy.html",
-      "whatsNew": "Updated photo/PDF tools, three additional document photo presets and clearer in-app advertising information. No account required; photo and PDF processing stays on your iPhone."
+      "whatsNew": "A clearer way back to settings after processing photos. Photo and PDF files are still processed on your device."
     },
     "en-AU": {
       "name": "Photo & PDF Compressor: KB",
@@ -63,7 +63,7 @@
         "PDF to a chosen file limit"
       ],
       "privacyPolicyUrl": "https://arvectum.com/photo-pod-razmer-privacy.html",
-      "whatsNew": "Updated photo/PDF tools, three additional document photo presets and clearer in-app advertising information. No account required; photo and PDF processing stays on your iPhone."
+      "whatsNew": "A clearer way back to settings after processing photos. Photo and PDF files are still processed on your device."
     },
     "en-CA": {
       "name": "Photo & PDF Compressor: KB",
@@ -78,7 +78,7 @@
         "PDF to a chosen file limit"
       ],
       "privacyPolicyUrl": "https://arvectum.com/photo-pod-razmer-privacy.html",
-      "whatsNew": "Updated photo/PDF tools, three additional document photo presets and clearer in-app advertising information. No account required; photo and PDF processing stays on your iPhone."
+      "whatsNew": "A clearer way back to settings after processing photos. Photo and PDF files are still processed on your device."
     },
     "es-ES": {
       "name": "Comprimir fotos y PDF",
@@ -93,7 +93,7 @@
         "Reduce el tamaño de archivos PDF"
       ],
       "privacyPolicyUrl": "https://arvectum.com/photo-pod-razmer-privacy.html",
-      "whatsNew": "Versión 1.0: nueva arquitectura interna y mejoras de estabilidad. Comprime fotos y PDF, ajusta las dimensiones y prepara fotos para documentos desde tu iPhone."
+      "whatsNew": "Ahora es más fácil volver a los ajustes después de procesar una foto. Las fotos y los PDF siguen procesándose en tu dispositivo."
     },
     "es-MX": {
       "name": "Comprimir fotos y PDF",
@@ -108,7 +108,7 @@
         "Baja el peso de tus PDF"
       ],
       "privacyPolicyUrl": "https://arvectum.com/photo-pod-razmer-privacy.html",
-      "whatsNew": "Versión 1.0: mejoramos la estabilidad del procesamiento de fotos y PDF, los tamaños en píxeles y las plantillas para documentos. Todo en tu iPhone."
+      "whatsNew": "Ahora es más fácil volver a los ajustes después de procesar una foto. Las fotos y los PDF siguen procesándose en tu dispositivo."
     },
     "fr-FR": {
       "name": "Compresser photos et PDF",
@@ -123,7 +123,7 @@
         "Réduisez les fichiers PDF"
       ],
       "privacyPolicyUrl": "https://arvectum.com/photo-pod-razmer-privacy.html",
-      "whatsNew": "Version 1.0 : architecture revue et fiabilité améliorée. Compressez photos et PDF, ajustez les dimensions et préparez les photos pour documents sur iPhone."
+      "whatsNew": "Le retour aux réglages après le traitement d’une photo est plus clair. Les photos et PDF sont toujours traités sur votre appareil."
     },
     "de-DE": {
       "name": "Fotos & PDF verkleinern",
@@ -138,7 +138,7 @@
         "PDF-Dateien auf KB verkleinern"
       ],
       "privacyPolicyUrl": "https://arvectum.com/photo-pod-razmer-privacy.html",
-      "whatsNew": "Version 1.0: überarbeitete Architektur und höhere Zuverlässigkeit. Fotos und PDFs verkleinern, Pixelmaße anpassen und Dokumentfotos lokal vorbereiten."
+      "whatsNew": "Nach der Fotobearbeitung kommst du leichter zu den Einstellungen zurück. Fotos und PDFs werden weiterhin auf deinem Gerät verarbeitet."
     },
     "it": {
       "name": "Comprimi foto e PDF",
@@ -153,7 +153,7 @@
         "Riduci le dimensioni dei PDF"
       ],
       "privacyPolicyUrl": "https://arvectum.com/photo-pod-razmer-privacy.html",
-      "whatsNew": "Versione 1.0: architettura migliorata e maggiore affidabilità. Comprimi foto e PDF, modifica le dimensioni e prepara foto per documenti su iPhone."
+      "whatsNew": "Tornare alle impostazioni dopo aver elaborato una foto è più semplice. Foto e PDF restano elaborati sul dispositivo."
     },
     "ja": {
       "name": "写真とPDFを圧縮・サイズ変更",
@@ -168,7 +168,7 @@
         "PDFを指定サイズまで圧縮"
       ],
       "privacyPolicyUrl": "https://arvectum.com/photo-pod-razmer-privacy.html",
-      "whatsNew": "バージョン1.0：内部構成を改善し、ファイル処理の安定性を向上。写真とPDFの圧縮、ピクセル単位のサイズ変更、証明写真の設定に対応。"
+      "whatsNew": "写真の処理後、設定画面へ戻りやすくなりました。写真とPDFの処理は引き続き端末上で行われます。"
     },
     "ko": {
       "name": "사진 및 PDF 압축",
@@ -183,7 +183,7 @@
         "PDF 파일 용량 줄이기"
       ],
       "privacyPolicyUrl": "https://arvectum.com/photo-pod-razmer-privacy.html",
-      "whatsNew": "버전 1.0: 내부 구조를 개선해 파일 처리 안정성을 높였습니다. 사진 및 PDF 압축, 픽셀 크기 조절, 증명사진 규격을 지원합니다."
+      "whatsNew": "사진 처리 후 설정으로 더 쉽게 돌아갈 수 있습니다. 사진과 PDF는 계속 기기에서 직접 처리됩니다."
     },
     "pt-BR": {
       "name": "Comprimir Foto e PDF",
@@ -198,7 +198,7 @@
         "Reduza PDFs para enviar"
       ],
       "privacyPolicyUrl": "https://arvectum.com/photo-pod-razmer-privacy.html",
-      "whatsNew": "Versão 1.0: arquitetura renovada e melhorias de estabilidade. Comprima fotos e PDFs, redimensione imagens e prepare arquivos para documentos no iPhone."
+      "whatsNew": "Ficou mais fácil voltar às configurações após processar uma foto. Fotos e PDFs continuam sendo processados no dispositivo."
     },
     "pt-PT": {
       "name": "Comprimir Fotografias e PDF",
@@ -213,12 +213,12 @@
         "Reduza o tamanho dos PDF"
       ],
       "privacyPolicyUrl": "https://arvectum.com/photo-pod-razmer-privacy.html",
-      "whatsNew": "Versão 1.0: arquitetura melhorada e mais fiabilidade ao comprimir fotografias e PDFs, ajustar dimensões e preparar fotos para documentos."
+      "whatsNew": "Agora é mais fácil voltar às definições depois de processar uma fotografia. As fotografias e os PDF continuam a ser processados no dispositivo."
     },
     "zh-Hans": {
       "promotionalText": "在iPhone上将照片和PDF压缩到指定大小：100 KB、500 KB、1 MB或自定义上限。可调整像素尺寸与证件照规格，文件在本机处理。",
       "description": "文件太大，无法提交表单？在iPhone上按目标KB或MB压缩照片和PDF。\n\n照片：选择100 KB、500 KB、1 MB或自定义上限，保存前查看实际结果。\nPDF：缩小文件以便上传。高强度压缩可能把页面转为图片，导致文字无法选中或搜索。\n图片尺寸：设置宽高像素，可选择保持比例。根据格式支持情况导出JPEG、PNG或HEIC。\n证件照：提供部分国家和地区的签证、护照照片尺寸预设，包括中国、美国、英国、俄罗斯、印度、加拿大及申根国家。无法保证官方审核通过。\n对比：查看处理前后的文件大小与图片效果，可按需移除EXIF及位置信息。\n\n照片和PDF在设备本地处理，无需注册账户。广告可能需要联网，但原始文件不会上传到广告网络进行处理。\n\n广告与隐私：广告SDK可能收集设备技术信息及标识符。详情请阅读隐私政策。",
-      "whatsNew": "优化照片和PDF处理工具，增加证件照尺寸预设，并进一步说明应用内广告与隐私信息。",
+      "whatsNew": "处理照片后更容易返回设置。照片和 PDF 仍在设备本地处理。",
       "screenshots": [
         "2.92 MB → 472 KB",
         "按像素调整尺寸",
@@ -233,7 +233,7 @@
     "zh-Hant": {
       "promotionalText": "在iPhone上將照片與PDF壓縮到指定大小：100 KB、500 KB、1 MB或自訂上限。可調整像素尺寸及證件照規格，檔案在本機處理。",
       "description": "檔案太大，無法提交表單？在iPhone上依指定KB或MB上限壓縮照片與PDF。\n\n照片：選擇100 KB、500 KB、1 MB或自訂上限，儲存前查看實際結果。\nPDF：縮小檔案方便上傳。高強度壓縮可能將頁面轉成影像，導致文字無法選取或搜尋。\n圖片尺寸：設定寬高像素，可選擇維持比例。依格式支援情況匯出JPEG、PNG或HEIC。\n證件照：提供部分國家與地區的簽證、護照照片尺寸預設，包括中國、美國、英國、俄羅斯、印度、加拿大及申根國家。不保證官方審核通過。\n比較：查看處理前後的檔案大小與影像效果，也可移除EXIF及位置資訊。\n\n照片與PDF於裝置本機處理，無須註冊帳號。廣告可能需要連網，但原始檔案不會上傳至廣告網路進行處理。\n\n廣告與隱私：廣告SDK可能收集裝置技術資訊及識別碼。詳情請參閱隱私權政策。",
-      "whatsNew": "改善照片與PDF處理工具，新增證件照尺寸預設，並清楚說明App內廣告與隱私資訊。",
+      "whatsNew": "處理照片後更容易返回設定。照片和 PDF 仍在裝置本機處理。",
       "screenshots": [
         "2.92 MB → 472 KB",
         "依像素調整尺寸",

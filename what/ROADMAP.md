@@ -1,5 +1,7 @@
 # What? — Product Roadmap
 
+C17 IndieAppCircle: понятная подсказка под непротранскрибированной записью на всех 12 языках UI; 232 iPhone key, повторные XCUITest PASS. Candidate 1.1.2(10), signed QA/preflight, ожидает per-release approval.
+
 C15 (27.10): улучшено естественное KO название действия «Ухвати мысль»; подготовлены 48 маркетинговых iPad JPEG и повторная приёмка KO и заполненного settings menu. [C15](../core/docs/ASO_C15_EDITORIAL_ACCEPTANCE_2026-10-27.md).
 
 C14 (27.10): keywords оптимизированы в 15 региональных ASO-карточках, а первый iPad-экран отмечен для проверки объясняющей ценности. [C14](../core/docs/ASO_C14_KEYWORDS_VISUAL_GATE_2026-10-27.md).

@@ -27,7 +27,18 @@ enum CoverageCatalog {
     static var entries: [CoverageCatalogEntry] { document.apps }
 
     static var commonEntries: [CoverageCatalogEntry] {
-        let preferredBundles = [
+        commonEntries(preferredLanguages: Locale.preferredLanguages)
+    }
+
+    static func commonEntries(preferredLanguages: [String]) -> [CoverageCatalogEntry] {
+        let globalFirst = [
+            "ph.telegra.Telegraph", "net.whatsapp.WhatsApp",
+            "com.google.Gmail", "com.burbn.instagram",
+            "com.hammerandchisel.discord", "org.whispersystems.signal",
+            "com.ubercab.UberClient", "com.ubercab.UberEats",
+            "doordash.DoorDashConsumer", "com.google.Maps"
+        ]
+        let russianFirst = [
             "ph.telegra.Telegraph", "net.whatsapp.WhatsApp",
             "ru.ozon.OzonStore", "RU.WILDBERRIES.MOBILEAPP",
             "ru.yandex.ytaxi", "ru.yandex.traffic",
@@ -36,9 +47,16 @@ enum CoverageCatalog {
             "ru.mts.mymts", "ru.megafon.lk",
             "ru.beeline.mobile", "ru.sbcs.store",
             "com.vkusvill", "ru.tander.magnit",
-            "ru.5ka.browser.app", "com.google.Gmail",
-            "com.google.Maps", "com.burbn.instagram"
+            "ru.5ka.browser.app"
         ]
+        // The actual offline catalog already has Discord, Instagram, Gmail,
+        // Signal, Uber and DoorDash. Surface them up front for non-RU users,
+        // rather than shipping duplicate shortcut packages or claiming that
+        // Shortcuts can intercept every iOS notification automatically.
+        let preferredBundles = preferredLanguages.first?
+            .hasPrefix("ru") == true
+            ? russianFirst + globalFirst
+            : globalFirst + russianFirst
         let byBundle = Dictionary(uniqueKeysWithValues: entries.map {
             ($0.bundleIdentifier, $0)
         })

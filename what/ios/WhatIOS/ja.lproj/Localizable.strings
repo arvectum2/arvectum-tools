@@ -230,3 +230,4 @@
 "Your Watch last reported recordings waiting for iPhone confirmation. Audio stays on Watch until iPhone confirms saving; background delivery can be delayed." = "Watchからの最後の報告では、iPhoneの確認待ちの録音があります。iPhoneが保存を確認するまで、音声はWatchに残ります。バックグラウンド転送には遅延が生じる場合があります。";
 "Your Watch last reported an empty queue. New recordings may have been made since that report." = "Watchからの最後の報告では、キューは空でした。その後に新しい録音が作成された可能性があります。";
 "Français" = "フランス語";
+"No text yet. Tap Transcribe to turn this audio into text." = "まだテキストがありません。「文字起こし」をタップすると、音声をテキストに変換できます。";

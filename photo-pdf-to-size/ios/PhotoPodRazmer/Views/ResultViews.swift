@@ -32,7 +32,7 @@ private struct ResultTopBar: View {
         }
 
         Button(action: onBack) {
-            Label(tr("Изменить настройки"), systemImage: "slider.horizontal.3")
+            Label(tr("Изменить настройки"), systemImage: "arrow.backward")
                 .font(.caption.weight(.semibold))
                 .fixedSize(horizontal: false, vertical: true)
                 .padding(.horizontal, 10)

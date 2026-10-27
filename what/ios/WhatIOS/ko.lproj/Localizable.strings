@@ -231,3 +231,4 @@
 "Your Watch last reported recordings waiting for iPhone confirmation. Audio stays on Watch until iPhone confirms saving; background delivery can be delayed." = "귀하의 Watch는 iPhone 확인을 기다리는 녹음을 마지막으로 보고했습니다. iPhone이 저장을 확인할 때까지 오디오는 Watch에 유지됩니다. 백그라운드 배송이 지연될 수 있습니다.";
 "Your Watch last reported an empty queue. New recordings may have been made since that report." = "시계에서 마지막으로 빈 대기열을 보고했습니다. 해당 보고서 이후 새로운 녹음이 이루어졌을 수도 있습니다.";
 "Français" = "프랑세즈";
+"No text yet. Tap Transcribe to turn this audio into text." = "아직 텍스트가 없습니다. '텍스트 변환'을 탭하면 녹음 내용을 글로 바꿀 수 있습니다.";

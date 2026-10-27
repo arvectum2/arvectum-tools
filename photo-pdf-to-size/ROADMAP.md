@@ -1,5 +1,7 @@
 # Фото и PDF под размер — Product Roadmap
 
+C17 IndieAppCircle: визуально понятная стрелка возврата после обработки; Schengen/China/Canada уже реализованы, не дублировать; P0 privacy label — реклама Yandex+AppMetrica декларирует данные. Candidate 1.0.4(16), signed QA/preflight, ожидает per-release approval. См. core/docs/INDIEAPPCIRCLE_APP_PRIVACY_AUDIT_2026-10-27.md.
+
 C15 (27.10): исправлен иностранный fallback «Исходный файл»/preview во всех 12 UI локалях (24 значения), пересняты 48 настоящих 13″ iPad кадра; сделаны 48 локализованных iPad-маркетинговых JPEG (12 языков × 4 позиции). [C15](../core/docs/ASO_C15_EDITORIAL_ACCEPTANCE_2026-10-27.md).
 
 C14 (27.10): устранён повторный keyword в одном регионе; первый 13-дюймовый iPad-кадр помечен для маркетинговой переработки из-за большой пустой области. [C14](../core/docs/ASO_C14_KEYWORDS_VISUAL_GATE_2026-10-27.md).

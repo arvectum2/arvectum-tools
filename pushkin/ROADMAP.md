@@ -1,5 +1,7 @@
 # PUSHKIN — Product Roadmap
 
+C17 IndieAppCircle: международным пользователям выше в списке показываются существующие Gmail/Instagram/Discord/Signal/Uber/DoorDash; Slack пока без подтверждённого подписанного Shortcut. Candidate 1.0.3(7), signed QA/preflight, ожидает per-release approval.
+
 C15 (27.10): 16 текстовых ASO-карточек прошли внутреннюю поязыковую редактуру; 64 iPhone региональных слота по-прежнему имеют 48 проверенных native PNG. iPad не поддерживается. [C15](../core/docs/ASO_C15_EDITORIAL_ACCEPTANCE_2026-10-27.md).
 
 C14 (27.10): keywords оптимизированы в 14 региональных ASO-карточках, сохранена оговорка Shortcuts; изображения не менялись. [C14](../core/docs/ASO_C14_KEYWORDS_VISUAL_GATE_2026-10-27.md).

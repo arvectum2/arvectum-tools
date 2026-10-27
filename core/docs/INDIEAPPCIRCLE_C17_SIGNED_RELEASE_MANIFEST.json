@@ -1,0 +1,82 @@
+{
+  "stage": "SIGNED_QA_NOT_UPLOADED",
+  "date": "2026-10-27",
+  "apps": {
+    "photo": {
+      "version": "1.0.4",
+      "build": "16",
+      "sha256": "ef7c6c32e17515db19f754d50d844ab66419feefc33e2d31dd76297d755e4c40",
+      "sizeBytes": 5477228,
+      "signedBy": "Apple Distribution: LLC ARVECTUM (VML75VY94V)",
+      "codesignVerified": true,
+      "mainPrivacyManifest": true,
+      "embeddedBundleCount": 0,
+      "embeddedBundles": []
+    },
+    "pushkin": {
+      "version": "1.0.3",
+      "build": "7",
+      "sha256": "2502c204f2962eabf888df2e75675570dfb7975f00ac24a264cd2129e9dabe08",
+      "sizeBytes": 15091235,
+      "signedBy": "Apple Distribution: LLC ARVECTUM (VML75VY94V)",
+      "codesignVerified": true,
+      "mainPrivacyManifest": true,
+      "embeddedBundleCount": 0,
+      "embeddedBundles": []
+    },
+    "what": {
+      "version": "1.1.2",
+      "build": "10",
+      "sha256": "b92667e7088a645956a955d7d8ec90dce5ffd529f13c9c72cdd7a6a4c7d9c656",
+      "sizeBytes": 4049925,
+      "signedBy": "Apple Distribution: LLC ARVECTUM (VML75VY94V)",
+      "codesignVerified": true,
+      "mainPrivacyManifest": true,
+      "embeddedBundleCount": 3,
+      "embeddedBundles": [
+        {
+          "type": "appex",
+          "version": "1.1.2",
+          "build": "10"
+        },
+        {
+          "type": "appex",
+          "version": "1.1.2",
+          "build": "10"
+        },
+        {
+          "type": "embeddedApp",
+          "version": "1.1.2",
+          "build": "10"
+        }
+      ]
+    },
+    "chickmark": {
+      "version": "1.5.3",
+      "build": "21",
+      "sha256": "cf050d6591419472a2271e11abefd2348cfdff64c21a935e34baaaf761ae8d5c",
+      "sizeBytes": 8381628,
+      "signedBy": "Apple Distribution: LLC ARVECTUM (VML75VY94V)",
+      "codesignVerified": true,
+      "mainPrivacyManifest": true,
+      "embeddedBundleCount": 3,
+      "embeddedBundles": [
+        {
+          "type": "appex",
+          "version": "1.5.3",
+          "build": "21"
+        },
+        {
+          "type": "appex",
+          "version": "1.5.3",
+          "build": "21"
+        },
+        {
+          "type": "embeddedApp",
+          "version": "1.5.3",
+          "build": "21"
+        }
+      ]
+    }
+  }
+}
