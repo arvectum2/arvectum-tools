@@ -1,5 +1,17 @@
 # ChickMark — актуальная дорожная карта
 
+## Актуально 27.10.2026 · C17/C18
+
+- [x] ChickMark **1.5.3 (21)**: signed IPA, 16 локалей ASC, 128 скриншотов; App Review **WAITING_FOR_REVIEW**, **AFTER_APPROVAL**. Публичная при последнем Lookup — **1.5.2**; категория Productivity подтверждена. [C17 ASC](../core/docs/INDIEAPPCIRCLE_C17_APPLE_SUBMITTED_2026-10-27.md).
+- [x] C17: собственную группу можно создать прямо при создании привычки без изменения SwiftData schema.
+- [x] C18: исправлен низкий контраст заголовка группы и неактивной кнопки «Добавить»; **это исходники после отправки** и НЕ входит в 1.5.3 (21). [C18](../core/docs/CHICKMARK_C18_ACCESSIBILITY_FOLLOWUP_2026-10-27.md).
+- [ ] P0: зелёный CI UI accessibility gate для C18, аппаратная HealthKit/вода, Watch/CloudKit двух устройств, backup/upgrade, реальные РСЯ fill/no-fill/доход и VoiceOver. Не заменять отправленный C17 без отдельного решения.
+- [ ] P1: скользящее повторение от фактического выполнения, overdue/reminder UX, optional handoff из Ухвата без автозавершения привычек.
+- [ ] После Apple Review проверить живую версию; REVIEW не равно READY_FOR_SALE.
+
+[Сводная карта](../core/docs/ROADMAP_PORTFOLIO_2026-10-27.md).
+
+
 C17 IndieAppCircle: в форме новой привычки теперь можно создать собственную группу и назначить её без перехода в настройки. XCUITest PASS, без SwiftData migration. Candidate 1.5.3(21), подписанные QA/preflight и per-release approval.
 
 C15 (27.10): 48 локализованных маркетинговых iPad JPEG вместо больших пустот, все заголовки 12 UI языков соответствуют реальным кадрам. [C15](../core/docs/ASO_C15_EDITORIAL_ACCEPTANCE_2026-10-27.md).
