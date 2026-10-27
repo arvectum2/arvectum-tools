@@ -1,20 +1,75 @@
 {
   "stage": "DRAFT_NOT_UPLOADED",
   "checkedAt": "2026-10-27",
-  "assetCoverage": {"metadata": "64/64", "screenshotSlots": "448/448", "uniqueImages": 336},
+  "assetCoverage": {
+    "metadata": "64/64",
+    "screenshotSlots": "448/448",
+    "uniqueImages": 336
+  },
   "requiredBeforeAppStoreMutation": {
-    "nativeSpeakerLegalReview": {"approved": false, "evidence": null},
-    "visualMarketingReview": {"approved": false, "evidence": null},
-    "physicalDeviceQA": {"approved": false, "evidence": null},
-    "signedReleaseCandidate": {"approved": false, "evidence": null},
-    "appStoreConnectReadOnlyDiff": {"approved": false, "evidence": null},
-    "perReleaseOwnerApproval": {"approved": false, "evidence": null}
+    "nativeSpeakerLegalReview": {
+      "approved": false,
+      "evidence": null
+    },
+    "visualMarketingReview": {
+      "approved": false,
+      "evidence": null
+    },
+    "physicalDeviceQA": {
+      "approved": false,
+      "evidence": null
+    },
+    "signedReleaseCandidate": {
+      "approved": true,
+      "evidence": "core/docs/INDIEAPPCIRCLE_C17_SIGNED_RELEASE_MANIFEST.json (4 Apple Distribution signed QA IPAs, version/build/hash/embedded privacy checks, no upload)"
+    },
+    "appStoreConnectReadOnlyDiff": {
+      "approved": false,
+      "evidence": null
+    },
+    "perReleaseOwnerApproval": {
+      "approved": false,
+      "evidence": null
+    }
   },
   "visualFindings": [
-    {"app": "photo", "device": "ipad-13", "positions": [1], "severity": "blocking-marketing-approval", "issue": "On a 13-inch iPad the first native view uses the upper portion; large unused area does not communicate file-size reduction well."},
-    {"app": "chickmark", "device": "ipad-13", "positions": [1], "severity": "blocking-marketing-approval", "issue": "Habit list occupies a narrow top section of the 13-inch screen and most of the image is blank."},
-    {"app": "what", "device": "ipad-13", "positions": [1], "severity": "review-recommended", "issue": "Centered audio capture is authentic but compact; assess first-frame explanatory value on tablet."},
-    {"app": "pushkin", "device": "iphone-6.9", "positions": [1,2], "severity": "review-recommended", "issue": "First frame shows captured alerts; retain Shortcuts setup explanation in second frame and metadata to avoid overclaiming system access."}
+    {
+      "app": "photo",
+      "device": "ipad-13",
+      "positions": [
+        1
+      ],
+      "severity": "blocking-marketing-approval",
+      "issue": "On a 13-inch iPad the first native view uses the upper portion; large unused area does not communicate file-size reduction well."
+    },
+    {
+      "app": "chickmark",
+      "device": "ipad-13",
+      "positions": [
+        1
+      ],
+      "severity": "blocking-marketing-approval",
+      "issue": "Habit list occupies a narrow top section of the 13-inch screen and most of the image is blank."
+    },
+    {
+      "app": "what",
+      "device": "ipad-13",
+      "positions": [
+        1
+      ],
+      "severity": "review-recommended",
+      "issue": "Centered audio capture is authentic but compact; assess first-frame explanatory value on tablet."
+    },
+    {
+      "app": "pushkin",
+      "device": "iphone-6.9",
+      "positions": [
+        1,
+        2
+      ],
+      "severity": "review-recommended",
+      "issue": "First frame shows captured alerts; retain Shortcuts setup explanation in second frame and metadata to avoid overclaiming system access."
+    }
   ],
   "disclaimer": "Verified real SwiftUI Simulator PNGs are not equivalent to a marketing-reviewed signed release candidate. No App Store Connect writes."
 }
