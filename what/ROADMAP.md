@@ -1,5 +1,16 @@
 # What? — Product Roadmap
 
+## Актуально 27.10.2026 · C17
+
+- [x] Ухват **1.1.2 (10)**: signed IPA, 16 ASC локалей, 128 скриншотов; App Review **WAITING_FOR_REVIEW**, **AFTER_APPROVAL**. Публичная версия при последнем Lookup — **1.1.1**. [ASC C17](../core/docs/INDIEAPPCIRCLE_C17_APPLE_SUBMITTED_2026-10-27.md).
+- [x] По отзыву IndieAppCircle добавлена подсказка о транскрипции, локализованная на 12 языков UI.
+- [ ] P0: физический Watch→iPhone→ACK при блокировке экрана, offline/reconnect, долгой записи, прерывании, сохранении/восстановлении без риска личных файлов.
+- [ ] P1: opt-in «напомнить о заметке» +1/+2/+3 часа, локальный fallback и передача транскрипции/ссылки в ChickMark; тишина/приватность lock screen. P2: импорт готовых телефонных записей и semantic memory после feasibility/правовой проверки.
+- [ ] После решения Apple проверить реальный storefront; submission не публикация.
+
+[Общий срез](../core/docs/ROADMAP_PORTFOLIO_2026-10-27.md).
+
+
 C17 IndieAppCircle: понятная подсказка под непротранскрибированной записью на всех 12 языках UI; 232 iPhone key, повторные XCUITest PASS. Candidate 1.1.2(10), signed QA/preflight, ожидает per-release approval.
 
 C15 (27.10): улучшено естественное KO название действия «Ухвати мысль»; подготовлены 48 маркетинговых iPad JPEG и повторная приёмка KO и заполненного settings menu. [C15](../core/docs/ASO_C15_EDITORIAL_ACCEPTANCE_2026-10-27.md).
