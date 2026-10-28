@@ -1,8 +1,10 @@
 name: iPad layout smoke (simulator)
 
 on:
+  # PR branches are tested by pull_request; push is only for post-merge main.
+  # This avoids 2x three-app iPad jobs competing for the limited Xcode pool.
   push:
-    branches: ['**']
+    branches: ['main']
     paths:
       - 'what/ios/**'
       - 'chickmark/ios/**'
