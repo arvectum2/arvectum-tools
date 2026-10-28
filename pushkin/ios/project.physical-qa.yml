@@ -2,7 +2,7 @@ name: PushkinPhysicalQA
 options:
   createIntermediateGroups: true
   deploymentTarget:
-    iOS: "27.0"
+    iOS: "17.0"
 
 settings:
   base:
@@ -14,7 +14,7 @@ targets:
   ArvectumNotify:
     type: application
     platform: iOS
-    deploymentTarget: "27.0"
+    deploymentTarget: "17.0"
     sources:
       - path: ../../core/packages/ArvectumDesignTokens/ArvectumPalette.swift
       - path: ../../core/packages/ArvectumAdaptiveLayout/ArvectumAdaptiveLayout.swift
@@ -63,7 +63,7 @@ targets:
   ArvectumNotifyTests:
     type: bundle.unit-test
     platform: iOS
-    deploymentTarget: "27.0"
+    deploymentTarget: "17.0"
     sources:
       - path: ArvectumNotifyTests
     dependencies:
@@ -78,7 +78,7 @@ targets:
   ArvectumNotifyUITests:
     type: bundle.ui-testing
     platform: iOS
-    deploymentTarget: "27.0"
+    deploymentTarget: "17.0"
     sources:
       - path: PushkinPhysicalQAUITests
     dependencies:

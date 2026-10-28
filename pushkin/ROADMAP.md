@@ -1,5 +1,12 @@
 # PUSHKIN — Product Roadmap
 
+## 28.10 · iOS 17 source compatibility — compilation PASS / runtime gate OPEN
+
+- [x] В новой исходной ветке минимальная iOS в XcodeGen production и QA targets понижена с 27.0 до **17.0** (iPhone target + test bundles), штатный `.xcodeproj` синхронизирован. **Build for generic iOS Simulator с iOS 17 target PASS**: компилятор не обнаружил незащищённых API, требующих iOS 27.
+- [x] На установленном iOS 27 Simulator: **30 unit + 1 UI сценарий = PASS**, без физических телефонов, личной истории и Shortcuts.
+- [ ] **Не считать реальной поддержкой iOS 17–26 до runtime QA:** на Mac mini есть только iOS 27 Simulator runtimes. Для реального расширения App Store потребуется запуск на старой iOS, миграционная/Shortcuts QA, новый бинарник и отдельное согласие владельца. Опубликованная Pushkin 1.0.3 по-прежнему имеет `minimumOs=27.0`.
+
+
 ## Актуально 27.10.2026 · C17
 
 - [x] Pushkin **1.0.3 (7)**: signed IPA, 16 ASC локалей и 64 скриншота; App Review **WAITING_FOR_REVIEW**, **AFTER_APPROVAL**. Публичная при последнем Lookup — **1.0.2**. [ASC C17](../core/docs/INDIEAPPCIRCLE_C17_APPLE_SUBMITTED_2026-10-27.md).
