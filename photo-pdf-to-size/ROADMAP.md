@@ -1,5 +1,10 @@
 # Фото и PDF под размер — Product Roadmap
 
+## 28.10.2026 · C19 — iPad UI адаптивность
+
+- [x] iPad Air 11″ iOS 27 Simulator: XCTest `testTaskRemainsAvailableAfterOrientationChange` 1/1 PASS, `Selected tests passed`, `0 failures`. **Завершение xcodebuild зависло**, остановлен только этот QA-процесс; не заявлять полный `TEST SUCCEEDED` для этого запуска. CI включает ограниченный strict teardown. Реальный SDK/Files/Photos OPEN. [Акт C19](../core/docs/IPAD_C19_ADAPTIVE_QA_2026-10-28.md).
+
+
 ## 28.10 · Device-free QA пресетов, экспорта и рекламного UX
 
 - [x] 27/27 XCTest PASS: паспортные и визовые размеры, Image/PDF engines, ориентация, импорт и целостность исходного файла.
