@@ -361,3 +361,9 @@
 "onboarding.skip" = "Пропустить";
 "onboarding.next" = "Далее";
 "onboarding.start" = "Начать";
+
+// Read-only observed gaps for completion-relative habits
+"weekly.gapTitle" = "Интервалы · скользящие привычки";
+"weekly.gapDays" = "%d календ. дн.";
+"weekly.gapUnknown" = "Недостаточно данных";
+"weekly.gapNote" = "Дни между двумя последними фактическими выполнениями. Более раннее может быть до этих недель. Пропуски и паузы не считаются невыполнениями.";

@@ -53,6 +53,7 @@ struct HabitsByArvectumApp: App {
         seedDesignFilledHabitsIfRequested(container: container)
         seedOneOffReminderDemoIfRequested(container: container)
         seedFlexibleWeeklyDemoIfRequested(container: container)
+        seedObservedRollingGapDemoIfRequested(container: container)
         seedReminderSmokeIfRequested(container: container)
         completeFirstIncompleteHabitIfRequested(container: container)
         skipFirstIncompleteHabitIfRequested(container: container)

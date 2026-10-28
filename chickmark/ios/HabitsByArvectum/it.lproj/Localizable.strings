@@ -312,3 +312,9 @@
 "onboarding.skip" = "Salta";
 "onboarding.next" = "Avanti";
 "onboarding.start" = "Inizia";
+
+// Read-only observed gaps for completion-relative habits
+"weekly.gapTitle" = "Intervalli osservati · abitudini a scadenza";
+"weekly.gapDays" = "%d giorni di calendario";
+"weekly.gapUnknown" = "Dati insufficienti";
+"weekly.gapNote" = "Giorni tra gli ultimi due completamenti effettivi. Il precedente può risalire a prima di queste settimane. Pause e salti non sono mancanze.";

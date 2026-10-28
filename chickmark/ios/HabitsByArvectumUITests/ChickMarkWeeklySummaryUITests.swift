@@ -1,6 +1,40 @@
 import XCTest
 
 final class ChickMarkWeeklySummaryUITests: XCTestCase {
+    func testObservedIntervalShowsSevenCalendarDaysAndReturnsToHiddenWhenDisabled() {
+        let app = XCUIApplication()
+        app.launchArguments = [
+            "-AppleLanguages", "(en)", "-AppleLocale", "en_US",
+            "--ui-testing", "--disable-cloud-sync", "--seed-observed-gap-demo"
+        ]
+        app.launch()
+        let manage = app.buttons["Manage habits"]
+        XCTAssertTrue(manage.waitForExistence(timeout: 12))
+        manage.tap()
+        let summary = app.descendants(matching: .any)["manage.weekly-summary"]
+        XCTAssertTrue(summary.waitForExistence(timeout: 8))
+        summary.tap()
+        let toggle = app.switches["weekly-opt-in"]
+        XCTAssertTrue(toggle.waitForExistence(timeout: 8))
+        if toggle.value as? String != "1" {
+            toggle.coordinate(withNormalizedOffset: CGVector(dx: 0.88, dy: 0.5)).tap()
+        }
+        XCTAssertEqual(toggle.value as? String, "1")
+        let heading = app.staticTexts["Observed gaps · rolling habits"]
+        for _ in 0..<3 where !heading.exists {
+            app.swipeUp()
+        }
+        XCTAssertTrue(heading.waitForExistence(timeout: 8))
+        let interval = app.descendants(matching: .any)
+            .matching(NSPredicate(format: "label CONTAINS %@", "7 calendar days"))
+            .firstMatch
+        XCTAssertTrue(interval.waitForExistence(timeout: 8))
+        app.swipeDown()
+        toggle.coordinate(withNormalizedOffset: CGVector(dx: 0.88, dy: 0.5)).tap()
+        XCTAssertEqual(toggle.value as? String, "0")
+        XCTAssertFalse(heading.exists)
+    }
+
     func testLocalOptInShowsCompletedWeekWithoutCreatingRecords() {
         let app = XCUIApplication()
         app.launchArguments = [

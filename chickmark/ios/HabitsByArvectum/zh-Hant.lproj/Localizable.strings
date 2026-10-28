@@ -313,3 +313,9 @@
 "onboarding.skip" = "略過";
 "onboarding.next" = "下一步";
 "onboarding.start" = "開始使用";
+
+// Read-only observed gaps for completion-relative habits
+"weekly.gapTitle" = "實際間隔 · 週期習慣";
+"weekly.gapDays" = "%d 個日曆日";
+"weekly.gapUnknown" = "資料不足";
+"weekly.gapNote" = "最近兩次實際完成之間的日曆天數。較早的一次可能在統計週之前。暫停和略過不算未完成。";

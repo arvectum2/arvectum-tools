@@ -312,3 +312,9 @@
 "onboarding.skip" = "Überspringen";
 "onboarding.next" = "Weiter";
 "onboarding.start" = "Loslegen";
+
+// Read-only observed gaps for completion-relative habits
+"weekly.gapTitle" = "Beobachtete Abstände · Intervallgewohnheiten";
+"weekly.gapDays" = "%d Kalendertage";
+"weekly.gapUnknown" = "Nicht genügend Daten";
+"weekly.gapNote" = "Tage zwischen den letzten zwei tatsächlichen Erledigungen. Die frühere kann vor diesen Wochen liegen. Pausen und Auslassungen zählen nicht als Versäumnisse.";

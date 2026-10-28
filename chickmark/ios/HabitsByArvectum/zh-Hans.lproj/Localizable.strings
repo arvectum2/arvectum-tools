@@ -312,3 +312,9 @@
 "onboarding.skip" = "跳过";
 "onboarding.next" = "下一步";
 "onboarding.start" = "开始使用";
+
+// Read-only observed gaps for completion-relative habits
+"weekly.gapTitle" = "实际间隔 · 周期习惯";
+"weekly.gapDays" = "%d 个日历日";
+"weekly.gapUnknown" = "数据不足";
+"weekly.gapNote" = "最近两次实际完成之间的日历天数。较早的一次可能在统计周之前。暂停和跳过不计为未完成。";

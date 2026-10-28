@@ -361,3 +361,9 @@
 "onboarding.skip" = "Skip";
 "onboarding.next" = "Next";
 "onboarding.start" = "Get started";
+
+// Read-only observed gaps for completion-relative habits
+"weekly.gapTitle" = "Observed gaps · rolling habits";
+"weekly.gapDays" = "%d calendar days";
+"weekly.gapUnknown" = "Not enough data";
+"weekly.gapNote" = "Days between the two latest actual completions (the earlier one may precede these weeks). Pauses and skips do not create missed days.";

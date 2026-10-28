@@ -340,3 +340,9 @@
 "onboarding.skip" = "Omitir";
 "onboarding.next" = "Siguiente";
 "onboarding.start" = "Empezar";
+
+// Read-only observed gaps for completion-relative habits
+"weekly.gapTitle" = "Intervalos observados · hábitos periódicos";
+"weekly.gapDays" = "%d días naturales";
+"weekly.gapUnknown" = "Datos insuficientes";
+"weekly.gapNote" = "Días entre las dos últimas realizaciones. La anterior puede ser de otra semana. Las pausas y omisiones no son incumplimientos.";

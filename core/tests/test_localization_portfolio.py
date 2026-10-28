@@ -893,7 +893,7 @@ class LocalizationPortfolioTests(unittest.TestCase):
 
     def test_chickmark_french_catalog_across_phone_watch_and_widgets(self):
         bundles = [
-            ("HabitsByArvectum", 311),
+            ("HabitsByArvectum", 315),
             ("HabitsByArvectumWatch", 22),
             ("HabitsByArvectumWidget", 16),
             ("HabitsByArvectumWatchWidget", 5),
