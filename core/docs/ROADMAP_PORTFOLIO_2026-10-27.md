@@ -8,6 +8,8 @@
 - [ ] Настоящий ASC review status ChickMark 1.5.3, App Privacy questionnaire, реальные установки и физическая приёмка не подтверждены этим Lookup.
 - [x] Отдельные запросы предотвращают ложную регрессию из batch Lookup, который возвращал устаревшие версии. [Результат C18](ASO_C18_PUBLIC_STORE_QA_2026-10-28.md).
 
+[Источник device-free QA 28.10](DEVICE_FREE_SOURCE_QA_2026-10-28.md) · 27/27 Photo unit, 3/3 Photo UI, 41/41 ChickMark interval, 30 Pushkin unit + 1 UI. Релизы и реальные устройства — отдельные гейты.
+
 ## Сводный статус
 
 | Продукт | Публичная версия (последний публичный Apple Lookup, 27.10) | Новый релиз | Стадия | Приоритет |
