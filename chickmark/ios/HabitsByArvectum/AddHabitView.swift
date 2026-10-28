@@ -118,7 +118,6 @@ struct AddHabitView: View {
         )
         _optionsExpanded = State(
             initialValue: habit.map {
-                $0.reminderEnabled ||
                 $0.colorHex != HabitPalette.colors[0] ||
                 $0.symbolName != HabitPalette.symbols[0]
             } ?? false
@@ -368,6 +367,34 @@ struct AddHabitView: View {
                     } label: {
                         Text(L10n.string("schedule.custom"))
                     }
+
+                    // Reminders must be discoverable with the normal schedule,
+                    // even while both custom scheduling and appearance are closed.
+                    // A flexible weekly goal has no fixed daily reminder time.
+                    if flexibleWeeklyEnabled {
+                        Label(
+                            L10n.string("reminder.flexible.unavailable"),
+                            systemImage: "bell.slash"
+                        )
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                    } else {
+                        Toggle(L10n.string("reminder.toggle"), isOn: $reminderEnabled)
+                            .accessibilityIdentifier("habit.reminder.enabled")
+                            .onChange(of: reminderEnabled) { _, enabled in
+                                guard enabled else { return }
+                                requestNotificationPermission()
+                            }
+
+                        if reminderEnabled {
+                            DatePicker(
+                                L10n.string("reminder.time"),
+                                selection: $reminderTime,
+                                displayedComponents: .hourAndMinute
+                            )
+                            .accessibilityIdentifier("habit.reminder.time")
+                        }
+                    }
                 }
 
                 Section {
@@ -419,33 +446,6 @@ struct AddHabitView: View {
                             Text(L10n.string("appearance.icon"))
                                 .font(.subheadline.weight(.semibold))
                             symbolPicker
-
-                            if flexibleWeeklyEnabled {
-                                Text(
-                                    L10n.string(
-                                        "reminder.flexible.unavailable"
-                                    )
-                                )
-                                .font(.caption)
-                                .foregroundStyle(.secondary)
-                            } else {
-                                Toggle(
-                                    L10n.string("reminder.toggle"),
-                                    isOn: $reminderEnabled
-                                )
-                                .onChange(of: reminderEnabled) { _, enabled in
-                                    guard enabled else { return }
-                                    requestNotificationPermission()
-                                }
-
-                                if reminderEnabled {
-                                    DatePicker(
-                                        L10n.string("reminder.time"),
-                                        selection: $reminderTime,
-                                        displayedComponents: .hourAndMinute
-                                    )
-                                }
-                            }
                         }
                         .padding(.top, 8)
                     } label: {
