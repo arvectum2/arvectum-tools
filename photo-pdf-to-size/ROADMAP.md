@@ -1,5 +1,16 @@
 # Фото и PDF под размер — Product Roadmap
 
+## 28.10 · Device-free QA пресетов, экспорта и рекламного UX
+
+- [x] 27/27 XCTest PASS: паспортные и визовые размеры, Image/PDF engines, ориентация, импорт и целостность исходного файла.
+- [x] 3/3 реальных XCUITest на iOS Simulator PASS: заполненный native ad, no-fill и доступное согласие с экрана результата. Синтетический ad-fill не доказывает реальные показы или законность tracking.
+- [ ] Hardware Photos/Files/HEIC/EXIF и реальный рекламный SDK/ATT/App Privacy **OPEN**. [QA](../core/docs/DEVICE_FREE_SOURCE_QA_2026-10-28.md).
+
+## 28.10 · C18 · публичная 1.0.4 подтверждена
+
+- [x] Apple Lookup **16/16 регионов** отдельными запросами показывает **1.0.4**; старые `WAITING_FOR_REVIEW` и 1.0.3 ниже относятся к историческому срезу 27.10. Сами App Privacy/Yandex network и физические Photos/PDF тесты — **OPEN**. [C18 аудит](../core/docs/ASO_C18_PUBLIC_STORE_QA_2026-10-28.md).
+
+
 ## Актуально 27.10.2026 · C17
 
 - [x] Фото/PDF **1.0.4 (16)**: signed IPA, 16 ASC локалей, 128 screenshot slots; App Review **WAITING_FOR_REVIEW**, публикация **AFTER_APPROVAL**. Публичная версия при последнем Lookup — **1.0.3**. [ASC C17](../core/docs/INDIEAPPCIRCLE_C17_APPLE_SUBMITTED_2026-10-27.md).

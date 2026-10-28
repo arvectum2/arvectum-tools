@@ -1,5 +1,10 @@
 # PUSHKIN — Product Roadmap
 
+## 28.10 · C18 · публичная 1.0.3 подтверждена
+
+- [x] Apple Lookup **16/16 регионов** отдельно показывает **1.0.3**, `minimumOs=27.0`, 11 language codes в RU карточке. Старые состояния ниже — исторические. Проверка обратной совместимости с iOS 17–26, реальные Shortcuts/migration остаются **OPEN**. [C18 аудит](../core/docs/ASO_C18_PUBLIC_STORE_QA_2026-10-28.md).
+
+
 ## Актуально 27.10.2026 · C17
 
 - [x] Pushkin **1.0.3 (7)**: signed IPA, 16 ASC локалей и 64 скриншота; App Review **WAITING_FOR_REVIEW**, **AFTER_APPROVAL**. Публичная при последнем Lookup — **1.0.2**. [ASC C17](../core/docs/INDIEAPPCIRCLE_C17_APPLE_SUBMITTED_2026-10-27.md).
