@@ -1,5 +1,7 @@
 # Arvectum Tools — portfolio localization (50 locales)
 
+**Обновлено 29.10.2026:** 12/50 iOS source languages are structurally present in all 4 active applications and 10 declared UI/Watch/widget bundles (48 app×locale smoke contracts). Full native-speaker approval and public App Store release are separate. The prior 26.10 snapshot below is historical. See [Core localization + regional ASO roadmap](../docs/CORE_50_LOCALES_AND_REGIONAL_ASO_2026-10-29.md).
+
 ## 26.10.2026 · PT-PT и KO native QA
 
 - [x] PT-PT 6/6 UI и KO 4/4 UI PASS в доступных приложениях; Pushkin KO routing fixed и Swift regression PASS.
@@ -162,7 +164,7 @@ Four active iOS apps: ChickMark, Pushkin, Ухват, Фото/PDF под раз
 
 Tier 1 (20): en, ru, es, zh-Hans, zh-Hant, hi, ar, pt-BR, pt-PT, fr, de, ja, ko, id, tr, vi, it, nl, pl, th.
 
-Tier 2 (20): fa, ur, bn, pa, ta, te, mr, gu, kn, ml, th, ms, fil, sw, ro, hu, cs, sk, el, he.
+Tier 2 (20): fa, ur, bn, pa, ta, te, mr, gu, kn, ml, uz, ms, fil, sw, ro, hu, cs, sk, el, he.
 
 Tier 3 (10): ha, am, sv, da, fi, nb, bg, sr, hr, ca.
 

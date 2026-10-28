@@ -273,11 +273,12 @@
           "pt-PT",
           "it",
           "ja",
+          "ko",
           "zh-Hans",
           "zh-Hant"
         ],
-        "status": "source-zh-hant-draft-structural-qa-editorial-and-device-qa-pending",
-        "note": "Ten source catalogs across active iOS/Watch/Widget bundles; zh-Hant drafted with OpenCC s2twp from zh-Hans, meaning and consent must be reviewed by native speakers. Not shipped in App Store; no new build uploaded."
+        "status": "12-source-catalogs-structurally-complete-independent-linguistic-and-device-qa-pending",
+        "note": "12 language source catalogs across all declared iOS/watchOS/widget bundles; structurally checked only. Native-speaker, privacy/permissions, accessibility and physical QA are independent. Source presence is not App Store publication or proof of linguistic quality."
       }
     },
     "pushkin": {
@@ -295,11 +296,12 @@
           "pt-PT",
           "it",
           "ja",
+          "ko",
           "zh-Hans",
           "zh-Hant"
         ],
-        "status": "source-zh-hant-draft-structural-qa-editorial-and-device-qa-pending",
-        "note": "Ten source catalogs across active iOS/Watch/Widget bundles; zh-Hant drafted with OpenCC s2twp from zh-Hans, meaning and consent must be reviewed by native speakers. Not shipped in App Store; no new build uploaded."
+        "status": "12-source-catalogs-structurally-complete-independent-linguistic-and-device-qa-pending",
+        "note": "12 language source catalogs across all declared iOS/watchOS/widget bundles; structurally checked only. Native-speaker, privacy/permissions, accessibility and physical QA are independent. Source presence is not App Store publication or proof of linguistic quality."
       }
     },
     "what": {
@@ -322,11 +324,12 @@
           "pt-PT",
           "it",
           "ja",
+          "ko",
           "zh-Hans",
           "zh-Hant"
         ],
-        "status": "source-zh-hant-draft-structural-qa-editorial-and-device-qa-pending",
-        "note": "Ten source catalogs across active iOS/Watch/Widget bundles; zh-Hant drafted with OpenCC s2twp from zh-Hans, meaning and consent must be reviewed by native speakers. Not shipped in App Store; no new build uploaded."
+        "status": "12-source-catalogs-structurally-complete-independent-linguistic-and-device-qa-pending",
+        "note": "12 language source catalogs across all declared iOS/watchOS/widget bundles; structurally checked only. Native-speaker, privacy/permissions, accessibility and physical QA are independent. Source presence is not App Store publication or proof of linguistic quality."
       }
     },
     "photo-pdf-to-size": {
@@ -350,11 +353,12 @@
           "pt-PT",
           "it",
           "ja",
+          "ko",
           "zh-Hans",
           "zh-Hant"
         ],
-        "status": "source-zh-hant-draft-structural-qa-editorial-and-device-qa-pending",
-        "note": "Ten source catalogs across active iOS/Watch/Widget bundles; zh-Hant drafted with OpenCC s2twp from zh-Hans, meaning and consent must be reviewed by native speakers. Not shipped in App Store; no new build uploaded."
+        "status": "12-source-catalogs-structurally-complete-independent-linguistic-and-device-qa-pending",
+        "note": "12 language source catalogs across all declared iOS/watchOS/widget bundles; structurally checked only. Native-speaker, privacy/permissions, accessibility and physical QA are independent. Source presence is not App Store publication or proof of linguistic quality."
       }
     },
     "where": {
@@ -383,20 +387,17 @@
       "zh-Hans"
     ],
     "androidExpansion": "deferred; maintain nine existing source catalogs",
-    "iosTier1Active": [
-      "zh-Hant",
-      "pt-PT"
-    ],
+    "iosTier1Active": [],
     "iosTier1Remaining": [
       "hi",
       "ar",
-      "ko",
       "id",
       "tr",
       "vi",
       "nl",
       "pl",
       "th"
-    ]
+    ],
+    "iosSourceBaselineVerified": "12 of 50 target language packs in all 4 active iOS apps, 2026-10-29 (structural only)"
   }
 }
