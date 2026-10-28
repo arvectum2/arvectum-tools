@@ -231,3 +231,9 @@
 "Your Watch last reported an empty queue. New recordings may have been made since that report." = "Il Watch ha segnalato per l'ultima volta una coda vuota. Da allora potrebbero esserci nuove registrazioni.";
 "Français" = "Francese";
 "No text yet. Tap Transcribe to turn this audio into text." = "Non c’è ancora testo. Tocca Trascrivi per trasformare l’audio in testo.";
+
+"Request Watch transfer" = "Richiedi trasferimento da Watch";
+"Request queued. Delivery may take some time." = "Richiesta inviata. Il trasferimento potrebbe richiedere tempo.";
+"A sync request is already pending." = "Una richiesta di sincronizzazione è già in attesa.";
+"A recent request is still being processed. Try again later." = "Una richiesta recente è ancora in elaborazione. Riprova più tardi.";
+"Watch unavailable. Check pairing and try again." = "Watch non disponibile. Verifica l’abbinamento e riprova.";

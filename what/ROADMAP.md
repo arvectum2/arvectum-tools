@@ -1,17 +1,42 @@
 # What? — Product Roadmap
 
-## Актуально 27.10.2026 · C17
+## Актуально 28.10.2026 · опубликован C17
 
-- [x] Ухват **1.1.2 (10)**: signed IPA, 16 ASC локалей, 128 скриншотов; App Review **WAITING_FOR_REVIEW**, **AFTER_APPROVAL**. Публичная версия при последнем Lookup — **1.1.1**. [ASC C17](../core/docs/INDIEAPPCIRCLE_C17_APPLE_SUBMITTED_2026-10-27.md).
+- [x] **Ухват 1.1.2 (10) опубликован:** 28.10 App Store Connect (только GET) вернул `READY_FOR_SALE`, `AFTER_APPROVAL`; публичный Apple iTunes Lookup подтвердил `version=1.1.2` в **RU, US и GB** (`currentVersionReleaseDate=2026-10-27T23:29:12Z`). 16 ASC локалей и 128 скриншотов были приняты на C17. [Историческое отправление 27.10](../core/docs/INDIEAPPCIRCLE_C17_APPLE_SUBMITTED_2026-10-27.md).
 - [x] По отзыву IndieAppCircle добавлена подсказка о транскрипции, локализованная на 12 языков UI.
 - [ ] P0: физический Watch→iPhone→ACK при блокировке экрана, offline/reconnect, долгой записи, прерывании, сохранении/восстановлении без риска личных файлов.
-- [ ] P1: opt-in «напомнить о заметке» +1/+2/+3 часа, локальный fallback и передача транскрипции/ссылки в ChickMark; тишина/приватность lock screen. P2: импорт готовых телефонных записей и semantic memory после feasibility/правовой проверки.
-- [ ] После решения Apple проверить реальный storefront; submission не публикация.
+- [x] P1 source: opt-in «напомнить о заметке» +1/+2/+3 часа, восстановление разрешённых локальных уведомлений и согласованная приватная передача текста/ссылки в ChickMark реализованы; **31/31 регрессионных тестов PASS** в 28.10 прогоне, включая 13 тестов напоминаний и 3 теста handoff.
+- [ ] P1 приёмка: тихие часы, фактический tap-through на физическом iPhone с установленным/отсутствующим ChickMark, отказ в доступе к уведомлениям и приватность lock screen. P2: импорт готовых телефонных записей и semantic memory после feasibility/правовой проверки.
+- [x] Публичная версия 1.1.2 подтверждена **16/16** региональных витрин iTunes Lookup RU/US/GB/AU/CA/ES/MX/FR/DE/IT/JP/KR/BR/PT/CN/TW; ASC `READY_FOR_SALE` (28.10, только GET).
 
 [Общий срез](../core/docs/ROADMAP_PORTFOLIO_2026-10-27.md).
 
 
-C17 IndieAppCircle: понятная подсказка под непротранскрибированной записью на всех 12 языках UI; 232 iPhone key, повторные XCUITest PASS. Candidate 1.1.2(10), signed QA/preflight, ожидает per-release approval.
+## 28.10.2026 · Дополнение — физический реальный запрос и Apple Store
+
+- [x] **iPhone 13 iOS 27.2 / Watch SE watchOS 26.6:** обновлены исключительно отдельные подписанные QA bundles; до/после очередь тестовых записей Watch 0, production apps и пользовательские медиа не менялись.
+- [x] Под `WATCH_ROUTE_QA` добавлен одноразовый физический запуск без UI Automation: реальный iPhone `WCSession.transferUserInfo` подтвердил `phone-qa-manual-request=queued`. После безопасного foreground-запуска Watch QA с `what-watch-qa-audit` зафиксировано **`watch-sync-request-received` (1)** при нулевой очереди AAC. **Сквозной запрос с открытием Watch PASS**; полностью фоновая доставка без открытия Watch остаётся OPEN, сроки iOS не гарантирует.
+- [x] **Физический UI XCUITest — PASS 28.10 09:44 МСК** на iPhone 13 iOS 27.2: нажатие `watchQueueRequestRecovery`, ответ `watchQueueRecoveryFeedback`, `TEST SUCCEEDED`, 15.971 с; в телефонном QA trace состояния queued/already-pending/rate-limited. Предыдущие `Timed out while enabling automation mode` и Locked больше не блокируют приёмку.
+- [x] По публичному iTunes Lookup подтверждено `1.1.2` во **всех 16/16** ASO-регионах; App Store Connect read-only `READY_FOR_SALE`.
+- [x] Исправлен исторический жёсткий счётчик локализации WhatIOS ES 232 → 237 с проверкой двух новых сообщений; локальные **61/61 Python localization tests PASS**. GitHub CI перепроверить на новом коммите.
+
+[Физический QA-протокол](docs/PHYSICAL_MANUAL_WATCH_RETRY_QA_2026-10-28.md).
+
+## 28.10.2026 · P0 фактическая приёмка и безопасный запрос повторной передачи
+
+- [x] Актуальная iOS Simulator регрессия из `main`: **31/31 PASS** для `WatchA2ReliabilityTests` (15), `NoteReminderTests` (13), `ReviewNoteHandoffTests` (3); оригинальная очередь/ACK и приватность follow-up не переписывались.
+- [x] Физический потерянный ACK/повтор того же UUID и восстановление оригинала на Watch подтверждены 19.10; проверка AAC перед ACK на настоящем iPhone подтверждена 22.10; физическое 420-секундное видео — PASS 19.10. Повторять эти сценарии без регрессии не нужно.
+- [x] В отдельной исходной ветке добавлена кнопка **«Запросить передачу с часов»** в диагностику. Использует только уже существующий `syncRequest`/durable Watch pump, учитывает очередь запросов и cooldown 60 с; не удаляет/не читает личное аудио, не обещает мгновенный ACK. Сообщения и кнопка локализованы для 12 UI языков.
+- [x] UI-тест ручного запроса передачи на iOS 27 Simulator: 1/1 PASS, 0 FAIL; повторный общий прогон 31 unit и 4 RU/EN/ES sync UI: **35/35 PASS**; XcodeGen membership и все 12 `.strings` PASS, общий локализационный аудит PASS.
+- [x] Физический UI smoke нового запроса и все GitHub CI checks на `f34e41d` — PASS; **не часть** опубликованной 1.1.2(10). Документационная правка требует повторного green gate перед merge.
+- [ ] **Аппаратный P0 остаётся:** после разрыва реальной радиосвязи eventual background-delivery при заблокированном iPhone без ручного foreground, Watch reboot с pending на текущей сборке, звонок/длинное прерывание и 30–120 мин/аппаратный ENOSPC только в безопасном QA окружении. Запись до ACK должна сохраняться; WatchConnectivity не гарантирует сроки фоновой доставки.
+- [ ] Новые настоящие iPhone/Watch beta и публичные релизы — отдельные разрешения и per-build release gate. В этом цикле пользовательские заметки, radio-переключатели и системное сопряжение не трогались.
+
+[Актуальная физическая матрица](docs/PHYSICAL_WATCH_ACCEPTANCE_DEDUP_2026-10-22.md) · [Background UX](docs/WATCH_BACKGROUND_DELIVERY_UX_2026-10-24.md).
+
+
+
+Историческое состояние 27.10 (до публикации 28.10): C17 IndieAppCircle — понятная подсказка под непротранскрибированной записью на всех 12 языках UI; 232 iPhone key, повторные XCUITest PASS. Candidate 1.1.2(10), signed QA/preflight, ожидает per-release approval.
 
 C15 (27.10): улучшено естественное KO название действия «Ухвати мысль»; подготовлены 48 маркетинговых iPad JPEG и повторная приёмка KO и заполненного settings menu. [C15](../core/docs/ASO_C15_EDITORIAL_ACCEPTANCE_2026-10-27.md).
 

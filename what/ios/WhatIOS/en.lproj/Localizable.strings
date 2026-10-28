@@ -233,3 +233,9 @@
 
 "Français" = "Français";
 "No text yet. Tap Transcribe to turn this audio into text." = "No text yet. Tap Transcribe to turn this audio into text.";
+
+"Request Watch transfer" = "Request Watch transfer";
+"Request queued. Delivery may take some time." = "Request queued. Delivery may take some time.";
+"A sync request is already pending." = "A sync request is already pending.";
+"A recent request is still being processed. Try again later." = "A recent request is still being processed. Try again later.";
+"Watch unavailable. Check pairing and try again." = "Watch unavailable. Check pairing and try again.";

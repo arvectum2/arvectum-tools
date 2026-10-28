@@ -1,6 +1,15 @@
 import Foundation
 import WatchConnectivity
 
+/// A request only asks watchOS to reconsider its durable queue.
+/// Nothing here promises an immediate transfer or acknowledges an audio file.
+enum WatchRecoveryRequestResult {
+    case queued
+    case alreadyPending
+    case rateLimited
+    case unavailable
+}
+
 final class PhoneConnectivityManager: NSObject, WCSessionDelegate {
     static let shared = PhoneConnectivityManager()
 
@@ -13,28 +22,75 @@ final class PhoneConnectivityManager: NSObject, WCSessionDelegate {
     private var activated = false
     private var lastRecoveryRequestAt = Date.distantPast
     private let recoveryRequestCooldown: TimeInterval = 60
+#if WATCH_ROUTE_QA
+    private var qaManualRetryProbeStarted = false
+
+    /// One non-destructive, launch-argument-gated probe for physical QA.
+    /// Skips automatic requests so a manual invocation can be independently
+    /// observed without touching any user recordings or radios.
+    private var qaManualRetryMode: Bool {
+        ProcessInfo.processInfo.arguments.contains("--what-qa-manual-sync-request")
+    }
+
+    func runManualRetryProbeIfRequested() {
+        guard qaManualRetryMode, !qaManualRetryProbeStarted else { return }
+        qaManualRetryProbeStarted = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [weak self] in
+            guard let self else { return }
+            let outcome = self.requestWatchQueueRecovery()
+            WatchRouteQATrace.add("phone-qa-manual-request", note: String(describing: outcome))
+        }
+    }
+#endif
 
     /// Persistently asks the Watch to re-pump its own durable queue after
     /// either side restarts. No audio or Watch storage is modified here.
     /// One outstanding request is kept at most; the system delivers it
     /// when the paired Watch becomes available again.
-    func requestWatchQueueRecovery() {
-        guard WCSession.isSupported() else { return }
+    @discardableResult
+    func requestWatchQueueRecovery() -> WatchRecoveryRequestResult {
+        guard WCSession.isSupported() else {
+#if WATCH_ROUTE_QA
+            WatchRouteQATrace.add("phone-sync-request", note: "unavailable:unsupported")
+#endif
+            return .unavailable
+        }
         let session = WCSession.default
         guard session.activationState == .activated,
               session.isPaired,
-              session.isWatchAppInstalled,
-              Date().timeIntervalSince(lastRecoveryRequestAt) >= recoveryRequestCooldown
-        else { return }
+              session.isWatchAppInstalled
+        else {
+#if WATCH_ROUTE_QA
+            WatchRouteQATrace.add("phone-sync-request", note: "unavailable:inactive-or-unpaired")
+#endif
+            return .unavailable
+        }
+        // Do not flood WCSession when a request is already waiting for iOS.
         let pending = session.outstandingUserInfoTransfers.contains {
             $0.userInfo[TransferMetadataKey.type] as? String
                 == TransferMetadataKey.syncRequest
         }
-        guard !pending else { return }
+        guard !pending else {
+#if WATCH_ROUTE_QA
+            WatchRouteQATrace.add("phone-sync-request", note: "already-pending")
+#endif
+            return .alreadyPending
+        }
+        guard Date().timeIntervalSince(lastRecoveryRequestAt) >= recoveryRequestCooldown
+        else {
+#if WATCH_ROUTE_QA
+            WatchRouteQATrace.add("phone-sync-request", note: "rate-limited")
+#endif
+            return .rateLimited
+        }
         lastRecoveryRequestAt = Date()
         session.transferUserInfo([
             TransferMetadataKey.type: TransferMetadataKey.syncRequest
         ])
+#if WATCH_ROUTE_QA
+        WatchRouteQATrace.add("phone-sync-request", note: "queued")
+#endif
+        return .queued
     }
 
     private override init() {
@@ -64,6 +120,9 @@ final class PhoneConnectivityManager: NSObject, WCSessionDelegate {
         guard activationState == .activated else { return }
         receiveQueueSnapshot(session.receivedApplicationContext)
         DispatchQueue.main.async { [weak self] in
+#if WATCH_ROUTE_QA
+            if self?.qaManualRetryMode == true { return }
+#endif
             self?.requestWatchQueueRecovery()
         }
     }

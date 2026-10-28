@@ -49,7 +49,10 @@ struct WhatApp: App {
                 .onAppear { PhysicalCaptureQAProbe.shared.startIfRequested(store: store) }
 #endif
 #if WATCH_ROUTE_QA
-                .onAppear { PhoneWakeEnvironmentQA.snapshot("content-appear") }
+                .onAppear {
+                    PhoneWakeEnvironmentQA.snapshot("content-appear")
+                    PhoneConnectivityManager.shared.runManualRetryProbeIfRequested()
+                }
 #endif
                 .environmentObject(store)
                 .environment(\.locale, CaptureBrand.interfaceLocale)
@@ -64,7 +67,13 @@ struct WhatApp: App {
 #endif
 #if !REVIEW_HANDOFF_QA
                     if phase == .active {
+#if WATCH_ROUTE_QA
+                        if !ProcessInfo.processInfo.arguments.contains("--what-qa-manual-sync-request") {
+                            PhoneConnectivityManager.shared.requestWatchQueueRecovery()
+                        }
+#else
                         PhoneConnectivityManager.shared.requestWatchQueueRecovery()
+#endif
                     }
 #endif
                 }

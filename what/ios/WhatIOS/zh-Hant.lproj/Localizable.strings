@@ -232,3 +232,9 @@
 "Your Watch last reported an empty queue. New recordings may have been made since that report." = "Watch最後報告佇列為空。此後可能又產生新的錄音。";
 "Français" = "法語";
 "No text yet. Tap Transcribe to turn this audio into text." = "尚未有文字。點選「轉錄」，即可將錄音轉換成文字。";
+
+"Request Watch transfer" = "要求從 Watch 傳輸";
+"Request queued. Delivery may take some time." = "要求已送出。傳輸可能需要一些時間。";
+"A sync request is already pending." = "已有同步要求正在等待處理。";
+"A recent request is still being processed. Try again later." = "先前的要求仍在處理中，請稍後再試。";
+"Watch unavailable. Check pairing and try again." = "Watch 無法使用。請檢查配對狀態後重試。";

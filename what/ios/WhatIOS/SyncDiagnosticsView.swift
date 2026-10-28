@@ -4,6 +4,7 @@ struct SyncDiagnosticsView: View {
     @EnvironmentObject private var store: PhoneStore
     @Environment(\.dismiss) private var dismiss
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+    @State private var recoveryRequestFeedback: String?
 
     var body: some View {
         NavigationStack {
@@ -157,6 +158,46 @@ struct SyncDiagnosticsView: View {
                                    "No Watch queue report received yet."))
                 .foregroundStyle(.secondary)
                 .fixedSize(horizontal: false, vertical: true)
+        }
+        Button {
+            let outcome = PhoneConnectivityManager.shared.requestWatchQueueRecovery()
+            switch outcome {
+            case .queued:
+                recoveryRequestFeedback = CaptureBrand.text(
+                    "Запрос отправлен. Передача может занять время.",
+                    "Request queued. Delivery may take some time."
+                )
+            case .alreadyPending:
+                recoveryRequestFeedback = CaptureBrand.text(
+                    "Запрос уже ожидает передачи.",
+                    "A sync request is already pending."
+                )
+            case .rateLimited:
+                recoveryRequestFeedback = CaptureBrand.text(
+                    "Недавний запрос ещё обрабатывается. Повторите позже.",
+                    "A recent request is still being processed. Try again later."
+                )
+            case .unavailable:
+                recoveryRequestFeedback = CaptureBrand.text(
+                    "Часы недоступны. Проверьте сопряжение и повторите попытку.",
+                    "Watch unavailable. Check pairing and try again."
+                )
+            }
+        } label: {
+            Label(CaptureBrand.text("Запросить передачу с часов",
+                                    "Request Watch transfer"),
+                  systemImage: "arrow.clockwise")
+                .fixedSize(horizontal: false, vertical: true)
+        }
+        .buttonStyle(.bordered)
+        .frame(minHeight: 44, alignment: .leading)
+        .accessibilityIdentifier("watchQueueRequestRecovery")
+        if let recoveryRequestFeedback {
+            Text(recoveryRequestFeedback)
+                .font(.footnote)
+                .foregroundStyle(.secondary)
+                .fixedSize(horizontal: false, vertical: true)
+                .accessibilityIdentifier("watchQueueRecoveryFeedback")
         }
         Text(CaptureBrand.text(
             "Это последний полученный отчёт часов, а не проверка соединения в реальном времени. Данные могут поступать с задержкой.",

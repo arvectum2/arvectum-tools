@@ -233,3 +233,9 @@
 
 "Français" = "Français";
 "No text yet. Tap Transcribe to turn this audio into text." = "Todavía no hay texto. Toca Transcribir para convertir este audio en texto.";
+
+"Request Watch transfer" = "Solicitar transferencia del Watch";
+"Request queued. Delivery may take some time." = "Solicitud enviada. La transferencia puede tardar.";
+"A sync request is already pending." = "Ya hay una solicitud de sincronización pendiente.";
+"A recent request is still being processed. Try again later." = "Todavía se está procesando una solicitud reciente. Inténtalo más tarde.";
+"Watch unavailable. Check pairing and try again." = "El Watch no está disponible. Comprueba el enlace e inténtalo de nuevo.";

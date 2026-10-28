@@ -691,6 +691,9 @@ final class WatchCaptureController: NSObject, ObservableObject, AVAudioRecorderD
     func session(_ session: WCSession, didReceiveUserInfo userInfo: [String: Any] = [:]) {
         switch userInfo[TransferMetadataKey.type] as? String {
         case TransferMetadataKey.syncRequest:
+#if WATCH_ROUTE_QA
+            WatchRouteQATrace.add("watch-sync-request-received")
+#endif
             // A newly unlocked Watch may have missed its first queue read.
             // The phone's durable request rehydrates and re-pumps without
             // creating a new note or discarding the original audio.
