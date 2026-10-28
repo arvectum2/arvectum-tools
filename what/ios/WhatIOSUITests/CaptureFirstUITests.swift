@@ -40,6 +40,26 @@ final class CaptureFirstUITests: XCTestCase {
         XCTAssertTrue(start.waitForExistence(timeout: 5))
         XCTAssertTrue(saved.exists)
     }
+    func testAudioImportAvailableFromPopulatedLibraryWithoutOpeningFiles() throws {
+        let app = XCUIApplication()
+        // Synthetic in-memory notes: never touch the personal library.
+        app.launchArguments = ["--qa-aso-filled-library"]
+        app.launch()
+        let library = app.buttons.matching(NSPredicate(format:
+            "label BEGINSWITH %@ OR label BEGINSWITH %@",
+            "Все заметки", "All notes"
+        )).firstMatch
+        XCTAssertTrue(library.waitForExistence(timeout: 12))
+        library.tap()
+        let settings = app.buttons["what.library.settings"]
+        XCTAssertTrue(settings.waitForExistence(timeout: 8))
+        settings.tap()
+        let importAudio = app.buttons["what.library.importAudio"]
+        XCTAssertTrue(importAudio.waitForExistence(timeout: 8),
+                      "Import from Files must be reachable even when Inbox has notes")
+        // Do not open the document picker; this checks discoverability only.
+    }
+
     func testExplicitNoteHandoffOpensChickMarkPreviewWithoutAutoSaving() throws {
         // Requires the independent ChickMark simulator QA build to be installed.
         let app = XCUIApplication()

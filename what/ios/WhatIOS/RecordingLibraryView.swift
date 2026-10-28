@@ -1,5 +1,6 @@
 import SwiftUI
 import UIKit
+import UniformTypeIdentifiers
 import ArvectumCore
 
 struct RecordingLibraryView: View {
@@ -16,6 +17,9 @@ struct RecordingLibraryView: View {
     @State private var selectedFolder: InboxFolder = .inbox
     @State private var searchText = ""
     @State private var preparedExport: PreparedRecordingExport?
+    @State private var importingAudio = false
+    @State private var importInProgress = false
+    @State private var audioImportMessage: String?
     @State private var showDiagnostics = false
     @State private var showTranscriptRecovery = false
     @State private var reviewNoteToSend: ReviewNoteHandoffDraft?
@@ -169,6 +173,29 @@ struct RecordingLibraryView: View {
                     accessibleLibraryActions
                 }
 
+                if importInProgress || audioImportMessage != nil {
+                    HStack(spacing: 8) {
+                        if importInProgress { ProgressView() }
+                        Text(importInProgress
+                             ? CaptureBrand.text("Импорт аудио…", "Importing audio…")
+                             : (audioImportMessage ?? ""))
+                            .font(.footnote)
+                            .fixedSize(horizontal: false, vertical: true)
+                        Spacer(minLength: 0)
+                        if !importInProgress {
+                            Button {
+                                audioImportMessage = nil
+                            } label: {
+                                Image(systemName: "xmark.circle.fill")
+                            }
+                            .accessibilityLabel(CaptureBrand.text("Закрыть", "Dismiss"))
+                        }
+                    }
+                    .padding(.horizontal)
+                    .padding(.vertical, 5)
+                    .accessibilityIdentifier("what.library.audioImportStatus")
+                }
+
                 Picker(CaptureBrand.text("Папка", "Folder"), selection: $selectedFolder) {
                     ForEach(InboxFolder.allCases) { folder in
                         Text(folder == .inbox
@@ -242,6 +269,15 @@ struct RecordingLibraryView: View {
                             .foregroundStyle(.secondary)
                             .multilineTextAlignment(.center)
                             .fixedSize(horizontal: false, vertical: true)
+                            Button {
+                                importingAudio = true
+                            } label: {
+                                Label(CaptureBrand.text("Импорт аудио из «Файлов»", "Import audio from Files"),
+                                      systemImage: "square.and.arrow.down")
+                            }
+                            .buttonStyle(.bordered)
+                            .accessibilityIdentifier("what.library.importAudio.empty")
+                            .disabled(importInProgress)
                         }
                         .frame(maxWidth: .infinity)
                         .padding(.horizontal, 24)
@@ -365,6 +401,43 @@ struct RecordingLibraryView: View {
                 }
             }
             .searchable(text: $searchText, prompt: CaptureBrand.text("Поиск по записям", "Search transcripts and dates"))
+            .fileImporter(isPresented: $importingAudio, allowedContentTypes: [.audio],
+                          allowsMultipleSelection: true) { result in
+                guard !importInProgress else { return }
+                guard case .success(let urls) = result else {
+                    if case .failure(let error) = result,
+                       (error as NSError).code != NSUserCancelledError {
+                        store.errorMessage = error.localizedDescription
+                    }
+                    return
+                }
+                guard !urls.isEmpty else { return }
+                importInProgress = true
+                audioImportMessage = nil
+                Task {
+                    defer { importInProgress = false }
+                    let summary = await AudioBatchImportSummary.process(urls) { url in
+                        _ = try await store.importAudioFromFiles(url)
+                    }
+                    if summary.tooMany {
+                        audioImportMessage = CaptureBrand.text(
+                            "Выберите не более 10 аудиофайлов за раз.",
+                            "Select up to 10 audio files at a time."
+                        )
+                    } else {
+                        if summary.imported > 0 {
+                            selectedFolder = .inbox
+                            typeFilter = .audio
+                            searchText = ""
+                        }
+                        audioImportMessage = CaptureBrand.formatted(
+                            "Импортировано %d из %d аудиофайлов.",
+                            "Imported %d of %d audio files.",
+                            summary.imported, urls.count
+                        )
+                    }
+                }
+            }
             .navigationTitle(CaptureBrand.name)
             .toolbar(dynamicTypeSize.isAccessibilitySize ? .hidden : .visible,
                      for: .navigationBar)
@@ -517,6 +590,15 @@ struct RecordingLibraryView: View {
 
     private var librarySettingsAction: some View {
         Menu {
+            Button {
+                importingAudio = true
+            } label: {
+                Label(CaptureBrand.text("Импорт аудио из «Файлов»", "Import audio from Files"),
+                      systemImage: "square.and.arrow.down")
+            }
+            .disabled(importInProgress)
+            .accessibilityIdentifier("what.library.importAudio")
+            Divider()
             AutoFollowUpSettingsMenu(manager: store.reminderManager)
             Picker(CaptureBrand.text("Язык распознавания речи",
                                      "Speech recognition language"),
@@ -803,6 +885,12 @@ struct RecordingLibraryView: View {
 
     private func recordingRow(_ recording: RecordingEnvelope) -> some View {
         VStack(alignment: .leading, spacing: 8) {
+            if let displayName = recording.displayName {
+                Text(displayName)
+                    .font(.subheadline.weight(.semibold))
+                    .lineLimit(2)
+                    .accessibilityIdentifier("what.recording.importedName")
+            }
             HStack {
                 VStack(alignment: .leading, spacing: 3) {
                     Text(recording.createdAt, style: .time).font(.headline)

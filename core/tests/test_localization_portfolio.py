@@ -679,7 +679,7 @@ class LocalizationPortfolioTests(unittest.TestCase):
         roots = ["WhatIOS", "WhatWatch", "WhatPhoneWidget", "WhatWatchComplication"]
         # Two Watch delivery-state explanations and five manual-retry strings
         # are included in the iPhone catalog, not the Watch or widgets.
-        keys = [237, 6, 6, 5]
+        keys = [246, 6, 6, 5]
         for bundle, expected in zip(roots, keys):
             root = ROOT / "what/ios" / bundle
             english = i18n.read_strings(root / "en.lproj/Localizable.strings", [])

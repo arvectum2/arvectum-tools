@@ -131,7 +131,9 @@ final class RecordingRepository {
             return .previouslyDeleted(id)
         }
 
-        var index = loadIndex()
+        // Never replace an existing unreadable/corrupt catalog with an
+        // apparently empty one. Keep source media and retry after repair.
+        var index = try loadIndexForMutation()
         let fileName = "\(id.uuidString).m4a"
         let destination = audioDirectory.appendingPathComponent(fileName)
 
@@ -143,11 +145,17 @@ final class RecordingRepository {
         }
 
         try persistIncomingFile(from: sourceURL, to: destination)
+        let rawName = metadata[TransferMetadataKey.displayName] as? String ?? ""
+        let readableName = rawName.unicodeScalars.filter {
+            !CharacterSet.controlCharacters.contains($0)
+        }.map(String.init).joined().trimmingCharacters(in: .whitespacesAndNewlines)
+        let displayName = readableName.isEmpty ? nil : String(readableName.prefix(120))
         let recording = RecordingEnvelope(
             id: id,
             createdAt: Date(timeIntervalSince1970: createdAtValue),
             duration: duration,
-            fileName: fileName
+            fileName: fileName,
+            displayName: displayName
         )
         index.append(recording)
         try persistIndex(index)
@@ -465,6 +473,15 @@ final class RecordingRepository {
         } else {
             try fileManager.moveItem(at: staging, to: destination)
         }
+    }
+
+    /// Fail-closed read for every new Watch/Files ingest. A locked or damaged
+    /// existing index must NOT be overwritten by a one-item replacement.
+    private func loadIndexForMutation() throws -> [RecordingEnvelope] {
+        guard fileManager.fileExists(atPath: indexURL.path) else { return [] }
+        return try ArvectumJSONCodec.decode(
+            [RecordingEnvelope].self, from: Data(contentsOf: indexURL)
+        )
     }
 
     private func loadIndex() -> [RecordingEnvelope] {

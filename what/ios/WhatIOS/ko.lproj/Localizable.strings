@@ -238,3 +238,16 @@
 "A sync request is already pending." = "동기화 요청이 이미 대기 중입니다.";
 "A recent request is still being processed. Try again later." = "최근 요청을 아직 처리 중입니다. 잠시 후 다시 시도하세요.";
 "Watch unavailable. Check pairing and try again." = "Watch를 사용할 수 없습니다. 페어링을 확인한 후 다시 시도하세요.";
+
+// Imported audio from Files (local-only)
+"Import audio from Files" = "파일 앱에서 오디오 가져오기";
+"Choose a file in Files." = "파일 앱에서 오디오 파일을 선택하세요.";
+"Audio exceeds 500 MB. Your original is safe." = "오디오 파일이 500MB를 초과합니다. 원본은 변경되지 않았습니다.";
+"The file has no playable audio." = "파일에 재생 가능한 오디오가 없습니다.";
+"This audio format is unsupported." = "지원하지 않는 오디오 형식입니다.";
+"Could not convert to M4A. Your original is safe." = "M4A로 변환하지 못했습니다. 원본은 안전하게 보존됩니다.";
+
+// Bounded multi-file audio import (local-only)
+"Importing audio…" = "오디오 가져오는 중…";
+"Select up to 10 audio files at a time." = "한 번에 오디오 파일을 최대 10개 선택하세요.";
+"Imported %d of %d audio files." = "오디오 파일 %d개 중 %d개를 가져왔습니다.";

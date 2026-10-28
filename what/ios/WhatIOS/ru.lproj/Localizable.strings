@@ -240,3 +240,16 @@
 "A sync request is already pending." = "Запрос уже ожидает передачи.";
 "A recent request is still being processed. Try again later." = "Недавний запрос ещё обрабатывается. Повторите позже.";
 "Watch unavailable. Check pairing and try again." = "Часы недоступны. Проверьте сопряжение и повторите попытку.";
+
+// Imported audio from Files (local-only)
+"Import audio from Files" = "Импорт аудио из «Файлов»";
+"Choose a file in Files." = "Выберите файл в «Файлах».";
+"Audio exceeds 500 MB. Your original is safe." = "Аудио больше 500 МБ. Исходник не изменён.";
+"The file has no playable audio." = "В файле нет воспроизводимого аудио.";
+"This audio format is unsupported." = "Этот аудиоформат не поддерживается.";
+"Could not convert to M4A. Your original is safe." = "Не удалось преобразовать в M4A. Исходник сохранён.";
+
+// Bounded multi-file audio import (local-only)
+"Importing audio…" = "Импорт аудио…";
+"Select up to 10 audio files at a time." = "Выберите не более 10 аудиофайлов за раз.";
+"Imported %d of %d audio files." = "Импортировано %d из %d аудиофайлов.";

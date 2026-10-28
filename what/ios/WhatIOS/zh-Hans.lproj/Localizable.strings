@@ -237,3 +237,16 @@
 "A sync request is already pending." = "已有同步请求正在等待处理。";
 "A recent request is still being processed. Try again later." = "之前的请求仍在处理中，请稍后重试。";
 "Watch unavailable. Check pairing and try again." = "Watch 不可用。请检查配对状态后重试。";
+
+// Imported audio from Files (local-only)
+"Import audio from Files" = "从“文件”导入音频";
+"Choose a file in Files." = "请在“文件”应用中选择音频文件。";
+"Audio exceeds 500 MB. Your original is safe." = "音频超过 500 MB。原文件未被修改。";
+"The file has no playable audio." = "文件中没有可播放的音频。";
+"This audio format is unsupported." = "不支持此音频格式。";
+"Could not convert to M4A. Your original is safe." = "无法转换为 M4A。原文件已保留。";
+
+// Bounded multi-file audio import (local-only)
+"Importing audio…" = "正在导入音频…";
+"Select up to 10 audio files at a time." = "每次最多选择 10 个音频文件。";
+"Imported %d of %d audio files." = "已导入 %d 个音频文件，共 %d 个。";
