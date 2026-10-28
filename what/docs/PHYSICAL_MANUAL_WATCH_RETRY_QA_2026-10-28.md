@@ -30,12 +30,24 @@
 - Публичный iTunes Lookup read-only подтвердил **1.1.2 во всех 16 региональных вариантах ASO**: RU, US, GB, AU, CA, ES, MX, FR, DE, IT, JP, KR, BR, PT, CN, TW; один и тот же `currentVersionReleaseDate=2026-10-27T23:29:12Z`.
 - Исходный PR #157 и его QA-инструментация **не входят** в опубликованный C17 бинарник.
 
+## 4. Физический UI XCTest на iPhone 13 — PASS, 28.10.2026 09:44–09:45 МСК
+
+По подтверждению владельца iPhone разблокирован, CoreDevice показал `passcodeRequired=false`. На **той же отдельной QA-сборке**, не на production Ухвате, повторно запущен `WhatIOSUITests/SyncDiagnosticsLocalizationUITests/testWatchRetryActionReportsARequestWithoutPromisingInstantDelivery` через `WhatWatchPhysicalQA.xcodeproj` / Xcode 27.1 / iPhone 13 iOS 27.2.
+
+- **`Test Case ... passed (15.971 seconds)`**, **`TEST SUCCEEDED`**, `xcodebuild exit=0`. Настоящий XCUITest открыл библиотеку, настройки, экран диагностики, нажал кнопку с identifier `watchQueueRequestRecovery` и проверил появление корректного сообщения `watchQueueRecoveryFeedback`, не обещающего мгновенную доставку.
+- Физический QA `Documents/WatchRouteQA/events.json` после теста содержит `phone-sync-request queued` (при запуске), далее `already-pending` и `rate-limited` при повторных обращениях. Это ожидаемая защита от дублирования запроса. UI тест подтверждает физическое нажатие и ответ, а **не** гарантирует конкретный исход `queued` каждого нажатия.
+- Ранее заблокировавшие запуск состояния `Timed out while enabling automation mode` и `Unlock iPhone ... to Continue` сняты для этой приёмки. Настройки устройства не модифицировались автоматизацией.
+- Исходный документальный тестовый артефакт: `PhysicalWatchRetryUI-0945.xcresult`, stdout `physical-ui-20261028-0945.log`, телефонный QA trace `phone-qa-after-ui-pass.json` в ранее указанном каталоге QA. Аудио, приватные заметки, изображения и транскрипции не копировались.
+- Все проверки GitHub PR #157 на SHA `f34e41d` завершились **SUCCESS**, в том числе capture-reliability, watch-build, localization, ios-behavior и архитектура. После изменения документов новая проверка CI может потребоваться повторно.
+
+**Итог:** физический UI gate новой кнопки **CLOSED / PASS**. Ранее подтверждённая Watch foreground-доставка тоже **PASS**. Самостоятельный background без открытия Watch остаётся **OPEN** и не должен маскироваться этими результатами.
+
 ## Остаточные ворота
 
-1. **OPEN:** повтор физического UI XCTest при доступной iOS UI Automation; ни UI, ни служебные кнопки не трогать обходом системной блокировки.
+1. **CLOSED:** физический UI XCTest реальной кнопки выполнен успешно на iPhone 13 iOS 27.2, без обхода блокировки.
 2. **OPEN:** самостоятельная background-доставка `syncRequest` на Watch **без** открытия приложения; foreground-приём уже физически подтверждён. Никаких гарантий мгновенной доставки.
 3. **OPEN:** реальный radio-offline с поздней доставкой при заблокированном iPhone, reboot Watch с pending на текущей сборке, звонок/долгие прерывания. Системные радио/питание/сопряжение без отдельного безопасного сценария не менялись.
 4. **OPEN:** полноценная физическая проверка Follow-up → ChickMark, тихих часов и lock-screen privacy. Её нельзя закрыть модульными XCTest.
-5. **CI:** первый GitHub `localization` обнаружил жёстко заданный исторический лимит 232 iPhone-строк вместо актуальных 237. Исправлен тестовый контракт и добавлены явные проверки новых строк; локальный `test_localization_portfolio.py` **61/61 PASS**. Проверки GitHub нужно повторно дождаться на новом SHA, protected checks не обходить.
+5. **CI:** исправлен исторический лимит 232→237 iPhone-строк, локальный `test_localization_portfolio.py` **61/61 PASS**, все проверки GitHub для `f34e41d` **SUCCESS**. Проверки нового коммита документации — отдельно; protected checks не обходить.
 
 Артефакты: `/Volumes/ArvectumSSD/Arvectum/tmp/uhvat-watch-acceptance-20261028` (только тестовые логи/JSON и DerivedData; личных аудиофайлов там нет).

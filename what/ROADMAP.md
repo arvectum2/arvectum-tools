@@ -16,7 +16,7 @@
 
 - [x] **iPhone 13 iOS 27.2 / Watch SE watchOS 26.6:** обновлены исключительно отдельные подписанные QA bundles; до/после очередь тестовых записей Watch 0, production apps и пользовательские медиа не менялись.
 - [x] Под `WATCH_ROUTE_QA` добавлен одноразовый физический запуск без UI Automation: реальный iPhone `WCSession.transferUserInfo` подтвердил `phone-qa-manual-request=queued`. После безопасного foreground-запуска Watch QA с `what-watch-qa-audit` зафиксировано **`watch-sync-request-received` (1)** при нулевой очереди AAC. **Сквозной запрос с открытием Watch PASS**; полностью фоновая доставка без открытия Watch остаётся OPEN, сроки iOS не гарантирует.
-- [ ] **Физический UI XCUITest:** runner запустился, но не смог включить iOS Automation Mode (`Timed out while enabling automation mode`); это инфраструктурный блокер, не PASS и не доказанный дефект Ухвата. Нужен физический повтор после проверки Settings → Developer → Enable UI Automation.
+- [x] **Физический UI XCUITest — PASS 28.10 09:44 МСК** на iPhone 13 iOS 27.2: нажатие `watchQueueRequestRecovery`, ответ `watchQueueRecoveryFeedback`, `TEST SUCCEEDED`, 15.971 с; в телефонном QA trace состояния queued/already-pending/rate-limited. Предыдущие `Timed out while enabling automation mode` и Locked больше не блокируют приёмку.
 - [x] По публичному iTunes Lookup подтверждено `1.1.2` во **всех 16/16** ASO-регионах; App Store Connect read-only `READY_FOR_SALE`.
 - [x] Исправлен исторический жёсткий счётчик локализации WhatIOS ES 232 → 237 с проверкой двух новых сообщений; локальные **61/61 Python localization tests PASS**. GitHub CI перепроверить на новом коммите.
 
@@ -28,7 +28,7 @@
 - [x] Физический потерянный ACK/повтор того же UUID и восстановление оригинала на Watch подтверждены 19.10; проверка AAC перед ACK на настоящем iPhone подтверждена 22.10; физическое 420-секундное видео — PASS 19.10. Повторять эти сценарии без регрессии не нужно.
 - [x] В отдельной исходной ветке добавлена кнопка **«Запросить передачу с часов»** в диагностику. Использует только уже существующий `syncRequest`/durable Watch pump, учитывает очередь запросов и cooldown 60 с; не удаляет/не читает личное аудио, не обещает мгновенный ACK. Сообщения и кнопка локализованы для 12 UI языков.
 - [x] UI-тест ручного запроса передачи на iOS 27 Simulator: 1/1 PASS, 0 FAIL; повторный общий прогон 31 unit и 4 RU/EN/ES sync UI: **35/35 PASS**; XcodeGen membership и все 12 `.strings` PASS, общий локализационный аудит PASS.
-- [ ] Физический UI smoke нового запроса и GitHub CI перед объединением ветки в `main`; **не часть** 1.1.2(10), уже отправленной Apple.
+- [x] Физический UI smoke нового запроса и все GitHub CI checks на `f34e41d` — PASS; **не часть** опубликованной 1.1.2(10). Документационная правка требует повторного green gate перед merge.
 - [ ] **Аппаратный P0 остаётся:** после разрыва реальной радиосвязи eventual background-delivery при заблокированном iPhone без ручного foreground, Watch reboot с pending на текущей сборке, звонок/длинное прерывание и 30–120 мин/аппаратный ENOSPC только в безопасном QA окружении. Запись до ACK должна сохраняться; WatchConnectivity не гарантирует сроки фоновой доставки.
 - [ ] Новые настоящие iPhone/Watch beta и публичные релизы — отдельные разрешения и per-build release gate. В этом цикле пользовательские заметки, radio-переключатели и системное сопряжение не трогались.
 
