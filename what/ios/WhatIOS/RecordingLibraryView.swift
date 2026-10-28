@@ -19,6 +19,7 @@ struct RecordingLibraryView: View {
     @State private var preparedExport: PreparedRecordingExport?
     @State private var importingAudio = false
     @State private var importInProgress = false
+    @State private var audioImportMessage: String?
     @State private var showDiagnostics = false
     @State private var showTranscriptRecovery = false
     @State private var reviewNoteToSend: ReviewNoteHandoffDraft?
@@ -172,6 +173,29 @@ struct RecordingLibraryView: View {
                     accessibleLibraryActions
                 }
 
+                if importInProgress || audioImportMessage != nil {
+                    HStack(spacing: 8) {
+                        if importInProgress { ProgressView() }
+                        Text(importInProgress
+                             ? CaptureBrand.text("Импорт аудио…", "Importing audio…")
+                             : (audioImportMessage ?? ""))
+                            .font(.footnote)
+                            .fixedSize(horizontal: false, vertical: true)
+                        Spacer(minLength: 0)
+                        if !importInProgress {
+                            Button {
+                                audioImportMessage = nil
+                            } label: {
+                                Image(systemName: "xmark.circle.fill")
+                            }
+                            .accessibilityLabel(CaptureBrand.text("Закрыть", "Dismiss"))
+                        }
+                    }
+                    .padding(.horizontal)
+                    .padding(.vertical, 5)
+                    .accessibilityIdentifier("what.library.audioImportStatus")
+                }
+
                 Picker(CaptureBrand.text("Папка", "Folder"), selection: $selectedFolder) {
                     ForEach(InboxFolder.allCases) { folder in
                         Text(folder == .inbox
@@ -253,6 +277,7 @@ struct RecordingLibraryView: View {
                             }
                             .buttonStyle(.bordered)
                             .accessibilityIdentifier("what.library.importAudio.empty")
+                            .disabled(importInProgress)
                         }
                         .frame(maxWidth: .infinity)
                         .padding(.horizontal, 24)
@@ -376,27 +401,40 @@ struct RecordingLibraryView: View {
                 }
             }
             .searchable(text: $searchText, prompt: CaptureBrand.text("Поиск по записям", "Search transcripts and dates"))
-            .fileImporter(isPresented: $importingAudio, allowedContentTypes: [.audio]) { result in
+            .fileImporter(isPresented: $importingAudio, allowedContentTypes: [.audio],
+                          allowsMultipleSelection: true) { result in
                 guard !importInProgress else { return }
-                guard case .success(let url) = result else {
-                    // Closing the Files picker is normal; other provider errors
-                    // must not vanish silently.
+                guard case .success(let urls) = result else {
                     if case .failure(let error) = result,
                        (error as NSError).code != NSUserCancelledError {
                         store.errorMessage = error.localizedDescription
                     }
                     return
                 }
+                guard !urls.isEmpty else { return }
                 importInProgress = true
+                audioImportMessage = nil
                 Task {
                     defer { importInProgress = false }
-                    do {
+                    let summary = await AudioBatchImportSummary.process(urls) { url in
                         _ = try await store.importAudioFromFiles(url)
-                        selectedFolder = .inbox
-                        typeFilter = .audio
-                        searchText = ""
-                    } catch {
-                        store.errorMessage = error.localizedDescription
+                    }
+                    if summary.tooMany {
+                        audioImportMessage = CaptureBrand.text(
+                            "Выберите не более 10 аудиофайлов за раз.",
+                            "Select up to 10 audio files at a time."
+                        )
+                    } else {
+                        if summary.imported > 0 {
+                            selectedFolder = .inbox
+                            typeFilter = .audio
+                            searchText = ""
+                        }
+                        audioImportMessage = CaptureBrand.formatted(
+                            "Импортировано %d из %d аудиофайлов.",
+                            "Imported %d of %d audio files.",
+                            summary.imported, urls.count
+                        )
                     }
                 }
             }

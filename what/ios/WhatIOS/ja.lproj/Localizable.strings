@@ -245,3 +245,8 @@
 "The file has no playable audio." = "再生可能な音声が含まれていません。";
 "This audio format is unsupported." = "この音声形式には対応していません。";
 "Could not convert to M4A. Your original is safe." = "M4Aに変換できませんでした。元のファイルは保持されています。";
+
+// Bounded multi-file audio import (local-only)
+"Importing audio…" = "音声を読み込み中…";
+"Select up to 10 audio files at a time." = "一度に選択できる音声ファイルは最大10件です。";
+"Imported %d of %d audio files." = "%d件／%d件の音声ファイルを読み込みました。";

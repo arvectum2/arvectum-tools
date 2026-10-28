@@ -136,6 +136,35 @@ final class AudioFileImportTests: XCTestCase {
               duration: 3, fileName: "\(id.uuidString).m4a")).path))
     }
 
+    func testBatchImportContinuesAfterOneBadFile() async {
+        let files = [URL(fileURLWithPath: "/tmp/first.m4a"),
+                     URL(fileURLWithPath: "/tmp/bad.m4a"),
+                     URL(fileURLWithPath: "/tmp/last.wav")]
+        var attempted: [String] = []
+        let summary = await AudioBatchImportSummary.process(files) { file in
+            attempted.append(file.lastPathComponent)
+            if file.lastPathComponent == "bad.m4a" {
+                throw AudioFileImportService.ImportError.invalidAudio
+            }
+        }
+        XCTAssertEqual(summary.imported, 2)
+        XCTAssertEqual(summary.failed, 1)
+        XCTAssertFalse(summary.tooMany)
+        XCTAssertEqual(attempted, ["first.m4a", "bad.m4a", "last.wav"])
+    }
+
+    func testBatchImportRefusesMoreThanTenBeforeAnyWrite() async {
+        let files = (0..<11).map { URL(fileURLWithPath: "/tmp/\($0).m4a") }
+        var attempted = 0
+        let summary = await AudioBatchImportSummary.process(files) { _ in
+            attempted += 1
+        }
+        XCTAssertTrue(summary.tooMany)
+        XCTAssertEqual(summary.imported, 0)
+        XCTAssertEqual(summary.failed, 0)
+        XCTAssertEqual(attempted, 0)
+    }
+
     func testInvalidAudioNeverCreatesAnIndexedNoteAndKeepsSource() async throws {
         let root = try disposableRoot()
         defer { try? FileManager.default.removeItem(at: root) }

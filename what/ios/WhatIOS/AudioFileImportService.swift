@@ -58,3 +58,33 @@ enum AudioFileImportService {
         return PreparedAudio(url: converted, duration: player.duration, disposableURL: converted)
     }
 }
+
+/// Bounded serial imports: a bad file must not prevent good recordings from
+/// reaching the existing protected repository. Nothing is rolled back/deleted.
+struct AudioBatchImportSummary: Equatable {
+    static let maximumSelection = 10
+    let imported: Int
+    let failed: Int
+    let tooMany: Bool
+
+    @MainActor
+    static func process(
+        _ files: [URL], importOne: (URL) async throws -> Void
+    ) async -> AudioBatchImportSummary {
+        guard files.count <= maximumSelection else {
+            return AudioBatchImportSummary(imported: 0, failed: 0, tooMany: true)
+        }
+        var imported = 0
+        var failed = 0
+        for file in files {
+            if Task.isCancelled { break }
+            do {
+                try await importOne(file)
+                imported += 1
+            } catch {
+                failed += 1
+            }
+        }
+        return AudioBatchImportSummary(imported: imported, failed: failed, tooMany: false)
+    }
+}

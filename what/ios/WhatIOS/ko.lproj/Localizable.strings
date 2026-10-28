@@ -246,3 +246,8 @@
 "The file has no playable audio." = "파일에 재생 가능한 오디오가 없습니다.";
 "This audio format is unsupported." = "지원하지 않는 오디오 형식입니다.";
 "Could not convert to M4A. Your original is safe." = "M4A로 변환하지 못했습니다. 원본은 안전하게 보존됩니다.";
+
+// Bounded multi-file audio import (local-only)
+"Importing audio…" = "오디오 가져오는 중…";
+"Select up to 10 audio files at a time." = "한 번에 오디오 파일을 최대 10개 선택하세요.";
+"Imported %d of %d audio files." = "오디오 파일 %d개 중 %d개를 가져왔습니다.";

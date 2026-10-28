@@ -245,3 +245,8 @@
 "The file has no playable audio." = "Die Datei enthält kein abspielbares Audio.";
 "This audio format is unsupported." = "Dieses Audioformat wird nicht unterstützt.";
 "Could not convert to M4A. Your original is safe." = "Die Umwandlung in M4A ist fehlgeschlagen. Das Original bleibt erhalten.";
+
+// Bounded multi-file audio import (local-only)
+"Importing audio…" = "Audio wird importiert…";
+"Select up to 10 audio files at a time." = "Wähle höchstens 10 Audiodateien gleichzeitig aus.";
+"Imported %d of %d audio files." = "%d von %d Audiodateien importiert.";
