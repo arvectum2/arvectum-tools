@@ -73,6 +73,12 @@ struct TodayView: View {
         oneOffReminders.filter { !$0.isCompleted }
     }
 
+    /// First launch already has full-size actions; compact shortcuts are
+    /// shown only once there are habits or one-time reminders to manage.
+    private var hasTodayItems: Bool {
+        habits.contains { !$0.isArchived } || !pendingOneOffReminders.isEmpty
+    }
+
     private var resolvedCount: Int {
         activeToday.filter {
             isCompleted($0, on: referenceDate) ||
@@ -91,8 +97,7 @@ struct TodayView: View {
 
                 // Ad is in feed, never a permanent footer.
                 Group {
-                    if habits.filter({ !$0.isArchived }).isEmpty &&
-                        pendingOneOffReminders.isEmpty {
+                    if !hasTodayItems {
                         firstHabitEmptyState.frame(maxHeight: .infinity)
                     } else {
                         todayContent.frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -125,27 +130,38 @@ struct TodayView: View {
                         }
                         .accessibilityLabel(L10n.string("manage.accessibility"))
 
-                        Menu {
-                            Button {
-                                showingAddHabit = true
-                            } label: {
-                                Label(L10n.string("add.menu.habit"), systemImage: "repeat")
-                            }
+                        // On an empty screen, the large labeled CTAs below
+                        // remain the only creation actions. Once populated,
+                        // both everyday actions are one tap from Today.
+                        if hasTodayItems {
                             Button {
                                 showingAddOneOffReminder = true
                             } label: {
-                                Label(L10n.string("add.menu.oneoff"), systemImage: "bell.badge")
+                                Image(systemName: "bell.badge")
+                                    .font(.system(size: 19, weight: .medium))
+                                    .frame(
+                                        width: ArvectumDesignMetrics.minimumTouchTarget,
+                                        height: ArvectumDesignMetrics.minimumTouchTarget
+                                    )
+                                    .contentShape(Rectangle())
                             }
-                        } label: {
-                            Image(systemName: "plus")
-                                .font(.system(size: 22, weight: .medium))
-                                .frame(
-                                    width: ArvectumDesignMetrics.minimumTouchTarget,
-                                    height: ArvectumDesignMetrics.minimumTouchTarget
-                                )
-                                .contentShape(Rectangle())
+                            .accessibilityLabel(L10n.string("add.menu.oneoff"))
+                            .accessibilityIdentifier("today.add.oneoff")
+
+                            Button {
+                                showingAddHabit = true
+                            } label: {
+                                Image(systemName: "plus")
+                                    .font(.system(size: 22, weight: .medium))
+                                    .frame(
+                                        width: ArvectumDesignMetrics.minimumTouchTarget,
+                                        height: ArvectumDesignMetrics.minimumTouchTarget
+                                    )
+                                    .contentShape(Rectangle())
+                            }
+                            .accessibilityLabel(L10n.string("add.menu.habit"))
+                            .accessibilityIdentifier("today.add.habit")
                         }
-                        .accessibilityLabel(L10n.string("common.add"))
                     }
                     .tint(.primary)
                     .fixedSize(horizontal: true, vertical: false)
