@@ -151,6 +151,44 @@ final class HabitFlowUITests: XCTestCase {
         XCTAssertTrue(app.buttons["Create habit"].waitForExistence(timeout: 4))
     }
 
+    func testTodayQuickAddHabitAndOneTimeReminderNeedOnlyOneTap() throws {
+        // Empty state uses labeled CTAs rather than ambiguous compact icons.
+        XCTAssertFalse(app.buttons["today.add.habit"].exists)
+        XCTAssertFalse(app.buttons["today.add.oneoff"].exists)
+        let create = app.buttons["Create habit"]
+        XCTAssertTrue(create.waitForExistence(timeout: 8))
+        create.tap()
+        let name = app.textFields["Habit name"]
+        XCTAssertTrue(name.waitForExistence(timeout: 8))
+        name.tap()
+        name.typeText("Daily sketch")
+        app.navigationBars["New habit"].buttons["Done"].tap()
+        XCTAssertTrue(app.staticTexts["Daily sketch"].firstMatch
+            .waitForExistence(timeout: 8))
+
+        let quickHabit = app.buttons["today.add.habit"]
+        let quickReminder = app.buttons["today.add.oneoff"]
+        XCTAssertTrue(quickHabit.waitForExistence(timeout: 6))
+        XCTAssertTrue(quickReminder.waitForExistence(timeout: 6))
+        XCTAssertTrue(quickHabit.isHittable)
+        XCTAssertTrue(quickReminder.isHittable)
+        XCTAssertGreaterThanOrEqual(quickHabit.frame.width, 44)
+        XCTAssertGreaterThanOrEqual(quickReminder.frame.width, 44)
+
+        quickHabit.tap()
+        XCTAssertTrue(app.navigationBars["New habit"].waitForExistence(timeout: 6))
+        app.buttons["Cancel"].tap()
+        XCTAssertTrue(app.staticTexts["Daily sketch"].firstMatch
+            .waitForExistence(timeout: 6))
+
+        quickReminder.tap()
+        XCTAssertTrue(app.navigationBars["New reminder"].waitForExistence(timeout: 6))
+        XCTAssertTrue(app.textFields["What should I remind you about?"].exists)
+        app.buttons["Cancel"].tap()
+        XCTAssertTrue(app.staticTexts["Daily sketch"].firstMatch
+            .waitForExistence(timeout: 6))
+    }
+
     func testReminderIsVisibleWithBothDisclosuresClosed() throws {
         let create = app.buttons["Create habit"]
         XCTAssertTrue(create.waitForExistence(timeout: 9))

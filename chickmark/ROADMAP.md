@@ -5,6 +5,12 @@
 - [x] iPad Air 11″ iOS 27 Simulator: 2/2 XCUITest PASS (создание привычки/повороты, напоминание вне раскрытых блоков), exit 0. Физические HealthKit/CloudKit/Watch/уведомления по-прежнему OPEN. [Акт C19](../core/docs/IPAD_C19_ADAPTIVE_QA_2026-10-28.md).
 
 
+## 28.10 · P1 · одно нажатие для создания привычки и разового напоминания
+
+- [x] На непустом экране «Сегодня» обычная привычка открывается сразу по «+», разовое напоминание — по отдельному значку колокольчика; оба с доступными именами и touch target не меньше 44 pt. На пустом экране остаются две крупные подписанные кнопки без дублирования действий. Ветку нельзя считать опубликованной до отдельного релизного решения.
+- [x] Native XCUITest `testTodayQuickAddHabitAndOneTimeReminderNeedOnlyOneTap` PASS (`xcodebuild TEST SUCCEEDED`, 22.030 с, exit 0): оба однокасательных сценария, отмена без записи и сохранение существующей привычки.
+- [ ] GitHub CI/сборка, публикация и физический VoiceOver — отдельные гейты. HealthKit/CloudKit, Watch и личные данные не затронуты.
+
 ## 28.10.2026 · ASC C18 read-only review state
 
 - [x] Авторизованный App Store Connect GET: **1.5.3 (21) `WAITING_FOR_REVIEW`**, `AFTER_APPROVAL`; публичная 1.5.2 в 16/16 регионах. Релиз 1.5.3 не закрыт до фактического `READY_FOR_SALE`/Lookup. [C18 ASC](../core/docs/ASC_C18_REVIEW_STATUS_2026-10-28.md).
