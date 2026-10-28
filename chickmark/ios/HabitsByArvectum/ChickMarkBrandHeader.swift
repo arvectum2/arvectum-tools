@@ -4,9 +4,12 @@ import SwiftUI
 /// The corporate wordmark and version live on the Manage screen instead.
 struct ChickMarkBrandHeader: View {
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+    @State private var webPage: ChickMarkWebPage?
 
     var body: some View {
-        Link(destination: ChickMarkProductLinks.localizedLandingPage) {
+        Button {
+            webPage = ChickMarkWebPage(url: ChickMarkProductLinks.localizedLandingPage)
+        } label: {
             HStack(alignment: .center, spacing: 8) {
                 Image("ChickMarkMascot")
                     .resizable()
@@ -32,5 +35,8 @@ struct ChickMarkBrandHeader: View {
         .accessibilityElement(children: .combine)
         .accessibilityLabel("ChickMark")
         .accessibilityIdentifier("chickmark.website")
+        .sheet(item: $webPage) { page in
+            ChickMarkWebSheet(page: page)
+        }
     }
 }
