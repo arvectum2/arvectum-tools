@@ -79,7 +79,9 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          EXTRA=()
+          # macOS runners still ship Bash 3.2: an empty array under set -u
+          # raises `unbound variable`. A scalar optional flag is safe.
+          XCODE_LOCK_OPT=''
           case '${{ matrix.app }}' in
             uhvat) EXPECTED=(
               --expected testIPadRotationPreservesVisibleCaptureAndTextControls
@@ -88,7 +90,7 @@ jobs:
               -only-testing:WhatIOSUITests/CaptureFirstUITests/testIPadRotationPreservesVisibleCaptureAndTextControls
               -only-testing:WhatIOSUITests/CaptureFirstUITests/testIPadLandscapePreservesCaptureTextEditorAndLibrary
             ) ;;
-            chickmark) EXTRA=(-onlyUsePackageVersionsFromResolvedFile); EXPECTED=(
+            chickmark) XCODE_LOCK_OPT=-onlyUsePackageVersionsFromResolvedFile; EXPECTED=(
               --expected testCreateHabitAndKeepItAcrossOrientationChanges
               --expected testReminderIsVisibleWithBothDisclosuresClosed
             ); ONLY=(
@@ -106,7 +108,7 @@ jobs:
             --log "$RUNNER_TEMP/${{ matrix.app }}-ipad-xctest.log" \
             --max-seconds 1300 --teardown-grace 25 \
             "${EXPECTED[@]}" -- \
-            xcodebuild "${EXTRA[@]}" -project '${{ matrix.project }}' -scheme '${{ matrix.scheme }}' \
+            xcodebuild ${XCODE_LOCK_OPT:+$XCODE_LOCK_OPT} -project '${{ matrix.project }}' -scheme '${{ matrix.scheme }}' \
             -destination "platform=iOS Simulator,id=$IPAD_UDID" \
             -parallel-testing-enabled NO -jobs 2 \
             CODE_SIGNING_ALLOWED=NO COMPILER_INDEX_STORE_ENABLE=NO \
