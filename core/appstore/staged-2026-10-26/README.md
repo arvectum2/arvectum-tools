@@ -49,3 +49,7 @@ C13, 27.10: [редакторская проверка всех 64 ASO-карт�
 `prepare_appstore_localizations.py` создаёт машинные черновики и кеширует одинаковые переводы; `finalize_appstore_drafts.py` восстанавливает защищённые имена продуктов и терминологию; `plan_appstore_screenshots.py` строит slots из фактических 64 карточек; `validate_appstore_staging.py` проверяет метаданные и SHA-256 существующих изображений; `audit_editorial_all_locales.py` проверяет source-key/format/permission и формирует файл для редакторов. CI запускает проверки offline — обращение к сторонней переводческой службе в CI не требуется.
 
 **ASO исходно:** [публичные 48 карточек 12 рынков](../../docs/ASO_PUBLIC_AUDIT_2026-10-26.md). **Apple Docs:** https://developer.apple.com/help/app-store-connect/reference/app-information/app-store-localizations/ и https://developer.apple.com/help/app-store-connect/reference/app-information/screenshot-specifications.
+
+## 29.10.2026 · Read-only проверка регионального baseline
+
+`python3 core/tools/regional_aso_readiness.py --format table` или `--format json` из корня репозитория. Сравнивает 64 staged варианта с датированным публичным Apple Lookup C18 (16 стран × 4 приложения), не утверждая их публикацию или наличие отдельной Apple-supported metadata locale для каждой страны. Важно: ChickMark в C18 был 1.5.2, а в следующем C19 уже 1.5.3; отчёт выводит именно дату наблюдения, а не актуальное состояние ASC. Для нового региона сначала проверить ASC supported locales/availability, затем перевод, native UI screenshot, юридические claims и per-release согласование.

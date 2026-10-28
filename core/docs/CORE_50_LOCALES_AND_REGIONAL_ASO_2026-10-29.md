@@ -45,6 +45,12 @@
 
 Это **наши staged-ключи**, а не гарантия, что Apple поддерживает каждый из них как отдельный metadata locale в любой стране. Проверять допустимый Apple locale и доступность storefront в ASC перед расширением. Apple metadata локалей меньше 50; 50 языков UI не означают 50 отдельных Apple metadata локалей. Там, где нет локализации, явно фиксировать допустимый fallback.
 
+## 29.10.2026 · A1 — автоматическая сверка 16 существующих стран
+
+- [x] Read-only CLI `python3 core/tools/regional_aso_readiness.py --format table` (или `--format json`) строит **64 пары app×storefront** из C18 country-specific публичного Apple Lookup и 64 staged-карточек. Учитываются версии, количество iPhone/iPad снимков, назначенный черновик регионального текста и реально присутствующий UI source language.
+- [x] Fail-closed проверки не допускают отсутствующую страну/черновик карточки, несоответствующий bundle ID и отсутствие обязательных полей карточки. Автоматические тесты `core/tests/test_regional_aso_readiness.py` покрывают корректную матрицу и отказ при расхождениях.
+- [ ] Для следующих регионов требуется реальное ASC GET подтверждение допустимых локализаций, витрины, правовых claims и редакторская приёмка. Старые публичные наблюдения не равны сегодняшнему статусу: C18 ChickMark ещё **1.5.2**, более поздний C19 уже подтвердил **1.5.3**. CLI специально оставляет дату `observed_utc` и `apple_metadata_locale_verified_for_country=false`, не делает Apple сетевых запросов или live updates.
+
 ## Карточка для каждого целевого региона: обязательный контракт
 
 1. `app`, `storefrontCountry`, `appleSupportedMetadataLocale`, `uiSourceLocale`, `fallback`, `liveVersion` и источник проверки App Store Connect.
