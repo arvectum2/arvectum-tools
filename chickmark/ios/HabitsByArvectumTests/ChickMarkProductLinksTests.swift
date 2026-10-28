@@ -21,6 +21,22 @@ final class ChickMarkProductLinksTests: XCTestCase {
         )
     }
 
+    func testInAppWebOnlyAcceptsOwnedHTTPSPages() {
+        for path in ["https://arvectum.com/privacy",
+                     "https://arvectum.com/contact.html",
+                     "https://arvectum.com/tools/chickmark/en/index.html"] {
+            XCTAssertNotNil(ChickMarkWebPage(url: URL(string: path)!))
+        }
+        for path in ["http://arvectum.com/privacy",
+                     "https://evil-arvectum.com/privacy",
+                     "https://arvectum.com.evil.test/privacy",
+                     "https://example.com",
+                     "habits-arvectum://habit/123",
+                     "https://person@arvectum.com/private"] {
+            XCTAssertNil(ChickMarkWebPage(url: URL(string: path)!))
+        }
+    }
+
     func testLanguagePreferenceMapsToAllThreeTranslationBundles() {
         XCTAssertEqual(L10n.string("manage.title", language: "ru"), "Управление")
         XCTAssertEqual(L10n.string("manage.title", language: "en"), "Manage habits")

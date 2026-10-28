@@ -460,6 +460,7 @@ struct ManageHabitsView: View {
 // Brand identity and legal/help links are intentionally separate from habit
 // management. Original Arvectum wordmark asset; no substitute emblem.
 private struct ChickMarkAboutView: View {
+    @State private var webPage: ChickMarkWebPage?
 #if DEBUG
     @AppStorage(HabitAdDiagnosticStore.statusKey) private var adStatus = "not_requested"
     @AppStorage(HabitAdDiagnosticStore.unitKey) private var adUnit = ""
@@ -550,12 +551,17 @@ private struct ChickMarkAboutView: View {
         .background(Color.habitsBackground)
         .navigationTitle(L10n.string("manage.about"))
         .navigationBarTitleDisplayMode(.inline)
+        .sheet(item: $webPage) { page in
+            ChickMarkWebSheet(page: page)
+        }
     }
 
     private func aboutLink(
         _ title: String, systemImage: String, url: URL, identifier: String
     ) -> some View {
-        Link(destination: url) {
+        Button {
+            webPage = ChickMarkWebPage(url: url)
+        } label: {
             HStack(spacing: 12) {
                 Image(systemName: systemImage)
                     .font(.system(size: 18))

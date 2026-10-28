@@ -131,6 +131,42 @@ final class HabitFlowUITests: XCTestCase {
         XCTAssertTrue(app.descendants(matching: .any)["manage.support"].exists)
     }
 
+    func testAboutPrivacyOpensInAppBrowserAndReturnsToAbout() throws {
+        let manage = app.buttons["Manage habits"]
+        XCTAssertTrue(manage.waitForExistence(timeout: 8))
+        manage.tap()
+        let about = app.buttons["manage.about"]
+        XCTAssertTrue(about.waitForExistence(timeout: 8))
+        about.tap()
+        let privacy = app.buttons["manage.privacy"]
+        XCTAssertTrue(privacy.waitForExistence(timeout: 8))
+        privacy.tap()
+        let dismiss = app.buttons["chickmark.web.close"]
+        XCTAssertTrue(dismiss.waitForExistence(timeout: 10),
+                      "The in-app Safari sheet must provide its own visible close control")
+        dismiss.tap()
+        XCTAssertTrue(privacy.waitForExistence(timeout: 8),
+                      "Dismissing the browser returns to ChickMark About, not Safari")
+        XCTAssertTrue(app.staticTexts["chickmark.version"].exists)
+        let support = app.buttons["manage.support"]
+        XCTAssertTrue(support.waitForExistence(timeout: 7))
+        support.tap()
+        XCTAssertTrue(dismiss.waitForExistence(timeout: 8))
+        dismiss.tap()
+        XCTAssertTrue(support.waitForExistence(timeout: 8))
+    }
+
+    func testBrandLandingPageOpensInAppAndReturnsToToday() throws {
+        let brand = app.buttons["chickmark.website"]
+        XCTAssertTrue(brand.waitForExistence(timeout: 8))
+        brand.tap()
+        let dismiss = app.buttons["chickmark.web.close"]
+        XCTAssertTrue(dismiss.waitForExistence(timeout: 8))
+        dismiss.tap()
+        XCTAssertTrue(brand.waitForExistence(timeout: 8))
+        XCTAssertTrue(app.buttons["Manage habits"].exists)
+    }
+
     func testCreateFormHasNoObstructiveKeyboardBar() throws {
         let create = app.buttons["Create habit"]
         XCTAssertTrue(create.waitForExistence(timeout: 4))
