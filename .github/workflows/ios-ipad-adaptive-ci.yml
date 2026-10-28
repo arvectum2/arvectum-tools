@@ -1,0 +1,117 @@
+name: iPad layout smoke (simulator)
+
+on:
+  # PR branches are tested by pull_request; push is only for post-merge main.
+  # This avoids 2x three-app iPad jobs competing for the limited Xcode pool.
+  push:
+    branches: ['main']
+    paths:
+      - 'what/ios/**'
+      - 'chickmark/ios/**'
+      - 'photo-pdf-to-size/ios/**'
+      - 'core/tools/select_ios_ipad_simulator.py'
+      - 'core/tests/test_select_ios_ipad_simulator.py'
+      - '.github/workflows/ios-ipad-adaptive-ci.yml'
+  pull_request:
+    paths:
+      - 'what/ios/**'
+      - 'chickmark/ios/**'
+      - 'photo-pdf-to-size/ios/**'
+      - 'core/tools/select_ios_ipad_simulator.py'
+      - 'core/tests/test_select_ios_ipad_simulator.py'
+      - '.github/workflows/ios-ipad-adaptive-ci.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ios-ipad-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ipad-smoke:
+    runs-on: xcode-27
+    timeout-minutes: 35
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - app: uhvat
+            folder: what/ios
+            project: What.xcodeproj
+            scheme: WhatIOS
+          - app: chickmark
+            folder: chickmark/ios
+            project: HabitsByArvectumIOS.xcodeproj
+            scheme: HabitsByArvectum
+          - app: photo
+            folder: photo-pdf-to-size/ios
+            project: PhotoPodRazmerIOS.xcodeproj
+            scheme: PhotoPodRazmer
+    steps:
+      - uses: actions/checkout@v7
+      - name: Verify Xcode and iPad selection logic
+        run: |
+          xcodebuild -version | grep -q '^Xcode 27\.'
+          python3 -m unittest discover -s core/tests -p test_select_ios_ipad_simulator.py -q
+      - name: Install XcodeGen
+        run: brew install xcodegen
+      - name: Generate project with canonical dependency lock
+        working-directory: ${{ matrix.folder }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ '${{ matrix.app }}' == 'chickmark' ]]; then
+            bash scripts/generate_project.sh
+          else
+            xcodegen generate
+          fi
+      - name: Boot iPad Simulator (never silently substitute iPhone)
+        shell: bash
+        run: |
+          set -euo pipefail
+          UDID="$(python3 core/tools/select_ios_ipad_simulator.py)"
+          echo "IPAD_UDID=$UDID" >> "$GITHUB_ENV"
+          xcrun simctl boot "$UDID" || true
+          xcrun simctl bootstatus "$UDID" -b
+      - name: Verify layout on iPad
+        working-directory: ${{ matrix.folder }}
+        timeout-minutes: 25
+        shell: bash
+        run: |
+          set -euo pipefail
+          # macOS runners still ship Bash 3.2: an empty array under set -u
+          # raises `unbound variable`. A scalar optional flag is safe.
+          XCODE_LOCK_OPT=''
+          case '${{ matrix.app }}' in
+            uhvat) EXPECTED=(
+              --expected testIPadRotationPreservesVisibleCaptureAndTextControls
+              --expected testIPadLandscapePreservesCaptureTextEditorAndLibrary
+            ); ONLY=(
+              -only-testing:WhatIOSUITests/CaptureFirstUITests/testIPadRotationPreservesVisibleCaptureAndTextControls
+              -only-testing:WhatIOSUITests/CaptureFirstUITests/testIPadLandscapePreservesCaptureTextEditorAndLibrary
+            ) ;;
+            chickmark) XCODE_LOCK_OPT=-onlyUsePackageVersionsFromResolvedFile; EXPECTED=(
+              --expected testCreateHabitAndKeepItAcrossOrientationChanges
+              --expected testReminderIsVisibleWithBothDisclosuresClosed
+            ); ONLY=(
+              -only-testing:HabitsByArvectumUITests/AdaptiveLayoutUITests/testCreateHabitAndKeepItAcrossOrientationChanges
+              -only-testing:HabitsByArvectumUITests/HabitFlowUITests/testReminderIsVisibleWithBothDisclosuresClosed
+            ) ;;
+            photo) EXPECTED=(
+              --expected testTaskRemainsAvailableAfterOrientationChange
+            ); ONLY=(
+              -only-testing:PhotoPodRazmerUITests/AdaptiveLayoutUITests/testTaskRemainsAvailableAfterOrientationChange
+            ) ;;
+            *) echo 'Unsupported app' >&2; exit 2;;
+          esac
+          python3 ../../core/tools/run_strict_ipad_ui.py \
+            --log "$RUNNER_TEMP/${{ matrix.app }}-ipad-xctest.log" \
+            --max-seconds 1300 --teardown-grace 25 \
+            "${EXPECTED[@]}" -- \
+            xcodebuild ${XCODE_LOCK_OPT:+$XCODE_LOCK_OPT} -project '${{ matrix.project }}' -scheme '${{ matrix.scheme }}' \
+            -destination "platform=iOS Simulator,id=$IPAD_UDID" \
+            -parallel-testing-enabled NO -jobs 2 \
+            CODE_SIGNING_ALLOWED=NO COMPILER_INDEX_STORE_ENABLE=NO \
+            "${ONLY[@]}" test

@@ -1,5 +1,11 @@
 # What? — Product Roadmap
 
+## 28.10.2026 · C19 — iPad runtime восстановлен, базовая UI-приёмка
+
+- [x] На iPad Air 11″ (M3), iOS 27.0 Simulator успешно завершились 2/2 XCUITest: portrait→landscape→portrait и библиотека/редактор/кнопка захвата. `xcodebuild TEST SUCCEEDED`, exit 0. Прежний блокер ограниченного iOS 27.1 runtime **обойдён другим совместимым runtime**, а не исправлен внутри 27.1.
+- [ ] Split View, Stage Manager, реальная камера/mic, аппаратные прерывания и Watch остаются отдельными P0/P2 задачами. [Акт C19](../core/docs/IPAD_C19_ADAPTIVE_QA_2026-10-28.md).
+
+
 ## 28.10 · C18 · публичный статус подтверждён повторно
 
 - [x] **1.1.2 в 16/16 регионах** по отдельным запросам Lookup; групповой Lookup 4 ID возвращал закэшированную старую 1.1.1 — не признавать эту ошибку источника откатом. Физические background/offline/Watch reboot и tap-through с ChickMark остаются OPEN. [C18 аудит](../core/docs/ASO_C18_PUBLIC_STORE_QA_2026-10-28.md).
