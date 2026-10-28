@@ -231,3 +231,9 @@
 "Your Watch last reported an empty queue. New recordings may have been made since that report." = "Watchからの最後の報告では、キューは空でした。その後に新しい録音が作成された可能性があります。";
 "Français" = "フランス語";
 "No text yet. Tap Transcribe to turn this audio into text." = "まだテキストがありません。「文字起こし」をタップすると、音声をテキストに変換できます。";
+
+"Request Watch transfer" = "Watchからの転送をリクエスト";
+"Request queued. Delivery may take some time." = "リクエストを送信しました。転送には時間がかかる場合があります。";
+"A sync request is already pending." = "同期リクエストはすでに保留中です。";
+"A recent request is still being processed. Try again later." = "直前のリクエストを処理中です。しばらくしてからお試しください。";
+"Watch unavailable. Check pairing and try again." = "Watchを利用できません。ペアリングを確認して再試行してください。";

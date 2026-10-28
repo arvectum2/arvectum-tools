@@ -234,3 +234,9 @@
 
 "Français" = "Français";
 "No text yet. Tap Transcribe to turn this audio into text." = "Текста пока нет. Нажмите «Расшифровать», чтобы получить его из аудио.";
+
+"Request Watch transfer" = "Запросить передачу с часов";
+"Request queued. Delivery may take some time." = "Запрос отправлен. Передача может занять время.";
+"A sync request is already pending." = "Запрос уже ожидает передачи.";
+"A recent request is still being processed. Try again later." = "Недавний запрос ещё обрабатывается. Повторите позже.";
+"Watch unavailable. Check pairing and try again." = "Часы недоступны. Проверьте сопряжение и повторите попытку.";

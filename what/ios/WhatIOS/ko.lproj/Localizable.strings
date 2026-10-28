@@ -232,3 +232,9 @@
 "Your Watch last reported an empty queue. New recordings may have been made since that report." = "시계에서 마지막으로 빈 대기열을 보고했습니다. 해당 보고서 이후 새로운 녹음이 이루어졌을 수도 있습니다.";
 "Français" = "프랑세즈";
 "No text yet. Tap Transcribe to turn this audio into text." = "아직 텍스트가 없습니다. '텍스트 변환'을 탭하면 녹음 내용을 글로 바꿀 수 있습니다.";
+
+"Request Watch transfer" = "Watch 전송 요청";
+"Request queued. Delivery may take some time." = "요청을 보냈습니다. 전송에 시간이 걸릴 수 있습니다.";
+"A sync request is already pending." = "동기화 요청이 이미 대기 중입니다.";
+"A recent request is still being processed. Try again later." = "최근 요청을 아직 처리 중입니다. 잠시 후 다시 시도하세요.";
+"Watch unavailable. Check pairing and try again." = "Watch를 사용할 수 없습니다. 페어링을 확인한 후 다시 시도하세요.";

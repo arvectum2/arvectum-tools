@@ -34,6 +34,40 @@ final class SyncDiagnosticsLocalizationUITests: XCTestCase {
         )
     }
 
+    func testWatchRetryActionReportsARequestWithoutPromisingInstantDelivery() {
+        let app = XCUIApplication()
+        app.launchArguments += ["-AppleLanguages", "(ru)", "-AppleLocale", "ru_RU"]
+        app.launch()
+        let library = app.buttons.matching(
+            NSPredicate(format: "label BEGINSWITH %@", "Все заметки")
+        ).firstMatch
+        XCTAssertTrue(library.waitForExistence(timeout: 15))
+        library.tap()
+        let options = app.buttons["Настройки и диагностика"]
+        XCTAssertTrue(options.waitForExistence(timeout: 10))
+        options.tap()
+        let diagnostics = app.buttons["Диагностика синхронизации"]
+        XCTAssertTrue(diagnostics.waitForExistence(timeout: 7))
+        diagnostics.tap()
+        let request = app.buttons["watchQueueRequestRecovery"]
+        if !request.isHittable {
+            app.swipeUp()
+        }
+        XCTAssertTrue(request.waitForExistence(timeout: 8))
+        request.tap()
+        let feedback = app.staticTexts["watchQueueRecoveryFeedback"]
+        XCTAssertTrue(feedback.waitForExistence(timeout: 8))
+        // The acknowledgement is only for queuing a request, not for
+        // guaranteed delivery or a fresh real-time Watch queue snapshot.
+        let allowed = [
+            "Запрос отправлен. Передача может занять время.",
+            "Запрос уже ожидает передачи.",
+            "Недавний запрос ещё обрабатывается. Повторите позже.",
+            "Часы недоступны. Проверьте сопряжение и повторите попытку."
+        ]
+        XCTAssertTrue(allowed.contains(feedback.label), feedback.label)
+    }
+
     private func checkDiagnostics(
         language: String, locale: String, libraryButton: String,
         settings: String, menuItem: String, title: String,

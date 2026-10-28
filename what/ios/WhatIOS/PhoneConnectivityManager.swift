@@ -1,6 +1,15 @@
 import Foundation
 import WatchConnectivity
 
+/// A request only asks watchOS to reconsider its durable queue.
+/// Nothing here promises an immediate transfer or acknowledges an audio file.
+enum WatchRecoveryRequestResult {
+    case queued
+    case alreadyPending
+    case rateLimited
+    case unavailable
+}
+
 final class PhoneConnectivityManager: NSObject, WCSessionDelegate {
     static let shared = PhoneConnectivityManager()
 
@@ -18,23 +27,27 @@ final class PhoneConnectivityManager: NSObject, WCSessionDelegate {
     /// either side restarts. No audio or Watch storage is modified here.
     /// One outstanding request is kept at most; the system delivers it
     /// when the paired Watch becomes available again.
-    func requestWatchQueueRecovery() {
-        guard WCSession.isSupported() else { return }
+    @discardableResult
+    func requestWatchQueueRecovery() -> WatchRecoveryRequestResult {
+        guard WCSession.isSupported() else { return .unavailable }
         let session = WCSession.default
         guard session.activationState == .activated,
               session.isPaired,
-              session.isWatchAppInstalled,
-              Date().timeIntervalSince(lastRecoveryRequestAt) >= recoveryRequestCooldown
-        else { return }
+              session.isWatchAppInstalled
+        else { return .unavailable }
+        // Do not flood WCSession when a request is already waiting for iOS.
         let pending = session.outstandingUserInfoTransfers.contains {
             $0.userInfo[TransferMetadataKey.type] as? String
                 == TransferMetadataKey.syncRequest
         }
-        guard !pending else { return }
+        guard !pending else { return .alreadyPending }
+        guard Date().timeIntervalSince(lastRecoveryRequestAt) >= recoveryRequestCooldown
+        else { return .rateLimited }
         lastRecoveryRequestAt = Date()
         session.transferUserInfo([
             TransferMetadataKey.type: TransferMetadataKey.syncRequest
         ])
+        return .queued
     }
 
     private override init() {
