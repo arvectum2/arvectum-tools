@@ -143,11 +143,17 @@ final class RecordingRepository {
         }
 
         try persistIncomingFile(from: sourceURL, to: destination)
+        let rawName = metadata[TransferMetadataKey.displayName] as? String ?? ""
+        let readableName = rawName.unicodeScalars.filter {
+            !CharacterSet.controlCharacters.contains($0)
+        }.map(String.init).joined().trimmingCharacters(in: .whitespacesAndNewlines)
+        let displayName = readableName.isEmpty ? nil : String(readableName.prefix(120))
         let recording = RecordingEnvelope(
             id: id,
             createdAt: Date(timeIntervalSince1970: createdAtValue),
             duration: duration,
-            fileName: fileName
+            fileName: fileName,
+            displayName: displayName
         )
         index.append(recording)
         try persistIndex(index)

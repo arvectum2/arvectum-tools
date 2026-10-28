@@ -847,6 +847,12 @@ struct RecordingLibraryView: View {
 
     private func recordingRow(_ recording: RecordingEnvelope) -> some View {
         VStack(alignment: .leading, spacing: 8) {
+            if let displayName = recording.displayName {
+                Text(displayName)
+                    .font(.subheadline.weight(.semibold))
+                    .lineLimit(2)
+                    .accessibilityIdentifier("what.recording.importedName")
+            }
             HStack {
                 VStack(alignment: .leading, spacing: 3) {
                     Text(recording.createdAt, style: .time).font(.headline)

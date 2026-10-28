@@ -40,6 +40,7 @@ enum InboxOrganizer {
                 from: recording.createdAt, dateStyle: .medium, timeStyle: .short
             )
             return text.localizedStandardContains(needle)
+                || (recording.displayName?.localizedStandardContains(needle) ?? false)
                 || date.localizedStandardContains(needle)
         }.sorted {
             if $0.createdAt == $1.createdAt {

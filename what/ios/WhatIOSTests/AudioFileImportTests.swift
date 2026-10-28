@@ -45,10 +45,14 @@ final class AudioFileImportTests: XCTestCase {
         let result = try repo.acceptTemporaryFile(prepared.url, metadata: [
             TransferMetadataKey.id: id.uuidString,
             TransferMetadataKey.createdAt: Date().timeIntervalSince1970,
-            TransferMetadataKey.duration: prepared.duration
+            TransferMetadataKey.duration: prepared.duration,
+            TransferMetadataKey.displayName: "Project briefing"
         ])
         guard case .stored(let recording) = result else { return XCTFail("Expected stored audio") }
         XCTAssertEqual(recording.id, id)
+        XCTAssertEqual(recording.displayName, "Project briefing")
+        XCTAssertEqual(InboxOrganizer.recordings([recording], archivedIDs: [],
+            folder: .inbox, query: "briefing", transcripts: [:]).map(\.id), [id])
         XCTAssertEqual(repo.allRecordings().count, 1)
         XCTAssertTrue(repo.audioExists(for: recording))
         XCTAssertNoThrow(try AVAudioPlayer(contentsOf: repo.audioURL(for: recording)))
@@ -90,6 +94,22 @@ final class AudioFileImportTests: XCTestCase {
         XCTAssertEqual(try Data(contentsOf: repo.audioURL(for: recording)), original)
         XCTAssertEqual(try Data(contentsOf: source), original)
         XCTAssertTrue(FileManager.default.fileExists(atPath: source.path))
+    }
+
+    func testLegacyWatchRecordingWithoutNameStillDecodes() throws {
+        struct LegacyEnvelope: Codable {
+            let id: UUID
+            let createdAt: Date
+            let duration: TimeInterval
+            let fileName: String
+        }
+        let previous = LegacyEnvelope(id: UUID(), createdAt: Date(),
+                                      duration: 3.5, fileName: "old-watch.m4a")
+        let oldBytes = try JSONEncoder().encode(previous)
+        let restored = try JSONDecoder().decode(RecordingEnvelope.self, from: oldBytes)
+        XCTAssertEqual(restored.id, previous.id)
+        XCTAssertNil(restored.displayName)
+        XCTAssertEqual(restored.fileName, previous.fileName)
     }
 
     func testInvalidAudioNeverCreatesAnIndexedNoteAndKeepsSource() async throws {

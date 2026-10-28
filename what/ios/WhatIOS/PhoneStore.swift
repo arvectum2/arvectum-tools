@@ -255,7 +255,8 @@ final class PhoneStore: NSObject, ObservableObject, AVAudioPlayerDelegate,
         let result = try repository.acceptTemporaryFile(prepared.url, metadata: [
             TransferMetadataKey.id: id.uuidString,
             TransferMetadataKey.createdAt: Date().timeIntervalSince1970,
-            TransferMetadataKey.duration: prepared.duration
+            TransferMetadataKey.duration: prepared.duration,
+            TransferMetadataKey.displayName: source.deletingPathExtension().lastPathComponent
         ])
         guard case .stored(let recording) = result else {
             throw RecordingRepository.RepositoryError.recordingUnavailable
