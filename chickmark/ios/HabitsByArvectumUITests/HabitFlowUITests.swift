@@ -151,6 +151,21 @@ final class HabitFlowUITests: XCTestCase {
         XCTAssertTrue(app.buttons["Create habit"].waitForExistence(timeout: 4))
     }
 
+    func testReminderIsVisibleWithBothDisclosuresClosed() throws {
+        let create = app.buttons["Create habit"]
+        XCTAssertTrue(create.waitForExistence(timeout: 9))
+        create.tap()
+
+        // The user never opens custom scheduling or More Options.
+        let reminder = app.switches["habit.reminder.enabled"]
+        for _ in 0..<7 where !reminder.isHittable { app.swipeUp() }
+        XCTAssertTrue(reminder.waitForExistence(timeout: 8))
+        XCTAssertTrue(reminder.isHittable,
+                      "Reminder should be beside the schedule, not hidden in a disclosure")
+        XCTAssertFalse(app.datePickers["habit.reminder.time"].exists,
+                       "Time picker must stay hidden until opt-in")
+    }
+
     func testUnifiedHealthLinkInNewHabitEditorWithoutSecondaryScreen() throws {
         let create = app.buttons["Create habit"]
         XCTAssertTrue(create.waitForExistence(timeout: 4))
