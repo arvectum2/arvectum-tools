@@ -1,5 +1,11 @@
 # Arvectum Tools — Growth Roadmap
 
+## 28.10.2026 · ASC C18 read-only review state
+
+- [x] Авторизованным ASC GET подтверждены `READY_FOR_SALE` у Фото/PDF 1.0.4, Pushkin 1.0.3, Ухват 1.1.2; ChickMark **1.5.3 `WAITING_FOR_REVIEW`**, в публичной витрине остаётся 1.5.2. [Снимок C18](../core/docs/ASC_C18_REVIEW_STATUS_2026-10-28.md).
+- [ ] Отслеживать решение Apple по ChickMark 1.5.3; новых версий и ASC mutations не было.
+
+
 ## 28.10 · C18 · Apple Store публичная QA без устройств
 
 - [x] Сверены 64 отдельных Apple Lookup ответа: Фото/PDF 1.0.4, Pushkin 1.0.3, Ухват 1.1.2 опубликованы 16/16; ChickMark остаётся 1.5.2. Групповой Lookup 4 ID возвращает устаревший кэш — использовать индивидуальные запросы. [C18](../core/docs/ASO_C18_PUBLIC_STORE_QA_2026-10-28.md).

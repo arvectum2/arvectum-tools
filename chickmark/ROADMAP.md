@@ -1,5 +1,10 @@
 # ChickMark — актуальная дорожная карта
 
+## 28.10.2026 · ASC C18 read-only review state
+
+- [x] Авторизованный App Store Connect GET: **1.5.3 (21) `WAITING_FOR_REVIEW`**, `AFTER_APPROVAL`; публичная 1.5.2 в 16/16 регионах. Релиз 1.5.3 не закрыт до фактического `READY_FOR_SALE`/Lookup. [C18 ASC](../core/docs/ASC_C18_REVIEW_STATUS_2026-10-28.md).
+
+
 ## 28.10 · P1 скользящее повторение — source CLOSED
 
 - [x] В `HabitFrequency`/`HabitReminderScheduler` уже реализован интервал **через N дней после фактической отметки** и перенос срока при позднем выполнении; overdue и мягкий перезапуск покрыты проверкой **41/41 XCTest PASS**. Это не новое обещание: source код присутствовал до C18. Не путать исходники с опубликованной 1.5.2.
