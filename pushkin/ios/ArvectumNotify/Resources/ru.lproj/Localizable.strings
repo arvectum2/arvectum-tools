@@ -151,3 +151,12 @@
 "You searched for" = "Вы искали";
 "Your group plan is stored locally in PUSHKIN. Copying app names uses the system clipboard." = "План хранится в Пушкине на этом iPhone. При копировании имена попадают в системный буфер обмена.";
 "iOS does not allow PUSHKIN to read every app's notifications or turn on automations itself. You control which apps are included." = "Пушкин не читает уведомления напрямую. Выберите приложения и включите автоматизацию в «Командах».";
+
+"All apps" = "Все приложения";
+"All time" = "Всё время";
+"Today" = "Сегодня";
+"Last 7 days" = "За 7 дней";
+"Last 30 days" = "За 30 дней";
+"Clear filters" = "Сбросить фильтры";
+"No matching notifications" = "Уведомления не найдены";
+"Try another app, date range or search." = "Попробуйте другое приложение, период или запрос.";

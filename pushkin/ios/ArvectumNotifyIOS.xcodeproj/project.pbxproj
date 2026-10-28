@@ -261,6 +261,7 @@
 		3671EA4DE99BDCB22BA2815F /* PUSHKIN - MB Bank.shortcut in Resources */ = {isa = PBXBuildFile; fileRef = 980E8D961242BE0176C4DD85 /* PUSHKIN - MB Bank.shortcut */; };
 		3693033E21A76B0111AAA2A6 /* PUSHKIN - Absher | أبشر.shortcut in Resources */ = {isa = PBXBuildFile; fileRef = 8A60D2B32F6C142C2B846D92 /* PUSHKIN - Absher | أبشر.shortcut */; };
 		36B57F41986E29394CDBA24F /* PUSHKIN - AXS Tickets.shortcut in Resources */ = {isa = PBXBuildFile; fileRef = 52BEAFB46652CE7CF9FA9DB6 /* PUSHKIN - AXS Tickets.shortcut */; };
+		36BFE7B76F08C2407AEA9F41 /* HistoryFiltersUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB28EF2BF2D42C07E6F1C2BF /* HistoryFiltersUITests.swift */; };
 		36F7D8AD3A1284DD050C1F72 /* PUSHKIN - X（前身為Twitter）.shortcut in Resources */ = {isa = PBXBuildFile; fileRef = F1468120B32D7C60BC75E3C5 /* PUSHKIN - X（前身為Twitter）.shortcut */; };
 		370881AF12A768CBF1277E78 /* PUSHKIN - leboncoin.shortcut in Resources */ = {isa = PBXBuildFile; fileRef = 9787A5CB4D1044A8F460BA78 /* PUSHKIN - leboncoin.shortcut */; };
 		3730C5BC3A09F7235D08D629 /* PUSHKIN - Ninja - نينجا.shortcut in Resources */ = {isa = PBXBuildFile; fileRef = 9E8FD6E0191955B11031CF7A /* PUSHKIN - Ninja - نينجا.shortcut */; };
@@ -939,6 +940,7 @@
 		E2EE42732BCC0DC8D2243AA5 /* PUSHKIN - NS.shortcut in Resources */ = {isa = PBXBuildFile; fileRef = AB37B89B8CB7C98279623986 /* PUSHKIN - NS.shortcut */; };
 		E2FA9465622243F701233CEA /* PUSHKIN - talabat- Food, grocery & more.shortcut in Resources */ = {isa = PBXBuildFile; fileRef = A66F12CC795457381603A703 /* PUSHKIN - talabat- Food, grocery & more.shortcut */; };
 		E34D5E769B4C2A9548EE97A2 /* PUSHKIN - Min Læge.shortcut in Resources */ = {isa = PBXBuildFile; fileRef = CBA5248AB60DE90D9F27BFD5 /* PUSHKIN - Min Læge.shortcut */; };
+		E3651994C8E0E3CBA75F8CDA /* NotificationHistoryFilterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F350C0EE3DF42A4D905942 /* NotificationHistoryFilterTests.swift */; };
 		E3ADB370D5DA2E4B622E813E /* PUSHKIN - FirstClub- Quality in minutes.shortcut in Resources */ = {isa = PBXBuildFile; fileRef = 1EB663CBDB1ECF695BB6B579 /* PUSHKIN - FirstClub- Quality in minutes.shortcut */; };
 		E422D5124ABCAE6C133840DF /* PUSHKIN - Jarir Bookstore.shortcut in Resources */ = {isa = PBXBuildFile; fileRef = 393B0673B78BC6EC2867FF76 /* PUSHKIN - Jarir Bookstore.shortcut */; };
 		E47A1F2E58CBD9F09AADE2CB /* PUSHKIN - DAISOアプリ.shortcut in Resources */ = {isa = PBXBuildFile; fileRef = E754AF8F5943A030BE537D6E /* PUSHKIN - DAISOアプリ.shortcut */; };
@@ -1425,6 +1427,7 @@
 		5327EAF6726B480D7A6813D8 /* PUSHKIN - 楽天市場 - お買い物で楽天ポイントが貯まる便利な通販アプリ.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - 楽天市場 - お買い物で楽天ポイントが貯まる便利な通販アプリ.shortcut"; sourceTree = "<group>"; };
 		5342B152ED07FC25B35E8E9D /* PUSHKIN - WienMobil.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - WienMobil.shortcut"; sourceTree = "<group>"; };
 		53E1BD18B6A6BE04CC82A173 /* PUSHKIN - VNeTraffic.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - VNeTraffic.shortcut"; sourceTree = "<group>"; };
+		53F350C0EE3DF42A4D905942 /* NotificationHistoryFilterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationHistoryFilterTests.swift; sourceTree = "<group>"; };
 		54AC9AE39B3C4E7B44CA35BD /* ShortcutPackagePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutPackagePresenter.swift; sourceTree = "<group>"; };
 		54EAFB9FBCFC40CD12C044C3 /* ShortcutImportUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutImportUITests.swift; sourceTree = "<group>"; };
 		55239B2A5D6534D27809593E /* AutomationGroupPlanTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutomationGroupPlanTests.swift; sourceTree = "<group>"; };
@@ -2078,6 +2081,7 @@
 		EA010DE0A168ABDE9F44E494 /* catalog-source-production.csv */ = {isa = PBXFileReference; path = "catalog-source-production.csv"; sourceTree = "<group>"; };
 		EAA261CF86AD7B15CEB00F25 /* PUSHKIN - iQIYI - Dramas, Anime, Shows.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - iQIYI - Dramas, Anime, Shows.shortcut"; sourceTree = "<group>"; };
 		EAC7224757B7311AC02B24A7 /* PUSHKIN - LinkedIn- Emplois & Connexions.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - LinkedIn- Emplois & Connexions.shortcut"; sourceTree = "<group>"; };
+		EB28EF2BF2D42C07E6F1C2BF /* HistoryFiltersUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryFiltersUITests.swift; sourceTree = "<group>"; };
 		EBF39E444CE0E8369DA8851C /* PUSHKIN - Empik.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - Empik.shortcut"; sourceTree = "<group>"; };
 		EC4E8D6BC078C4760CDF16FC /* PUSHKIN - WeChat.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - WeChat.shortcut"; sourceTree = "<group>"; };
 		EC9940196753B042CA29EF36 /* PUSHKIN - ShopeePay- No.1 Mobile Wallet.shortcut */ = {isa = PBXFileReference; path = "PUSHKIN - ShopeePay- No.1 Mobile Wallet.shortcut"; sourceTree = "<group>"; };
@@ -3296,6 +3300,7 @@
 				55239B2A5D6534D27809593E /* AutomationGroupPlanTests.swift */,
 				C7BFD2D7EFD0FBA4829C1813 /* CoverageCatalogTests.swift */,
 				247EDA0FBF43D57A07E7684F /* NotificationHistoryDeletionTests.swift */,
+				53F350C0EE3DF42A4D905942 /* NotificationHistoryFilterTests.swift */,
 				A01F47105F315E921854C162 /* NotifyStoreTests.swift */,
 			);
 			path = ArvectumNotifyTests;
@@ -3312,6 +3317,7 @@
 				F9F02DB450C489F5808B10ED /* EuropeanPortugueseLocalizationUITests.swift */,
 				5B850BF285E0647A19365C7C /* FrenchLocalizationUITests.swift */,
 				7F88370E401F99465A57E0A0 /* GermanLocalizationUITests.swift */,
+				EB28EF2BF2D42C07E6F1C2BF /* HistoryFiltersUITests.swift */,
 				526F64052ED77B6A392D90CB /* ItalianLocalizationUITests.swift */,
 				A7F7DAE31219D14804B15AA3 /* JapaneseLocalizationUITests.swift */,
 				BEEC91304771A5D13D609485 /* KoreanLocalizationUITests.swift */,
@@ -4508,6 +4514,7 @@
 				71BA0CD31F1124D7E062ADCE /* AutomationGroupPlanTests.swift in Sources */,
 				D5C24AEB381AFDBAC49A27A1 /* CoverageCatalogTests.swift in Sources */,
 				FCDA1C25BD97A08345744BA0 /* NotificationHistoryDeletionTests.swift in Sources */,
+				E3651994C8E0E3CBA75F8CDA /* NotificationHistoryFilterTests.swift in Sources */,
 				3FF356009557234C11495779 /* NotifyStoreTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4524,6 +4531,7 @@
 				BC856305A6D0D61372A0EC77 /* EuropeanPortugueseLocalizationUITests.swift in Sources */,
 				123476D28AD9DDDEE32AB9FC /* FrenchLocalizationUITests.swift in Sources */,
 				97AB1F573BD0FA4F0F19A498 /* GermanLocalizationUITests.swift in Sources */,
+				36BFE7B76F08C2407AEA9F41 /* HistoryFiltersUITests.swift in Sources */,
 				2755EAF2299CA5BD7C7899BC /* ItalianLocalizationUITests.swift in Sources */,
 				608A36D30F1BD64F3F0BC701 /* JapaneseLocalizationUITests.swift in Sources */,
 				A2417FFC2ECCACF5D2A755EA /* KoreanLocalizationUITests.swift in Sources */,
