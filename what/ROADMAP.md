@@ -7,10 +7,20 @@
 - [ ] P0: физический Watch→iPhone→ACK при блокировке экрана, offline/reconnect, долгой записи, прерывании, сохранении/восстановлении без риска личных файлов.
 - [x] P1 source: opt-in «напомнить о заметке» +1/+2/+3 часа, восстановление разрешённых локальных уведомлений и согласованная приватная передача текста/ссылки в ChickMark реализованы; **31/31 регрессионных тестов PASS** в 28.10 прогоне, включая 13 тестов напоминаний и 3 теста handoff.
 - [ ] P1 приёмка: тихие часы, фактический tap-through на физическом iPhone с установленным/отсутствующим ChickMark, отказ в доступе к уведомлениям и приватность lock screen. P2: импорт готовых телефонных записей и semantic memory после feasibility/правовой проверки.
-- [x] После решения Apple проверены публичные Store витрины RU/US/GB: версия 1.1.2. Остальные 13 региональных вариантов — отдельный выборочный/storefront QA.
+- [x] Публичная версия 1.1.2 подтверждена **16/16** региональных витрин iTunes Lookup RU/US/GB/AU/CA/ES/MX/FR/DE/IT/JP/KR/BR/PT/CN/TW; ASC `READY_FOR_SALE` (28.10, только GET).
 
 [Общий срез](../core/docs/ROADMAP_PORTFOLIO_2026-10-27.md).
 
+
+## 28.10.2026 · Дополнение — физический реальный запрос и Apple Store
+
+- [x] **iPhone 13 iOS 27.2 / Watch SE watchOS 26.6:** обновлены исключительно отдельные подписанные QA bundles; до/после очередь тестовых записей Watch 0, production apps и пользовательские медиа не менялись.
+- [x] Под `WATCH_ROUTE_QA` добавлен одноразовый физический запуск без UI Automation: реальный iPhone `WCSession.transferUserInfo` подтвердил `phone-qa-manual-request=queued`. После безопасного foreground-запуска Watch QA с `what-watch-qa-audit` зафиксировано **`watch-sync-request-received` (1)** при нулевой очереди AAC. **Сквозной запрос с открытием Watch PASS**; полностью фоновая доставка без открытия Watch остаётся OPEN, сроки iOS не гарантирует.
+- [ ] **Физический UI XCUITest:** runner запустился, но не смог включить iOS Automation Mode (`Timed out while enabling automation mode`); это инфраструктурный блокер, не PASS и не доказанный дефект Ухвата. Нужен физический повтор после проверки Settings → Developer → Enable UI Automation.
+- [x] По публичному iTunes Lookup подтверждено `1.1.2` во **всех 16/16** ASO-регионах; App Store Connect read-only `READY_FOR_SALE`.
+- [x] Исправлен исторический жёсткий счётчик локализации WhatIOS ES 232 → 237 с проверкой двух новых сообщений; локальные **61/61 Python localization tests PASS**. GitHub CI перепроверить на новом коммите.
+
+[Физический QA-протокол](docs/PHYSICAL_MANUAL_WATCH_RETRY_QA_2026-10-28.md).
 
 ## 28.10.2026 · P0 фактическая приёмка и безопасный запрос повторной передачи
 

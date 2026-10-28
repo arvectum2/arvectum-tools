@@ -677,8 +677,9 @@ class LocalizationPortfolioTests(unittest.TestCase):
 
     def test_what_spanish_covers_phone_watch_widget_and_complication(self):
         roots = ["WhatIOS", "WhatWatch", "WhatPhoneWidget", "WhatWatchComplication"]
-        # The iPhone catalog gained two Watch delivery-state explanations.
-        keys = [232, 6, 6, 5]
+        # Two Watch delivery-state explanations and five manual-retry strings
+        # are included in the iPhone catalog, not the Watch or widgets.
+        keys = [237, 6, 6, 5]
         for bundle, expected in zip(roots, keys):
             root = ROOT / "what/ios" / bundle
             english = i18n.read_strings(root / "en.lproj/Localizable.strings", [])
@@ -696,6 +697,9 @@ class LocalizationPortfolioTests(unittest.TestCase):
         home = i18n.read_strings(root, [])
         self.assertEqual(home["Catch that thought"], "Captura esa idea")
         self.assertEqual(home["All notes"], "Todas las notas")
+        self.assertEqual(home["Request Watch transfer"], "Solicitar transferencia del Watch")
+        self.assertEqual(home["A sync request is already pending."],
+                         "Ya hay una solicitud de sincronización pendiente.")
         self.assertEqual(home["All notes, %@"], "Todas las notas, %@")
         self.assertEqual(home["Español"], "Español")
         self.assertEqual(home["Speech recognition language"],
