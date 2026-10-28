@@ -1,0 +1,66 @@
+# Core — 50 языков интерфейса и региональные карточки App Store
+
+Срез: 29.10.2026. Канонический реестр — `core/localization/portfolio-locales.json`; staged-карточки — `core/appstore/staged-2026-10-26/`.
+
+## Базовая точка
+
+- Четыре опубликованных iOS-приложения: ChickMark, Pushkin, Ухват/What?, Фото/PDF. Where? остаётся PAUSED.
+- **12 из 50 языков структурно готовы в исходниках** всех четырёх iOS-приложений и их 10 iPhone/watchOS/widget bundles: `en, ru, es, fr, de, pt-BR, pt-PT, it, ja, ko, zh-Hans, zh-Hant` — **48 из 200** будущих app×locale пар. «Готов в исходниках» не равно «вычитан носителем», «прошёл аппаратную проверку» или «опубликован».
+- **50 уникальных языковых кодов** из реестра: Tier 1 — 20, Tier 2 — 20, Tier 3 — 10; остаются 38 × 4 = 152 новые iOS app×locale пары. Android Фото/PDF содержит 9 исходных пакетов, расширение 41 отложено после iOS/watchOS.
+- **64 staged-карточки = 4 приложения × 16 metadata locale-вариантов**. Это исходные данные и скриншоты в Git, не команда обновления live App Store. Региональная Apple Lookup проверка 16 стран и языковая локализация интерфейса — отдельные показатели.
+
+## Очередь локализации
+
+| Этап | Состояние | Работы |
+| --- | --- | --- |
+| L0, исходные 12/50 | Структурно готово; редактура открыта | 10 bundles, 48 XCUITest coverage contracts, strings/placeholder audit |
+| L1, 13–20/50 | TODO | `hi, ar, id, tr, vi, nl, pl, th` × 4 приложения; RTL для ar |
+| L2, 21–40/50 | TODO | `fa, ur, bn, pa, ta, te, mr, gu, kn, ml, uz, ms, fil, sw, ro, hu, cs, sk, el, he` × 4 |
+| L3, 41–50/50 | TODO | `ha, am, sv, da, fi, nb, bg, sr, hr, ca` × 4 |
+| A0, региональные карточки 16×4 | Staged 64/64 | Индивидуальная редактура, metadata/keywords, реальные кадры iPhone/iPad, approval |
+| A1, новые целевые регионы | TODO | Country → поддерживаемый ASC locale, отдельная региональная редактура или документированный fallback |
+
+Для нового языка: перевести не только экраны, но и InfoPlist/permissions, ошибки, уведомления, Shortcuts/Siri, Watch/widgets и доступность; проверить множественные числа, RTL, шрифты, Dynamic Type, placeholders, нативный UI, VoiceOver и формулировки privacy. Машинная проверка не заменяет редактуру носителем. Не создавать каталоги, заполненные английскими заглушками.
+
+## Существующие metadata locale-варианты (каждый из четырёх продуктов)
+
+| Staged locale | Целевой регион / языковая аудитория |
+| --- | --- |
+| `ru` | Россия / русскоязычные рынки |
+| `en-US` | США |
+| `en-GB` | Великобритания |
+| `en-AU` | Австралия |
+| `en-CA` | Канада (английская аудитория) |
+| `es-ES` | Испания |
+| `es-MX` | Мексика / испаноязычная Латинская Америка |
+| `fr-FR` | Франция / франкоязычные рынки |
+| `de-DE` | Германия / немецкоязычные рынки |
+| `it` | Италия |
+| `ja` | Япония |
+| `ko` | Республика Корея |
+| `pt-BR` | Бразилия |
+| `pt-PT` | Португалия |
+| `zh-Hans` | регионы упрощённого китайского |
+| `zh-Hant` | регионы традиционного китайского |
+
+Это **наши staged-ключи**, а не гарантия, что Apple поддерживает каждый из них как отдельный metadata locale в любой стране. Проверять допустимый Apple locale и доступность storefront в ASC перед расширением. Apple metadata локалей меньше 50; 50 языков UI не означают 50 отдельных Apple metadata локалей. Там, где нет локализации, явно фиксировать допустимый fallback.
+
+## Карточка для каждого целевого региона: обязательный контракт
+
+1. `app`, `storefrontCountry`, `appleSupportedMetadataLocale`, `uiSourceLocale`, `fallback`, `liveVersion` и источник проверки App Store Connect.
+2. Региональные Title/Subtitle/Keywords/Description/Promotional Text/What's New. Ограничения продукта нельзя скрывать: Pushkin зависит от Shortcuts, Ухват — от разрешений и Watch, ChickMark — от HealthKit, Фото/PDF — от документа/экспорта и рекламных SDK.
+3. Настоящие скриншоты локализованного UI с iPhone и с iPad **только там, где приложение поддерживает iPad**; своя последовательность экранов для рынка, отсутствие фиктивной рекламы/данных, screenshot SHA и визуальная проверка.
+4. Проверка лимитов Apple, повторов keywords, claims/privacy, ссылок поддержки, языка и региональных особенностей, человеческая редактура.
+5. Статусы: `SOURCE_READY → MACHINE_VALIDATED → NATIVE_UI_QA → HUMAN_REVIEW → OWNER_RELEASE_APPROVAL → ASC_CONFIRMED → PUBLIC_LOOKUP`. Обновлять только достигнутый этап.
+
+Сначала расширять целевые storefronts для языков L1: хинди/Индия, арабоязычные регионы, Индонезия, Турция, Вьетнам, Нидерланды, Польша, Таиланд. Не утверждать, что для каждого из них Apple позволяет соответствующий язык metadata: карту доступных locales проверять непосредственно в ASC. Затем целевые рынки L2/L3 на основании спроса/результатов ASO, без выдуманных региональных карточек.
+
+## Инженерные и релизные гейты Core
+
+- [ ] Жёсткая автоматическая проверка 50 уникальных кодов, 12 комплектов на 10 платформах, 48 app×locale XCUITest contracts и 64 staged metadata карточек одинакового состава.
+- [ ] QA каждой волны: translation keys/printf/plurals, native UI и Dynamic Type, VoiceOver, iPad/Watch, permission prompts, privacy/consent, RTL/Indic/CJK и реальный пользовательский сценарий.
+- [ ] CI и data safety по конкретным платформам: UUID/ACK, бездеструктивные миграции/backup, HealthKit, Shortcuts, Photos/Files, работа без сети; не удалять личные данные при тестах.
+- [ ] Измерять региональную конверсию App Store impression→product view→install→retention по авторизованным данным ASC, доходность рекламы по данным партнёра, не по имитации показов.
+- [ ] Никаких новых загрузок binaries/metadata/скриншотов без отдельного точного разрешения владельца, version/build/SHA и релизной приёмки.
+
+Связи: [Core roadmap](../ROADMAP.md), [реестр 50 локалей](../localization/portfolio-locales.json), [инструкция по i18n](../localization/README.md), [staged ASO](../appstore/staged-2026-10-26/README.md).

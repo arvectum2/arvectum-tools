@@ -201,15 +201,15 @@ class LocalizationPortfolioTests(unittest.TestCase):
         self.assertEqual(set(reg["apps"]), {"chickmark", "pushkin", "what", "photo-pdf-to-size", "where"})
         self.assertEqual(reg["apps"]["photo-pdf-to-size"]["android"]["sourceLocale"], "en")
         self.assertEqual(reg["apps"]["photo-pdf-to-size"]["ios"]["sourceCatalogs"],
-                         ["en", "ru", "es", "fr", "de", "pt-BR", "pt-PT", "it", "ja", "zh-Hans", "zh-Hant"])
+                         ["en", "ru", "es", "fr", "de", "pt-BR", "pt-PT", "it", "ja", "ko", "zh-Hans", "zh-Hant"])
         for app in ("pushkin", "what", "chickmark"):
             self.assertEqual(reg["apps"][app]["ios"]["sourceCatalogs"],
-                             ["en", "ru", "es", "fr", "de", "pt-BR", "pt-PT", "it", "ja", "zh-Hans", "zh-Hant"])
+                             ["en", "ru", "es", "fr", "de", "pt-BR", "pt-PT", "it", "ja", "ko", "zh-Hans", "zh-Hant"])
 
         self.assertEqual([sum(x["tier"] == t for x in reg["targets"]) for t in (1, 2, 3)], [20, 20, 10])
 
-    def test_all_four_ios_apps_have_eleven_language_ui_smoke_coverage(self):
-        """Maintain a source-level iPhone UI smoke for 44 app-locale pairs.
+    def test_all_four_ios_apps_have_twelve_language_ui_smoke_coverage(self):
+        """Maintain a source-level iPhone UI smoke for 48 app-locale pairs.
 
         Presence proves the test is authored, not that it passed or was run
         on a real device. Native XCUITest remains an independent CI gate.
@@ -223,7 +223,7 @@ class LocalizationPortfolioTests(unittest.TestCase):
         code_names = {
             "es": "Spanish", "fr": "French", "de": "German",
             "pt-BR": "BrazilianPortuguese", "pt-PT": "EuropeanPortuguese", "it": "Italian",
-            "ja": "Japanese", "zh-Hans": "SimplifiedChinese", "zh-Hant": "TraditionalChinese",
+            "ja": "Japanese", "ko": "Korean", "zh-Hans": "SimplifiedChinese", "zh-Hant": "TraditionalChinese",
         }
         registry = i18n.config()
         covered = 0
@@ -257,9 +257,9 @@ class LocalizationPortfolioTests(unittest.TestCase):
                     self.assertIn("func " + method, baseline,
                                   f"{app}/{locale}: no dedicated UI smoke")
                 covered += 1
-        self.assertEqual(covered, 44)
+        self.assertEqual(covered, 48)
 
-    def test_all_active_ios_bundles_have_eleven_localized_catalogs(self):
+    def test_all_active_ios_bundles_have_twelve_localized_catalogs(self):
         """First eleven localization packs are present in all active iOS bundles.
 
         This tests source parity, not linguistic quality or App Store release.
@@ -271,7 +271,7 @@ class LocalizationPortfolioTests(unittest.TestCase):
                 baseline = i18n.read_strings(
                     bundle / "en.lproj/Localizable.strings", [])
                 self.assertTrue(baseline, f"{app}/{name} missing English")
-                for code in ("ru", "es", "fr", "de", "pt-BR", "pt-PT", "it", "ja", "zh-Hans", "zh-Hant"):
+                for code in ("ru", "es", "fr", "de", "pt-BR", "pt-PT", "it", "ja", "ko", "zh-Hans", "zh-Hant"):
                     errors = []
                     translated = i18n.read_strings(
                         bundle / f"{code}.lproj/Localizable.strings", errors)

@@ -1,5 +1,17 @@
 # Arvectum — сводная дорожная карта приложений · 27.10.2026
 
+## 29.10.2026 · Core / 50 языков / региональные карточки
+
+- [x] В `main` объединены #164 Pushkin, #165 Ухват и #167 ChickMark. Не смешивать код текущего `main` с публичными Apple бинарниками.
+- [x] Машинный реестр Core содержит 50 уникальных целевых языков. В исходниках **12/50 × 4 iOS-приложения**; 10 iPhone/Watch/widget bundles; 48 app×locale QA contracts. Независимая human/editorial и physical QA открыта.
+- [ ] Волна до 20: `hi, ar, id, tr, vi, nl, pl, th`; затем Tier 2 (+20), Tier 3 (+10), с RTL/plurals/permissions/Watch и native QA.
+- [x] 64 staged региональных карточки (16 metadata locale-вариантов × 4 приложения).
+- [ ] Расширять карточки по целевым App Store storefronts с проверкой допустимого Apple locale, отдельной региональной редактурой, достоверными скриншотами и fallback. 50 UI языков не равны 50 Apple metadata языкам.
+- [ ] Core P0: no-data-loss migration/UUID/ACK, privacy/SDK/HealthKit, поддерживаемые платформы и CI. PR #160 и #108 имеют отдельные physical/runtime blockers.
+
+[Core roadmap](../ROADMAP.md) · [план 50 языков и региональных ASO](CORE_50_LOCALES_AND_REGIONAL_ASO_2026-10-29.md).
+
+
 ## 28.10.2026 · C19 — четвёртый релиз опубликован
 
 - [x] Авторизованный ASC GET: все 4 приложения C17 `READY_FOR_SALE`. Публичные версии: Фото/PDF 1.0.4, Pushkin 1.0.3, Ухват 1.1.2, ChickMark **1.5.3** (16/16 регионов, дата Apple 2026-10-28T09:09:55Z). [Акт C19](ASC_C19_CHICKMARK_PUBLIC_2026-10-28.md).
