@@ -55,9 +55,16 @@ jobs:
           python3 -m unittest discover -s core/tests -p test_select_ios_ipad_simulator.py -q
       - name: Install XcodeGen
         run: brew install xcodegen
-      - name: Generate project
+      - name: Generate project with canonical dependency lock
         working-directory: ${{ matrix.folder }}
-        run: xcodegen generate
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ '${{ matrix.app }}' == 'chickmark' ]]; then
+            bash scripts/generate_project.sh
+          else
+            xcodegen generate
+          fi
       - name: Boot iPad Simulator (never silently substitute iPhone)
         shell: bash
         run: |
@@ -72,6 +79,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          EXTRA=()
           case '${{ matrix.app }}' in
             uhvat) EXPECTED=(
               --expected testIPadRotationPreservesVisibleCaptureAndTextControls
@@ -80,7 +88,7 @@ jobs:
               -only-testing:WhatIOSUITests/CaptureFirstUITests/testIPadRotationPreservesVisibleCaptureAndTextControls
               -only-testing:WhatIOSUITests/CaptureFirstUITests/testIPadLandscapePreservesCaptureTextEditorAndLibrary
             ) ;;
-            chickmark) EXPECTED=(
+            chickmark) EXTRA=(-onlyUsePackageVersionsFromResolvedFile); EXPECTED=(
               --expected testCreateHabitAndKeepItAcrossOrientationChanges
               --expected testReminderIsVisibleWithBothDisclosuresClosed
             ); ONLY=(
@@ -98,7 +106,7 @@ jobs:
             --log "$RUNNER_TEMP/${{ matrix.app }}-ipad-xctest.log" \
             --max-seconds 1300 --teardown-grace 25 \
             "${EXPECTED[@]}" -- \
-            xcodebuild -project '${{ matrix.project }}' -scheme '${{ matrix.scheme }}' \
+            xcodebuild "${EXTRA[@]}" -project '${{ matrix.project }}' -scheme '${{ matrix.scheme }}' \
             -destination "platform=iOS Simulator,id=$IPAD_UDID" \
             -parallel-testing-enabled NO -jobs 2 \
             CODE_SIGNING_ALLOWED=NO COMPILER_INDEX_STORE_ENABLE=NO \
