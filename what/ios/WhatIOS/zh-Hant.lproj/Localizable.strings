@@ -238,3 +238,11 @@
 "A sync request is already pending." = "已有同步要求正在等待處理。";
 "A recent request is still being processed. Try again later." = "先前的要求仍在處理中，請稍後再試。";
 "Watch unavailable. Check pairing and try again." = "Watch 無法使用。請檢查配對狀態後重試。";
+
+// Imported audio from Files (local-only)
+"Import audio from Files" = "從「檔案」匯入音訊";
+"Choose a file in Files." = "請在「檔案」App 中選取音訊檔案。";
+"Audio exceeds 500 MB. Your original is safe." = "音訊超過 500 MB。原始檔案未變更。";
+"The file has no playable audio." = "檔案中沒有可播放的音訊。";
+"This audio format is unsupported." = "不支援這種音訊格式。";
+"Could not convert to M4A. Your original is safe." = "無法轉換為 M4A。原始檔案已保留。";

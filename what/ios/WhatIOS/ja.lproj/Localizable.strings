@@ -237,3 +237,11 @@
 "A sync request is already pending." = "同期リクエストはすでに保留中です。";
 "A recent request is still being processed. Try again later." = "直前のリクエストを処理中です。しばらくしてからお試しください。";
 "Watch unavailable. Check pairing and try again." = "Watchを利用できません。ペアリングを確認して再試行してください。";
+
+// Imported audio from Files (local-only)
+"Import audio from Files" = "「ファイル」から音声を読み込む";
+"Choose a file in Files." = "「ファイル」アプリで音声ファイルを選択してください。";
+"Audio exceeds 500 MB. Your original is safe." = "音声ファイルが500 MBを超えています。元のファイルは変更されていません。";
+"The file has no playable audio." = "再生可能な音声が含まれていません。";
+"This audio format is unsupported." = "この音声形式には対応していません。";
+"Could not convert to M4A. Your original is safe." = "M4Aに変換できませんでした。元のファイルは保持されています。";

@@ -244,6 +244,28 @@ final class PhoneStore: NSObject, ObservableObject, AVAudioPlayerDelegate,
         }
     }
 
+    /// Files remains the source of truth; only a protected copy is stored.
+    @discardableResult
+    func importAudioFromFiles(_ source: URL) async throws -> RecordingEnvelope {
+        let scoped = source.startAccessingSecurityScopedResource()
+        defer { if scoped { source.stopAccessingSecurityScopedResource() } }
+        let prepared = try await AudioFileImportService.prepare(source)
+        defer { prepared.cleanUp() }
+        let id = UUID()
+        let result = try repository.acceptTemporaryFile(prepared.url, metadata: [
+            TransferMetadataKey.id: id.uuidString,
+            TransferMetadataKey.createdAt: Date().timeIntervalSince1970,
+            TransferMetadataKey.duration: prepared.duration
+        ])
+        guard case .stored(let recording) = result else {
+            throw RecordingRepository.RepositoryError.recordingUnavailable
+        }
+        reload()
+        Task { await reminderManager.scheduleAutomaticallyIfEnabled(noteID: id) }
+        transcribeIfAuthorized(recording)
+        return recording
+    }
+
     func saveText(id: UUID, body: String) {
         do {
             _ = try localNoteRepository.saveText(

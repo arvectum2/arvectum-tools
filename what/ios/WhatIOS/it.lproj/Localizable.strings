@@ -237,3 +237,11 @@
 "A sync request is already pending." = "Una richiesta di sincronizzazione è già in attesa.";
 "A recent request is still being processed. Try again later." = "Una richiesta recente è ancora in elaborazione. Riprova più tardi.";
 "Watch unavailable. Check pairing and try again." = "Watch non disponibile. Verifica l’abbinamento e riprova.";
+
+// Imported audio from Files (local-only)
+"Import audio from Files" = "Importa audio da File";
+"Choose a file in Files." = "Scegli un file nell’app File.";
+"Audio exceeds 500 MB. Your original is safe." = "L’audio supera i 500 MB. L’originale non è stato modificato.";
+"The file has no playable audio." = "Il file non contiene audio riproducibile.";
+"This audio format is unsupported." = "Questo formato audio non è supportato.";
+"Could not convert to M4A. Your original is safe." = "Impossibile convertire in M4A. L’originale è al sicuro.";

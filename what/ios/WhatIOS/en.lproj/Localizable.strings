@@ -239,3 +239,11 @@
 "A sync request is already pending." = "A sync request is already pending.";
 "A recent request is still being processed. Try again later." = "A recent request is still being processed. Try again later.";
 "Watch unavailable. Check pairing and try again." = "Watch unavailable. Check pairing and try again.";
+
+// Imported audio from Files (local-only)
+"Import audio from Files" = "Import audio from Files";
+"Choose a file in Files." = "Choose a file in Files.";
+"Audio exceeds 500 MB. Your original is safe." = "Audio exceeds 500 MB. Your original is safe.";
+"The file has no playable audio." = "The file has no playable audio.";
+"This audio format is unsupported." = "This audio format is unsupported.";
+"Could not convert to M4A. Your original is safe." = "Could not convert to M4A. Your original is safe.";

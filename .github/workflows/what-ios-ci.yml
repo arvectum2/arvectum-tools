@@ -51,6 +51,7 @@ jobs:
             CODE_SIGNING_ALLOWED=NO \
             COMPILER_INDEX_STORE_ENABLE=NO \
             -only-testing:WhatIOSTests/WatchA2ReliabilityTests \
+            -only-testing:WhatIOSTests/AudioFileImportTests \
             test
 
   watch-build:

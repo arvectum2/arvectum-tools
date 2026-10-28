@@ -1,5 +1,6 @@
 import SwiftUI
 import UIKit
+import UniformTypeIdentifiers
 import ArvectumCore
 
 struct RecordingLibraryView: View {
@@ -16,6 +17,8 @@ struct RecordingLibraryView: View {
     @State private var selectedFolder: InboxFolder = .inbox
     @State private var searchText = ""
     @State private var preparedExport: PreparedRecordingExport?
+    @State private var importingAudio = false
+    @State private var importInProgress = false
     @State private var showDiagnostics = false
     @State private var showTranscriptRecovery = false
     @State private var reviewNoteToSend: ReviewNoteHandoffDraft?
@@ -242,6 +245,14 @@ struct RecordingLibraryView: View {
                             .foregroundStyle(.secondary)
                             .multilineTextAlignment(.center)
                             .fixedSize(horizontal: false, vertical: true)
+                            Button {
+                                importingAudio = true
+                            } label: {
+                                Label(CaptureBrand.text("Импорт аудио из «Файлов»", "Import audio from Files"),
+                                      systemImage: "square.and.arrow.down")
+                            }
+                            .buttonStyle(.bordered)
+                            .accessibilityIdentifier("what.library.importAudio.empty")
                         }
                         .frame(maxWidth: .infinity)
                         .padding(.horizontal, 24)
@@ -365,6 +376,30 @@ struct RecordingLibraryView: View {
                 }
             }
             .searchable(text: $searchText, prompt: CaptureBrand.text("Поиск по записям", "Search transcripts and dates"))
+            .fileImporter(isPresented: $importingAudio, allowedContentTypes: [.audio]) { result in
+                guard !importInProgress else { return }
+                guard case .success(let url) = result else {
+                    // Closing the Files picker is normal; other provider errors
+                    // must not vanish silently.
+                    if case .failure(let error) = result,
+                       (error as NSError).code != NSUserCancelledError {
+                        store.errorMessage = error.localizedDescription
+                    }
+                    return
+                }
+                importInProgress = true
+                Task {
+                    defer { importInProgress = false }
+                    do {
+                        _ = try await store.importAudioFromFiles(url)
+                        selectedFolder = .inbox
+                        typeFilter = .audio
+                        searchText = ""
+                    } catch {
+                        store.errorMessage = error.localizedDescription
+                    }
+                }
+            }
             .navigationTitle(CaptureBrand.name)
             .toolbar(dynamicTypeSize.isAccessibilitySize ? .hidden : .visible,
                      for: .navigationBar)
@@ -517,6 +552,15 @@ struct RecordingLibraryView: View {
 
     private var librarySettingsAction: some View {
         Menu {
+            Button {
+                importingAudio = true
+            } label: {
+                Label(CaptureBrand.text("Импорт аудио из «Файлов»", "Import audio from Files"),
+                      systemImage: "square.and.arrow.down")
+            }
+            .disabled(importInProgress)
+            .accessibilityIdentifier("what.library.importAudio")
+            Divider()
             AutoFollowUpSettingsMenu(manager: store.reminderManager)
             Picker(CaptureBrand.text("Язык распознавания речи",
                                      "Speech recognition language"),
