@@ -312,3 +312,9 @@
 "onboarding.skip" = "スキップ";
 "onboarding.next" = "次へ";
 "onboarding.start" = "始める";
+
+// Read-only observed gaps for completion-relative habits
+"weekly.gapTitle" = "実際の間隔・繰り返し習慣";
+"weekly.gapDays" = "%d 暦日";
+"weekly.gapUnknown" = "データが不足しています";
+"weekly.gapNote" = "直近2回の実際の達成日間の日数です。前回の達成は対象週より前の場合があります。休止やスキップは未達成として数えません。";

@@ -206,6 +206,26 @@ extension HabitsByArvectumApp {
         try? context.save()
     }
 
+    /// Only an in-memory DEBUG UI-test fixture. Never seed a real device store.
+    func seedObservedRollingGapDemoIfRequested(container: ModelContainer) {
+        let args = ProcessInfo.processInfo.arguments
+        guard args.contains("--ui-testing"), args.contains("--disable-cloud-sync"),
+              args.contains("--seed-observed-gap-demo") else { return }
+        let calendar = Calendar.autoupdatingCurrent
+        let currentWeek = HabitFrequency.startOfWeek(containing: .now, calendar: calendar)
+        guard let first = calendar.date(byAdding: .day, value: -10, to: currentWeek),
+              let second = calendar.date(byAdding: .day, value: -3, to: currentWeek),
+              let created = calendar.date(byAdding: .day, value: -20, to: currentWeek)
+        else { return }
+        let context = ModelContext(container)
+        let habit = Habit(name: "QA Rolling Gap", createdAt: created)
+        habit.completionIntervalDays = 7
+        context.insert(habit)
+        context.insert(HabitCheckIn(habitID: habit.id, day: first, calendar: calendar))
+        context.insert(HabitCheckIn(habitID: habit.id, day: second, calendar: calendar))
+        try? context.save()
+    }
+
     func seedNativeAdLayoutDemoIfRequested(container: ModelContainer) {
         // Adds synthetic rows only in explicitly requested DEBUG QA runs.
         // Never changes real customer habits in a release build.

@@ -72,6 +72,24 @@ struct ChickMarkWeeklySummaryView: View {
                     )
                 }
 
+                if !weekly.observedGaps.isEmpty {
+                    Section {
+                        ForEach(weekly.observedGaps) { item in
+                            LabeledContent(
+                                item.habitName,
+                                value: item.days.map {
+                                    L10n.format("weekly.gapDays", $0)
+                                } ?? L10n.string("weekly.gapUnknown")
+                            )
+                            .accessibilityIdentifier("weekly.gap.\(item.habitID.uuidString)")
+                        }
+                    } header: {
+                        Text(L10n.string("weekly.gapTitle"))
+                    } footer: {
+                        Text(L10n.string("weekly.gapNote"))
+                    }
+                }
+
                 Section {
                     LabeledContent(
                         L10n.string("weekly.completedDays"),

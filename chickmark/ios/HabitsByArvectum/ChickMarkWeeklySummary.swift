@@ -15,9 +15,19 @@ struct ChickMarkWeeklyRollup: Equatable {
     let bestDayCompletions: Int
 }
 
+/// Only an observed calendar-day gap, never a target-adherence score.
+struct ChickMarkObservedGap: Equatable, Identifiable {
+    let habitID: UUID
+    let habitName: String
+    let recentCompletions: Int
+    let days: Int?
+    var id: UUID { habitID }
+}
+
 struct ChickMarkWeeklyReport: Equatable {
     let lastWeek: ChickMarkWeeklyRollup
     let weekBefore: ChickMarkWeeklyRollup
+    let observedGaps: [ChickMarkObservedGap]
     var changeInCompletions: Int {
         lastWeek.completionDays - weekBefore.completionDays
     }
@@ -43,8 +53,63 @@ enum ChickMarkWeeklySummary {
             weekBefore: rollup(
                 weekStart: prior, habits: habits, checkIns: checkIns,
                 skips: skips, pausePeriods: pausePeriods, calendar: calendar
+            ),
+            observedGaps: observedGaps(
+                habits: habits, checkIns: checkIns, skips: skips,
+                pausePeriods: pausePeriods, windowStart: prior,
+                windowEnd: start, calendar: calendar
             )
         )
+    }
+
+    /// The most recent pair with a completion during the last two finished
+    /// calendar weeks. The preceding completion can be older, so a pair at
+    /// the week boundary is not lost. Only distinct fully completed, non-
+    /// neutral calendar days count. Observed elapsed days include any pauses
+    /// or skips *between* events; these are not counted as missed targets.
+    static func observedGaps(
+        habits: [Habit], checkIns: [HabitCheckIn],
+        skips: [HabitSkip], pausePeriods: [HabitPausePeriod],
+        windowStart: Date, windowEnd: Date,
+        calendar: Calendar = .autoupdatingCurrent
+    ) -> [ChickMarkObservedGap] {
+        let from = calendar.startOfDay(for: windowStart)
+        let until = calendar.startOfDay(for: windowEnd)
+        return habits.filter { !$0.isArchived && $0.usesCompletionInterval }
+            .sorted { $0.name.localizedStandardCompare($1.name) == .orderedAscending }
+            .map { habit in
+                let own = checkIns.filter { $0.habitID == habit.id }
+                let created = calendar.startOfDay(for: habit.createdAt)
+                let keys = Set(own.compactMap { row -> String? in
+                    let key = row.dayKey ?? HabitDayKey.make(for: row.day, calendar: calendar)
+                    guard let date = HabitMultiCheck.date(from: key, calendar: calendar),
+                          date >= created, date < until else { return nil }
+                    return key
+                })
+                let completed = keys.compactMap { key -> Date? in
+                    guard let date = HabitMultiCheck.date(from: key, calendar: calendar),
+                          !isNeutral(habitID: habit.id, on: date,
+                                     skips: skips, pauses: pausePeriods, calendar: calendar),
+                          HabitMetrics.isCompleted(
+                            habitID: habit.id, on: date, checkIns: own,
+                            calendar: calendar, target: habit.dailyTarget
+                          ) else { return nil }
+                    return calendar.startOfDay(for: date)
+                }.sorted()
+                let recentCount = completed.filter { $0 >= from }.count
+                let gap: Int?
+                if completed.count >= 2, let newest = completed.last, newest >= from {
+                    gap = calendar.dateComponents(
+                        [.day], from: completed[completed.count - 2], to: newest
+                    ).day
+                } else {
+                    gap = nil
+                }
+                return ChickMarkObservedGap(
+                    habitID: habit.id, habitName: habit.name,
+                    recentCompletions: recentCount, days: gap
+                )
+            }
     }
 
     static func rollup(

@@ -131,6 +131,91 @@ final class ChickMarkWeeklySummaryTests: XCTestCase {
         XCTAssertEqual(result.lastWeek.bestDayCompletions, 1)
     }
 
+    private func observed(_ habit: Habit, _ rows: [HabitCheckIn],
+                          skips: [HabitSkip] = [], pauses: [HabitPausePeriod] = [],
+                          today: Date? = nil) -> ChickMarkObservedGap {
+        let result = report([habit], rows, skips: skips, pauses: pauses, today: today)
+        return result.observedGaps.first!
+    }
+
+    func testObservedGapAcrossTwoCompletedWeeksUsesCalendarDays() {
+        let habit = Habit(name: "Medication", createdAt: day(9, 1))
+        habit.completionIntervalDays = 7
+        // Sunday to Monday crosses the finished-week boundary.
+        let gap = observed(habit, [done(habit, 10, 4), done(habit, 10, 5)])
+        XCTAssertEqual(gap.days, 1)
+        XCTAssertEqual(gap.recentCompletions, 2)
+    }
+
+    func testPreviousCompletionCanPrecedeReportWindow() {
+        let habit = Habit(name: "Clean filter", createdAt: day(9, 1))
+        habit.completionIntervalDays = 14
+        let gap = observed(habit, [done(habit, 9, 20), done(habit, 10, 6)])
+        XCTAssertEqual(gap.days, 16)
+        XCTAssertEqual(gap.recentCompletions, 1)
+    }
+
+    func testZeroOrOneCompletionsNeverInventsGap() {
+        let habit = Habit(name: "Clean filter", createdAt: day(9, 1))
+        habit.completionIntervalDays = 14
+        XCTAssertNil(observed(habit, []).days)
+        XCTAssertNil(observed(habit, [done(habit, 10, 7)]).days)
+        XCTAssertNil(observed(habit, [done(habit, 9, 9), done(habit, 9, 20)]).days,
+                     "An old historical interval must not be reported as recent")
+    }
+
+    func testDuplicateAndFutureCheckInsCannotDistortGap() {
+        let habit = Habit(name: "Filter", createdAt: day(9, 1))
+        habit.completionIntervalDays = 3
+        let gap = observed(habit, [done(habit, 10, 5), done(habit, 10, 5),
+                                   done(habit, 10, 8), done(habit, 10, 16)])
+        XCTAssertEqual(gap.days, 3)
+        XCTAssertEqual(gap.recentCompletions, 2)
+    }
+
+    func testSkipsPausesAndOtherGoalTypesAreNeutral() {
+        let habit = Habit(name: "Filter", createdAt: day(9, 1))
+        habit.completionIntervalDays = 3
+        let skip = HabitSkip(habitID: habit.id, day: day(10, 7), calendar: calendar)
+        let pause = HabitPausePeriod(
+            habitID: habit.id, startedAt: day(10, 8),
+            endedAt: day(10, 9), calendar: calendar
+        )
+        let gap = observed(habit, [done(habit, 10, 5), done(habit, 10, 7),
+                                   done(habit, 10, 8), done(habit, 10, 11)],
+                           skips: [skip], pauses: [pause])
+        XCTAssertEqual(gap.days, 6)
+        XCTAssertEqual(gap.recentCompletions, 2)
+        let partial = Habit(name: "Water", createdAt: day(9, 1))
+        partial.goalMode = .multiCheck(times: 5)
+        let ignored = report([habit, partial], (0..<4).map { _ in done(partial, 10, 6) })
+        XCTAssertEqual(ignored.observedGaps.count, 1,
+                       "Partial multiple-slot habits are not completion-relative habits")
+    }
+
+    func testDstFallBackChangesHoursNotCalendarDayGap() {
+        calendar.timeZone = TimeZone(identifier: "America/New_York")!
+        let habit = Habit(name: "Reset", createdAt: day(9, 1))
+        habit.completionIntervalDays = 3
+        // Nov 1 clocks fall back: Oct 31 -> Nov 2 = 2 calendar days.
+        let gap = observed(habit, [done(habit, 10, 31), done(habit, 11, 2)],
+                           today: day(11, 10))
+        XCTAssertEqual(gap.days, 2)
+    }
+
+    func testEachHabitKeepsItsOwnObservedGap() {
+        let first = Habit(name: "Clean", createdAt: day(9, 1))
+        first.completionIntervalDays = 7
+        let second = Habit(name: "Replace", createdAt: day(9, 1))
+        second.completionIntervalDays = 14
+        let rows = [done(first, 10, 5), done(first, 10, 7),
+                    done(second, 10, 3), done(second, 10, 10)]
+        let values = report([first, second], rows).observedGaps
+        XCTAssertEqual(values.count, 2)
+        XCTAssertEqual(values.first(where: { $0.habitID == first.id })?.days, 2)
+        XCTAssertEqual(values.first(where: { $0.habitID == second.id })?.days, 7)
+    }
+
     func testAllPausedWeekAndSkippedWeekHaveNoWeeklyEligibleDays() {
         let habit = Habit(name: "Walk", createdAt: day(9, 1), weeklyTarget: 3)
         let pause = HabitPausePeriod(

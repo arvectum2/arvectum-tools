@@ -311,3 +311,9 @@
 "onboarding.skip" = "건너뛰다";
 "onboarding.next" = "다음";
 "onboarding.start" = "시작하기";
+
+// Read-only observed gaps for completion-relative habits
+"weekly.gapTitle" = "실제 간격 · 반복 습관";
+"weekly.gapDays" = "%d일";
+"weekly.gapUnknown" = "데이터가 부족합니다";
+"weekly.gapNote" = "실제 완료한 최근 두 날짜 사이의 일수입니다. 이전 완료는 해당 주보다 앞설 수 있습니다. 일시 중지와 건너뛰기는 실패로 세지 않습니다.";
