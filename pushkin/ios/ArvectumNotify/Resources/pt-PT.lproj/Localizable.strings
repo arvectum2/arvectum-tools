@@ -151,3 +151,12 @@
 "You searched for" = "Pesquisou por";
 "Your group plan is stored locally in PUSHKIN. Copying app names uses the system clipboard." = "Seu plano de grupos fica armazenado localmente no PUSHKIN. Copiar nomes de aplicações usa a área de transferência do sistema.";
 "iOS does not allow PUSHKIN to read every app's notifications or turn on automations itself. You control which apps are included." = "O iOS não permite que o PUSHKIN leia as notificações de todas as aplicações nem ative automações sozinho. Pode controlar quais aplicações são incluídas.";
+
+"All apps" = "Todas as aplicações";
+"All time" = "Todo o período";
+"Today" = "Hoje";
+"Last 7 days" = "Últimos 7 dias";
+"Last 30 days" = "Últimos 30 dias";
+"Clear filters" = "Limpar filtros";
+"No matching notifications" = "Nenhuma notificação encontrada";
+"Try another app, date range or search." = "Experimente outra app, período ou pesquisa.";

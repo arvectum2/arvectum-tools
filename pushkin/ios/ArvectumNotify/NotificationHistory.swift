@@ -59,3 +59,55 @@ enum NotificationHistoryDeletion {
         try context.save()
     }
 }
+
+/// Read-only filtering of detached history rows, without touching SwiftData.
+/// Today follows the user's calendar (DST-safe); other periods are rolling
+/// calendar days relative to the time the list is evaluated.
+enum NotificationHistoryFilter {
+    enum Period: String, CaseIterable, Identifiable {
+        case all, today, last7Days, last30Days
+        var id: String { rawValue }
+
+        var title: String {
+            switch self {
+            case .all: pc("All time")
+            case .today: pc("Today")
+            case .last7Days: pc("Last 7 days")
+            case .last30Days: pc("Last 30 days")
+            }
+        }
+    }
+
+    static func sources(in items: [NotificationHistoryItem]) -> [String] {
+        Array(Set(items.map(\.sourceApp).filter { !$0.isEmpty }))
+            .sorted { $0.localizedStandardCompare($1) == .orderedAscending }
+    }
+
+    static func apply(
+        _ items: [NotificationHistoryItem],
+        query: String = "", source: String? = nil,
+        period: Period = .all, now: Date = .now,
+        calendar: Calendar = .autoupdatingCurrent
+    ) -> [NotificationHistoryItem] {
+        let term = query.trimmingCharacters(in: .whitespacesAndNewlines)
+        // If the last record from a selected source was deleted, do not
+        // trap the user in a permanently empty filtered view.
+        let activeSource = source.flatMap { candidate in
+            items.contains(where: { $0.sourceApp == candidate }) ? candidate : nil
+        }
+        let cutoff: Date?
+        switch period {
+        case .all: cutoff = nil
+        case .today: cutoff = calendar.startOfDay(for: now)
+        case .last7Days: cutoff = calendar.date(byAdding: .day, value: -7, to: now)
+        case .last30Days: cutoff = calendar.date(byAdding: .day, value: -30, to: now)
+        }
+        return items.filter { item in
+            if let activeSource, item.sourceApp != activeSource { return false }
+            if let cutoff, item.receivedAt < cutoff { return false }
+            return term.isEmpty || [item.sourceApp, item.titleText,
+                                    item.subtitleText, item.bodyText]
+                .contains { $0.localizedCaseInsensitiveContains(term) }
+        }
+    }
+}

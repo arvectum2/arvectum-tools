@@ -63,6 +63,8 @@ private struct InboxView: View {
     private var notifications: [CapturedNotification]
 
     @State private var searchText = ""
+    @State private var selectedSource: String?
+    @State private var selectedPeriod: NotificationHistoryFilter.Period = .all
 
     @AppStorage("coverage.quickRefreshCount")
     private var quickRefreshCount = 0
@@ -89,15 +91,85 @@ private struct InboxView: View {
 
     @State private var deleteError: String?
 
-    private var filteredNotifications: [NotificationHistoryItem] {
-        let values = notifications.map(NotificationHistoryItem.init)
-        let query = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !query.isEmpty else { return values }
+    private var historyItems: [NotificationHistoryItem] {
+        notifications.map(NotificationHistoryItem.init)
+    }
 
-        return values.filter { item in
-            [item.sourceApp, item.titleText, item.subtitleText, item.bodyText]
-                .contains { $0.localizedCaseInsensitiveContains(query) }
+    private var availableSources: [String] {
+        NotificationHistoryFilter.sources(in: historyItems)
+    }
+
+    private var activeSource: String? {
+        guard let selectedSource, availableSources.contains(selectedSource) else { return nil }
+        return selectedSource
+    }
+
+    private var filteredNotifications: [NotificationHistoryItem] {
+        NotificationHistoryFilter.apply(historyItems, query: searchText,
+                                        source: activeSource, period: selectedPeriod)
+    }
+
+    private var filtersActive: Bool {
+        activeSource != nil || selectedPeriod != .all || !searchText.isEmpty
+    }
+
+    private func clearFilters() {
+        searchText = ""
+        selectedSource = nil
+        selectedPeriod = .all
+    }
+
+    private var filterControls: some View {
+        HStack(spacing: 8) {
+            Menu {
+                Button {
+                    selectedSource = nil
+                } label: {
+                    Label(pc("All apps"), systemImage:
+                          activeSource == nil ? "checkmark" : "square.stack.3d.up")
+                }
+                ForEach(availableSources, id: \.self) { name in
+                    Button {
+                        selectedSource = name
+                    } label: {
+                        Label(name, systemImage:
+                              activeSource == name ? "checkmark" : "app")
+                    }
+                }
+            } label: {
+                Label(activeSource ?? pc("All apps"), systemImage: "app.badge")
+                    .lineLimit(1)
+            }
+            .accessibilityIdentifier("pushkin.filter.source")
+
+            Menu {
+                ForEach(NotificationHistoryFilter.Period.allCases) { period in
+                    Button {
+                        selectedPeriod = period
+                    } label: {
+                        Label(period.title, systemImage:
+                              selectedPeriod == period ? "checkmark" : "calendar")
+                    }
+                }
+            } label: {
+                Label(selectedPeriod.title, systemImage: "calendar")
+                    .lineLimit(1)
+            }
+            .accessibilityIdentifier("pushkin.filter.period")
+
+            Spacer(minLength: 0)
+            if filtersActive {
+                Button(action: clearFilters) {
+                    Image(systemName: "xmark.circle.fill")
+                }
+                .accessibilityLabel(pc("Clear filters"))
+                .accessibilityIdentifier("pushkin.filter.clear")
+            }
         }
+        .buttonStyle(.bordered)
+        .font(.subheadline)
+        .padding(.horizontal, 14)
+        .padding(.bottom, 8)
     }
 
     var body: some View {
@@ -150,6 +222,10 @@ private struct InboxView: View {
                     )
                     .padding(.horizontal, 14)
                     .padding(.bottom, 6)
+                }
+
+                if !notifications.isEmpty {
+                    filterControls
                 }
 
                 if !pendingCoverageTitle.isEmpty {
@@ -205,7 +281,16 @@ private struct InboxView: View {
                     }
                     .padding()
                     } else if filteredNotifications.isEmpty {
-                        ContentUnavailableView.search(text: searchText)
+                        VStack(spacing: 12) {
+                            ContentUnavailableView(
+                                pc("No matching notifications"),
+                                systemImage: "line.3.horizontal.decrease.circle",
+                                description: Text(pc("Try another app, date range or search."))
+                            )
+                            Button(pc("Clear filters"), action: clearFilters)
+                                .buttonStyle(.bordered)
+                                .accessibilityIdentifier("pushkin.filter.empty.clear")
+                        }
                     } else {
                         List(filteredNotifications) { item in
                             NavigationLink {
