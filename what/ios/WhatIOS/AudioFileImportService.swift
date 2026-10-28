@@ -44,13 +44,17 @@ enum AudioFileImportService {
         let converted = FileManager.default.temporaryDirectory.appendingPathComponent("what-import-\(UUID()).m4a")
         exporter.outputURL = converted
         exporter.outputFileType = .m4a
-        defer { if exporter.status != .completed { try? FileManager.default.removeItem(at: converted) } }
+        // A completed export can still yield an unreadable output. Only
+        // transfer cleanup ownership after validating the decoded M4A.
+        var validatedOutput = false
+        defer { if !validatedOutput { try? FileManager.default.removeItem(at: converted) } }
         await withCheckedContinuation { continuation in
             exporter.exportAsynchronously { continuation.resume() }
         }
         guard exporter.status == .completed,
               let player = try? AVAudioPlayer(contentsOf: converted),
               player.duration >= PhoneCaptureValidation.minimumAudioDuration else { throw ImportError.conversionFailed }
+        validatedOutput = true
         return PreparedAudio(url: converted, duration: player.duration, disposableURL: converted)
     }
 }
