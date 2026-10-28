@@ -1,5 +1,10 @@
 # What? — Product Roadmap
 
+## 28.10 · C18 · публичный статус подтверждён повторно
+
+- [x] **1.1.2 в 16/16 регионах** по отдельным запросам Lookup; групповой Lookup 4 ID возвращал закэшированную старую 1.1.1 — не признавать эту ошибку источника откатом. Физические background/offline/Watch reboot и tap-through с ChickMark остаются OPEN. [C18 аудит](../core/docs/ASO_C18_PUBLIC_STORE_QA_2026-10-28.md).
+
+
 ## Актуально 28.10.2026 · опубликован C17
 
 - [x] **Ухват 1.1.2 (10) опубликован:** 28.10 App Store Connect (только GET) вернул `READY_FOR_SALE`, `AFTER_APPROVAL`; публичный Apple iTunes Lookup подтвердил `version=1.1.2` в **RU, US и GB** (`currentVersionReleaseDate=2026-10-27T23:29:12Z`). 16 ASC локалей и 128 скриншотов были приняты на C17. [Историческое отправление 27.10](../core/docs/INDIEAPPCIRCLE_C17_APPLE_SUBMITTED_2026-10-27.md).
