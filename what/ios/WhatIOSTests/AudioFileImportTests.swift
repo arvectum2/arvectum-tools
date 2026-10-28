@@ -112,6 +112,30 @@ final class AudioFileImportTests: XCTestCase {
         XCTAssertEqual(restored.fileName, previous.fileName)
     }
 
+    func testUnreadableExistingIndexCannotBeOverwrittenByImport() throws {
+        let root = try disposableRoot()
+        defer { try? FileManager.default.removeItem(at: root) }
+        let library = root.appendingPathComponent("db", isDirectory: true)
+        let repo = RecordingRepository(rootURL: library)
+        let existingIndex = library.appendingPathComponent("recordings.json")
+        let previousBytes = Data("not valid JSON — preserve user recovery evidence".utf8)
+        try previousBytes.write(to: existingIndex)
+        let source = root.appendingPathComponent("original.m4a")
+        let original = Data("source data must not change".utf8)
+        try original.write(to: source)
+        let id = UUID()
+        XCTAssertThrowsError(try repo.acceptTemporaryFile(source, metadata: [
+            TransferMetadataKey.id: id.uuidString,
+            TransferMetadataKey.createdAt: Date().timeIntervalSince1970,
+            TransferMetadataKey.duration: 3.0
+        ]))
+        XCTAssertEqual(try Data(contentsOf: existingIndex), previousBytes)
+        XCTAssertEqual(try Data(contentsOf: source), original)
+        XCTAssertFalse(FileManager.default.fileExists(atPath:
+            repo.audioURL(for: RecordingEnvelope(id: id, createdAt: Date(),
+              duration: 3, fileName: "\(id.uuidString).m4a")).path))
+    }
+
     func testInvalidAudioNeverCreatesAnIndexedNoteAndKeepsSource() async throws {
         let root = try disposableRoot()
         defer { try? FileManager.default.removeItem(at: root) }

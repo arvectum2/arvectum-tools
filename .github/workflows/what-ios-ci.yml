@@ -52,6 +52,7 @@ jobs:
             COMPILER_INDEX_STORE_ENABLE=NO \
             -only-testing:WhatIOSTests/WatchA2ReliabilityTests \
             -only-testing:WhatIOSTests/AudioFileImportTests \
+            -only-testing:WhatIOSTests/RecordingRepositoryTests \
             test
 
   watch-build:
