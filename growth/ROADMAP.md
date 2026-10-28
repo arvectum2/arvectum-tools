@@ -1,5 +1,11 @@
 # Arvectum Tools — Growth Roadmap
 
+## 28.10.2026 · C19 — все четыре C17 приложения опубликованы
+
+- [x] ASC `READY_FOR_SALE` и Apple Lookup **16/16** подтвердили ChickMark **1.5.3**; публичные версии линейки: Фото/PDF **1.0.4**, Pushkin **1.0.3**, Ухват **1.1.2**, ChickMark **1.5.3**. [C19](../core/docs/ASC_C19_CHICKMARK_PUBLIC_2026-10-28.md).
+- [ ] Реальные установки/удержание, отзывы, App Analytics, физическая QA и позднейшие исходные улучшения — отдельные задачи.
+
+
 ## 28.10.2026 · ASC C18 read-only review state
 
 - [x] Авторизованным ASC GET подтверждены `READY_FOR_SALE` у Фото/PDF 1.0.4, Pushkin 1.0.3, Ухват 1.1.2; ChickMark **1.5.3 `WAITING_FOR_REVIEW`**, в публичной витрине остаётся 1.5.2. [Снимок C18](../core/docs/ASC_C18_REVIEW_STATUS_2026-10-28.md).
