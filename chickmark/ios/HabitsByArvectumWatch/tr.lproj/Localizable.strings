@@ -1,0 +1,23 @@
+// Turkish (tr), physical Watch/widget QA pending.
+"watch.today" = "Bugün";
+"watch.progress.format" = "%d / %d";
+"watch.empty" = "Bugün yapılacak alışkanlık yok";
+"watch.streak.format" = "%d günlük seri";
+"watch.weekly.format" = "Bu hafta %d / %d";
+"watch.completed" = "Tamamlandı";
+"watch.notCompleted" = "Tamamlanmadı";
+"watch.skipped" = "Atlandı";
+"watch.undoHint" = "Tamamlamayı geri almak için çift dokunun";
+"watch.completeHint" = "Tamamlandı olarak işaretlemek için çift dokunun";
+"watch.duration.format" = "%d / %d dk";
+"watch.step.add" = "Bir adım ekle";
+"watch.step.remove" = "Bir adımı geri al";
+"watch.preview.water" = "Su";
+"watch.preview.reading" = "Okuma";
+"watch.checkins.progress.format" = "%d işaretlemenin %d tanesi";
+"watch.health.unit.steps" = "adım";
+"watch.health.unit.kilometers" = "km";
+"watch.health.unit.minutes" = "dk";
+"watch.health.unit.hours" = "sa";
+"watch.health.unit.unknown" = "";
+"watch.health.unavailable" = "Apple Health verileri kullanılamıyor";

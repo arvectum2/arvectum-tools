@@ -1,0 +1,6 @@
+// Turkish (tr), physical Watch/widget QA pending.
+"watch.widget.title" = "ChickMark";
+"watch.widget.description" = "Saat kadranınızda bugünkü alışkanlık ilerlemenizi görün.";
+"watch.widget.empty" = "Yapılacak yok";
+"watch.widget.inline.format" = "%d/%d alışkanlık";
+"watch.widget.next.format" = "Sıradaki: %@";

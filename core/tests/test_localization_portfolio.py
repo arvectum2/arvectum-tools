@@ -381,6 +381,31 @@ class LocalizationPortfolioTests(unittest.TestCase):
         ui=(ROOT/'what/ios/WhatIOSUITests/TurkishLocalizationUITests.swift').read_text()
         self.assertIn('func testTurkishAXXXLHomeControlsWithoutRecording',ui)
 
+    def test_chickmark_turkish_health_backup_and_widget_safety(self):
+        root=ROOT/'chickmark/ios'
+        for bundle,count in [('HabitsByArvectum',315),('HabitsByArvectumWatch',22),('HabitsByArvectumWidget',16),('HabitsByArvectumWatchWidget',5)]:
+            en=i18n.read_strings(root/bundle/'en.lproj/Localizable.strings', [])
+            tr=i18n.read_strings(root/bundle/'tr.lproj/Localizable.strings', [])
+            self.assertEqual(len(tr),count)
+            self.assertEqual(set(tr),set(en))
+            for key in en:
+                self.assertEqual(i18n.placeholders(en[key]),i18n.placeholders(tr[key]),(bundle,key))
+        tr=i18n.read_strings(root/'HabitsByArvectum/tr.lproj/Localizable.strings', [])
+        self.assertEqual(tr['habit.create'],'Alışkanlık oluştur')
+        self.assertIn("CloudKit'e yüklenmez",tr['health.privacy'])
+        self.assertIn('iCloud',tr['backup.warning'])
+        self.assertIn('Geçmiş günler içe aktarılmaz',tr['water.export.explanation'])
+        self.assertIn('Yapıştır',tr['review.paste.instructions'])
+        self.assertIn('transkripti göstermez',tr['review.privacy.explanation'])
+        self.assertIn('kaçırılmış gün yaratmaz',tr['weekly.gapNote'])
+        for bundle in ('HabitsByArvectum','HabitsByArvectumWatch'):
+            enp=i18n.read_strings(root/bundle/'en.lproj/InfoPlist.strings', [])
+            trp=i18n.read_strings(root/bundle/'tr.lproj/InfoPlist.strings', [])
+            self.assertEqual(set(enp),set(trp))
+            self.assertIn('Apple Health',trp['NSHealthShareUsageDescription'])
+            self.assertIn('Apple Health',trp['NSHealthUpdateUsageDescription'])
+        self.assertIn('func testTurkishEmptyStateAndNewHabitForm',(root/'HabitsByArvectumUITests/TurkishLocalizationUITests.swift').read_text())
+
     def test_korean_uhvat_headline_is_idiomatic(self):
         loc = i18n.read_strings(ROOT / "what/ios/WhatIOS/ko.lproj/Localizable.strings", [])
         self.assertEqual(loc["Catch that thought"], "떠오른 생각을 기록하세요")
@@ -415,7 +440,7 @@ class LocalizationPortfolioTests(unittest.TestCase):
         self.assertEqual(sum(f["pt_pt_brazilian_flags"] for f in result["catalogs"]), 0)
         self.assertEqual(sum(f["format_mismatch"] for f in result["catalogs"]), 0)
         self.assertEqual(sum(f["missing"] + f["extra"] for f in result["catalogs"]), 0)
-        self.assertEqual(result['english_identical_triaged'], 47)
+        self.assertEqual(result['english_identical_triaged'], 50)
         self.assertEqual(result['english_identical_untriaged'], [])
         self.assertEqual(result['english_identical_stale_exceptions'], [])
 
@@ -469,7 +494,7 @@ class LocalizationPortfolioTests(unittest.TestCase):
                 expected.append("nl")
             if app in ("pushkin", "what", "chickmark"):
                 expected.append("id")
-            if app in ("pushkin", "what"):
+            if app in ("pushkin", "what", "chickmark"):
                 expected.append("tr")
             self.assertEqual(reg["apps"][app]["ios"]["sourceCatalogs"], expected)
 
@@ -501,7 +526,7 @@ class LocalizationPortfolioTests(unittest.TestCase):
             # New iOS source locales must add an explicit UI smoke mapping.
             # Reject any locale without an authored XCUITest smoke mapping.
             locales = set(registry["apps"][app_registry_names[app]]["ios"]["sourceCatalogs"])
-            expected = {"ru", "en", *code_names} - ({"tr"} if app == "chickmark" else set())
+            expected = {"ru", "en", *code_names}
             self.assertEqual(
                 locales, expected,
                 f"{app}: new source locale must have a UI smoke test mapping")
@@ -527,7 +552,7 @@ class LocalizationPortfolioTests(unittest.TestCase):
                     self.assertIn("func " + method, baseline,
                                   f"{app}/{locale}: no dedicated UI smoke")
                 covered += 1
-        self.assertEqual(covered, 59)
+        self.assertEqual(covered, 60)
 
     def test_all_active_ios_bundles_have_registry_localized_catalogs(self):
         """Each app's own source locale packs are present in all its active bundles.
