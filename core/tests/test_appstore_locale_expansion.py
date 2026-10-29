@@ -109,3 +109,45 @@ class NewDutchStorefrontTests(unittest.TestCase):
                     pending.validate(mutated, seed, available)
         with self.assertRaisesRegex(AssertionError, 'UI source locale'):
             pending.validate(draft, seed, available - {'nl'})
+
+    def test_what_dutch_is_a_private_watch_safe_draft_not_a_live_storefront(self):
+        draft = json.loads((pending.EXPANSION / 'what-nl-NL.draft.json').read_text())
+        seed = json.loads((pending.STAGED / 'what.json').read_text())
+        registry = json.loads((ROOT / 'core/localization/portfolio-locales.json').read_text())
+        available = set(registry['apps']['what']['ios']['sourceCatalogs'])
+        result = pending.validate(draft, seed, available)
+        self.assertEqual(result['metadata_locale'], 'nl-NL')
+        self.assertFalse(result['ready_for_upload'])
+        self.assertEqual(result['new_asc_localization_exists'], 'UNVERIFIED')
+        self.assertEqual(draft['requiredRealNativeCaptures'], ['iphone-6.9', 'ipad-13'])
+        self.assertEqual(draft['screenshotAssets'], [])
+        self.assertEqual(len(draft['screenshotPlan']), 4)
+        self.assertEqual(len(seed['localeData']), 16)
+        description = draft['metadata']['description']
+        for phrase in ('Apple Watch', 'totdat de iPhone', 'vertraagd',
+                       'oorspronkelijke audio', 'spraakherkenning',
+                       'afzonderlijke instellingen', 'lokaal op je apparaten'):
+            with self.subTest(phrase=phrase):
+                self.assertIn(phrase, description)
+        self.assertEqual(draft['metadata']['privacyPolicyUrl'],
+                         seed['localeData']['en-GB']['privacyPolicyUrl'])
+
+    def test_what_dutch_rejects_nonexistent_source_or_fake_release_approval(self):
+        draft = json.loads((pending.EXPANSION / 'what-nl-NL.draft.json').read_text())
+        seed = json.loads((pending.STAGED / 'what.json').read_text())
+        registry = json.loads((ROOT / 'core/localization/portfolio-locales.json').read_text())
+        available = set(registry['apps']['what']['ios']['sourceCatalogs'])
+        with self.assertRaisesRegex(AssertionError, 'UI source locale'):
+            pending.validate(draft, seed, available - {'nl'})
+        for key, value in (
+            ('appId', 6816346084), ('bundleId', 'ru.arvectum.tools.tosize'),
+            ('appleMetadataLocale', 'nl-XX'), ('releaseApproved', True),
+            ('humanEditorialApproved', True), ('screenshotQAApproved', True),
+            ('uploadedToASC', True), ('screenshotAssets', ['fake.png']),
+            ('appleLocaleEnabledForThisAppInASC', True),
+        ):
+            with self.subTest(key=key):
+                corrupted = copy.deepcopy(draft)
+                corrupted[key] = value
+                with self.assertRaises(AssertionError):
+                    pending.validate(corrupted, seed, available)

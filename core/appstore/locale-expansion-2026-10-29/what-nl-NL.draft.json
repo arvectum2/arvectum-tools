@@ -1,0 +1,58 @@
+{
+  "status": "COPY_DRAFT_NEEDS_EDITORIAL_AND_NATIVE_ASSETS",
+  "createdUTC": "2026-10-29",
+  "app": "what",
+  "appId": "6822476399",
+  "bundleId": "ru.arvectum.tools.what",
+  "storefrontCountry": "NL",
+  "uiSourceLocale": "nl",
+  "appleMetadataLocale": "nl-NL",
+  "appleMetadataLocalePublishedSupport": true,
+  "appleLocaleEnabledForThisAppInASC": null,
+  "appleLocaleEnabledForThisAppInASCNote": "Not verified; false means do not upload, not definitive absence in account.",
+  "supportingAppleReferences": [
+    "https://developer.apple.com/help/app-store-connect/reference/app-information/app-store-localizations/",
+    "https://developer.apple.com/documentation/appstoreconnectapi/betabuildlocalization/attributes-data.dictionary",
+    "https://developer.apple.com/news/?id=97t4mt64"
+  ],
+  "metadata": {
+    "name": "UhWhat? Spraaknotities",
+    "subtitle": "Leg ideeën direct vast",
+    "keywords": "spraak,notities,opnemen,horloge,transcriptie,tekst,video,ideeën,herinnering,privé,offline",
+    "promotionalText": "Leg gedachten vast als audio, tekst of video. Sla originele opnamen op via iPhone en Apple Watch, met een veilige overdrachtswachtrij.",
+    "description": "Leg een idee vast voordat je het vergeet. Met UhWhat? kun je snel gedachten opnemen en ze later terugvinden.\n\nSNEL OPNEMEN: maak spraaknotities op iPhone of Apple Watch. De oorspronkelijke audio blijft bewaard. Een opname op de Watch blijft in de overdrachtswachtrij totdat de iPhone heeft bevestigd dat deze is opgeslagen. Overdracht op de achtergrond kan vertraagd zijn.\n\nTEKST EN VIDEO: schrijf notities of neem video's op met de iPhone. Doorzoek opgeslagen tekst en transcripties.\n\nTRANSCRIPTIE: zet spraakopnamen om naar tekst als lokale spraakherkenning voor de gekozen taal op je apparaat beschikbaar is. De taal van de app-interface en de taal van de spraakherkenning zijn afzonderlijke instellingen. Niet alle talen of iOS-versies worden ondersteund.\n\nHERINNERINGEN: je kunt optioneel een herinnering instellen om een opgeslagen gedachte opnieuw te bekijken. Dat vereist toestemming voor meldingen.\n\nPRIVACY: notities en media worden lokaal op je apparaten verwerkt. Een mislukte overdracht verwijdert de originele Watch-opname niet zomaar. Controleer de beschikbaarheid van spraakherkenning en de systeemmachtigingen in de instellingen.",
+    "whatsNew": "Duidelijkere uitleg over het transcriberen van opgeslagen opnamen. Acties voor audio en tekst zijn gemakkelijker te begrijpen.",
+    "privacyPolicyUrl": "https://arvectum.com/privacy.html"
+  },
+  "screenshotPlan": [
+    {
+      "position": 1,
+      "caption": "Leg een gedachte vast met één tik",
+      "screen": "home-quick-capture"
+    },
+    {
+      "position": 2,
+      "caption": "Je notities op één plek",
+      "screen": "recording-library"
+    },
+    {
+      "position": 3,
+      "caption": "Taal en herinneringen instellen",
+      "screen": "settings-transcription-reminders"
+    },
+    {
+      "position": 4,
+      "caption": "Schrijf een snelle tekstnotitie",
+      "screen": "text-note-editor"
+    }
+  ],
+  "screenshotAssets": [],
+  "requiredRealNativeCaptures": [
+    "iphone-6.9",
+    "ipad-13"
+  ],
+  "releaseApproved": false,
+  "humanEditorialApproved": false,
+  "screenshotQAApproved": false,
+  "uploadedToASC": false
+}

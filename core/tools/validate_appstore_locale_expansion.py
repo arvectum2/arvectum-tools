@@ -14,8 +14,8 @@ ROOT = Path(__file__).resolve().parents[2]
 EXPANSION = ROOT / 'core/appstore/locale-expansion-2026-10-29'
 STAGED = ROOT / 'core/appstore/staged-2026-10-26'
 SUPPORTED_VERIFIED_PAIRS = {('NL', 'nl-NL', 'nl')}
-SUPPORTED_APPS = {'photo': 'photo-pdf-to-size', 'pushkin': 'pushkin'}
-REAL_DEVICE_CAPTURES = {'photo': ['iphone-6.9', 'ipad-13'], 'pushkin': ['iphone-6.9']}
+SUPPORTED_APPS = {'photo': 'photo-pdf-to-size', 'pushkin': 'pushkin', 'what': 'what'}
+REAL_DEVICE_CAPTURES = {'photo': ['iphone-6.9', 'ipad-13'], 'pushkin': ['iphone-6.9'], 'what': ['iphone-6.9', 'ipad-13']}
 FIELD_LIMITS = {'name': 30, 'subtitle': 30, 'keywords': 100,
                 'promotionalText': 170, 'description': 4000, 'whatsNew': 4000}
 PENDING = 'COPY_DRAFT_NEEDS_EDITORIAL_AND_NATIVE_ASSETS'
