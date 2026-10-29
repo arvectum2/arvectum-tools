@@ -1,7 +1,7 @@
 // Korean translation: automated DRAFT from English; native-speaker/privacy/permission review REQUIRED.
 // Do not publish on catalog parity alone.
 "Record" = "녹음";
-"Record with UhWhat?" = "UhWhat으로 녹음하세요?";
-"Start a new thought from the watch face." = "시계 모드에서 새로운 생각을 시작해 보세요.";
-"UhWhat? Record" = "어뭐? 기록";
-"UhWhat?. Start recording" = "어 뭐?. 녹음 시작";
+"Record with UhWhat?" = "UhWhat?로 녹음";
+"Start a new thought from the watch face." = "시계 페이스에서 새 음성 메모를 녹음하세요.";
+"UhWhat? Record" = "UhWhat? 녹음";
+"UhWhat?. Start recording" = "UhWhat? 녹음 시작";

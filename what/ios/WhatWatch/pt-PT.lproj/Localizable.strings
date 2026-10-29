@@ -1,8 +1,8 @@
 // Português (Portugal), rascunho derivado de pt-BR; revisão humana obrigatória.
 // Português (Portugal). Revisão editorial antes do lançamento.
-"Preparing microphone…" = "Preparando microfone…";
+"Preparing microphone…" = "A preparar o microfone…";
 "Record" = "Gravar";
 "Saved" = "Guardado";
 "Stop" = "Parar";
 "Try again" = "Tentar novamente";
-"%d waiting for iPhone" = "%d aguardando o iPhone";
+"%d waiting for iPhone" = "%d à espera de confirmação no iPhone";

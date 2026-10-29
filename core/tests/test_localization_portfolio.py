@@ -1294,5 +1294,67 @@ class LocalizationPortfolioTests(unittest.TestCase):
                 self.assertIn("developmentRegion = en;", project.read_text())
 
 
+class EditorialLocalizationRegressionTests(unittest.TestCase):
+    """Protect source copy fixed in the 2026-10-29 editorial pass."""
+
+    @staticmethod
+    def loc(path):
+        return i18n.read_strings(ROOT / path, [])
+
+    def test_korean_transcript_and_backup_semantics(self):
+        what = self.loc("what/ios/WhatIOS/ko.lproj/Localizable.strings")
+        chick = self.loc("chickmark/ios/HabitsByArvectum/ko.lproj/Localizable.strings")
+        watch = self.loc("chickmark/ios/HabitsByArvectumWatch/ko.lproj/Localizable.strings")
+        widget = self.loc("chickmark/ios/HabitsByArvectumWidget/ko.lproj/Localizable.strings")
+        self.assertEqual(what["Saved transcript"], "저장된 녹취록")
+        self.assertEqual(what["Folder"], "폴더")
+        self.assertEqual(what["Save"], "저장")
+        self.assertIn("UhWhat?", what["UhWhat?: review a note"])
+        self.assertEqual(chick["backup.menu"], "백업")
+        self.assertEqual(chick["backup.result"], "백업")
+        self.assertIn("아직 녹취록이 없습니다", chick["review.attachment.noText"])
+        self.assertEqual(watch["watch.completed"], "완료")
+        self.assertEqual(watch["watch.health.unit.steps"], "걸음")
+        self.assertEqual(widget["widget.action.complete.format"], "%@ 완료")
+        for translation in (*what.values(), *chick.values(), *watch.values(), *widget.values()):
+            self.assertNotIn("성적표", translation)
+            self.assertNotIn("어뭐", translation)
+
+    def test_french_phone_widget_keeps_uhwhat_brand(self):
+        widget = self.loc("what/ios/WhatPhoneWidget/fr.lproj/Localizable.strings")
+        for translation in widget.values():
+            self.assertNotIn("euh quoi", translation.lower())
+            if "UhWhat" in translation:
+                self.assertIn("UhWhat?", translation)
+
+
+    def test_camera_rear_label_is_not_navigation_back(self):
+        labels = {
+            "ru": "Основная", "es": "Trasera", "fr": "Caméra arrière",
+            "de": "Rückkamera", "pt-BR": "Traseira", "pt-PT": "Traseira",
+            "it": "Posteriore", "ja": "背面", "ko": "후면",
+            "zh-Hans": "后置", "zh-Hant": "後置", "nl": "Camera achter",
+            "id": "Kamera belakang", "tr": "Arka kamera",
+        }
+        for locale, expected in labels.items():
+            with self.subTest(locale=locale):
+                strings = self.loc(
+                    f"what/ios/WhatIOS/{locale}.lproj/Localizable.strings"
+                )
+                self.assertEqual(strings["Back"], expected)
+
+    def test_french_and_portuguese_archival_and_review_actions(self):
+        fr = self.loc("what/ios/WhatIOS/fr.lproj/Localizable.strings")
+        pt = self.loc("what/ios/WhatIOS/pt-PT.lproj/Localizable.strings")
+        self.assertEqual(fr["Mark reviewed"], "Marquer comme consultée")
+        self.assertEqual(fr["Original note"], "Note d’origine")
+        self.assertEqual(fr["Search transcripts and dates"],
+                         "Rechercher dans les transcriptions et les dates")
+        self.assertEqual(pt["Archive"], "Notas arquivadas")
+        self.assertEqual(pt["Archive is empty"], "Ainda não há notas arquivadas")
+        self.assertEqual(pt["Saved transcript"], "Transcrição guardada")
+
+
+
 if __name__ == "__main__":
     unittest.main()

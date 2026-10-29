@@ -2,6 +2,6 @@
 "Preparing microphone…" = "Préparation du microphone…";
 "Record" = "Enregistrer";
 "Saved" = "Enregistré";
-"Stop" = "Arrêt";
+"Stop" = "Arrêter";
 "Try again" = "Essayer à nouveau";
-"%d waiting for iPhone" = "%d en attente d'iPhone";
+"%d waiting for iPhone" = "%d en attente de confirmation par l’iPhone";

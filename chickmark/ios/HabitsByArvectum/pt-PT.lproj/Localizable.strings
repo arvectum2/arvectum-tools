@@ -246,7 +246,7 @@
 "restart.settings.disabledHint" = "Ative o Recomeço gentil para escolher o intervalo.";
 "restart.days" = "%d dias";
 "restart.card.title" = "Que tal retomar?";
-"restart.card.description" = "Seu progresso anterior continua aqui. Escolha um hábito para seguir quando quiser.";
+"restart.card.description" = "O seu progresso anterior continua aqui. Escolha um hábito para retomar quando quiser.";
 "restart.card.later" = "Talvez amanhã";
 "weekly.title" = "Resumo semanal";
 "weekly.optIn" = "Mostrar resumo semanal local";
@@ -267,13 +267,13 @@
 "review.video.fallback" = "Vídeo";
 "review.note.prefix" = "Revisar nota:";
 "review.source.title" = "Nota do UhWhat?";
-"review.paste.instructions" = "Toque no botão Colar do sistema para permitir que o ChickMark leia a nota compartilhada. Será pedida uma nova confirmação antes de criar um lembrete único.";
+"review.paste.instructions" = "Toque no botão Colar do sistema para permitir que o ChickMark leia a nota partilhada. Será pedida uma nova confirmação antes de criar um lembrete único.";
 "review.paste.expired" = "A área de transferência mudou ou o link expirou. Compartilhe a nota novamente pelo UhWhat?.";
 "review.paste.accessibility" = "Colar nota";
 "review.paste.title" = "Receber nota";
 "review.paste.failed" = "Não foi possível colar a nota";
 "review.duplicate.title" = "Nota já importada";
-"review.duplicate.message" = "Já existe um lembrete único para esta nota. Nenhuma duplicata será criada.";
+"review.duplicate.message" = "Já existe um lembrete único para esta nota. Não será criado outro igual.";
 "review.source.section" = "Do UhWhat?";
 "review.kind.audio" = "Nota de voz";
 "review.kind.text" = "Nota de texto";

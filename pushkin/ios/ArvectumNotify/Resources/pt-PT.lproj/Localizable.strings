@@ -13,7 +13,7 @@
 "Cancel" = "Cancelar";
 "Choose only apps you have installed. This page plans groups locally; it cannot add or activate Shortcuts automations for you." = "Selecione apenas as aplicações instaladas. Esta página organiza grupos localmente; ela não consegue adicionar nem ativar automações dos Atalhos por si.";
 "Clear group plan" = "Limpar plano de grupos";
-"Clear search" = "Limpar busca";
+"Clear search" = "Limpar pesquisa";
 "Clearing this local checklist does not remove any automation or notification history." = "Limpar esta lista local não remove nenhuma automação nem o histórico de notificações.";
 "Configure manually in Shortcuts" = "Configurar manualmente na app Atalhos";
 "Copy" = "Copiar";
@@ -79,7 +79,7 @@
 "Want this app to become a one-tap option? Mention its exact name in an App Store review or send it to Arvectum support. Requested apps can be added in regular catalog updates." = "Quer adicionar esta aplicação com um toque? Indique o nome exato numa avaliação na App Store ou contacte o suporte da Arvectum. As aplicações solicitadas podem ser adicionadas nas atualizações regulares do catálogo.";
 "When Shortcuts asks how the automation should run, choose the immediate/automatic option." = "Quando a app Atalhos perguntar como executar a automação, escolha a opção imediata ou automática.";
 "You can still add this app manually in Shortcuts." = "Pode ainda adicionar esta aplicação manualmente na app Atalhos.";
-"Your plan" = "Seu plano";
+"Your plan" = "O seu plano";
 "Group %d" = "Grupo %d";
 "1. Add PUSHKIN" = "1. Adicionar PUSHKIN";
 "1. Choose the app" = "1. Escolher a aplicação";
