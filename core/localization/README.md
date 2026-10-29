@@ -2,6 +2,10 @@
 
 **Обновлено 29.10.2026:** 12/50 iOS source languages are structurally present in all 4 active applications and 10 declared UI/Watch/widget bundles (48 app×locale smoke contracts). Full native-speaker approval and public App Store release are separate. The prior 26.10 snapshot below is historical. See [Core localization + regional ASO roadmap](../docs/CORE_50_LOCALES_AND_REGIONAL_ASO_2026-10-29.md).
 
+## 29.10.2026 · Apple: 50 metadata localizations, не меньший список
+
+Официальная [новость Apple от 31 марта 2026](https://developer.apple.com/news/?id=97t4mt64): поддерживаются 50 вариантов локализации метаданных. Это число совпадает с нашей целью UI=50, но состав и коды различаются. Проверенный пример: UI `nl` и App Store metadata `nl-NL`; для Netherlands Dutch — основной язык ([Apple](https://developer.apple.com/help/app-store-connect/reference/app-information/app-store-localizations/)). Отдельный Dutch ASO copy draft — в `core/appstore/locale-expansion-2026-10-29/`, без утверждения, что уже опубликован.
+
 ## 29.10.2026 · Начало Tier 1: нидерландский только для Фото/PDF
 
 - [x] Новая source-локаль `nl` в Photo/PDF: 161 переведённых UI-ключей и 2 системные строки (в том числе отслеживание/ATT), ключи/форматы совпадают с EN, технические идентичные единицы отдельно классифицированы. XcodeGen включает `nl` в проект; Dutch XCUITest для фото, PDF, Dynamic Type.
