@@ -122,14 +122,21 @@ struct MainTaskCard: View {
         let accessibility = dynamicTypeSize.isAccessibilitySize
         return PhotosPicker(selection: $pickerItem, matching: .images) {
             HStack(spacing: 9) {
-                Image(systemName: selectedSource == nil ? "photo.badge.plus" : "photo.fill")
-                    .font(.title3)
-                    .foregroundStyle(Color.arvectumPrimaryText)
+                if !accessibility {
+                    // The decorative icon used the space needed by long
+                    // translated captions at the largest text sizes.
+                    Image(systemName: selectedSource == nil ? "photo.badge.plus" : "photo.fill")
+                        .font(.title3)
+                        .foregroundStyle(Color.arvectumPrimaryText)
+                }
                 VStack(alignment: .leading, spacing: 4) {
                     Text(tr(selectedSource == nil ? "Выбрать фото" : "Фото выбрано"))
                         .font(.subheadline.weight(.semibold))
                         .foregroundStyle(Color.arvectumPrimaryText)
-                        .lineLimit(accessibility ? 2 : 1)
+                        // Keep the full photo state visible in narrow
+                        // layouts. Its row may grow instead of truncating.
+                        .lineLimit(accessibility ? 3 : 1)
+                        .fixedSize(horizontal: false, vertical: accessibility)
                     if let source = selectedSource {
                         Text(String(
                             format: tr("%1$d×%2$d px · %3$@"),
