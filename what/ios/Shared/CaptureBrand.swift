@@ -4,7 +4,7 @@ import Foundation
 /// same Watch/phone URL scheme also routes new text and video notes.
 enum CaptureBrand {
     /// Speech recognition is a separate setting from the visual interface.
-    /// Interface follows iOS per-app/device language in bundled RU/EN/ES/FR/DE/PT/IT/JA/KO/ZH; unsupported
+    /// Interface follows iOS per-app/device language in bundled RU/EN/ES/FR/DE/PT/IT/JA/KO/NL/ZH; unsupported
     /// interface languages have an English fallback. Watch and widget process
     /// locales are resolved independently. Existing recording language
     /// preferences and original audio remain untouched.
@@ -46,7 +46,7 @@ enum CaptureBrand {
             }
             let language = Locale(identifier: identifier)
                 .language.languageCode?.identifier.lowercased()
-            if let language, ["ru", "en", "es", "fr", "de", "pt", "it", "ja", "ko", "zh"].contains(language) {
+            if let language, ["ru", "en", "es", "fr", "de", "pt", "it", "ja", "ko", "nl", "zh"].contains(language) {
                 return language
             }
         }
@@ -79,6 +79,12 @@ enum CaptureBrand {
 
     private static let germanBundle: Bundle? = {
         guard let path = Bundle.main.path(forResource: "de", ofType: "lproj")
+        else { return nil }
+        return Bundle(path: path)
+    }()
+
+    private static let dutchBundle: Bundle? = {
+        guard let path = Bundle.main.path(forResource: "nl", ofType: "lproj")
         else { return nil }
         return Bundle(path: path)
     }()
@@ -154,6 +160,11 @@ enum CaptureBrand {
                 forKey: english, value: english, table: nil
             ) ?? english
         }
+        if code.hasPrefix("nl") {
+            return dutchBundle?.localizedString(
+                forKey: english, value: english, table: nil
+            ) ?? english
+        }
         if normalized.hasPrefix("pt-pt") {
             return europeanPortugueseBundle?.localizedString(
                 forKey: english, value: english, table: nil
@@ -201,6 +212,7 @@ enum CaptureBrand {
             code.hasPrefix("es") ? "es_ES" :
             code.hasPrefix("fr") ? "fr_FR" :
             code.hasPrefix("de") ? "de_DE" :
+            code.hasPrefix("nl") ? "nl_NL" :
             code.hasPrefix("pt") ? "pt_BR" :
             code.hasPrefix("it") ? "it_IT" :
             code.hasPrefix("ja") ? "ja_JP" :
@@ -247,6 +259,9 @@ enum CaptureBrand {
         }
         if language.hasPrefix("de") {
             return "\(count) \(count == 1 ? "Notiz" : "Notizen")"
+        }
+        if language.hasPrefix("nl") {
+            return "\(count) \(count == 1 ? "notitie" : "notities")"
         }
         if language.hasPrefix("pt") {
             return "\(count) \(count == 1 ? "nota" : "notas")"
