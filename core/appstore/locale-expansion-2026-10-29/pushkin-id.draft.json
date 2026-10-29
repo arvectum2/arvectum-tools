@@ -1,0 +1,56 @@
+{
+  "status": "COPY_DRAFT_NEEDS_EDITORIAL_AND_NATIVE_ASSETS",
+  "createdUTC": "2026-10-29",
+  "app": "pushkin",
+  "appId": "6817847111",
+  "bundleId": "ru.arvectum.tools.notify",
+  "storefrontCountry": "ID",
+  "uiSourceLocale": "id",
+  "appleMetadataLocale": "id",
+  "appleMetadataLocalePublishedSupport": true,
+  "appleLocaleEnabledForThisAppInASC": null,
+  "appleLocaleEnabledForThisAppInASCNote": "Indonesian is an Apple-supported App Store metadata language for Indonesia, secondary after en-GB; whether this app version has id enabled remains unverified.",
+  "supportingAppleReferences": [
+    "https://developer.apple.com/help/app-store-connect/reference/app-information/app-store-localizations/",
+    "https://developer.apple.com/help/app-store-connect/manage-app-information/localize-app-information"
+  ],
+  "metadata": {
+    "name": "PUSHKIN: Simpan Notifikasi",
+    "subtitle": "Riwayat lewat Pintasan",
+    "keywords": "notifikasi,riwayat,pencarian,arsip,pintasan,otomatisasi,privasi,offline,pesan",
+    "promotionalText": "Simpan dan cari notifikasi dari aplikasi yang Anda hubungkan sendiri melalui Pintasan Apple. Isi notifikasi tetap di iPhone.",
+    "description": "PUSHKIN membantu Anda menyimpan dan mencari riwayat notifikasi dari aplikasi yang Anda hubungkan sendiri melalui otomatisasi di Pintasan Apple.\n\nATUR SENDIRI: pilih aplikasi yang tersedia dan ikuti petunjuk di Pintasan. iOS tidak mengizinkan PUSHKIN membaca semua notifikasi aplikasi lain secara otomatis. Anda harus menambahkan serta mengaktifkan otomatisasi sendiri. Otomatisasi yang diimpor awalnya nonaktif.\n\nCARI DAN TINJAU: telusuri notifikasi tersimpan, cari berdasarkan aplikasi, judul atau pesan, lalu salin, bagikan atau hapus catatan.\n\nPRIVASI: isi notifikasi disimpan secara lokal di iPhone. Tidak diperlukan akun cloud PUSHKIN. Memilih aplikasi atau membuka pintasan tidak menjamin notifikasi akan berhasil diterima.\n\nCakupan bergantung pada otomatisasi yang diaktifkan dan kemampuan iOS/Pintasan. PUSHKIN bukan log sistem universal untuk semua notifikasi, dan tidak dapat membaca atau mengubah sakelar aktivasi otomatisasi di Pintasan.",
+    "whatsNew": "Pencarian dan penelusuran notifikasi kini lebih mudah, dengan filter berdasarkan aplikasi dan rentang tanggal. Otomatisasi di Pintasan tetap harus diaktifkan oleh pengguna.",
+    "privacyPolicyUrl": "https://arvectum.com/privacy.html"
+  },
+  "screenshotPlan": [
+    {
+      "position": 1,
+      "caption": "Cari notifikasi tersimpan",
+      "screen": "notification-history"
+    },
+    {
+      "position": 2,
+      "caption": "Hubungkan aplikasi melalui Pintasan",
+      "screen": "shortcuts-setup"
+    },
+    {
+      "position": 3,
+      "caption": "Pengaturan privasi",
+      "screen": "settings-privacy"
+    },
+    {
+      "position": 4,
+      "caption": "Filter berdasarkan aplikasi dan tanggal",
+      "screen": "history-search"
+    }
+  ],
+  "screenshotAssets": [],
+  "requiredRealNativeCaptures": [
+    "iphone-6.9"
+  ],
+  "releaseApproved": false,
+  "humanEditorialApproved": false,
+  "screenshotQAApproved": false,
+  "uploadedToASC": false
+}

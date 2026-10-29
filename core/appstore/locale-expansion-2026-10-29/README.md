@@ -2,6 +2,13 @@
 
 Дата: 29.10.2026. Сохраняем прежний 16×4 staged-базис без изменений: новое расширение не должно переименовать уже подготовленные карточки или подменить отснятые PNG.
 
+## 29.10.2026 · Indonesia: все 4 региональных copy drafts
+
+- [x] Добавлены `photo-id.draft.json`, `pushkin-id.draft.json`, `what-id.draft.json` и `chickmark-id.draft.json`. Для каждого — Bahasa Indonesia name/subtitle/keywords/promotional/description/WhatsNew, настоящий URL privacy и план четырёх будущих экранов.
+- [x] Честные юридические и продуктовые оговорки: PDF rasterization и реклама; ручные Shortcuts без универсального доступа к уведомлениям; очередь Watch до iPhone ACK и сохранение аудио; HealthKit/водные права, iCloud backup и объявления.
+- [x] Всего 8 новых черновиков: NL×4 и ID×4. Все проходят offline validator с `screenshotAssets=[]`, `releaseApproved=false`, `uploadedToASC=false`, `appleLocaleEnabledForThisAppInASC=null`. Прежние 64 staged варианта не затронуты.
+- [ ] Независимая языковая редактура, настоящие screenshots, live ASC проверка нужной версии и per-release approval. Для Indonesia Apple указывает основной English UK и дополнительный Indonesian.
+
 ## Индонезия (`ID`), Фото/PDF — новый язык метаданных `id`
 
 - Файл: `photo-id.draft.json`, storefront Indonesia (`ID`), бинарный язык `id`, короткий metadata locale `id`. По [официальной таблице Apple](https://developer.apple.com/help/app-store-connect/reference/app-information/app-store-localizations/) язык по умолчанию для Indonesia — English (U.K.), Indonesian — дополнительно доступная локализация; её существование в нашей текущей версии ASC НЕ проверено.

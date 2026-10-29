@@ -252,3 +252,65 @@ class NewDutchStorefrontTests(unittest.TestCase):
                 altered[key] = value
                 with self.assertRaises(AssertionError):
                     pending.validate(altered, seed, available)
+
+    def test_indonesian_portfolio_has_all_four_staged_cards_without_fake_uploads(self):
+        apps = set(pending.SUPPORTED_APPS)
+        self.assertEqual(apps, {'photo','pushkin','what','chickmark'})
+        registry = json.loads((ROOT/'core/localization/portfolio-locales.json').read_text())
+        seen = set()
+        for path in sorted(pending.EXPANSION.glob('*-id.draft.json')):
+            data = json.loads(path.read_text())
+            app = data['app']
+            seen.add(app)
+            seed = json.loads((pending.STAGED/f'{app}.json').read_text())
+            source = set(registry['apps'][pending.SUPPORTED_APPS[app]]['ios']['sourceCatalogs'])
+            result = pending.validate(data, seed, source)
+            self.assertEqual((result['country'], result['metadata_locale']), ('ID','id'))
+            self.assertEqual(result['new_asc_localization_exists'], 'UNVERIFIED')
+            self.assertFalse(result['ready_for_upload'])
+            self.assertFalse(result['screenshot_assets_ready'])
+            self.assertFalse(data['releaseApproved'])
+            self.assertFalse(data['humanEditorialApproved'])
+            self.assertFalse(data['uploadedToASC'])
+            self.assertIsNone(data['appleLocaleEnabledForThisAppInASC'])
+            self.assertEqual(data['screenshotAssets'], [])
+            self.assertEqual(len(seed['localeData']), 16)
+            self.assertIn('secondary after en-GB', data['appleLocaleEnabledForThisAppInASCNote'])
+        self.assertEqual(seen, apps)
+        self.assertEqual(len(list(pending.EXPANSION.glob('*.draft.json'))), 8)
+
+    def test_indonesian_marketing_does_not_promise_unavailable_shortcuts_or_health_access(self):
+        required = {
+            'pushkin': ('Pintasan', 'nonaktif', 'tidak mengizinkan', 'tidak dapat membaca'),
+            'what': ('Apple Watch', 'iPhone mengonfirmasi', 'terpisah', 'latar belakang'),
+            'chickmark': ('Apple Health', 'izin menulis', 'tidak diunggah ke CloudKit',
+                          'penghapusan', 'tidak diimpor otomatis'),
+        }
+        for app, phrases in required.items():
+            with self.subTest(app=app):
+                data = json.loads((pending.EXPANSION/f'{app}-id.draft.json').read_text())
+                body = data['metadata']['description']
+                for phrase in phrases:
+                    self.assertIn(phrase, body)
+                self.assertEqual(data['requiredRealNativeCaptures'],
+                                 pending.REAL_DEVICE_CAPTURES[app])
+
+    def test_indonesian_drafts_fail_closed_without_ui_source_or_with_false_approval(self):
+        registry = json.loads((ROOT/'core/localization/portfolio-locales.json').read_text())
+        for app in ('pushkin','what','chickmark'):
+            draft = json.loads((pending.EXPANSION/f'{app}-id.draft.json').read_text())
+            seed = json.loads((pending.STAGED/f'{app}.json').read_text())
+            source = set(registry['apps'][pending.SUPPORTED_APPS[app]]['ios']['sourceCatalogs'])
+            with self.subTest(app=app,condition='source_missing'):
+                with self.assertRaisesRegex(AssertionError,'UI source locale'):
+                    pending.validate(draft,seed,source-{'id'})
+            for key,val in (('appleMetadataLocale','id-ID'),('storefrontCountry','NL'),
+                            ('uploadedToASC',True),('releaseApproved',True),
+                            ('humanEditorialApproved',True),('screenshotQAApproved',True),
+                            ('screenshotAssets',['not-real.png']),
+                            ('appleLocaleEnabledForThisAppInASC',True)):
+                with self.subTest(app=app,key=key):
+                    bad = copy.deepcopy(draft)
+                    bad[key] = val
+                    with self.assertRaises(AssertionError):
+                        pending.validate(bad,seed,source)
