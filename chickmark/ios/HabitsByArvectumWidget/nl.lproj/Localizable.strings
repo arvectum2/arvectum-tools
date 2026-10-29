@@ -1,0 +1,17 @@
+// Dutch nl source draft, physical Watch/widget accessibility QA pending.
+"widget.title" = "Vandaag";
+"widget.displayName" = "Gewoonten vandaag";
+"widget.description" = "Bekijk je voortgang van vandaag en vink gewoonten af zonder de app te openen.";
+"widget.empty" = "Vandaag niets gepland";
+"widget.allDone" = "Alles klaar voor vandaag";
+"widget.remaining.format" = "Nog %d";
+"widget.inline.format" = "%d van %d vandaag";
+"widget.more.format" = "+%d meer";
+"widget.complete" = "Markeer als voltooid";
+"widget.undo" = "Voltooiing ongedaan maken";
+"widget.preview.water" = "Water";
+"widget.preview.reading" = "Lezen";
+"widget.duration.format" = "%d / %d min";
+"widget.action.complete.format" = "Voltooi %@";
+"widget.action.undo.format" = "Voltooiing van %@ ongedaan maken";
+"widget.empty.small" = "Vandaag niets";

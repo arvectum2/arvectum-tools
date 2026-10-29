@@ -1,0 +1,23 @@
+// Dutch nl source draft, physical Watch/widget accessibility QA pending.
+"watch.today" = "Vandaag";
+"watch.progress.format" = "%d van %d";
+"watch.empty" = "Vandaag niets gepland";
+"watch.streak.format" = "Reeks van %d dagen";
+"watch.weekly.format" = "%d van %d deze week";
+"watch.completed" = "Voltooid";
+"watch.notCompleted" = "Niet voltooid";
+"watch.skipped" = "Overgeslagen";
+"watch.undoHint" = "Dubbeltik om de voltooiing ongedaan te maken";
+"watch.completeHint" = "Dubbeltik om als voltooid te markeren";
+"watch.duration.format" = "%d / %d min";
+"watch.step.add" = "Eén stap toevoegen";
+"watch.step.remove" = "Eén stap ongedaan maken";
+"watch.preview.water" = "Water";
+"watch.preview.reading" = "Lezen";
+"watch.checkins.progress.format" = "%d van %d registraties";
+"watch.health.unit.steps" = "stappen";
+"watch.health.unit.kilometers" = "km";
+"watch.health.unit.minutes" = "min";
+"watch.health.unit.hours" = "u";
+"watch.health.unit.unknown" = "";
+"watch.health.unavailable" = "Apple Gezondheid-gegevens niet beschikbaar";

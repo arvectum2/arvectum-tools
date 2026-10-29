@@ -1,6 +1,11 @@
 # Arvectum Tools — portfolio localization (50 locales)
 
-**Обновлено 29.10.2026:** 12/50 iOS source languages are structurally present in all 4 active applications and 10 declared UI/Watch/widget bundles (48 app×locale smoke contracts). Full native-speaker approval and public App Store release are separate. The prior 26.10 snapshot below is historical. See [Core localization + regional ASO roadmap](../docs/CORE_50_LOCALES_AND_REGIONAL_ASO_2026-10-29.md).
+**Обновлено 29.10.2026:** 13/50 iOS source languages are now structurally present in all 4 active applications and 10 declared iPhone/Watch/widget bundles (52 app×locale source pairs). Full native-speaker approval, physical QA and public App Store release are separate. The earlier intermediate steps below are historical. See [Core localization + regional ASO roadmap](../docs/CORE_50_LOCALES_AND_REGIONAL_ASO_2026-10-29.md).
+
+## 29.10.2026 · Dutch в ChickMark: все 4 продукта × 13/50 source locales
+
+- [x] `nl` для ChickMark: iPhone 315, Watch 22, iPhone widget 16, Watch widget 5 строк, а также оба HealthKit permission catalog. Locale picker допускает только действительно полный пакет. Тесты проверяют backup/HealthKit/Ухват privacy copy, без каких-либо изменений данных.
+- [x] Итоговый source baseline: **52/200** пар app×locale и **13/50** исходных пакетов в каждом из 4 iOS приложений. Следующий Tier 1 `hi, ar, id, tr, vi, pl, th`. Независимая вычитка носителем/VoiceOver/физические Apple Health/Watch и App Store metadata остаются отдельными этапами.
 
 ## 29.10.2026 · Dutch для Ухвата/What? — iPhone и Watch/widgets
 

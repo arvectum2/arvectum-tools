@@ -62,6 +62,12 @@
       "reason": "Product brand; should remain untranslated"
     },
     {
+      "file": "chickmark/ios/HabitsByArvectumWatchWidget/nl.lproj/Localizable.strings",
+      "key": "watch.widget.title",
+      "value": "ChickMark",
+      "reason": "ChickMark is a registered product name, unchanged in all localizations."
+    },
+    {
       "file": "chickmark/ios/HabitsByArvectumWatchWidget/pt-BR.lproj/Localizable.strings",
       "key": "watch.widget.title",
       "value": "ChickMark",
