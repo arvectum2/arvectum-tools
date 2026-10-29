@@ -1,0 +1,58 @@
+{
+  "status": "COPY_DRAFT_NEEDS_EDITORIAL_AND_NATIVE_ASSETS",
+  "createdUTC": "2026-10-29",
+  "app": "chickmark",
+  "appId": "6818711298",
+  "bundleId": "ru.arvectum.tools.habits",
+  "storefrontCountry": "NL",
+  "uiSourceLocale": "nl",
+  "appleMetadataLocale": "nl-NL",
+  "appleMetadataLocalePublishedSupport": true,
+  "appleLocaleEnabledForThisAppInASC": null,
+  "appleLocaleEnabledForThisAppInASCNote": "Not verified; false means do not upload, not definitive absence in account.",
+  "supportingAppleReferences": [
+    "https://developer.apple.com/help/app-store-connect/reference/app-information/app-store-localizations/",
+    "https://developer.apple.com/documentation/appstoreconnectapi/betabuildlocalization/attributes-data.dictionary",
+    "https://developer.apple.com/news/?id=97t4mt64"
+  ],
+  "metadata": {
+    "name": "ChickMark: gewoontetracker",
+    "subtitle": "Gewoonten en herinneringen",
+    "keywords": "gewoonten,afstrepen,doelen,planner,herinneringen,dagelijks,voortgang,water,gezondheid,horloge",
+    "promotionalText": "Begin met één gewoonte. Vink af op iPhone of Apple Watch, bekijk je voortgang en stel herinneringen in. Jij kiest je eigen ritme.",
+    "description": "Bouw gewoonten op zonder ingewikkelde planners. Met ChickMark vink je dagelijkse doelen af, bekijk je je voortgang en bepaal je zelf wanneer een gewoonte terugkomt.\n\nSNEL AFVINKEN: maak een gewoonte, markeer die als voltooid en volg je reeks. Pas vaste schema's, flexibele weekdoelen en herhaling na een daadwerkelijke voltooiing aan.\n\nHERINNERINGEN EN WIDGETS: ontvang optionele herinneringen en bekijk je voortgang op ondersteunde iPhone-, iPad- en Apple Watch-schermen. Synchronisatie hangt af van je apparaatinstellingen en verbinding.\n\nOPTIONELE APPLE GEZONDHEID: koppel alleen de activiteitsdoelen die je zelf kiest. Gezondheidsmetingen worden lokaal gecontroleerd. Waterinname wordt alleen naar Apple Gezondheid geschreven als je export voor een gewoonte met hoeveelheidsdoel inschakelt en schrijfrechten verleent. Historische waterregistraties worden niet automatisch geïmporteerd.\n\nPRIVACY EN GEGEVENS: handmatige gewoonten kunnen via bestaande iCloud-instellingen synchroniseren. Gezondheidsmetingen en automatisch afgeleide resultaten worden niet naar CloudKit geüpload of voor advertenties gedeeld. De gratis app kan advertenties tonen; raadpleeg het privacybeleid voor verwerking van advertentiegegevens.\n\nBij het terugzetten van een reservekopie kan het vervangen van bestaande gewoonten tot synchronisatie van verwijderingen via iCloud leiden. Bewaar een kopie op een veilige plek.",
+    "whatsNew": "Beheer gewoonten en bekijk de laatste volledige kalenderweek. Een optioneel lokaal overzicht toont voor herhalende gewoonten het werkelijke aantal dagen tussen de laatste voltooiingen.",
+    "privacyPolicyUrl": "https://arvectum.com/privacy.html"
+  },
+  "screenshotPlan": [
+    {
+      "position": 1,
+      "caption": "Al je gewoonten in één overzicht",
+      "screen": "today-habits"
+    },
+    {
+      "position": 2,
+      "caption": "Maak snel een nieuwe gewoonte",
+      "screen": "new-habit"
+    },
+    {
+      "position": 3,
+      "caption": "Bekijk voortgang en reeksen",
+      "screen": "weekly-progress"
+    },
+    {
+      "position": 4,
+      "caption": "Kies schema en herinneringen",
+      "screen": "schedule-reminder"
+    }
+  ],
+  "screenshotAssets": [],
+  "requiredRealNativeCaptures": [
+    "iphone-6.9",
+    "ipad-13"
+  ],
+  "releaseApproved": false,
+  "humanEditorialApproved": false,
+  "screenshotQAApproved": false,
+  "uploadedToASC": false
+}
