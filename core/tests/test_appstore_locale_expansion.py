@@ -210,3 +210,45 @@ class NewDutchStorefrontTests(unittest.TestCase):
             self.assertEqual(draft['storefrontCountry'], 'NL')
             self.assertEqual(draft['appleMetadataLocale'], 'nl-NL')
         self.assertEqual(expected, actual)
+
+    def test_indonesia_photo_draft_is_secondary_locale_not_implicit_store_default(self):
+        draft = json.loads((pending.EXPANSION / 'photo-id.draft.json').read_text())
+        seed = json.loads((pending.STAGED / 'photo.json').read_text())
+        registry = json.loads((ROOT / 'core/localization/portfolio-locales.json').read_text())
+        available = set(registry['apps']['photo-pdf-to-size']['ios']['sourceCatalogs'])
+        result = pending.validate(draft, seed, available)
+        self.assertEqual((result['country'], result['metadata_locale'], result['source_locale']),
+                         ('ID', 'id', 'id'))
+        self.assertEqual(result['new_asc_localization_exists'], 'UNVERIFIED')
+        self.assertFalse(result['ready_for_upload'])
+        self.assertFalse(result['screenshot_assets_ready'])
+        self.assertEqual(draft['screenshotAssets'], [])
+        self.assertEqual(len(seed['localeData']), 16)
+        description = draft['metadata']['description']
+        for phrase in ('tidak diunggah', 'gambar', 'pencarian dan pemilihan teks',
+                       'tidak menjamin', 'SDK iklan', 'di perangkat'):
+            with self.subTest(phrase=phrase):
+                self.assertIn(phrase, description)
+        self.assertIn('secondary after en-GB', draft['appleLocaleEnabledForThisAppInASCNote'])
+        self.assertEqual(draft['metadata']['privacyPolicyUrl'],
+                         seed['localeData']['en-GB']['privacyPolicyUrl'])
+
+    def test_indonesia_photo_rejects_false_locale_media_and_asc_approval(self):
+        draft = json.loads((pending.EXPANSION / 'photo-id.draft.json').read_text())
+        seed = json.loads((pending.STAGED / 'photo.json').read_text())
+        registry = json.loads((ROOT / 'core/localization/portfolio-locales.json').read_text())
+        available = set(registry['apps']['photo-pdf-to-size']['ios']['sourceCatalogs'])
+        with self.assertRaisesRegex(AssertionError, 'UI source locale'):
+            pending.validate(draft, seed, available - {'id'})
+        for key, value in (
+            ('storefrontCountry', 'NL'), ('appleMetadataLocale', 'id-ID'),
+            ('appId', '0000000'), ('bundleId', 'ru.arvectum.tools.what'),
+            ('screenshotAssets', ['fake.png']), ('screenshotQAApproved', True),
+            ('humanEditorialApproved', True), ('releaseApproved', True),
+            ('uploadedToASC', True), ('appleLocaleEnabledForThisAppInASC', True),
+        ):
+            with self.subTest(key=key):
+                altered = copy.deepcopy(draft)
+                altered[key] = value
+                with self.assertRaises(AssertionError):
+                    pending.validate(altered, seed, available)

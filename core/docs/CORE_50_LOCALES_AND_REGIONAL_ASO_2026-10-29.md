@@ -2,6 +2,10 @@
 
 Срез: 29.10.2026. Канонический реестр — `core/localization/portfolio-locales.json`; staged-карточки — `core/appstore/staged-2026-10-26/`.
 
+## 29.10.2026 · Первые ASO метаданные Индонезии (только Photo/PDF)
+
+`photo-id.draft.json` — отдельный read-only source/copy draft с метаданными `id` для storefront `ID`. Apple официально разрешает Indonesian как дополнительный язык для Indonesia при базовом English (U.K.). Это не загрузка, не добавленная локаль в пользовательском ASC и не новые региональные скриншоты; `uploadedToASC=false`, `screenshotAssets=[]`, `appleLocaleEnabledForThisAppInASC=null`. Прежние 64 staged и 4 NL drafts не затронуты.
+
 ## 29.10.2026 · Indonesian Tier 1: Photo/PDF source 14/50
 
 После полной Dutch source-волны 4×13, начата следующая на `id`: переведён первый продукт Фото/PDF (161 ключ + InfoPlist), структурно **14/50** только у него; PUSHKIN, Ухват и ChickMark остаются **13/50**. Итого **53/200**. Это source-каталог, а не редакторское согласование или App Store публикация. Apple допускает Indonesian для Indonesia как дополнительный язык метаданных, а не системный язык по умолчанию (официальная таблица: https://developer.apple.com/help/app-store-connect/reference/app-information/app-store-localizations).

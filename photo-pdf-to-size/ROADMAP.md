@@ -1,5 +1,10 @@
 # Фото и PDF под размер — Product Roadmap
 
+## 29.10.2026 · Indonesia ASO copy draft (ID/id)
+
+- [x] Отдельный `core/appstore/locale-expansion-2026-10-29/photo-id.draft.json`: title, subtitle, keywords, promo, описание с рекламой/приватностью/PDF-рисками, What's New и 4 плана снимков. Мета-язык App Store `id` официально поддержан в Indonesia как дополнительный к English UK; конкретная локаль в ASC не проверялась.
+- [ ] Реальные снимки, вычитка, доступность metadata locale в ASC, per-release approval. Никаких загрузок.
+
 ## 29.10.2026 · Tier 1 Bahasa Indonesia (`id`) — 14-й source язык
 
 - [x] Полный `id.lproj` Фото/PDF (161 UI строк и InfoPlist для display name + ATT), фиксированная семантика сохранности приватных файлов и PDF rasterization, полное совпадение placeholders, технические JPEG/размеры задокументированы как преднамеренно одинаковые значения. Отдельный UI тест фото, PDF и Dynamic Type с synthetic fixtures, без реальных фото пользователя.
