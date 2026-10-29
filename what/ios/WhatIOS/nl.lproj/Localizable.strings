@@ -58,7 +58,7 @@
 "Audio missing on iPhone" = "Audio ontbreekt op iPhone";
 "Audio saved on iPhone" = "Audio opgeslagen op iPhone";
 "Automatically remind about new notes" = "Automatische herinneringen";
-"Back" = "Camera achter";
+"Back" = "Achtercamera";
 "Back to quick recording" = "Terug naar snel opnemen";
 "Camera preview" = "Cameravoorbeeld";
 "Cancel reminder" = "Herinnering annuleren";
@@ -97,7 +97,7 @@
 "Español" = "Spaans";
 "Export" = "Exporteren";
 "Folder" = "Map";
-"Front" = "Camera aan voorkant";
+"Front" = "Frontcamera";
 "Handler to first microphone buffer (p95)" = "Tijd tot eerste microfoonbuffer (p95)";
 "In 1 hour" = "Over 1 uur";
 "In 2 hours" = "Over 2 uur";
@@ -137,7 +137,7 @@
 "Record" = "Opnemen";
 "Recording duration" = "Opnameduur";
 "Recording on device" = "Opname op apparaat";
-"Recording transcription" = "Opname transcriberen";
+"Recording transcription" = "Transcriptie van opname";
 "Recordings" = "Opnamen";
 "Remind" = "Herinneren";
 "Replace existing transcription?" = "Bestaande transcriptie vervangen?";

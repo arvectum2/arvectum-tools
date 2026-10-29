@@ -94,7 +94,7 @@
 "App not listed? Add manually" = "アプリが見つかりませんか？手動で追加";
 "App packages opened" = "開いたアプリパッケージ";
 "Before you start" = "はじめる前に";
-"Captured records" = "保存した項目";
+"Captured records" = "保存した通知";
 "Choose apps for groups" = "グループ用のアプリを選択";
 "Connect the apps you want to track in Shortcuts. Notifications captured from those sources will appear here." = "記録したいアプリを「ショートカット」で連携してください。受信した通知がここに表示されます。";
 "Developer" = "開発元";

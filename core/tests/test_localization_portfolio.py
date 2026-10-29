@@ -1333,7 +1333,7 @@ class EditorialLocalizationRegressionTests(unittest.TestCase):
             "ru": "Основная", "es": "Trasera", "fr": "Caméra arrière",
             "de": "Rückkamera", "pt-BR": "Traseira", "pt-PT": "Traseira",
             "it": "Posteriore", "ja": "背面", "ko": "후면",
-            "zh-Hans": "后置", "zh-Hant": "後置", "nl": "Camera achter",
+            "zh-Hans": "后置", "zh-Hant": "後置", "nl": "Achtercamera",
             "id": "Kamera belakang", "tr": "Arka kamera",
         }
         for locale, expected in labels.items():
@@ -1428,6 +1428,89 @@ class EditorialLocalizationRegressionTests(unittest.TestCase):
         source = (ROOT / "what/ios/WhatIOS/RecordingLibraryView.swift").read_text()
         self.assertIn('CaptureBrand.text("В архив", "Archive action")', source)
         self.assertIn('CaptureBrand.text("Архив", "Archive")', source)
+
+
+    def test_notification_counts_name_notifications_in_each_language(self):
+        translations = {
+            "es": "Notificaciones guardadas",
+            "fr": "Notifications enregistrées",
+            "de": "Gespeicherte Benachrichtigungen",
+            "pt-BR": "Notificações salvas",
+            "pt-PT": "Notificações guardadas",
+            "it": "Notifiche salvate",
+            "ja": "保存した通知",
+            "ko": "저장된 알림",
+            "zh-Hans": "已保存的通知",
+            "zh-Hant": "已儲存的通知",
+            "id": "Notifikasi tersimpan",
+        }
+        for lang, expected in translations.items():
+            with self.subTest(lang=lang):
+                values = self.loc(
+                    f"pushkin/ios/ArvectumNotify/Resources/{lang}.lproj/Localizable.strings"
+                )
+                self.assertEqual(values["Captured records"], expected)
+
+    def test_accessibility_transcription_label_is_not_progress_status(self):
+        names = {
+            "de": "Transkript der Aufnahme",
+            "pt-BR": "Transcrição da gravação",
+            "pt-PT": "Transcrição da gravação",
+            "ja": "録音の文字起こし",
+            "ko": "녹음 내용 텍스트",
+            "zh-Hans": "录音转写文本",
+            "zh-Hant": "錄音轉寫文字",
+            "nl": "Transcriptie van opname",
+        }
+        for lang, expected in names.items():
+            with self.subTest(lang=lang):
+                values = self.loc(
+                    f"what/ios/WhatIOS/{lang}.lproj/Localizable.strings"
+                )
+                self.assertEqual(values["Recording transcription"], expected)
+
+    def test_european_portuguese_editorial_grammar_across_four_apps(self):
+        photo = self.loc(
+            "photo-pdf-to-size/ios/PhotoPodRazmer/Resources/"
+            "pt-PT.lproj/Localizable.strings"
+        )
+        push = self.loc(
+            "pushkin/ios/ArvectumNotify/Resources/"
+            "pt-PT.lproj/Localizable.strings"
+        )
+        what = self.loc("what/ios/WhatIOS/pt-PT.lproj/Localizable.strings")
+        chick = self.loc("chickmark/ios/HabitsByArvectum/"
+                         "pt-PT.lproj/Localizable.strings")
+        self.assertEqual(photo["Файлы"], "Ficheiros")
+        self.assertIn("aplicação Ficheiros",
+                      photo["PDF-файл из приложения «Файлы»"])
+        self.assertEqual(push["Captured records"], "Notificações guardadas")
+        self.assertEqual(push["Developer"], "Programador")
+        self.assertEqual(push["Settings"], "Definições")
+        self.assertEqual(what["Recording transcription"], "Transcrição da gravação")
+        self.assertEqual(what["Reviewed"], "Revisto")
+        self.assertIn("nenhuma cópia de segurança utilizável",
+                      what["No usable backup was found. Your data was not changed."])
+        self.assertTrue(what[
+            "The last valid backup will be used. Recent text edits may be missing. Deleted notes will not be restored."
+        ].startswith("Será utilizada a última cópia de segurança"))
+        self.assertEqual(chick["habit.skip.today"], "Ignorar hoje")
+        self.assertEqual(chick["habit.skip.undo"], "Anular dia ignorado")
+        self.assertEqual(chick["notification.openSettings"], "Definições")
+        self.assertEqual(chick["backup.menu"], "Cópia de segurança")
+
+    def test_french_and_dutch_editorial_context(self):
+        push_fr = self.loc(
+            "pushkin/ios/ArvectumNotify/Resources/fr.lproj/Localizable.strings"
+        )
+        chick_fr = self.loc(
+            "chickmark/ios/HabitsByArvectum/fr.lproj/Localizable.strings"
+        )
+        what_nl = self.loc("what/ios/WhatIOS/nl.lproj/Localizable.strings")
+        self.assertEqual(push_fr["Received"], "Reçues")
+        self.assertEqual(chick_fr["habit.completed.toast"], "Habitude validée !")
+        self.assertEqual(what_nl["Back"], "Achtercamera")
+        self.assertEqual(what_nl["Front"], "Frontcamera")
 
 
 
