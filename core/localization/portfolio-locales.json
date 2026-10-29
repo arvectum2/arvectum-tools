@@ -363,9 +363,10 @@
           "zh-Hans",
           "zh-Hant",
           "nl",
-          "id"
+          "id",
+          "tr"
         ],
-        "status": "14-source-catalogs-Photo-PDF-includes-Indonesian-draft-needs-editorial-and-physical-qa",
+        "status": "15-source-catalogs-turkish-photo-draft-native-editorial-and-device-QA-pending",
         "note": "Indonesian id 161 full UI keys and InfoPlist consent permissions; source and native simulator QA not equivalent to independent linguistic review or store release."
       }
     },
@@ -404,6 +405,6 @@
       "pl",
       "th"
     ],
-    "iosSourceBaselineVerified": "All 4 active iOS apps now have 14 of 50 source languages and all 10 declared iOS/watchOS/widget bundles include Indonesian id: 56/200 app×locale source pairs. Native human editorial/physical/ASC release QA not yet complete."
+    "iosSourceBaselineVerified": "Photo/PDF 15/50, Pushkin/What/ChickMark 14/50: 57/200 app×locale source pairs; Turkish only in Photo/PDF."
   }
 }

@@ -23,6 +23,11 @@
 - [x] Photo/PDF: 161 Bahasa Indonesia UI строк и две системные строки, включая прозрачное разрешение на рекламу и предупреждение о растрировании PDF; source bundle `id.lproj`, native iPhone UI smoke 3 сценария, проверка printf parity.
 - [ ] Другие продукты (PUSHKIN, Ухват/Watch, ChickMark/Watch) ещё **без** Indonesian source; это **53/200**, не 14 языков во всех четырёх. Независимая редактура и physical/ASO acceptance не проведены.
 
+## 29.10.2026 · Turkish tr: первый пакет Фото/PDF
+
+- [x] `tr.lproj` содержит 161 ключ Фото/PDF и 2 InfoPlist usage strings (включая рекламное согласие), добавлены regressions, XcodeGen и нативные UI-тесты.
+- [ ] Пока только Фото/PDF имеет 15 source locales; PUSHKIN, Ухват и ChickMark по 14. Итого 57/200 source-пар. Турецкие native-speaker approval, реальные iPhone screenshots/ASC и публикация не выполнены.
+
 ## 29.10.2026 · Dutch в ChickMark: все 4 продукта × 13/50 source locales
 
 - [x] `nl` для ChickMark: iPhone 315, Watch 22, iPhone widget 16, Watch widget 5 строк, а также оба HealthKit permission catalog. Locale picker допускает только действительно полный пакет. Тесты проверяют backup/HealthKit/Ухват privacy copy, без каких-либо изменений данных.
