@@ -18,6 +18,6 @@
 "watch.health.unit.steps" = "langkah";
 "watch.health.unit.kilometers" = "km";
 "watch.health.unit.minutes" = "menit";
-"watch.health.unit.hours" = "j";
+"watch.health.unit.hours" = "jam";
 "watch.health.unit.unknown" = "";
 "watch.health.unavailable" = "Data Apple Health tidak tersedia";
