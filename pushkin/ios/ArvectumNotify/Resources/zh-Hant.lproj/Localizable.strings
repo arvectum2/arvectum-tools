@@ -31,7 +31,7 @@
 "Diagnostics" = "診斷";
 "Done" = "完成";
 "Enable PUSHKIN automation" = "啟用PUSHKIN自動化";
-"Everything stays on this iPhone. No account, cloud sync, ads or analytics in version 1.0." = "所有內容都保留在這臺iPhone上。1.0版不需要賬戶，也沒有云同步、廣告或使用情況分析。";
+"Everything stays on this iPhone. No account, cloud sync, ads or analytics in version 1.0." = "所有內容都保留在這部 iPhone 上。1.0 版沒有帳戶、雲端同步、廣告或使用情況分析。";
 "History" = "歷史記錄";
 "Importing a signed app package opens Shortcuts but does not enable the new automation. Enable it there and check a real notification. If missing from this catalog, use the manual guide." = "匯入簽名軟體包會開啟“快捷指令”，但不會啟用新自動化。請在“快捷指令”中啟用並使用真實通知測試。如果應用不在目錄中，請使用手動設定說明。";
 "In Shortcuts, tap Add, then enable the new automation (imports start disabled). PUSHKIN can observe a real notification from this app, but cannot read the Shortcuts enable switch." = "在“快捷指令”中點選“新增”，然後啟用新自動化（匯入時預設為關閉）。PUSHKIN可以檢測到來自該應用的真實通知，但無法讀取自動化在“快捷指令”中的開關狀態。";
