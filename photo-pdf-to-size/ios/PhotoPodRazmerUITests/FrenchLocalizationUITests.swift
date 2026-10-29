@@ -112,4 +112,49 @@ final class FrenchLocalizationUITests: XCTestCase {
     func testFrenchPDFWorkflow() {
         checkFlow("--qa-pdf-fixture", buttonLabel: "Réduire le PDF")
     }
+
+    /// Regression for the FR AXXXL source-picker title: it previously
+    /// rendered “Photo sé…” even though the full accessibility label existed.
+    @MainActor
+    func testFrenchAccessibilitySelectedPhotoText() {
+        let app = XCUIApplication()
+        app.launchArguments = [
+            "-AppleLanguages", "(fr)", "-AppleLocale", "fr_FR",
+            "-UIPreferredContentSizeCategoryName",
+            "UICTContentSizeCategoryAccessibilityXXXL",
+            "--qa-photo-fixture"
+        ]
+        app.launchEnvironment["ARVECTUM_NATIVE_QA_FIXTURE"] = "no-fill"
+        app.launch()
+        let decline = app.buttons["ad-consent-decline"]
+        if decline.waitForExistence(timeout: 3) { decline.tap() }
+        dismissOptionalUpdatePrompt(app)
+
+        let fullTitle = app.staticTexts["Photo et PDF aux bonnes dimensions"].firstMatch
+        XCTAssertTrue(fullTitle.waitForExistence(timeout: 10))
+        XCTAssertGreaterThan(fullTitle.frame.height, 32,
+                             "The long French header must wrap at accessibility sizes")
+
+        let photoTitle = app.staticTexts["Photo sélectionnée"].firstMatch
+        XCTAssertTrue(photoTitle.waitForExistence(timeout: 10))
+        XCTAssertGreaterThan(photoTitle.frame.height, 80,
+                             "The full picker title needs two readable lines")
+        let contentScroll = app.scrollViews.firstMatch
+        XCTAssertTrue(contentScroll.exists)
+        // A full-page swipe overshoots the picker; move within the card
+        // by a fraction of the scroll-view height instead.
+        let from = contentScroll.coordinate(
+            withNormalizedOffset: CGVector(dx: 0.5, dy: 0.77)
+        )
+        let to = contentScroll.coordinate(
+            withNormalizedOffset: CGVector(dx: 0.5, dy: 0.48)
+        )
+        from.press(forDuration: 0.1, thenDragTo: to)
+        XCTAssertTrue(photoTitle.isHittable,
+                      "The full French photo picker title must stay scroll-accessible")
+        let evidence = XCTAttachment(screenshot: XCUIScreen.main.screenshot())
+        evidence.name = "french-axxxl-photo-picker-after-scroll"
+        evidence.lifetime = .keepAlways
+        add(evidence)
+    }
 }

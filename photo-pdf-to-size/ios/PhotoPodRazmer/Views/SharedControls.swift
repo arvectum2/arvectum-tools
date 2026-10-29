@@ -36,12 +36,16 @@ struct BrandHeader: View {
                 Text(tr("Фото и PDF под размер"))
                     .font(.headline.weight(.semibold))
                     .foregroundStyle(.white)
-                    .lineLimit(1)
+                    // Long localized titles need two visible lines in the
+                    // accessibility layout, not a clipped one-line marquee.
+                    .lineLimit(dynamicTypeSize.isAccessibilitySize ? 2 : 1)
+                    .multilineTextAlignment(.trailing)
                     .minimumScaleFactor(0.72)
+                    .accessibilityLabel(Text(tr("Фото и PDF под размер")))
             }
         }
         .padding(.horizontal, 12)
-        .frame(height: 46)
+        .frame(height: dynamicTypeSize.isAccessibilitySize ? 76 : 46)
         .dynamicTypeSize(dynamicTypeSize.isAccessibilitySize ? .xxxLarge : dynamicTypeSize)
         .background(Color.arvectumNavy, in: RoundedRectangle(cornerRadius: 20))
     }
