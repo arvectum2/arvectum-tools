@@ -415,7 +415,7 @@ class LocalizationPortfolioTests(unittest.TestCase):
         self.assertEqual(sum(f["pt_pt_brazilian_flags"] for f in result["catalogs"]), 0)
         self.assertEqual(sum(f["format_mismatch"] for f in result["catalogs"]), 0)
         self.assertEqual(sum(f["missing"] + f["extra"] for f in result["catalogs"]), 0)
-        self.assertEqual(result['english_identical_triaged'], 47)
+        self.assertEqual(result['english_identical_triaged'], 48)
         self.assertEqual(result['english_identical_untriaged'], [])
         self.assertEqual(result['english_identical_stale_exceptions'], [])
 
@@ -1692,6 +1692,50 @@ class EditorialLocalizationRegressionTests(unittest.TestCase):
         }
         self.assertEqual(values["resize_photo"], "Fotoafmetingen wijzigen")
 
+
+
+    def test_chickmark_turkish_source_full_iphone_watch_widgets(self):
+        root = ROOT / "chickmark/ios"
+        for bundle, expected in (
+            ("HabitsByArvectum", 315),
+            ("HabitsByArvectumWatch", 22),
+            ("HabitsByArvectumWidget", 16),
+            ("HabitsByArvectumWatchWidget", 5),
+        ):
+            with self.subTest(bundle=bundle):
+                en = i18n.read_strings(root / bundle / "en.lproj/Localizable.strings", [])
+                tr = i18n.read_strings(root / bundle / "tr.lproj/Localizable.strings", [])
+                self.assertEqual(len(en), expected)
+                self.assertEqual(set(en), set(tr))
+                for key in en:
+                    self.assertEqual(i18n.placeholders(en[key]), i18n.placeholders(tr[key]), key)
+        for bundle in ("HabitsByArvectum", "HabitsByArvectumWatch"):
+            en = i18n.read_strings(root / bundle / "en.lproj/InfoPlist.strings", [])
+            tr = i18n.read_strings(root / bundle / "tr.lproj/InfoPlist.strings", [])
+            self.assertEqual(set(en), set(tr))
+        en = i18n.read_strings(root / "HabitsByArvectum/en.lproj/AppShortcuts.strings", [])
+        tr = i18n.read_strings(root / "HabitsByArvectum/tr.lproj/AppShortcuts.strings", [])
+        self.assertEqual(set(en), set(tr))
+        ui_tr = i18n.read_strings(root / "HabitsByArvectum/tr.lproj/Localizable.strings", [])
+        self.assertEqual(ui_tr["habit.create"], "Alışkanlık oluştur")
+        self.assertEqual(ui_tr["habit.name.placeholder"], "Alışkanlık adı")
+        self.assertIn("Türkçe", (root / "HabitsByArvectum/Localization.swift").read_text())
+        self.assertIn("testTurkishEmptyStateAndHabitForm",
+                      (root / "HabitsByArvectumUITests/TurkishLocalizationUITests.swift").read_text())
+
+    def test_polish_photo_source_and_permission_copy(self):
+        root = ROOT / "photo-pdf-to-size/ios/PhotoPodRazmer/Resources"
+        en = i18n.read_strings(root / "en.lproj/Localizable.strings", [])
+        pl = i18n.read_strings(root / "pl.lproj/Localizable.strings", [])
+        self.assertEqual(len(en), 161)
+        self.assertEqual(set(en), set(pl))
+        for key in en:
+            self.assertEqual(i18n.placeholders(en[key]), i18n.placeholders(pl[key]), key)
+        en_info = i18n.read_strings(root / "en.lproj/InfoPlist.strings", [])
+        pl_info = i18n.read_strings(root / "pl.lproj/InfoPlist.strings", [])
+        self.assertEqual(set(en_info), set(pl_info))
+        self.assertIn("testPolishPhotoResult",
+                      (ROOT / "photo-pdf-to-size/ios/PhotoPodRazmerUITests/PolishLocalizationUITests.swift").read_text())
 
 
 if __name__ == "__main__":

@@ -104,6 +104,12 @@
       "reason": "Product brand; should remain untranslated"
     },
     {
+      "file": "chickmark/ios/HabitsByArvectumWatchWidget/tr.lproj/Localizable.strings",
+      "key": "watch.widget.title",
+      "value": "ChickMark",
+      "reason": "Brand name ChickMark is intentionally unchanged in Turkish Watch widgets."
+    },
+    {
       "file": "chickmark/ios/HabitsByArvectumWatchWidget/zh-Hans.lproj/Localizable.strings",
       "key": "watch.widget.title",
       "value": "ChickMark",

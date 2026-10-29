@@ -1,0 +1,369 @@
+"today.title" = "Bugün";
+"today.progress.format" = "İşaretlenen: %d / %d";
+"today.empty.title" = "Bir alışkanlıkla başla";
+"today.empty.description" = "Sadece birkaç saniyenizi alır. Hesap veya ek kurulum gerekmez.";
+"today.none.title" = "Bugünlük bitti";
+"today.none.description" = "Bir sonraki alışkanlığınız planlanan gününde görünecektir.";
+
+"habit.add.accessibility" = "Alışkanlık ekle";
+"habit.create" = "Alışkanlık oluştur";
+"habit.section" = "Alışkanlık";
+"habit.name.placeholder" = "Alışkanlık adı";
+"habit.streak.one" = "1 gün üst üste";
+"habit.streak.format" = "%d gün üst üste";
+"habit.streak.start" = "Seriyi bugün başlat";
+"habit.complete" = "Tamamlandı olarak işaretle";
+"habit.undo" = "Tamamlamayı geri al";
+"habit.completed.toast" = "Chick-in tamamlandı";
+"habit.skipped.today" = "Bugün atlandı";
+"habit.skip.today" = "Bugün atla";
+"habit.skip.undo" = "Atlamayı geri al";
+"habit.new.title" = "Yeni alışkanlık";
+"habit.edit.title" = "Alışkanlığı düzenle";
+"habit.edit.action" = "Düzenle";
+
+"section.appearance" = "Görünüm";
+"section.days" = "Günler";
+"section.reminder" = "Hatırlatıcı";
+"section.moreOptions" = "Diğer seçenekler";
+"appearance.color" = "Renk";
+"appearance.icon" = "Simge";
+
+"schedule.everyday" = "Her gün";
+"schedule.weekdays" = "Hafta içi";
+"schedule.weekdays.description" = "Hafta içi";
+"schedule.custom" = "Özel program";
+"schedule.flexible.toggle" = "Esnek haftalık hedef";
+"schedule.flexible.target.format" = "%d kez haftada";
+"schedule.flexible.hint" = "Haftalık hedef tamamlanana kadar alışkanlık 'Bugün' ekranında kalır.";
+"schedule.flexible.description.format" = "%d kez haftada";
+"schedule.interval.toggle" = "Tamamlandıktan sonra tekrarla";
+"schedule.interval.days.format" = "Tamamlandıktan sonra her %d günde bir";
+"schedule.interval.hint" = "Bir sonraki son tarih, alışkanlığı fiilen tamamladığınız günden itibaren hesaplanır.";
+"schedule.interval.description.format" = "Tamamlandıktan sonra her %d günde bir";
+"habit.streak.weeks.format" = "%d hafta üst üste";
+"habit.weekly.progress.format" = "Bu hafta %d / %d";
+
+"reminder.toggle" = "Hatırlat";
+"reminder.time" = "Zaman";
+"reminder.flexible.unavailable" = "Hatırlatıcılar yalnızca sabit programlar için kullanılabilir.";
+"reminder.notification.body" = "Alışkanlığını tamamlama zamanı";
+
+"notification.denied.title" = "Bildirimler kapalı";
+"notification.denied.message" = "Hatırlatıcıları etkinleştirmek için iPhone Ayarları'ndan ChickMark için bildirimlere izin verin.";
+"notification.openSettings" = "Ayarlar";
+"notification.action.complete" = "Bitti";
+"notification.action.skip" = "Bugün Geç";
+
+"common.cancel" = "İptal";
+"common.done" = "Bitti";
+"common.save" = "Kaydet";
+"common.ok" = "Tamam";
+"common.undo" = "Geri Al";
+"common.add" = "Ekle";
+"common.delete" = "Sil";
+
+"quick.water" = "Su";
+"quick.reading" = "Okuma";
+"quick.walk" = "Yürüyüş";
+"quick.workout" = "Antrenman";
+
+"weekday.mon.short" = "Pzt";
+"weekday.tue.short" = "Sal";
+"weekday.wed.short" = "Çar";
+"weekday.thu.short" = "Per";
+"weekday.fri.short" = "Cuma";
+"weekday.sat.short" = "Cmt";
+"weekday.sun.short" = "Paz";
+
+"detail.history.title" = "Son 6 hafta";
+"detail.history.hint" = "Kaydı düzeltmek için geçmiş bir güne dokun.";
+"detail.pause" = "Alışkanlığı duraklat";
+"detail.resume" = "Alışkanlığı devam ettir";
+"detail.archive" = "Arşivle";
+"detail.restore" = "Arşivden geri yükle";
+"detail.delete" = "Alışkanlığı sil";
+"detail.delete.title" = "Alışkanlığı sil?";
+"detail.delete.message" = "Bu alışkanlığın tamamlama geçmişi de silinecektir.";
+"detail.more.accessibility" = "Daha fazla alışkanlık işlemi";
+
+"archive.title" = "Arşivlendi";
+"archive.accessibility" = "Arşivlenmiş alışkanlıklar";
+"archive.empty.title" = "Arşivde alışkanlık yok";
+"archive.empty.description" = "Arşivlenen alışkanlıklar burada görünecek.";
+"manage.title" = "Alışkanlıkları Yönet";
+"manage.accessibility" = "Alışkanlıkları Yönet";
+"manage.active" = "Aktif";
+"manage.paused" = "Duraklatıldı";
+"manage.reorder.hint" = "İstediğiniz sıraya getirmek için Düzenle'ye dokunun.";
+"manage.empty.title" = "Burada henüz bir şey yok";
+"manage.empty.description" = "Alışkanlıklarınız burada görünecek.";
+"manage.privacy" = "Gizlilik Politikası";
+"manage.support" = "Destek";
+
+"stats.streak" = "seri";
+"stats.best.format" = "en iyi %d";
+"stats.completion" = "tamamlandı";
+"stats.nextDue" = "sonraki tarih";
+"stats.interval" = "aralık";
+"stats.interval.days.format" = "%d gün";
+"stats.checkins" = "kayıtlar";
+
+"status.completed" = "tamamlandı";
+"status.notCompleted" = "tamamlanmadı";
+"status.skipped" = "atlandı";
+"status.missed" = "kaçırıldı";
+"status.paused" = "duraklatıldı";
+
+"accessibility.color.format" = "Renk %d";
+"accessibility.symbol.format" = "Simge %d";
+"accessibility.selected" = "Seçildi";
+
+"storage.error.title" = "ChickMark verilerine şu an ulaşılamıyor";
+"storage.error.message" = "Verileriniz sıfırlanmadı veya üzerine yazılmadı. Alışkanlıklar uygulamasını kapatıp tekrar açın. Sorun devam ederse, tekrar denemeden önce uygulamayı güncelleyin.";
+
+"shortcut.habit.type" = "Alışkanlık";
+"shortcut.habit.parameter" = "Alışkanlık";
+"shortcut.complete.title" = "Alışkanlığı Tamamla";
+"shortcut.complete.description" = "Bugünkü alışkanlıklardan birini tamamlandı olarak işaretle.";
+"shortcut.complete.success" = "\"%@\" tamamlandı olarak işaretlendi.";
+"shortcut.undo.title" = "Alışkanlığı Geri Al";
+"shortcut.undo.description" = "Bugünkü alışkanlıklardan birini tamamlanmadı olarak işaretle.";
+"shortcut.undo.success" = "\"%@\" tamamlanmadı olarak işaretlendi.";
+"shortcut.notDue" = "Bu alışkanlık bugün için planlanmadı.";
+
+"add.menu.habit" = "Yeni alışkanlık";
+"add.menu.oneoff" = "Tek seferlik hatırlatıcı";
+"oneoff.section" = "Hatırlatıcılar";
+"oneoff.new.title" = "Yeni hatırlatıcı";
+"oneoff.edit.title" = "Hatırlatıcıyı düzenle";
+"oneoff.title.placeholder" = "Seni ne hakkında hatırlatayım?";
+"oneoff.when" = "Ne zaman";
+"oneoff.dateTime" = "Tarih ve saat";
+"oneoff.hint" = "Bu hatırlatıcı bir kez çalışır ve alışkanlık serilerini veya istatistikleri etkilemez.";
+"oneoff.notification.body" = "Tek seferlik hatırlatıcı";
+"oneoff.notification.denied.message" = "Tek seferlik hatırlatıcıları almak için iPhone Ayarları'nda ChickMark için bildirimlere izin verin.";
+"oneoff.complete" = "Tamamlandı olarak işaretle";
+"oneoff.edit" = "Düzenle";
+"oneoff.actions" = "Hatırlatıcı işlemleri";
+"oneoff.delete" = "Hatırlatıcıyı sil";
+"oneoff.demo.marathon" = "Maraton kontenjanı satın al";
+"oneoff.today.format" = "Bugün, %@";
+"oneoff.tomorrow.format" = "Yarın, %@";
+
+"insights.title" = "İstikrar";
+"insights.week" = "Son 7 gün";
+"insights.month" = "Son 30 gün";
+"insights.ratio" = "%d / %d gün";
+"insights.skipped" = "Atlandı: %d";
+"insights.note" = "Gün bitmeden bugün kaçırılmış sayılmaz.";
+"backup.menu" = "Yedekle";
+"backup.export" = "Verileri dışa aktar";
+"backup.import" = "Verileri içe aktar";
+"backup.chooseMode" = "Yedeklemeyi geri yükle";
+"backup.merge" = "Eksik kayıtları birleştir";
+"backup.replace" = "Tüm verileri değiştir";
+"backup.warning" = "JSON dosyası alışkanlıklarınızı ve hatırlatıcılarınızı içerir. Değiştir seçeneği mevcut kayıtları siler ve silmeleri iCloud üzerinden senkronize edebilir. Yedeklemenizi güvenli bir yerde saklayın.";
+"backup.result" = "Yedekleme";
+"backup.success" = "Veriler başarıyla içe aktarıldı.";
+
+"habit.multi.target.format" = "Günlük işaretleme: %d";
+"habit.multi.target.hint" = "Her işaretleme ayrı sayılır. Tüm daireler dolduğunda alışkanlık tamamlanmış sayılır.";
+"habit.multi.slot.format" = "İşaretleme %d / %d";
+"habit.multi.checked" = "Tamamlandı";
+"habit.multi.unchecked" = "Tamamlanmadı";
+
+"habit.multi.target.locked" = "Geçmiş kaydı başladıktan sonra günlük işaretleme sayısı değiştirilemez.";
+
+"habit.goal.kind" = "Hedef türü";
+"habit.goal.checks" = "İşlem Sayısı";
+"habit.goal.quantity" = "Adet";
+"habit.goal.duration" = "Süre";
+"habit.goal.quantity.format" = "Hedef: %d";
+"habit.goal.duration.format" = "Hedef: %d dakika";
+"habit.goal.quantity.progress" = "%d / %d";
+"habit.goal.duration.progress" = "%d / %d dk";
+"habit.goal.add" = "Bir adet ekle";
+"habit.goal.subtract" = "Bir adedi geri al";
+
+"insights.noData" = "Veri yok";
+
+"groups.select" = "Grup";
+"groups.none" = "Grup yok";
+"groups.add" = "Yeni grup";
+"groups.delete" = "Grubu sil (alışkanlıkları koru)";
+"groups.delete.short" = "Grubu sil";
+"groups.actions" = "Grup işlemleri";
+"groups.delete.keepHint" = "Alışkanlıklar korunur.";
+"groups.placeholder" = "Grup adı";
+
+"backup.error.version" = "Desteklenmeyen ChickMark yedekleme sürümü.";
+"backup.error.invalid" = "Geçersiz veya uyumsuz ChickMark yedekleme verisi.";
+"backup.error.unreadable" = "Seçilen yedekleme dosyası okunamıyor.";
+
+"insights.weekly.title" = "Haftalık hedef istikrarı";
+"insights.fourWeeks" = "4 hafta";
+"insights.twelveWeeks" = "12 hafta";
+"insights.weekly.note" = "Bu hafta kaçırılmış sayılmaz. Duraklatılan haftalar oranınızı düşürmez.";
+"insights.weekly.ratio" = "%d / %d hafta";
+"insights.weekly.neutral" = "Duraklatıldı: %d hafta";
+"insights.interval.title" = "Tekrar geçmişi";
+"insights.ninetyDays" = "90 gün";
+"insights.interval.note" = "Sadece gerçek tamamlamalar sayılır; tamamlamadan sonraki tekrarlar için günlük kota yoktur.";
+"insights.interval.occurrences" = "tamamlamalar";
+"insights.interval.average" = "Ort. aralık: %d gün";
+"insights.interval.noGap" = "Yetersiz geçmiş";
+
+"habit.history.edit" = "Günü düzenle";
+"habit.history.progress" = "%d / %d kayıt";
+"habit.history.error" = "Değişiklikler kaydedilemedi";
+
+"quick.multicheck" = "Su (5 kez)";
+"brand.website.accessibility" = "Arvectum tarafından sunulan ChickMark v%@ web sitesini aç";
+
+// HealthKit opt-in (v1.4)
+"health.title" = "Apple Sağlık";
+"health.connect.hint" = "Otomatik kayıtlar için aktiviteyi bağla";
+"health.connected.hint" = "Otomatik kayıtlar etkin";
+"health.auto.completed" = "Apple Sağlık'tan tamamlandı";
+"health.description" = "Bir ölçüt seçin. Günlük toplam miktar hedefinize ulaştığında ChickMark otomatik olarak onaylayacaktır.";
+"health.rule.section" = "Otomatik tamamlama";
+"health.metric.title" = "Hareketlilik";
+"health.metric.steps" = "Adım";
+"health.metric.distance" = "Yürüme ve koşu mesafesi";
+"health.metric.workouts" = "Antrenman dakikası";
+"health.unit.steps" = "adım";
+"health.unit.kilometers" = "km";
+"health.unit.minutes" = "dk";
+"health.target" = "Günlük hedef";
+"health.connect" = "Sağlık ile Bağlan";
+"health.save" = "Kuralı kaydet";
+"health.disconnect" = "Apple Sağlık Bağlantısını Kes";
+"health.settings" = "Apple Sağlık";
+"health.privacy" = "HealthKit sonuçları iPhone ve Apple Watch üzerinde yerel olarak kontrol edilir. Sağlık verileri veya otomatik olarak türetilen sonuçlar CloudKit'e yüklenmez veya reklam amaçlı gönderilmez. Manuel olarak işaretlenen alışkanlıklar mevcut ayarlarınızla senkronize edilmeye devam eder. Otomatik aktivite durumları gecikmeli olarak güncellenebilir. Bağlantıyı kesmek yeni kontrolleri durdurur.";
+"health.error.unavailable" = "Apple Sağlık bu cihazda kullanılamıyor.";
+"health.error.authorization" = "Apple Sağlık erişimi istenemedi.";
+
+"health.unsupported" = "Haftalık hedefler için yalnızca tekil koşu antrenmanları desteklenir. Kayan aralıklar ve çoklu işaretleme hedefleri manuel olarak tamamlanmalıdır.";
+
+"health.metric.running" = "Koşu antrenmanı (tek oturum)";
+
+"health.metric.sleep" = "Uykuda (uyanış günü)";
+
+"health.unit.hours" = "saat";
+
+"health.shortcuts.title" = "Okuma ve diğer uygulamalar · Kestirmeler";
+
+"health.shortcuts.action" = "Uygulama tabanlı bir alışkanlığı otomatikleştir";
+
+"health.shortcuts.instructions" = "iPhone’da Kestirmeler uygulamasını açın → Otomasyon → bir tetikleyici seçin (örneğin, Kitaplar uygulamasını kapatma) → ChickMark’ın “Alışkanlığı Tamamla” eylemini ekleyin → alışkanlığınızı seçin. Bu eylemi Siri veya Ana Ekran kestirmesiyle elle de çalıştırabilirsiniz.";
+
+"health.shortcuts.limitation" = "Bir uygulamanın kapatılması, belirli bir süre boyunca okuma yaptığınızı kanıtlamaz. Kestirmeler gerçek okuma süresini değil, seçilen olayı kaydeder.";
+
+"health.integrations.title" = "Akıllı otomasyonlar";
+
+// In-app language selection
+"language.title" = "Dil";
+"language.system" = "Sistem varsayılanı";
+
+"detail.more.title" = "Geçmiş ve analizler";
+"detail.history.recent" = "Son etkinlikler";
+
+"manage.about" = "ChickMark Hakkında";
+
+"habit.multi.today.progress" = "Tamamlamalar: %d/%d";
+
+"ads.debug.title" = "Yandex Ads teşhisi";
+"ads.debug.state" = "Durum";
+
+"keyboard.dismiss" = "Klavyeyi gizle";
+"health.edit.target.hint" = "Hedefi alışkanlık ayarlarından düzenleyin";
+
+"health.link.toggle" = "Apple Sağlık ile otomatik tamamla";
+"health.local.hint" = "İlerleme cihazınızda saklanır. Değişiklikler kaydettiğinizde uygulanır.";
+
+"restart.settings.title" = "Nazik Yeniden Başlatma";
+"restart.settings.enable" = "Nazik dönüşü teklif et";
+"restart.settings.threshold" = "Bir ara verdikten sonra";
+"restart.settings.explanation" = "Varsayılan olarak kapalıdır. Bir ara verdikten sonra nazik bir hatırlatma sunar. Önceki girişler, atlamalar, seriler ve programlar asla değiştirilmez. Bu ayar sadece bu iPhone'da saklanır.";
+"restart.settings.shortTitle" = "Yeniden Başlat";
+"restart.settings.disabledHint" = "Aralığı seçmek için Nazik Yeniden Başlat özelliğini açın.";
+"restart.days" = "%d gün";
+"restart.card.title" = "Tekrar devam etmeye hazır mısın?";
+"restart.card.description" = "Önceki ilerlemen hala burada. Sana uygun olduğunda devam etmek için bir alışkanlık seç.";
+"restart.card.later" = "Belki yarın";
+
+"weekly.title" = "Haftalık özet";
+"weekly.optIn" = "Yerel haftalık özeti göster";
+"weekly.privacy" = "Varsayılan olarak kapalı. Sadece bu cihazda hesaplanır; bildirim, hesap, analiz veya ağ senkronizasyonu içermez. Apple Sağlık ile bağlantılı alışkanlıklar hariç tutulur, çünkü eski otomatik tamamlamalar manuel girişlerden çıkarılamaz.";
+"weekly.lastCompleted" = "Son tamamlanan takvim haftası";
+"weekly.calendarWeek" = "Hafta";
+"weekly.scheduled" = "Planlanan günler";
+"weekly.neutral" = "Nötr atlama/duraklatma günleri";
+"weekly.flexible" = "Tamamlanan esnek haftalık hedefler";
+"weekly.rolling" = "Ardışık alışkanlık gerçekleşmeleri";
+"weekly.activity" = "Aktivite";
+"weekly.completedDays" = "Tamamlanan alışkanlık-günleri";
+"weekly.bestDay" = "En iyi gün";
+"weekly.trend" = "Geçen haftaya göre değişim";
+"weekly.ratio" = "%d / %d";
+"weekly.bestDay.format" = "%@ (%d)";
+"weekly.note" = "Sadece tamamen tamamlanmış geçmiş haftalar sayılır. Bugün değerlendirmeye alınmaz. Atlamalar ve duraklatmalar nötrdür; haftalık hedefler haftada bir kez değerlendirilir ve sürekli alışkanlıklar (rolling habits) yeni birer eksik olarak değil, gerçekleşen durumlar olarak sayılır. Trend, yüzde değil, tamamlanan alışkanlık günlerinin sayısındaki farkı karşılaştırır.";
+
+"review.video.fallback" = "Video";
+"review.note.prefix" = "Notu incele: ";
+"review.source.title" = "UhWhat? notu";
+"review.paste.instructions" = "ChickMark'ın paylaştığınız notu okuyabilmesi için sistem Yapıştır butonuna dokunun. Tek seferlik bir hatırlatıcı oluşturmadan önce tekrar onay vereceksiniz.";
+"review.paste.expired" = "Pano değişti veya bağlantı süresi doldu. UhWhat? notunu tekrar paylaşın.";
+"review.paste.accessibility" = "Notu yapıştır";
+"review.paste.title" = "Notu al";
+"review.paste.failed" = "Not yapıştırılamadı";
+"review.duplicate.title" = "Not zaten içe aktarıldı";
+"review.duplicate.message" = "Bu not için halihazırda tek seferlik bir hatırlatıcı mevcut. Yinelenen bir kayıt oluşturulmayacak.";
+"review.source.section" = "UhWhat? Kaynağından";
+"review.kind.audio" = "Sesli not";
+"review.kind.text" = "Metin notu";
+"review.kind.video" = "Video notu";
+"review.empty.text" = "Metin mevcut değil. Orijinal UhWhat?. içinde kalacaktır.";
+"review.source.open" = "Orijinali aç";
+"review.remind.section" = "Hatırlatıcı";
+"review.due.label" = "Hatırlat";
+"review.privacy.explanation" = "Bu tek seferlik bir hatırlatmadır, tekrarlayan bir alışkanlık değildir. Metin, onaylamadan sonra ChickMark içinde yerel olarak kaydedilir. Bildirim, transkripsiyon metnini göstermez.";
+"review.add.title" = "UhWhat? üzerinden ekle";
+"review.add.create" = "Oluştur";
+"review.add.failed" = "Hatırlatıcı oluşturulamadı";
+"review.notification.permission" = "Hatırlatıcı oluşturmak için Ayarlar'dan ChickMark bildirimlerine izin verin.";
+"review.attachment.noText" = "Henüz bir döküm yok. Orijinali UhWhat? içinde açın.";
+"review.source.openInApp" = "Orijinali UhWhat? içinde aç";
+"review.oneoff.open" = "UhWhat? notunu aç";
+"review.oneoff.read" = "Notu oku";
+"review.import.alert" = "UhWhat? üzerinden aktar";
+"review.import.failure" = "İçe aktarılan notlar açılamadı: ";
+"review.notification.genericTitle" = "ChickMark: bir notu gözden geçir";
+
+"water.export.title" = "Suyu Apple Sağlık'a aktar";
+"water.export.toggle" = "Suyu Apple Sağlık'a ekle";
+"water.export.volume" = "Kayıt başına mililitre: %d ml";
+"water.export.example" = "Her kayıt, varsayılan bir bardak boyutu yerine seçtiğiniz miktarı ekler.";
+"water.export.explanation" = "Bu sadece bu miktar alışkanlığı için geçerlidir ve etkinleştirdiğiniz günden itibaren başlar. Geçmiş günler aktarılmaz. Geri alma veya düzeltmeler yalnızca ChickMark tarafından oluşturulan kayıtları günceller.";
+"water.export.privacy" = "Su miktarları cihazınızda kalır. Kaydederken ChickMark, Apple Sağlık'tan yazma izni isteyecektir.";
+"water.export.error" = "Su dışa aktarımı kullanılamıyor";
+
+"water.export.storage.error" = "ChickMark su dışa aktarma ayarlarını okuyamıyor. Herhangi bir değişiklik yapılmadı. Uygulamayı yeniden açın ve tekrar deneyin.";
+
+// First-run onboarding
+"onboarding.first.title" = "Küçük bir alışkanlık";
+"onboarding.first.body" = "Bir alışkanlık oluşturmak için + simgesine dokunun ve tekrarlama sıklığını seçin.";
+"onboarding.second.title" = "Tamamlandı olarak işaretle";
+"onboarding.second.body" = "Bugünkü alışkanlıkları işaretleyin. Programınız kontrolünüzde kalmaya devam eder.";
+"onboarding.third.title" = "Takipte kalın";
+"onboarding.third.body" = "İsteğe bağlı hatırlatıcılar geri dönmenize yardımcı olur. Bunları istediğiniz zaman değiştirebilirsiniz.";
+"onboarding.skip" = "Atla";
+"onboarding.next" = "İleri";
+"onboarding.start" = "Başlayın";
+
+// Read-only observed gaps for completion-relative habits
+"weekly.gapTitle" = "Gözlemlenen boşluklar · kayan alışkanlıklar";
+"weekly.gapDays" = "%d takvim günü";
+"weekly.gapUnknown" = "Yetersiz veri";
+"weekly.gapNote" = "İki son gerçekleşen tamamlama arasındaki gün sayısı (daha önceki olan bu haftalardan önce olabilir). Duraklatmalar ve atlamalar kaçırılmış gün olarak sayılmaz.";

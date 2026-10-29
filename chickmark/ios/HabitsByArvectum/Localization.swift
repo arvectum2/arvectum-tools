@@ -107,6 +107,7 @@ enum ChickMarkLanguage {
         case "it": return "Italiano"
         case "ja": return "日本語"
         case "ko": return "한국어"
+        case "tr": return "Türkçe"
         case "zh-Hans": return "简体中文"
         case "zh-Hant": return "繁體中文"
         case system: return L10n.string("language.system")

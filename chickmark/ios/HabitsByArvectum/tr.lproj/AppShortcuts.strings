@@ -1,0 +1,4 @@
+"Complete a habit in ${applicationName}" = "Bir alışkanlığı ${applicationName} uygulamasında tamamla";
+"Check off a habit in ${applicationName}" = "Bir alışkanlığı ${applicationName} uygulamasında işaretle";
+"Undo a habit in ${applicationName}" = "Bir alışkanlığı ${applicationName} uygulamasında geri al";
+"Mark a habit incomplete in ${applicationName}" = "Bir alışkanlığı ${applicationName} uygulamasında tamamlanmadı olarak işaretle";

@@ -1,0 +1,17 @@
+"widget.title" = "Bugün";
+"widget.displayName" = "Bugünkü Alışkanlıklar";
+"widget.description" = "Uygulamayı açmadan bugünkü ilerlemenizi görün ve alışkanlıkları tamamlayın.";
+"widget.empty" = "Bugün için planlanmış bir şey yok";
+"widget.allDone" = "Bugün için her şey tamam";
+"widget.remaining.format" = "%d kaldı";
+"widget.inline.format" = "Bugün %d / %d";
+"widget.more.format" = "Daha %d";
+"widget.complete" = "Tamamlandı olarak işaretle";
+"widget.undo" = "Tamamlamayı geri al";
+"widget.preview.water" = "Su";
+"widget.preview.reading" = "Okuma";
+
+"widget.duration.format" = "%d / %d dk";
+"widget.action.complete.format" = "%@ Tamamla";
+"widget.action.undo.format" = "Tamamlamayı Geri Al: %@";
+"widget.empty.small" = "Bugün için uygun veri yok";
