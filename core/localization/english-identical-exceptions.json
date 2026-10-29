@@ -206,6 +206,18 @@
       "reason": "Language-independent photo dimensions, format and size units"
     },
     {
+      "file": "photo-pdf-to-size/ios/PhotoPodRazmer/Resources/tr.lproj/Localizable.strings",
+      "key": "600×600 px · JPEG · ≤240 KB",
+      "value": "600×600 px · JPEG · ≤240 KB",
+      "reason": "Pixel dimensions and byte-size technical specifications are internationally identical in Turkish."
+    },
+    {
+      "file": "photo-pdf-to-size/ios/PhotoPodRazmer/Resources/tr.lproj/Localizable.strings",
+      "key": "900×900 px · JPEG · 10 KB–1 MB",
+      "value": "900×900 px · JPEG · 10 KB–1 MB",
+      "reason": "Pixel dimensions and byte-size technical specifications are internationally identical in Turkish."
+    },
+    {
       "file": "pushkin/ios/ArvectumNotify/Resources/de.lproj/Localizable.strings",
       "key": "In PUSHKIN",
       "value": "In PUSHKIN",
