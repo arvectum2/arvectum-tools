@@ -134,7 +134,7 @@
 "Review the app list and tap Add in Shortcuts. You do not have to manually select all 1,000 catalog apps." = "アプリの一覧を確認し、「ショートカット」で「追加」をタップしてください。カタログ内の1,000件をすべて手動選択する必要はありません。";
 "Selected" = "選択済み";
 "Selected apps" = "選択したアプリ";
-"Send one real notification from an app already installed and included in Shortcuts. Return to History to check the result." = "インストール済みで「ショートカット」に設定したアプリから実際の通知を送信してください。「履歴」に戻って結果を確認します。";
+"Send one real notification from an app already installed and included in Shortcuts. Return to History to check the result." = "インストール済みで「ショートカット」に設定したアプリから実際の通知を送信してください。「履歴」に戻って結果を確認してください。";
 "Shortcuts" = "ショートカット";
 "Signed app options" = "署名済みアプリの選択肢";
 "Source app" = "送信元アプリ";

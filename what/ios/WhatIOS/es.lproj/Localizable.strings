@@ -172,7 +172,7 @@
 "The audio and transcript will be deleted from this iPhone. This cannot be undone." = "El audio y la transcripción se eliminarán de este iPhone. Esta acción no se puede deshacer.";
 "The final video segment has not finished writing. Original files are preserved for recovery." = "El último fragmento de vídeo aún no se ha terminado de escribir. Los archivos originales se conservan para recuperarlos.";
 "The full note temporarily replaces this device's clipboard for up to five minutes. ChickMark asks before saving. Nothing is uploaded." = "La nota completa sustituye temporalmente el contenido del portapapeles de este dispositivo durante un máximo de cinco minutos. ChickMark pide confirmación antes de guardarla. No se sube nada.";
-"The original note is no longer available in UhWhat." = "La nota original ya no está disponible en UhWhat?.";
+"The original note is no longer available in UhWhat." = "La aplicación UhWhat? ya no contiene la nota original.";
 "This is the last message received from your Watch, not a real-time connection check. It can be delayed." = "Este es el último mensaje recibido del Watch, no una comprobación de conexión en tiempo real. Puede llegar con retraso.";
 "This note and its video will be deleted from this device." = "Esta nota y su vídeo se eliminarán de este dispositivo.";
 "To ChickMark" = "A ChickMark";

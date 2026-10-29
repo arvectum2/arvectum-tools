@@ -115,7 +115,7 @@
 "New text note" = "新しいテキストメモ";
 "No Watch queue report received yet." = "Watchからキューの報告をまだ受信していません。";
 "No matching recordings" = "一致する録音がありません";
-"No microphone data yet — check audio input" = "マイクからのデータがありません・音声入力を確認してください";
+"No microphone data yet — check audio input" = "マイクからのデータがありません。音声入力を確認してください";
 "No notes of this type" = "この種類のメモはありません";
 "No video was captured." = "動画は撮影されませんでした。";
 "Not enough free storage to safely save this video. Original segments remain on this device. Free up space and retry recovery." = "動画を安全に保存するための空き容量が不足しています。元の動画部分はこの端末内に保持されています。空き容量を増やしてから復元を再試行してください。";

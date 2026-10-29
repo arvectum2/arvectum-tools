@@ -147,7 +147,7 @@
 "Title" = "Titel";
 "Version" = "Version";
 "When you install another app" = "Wenn Sie eine weitere App installieren";
-"You searched for" = "Sie haben gesucht nach";
+"You searched for" = "Ihre Suche nach";
 "Your group plan is stored locally in PUSHKIN. Copying app names uses the system clipboard." = "Ihre Gruppenplanung wird lokal in PUSHKIN gespeichert. Beim Kopieren der App-Namen wird die Zwischenablage des Systems verwendet.";
 "iOS does not allow PUSHKIN to read every app's notifications or turn on automations itself. You control which apps are included." = "iOS erlaubt PUSHKIN nicht, Mitteilungen jeder App auszulesen oder Automationen selbst zu aktivieren. Sie entscheiden, welche Apps eingebunden werden.";
 
@@ -158,4 +158,4 @@
 "Last 30 days" = "Letzte 30 Tage";
 "Clear filters" = "Filter zurücksetzen";
 "No matching notifications" = "Keine passenden Mitteilungen";
-"Try another app, date range or search." = "Versuche eine andere App, einen Zeitraum oder Suchbegriff.";
+"Try another app, date range or search." = "Versuchen Sie eine andere App, einen anderen Zeitraum oder Suchbegriff.";

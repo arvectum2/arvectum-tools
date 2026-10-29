@@ -176,7 +176,7 @@
 "The original note is no longer available in UhWhat." = "UhWhat?中已無法訪問原始筆記。";
 "This is the last message received from your Watch, not a real-time connection check. It can be delayed." = "這是最後一次從Watch收到的報告，並非實時連線狀態。可能存在延遲。";
 "This note and its video will be deleted from this device." = "將從裝置中刪除這條筆記及其影片。";
-"To ChickMark" = "前往ChickMark";
+"To ChickMark" = "傳送至 ChickMark";
 "Transcribe" = "轉寫";
 "Transcribed notes" = "已轉寫的筆記";
 "UhWhat?: review a note" = "UhWhat?：回顧筆記";
@@ -211,7 +211,7 @@
 "Double-tap to record audio. Choose the Record video action for video." = "雙擊錄製音訊。要錄製影片，請選擇“錄製影片”。";
 "Open saved voice notes" = "開啟已儲存的語音筆記";
 "Open video recording. You can also hold the main button" = "開啟影片錄製。也可以長按主按鈕";
-"QUICK CAPTURE" = "快速錄音";
+"QUICK CAPTURE" = "快速記錄";
 "Record video" = "錄製影片";
 "Tap for audio" = "點選錄製音訊";
 "Today" = "今天";

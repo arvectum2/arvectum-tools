@@ -235,7 +235,7 @@
 "Request Watch transfer" = "Watch aktarımı iste";
 "Request queued. Delivery may take some time." = "İstek kuyruğa alındı. Aktarım biraz zaman alabilir.";
 "A sync request is already pending." = "Zaten bekleyen bir eşzamanlama isteği var.";
-"A recent request is still being processed. Try again later." = "Yakın tarihli bir istek hâlâ işleniyor. Daha sonra yeniden deneyin.";
+"A recent request is still being processed. Try again later." = "Önceki isteğiniz hâlâ işleniyor. Lütfen daha sonra yeniden deneyin.";
 "Watch unavailable. Check pairing and try again." = "Watch kullanılamıyor. Eşleştirmeyi kontrol edip yeniden deneyin.";
 "Import audio from Files" = "Dosyalar'dan ses içe aktar";
 "Choose a file in Files." = "Dosyalar'dan bir dosya seçin.";

@@ -17,7 +17,7 @@
 "habit.completed.toast" = "Berhasil ditandai";
 "habit.skipped.today" = "Dilewati hari ini";
 "habit.skip.today" = "Lewati hari ini";
-"habit.skip.undo" = "Batalkan lewati";
+"habit.skip.undo" = "Batalkan hari yang dilewati";
 "habit.new.title" = "Kebiasaan baru";
 "habit.edit.title" = "Edit kebiasaan";
 "habit.edit.action" = "Edit";
@@ -113,7 +113,7 @@
 "shortcut.complete.title" = "Selesaikan Kebiasaan";
 "shortcut.complete.description" = "Tandai salah satu kebiasaan hari ini sebagai selesai.";
 "shortcut.complete.success" = "%@ ditandai selesai.";
-"shortcut.undo.title" = "Batalkan Kebiasaan";
+"shortcut.undo.title" = "Batalkan Penyelesaian Kebiasaan";
 "shortcut.undo.description" = "Tandai salah satu kebiasaan hari ini sebagai belum selesai.";
 "shortcut.undo.success" = "Penyelesaian %@ dibatalkan.";
 "shortcut.notDue" = "Kebiasaan ini tidak dijadwalkan hari ini.";

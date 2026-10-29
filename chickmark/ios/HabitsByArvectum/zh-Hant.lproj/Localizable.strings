@@ -200,7 +200,7 @@
 "health.connect.hint" = "連線活動資料以自動打卡";
 "health.connected.hint" = "已啟用自動打卡";
 "health.auto.completed" = "透過Apple健康完成";
-"health.description" = "選擇一個指標。噹噹天累計值達到目標時，ChickMark會自動將習慣標記為完成。";
+"health.description" = "選擇一項指標。當天累計數值達到目標時，ChickMark 會自動將習慣標記為完成。";
 "health.rule.section" = "自動完成";
 "health.metric.title" = "活動";
 "health.metric.steps" = "步數";

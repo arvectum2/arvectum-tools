@@ -62,7 +62,7 @@
 "Не получилось обработать это изображение." = "Bu görsel işlenemedi.";
 "Не получилось уменьшить файл до допустимого размера." = "Dosya kabul edilebilir boyuta küçültülemedi.";
 "Не получилось создать JPG." = "JPG dosyası oluşturulamadı.";
-"filename.file_size" = "küçültülmüş";
+"filename.file_size" = "yeniden boyutlandırılmış";
 "filename.pixels" = "boyutlar";
 "filename.passport" = "vesikalık";
 "Россия · паспорт" = "Rusya · pasaport";

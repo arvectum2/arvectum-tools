@@ -5,7 +5,7 @@
     <string name="something_went_wrong">Er is iets misgegaan</string>
     <string name="choose_another_photo">Andere foto kiezen</string>
     <string name="compress_to_a_target_file_size">Comprimeren tot de gewenste bestandsgrootte</string>
-    <string name="resize_photo">Fotoformaat wijzigen</string>
+    <string name="resize_photo">Fotoafmetingen wijzigen</string>
     <string name="passport_photo">Pasfoto</string>
     <string name="choose_the_maximum_file_size_we_will_handle_the_rest">Kies de maximale bestandsgrootte. Wij regelen de rest.</string>
     <string name="set_the_longest_edge_the_aspect_ratio_will_be_preserved">Stel de langste zijde in. De beeldverhouding blijft behouden.</string>

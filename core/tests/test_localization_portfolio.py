@@ -1513,6 +1513,186 @@ class EditorialLocalizationRegressionTests(unittest.TestCase):
         self.assertEqual(what_nl["Front"], "Frontcamera")
 
 
+    def test_korean_chickmark_actions_weekdays_and_uhwhat_brand(self):
+        values = self.loc(
+            "chickmark/ios/HabitsByArvectum/ko.lproj/Localizable.strings"
+        )
+        required = {
+            "common.save": "저장",
+            "common.undo": "실행 취소",
+            "common.ok": "확인",
+            "weekday.tue.short": "화",
+            "weekday.wed.short": "수",
+            "weekday.sat.short": "토",
+            "weekday.sun.short": "일",
+            "detail.resume": "습관 재개",
+            "detail.pause": "습관 일시 중지",
+            "stats.streak": "연속 기록",
+            "stats.completion": "완료",
+            "status.completed": "완료",
+            "habit.edit.action": "편집",
+            "oneoff.edit": "편집",
+            "review.source.title": "UhWhat?에서 온 메모",
+            "review.source.section": "UhWhat?에서 가져옴",
+            "review.oneoff.open": "UhWhat?에서 가져온 메모 열기",
+            "review.import.alert": "UhWhat?에서 가져오기",
+            "water.export.error": "물 섭취량 내보내기 불가",
+        }
+        for key, value in required.items():
+            with self.subTest(key=key):
+                self.assertEqual(values[key], value)
+
+    def test_dutch_chickmark_weekdays_and_korean_video_copy(self):
+        nl = self.loc(
+            "chickmark/ios/HabitsByArvectum/nl.lproj/Localizable.strings"
+        )
+        self.assertEqual(nl["weekday.mon.short"], "ma")
+        self.assertEqual(nl["weekday.tue.short"], "di")
+        self.assertEqual(nl["weekday.wed.short"], "wo")
+        ko = self.loc("what/ios/WhatIOS/ko.lproj/Localizable.strings")
+        self.assertEqual(ko["OK"], "확인")
+        self.assertEqual(ko["Video note"], "동영상 메모")
+        self.assertEqual(ko["Video capture"], "동영상 녹화")
+        self.assertEqual(ko["Privacy policy"], "개인정보 처리방침")
+        self.assertIn("녹취록", ko[
+            "The audio and transcript will be deleted from this iPhone. This cannot be undone."
+        ])
+
+    def test_traditional_chinese_privacy_sentence_uses_traditional_script(self):
+        zh = self.loc(
+            "pushkin/ios/ArvectumNotify/Resources/"
+            "zh-Hant.lproj/Localizable.strings"
+        )
+        text = zh[
+            "Everything stays on this iPhone. No account, cloud sync, ads or analytics in version 1.0."
+        ]
+        self.assertIn("雲端同步", text)
+        self.assertIn("帳戶", text)
+        self.assertNotIn("云同步", text)
+
+
+    def test_chickmark_weekday_short_names_all_supported_locales(self):
+        columns = (
+            "weekday.mon.short", "weekday.tue.short", "weekday.wed.short",
+            "weekday.thu.short", "weekday.fri.short", "weekday.sat.short",
+            "weekday.sun.short",
+        )
+        expected = {
+            "ru": ("Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"),
+            "es": ("Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"),
+            "fr": ("Lun.", "Mar.", "Mer.", "Jeu.", "Ven.", "Sam.", "Dim."),
+            "de": ("Mo.", "Di.", "Mi.", "Do.", "Fr.", "Sa.", "So."),
+            "pt-BR": ("Seg.", "Ter.", "Qua.", "Qui.", "Sex.", "Sáb.", "Dom."),
+            "pt-PT": ("Seg.", "Ter.", "Qua.", "Qui.", "Sex.", "Sáb.", "Dom."),
+            "it": ("Lun", "Mar", "Mer", "Gio", "Ven", "Sab", "Dom"),
+            "ja": ("月", "火", "水", "木", "金", "土", "日"),
+            "ko": ("월", "화", "수", "목", "금", "토", "일"),
+            "zh-Hans": ("周一", "周二", "周三", "周四", "周五", "周六", "周日"),
+            "zh-Hant": ("週一", "週二", "週三", "週四", "週五", "週六", "週日"),
+            "nl": ("ma", "di", "wo", "do", "vr", "za", "zo"),
+            "id": ("Sen", "Sel", "Rab", "Kam", "Jum", "Sab", "Min"),
+        }
+        for locale, names in expected.items():
+            with self.subTest(locale=locale):
+                strings = self.loc(
+                    f"chickmark/ios/HabitsByArvectum/{locale}.lproj/Localizable.strings"
+                )
+                self.assertEqual(tuple(strings[k] for k in columns), names)
+
+    def test_turkish_resizing_and_portuguese_shortcuts_terms(self):
+        tr = self.loc(
+            "photo-pdf-to-size/ios/PhotoPodRazmer/Resources/"
+            "tr.lproj/Localizable.strings"
+        )
+        self.assertEqual(tr["filename.file_size"], "yeniden boyutlandırılmış")
+        pt = self.loc("chickmark/ios/HabitsByArvectum/"
+                      "pt-PT.lproj/Localizable.strings")
+        self.assertIn("fechar a app Livros",
+                      pt["health.shortcuts.instructions"])
+        self.assertIn("o seu hábito", pt["health.shortcuts.instructions"])
+
+
+    def test_italian_and_german_system_copy_is_natural(self):
+        photo = self.loc(
+            "photo-pdf-to-size/ios/PhotoPodRazmer/Resources/"
+            "it.lproj/Localizable.strings"
+        )
+        self.assertEqual(photo["Печатать без масштабирования"], "Stampa al 100%")
+        self.assertEqual(photo["Обработать PDF"], "Gestisci PDF")
+        de = self.loc(
+            "pushkin/ios/ArvectumNotify/Resources/"
+            "de.lproj/Localizable.strings"
+        )
+        self.assertEqual(de["You searched for"], "Ihre Suche nach")
+        self.assertTrue(de["Try another app, date range or search."].startswith(
+            "Versuchen Sie"
+        ))
+
+
+    def test_chinese_quick_capture_covers_audio_video_and_text(self):
+        expected = {
+            "zh-Hans": ("快速记录", "发送至 ChickMark"),
+            "zh-Hant": ("快速記錄", "傳送至 ChickMark"),
+        }
+        for locale, captions in expected.items():
+            values = self.loc(
+                f"what/ios/WhatIOS/{locale}.lproj/Localizable.strings"
+            )
+            self.assertEqual(values["QUICK CAPTURE"], captions[0])
+            self.assertEqual(values["To ChickMark"], captions[1])
+
+    def test_traditional_chinese_does_not_garbled_health_completion(self):
+        values = self.loc(
+            "chickmark/ios/HabitsByArvectum/zh-Hant.lproj/Localizable.strings"
+        )
+        self.assertIn("當天累計數值", values["health.description"])
+        self.assertNotIn("噹噹", values["health.description"])
+        push = self.loc(
+            "pushkin/ios/ArvectumNotify/Resources/zh-Hant.lproj/Localizable.strings"
+        )
+        self.assertIn("雲端同步", push[
+            "No account, cloud sync, ads or analytics. PUSHKIN stores your notification content on this iPhone only."
+        ])
+        self.assertNotIn("賬戶", push[
+            "No account, cloud sync, ads or analytics. PUSHKIN stores your notification content on this iPhone only."
+        ])
+
+    def test_indonesian_skip_and_shortcut_undo_are_not_delete_habit(self):
+        values = self.loc(
+            "chickmark/ios/HabitsByArvectum/id.lproj/Localizable.strings"
+        )
+        self.assertEqual(values["habit.skip.undo"], "Batalkan hari yang dilewati")
+        self.assertEqual(values["shortcut.undo.title"],
+                         "Batalkan Penyelesaian Kebiasaan")
+
+
+    def test_korean_watch_transfer_count_and_watchface_widget_caption(self):
+        watch = self.loc(
+            "what/ios/WhatWatch/ko.lproj/Localizable.strings"
+        )
+        self.assertEqual(watch["%d waiting for iPhone"],
+                         "iPhone 전송 대기 중: %d개")
+        widget = self.loc(
+            "chickmark/ios/HabitsByArvectumWatchWidget/"
+            "ko.lproj/Localizable.strings"
+        )
+        self.assertEqual(widget["watch.widget.description"],
+                         "시계 화면에서 오늘의 습관 진행 상황을 확인하세요.")
+
+
+    def test_dutch_android_resize_action_means_dimensions_not_file_format(self):
+        import xml.etree.ElementTree as ET
+        values = {
+            node.attrib["name"]: node.text
+            for node in ET.parse(
+                ROOT / "photo-pdf-to-size/android/app/src/main/res/"
+                "values-nl/strings.xml"
+            ).getroot()
+            if node.tag == "string"
+        }
+        self.assertEqual(values["resize_photo"], "Fotoafmetingen wijzigen")
+
+
 
 if __name__ == "__main__":
     unittest.main()

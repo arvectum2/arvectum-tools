@@ -17,7 +17,7 @@
 "OK" = "确定";
 "Offline concept and word evidence" = "离线词组和词语提示";
 "Only on this iPhone" = "仅在这台iPhone上";
-"Only saved text is searchable. New audio must be transcribed first." = "只能搜索已保存的文字。新录音必须先转写。";
+"Only saved text is searchable. New audio must be transcribed first." = "只能搜索��保存的文字。新录音必须先转写。";
 "Open original recording" = "打开原始录音";
 "Private, on-device excerpts" = "此设备上的私人摘要";
 "Requesting/downloading model from Apple…" = "正在请求／下载Apple模型…";
@@ -175,7 +175,7 @@
 "The original note is no longer available in UhWhat." = "UhWhat?中已无法访问原始笔记。";
 "This is the last message received from your Watch, not a real-time connection check. It can be delayed." = "这是最后一次从Watch收到的报告，并非实时连接状态。可能存在延迟。";
 "This note and its video will be deleted from this device." = "将从设备中删除这条笔记及其视频。";
-"To ChickMark" = "前往ChickMark";
+"To ChickMark" = "发送至 ChickMark";
 "Transcribe" = "转写";
 "Transcribed notes" = "已转写的笔记";
 "UhWhat?: review a note" = "UhWhat?：回顾笔记";
@@ -210,7 +210,7 @@
 "Double-tap to record audio. Choose the Record video action for video." = "双击录制音频。要录制视频，请选择“录制视频”。";
 "Open saved voice notes" = "打开已保存的语音笔记";
 "Open video recording. You can also hold the main button" = "打开视频录制。也可以长按主按钮";
-"QUICK CAPTURE" = "快速录音";
+"QUICK CAPTURE" = "快速记录";
 "Record video" = "录制视频";
 "Tap for audio" = "点击录制音频";
 "Today" = "今天";
