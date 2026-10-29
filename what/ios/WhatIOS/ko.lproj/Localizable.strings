@@ -4,7 +4,7 @@
 "Apple contextual similarity is experimental; concept matches do not require its download." = "Apple의 문맥적 유사성은 실험적입니다. 컨셉 매치는 다운로드가 필요하지 않습니다.";
 "Audio (.m4a)" = "오디오(.m4a)";
 "Cancel" = "취소";
-"Checking Russian model…" = "러시아 모델 확인 중…";
+"Checking Russian model…" = "러시아어 모델 확인 중…";
 "Clear search" = "검색 지우기";
 "Done" = "완료";
 "Download Russian language model?" = "러시아어 모델을 다운로드하시겠습니까?";
@@ -14,9 +14,9 @@
 "English" = "영어";
 "Find" = "찾기";
 "Hide keyboard" = "키보드 숨기기";
-"Install Russian model" = "러시아 모델 설치";
-"OK" = "좋아요";
-"Offline concept and word evidence" = "오프라인 개념 및 단어 증거";
+"Install Russian model" = "러시아어 모델 설치";
+"OK" = "확인";
+"Offline concept and word evidence" = "오프라인 단어 및 의미 일치";
 "Only on this iPhone" = "이 iPhone에서만 가능";
 "Only saved text is searchable. New audio must be transcribed first." = "저장된 텍스트만 검색 가능합니다. 먼저 새 오디오를 텍스트로 변환해야 합니다.";
 "Open original recording" = "원본 녹음 열기";
@@ -65,7 +65,7 @@
 "Cancel reminder" = "알림 취소";
 "Cannot safely discard the draft; saving the video. " = "초안을 안전하게 삭제할 수 없습니다. 비디오를 저장 중입니다.";
 "Capture interrupted; saved segments will be preserved. " = "녹음·녹화가 중단되었습니다. 저장된 구간은 그대로 보관됩니다. ";
-"Captured starts" = "캡처된 시작";
+"Captured starts" = "녹음 시작 횟수";
 "Catch a thought…" = "떠오른 생각을 기록하세요…";
 "ChickMark is unavailable or cannot receive notes. Update the app and retry." = "ChickMark를 사용할 수 없거나 메모를 받을 수 없습니다. 앱을 업데이트하고 다시 시도하세요.";
 "Close" = "닫기";
@@ -99,7 +99,7 @@
 "Export" = "내보내기";
 "Folder" = "폴더";
 "Front" = "전면";
-"Handler to first microphone buffer (p95)" = "첫 번째 마이크 버퍼에 대한 핸들러(p95)";
+"Handler to first microphone buffer (p95)" = "첫 마이크 오디오 수신까지(p95)";
 "In 1 hour" = "1시간 후";
 "In 2 hours" = "2시간 후";
 "In 3 hours" = "3시간 후";
@@ -109,7 +109,7 @@
 "Mark reviewed" = "검토 완료로 표시";
 "Measured after pressing Record and entering the app's recorder; excludes system launch time. Stored only on this iPhone." = "녹음을 누르고 앱의 녹음기에 들어간 후 측정되었습니다. 시스템 시작 시간은 제외됩니다. 이 iPhone에만 저장됩니다.";
 "Microphone connected — speak now" = "마이크 연결됨 - 지금 말하세요";
-"Microphone is capturing sound" = "마이크가 소리를 캡처하는 중입니다.";
+"Microphone is capturing sound" = "마이크가 소리를 녹음하고 있습니다";
 "More recording actions" = "더 많은 녹음 작업";
 "New notes only, with your permission" = "귀하의 허락 하에 새로운 메모만 가능";
 "New recording" = "새로운 녹음";
@@ -134,7 +134,7 @@
 "Play audio" = "오디오 재생";
 "Play video" = "비디오 재생";
 "Preparing camera…" = "카메라 준비 중…";
-"Privacy policy" = "개인 정보 보호 정책";
+"Privacy policy" = "개인정보 처리방침";
 "Record" = "녹음";
 "Recording duration" = "녹음·녹화 시간";
 "Recording on device" = "기기에 녹음 중";
@@ -161,7 +161,7 @@
 "Start recording" = "녹음 시작";
 "Stop" = "중지";
 "Stop and save" = "중지 후 저장";
-"Stop audio" = "오디오 중지";
+"Stop audio" = "오디오 재생 중지";
 "Switch to back camera" = "후면 카메라로 전환";
 "Switch to front camera" = "전면 카메라로 전환";
 "Switching briefly pauses recording; all segments are saved as one note." = "전환하면 녹음이 잠시 일시 중지됩니다. 모든 세그먼트는 하나의 메모로 저장됩니다.";
@@ -170,10 +170,10 @@
 "Tap the large recording button or use + for text. Apple Watch audio appears here too." = "큰 녹음 버튼을 탭하거나 텍스트에 +를 사용하세요. Apple Watch 오디오도 여기에 표시됩니다.";
 "Text" = "텍스트";
 "Text note" = "텍스트 메모";
-"The audio and transcript will be deleted from this iPhone. This cannot be undone." = "오디오와 스크립트가 이 iPhone에서 삭제됩니다. 이 작업은 취소할 수 없습니다.";
+"The audio and transcript will be deleted from this iPhone. This cannot be undone." = "이 iPhone에서 원본 오디오와 녹취록이 삭제됩니다. 이 작업은 되돌릴 수 없습니다.";
 "The final video segment has not finished writing. Original files are preserved for recovery." = "최종 비디오 세그먼트의 작성이 완료되지 않았습니다. 복구를 위해 원본 파일이 보존됩니다.";
 "The full note temporarily replaces this device's clipboard for up to five minutes. ChickMark asks before saving. Nothing is uploaded." = "전체 메모는 최대 5분 동안 일시적으로 이 장치의 클립보드를 대체합니다. ChickMark는 저장하기 전에 묻습니다. 아무것도 업로드되지 않았습니다.";
-"The original note is no longer available in UhWhat." = "원본 메모는 더 이상 UhWhat에서 사용할 수 없습니다.";
+"The original note is no longer available in UhWhat." = "원본 메모는 더 이상 UhWhat?에서 사용할 수 없습니다.";
 "This is the last message received from your Watch, not a real-time connection check. It can be delayed." = "이는 실시간 연결 확인이 아닌 Watch에서 받은 마지막 메시지입니다. 지연될 수 있습니다.";
 "This note and its video will be deleted from this device." = "이 메모와 해당 동영상이 이 기기에서 삭제됩니다.";
 "To ChickMark" = "ChickMark로 보내기";
@@ -182,9 +182,9 @@
 "UhWhat?: review a note" = "UhWhat?: 메모 검토";
 "Unable to start video: " = "비디오를 시작할 수 없습니다:";
 "Video" = "동영상";
-"Video capture" = "비디오 캡처";
+"Video capture" = "동영상 녹화";
 "Video missing" = "동영상 누락";
-"Video note" = "영상노트";
+"Video note" = "동영상 메모";
 "Video note could not be saved: " = "비디오 메모를 저장할 수 없습니다:";
 "Video recovery failed. Original files remain on device. " = "비디오 복구에 실패했습니다. 원본 파일은 기기에 남아 있습니다.";
 "Voice note" = "음성 메모";
@@ -200,7 +200,7 @@
 "Elapsed %d sec" = "%d초 경과";
 "Filter %@, %@" = "%@, %@ 필터링";
 "Input: %@" = "입력: %@";
-"Russian model not ready: %@" = "러시아 모델이 준비되지 않았습니다: %@";
+"Russian model not ready: %@" = "러시아어 모델을 사용할 수 없습니다: %@";
 "Recovered video notes: %d." = "복구된 비디오 메모: %d.";
 "Recovered videos: %d. Some interrupted recordings could not be restored. Available originals were kept for retry." = "복구된 동영상: %d. 중단된 일부 녹음을 복원할 수 없습니다. 재시도를 위해 사용 가능한 원본이 보관되었습니다.";
 "Transcription failed: %@. Original audio was preserved." = "전사 실패: %@. 원본 오디오가 보존되었습니다.";
@@ -216,7 +216,7 @@
 "Tap for audio" = "탭하여 음성 녹음";
 "Today" = "오늘";
 "Yesterday" = "어제";
-"Earlier" = "더 일찍";
+"Earlier" = "이전";
 "Interface language: iOS Settings" = "인터페이스 언어: iOS 설정";
 "Transcript storage could not be read. Your edits were not saved." = "녹취록 저장소를 읽지 못했습니다. 수정 내용이 저장되지 않았습니다.";
 "Transcript recovery" = "녹취록 복구";
