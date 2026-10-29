@@ -1328,6 +1328,33 @@ class EditorialLocalizationRegressionTests(unittest.TestCase):
                 self.assertIn("UhWhat?", translation)
 
 
+    def test_camera_rear_label_is_not_navigation_back(self):
+        labels = {
+            "ru": "Основная", "es": "Trasera", "fr": "Caméra arrière",
+            "de": "Rückkamera", "pt-BR": "Traseira", "pt-PT": "Traseira",
+            "it": "Posteriore", "ja": "背面", "ko": "후면",
+            "zh-Hans": "后置", "zh-Hant": "後置", "nl": "Camera achter",
+            "id": "Kamera belakang", "tr": "Arka kamera",
+        }
+        for locale, expected in labels.items():
+            with self.subTest(locale=locale):
+                strings = self.loc(
+                    f"what/ios/WhatIOS/{locale}.lproj/Localizable.strings"
+                )
+                self.assertEqual(strings["Back"], expected)
+
+    def test_french_and_portuguese_archival_and_review_actions(self):
+        fr = self.loc("what/ios/WhatIOS/fr.lproj/Localizable.strings")
+        pt = self.loc("what/ios/WhatIOS/pt-PT.lproj/Localizable.strings")
+        self.assertEqual(fr["Mark reviewed"], "Marquer comme consultée")
+        self.assertEqual(fr["Original note"], "Note d’origine")
+        self.assertEqual(fr["Search transcripts and dates"],
+                         "Rechercher dans les transcriptions et les dates")
+        self.assertEqual(pt["Archive"], "Notas arquivadas")
+        self.assertEqual(pt["Archive is empty"], "Ainda não há notas arquivadas")
+        self.assertEqual(pt["Saved transcript"], "Transcrição guardada")
+
+
 
 if __name__ == "__main__":
     unittest.main()
