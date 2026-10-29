@@ -298,10 +298,11 @@
           "ja",
           "ko",
           "zh-Hans",
-          "zh-Hant"
+          "zh-Hant",
+          "nl"
         ],
-        "status": "12-source-catalogs-structurally-complete-independent-linguistic-and-device-qa-pending",
-        "note": "12 language source catalogs across all declared iOS/watchOS/widget bundles; structurally checked only. Native-speaker, privacy/permissions, accessibility and physical QA are independent. Source presence is not App Store publication or proof of linguistic quality."
+        "status": "13-source-catalogs-in-pushkin-dutch-draft-full-key-native-proofreading-and-physical-shortcuts-qa-pending",
+        "note": "Dutch (nl) source draft plus real PushkinCopy routing/inflection, 159 keys. No signed/physical Shortcuts and user-data acceptance yet. Photo/PDF also has 13, other two remain at 12."
       }
     },
     "what": {
@@ -401,6 +402,6 @@
       "pl",
       "th"
     ],
-    "iosSourceBaselineVerified": "Photo/PDF 13 of 50, remaining 3 active iOS apps 12 of 50 (49 app×locale source pairs); Dutch incomplete in portfolio."
+    "iosSourceBaselineVerified": "Photo/PDF and Pushkin 13 of 50; ChickMark and Uhvat 12 of 50 (50 app×locale source pairs); Dutch still incomplete in portfolio."
   }
 }

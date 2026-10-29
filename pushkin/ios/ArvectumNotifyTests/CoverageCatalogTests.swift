@@ -112,6 +112,24 @@ final class CoverageCatalogTests: XCTestCase {
         XCTAssertEqual(PushkinCopy.appCount(2, language: "pt-BR"), "2 apps")
     }
 
+    func testDutchBundleRoutingAndShortcutsSafetyWarnings() {
+        XCTAssertEqual(PushkinCopy.text("History", language: "nl-NL"), "Geschiedenis")
+        XCTAssertEqual(PushkinCopy.text("Apps & Setup", language: "nl"), "Apps en configuratie")
+        XCTAssertEqual(PushkinCopy.text("Settings", language: "nl_BE"), "Instellingen")
+        XCTAssertEqual(PushkinCopy.text("Group %d", language: "nl-NL"), "Groep %d")
+        XCTAssertEqual(PushkinCopy.appCount(1, language: "nl"), "1 app")
+        XCTAssertEqual(PushkinCopy.appCount(25, language: "nl-NL"), "25 apps")
+        XCTAssertEqual(PushkinCopy.text("Unknown UI text", language: "nl"),
+                       "Unknown UI text", "Unknown keys preserve safe English fallback")
+        let limited = PushkinCopy.text(
+            "Only Shortcuts knows whether an automation is enabled. PUSHKIN cannot check or change that switch.",
+            language: "nl-NL"
+        )
+        XCTAssertTrue(limited.contains("niet controleren"))
+        let privacy = PushkinCopy.text("Notification content stays on this device", language: "nl")
+        XCTAssertEqual(privacy, "De inhoud van meldingen blijft op dit apparaat")
+    }
+
     func testItalianInterfaceLoadsRealBundledStrings() {
         XCTAssertEqual(PushkinCopy.text("History", language: "it-IT"), "Cronologia")
         XCTAssertEqual(PushkinCopy.text("Settings", language: "it"), "Impostazioni")
