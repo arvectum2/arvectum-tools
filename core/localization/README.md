@@ -2,6 +2,11 @@
 
 **Обновлено 29.10.2026:** 13/50 iOS source languages are now structurally present in all 4 active applications and 10 declared iPhone/Watch/widget bundles (52 app×locale source pairs). Full native-speaker approval, physical QA and public App Store release are separate. The earlier intermediate steps below are historical. See [Core localization + regional ASO roadmap](../docs/CORE_50_LOCALES_AND_REGIONAL_ASO_2026-10-29.md).
 
+## 29.10.2026 · Indonesian в PUSHKIN — второй продукт
+
+- [x] 159 Bahasa Indonesia UI строк, точные идентификаторы действий Shortcuts не переводятся, вручную включаемые автоматизации названы без ложных гарантий. Обновлены `PushkinCopy` и `id-ID`/`id_ID` fallback, plural/counters, Swift test и synthetic UI smoke.
+- [ ] Структурный счёт: **54/200 app×locale**, Фото/PDF и PUSHKIN 14, Ухват и ChickMark 13. Индонезийская source-волна для Watch и HealthKit впереди, native-speaker/physical/Apple approval не пройден.
+
 ## 29.10.2026 · Bahasa Indonesia (`id`) — начало следующего Tier 1
 
 - [x] Photo/PDF: 161 Bahasa Indonesia UI строк и две системные строки, включая прозрачное разрешение на рекламу и предупреждение о растрировании PDF; source bundle `id.lproj`, native iPhone UI smoke 3 сценария, проверка printf parity.

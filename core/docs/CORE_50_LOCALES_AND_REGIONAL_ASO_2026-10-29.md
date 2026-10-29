@@ -2,6 +2,10 @@
 
 Срез: 29.10.2026. Канонический реестр — `core/localization/portfolio-locales.json`; staged-карточки — `core/appstore/staged-2026-10-26/`.
 
+## 29.10.2026 · Второй source-пакет Indonesian (PUSHKIN)
+
+PUSHKIN добавил `id` 159 UI строк, безопасные инструкции ручных автоматизаций Shortcuts и локализованное число приложений. Теперь Photo/PDF и PUSHKIN по 14/50 исходных языков, Ухват и ChickMark по 13/50 — всего **54/200** app×locale. В отличие от текста App Store для Фото/PDF, региональный `id` copy draft для PUSHKIN ещё требуется отдельно. Настоящие уведомления и настройки Shortcuts не менялись.
+
 ## 29.10.2026 · Первые ASO метаданные Индонезии (только Photo/PDF)
 
 `photo-id.draft.json` — отдельный read-only source/copy draft с метаданными `id` для storefront `ID`. Apple официально разрешает Indonesian как дополнительный язык для Indonesia при базовом English (U.K.). Это не загрузка, не добавленная локаль в пользовательском ASC и не новые региональные скриншоты; `uploadedToASC=false`, `screenshotAssets=[]`, `appleLocaleEnabledForThisAppInASC=null`. Прежние 64 staged и 4 NL drafts не затронуты.
