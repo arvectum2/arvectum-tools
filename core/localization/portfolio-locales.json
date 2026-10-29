@@ -330,10 +330,11 @@
           "ko",
           "zh-Hans",
           "zh-Hant",
-          "nl"
+          "nl",
+          "id"
         ],
-        "status": "13-source-catalogs-in-what-dutch-draft-full-key-native-proofreading-and-physical-watch-qa-pending",
-        "note": "Dutch UI+Watch+Widget/Complication full-source drafts, routing independent from transcription language, source QA. Do not declare native/physical Watch ACK or device recording acceptance, user content untouched."
+        "status": "14-source-catalogs-in-Uhvat-Bahasa-Indonesia-source-draft",
+        "note": "Indonesian id across iPhone, Watch, Phone Widget and Watch Complication plus InfoPlist permissions; independent dictation settings maintained. Native/physical Apple Watch ACK and editor proofing pending."
       }
     },
     "photo-pdf-to-size": {
@@ -405,6 +406,6 @@
       "pl",
       "th"
     ],
-    "iosSourceBaselineVerified": "Photo/PDF and PUSHKIN 14 of 50, Uhvat/ChickMark 13 of 50; 54 of 200 app×locale source pairs; Indonesian incomplete across portfolio."
+    "iosSourceBaselineVerified": "Photo/PDF, PUSHKIN and Uhvat 14 of 50, ChickMark 13 of 50; 55 of 200 app×locale source pairs. Indonesian remains incomplete in ChickMark."
   }
 }

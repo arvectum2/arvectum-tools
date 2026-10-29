@@ -2,6 +2,11 @@
 
 **Обновлено 29.10.2026:** 13/50 iOS source languages are now structurally present in all 4 active applications and 10 declared iPhone/Watch/widget bundles (52 app×locale source pairs). Full native-speaker approval, physical QA and public App Store release are separate. The earlier intermediate steps below are historical. See [Core localization + regional ASO roadmap](../docs/CORE_50_LOCALES_AND_REGIONAL_ASO_2026-10-29.md).
 
+## 29.10.2026 · Indonesian в Ухвате: третий продукт
+
+- [x] Четыре полных `id` bundles Ухвата (iPhone 246, Watch 6, phone Widget 6, Watch complication 5), системные privacy строки, `CaptureBrand` id/id-ID/id_ID, `noteCount` и форматная locale, независимый язык речевого распознавания.
+- [ ] Исходная матрица **55/200**: Foto/PDF 14, PUSHKIN 14, Ухват 14, ChickMark 13. Региональные метаданные Indonesia подготовлены пока только Фото/PDF. Физическая Watch/VoiceOver/редактура и релиз не выполнены.
+
 ## 29.10.2026 · Indonesian в PUSHKIN — второй продукт
 
 - [x] 159 Bahasa Indonesia UI строк, точные идентификаторы действий Shortcuts не переводятся, вручную включаемые автоматизации названы без ложных гарантий. Обновлены `PushkinCopy` и `id-ID`/`id_ID` fallback, plural/counters, Swift test и synthetic UI smoke.
