@@ -14,6 +14,8 @@ ROOT = Path(__file__).resolve().parents[2]
 EXPANSION = ROOT / 'core/appstore/locale-expansion-2026-10-29'
 STAGED = ROOT / 'core/appstore/staged-2026-10-26'
 SUPPORTED_VERIFIED_PAIRS = {('NL', 'nl-NL', 'nl')}
+SUPPORTED_APPS = {'photo': 'photo-pdf-to-size', 'pushkin': 'pushkin'}
+REAL_DEVICE_CAPTURES = {'photo': ['iphone-6.9', 'ipad-13'], 'pushkin': ['iphone-6.9']}
 FIELD_LIMITS = {'name': 30, 'subtitle': 30, 'keywords': 100,
                 'promotionalText': 170, 'description': 4000, 'whatsNew': 4000}
 PENDING = 'COPY_DRAFT_NEEDS_EDITORIAL_AND_NATIVE_ASSETS'
@@ -24,14 +26,15 @@ def validate(data: dict, published_seed: dict, available_source_locales: set[str
     assert (data['storefrontCountry'], data['appleMetadataLocale'],
             data['uiSourceLocale']) in SUPPORTED_VERIFIED_PAIRS, 'Not a reviewed Apple country/locale mapping'
     assert data['uiSourceLocale'] in available_source_locales, 'UI source locale not in Xcode'
-    assert data['app'] == 'photo' and data['bundleId'] == published_seed['bundleId']
+    assert data['app'] in SUPPORTED_APPS, 'Unexpected app in regional expansion'
+    assert data['bundleId'] == published_seed['bundleId']
     assert data['appId'] == published_seed['appId'], 'Wrong app metadata target'
     assert data['appleMetadataLocalePublishedSupport'] is True
     assert data['appleLocaleEnabledForThisAppInASC'] is None, 'No live ASC query was performed'
     assert data['uploadedToASC'] is False and data['releaseApproved'] is False
     assert data['humanEditorialApproved'] is False and data['screenshotQAApproved'] is False
     assert data['screenshotAssets'] == [], 'Do not claim uncaptured images exist'
-    assert data['requiredRealNativeCaptures'] == ['iphone-6.9', 'ipad-13']
+    assert data['requiredRealNativeCaptures'] == REAL_DEVICE_CAPTURES[data['app']]
     assert all(isinstance(ref, str) and ref.startswith('https://developer.apple.com/')
                for ref in data['supportingAppleReferences'])
     fields = data['metadata']
@@ -55,13 +58,18 @@ def validate(data: dict, published_seed: dict, available_source_locales: set[str
 
 def main() -> None:
     registry = json.loads((ROOT / 'core/localization/portfolio-locales.json').read_text())
-    seed = json.loads((STAGED / 'photo.json').read_text())
+    registry_apps = registry['apps']
     paths = sorted(EXPANSION.glob('*.draft.json'))
     if not paths:
         raise SystemExit('No new-region drafts found')
     for path in paths:
-        result = validate(json.loads(path.read_text()), seed,
-            set(registry['apps']['photo-pdf-to-size']['ios']['sourceCatalogs']))
+        draft = json.loads(path.read_text())
+        app = draft['app']
+        assert app in SUPPORTED_APPS, f'Unsupported regional draft: {path.name}'
+        assert path.name == f'{app}-nl-NL.draft.json', 'Unexpected file/locale mapping'
+        seed = json.loads((STAGED / f'{app}.json').read_text())
+        result = validate(draft, seed,
+            set(registry_apps[SUPPORTED_APPS[app]]['ios']['sourceCatalogs']))
         print(json.dumps(result, ensure_ascii=False, sort_keys=True))
 
 

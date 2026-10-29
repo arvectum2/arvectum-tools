@@ -1,5 +1,10 @@
 # PUSHKIN — Product Roadmap
 
+## 29.10.2026 · NL App Store — отдельный copy draft
+
+- [x] `core/appstore/locale-expansion-2026-10-29/pushkin-nl-NL.draft.json`: нидерландская карточка с честными ограничениями iOS/Shortcuts и четырьмя подписями для настоящих iPhone screenshot. Автоматический fail-closed validator проверяет допустимые длины и upload gate; уже имеющиеся 16 staged карточек сохранены.
+- [ ] Независимая редактура текста, настоящие локализованные снимки iPhone, live-наличие locale `nl-NL` в ASC и per-release approval. Ни снимки, ни новая версия не опубликованы.
+
 ## 29.10.2026 · Tier 1 — Dutch (nl), source-only локализация
 
 - [x] 159 нидерландских source-строк в `nl.lproj`, корректный `PushkinCopy` routing `nl`, `nl-NL`, `nl-BE` и `appCount` (единственное и множественное число). Строки о Shortcuts сохраняют реальные ограничения iOS: нельзя включать автоматизации за пользователя, нельзя читать все уведомления и подтверждать работоспособность других приложений по одной полученной записи.

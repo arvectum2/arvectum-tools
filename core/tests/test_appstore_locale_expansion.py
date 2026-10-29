@@ -68,3 +68,44 @@ class NewDutchStorefrontTests(unittest.TestCase):
                 bad['metadata'][key] = value
                 with self.assertRaises(AssertionError):
                     pending.validate(bad, self.seed, self.source_locales)
+
+    def test_pushkin_dutch_has_honest_shortcuts_copy_without_fake_capture(self):
+        data = json.loads((pending.EXPANSION / 'pushkin-nl-NL.draft.json').read_text())
+        seed = json.loads((pending.STAGED / 'pushkin.json').read_text())
+        registry = json.loads((ROOT / 'core/localization/portfolio-locales.json').read_text())
+        locales = set(registry['apps']['pushkin']['ios']['sourceCatalogs'])
+        result = pending.validate(data, seed, locales)
+        self.assertEqual(result['app'], 'pushkin')
+        self.assertEqual(result['metadata_locale'], 'nl-NL')
+        self.assertEqual(data['requiredRealNativeCaptures'], ['iphone-6.9'])
+        self.assertEqual(data['screenshotAssets'], [])
+        self.assertEqual(len(seed['localeData']), 16)
+        self.assertFalse(result['ready_for_upload'])
+        self.assertEqual(result['new_asc_localization_exists'], 'UNVERIFIED')
+        description = data['metadata']['description']
+        for phrase in ('Apple Opdrachten', 'niet toe', 'zelf toevoegen',
+                       'uitgeschakeld', 'geen universeel', 'lokaal op je iPhone'):
+            with self.subTest(phrase=phrase):
+                self.assertIn(phrase, description)
+        self.assertEqual(data['metadata']['privacyPolicyUrl'],
+                         seed['localeData']['en-GB']['privacyPolicyUrl'])
+
+    def test_pushkin_expansion_is_fail_closed_against_wrong_target_or_fake_approval(self):
+        draft = json.loads((pending.EXPANSION / 'pushkin-nl-NL.draft.json').read_text())
+        seed = json.loads((pending.STAGED / 'pushkin.json').read_text())
+        registry = json.loads((ROOT / 'core/localization/portfolio-locales.json').read_text())
+        available = set(registry['apps']['pushkin']['ios']['sourceCatalogs'])
+        for key, value in (
+            ('appId', 6816346084), ('bundleId', 'ru.arvectum.tools.tosize'),
+            ('appleMetadataLocale', 'nl'), ('uploadedToASC', True),
+            ('releaseApproved', True), ('screenshotQAApproved', True),
+            ('screenshotAssets', ['imaginary.png']), ('appleLocaleEnabledForThisAppInASC', True),
+            ('requiredRealNativeCaptures', ['iphone-6.9', 'ipad-13']),
+        ):
+            with self.subTest(key=key):
+                mutated = copy.deepcopy(draft)
+                mutated[key] = value
+                with self.assertRaises(AssertionError):
+                    pending.validate(mutated, seed, available)
+        with self.assertRaisesRegex(AssertionError, 'UI source locale'):
+            pending.validate(draft, seed, available - {'nl'})

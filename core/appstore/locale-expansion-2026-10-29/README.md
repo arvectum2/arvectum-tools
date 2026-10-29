@@ -10,6 +10,13 @@
 - Блокеры: независимая редактура, настоящие локализованные iPhone 6.9″ / iPad 13″ изображения и их визуальная QA, проверка наличия `nl-NL` непосредственно в ASC, требования к редактируемому состоянию версии, отдельное согласование публикации.
 - `screenshotAssets=[]`, `appleLocaleEnabledForThisAppInASC=null`, `releaseApproved=false` и `uploadedToASC=false` намеренно: нет ложных файлов, живых запросов или состояний.
 
+## Нидерланды, PUSHKIN
+
+- Файл: `pushkin-nl-NL.draft.json`, страна `NL`, исходная iOS локаль `nl`, metadata локаль Apple `nl-NL`. Нидерландский UI-каталог PUSHKIN добавлен отдельно; физический триггер Apple Opdrachten не тестировался.
+- Черновики name/subtitle/keywords/promo/description/What's New и четыре сценария будущих настоящих iPhone-скриншотов. iPad не заявлен как поддерживаемый маркетинговый форм-фактор PUSHKIN.
+- Оговорки обязательны: PUSHKIN **не может автоматически читать все уведомления**, не может включать автоматизации Shortcuts за пользователя или проверять состояние системного переключателя. Импортированная автоматизация первоначально отключена; пользователь вручную включает её и подтверждает по фактической полученной записи. Данные локальны на iPhone.
+- Нет файлов screenshot (`screenshotAssets=[]`), независимой редакторской вычитки, реального ASC GET и согласованного релиза. Флаги `releaseApproved=false` и `uploadedToASC=false` защищены автоматическим validator gate. 64 действующих staged черновика не затронуты.
+
 Проверка: `python3 core/tools/validate_appstore_locale_expansion.py`, `python3 -m pytest -q core/tests/test_appstore_locale_expansion.py`. Никаких API-вызовов Apple и локальных фото пользователя.
 
 Источники Apple:
