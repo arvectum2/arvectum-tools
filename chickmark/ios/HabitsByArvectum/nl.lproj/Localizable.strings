@@ -62,8 +62,8 @@
 "quick.walk" = "Wandelen";
 "quick.workout" = "Sporten";
 "weekday.mon.short" = "ma";
-"weekday.tue.short" = " di";
-"weekday.wed.short" = "di";
+"weekday.tue.short" = "di";
+"weekday.wed.short" = "wo";
 "weekday.thu.short" = "do";
 "weekday.fri.short" = "vr";
 "weekday.sat.short" = "za";
