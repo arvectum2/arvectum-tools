@@ -10,6 +10,11 @@
 - [x] Полный `id.lproj` Фото/PDF (161 UI строк и InfoPlist для display name + ATT), фиксированная семантика сохранности приватных файлов и PDF rasterization, полное совпадение placeholders, технические JPEG/размеры задокументированы как преднамеренно одинаковые значения. Отдельный UI тест фото, PDF и Dynamic Type с synthetic fixtures, без реальных фото пользователя.
 - [ ] Носитель Bahasa Indonesia, физические Files/ATT/VoiceOver и региональная карточка Indonesia/Indonesian в App Store (после проверки Apple locale shortcode и ASC). Сборки Apple и privacy metadata не менялись.
 
+## 29.10.2026 · Турция — App Store copy draft
+
+- [x] Добавлена отдельная карточка `core/appstore/locale-expansion-2026-10-29/photo-tr.draft.json`, Apple metadata code `tr`, 4 сценария нативных кадров, длины и безопасность подписей контролирует offline validator. Публикации и новых screenshots нет.
+- [ ] Независимая вычитка носителем, разрешённые размеры кадров, проверка ASC и per-release approval.
+
 ## 29.10.2026 · Tier 1: Turkish (tr), исходный комплект
 
 - [x] Полные 161 UI строк и системные разрешения на турецком, техническая/рекламная юридическая семантика сохранена. Добавлены Core регрессии, XcodeGen resources и нативные photo/PDF/Dynamic Type XCUITest.

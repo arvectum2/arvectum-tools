@@ -13,7 +13,7 @@ import sys
 ROOT = Path(__file__).resolve().parents[2]
 EXPANSION = ROOT / 'core/appstore/locale-expansion-2026-10-29'
 STAGED = ROOT / 'core/appstore/staged-2026-10-26'
-SUPPORTED_VERIFIED_PAIRS = {('NL', 'nl-NL', 'nl'), ('ID', 'id', 'id')}
+SUPPORTED_VERIFIED_PAIRS = {('NL', 'nl-NL', 'nl'), ('ID', 'id', 'id'), ('TR', 'tr', 'tr')}
 SUPPORTED_APPS = {'photo': 'photo-pdf-to-size', 'pushkin': 'pushkin', 'what': 'what', 'chickmark': 'chickmark'}
 REAL_DEVICE_CAPTURES = {'photo': ['iphone-6.9', 'ipad-13'], 'pushkin': ['iphone-6.9'], 'what': ['iphone-6.9', 'ipad-13'], 'chickmark': ['iphone-6.9', 'ipad-13']}
 FIELD_LIMITS = {'name': 30, 'subtitle': 30, 'keywords': 100,

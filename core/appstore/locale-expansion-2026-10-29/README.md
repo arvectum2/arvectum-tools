@@ -48,6 +48,12 @@
 - [x] **4/4 черновика nl-NL metadata**: Фото/PDF, PUSHKIN, Ухват и ChickMark. В Git 64 старых staged карточки не затронуты.
 - [ ] Независимая редактура носителем, настоящие screenshots под устройство, физическая QA разрешений/Watch, подтверждение доступности nl-NL в ASC, поштучное согласование релизов. Никаких live storefront или бинарных изменений не сделано.
 
+## Турция, Фото/PDF — новая волна `tr`
+
+- Файл `photo-tr.draft.json`: UI locale `tr`, metadata Apple locale **`tr`** (не `tr-TR`), страна `TR` (Türkiye); согласно Apple Turkish указан дополнительным языком storefront к English (UK). Источники: [официальная таблица](https://developer.apple.com/help/app-store-connect/reference/app-information/app-store-localizations/) и [официальная документация кодов](https://developer.apple.com/documentation/appstoreconnectapi/managing-metadata-in-your-app-by-using-locale-shortcodes).
+- Поля name/subtitle/keywords/promotionalText/description/whatsNew и privacy URL подготовлены, в тексте сохранены caveats о PDF-растрировании, требованиях документов и рекламной SDK. Четыре будущих iPhone/iPad снимка только в плане; файл не отправлялся в App Store Connect.
+- `appleLocaleEnabledForThisAppInASC=null`, `screenshotAssets=[]`, `uploadedToASC=false`, `releaseApproved=false`. Перевод редактором-носителем, реальные screenshots/ASC GET, права/ATT и отдельное согласование релиза ещё открыты.
+
 Проверка: `python3 core/tools/validate_appstore_locale_expansion.py`, `python3 -m pytest -q core/tests/test_appstore_locale_expansion.py`. Никаких API-вызовов Apple и локальных фото пользователя.
 
 Источники Apple:
