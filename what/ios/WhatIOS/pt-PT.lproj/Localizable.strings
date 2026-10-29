@@ -1,7 +1,7 @@
 // Português (Portugal), rascunho derivado de pt-BR; revisão humana obrigatória.
 // Português (Portugal). Revisão editorial antes do lançamento.
 "Actual Apple similarity scores (not accuracy percentages):" = "Pontuações reais de similaridade da Apple (não são percentuais de precisão):";
-"Apple contextual similarity is experimental; concept matches do not require its download." = "A similaridade contextual da Apple é experimental; a busca por conceitos não exige esse download.";
+"Apple contextual similarity is experimental; concept matches do not require its download." = "A semelhança contextual da Apple é experimental; a pesquisa por conceitos não exige esta transferência.";
 "Audio (.m4a)" = "Áudio (.m4a)";
 "Cancel" = "Cancelar";
 "Checking Russian model…" = "Verificando o modelo de russo…";
@@ -12,7 +12,7 @@
 "Download model" = "Transferir modelo";
 "Download size: Apple does not publish the exact number of MB or GB. Apple also does not provide download percentage. What? will show installation stages and verify that the model works before reporting success. Search and audio remain on-device." = "Tamanho da transferência: a Apple não indica o volume exato em MB ou GB nem a percentagem de progresso. O UhWhat? mostra as fases de instalação e confirma que o modelo funciona antes de indicar que está pronto. A pesquisa e as gravações permanecem no dispositivo.";
 "English" = "Inglês";
-"Find" = "Buscar";
+"Find" = "Procurar";
 "Hide keyboard" = "Ocultar teclado";
 "Install Russian model" = "Instalar modelo de russo";
 "OK" = "OK";
