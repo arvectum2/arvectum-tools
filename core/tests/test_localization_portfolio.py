@@ -1294,5 +1294,40 @@ class LocalizationPortfolioTests(unittest.TestCase):
                 self.assertIn("developmentRegion = en;", project.read_text())
 
 
+class EditorialLocalizationRegressionTests(unittest.TestCase):
+    """Protect source copy fixed in the 2026-10-29 editorial pass."""
+
+    @staticmethod
+    def loc(path):
+        return i18n.read_strings(ROOT / path, [])
+
+    def test_korean_transcript_and_backup_semantics(self):
+        what = self.loc("what/ios/WhatIOS/ko.lproj/Localizable.strings")
+        chick = self.loc("chickmark/ios/HabitsByArvectum/ko.lproj/Localizable.strings")
+        watch = self.loc("chickmark/ios/HabitsByArvectumWatch/ko.lproj/Localizable.strings")
+        widget = self.loc("chickmark/ios/HabitsByArvectumWidget/ko.lproj/Localizable.strings")
+        self.assertEqual(what["Saved transcript"], "저장된 녹취록")
+        self.assertEqual(what["Folder"], "폴더")
+        self.assertEqual(what["Save"], "저장")
+        self.assertIn("UhWhat?", what["UhWhat?: review a note"])
+        self.assertEqual(chick["backup.menu"], "백업")
+        self.assertEqual(chick["backup.result"], "백업")
+        self.assertIn("아직 녹취록이 없습니다", chick["review.attachment.noText"])
+        self.assertEqual(watch["watch.completed"], "완료")
+        self.assertEqual(watch["watch.health.unit.steps"], "걸음")
+        self.assertEqual(widget["widget.action.complete.format"], "%@ 완료")
+        for translation in (*what.values(), *chick.values(), *watch.values(), *widget.values()):
+            self.assertNotIn("성적표", translation)
+            self.assertNotIn("어뭐", translation)
+
+    def test_french_phone_widget_keeps_uhwhat_brand(self):
+        widget = self.loc("what/ios/WhatPhoneWidget/fr.lproj/Localizable.strings")
+        for translation in widget.values():
+            self.assertNotIn("euh quoi", translation.lower())
+            if "UhWhat" in translation:
+                self.assertIn("UhWhat?", translation)
+
+
+
 if __name__ == "__main__":
     unittest.main()
