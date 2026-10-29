@@ -1513,6 +1513,92 @@ class EditorialLocalizationRegressionTests(unittest.TestCase):
         self.assertEqual(what_nl["Front"], "Frontcamera")
 
 
+    def test_korean_chickmark_actions_weekdays_and_uhwhat_brand(self):
+        values = self.loc(
+            "chickmark/ios/HabitsByArvectum/ko.lproj/Localizable.strings"
+        )
+        required = {
+            "common.save": "저장",
+            "common.undo": "실행 취소",
+            "common.ok": "확인",
+            "weekday.tue.short": "화",
+            "weekday.wed.short": "수",
+            "weekday.sat.short": "토",
+            "weekday.sun.short": "일",
+            "detail.resume": "습관 재개",
+            "detail.pause": "습관 일시 중지",
+            "stats.streak": "연속 기록",
+            "stats.completion": "완료",
+            "status.completed": "완료",
+            "habit.edit.action": "편집",
+            "oneoff.edit": "편집",
+            "review.source.title": "UhWhat?에서 온 메모",
+            "review.source.section": "UhWhat?에서 가져옴",
+            "review.oneoff.open": "UhWhat?에서 가져온 메모 열기",
+            "review.import.alert": "UhWhat?에서 가져오기",
+            "water.export.error": "물 섭취량 내보내기 불가",
+        }
+        for key, value in required.items():
+            with self.subTest(key=key):
+                self.assertEqual(values[key], value)
+
+    def test_dutch_chickmark_weekdays_and_korean_video_copy(self):
+        nl = self.loc(
+            "chickmark/ios/HabitsByArvectum/nl.lproj/Localizable.strings"
+        )
+        self.assertEqual(nl["weekday.mon.short"], "ma")
+        self.assertEqual(nl["weekday.tue.short"], "di")
+        self.assertEqual(nl["weekday.wed.short"], "wo")
+        ko = self.loc("what/ios/WhatIOS/ko.lproj/Localizable.strings")
+        self.assertEqual(ko["OK"], "확인")
+        self.assertEqual(ko["Video note"], "동영상 메모")
+        self.assertEqual(ko["Video capture"], "동영상 녹화")
+        self.assertEqual(ko["Privacy policy"], "개인정보 처리방침")
+        self.assertIn("녹취록", ko[
+            "The audio and transcript will be deleted from this iPhone. This cannot be undone."
+        ])
+
+    def test_traditional_chinese_privacy_sentence_uses_traditional_script(self):
+        zh = self.loc(
+            "pushkin/ios/ArvectumNotify/Resources/"
+            "zh-Hant.lproj/Localizable.strings"
+        )
+        text = zh[
+            "Everything stays on this iPhone. No account, cloud sync, ads or analytics in version 1.0."
+        ]
+        self.assertIn("雲端同步", text)
+        self.assertIn("帳戶", text)
+        self.assertNotIn("云同步", text)
+
+
+    def test_chickmark_weekday_short_names_all_supported_locales(self):
+        columns = (
+            "weekday.mon.short", "weekday.tue.short", "weekday.wed.short",
+            "weekday.thu.short", "weekday.fri.short", "weekday.sat.short",
+            "weekday.sun.short",
+        )
+        expected = {
+            "ru": ("Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"),
+            "es": ("Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"),
+            "fr": ("Lun.", "Mar.", "Mer.", "Jeu.", "Ven.", "Sam.", "Dim."),
+            "de": ("Mo.", "Di.", "Mi.", "Do.", "Fr.", "Sa.", "So."),
+            "pt-BR": ("Seg.", "Ter.", "Qua.", "Qui.", "Sex.", "Sáb.", "Dom."),
+            "pt-PT": ("Seg.", "Ter.", "Qua.", "Qui.", "Sex.", "Sáb.", "Dom."),
+            "it": ("Lun", "Mar", "Mer", "Gio", "Ven", "Sab", "Dom"),
+            "ja": ("月", "火", "水", "木", "金", "土", "日"),
+            "ko": ("월", "화", "수", "목", "금", "토", "일"),
+            "zh-Hans": ("周一", "周二", "周三", "周四", "周五", "周六", "周日"),
+            "zh-Hant": ("週一", "週二", "週三", "週四", "週五", "週六", "週日"),
+            "nl": ("ma", "di", "wo", "do", "vr", "za", "zo"),
+            "id": ("Sen", "Sel", "Rab", "Kam", "Jum", "Sab", "Min"),
+        }
+        for locale, names in expected.items():
+            with self.subTest(locale=locale):
+                strings = self.loc(
+                    f"chickmark/ios/HabitsByArvectum/{locale}.lproj/Localizable.strings"
+                )
+                self.assertEqual(tuple(strings[k] for k in columns), names)
+
 
 if __name__ == "__main__":
     unittest.main()
