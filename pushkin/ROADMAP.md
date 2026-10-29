@@ -17,6 +17,12 @@
 - [x] `core/appstore/locale-expansion-2026-10-29/pushkin-nl-NL.draft.json`: нидерландская карточка с честными ограничениями iOS/Shortcuts и четырьмя подписями для настоящих iPhone screenshot. Автоматический fail-closed validator проверяет допустимые длины и upload gate; уже имеющиеся 16 staged карточек сохранены.
 - [ ] Независимая редактура текста, настоящие локализованные снимки iPhone, live-наличие locale `nl-NL` в ASC и per-release approval. Ни снимки, ни новая версия не опубликованы.
 
+## 29.10.2026 · Turkish (tr) — редактура Shortcuts и 15-й язык
+
+- [x] Полный турецкий source `tr`: 159 UI ключей, `PushkinCopy` routing `tr/tr-TR/tr-CY`, формы «1 uygulama / 25 uygulama», XcodeGen, native unit и UI-тесты.
+- [x] Редактура ограничений Kestirmeler: импорт не включает автоматику, PUSHKIN не имеет системного доступа ко всем уведомлениям, не видит выключатель, план групп и очистка не удаляют историю. Форматные плейсхолдеры идентичны EN; Machine editorial audit не заменяет стороннюю вычитку носителем.
+- [ ] Физическая проверка Kestirmeler/VoiceOver, независимая native-speaker вычитка и App Store `tr` copy/screenshot. Не опубликовано.
+
 ## 29.10.2026 · Tier 1 — Dutch (nl), source-only локализация
 
 - [x] 159 нидерландских source-строк в `nl.lproj`, корректный `PushkinCopy` routing `nl`, `nl-NL`, `nl-BE` и `appCount` (единственное и множественное число). Строки о Shortcuts сохраняют реальные ограничения iOS: нельзя включать автоматизации за пользователя, нельзя читать все уведомления и подтверждать работоспособность других приложений по одной полученной записи.

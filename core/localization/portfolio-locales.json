@@ -302,7 +302,8 @@
           "zh-Hans",
           "zh-Hant",
           "nl",
-          "id"
+          "id",
+          "tr"
         ],
         "status": "14-source-catalogs-in-pushkin-Bahasa-Indonesia-source-draft",
         "note": "Indonesian id 159 localized UI/Shortcuts safety strings, routing and plural/counter, native QA source. No real Shortcuts/notification changes."
@@ -405,6 +406,6 @@
       "pl",
       "th"
     ],
-    "iosSourceBaselineVerified": "Photo/PDF 15/50, Pushkin/What/ChickMark 14/50: 57/200 app×locale source pairs; Turkish only in Photo/PDF."
+    "iosSourceBaselineVerified": "Photo/PDF and PUSHKIN 15/50, What/ChickMark 14/50 (58/200 source pairs). Turkish editorial/native checks ongoing."
   }
 }
