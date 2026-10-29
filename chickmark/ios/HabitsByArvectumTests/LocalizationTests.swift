@@ -123,7 +123,7 @@ final class LocalizationTests: XCTestCase {
     ]
 
     func testPickerOffersOnlyBundledLocales() {
-        XCTAssertEqual(ChickMarkLanguage.supported, ["ru", "en", "es", "de", "fr", "it", "ja", "ko", "pt-BR", "pt-PT", "zh-Hans", "zh-Hant"])
+        XCTAssertEqual(ChickMarkLanguage.supported, ["ru", "en", "es", "de", "fr", "it", "ja", "ko", "nl", "pt-BR", "pt-PT", "zh-Hans", "zh-Hant"])
         XCTAssertEqual(
             ChickMarkLanguage.orderedLanguages(["fr", "en", "Base", "ru", "es", "en"]),
             ["ru", "en", "es", "fr"]
@@ -146,6 +146,28 @@ final class LocalizationTests: XCTestCase {
             ChickMarkLanguage.orderedLanguages(["en", "ja", "de"]),
             ["en", "de", "ja"]
         )
+    }
+
+    func testDutchLanguageSelectionAndDataSafetyCopy() {
+        let available = ChickMarkLanguage.supported
+        XCTAssertTrue(available.contains("nl"))
+        XCTAssertEqual(ChickMarkLanguage.resolvedIdentifier(
+            for: "system", preferred: ["nl-NL", "en-GB"], available: available), "nl")
+        XCTAssertEqual(ChickMarkLanguage.resolvedIdentifier(
+            for: "system", preferred: ["nl-BE", "en-GB"], available: available), "nl")
+        XCTAssertEqual(ChickMarkLanguage.displayName(for: "nl"), "Nederlands")
+        XCTAssertEqual(L10n.string("habit.create", language: "nl"), "Gewoonte aanmaken")
+        XCTAssertEqual(L10n.string("today.empty.title", language: "nl"), "Begin met één gewoonte")
+        XCTAssertEqual(L10n.string("language.title", language: "nl"), "Taal")
+        XCTAssertEqual(String(format: L10n.string("today.progress.format", language: "nl"), 2, 3),
+                       "Afgevinkt: 2 van 3")
+        XCTAssertEqual(String(format: L10n.string("weekly.gapDays", language: "nl"), 7),
+                       "7 kalenderdagen")
+        XCTAssertTrue(L10n.string("health.privacy", language: "nl").contains("niet naar CloudKit"))
+        XCTAssertTrue(L10n.string("backup.warning", language: "nl").contains("verwijderd"))
+        XCTAssertTrue(L10n.string("water.export.explanation", language: "nl").contains("Eerdere dagen worden niet geïmporteerd"))
+        XCTAssertTrue(L10n.string("review.privacy.explanation", language: "nl").contains("De melding toont de transcriptie niet"))
+        XCTAssertEqual(L10n.string("unknown.localization.key", language: "nl"), "unknown.localization.key")
     }
 
     func testSimplifiedChineseSystemSelectionAndFallback() {

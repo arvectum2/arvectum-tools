@@ -17,7 +17,7 @@ class RegionalASOReadinessTests(unittest.TestCase):
         self.assertEqual(report["draft_cards_checked"], 64)
         self.assertEqual(report["storefronts_observed"], 16)
         self.assertEqual(report["target_interface_locales"], 50)
-        self.assertEqual(report["source_interface_locales_per_app"], 12)
+        self.assertEqual(report["source_interface_locales_per_app"], 13)
         self.assertEqual(len({(r["app"], r["country"]) for r in report["rows"]}), 64)
         self.assertTrue(all(r["interface_source_exists"] for r in report["rows"]))
         self.assertTrue(all(r["draft_only"] and

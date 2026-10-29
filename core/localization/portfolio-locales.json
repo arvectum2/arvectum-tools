@@ -275,10 +275,11 @@
           "ja",
           "ko",
           "zh-Hans",
-          "zh-Hant"
+          "zh-Hant",
+          "nl"
         ],
-        "status": "12-source-catalogs-structurally-complete-independent-linguistic-and-device-qa-pending",
-        "note": "12 language source catalogs across all declared iOS/watchOS/widget bundles; structurally checked only. Native-speaker, privacy/permissions, accessibility and physical QA are independent. Source presence is not App Store publication or proof of linguistic quality."
+        "status": "13-source-catalogs-dutch-source-only-native-proofreading-and-physical-HealthKit-QA-pending",
+        "note": "Dutch localizations in iPhone, Watch, widget and Watch widget; 315 iPhone strings, two HealthKit permission strings and native UI tests. HealthKit/backup semantics unchanged. Independent native speaker and physical acceptance still pending."
       }
     },
     "pushkin": {
@@ -403,6 +404,6 @@
       "pl",
       "th"
     ],
-    "iosSourceBaselineVerified": "Photo/PDF, Pushkin and Uhvat 13 of 50 each; ChickMark 12 of 50 (51 app×locale source pairs); Dutch incomplete in full portfolio."
+    "iosSourceBaselineVerified": "All 4 active apps now have 13 of 50 UI source catalogues (52/200 app×locale pairs); Dutch physical and native editorial/release QA remain open."
   }
 }

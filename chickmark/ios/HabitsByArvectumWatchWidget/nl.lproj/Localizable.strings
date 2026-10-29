@@ -1,0 +1,6 @@
+// Dutch nl source draft, physical Watch/widget accessibility QA pending.
+"watch.widget.title" = "ChickMark";
+"watch.widget.description" = "Bekijk de voortgang van je gewoonten op de wijzerplaat.";
+"watch.widget.empty" = "Niets gepland";
+"watch.widget.inline.format" = "%d/%d gewoonten";
+"watch.widget.next.format" = "Volgende: %@";
