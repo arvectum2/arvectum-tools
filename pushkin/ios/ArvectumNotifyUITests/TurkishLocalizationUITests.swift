@@ -15,7 +15,7 @@ final class TurkishLocalizationUITests: XCTestCase {
         if later.waitForExistence(timeout: 3) { later.tap() }
 
         let history = app.buttons["Geçmiş"].firstMatch
-        let apps = app.buttons["Aplikasi"].firstMatch
+        let apps = app.buttons["Uygulamalar"].firstMatch
         let settings = app.buttons["Ayarlar"].firstMatch
         if !history.waitForExistence(timeout: 12) {
             XCTFail("Turkish history tab missing. Accessibility tree: \(app.debugDescription)")
@@ -30,7 +30,7 @@ final class TurkishLocalizationUITests: XCTestCase {
         settings.tap()
         XCTAssertTrue(app.navigationBars["Ayarlar"].firstMatch.waitForExistence(timeout: 8))
         let shot = XCTAttachment(screenshot: XCUIScreen.main.screenshot())
-        shot.name = "pushkin-id-settings"
+        shot.name = "pushkin-tr-settings"
         shot.lifetime = .keepAlways
         add(shot)
     }
