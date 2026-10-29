@@ -48,6 +48,7 @@
 "Apple Watch — last reported state" = "Apple Watch — laatst gemelde status";
 "Archive" = "Archief";
 "Archive is empty" = "Archief is leeg";
+"Archive action" = "Archiveren";
 "Archive recording" = "Opname archiveren";
 "Archived notes stay on this device." = "Gearchiveerde notities blijven op dit apparaat.";
 "Audio" = "Audio";
@@ -56,7 +57,7 @@
 "Audio incomplete — please re-record" = "Audio onvolledig — maak een nieuwe opname";
 "Audio missing on iPhone" = "Audio ontbreekt op iPhone";
 "Audio saved on iPhone" = "Audio opgeslagen op iPhone";
-"Automatically remind about new notes" = "Automatisch herinneren aan nieuwe notities";
+"Automatically remind about new notes" = "Automatische herinneringen";
 "Back" = "Camera achter";
 "Back to quick recording" = "Terug naar snel opnemen";
 "Camera preview" = "Cameravoorbeeld";

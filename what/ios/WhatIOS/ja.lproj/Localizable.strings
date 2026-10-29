@@ -48,6 +48,7 @@
 "Apple Watch — last reported state" = "Apple Watch・最後に報告された状態";
 "Archive" = "アーカイブ";
 "Archive is empty" = "アーカイブは空です";
+"Archive action" = "アーカイブ";
 "Archive recording" = "録音をアーカイブ";
 "Archived notes stay on this device." = "アーカイブしたメモはこの端末内に残ります。";
 "Audio" = "音声";
@@ -56,7 +57,7 @@
 "Audio incomplete — please re-record" = "音声が不完全です・再度録音してください";
 "Audio missing on iPhone" = "iPhoneに音声がありません";
 "Audio saved on iPhone" = "iPhoneに音声を保存済み";
-"Automatically remind about new notes" = "新しいメモを自動でリマインド";
+"Automatically remind about new notes" = "自動リマインダー";
 "Back" = "背面";
 "Back to quick recording" = "クイック録音に戻る";
 "Camera preview" = "カメラのプレビュー";

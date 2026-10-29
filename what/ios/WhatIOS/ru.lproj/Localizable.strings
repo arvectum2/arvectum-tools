@@ -49,6 +49,7 @@
 "Apple Watch — last reported state" = "Apple Watch — последний отчёт";
 "Archive" = "Архив";
 "Archive is empty" = "Архив пуст";
+"Archive action" = "В архив";
 "Archive recording" = "В архив";
 "Archived notes stay on this device." = "Заметки в архиве остаются на устройстве.";
 "Audio" = "Аудио";
@@ -57,7 +58,7 @@
 "Audio incomplete — please re-record" = "Неполное аудио — перезапишите";
 "Audio missing on iPhone" = "Нет аудио на iPhone";
 "Audio saved on iPhone" = "Аудио на iPhone";
-"Automatically remind about new notes" = "Автоматически напоминать о новых заметках";
+"Automatically remind about new notes" = "Автонапоминания";
 "Back" = "Основная";
 "Back to quick recording" = "Вернуться к быстрой записи";
 "Camera preview" = "Превью камеры";

@@ -48,6 +48,7 @@
 "Apple Watch — last reported state" = "Apple Watch — son bildirilen durum";
 "Archive" = "Arşiv";
 "Archive is empty" = "Arşiv boş";
+"Archive action" = "Arşivle";
 "Archive recording" = "Kaydı arşivle";
 "Archived notes stay on this device." = "Arşivlenen notlar bu cihazda kalır.";
 "Audio" = "Ses";
@@ -56,7 +57,7 @@
 "Audio incomplete — please re-record" = "Ses kaydı eksik — lütfen yeniden kaydedin";
 "Audio missing on iPhone" = "Ses iPhone'da bulunamadı";
 "Audio saved on iPhone" = "Ses iPhone'a kaydedildi";
-"Automatically remind about new notes" = "Yeni notlar için otomatik hatırlatma";
+"Automatically remind about new notes" = "Otomatik hatırlatmalar";
 "Back" = "Arka kamera";
 "Back to quick recording" = "Hızlı kayda dön";
 "Camera preview" = "Kamera önizlemesi";

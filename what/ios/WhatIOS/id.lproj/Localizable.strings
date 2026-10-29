@@ -48,6 +48,7 @@
 "Apple Watch — last reported state" = "Apple Watch — status terakhir yang dilaporkan";
 "Archive" = "Arsip";
 "Archive is empty" = "Arsip kosong";
+"Archive action" = "Arsipkan";
 "Archive recording" = "Arsipkan rekaman";
 "Archived notes stay on this device." = "Catatan yang diarsipkan tetap di perangkat ini.";
 "Audio" = "Audio";
@@ -56,7 +57,7 @@
 "Audio incomplete — please re-record" = "Audio belum lengkap — rekam ulang";
 "Audio missing on iPhone" = "Audio tidak ada di iPhone";
 "Audio saved on iPhone" = "Audio tersimpan di iPhone";
-"Automatically remind about new notes" = "Ingatkan otomatis tentang catatan baru";
+"Automatically remind about new notes" = "Pengingat otomatis";
 "Back" = "Kamera belakang";
 "Back to quick recording" = "Kembali ke rekam cepat";
 "Camera preview" = "Pratinjau kamera";

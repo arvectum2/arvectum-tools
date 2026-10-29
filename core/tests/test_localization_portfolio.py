@@ -277,7 +277,7 @@ class LocalizationPortfolioTests(unittest.TestCase):
             self.assertEqual(set(i18n.read_strings(root/'en.lproj/InfoPlist.strings', [])),
                              set(i18n.read_strings(root/'id.lproj/InfoPlist.strings', [])), bundle)
         source = i18n.read_strings(ROOT/'what/ios/WhatIOS/id.lproj/Localizable.strings', [])
-        self.assertEqual(len(source), 246)
+        self.assertEqual(len(source), 247)
         self.assertEqual(source['Catch that thought'], 'Tangkap ide itu')
         self.assertEqual(source['New text note'], 'Catatan teks baru')
         self.assertIn('Audio asli tetap disimpan', source['A new transcription will replace your current text, including any manual corrections. The original audio will be kept.'])
@@ -365,7 +365,7 @@ class LocalizationPortfolioTests(unittest.TestCase):
                              set(i18n.read_strings(root/'tr.lproj/InfoPlist.strings', [])),bundle)
         en=i18n.read_strings(ROOT/'what/ios/WhatIOS/en.lproj/Localizable.strings', [])
         tr=i18n.read_strings(ROOT/'what/ios/WhatIOS/tr.lproj/Localizable.strings', [])
-        self.assertEqual(len(tr),246)
+        self.assertEqual(len(tr),247)
         self.assertEqual(tr['Catch that thought'],'Düşünceyi yakalayın')
         self.assertEqual(tr['New text note'],'Yeni metin notu')
         for phrase,required in (
@@ -949,7 +949,7 @@ class LocalizationPortfolioTests(unittest.TestCase):
         roots = ["WhatIOS", "WhatWatch", "WhatPhoneWidget", "WhatWatchComplication"]
         # Two Watch delivery-state explanations and five manual-retry strings
         # are included in the iPhone catalog, not the Watch or widgets.
-        keys = [246, 6, 6, 5]
+        keys = [247, 6, 6, 5]
         for bundle, expected in zip(roots, keys):
             root = ROOT / "what/ios" / bundle
             english = i18n.read_strings(root / "en.lproj/Localizable.strings", [])
@@ -1353,6 +1353,81 @@ class EditorialLocalizationRegressionTests(unittest.TestCase):
         self.assertEqual(pt["Archive"], "Notas arquivadas")
         self.assertEqual(pt["Archive is empty"], "Ainda não há notas arquivadas")
         self.assertEqual(pt["Saved transcript"], "Transcrição guardada")
+
+
+    def test_auto_followup_menu_captions_are_short_and_consistent(self):
+        key = "Automatically remind about new notes"
+        expected = {
+            "ru": "Автонапоминания",
+            "en": "Automatic reminders",
+            "fr": "Rappels automatiques",
+            "pt-PT": "Lembretes automáticos",
+            "pt-BR": "Lembretes automáticos",
+        }
+        for locale in (
+            "ru", "en", "es", "fr", "de", "pt-BR", "pt-PT", "it",
+            "ja", "ko", "zh-Hans", "zh-Hant", "nl", "id", "tr"
+        ):
+            with self.subTest(locale=locale):
+                strings = self.loc(
+                    f"what/ios/WhatIOS/{locale}.lproj/Localizable.strings"
+                )
+                caption = strings[key]
+                self.assertLessEqual(len(caption), 30,
+                                     "Native iOS menus truncate long captions")
+                self.assertEqual(caption.strip(), caption)
+                if locale in expected:
+                    self.assertEqual(caption, expected[locale])
+        source = (ROOT / "what/ios/WhatIOS/RecordingLibraryView.swift").read_text()
+        self.assertIn(
+            'CaptureBrand.text("Автонапоминания",',
+            source
+        )
+
+
+    def test_european_portuguese_pushkin_settings_terminology(self):
+        labels = self.loc(
+            "pushkin/ios/ArvectumNotify/Resources/pt-PT.lproj/Localizable.strings"
+        )
+        self.assertEqual(labels["Settings"], "Definições")
+        self.assertEqual(labels["Developer"], "Programador")
+        self.assertEqual(
+            labels["Support and missing-app requests"],
+            "Apoio e pedidos de aplicações em falta"
+        )
+        self.assertIn(
+            "aplicações associadas",
+            labels["Review notifications captured from apps you connected."]
+        )
+
+
+    def test_archive_folder_and_action_have_distinct_semantics(self):
+        expected = {
+            "ru": ("Архив", "В архив"),
+            "en": ("Archive", "Archive"),
+            "fr": ("Archive", "Archiver"),
+            "pt-PT": ("Notas arquivadas", "Arquivar"),
+            "ko": ("보관소", "보관"),
+        }
+        for locale in (
+            "ru", "en", "es", "fr", "de", "pt-BR", "pt-PT", "it",
+            "ja", "ko", "zh-Hans", "zh-Hant", "nl", "id", "tr"
+        ):
+            with self.subTest(locale=locale):
+                strings = self.loc(
+                    f"what/ios/WhatIOS/{locale}.lproj/Localizable.strings"
+                )
+                self.assertIn("Archive", strings)
+                self.assertIn("Archive action", strings)
+                self.assertLessEqual(len(strings["Archive action"]), 15)
+                if locale in expected:
+                    self.assertEqual(
+                        (strings["Archive"], strings["Archive action"]),
+                        expected[locale]
+                    )
+        source = (ROOT / "what/ios/WhatIOS/RecordingLibraryView.swift").read_text()
+        self.assertIn('CaptureBrand.text("В архив", "Archive action")', source)
+        self.assertIn('CaptureBrand.text("Архив", "Archive")', source)
 
 
 
