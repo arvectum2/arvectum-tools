@@ -1,0 +1,57 @@
+{
+  "status": "COPY_DRAFT_NEEDS_EDITORIAL_AND_NATIVE_ASSETS",
+  "createdUTC": "2026-10-29",
+  "app": "what",
+  "appId": "6822476399",
+  "bundleId": "ru.arvectum.tools.what",
+  "storefrontCountry": "TR",
+  "uiSourceLocale": "tr",
+  "appleMetadataLocale": "tr",
+  "appleMetadataLocalePublishedSupport": true,
+  "appleLocaleEnabledForThisAppInASC": null,
+  "appleLocaleEnabledForThisAppInASCNote": "Not verified; false means do not upload, not definitive absence in account.",
+  "supportingAppleReferences": [
+    "https://developer.apple.com/help/app-store-connect/reference/app-information/app-store-localizations/",
+    "https://developer.apple.com/documentation/appstoreconnectapi/managing-metadata-in-your-app-by-using-locale-shortcodes"
+  ],
+  "metadata": {
+    "name": "UhWhat? Sesli Notlar",
+    "subtitle": "Fikirleri hemen kaydedin",
+    "keywords": "ses,notlar,kayıt,transkript,video,fikir,hatırlatıcı,arama,özel,çevrimdışı",
+    "promotionalText": "Bir düşünceyi ses, video veya metinle hızla yakalayın. Apple Watch'ta kayda başlayın; orijinal kayıtlarınız cihazınızda kalsın.",
+    "description": "Bir fikir aklınıza geldiğinde hemen kaydedin. UhWhat? ile iPhone'da sesli, yazılı veya görüntülü notlar oluşturabilirsiniz.\n\nHIZLI KAYIT: Bir dokunuşla ses kaydedin veya Apple Watch'unuzdan başlayın. Saatteki orijinal ses, iPhone kaydedildiğini onaylayana kadar Watch üzerinde tutulur. Arka planda aktarım gecikebilir; uygulama anlık bağlantı garantisi vermez.\n\nMETİN VE VİDEO: Notları düzenleyin, ses kayıtlarını oynatın ve kaydedilmiş metin ile transkriptlerde arama yapın.\n\nTRANSKRİPSİYON: Cihaz üzerindeki konuşma tanıma yalnızca seçilen dil ve cihazda destekleniyorsa kullanılabilir. Arayüz dili ile konuşma tanıma dili birbirinden bağımsızdır. Transkripti yeniden oluşturmak elle yaptığınız düzeltmelerin yerini alabilir; orijinal ses korunur.\n\nHATIRLATICILAR: İzin verdiğinizde yeni bir notu daha sonra gözden geçirmek için isteğe bağlı hatırlatıcı ayarlayabilirsiniz.\n\nGİZLİLİK: Notlar ve medyalar cihazınızda işlenir. Kurtarma işlemi başarısız olursa mevcut orijinal kayıtlar korunur; kaybolan verilerin geri gelmesi garanti edilmez. Ayrıntılar için gizlilik politikasını inceleyin.",
+    "whatsNew": "Kayıtları ve transkriptleri yönetirken daha anlaşılır açıklamalar ve güvenli geri yükleme uyarıları.",
+    "privacyPolicyUrl": "https://arvectum.com/privacy.html"
+  },
+  "screenshotPlan": [
+    {
+      "position": 1,
+      "caption": "Fikrinizi bir dokunuşla kaydedin",
+      "screen": "home-quick-capture"
+    },
+    {
+      "position": 2,
+      "caption": "Notlarınızı tek yerde görün",
+      "screen": "recording-library"
+    },
+    {
+      "position": 3,
+      "caption": "Transkripsiyon ve hatırlatıcılar",
+      "screen": "settings-transcription-reminders"
+    },
+    {
+      "position": 4,
+      "caption": "Hızlı metin notu oluşturun",
+      "screen": "text-note-editor"
+    }
+  ],
+  "screenshotAssets": [],
+  "requiredRealNativeCaptures": [
+    "iphone-6.9",
+    "ipad-13"
+  ],
+  "releaseApproved": false,
+  "humanEditorialApproved": false,
+  "screenshotQAApproved": false,
+  "uploadedToASC": false
+}
