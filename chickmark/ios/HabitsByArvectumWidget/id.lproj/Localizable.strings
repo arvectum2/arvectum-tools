@@ -1,0 +1,17 @@
+// Bahasa Indonesia source draft, physical/watch accessibility QA pending.
+"widget.title" = "Hari ini";
+"widget.displayName" = "Kebiasaan Hari Ini";
+"widget.description" = "Lihat kemajuan hari ini dan tandai kebiasaan tanpa membuka aplikasi.";
+"widget.empty" = "Tidak ada yang dijadwalkan hari ini";
+"widget.allDone" = "Semuanya selesai untuk hari ini";
+"widget.remaining.format" = "%d tersisa";
+"widget.inline.format" = "%d dari %d hari ini";
+"widget.more.format" = "+%d lainnya";
+"widget.complete" = "Tandai selesai";
+"widget.undo" = "Batalkan penyelesaian";
+"widget.preview.water" = "Air";
+"widget.preview.reading" = "Membaca";
+"widget.duration.format" = "%d / %d menit";
+"widget.action.complete.format" = "Selesaikan %@";
+"widget.action.undo.format" = "Batalkan penyelesaian %@";
+"widget.empty.small" = "Tidak ada hari ini";

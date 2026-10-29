@@ -276,10 +276,11 @@
           "ko",
           "zh-Hans",
           "zh-Hant",
-          "nl"
+          "nl",
+          "id"
         ],
-        "status": "13-source-catalogs-dutch-source-only-native-proofreading-and-physical-HealthKit-QA-pending",
-        "note": "Dutch localizations in iPhone, Watch, widget and Watch widget; 315 iPhone strings, two HealthKit permission strings and native UI tests. HealthKit/backup semantics unchanged. Independent native speaker and physical acceptance still pending."
+        "status": "14-source-catalogs-complete-in-ChickMark-Bahasa-Indonesia-source-draft",
+        "note": "Indonesian id complete in iPhone, Watch, Phone Widget and Watch widget (315+22+16+5 keys), HealthKit permission messages; human native/physical QA and App Store release remain open."
       }
     },
     "pushkin": {
@@ -394,18 +395,15 @@
       "zh-Hans"
     ],
     "androidExpansion": "deferred; maintain nine existing source catalogs",
-    "iosTier1Active": [
-      "id"
-    ],
+    "iosTier1Active": [],
     "iosTier1Remaining": [
       "hi",
       "ar",
-      "id",
       "tr",
       "vi",
       "pl",
       "th"
     ],
-    "iosSourceBaselineVerified": "Photo/PDF, PUSHKIN and Uhvat 14 of 50, ChickMark 13 of 50; 55 of 200 app×locale source pairs. Indonesian remains incomplete in ChickMark."
+    "iosSourceBaselineVerified": "All 4 active iOS apps now have 14 of 50 source languages and all 10 declared iOS/watchOS/widget bundles include Indonesian id: 56/200 app×locale source pairs. Native human editorial/physical/ASC release QA not yet complete."
   }
 }

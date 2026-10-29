@@ -1,0 +1,23 @@
+// Bahasa Indonesia source draft, physical/watch accessibility QA pending.
+"watch.today" = "Hari ini";
+"watch.progress.format" = "%d dari %d";
+"watch.empty" = "Tidak ada yang dijadwalkan hari ini";
+"watch.streak.format" = "Rangkaian %d hari";
+"watch.weekly.format" = "%d dari %d minggu ini";
+"watch.completed" = "Selesai";
+"watch.notCompleted" = "Belum selesai";
+"watch.skipped" = "Dilewati";
+"watch.undoHint" = "Ketuk dua kali untuk membatalkan penyelesaian";
+"watch.completeHint" = "Ketuk dua kali untuk menandai selesai";
+"watch.duration.format" = "%d / %d menit";
+"watch.step.add" = "Tambah satu langkah";
+"watch.step.remove" = "Batalkan satu langkah";
+"watch.preview.water" = "Air";
+"watch.preview.reading" = "Membaca";
+"watch.checkins.progress.format" = "%d dari %d pencatatan";
+"watch.health.unit.steps" = "langkah";
+"watch.health.unit.kilometers" = "km";
+"watch.health.unit.minutes" = "menit";
+"watch.health.unit.hours" = "j";
+"watch.health.unit.unknown" = "";
+"watch.health.unavailable" = "Data Apple Health tidak tersedia";

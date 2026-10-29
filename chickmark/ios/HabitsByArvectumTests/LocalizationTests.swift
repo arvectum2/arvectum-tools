@@ -123,7 +123,7 @@ final class LocalizationTests: XCTestCase {
     ]
 
     func testPickerOffersOnlyBundledLocales() {
-        XCTAssertEqual(ChickMarkLanguage.supported, ["ru", "en", "es", "de", "fr", "it", "ja", "ko", "nl", "pt-BR", "pt-PT", "zh-Hans", "zh-Hant"])
+        XCTAssertEqual(ChickMarkLanguage.supported, ["ru", "en", "es", "de", "fr", "id", "it", "ja", "ko", "nl", "pt-BR", "pt-PT", "zh-Hans", "zh-Hant"])
         XCTAssertEqual(
             ChickMarkLanguage.orderedLanguages(["fr", "en", "Base", "ru", "es", "en"]),
             ["ru", "en", "es", "fr"]
@@ -146,6 +146,26 @@ final class LocalizationTests: XCTestCase {
             ChickMarkLanguage.orderedLanguages(["en", "ja", "de"]),
             ["en", "de", "ja"]
         )
+    }
+
+    func testIndonesianLocaleSelectionAndSafeCopy() {
+        let available = ChickMarkLanguage.supported
+        XCTAssertTrue(available.contains("id"))
+        XCTAssertEqual(ChickMarkLanguage.resolvedIdentifier(
+            for: "system", preferred: ["id-ID", "en-GB"], available: available), "id")
+        XCTAssertEqual(ChickMarkLanguage.resolvedIdentifier(
+            for: "system", preferred: ["id_ID", "en-GB"], available: available), "id")
+        XCTAssertEqual(L10n.string("habit.create", language: "id"), "Buat kebiasaan")
+        XCTAssertEqual(L10n.string("today.empty.title", language: "id"), "Mulai dari satu kebiasaan")
+        XCTAssertEqual(L10n.string("language.title", language: "id"), "Bahasa")
+        XCTAssertEqual(String(format: L10n.string("today.progress.format", language: "id"), 2, 3),
+                       "Ditandai: 2 dari 3")
+        XCTAssertEqual(String(format: L10n.string("weekly.gapDays", language: "id"), 7),
+                       "7 hari kalender")
+        XCTAssertTrue(L10n.string("health.privacy", language: "id").contains("Tidak ada pengukuran"))
+        XCTAssertTrue(L10n.string("backup.warning", language: "id").contains("menghapus catatan"))
+        XCTAssertTrue(L10n.string("water.export.explanation", language: "id").contains("Hari sebelumnya tidak diimpor"))
+        XCTAssertTrue(L10n.string("review.privacy.explanation", language: "id").contains("Notifikasi tidak menampilkan transkrip"))
     }
 
     func testDutchLanguageSelectionAndDataSafetyCopy() {
