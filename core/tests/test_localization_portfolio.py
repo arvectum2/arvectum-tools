@@ -335,6 +335,24 @@ class LocalizationPortfolioTests(unittest.TestCase):
         self.assertIn('func testTurkishPDFWorkflow', ui)
         self.assertIn('func testTurkishLargeTextModeGridAndPrivacyConsent', ui)
 
+    def test_pushkin_turkish_shortcuts_terminology_and_safety(self):
+        root = ROOT / 'pushkin/ios/ArvectumNotify/Resources'
+        en = i18n.read_strings(root/'en.lproj/Localizable.strings', [])
+        tr = i18n.read_strings(root/'tr.lproj/Localizable.strings', [])
+        self.assertEqual(len(tr), 159)
+        self.assertEqual(set(en), set(tr))
+        for k in en:
+            self.assertEqual(i18n.placeholders(en[k]), i18n.placeholders(tr[k]), k)
+        self.assertEqual(tr['History'], 'Geçmiş')
+        self.assertEqual(tr['Settings'], 'Ayarlar')
+        self.assertIn('kapalıdır', tr[next(k for k in tr if 'Newly imported automations' in en[k])])
+        self.assertIn('kendi', tr[next(k for k in tr if 'iOS does not allow PUSHKIN' in en[k])])
+        self.assertIn('silmez', tr[next(k for k in tr if 'Clearing this local checklist' in en[k])])
+        self.assertIn('Kestirmeler', tr[next(k for k in tr if 'Only Shortcuts knows whether' in en[k])])
+        self.assertIn('kopyalamak', tr[next(k for k in tr if 'Your group plan is stored locally' in en[k])])
+        ui = (ROOT/'pushkin/ios/ArvectumNotifyUITests/TurkishLocalizationUITests.swift').read_text()
+        self.assertIn('func testTurkishTabsAndNavigation', ui)
+
     def test_korean_uhvat_headline_is_idiomatic(self):
         loc = i18n.read_strings(ROOT / "what/ios/WhatIOS/ko.lproj/Localizable.strings", [])
         self.assertEqual(loc["Catch that thought"], "떠오른 생각을 기록하세요")
@@ -423,6 +441,8 @@ class LocalizationPortfolioTests(unittest.TestCase):
                 expected.append("nl")
             if app in ("pushkin", "what", "chickmark"):
                 expected.append("id")
+            if app == "pushkin":
+                expected.append("tr")
             self.assertEqual(reg["apps"][app]["ios"]["sourceCatalogs"], expected)
 
         self.assertEqual([sum(x["tier"] == t for x in reg["targets"]) for t in (1, 2, 3)], [20, 20, 10])
@@ -453,7 +473,7 @@ class LocalizationPortfolioTests(unittest.TestCase):
             # New iOS source locales must add an explicit UI smoke mapping.
             # Reject any locale without an authored XCUITest smoke mapping.
             locales = set(registry["apps"][app_registry_names[app]]["ios"]["sourceCatalogs"])
-            expected = {"ru", "en", *code_names} - ({"tr"} if app != "photo" else set())
+            expected = {"ru", "en", *code_names} - ({"tr"} if app not in ("photo", "pushkin") else set())
             self.assertEqual(
                 locales, expected,
                 f"{app}: new source locale must have a UI smoke test mapping")
@@ -479,7 +499,7 @@ class LocalizationPortfolioTests(unittest.TestCase):
                     self.assertIn("func " + method, baseline,
                                   f"{app}/{locale}: no dedicated UI smoke")
                 covered += 1
-        self.assertEqual(covered, 57)
+        self.assertEqual(covered, 58)
 
     def test_all_active_ios_bundles_have_registry_localized_catalogs(self):
         """Each app's own source locale packs are present in all its active bundles.

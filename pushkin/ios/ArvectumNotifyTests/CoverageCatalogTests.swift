@@ -112,6 +112,19 @@ final class CoverageCatalogTests: XCTestCase {
         XCTAssertEqual(PushkinCopy.appCount(2, language: "pt-BR"), "2 apps")
     }
 
+    func testTurkishCopyAndShortcutsConsentBoundaries() {
+        XCTAssertEqual(PushkinCopy.text("History", language: "tr-TR"), "Geçmiş")
+        XCTAssertEqual(PushkinCopy.text("Apps & Setup", language: "tr"), "Uygulamalar ve Kurulum")
+        XCTAssertEqual(PushkinCopy.text("Settings", language: "tr-CY"), "Ayarlar")
+        XCTAssertEqual(PushkinCopy.appCount(1, language: "tr"), "1 uygulama")
+        XCTAssertEqual(PushkinCopy.appCount(25, language: "tr-TR"), "25 uygulama")
+        XCTAssertEqual(PushkinCopy.text("Notification content stays on this device", language: "tr"),
+                       "Bildirim içeriği bu cihazda kalır")
+        XCTAssertTrue(PushkinCopy.text(
+            "Only Shortcuts knows whether an automation is enabled. PUSHKIN cannot check or change that switch.",
+            language: "tr").contains("kontrol edemez"))
+    }
+
     func testIndonesianBundleRoutingAndShortcutsSafetyWarnings() {
         XCTAssertEqual(PushkinCopy.text("History", language: "id-ID"), "Riwayat")
         XCTAssertEqual(PushkinCopy.text("Apps & Setup", language: "id"), "Aplikasi & Pengaturan")
