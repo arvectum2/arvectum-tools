@@ -71,7 +71,7 @@
 "Settings" = "設定";
 "Share" = "分享";
 "Shortcuts was opened — finish setup there" = "已開啟“快捷指令”，請在那裡繼續設定";
-"Stored on this iPhone" = "已儲存在這臺iPhone";
+"Stored on this iPhone" = "已儲存在這部 iPhone";
 "Support and missing-app requests" = "支援與缺少應用的反饋";
 "This cannot be undone. PUSHKIN setup and app coverage stay intact." = "此操作無法撤銷。PUSHKIN的設定和應用覆蓋範圍不會改變。";
 "This path is only for apps missing from the built-in catalog." = "此流程僅適用於內建目錄中沒有的應用。";
@@ -112,7 +112,7 @@
 "Latest" = "最近";
 "Message" = "訊息";
 "Newly imported Notification automations are disabled. Find PUSHKIN, enable it and select the automatic/immediate option if Shortcuts offers it." = "新匯入的“通知”自動化預設關閉。請在“快捷指令”中找到PUSHKIN，啟用自動化，並在可用時選擇自動執行或立即執行。";
-"No account, cloud sync, ads or analytics. PUSHKIN stores your notification content on this iPhone only." = "無需賬戶、雲同步、廣告或分析。PUSHKIN僅在這臺iPhone上儲存您的通知內容。";
+"No account, cloud sync, ads or analytics. PUSHKIN stores your notification content on this iPhone only." = "不需要帳戶，也沒有雲端同步、廣告或使用情況分析。PUSHKIN 只會在這部 iPhone 上儲存通知內容。";
 "No message body" = "訊息沒有正文";
 "Not in this version" = "此版本不可用";
 "Not selected" = "未選擇";
@@ -120,7 +120,7 @@
 "Notifications saved" = "已儲存的通知";
 "Observed source apps" = "已檢測到來源應用";
 "Offline catalog" = "離線目錄";
-"On this iPhone" = "這臺iPhone上";
+"On this iPhone" = "這部 iPhone 上";
 "Only Shortcuts knows whether an automation is enabled. PUSHKIN cannot check or change that switch." = "只有“快捷指令”知道自動化是否啟用。PUSHKIN無法檢查或修改該開關。";
 "Opening the preview does not mean you tapped Add or enabled the automation." = "開啟預覽不代表您已點選“新增”或啟用自動化。";
 "Optional groups" = "可選分組";

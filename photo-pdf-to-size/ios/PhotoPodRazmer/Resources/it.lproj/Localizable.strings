@@ -100,7 +100,7 @@
 "10×15 см · 6 фото · 300 DPI" = "10 × 15 cm · 6 foto · 300 DPI";
 "4×6 in · 4 фото · 300 DPI" = "4 × 6 pollici · 4 foto · 300 DPI";
 "Лист для печати" = "Foglio di stampa";
-"Печатать без масштабирования" = "Stampa al 100% della scala";
+"Печатать без масштабирования" = "Stampa al 100%";
 "Не получилось подготовить лист для печати." = "Impossibile preparare il foglio di stampa.";
 "Дополнительно" = "Avanzate";
 "Реклама и конфиденциальность" = "Pubblicità e privacy";
@@ -135,7 +135,7 @@
 "Документы" = "Foto per documenti";
 "Сжать файл" = "Comprimi file";
 "Фото на документы" = "Foto per documenti";
-"Обработать PDF" = "Lavora con PDF";
+"Обработать PDF" = "Gestisci PDF";
 "СЖАТЬ ФОТО" = "COMPRIMI FOTO";
 "ИЗМЕНИТЬ РАЗМЕР" = "RIDIMENSIONA FOTO";
 "ФОТО НА ДОКУМЕНТЫ" = "FOTO PER DOCUMENTI";

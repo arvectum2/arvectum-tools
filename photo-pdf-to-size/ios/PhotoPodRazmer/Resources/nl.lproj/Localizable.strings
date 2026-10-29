@@ -100,7 +100,7 @@
 "10×15 см · 6 фото · 300 DPI" = "10×15 cm · 6 foto's · 300 DPI";
 "4×6 in · 4 фото · 300 DPI" = "4×6 inch · 4 foto's · 300 DPI";
 "Лист для печати" = "Afdrukvel";
-"Печатать без масштабирования" = "Afdrukken op 100% schaal";
+"Печатать без масштабирования" = "Afdrukken op ware grootte (100%)";
 "Не получилось подготовить лист для печати." = "Het afdrukvel kan niet worden voorbereid.";
 "Дополнительно" = "Geavanceerd";
 "Реклама и конфиденциальность" = "Reclame en privacy";
@@ -131,7 +131,7 @@
 "страниц" = "pagina's";
 "PDF обработан локально на устройстве и никуда не загружался." = "De PDF is lokaal op je apparaat verwerkt en nergens naartoe geüpload.";
 "Сжать" = "Comprimeren";
-"Размер фото" = "Formaat wijzigen";
+"Размер фото" = "Afmetingen wijzigen";
 "Документы" = "Documentfoto";
 "Сжать файл" = "Bestand comprimeren";
 "Фото на документы" = "Documentfoto";

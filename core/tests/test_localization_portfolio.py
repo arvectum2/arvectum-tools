@@ -1599,6 +1599,100 @@ class EditorialLocalizationRegressionTests(unittest.TestCase):
                 )
                 self.assertEqual(tuple(strings[k] for k in columns), names)
 
+    def test_turkish_resizing_and_portuguese_shortcuts_terms(self):
+        tr = self.loc(
+            "photo-pdf-to-size/ios/PhotoPodRazmer/Resources/"
+            "tr.lproj/Localizable.strings"
+        )
+        self.assertEqual(tr["filename.file_size"], "yeniden boyutlandırılmış")
+        pt = self.loc("chickmark/ios/HabitsByArvectum/"
+                      "pt-PT.lproj/Localizable.strings")
+        self.assertIn("fechar a app Livros",
+                      pt["health.shortcuts.instructions"])
+        self.assertIn("o seu hábito", pt["health.shortcuts.instructions"])
+
+
+    def test_italian_and_german_system_copy_is_natural(self):
+        photo = self.loc(
+            "photo-pdf-to-size/ios/PhotoPodRazmer/Resources/"
+            "it.lproj/Localizable.strings"
+        )
+        self.assertEqual(photo["Печатать без масштабирования"], "Stampa al 100%")
+        self.assertEqual(photo["Обработать PDF"], "Gestisci PDF")
+        de = self.loc(
+            "pushkin/ios/ArvectumNotify/Resources/"
+            "de.lproj/Localizable.strings"
+        )
+        self.assertEqual(de["You searched for"], "Ihre Suche nach")
+        self.assertTrue(de["Try another app, date range or search."].startswith(
+            "Versuchen Sie"
+        ))
+
+
+    def test_chinese_quick_capture_covers_audio_video_and_text(self):
+        expected = {
+            "zh-Hans": ("快速记录", "发送至 ChickMark"),
+            "zh-Hant": ("快速記錄", "傳送至 ChickMark"),
+        }
+        for locale, captions in expected.items():
+            values = self.loc(
+                f"what/ios/WhatIOS/{locale}.lproj/Localizable.strings"
+            )
+            self.assertEqual(values["QUICK CAPTURE"], captions[0])
+            self.assertEqual(values["To ChickMark"], captions[1])
+
+    def test_traditional_chinese_does_not_garbled_health_completion(self):
+        values = self.loc(
+            "chickmark/ios/HabitsByArvectum/zh-Hant.lproj/Localizable.strings"
+        )
+        self.assertIn("當天累計數值", values["health.description"])
+        self.assertNotIn("噹噹", values["health.description"])
+        push = self.loc(
+            "pushkin/ios/ArvectumNotify/Resources/zh-Hant.lproj/Localizable.strings"
+        )
+        self.assertIn("雲端同步", push[
+            "No account, cloud sync, ads or analytics. PUSHKIN stores your notification content on this iPhone only."
+        ])
+        self.assertNotIn("賬戶", push[
+            "No account, cloud sync, ads or analytics. PUSHKIN stores your notification content on this iPhone only."
+        ])
+
+    def test_indonesian_skip_and_shortcut_undo_are_not_delete_habit(self):
+        values = self.loc(
+            "chickmark/ios/HabitsByArvectum/id.lproj/Localizable.strings"
+        )
+        self.assertEqual(values["habit.skip.undo"], "Batalkan hari yang dilewati")
+        self.assertEqual(values["shortcut.undo.title"],
+                         "Batalkan Penyelesaian Kebiasaan")
+
+
+    def test_korean_watch_transfer_count_and_watchface_widget_caption(self):
+        watch = self.loc(
+            "what/ios/WhatWatch/ko.lproj/Localizable.strings"
+        )
+        self.assertEqual(watch["%d waiting for iPhone"],
+                         "iPhone 전송 대기 중: %d개")
+        widget = self.loc(
+            "chickmark/ios/HabitsByArvectumWatchWidget/"
+            "ko.lproj/Localizable.strings"
+        )
+        self.assertEqual(widget["watch.widget.description"],
+                         "시계 화면에서 오늘의 습관 진행 상황을 확인하세요.")
+
+
+    def test_dutch_android_resize_action_means_dimensions_not_file_format(self):
+        import xml.etree.ElementTree as ET
+        values = {
+            node.attrib["name"]: node.text
+            for node in ET.parse(
+                ROOT / "photo-pdf-to-size/android/app/src/main/res/"
+                "values-nl/strings.xml"
+            ).getroot()
+            if node.tag == "string"
+        }
+        self.assertEqual(values["resize_photo"], "Fotoafmetingen wijzigen")
+
+
 
 if __name__ == "__main__":
     unittest.main()

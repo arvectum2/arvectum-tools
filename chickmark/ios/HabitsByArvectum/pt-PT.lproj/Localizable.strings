@@ -223,7 +223,7 @@
 "health.unit.hours" = "horas";
 "health.shortcuts.title" = "Leitura e outras aplicações · Atalhos";
 "health.shortcuts.action" = "Automatizar um hábito relacionado com aplicações";
-"health.shortcuts.instructions" = "Abra a aplicação Atalhos no iPhone → Automação → escolha um gatilho (por exemplo, fechar o Livros) → adicione a ação “Concluir hábito” do ChickMark → escolha seu hábito. Também pode executar a ação manualmente pela Siri ou por um atalho no Ecrã de Início.";
+"health.shortcuts.instructions" = "Abra a aplicação Atalhos no iPhone → Automação → escolha um gatilho (por exemplo, fechar a app Livros) → adicione a ação “Concluir hábito” do ChickMark → escolha o seu hábito. Também pode executar a ação manualmente com a Siri ou por um atalho no Ecrã de Início.";
 "health.shortcuts.limitation" = "Fechar uma aplicação não comprova que houve leitura por um determinado tempo. O Atalhos regista o evento escolhido, não o tempo real de leitura.";
 "health.integrations.title" = "Automações inteligentes";
 "language.title" = "Idioma";

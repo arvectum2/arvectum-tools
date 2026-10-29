@@ -194,7 +194,7 @@
 "habit.history.progress" = "%d van %d registraties";
 "habit.history.error" = "Wijzigingen opslaan mislukt";
 "quick.multicheck" = "Water (5 keer)";
-"brand.website.accessibility" = "Open de website van ChickMark v%@ van Arvectum";
+"brand.website.accessibility" = "Open de Arvectum-website voor ChickMark v%@";
 "health.title" = "Apple Gezondheid";
 "health.connect.hint" = "Verbind activiteit voor automatische registraties";
 "health.connected.hint" = "Automatische registraties ingeschakeld";

@@ -172,7 +172,7 @@
 "The audio and transcript will be deleted from this iPhone. This cannot be undone." = "Audio e trascrizione verranno eliminati da questo iPhone. L'azione non può essere annullata.";
 "The final video segment has not finished writing. Original files are preserved for recovery." = "L'ultimo segmento video non è stato ancora scritto completamente. I file originali restano disponibili per il recupero.";
 "The full note temporarily replaces this device's clipboard for up to five minutes. ChickMark asks before saving. Nothing is uploaded." = "La nota completa sostituisce temporaneamente gli appunti di questo dispositivo per un massimo di cinque minuti. ChickMark chiede conferma prima del salvataggio. Non viene caricato nulla.";
-"The original note is no longer available in UhWhat." = "La nota originale non è più disponibile in UhWhat?.";
+"The original note is no longer available in UhWhat." = "L’app UhWhat? non contiene più la nota originale.";
 "This is the last message received from your Watch, not a real-time connection check. It can be delayed." = "Questo è l'ultimo messaggio ricevuto dal Watch, non una verifica in tempo reale della connessione. Potrebbe essere in ritardo.";
 "This note and its video will be deleted from this device." = "Questa nota e il suo video verranno eliminati dal dispositivo.";
 "To ChickMark" = "Vai a ChickMark";
@@ -245,7 +245,7 @@
 "Audio exceeds 500 MB. Your original is safe." = "L’audio supera i 500 MB. L’originale non è stato modificato.";
 "The file has no playable audio." = "Il file non contiene audio riproducibile.";
 "This audio format is unsupported." = "Questo formato audio non è supportato.";
-"Could not convert to M4A. Your original is safe." = "Impossibile convertire in M4A. L’originale è al sicuro.";
+"Could not convert to M4A. Your original is safe." = "Impossibile convertire in M4A. Il file originale è intatto.";
 
 // Bounded multi-file audio import (local-only)
 "Importing audio…" = "Importazione audio…";

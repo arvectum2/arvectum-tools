@@ -5,4 +5,4 @@
 "Saved" = "저장됨";
 "Stop" = "중지";
 "Try again" = "다시 시도";
-"%d waiting for iPhone" = "%d iPhone을 기다리는 중";
+"%d waiting for iPhone" = "iPhone 전송 대기 중: %d개";

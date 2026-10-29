@@ -14,4 +14,4 @@
 "widget.duration.format" = "%d / %d мин";
 "widget.action.complete.format" = "Отметить «%@» выполненной";
 "widget.action.undo.format" = "Отменить выполнение «%@»";
-"widget.empty.small" = "Нет привычек";
+"widget.empty.small" = "На сегодня ничего нет";
