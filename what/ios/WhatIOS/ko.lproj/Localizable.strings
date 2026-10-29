@@ -49,6 +49,7 @@
 "Apple Watch — last reported state" = "Apple Watch — 마지막으로 보고된 상태";
 "Archive" = "보관소";
 "Archive is empty" = "아카이브가 비어 있습니다.";
+"Archive action" = "보관";
 "Archive recording" = "녹음 보관";
 "Archived notes stay on this device." = "보관된 메모는 이 기기에 유지됩니다.";
 "Audio" = "오디오";
@@ -57,7 +58,7 @@
 "Audio incomplete — please re-record" = "녹음이 완전하지 않습니다. 다시 녹음해 주세요.";
 "Audio missing on iPhone" = "iPhone에서 오디오가 누락됨";
 "Audio saved on iPhone" = "iPhone에 저장된 오디오";
-"Automatically remind about new notes" = "새 메모에 대해 자동으로 알림";
+"Automatically remind about new notes" = "자동 알림";
 "Back" = "후면";
 "Back to quick recording" = "빠른 녹음으로 돌아가기";
 "Camera preview" = "카메라 미리보기";

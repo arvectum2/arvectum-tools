@@ -48,6 +48,7 @@
 "Apple Watch — last reported state" = "Apple Watch：最后报告的状态";
 "Archive" = "归档";
 "Archive is empty" = "归档为空";
+"Archive action" = "归档";
 "Archive recording" = "归档录音";
 "Archived notes stay on this device." = "已归档的笔记仍保存在此设备。";
 "Audio" = "音频";
@@ -56,7 +57,7 @@
 "Audio incomplete — please re-record" = "音频不完整：请重新录制";
 "Audio missing on iPhone" = "iPhone上缺少音频";
 "Audio saved on iPhone" = "已在iPhone上保存音频";
-"Automatically remind about new notes" = "自动提醒新笔记";
+"Automatically remind about new notes" = "自动提醒";
 "Back" = "后置";
 "Back to quick recording" = "返回快速录音";
 "Camera preview" = "摄像头预览";

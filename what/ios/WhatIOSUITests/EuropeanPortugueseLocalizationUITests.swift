@@ -36,4 +36,24 @@ final class EuropeanPortugueseLocalizationUITests: XCTestCase {
         evidence.lifetime = .keepAlways
         add(evidence)
     }
+    /// Ensure the inbox action is an imperative and not the archive folder name.
+    @MainActor
+    func testEuropeanPortugueseArchiveActionUsesVerb() {
+        let app = XCUIApplication()
+        app.launchArguments = [
+            "-AppleLanguages", "(pt-PT)", "-AppleLocale", "pt_PT",
+            "--qa-aso-filled-library"
+        ]
+        app.launch()
+        let library = app.buttons["what.open.library"]
+        XCTAssertTrue(library.waitForExistence(timeout: 12))
+        library.tap()
+        let action = app.buttons["Arquivar"].firstMatch
+        XCTAssertTrue(action.waitForExistence(timeout: 12),
+                      "The archive action must say Arquivar, not Notas arquivadas")
+        let evidence = XCTAttachment(screenshot: XCUIScreen.main.screenshot())
+        evidence.name = "uhvat-ptpt-archive-action-verb"
+        evidence.lifetime = .keepAlways
+        add(evidence)
+    }
 }

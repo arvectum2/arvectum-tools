@@ -68,12 +68,12 @@
 "Send a real notification from one app in each group and check that it appears in History. One captured app does not verify every app in its group." = "Envie uma notificação real de uma aplicação de cada grupo e confirme que ela aparece no Histórico. Uma notificação recebida não verifica todas as aplicações daquele grupo.";
 "Set up PUSHKIN" = "Configurar PUSHKIN";
 "Set up PUSHKIN once, then incoming notifications can be archived automatically." = "Configure o PUSHKIN uma vez para que novas notificações possam ser arquivadas automaticamente.";
-"Settings" = "Ajustes";
+"Settings" = "Definições";
 "Share" = "Partilhar";
 "Shortcuts was opened — finish setup there" = "O Atalhos foi aberto — conclua a configuração por lá";
 "Stored on this iPhone" = "Armazenado neste iPhone";
-"Support and missing-app requests" = "Suporte e solicitações de aplicações em falta";
-"This cannot be undone. PUSHKIN setup and app coverage stay intact." = "Esta ação não pode ser desfeita. A configuração do PUSHKIN e as aplicações conectadas serão mantidos.";
+"Support and missing-app requests" = "Apoio e pedidos de aplicações em falta";
+"This cannot be undone. PUSHKIN setup and app coverage stay intact." = "Esta ação não pode ser desfeita. A configuração do PUSHKIN e as aplicações associadas serão mantidas.";
 "This path is only for apps missing from the built-in catalog." = "Este caminho é apenas para aplicações em falta do catálogo integrado.";
 "Waiting for first capture" = "Aguardando a primeira notificação";
 "Want this app to become a one-tap option? Mention its exact name in an App Store review or send it to Arvectum support. Requested apps can be added in regular catalog updates." = "Quer adicionar esta aplicação com um toque? Indique o nome exato numa avaliação na App Store ou contacte o suporte da Arvectum. As aplicações solicitadas podem ser adicionadas nas atualizações regulares do catálogo.";
@@ -98,7 +98,7 @@
 "Captured records" = "Registos capturados";
 "Choose apps for groups" = "Escolher aplicações para os grupos";
 "Connect the apps you want to track in Shortcuts. Notifications captured from those sources will appear here." = "Conecte na app Atalhos as aplicações que deseja acompanhar. As notificações dessas aplicações aparecerão aqui.";
-"Developer" = "Desenvolvedor";
+"Developer" = "Programador";
 "Empty" = "Vazio";
 "Finish adding %@" = "Concluir a adição de %@";
 "From" = "De";
@@ -131,7 +131,7 @@
 "Privacy" = "Privacidade";
 "Product" = "Produto";
 "Received" = "Recebido";
-"Review notifications captured from apps you connected." = "Revise as notificações capturadas das aplicações conectadas.";
+"Review notifications captured from apps you connected." = "Consulte as notificações registadas das aplicações associadas.";
 "Review the app list and tap Add in Shortcuts. You do not have to manually select all 1,000 catalog apps." = "Revise a lista e toque em Adicionar na app Atalhos. Não é necessário selecionar manualmente as 1.000 aplicações do catálogo.";
 "Selected" = "Selecionado";
 "Selected apps" = "Aplicações selecionadas";

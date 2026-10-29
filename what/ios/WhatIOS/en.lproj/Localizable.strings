@@ -48,6 +48,7 @@
 "Apple Watch — last reported state" = "Apple Watch — last reported state";
 "Archive" = "Archive";
 "Archive is empty" = "Archive is empty";
+"Archive action" = "Archive";
 "Archive recording" = "Archive recording";
 "Archived notes stay on this device." = "Archived notes stay on this device.";
 "Audio" = "Audio";
@@ -56,7 +57,7 @@
 "Audio incomplete — please re-record" = "Audio incomplete — please re-record";
 "Audio missing on iPhone" = "Audio missing on iPhone";
 "Audio saved on iPhone" = "Audio saved on iPhone";
-"Automatically remind about new notes" = "Automatically remind about new notes";
+"Automatically remind about new notes" = "Automatic reminders";
 "Back" = "Back";
 "Back to quick recording" = "Back to quick recording";
 "Camera preview" = "Camera preview";

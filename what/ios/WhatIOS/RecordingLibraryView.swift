@@ -320,7 +320,7 @@ struct RecordingLibraryView: View {
                                                 )
                                             } label: {
                                                 Label(
-                                                    selectedFolder == .archive ? CaptureBrand.text("Вернуть", "Restore") : CaptureBrand.text("Архив", "Archive"),
+                                                    selectedFolder == .archive ? CaptureBrand.text("Вернуть", "Restore") : CaptureBrand.text("В архив", "Archive action"),
                                                     systemImage: selectedFolder == .archive
                                                         ? "tray.and.arrow.up" : "archivebox"
                                                 )
@@ -361,7 +361,7 @@ struct RecordingLibraryView: View {
                                                 } label: {
                                                     Label(note.archived
                                                               ? CaptureBrand.text("Вернуть", "Restore")
-                                                              : CaptureBrand.text("В архив", "Archive"),
+                                                              : CaptureBrand.text("В архив", "Archive action"),
                                                           systemImage: note.archived ? "tray.and.arrow.up" : "archivebox")
                                                 }
                                                 .tint(.indigo)
@@ -760,7 +760,7 @@ struct RecordingLibraryView: View {
                     store.setArchived(note, archived: !note.archived)
                 } label: {
                     Label(note.archived ? CaptureBrand.text("Вернуть", "Restore") :
-                          CaptureBrand.text("В архив", "Archive"),
+                          CaptureBrand.text("В архив", "Archive action"),
                           systemImage: note.archived ? "tray.and.arrow.up" : "archivebox")
                 }
                 .frame(minHeight: dynamicTypeSize.isAccessibilitySize ? 64 : 48)
@@ -1177,7 +1177,7 @@ private struct AutoFollowUpSettingsMenu: View {
                 "New notes only, with your permission"
             ))
         } label: {
-            Label(CaptureBrand.text("Автоматически напоминать о новых заметках",
+            Label(CaptureBrand.text("Автонапоминания",
                                     "Automatically remind about new notes"),
                   systemImage: "bell.badge")
         }

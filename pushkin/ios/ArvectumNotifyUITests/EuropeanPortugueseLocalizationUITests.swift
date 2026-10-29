@@ -16,7 +16,7 @@ final class EuropeanPortugueseLocalizationUITests: XCTestCase {
 
         let history = app.tabBars.buttons["Histórico"].firstMatch
         let apps = app.tabBars.buttons["Aplicações"].firstMatch
-        let settings = app.tabBars.buttons["Ajustes"].firstMatch
+        let settings = app.tabBars.buttons["Definições"].firstMatch
         XCTAssertTrue(history.waitForExistence(timeout: 12))
         XCTAssertTrue(app.navigationBars["Histórico"].firstMatch.exists)
         XCTAssertTrue(apps.exists)
@@ -25,7 +25,7 @@ final class EuropeanPortugueseLocalizationUITests: XCTestCase {
         apps.tap()
         XCTAssertTrue(app.navigationBars["Aplicações e configuração"].firstMatch.waitForExistence(timeout: 8))
         settings.tap()
-        XCTAssertTrue(app.navigationBars["Ajustes"].firstMatch.waitForExistence(timeout: 8))
+        XCTAssertTrue(app.navigationBars["Definições"].firstMatch.waitForExistence(timeout: 8))
         let evidence = XCTAttachment(screenshot: XCUIScreen.main.screenshot())
         evidence.name = "pushkin-ptpt-settings"
         evidence.lifetime = .keepAlways
