@@ -6,6 +6,11 @@
 - [x] Общий валидатор для 4 NL черновиков отказывается принимать fake approval/upload/screenshot/ASC status. Все исходные 16×4 региональных staged карточки сохранены без изменений.
 - [ ] Редакторская и физическая QA, настоящие screenshots, проверка наличия конкретного nl-NL locale в ASC и отдельное согласование релиза. Никаких Apple или HealthKit mutations.
 
+## 29.10.2026 · Indonesia storefront — copy draft для chickmark
+
+- [x] `core/appstore/locale-expansion-2026-10-29/chickmark-id.draft.json`: региональные метаданные, реальные юридические оговорки, privacy URL и план 4 будущих кадров. Все поля и согласованные locale/country/app проверяет offline валидатор.
+- [ ] Носитель языка, настоящие скриншоты, проверка версии и доступности языка в ASC, отдельное разрешение публикации. Ни App Store, ни пользовательские данные не изменялись.
+
 ## 29.10.2026 · Bahasa Indonesia (`id`): iPhone, Watch и оба виджета
 
 - [x] Добавлены все 4 комплекта `id`: iPhone **315** UI ключей, Watch 22, iPhone Widget 16, Watch Widget 5; оба HealthKit InfoPlist read/write permission strings. Тексты backup/CloudKit/water export/Ухват/privacy и neutral week days проверяются с сохранением фактической семантики, никакого изменения HealthKit данных.

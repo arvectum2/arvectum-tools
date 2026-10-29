@@ -1,0 +1,57 @@
+{
+  "status": "COPY_DRAFT_NEEDS_EDITORIAL_AND_NATIVE_ASSETS",
+  "createdUTC": "2026-10-29",
+  "app": "chickmark",
+  "appId": "6818711298",
+  "bundleId": "ru.arvectum.tools.habits",
+  "storefrontCountry": "ID",
+  "uiSourceLocale": "id",
+  "appleMetadataLocale": "id",
+  "appleMetadataLocalePublishedSupport": true,
+  "appleLocaleEnabledForThisAppInASC": null,
+  "appleLocaleEnabledForThisAppInASCNote": "Indonesian is an Apple-supported App Store metadata language for Indonesia, secondary after en-GB; whether this app version has id enabled remains unverified.",
+  "supportingAppleReferences": [
+    "https://developer.apple.com/help/app-store-connect/reference/app-information/app-store-localizations/",
+    "https://developer.apple.com/help/app-store-connect/manage-app-information/localize-app-information"
+  ],
+  "metadata": {
+    "name": "ChickMark: Pelacak Kebiasaan",
+    "subtitle": "Target dan pengingat harian",
+    "keywords": "kebiasaan,target,pengingat,harian,kemajuan,air,kesehatan,watch,daftar,disiplin",
+    "promotionalText": "Mulai dari satu kebiasaan. Tandai selesai di iPhone atau Apple Watch, lihat kemajuan, dan atur pengingat. Jadwal tetap di tangan Anda.",
+    "description": "Bangun kebiasaan tanpa perencana yang rumit. ChickMark membantu Anda mencatat tujuan harian, melihat kemajuan, dan menentukan sendiri kapan kebiasaan diulang.\n\nSATU KETUK: buat kebiasaan, tandai selesai, dan ikuti rangkaian hari. Pilih jadwal tetap, target mingguan fleksibel, atau pengulangan setelah benar-benar selesai.\n\nPENGINGAT DAN WIDGET: gunakan pengingat opsional dan lihat kemajuan di iPhone, iPad, serta Apple Watch yang didukung. Sinkronisasi tergantung pengaturan dan konektivitas perangkat Anda.\n\nAPPLE HEALTH OPSIONAL: hubungkan hanya target aktivitas yang Anda pilih. Data kesehatan diperiksa secara lokal. Asupan air hanya ditulis ke Apple Health jika Anda mengaktifkan ekspor untuk kebiasaan dengan target jumlah dan memberikan izin menulis. Catatan air dari hari sebelumnya tidak diimpor otomatis.\n\nPRIVASI: kebiasaan yang dicentang manual dapat tersinkron melalui pengaturan iCloud yang sudah ada. Pengukuran kesehatan dan hasil otomatis tidak diunggah ke CloudKit atau dibagikan untuk iklan. Aplikasi gratis dapat menampilkan iklan; baca kebijakan privasi untuk rincian data iklan.\n\nMengganti data dari cadangan dapat menghapus catatan saat ini dan penghapusan tersebut mungkin tersinkron melalui iCloud. Simpan cadangan Anda dengan aman.",
+    "whatsNew": "Ringkasan mingguan opsional menunjukkan kemajuan kebiasaan secara lokal. Untuk kebiasaan bergulir, jeda nyata antarpenyelesaian ditampilkan dalam hari kalender.",
+    "privacyPolicyUrl": "https://arvectum.com/privacy.html"
+  },
+  "screenshotPlan": [
+    {
+      "position": 1,
+      "caption": "Semua kebiasaan dalam satu tampilan",
+      "screen": "today-habits"
+    },
+    {
+      "position": 2,
+      "caption": "Buat kebiasaan dalam hitungan detik",
+      "screen": "new-habit"
+    },
+    {
+      "position": 3,
+      "caption": "Lihat kemajuan dan rangkaian hari",
+      "screen": "weekly-progress"
+    },
+    {
+      "position": 4,
+      "caption": "Tentukan jadwal dan pengingat",
+      "screen": "schedule-reminder"
+    }
+  ],
+  "screenshotAssets": [],
+  "requiredRealNativeCaptures": [
+    "iphone-6.9",
+    "ipad-13"
+  ],
+  "releaseApproved": false,
+  "humanEditorialApproved": false,
+  "screenshotQAApproved": false,
+  "uploadedToASC": false
+}

@@ -1,0 +1,57 @@
+{
+  "status": "COPY_DRAFT_NEEDS_EDITORIAL_AND_NATIVE_ASSETS",
+  "createdUTC": "2026-10-29",
+  "app": "what",
+  "appId": "6822476399",
+  "bundleId": "ru.arvectum.tools.what",
+  "storefrontCountry": "ID",
+  "uiSourceLocale": "id",
+  "appleMetadataLocale": "id",
+  "appleMetadataLocalePublishedSupport": true,
+  "appleLocaleEnabledForThisAppInASC": null,
+  "appleLocaleEnabledForThisAppInASCNote": "Indonesian is an Apple-supported App Store metadata language for Indonesia, secondary after en-GB; whether this app version has id enabled remains unverified.",
+  "supportingAppleReferences": [
+    "https://developer.apple.com/help/app-store-connect/reference/app-information/app-store-localizations/",
+    "https://developer.apple.com/help/app-store-connect/manage-app-information/localize-app-information"
+  ],
+  "metadata": {
+    "name": "UhWhat? Catatan Suara",
+    "subtitle": "Tangkap ide seketika",
+    "keywords": "suara,catatan,rekam,watch,transkripsi,teks,video,ide,pengingat,privasi,offline",
+    "promotionalText": "Tangkap ide sebagai rekaman suara, teks, atau video. Audio asli disimpan di perangkat, termasuk melalui antrean aman Apple Watch.",
+    "description": "Tangkap ide sebelum terlupakan. UhWhat? membantu Anda merekam pikiran dengan cepat lalu menemukannya kembali saat dibutuhkan.\n\nREKAM CEPAT: buat catatan suara di iPhone atau Apple Watch. Audio asli tetap disimpan. Rekaman di Watch tetap berada dalam antrean transfer sampai iPhone mengonfirmasi penyimpanan. Pengiriman di latar belakang bisa tertunda.\n\nTEKS DAN VIDEO: tulis catatan atau rekam video menggunakan iPhone. Cari teks dan transkrip yang tersimpan di perangkat.\n\nTRANSKRIPSI: ubah rekaman suara menjadi teks jika pengenalan ucapan di perangkat tersedia untuk bahasa yang dipilih. Bahasa antarmuka dan bahasa pengenalan ucapan adalah pengaturan terpisah. Tidak semua bahasa atau versi iOS mendukung fitur ini.\n\nPENGINGAT: Anda dapat menyalakan pengingat opsional untuk meninjau catatan. Fitur ini memerlukan izin notifikasi.\n\nPRIVASI: catatan dan media diproses secara lokal di perangkat Anda. Kegagalan transfer tidak otomatis menghapus rekaman asli dari Watch. Periksa izin mikrofon, kamera, dan pengenalan ucapan di Pengaturan iOS.",
+    "whatsNew": "Pilihan transkripsi dan impor audio dari File menjadi lebih jelas. Rekaman asli tetap dipertahankan saat penyalinan atau transkripsi gagal.",
+    "privacyPolicyUrl": "https://arvectum.com/privacy.html"
+  },
+  "screenshotPlan": [
+    {
+      "position": 1,
+      "caption": "Rekam ide dengan sekali ketuk",
+      "screen": "home-quick-capture"
+    },
+    {
+      "position": 2,
+      "caption": "Simpan semua catatan dalam satu tempat",
+      "screen": "recording-library"
+    },
+    {
+      "position": 3,
+      "caption": "Pilih bahasa transkripsi dan pengingat",
+      "screen": "settings-transcription-reminders"
+    },
+    {
+      "position": 4,
+      "caption": "Tulis catatan teks singkat",
+      "screen": "text-note-editor"
+    }
+  ],
+  "screenshotAssets": [],
+  "requiredRealNativeCaptures": [
+    "iphone-6.9",
+    "ipad-13"
+  ],
+  "releaseApproved": false,
+  "humanEditorialApproved": false,
+  "screenshotQAApproved": false,
+  "uploadedToASC": false
+}

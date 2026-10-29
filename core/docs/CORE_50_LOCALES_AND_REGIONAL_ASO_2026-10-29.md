@@ -2,6 +2,10 @@
 
 Срез: 29.10.2026. Канонический реестр — `core/localization/portfolio-locales.json`; staged-карточки — `core/appstore/staged-2026-10-26/`.
 
+## 29.10.2026 · Indonesia ASO: 4/4 новые черновики
+
+Все четыре продукта получили отдельные `app-id.draft.json` для Indonesia. В дополнение к четырём NL черновикам это **8** новых metadata copy drafts, отдельно от 64 staged исходных карточек. Ни один из них не загружен в ASC, нет настоящих Apple screenshots, нет редакторской или физической приёмки. Валидатор различает `ID/id/id` и `NL/nl-NL/nl`; для Indonesia Apple указывает английский (UK) основным языком и Indonesian дополнительным.
+
 ## 29.10.2026 · Indonesian source complete for 4 active apps
 
 ChickMark получил полный `id` каталог в iPhone/Watch/оба виджета, включая HealthKit read/write descriptions и полное формальное соответствие ключам EN. У всех четырёх опубликованных продуктов теперь по **14/50** исходных UI локалей, или **56/200 app×locale** будущих source-пар. `id` — новый четырнадцатый язык, но это **не** ASO/production/native proofread sign-off. Отдельный Indonesia App Store metadata `id` уже есть в виде черновика только для Фото/PDF; остальные карточки пока не подготовлены.
