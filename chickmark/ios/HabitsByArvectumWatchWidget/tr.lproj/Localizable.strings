@@ -1,0 +1,5 @@
+"watch.widget.title" = "ChickMark";
+"watch.widget.description" = "Bugünkü alışkanlık ilerlemenizi saat kadranınızda görün.";
+"watch.widget.empty" = "Bekleyen görev yok";
+"watch.widget.inline.format" = "%d/%d alışkanlık";
+"watch.widget.next.format" = "Sonraki: %@";

@@ -1,0 +1,26 @@
+"watch.today" = "Bugün";
+"watch.progress.format" = "%d / %d";
+"watch.empty" = "Bugün için görev yok";
+"watch.streak.format" = "%d günlük seri";
+"watch.weekly.format" = "Bu hafta %d / %d";
+"watch.completed" = "Tamamlandı";
+"watch.notCompleted" = "Tamamlanmadı";
+"watch.skipped" = "Atlandı";
+"watch.undoHint" = "Tamamlanmışı geri almak için çift dokun";
+"watch.completeHint" = "Tamamlandı olarak işaretlemek için çift dokun";
+
+"watch.duration.format" = "%d / %d dk";
+
+"watch.step.add" = "Bir adım ekle";
+"watch.step.remove" = "Adımı geri al";
+
+"watch.preview.water" = "Su";
+"watch.preview.reading" = "Okuma";
+"watch.checkins.progress.format" = "%d / %d kayıt";
+
+"watch.health.unit.steps" = "adım";
+"watch.health.unit.kilometers" = "km";
+"watch.health.unit.minutes" = "dk";
+"watch.health.unit.hours" = "sa";
+"watch.health.unit.unknown" = "";
+"watch.health.unavailable" = "Apple Sağlık verileri kullanılamıyor";

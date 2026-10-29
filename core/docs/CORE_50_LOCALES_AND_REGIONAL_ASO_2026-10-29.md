@@ -2,6 +2,12 @@
 
 Срез: 29.10.2026. Канонический реестр — `core/localization/portfolio-locales.json`; staged-карточки — `core/appstore/staged-2026-10-26/`.
 
+## Актуальный source-срез · Turkish ChickMark и Polish Photo/PDF
+
+Четыре активных iOS-продукта получили полный общий корпус **15 языков**. Дополнительный польский Photo/PDF повышает охват до **16/15/15/15 = 61/200** app×locale. Turkish ChickMark покрывает iPhone, Watch, оба виджета, App Shortcuts и HealthKit permission strings. Polish Photo/PDF покрывает iPhone, InfoPlist; существующий Android PL сохранён.
+
+Это увеличение исходного корпуса, не новая публикация. Польская региональная ASO-карточка ещё не утверждена и не загружена. Далее — полный польский пакет остальных трёх продуктов, потом VI/HI/TH; для арабского AR нужен отдельный RTL QA. Исторические показатели ниже сохранены как хронология.
+
 ## 29.10.2026 · Indonesia ASO: 4/4 новые черновики
 
 Все четыре продукта получили отдельные `app-id.draft.json` для Indonesia. В дополнение к четырём NL черновикам это **8** новых metadata copy drafts, отдельно от 64 staged исходных карточек. Ни один из них не загружен в ASC, нет настоящих Apple screenshots, нет редакторской или физической приёмки. Валидатор различает `ID/id/id` и `NL/nl-NL/nl`; для Indonesia Apple указывает английский (UK) основным языком и Indonesian дополнительным.

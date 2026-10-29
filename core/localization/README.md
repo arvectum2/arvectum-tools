@@ -1,6 +1,14 @@
 # Arvectum Tools — portfolio localization (50 locales)
 
-**Обновлено 29.10.2026:** 14/50 iOS source languages are now structurally present in all 4 active applications and 10 declared iPhone/Watch/widget bundles (56 app×locale source pairs). Full native-speaker approval, physical QA and public App Store release are separate. The earlier intermediate steps below are historical. See [Core localization + regional ASO roadmap](../docs/CORE_50_LOCALES_AND_REGIONAL_ASO_2026-10-29.md).
+## 29.10.2026 · Исходный корпус: Turkish ChickMark + Polish Photo/PDF
+
+- Турецкий завершён структурно во всех четырёх iOS-приложениях. В ChickMark добавлены 315 iPhone, 22 Watch, 16 iPhone widget, 5 Watch widget, 4 Shortcuts строки и 4 системные HealthKit descriptions (2 InfoPlist). Встроенная локаль Türkçe поддерживает tr-TR / tr_TR.
+- Польский стал шестнадцатым source-языком Photo/PDF: 161 iPhone UI строка и 2 InfoPlist. Существующий польский Android словарь не менялся.
+- Матрица исходных языков: Photo/PDF 16, PUSHKIN 15, Ухват 15, ChickMark 15 = **61/200** app×locale; общая часть портфеля — **15/50**.
+- Source complete не означает published binary, live Apple metadata или физическую приёмку. App Store Connect, параметры рекламы и политика конфиденциальности остаются нетронутыми.
+- Следующий этап: польский для PUSHKIN, Ухвата, ChickMark, далее vi, hi, th, ar (последний требует RTL-тестирования).
+
+**Обновлено 29.10.2026:** 15/50 iOS source languages are structurally present in all 4 apps and 10 iPhone/Watch/widget bundles; Photo/PDF additionally has Polish (16/50), totalling 61 app×locale pairs. Full native-speaker approval, physical QA and public App Store release are separate. The earlier intermediate steps below are historical. See [Core localization + regional ASO roadmap](../docs/CORE_50_LOCALES_AND_REGIONAL_ASO_2026-10-29.md).
 
 ## 29.10.2026 · Индонезийская source-волна завершена: 4×14/50
 

@@ -1,0 +1,177 @@
+"Фото под размер" = "Zmiana rozmiaru zdjęcia";
+"По весу" = "Według rozmiaru pliku";
+"По размеру" = "Według wymiarów";
+"На паспорт" = "Paszport";
+"ПО ВЕСУ" = "WEDŁUG ROZMIARU PLIKU";
+"ПО РАЗМЕРУ" = "WEDŁUG WYMIARÓW";
+"НА ПАСПОРТ" = "PASZPORT";
+"Уменьшить фото до нужного веса" = "Zmniejsz zdjęcie do docelowego rozmiaru pliku";
+"Задать размер длинной стороны" = "Ustaw wymiar długiego boku";
+"Подогнать фото под 35×45" = "Przygotuj zdjęcie 35×45 mm";
+"Выбрать фото" = "Wybierz zdjęcie";
+"Фото выбрано" = "Zdjęcie wybrane";
+"JPEG, PNG, HEIC и другие изображения" = "JPEG, PNG, HEIC i inne obrazy";
+"Максимальный вес" = "Maksymalny rozmiar pliku";
+"Длинная сторона" = "Dłuższy bok";
+"Свой" = "Własny";
+"Например, 750" = "Na przykład, 750";
+"Единица" = "Jednostka";
+"Уменьшить фото" = "Zmniejsz zdjęcie";
+"Изменить размер" = "Zmień rozmiar";
+"Кадрировать 35×45" = "Przytnij do 35×45";
+"Кадрирование вручную. Лицо и фон приложение не изменяет." = "Ręczne przycinanie. Aplikacja nie zmienia twarzy ani tła.";
+"ГОТОВО" = "GOTOWE";
+"Фото уже подходит" = "Zdjęcie już pasuje";
+"Фото подготовлено" = "Zdjęcie gotowe";
+"Размер" = "Rozmiar pliku";
+"Разрешение" = "Rozdzielczość";
+"Сохранить файл" = "Zapisz plik";
+"Файл сохранён" = "Plik zapisany";
+"Поделиться" = "Udostępnij";
+"Вернуться к настройкам" = "Powrót do ustawień";
+"Отмена" = "Anuluj";
+"Перемещайте фото и масштабируйте двумя пальцами." = "Przesuń zdjęcie i użyj gestu szczypania, aby powiększyć.";
+"Подготовить фото" = "Przygotuj zdjęcie";
+"100 КБ" = "100 KB";
+"500 КБ" = "500 KB";
+"1 МБ" = "1 MB";
+"2 МБ" = "2 MB";
+"5 МБ" = "5 MB";
+"КБ" = "KB";
+"МБ" = "MB";
+"%.0f КБ" = "%.0f KB";
+"%.1f МБ" = "%.1f MB";
+"%.2f МБ" = "%.2f MB";
+"Не получилось прочитать выбранное фото." = "Nie można odczytać wybranego zdjęcia.";
+"Не получилось открыть этот файл." = "Nie można otworzyć tego pliku.";
+"Не получилось уменьшить это изображение." = "Nie można zmniejszyć tego obrazu.";
+"Не получилось изменить размер изображения." = "Nie można zmienić rozmiaru obrazu.";
+"Не получилось подготовить фото на паспорт." = "Nie można przygotować zdjęcia do paszportu.";
+"Не получилось сохранить файл." = "Nie można zapisać pliku.";
+"Не получилось открыть это изображение." = "Nie można było otworzyć tego obrazu.";
+"Этот формат пока не поддерживается." = "Ten format nie jest jeszcze obsługiwany.";
+"Не получилось определить размер изображения." = "Nie można było określić wymiarów obrazu.";
+"Укажите допустимый размер файла." = "Wprowadź poprawny rozmiar pliku.";
+"Не получилось уменьшить файл до выбранного размера." = "Nie można było zmniejszyć pliku do wybranego rozmiaru.";
+"Не получилось уменьшить изображение до выбранного размера без заметной потери качества." = "Nie można było zmniejszyć obrazu do wybranego rozmiaru bez wyraźnej utraty jakości.";
+"Укажите размер длинной стороны." = "Wprowadź wymiar dłuższego boku.";
+"Не получилось обрезать изображение." = "Nie można było przyciąć obrazu.";
+"Не получилось подготовить файл нужного размера для заявления." = "Nie można było przygotować pliku o wymaganym rozmiarze.";
+"Изображение слишком большое для обработки на этом устройстве." = "Obraz jest zbyt duży, aby przetworzyć go na tym urządzeniu.";
+"Не получилось обработать это изображение." = "Nie udało się przetworzyć tego obrazu.";
+"Не получилось уменьшить файл до допустимого размера." = "Nie udało się zmniejszyć pliku do akceptowalnego rozmiaru.";
+"Не получилось создать JPG." = "Nie udało się utworzyć pliku JPG.";
+"filename.file_size" = "zmniejszony";
+"filename.pixels" = "wymiary";
+"filename.passport" = "paszport";
+"Россия · паспорт" = "Rosja · paszport";
+"США · паспорт (печать)" = "USA · paszport (wydruk)";
+"США · виза (digital)" = "USA · wiza (cyfrowa)";
+"Индия · e-Visa" = "Indie · e-Visa";
+"Великобритания · паспорт (печать)" = "Wielka Brytania · paszport (druk)";
+"Подготовить фото по требованиям документа" = "Przygotuj zdjęcie zgodnie z wymogami dokumentu";
+"Страна / документ" = "Kraj / dokument";
+"Формат для печати 2×2 дюйма. Проверьте размер головы перед подачей." = "Format druku 2x2 cale. Sprawdź rozmiar głowy przed wysłaniem.";
+"Цифровое фото для визы США: квадратный JPEG до 240 КБ." = "Cyfrowe zdjęcie do wizy do USA: kwadratowy JPEG do 240 KB.";
+"Для India e-Visa: квадратный JPEG от 10 КБ до 1 МБ." = "Dla wizy e-Visa do Indii: kwadratowy JPEG od 10 KB do 1 MB.";
+"Формат для печати 35×45 мм. Для онлайн-паспорта GOV.UK просит не обрезать фото самостоятельно." = "Format druku 35x45 mm. W przypadku paszportów online GOV.UK prosi, aby nie przycinać zdjęcia samodzielnie.";
+"600×600 px · JPEG · ≤240 KB" = "600x600 px · JPEG · ≤240 KB";
+"900×900 px · JPEG · 10 KB–1 MB" = "900x900 px · JPEG · 10 KB–1 MB";
+"На документы" = "Dokumenty";
+"НА ДОКУМЕНТЫ" = "DOKUMENTY";
+"Не получилось подготовить фото для документа." = "Nie udało się przygotować zdjęcia do dokumentu.";
+"До" = "Przed";
+"После" = "Po";
+"Выбрать из Файлов" = "Wybierz z Plików";
+"Точно W×H" = "Dokładne W×H";
+"Изменить размер в пикселях" = "Zmień rozmiar w pikselach";
+"Ширина" = "Szerokość";
+"Высота" = "Wysokość";
+"Сохранять пропорции" = "Zachowaj proporcje";
+"Без фиксации пропорций изображение может исказиться." = "Bez zablokowania proporcji obraz może zostać zniekształcony.";
+"Укажите ширину и высоту от 32 до 12000 px." = "Wprowadź szerokość i wysokość od 32 do 12000 px.";
+"Целевой размер не должен быть больше исходного изображения." = "Wymiary docelowe nie mogą być większe niż wymiary obrazu źródłowego.";
+"Формат экспорта" = "Format eksportu";
+"Не получилось создать файл выбранного формата." = "Nie udało się utworzyć pliku w wybranym formacie.";
+"Удалить EXIF/GPS" = "Usuń EXIF/GPS";
+"Геолокация и метаданные не попадут в готовый файл." = "Lokalizacja i metadane nie zostaną uwzględnione w pliku wynikowym.";
+"Метаданные исходного фото будут сохранены, где это поддерживает формат." = "Metadane zdjęcia źródłowego zostaną zachowane, jeśli format na to pozwala.";
+"10×15 см · 6 фото · 300 DPI" = "10×15 cm · 6 zdjęć · 300 DPI";
+"4×6 in · 4 фото · 300 DPI" = "4×6 in · 4 zdjęcia · 300 DPI";
+"Лист для печати" = "Arkusz do druku";
+"Печатать без масштабирования" = "Drukuj w skali 100%";
+"Не получилось подготовить лист для печати." = "Nie udało się przygotować arkusza do druku.";
+"Дополнительно" = "Zaawansowane";
+
+"Реклама и конфиденциальность" = "Reklamy i prywatność";
+"Политика конфиденциальности" = "Polityka prywatności";
+
+
+"Реклама в приложении" = "Reklamy w aplikacji";
+
+"Файлы" = "Pliki";
+
+"Изменить настройки" = "Edytuj ustawienia";
+"На главный экран" = "Strona główna";
+
+"Фото и PDF под размер" = "Zmiana rozmiaru zdjęć i PDF";
+"Фото" = "Zdjęcia";
+"PDF ПО ВЕСУ" = "PDF WEDŁUG ROZMIARU PLIKU";
+"Уменьшить PDF до нужного веса" = "Zmniejsz PDF do wybranego rozmiaru pliku";
+"Выбрать PDF" = "Wybierz PDF";
+"PDF выбран" = "PDF wybrano";
+"PDF-файл из приложения «Файлы»" = "Plik PDF z aplikacji Pliki";
+"Уменьшить PDF" = "Zmniejsz PDF";
+"Не получилось открыть этот PDF." = "Nie udało się otworzyć tego pliku PDF.";
+"Не получилось уменьшить этот PDF." = "Nie udało się zmniejszyć tego pliku PDF.";
+"Не получилось уменьшить PDF до выбранного размера без слишком сильной потери качества." = "Nie udało się zmniejszyć pliku PDF do wybranej wielkości bez nadmiernej utraty jakości.";
+"PDF не содержит страниц." = "Plik PDF nie zawiera stron.";
+"Не получилось создать PDF." = "Nie udało się utworzyć pliku PDF.";
+"Не получилось сжать страницу PDF." = "Nie udało się skompresować strony PDF.";
+"Обработка выполняется только на устройстве. При сильном сжатии страницы PDF растрируются, поэтому поиск и выделение текста в готовом файле могут быть недоступны." = "Przetwarzanie odbywa się wyłącznie na Twoim urządzeniu. Przy silnym kompresowaniu strony PDF są rasteryzowane, przez co wyszukiwanie i zaznaczanie tekstu w gotowym pliku może być niedostępne.";
+"PDF уже подходит" = "PDF już spełnia wymagania";
+"PDF подготовлен" = "PDF gotowy";
+"Страниц" = "Strony";
+"страница" = "strona";
+"страниц" = "stron";
+"PDF обработан локально на устройстве и никуда не загружался." = "Plik PDF został przetworzony lokalnie na Twoim urządzeniu i nie został nigdzie przesłany.";
+
+"Сжать" = "Kompresuj";
+"Размер фото" = "Zmień rozmiar";
+"Документы" = "Zdjęcie do dokumentów";
+"Сжать файл" = "Kompresuj plik";
+"Фото на документы" = "Zdjęcie do dokumentów";
+"Обработать PDF" = "Pracuj z PDF";
+"СЖАТЬ ФОТО" = "KOMPRESUJ ZDJĘCIE";
+"ИЗМЕНИТЬ РАЗМЕР" = "ZMIEŃ ROZMIAR";
+"ФОТО НА ДОКУМЕНТЫ" = "ZDJĘCIE DO DOKUMENTÓW";
+"Уменьшить размер файла до нужного значения" = "Zmniejsz rozmiar pliku do limitu";
+"Размер файла до" = "Limit rozmiaru pliku";
+
+"СЖАТЬ PDF" = "SKOMPRESUJ PDF";
+"Сжать PDF до выбранного размера" = "Skompresuj PDF do wybranego rozmiaru";
+"страницы" = "stron";
+"%1$d %2$@ · %3$@" = "%1$d %2$@ · %3$@";
+"%1$d %2$@" = "%1$d %2$@";
+"%1$d×%2$d px · %3$@" = "%1$d×%2$d px · %3$@";
+"%1$@ · %2$@" = "%1$@ · %2$@";
+
+// New visa/passport size presets; human editorial review pending.
+"Шенген · виза (печать)" = "Schengen · zdjęcie wizowe (druk)";
+"Китай · виза (digital)" = "Chiny · zdjęcie do wizy (cyfrowe)";
+"Канада · паспорт (печать)" = "Kanada · zdjęcie do paszportu (druk)";
+"Канада требует оригинальную фотографию от фотографа. Изменённые или обрезанные снимки могут отклонить." = "Kanada wymaga oryginalnych zdjęć studyjnych. Zmienione lub przycięte zdjęcia mogą zostać odrzucone.";
+
+// Contextual advertising privacy disclosure
+
+// Advertising permission and ATT prompts restored for user-approved tracking configuration.
+"Фото и PDF обрабатываются только на устройстве. Для показа рекламы используется Yandex Mobile Ads. Вы можете разрешить рекламному SDK обработку технических данных или отказаться. Геолокация отключена, разрешение App Tracking Transparency приложение не запрашивает." = "Zdjęcia i pliki PDF są przetwarzane wyłącznie na Twoim urządzeniu. Do wyświetlania reklam wykorzystywane jest Yandex Mobile Ads. Możesz zezwolić SDK reklamowemu na przetwarzanie danych technicznych lub odmówić. Lokalizacja jest wyłączona, a aplikacja nie prosi o uprawnienie App Tracking Transparency.";
+"Разрешить для рекламы" = "Zezwól na reklamy";
+"Отказаться" = "Odrzuć";
+"Разрешить обработку данных" = "Zezwól na przetwarzanie danych";
+"Не разрешать обработку данных" = "Nie zezwalaj na przetwarzanie danych";
+"«Фото и PDF под размер» бесплатно и поддерживается рекламой. Реклама будет показываться независимо от вашего выбора. Вы можете разрешить или не разрешить Yandex Mobile Ads обработку данных для рекламы. Если разрешите, iOS может отдельно спросить разрешение на отслеживание. При отказе реклама останется, но без доступа к рекламному идентификатору. Фото и PDF обрабатываются только на устройстве, геолокация отключена." = "Aplikacja Photo & PDF Resize jest darmowa i wspierana przez reklamy. Reklamy będą wyświetlane niezależnie od Twojego wyboru. Możesz zezwolić lub odmówić Yandex Mobile Ads na przetwarzanie danych w celach reklamowych. Jeśli wyrazisz zgodę, system iOS może osobno zapytać o uprawnienie do śledzenia. W przypadku odmowy reklamy pozostaną, ale bez dostępu do identyfikatora reklamowego. Zdjęcia i pliki PDF są przetwarzane wyłącznie na Twoim urządzeniu, a lokalizacja jest wyłączona.";
+
+"Исходный файл" = "Plik źródłowy";
+
+"Предпросмотр исходного файла" = "Podgląd pliku źródłowego";

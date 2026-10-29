@@ -123,7 +123,7 @@ final class LocalizationTests: XCTestCase {
     ]
 
     func testPickerOffersOnlyBundledLocales() {
-        XCTAssertEqual(ChickMarkLanguage.supported, ["ru", "en", "es", "de", "fr", "id", "it", "ja", "ko", "nl", "pt-BR", "pt-PT", "zh-Hans", "zh-Hant"])
+        XCTAssertEqual(ChickMarkLanguage.supported, ["ru", "en", "es", "de", "fr", "id", "it", "ja", "ko", "nl", "pt-BR", "pt-PT", "tr", "zh-Hans", "zh-Hant"])
         XCTAssertEqual(
             ChickMarkLanguage.orderedLanguages(["fr", "en", "Base", "ru", "es", "en"]),
             ["ru", "en", "es", "fr"]
@@ -146,6 +146,20 @@ final class LocalizationTests: XCTestCase {
             ChickMarkLanguage.orderedLanguages(["en", "ja", "de"]),
             ["en", "de", "ja"]
         )
+    }
+
+    func testTurkishSelectionAndHabitLabels() {
+        let available = ChickMarkLanguage.supported
+        XCTAssertTrue(available.contains("tr"))
+        XCTAssertEqual(ChickMarkLanguage.resolvedIdentifier(
+            for: "system", preferred: ["tr-TR", "en-GB"], available: available), "tr")
+        XCTAssertEqual(ChickMarkLanguage.resolvedIdentifier(
+            for: "system", preferred: ["tr_TR", "en-GB"], available: available), "tr")
+        XCTAssertEqual(ChickMarkLanguage.displayName(for: "tr"), "Türkçe")
+        XCTAssertEqual(L10n.string("habit.create", language: "tr"), "Alışkanlık oluştur")
+        XCTAssertEqual(L10n.string("habit.name.placeholder", language: "tr"), "Alışkanlık adı")
+        XCTAssertEqual(String(format: L10n.string("today.progress.format", language: "tr"), 2, 3),
+                       "İşaretlenen: 2 / 3")
     }
 
     func testIndonesianLocaleSelectionAndSafeCopy() {
