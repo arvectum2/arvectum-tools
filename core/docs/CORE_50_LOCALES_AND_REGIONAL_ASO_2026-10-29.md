@@ -2,6 +2,10 @@
 
 Срез: 29.10.2026. Канонический реестр — `core/localization/portfolio-locales.json`; staged-карточки — `core/appstore/staged-2026-10-26/`.
 
+## 29.10.2026 · Нидерланды: два из четырёх региональных черновиков
+
+Два независимых `nl-NL` copy draft в `core/appstore/locale-expansion-2026-10-29/`: Фото/PDF и PUSHKIN. У обоих `sourceLocale=nl`, `screenshots=[]`, ASC status не проверен и releaseApproved=false. Для PUSHKIN честно описана ручная настройка Apple Shortcuts и отсутствие универсального доступа к уведомлениям; только iPhone-кадры. Offline validator/tests запрещают подменять неподтверждённые снимки и редактуру фиктивными значениями. Для Ухвата/ChickMark ещё нет полного исходного `nl` и готовых региональных карточек.
+
 ## 29.10.2026 · Следующий шаг Dutch source (PUSHKIN)
 
 В PUSHKIN появился `nl` с 159 переведёнными ключами, корректным `PushkinCopy` routing и plural `appCount`. Теперь Фото/PDF **13**, PUSHKIN **13**, Ухват и ChickMark по **12** — всего **50/200** исходных app×locale пар. Не путать это с выпущенными локалями Apple. Отдельная карточка NL для PUSHKIN ещё не подготовлена и не опубликована; для Фото/PDF отдельный copy draft уже лежит в `core/appstore/locale-expansion-2026-10-29/`.

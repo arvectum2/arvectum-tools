@@ -1,0 +1,57 @@
+{
+  "status": "COPY_DRAFT_NEEDS_EDITORIAL_AND_NATIVE_ASSETS",
+  "createdUTC": "2026-10-29",
+  "app": "pushkin",
+  "appId": "6817847111",
+  "bundleId": "ru.arvectum.tools.notify",
+  "storefrontCountry": "NL",
+  "uiSourceLocale": "nl",
+  "appleMetadataLocale": "nl-NL",
+  "appleMetadataLocalePublishedSupport": true,
+  "appleLocaleEnabledForThisAppInASC": null,
+  "appleLocaleEnabledForThisAppInASCNote": "Not verified; false means do not upload, not definitive absence in account.",
+  "supportingAppleReferences": [
+    "https://developer.apple.com/help/app-store-connect/reference/app-information/app-store-localizations/",
+    "https://developer.apple.com/documentation/appstoreconnectapi/betabuildlocalization/attributes-data.dictionary",
+    "https://developer.apple.com/news/?id=97t4mt64"
+  ],
+  "metadata": {
+    "name": "PUSHKIN: meldingen bewaren",
+    "subtitle": "Geschiedenis via Opdrachten",
+    "keywords": "meldingen,geschiedenis,zoeken,archief,opdrachten,automatisering,privacy,offline,berichten",
+    "promotionalText": "Bewaar en doorzoek meldingen uit apps die je zelf via Apple Opdrachten verbindt. Je meldingsgeschiedenis blijft op je iPhone.",
+    "description": "PUSHKIN bewaart een doorzoekbare geschiedenis van meldingen uit apps die je zelf verbindt via automatiseringen in Apple Opdrachten.\n\nINSTELLEN: kies ondersteunde apps en volg de stappen voor Opdrachten. iOS staat niet toe dat PUSHKIN automatisch alle meldingen van andere apps opslaat. Je moet de automatiseringen zelf toevoegen en inschakelen in Opdrachten. Geïmporteerde automatiseringen zijn aanvankelijk uitgeschakeld.\n\nZOEKEN: blader door opgeslagen meldingen en zoek op appnaam, titel of bericht. Je kunt meldingen kopiëren, delen en verwijderen.\n\nPRIVACY: meldingsinhoud wordt lokaal op je iPhone bewaard. Je hebt geen PUSHKIN-cloudaccount nodig. Het selecteren van apps of openen van een opdracht garandeert geen ontvangst van meldingen.\n\nOf meldingen worden vastgelegd, hangt af van de ingeschakelde automatisering en de mogelijkheden van iOS en Opdrachten. PUSHKIN is geen universeel systeemlogboek van alle meldingen en kan de ingeschakelde status van een automatisering niet lezen.",
+    "whatsNew": "Veelgebruikte internationale apps zijn gemakkelijker te vinden tijdens het instellen. Voor het bewaren van meldingen moet je je eigen automatiseringen in Opdrachten blijven gebruiken.",
+    "privacyPolicyUrl": "https://arvectum.com/privacy.html"
+  },
+  "screenshotPlan": [
+    {
+      "position": 1,
+      "caption": "Doorzoek je bewaarde meldingen",
+      "screen": "notification-history"
+    },
+    {
+      "position": 2,
+      "caption": "Instellen via Apple Opdrachten",
+      "screen": "shortcuts-setup"
+    },
+    {
+      "position": 3,
+      "caption": "Privacy en instellingen",
+      "screen": "settings-privacy"
+    },
+    {
+      "position": 4,
+      "caption": "Zoeken op app of bericht",
+      "screen": "history-search"
+    }
+  ],
+  "screenshotAssets": [],
+  "requiredRealNativeCaptures": [
+    "iphone-6.9"
+  ],
+  "releaseApproved": false,
+  "humanEditorialApproved": false,
+  "screenshotQAApproved": false,
+  "uploadedToASC": false
+}
