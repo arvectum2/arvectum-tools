@@ -1,6 +1,6 @@
 // French UI localization; verify sensitive wording and visual layout in release QA.
 "Record" = "Enregistrer";
-"Record with UhWhat?" = "Enregistrez avec UhWhat ?";
-"Start a new thought from the watch face." = "Commencez une nouvelle pensée à partir du cadran de la montre.";
-"UhWhat? Record" = "UhWhat ? Enregistrer";
-"UhWhat?. Start recording" = "UhWhat ?. Commencer l'enregistrement";
+"Record with UhWhat?" = "Enregistrer avec UhWhat?";
+"Start a new thought from the watch face." = "Enregistrez une nouvelle idée depuis le cadran de la montre.";
+"UhWhat? Record" = "UhWhat? Enregistrer";
+"UhWhat?. Start recording" = "UhWhat? Commencer l’enregistrement";
