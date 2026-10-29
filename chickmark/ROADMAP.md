@@ -1,5 +1,11 @@
 # ChickMark — актуальная дорожная карта
 
+## 29.10.2026 · App Store Нидерланды — только локальный copy draft
+
+- [x] `core/appstore/locale-expansion-2026-10-29/chickmark-nl-NL.draft.json`: тексты по правилам Apple для языка `nl-NL` (имя, подзаголовок, keywords, описание, What's New, privacy URL и план 4 реальных кадров iPhone/iPad). В тексте обязательно разграничены доступ к чтению HealthKit, запись воды только по согласию, обычная синхронизация iCloud и возможные удаления при восстановлении резервной копии.
+- [x] Общий валидатор для 4 NL черновиков отказывается принимать fake approval/upload/screenshot/ASC status. Все исходные 16×4 региональных staged карточки сохранены без изменений.
+- [ ] Редакторская и физическая QA, настоящие screenshots, проверка наличия конкретного nl-NL locale в ASC и отдельное согласование релиза. Никаких Apple или HealthKit mutations.
+
 ## 29.10.2026 · Tier 1 Dutch (nl) — iPhone, Watch и оба виджета
 
 - [x] Добавлен `nl` в 4 каталога: iPhone **315** строк, Apple Watch 22, iPhone Widget 16, Watch Widget 5; InfoPlist HealthKit share/update разрешения на iPhone/Watch также переведены, исходные ключи и printf-параметры проверены. Локаль показывается в существующем селекторе только после подтверждения полной полноты каталога.

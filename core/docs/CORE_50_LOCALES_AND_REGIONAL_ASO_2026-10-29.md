@@ -2,6 +2,10 @@
 
 Срез: 29.10.2026. Канонический реестр — `core/localization/portfolio-locales.json`; staged-карточки — `core/appstore/staged-2026-10-26/`.
 
+## 29.10.2026 · Финальный source+copy baseline Netherlands (NL)
+
+Теперь **4/4** приложений имеют `nl` исходные UI каталоги (все 10 доступных iOS/watchOS/widget bundles) — 13/50 языков на каждое, **52/200** пар app×locale. Кроме того **4/4** отдельных нидерландских `nl-NL` черновика metadata в `core/appstore/locale-expansion-2026-10-29/`. Offline validator и 10 тестов региональной карточки блокируют ложные статусы: screenshotAssets пуст, uploads/approvals false, ASC account locale unverified. Реальные переводы/скриншоты требуют редакторского/физического подтверждения; это не выпущенные версии. Исходные **64** staged карточки неизменны, Where? PAUSED.
+
 ## 29.10.2026 · Dutch завершён структурно во всех четырёх приложениях
 
 ChickMark добавил `nl` во все свои iPhone/Watch/widget bundles — теперь каждый из четырёх активных iOS продуктов имеет **13/50** source каталога и все **10 соответствующих bundles** имеют полные `nl` ключи. Суммарно **52/200 app×locale source-пар**. Нельзя трактовать machine/source completion как независимую редактуру, доступность на физических устройствах, Apple Health acceptance или публикацию в App Store. Региональный NL ASO для ChickMark остаётся самостоятельной задачей после исходного PR.

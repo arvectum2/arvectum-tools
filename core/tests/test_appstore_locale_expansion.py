@@ -151,3 +151,62 @@ class NewDutchStorefrontTests(unittest.TestCase):
                 corrupted[key] = value
                 with self.assertRaises(AssertionError):
                     pending.validate(corrupted, seed, available)
+
+    def test_chickmark_dutch_healthkit_and_cloudkit_copy_is_honest(self):
+        draft = json.loads((pending.EXPANSION / 'chickmark-nl-NL.draft.json').read_text())
+        seed = json.loads((pending.STAGED / 'chickmark.json').read_text())
+        registry = json.loads((ROOT / 'core/localization/portfolio-locales.json').read_text())
+        available = set(registry['apps']['chickmark']['ios']['sourceCatalogs'])
+        result = pending.validate(draft, seed, available)
+        self.assertEqual(result['metadata_locale'], 'nl-NL')
+        self.assertEqual(result['source_locale'], 'nl')
+        self.assertEqual(draft['requiredRealNativeCaptures'], ['iphone-6.9', 'ipad-13'])
+        self.assertEqual(draft['screenshotAssets'], [])
+        self.assertFalse(result['ready_for_upload'])
+        self.assertEqual(result['new_asc_localization_exists'], 'UNVERIFIED')
+        self.assertEqual(len(seed['localeData']), 16)
+        description = draft['metadata']['description']
+        for phrase in ('Apple Watch', 'schrijfrechten', 'alleen naar Apple Gezondheid',
+                       'niet naar CloudKit', 'iCloud', 'advertenties',
+                       'synchronisatie van verwijderingen', 'historische'):
+            with self.subTest(phrase=phrase):
+                self.assertIn(phrase.lower(), description.lower())
+        self.assertEqual(draft['metadata']['privacyPolicyUrl'],
+                         seed['localeData']['en-GB']['privacyPolicyUrl'])
+
+    def test_chickmark_dutch_rejects_false_store_account_and_release_claims(self):
+        draft = json.loads((pending.EXPANSION / 'chickmark-nl-NL.draft.json').read_text())
+        seed = json.loads((pending.STAGED / 'chickmark.json').read_text())
+        registry = json.loads((ROOT / 'core/localization/portfolio-locales.json').read_text())
+        available = set(registry['apps']['chickmark']['ios']['sourceCatalogs'])
+        with self.assertRaisesRegex(AssertionError, 'UI source locale'):
+            pending.validate(draft, seed, available - {'nl'})
+        for key, value in (
+            ('appId', '00000000'), ('bundleId', 'ru.arvectum.tools.what'),
+            ('appleMetadataLocale', 'nl-XX'), ('releaseApproved', True),
+            ('humanEditorialApproved', True), ('screenshotQAApproved', True),
+            ('uploadedToASC', True), ('screenshotAssets', ['fabricated.png']),
+            ('appleLocaleEnabledForThisAppInASC', True),
+            ('requiredRealNativeCaptures', ['iphone-6.9']),
+        ):
+            with self.subTest(key=key):
+                corrupted = copy.deepcopy(draft)
+                corrupted[key] = value
+                with self.assertRaises(AssertionError):
+                    pending.validate(corrupted, seed, available)
+
+    def test_four_dutch_staging_drafts_complete_portfolio_without_store_upload(self):
+        expected = set(pending.SUPPORTED_APPS)
+        actual = set()
+        for path in sorted(pending.EXPANSION.glob('*-nl-NL.draft.json')):
+            draft = json.loads(path.read_text())
+            actual.add(draft['app'])
+            self.assertFalse(draft['uploadedToASC'])
+            self.assertFalse(draft['releaseApproved'])
+            self.assertFalse(draft['humanEditorialApproved'])
+            self.assertFalse(draft['screenshotQAApproved'])
+            self.assertIsNone(draft['appleLocaleEnabledForThisAppInASC'])
+            self.assertEqual(draft['screenshotAssets'], [])
+            self.assertEqual(draft['storefrontCountry'], 'NL')
+            self.assertEqual(draft['appleMetadataLocale'], 'nl-NL')
+        self.assertEqual(expected, actual)
