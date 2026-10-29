@@ -1,0 +1,4 @@
+"CFBundleDisplayName" = "UhWhat?";
+"NSMicrophoneUsageDescription" = "Neem privé-audio- en videonotities op op dit apparaat. Media blijven op je apparaat.";
+"NSSpeechRecognitionUsageDescription" = "Transcribeer opgeslagen spraaknotities op dit apparaat met lokale spraakherkenning.";
+"NSCameraUsageDescription" = "Neem persoonlijke videonotities op met de camera. Video’s blijven op dit apparaat.";

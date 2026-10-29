@@ -2,6 +2,11 @@
 
 **Обновлено 29.10.2026:** 12/50 iOS source languages are structurally present in all 4 active applications and 10 declared UI/Watch/widget bundles (48 app×locale smoke contracts). Full native-speaker approval and public App Store release are separate. The prior 26.10 snapshot below is historical. See [Core localization + regional ASO roadmap](../docs/CORE_50_LOCALES_AND_REGIONAL_ASO_2026-10-29.md).
 
+## 29.10.2026 · Dutch для Ухвата/What? — iPhone и Watch/widgets
+
+- [x] `nl` каталоги для всех 4 bundles Ухвата (iOS 246, Watch 6, iPhone widget 6, Watch complication 5) и системные строки; `CaptureBrand` routing и `noteCount` без привязки к настройке распознавания речи.
+- [ ] Source матрица: Photo 13, Pushkin 13, Uhvat 13, ChickMark 12 = **51/200**. Dutch ещё не завершён для всего портфеля. Отдельный NL App Store draft и физическая Watch/микрофон/камера QA — не выполнены.
+
 ## 29.10.2026 · Dutch в PUSHKIN — source-only второй продукт
 
 - [x] PUSHKIN `nl`: 159 переводов UI и инструкций Shortcuts, полноценный `PushkinCopy` language routing + quantity inflection, XcodeGen resources, native XCTest/XCUITest.

@@ -327,10 +327,11 @@
           "ja",
           "ko",
           "zh-Hans",
-          "zh-Hant"
+          "zh-Hant",
+          "nl"
         ],
-        "status": "12-source-catalogs-structurally-complete-independent-linguistic-and-device-qa-pending",
-        "note": "12 language source catalogs across all declared iOS/watchOS/widget bundles; structurally checked only. Native-speaker, privacy/permissions, accessibility and physical QA are independent. Source presence is not App Store publication or proof of linguistic quality."
+        "status": "13-source-catalogs-in-what-dutch-draft-full-key-native-proofreading-and-physical-watch-qa-pending",
+        "note": "Dutch UI+Watch+Widget/Complication full-source drafts, routing independent from transcription language, source QA. Do not declare native/physical Watch ACK or device recording acceptance, user content untouched."
       }
     },
     "photo-pdf-to-size": {
@@ -402,6 +403,6 @@
       "pl",
       "th"
     ],
-    "iosSourceBaselineVerified": "Photo/PDF and Pushkin 13 of 50; ChickMark and Uhvat 12 of 50 (50 app×locale source pairs); Dutch still incomplete in portfolio."
+    "iosSourceBaselineVerified": "Photo/PDF, Pushkin and Uhvat 13 of 50 each; ChickMark 12 of 50 (51 app×locale source pairs); Dutch incomplete in full portfolio."
   }
 }

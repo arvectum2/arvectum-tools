@@ -38,6 +38,24 @@ final class LanguageFallbackTests: XCTestCase {
         )
     }
 
+    func testDutchInterfaceWatchLabelsAndIndependentTranscriptionPreference() {
+        XCTAssertEqual(CaptureBrand.resolvedInterfaceLanguage(for: ["nl-NL", "en-US"]), "nl")
+        XCTAssertEqual(CaptureBrand.resolvedInterfaceLanguage(for: ["nl-BE", "en-US"]), "nl")
+        XCTAssertEqual(CaptureBrand.defaultTranscriptionLocale(for: "nl"), "en-US")
+        XCTAssertEqual(CaptureBrand.text("Ухвати мысль", "Catch that thought", language: "nl"),
+                       "Leg die gedachte vast")
+        XCTAssertEqual(CaptureBrand.text("Записать", "Record", language: "nl-NL"),
+                       "Opnemen")
+        XCTAssertEqual(CaptureBrand.text("Все заметки", "All notes", language: "nl-BE"),
+                       "Alle notities")
+        XCTAssertEqual(CaptureBrand.noteCount(1, language: "nl"), "1 notitie")
+        XCTAssertEqual(CaptureBrand.noteCount(2, language: "nl-NL"), "2 notities")
+        XCTAssertEqual(CaptureBrand.formatted("Вход: %@", "Input: %@", language: "nl", "Microfoon"),
+                       "Invoer: Microfoon")
+        XCTAssertEqual(CaptureBrand.text("Неизвестно", "Unknown key", language: "nl"),
+                       "Unknown key", "Unknown strings fall back to the unchanged English original")
+    }
+
     func testKoreanInterfaceAndCounterWithIndependentDictation() {
         XCTAssertEqual(CaptureBrand.resolvedInterfaceLanguage(for: ["ko-KR", "en-US"]), "ko")
         XCTAssertEqual(CaptureBrand.defaultTranscriptionLocale(for: "ko"), "en-US")

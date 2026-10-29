@@ -2,6 +2,10 @@
 
 Срез: 29.10.2026. Канонический реестр — `core/localization/portfolio-locales.json`; staged-карточки — `core/appstore/staged-2026-10-26/`.
 
+## 29.10.2026 · Dutch: Ухват добавлен как третий продукт
+
+Ухват получил исходные Dutch переводы во всех своих четырёх iPhone/watchOS/widget bundles и `CaptureBrand` routing с независимой языковой настройкой транскрипции. Структурное покрытие **51/200 app×locale пар**: Фото/PDF 13, Pushkin 13, Ухват 13, ChickMark 12. Региональная App Store карточка Dutch для Ухвата пока отсутствует, существующие два `nl-NL` черновика — только Фото/PDF и PUSHKIN. Готовность source не означает доступности на устройстве или публикации.
+
 ## 29.10.2026 · Нидерланды: два из четырёх региональных черновиков
 
 Два независимых `nl-NL` copy draft в `core/appstore/locale-expansion-2026-10-29/`: Фото/PDF и PUSHKIN. У обоих `sourceLocale=nl`, `screenshots=[]`, ASC status не проверен и releaseApproved=false. Для PUSHKIN честно описана ручная настройка Apple Shortcuts и отсутствие универсального доступа к уведомлениям; только iPhone-кадры. Offline validator/tests запрещают подменять неподтверждённые снимки и редактуру фиктивными значениями. Для Ухвата/ChickMark ещё нет полного исходного `nl` и готовых региональных карточек.

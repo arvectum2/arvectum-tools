@@ -216,6 +216,12 @@
       "key": "Audio (.m4a)",
       "value": "Audio (.m4a)",
       "reason": "Shared technical audio term and file-extension notation"
+    },
+    {
+      "file": "what/ios/WhatIOS/nl.lproj/Localizable.strings",
+      "key": "Audio (.m4a)",
+      "value": "Audio (.m4a)",
+      "reason": "International technical media type and file extension are the same in Dutch; translation is intentionally unchanged."
     }
   ]
 }
