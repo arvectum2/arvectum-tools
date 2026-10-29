@@ -14,6 +14,18 @@
       "reason": "Official Apple Health product name in this locale"
     },
     {
+      "file": "chickmark/ios/HabitsByArvectum/id.lproj/Localizable.strings",
+      "key": "health.settings",
+      "value": "Apple Health",
+      "reason": "Apple Health is an official product brand, untranslated in Indonesian."
+    },
+    {
+      "file": "chickmark/ios/HabitsByArvectum/id.lproj/Localizable.strings",
+      "key": "health.title",
+      "value": "Apple Health",
+      "reason": "Apple Health is an official product brand, untranslated in Indonesian."
+    },
+    {
       "file": "chickmark/ios/HabitsByArvectum/ko.lproj/Localizable.strings",
       "key": "health.settings",
       "value": "Apple Health",
@@ -42,6 +54,12 @@
       "key": "watch.widget.title",
       "value": "ChickMark",
       "reason": "Product brand; should remain untranslated"
+    },
+    {
+      "file": "chickmark/ios/HabitsByArvectumWatchWidget/id.lproj/Localizable.strings",
+      "key": "watch.widget.title",
+      "value": "ChickMark",
+      "reason": "ChickMark app brand name remains unmodified across locales."
     },
     {
       "file": "chickmark/ios/HabitsByArvectumWatchWidget/it.lproj/Localizable.strings",

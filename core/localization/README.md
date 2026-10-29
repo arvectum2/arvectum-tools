@@ -1,6 +1,12 @@
 # Arvectum Tools — portfolio localization (50 locales)
 
-**Обновлено 29.10.2026:** 13/50 iOS source languages are now structurally present in all 4 active applications and 10 declared iPhone/Watch/widget bundles (52 app×locale source pairs). Full native-speaker approval, physical QA and public App Store release are separate. The earlier intermediate steps below are historical. See [Core localization + regional ASO roadmap](../docs/CORE_50_LOCALES_AND_REGIONAL_ASO_2026-10-29.md).
+**Обновлено 29.10.2026:** 14/50 iOS source languages are now structurally present in all 4 active applications and 10 declared iPhone/Watch/widget bundles (56 app×locale source pairs). Full native-speaker approval, physical QA and public App Store release are separate. The earlier intermediate steps below are historical. See [Core localization + regional ASO roadmap](../docs/CORE_50_LOCALES_AND_REGIONAL_ASO_2026-10-29.md).
+
+## 29.10.2026 · Индонезийская source-волна завершена: 4×14/50
+
+- [x] ChickMark `id` в iPhone (315), Watch (22), iPhone Widget (16), Watch widget (5), системные HealthKit strings; полная source-локаль доступна в языковом меню только при наличии полного набора ключей.
+- [x] Все четыре активных iOS приложения теперь имеют **14/50** исходных UI языков, **56/200 app×locale** source-пар. Следующие Tier1 `hi, ar, tr, vi, pl, th`; Android отложен.
+- [ ] Независимая редакторская/физическая/VoiceOver приёмка и региональные метаданные App Store `id` остаются отдельно. До настоящих screenshots и разрешений не выдавать draft за опубликованную версию.
 
 ## 29.10.2026 · Indonesian в Ухвате: третий продукт
 

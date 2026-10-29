@@ -1,0 +1,6 @@
+// Bahasa Indonesia source draft, physical/watch accessibility QA pending.
+"watch.widget.title" = "ChickMark";
+"watch.widget.description" = "Lihat kemajuan kebiasaan hari ini di tampilan jam.";
+"watch.widget.empty" = "Tidak ada jadwal";
+"watch.widget.inline.format" = "%d/%d kebiasaan";
+"watch.widget.next.format" = "Berikutnya: %@";

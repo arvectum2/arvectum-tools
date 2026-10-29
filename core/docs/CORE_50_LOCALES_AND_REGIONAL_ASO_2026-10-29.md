@@ -2,6 +2,10 @@
 
 Срез: 29.10.2026. Канонический реестр — `core/localization/portfolio-locales.json`; staged-карточки — `core/appstore/staged-2026-10-26/`.
 
+## 29.10.2026 · Indonesian source complete for 4 active apps
+
+ChickMark получил полный `id` каталог в iPhone/Watch/оба виджета, включая HealthKit read/write descriptions и полное формальное соответствие ключам EN. У всех четырёх опубликованных продуктов теперь по **14/50** исходных UI локалей, или **56/200 app×locale** будущих source-пар. `id` — новый четырнадцатый язык, но это **не** ASO/production/native proofread sign-off. Отдельный Indonesia App Store metadata `id` уже есть в виде черновика только для Фото/PDF; остальные карточки пока не подготовлены.
+
 ## 29.10.2026 · Третий source-пакет Indonesian (Ухват)
 
 `id` добавлен в 4 комплекта Ухвата, включая системные разрешения iPhone и Watch. Сохранена архитектурная независимость языка интерфейса от выбранной локали распознавания речи; сообщения о Watch ACK/очереди и исходной медиатеке не обещают преждевременного удаления. Source 55/200: Фото/PDF, PUSHKIN и Ухват 14/50, ChickMark 13/50. Indonesia ASO draft для Ухвата пока не сформирован; live ASC неизменён.

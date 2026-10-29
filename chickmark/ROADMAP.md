@@ -6,6 +6,12 @@
 - [x] Общий валидатор для 4 NL черновиков отказывается принимать fake approval/upload/screenshot/ASC status. Все исходные 16×4 региональных staged карточки сохранены без изменений.
 - [ ] Редакторская и физическая QA, настоящие screenshots, проверка наличия конкретного nl-NL locale в ASC и отдельное согласование релиза. Никаких Apple или HealthKit mutations.
 
+## 29.10.2026 · Bahasa Indonesia (`id`): iPhone, Watch и оба виджета
+
+- [x] Добавлены все 4 комплекта `id`: iPhone **315** UI ключей, Watch 22, iPhone Widget 16, Watch Widget 5; оба HealthKit InfoPlist read/write permission strings. Тексты backup/CloudKit/water export/Ухват/privacy и neutral week days проверяются с сохранением фактической семантики, никакого изменения HealthKit данных.
+- [x] `ChickMarkLanguage` обнаруживает полные пакеты автоматически; `id-ID/id_ID` системная локаль корректно выбирает id. Swift regression и отдельный iPhone UI smoke используют тестовое хранилище без CloudKit; XcodeGen source bundles собраны.
+- [ ] Native-speaker редактура, реальное iPhone/Watch/HealthKit/VoiceOver и соответствующая региональная App Store карточка Indonesia. Никаких Apple metadata/review или пользовательских данных не изменялось.
+
 ## 29.10.2026 · Tier 1 Dutch (nl) — iPhone, Watch и оба виджета
 
 - [x] Добавлен `nl` в 4 каталога: iPhone **315** строк, Apple Watch 22, iPhone Widget 16, Watch Widget 5; InfoPlist HealthKit share/update разрешения на iPhone/Watch также переведены, исходные ключи и printf-параметры проверены. Локаль показывается в существующем селекторе только после подтверждения полной полноты каталога.
