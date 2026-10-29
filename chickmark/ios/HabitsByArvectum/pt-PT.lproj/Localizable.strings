@@ -246,7 +246,7 @@
 "restart.settings.disabledHint" = "Ative o Recomeço gentil para escolher o intervalo.";
 "restart.days" = "%d dias";
 "restart.card.title" = "Que tal retomar?";
-"restart.card.description" = "Seu progresso anterior continua aqui. Escolha um hábito para seguir quando quiser.";
+"restart.card.description" = "O seu progresso anterior continua aqui. Escolha um hábito para retomar quando quiser.";
 "restart.card.later" = "Talvez amanhã";
 "weekly.title" = "Resumo semanal";
 "weekly.optIn" = "Mostrar resumo semanal local";
