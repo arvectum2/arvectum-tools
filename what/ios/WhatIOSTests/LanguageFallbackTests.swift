@@ -38,6 +38,17 @@ final class LanguageFallbackTests: XCTestCase {
         )
     }
 
+    func testTurkishUIRoutingAndIndependentTranscriptionLanguage() {
+        XCTAssertEqual(CaptureBrand.resolvedInterfaceLanguage(for:["tr-TR","en-US"]),"tr")
+        XCTAssertEqual(CaptureBrand.resolvedInterfaceLanguage(for:["tr-CY","en-US"]),"tr")
+        XCTAssertEqual(CaptureBrand.defaultTranscriptionLocale(for:"tr"),"en-US")
+        XCTAssertEqual(CaptureBrand.text("Ухвати мысль","Catch that thought",language:"tr"),"Düşünceyi yakalayın")
+        XCTAssertEqual(CaptureBrand.noteCount(1,language:"tr"),"1 not")
+        XCTAssertEqual(CaptureBrand.noteCount(5,language:"tr-TR"),"5 not")
+        XCTAssertEqual(CaptureBrand.formatted("Вход: %@","Input: %@",language:"tr","Mikrofon"),"Giriş: Mikrofon")
+        XCTAssertEqual(CaptureBrand.text("Неизвестный","Unknown",language:"tr"),"Unknown")
+    }
+
     func testIndonesianUIRoutingAndIndependentSpeechLanguage() {
         XCTAssertEqual(CaptureBrand.resolvedInterfaceLanguage(for: ["id-ID", "en-US"]), "id")
         XCTAssertEqual(CaptureBrand.resolvedInterfaceLanguage(for: ["id_ID", "en-US"]), "id")

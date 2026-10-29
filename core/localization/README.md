@@ -23,6 +23,11 @@
 - [x] Photo/PDF: 161 Bahasa Indonesia UI строк и две системные строки, включая прозрачное разрешение на рекламу и предупреждение о растрировании PDF; source bundle `id.lproj`, native iPhone UI smoke 3 сценария, проверка printf parity.
 - [ ] Другие продукты (PUSHKIN, Ухват/Watch, ChickMark/Watch) ещё **без** Indonesian source; это **53/200**, не 14 языков во всех четырёх. Независимая редактура и physical/ASO acceptance не проведены.
 
+## 29.10.2026 · Turkish tr — Ухват (iPhone, Watch, widgets)
+
+- [x] Source `tr` для Ухвата: 246 UI строк iPhone, 6 Watch, 6 Phone Widget, 5 Watch Complication; полный plist. Локаль `CaptureBrand` обрабатывает `tr-TR` и `tr-CY`, язык транскрипции независим. Native iPhone localization + AXXXL UI и Watch build прошли.
+- [x] Редакторская сверка English→Turkish включая исправленный сдвиг текстов о сохранении нотатки; транскрипция не меняет исходный звук, Watch ждёт ACK, восстановление не обещает исчезнувших заметок. Сторонний native-speaker sign-off и физический Watch остаются отдельно.
+
 ## 29.10.2026 · Turkish tr: первый пакет Фото/PDF
 
 - [x] `tr.lproj` содержит 161 ключ Фото/PDF и 2 InfoPlist usage strings (включая рекламное согласие), добавлены regressions, XcodeGen и нативные UI-тесты.

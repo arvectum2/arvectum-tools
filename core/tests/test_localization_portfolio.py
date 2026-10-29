@@ -353,6 +353,34 @@ class LocalizationPortfolioTests(unittest.TestCase):
         ui = (ROOT/'pushkin/ios/ArvectumNotifyUITests/TurkishLocalizationUITests.swift').read_text()
         self.assertIn('func testTurkishTabsAndNavigation', ui)
 
+    def test_uhvat_turkish_all_four_bundles_and_original_media_safety(self):
+        for bundle in ('WhatIOS','WhatWatch','WhatPhoneWidget','WhatWatchComplication'):
+            root=ROOT/'what/ios'/bundle
+            en=i18n.read_strings(root/'en.lproj/Localizable.strings', [])
+            tr=i18n.read_strings(root/'tr.lproj/Localizable.strings', [])
+            self.assertEqual(set(en),set(tr),bundle)
+            for k in en:
+                self.assertEqual(i18n.placeholders(en[k]),i18n.placeholders(tr[k]),(bundle,k))
+            self.assertEqual(set(i18n.read_strings(root/'en.lproj/InfoPlist.strings', [])),
+                             set(i18n.read_strings(root/'tr.lproj/InfoPlist.strings', [])),bundle)
+        en=i18n.read_strings(ROOT/'what/ios/WhatIOS/en.lproj/Localizable.strings', [])
+        tr=i18n.read_strings(ROOT/'what/ios/WhatIOS/tr.lproj/Localizable.strings', [])
+        self.assertEqual(len(tr),246)
+        self.assertEqual(tr['Catch that thought'],'Düşünceyi yakalayın')
+        self.assertEqual(tr['New text note'],'Yeni metin notu')
+        for phrase,required in (
+            ('A new transcription will replace your current text','Orijinal ses kaydı korunur'),
+            ('Your Watch last reported recordings waiting for iPhone confirmation','onaylayana kadar ses Watch'),
+            ('The final video segment has not finished writing','Orijinal dosyalar'),
+            ('The full note temporarily replaces','en fazla beş dakikalığına'),
+            ('The last valid backup will be used','Silinen notlar geri yüklenmez'),
+            ('Audio exceeds 500 MB','500 MB'),
+            ('Select up to 10 audio files','en fazla 10')):
+            key=next(k for k in en if phrase in en[k]);self.assertIn(required,tr[key])
+        self.assertIn('"tr"',(ROOT/'what/ios/Shared/CaptureBrand.swift').read_text())
+        ui=(ROOT/'what/ios/WhatIOSUITests/TurkishLocalizationUITests.swift').read_text()
+        self.assertIn('func testTurkishAXXXLHomeControlsWithoutRecording',ui)
+
     def test_korean_uhvat_headline_is_idiomatic(self):
         loc = i18n.read_strings(ROOT / "what/ios/WhatIOS/ko.lproj/Localizable.strings", [])
         self.assertEqual(loc["Catch that thought"], "떠오른 생각을 기록하세요")
@@ -441,7 +469,7 @@ class LocalizationPortfolioTests(unittest.TestCase):
                 expected.append("nl")
             if app in ("pushkin", "what", "chickmark"):
                 expected.append("id")
-            if app == "pushkin":
+            if app in ("pushkin", "what"):
                 expected.append("tr")
             self.assertEqual(reg["apps"][app]["ios"]["sourceCatalogs"], expected)
 
@@ -473,7 +501,7 @@ class LocalizationPortfolioTests(unittest.TestCase):
             # New iOS source locales must add an explicit UI smoke mapping.
             # Reject any locale without an authored XCUITest smoke mapping.
             locales = set(registry["apps"][app_registry_names[app]]["ios"]["sourceCatalogs"])
-            expected = {"ru", "en", *code_names} - ({"tr"} if app not in ("photo", "pushkin") else set())
+            expected = {"ru", "en", *code_names} - ({"tr"} if app == "chickmark" else set())
             self.assertEqual(
                 locales, expected,
                 f"{app}: new source locale must have a UI smoke test mapping")
@@ -499,7 +527,7 @@ class LocalizationPortfolioTests(unittest.TestCase):
                     self.assertIn("func " + method, baseline,
                                   f"{app}/{locale}: no dedicated UI smoke")
                 covered += 1
-        self.assertEqual(covered, 58)
+        self.assertEqual(covered, 59)
 
     def test_all_active_ios_bundles_have_registry_localized_catalogs(self):
         """Each app's own source locale packs are present in all its active bundles.

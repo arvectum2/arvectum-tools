@@ -1,0 +1,4 @@
+"CFBundleDisplayName" = "UhWhat?";
+"NSMicrophoneUsageDescription" = "Bu cihazda özel sesli ve görüntülü notlar kaydedin. Medyalar cihazınızda kalır.";
+"NSSpeechRecognitionUsageDescription" = "Kaydedilmiş sesli notları cihaz üzerindeki konuşma tanıma ile yazıya dökün.";
+"NSCameraUsageDescription" = "Kamerayla özel video notları kaydedin. Videolar bu cihazda kalır.";

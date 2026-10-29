@@ -1,0 +1,7 @@
+// Turkish tr source, native Watch/widget QA pending.
+"Preparing microphone…" = "Mikrofon hazırlanıyor…";
+"Record" = "Kaydediliyor";
+"Saved" = "Kaydedildi";
+"Stop" = "Durdur";
+"Try again" = "Yeniden dene";
+"%d waiting for iPhone" = "%d kayıt iPhone aktarım kuyruğunda";

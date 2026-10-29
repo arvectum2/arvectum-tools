@@ -333,7 +333,8 @@
           "zh-Hans",
           "zh-Hant",
           "nl",
-          "id"
+          "id",
+          "tr"
         ],
         "status": "14-source-catalogs-in-Uhvat-Bahasa-Indonesia-source-draft",
         "note": "Indonesian id across iPhone, Watch, Phone Widget and Watch Complication plus InfoPlist permissions; independent dictation settings maintained. Native/physical Apple Watch ACK and editor proofing pending."
@@ -406,6 +407,6 @@
       "pl",
       "th"
     ],
-    "iosSourceBaselineVerified": "Photo/PDF and PUSHKIN 15/50, What/ChickMark 14/50 (58/200 source pairs). Turkish editorial/native checks ongoing."
+    "iosSourceBaselineVerified": "Photo/PDF, Pushkin and Uhvat 15/50; ChickMark 14/50 (59/200 pairs). Turkish semantic editorial/native QA pending."
   }
 }
