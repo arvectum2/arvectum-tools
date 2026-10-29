@@ -1,0 +1,57 @@
+{
+  "status": "COPY_DRAFT_NEEDS_EDITORIAL_AND_NATIVE_ASSETS",
+  "createdUTC": "2026-10-29",
+  "app": "photo",
+  "appId": "6816346084",
+  "bundleId": "ru.arvectum.tools.tosize",
+  "storefrontCountry": "TR",
+  "uiSourceLocale": "tr",
+  "appleMetadataLocale": "tr",
+  "appleMetadataLocalePublishedSupport": true,
+  "appleLocaleEnabledForThisAppInASC": null,
+  "appleLocaleEnabledForThisAppInASCNote": "Not verified; false means do not upload, not definitive absence in account.",
+  "supportingAppleReferences": [
+    "https://developer.apple.com/help/app-store-connect/reference/app-information/app-store-localizations/",
+    "https://developer.apple.com/documentation/appstoreconnectapi/managing-metadata-in-your-app-by-using-locale-shortcodes"
+  ],
+  "metadata": {
+    "name": "Fotoğraf ve PDF Küçültme",
+    "subtitle": "Dosyaları kolayca küçültün",
+    "keywords": "fotoğraf,pdf,sıkıştırma,boyutlandırma,vesikalık,pasaport,vize,jpeg,heic,dosya,çevrimdışı",
+    "promotionalText": "Fotoğraf ve PDF dosyalarını 100 KB, 500 KB veya 1 MB sınırına küçültün. Piksel boyutlarını ayarlayın, belge fotoğraflarını hazırlayın.",
+    "description": "Bir form için fotoğraf veya PDF yüklemeniz gerekiyor ancak dosya boyutu sınırı mı var? Fotoğraf ve PDF Küçültme ile dosyalarınızı iPhone veya iPad üzerinde işleyin.\n\nDOSYA BOYUTU: fotoğrafları seçtiğiniz KB/MB sınırına göre sıkıştırın ve PDF boyutunu küçültün.\n\nBOYUTLANDIRMA: piksel cinsinden genişlik ve yükseklik belirleyin. Desteklenen biçimlerde JPEG, PNG ve HEIC çıktısı alın.\n\nBELGE FOTOĞRAFLARI: seçili ülke, pasaport ve vize formatları için baskı boyutlarını hazırlayın. Resmî fotoğraf gerekliliklerini başvuru yapacağınız kurumdan doğrulayın; uygulama kabul garantisi vermez. Birleşik Krallık çevrimiçi pasaport başvurularında GOV.UK, fotoğrafı kendiniz kırpmamanızı ister. Kanada başvurularında stüdyoda çekilmiş orijinal fotoğraflar gerekebilir.\n\nPDF HAKKINDA: çok yüksek sıkıştırmada sayfalar görsele dönüştürülebilir; çıktı dosyasında metin arama ve seçme kullanılamayabilir.\n\nGİZLİLİK VE REKLAMLAR: fotoğraflar ve PDF dosyaları yalnızca cihazınızda işlenir. Uygulama, reklam göstermek için Yandex Mobile Ads kullanabilir. Reklam SDK'sının teknik verileri işlemesine izin verebilir veya reddedebilirsiniz. Reklamlar her iki durumda da gösterilebilir. Ayrıntılar için gizlilik politikasına bakın.",
+    "whatsNew": "Fotoğraf işlendikten sonra ayarlara dönüş daha açık hâle getirildi. Fotoğraflarınız ve PDF dosyalarınız cihazınızda işlenmeye devam eder.",
+    "privacyPolicyUrl": "https://arvectum.com/photo-pod-razmer-privacy.html"
+  },
+  "screenshotPlan": [
+    {
+      "position": 1,
+      "caption": "Fotoğrafı 500 KB sınırına küçültün",
+      "screen": "photo-file-size-result"
+    },
+    {
+      "position": 2,
+      "caption": "Piksel boyutlarını ayarlayın",
+      "screen": "photo-pixel-size-result"
+    },
+    {
+      "position": 3,
+      "caption": "Belge fotoğrafı hazırlayın",
+      "screen": "document-photo-presets"
+    },
+    {
+      "position": 4,
+      "caption": "PDF dosyalarını sıkıştırın",
+      "screen": "pdf-file-size-result"
+    }
+  ],
+  "screenshotAssets": [],
+  "requiredRealNativeCaptures": [
+    "iphone-6.9",
+    "ipad-13"
+  ],
+  "releaseApproved": false,
+  "humanEditorialApproved": false,
+  "screenshotQAApproved": false,
+  "uploadedToASC": false
+}

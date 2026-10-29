@@ -277,7 +277,7 @@ class NewDutchStorefrontTests(unittest.TestCase):
             self.assertEqual(len(seed['localeData']), 16)
             self.assertIn('secondary after en-GB', data['appleLocaleEnabledForThisAppInASCNote'])
         self.assertEqual(seen, apps)
-        self.assertEqual(len(list(pending.EXPANSION.glob('*.draft.json'))), 8)
+        self.assertEqual(len(list(pending.EXPANSION.glob('*.draft.json'))), 9)
 
     def test_indonesian_marketing_does_not_promise_unavailable_shortcuts_or_health_access(self):
         required = {
@@ -314,3 +314,32 @@ class NewDutchStorefrontTests(unittest.TestCase):
                     bad[key] = val
                     with self.assertRaises(AssertionError):
                         pending.validate(bad,seed,source)
+
+    def test_turkish_photo_draft_is_supported_but_not_uploaded(self):
+        draft = json.loads((pending.EXPANSION/'photo-tr.draft.json').read_text())
+        seed = json.loads((pending.STAGED/'photo.json').read_text())
+        registry = json.loads((ROOT/'core/localization/portfolio-locales.json').read_text())
+        locales = set(registry['apps']['photo-pdf-to-size']['ios']['sourceCatalogs'])
+        report = pending.validate(draft, seed, locales)
+        self.assertEqual((report['country'], report['metadata_locale'], report['source_locale']), ('TR','tr','tr'))
+        self.assertFalse(report['ready_for_upload'])
+        self.assertEqual(report['new_asc_localization_exists'], 'UNVERIFIED')
+        self.assertEqual(draft['screenshotAssets'], [])
+        self.assertEqual(draft['requiredRealNativeCaptures'], ['iphone-6.9','ipad-13'])
+        self.assertEqual(len(seed['localeData']), 16)
+        description = draft['metadata']['description']
+        for required in ('Yandex Mobile Ads', 'metin arama', 'GOV.UK', 'yalnızca cihazınızda', 'reklam'):
+            with self.subTest(required=required):
+                self.assertIn(required.lower(),description.lower())
+
+    def test_turkish_photo_draft_blocks_fake_approval(self):
+        draft = json.loads((pending.EXPANSION/'photo-tr.draft.json').read_text())
+        seed = json.loads((pending.STAGED/'photo.json').read_text())
+        registry = json.loads((ROOT/'core/localization/portfolio-locales.json').read_text())
+        locales = set(registry['apps']['photo-pdf-to-size']['ios']['sourceCatalogs'])
+        for key,value in [('appleMetadataLocale','tr-TR'),('uploadedToASC',True),('releaseApproved',True),('screenshotAssets',['fake.png']),('appleLocaleEnabledForThisAppInASC',True)]:
+            with self.subTest(key=key):
+                bad = copy.deepcopy(draft)
+                bad[key] = value
+                with self.assertRaises(AssertionError):pending.validate(bad,seed,locales)
+        with self.assertRaises(AssertionError):pending.validate(draft,seed,locales-{'tr'})
