@@ -1,0 +1,57 @@
+{
+  "status": "COPY_DRAFT_NEEDS_EDITORIAL_AND_NATIVE_ASSETS",
+  "createdUTC": "2026-10-29",
+  "app": "chickmark",
+  "appId": "6818711298",
+  "bundleId": "ru.arvectum.tools.habits",
+  "storefrontCountry": "TR",
+  "uiSourceLocale": "tr",
+  "appleMetadataLocale": "tr",
+  "appleMetadataLocalePublishedSupport": true,
+  "appleLocaleEnabledForThisAppInASC": null,
+  "appleLocaleEnabledForThisAppInASCNote": "Not verified; false means do not upload, not definitive absence in account.",
+  "supportingAppleReferences": [
+    "https://developer.apple.com/help/app-store-connect/reference/app-information/app-store-localizations/",
+    "https://developer.apple.com/documentation/appstoreconnectapi/managing-metadata-in-your-app-by-using-locale-shortcodes"
+  ],
+  "metadata": {
+    "name": "ChickMark: Alışkanlıklar",
+    "subtitle": "Hedefler ve hatırlatıcılar",
+    "keywords": "alışkanlık,hedef,seri,planlayıcı,hatırlatma,günlük,su,sağlık,izleme,widget",
+    "promotionalText": "Bir alışkanlıkla başlayın; her gün işaretleyin, serilerinizi takip edin ve iPhone veya Apple Watch'ta isteğe bağlı hatırlatıcılar kullanın.",
+    "description": "ChickMark, alışkanlıkları karmaşık bir planlayıcı olmadan takip etmenizi sağlar.\n\nGÜNLÜK İŞARETLEMELER: Alışkanlık oluşturun, tamamlandı olarak işaretleyin ve serilerinizi görün. Sabit program, esnek haftalık hedef veya gerçekten tamamladığınız tarihten itibaren tekrarlama seçin.\n\nHATIRLATICILAR VE WIDGET'LAR: İsteğe bağlı hatırlatıcılar, iPhone ve Apple Watch üzerindeki uygun widget'larla gününüzü takip edin. Eşzamanlama cihaz ayarlarına ve bağlantıya bağlıdır.\n\nİSTEĞE BAĞLI APPLE HEALTH: Yalnızca sizin bağladığınız etkinlik hedefleri için sağlık ölçümleri cihazınızda okunur. Su tüketimi yalnızca miktar hedefli alışkanlıkta dışa aktarmayı etkinleştirip yazma izni verdiğinizde Apple Health'e eklenir. Geçmiş günlerdeki su kayıtları otomatik içe aktarılmaz.\n\nGİZLİLİK VE VERİLER: Sağlık ölçümleri veya otomatik türetilen sonuçlar CloudKit'e yüklenmez veya reklam için paylaşılmaz. Elle işaretlenen alışkanlıklar mevcut iCloud ayarlarıyla eşzamanlanabilir. Bir yedeği tüm verilerin üzerine geri yüklemek, iCloud üzerinden eşzamanlanan silmelere yol açabilir; önce yedeğinizi güvenli saklayın.\n\nÜcretsiz uygulama reklam gösterebilir. Reklam verilerine ilişkin ayrıntılar için gizlilik politikasını okuyun.",
+    "whatsNew": "Alışkanlıkların haftalık özetinde gerçek tamamlamalar arasındaki gün aralığını göstermek için isteğe bağlı yerel görünüm.",
+    "privacyPolicyUrl": "https://arvectum.com/privacy.html"
+  },
+  "screenshotPlan": [
+    {
+      "position": 1,
+      "caption": "Bugünkü alışkanlıklarınız",
+      "screen": "today-habits"
+    },
+    {
+      "position": 2,
+      "caption": "Hızlıca alışkanlık oluşturun",
+      "screen": "new-habit"
+    },
+    {
+      "position": 3,
+      "caption": "Seri ve ilerlemeyi görün",
+      "screen": "weekly-progress"
+    },
+    {
+      "position": 4,
+      "caption": "Hatırlatıcı ve program seçin",
+      "screen": "schedule-reminder"
+    }
+  ],
+  "screenshotAssets": [],
+  "requiredRealNativeCaptures": [
+    "iphone-6.9",
+    "ipad-13"
+  ],
+  "releaseApproved": false,
+  "humanEditorialApproved": false,
+  "screenshotQAApproved": false,
+  "uploadedToASC": false
+}
