@@ -112,6 +112,20 @@ final class CoverageCatalogTests: XCTestCase {
         XCTAssertEqual(PushkinCopy.appCount(2, language: "pt-BR"), "2 apps")
     }
 
+    func testIndonesianBundleRoutingAndShortcutsSafetyWarnings() {
+        XCTAssertEqual(PushkinCopy.text("History", language: "id-ID"), "Riwayat")
+        XCTAssertEqual(PushkinCopy.text("Apps & Setup", language: "id"), "Aplikasi & Pengaturan")
+        XCTAssertEqual(PushkinCopy.text("Settings", language: "id_ID"), "Pengaturan")
+        XCTAssertEqual(PushkinCopy.text("Group %d", language: "id-ID"), "Grup %d")
+        XCTAssertEqual(PushkinCopy.appCount(1, language: "id"), "1 aplikasi")
+        XCTAssertEqual(PushkinCopy.appCount(25, language: "id-ID"), "25 aplikasi")
+        XCTAssertEqual(PushkinCopy.text("Unknown UI text", language: "id"), "Unknown UI text")
+        let notice = PushkinCopy.text("Only Shortcuts knows whether an automation is enabled. PUSHKIN cannot check or change that switch.", language: "id-ID")
+        XCTAssertTrue(notice.contains("tidak dapat memeriksa"))
+        XCTAssertEqual(PushkinCopy.text("Notification content stays on this device", language: "id"),
+                       "Isi notifikasi tetap di perangkat ini")
+    }
+
     func testDutchBundleRoutingAndShortcutsSafetyWarnings() {
         XCTAssertEqual(PushkinCopy.text("History", language: "nl-NL"), "Geschiedenis")
         XCTAssertEqual(PushkinCopy.text("Apps & Setup", language: "nl"), "Apps en configuratie")

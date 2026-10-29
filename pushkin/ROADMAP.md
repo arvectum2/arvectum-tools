@@ -1,5 +1,12 @@
 # PUSHKIN — Product Roadmap
 
+## 29.10.2026 · Tier 1 Bahasa Indonesia (`id`), source-only
+
+- [x] 159 source-строк для iOS: интерфейс, статусы, ошибки, onboarding Apple Shortcuts и конфиденциальность. В частности, не выдумана возможность автоматически включать автоматизации или читать все уведомления iOS; одна полученная запись не подтверждает остальные источники.
+- [x] `PushkinCopy` поддерживает `id`, `id-ID`/`id_ID`; счётчик показывает `1 aplikasi`, `25 aplikasi`. Добавлены Swift regression и iPhone UI smoke на локальных данных без доступа к реальным уведомлениям/Shortcuts.
+- [ ] Отдельная редактура носителем Bahasa Indonesia, реальная iOS17–26/Shortcuts QA, screenshots и App Store метаданные Indonesia `id` после проверки поддерживаемого состояния ASC. Публичный PUSHKIN не менялся.
+
+
 ## 29.10.2026 · NL App Store — отдельный copy draft
 
 - [x] `core/appstore/locale-expansion-2026-10-29/pushkin-nl-NL.draft.json`: нидерландская карточка с честными ограничениями iOS/Shortcuts и четырьмя подписями для настоящих iPhone screenshot. Автоматический fail-closed validator проверяет допустимые длины и upload gate; уже имеющиеся 16 staged карточек сохранены.

@@ -300,10 +300,11 @@
           "ko",
           "zh-Hans",
           "zh-Hant",
-          "nl"
+          "nl",
+          "id"
         ],
-        "status": "13-source-catalogs-in-pushkin-dutch-draft-full-key-native-proofreading-and-physical-shortcuts-qa-pending",
-        "note": "Dutch (nl) source draft plus real PushkinCopy routing/inflection, 159 keys. No signed/physical Shortcuts and user-data acceptance yet. Photo/PDF also has 13, other two remain at 12."
+        "status": "14-source-catalogs-in-pushkin-Bahasa-Indonesia-source-draft",
+        "note": "Indonesian id 159 localized UI/Shortcuts safety strings, routing and plural/counter, native QA source. No real Shortcuts/notification changes."
       }
     },
     "what": {
@@ -404,6 +405,6 @@
       "pl",
       "th"
     ],
-    "iosSourceBaselineVerified": "Photo/PDF 14 of 50, other three apps 13 of 50; 53 of 200 app×locale source pairs. Indonesian is source-only in Photo/PDF and not yet portfolio complete."
+    "iosSourceBaselineVerified": "Photo/PDF and PUSHKIN 14 of 50, Uhvat/ChickMark 13 of 50; 54 of 200 app×locale source pairs; Indonesian incomplete across portfolio."
   }
 }
