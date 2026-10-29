@@ -9,7 +9,7 @@
 "Download Russian language model?" = "Télécharger le modèle de langue russe ?";
 "Download finished — verifying model…" = "Téléchargement terminé — vérification du modèle…";
 "Download model" = "Télécharger le modèle";
-"Download size: Apple does not publish the exact number of MB or GB. Apple also does not provide download percentage. What? will show installation stages and verify that the model works before reporting success. Search and audio remain on-device." = "Taille du téléchargement : Apple ne publie pas le nombre exact de Mo ou de Go. Apple ne fournit pas non plus de pourcentage de téléchargement. Quoi? affichera les étapes d'installation et vérifiera que le modèle fonctionne avant de signaler le succès. La recherche et l'audio restent sur l'appareil.";
+"Download size: Apple does not publish the exact number of MB or GB. Apple also does not provide download percentage. What? will show installation stages and verify that the model works before reporting success. Search and audio remain on-device." = "Taille du téléchargement : Apple n’indique ni la taille exacte en Mo ou Go ni le pourcentage de progression. UhWhat? affiche les étapes de l’installation et vérifie que le modèle fonctionne avant d’annoncer qu’il est prêt. La recherche et les enregistrements audio restent sur l’appareil.";
 "English" = "Anglais";
 "Find" = "Trouver";
 "Hide keyboard" = "Masquer le clavier";
@@ -171,7 +171,7 @@
 "The audio and transcript will be deleted from this iPhone. This cannot be undone." = "L’enregistrement audio et sa transcription seront supprimés de cet iPhone. Cette action est irréversible.";
 "The final video segment has not finished writing. Original files are preserved for recovery." = "Le segment vidéo final n’a pas fini d’écrire. Les fichiers originaux sont conservés pour la récupération.";
 "The full note temporarily replaces this device's clipboard for up to five minutes. ChickMark asks before saving. Nothing is uploaded." = "La note complète remplace temporairement le presse-papiers de cet appareil pendant une durée maximale de cinq minutes. » demande ChickMark avant de sauvegarder. Rien n'est téléchargé.";
-"The original note is no longer available in UhWhat." = "La note originale n'est plus disponible dans UhWhat.";
+"The original note is no longer available in UhWhat." = "La note d’origine n’est plus disponible dans UhWhat?.";
 "This is the last message received from your Watch, not a real-time connection check. It can be delayed." = "Il s'agit du dernier message reçu de votre montre, et non d'une vérification de connexion en temps réel. Cela peut être retardé.";
 "This note and its video will be deleted from this device." = "Cette note et sa vidéo seront supprimées de cet appareil.";
 "To ChickMark" = "À ChickMark";
