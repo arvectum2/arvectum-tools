@@ -1,5 +1,12 @@
 # What? — Product Roadmap
 
+## 29.10.2026 · Tier 1 Bahasa Indonesia (`id`) — iPhone, Watch и виджеты
+
+- [x] `id` каталоги для всех четырёх bundles Ухвата: iPhone **246** UI ключей + разрешения микрофона/камеры/распознавания, Watch 6, iPhone Widget 6, Watch complication 5, соответствующие InfoPlist. Переводы сохраняют независимость локали интерфейса от настройки распознавания речи и честные границы сохранения оригинального аудио/Watch ACK.
+- [x] `CaptureBrand` автоматически определяет `id/id-ID/id_ID`, применяет id_ID для форматирования и `1 catatan/25 catatan`. Swift native/AXXXL UI тесты не меняют реальную медиатеку. Документированы ограничения 500 MB и 10 файлов при импорте и принципы восстановления.
+- [ ] Независимая редактура Bahasa Indonesia, физическая Watch/VoiceOver/camera/microphone/ACK приёмка, реальная региональная карточка Indonesia и разрешение релиза. Опубликованная сборка не меняется.
+
+
 ## 29.10.2026 · Netherlands (`nl-NL`) — черновик App Store
 
 - [x] `core/appstore/locale-expansion-2026-10-29/what-nl-NL.draft.json` содержит отдельный нидерландский региональный copy, локальное хранение медиа/Watch ACK caveat, отдельный выбор языка распознавания речи и 4 идеи нативных iPhone/iPad кадров. Fail-closed validator/test покрывает 3 NL приложения, без изменений прежних 64 staged карточек.

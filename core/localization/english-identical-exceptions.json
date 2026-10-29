@@ -236,6 +236,12 @@
       "reason": "Shared technical audio term and file-extension notation"
     },
     {
+      "file": "what/ios/WhatIOS/id.lproj/Localizable.strings",
+      "key": "Audio (.m4a)",
+      "value": "Audio (.m4a)",
+      "reason": "Audio and .m4a are international technical media terms and file extension retained in Indonesian."
+    },
+    {
       "file": "what/ios/WhatIOS/it.lproj/Localizable.strings",
       "key": "Audio (.m4a)",
       "value": "Audio (.m4a)",

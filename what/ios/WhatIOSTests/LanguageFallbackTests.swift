@@ -38,6 +38,22 @@ final class LanguageFallbackTests: XCTestCase {
         )
     }
 
+    func testIndonesianUIRoutingAndIndependentSpeechLanguage() {
+        XCTAssertEqual(CaptureBrand.resolvedInterfaceLanguage(for: ["id-ID", "en-US"]), "id")
+        XCTAssertEqual(CaptureBrand.resolvedInterfaceLanguage(for: ["id_ID", "en-US"]), "id")
+        XCTAssertEqual(CaptureBrand.defaultTranscriptionLocale(for: "id"), "en-US")
+        XCTAssertEqual(CaptureBrand.text("Ухвати мысль", "Catch that thought", language: "id"),
+                       "Tangkap ide itu")
+        XCTAssertEqual(CaptureBrand.text("Записать", "Record", language: "id-ID"), "Rekam")
+        XCTAssertEqual(CaptureBrand.text("Все заметки", "All notes", language: "id_ID"), "Semua catatan")
+        XCTAssertEqual(CaptureBrand.noteCount(1, language: "id"), "1 catatan")
+        XCTAssertEqual(CaptureBrand.noteCount(25, language: "id-ID"), "25 catatan")
+        XCTAssertEqual(CaptureBrand.formatted("Вход: %@", "Input: %@", language: "id", "Mikrofon"),
+                       "Masukan: Mikrofon")
+        XCTAssertEqual(CaptureBrand.text("Неизвестно", "Unknown key", language: "id"),
+                       "Unknown key")
+    }
+
     func testDutchInterfaceWatchLabelsAndIndependentTranscriptionPreference() {
         XCTAssertEqual(CaptureBrand.resolvedInterfaceLanguage(for: ["nl-NL", "en-US"]), "nl")
         XCTAssertEqual(CaptureBrand.resolvedInterfaceLanguage(for: ["nl-BE", "en-US"]), "nl")

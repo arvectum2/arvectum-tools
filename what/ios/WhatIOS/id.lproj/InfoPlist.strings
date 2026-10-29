@@ -1,0 +1,4 @@
+"CFBundleDisplayName" = "UhWhat?";
+"NSMicrophoneUsageDescription" = "Rekam catatan audio dan video pribadi di perangkat ini. Media tetap berada di perangkat Anda.";
+"NSSpeechRecognitionUsageDescription" = "Transkripsikan rekaman suara yang tersimpan di perangkat ini menggunakan pengenalan ucapan lokal.";
+"NSCameraUsageDescription" = "Rekam catatan video pribadi menggunakan kamera. Video tetap berada di perangkat ini.";
