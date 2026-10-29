@@ -1719,6 +1719,10 @@ class EditorialLocalizationRegressionTests(unittest.TestCase):
         ui_tr = i18n.read_strings(root / "HabitsByArvectum/tr.lproj/Localizable.strings", [])
         self.assertEqual(ui_tr["habit.create"], "Alışkanlık oluştur")
         self.assertEqual(ui_tr["habit.name.placeholder"], "Alışkanlık adı")
+        self.assertIn("iCloud", ui_tr["backup.warning"])
+        self.assertIn("CloudKit", ui_tr["health.privacy"])
+        self.assertIn("transkripsiyon", ui_tr["review.privacy.explanation"])
+        self.assertIn("Kestirmeler", ui_tr["health.shortcuts.instructions"])
         self.assertIn("Türkçe", (root / "HabitsByArvectum/Localization.swift").read_text())
         self.assertIn("testTurkishEmptyStateAndHabitForm",
                       (root / "HabitsByArvectumUITests/TurkishLocalizationUITests.swift").read_text())
@@ -1734,6 +1738,13 @@ class EditorialLocalizationRegressionTests(unittest.TestCase):
         en_info = i18n.read_strings(root / "en.lproj/InfoPlist.strings", [])
         pl_info = i18n.read_strings(root / "pl.lproj/InfoPlist.strings", [])
         self.assertEqual(set(en_info), set(pl_info))
+        self.assertEqual(pl["Уменьшить фото"], "Zmniejsz zdjęcie")
+        self.assertEqual(pl["Уменьшить PDF"], "Zmniejsz PDF")
+        self.assertIn("identyfikatora reklamowego",
+                      pl_info["NSUserTrackingUsageDescription"])
+        self.assertIn("rasteryzowane", pl[
+            "Обработка выполняется только на устройстве. При сильном сжатии страницы PDF растрируются, поэтому поиск и выделение текста в готовом файле могут быть недоступны."
+        ])
         self.assertIn("testPolishPhotoResult",
                       (ROOT / "photo-pdf-to-size/ios/PhotoPodRazmerUITests/PolishLocalizationUITests.swift").read_text())
 
