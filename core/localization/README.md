@@ -2,6 +2,11 @@
 
 **Обновлено 29.10.2026:** 12/50 iOS source languages are structurally present in all 4 active applications and 10 declared UI/Watch/widget bundles (48 app×locale smoke contracts). Full native-speaker approval and public App Store release are separate. The prior 26.10 snapshot below is historical. See [Core localization + regional ASO roadmap](../docs/CORE_50_LOCALES_AND_REGIONAL_ASO_2026-10-29.md).
 
+## 29.10.2026 · Начало Tier 1: нидерландский только для Фото/PDF
+
+- [x] Новая source-локаль `nl` в Photo/PDF: 161 переведённых UI-ключей и 2 системные строки (в том числе отслеживание/ATT), ключи/форматы совпадают с EN, технические идентичные единицы отдельно классифицированы. XcodeGen включает `nl` в проект; Dutch XCUITest для фото, PDF, Dynamic Type.
+- [ ] **Остальные три приложения ещё без `nl`**. Общий счёт: Photo/PDF **13**, остальные **12**, всего **49** app×locale source-пар из будущих 200. Это source draft, не native-speaker sign-off и не опубликованная локаль App Store; нидерландский storefront metadata пока не подготовлен.
+
 ## 26.10.2026 · PT-PT и KO native QA
 
 - [x] PT-PT 6/6 UI и KO 4/4 UI PASS в доступных приложениях; Pushkin KO routing fixed и Swift regression PASS.

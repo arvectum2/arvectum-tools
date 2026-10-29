@@ -1,5 +1,11 @@
 # Фото и PDF под размер — Product Roadmap
 
+## 29.10.2026 · Tier 1 локализация: Dutch (nl), исходный пакет
+
+- [x] В исходниках Фото/PDF добавлены `nl.lproj/Localizable.strings` (161 ключ, включая PDF rasterization, Files, рекламу/согласие) и `nl.lproj/InfoPlist.strings` (display name + tracking permission). XcodeGen зарегистрировал nl; значения без английских текстовых заглушек, форматные параметры сохранены.
+- [x] Core locale QA, консервативный editorial machine audit, semantic contract и Dutch UI-тесты в исходниках. Независимая редактура текста носителем нидерландского и физические Files/Photos/ATT QA отдельно.
+- [ ] Следующие 3 приложения ещё без Dutch; карточка NL storefront, допустимый ASC metadata locale и нативные скриншоты для нового региона — самостоятельный ASO этап. Apple binaries/metadata не изменялись.
+
 ## 28.10.2026 · C19 — iPad UI адаптивность
 
 - [x] iPad Air 11″ iOS 27 Simulator: XCTest `testTaskRemainsAvailableAfterOrientationChange` 1/1 PASS, `Selected tests passed`, `0 failures`. **Завершение xcodebuild зависло**, остановлен только этот QA-процесс; не заявлять полный `TEST SUCCEEDED` для этого запуска. CI включает ограниченный strict teardown. Реальный SDK/Files/Photos OPEN. [Акт C19](../core/docs/IPAD_C19_ADAPTIVE_QA_2026-10-28.md).

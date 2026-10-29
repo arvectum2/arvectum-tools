@@ -62,6 +62,7 @@
 		E52C9FA868235BD0FBEB3439 /* AppModel+Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E950E3E330ED7352B76698 /* AppModel+Navigation.swift */; };
 		F17F62FE21A2AC89FA0CFB55 /* FilesImportUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA4A5EFD1913620F19DA676 /* FilesImportUITests.swift */; };
 		FCE6C79A3351D95AF2E4F003 /* WorkflowUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2E6DAE150416D54E6F5148 /* WorkflowUITests.swift */; };
+		FEEFC8D2025A4051B2386C67 /* DutchLocalizationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2805ED73F7FE2F289FDE967E /* DutchLocalizationUITests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,6 +92,7 @@
 		1E8C2E35479AA0E73C5A0DA3 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
 		220C1C7A48EED3DEC091307E /* ArvectumColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArvectumColors.swift; sourceTree = "<group>"; };
 		27309A197DFD8EB8A4CA2BD2 /* SimplifiedChineseLocalizationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimplifiedChineseLocalizationUITests.swift; sourceTree = "<group>"; };
+		2805ED73F7FE2F289FDE967E /* DutchLocalizationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DutchLocalizationUITests.swift; sourceTree = "<group>"; };
 		2AC376F1282F377E1E837406 /* JapaneseLocalizationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JapaneseLocalizationUITests.swift; sourceTree = "<group>"; };
 		2C8B8D4B8B1A02379AF8BF89 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		2D5EAD1878C26C6F6327B7B1 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -159,9 +161,11 @@
 		F1B5593105023DBFA51B2853 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		F2399FF183418363CD69E64C /* InputConstraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputConstraints.swift; sourceTree = "<group>"; };
 		F743F11A644BBD721FDA9E08 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		F8107B8FBEE0760B4ADF609B /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		F937E646A199C40CA670BDDA /* PhotoPodRazmerTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = PhotoPodRazmerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA17F22469ADEA9EEF3AB9D1 /* GermanLocalizationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GermanLocalizationUITests.swift; sourceTree = "<group>"; };
 		FAA4A5EFD1913620F19DA676 /* FilesImportUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilesImportUITests.swift; sourceTree = "<group>"; };
+		FE1325E925609F8682D87769 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -268,6 +272,7 @@
 				E8E69ED72E973E4DB6DFEF4F /* ASOAllLocalesCaptureUITests.swift */,
 				AA58A3A87DD0430A6E76E411 /* BrazilianPortugueseLocalizationUITests.swift */,
 				D4C156354CFD4ECA9DA86056 /* CoreLanguageCoverageUITests.swift */,
+				2805ED73F7FE2F289FDE967E /* DutchLocalizationUITests.swift */,
 				C5E3923A9A558EADA683C357 /* EuropeanPortugueseLocalizationUITests.swift */,
 				FAA4A5EFD1913620F19DA676 /* FilesImportUITests.swift */,
 				63718FABF1BB1E0396D0D91F /* FrenchLocalizationUITests.swift */,
@@ -408,6 +413,7 @@
 				it,
 				ja,
 				ko,
+				nl,
 				"pt-BR",
 				"pt-PT",
 				ru,
@@ -456,6 +462,7 @@
 				CAE9F723AB4378DF165700D1 /* AppStoreUpdatePromptUITests.swift in Sources */,
 				BD765802C404A2CDBB3C0C05 /* BrazilianPortugueseLocalizationUITests.swift in Sources */,
 				76B5BE4E2464DC8FD25F85FF /* CoreLanguageCoverageUITests.swift in Sources */,
+				FEEFC8D2025A4051B2386C67 /* DutchLocalizationUITests.swift in Sources */,
 				42D45F51B862D98D95829E00 /* EuropeanPortugueseLocalizationUITests.swift in Sources */,
 				F17F62FE21A2AC89FA0CFB55 /* FilesImportUITests.swift in Sources */,
 				9FE9BE43C590539B7599B173 /* FrenchLocalizationUITests.swift in Sources */,
@@ -543,6 +550,7 @@
 				7341E11CD615D43CE0C281C9 /* it */,
 				829F4AF1A20467F40686E5F1 /* ja */,
 				D10FFCED70EC9A00FCCC4AE5 /* ko */,
+				F8107B8FBEE0760B4ADF609B /* nl */,
 				2C8B8D4B8B1A02379AF8BF89 /* pt-BR */,
 				F743F11A644BBD721FDA9E08 /* pt-PT */,
 				101DE697CC76956CE3889DE5 /* ru */,
@@ -562,6 +570,7 @@
 				EFE6B81EFC48E214C0158E99 /* it */,
 				85D2B84689600ABB7CB9F0D5 /* ja */,
 				1E8C2E35479AA0E73C5A0DA3 /* ko */,
+				FE1325E925609F8682D87769 /* nl */,
 				83E1CB68C17ED972374B56F7 /* pt-BR */,
 				5E531406206523F28C68743C /* pt-PT */,
 				357DC3C94F468E01EBFED12A /* ru */,
