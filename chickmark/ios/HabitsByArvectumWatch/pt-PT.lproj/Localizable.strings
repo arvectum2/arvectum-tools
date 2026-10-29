@@ -4,7 +4,7 @@
 "watch.progress.format" = "%d de %d";
 "watch.empty" = "Nada programado para hoje";
 "watch.streak.format" = "%d dias seguidos";
-"watch.weekly.format" = "%d de %d nesta semana";
+"watch.weekly.format" = "%d de %d esta semana";
 "watch.completed" = "Concluído";
 "watch.notCompleted" = "Não concluído";
 "watch.skipped" = "Ignorado";
@@ -21,4 +21,4 @@
 "watch.health.unit.minutes" = "min";
 "watch.health.unit.hours" = "h";
 "watch.health.unit.unknown" = "";
-"watch.health.unavailable" = "Dados do Saúde da Apple indisponíveis";
+"watch.health.unavailable" = "Dados da aplicação Saúde indisponíveis";
