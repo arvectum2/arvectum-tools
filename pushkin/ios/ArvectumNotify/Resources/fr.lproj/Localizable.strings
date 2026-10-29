@@ -94,7 +94,7 @@
 "App not listed? Add manually" = "App absente ? Ajoutez-la manuellement";
 "App packages opened" = "Raccourcis d’apps ouverts";
 "Before you start" = "Avant de commencer";
-"Captured records" = "Notifications capturées";
+"Captured records" = "Notifications enregistrées";
 "Choose apps for groups" = "Choisir des apps pour les groupes";
 "Connect the apps you want to track in Shortcuts. Notifications captured from those sources will appear here." = "Connectez les apps à suivre dans Raccourcis. Les notifications capturées depuis ces sources apparaîtront ici.";
 "Developer" = "Développeur";
@@ -129,7 +129,7 @@
 "Popular apps" = "Apps populaires";
 "Privacy" = "Confidentialité";
 "Product" = "Produit";
-"Received" = "Reçue";
+"Received" = "Reçues";
 "Review notifications captured from apps you connected." = "Consultez les notifications capturées depuis les apps que vous avez connectées.";
 "Review the app list and tap Add in Shortcuts. You do not have to manually select all 1,000 catalog apps." = "Vérifiez la liste des apps et touchez Ajouter dans Raccourcis. Il n’est pas nécessaire de sélectionner manuellement les 1 000 apps du catalogue.";
 "Selected" = "Sélectionné";

@@ -14,7 +14,7 @@
 "habit.streak.start" = "Commencez votre série aujourd’hui";
 "habit.complete" = "Marquer comme effectuée";
 "habit.undo" = "Annuler la validation";
-"habit.completed.toast" = "Validation ChickMark effectuée";
+"habit.completed.toast" = "Habitude validée !";
 "habit.skipped.today" = "Ignorée aujourd’hui";
 "habit.skip.today" = "Ignorer aujourd’hui";
 "habit.skip.undo" = "Annuler l’omission";

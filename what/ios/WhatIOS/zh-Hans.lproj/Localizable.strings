@@ -137,7 +137,7 @@
 "Record" = "录音";
 "Recording duration" = "录音时长";
 "Recording on device" = "在设备上录音";
-"Recording transcription" = "正在转写录音";
+"Recording transcription" = "录音转写文本";
 "Recordings" = "录音列表";
 "Remind" = "提醒";
 "Replace existing transcription?" = "替换现有转写？";

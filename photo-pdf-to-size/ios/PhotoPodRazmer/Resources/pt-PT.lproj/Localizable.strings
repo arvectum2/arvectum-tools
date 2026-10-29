@@ -22,7 +22,7 @@
 "Кадрировать 35×45" = "Recortar para 35 × 45";
 "Кадрирование вручную. Лицо и фон приложение не изменяет." = "Recorte manual. A aplicação não altera o rosto nem o fundo.";
 "ГОТОВО" = "PRONTO";
-"Фото уже подходит" = "A fotografia já atende aos requisitos";
+"Фото уже подходит" = "A fotografia já cumpre os requisitos";
 "Фото подготовлено" = "Fotografia pronta";
 "Размер" = "Tamanho do ficheiro";
 "Разрешение" = "Resolução";
@@ -58,7 +58,7 @@
 "Укажите размер длинной стороны." = "Indique a dimensão do lado maior.";
 "Не получилось обрезать изображение." = "Não foi possível recortar a imagem.";
 "Не получилось подготовить файл нужного размера для заявления." = "Não foi possível obter o tamanho de ficheiro exigido.";
-"Изображение слишком большое для обработки на этом устройстве." = "A imagem é grande demais para ser processada neste dispositivo.";
+"Изображение слишком большое для обработки на этом устройстве." = "A imagem é demasiado grande para ser processada neste dispositivo.";
 "Не получилось обработать это изображение." = "Não foi possível processar esta imagem.";
 "Не получилось уменьшить файл до допустимого размера." = "Não foi possível reduzir o ficheiro a um tamanho aceitável.";
 "Не получилось создать JPG." = "Não foi possível criar um ficheiro JPG.";
@@ -73,7 +73,7 @@
 "Подготовить фото по требованиям документа" = "Prepare uma fotografia para o documento selecionado";
 "Страна / документ" = "País / documento";
 "Формат для печати 2×2 дюйма. Проверьте размер головы перед подачей." = "Formato de impressão de 2 × 2 polegadas. Verifique o tamanho da cabeça antes de enviar.";
-"Цифровое фото для визы США: квадратный JPEG до 240 КБ." = "Fotografia digital para visto dos EUA: JPEG quadrado de até 240 KB.";
+"Цифровое фото для визы США: квадратный JPEG до 240 КБ." = "Fotografia digital para visto dos EUA: JPEG quadrado até 240 KB.";
 "Для India e-Visa: квадратный JPEG от 10 КБ до 1 МБ." = "Para e-Visa da Índia: JPEG quadrado de 10 KB a 1 MB.";
 "Формат для печати 35×45 мм. Для онлайн-паспорта GOV.UK просит не обрезать фото самостоятельно." = "Formato de impressão de 35 × 45 mm. Para passaportes pedidos online, o GOV.UK recomenda que não recorte a fotografia por iniciativa própria.";
 "600×600 px · JPEG · ≤240 KB" = "600 × 600 px · JPEG · ≤240 KB";
@@ -106,16 +106,16 @@
 "Реклама и конфиденциальность" = "Anúncios e privacidade";
 "Политика конфиденциальности" = "Política de Privacidade";
 "Реклама в приложении" = "Anúncios na aplicação";
-"Файлы" = "Arquivos";
+"Файлы" = "Ficheiros";
 "Изменить настройки" = "Editar definições";
 "На главный экран" = "Início";
 "Фото и PDF под размер" = "Fotografia e PDF sob Medida";
 "Фото" = "Fotografia";
 "PDF ПО ВЕСУ" = "PDF POR TAMANHO DO FICHEIRO";
-"Уменьшить PDF до нужного веса" = "Reduza um PDF até o tamanho de ficheiro desejado";
+"Уменьшить PDF до нужного веса" = "Reduza um PDF ao tamanho de ficheiro desejado";
 "Выбрать PDF" = "Selecionar PDF";
 "PDF выбран" = "PDF selecionado";
-"PDF-файл из приложения «Файлы»" = "Ficheiro PDF de Arquivos";
+"PDF-файл из приложения «Файлы»" = "Ficheiro PDF da aplicação Ficheiros";
 "Уменьшить PDF" = "Reduzir PDF";
 "Не получилось открыть этот PDF." = "Não foi possível abrir este PDF.";
 "Не получилось уменьшить этот PDF." = "Não foi possível reduzir este PDF.";
@@ -124,7 +124,7 @@
 "Не получилось создать PDF." = "Não foi possível criar um PDF.";
 "Не получилось сжать страницу PDF." = "Não foi possível compactar uma página do PDF.";
 "Обработка выполняется только на устройстве. При сильном сжатии страницы PDF растрируются, поэтому поиск и выделение текста в готовом файле могут быть недоступны." = "O processamento acontece apenas no seu dispositivo. Com compressão intensa, as páginas do PDF são convertidas em imagens; por isso, a pesquisa e a seleção de texto podem deixar de funcionar no ficheiro gerado.";
-"PDF уже подходит" = "O PDF já atende ao limite";
+"PDF уже подходит" = "O PDF já respeita o limite";
 "PDF подготовлен" = "PDF pronto";
 "Страниц" = "Páginas";
 "страница" = "página";
@@ -142,7 +142,7 @@
 "Уменьшить размер файла до нужного значения" = "Reduza o ficheiro ao limite desejado";
 "Размер файла до" = "Limite do tamanho do ficheiro";
 "СЖАТЬ PDF" = "COMPACTAR PDF";
-"Сжать PDF до выбранного размера" = "Compacte o PDF até o tamanho selecionado";
+"Сжать PDF до выбранного размера" = "Compacte o PDF até ao tamanho selecionado";
 "страницы" = "páginas";
 "%1$d %2$@ · %3$@" = "%1$d %2$@ · %3$@";
 "%1$d %2$@" = "%1$d %2$@";
