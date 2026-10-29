@@ -38,6 +38,18 @@
       "reason": "Protected Apple Health product name; Korean 사과 건강 is an incorrect literal fruit translation"
     },
     {
+      "file": "chickmark/ios/HabitsByArvectum/tr.lproj/Localizable.strings",
+      "key": "health.settings",
+      "value": "Apple Health",
+      "reason": "Official Apple Health or ChickMark product name is deliberately not translated."
+    },
+    {
+      "file": "chickmark/ios/HabitsByArvectum/tr.lproj/Localizable.strings",
+      "key": "health.title",
+      "value": "Apple Health",
+      "reason": "Official Apple Health or ChickMark product name is deliberately not translated."
+    },
+    {
       "file": "chickmark/ios/HabitsByArvectumWatchWidget/de.lproj/Localizable.strings",
       "key": "watch.widget.title",
       "value": "ChickMark",
@@ -102,6 +114,12 @@
       "key": "watch.widget.title",
       "value": "ChickMark",
       "reason": "Product brand; should remain untranslated"
+    },
+    {
+      "file": "chickmark/ios/HabitsByArvectumWatchWidget/tr.lproj/Localizable.strings",
+      "key": "watch.widget.title",
+      "value": "ChickMark",
+      "reason": "Official Apple Health or ChickMark product name is deliberately not translated."
     },
     {
       "file": "chickmark/ios/HabitsByArvectumWatchWidget/zh-Hans.lproj/Localizable.strings",

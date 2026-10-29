@@ -1,0 +1,17 @@
+// Turkish (tr), physical Watch/widget QA pending.
+"widget.title" = "Bugün";
+"widget.displayName" = "Bugünkü Alışkanlıklar";
+"widget.description" = "Uygulamayı açmadan bugünkü ilerlemenizi görün ve alışkanlıkları işaretleyin.";
+"widget.empty" = "Bugün planlanan alışkanlık yok";
+"widget.allDone" = "Bugünlük hepsi tamamlandı";
+"widget.remaining.format" = "%d kaldı";
+"widget.inline.format" = "Bugün %d / %d";
+"widget.more.format" = "+%d daha";
+"widget.complete" = "Tamamlandı olarak işaretle";
+"widget.undo" = "Tamamlamayı geri al";
+"widget.preview.water" = "Su";
+"widget.preview.reading" = "Okuma";
+"widget.duration.format" = "%d / %d dk";
+"widget.action.complete.format" = "%@ tamamla";
+"widget.action.undo.format" = "%@ tamamlamasını geri al";
+"widget.empty.small" = "Bugün yapılacak yok";

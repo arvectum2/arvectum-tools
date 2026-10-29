@@ -1,5 +1,11 @@
 # ChickMark — актуальная дорожная карта
 
+## 29.10.2026 · Turkish tr: исходники и редакторская сверка
+
+- [x] Турецкие ресурсы iPhone 315 / Watch 22 / Phone Widget 16 / Watch Widget 5, HealthKit permissions read/write и соответствие английским ключам.
+- [x] Отредактированы формулировки об удалении, iCloud/backup, воде/HealthKit и переносе заметок из Ухвата. XcodeGen source зарегистрирован без изменения SDK/build settings; Core-тесты и форматный аудит PASS.
+- [ ] Нативная iPhone/Watch проверка заблокирована ошибкой чтения ArvectumSSD; внешняя редактура носителем, физическая HealthKit/VoiceOver QA и публикация Apple не выполнялись.
+
 ## 29.10.2026 · App Store Нидерланды — только локальный copy draft
 
 - [x] `core/appstore/locale-expansion-2026-10-29/chickmark-nl-NL.draft.json`: тексты по правилам Apple для языка `nl-NL` (имя, подзаголовок, keywords, описание, What's New, privacy URL и план 4 реальных кадров iPhone/iPad). В тексте обязательно разграничены доступ к чтению HealthKit, запись воды только по согласию, обычная синхронизация iCloud и возможные удаления при восстановлении резервной копии.

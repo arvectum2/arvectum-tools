@@ -1,6 +1,12 @@
 # Arvectum Tools — portfolio localization (50 locales)
 
-**Обновлено 29.10.2026:** 14/50 iOS source languages are now structurally present in all 4 active applications and 10 declared iPhone/Watch/widget bundles (56 app×locale source pairs). Full native-speaker approval, physical QA and public App Store release are separate. The earlier intermediate steps below are historical. See [Core localization + regional ASO roadmap](../docs/CORE_50_LOCALES_AND_REGIONAL_ASO_2026-10-29.md).
+**Обновлено 29.10.2026:** 15/50 iOS source languages are now structurally present in all 4 active applications and 10 declared iPhone/Watch/widget bundles (60 app×locale source pairs). Full native-speaker approval, physical QA and public App Store release are separate. The earlier intermediate steps below are historical. See [Core localization + regional ASO roadmap](../docs/CORE_50_LOCALES_AND_REGIONAL_ASO_2026-10-29.md).
+
+## 29.10.2026 · Turkish tr: 4/4 source-пакета, редактура
+
+- [x] 15/50 языков исходников в каждом из 4 приложений, 60/200 пар. В ChickMark: iPhone 315, Watch 22, iPhone widget 16, Watch widget 5 строк и HealthKit plist.
+- [x] Сверка безопасности EN→TR, полноты ключей и placeholders. Core tests и machine editorial audit PASS.
+- [ ] Native ChickMark Xcode/Watch из-за ошибки I/O внешнего SSD, физическая проверка/VoiceOver и внешний native-speaker sign-off остаются.
 
 ## 29.10.2026 · Индонезийская source-волна завершена: 4×14/50
 

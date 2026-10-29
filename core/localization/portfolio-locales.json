@@ -277,7 +277,8 @@
           "zh-Hans",
           "zh-Hant",
           "nl",
-          "id"
+          "id",
+          "tr"
         ],
         "status": "14-source-catalogs-complete-in-ChickMark-Bahasa-Indonesia-source-draft",
         "note": "Indonesian id complete in iPhone, Watch, Phone Widget and Watch widget (315+22+16+5 keys), HealthKit permission messages; human native/physical QA and App Store release remain open."
@@ -407,6 +408,6 @@
       "pl",
       "th"
     ],
-    "iosSourceBaselineVerified": "Photo/PDF, Pushkin and Uhvat 15/50; ChickMark 14/50 (59/200 pairs). Turkish semantic editorial/native QA pending."
+    "iosSourceBaselineVerified": "All 4 active apps have 15 of 50 source languages (60/200 app×locale pairs); editorial and physical QA independent."
   }
 }

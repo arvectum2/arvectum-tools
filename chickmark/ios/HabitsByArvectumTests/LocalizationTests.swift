@@ -123,7 +123,7 @@ final class LocalizationTests: XCTestCase {
     ]
 
     func testPickerOffersOnlyBundledLocales() {
-        XCTAssertEqual(ChickMarkLanguage.supported, ["ru", "en", "es", "de", "fr", "id", "it", "ja", "ko", "nl", "pt-BR", "pt-PT", "zh-Hans", "zh-Hant"])
+        XCTAssertEqual(ChickMarkLanguage.supported, ["ru", "en", "es", "de", "fr", "id", "it", "ja", "ko", "nl", "tr", "pt-BR", "pt-PT", "zh-Hans", "zh-Hant"])
         XCTAssertEqual(
             ChickMarkLanguage.orderedLanguages(["fr", "en", "Base", "ru", "es", "en"]),
             ["ru", "en", "es", "fr"]
@@ -146,6 +146,20 @@ final class LocalizationTests: XCTestCase {
             ChickMarkLanguage.orderedLanguages(["en", "ja", "de"]),
             ["en", "de", "ja"]
         )
+    }
+
+    func testTurkishLocaleAndSensitivePrivacyCopy() {
+        let available = ChickMarkLanguage.supported
+        XCTAssertTrue(available.contains("tr"))
+        XCTAssertEqual(ChickMarkLanguage.resolvedIdentifier(
+            for: "system", preferred: ["tr-TR", "en-US"], available: available), "tr")
+        XCTAssertEqual(ChickMarkLanguage.displayName(for: "tr"), "Türkçe")
+        XCTAssertEqual(L10n.string("habit.create", language: "tr"), "Alışkanlık oluştur")
+        XCTAssertEqual(L10n.string("today.empty.title", language: "tr"), "Tek bir alışkanlıkla başlayın")
+        XCTAssertEqual(String(format: L10n.string("weekly.gapDays", language: "tr"), 7), "7 takvim günü")
+        XCTAssertTrue(L10n.string("health.privacy", language: "tr").contains("CloudKit'e yüklenmez"))
+        XCTAssertTrue(L10n.string("backup.warning", language: "tr").contains("iCloud"))
+        XCTAssertTrue(L10n.string("review.privacy.explanation", language: "tr").contains("transkripti göstermez"))
     }
 
     func testIndonesianLocaleSelectionAndSafeCopy() {
