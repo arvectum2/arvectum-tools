@@ -27,7 +27,7 @@ class RegionalAppStoreBaselineTests(unittest.TestCase):
                             "screenshots",
                         )))
 
-    def test_fifty_distinct_language_targets_and_exact_twelve_ios_source_locales(self):
+    def test_fifty_targets_and_app_specific_ios_source_locales(self):
         data = json.loads((ROOT / "core/localization/portfolio-locales.json").read_text())
         codes = [row["code"] for row in data["targets"]]
         self.assertEqual(len(codes), 50)
@@ -38,10 +38,11 @@ class RegionalAppStoreBaselineTests(unittest.TestCase):
         for app in ("chickmark", "pushkin", "what", "photo-pdf-to-size"):
             with self.subTest(app=app):
                 entry = data["apps"][app]
-                self.assertEqual(set(entry["ios"]["sourceCatalogs"]), source)
+                expected = source | ({"nl"} if app == "photo-pdf-to-size" else set())
+                self.assertEqual(set(entry["ios"]["sourceCatalogs"]), expected)
                 for relative in entry["bundles"]:
                     folder = ROOT / relative
                     self.assertEqual(
                         {p.name.removesuffix(".lproj") for p in folder.glob("*.lproj")},
-                        source, f"{relative}: registry drift",
+                        expected, f"{relative}: registry drift",
                     )

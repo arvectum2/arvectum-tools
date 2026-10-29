@@ -355,10 +355,11 @@
           "ja",
           "ko",
           "zh-Hans",
-          "zh-Hant"
+          "zh-Hant",
+          "nl"
         ],
-        "status": "12-source-catalogs-structurally-complete-independent-linguistic-and-device-qa-pending",
-        "note": "12 language source catalogs across all declared iOS/watchOS/widget bundles; structurally checked only. Native-speaker, privacy/permissions, accessibility and physical QA are independent. Source presence is not App Store publication or proof of linguistic quality."
+        "status": "13-source-catalogs-in-photo-dutch-draft-full-key-native-proofreading-and-device-qa-pending",
+        "note": "Dutch (nl) newly added only to Photo/PDF iOS, with InfoPlist and XCUITest; other active apps still at 12. Structural completeness and simulator tests do not certify native-speaker/permission/legal review or App Store publication."
       }
     },
     "where": {
@@ -387,7 +388,9 @@
       "zh-Hans"
     ],
     "androidExpansion": "deferred; maintain nine existing source catalogs",
-    "iosTier1Active": [],
+    "iosTier1Active": [
+      "nl"
+    ],
     "iosTier1Remaining": [
       "hi",
       "ar",
@@ -398,6 +401,6 @@
       "pl",
       "th"
     ],
-    "iosSourceBaselineVerified": "12 of 50 target language packs in all 4 active iOS apps, 2026-10-29 (structural only)"
+    "iosSourceBaselineVerified": "Photo/PDF 13 of 50, remaining 3 active iOS apps 12 of 50 (49 app×locale source pairs); Dutch incomplete in portfolio."
   }
 }

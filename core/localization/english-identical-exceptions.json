@@ -140,6 +140,18 @@
       "reason": "Country and e-Visa proper names used as official preset title"
     },
     {
+      "file": "photo-pdf-to-size/ios/PhotoPodRazmer/Resources/nl.lproj/Localizable.strings",
+      "key": "600×600 px · JPEG · ≤240 KB",
+      "value": "600×600 px · JPEG · ≤240 KB",
+      "reason": "Technical pixel/byte-size specification; numerals and JPEG unit identifiers are intentionally unchanged in Dutch"
+    },
+    {
+      "file": "photo-pdf-to-size/ios/PhotoPodRazmer/Resources/nl.lproj/Localizable.strings",
+      "key": "900×900 px · JPEG · 10 KB–1 MB",
+      "value": "900×900 px · JPEG · 10 KB–1 MB",
+      "reason": "Technical pixel/byte-size specification; numerals and JPEG unit identifiers are intentionally unchanged in Dutch"
+    },
+    {
       "file": "photo-pdf-to-size/ios/PhotoPodRazmer/Resources/ru.lproj/Localizable.strings",
       "key": "600×600 px · JPEG · ≤240 KB",
       "value": "600×600 px · JPEG · ≤240 KB",
