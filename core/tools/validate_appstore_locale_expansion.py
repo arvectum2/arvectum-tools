@@ -13,7 +13,7 @@ import sys
 ROOT = Path(__file__).resolve().parents[2]
 EXPANSION = ROOT / 'core/appstore/locale-expansion-2026-10-29'
 STAGED = ROOT / 'core/appstore/staged-2026-10-26'
-SUPPORTED_VERIFIED_PAIRS = {('NL', 'nl-NL', 'nl')}
+SUPPORTED_VERIFIED_PAIRS = {('NL', 'nl-NL', 'nl'), ('ID', 'id', 'id')}
 SUPPORTED_APPS = {'photo': 'photo-pdf-to-size', 'pushkin': 'pushkin', 'what': 'what', 'chickmark': 'chickmark'}
 REAL_DEVICE_CAPTURES = {'photo': ['iphone-6.9', 'ipad-13'], 'pushkin': ['iphone-6.9'], 'what': ['iphone-6.9', 'ipad-13'], 'chickmark': ['iphone-6.9', 'ipad-13']}
 FIELD_LIMITS = {'name': 30, 'subtitle': 30, 'keywords': 100,
@@ -66,7 +66,7 @@ def main() -> None:
         draft = json.loads(path.read_text())
         app = draft['app']
         assert app in SUPPORTED_APPS, f'Unsupported regional draft: {path.name}'
-        assert path.name == f'{app}-nl-NL.draft.json', 'Unexpected file/locale mapping'
+        assert path.name == f"{app}-{draft['appleMetadataLocale']}.draft.json", 'Unexpected file/locale mapping'
         seed = json.loads((STAGED / f'{app}.json').read_text())
         result = validate(draft, seed,
             set(registry_apps[SUPPORTED_APPS[app]]['ios']['sourceCatalogs']))

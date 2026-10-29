@@ -1,0 +1,57 @@
+{
+  "status": "COPY_DRAFT_NEEDS_EDITORIAL_AND_NATIVE_ASSETS",
+  "createdUTC": "2026-10-29",
+  "app": "photo",
+  "appId": "6816346084",
+  "bundleId": "ru.arvectum.tools.tosize",
+  "storefrontCountry": "ID",
+  "uiSourceLocale": "id",
+  "appleMetadataLocale": "id",
+  "appleMetadataLocalePublishedSupport": true,
+  "appleLocaleEnabledForThisAppInASC": null,
+  "appleLocaleEnabledForThisAppInASCNote": "Indonesian is an Apple-supported App Store metadata language for Indonesia, secondary after en-GB; whether this app version has id enabled remains unverified.",
+  "supportingAppleReferences": [
+    "https://developer.apple.com/help/app-store-connect/reference/app-information/app-store-localizations/",
+    "https://developer.apple.com/help/app-store-connect/manage-app-information/localize-app-information"
+  ],
+  "metadata": {
+    "name": "Ubah Ukuran Foto & PDF",
+    "subtitle": "Kompres untuk unggahan",
+    "keywords": "foto,pdf,kompres,ukuran,berkas,ubah,paspor,visa,heic,jpeg,piksel,offline",
+    "promotionalText": "Kecilkan ukuran foto dan PDF untuk formulir dan unggahan. Atur piksel, pilih batas KB/MB, dan simpan hasil langsung di perangkat.",
+    "description": "Perlu mengunggah foto atau PDF dengan batas ukuran tertentu? Ubah ukuran berkas dengan mudah langsung di iPhone atau iPad.\n\nFOTO: pilih batas ukuran berkas dalam KB atau MB, atur resolusi dan dimensi piksel, lalu simpan hasilnya. Anda dapat mengonversi ke JPEG, PNG, atau HEIC jika formatnya didukung.\n\nPDF: perkecil PDF untuk formulir dan unggahan. Kompresi yang kuat dapat mengubah halaman PDF menjadi gambar sehingga pencarian dan pemilihan teks mungkin tidak lagi tersedia pada berkas hasil.\n\nFOTO DOKUMEN: gunakan panduan ukuran untuk jenis paspor atau visa tertentu. Persyaratan foto dapat berubah; periksa aturan resmi sebelum mengajukan. Aplikasi tidak menjamin penerimaan foto oleh lembaga pemerintah.\n\nPRIVASI DAN IKLAN: foto serta PDF diproses di perangkat dan tidak diunggah ke jaringan iklan. Aplikasi gratis ini menampilkan iklan. SDK iklan dapat memproses data teknis sesuai pilihan persetujuan Anda; baca kebijakan privasi untuk perinciannya.",
+    "whatsNew": "Alur foto dan PDF lebih mudah dipahami, dengan penjelasan yang lebih jelas tentang batas ukuran dan pemrosesan berkas secara lokal.",
+    "privacyPolicyUrl": "https://arvectum.com/photo-pod-razmer-privacy.html"
+  },
+  "screenshotPlan": [
+    {
+      "position": 1,
+      "caption": "Perkecil foto sesuai batas KB",
+      "screen": "photo-file-size-result"
+    },
+    {
+      "position": 2,
+      "caption": "Atur resolusi dan piksel",
+      "screen": "photo-pixel-size-result"
+    },
+    {
+      "position": 3,
+      "caption": "Siapkan foto untuk dokumen",
+      "screen": "document-photo-presets"
+    },
+    {
+      "position": 4,
+      "caption": "Kompres PDF tanpa mengunggah",
+      "screen": "pdf-file-size-result"
+    }
+  ],
+  "screenshotAssets": [],
+  "requiredRealNativeCaptures": [
+    "iphone-6.9",
+    "ipad-13"
+  ],
+  "releaseApproved": false,
+  "humanEditorialApproved": false,
+  "screenshotQAApproved": false,
+  "uploadedToASC": false
+}

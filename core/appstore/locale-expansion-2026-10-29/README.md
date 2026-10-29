@@ -2,6 +2,12 @@
 
 Дата: 29.10.2026. Сохраняем прежний 16×4 staged-базис без изменений: новое расширение не должно переименовать уже подготовленные карточки или подменить отснятые PNG.
 
+## Индонезия (`ID`), Фото/PDF — новый язык метаданных `id`
+
+- Файл: `photo-id.draft.json`, storefront Indonesia (`ID`), бинарный язык `id`, короткий metadata locale `id`. По [официальной таблице Apple](https://developer.apple.com/help/app-store-connect/reference/app-information/app-store-localizations/) язык по умолчанию для Indonesia — English (U.K.), Indonesian — дополнительно доступная локализация; её существование в нашей текущей версии ASC НЕ проверено.
+- Локализованы маркетинговые name/subtitle/keywords/promo/description/WhatsNew и четыре подписи для будущих реальных экранов; откровенно описаны пиксели, PDF rasterization, реклама и исключительно локальная обработка фото/PDF. Все поля в лимитах, без настоящих PNG, без fake upload/approval.
+- [ ] Носитель Bahasa Indonesia, реальные iPhone 6.9″ и iPad 13″ screenshots, проверка в ASC и независимый release approval. Раздел `core/tools/validate_appstore_locale_expansion.py` теперь различает `NL/nl-NL/nl` и `ID/id/id` и fail-closed отклоняет чужой код/country/фиктивные файлы.
+
 ## Нидерланды, Фото/PDF
 
 - Файл: `photo-nl-NL.draft.json`, страна `NL`, исходная локализация iOS `nl` и metadata locale App Store Connect `nl-NL`.
