@@ -46,7 +46,7 @@ enum CaptureBrand {
             }
             let language = Locale(identifier: identifier)
                 .language.languageCode?.identifier.lowercased()
-            if let language, ["ru", "en", "es", "fr", "de", "pt", "it", "ja", "ko", "nl", "id", "zh"].contains(language) {
+            if let language, ["ru", "en", "es", "fr", "de", "pt", "it", "ja", "ko", "nl", "id", "tr", "zh"].contains(language) {
                 return language
             }
         }
@@ -79,6 +79,12 @@ enum CaptureBrand {
 
     private static let germanBundle: Bundle? = {
         guard let path = Bundle.main.path(forResource: "de", ofType: "lproj")
+        else { return nil }
+        return Bundle(path: path)
+    }()
+
+    private static let turkishBundle: Bundle? = {
+        guard let path = Bundle.main.path(forResource: "tr", ofType: "lproj")
         else { return nil }
         return Bundle(path: path)
     }()
@@ -171,6 +177,11 @@ enum CaptureBrand {
                 forKey: english, value: english, table: nil
             ) ?? english
         }
+        if code.hasPrefix("tr") {
+            return turkishBundle?.localizedString(
+                forKey: english, value: english, table: nil
+            ) ?? english
+        }
         if code.hasPrefix("id") {
             return indonesianBundle?.localizedString(
                 forKey: english, value: english, table: nil
@@ -224,6 +235,7 @@ enum CaptureBrand {
             code.hasPrefix("fr") ? "fr_FR" :
             code.hasPrefix("de") ? "de_DE" :
             code.hasPrefix("nl") ? "nl_NL" :
+            code.hasPrefix("tr") ? "tr_TR" :
             code.hasPrefix("id") ? "id_ID" :
             code.hasPrefix("pt") ? "pt_BR" :
             code.hasPrefix("it") ? "it_IT" :
@@ -274,6 +286,9 @@ enum CaptureBrand {
         }
         if language.hasPrefix("nl") {
             return "\(count) \(count == 1 ? "notitie" : "notities")"
+        }
+        if language.hasPrefix("tr") {
+            return "\(count) not"
         }
         if language.hasPrefix("id") {
             return "\(count) catatan"

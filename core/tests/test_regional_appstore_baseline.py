@@ -38,7 +38,7 @@ class RegionalAppStoreBaselineTests(unittest.TestCase):
         for app in ("chickmark", "pushkin", "what", "photo-pdf-to-size"):
             with self.subTest(app=app):
                 entry = data["apps"][app]
-                expected = source | {"nl", "id"} | ({"tr"} if app in ("photo-pdf-to-size", "pushkin") else set())
+                expected = source | {"nl", "id"} | ({"tr"} if app != "chickmark" else set())
                 self.assertEqual(set(entry["ios"]["sourceCatalogs"]), expected)
                 for relative in entry["bundles"]:
                     folder = ROOT / relative
