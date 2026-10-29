@@ -359,10 +359,11 @@
           "ko",
           "zh-Hans",
           "zh-Hant",
-          "nl"
+          "nl",
+          "id"
         ],
-        "status": "13-source-catalogs-in-photo-dutch-draft-full-key-native-proofreading-and-device-qa-pending",
-        "note": "Dutch (nl) newly added only to Photo/PDF iOS, with InfoPlist and XCUITest; other active apps still at 12. Structural completeness and simulator tests do not certify native-speaker/permission/legal review or App Store publication."
+        "status": "14-source-catalogs-Photo-PDF-includes-Indonesian-draft-needs-editorial-and-physical-qa",
+        "note": "Indonesian id 161 full UI keys and InfoPlist consent permissions; source and native simulator QA not equivalent to independent linguistic review or store release."
       }
     },
     "where": {
@@ -392,7 +393,7 @@
     ],
     "androidExpansion": "deferred; maintain nine existing source catalogs",
     "iosTier1Active": [
-      "nl"
+      "id"
     ],
     "iosTier1Remaining": [
       "hi",
@@ -400,10 +401,9 @@
       "id",
       "tr",
       "vi",
-      "nl",
       "pl",
       "th"
     ],
-    "iosSourceBaselineVerified": "All 4 active apps now have 13 of 50 UI source catalogues (52/200 app×locale pairs); Dutch physical and native editorial/release QA remain open."
+    "iosSourceBaselineVerified": "Photo/PDF 14 of 50, other three apps 13 of 50; 53 of 200 app×locale source pairs. Indonesian is source-only in Photo/PDF and not yet portfolio complete."
   }
 }
