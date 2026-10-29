@@ -1,5 +1,10 @@
 # What? — Product Roadmap
 
+## 29.10.2026 · Netherlands (`nl-NL`) — черновик App Store
+
+- [x] `core/appstore/locale-expansion-2026-10-29/what-nl-NL.draft.json` содержит отдельный нидерландский региональный copy, локальное хранение медиа/Watch ACK caveat, отдельный выбор языка распознавания речи и 4 идеи нативных iPhone/iPad кадров. Fail-closed validator/test покрывает 3 NL приложения, без изменений прежних 64 staged карточек.
+- [ ] В ASC ещё не добавлялась/не проверялась локаль nl-NL; нужны screenshots, редакторская и физическая приёмка, отдельное согласование публикации. Никаких новых записей или загрузок Apple.
+
 ## 29.10.2026 · Tier 1 — нидерландский (nl), 13-й язык исходников
 
 - [x] Переведены и подключены все четыре UI каталога: WhatIOS **246** строк, WhatWatch 6, WhatPhoneWidget 6 и WhatWatchComplication 5; также соответствующие InfoPlist (microphone/speech/camera/Watch). Языковой маршрутизатор `CaptureBrand` работает с `nl/nl-NL/nl-BE`; настройки языка транскрипции остаются отдельными и **не изменены**.
