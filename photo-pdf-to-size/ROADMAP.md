@@ -1,5 +1,10 @@
 # Фото и PDF под размер — Product Roadmap
 
+## 29.10.2026 · Tier 1 Bahasa Indonesia (`id`) — 14-й source язык
+
+- [x] Полный `id.lproj` Фото/PDF (161 UI строк и InfoPlist для display name + ATT), фиксированная семантика сохранности приватных файлов и PDF rasterization, полное совпадение placeholders, технические JPEG/размеры задокументированы как преднамеренно одинаковые значения. Отдельный UI тест фото, PDF и Dynamic Type с synthetic fixtures, без реальных фото пользователя.
+- [ ] Носитель Bahasa Indonesia, физические Files/ATT/VoiceOver и региональная карточка Indonesia/Indonesian в App Store (после проверки Apple locale shortcode и ASC). Сборки Apple и privacy metadata не менялись.
+
 ## 29.10.2026 · Tier 1 локализация: Dutch (nl), исходный пакет
 
 - [x] В исходниках Фото/PDF добавлены `nl.lproj/Localizable.strings` (161 ключ, включая PDF rasterization, Files, рекламу/согласие) и `nl.lproj/InfoPlist.strings` (display name + tracking permission). XcodeGen зарегистрировал nl; значения без английских текстовых заглушек, форматные параметры сохранены.

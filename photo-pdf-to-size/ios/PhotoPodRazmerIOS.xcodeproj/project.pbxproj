@@ -61,6 +61,7 @@
 		E413F9ACB81AEC8F58B09C6C /* KoreanLocalizationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350911BCFBFD4C780AF073CD /* KoreanLocalizationUITests.swift */; };
 		E52C9FA868235BD0FBEB3439 /* AppModel+Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E950E3E330ED7352B76698 /* AppModel+Navigation.swift */; };
 		F17F62FE21A2AC89FA0CFB55 /* FilesImportUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA4A5EFD1913620F19DA676 /* FilesImportUITests.swift */; };
+		F4967A104532FA732DD0435C /* IndonesianLocalizationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2C85FA3BCF2F85F44B2953 /* IndonesianLocalizationUITests.swift */; };
 		FCE6C79A3351D95AF2E4F003 /* WorkflowUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2E6DAE150416D54E6F5148 /* WorkflowUITests.swift */; };
 		FEEFC8D2025A4051B2386C67 /* DutchLocalizationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2805ED73F7FE2F289FDE967E /* DutchLocalizationUITests.swift */; };
 /* End PBXBuildFile section */
@@ -95,6 +96,7 @@
 		2805ED73F7FE2F289FDE967E /* DutchLocalizationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DutchLocalizationUITests.swift; sourceTree = "<group>"; };
 		2AC376F1282F377E1E837406 /* JapaneseLocalizationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JapaneseLocalizationUITests.swift; sourceTree = "<group>"; };
 		2C8B8D4B8B1A02379AF8BF89 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		2D340601C7B34CA71DD3254B /* id */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = id; path = id.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		2D5EAD1878C26C6F6327B7B1 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		31BF5181B6888781E533A313 /* SharedControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedControls.swift; sourceTree = "<group>"; };
 		350911BCFBFD4C780AF073CD /* KoreanLocalizationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KoreanLocalizationUITests.swift; sourceTree = "<group>"; };
@@ -124,6 +126,7 @@
 		8291211027E28825CBCA3CE8 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		829F4AF1A20467F40686E5F1 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		83E1CB68C17ED972374B56F7 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		84A7518D51F28E274D375C1F /* id */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = id; path = id.lproj/Localizable.strings; sourceTree = "<group>"; };
 		859CD85E40C881410B84E65B /* PassportCropView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassportCropView.swift; sourceTree = "<group>"; };
 		85D2B84689600ABB7CB9F0D5 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		86220EAB9DCD77B6155B0390 /* AdaptiveLayoutUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveLayoutUITests.swift; sourceTree = "<group>"; };
@@ -140,6 +143,7 @@
 		A1704F4EFC78F45ED94849BE /* PhotoTaskCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoTaskCard.swift; sourceTree = "<group>"; };
 		A37EA797649F3E9EF841BC4B /* ResultViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViews.swift; sourceTree = "<group>"; };
 		AA58A3A87DD0430A6E76E411 /* BrazilianPortugueseLocalizationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrazilianPortugueseLocalizationUITests.swift; sourceTree = "<group>"; };
+		AC2C85FA3BCF2F85F44B2953 /* IndonesianLocalizationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndonesianLocalizationUITests.swift; sourceTree = "<group>"; };
 		BA6A19361B1CFE8FCAE5FEE1 /* AppModel+Internals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppModel+Internals.swift"; sourceTree = "<group>"; };
 		BF70A0A390BCD6BE5B7AA584 /* AdaptiveSourcePreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveSourcePreview.swift; sourceTree = "<group>"; };
 		BF81C2DB26B812C531A1B79E /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
@@ -277,6 +281,7 @@
 				FAA4A5EFD1913620F19DA676 /* FilesImportUITests.swift */,
 				63718FABF1BB1E0396D0D91F /* FrenchLocalizationUITests.swift */,
 				FA17F22469ADEA9EEF3AB9D1 /* GermanLocalizationUITests.swift */,
+				AC2C85FA3BCF2F85F44B2953 /* IndonesianLocalizationUITests.swift */,
 				02AC7CA64180A9433E7D04A5 /* ItalianLocalizationUITests.swift */,
 				2AC376F1282F377E1E837406 /* JapaneseLocalizationUITests.swift */,
 				350911BCFBFD4C780AF073CD /* KoreanLocalizationUITests.swift */,
@@ -410,6 +415,7 @@
 				en,
 				es,
 				fr,
+				id,
 				it,
 				ja,
 				ko,
@@ -467,6 +473,7 @@
 				F17F62FE21A2AC89FA0CFB55 /* FilesImportUITests.swift in Sources */,
 				9FE9BE43C590539B7599B173 /* FrenchLocalizationUITests.swift in Sources */,
 				294F6FA31CEE4AC2D02399D1 /* GermanLocalizationUITests.swift in Sources */,
+				F4967A104532FA732DD0435C /* IndonesianLocalizationUITests.swift in Sources */,
 				1664F83056662AECAE898534 /* ItalianLocalizationUITests.swift in Sources */,
 				615286CA1CD8A5012CF1D91E /* JapaneseLocalizationUITests.swift in Sources */,
 				E413F9ACB81AEC8F58B09C6C /* KoreanLocalizationUITests.swift in Sources */,
@@ -547,6 +554,7 @@
 				499263E4679EADCAE1EA5A65 /* en */,
 				C73CED7FA58809F3D8187E7B /* es */,
 				80AE379C986847049827FA6E /* fr */,
+				2D340601C7B34CA71DD3254B /* id */,
 				7341E11CD615D43CE0C281C9 /* it */,
 				829F4AF1A20467F40686E5F1 /* ja */,
 				D10FFCED70EC9A00FCCC4AE5 /* ko */,
@@ -567,6 +575,7 @@
 				3B1197D2C48FCE7500B11E87 /* en */,
 				2D5EAD1878C26C6F6327B7B1 /* es */,
 				4E5FA122EC548C560FEF50C4 /* fr */,
+				84A7518D51F28E274D375C1F /* id */,
 				EFE6B81EFC48E214C0158E99 /* it */,
 				85D2B84689600ABB7CB9F0D5 /* ja */,
 				1E8C2E35479AA0E73C5A0DA3 /* ko */,

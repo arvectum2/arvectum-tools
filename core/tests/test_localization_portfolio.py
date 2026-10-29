@@ -215,6 +215,32 @@ class LocalizationPortfolioTests(unittest.TestCase):
             self.assertIn("Gezondheid", translated_plist["NSHealthUpdateUsageDescription"])
         self.assertIn("DutchLocalizationUITests", (root / "HabitsByArvectumUITests/DutchLocalizationUITests.swift").read_text())
 
+    def test_indonesian_photo_permissions_and_pdf_disclaimer_are_real_source_strings(self):
+        root = ROOT / "photo-pdf-to-size/ios/PhotoPodRazmer/Resources"
+        en = i18n.read_strings(root / "en.lproj/Localizable.strings", [])
+        translated = i18n.read_strings(root / "id.lproj/Localizable.strings", [])
+        self.assertEqual(set(translated), set(en))
+        self.assertEqual(len(translated), 161)
+        for key in en:
+            self.assertEqual(i18n.placeholders(translated[key]), i18n.placeholders(en[key]), key)
+        self.assertEqual(translated["Сжать файл"], "Kompres berkas")
+        self.assertEqual(translated["Обработать PDF"], "Olah PDF")
+        self.assertEqual(translated["Отказаться"], "Tolak")
+        disclaimer = next(key for key in en if 'страницы PDF растрируются' in key)
+        self.assertIn("diubah menjadi gambar", translated[disclaimer])
+        self.assertIn("mungkin tidak tersedia", translated[disclaimer])
+        consent = next(key for key in en if 'Yandex Mobile Ads' in key and 'App Tracking' in key)
+        self.assertIn('izin pelacakan', translated[consent])
+        long_consent = next(key for key, english in en.items() if 'Ads are shown regardless' in english)
+        self.assertIn('tetap muncul', translated[long_consent])
+        plist = i18n.read_strings(root / "id.lproj/InfoPlist.strings", [])
+        self.assertIn('pengenal iklan', plist['NSUserTrackingUsageDescription'])
+        self.assertEqual(plist['CFBundleDisplayName'], 'Ubah Ukuran Foto & PDF')
+        ui = (ROOT / 'photo-pdf-to-size/ios/PhotoPodRazmerUITests/IndonesianLocalizationUITests.swift').read_text()
+        for name in ('testIndonesianPhotoWorkflow', 'testIndonesianPDFWorkflow',
+                     'testIndonesianLargeTextModeGridAndPrivacyConsent'):
+            self.assertIn('func '+name, ui)
+
     def test_korean_uhvat_headline_is_idiomatic(self):
         loc = i18n.read_strings(ROOT / "what/ios/WhatIOS/ko.lproj/Localizable.strings", [])
         self.assertEqual(loc["Catch that thought"], "떠오른 생각을 기록하세요")
@@ -249,7 +275,7 @@ class LocalizationPortfolioTests(unittest.TestCase):
         self.assertEqual(sum(f["pt_pt_brazilian_flags"] for f in result["catalogs"]), 0)
         self.assertEqual(sum(f["format_mismatch"] for f in result["catalogs"]), 0)
         self.assertEqual(sum(f["missing"] + f["extra"] for f in result["catalogs"]), 0)
-        self.assertEqual(result['english_identical_triaged'], 38)
+        self.assertEqual(result['english_identical_triaged'], 41)
         self.assertEqual(result['english_identical_untriaged'], [])
         self.assertEqual(result['english_identical_stale_exceptions'], [])
 
@@ -296,7 +322,7 @@ class LocalizationPortfolioTests(unittest.TestCase):
         self.assertEqual(set(reg["apps"]), {"chickmark", "pushkin", "what", "photo-pdf-to-size", "where"})
         self.assertEqual(reg["apps"]["photo-pdf-to-size"]["android"]["sourceLocale"], "en")
         self.assertEqual(reg["apps"]["photo-pdf-to-size"]["ios"]["sourceCatalogs"],
-                         ["en", "ru", "es", "fr", "de", "pt-BR", "pt-PT", "it", "ja", "ko", "zh-Hans", "zh-Hant", "nl"])
+                         ["en", "ru", "es", "fr", "de", "pt-BR", "pt-PT", "it", "ja", "ko", "zh-Hans", "zh-Hant", "nl", "id"])
         for app in ("pushkin", "what", "chickmark"):
             expected = ["en", "ru", "es", "fr", "de", "pt-BR", "pt-PT", "it", "ja", "ko", "zh-Hans", "zh-Hant"]
             if app in ("pushkin", "what", "chickmark"):
@@ -320,7 +346,7 @@ class LocalizationPortfolioTests(unittest.TestCase):
         code_names = {
             "es": "Spanish", "fr": "French", "de": "German",
             "pt-BR": "BrazilianPortuguese", "pt-PT": "EuropeanPortuguese", "it": "Italian",
-            "ja": "Japanese", "ko": "Korean", "nl": "Dutch", "zh-Hans": "SimplifiedChinese", "zh-Hant": "TraditionalChinese",
+            "ja": "Japanese", "ko": "Korean", "nl": "Dutch", "id": "Indonesian", "zh-Hans": "SimplifiedChinese", "zh-Hant": "TraditionalChinese",
         }
         registry = i18n.config()
         covered = 0
@@ -331,7 +357,7 @@ class LocalizationPortfolioTests(unittest.TestCase):
             # New iOS source locales must add an explicit UI smoke mapping.
             # Reject any locale without an authored XCUITest smoke mapping.
             locales = set(registry["apps"][app_registry_names[app]]["ios"]["sourceCatalogs"])
-            expected = {"ru", "en", *code_names}
+            expected = {"ru", "en", *code_names} - ({"id"} if app != "photo" else set())
             self.assertEqual(
                 locales, expected,
                 f"{app}: new source locale must have a UI smoke test mapping")
@@ -357,7 +383,7 @@ class LocalizationPortfolioTests(unittest.TestCase):
                     self.assertIn("func " + method, baseline,
                                   f"{app}/{locale}: no dedicated UI smoke")
                 covered += 1
-        self.assertEqual(covered, 52)
+        self.assertEqual(covered, 53)
 
     def test_all_active_ios_bundles_have_registry_localized_catalogs(self):
         """Each app's own source locale packs are present in all its active bundles.

@@ -2,6 +2,10 @@
 
 Срез: 29.10.2026. Канонический реестр — `core/localization/portfolio-locales.json`; staged-карточки — `core/appstore/staged-2026-10-26/`.
 
+## 29.10.2026 · Indonesian Tier 1: Photo/PDF source 14/50
+
+После полной Dutch source-волны 4×13, начата следующая на `id`: переведён первый продукт Фото/PDF (161 ключ + InfoPlist), структурно **14/50** только у него; PUSHKIN, Ухват и ChickMark остаются **13/50**. Итого **53/200**. Это source-каталог, а не редакторское согласование или App Store публикация. Apple допускает Indonesian для Indonesia как дополнительный язык метаданных, а не системный язык по умолчанию (официальная таблица: https://developer.apple.com/help/app-store-connect/reference/app-information/app-store-localizations).
+
 ## 29.10.2026 · Финальный source+copy baseline Netherlands (NL)
 
 Теперь **4/4** приложений имеют `nl` исходные UI каталоги (все 10 доступных iOS/watchOS/widget bundles) — 13/50 языков на каждое, **52/200** пар app×locale. Кроме того **4/4** отдельных нидерландских `nl-NL` черновика metadata в `core/appstore/locale-expansion-2026-10-29/`. Offline validator и 10 тестов региональной карточки блокируют ложные статусы: screenshotAssets пуст, uploads/approvals false, ASC account locale unverified. Реальные переводы/скриншоты требуют редакторского/физического подтверждения; это не выпущенные версии. Исходные **64** staged карточки неизменны, Where? PAUSED.
