@@ -1,0 +1,58 @@
+{
+  "status": "COPY_DRAFT_NEEDS_EDITORIAL_AND_NATIVE_ASSETS",
+  "createdUTC": "2026-10-29",
+  "app": "photo",
+  "appId": "6816346084",
+  "bundleId": "ru.arvectum.tools.tosize",
+  "storefrontCountry": "NL",
+  "uiSourceLocale": "nl",
+  "appleMetadataLocale": "nl-NL",
+  "appleMetadataLocalePublishedSupport": true,
+  "appleLocaleEnabledForThisAppInASC": null,
+  "appleLocaleEnabledForThisAppInASCNote": "Not verified; false means do not upload, not definitive absence in account.",
+  "supportingAppleReferences": [
+    "https://developer.apple.com/help/app-store-connect/reference/app-information/app-store-localizations/",
+    "https://developer.apple.com/documentation/appstoreconnectapi/betabuildlocalization/attributes-data.dictionary",
+    "https://developer.apple.com/news/?id=97t4mt64"
+  ],
+  "metadata": {
+    "name": "Foto & PDF verkleinen",
+    "subtitle": "Bestanden passend voor upload",
+    "keywords": "comprimeren,afmetingen,pasfoto,visum,heic,jpg,jpeg,offline,formulieren,documenten,bijsnijden",
+    "promotionalText": "Verklein foto's en PDF's tot 100 KB, 500 KB of 1 MB. Pas pixelafmetingen aan en maak documentfoto's. Je bestanden blijven op je apparaat.",
+    "description": "Moet je een foto of PDF uploaden met een strikte limiet voor de bestandsgrootte? Verklein bestanden in KB of MB op je iPhone of iPad.\n\nComprimeer foto's tot een gekozen bestandsgrootte, verklein PDF's voor formulieren en stel de afmetingen van afbeeldingen in pixels in. Exporteer naar JPEG, PNG of HEIC waar het gekozen formaat wordt ondersteund. Vergelijk het resultaat met het oorspronkelijke bestand.\n\nMet technische voorinstellingen voor geselecteerde paspoort- en visumformaten, waaronder 35×45 mm en het afdrukformaat voor Britse paspoorten. De app controleert geen toelatingsvoorwaarden en garandeert geen acceptatie. Volg voor online Britse paspoortaanvragen de officiële digitale fotorichtlijnen van GOV.UK. Voor Canadese pasfoto's gelden mogelijk eisen aan originele studiofoto's.\n\nBij sterke PDF-compressie kunnen pagina's worden omgezet in afbeeldingen. Zoeken en tekst selecteren kan dan niet meer mogelijk zijn.\n\nPRIVACY EN RECLAME: foto's en PDF's worden op het apparaat verwerkt en niet naar het advertentienetwerk geüpload. Advertenties kunnen een internetverbinding vereisen. De advertentie-SDK kan technische apparaat- en identificatiegegevens verwerken afhankelijk van je toestemming; zie het privacybeleid.",
+    "whatsNew": "Duidelijkere navigatie terug naar de instellingen nadat je een foto hebt verwerkt. Foto's en PDF's blijven lokaal op je apparaat.",
+    "privacyPolicyUrl": "https://arvectum.com/photo-pod-razmer-privacy.html"
+  },
+  "screenshotPlan": [
+    {
+      "position": 1,
+      "caption": "Foto's verkleinen tot 500 KB",
+      "screen": "photo-file-size-result"
+    },
+    {
+      "position": 2,
+      "caption": "Afmetingen instellen in pixels",
+      "screen": "photo-pixel-size-result"
+    },
+    {
+      "position": 3,
+      "caption": "Pasfoto's voor documenten",
+      "screen": "document-photo-presets"
+    },
+    {
+      "position": 4,
+      "caption": "PDF's comprimeren voor uploads",
+      "screen": "pdf-file-size-result"
+    }
+  ],
+  "screenshotAssets": [],
+  "requiredRealNativeCaptures": [
+    "iphone-6.9",
+    "ipad-13"
+  ],
+  "releaseApproved": false,
+  "humanEditorialApproved": false,
+  "screenshotQAApproved": false,
+  "uploadedToASC": false
+}

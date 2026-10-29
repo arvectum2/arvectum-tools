@@ -6,7 +6,7 @@
 - [x] Машинный реестр Core содержит 50 уникальных целевых языков. В исходниках **12/50 × 4 iOS-приложения**; 10 iPhone/Watch/widget bundles; 48 app×locale QA contracts. Независимая human/editorial и physical QA открыта.
 - [ ] Волна до 20: `hi, ar, id, tr, vi, nl, pl, th`; затем Tier 2 (+20), Tier 3 (+10), с RTL/plurals/permissions/Watch и native QA.
 - [x] 64 staged региональных карточки (16 metadata locale-вариантов × 4 приложения).
-- [ ] Расширять карточки по целевым App Store storefronts с проверкой допустимого Apple locale, отдельной региональной редактурой, достоверными скриншотами и fallback. 50 UI языков не равны 50 Apple metadata языкам.
+- [ ] Расширять карточки по целевым App Store storefronts с проверкой допустимого Apple locale, отдельной региональной редактурой, достоверными скриншотами и fallback. Apple поддерживает 50 metadata localizations с 31.03.2026, но это не тот же набор, что наши 50 целевых языков UI.
 - [ ] Core P0: no-data-loss migration/UUID/ACK, privacy/SDK/HealthKit, поддерживаемые платформы и CI. PR #160 и #108 имеют отдельные physical/runtime blockers.
 
 [Core roadmap](../ROADMAP.md) · [план 50 языков и региональных ASO](CORE_50_LOCALES_AND_REGIONAL_ASO_2026-10-29.md).
