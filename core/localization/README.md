@@ -2,6 +2,11 @@
 
 **Обновлено 29.10.2026:** 12/50 iOS source languages are structurally present in all 4 active applications and 10 declared UI/Watch/widget bundles (48 app×locale smoke contracts). Full native-speaker approval and public App Store release are separate. The prior 26.10 snapshot below is historical. See [Core localization + regional ASO roadmap](../docs/CORE_50_LOCALES_AND_REGIONAL_ASO_2026-10-29.md).
 
+## 29.10.2026 · Dutch в PUSHKIN — source-only второй продукт
+
+- [x] PUSHKIN `nl`: 159 переводов UI и инструкций Shortcuts, полноценный `PushkinCopy` language routing + quantity inflection, XcodeGen resources, native XCTest/XCUITest.
+- [ ] Общая матрица: Фото/PDF 13, Pushkin 13, Ухват 12 и ChickMark 12 = **50/200 source app×locale пар**. Dutch ещё не покрывает весь портфель. Отдельные native-speaker, physical-device и App Store выпускные гейты остаются.
+
 ## 29.10.2026 · Apple: 50 metadata localizations, не меньший список
 
 Официальная [новость Apple от 31 марта 2026](https://developer.apple.com/news/?id=97t4mt64): поддерживаются 50 вариантов локализации метаданных. Это число совпадает с нашей целью UI=50, но состав и коды различаются. Проверенный пример: UI `nl` и App Store metadata `nl-NL`; для Netherlands Dutch — основной язык ([Apple](https://developer.apple.com/help/app-store-connect/reference/app-information/app-store-localizations/)). Отдельный Dutch ASO copy draft — в `core/appstore/locale-expansion-2026-10-29/`, без утверждения, что уже опубликован.
