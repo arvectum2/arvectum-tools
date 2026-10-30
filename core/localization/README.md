@@ -1,5 +1,13 @@
 # Arvectum Tools — portfolio localization (50 locales)
 
+## 30.10.2026 · Polish UhWhat? (Ухват): iPhone, Watch, widgets
+
+- Добавлен полный польский source-каталог Ухвата: iPhone 247 UI строк и 4 InfoPlist descriptions, Watch 6 UI + 3 InfoPlist, Phone widget 6 UI + 1 InfoPlist, Watch complication 5 UI + 1 InfoPlist.
+- В CaptureBrand добавлен польский интерфейс для pl/pl-PL/pl_PL и склонение 1 notatka, 2 notatki, 5 notatek, 22 notatki. Независимый выбор языка транскрипции не меняется.
+- Переведены безопасное хранение оригинального аудио/видео, ACK Watch → iPhone, ограничения импорта 500 MB / 10 файлов, резервные копии, предупреждения об удалении и разрешения микрофона/камеры/распознавания речи.
+- Новая матрица: Photo/PDF 16, PUSHKIN 16, Ухват 16, ChickMark 15 = **63/200** исходных пар. Общих языков для 4 продуктов пока **15/50**.
+- Следующий шаг: полный польский ChickMark (iPhone, Watch, widgets и HealthKit), затем VI/HI/TH/AR. Исходный пакет не равен публикации или аттестации носителем.
+
 ## 30.10.2026 · Polish PUSHKIN — полный исходный словарь
 
 - PUSHKIN получил **159/159 польских UI-ключей**. В PushkinCopy добавлено разрешение pl, pl-PL и pl_PL, а число приложений склоняется по-польски: 1 aplikacja, 2 aplikacje, 5 aplikacji, 22 aplikacje.
@@ -16,7 +24,7 @@
 - Source complete не означает published binary, live Apple metadata или физическую приёмку. App Store Connect, параметры рекламы и политика конфиденциальности остаются нетронутыми.
 - Следующий этап: польский для PUSHKIN, Ухвата, ChickMark, далее vi, hi, th, ar (последний требует RTL-тестирования).
 
-**Обновлено 30.10.2026:** 15/50 languages in all 4 apps; Photo/PDF and PUSHKIN additionally have Polish (16/50 each), totalling 62 app×locale pairs. Full native-speaker approval, physical QA and public App Store release are separate. The earlier intermediate steps below are historical. See [Core localization + regional ASO roadmap](../docs/CORE_50_LOCALES_AND_REGIONAL_ASO_2026-10-29.md).
+**Обновлено 30.10.2026:** 15/50 languages in all 4 apps; Photo/PDF, PUSHKIN and UhWhat additionally have Polish (16/50 each), totalling 63 app×locale pairs. Full native-speaker approval, physical QA and public App Store release are separate. The earlier intermediate steps below are historical. See [Core localization + regional ASO roadmap](../docs/CORE_50_LOCALES_AND_REGIONAL_ASO_2026-10-29.md).
 
 ## 29.10.2026 · Индонезийская source-волна завершена: 4×14/50
 

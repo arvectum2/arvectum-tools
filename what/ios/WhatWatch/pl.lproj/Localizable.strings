@@ -1,0 +1,7 @@
+// Extracted English source strings; user-visible translations must be reviewed.
+"Preparing microphone…" = "Przygotowywanie mikrofonu…";
+"Record" = "Nagraj";
+"Saved" = "Zapisano";
+"Stop" = "Zatrzymaj";
+"Try again" = "Spróbuj ponownie";
+"%d waiting for iPhone" = "Oczekujące na iPhone’a: %d";
