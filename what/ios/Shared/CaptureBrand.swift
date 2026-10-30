@@ -46,7 +46,7 @@ enum CaptureBrand {
             }
             let language = Locale(identifier: identifier)
                 .language.languageCode?.identifier.lowercased()
-            if let language, ["ru", "en", "es", "fr", "de", "pt", "it", "ja", "ko", "nl", "id", "tr", "zh"].contains(language) {
+            if let language, ["ru", "en", "es", "fr", "de", "pt", "it", "ja", "ko", "nl", "id", "tr", "pl", "zh"].contains(language) {
                 return language
             }
         }
@@ -91,6 +91,12 @@ enum CaptureBrand {
 
     private static let indonesianBundle: Bundle? = {
         guard let path = Bundle.main.path(forResource: "id", ofType: "lproj")
+        else { return nil }
+        return Bundle(path: path)
+    }()
+
+    private static let polishBundle: Bundle? = {
+        guard let path = Bundle.main.path(forResource: "pl", ofType: "lproj")
         else { return nil }
         return Bundle(path: path)
     }()
@@ -172,6 +178,11 @@ enum CaptureBrand {
                 forKey: english, value: english, table: nil
             ) ?? english
         }
+        if code.hasPrefix("pl") {
+            return polishBundle?.localizedString(
+                forKey: english, value: english, table: nil
+            ) ?? english
+        }
         if code.hasPrefix("nl") {
             return dutchBundle?.localizedString(
                 forKey: english, value: english, table: nil
@@ -235,6 +246,7 @@ enum CaptureBrand {
             code.hasPrefix("fr") ? "fr_FR" :
             code.hasPrefix("de") ? "de_DE" :
             code.hasPrefix("nl") ? "nl_NL" :
+            code.hasPrefix("pl") ? "pl_PL" :
             code.hasPrefix("tr") ? "tr_TR" :
             code.hasPrefix("id") ? "id_ID" :
             code.hasPrefix("pt") ? "pt_BR" :
@@ -283,6 +295,14 @@ enum CaptureBrand {
         }
         if language.hasPrefix("de") {
             return "\(count) \(count == 1 ? "Notiz" : "Notizen")"
+        }
+        if language.hasPrefix("pl") {
+            let lastTwo = abs(count) % 100
+            let last = abs(count) % 10
+            let noun = count == 1 ? "notatka"
+                : (lastTwo < 12 || lastTwo > 14) && (2...4).contains(last)
+                ? "notatki" : "notatek"
+            return "\(count) \(noun)"
         }
         if language.hasPrefix("nl") {
             return "\(count) \(count == 1 ? "notitie" : "notities")"

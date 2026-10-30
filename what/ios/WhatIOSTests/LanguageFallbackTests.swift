@@ -38,6 +38,26 @@ final class LanguageFallbackTests: XCTestCase {
         )
     }
 
+    func testPolishCompleteBundleAndIndependentTranscriptionLanguage() {
+        XCTAssertEqual(CaptureBrand.resolvedInterfaceLanguage(for: ["pl-PL", "en-US"]), "pl")
+        XCTAssertEqual(CaptureBrand.resolvedInterfaceLanguage(for: ["pl_PL", "en-US"]), "pl")
+        XCTAssertEqual(CaptureBrand.defaultTranscriptionLocale(for: "pl"), "en-US")
+        XCTAssertEqual(CaptureBrand.text("Ухвати мысль", "Catch that thought", language: "pl"), "Zapisz tę myśl")
+        XCTAssertEqual(CaptureBrand.text("Записать", "Record", language: "pl-PL"), "Nagraj")
+        XCTAssertEqual(CaptureBrand.text("Все заметки", "All notes", language: "pl_PL"), "Wszystkie notatki")
+        XCTAssertEqual(CaptureBrand.text("В архив", "Archive action", language: "pl"), "Archiwizuj")
+        for (number, expected) in [
+            (0,"0 notatek"), (1,"1 notatka"), (2,"2 notatki"),
+            (5,"5 notatek"), (11,"11 notatek"), (12,"12 notatek"),
+            (22,"22 notatki"), (25,"25 notatek")
+        ] {
+            XCTAssertEqual(CaptureBrand.noteCount(number, language: "pl-PL"), expected)
+        }
+        XCTAssertEqual(CaptureBrand.formatted("Вход: %@", "Input: %@", language: "pl", "Mikrofon"),
+                       "Wejście: Mikrofon")
+        XCTAssertEqual(CaptureBrand.text("Неизвестно", "Unknown key", language: "pl"), "Unknown key")
+    }
+
     func testTurkishUIRoutingAndIndependentTranscriptionLanguage() {
         XCTAssertEqual(CaptureBrand.resolvedInterfaceLanguage(for:["tr-TR","en-US"]),"tr")
         XCTAssertEqual(CaptureBrand.resolvedInterfaceLanguage(for:["tr-CY","en-US"]),"tr")

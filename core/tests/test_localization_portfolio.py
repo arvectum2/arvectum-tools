@@ -415,7 +415,7 @@ class LocalizationPortfolioTests(unittest.TestCase):
         self.assertEqual(sum(f["pt_pt_brazilian_flags"] for f in result["catalogs"]), 0)
         self.assertEqual(sum(f["format_mismatch"] for f in result["catalogs"]), 0)
         self.assertEqual(sum(f["missing"] + f["extra"] for f in result["catalogs"]), 0)
-        self.assertEqual(result['english_identical_triaged'], 48)
+        self.assertEqual(result['english_identical_triaged'], 49)
         self.assertEqual(result['english_identical_untriaged'], [])
         self.assertEqual(result['english_identical_stale_exceptions'], [])
 
@@ -1773,6 +1773,42 @@ class EditorialLocalizationRegressionTests(unittest.TestCase):
         self.assertIn('"pl"', swift)
         ui = ROOT / "pushkin/ios/ArvectumNotifyUITests/PolishLocalizationUITests.swift"
         self.assertIn("testPolishTabsSetupAndSettings", ui.read_text())
+
+
+    def test_uhvat_polish_full_iphone_watch_widgets_and_safety_copy(self):
+        root = ROOT / "what/ios"
+        for bundle, expected in (
+            ("WhatIOS", 247), ("WhatWatch", 6),
+            ("WhatPhoneWidget", 6), ("WhatWatchComplication", 5)
+        ):
+            for name in ("Localizable.strings", "InfoPlist.strings"):
+                en = i18n.read_strings(root / bundle / "en.lproj" / name, [])
+                pl = i18n.read_strings(root / bundle / "pl.lproj" / name, [])
+                self.assertEqual(set(en), set(pl), (bundle, name))
+                if name == "Localizable.strings":
+                    self.assertEqual(len(pl), expected)
+                for key in en:
+                    self.assertEqual(i18n.placeholders(en[key]),
+                                     i18n.placeholders(pl[key]), (bundle, name, key))
+        ios = i18n.read_strings(root / "WhatIOS/pl.lproj/Localizable.strings", [])
+        self.assertEqual(ios["Catch that thought"], "Zapisz tę myśl")
+        self.assertEqual(ios["Archive action"], "Archiwizuj")
+        self.assertIn("Oryginalne nagranie zostanie zachowane", ios[
+            "A new transcription will replace your current text, including any manual corrections. The original audio will be kept."
+        ])
+        self.assertIn("dźwięk", ios[
+            "Your Watch last reported recordings waiting for iPhone confirmation. Audio stays on Watch until iPhone confirms saving; background delivery can be delayed."
+        ].lower())
+        self.assertIn("Usunięte notatki nie zostaną odzyskane", ios[
+            "The last valid backup will be used. Recent text edits may be missing. Deleted notes will not be restored."
+        ])
+        self.assertIn("500 MB", ios["Audio exceeds 500 MB. Your original is safe."])
+        self.assertIn("maksymalnie 10", ios["Select up to 10 audio files at a time."])
+        watch = i18n.read_strings(root / "WhatWatch/pl.lproj/Localizable.strings", [])
+        self.assertEqual(watch["%d waiting for iPhone"], "Oczekujące na iPhone’a: %d")
+        self.assertIn('"pl"', (root / "Shared/CaptureBrand.swift").read_text())
+        self.assertIn("testPolishAXXXLHomeControlsWithoutRecording",
+                      (root / "WhatIOSUITests/PolishLocalizationUITests.swift").read_text())
 
 
 

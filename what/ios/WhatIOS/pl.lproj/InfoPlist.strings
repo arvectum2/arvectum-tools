@@ -1,0 +1,5 @@
+"CFBundleDisplayName" = "UhWhat?";
+"NSMicrophoneUsageDescription" = "Nagrywaj prywatne notatki audio i wideo na tym urządzeniu. Nagrania pozostają na urządzeniu.";
+"NSSpeechRecognitionUsageDescription" = "Transkrybuj zapisane notatki głosowe za pomocą rozpoznawania mowy działającego na tym urządzeniu.";
+
+"NSCameraUsageDescription" = "Nagrywaj prywatne notatki wideo za pomocą kamery. Wideo pozostaje na tym urządzeniu.";
