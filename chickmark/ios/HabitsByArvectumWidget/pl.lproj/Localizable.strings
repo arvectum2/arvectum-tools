@@ -1,0 +1,17 @@
+"widget.title" = "Dzisiaj";
+"widget.displayName" = "Nawyki dziś";
+"widget.description" = "Zobacz postępy na dziś i oznacz wykonane nawyki bez otwierania aplikacji.";
+"widget.empty" = "Nic zaplanowanego na dziś";
+"widget.allDone" = "Wszystko wykonane na dziś";
+"widget.remaining.format" = "Pozostało: %d";
+"widget.inline.format" = "%d z %d dziś";
+"widget.more.format" = "Jeszcze %d";
+"widget.complete" = "Oznacz jako wykonane";
+"widget.undo" = "Cofnij ukończenie";
+"widget.preview.water" = "Woda";
+"widget.preview.reading" = "Czytanie";
+
+"widget.duration.format" = "%d / %d min";
+"widget.action.complete.format" = "Ukończ %@";
+"widget.action.undo.format" = "Cofnij ukończenie %@";
+"widget.empty.small" = "Nic na dziś";

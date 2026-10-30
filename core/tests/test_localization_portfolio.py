@@ -415,7 +415,7 @@ class LocalizationPortfolioTests(unittest.TestCase):
         self.assertEqual(sum(f["pt_pt_brazilian_flags"] for f in result["catalogs"]), 0)
         self.assertEqual(sum(f["format_mismatch"] for f in result["catalogs"]), 0)
         self.assertEqual(sum(f["missing"] + f["extra"] for f in result["catalogs"]), 0)
-        self.assertEqual(result['english_identical_triaged'], 49)
+        self.assertEqual(result['english_identical_triaged'], 50)
         self.assertEqual(result['english_identical_untriaged'], [])
         self.assertEqual(result['english_identical_stale_exceptions'], [])
 
@@ -461,16 +461,12 @@ class LocalizationPortfolioTests(unittest.TestCase):
 
         self.assertEqual(set(reg["apps"]), {"chickmark", "pushkin", "what", "photo-pdf-to-size", "where"})
         self.assertEqual(reg["apps"]["photo-pdf-to-size"]["android"]["sourceLocale"], "en")
-        self.assertEqual(reg["apps"]["photo-pdf-to-size"]["ios"]["sourceCatalogs"],
-                         ["en", "ru", "es", "fr", "de", "pt-BR", "pt-PT", "it", "ja", "ko", "zh-Hans", "zh-Hant", "nl", "id", "tr"])
-        for app in ("pushkin", "what", "chickmark"):
-            expected = ["en", "ru", "es", "fr", "de", "pt-BR", "pt-PT", "it", "ja", "ko", "zh-Hans", "zh-Hant"]
-            if app in ("pushkin", "what", "chickmark"):
-                expected.append("nl")
-            if app in ("pushkin", "what", "chickmark"):
-                expected.append("id")
-            if app in ("pushkin", "what"):
-                expected.append("tr")
+        expected = [
+            "en", "ru", "es", "fr", "de", "pt-BR", "pt-PT", "it",
+            "ja", "ko", "zh-Hans", "zh-Hant", "nl", "id", "tr", "pl",
+        ]
+        self.assertEqual(len(expected), 16)
+        for app in ("photo-pdf-to-size", "pushkin", "what", "chickmark"):
             self.assertEqual(reg["apps"][app]["ios"]["sourceCatalogs"], expected)
 
         self.assertEqual([sum(x["tier"] == t for x in reg["targets"]) for t in (1, 2, 3)], [20, 20, 10])
@@ -490,7 +486,7 @@ class LocalizationPortfolioTests(unittest.TestCase):
         code_names = {
             "es": "Spanish", "fr": "French", "de": "German",
             "pt-BR": "BrazilianPortuguese", "pt-PT": "EuropeanPortuguese", "it": "Italian",
-            "ja": "Japanese", "ko": "Korean", "nl": "Dutch", "id": "Indonesian", "tr": "Turkish", "zh-Hans": "SimplifiedChinese", "zh-Hant": "TraditionalChinese",
+            "ja": "Japanese", "ko": "Korean", "nl": "Dutch", "id": "Indonesian", "tr": "Turkish", "pl": "Polish", "zh-Hans": "SimplifiedChinese", "zh-Hant": "TraditionalChinese",
         }
         registry = i18n.config()
         covered = 0
@@ -501,7 +497,7 @@ class LocalizationPortfolioTests(unittest.TestCase):
             # New iOS source locales must add an explicit UI smoke mapping.
             # Reject any locale without an authored XCUITest smoke mapping.
             locales = set(registry["apps"][app_registry_names[app]]["ios"]["sourceCatalogs"])
-            expected = {"ru", "en", *code_names} - ({"tr"} if app == "chickmark" else set())
+            expected = {"ru", "en", *code_names}
             self.assertEqual(
                 locales, expected,
                 f"{app}: new source locale must have a UI smoke test mapping")
@@ -527,7 +523,7 @@ class LocalizationPortfolioTests(unittest.TestCase):
                     self.assertIn("func " + method, baseline,
                                   f"{app}/{locale}: no dedicated UI smoke")
                 covered += 1
-        self.assertEqual(covered, 59)
+        self.assertEqual(covered, 64)
 
     def test_all_active_ios_bundles_have_registry_localized_catalogs(self):
         """Each app's own source locale packs are present in all its active bundles.
@@ -1809,6 +1805,55 @@ class EditorialLocalizationRegressionTests(unittest.TestCase):
         self.assertIn('"pl"', (root / "Shared/CaptureBrand.swift").read_text())
         self.assertIn("testPolishAXXXLHomeControlsWithoutRecording",
                       (root / "WhatIOSUITests/PolishLocalizationUITests.swift").read_text())
+
+
+    def test_polish_chickmark_complete_iphone_watch_widgets_shortcuts_health(self):
+        root = ROOT / "chickmark/ios"
+        bundles = (
+            ("HabitsByArvectum", 315),
+            ("HabitsByArvectumWatch", 22),
+            ("HabitsByArvectumWidget", 16),
+            ("HabitsByArvectumWatchWidget", 5),
+        )
+        for bundle, count in bundles:
+            with self.subTest(bundle=bundle):
+                en = i18n.read_strings(root / bundle / "en.lproj/Localizable.strings", [])
+                pl = i18n.read_strings(root / bundle / "pl.lproj/Localizable.strings", [])
+                self.assertEqual(len(en), count)
+                self.assertEqual(set(en), set(pl))
+                for key in en:
+                    self.assertEqual(i18n.placeholders(en[key]),
+                                     i18n.placeholders(pl[key]), (bundle, key))
+        for bundle in ("HabitsByArvectum", "HabitsByArvectumWatch"):
+            en = i18n.read_strings(root / bundle / "en.lproj/InfoPlist.strings", [])
+            pl = i18n.read_strings(root / bundle / "pl.lproj/InfoPlist.strings", [])
+            self.assertEqual(set(en), set(pl))
+            for key in en:
+                self.assertEqual(i18n.placeholders(en[key]),
+                                 i18n.placeholders(pl[key]), key)
+        en = i18n.read_strings(root / "HabitsByArvectum/en.lproj/AppShortcuts.strings", [])
+        pl = i18n.read_strings(root / "HabitsByArvectum/pl.lproj/AppShortcuts.strings", [])
+        self.assertEqual(len(en), 4)
+        self.assertEqual(set(en), set(pl))
+        ios = i18n.read_strings(root / "HabitsByArvectum/pl.lproj/Localizable.strings", [])
+        self.assertEqual(ios["habit.create"], "Utwórz nawyk")
+        self.assertEqual(ios["habit.name.placeholder"], "Nazwa nawyku")
+        self.assertNotEqual(ios["habit.undo"], ios["habit.skip.undo"])
+        self.assertEqual(ios["habit.multi.unchecked"], "Niewykonane")
+        self.assertIn("iCloud", ios["backup.warning"])
+        self.assertIn("usuni", ios["backup.warning"].lower())
+        self.assertIn("CloudKit", ios["health.privacy"])
+        self.assertIn("reklam", ios["health.privacy"].lower())
+        self.assertIn("schowka", ios["review.paste.expired"])
+        self.assertEqual(ios["restart.settings.title"], "Łagodny powrót")
+        self.assertIn("nie zawiera treści transkrypcji",
+                      ios["review.privacy.explanation"])
+        watch = i18n.read_strings(
+            root / "HabitsByArvectumWatch/pl.lproj/Localizable.strings", [])
+        self.assertEqual(watch["watch.step.remove"], "Cofnij jeden krok")
+        self.assertIn("Polski", (root / "HabitsByArvectum/Localization.swift").read_text())
+        self.assertIn("testPolishEmptyStateAndNewHabitForm",
+                      (root / "HabitsByArvectumUITests/PolishLocalizationUITests.swift").read_text())
 
 
 

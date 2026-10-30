@@ -1,0 +1,5 @@
+"watch.widget.title" = "ChickMark";
+"watch.widget.description" = "Zobacz postępy w nawykach na dziś na tarczy zegarka.";
+"watch.widget.empty" = "Nic do zrobienia";
+"watch.widget.inline.format" = "%d/%d nawyków";
+"watch.widget.next.format" = "Następny: %@";

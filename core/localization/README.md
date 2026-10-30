@@ -1,5 +1,13 @@
 # Arvectum Tools — portfolio localization (50 locales)
 
+## 31.10.2026 · Polish ChickMark — общий полный корпус 16/50
+
+- Добавлен польский в ChickMark: iPhone 315 строк, Apple Watch 22, iPhone Widget 16, Watch Widget 5, App Shortcuts 4, InfoPlist разрешений HealthKit на iPhone и Apple Watch. Системные pl-PL/pl_PL распознаются, встроенный список языков пополнен «Polski».
+- На всех четырёх основных iOS-приложениях полный польский каталог: Фото под размер, PUSHKIN, Ухват и ChickMark. Матрица source-покрытия: **16/16/16/16 = 64/200 пар**, общих языков **16/50**.
+- Перевод сохраняет различия между «отменить выполнение» и «отменить пропуск», интервалом от фактического выполнения и фиксированным расписанием, а также условия iCloud, HealthKit, локальной аналитики и передачи из UhWhat?.
+- Приёмка 31.10: 128 Python-тестов PASS, архитектура PASS, все 7 новых строковых каталогов прошли проверку plutil; 3 XCTest на iPhone 17 Pro Simulator PASS (польский системный язык, выбор локали, экран создания привычки). Apple Watch и watchOS complication: BUILD SUCCEEDED; iPhone Widget: BUILD SUCCEEDED. Скриншот польской формы проверен, явных обрезаний нет.
+- Следующий шаг: расширять корпус языками VI/HI/TH/AR, начиная с VI; для AR нужна отдельная RTL-приёмка. Нативный источник не равен отправленной сборке в App Store.
+
 ## 30.10.2026 · Polish UhWhat? (Ухват): iPhone, Watch, widgets
 
 - Добавлен полный польский source-каталог Ухвата: iPhone 247 UI строк и 4 InfoPlist descriptions, Watch 6 UI + 3 InfoPlist, Phone widget 6 UI + 1 InfoPlist, Watch complication 5 UI + 1 InfoPlist.
