@@ -415,7 +415,7 @@ class LocalizationPortfolioTests(unittest.TestCase):
         self.assertEqual(sum(f["pt_pt_brazilian_flags"] for f in result["catalogs"]), 0)
         self.assertEqual(sum(f["format_mismatch"] for f in result["catalogs"]), 0)
         self.assertEqual(sum(f["missing"] + f["extra"] for f in result["catalogs"]), 0)
-        self.assertEqual(result['english_identical_triaged'], 50)
+        self.assertEqual(result['english_identical_triaged'], 52)
         self.assertEqual(result['english_identical_untriaged'], [])
         self.assertEqual(result['english_identical_stale_exceptions'], [])
 
@@ -467,7 +467,8 @@ class LocalizationPortfolioTests(unittest.TestCase):
         ]
         self.assertEqual(len(expected), 16)
         for app in ("photo-pdf-to-size", "pushkin", "what", "chickmark"):
-            self.assertEqual(reg["apps"][app]["ios"]["sourceCatalogs"], expected)
+            app_expected = expected + (["vi"] if app == "photo-pdf-to-size" else [])
+            self.assertEqual(reg["apps"][app]["ios"]["sourceCatalogs"], app_expected)
 
         self.assertEqual([sum(x["tier"] == t for x in reg["targets"]) for t in (1, 2, 3)], [20, 20, 10])
 
@@ -486,7 +487,7 @@ class LocalizationPortfolioTests(unittest.TestCase):
         code_names = {
             "es": "Spanish", "fr": "French", "de": "German",
             "pt-BR": "BrazilianPortuguese", "pt-PT": "EuropeanPortuguese", "it": "Italian",
-            "ja": "Japanese", "ko": "Korean", "nl": "Dutch", "id": "Indonesian", "tr": "Turkish", "pl": "Polish", "zh-Hans": "SimplifiedChinese", "zh-Hant": "TraditionalChinese",
+            "ja": "Japanese", "ko": "Korean", "nl": "Dutch", "id": "Indonesian", "tr": "Turkish", "pl": "Polish", "vi": "Vietnamese", "zh-Hans": "SimplifiedChinese", "zh-Hant": "TraditionalChinese",
         }
         registry = i18n.config()
         covered = 0
@@ -497,7 +498,7 @@ class LocalizationPortfolioTests(unittest.TestCase):
             # New iOS source locales must add an explicit UI smoke mapping.
             # Reject any locale without an authored XCUITest smoke mapping.
             locales = set(registry["apps"][app_registry_names[app]]["ios"]["sourceCatalogs"])
-            expected = {"ru", "en", *code_names}
+            expected = {"ru", "en", *code_names} - ({"vi"} if app != "photo" else set())
             self.assertEqual(
                 locales, expected,
                 f"{app}: new source locale must have a UI smoke test mapping")
@@ -523,7 +524,7 @@ class LocalizationPortfolioTests(unittest.TestCase):
                     self.assertIn("func " + method, baseline,
                                   f"{app}/{locale}: no dedicated UI smoke")
                 covered += 1
-        self.assertEqual(covered, 64)
+        self.assertEqual(covered, 65)
 
     def test_all_active_ios_bundles_have_registry_localized_catalogs(self):
         """Each app's own source locale packs are present in all its active bundles.
@@ -1854,6 +1855,38 @@ class EditorialLocalizationRegressionTests(unittest.TestCase):
         self.assertIn("Polski", (root / "HabitsByArvectum/Localization.swift").read_text())
         self.assertIn("testPolishEmptyStateAndNewHabitForm",
                       (root / "HabitsByArvectumUITests/PolishLocalizationUITests.swift").read_text())
+
+
+    def test_vietnamese_photo_complete_i_phone_permissions_and_pdf_safety(self):
+        root = ROOT / "photo-pdf-to-size/ios/PhotoPodRazmer/Resources"
+        en = i18n.read_strings(root / "en.lproj/Localizable.strings", [])
+        vi = i18n.read_strings(root / "vi.lproj/Localizable.strings", [])
+        self.assertEqual(len(en), 161)
+        self.assertEqual(set(en), set(vi))
+        for key in en:
+            self.assertEqual(i18n.placeholders(en[key]),
+                             i18n.placeholders(vi[key]), key)
+        info_en = i18n.read_strings(root / "en.lproj/InfoPlist.strings", [])
+        info_vi = i18n.read_strings(root / "vi.lproj/InfoPlist.strings", [])
+        self.assertEqual(set(info_en), set(info_vi))
+        self.assertIn("PDF", vi["Уменьшить PDF"])
+        self.assertIn("500", vi["500 КБ"])
+        self.assertIn("raster hóa", vi[
+            "Обработка выполняется только на устройстве. При сильном сжатии страницы PDF растрируются, поэтому поиск и выделение текста в готовом файле могут быть недоступны."
+        ])
+        self.assertIn("dữ liệu", vi["Разрешить для рекламы"])
+        self.assertEqual(vi["Отказаться"], "Từ chối")
+        self.assertIn("không yêu cầu quyền App Tracking Transparency", vi[
+            "Фото и PDF обрабатываются только на устройстве. Для показа рекламы используется Yandex Mobile Ads. Вы можете разрешить рекламному SDK обработку технических данных или отказаться. Геолокация отключена, разрешение App Tracking Transparency приложение не запрашивает."
+        ])
+        self.assertIn("iOS có thể yêu cầu quyền theo dõi", vi[
+            "«Фото и PDF под размер» бесплатно и поддерживается рекламой. Реклама будет показываться независимо от вашего выбора. Вы можете разрешить или не разрешить Yandex Mobile Ads обработку данных для рекламы. Если разрешите, iOS может отдельно спросить разрешение на отслеживание. При отказе реклама останется, но без доступа к рекламному идентификатору. Фото и PDF обрабатываются только на устройстве, геолокация отключена."
+        ])
+        self.assertIn("mã định danh quảng cáo",
+                      info_vi["NSUserTrackingUsageDescription"])
+        self.assertIn("testVietnamesePhotoResult", (ROOT /
+            "photo-pdf-to-size/ios/PhotoPodRazmerUITests/VietnameseLocalizationUITests.swift"
+        ).read_text())
 
 
 

@@ -371,10 +371,11 @@
           "nl",
           "id",
           "tr",
-          "pl"
+          "pl",
+          "vi"
         ],
-        "status": "16-complete-source-catalogs-pending-independent-native-device-and-release-signoff",
-        "note": "Photo/PDF: 16 full UI source locales, including Polish; structural key/placeholder parity and isolated iOS Simulator QA. iPhone/watchOS/widgets and permission strings are covered where present. This does not imply publication or human native-speaker approval."
+        "status": "17-complete-iOS-source-catalogs-including-Vietnamese-native-editorial-and-release-signoff-open",
+        "note": "Photo/PDF now has 17 complete iOS source locales, including Vietnamese vi: 161 iPhone UI strings and InfoPlist permissions. Structural format parity and simulator QA are source-stage only, not App Store release or native-speaker attestation."
       }
     },
     "where": {
@@ -403,14 +404,16 @@
       "zh-Hans"
     ],
     "androidExpansion": "deferred; maintain nine existing source catalogs",
-    "iosTier1Active": [],
+    "iosTier1Active": [
+      "vi"
+    ],
     "iosTier1Remaining": [
       "hi",
       "ar",
       "vi",
       "th"
     ],
-    "iosSourceBaselineVerified": "Four active apps 16/50 each (64/200 pairs); full iPhone/Watch/widget catalogs where declared; independent native review, physical Watch QA, App Store metadata and release are not covered.",
+    "iosSourceBaselineVerified": "All four active apps retain 16 complete common iOS source languages (64 pairs), plus Vietnamese Photo/PDF (65/200). UI native/physical device/Watch reviews and public App Store releases require independent QA.",
     "iosTier1Completed": [
       "tr",
       "pl"

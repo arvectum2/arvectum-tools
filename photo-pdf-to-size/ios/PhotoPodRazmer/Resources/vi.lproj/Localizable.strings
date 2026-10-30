@@ -1,0 +1,177 @@
+"Фото под размер" = "Thay đổi kích thước ảnh";
+"По весу" = "Theo dung lượng";
+"По размеру" = "Theo kích thước";
+"На паспорт" = "Hộ chiếu";
+"ПО ВЕСУ" = "THEO DUNG LƯỢNG";
+"ПО РАЗМЕРУ" = "THEO KÍCH THƯỚC";
+"НА ПАСПОРТ" = "HỘ CHIẾU";
+"Уменьшить фото до нужного веса" = "Giảm dung lượng ảnh xuống mức mục tiêu";
+"Задать размер длинной стороны" = "Đặt kích thước cạnh dài";
+"Подогнать фото под 35×45" = "Chỉnh ảnh về 35×45 mm";
+"Выбрать фото" = "Chọn ảnh";
+"Фото выбрано" = "Đã chọn ảnh";
+"JPEG, PNG, HEIC и другие изображения" = "JPEG, PNG, HEIC và các định dạng khác";
+"Максимальный вес" = "Kích thước tối đa";
+"Длинная сторона" = "Cạnh dài";
+"Свой" = "Tùy chỉnh";
+"Например, 750" = "Ví dụ: 750";
+"Единица" = "Đơn vị";
+"Уменьшить фото" = "Giảm kích thước ảnh";
+"Изменить размер" = "Thay đổi kích thước";
+"Кадрировать 35×45" = "Cắt thành 35×45";
+"Кадрирование вручную. Лицо и фон приложение не изменяет." = "Cắt thủ công. Ứng dụng không thay đổi khuôn mặt hoặc nền.";
+"ГОТОВО" = "XONG";
+"Фото уже подходит" = "Ảnh đã phù hợp";
+"Фото подготовлено" = "Ảnh đã sẵn sàng";
+"Размер" = "Kích thước";
+"Разрешение" = "Độ phân giải";
+"Сохранить файл" = "Lưu tệp";
+"Файл сохранён" = "Đã lưu tệp";
+"Поделиться" = "Chia sẻ";
+"Вернуться к настройкам" = "Quay lại cài đặt";
+"Отмена" = "Hủy";
+"Перемещайте фото и масштабируйте двумя пальцами." = "Di chuyển và dùng hai ngón tay để phóng to/thu nhỏ ảnh.";
+"Подготовить фото" = "Chuẩn bị ảnh";
+"100 КБ" = "100 KB";
+"500 КБ" = "500 KB";
+"1 МБ" = "1 MB";
+"2 МБ" = "2 MB";
+"5 МБ" = "5 MB";
+"КБ" = "KB";
+"МБ" = "MB";
+"%.0f КБ" = "%.0f KB";
+"%.1f МБ" = "%.1f MB";
+"%.2f МБ" = "%.2f MB";
+"Не получилось прочитать выбранное фото." = "Không thể đọc ảnh đã chọn.";
+"Не получилось открыть этот файл." = "Không thể mở tệp này.";
+"Не получилось уменьшить это изображение." = "Không thể giảm dung lượng ảnh.";
+"Не получилось изменить размер изображения." = "Không thể thay đổi kích thước ảnh.";
+"Не получилось подготовить фото на паспорт." = "Không thể tạo ảnh thẻ.";
+"Не получилось сохранить файл." = "Không thể lưu tệp.";
+"Не получилось открыть это изображение." = "Không thể mở hình ảnh này.";
+"Этот формат пока не поддерживается." = "Định dạng này chưa được hỗ trợ.";
+"Не получилось определить размер изображения." = "Không thể xác định kích thước hình ảnh.";
+"Укажите допустимый размер файла." = "Vui lòng nhập kích thước tệp hợp lệ.";
+"Не получилось уменьшить файл до выбранного размера." = "Không thể giảm dung lượng tệp xuống mức đã chọn.";
+"Не получилось уменьшить изображение до выбранного размера без заметной потери качества." = "Không thể giảm kích thước hình ảnh xuống mức đã chọn mà không làm giảm chất lượng đáng kể.";
+"Укажите размер длинной стороны." = "Vui lòng nhập kích thước cạnh dài.";
+"Не получилось обрезать изображение." = "Không thể cắt hình ảnh.";
+"Не получилось подготовить файл нужного размера для заявления." = "Không thể chuẩn bị tệp với kích thước yêu cầu.";
+"Изображение слишком большое для обработки на этом устройстве." = "Hình ảnh quá lớn để xử lý trên thiết bị này.";
+"Не получилось обработать это изображение." = "Không thể xử lý hình ảnh này.";
+"Не получилось уменьшить файл до допустимого размера." = "Không thể giảm kích thước tệp xuống mức cho phép.";
+"Не получилось создать JPG." = "Không thể tạo tệp JPG.";
+"filename.file_size" = "đã thay đổi kích thước";
+"filename.pixels" = "kích thước";
+"filename.passport" = "hộ chiếu";
+"Россия · паспорт" = "Nga · hộ chiếu";
+"США · паспорт (печать)" = "Mỹ · hộ chiếu (in)";
+"США · виза (digital)" = "Mỹ · visa (kỹ thuật số)";
+"Индия · e-Visa" = "Ấn Độ · e-Visa";
+"Великобритания · паспорт (печать)" = "Vương quốc Anh · hộ chiếu (in)";
+"Подготовить фото по требованиям документа" = "Chuẩn bị ảnh cho loại giấy tờ đã chọn";
+"Страна / документ" = "Quốc gia / Giấy tờ";
+"Формат для печати 2×2 дюйма. Проверьте размер головы перед подачей." = "Định dạng in 2×2 inch. Kiểm tra kích thước đầu trước khi gửi.";
+"Цифровое фото для визы США: квадратный JPEG до 240 КБ." = "Ảnh kỹ thuật số cho visa Mỹ: JPEG vuông tối đa 240 KB.";
+"Для India e-Visa: квадратный JPEG от 10 КБ до 1 МБ." = "Cho e-Visa Ấn Độ: JPEG vuông từ 10 KB đến 1 MB.";
+"Формат для печати 35×45 мм. Для онлайн-паспорта GOV.UK просит не обрезать фото самостоятельно." = "Định dạng in 35×45 mm. Đối với hộ chiếu trực tuyến GOV.UK, vui lòng không tự cắt ảnh.";
+"600×600 px · JPEG · ≤240 KB" = "600×600 px · JPEG · ≤240 KB";
+"900×900 px · JPEG · 10 KB–1 MB" = "900×900 px · JPEG · 10 KB–1 MB";
+"На документы" = "Giấy tờ";
+"НА ДОКУМЕНТЫ" = "ẢNH THẺ";
+"Не получилось подготовить фото для документа." = "Không thể chuẩn bị ảnh cho tài liệu.";
+"До" = "Trước";
+"После" = "Sau";
+"Выбрать из Файлов" = "Chọn từ Tệp";
+"Точно W×H" = "Kích thước chuẩn W×H";
+"Изменить размер в пикселях" = "Thay đổi kích thước (pixel)";
+"Ширина" = "Chiều rộng";
+"Высота" = "Chiều cao";
+"Сохранять пропорции" = "Giữ nguyên tỷ lệ";
+"Без фиксации пропорций изображение может исказиться." = "Ảnh có thể bị biến dạng nếu không khóa tỷ lệ.";
+"Укажите ширину и высоту от 32 до 12000 px." = "Nhập chiều rộng và chiều cao từ 32 đến 12000 px.";
+"Целевой размер не должен быть больше исходного изображения." = "Kích thước mục tiêu không được lớn hơn ảnh gốc.";
+"Формат экспорта" = "Định dạng xuất";
+"Не получилось создать файл выбранного формата." = "Không thể tạo tệp với định dạng đã chọn.";
+"Удалить EXIF/GPS" = "Xóa EXIF/GPS";
+"Геолокация и метаданные не попадут в готовый файл." = "Vị trí và siêu dữ liệu sẽ không được bao gồm trong tệp xuất.";
+"Метаданные исходного фото будут сохранены, где это поддерживает формат." = "Siêu dữ liệu của ảnh gốc sẽ được giữ lại nếu định dạng hỗ trợ.";
+"10×15 см · 6 фото · 300 DPI" = "10×15 cm · 6 ảnh · 300 DPI";
+"4×6 in · 4 фото · 300 DPI" = "4×6 in · 4 ảnh · 300 DPI";
+"Лист для печати" = "Bản in";
+"Печатать без масштабирования" = "In ở tỉ lệ 100%";
+"Не получилось подготовить лист для печати." = "Không thể chuẩn bị bản in.";
+"Дополнительно" = "Nâng cao";
+
+"Реклама и конфиденциальность" = "Quảng cáo & Quyền riêng tư";
+"Политика конфиденциальности" = "Chính sách bảo mật";
+
+
+"Реклама в приложении" = "Quảng cáo trong ứng dụng";
+
+"Файлы" = "Tệp";
+
+"Изменить настройки" = "Chỉnh sửa cài đặt";
+"На главный экран" = "Trang chủ";
+
+"Фото и PDF под размер" = "Đổi cỡ ảnh và PDF";
+"Фото" = "Ảnh";
+"PDF ПО ВЕСУ" = "PDF THEO KÍCH THƯỚC TỆP";
+"Уменьшить PDF до нужного веса" = "Giảm dung lượng PDF xuống mức mục tiêu";
+"Выбрать PDF" = "Chọn PDF";
+"PDF выбран" = "Đã chọn PDF";
+"PDF-файл из приложения «Файлы»" = "Tệp PDF từ ứng dụng Tệp";
+"Уменьшить PDF" = "Giảm dung lượng PDF";
+"Не получилось открыть этот PDF." = "Không thể mở tệp PDF này.";
+"Не получилось уменьшить этот PDF." = "Không thể giảm dung lượng tệp PDF này.";
+"Не получилось уменьшить PDF до выбранного размера без слишком сильной потери качества." = "Không thể giảm dung lượng PDF xuống mức chọn mà không làm giảm chất lượng quá nhiều.";
+"PDF не содержит страниц." = "Tệp PDF không có trang nào.";
+"Не получилось создать PDF." = "Không thể tạo tệp PDF.";
+"Не получилось сжать страницу PDF." = "Không thể nén trang PDF.";
+"Обработка выполняется только на устройстве. При сильном сжатии страницы PDF растрируются, поэтому поиск и выделение текста в готовом файле могут быть недоступны." = "Xử lý chỉ diễn ra trên thiết bị. Khi nén mạnh, các trang PDF sẽ bị raster hóa, do đó việc tìm kiếm và chọn văn bản trong tệp đầu ra có thể không khả dụng.";
+"PDF уже подходит" = "PDF đã đạt yêu cầu";
+"PDF подготовлен" = "PDF đã sẵn sàng";
+"Страниц" = "Trang";
+"страница" = "trang";
+"страниц" = "trang";
+"PDF обработан локально на устройстве и никуда не загружался." = "Tệp PDF được xử lý cục bộ trên thiết bị và không được tải lên bất cứ đâu.";
+
+"Сжать" = "Nén";
+"Размер фото" = "Thay đổi kích thước";
+"Документы" = "Ảnh thẻ";
+"Сжать файл" = "Nén tệp";
+"Фото на документы" = "Ảnh thẻ";
+"Обработать PDF" = "Xử lý PDF";
+"СЖАТЬ ФОТО" = "NÉN ẢNH";
+"ИЗМЕНИТЬ РАЗМЕР" = "THAY ĐỔI KÍCH THƯỚC";
+"ФОТО НА ДОКУМЕНТЫ" = "ẢNH THẺ";
+"Уменьшить размер файла до нужного значения" = "Giảm kích thước tệp xuống mức mong muốn";
+"Размер файла до" = "Giới hạn kích thước tệp";
+
+"СЖАТЬ PDF" = "NÉN PDF";
+"Сжать PDF до выбранного размера" = "Nén PDF xuống kích thước tệp đã chọn";
+"страницы" = "trang";
+"%1$d %2$@ · %3$@" = "%1$d %2$@ · %3$@";
+"%1$d %2$@" = "%1$d %2$@";
+"%1$d×%2$d px · %3$@" = "%1$d×%2$d px · %3$@";
+"%1$@ · %2$@" = "%1$@ · %2$@";
+
+// New visa/passport size presets; human editorial review pending.
+"Шенген · виза (печать)" = "Schengen · ảnh visa (in)";
+"Китай · виза (digital)" = "Trung Quốc · ảnh visa (kỹ thuật số)";
+"Канада · паспорт (печать)" = "Canada · ảnh hộ chiếu (in ấn)";
+"Канада требует оригинальную фотографию от фотографа. Изменённые или обрезанные снимки могут отклонить." = "Canada yêu cầu ảnh gốc từ studio. Ảnh đã chỉnh sửa hoặc cắt bớt có thể bị từ chối.";
+
+// Contextual advertising privacy disclosure
+
+// Advertising permission and ATT prompts restored for user-approved tracking configuration.
+"Фото и PDF обрабатываются только на устройстве. Для показа рекламы используется Yandex Mobile Ads. Вы можете разрешить рекламному SDK обработку технических данных или отказаться. Геолокация отключена, разрешение App Tracking Transparency приложение не запрашивает." = "Ảnh và PDF được xử lý trực tiếp trên thiết bị. Yandex Mobile Ads được sử dụng để hiển thị quảng cáo. Bạn có thể cho phép hoặc từ chối SDK quảng cáo xử lý dữ liệu kỹ thuật. Vị trí đã bị tắt và ứng dụng không yêu cầu quyền App Tracking Transparency.";
+"Разрешить для рекламы" = "Cho phép dùng dữ liệu cho quảng cáo";
+"Отказаться" = "Từ chối";
+"Разрешить обработку данных" = "Cho phép xử lý dữ liệu";
+"Не разрешать обработку данных" = "Không cho phép xử lý dữ liệu";
+"«Фото и PDF под размер» бесплатно и поддерживается рекламой. Реклама будет показываться независимо от вашего выбора. Вы можете разрешить или не разрешить Yandex Mobile Ads обработку данных для рекламы. Если разрешите, iOS может отдельно спросить разрешение на отслеживание. При отказе реклама останется, но без доступа к рекламному идентификатору. Фото и PDF обрабатываются только на устройстве, геолокация отключена." = "«Photo & PDF Resize» miễn phí và được hỗ trợ bởi quảng cáo. Quảng cáo sẽ hiển thị bất kể lựa chọn của bạn. Bạn có thể cho phép hoặc từ chối Yandex Mobile Ads xử lý dữ liệu cho quảng cáo. Nếu cho phép, iOS có thể yêu cầu quyền theo dõi riêng biệt. Nếu từ chối, quảng cáo vẫn hiển thị nhưng không có quyền truy cập vào mã định danh quảng cáo. Ảnh và PDF được xử lý trực tiếp trên thiết bị và vị trí đã bị tắt.";
+
+"Исходный файл" = "Tệp gốc";
+
+"Предпросмотр исходного файла" = "Xem trước tệp gốc";

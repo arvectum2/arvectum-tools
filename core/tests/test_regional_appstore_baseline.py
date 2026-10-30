@@ -42,10 +42,11 @@ class RegionalAppStoreBaselineTests(unittest.TestCase):
         for app in ("chickmark", "pushkin", "what", "photo-pdf-to-size"):
             with self.subTest(app=app):
                 entry = data["apps"][app]
-                self.assertEqual(set(entry["ios"]["sourceCatalogs"]), full_source)
+                expected = full_source | ({"vi"} if app == "photo-pdf-to-size" else set())
+                self.assertEqual(set(entry["ios"]["sourceCatalogs"]), expected)
                 for relative in entry["bundles"]:
                     folder = ROOT / relative
                     self.assertEqual(
                         {p.name.removesuffix(".lproj") for p in folder.glob("*.lproj")},
-                        full_source, f"{relative}: registry drift",
+                        expected, f"{relative}: registry drift",
                     )

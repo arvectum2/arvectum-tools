@@ -230,6 +230,18 @@
       "reason": "Pixel dimensions and byte-size technical specifications are internationally identical in Turkish."
     },
     {
+      "file": "photo-pdf-to-size/ios/PhotoPodRazmer/Resources/vi.lproj/Localizable.strings",
+      "key": "600×600 px · JPEG · ≤240 KB",
+      "value": "600×600 px · JPEG · ≤240 KB",
+      "reason": "Technical photo dimensions, JPEG label and byte limits are universal measurements and must remain numerically identical to source."
+    },
+    {
+      "file": "photo-pdf-to-size/ios/PhotoPodRazmer/Resources/vi.lproj/Localizable.strings",
+      "key": "900×900 px · JPEG · 10 KB–1 MB",
+      "value": "900×900 px · JPEG · 10 KB–1 MB",
+      "reason": "Technical photo dimensions, JPEG label and byte limits are universal measurements and must remain numerically identical to source."
+    },
+    {
       "file": "pushkin/ios/ArvectumNotify/Resources/de.lproj/Localizable.strings",
       "key": "In PUSHKIN",
       "value": "In PUSHKIN",
