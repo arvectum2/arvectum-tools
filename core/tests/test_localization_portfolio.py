@@ -1749,5 +1749,32 @@ class EditorialLocalizationRegressionTests(unittest.TestCase):
                       (ROOT / "photo-pdf-to-size/ios/PhotoPodRazmerUITests/PolishLocalizationUITests.swift").read_text())
 
 
+    def test_pushkin_polish_complete_i_phone_and_shortcuts_safety(self):
+        base = ROOT / "pushkin/ios/ArvectumNotify/Resources"
+        en = i18n.read_strings(base / "en.lproj/Localizable.strings", [])
+        pl = i18n.read_strings(base / "pl.lproj/Localizable.strings", [])
+        self.assertEqual(len(pl), 159)
+        self.assertEqual(set(en), set(pl))
+        for key in en:
+            self.assertEqual(i18n.placeholders(en[key]), i18n.placeholders(pl[key]), key)
+        self.assertEqual(pl["History"], "Historia")
+        self.assertEqual(pl["Settings"], "Ustawienia")
+        self.assertEqual(pl["Shortcuts"], "Skróty")
+        self.assertIn("nie może sprawdzić ani zmienić", pl[
+            "Only Shortcuts knows whether an automation is enabled. PUSHKIN cannot check or change that switch."
+        ])
+        self.assertIn("wyłącznie na tym iPhonie", pl[
+            "No account, cloud sync, ads or analytics. PUSHKIN stores your notification content on this iPhone only."
+        ])
+        self.assertIn("nie usuwa automatyzacji ani historii", pl[
+            "Clearing this local checklist does not remove any automation or notification history."
+        ])
+        swift = (ROOT / "pushkin/ios/ArvectumNotify/BrandStyle.swift").read_text()
+        self.assertIn('"pl"', swift)
+        ui = ROOT / "pushkin/ios/ArvectumNotifyUITests/PolishLocalizationUITests.swift"
+        self.assertIn("testPolishTabsSetupAndSettings", ui.read_text())
+
+
+
 if __name__ == "__main__":
     unittest.main()

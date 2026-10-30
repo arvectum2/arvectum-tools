@@ -112,6 +112,38 @@ final class CoverageCatalogTests: XCTestCase {
         XCTAssertEqual(PushkinCopy.appCount(2, language: "pt-BR"), "2 apps")
     }
 
+    func testPolishBundleRoutingShortcutsPrivacyAndPluralForms() {
+        XCTAssertEqual(PushkinCopy.text("History", language: "pl-PL"), "Historia")
+        XCTAssertEqual(PushkinCopy.text("Apps", language: "pl_PL"), "Aplikacje")
+        XCTAssertEqual(PushkinCopy.text("Apps & Setup", language: "pl"), "Aplikacje i konfiguracja")
+        XCTAssertEqual(PushkinCopy.text("Settings", language: "pl-PL"), "Ustawienia")
+        XCTAssertEqual(PushkinCopy.text("Shortcuts", language: "pl"), "Skróty")
+        XCTAssertEqual(PushkinCopy.text("Group %d", language: "pl"), "Grupa %d")
+        for (number, caption) in [
+            (0, "0 aplikacji"), (1, "1 aplikacja"), (2, "2 aplikacje"),
+            (4, "4 aplikacje"), (5, "5 aplikacji"), (11, "11 aplikacji"),
+            (12, "12 aplikacji"), (14, "14 aplikacji"), (21, "21 aplikacji"),
+            (22, "22 aplikacje"), (25, "25 aplikacji")
+        ] {
+            XCTAssertEqual(PushkinCopy.appCount(number, language: "pl-PL"), caption)
+        }
+        let scope = PushkinCopy.text(
+            "Only Shortcuts knows whether an automation is enabled. PUSHKIN cannot check or change that switch.",
+            language: "pl"
+        )
+        XCTAssertTrue(scope.contains("nie może sprawdzić ani zmienić"))
+        XCTAssertTrue(PushkinCopy.text(
+            "No account, cloud sync, ads or analytics. PUSHKIN stores your notification content on this iPhone only.",
+            language: "pl"
+        ).contains("wyłącznie na tym iPhonie"))
+        XCTAssertTrue(PushkinCopy.text(
+            "Clearing this local checklist does not remove any automation or notification history.",
+            language: "pl"
+        ).contains("nie usuwa automatyzacji ani historii"))
+        XCTAssertEqual(PushkinCopy.text("Unexpected UI text", language: "pl"),
+                       "Unexpected UI text")
+    }
+
     func testTurkishCopyAndShortcutsConsentBoundaries() {
         XCTAssertEqual(PushkinCopy.text("History", language: "tr-TR"), "Geçmiş")
         XCTAssertEqual(PushkinCopy.text("Apps & Setup", language: "tr"), "Uygulamalar ve Kurulum")

@@ -1,5 +1,13 @@
 # Arvectum Tools — portfolio localization (50 locales)
 
+## 30.10.2026 · Polish PUSHKIN — полный исходный словарь
+
+- PUSHKIN получил **159/159 польских UI-ключей**. В PushkinCopy добавлено разрешение pl, pl-PL и pl_PL, а число приложений склоняется по-польски: 1 aplikacja, 2 aplikacje, 5 aplikacji, 22 aplikacje.
+- Переведены история уведомлений, ручная настройка в Skróty, импорт подписанных команд, подтверждение реальным уведомлением, планирование групп и локальное хранение. Технические названия PUSHKIN → Archive Notification и поля App / Title / Subtitle / Text неизменны.
+- Матрица: **Photo/PDF 16, PUSHKIN 16, Ухват 15, ChickMark 15 = 62/200** source-пар. Общий набор четырёх — 15/50 языков.
+- PUSHKIN не может сам включить Shortcuts или читать любые уведомления: пользователь настраивает системную автоматизацию. Живые метаданные App Store, конфиденциальность и реклама не меняются.
+- Следующее расширение: польский Ухват (iPhone/Watch/widgets), затем ChickMark. Далее VI/HI/TH/AR (отдельный RTL QA).
+
 ## 29.10.2026 · Исходный корпус: Turkish ChickMark + Polish Photo/PDF
 
 - Турецкий завершён структурно во всех четырёх iOS-приложениях. В ChickMark добавлены 315 iPhone, 22 Watch, 16 iPhone widget, 5 Watch widget, 4 Shortcuts строки и 4 системные HealthKit descriptions (2 InfoPlist). Встроенная локаль Türkçe поддерживает tr-TR / tr_TR.
@@ -8,7 +16,7 @@
 - Source complete не означает published binary, live Apple metadata или физическую приёмку. App Store Connect, параметры рекламы и политика конфиденциальности остаются нетронутыми.
 - Следующий этап: польский для PUSHKIN, Ухвата, ChickMark, далее vi, hi, th, ar (последний требует RTL-тестирования).
 
-**Обновлено 29.10.2026:** 15/50 iOS source languages are structurally present in all 4 apps and 10 iPhone/Watch/widget bundles; Photo/PDF additionally has Polish (16/50), totalling 61 app×locale pairs. Full native-speaker approval, physical QA and public App Store release are separate. The earlier intermediate steps below are historical. See [Core localization + regional ASO roadmap](../docs/CORE_50_LOCALES_AND_REGIONAL_ASO_2026-10-29.md).
+**Обновлено 30.10.2026:** 15/50 languages in all 4 apps; Photo/PDF and PUSHKIN additionally have Polish (16/50 each), totalling 62 app×locale pairs. Full native-speaker approval, physical QA and public App Store release are separate. The earlier intermediate steps below are historical. See [Core localization + regional ASO roadmap](../docs/CORE_50_LOCALES_AND_REGIONAL_ASO_2026-10-29.md).
 
 ## 29.10.2026 · Индонезийская source-волна завершена: 4×14/50
 

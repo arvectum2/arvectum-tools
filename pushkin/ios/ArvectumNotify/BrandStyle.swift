@@ -147,7 +147,7 @@ struct ArvectumCard<Content: View>: View {
 // Never translate Shortcuts identifiers or the user's notification content.
 enum PushkinCopy {
     private static let translatedBundles: [String: Bundle] = {
-        Dictionary(uniqueKeysWithValues: ["es", "fr", "de", "pt", "pt-PT", "it", "ja", "ko", "nl", "id", "tr", "zh", "zh-Hant"].compactMap { language in
+        Dictionary(uniqueKeysWithValues: ["es", "fr", "de", "pt", "pt-PT", "it", "ja", "ko", "nl", "id", "tr", "pl", "zh", "zh-Hant"].compactMap { language in
             let resource = language == "pt" ? "pt-BR" : language == "zh" ? "zh-Hans" : language
             guard let path = Bundle.main.path(forResource: resource, ofType: "lproj"),
                   let bundle = Bundle(path: path)
@@ -181,7 +181,7 @@ enum PushkinCopy {
         switch code {
         case "ru":
             return russian[english] ?? english
-        case "es", "fr", "de", "pt", "it", "ja", "ko", "nl", "id", "tr", "zh":
+        case "es", "fr", "de", "pt", "it", "ja", "ko", "nl", "id", "tr", "pl", "zh":
             return translatedBundles[code]?.localizedString(
                 forKey: english, value: english, table: nil
             ) ?? english
@@ -213,6 +213,14 @@ enum PushkinCopy {
         if language.lowercased().hasPrefix("ja") { return "\(count)件のアプリ" }
         if language.lowercased().hasPrefix("ko") { return "\(count)개 앱" }
         if language.lowercased().hasPrefix("zh") { return "\(count)个应用" }
+        if language.lowercased().hasPrefix("pl") {
+            let lastTwo = abs(count) % 100
+            let last = abs(count) % 10
+            let noun = count == 1 ? "aplikacja"
+                : (lastTwo < 12 || lastTwo > 14) && (2...4).contains(last)
+                ? "aplikacje" : "aplikacji"
+            return "\(count) \(noun)"
+        }
         if language.lowercased().hasPrefix("tr") {
             return count == 1 ? "1 uygulama" : "\(count) uygulama"
         }
