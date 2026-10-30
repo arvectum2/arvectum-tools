@@ -1,0 +1,4 @@
+"Complete a habit in ${applicationName}" = "Ukończ nawyk w ${applicationName}";
+"Check off a habit in ${applicationName}" = "Oznacz nawyk jako wykonany w ${applicationName}";
+"Undo a habit in ${applicationName}" = "Cofnij ukończenie nawyku w ${applicationName}";
+"Mark a habit incomplete in ${applicationName}" = "Oznacz nawyk jako nieukończony w ${applicationName}";

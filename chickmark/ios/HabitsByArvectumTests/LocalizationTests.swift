@@ -123,7 +123,7 @@ final class LocalizationTests: XCTestCase {
     ]
 
     func testPickerOffersOnlyBundledLocales() {
-        XCTAssertEqual(ChickMarkLanguage.supported, ["ru", "en", "es", "de", "fr", "id", "it", "ja", "ko", "nl", "pt-BR", "pt-PT", "tr", "zh-Hans", "zh-Hant"])
+        XCTAssertEqual(ChickMarkLanguage.supported, ["ru", "en", "es", "de", "fr", "id", "it", "ja", "ko", "nl", "pl", "pt-BR", "pt-PT", "tr", "zh-Hans", "zh-Hant"])
         XCTAssertEqual(
             ChickMarkLanguage.orderedLanguages(["fr", "en", "Base", "ru", "es", "en"]),
             ["ru", "en", "es", "fr"]
@@ -146,6 +146,23 @@ final class LocalizationTests: XCTestCase {
             ChickMarkLanguage.orderedLanguages(["en", "ja", "de"]),
             ["en", "de", "ja"]
         )
+    }
+
+    func testPolishSelectionAndIndependentLanguagePreference() {
+        let available = ChickMarkLanguage.supported
+        XCTAssertTrue(available.contains("pl"))
+        XCTAssertEqual(ChickMarkLanguage.displayName(for: "pl"), "Polski")
+        XCTAssertEqual(ChickMarkLanguage.resolvedIdentifier(
+            for: "system", preferred: ["pl-PL", "en-GB"], available: available), "pl")
+        XCTAssertEqual(ChickMarkLanguage.resolvedIdentifier(
+            for: "system", preferred: ["pl_PL", "en-GB"], available: available), "pl")
+        XCTAssertEqual(L10n.string("habit.create", language: "pl"), "Utwórz nawyk")
+        XCTAssertEqual(L10n.string("habit.name.placeholder", language: "pl"), "Nazwa nawyku")
+        XCTAssertNotEqual(L10n.string("habit.undo", language: "pl"),
+                          L10n.string("habit.skip.undo", language: "pl"))
+        XCTAssertEqual(L10n.string("today.progress.format", language: "pl").components(
+            separatedBy: "%d").count, 3)
+        XCTAssertEqual(L10n.string("language.title", language: "pl"), "Język")
     }
 
     func testTurkishSelectionAndHabitLabels() {

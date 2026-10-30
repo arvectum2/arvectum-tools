@@ -1,0 +1,26 @@
+"watch.today" = "Dzisiaj";
+"watch.progress.format" = "%d z %d";
+"watch.empty" = "Nic do zrobienia dzisiaj";
+"watch.streak.format" = "Seria %d dni";
+"watch.weekly.format" = "%d z %d w tym tygodniu";
+"watch.completed" = "Ukończone";
+"watch.notCompleted" = "Nieukończone";
+"watch.skipped" = "Pominięte";
+"watch.undoHint" = "Dwukrotnie dotknij, aby cofnąć ukończenie";
+"watch.completeHint" = "Dwukrotnie dotknij, aby oznaczyć jako wykonane";
+
+"watch.duration.format" = "%d / %d min";
+
+"watch.step.add" = "Dodaj krok";
+"watch.step.remove" = "Cofnij jeden krok";
+
+"watch.preview.water" = "Woda";
+"watch.preview.reading" = "Czytanie";
+"watch.checkins.progress.format" = "%d z %d ukończeń";
+
+"watch.health.unit.steps" = "kroków";
+"watch.health.unit.kilometers" = "km";
+"watch.health.unit.minutes" = "min";
+"watch.health.unit.hours" = "h";
+"watch.health.unit.unknown" = "";
+"watch.health.unavailable" = "Dane Apple Health są niedostępne";

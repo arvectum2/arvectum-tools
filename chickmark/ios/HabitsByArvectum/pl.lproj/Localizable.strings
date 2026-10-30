@@ -1,0 +1,369 @@
+"today.title" = "Dzisiaj";
+"today.progress.format" = "Oznaczono: %d z %d";
+"today.empty.title" = "Zacznij od jednego nawyku";
+"today.empty.description" = "To zajmie tylko kilka sekund. Brak konieczności zakładania konta lub dodatkowej konfiguracji.";
+"today.none.title" = "Na dziś wystarczy";
+"today.none.description" = "Twój następny nawyk pojawi się w zaplanowanym dniu.";
+
+"habit.add.accessibility" = "Dodaj nawyk";
+"habit.create" = "Utwórz nawyk";
+"habit.section" = "Nawyk";
+"habit.name.placeholder" = "Nazwa nawyku";
+"habit.streak.one" = "1 dzień z rzędu";
+"habit.streak.format" = "%d dni z rzędu";
+"habit.streak.start" = "Zacznij serię dzisiaj";
+"habit.complete" = "Oznacz jako wykonane";
+"habit.undo" = "Cofnij ukończenie";
+"habit.completed.toast" = "Nawyk oznaczony jako wykonany";
+"habit.skipped.today" = "Pominięto dzisiaj";
+"habit.skip.today" = "Pomiń dzień";
+"habit.skip.undo" = "Cofnij pominięcie";
+"habit.new.title" = "Nowy nawyk";
+"habit.edit.title" = "Edytuj nawyk";
+"habit.edit.action" = "Edytuj";
+
+"section.appearance" = "Wygląd";
+"section.days" = "Dni";
+"section.reminder" = "Przypomnienie";
+"section.moreOptions" = "Więcej opcji";
+"appearance.color" = "Kolor";
+"appearance.icon" = "Ikona";
+
+"schedule.everyday" = "Codziennie";
+"schedule.weekdays" = "Dni robocze";
+"schedule.weekdays.description" = "W dni robocze";
+"schedule.custom" = "Inny harmonogram";
+"schedule.flexible.toggle" = "Elastyczny cel tygodniowy";
+"schedule.flexible.target.format" = "%d razy w tygodniu";
+"schedule.flexible.hint" = "Nawyk pozostaje w sekcji Dzisiaj, dopóki cel tygodniowy nie zostanie osiągnięty.";
+"schedule.flexible.description.format" = "%d razy w tygodniu";
+"schedule.interval.toggle" = "Powtarzaj po ukończeniu";
+"schedule.interval.days.format" = "Co %d dni po ukończeniu";
+"schedule.interval.hint" = "Następny termin jest liczony od dnia faktycznego ukończenia.";
+"schedule.interval.description.format" = "Co %d dni po ukończeniu";
+"habit.streak.weeks.format" = "%d tygodni z rzędu";
+"habit.weekly.progress.format" = "%d z %d w tym tygodniu";
+
+"reminder.toggle" = "Przypomnij mi";
+"reminder.time" = "Czas";
+"reminder.flexible.unavailable" = "Przypomnienia są dostępne dla stałych harmonogramów.";
+"reminder.notification.body" = "Czas na ukończenie nawyku";
+
+"notification.denied.title" = "Powiadomienia są wyłączone";
+"notification.denied.message" = "Włącz powiadomienia dla ChickMark w ustawieniach iPhone, aby umożliwić przypomnienia.";
+"notification.openSettings" = "Ustawienia";
+"notification.action.complete" = "Gotowe";
+"notification.action.skip" = "Pomiń dziś";
+
+"common.cancel" = "Anuluj";
+"common.done" = "Gotowe";
+"common.save" = "Zapisz";
+"common.ok" = "OK";
+"common.undo" = "Cofnij";
+"common.add" = "Dodaj";
+"common.delete" = "Usuń";
+
+"quick.water" = "Woda";
+"quick.reading" = "Czytanie";
+"quick.walk" = "Spacer";
+"quick.workout" = "Trening";
+
+"weekday.mon.short" = "Pon";
+"weekday.tue.short" = "Wt";
+"weekday.wed.short" = "Śr";
+"weekday.thu.short" = "Czw";
+"weekday.fri.short" = "Pt";
+"weekday.sat.short" = "Sob";
+"weekday.sun.short" = "Nd";
+
+"detail.history.title" = "Ostatnie 6 tygodni";
+"detail.history.hint" = "Dotknij poprzedniego dnia, aby poprawić jego oznaczenie.";
+"detail.pause" = "Wstrzymaj nawyk";
+"detail.resume" = "Wznów nawyk";
+"detail.archive" = "Archiwizuj";
+"detail.restore" = "Przywróć z archiwum";
+"detail.delete" = "Usuń nawyk";
+"detail.delete.title" = "Usuń nawyk?";
+"detail.delete.message" = "Historia ukończenia tego nawyku również zostanie usunięta.";
+"detail.more.accessibility" = "Więcej akcji dla nawyku";
+
+"archive.title" = "Zarchiwizowane";
+"archive.accessibility" = "Zarchiwizowane nawyki";
+"archive.empty.title" = "Brak zarchiwizowanych nawyków";
+"archive.empty.description" = "Zarchiwizowane nawyki pojawią się tutaj.";
+"manage.title" = "Zarządzaj nawykami";
+"manage.accessibility" = "Zarządzaj nawykami";
+"manage.active" = "Aktywne";
+"manage.paused" = "Zawieszone";
+"manage.reorder.hint" = "Dotknij Edytuj, aby zmienić kolejność nawyków.";
+"manage.empty.title" = "Tutaj nic nie ma";
+"manage.empty.description" = "Twoje nawyki pojawią się tutaj.";
+"manage.privacy" = "Polityka prywatności";
+"manage.support" = "Wsparcie";
+
+"stats.streak" = "seria";
+"stats.best.format" = "najlepsze %d";
+"stats.completion" = "ukończone";
+"stats.nextDue" = "następny termin";
+"stats.interval" = "interwał";
+"stats.interval.days.format" = "%d dni";
+"stats.checkins" = "oznaczenia";
+
+"status.completed" = "ukończone";
+"status.notCompleted" = "nieukończone";
+"status.skipped" = "pominięty";
+"status.missed" = "nieodnotowany";
+"status.paused" = "wstrzymany";
+
+"accessibility.color.format" = "Kolor %d";
+"accessibility.symbol.format" = "Ikona %d";
+"accessibility.selected" = "Wybrane";
+
+"storage.error.title" = "Dane ChickMark są tymczasowo niedostępne";
+"storage.error.message" = "Twoje dane nie zostały zresetowane ani nadpisane. Zamknij i ponownie otwórz ChickMark. Jeśli problem będzie się powtarzał, zaktualizuj aplikację przed kolejną próbą.";
+
+"shortcut.habit.type" = "Nawyk";
+"shortcut.habit.parameter" = "Nawyk";
+"shortcut.complete.title" = "Oznacz nawyk jako wykonany";
+"shortcut.complete.description" = "Oznacz jeden z dzisiejszych nawyków jako ukończony.";
+"shortcut.complete.success" = "Oznaczono nawyk „%@” jako wykonany.";
+"shortcut.undo.title" = "Cofnij ukończenie nawyku";
+"shortcut.undo.description" = "Oznacz jeden z dzisiejszych nawyków jako nieukończony.";
+"shortcut.undo.success" = "Cofnięto ukończenie nawyku „%@”.";
+"shortcut.notDue" = "Ten nawyk nie jest planowany na dzisiaj.";
+
+"add.menu.habit" = "Nowy nawyk";
+"add.menu.oneoff" = "Jednorazowe przypomnienie";
+"oneoff.section" = "Przypomnienia";
+"oneoff.new.title" = "Nowe przypomnienie";
+"oneoff.edit.title" = "Edytuj przypomnienie";
+"oneoff.title.placeholder" = "O czym mam Cię przypomnieć?";
+"oneoff.when" = "Kiedy";
+"oneoff.dateTime" = "Data i godzina";
+"oneoff.hint" = "To przypomnienie zadziała tylko raz i nie wpłynie na serie ani statystyki nawyków.";
+"oneoff.notification.body" = "Przypomnienie jednorazowe";
+"oneoff.notification.denied.message" = "Włącz powiadomienia dla ChickMark w ustawieniach iPhone, aby otrzymywać przypomnienia jednorazowe.";
+"oneoff.complete" = "Oznacz jako wykonane";
+"oneoff.edit" = "Edytuj";
+"oneoff.actions" = "Akcje przypomnienia";
+"oneoff.delete" = "Usuń przypomnienie";
+"oneoff.demo.marathon" = "Kup miejsce w maratonie";
+"oneoff.today.format" = "Dzisiaj, %@";
+"oneoff.tomorrow.format" = "Jutro, %@";
+
+"insights.title" = "Systematyczność";
+"insights.week" = "Ostatnie 7 dni";
+"insights.month" = "Ostatnie 30 dni";
+"insights.ratio" = "%d z %d dni";
+"insights.skipped" = "Pominięte: %d";
+"insights.note" = "Dzisiejszy dzień nie jest uznawany za pominięty, dopóki trwa.";
+"backup.menu" = "Kopia zapasowa";
+"backup.export" = "Eksportuj dane";
+"backup.import" = "Importuj dane";
+"backup.chooseMode" = "Przywróć kopię zapasową";
+"backup.merge" = "Połącz brakujące rekordy";
+"backup.replace" = "Zastąp wszystkie dane";
+"backup.warning" = "Plik JSON zawiera Twoje nawyki i przypomnienia. Zastąpienie usunie aktualne rekordy i może zsynchronizować usunięcia przez iCloud. Dbaj o bezpieczeństwo swojej kopii zapasowej.";
+"backup.result" = "Kopia zapasowa";
+"backup.success" = "Dane zostały pomyślnie zaimportowane.";
+
+"habit.multi.target.format" = "Oznaczenia dziennie: %d";
+"habit.multi.target.hint" = "Każde oznaczenie jest liczone osobno. Nawyk jest ukończony, gdy wszystkie kółka są wypełnione.";
+"habit.multi.slot.format" = "Oznaczenie %d z %d";
+"habit.multi.checked" = "Wykonane";
+"habit.multi.unchecked" = "Niewykonane";
+
+"habit.multi.target.locked" = "Liczby dziennych oznaczeń nie można zmienić po rozpoczęciu historii.";
+
+"habit.goal.kind" = "Typ celu";
+"habit.goal.checks" = "Oznaczenia";
+"habit.goal.quantity" = "Liczba";
+"habit.goal.duration" = "Czas";
+"habit.goal.quantity.format" = "Cel: %d";
+"habit.goal.duration.format" = "Cel: %d minut";
+"habit.goal.quantity.progress" = "%d / %d";
+"habit.goal.duration.progress" = "%d / %d min";
+"habit.goal.add" = "Dodaj jedną jednostkę";
+"habit.goal.subtract" = "Cofnij jedną jednostkę";
+
+"insights.noData" = "Brak danych";
+
+"groups.select" = "Grupa";
+"groups.none" = "Brak grupy";
+"groups.add" = "Nowa grupa";
+"groups.delete" = "Usuń grupę (zachowaj nawyki)";
+"groups.delete.short" = "Usuń grupę";
+"groups.actions" = "Akcje grupy";
+"groups.delete.keepHint" = "Nawyki zostaną zachowane.";
+"groups.placeholder" = "Nazwa grupy";
+
+"backup.error.version" = "Nieobsługiwana wersja kopii zapasowej ChickMark.";
+"backup.error.invalid" = "Nieprawidłowe lub niespójne dane kopii zapasowej ChickMark.";
+"backup.error.unreadable" = "Wybrany plik kopii zapasowej jest nieczytelny.";
+
+"insights.weekly.title" = "Regularność realizacji celów tygodniowych";
+"insights.fourWeeks" = "4 tygodnie";
+"insights.twelveWeeks" = "12 tygodni";
+"insights.weekly.note" = "Tego tygodnia nie liczy się jako pominiętego. Tygodnie w trybie pauzy nie obniżają Twojego wyniku.";
+"insights.weekly.ratio" = "%d z %d tygodni";
+"insights.weekly.neutral" = "Pauza: %d tygodni";
+"insights.interval.title" = "Historia powtórzeń";
+"insights.ninetyDays" = "90 dni";
+"insights.interval.note" = "Liczone są tylko faktyczne ukończenia; cele powtórzeń po ukończeniu nie mają dziennego limitu.";
+"insights.interval.occurrences" = "ukończeń";
+"insights.interval.average" = "Śr. odstęp: %d dni";
+"insights.interval.noGap" = "Za mało danych";
+
+"habit.history.edit" = "Edytuj dzień";
+"habit.history.progress" = "%d z %d ukończeń";
+"habit.history.error" = "Nie udało się zapisać zmian";
+
+"quick.multicheck" = "Woda (5 razy)";
+"brand.website.accessibility" = "Otwórz stronę ChickMark v%@ autorstwa Arvectum";
+
+// HealthKit opt-in (v1.4)
+"health.title" = "Zdrowie Apple";
+"health.connect.hint" = "Połącz aktywność, aby automatycznie odnotowywać nawyki";
+"health.connected.hint" = "Automatyczne odnotowywanie włączone";
+"health.auto.completed" = "Ukończono na podstawie danych Apple Health";
+"health.description" = "Wybierz wskaźnik. ChickMark automatycznie oznaczy nawyk jako wykonany, gdy dzienny wynik osiągnie Twój cel.";
+"health.rule.section" = "Automatyczne ukończenie";
+"health.metric.title" = "Aktywność";
+"health.metric.steps" = "Kroki";
+"health.metric.distance" = "Dystans chodzenia i biegania";
+"health.metric.workouts" = "Minuty treningu";
+"health.unit.steps" = "kroków";
+"health.unit.kilometers" = "km";
+"health.unit.minutes" = "min";
+"health.target" = "Cel dzienny";
+"health.connect" = "Połącz z aplikacją Zdrowie";
+"health.save" = "Zapisz regułę";
+"health.disconnect" = "Rozłącz Zdrowie Apple";
+"health.settings" = "Zdrowie Apple";
+"health.privacy" = "Wyniki HealthKit są sprawdzane lokalnie na iPhone i Apple Watch. Dane zdrowotne ani automatycznie wyliczone wyniki nie są przesyłane do CloudKit ani wykorzystywane do reklam. Zwykłe nawyki sprawdzane ręcznie nadal synchronizują się zgodnie z Twoimi ustawieniami. Automatyczny status aktywności może aktualizować się z opóźnieniem. Rozłączenie przerywa nowe sprawdzanie.";
+"health.error.unavailable" = "Zdrowie Apple nie jest dostępne na tym urządzeniu.";
+"health.error.authorization" = "Nie udało się poprosić o dostęp do Apple Health.";
+
+"health.unsupported" = "Dla celów tygodniowych obsługiwane są tylko indywidualne treningi biegowe. Przesuwane interwały i cele wielokrotnego odhaczania wymagają ręcznego ukończenia.";
+
+"health.metric.running" = "Trening biegowy (jedna sesja)";
+
+"health.metric.sleep" = "Sen (dzień przebudzenia)";
+
+"health.unit.hours" = "godziny";
+
+"health.shortcuts.title" = "Czytanie i inne aplikacje · Skróty";
+
+"health.shortcuts.action" = "Automatyzuj nawyk powiązany z aplikacją";
+
+"health.shortcuts.instructions" = "Otwórz Skróty na iPhonie → Automatyzacja → wybierz wyzwalacz (np. zamknięcie aplikacji Książki) → dodaj czynność ChickMark „Oznacz nawyk jako wykonany” → wybierz nawyk. Tę czynność można też uruchomić ręcznie przez Siri lub skrót na ekranie początkowym.";
+
+"health.shortcuts.limitation" = "Zamknięcie aplikacji nie potwierdza, że czytałeś przez określony czas. Skróty rejestrują wybrane zdarzenie, a nie rzeczywisty czas czytania.";
+
+"health.integrations.title" = "Inteligentne automatyzacje";
+
+// In-app language selection
+"language.title" = "Język";
+"language.system" = "Domyślny systemowy";
+
+"detail.more.title" = "Historia i analizy";
+"detail.history.recent" = "Ostatnia aktywność";
+
+"manage.about" = "O aplikacji ChickMark";
+
+"habit.multi.today.progress" = "Ukończenia: %d/%d";
+
+"ads.debug.title" = "Diagnostyka Yandex Ads";
+"ads.debug.state" = "Status";
+
+"keyboard.dismiss" = "Ukryj klawiaturę";
+"health.edit.target.hint" = "Edytuj cel w ustawieniach nawyku";
+
+"health.link.toggle" = "Automatyczne ukończenie przez Zdrowie Apple";
+"health.local.hint" = "Postęp jest zapisywany na Twoim urządzeniu. Zmiany zostaną zastosowane po zapisaniu.";
+
+"restart.settings.title" = "Łagodny powrót";
+"restart.settings.enable" = "Zaproponuj łagodny powrót";
+"restart.settings.threshold" = "Po okresie przerwy";
+"restart.settings.explanation" = "Domyślnie wyłączone. Po przerwie funkcja dyskretnie zaproponuje powrót. Wcześniejsze ukończenia, pominięcia, serie i harmonogramy pozostają bez zmian. To ustawienie jest przechowywane tylko na tym iPhonie.";
+"restart.settings.shortTitle" = "Restart";
+"restart.settings.disabledHint" = "Włącz Łagodny powrót, aby wybrać okres przerwy.";
+"restart.days" = "%d dni";
+"restart.card.title" = "Chcesz zacząć ponownie?";
+"restart.card.description" = "Twoje poprzednie postępy są nadal dostępne. Wybierz nawyk, aby kontynuować go w dogodnym dla Ciebie momencie.";
+"restart.card.later" = "Może jutro";
+
+"weekly.title" = "Podsumowanie tygodnia";
+"weekly.optIn" = "Pokaż lokalne podsumowanie tygodnia";
+"weekly.privacy" = "Domyślnie wyłączone. Podsumowanie jest obliczane tylko na tym urządzeniu: bez powiadomień, konta, analityki ani synchronizacji przez sieć. Nawyki połączone z Apple Health są pomijane, ponieważ na podstawie ręcznych oznaczeń nie da się odtworzyć dawnych automatycznych ukończeń.";
+"weekly.lastCompleted" = "Ostatnio ukończony tydzień kalendarzowy";
+"weekly.calendarWeek" = "Tydzień";
+"weekly.scheduled" = "Dni zaplanowane";
+"weekly.neutral" = "Neutralne pominięcia/pauzy";
+"weekly.flexible" = "Spełnione elastyczne cele tygodniowe";
+"weekly.rolling" = "Cykliczne wystąpienia nawyków";
+"weekly.activity" = "Aktywność";
+"weekly.completedDays" = "Dni z ukończonymi nawykami";
+"weekly.bestDay" = "Najlepszy dzień";
+"weekly.trend" = "Zmiana względem poprzedniego tygodnia";
+"weekly.ratio" = "%d z %d";
+"weekly.bestDay.format" = "%@ (%d)";
+"weekly.note" = "Uwzględniane są tylko pełne minione tygodnie. Dzisiaj nie jest oceniane. Pominięcia i wstrzymania są neutralne; cele tygodniowe ocenia się raz na tydzień, a powtarzane nawyki liczy się według faktycznych wykonań, bez dopisywania pominięć. Trend porównuje liczbę dni z ukończonymi nawykami, a nie procenty.";
+
+"review.video.fallback" = "Wideo";
+"review.note.prefix" = "Notatka do przeglądu: ";
+"review.source.title" = "Notatka z UhWhat?";
+"review.paste.instructions" = "Dotknij systemowego przycisku Wklej, aby pozwolić ChickMark odczytać notatkę, którą właśnie udostępniłeś. Potwierdzisz to ponownie przed utworzeniem jednorazowego przypomnienia.";
+"review.paste.expired" = "Zawartość schowka zmieniła się lub link wygasł. Udostępnij notatkę z UhWhat? ponownie.";
+"review.paste.accessibility" = "Wklej notatkę";
+"review.paste.title" = "Odbierz notatkę";
+"review.paste.failed" = "Nie udało się wkleić notatki";
+"review.duplicate.title" = "Notatka została już zaimportowana";
+"review.duplicate.message" = "Dla tej notatki istnieje już przypomnienie jednorazowe. Nie utworzono duplikatu.";
+"review.source.section" = "Z UhWhat?";
+"review.kind.audio" = "Notatka głosowa";
+"review.kind.text" = "Notatka tekstowa";
+"review.kind.video" = "Notatka wideo";
+"review.empty.text" = "Brak dostępnego tekstu. Oryginał pozostaje w UhWhat?.";
+"review.source.open" = "Otwórz oryginał";
+"review.remind.section" = "Przypomnij";
+"review.due.label" = "Przypomnij mi";
+"review.privacy.explanation" = "To jest jednorazowe przypomnienie, a nie powtarzalny nawyk. Tekst jest zapisywany lokalnie w ChickMark po potwierdzeniu. Powiadomienie nie zawiera treści transkrypcji.";
+"review.add.title" = "Dodaj z UhWhat?";
+"review.add.create" = "Utwórz";
+"review.add.failed" = "Nie udało się utworzyć przypomnienia";
+"review.notification.permission" = "Zezwól na powiadomienia ChickMark w Ustawieniach, aby utworzyć przypomnienie.";
+"review.attachment.noText" = "Brak transkrypcji. Otwórz oryginał w UhWhat?.";
+"review.source.openInApp" = "Otwórz oryginał w UhWhat?";
+"review.oneoff.open" = "Otwórz notatkę z UhWhat?";
+"review.oneoff.read" = "Przeczytaj notatkę";
+"review.import.alert" = "Przenieś z UhWhat?";
+"review.import.failure" = "Nie można otworzyć zaimportowanych notatek: ";
+"review.notification.genericTitle" = "ChickMark: przejrzyj notatkę";
+
+"water.export.title" = "Eksportuj wodę do Zdrowia Apple";
+"water.export.toggle" = "Dodaj wodę do Zdrowia Apple";
+"water.export.volume" = "Mililitry na odnotowanie: %d ml";
+"water.export.example" = "Każde odnotowanie dodaje dokładnie wybraną objętość, a nie domyślną wielkość szklanki.";
+"water.export.explanation" = "Dotyczy to tylko tego nawyku ilościowego, od dnia włączenia funkcji. Poprzednie dni nie są importowane. Cofnięcia lub poprawki aktualizują tylko wpisy utworzone przez ChickMark.";
+"water.export.privacy" = "Ilości wody pozostają na Twoim urządzeniu. Podczas zapisywania ChickMark poprosi o zgodę na zapis danych w Apple Health.";
+"water.export.error" = "Eksport wody jest niedostępny";
+
+"water.export.storage.error" = "ChickMark nie może odczytać ustawień eksportu wody. Nie wprowadzono żadnych zmian. Ponownie otwórz aplikację i spróbuj ponownie.";
+
+// First-run onboarding
+"onboarding.first.title" = "Jeden mały nawyk";
+"onboarding.first.body" = "Dotknij +, aby utworzyć nawyk i wybierz, jak często ma się powtarzać.";
+"onboarding.second.title" = "Oznacz jako wykonane";
+"onboarding.second.body" = "Oznaczaj dzisiejsze nawyki. Twój harmonogram pozostaje pod Twoją kontrolą.";
+"onboarding.third.title" = "Trzymaj się planu";
+"onboarding.third.body" = "Opcjonalne przypomnienia pomogą Ci wrócić do celu. Możesz je dostosować w dowolnym momencie.";
+"onboarding.skip" = "Pomiń";
+"onboarding.next" = "Dalej";
+"onboarding.start" = "Zacznij";
+
+// Read-only observed gaps for completion-relative habits
+"weekly.gapTitle" = "Przerwy · nawyki kroczące";
+"weekly.gapDays" = "%d dni kalendarzowych";
+"weekly.gapUnknown" = "Niewystarczające dane";
+"weekly.gapNote" = "Dni między dwoma ostatnimi faktycznymi ukończeniami (wcześniejsze może wystąpić przed tymi tygodniami). Przerwy i pominięte dni nie są liczone jako brak ukończenia.";

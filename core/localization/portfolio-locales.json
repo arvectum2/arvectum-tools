@@ -277,10 +277,12 @@
           "zh-Hans",
           "zh-Hant",
           "nl",
-          "id"
+          "id",
+          "tr",
+          "pl"
         ],
-        "status": "14-source-catalogs-complete-in-ChickMark-Bahasa-Indonesia-source-draft",
-        "note": "Indonesian id complete in iPhone, Watch, Phone Widget and Watch widget (315+22+16+5 keys), HealthKit permission messages; human native/physical QA and App Store release remain open."
+        "status": "16-complete-source-catalogs-pending-independent-native-device-and-release-signoff",
+        "note": "ChickMark: 16 full UI source locales, including Polish; structural key/placeholder parity and isolated iOS Simulator QA. iPhone/watchOS/widgets and permission strings are covered where present. This does not imply publication or human native-speaker approval."
       }
     },
     "pushkin": {
@@ -303,10 +305,11 @@
           "zh-Hant",
           "nl",
           "id",
-          "tr"
+          "tr",
+          "pl"
         ],
-        "status": "14-source-catalogs-in-pushkin-Bahasa-Indonesia-source-draft",
-        "note": "Indonesian id 159 localized UI/Shortcuts safety strings, routing and plural/counter, native QA source. No real Shortcuts/notification changes."
+        "status": "16-complete-source-catalogs-pending-independent-native-device-and-release-signoff",
+        "note": "PUSHKIN: 16 full UI source locales, including Polish; structural key/placeholder parity and isolated iOS Simulator QA. iPhone/watchOS/widgets and permission strings are covered where present. This does not imply publication or human native-speaker approval."
       }
     },
     "what": {
@@ -316,8 +319,8 @@
         "what/ios/WhatPhoneWidget",
         "what/ios/WhatWatchComplication"
       ],
-      "status": "en-ru-es-development-catalogs-with-independent-visual-and-speech-locales",
-      "note": "What iPhone has 228 complete EN/RU/ES source strings, including 3 day headings and separate speech-vs-UI language settings label; Watch/PhoneWidget/WatchComplication retain 6/6/5 source strings. Interface follows iOS per-app/system RU/EN/ES preference, transcription stays independently selected. iOS Simulator focused tests 10/10 PASS; transcript write-failure and retained draft checked on iOS Simulator; human/editorial, compatibility review, physical Watch/VoiceOver QA still open. No release. Recovery UI now includes read-only status preview and opt-in confirmation, RU/EN/ES copy. Simulator UI preview passed; native confirmation/durable restore full UI still requires device signoff.",
+      "status": "16-full-iPhone-Watch-and-widget-source-locales-independent-transcription-preference",
+      "note": "Voice inbox UI follows the installed iOS/watchOS language independently of selected speech transcription language. Reliable Watch ACK/backup rules unchanged; native device and release signoff remain separate.",
       "ios": {
         "sourceCatalogs": [
           "en",
@@ -334,10 +337,11 @@
           "zh-Hant",
           "nl",
           "id",
-          "tr"
+          "tr",
+          "pl"
         ],
-        "status": "14-source-catalogs-in-Uhvat-Bahasa-Indonesia-source-draft",
-        "note": "Indonesian id across iPhone, Watch, Phone Widget and Watch Complication plus InfoPlist permissions; independent dictation settings maintained. Native/physical Apple Watch ACK and editor proofing pending."
+        "status": "16-complete-source-catalogs-pending-independent-native-device-and-release-signoff",
+        "note": "UhWhat?: 16 full UI source locales, including Polish; structural key/placeholder parity and isolated iOS Simulator QA. iPhone/watchOS/widgets and permission strings are covered where present. This does not imply publication or human native-speaker approval."
       }
     },
     "photo-pdf-to-size": {
@@ -366,10 +370,11 @@
           "zh-Hant",
           "nl",
           "id",
-          "tr"
+          "tr",
+          "pl"
         ],
-        "status": "15-source-catalogs-turkish-photo-draft-native-editorial-and-device-QA-pending",
-        "note": "Indonesian id 161 full UI keys and InfoPlist consent permissions; source and native simulator QA not equivalent to independent linguistic review or store release."
+        "status": "16-complete-source-catalogs-pending-independent-native-device-and-release-signoff",
+        "note": "Photo/PDF: 16 full UI source locales, including Polish; structural key/placeholder parity and isolated iOS Simulator QA. iPhone/watchOS/widgets and permission strings are covered where present. This does not imply publication or human native-speaker approval."
       }
     },
     "where": {
@@ -402,11 +407,13 @@
     "iosTier1Remaining": [
       "hi",
       "ar",
-      "tr",
       "vi",
-      "pl",
       "th"
     ],
-    "iosSourceBaselineVerified": "Photo/PDF, Pushkin and Uhvat 15/50; ChickMark 14/50 (59/200 pairs). Turkish semantic editorial/native QA pending."
+    "iosSourceBaselineVerified": "Four active apps 16/50 each (64/200 pairs); full iPhone/Watch/widget catalogs where declared; independent native review, physical Watch QA, App Store metadata and release are not covered.",
+    "iosTier1Completed": [
+      "tr",
+      "pl"
+    ]
   }
 }

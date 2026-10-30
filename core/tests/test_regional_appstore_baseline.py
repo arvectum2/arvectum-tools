@@ -32,17 +32,20 @@ class RegionalAppStoreBaselineTests(unittest.TestCase):
         codes = [row["code"] for row in data["targets"]]
         self.assertEqual(len(codes), 50)
         self.assertEqual(len(set(codes)), 50)
-        source = {"en", "ru", "es", "fr", "de", "pt-BR", "pt-PT", "it",
-                  "ja", "ko", "zh-Hans", "zh-Hant"}
-        self.assertTrue(source.issubset(codes))
+        full_source = {
+            "en", "ru", "es", "fr", "de", "pt-BR", "pt-PT",
+            "it", "ja", "ko", "zh-Hans", "zh-Hant",
+            "nl", "id", "tr", "pl",
+        }
+        self.assertTrue(full_source.issubset(codes))
+        self.assertEqual(len(full_source), 16)
         for app in ("chickmark", "pushkin", "what", "photo-pdf-to-size"):
             with self.subTest(app=app):
                 entry = data["apps"][app]
-                expected = source | {"nl", "id"} | ({"tr"} if app != "chickmark" else set())
-                self.assertEqual(set(entry["ios"]["sourceCatalogs"]), expected)
+                self.assertEqual(set(entry["ios"]["sourceCatalogs"]), full_source)
                 for relative in entry["bundles"]:
                     folder = ROOT / relative
                     self.assertEqual(
                         {p.name.removesuffix(".lproj") for p in folder.glob("*.lproj")},
-                        expected, f"{relative}: registry drift",
+                        full_source, f"{relative}: registry drift",
                     )

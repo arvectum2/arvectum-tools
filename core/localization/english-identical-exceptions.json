@@ -86,6 +86,12 @@
       "reason": "ChickMark is a registered product name, unchanged in all localizations."
     },
     {
+      "file": "chickmark/ios/HabitsByArvectumWatchWidget/pl.lproj/Localizable.strings",
+      "key": "watch.widget.title",
+      "value": "ChickMark",
+      "reason": "ChickMark is the product brand name and remains unchanged on the Polish watch-face widget."
+    },
+    {
       "file": "chickmark/ios/HabitsByArvectumWatchWidget/pt-BR.lproj/Localizable.strings",
       "key": "watch.widget.title",
       "value": "ChickMark",
