@@ -208,6 +208,18 @@ struct CoverageView: View {
                 .foregroundStyle(.secondary)
             }
 
+            Section(pc("App not listed? Add manually")) {
+                NavigationLink {
+                    ManualCoverageGuide(appName: "")
+                } label: {
+                    Label(pc("Add manually"), systemImage: "hand.tap")
+                }
+                .accessibilityIdentifier("coverage-manual-entry")
+
+                Text(pc("Searches the offline catalog bundled with this version of PUSHKIN."))
+                    .foregroundStyle(.secondary)
+            }
+
             Section(pc("Optional groups")) {
                 NavigationLink {
                     AutomationGroupPlannerView()
@@ -325,24 +337,20 @@ struct CoverageAppPicker: View {
 
     @ViewBuilder
     private var manualSection: some View {
-        if !trimmedQuery.isEmpty {
-            Section {
-                NavigationLink {
-                    ManualCoverageGuide(appName: trimmedQuery)
-                } label: {
-                    Label(
-                        catalogResults.isEmpty
-                            ? pc("Add manually")
-                            : pc("App not listed? Add manually"),
-                        systemImage: "hand.tap"
-                    )
-                }
-                .accessibilityIdentifier("manual-add-app")
-            } footer: {
-                Text(
-                    pc("Manual setup takes a few more taps, but stays entirely on your iPhone and needs no PUSHKIN server.")
+        Section {
+            NavigationLink {
+                ManualCoverageGuide(appName: trimmedQuery)
+            } label: {
+                Label(
+                    pc("App not listed? Add manually"),
+                    systemImage: "hand.tap"
                 )
             }
+            .accessibilityIdentifier("manual-add-app")
+        } footer: {
+            Text(
+                pc("Manual setup takes a few more taps, but stays entirely on your iPhone and needs no PUSHKIN server.")
+            )
         }
     }
 
@@ -397,7 +405,7 @@ private struct ManualCoverageGuide: View {
         List {
             Section {
                 Label(
-                    pc("This path is only for apps missing from the built-in catalog."),
+                    pc("You can still add this app manually in Shortcuts."),
                     systemImage: "iphone"
                 )
                 Text(
