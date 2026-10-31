@@ -158,3 +158,9 @@
 "Clear filters" = "Hapus filter";
 "No matching notifications" = "Tidak ada notifikasi yang cocok";
 "Try another app, date range or search." = "Coba aplikasi, rentang tanggal, atau istilah pencarian lainnya.";
+"Free · No registration" = "Gratis · Tanpa pendaftaran";
+"Export history (CSV)" = "Ekspor riwayat (CSV)";
+"Export includes private notification text" = "Ekspor berisi notifikasi pribadi";
+"Save CSV file" = "Simpan berkas CSV";
+"The CSV includes every saved notification and is not encrypted. Save it somewhere private." = "CSV berisi semua notifikasi yang tersimpan dan tidak dienkripsi. Simpan di tempat yang aman.";
+"Couldn’t export history" = "Gagal mengekspor riwayat";
