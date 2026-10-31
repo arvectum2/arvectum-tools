@@ -158,3 +158,9 @@
 "Clear filters" = "Filters wissen";
 "No matching notifications" = "Geen overeenkomende meldingen";
 "Try another app, date range or search." = "Probeer een andere app, periode of zoekterm.";
+"Free · No registration" = "Gratis · Geen registratie";
+"Export history (CSV)" = "Geschiedenis exporteren (CSV)";
+"Export includes private notification text" = "Export bevat privéberichten";
+"Save CSV file" = "CSV-bestand bewaren";
+"The CSV includes every saved notification and is not encrypted. Save it somewhere private." = "Het CSV-bestand bevat alle opgeslagen meldingen en is niet versleuteld. Bewaar het op een veilige plek.";
+"Couldn’t export history" = "Geschiedenis exporteren mislukt";
