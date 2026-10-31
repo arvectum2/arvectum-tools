@@ -160,3 +160,9 @@
 "Clear filters" = "필터 초기화";
 "No matching notifications" = "일치하는 알림이 없습니다";
 "Try another app, date range or search." = "다른 앱, 기간 또는 검색어를 사용해 보세요.";
+"Free · No registration" = "무료 · 가입 불필요";
+"Export history (CSV)" = "기록 내보내기(CSV)";
+"Export includes private notification text" = "내보내기에 개인 알림 내용이 포함됩니다";
+"Save CSV file" = "CSV 파일 저장";
+"The CSV includes every saved notification and is not encrypted. Save it somewhere private." = "CSV에는 저장된 모든 알림이 포함되며 암호화되지 않습니다. 안전한 위치에 저장하세요.";
+"Couldn’t export history" = "기록을 내보낼 수 없습니다";
