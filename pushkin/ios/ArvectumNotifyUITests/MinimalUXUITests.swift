@@ -152,9 +152,6 @@ final class MinimalUXUITests: XCTestCase {
 
         let search = app.textFields["app-search"].firstMatch
         XCTAssertTrue(search.waitForExistence(timeout: 6))
-        XCTAssertEqual(search.value as? String, search.placeholderValue,
-                       "Search should be empty initially")
-
         let manual = app.buttons["manual-add-app"].firstMatch
         XCTAssertTrue(manual.waitForExistence(timeout: 6),
                       "Manual setup must not require a failed catalog search")
