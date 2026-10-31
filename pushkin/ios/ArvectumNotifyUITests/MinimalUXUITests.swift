@@ -165,6 +165,26 @@ final class MinimalUXUITests: XCTestCase {
         // Opening this guide must not modify Apple's Shortcuts.
     }
 
+    func testCsvExportShowsPrivacyWarningBeforeSaving() throws {
+        let app = XCUIApplication(bundleIdentifier: "ru.arvectum.tools.notify")
+        app.launchArguments = [
+            "-AppleLanguages", "(en)", "-AppleLocale", "en_US",
+            "--store-screenshot-fixture"
+        ]
+        app.launch()
+        app.tabBars.buttons["Settings"].tap()
+
+        let export = app.buttons["pushkin.settings.export-history"].firstMatch
+        XCTAssertTrue(export.waitForExistence(timeout: 8))
+        XCTAssertTrue(export.isEnabled, "Fixture should provide saved notifications")
+        export.tap()
+        XCTAssertTrue(app.buttons["Save CSV file"].firstMatch
+            .waitForExistence(timeout: 6))
+        // Never write an exported private-history file in automated UI QA.
+        XCTAssertTrue(app.buttons["Cancel"].firstMatch.exists)
+        app.buttons["Cancel"].tap()
+    }
+
     func testTeamlessCapCutCanBeAdded() throws {
         let app = XCUIApplication(bundleIdentifier: "ru.arvectum.tools.notify")
         app.launch()
