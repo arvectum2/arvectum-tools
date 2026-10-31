@@ -243,6 +243,7 @@ private struct InboxView: View {
 
                 Group {
                     if notifications.isEmpty {
+                    ScrollView {
                     VStack(spacing: 18) {
                         ContentUnavailableView(
                             pc("History is empty"),
@@ -280,6 +281,8 @@ private struct InboxView: View {
                         .accessibilityIdentifier("enable-pushkin-automation")
                     }
                     .padding()
+                    }
+                    .accessibilityIdentifier("pushkin.empty-onboarding-scroll")
                     } else if filteredNotifications.isEmpty {
                         VStack(spacing: 12) {
                             ContentUnavailableView(
