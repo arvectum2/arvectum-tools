@@ -27,7 +27,7 @@ struct ContentView: View {
 
     var body: some View {
         TabView(selection: $selectedTab) {
-            InboxView()
+            InboxView(onOpenSetup: { selectedTab = 1 })
                 .tabItem {
                     Label(pc("History"), systemImage: "tray.full")
                 }
@@ -55,8 +55,8 @@ struct ContentView: View {
 }
 
 private struct InboxView: View {
+    let onOpenSetup: () -> Void
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
-    @Environment(\.openURL) private var openURL
     @Environment(\.modelContext) private var modelContext
 
     @Query(sort: \CapturedNotification.capturedAt, order: .reverse)
@@ -85,7 +85,6 @@ private struct InboxView: View {
     private var pendingCoverageStartedAt = 0.0
 
     @State private var showAppPicker = false
-    @State private var pendingBasePackageURL: URL?
 
     private let automationsURL = URL(string: "shortcuts://automations")!
 
@@ -253,22 +252,23 @@ private struct InboxView: View {
                             )
                         )
 
-                        if let url = CoverageCatalog.basePackageURL {
-                            Button {
-                                if url.isFileURL {
-                                    pendingBasePackageURL = url
-                                } else {
-                                    openURL(url)
-                                }
-                            } label: {
-                                Label(
-                                    pc("Set up PUSHKIN"),
-                                    systemImage: "wand.and.stars"
-                                )
-                            }
-                            .buttonStyle(ArvectumPrimaryActionStyle())
-                            .accessibilityIdentifier("setup-pushkin")
+                        Label(pc("Free · No registration"), systemImage: "checkmark.shield")
+                            .font(.subheadline.weight(.semibold))
+                            .accessibilityIdentifier("pushkin.free-before-setup")
+
+                        Text(pc("The base shortcut includes 1,000 entries. Only apps recognized by Shortcuts when you configure the automation can send captures."))
+                            .font(.footnote)
+                            .foregroundStyle(.secondary)
+                            .multilineTextAlignment(.center)
+
+                        Button(action: onOpenSetup) {
+                            Label(
+                                pc("Set up PUSHKIN"),
+                                systemImage: "wand.and.stars"
+                            )
                         }
+                        .buttonStyle(ArvectumPrimaryActionStyle())
+                        .accessibilityIdentifier("setup-pushkin")
 
                         Link(destination: automationsURL) {
                             Label(
@@ -358,11 +358,6 @@ private struct InboxView: View {
                     pendingCoverageTitle = app.title
                     pendingCoverageStartedAt = now
                 }
-            }
-            .background {
-                ShortcutPackagePresenter(
-                    packageURL: $pendingBasePackageURL
-                ) {}
             }
         }
     }
