@@ -358,8 +358,8 @@ struct CoverageAppPicker: View {
         NavigationStack {
             List {
                 searchSection
-                catalogSection
                 manualSection
+                catalogSection
             }
             .scrollContentBackground(.hidden)
             .background(Color.arvectumBackground)
