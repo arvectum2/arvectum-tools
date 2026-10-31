@@ -75,6 +75,8 @@ struct SetupGuideView: View {
 
     private var overviewSection: some View {
         Section(pc("Before you start")) {
+            Label(pc("Free · No registration"), systemImage: "checkmark.shield")
+                .accessibilityIdentifier("pushkin.setup.free-terms")
             Label(pc("PUSHKIN works through Apple Shortcuts"), systemImage: "switch.2")
             secondaryText(
                 pc("iOS does not allow PUSHKIN to read every app's notifications or turn on automations itself. You control which apps are included.")

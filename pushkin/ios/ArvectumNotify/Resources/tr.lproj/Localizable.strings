@@ -158,3 +158,9 @@
 "Clear filters" = "Filtreleri temizle";
 "No matching notifications" = "Eşleşen bildirim yok";
 "Try another app, date range or search." = "Başka bir uygulama, tarih aralığı veya arama terimi deneyin.";
+"Free · No registration" = "Ücretsiz · Kayıt gerekmez";
+"Export history (CSV)" = "Geçmişi dışa aktar (CSV)";
+"Export includes private notification text" = "Dışa aktarılan dosya özel bildirimler içerir";
+"Save CSV file" = "CSV dosyasını kaydet";
+"The CSV includes every saved notification and is not encrypted. Save it somewhere private." = "CSV, kaydedilen tüm bildirimleri içerir ve şifrelenmez. Dosyayı güvenli bir yerde saklayın.";
+"Couldn’t export history" = "Geçmiş dışa aktarılamadı";

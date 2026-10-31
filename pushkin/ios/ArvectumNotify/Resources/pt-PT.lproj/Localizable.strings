@@ -160,3 +160,9 @@
 "Clear filters" = "Limpar filtros";
 "No matching notifications" = "Nenhuma notificação encontrada";
 "Try another app, date range or search." = "Experimente outra aplicação, outro período ou outra pesquisa.";
+"Free · No registration" = "Gratuito · Sem registo";
+"Export history (CSV)" = "Exportar histórico (CSV)";
+"Export includes private notification text" = "A exportação inclui notificações privadas";
+"Save CSV file" = "Guardar ficheiro CSV";
+"The CSV includes every saved notification and is not encrypted. Save it somewhere private." = "O CSV inclui todas as notificações guardadas e não está encriptado. Guarde-o num local privado.";
+"Couldn’t export history" = "Não foi possível exportar o histórico";

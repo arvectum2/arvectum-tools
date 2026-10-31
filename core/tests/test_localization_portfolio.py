@@ -150,7 +150,7 @@ class LocalizationPortfolioTests(unittest.TestCase):
         en = i18n.read_strings(root / "en.lproj/Localizable.strings", [])
         nl = i18n.read_strings(root / "nl.lproj/Localizable.strings", [])
         self.assertEqual(set(nl), set(en))
-        self.assertEqual(len(nl), 159)
+        self.assertEqual(len(nl), len(en))
         for key, translated in nl.items():
             self.assertEqual(i18n.placeholders(en[key]), i18n.placeholders(translated), key)
         self.assertEqual(nl["History"], "Geschiedenis")
@@ -245,7 +245,7 @@ class LocalizationPortfolioTests(unittest.TestCase):
         root = ROOT / 'pushkin/ios/ArvectumNotify/Resources'
         en = i18n.read_strings(root / 'en.lproj/Localizable.strings', [])
         translated = i18n.read_strings(root / 'id.lproj/Localizable.strings', [])
-        self.assertEqual(len(translated), 159)
+        self.assertEqual(len(translated), len(en))
         self.assertEqual(set(translated), set(en))
         for key in en:
             self.assertEqual(i18n.placeholders(en[key]),
@@ -339,7 +339,7 @@ class LocalizationPortfolioTests(unittest.TestCase):
         root = ROOT / 'pushkin/ios/ArvectumNotify/Resources'
         en = i18n.read_strings(root/'en.lproj/Localizable.strings', [])
         tr = i18n.read_strings(root/'tr.lproj/Localizable.strings', [])
-        self.assertEqual(len(tr), 159)
+        self.assertEqual(len(tr), len(en))
         self.assertEqual(set(en), set(tr))
         for k in en:
             self.assertEqual(i18n.placeholders(en[k]), i18n.placeholders(tr[k]), k)
@@ -1201,7 +1201,7 @@ class LocalizationPortfolioTests(unittest.TestCase):
         en = i18n.read_strings(root / "en.lproj/Localizable.strings", [])
         fr = i18n.read_strings(root / "fr.lproj/Localizable.strings", [])
         self.assertEqual(set(en), set(fr))
-        self.assertEqual(len(fr), 159)
+        self.assertEqual(len(fr), len(en))
         self.assertEqual(fr["History"], "Historique")
         self.assertEqual(fr["Apps & Setup"], "Apps et configuration")
         self.assertEqual(fr["Settings"], "Réglages")
@@ -1216,7 +1216,7 @@ class LocalizationPortfolioTests(unittest.TestCase):
         en = i18n.read_strings(root / "en.lproj/Localizable.strings", [])
         es = i18n.read_strings(root / "es.lproj/Localizable.strings", [])
         self.assertEqual(set(en), set(es))
-        self.assertEqual(len(es), 159)
+        self.assertEqual(len(es), len(en))
         self.assertEqual(es["History"], "Historial")
         self.assertEqual(es["Group %d"], "Grupo %d")
         self.assertEqual(es["Apps"], "Aplicaciones")
@@ -1750,7 +1750,7 @@ class EditorialLocalizationRegressionTests(unittest.TestCase):
         base = ROOT / "pushkin/ios/ArvectumNotify/Resources"
         en = i18n.read_strings(base / "en.lproj/Localizable.strings", [])
         pl = i18n.read_strings(base / "pl.lproj/Localizable.strings", [])
-        self.assertEqual(len(pl), 159)
+        self.assertEqual(len(pl), len(en))
         self.assertEqual(set(en), set(pl))
         for key in en:
             self.assertEqual(i18n.placeholders(en[key]), i18n.placeholders(pl[key]), key)

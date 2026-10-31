@@ -159,3 +159,9 @@
 "Clear filters" = "フィルターを解除";
 "No matching notifications" = "一致する通知がありません";
 "Try another app, date range or search." = "別のアプリ、期間、検索語句を試してください。";
+"Free · No registration" = "無料 · 登録不要";
+"Export history (CSV)" = "履歴をエクスポート（CSV）";
+"Export includes private notification text" = "書き出しには個人の通知内容が含まれます";
+"Save CSV file" = "CSVファイルを保存";
+"The CSV includes every saved notification and is not encrypted. Save it somewhere private." = "CSVには保存済みの通知がすべて含まれ、暗号化されません。安全な場所に保存してください。";
+"Couldn’t export history" = "履歴をエクスポートできませんでした";

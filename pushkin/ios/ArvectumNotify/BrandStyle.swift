@@ -244,6 +244,12 @@ enum PushkinCopy {
 
     private static let russian: [String: String] = [
         "History": "История",
+        "Free · No registration": "Бесплатно · Без регистрации",
+        "Export history (CSV)": "Экспорт истории (CSV)",
+        "Export includes private notification text": "Экспорт содержит личные уведомления",
+        "Save CSV file": "Сохранить CSV-файл",
+        "The CSV includes every saved notification and is not encrypted. Save it somewhere private.": "CSV содержит все сохранённые уведомления и не защищён шифрованием. Сохраните файл в безопасном месте.",
+        "Couldn’t export history": "Не удалось экспортировать историю",
         "Apps": "Источники",
         "Settings": "Настройки",
         "Search notifications": "Поиск уведомлений",

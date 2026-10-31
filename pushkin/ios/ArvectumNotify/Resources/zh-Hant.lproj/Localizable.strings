@@ -160,3 +160,9 @@
 "Clear filters" = "清除篩選";
 "No matching notifications" = "找不到符合條件的通知";
 "Try another app, date range or search." = "請試試其他App、日期範圍或搜尋字詞。";
+"Free · No registration" = "免費 · 無須註冊";
+"Export history (CSV)" = "匯出歷史記錄（CSV）";
+"Export includes private notification text" = "匯出內容包含私人通知";
+"Save CSV file" = "儲存 CSV 檔案";
+"The CSV includes every saved notification and is not encrypted. Save it somewhere private." = "CSV 包含所有已儲存的通知，且未加密。請將檔案儲存在安全的位置。";
+"Couldn’t export history" = "無法匯出歷史記錄";
