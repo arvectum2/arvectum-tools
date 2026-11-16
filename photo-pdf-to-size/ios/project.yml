@@ -16,7 +16,7 @@ packages:
     path: ../../core
   YandexMobileAds:
     url: https://github.com/yandexmobile/yandex-ads-sdk-ios
-    exactVersion: 8.6.0
+    exactVersion: 8.7.0
 
 targets:
   PhotoPodRazmer:
