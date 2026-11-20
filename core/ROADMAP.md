@@ -604,3 +604,8 @@ C13: [редактура 35 переводных ASO-карточек и про�
 [Baseline](BASELINE_2026-10-18.md) · [Принципы](CORE_PRINCIPLES.md) · [Контракт](ARCHITECTURE_CONTRACT.md) · [Список релизных ворот](RELEASE_CHECKLIST.md) · [Execution plan, историческая очередь среза 15.10](EXECUTION_PLAN.md) · [Архив прежней версии этого roadmap](history/ROADMAP_SNAPSHOT_2026-10-18.md).
 
 **Правило:** один активный чеклист на уровень Core. Старые чекпоинты остаются как датированные доказательства, но не дублируют незавершённые задачи.
+
+
+## Spec Kit — portfolio traceability candidate (2026-11-20)
+
+[Specification](../specs/001-portfolio-roadmap-traceability/spec.md) · [Plan](../specs/001-portfolio-roadmap-traceability/plan.md) · [Integration tasks](../specs/001-portfolio-roadmap-traceability/tasks.md). Original roadmap, task states and product/paused boundaries remain unchanged. Work is not admitted or considered verified by this linkage.

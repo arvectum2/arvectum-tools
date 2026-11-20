@@ -485,3 +485,8 @@ C13: переписаны ASO-описания, keywords, промотексты
 - Notification data never becomes analytics/advertising content.
 - No account, backend, cloud or live catalog lookup required for core capture.
 - Prioritize reducing Shortcuts setup and coverage-refresh steps.
+
+
+## Spec Kit — portfolio traceability candidate (2026-11-20)
+
+[Specification](../specs/001-portfolio-roadmap-traceability/spec.md) · [Plan](../specs/001-portfolio-roadmap-traceability/plan.md) · [Integration tasks](../specs/001-portfolio-roadmap-traceability/tasks.md). Original roadmap, task states and product/paused boundaries remain unchanged. Work is not admitted or considered verified by this linkage.

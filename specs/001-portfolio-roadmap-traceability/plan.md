@@ -1,0 +1,3 @@
+# Plan — individual product roadmaps
+
+Pin all eight roadmaps to main f3893f6a70fafc529b70dbf23515ce8913706c35. Preserve exact source anchors and IDs independently per roadmap. First classify current/paused/historical, then map each existing criterion to native tasks and exact test/evidence. Keep common Core dependencies explicit; no flattening into one ambiguous completion number. Retain Growth Agent and Where? pauses. Reconcile all physical-device/store/marketing gates with actual evidence; no public account changes or release approval. Generate a read-only Company projection for each product and shared capabilities.
