@@ -223,3 +223,8 @@ C12: [64 локализованные карточки и галерея для 
 - Cross-link dependencies; never duplicate owners' checkbox states.
 
 [Portfolio index](../core/PORTFOLIO.md) · [Core principles](../core/CORE_PRINCIPLES.md).
+
+
+## Spec Kit — portfolio traceability candidate (2026-11-20)
+
+[Specification](../core/docs/specs/001-portfolio-roadmap-traceability/spec.md) · [Plan](../core/docs/specs/001-portfolio-roadmap-traceability/plan.md) · [Integration tasks](../core/docs/specs/001-portfolio-roadmap-traceability/tasks.md). Original roadmap, task states and product/paused boundaries remain unchanged. Work is not admitted or considered verified by this linkage.

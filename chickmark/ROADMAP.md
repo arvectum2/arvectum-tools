@@ -545,3 +545,8 @@ A6 (боевые показы РСЯ после установки обновл�
 2. Не путать успешный автоматический тест с физическим пользовательским QA.
 3. Доказательства релиза, App Review и QA сохранять в документах, прошлые списки — в docs/history/.
 4. При изменении релизных условий обновлять эту страницу и протокол спринта, не переписывая исторический документ.
+
+
+## Spec Kit — portfolio traceability candidate (2026-11-20)
+
+[Specification](../core/docs/specs/001-portfolio-roadmap-traceability/spec.md) · [Plan](../core/docs/specs/001-portfolio-roadmap-traceability/plan.md) · [Integration tasks](../core/docs/specs/001-portfolio-roadmap-traceability/tasks.md). Original roadmap, task states and product/paused boundaries remain unchanged. Work is not admitted or considered verified by this linkage.
